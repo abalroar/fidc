@@ -881,19 +881,18 @@ def build_consolidated_snapshot_excel_bytes(
     _style_plain_sheet(data_ws)
     charts_ws.sheet_view.showGridLines = False
     charts_ws.column_dimensions["A"].width = 2
-    if export_context is not None:
-        # The legacy style changes B2 to A2 after a two-axis freeze, leaving
-        # duplicate/orphaned selections in openpyxl's view XML. Normalize the
-        # pilot's view explicitly while retaining its fixed metric column.
-        for worksheet in (summary_ws, data_ws):
-            worksheet.sheet_view.pane = Pane(
-                xSplit=1, ySplit=1, topLeftCell="B2", activePane="bottomRight", state="frozen",
-            )
-            worksheet.sheet_view.selection = [
-                Selection(pane="topRight", activeCell="B1", sqref="B1"),
-                Selection(pane="bottomLeft", activeCell="A2", sqref="A2"),
-                Selection(pane="bottomRight", activeCell="B2", sqref="B2"),
-            ]
+    # The plain style changes B2 to A2 after a two-axis freeze, leaving
+    # duplicate/orphaned selections in the view XML. Every portfolio keeps
+    # a coherent view with its metric column and heading row fixed.
+    for worksheet in (summary_ws, data_ws):
+        worksheet.sheet_view.pane = Pane(
+            xSplit=1, ySplit=1, topLeftCell="B2", activePane="bottomRight", state="frozen",
+        )
+        worksheet.sheet_view.selection = [
+            Selection(pane="topRight", activeCell="B1", sqref="B1"),
+            Selection(pane="bottomLeft", activeCell="A2", sqref="A2"),
+            Selection(pane="bottomRight", activeCell="B2", sqref="B2"),
+        ]
 
     buffer = BytesIO()
     workbook.save(buffer)

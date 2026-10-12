@@ -1008,6 +1008,7 @@ def _render_loaded_period_window(
     *,
     show_caption: bool = True,
     control_label: str = "Filtro visual (sem recarregar)",
+    state_namespace: str | None = None,
 ):
     available = _available_competencia_months(outputs.consolidated_monthly)
     if not available:
@@ -1020,13 +1021,22 @@ def _render_loaded_period_window(
         outputs,
         loaded_start=loaded_start,
         loaded_end=loaded_end,
+        state_namespace=state_namespace,
     )
+    window_key = _display_control_key("window", state_namespace)
+    start_key = _display_control_key("start", state_namespace)
+    end_key = _display_control_key("end", state_namespace)
+    if state_namespace:
+        for key in (window_key, start_key, end_key):
+            saved = st.session_state.get(f"{key}::selection")
+            if key not in st.session_state and saved is not None:
+                st.session_state[key] = saved
     selected = st.radio(
         control_label,
         options=DISPLAY_WINDOW_OPTIONS,
         index=DISPLAY_WINDOW_OPTIONS.index(DISPLAY_WINDOW_FULL_OPTION),
         horizontal=True,
-        key="somatorio_fidcs_display_window",
+        key=window_key,
         help="Filtra as competências já carregadas, sem nova consulta às fontes.",
     )
 
@@ -1037,22 +1047,26 @@ def _render_loaded_period_window(
 
     if selected == "Customizado":
         default_start = _clamp_month(shift_month(loaded_end, -11), loaded_start, loaded_end)
+        if state_namespace and st.session_state.get(start_key, default_start) not in available:
+            st.session_state[start_key] = default_start
         left, right = st.columns(2)
         with left:
             start_month = st.selectbox(
                 "Competência inicial exibida",
                 options=available,
                 index=available.index(default_start),
-                key="somatorio_fidcs_display_start",
+                key=start_key,
                 format_func=_format_month_option_label,
             )
         end_candidates = [value for value in available if value >= start_month]
+        if state_namespace and st.session_state.get(end_key, loaded_end) not in end_candidates:
+            st.session_state[end_key] = end_candidates[-1]
         with right:
             end_month = st.selectbox(
                 "Competência final exibida",
                 options=end_candidates,
                 index=len(end_candidates) - 1,
-                key="somatorio_fidcs_display_end",
+                key=end_key,
                 format_func=_format_month_option_label,
             )
         display_months = _continuous_months(start_month, end_month)
@@ -1066,23 +1080,34 @@ def _render_loaded_period_window(
     label = _display_months_label(display_months) if selected == DISPLAY_WINDOW_DECEMBERS_OPTION else _display_month_range_label(display_months)
     if show_caption:
         st.caption(f"{label} · {len(display_months)} competência(s)")
+    if state_namespace:
+        for key in (window_key, start_key, end_key):
+            if key in st.session_state:
+                st.session_state[f"{key}::selection"] = st.session_state[key]
     return _filter_outputs_by_competencia_months(outputs, months=display_months, label=label, mode=str(selected))
 
 
-def _reset_display_window_if_loaded_range_changed(outputs, *, loaded_start: date, loaded_end: date) -> None:  # noqa: ANN001
+def _display_control_key(control: str, namespace: str | None = None) -> str:
+    return f"portfolio_visual::{namespace}::{control}" if namespace else f"somatorio_fidcs_display_{control}"
+
+
+def _reset_display_window_if_loaded_range_changed(outputs, *, loaded_start: date, loaded_end: date, state_namespace: str | None = None) -> None:  # noqa: ANN001
     range_key = f"{loaded_start.isoformat()}::{loaded_end.isoformat()}"
-    state_key = "somatorio_fidcs_display_loaded_range"
+    state_key = _display_control_key("loaded_range", state_namespace)
     if st.session_state.get(state_key) == range_key:
         return
     st.session_state[state_key] = range_key
     default_window = _default_display_window_for_outputs(outputs)
-    st.session_state["somatorio_fidcs_display_window"] = default_window
+    st.session_state[_display_control_key("window", state_namespace)] = default_window
+    if state_namespace:
+        for control in ("window", "start", "end"):
+            st.session_state.pop(f"{_display_control_key(control, state_namespace)}::selection", None)
     if default_window == "Customizado":
         requested_start = _metadata_month(outputs, "requested_period_start")
         requested_end = _metadata_month(outputs, "requested_period_end")
         if requested_start is not None and requested_end is not None:
-            st.session_state["somatorio_fidcs_display_start"] = requested_start
-            st.session_state["somatorio_fidcs_display_end"] = requested_end
+            st.session_state[_display_control_key("start", state_namespace)] = requested_start
+            st.session_state[_display_control_key("end", state_namespace)] = requested_end
 
 
 def _default_display_window_for_outputs(outputs) -> str:  # noqa: ANN001

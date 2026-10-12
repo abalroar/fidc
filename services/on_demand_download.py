@@ -7,6 +7,7 @@ import hashlib
 import logging
 import pickle
 from pathlib import Path
+from threading import Lock
 from typing import Any, Callable, MutableMapping
 
 import streamlit as st
@@ -104,3 +105,35 @@ def render_on_demand_download(
     )
     for warning in prepared.warnings:
         st.caption(f"Parte não incluída na apresentação: {warning}")
+
+
+def render_native_deferred_download(
+    *, store: dict[str, PreparedDownload], namespace: str, artifact: str,
+    label: str, file_name: str, mime: str, producer: Callable[[], bytes],
+    help_text: str | None = None,
+) -> None:
+    """One-click native download for byte-only producers with no export warnings.
+
+    Streamlit 1.56 calls the producer in its download worker. The closure uses
+    only ordinary Python state, so it issues no Streamlit command in that worker.
+    Presentations with partial-export warnings keep the synchronous preparation
+    flow, which shows those warnings before the analyst downloads the file.
+    """
+    lock = Lock()
+
+    def data() -> bytes:
+        with lock:
+            prepared = store.get(artifact)
+            if prepared is None:
+                payload = producer()
+                if not isinstance(payload, bytes) or not payload:
+                    raise ValueError("O produtor deve retornar um arquivo válido em bytes.")
+                prepared = PreparedDownload(payload)
+                store[artifact] = prepared
+            return prepared.data
+
+    st.download_button(
+        label, data=data, file_name=file_name, mime=mime,
+        key=f"download::{namespace}::{artifact}",
+        help=help_text, type="secondary", width="stretch", on_click="ignore",
+    )

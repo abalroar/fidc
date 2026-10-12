@@ -221,6 +221,12 @@ class PortfolioPageTests(unittest.TestCase):
         benchmark_by_fund = {cnpj: {"senior:1": 0.035}}
 
         with (
+            patch("tabs.portfolio_page.st.session_state", {}),
+            patch(
+                "services.on_demand_download.st.button",
+                side_effect=lambda *args, **kwargs: kwargs["key"].endswith("::complete_pptx"),
+            ),
+            patch("services.on_demand_download.st.spinner", return_value=nullcontext()),
             patch(
                 "tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs",
                 return_value=(cdi_by_fund, benchmark_by_fund),
@@ -251,10 +257,17 @@ class PortfolioPageTests(unittest.TestCase):
             research_outputs=analysis.research_outputs,
             monthly_cdi_rates_by_fund=cdi_by_fund,
             benchmark_spreads_by_fund=benchmark_by_fund,
+            portfolio_mode=True,
+            portfolio_name=portfolio.name,
+            compact=True,
         )
         exported = next(call.kwargs["data"] for call in download_button.call_args_list
                         if call.kwargs.get("mime") == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
-        self.assertEqual(len(Presentation(BytesIO(exported)).slides), 2)
+        document = Presentation(BytesIO(exported))
+        self.assertEqual(len(document.slides), 4)  # Partial fixture gains cover + references.
+        self.assertIn(portfolio.name, document.slides[0].shapes[0].text)
+        self.assertIn("Referências da análise", "\n".join(shape.text for shape in document.slides[-1].shapes if shape.has_text_frame))
+        self.assertIn("Curadoria documental", document.slides[-1].notes_slide.notes_text_frame.text)
 
     def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
         fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
@@ -351,6 +364,8 @@ class PortfolioPageTests(unittest.TestCase):
         portfolio = Mock(id="portfolio-1")
         period = SimpleNamespace(cache_key="period-1")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
         failure = portfolio_page.PortfolioAnalysisUnavailable(message="Dados indisponíveis.")
 
         with (
@@ -372,12 +387,15 @@ class PortfolioPageTests(unittest.TestCase):
             show_portfolio_selector=False,
             show_curation_tools=False,
             compact=True,
+            portfolio_mode=True,
         )
 
     def test_retry_action_forces_a_fresh_load_and_reruns(self) -> None:
         portfolio = Mock(id="portfolio-1")
         period = SimpleNamespace(cache_key="period-1")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
         failure = portfolio_page.PortfolioAnalysisUnavailable(message="Falha transitória.")
         session_state = {"portfolio_page_context_signature": "stale"}
 
@@ -451,9 +469,11 @@ class PortfolioPageTests(unittest.TestCase):
             dashboard_errors={},
             load_errors={},
         )
-        portfolio = Mock(id="portfolio-1")
-        period = Mock()
+        portfolio = SimpleNamespace(id="portfolio-1", name="Carteira de teste", funds=())
+        period = SimpleNamespace(label="Janela de teste")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
 
         with (
             patch("tabs.portfolio_page._preload_portfolio_data"),

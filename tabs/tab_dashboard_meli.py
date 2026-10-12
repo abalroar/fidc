@@ -537,7 +537,9 @@ def _render_consolidated_research_charts(research_outputs, *, key_prefix: str = 
     _render_research_roll_charts(roll_df, key=f"{key_prefix}_roll_seasonality_metrics")
 
 
-def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
+def _render_research_roll_charts(
+    roll_df: pd.DataFrame, *, key: str, interactive_help: bool = False,
+) -> None:
     specs = available_roll_seasonality_specs(roll_df)
     if not specs:
         return
@@ -565,6 +567,7 @@ def _render_research_roll_charts(roll_df: pd.DataFrame, *, key: str) -> None:
                 "Eixo X: mês do ano. Cada linha compara anos diferentes dentro do mesmo bucket.",
                 "O percentual é recalculado por numerador e denominador do escopo selecionado.",
             ),
+            **({"interactive_help": True} if interactive_help else {}),
         )
         st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
 
@@ -684,7 +687,7 @@ def _build_fund_return_table(
     )
 
 
-def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
+def _render_fund_return_table(*, outputs, cnpj: str, compact: bool = False) -> None:  # noqa: ANN001
     monthly_cdi_rates, cdi_error = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj=cnpj)
     benchmark_resolution = _resolve_fund_return_benchmark(outputs=outputs, cnpj=cnpj)
     table_df = _build_fund_return_table(
@@ -698,24 +701,33 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
         return
 
     summary_df = (getattr(outputs, "fund_return_summary", {}) or {}).get(cnpj, pd.DataFrame())
-    _chart_title(
-        "Rentabilidade por série",
-        (
-            "Últimos 12 meses-calendário até a competência mais recente do fundo.",
-            "Acumulados compostos geometricamente; YTD considera janeiro até a competência mais recente.",
-            "CDI realizado B3/Cetip composto nos mesmos meses efetivamente usados pela rentabilidade de cada série.",
-            "Spread CDI implícito anualizado em 252 dias úteis e comparado ao CDI+ fixo da emissão quando a associação documental é inequívoca.",
-        ),
-    )
-    st.dataframe(table_df, width="stretch", hide_index=True)
     cdi_source = str(table_df.attrs.get("cdi_source") or "B3 CDI realizado")
-    st.caption(
+    cdi_note = (
         f"Fonte do CDI: {cdi_source}, composto diariamente; sem uso de curva projetada. "
         "O spread implícito é a taxa anual que reconcilia a rentabilidade observada com esse CDI nas mesmas "
         "competências; é um diagnóstico econômico, não uma taxa contratual."
     )
-    st.caption(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
-    _render_fund_return_benchmark_diagnostics(benchmark_resolution)
+    chart_notes = (
+        "Últimos 12 meses-calendário até a competência mais recente do fundo.",
+        "Acumulados compostos geometricamente; YTD considera janeiro até a competência mais recente.",
+        "CDI realizado B3/Cetip composto nos mesmos meses efetivamente usados pela rentabilidade de cada série.",
+        "Spread CDI implícito anualizado em 252 dias úteis e comparado ao CDI+ fixo da emissão quando a associação documental é inequívoca.",
+    )
+    if compact:
+        _chart_title(
+            "Rentabilidade por série",
+            (*chart_notes, cdi_note, CVM_RETURN_REINVESTMENT_NOTE),
+            interactive_help=True,
+        )
+    else:
+        _chart_title("Rentabilidade por série", chart_notes)
+    st.dataframe(table_df, width="stretch", hide_index=True)
+    if compact:
+        _render_fund_return_benchmark_diagnostics(benchmark_resolution, compact=True)
+    else:
+        st.caption(cdi_note)
+        st.caption(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
+        _render_fund_return_benchmark_diagnostics(benchmark_resolution)
     if cdi_error:
         st.warning("CDI acumulado indisponível: a consulta à B3/Cetip falhou. Nenhum fallback projetado foi aplicado.")
     missing_cdi = tuple(table_df.attrs.get("cdi_missing_competencias") or ())
@@ -790,6 +802,7 @@ _BENCHMARK_STATUS_LABELS = {
 
 def _render_fund_return_benchmark_diagnostics(
     resolution: FundReturnBenchmarkResolution,
+    *, compact: bool = False,
 ) -> None:
     diagnostics = resolution.diagnostics_df
     if not isinstance(diagnostics, pd.DataFrame) or diagnostics.empty:
@@ -819,12 +832,22 @@ def _render_fund_return_benchmark_diagnostics(
     ]
     resolved_count = int((diagnostics["status"].astype(str) == "resolved").sum())
     total_count = len(diagnostics.index)
-    st.caption(
+    method = (
         f"Benchmark de emissão aplicado com vínculo documental conservador em "
         f"{resolved_count} de {total_count} série(s). Termos com cap, step-up, adicional, percentual do CDI "
         "ou ambiguidade permanecem N/D."
     )
+    if compact:
+        unavailable = total_count - resolved_count
+        st.caption(
+            f"Benchmark documental: {resolved_count}/{total_count} séries vinculadas."
+            + (f" {unavailable} sem vínculo válido (N/D)." if unavailable else "")
+        )
+    else:
+        st.caption(method)
     with st.expander("Memória do benchmark de emissão", expanded=False):
+        if compact:
+            st.caption(method)
         st.dataframe(display, width="stretch", hide_index=True)
 
 
@@ -1297,12 +1320,51 @@ def _render_guide() -> None:
         )
 
 
-def _chart_title(title: str, subtitle: object = "") -> None:
+def _chart_title(title: str, subtitle: object = "", *, interactive_help: bool = False) -> None:
     notes = _normalise_chart_notes(subtitle)
-    info_html = _chart_info_html(notes)
+    info_html = _portfolio_chart_info_html(title, notes) if interactive_help else _chart_info_html(notes)
+    css = _PORTFOLIO_CHART_HELP_CSS if interactive_help and notes else ""
+    classes = "meli-chart-heading portfolio-chart-heading" if interactive_help else "meli-chart-heading"
     st.markdown(
-        f"<div class='meli-chart-heading'><div class='meli-chart-title'>{escape(title)}</div>{info_html}</div>",
+        css + f"<div class='{classes}'><div class='meli-chart-title'>{escape(title)}</div>{info_html}</div>",
         unsafe_allow_html=True,
+    )
+
+
+_PORTFOLIO_CHART_HELP_CSS = """<style>
+.portfolio-chart-heading {position:relative;}
+.portfolio-chart-heading>.meli-chart-title {min-width:0;overflow-wrap:anywhere;}
+.portfolio-chart-heading .portfolio-monitor-help {position:relative;margin-left:auto;flex:0 0 44px;}
+.portfolio-chart-heading .portfolio-monitor-help summary {
+    display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;
+    list-style:none;cursor:pointer;color:#66717d;
+}
+.portfolio-chart-heading .portfolio-monitor-help summary::-webkit-details-marker {display:none;}
+.portfolio-chart-heading .portfolio-monitor-help summary span {
+    display:flex;align-items:center;justify-content:center;width:19px;height:19px;
+    border:1px solid #cfd4da;border-radius:50%;font-size:12px;
+}
+.portfolio-chart-heading .portfolio-monitor-help summary:focus-visible {outline:2px solid #ff5a00;outline-offset:-2px;}
+.portfolio-chart-heading .portfolio-monitor-help[open] summary {color:#a94100;}
+.portfolio-chart-heading .portfolio-monitor-help-body {
+    position:absolute;right:0;top:calc(100% + 4px);z-index:30;
+    width:min(500px,calc(100vw - 72px));max-height:min(460px,70vh);overflow:auto;
+    background:#fff;border:1px solid #e5e8ec;border-radius:4px;padding:.75rem;
+    box-shadow:0 4px 16px rgba(32,40,50,.08);
+}
+.portfolio-chart-heading .portfolio-monitor-help-body p {font-size:.86rem;line-height:1.45;margin:0 0 .5rem;overflow-wrap:anywhere;}
+.portfolio-chart-heading .portfolio-monitor-help-body p:last-child {margin-bottom:0;}
+</style>"""
+
+
+def _portfolio_chart_info_html(title: str, notes: list[str]) -> str:
+    if not notes:
+        return ""
+    body = "".join(f"<p>{escape(note)}</p>" for note in notes)
+    return (
+        "<details class='portfolio-monitor-help'>"
+        f"<summary aria-label='Metodologia de {escape(title, quote=True)}'><span aria-hidden='true'>i</span></summary>"
+        f"<div class='portfolio-monitor-help-body'>{body}</div></details>"
     )
 
 

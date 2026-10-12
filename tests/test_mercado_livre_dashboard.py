@@ -350,6 +350,13 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Dados gráficos", snapshot_workbook.sheetnames)
         self.assertIn("Gráficos", snapshot_workbook.sheetnames)
         self.assertGreaterEqual(len(snapshot_workbook["Gráficos"]._charts), 2)
+        for name in ("Resumo exibido", "Dados gráficos"):
+            worksheet = snapshot_workbook[name]
+            self.assertEqual("B2", worksheet.freeze_panes)
+            pane_names = [selection.pane for selection in worksheet.sheet_view.selection]
+            self.assertEqual(len(pane_names), len(set(pane_names)))
+            self.assertEqual({"topRight", "bottomLeft", "bottomRight"}, set(pane_names))
+            self.assertIn(worksheet.sheet_view.pane.activePane, pane_names)
 
         pptx_bytes = build_pptx_export_bytes(outputs)
         self.assertTrue(pptx_bytes.startswith(b"PK"))

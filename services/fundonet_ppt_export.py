@@ -100,6 +100,7 @@ def build_dashboard_pptx_bytes(
     generated_at: datetime | None = None,
     requested_period_label: str | None = None,
     return_months: int | None = None,
+    portfolio_mode: bool = False,
 ) -> bytes:
     try:
         from pptx import Presentation
@@ -181,6 +182,15 @@ def build_dashboard_pptx_bytes(
         style_shape_border(shape)
         return shape
 
+    def add_portfolio_notes(slide, *lines: str) -> None:  # noqa: ANN001
+        if not portfolio_mode:
+            return
+        frame = slide.notes_slide.notes_text_frame
+        if frame is not None:
+            previous = frame.text.strip()
+            additions = [str(line).strip() for line in lines if str(line).strip()]
+            frame.text = "\n".join(([previous] if previous else []) + additions)
+
     def add_card(
         slide,
         left: float,
@@ -204,12 +214,18 @@ def build_dashboard_pptx_bytes(
         value_height = 0.20 if compact else 0.32
         note_top = top + height - (0.17 if compact else 0.24)
         note_height = 0.13 if compact else 0.15
+        if portfolio_mode:
+            label_size = max(label_size, 10)
+            label_top = top + 0.08
+            value_top = top + 0.30
+            value_height = 0.24
+            add_portfolio_notes(slide, f"{label}: {value}. {note}")
         add_textbox(
             slide,
             left + 0.16,
             label_top,
             width - 0.32,
-            0.14 if compact else 0.18,
+            0.19 if portfolio_mode else 0.14 if compact else 0.18,
             label.upper(),
             size=label_size,
             bold=False,
@@ -228,7 +244,7 @@ def build_dashboard_pptx_bytes(
             color=value_color,
             word_wrap=False,
         )
-        if note:
+        if note and not portfolio_mode:
             add_textbox(
                 slide,
                 left + 0.16,
@@ -356,6 +372,9 @@ def build_dashboard_pptx_bytes(
         header_font_size: int = LABEL_SIZE,
         body_font_size: int = BODY_SIZE,
     ) -> None:  # noqa: ANN001
+        if portfolio_mode:
+            header_font_size = max(header_font_size, 10)
+            body_font_size = max(body_font_size, 10)
         for row_idx in range(len(table.rows)):
             for col_idx in range(len(table.columns)):
                 cell = table.cell(row_idx, col_idx)
@@ -945,16 +964,36 @@ def build_dashboard_pptx_bytes(
             series_name = ordered_names[idx] if idx < len(ordered_names) else str(idx)
             color, width_pt, marker_size, dashed = style_map.get(series_name, _over_focus_style(series_name, idx))
             _style_line_series(series, color=color, width_pt=width_pt, marker_size=marker_size, dashed=dashed)
+        latest_idx = _rightmost_category_index(categories)
+        zero_final_series = {
+            name for name, values in series_map
+            if latest_idx is not None and latest_idx < len(values) and _to_float(values[latest_idx]) == 0.0
+        }
+
+        def over_final_label(value: float, _series_name: str) -> str:
+            if portfolio_mode and 0.0 < abs(value) < 0.05:
+                if abs(value) < 0.005:
+                    return "<0,01%" if value > 0 else ">-0,01%"
+                return f"{_format_decimal(value, decimals=2)}%"
+            return _format_percent(value)
+
         apply_last_point_labels(
             chart,
             categories=categories,
             series_map=series_map,
-            formatter=lambda value, _series_name: _format_percent(value),
+            formatter=over_final_label,
             colors=[style_map[name][0] for name in ordered_names],
             font_size=10,
             position="above",
-            alternate_positions=True,
+            alternate_positions=not portfolio_mode,
+            series_filter=(lambda name: name not in zero_final_series) if portfolio_mode else None,
         )
+        if portfolio_mode and zero_final_series:
+            add_portfolio_notes(
+                slide,
+                "Compactação: rótulos finais zerados de " + ", ".join(name for name, _ in series_map if name in zero_final_series)
+                + " retirados para separar os textos do eixo; as séries e seus zeros permanecem plotados, na legenda e nos dados nativos editáveis.",
+            )
 
     def add_compounding_waterfall_chart(
         slide,
@@ -1042,6 +1081,16 @@ def build_dashboard_pptx_bytes(
 
     def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
         add_textbox(slide, 0.50, 0.15, 9.80, 0.42, section_title, size=TITLE_SIZE, bold=True, color=BLACK)
+        if portfolio_mode:
+            add_textbox(slide, 0.50, 0.60, 11.1, 0.22, f"Posição mensal: {data_base_label}", size=10, color=DARK_GRAY)
+            add_portfolio_notes(
+                slide,
+                f"Carteira: {title_fund}",
+                f"Contexto original: {subtitle}",
+                f"Fonte: Informe Mensal CVM. Gerado em: {timestamp_text}",
+                *(getattr(dashboard, "methodology_notes", ()) or ()),
+            )
+            return
         add_textbox(slide, 0.50, 0.60, 10.8, 0.20, title_fund, size=SUBTITLE_SIZE, bold=True, color=ORANGE)
         add_textbox(slide, 0.50, 0.82, 11.1, 0.18, subtitle, size=FOOTER_SIZE, color=MID_GRAY)
 
@@ -1069,6 +1118,11 @@ def build_dashboard_pptx_bytes(
                 "Mezzanino + subordinada residual / PL",
             ),
         ]
+        if portfolio_mode:
+            labels = ("Ativo", "Direitos creditórios", "PL", "Vencidos", "PDD / vencidos", "Subordinação")
+            for label, value, note in specs:
+                add_portfolio_notes(slide, f"Definição original — {label}: {note}. Valor exibido: {value}.")
+            specs = [(labels[idx], value, note) for idx, (_, value, note) in enumerate(specs)]
         gap = 0.24
         card_width = (CONTENT_WIDTH_IN - (2 * gap)) / 3
         row_gap = 0.10 if compact else 0.24
@@ -1151,9 +1205,24 @@ def build_dashboard_pptx_bytes(
             MARGIN_LEFT_IN,
             3.88,
             full_width,
-            0.16,
-            "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total.",
-            size=FOOTER_SIZE,
+            0.22 if portfolio_mode else 0.16,
+            (
+                "Subordinação = (PL mezzanino + PL subordinada residual) / PL. Definições dos indicadores nas notas."
+                if portfolio_mode
+                else "Subordinação reportada = (PL mezzanino + PL subordinada residual) / PL total."
+            ),
+            size=10 if portfolio_mode else FOOTER_SIZE,
+            color=MID_GRAY,
+        )
+    elif portfolio_mode:
+        add_textbox(
+            slide,
+            MARGIN_LEFT_IN,
+            3.88,
+            full_width,
+            0.22,
+            "Definições dos indicadores nas notas do slide; histórico de subordinação sem dados nesta seleção.",
+            size=10,
             color=MID_GRAY,
         )
 
@@ -1190,22 +1259,31 @@ def build_dashboard_pptx_bytes(
             show_data_labels=False,
         )
         quota_label_categories = _competencia_labels(quota_values["competencia"].tolist())
-        apply_last_point_labels(
-            quota_chart,
-            categories=quota_label_categories,
-            series_map=quota_series,
-            formatter=lambda value, _series_name: (
-                f"{_format_decimal(value, decimals=0)} {quota_scale.suffix}".strip()
-            ),
-            colors=SERIES_COLORS,
-            font_size=10,
-            position="center",
-            label_color=WHITE,
-            series_filter=lambda series_name: any(
-                token in series_name.lower()
-                for token in ("sênior", "senior", "mezan", "mezz", "subordin")
-            ),
-        )
+        if portfolio_mode:
+            final_total = _stacked_series_totals(quota_series)[-1]
+            final_label = f"{quota_label_categories[-1]} · PL total: R$ {_format_decimal(final_total, decimals=2)} {quota_scale.suffix}".strip()
+            add_textbox(slide, 8.73, 4.18, 3.90, 0.22, final_label, size=10, bold=True, color=BLACK, align=PP_ALIGN.RIGHT)
+            add_portfolio_notes(
+                slide,
+                "Compactação: rótulos internos arredondados do PL por cota substituídos pelo total final; todas as séries, valores e cores permanecem no gráfico nativo editável e na legenda.",
+            )
+        else:
+            apply_last_point_labels(
+                quota_chart,
+                categories=quota_label_categories,
+                series_map=quota_series,
+                formatter=lambda value, _series_name: (
+                    f"{_format_decimal(value, decimals=0)} {quota_scale.suffix}".strip()
+                ),
+                colors=SERIES_COLORS,
+                font_size=10,
+                position="center",
+                label_color=WHITE,
+                series_filter=lambda series_name: any(
+                    token in series_name.lower()
+                    for token in ("sênior", "senior", "mezan", "mezz", "subordin")
+                ),
+            )
     add_footer(slide, timestamp_text, current_page)
 
     return_window_months = int(return_months or len(getattr(dashboard, "competencias", []) or []) or 12)
@@ -1240,9 +1318,13 @@ def build_dashboard_pptx_bytes(
                     MARGIN_LEFT_IN,
                     1.03,
                     full_width,
-                    0.18,
-                    f"Retornos mensais por classe/série, últimos {return_window_months} meses exibidos, YTD e {period_label}. Ordem: acumulados à esquerda e meses em ordem cronológica.",
-                    size=FOOTER_SIZE,
+                    0.22 if portfolio_mode else 0.18,
+                    (
+                        f"Retornos por classe/série · {return_window_months} meses, YTD e {period_label}. Acumulados à esquerda."
+                        if portfolio_mode
+                        else f"Retornos mensais por classe/série, últimos {return_window_months} meses exibidos, YTD e {period_label}. Ordem: acumulados à esquerda e meses em ordem cronológica."
+                    ),
+                    size=10 if portfolio_mode else FOOTER_SIZE,
                     color=MID_GRAY,
                 )
                 add_table(
@@ -1263,10 +1345,11 @@ def build_dashboard_pptx_bytes(
                     6.65,
                     full_width,
                     0.31,
-                    f"* {CVM_RETURN_REINVESTMENT_NOTE}",
-                    size=7,
+                    "Metodologia de reinvestimento e ressalvas nas notas do slide." if portfolio_mode else f"* {CVM_RETURN_REINVESTMENT_NOTE}",
+                    size=10 if portfolio_mode else 7,
                     color=MID_GRAY,
                 )
+                add_portfolio_notes(slide, f"* {CVM_RETURN_REINVESTMENT_NOTE}")
                 add_footer(slide, timestamp_text, current_page)
 
     default_df = _latest_competencia_frame(
@@ -1393,17 +1476,20 @@ def build_dashboard_pptx_bytes(
                 legend_position="right",
                 show_data_labels=False,
             )
-            apply_last_point_labels(
-                aging_chart,
-                categories=_competencia_labels(aging_history["competencia"].tolist()),
-                series_map=aging_series_map,
-                formatter=lambda value, _series_name: _format_percent(value),
-                colors=AGING_PPT_COLORS,
-                label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
-                font_size=8,
-                position="center",
-                skip_nonpositive=True,
-            )
+            if portfolio_mode:
+                add_portfolio_notes(slide, "Compactação: rótulos internos do Aging retirados para evitar sobreposição nas faixas pequenas; todas as séries, valores e cores permanecem no gráfico nativo editável e na legenda.")
+            else:
+                apply_last_point_labels(
+                    aging_chart,
+                    categories=_competencia_labels(aging_history["competencia"].tolist()),
+                    series_map=aging_series_map,
+                    formatter=lambda value, _series_name: _format_percent(value),
+                    colors=AGING_PPT_COLORS,
+                    label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
+                    font_size=8,
+                    position="center",
+                    skip_nonpositive=True,
+                )
         elif credit_has_values:
             credit_only_height = 3.72
             if credit_bar_has_values:
@@ -1504,17 +1590,20 @@ def build_dashboard_pptx_bytes(
                 legend_position="right",
                 show_data_labels=False,
             )
-            apply_last_point_labels(
-                aging_chart,
-                categories=_competencia_labels(aging_history["competencia"].tolist()),
-                series_map=aging_series_map,
-                formatter=lambda value, _series_name: _format_percent(value),
-                colors=AGING_PPT_COLORS,
-                label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
-                font_size=8,
-                position="center",
-                skip_nonpositive=True,
-            )
+            if portfolio_mode:
+                add_portfolio_notes(slide, "Compactação: rótulos internos do Aging retirados para evitar sobreposição nas faixas pequenas; todas as séries, valores e cores permanecem no gráfico nativo editável e na legenda.")
+            else:
+                apply_last_point_labels(
+                    aging_chart,
+                    categories=_competencia_labels(aging_history["competencia"].tolist()),
+                    series_map=aging_series_map,
+                    formatter=lambda value, _series_name: _format_percent(value),
+                    colors=AGING_PPT_COLORS,
+                    label_colors=[_contrast_text_color(color) for color in AGING_PPT_COLORS],
+                    font_size=8,
+                    position="center",
+                    skip_nonpositive=True,
+                )
         add_footer(slide, timestamp_text, current_page)
 
     over_history = _sort_competencia_frame(_build_over_aging_history_for_ppt(dashboard), ascending=True)
@@ -1540,6 +1629,13 @@ def build_dashboard_pptx_bytes(
     total_pages = page_number
     for slide in prs.slides:
         for shape in slide.shapes:
+            if portfolio_mode and getattr(shape, "has_chart", False):
+                # Set only text styles: datasets, axes/scales, series and chart
+                # geometry retain the shared generator's existing contract.
+                for font_style in shape.chart._chartSpace.xpath(".//a:rPr | .//a:defRPr | .//a:endParaRPr"):
+                    size = font_style.get("sz")
+                    if size is not None and int(size) < 1000:
+                        font_style.set("sz", "1000")
             if not getattr(shape, "has_text_frame", False):
                 continue
             for paragraph in shape.text_frame.paragraphs:

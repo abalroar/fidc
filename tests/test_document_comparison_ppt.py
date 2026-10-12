@@ -167,7 +167,7 @@ def test_documentary_export_selects_exact_current_basket_before_newer_fallback()
         assert portfolio_page._build_documentary_portfolio_deck(portfolio) is None
 
 
-def test_complete_portfolio_download_contains_comparison_and_documentary_notes() -> None:
+def test_prepared_portfolio_download_contains_comparison_and_documentary_notes() -> None:
     portfolio = _portfolio()
     cnpj = portfolio.funds[0].cnpj
     outputs = SimpleNamespace(fund_monthly={cnpj: SimpleNamespace()})
@@ -182,18 +182,15 @@ def test_complete_portfolio_download_contains_comparison_and_documentary_notes()
         patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs", return_value=({}, {})),
         patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes", return_value=_blank_deck("IME")),
         patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=_blank_deck("Estrutura")),
-        patch("services.fidc_analytical_slide.build_fidc_analytical_xlsx_bytes", return_value=b"xlsx"),
         patch("services.deep_dive_store.list_deep_dives", return_value=[manifest]),
         patch("services.document_curation_comparison.build_document_comparison_pages", return_value=[_page()]),
-        patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"xlsx"),
-        patch("tabs.portfolio_page.build_full_variable_excel_export_bytes", return_value=b"xlsx"),
-        patch("tabs.portfolio_page.build_full_variable_csv_zip_bytes", return_value=b"zip"),
-        patch("tabs.portfolio_page.st.expander", return_value=nullcontext()),
-        patch("tabs.portfolio_page.st.download_button") as download,
     ):
-        portfolio_page._render_unified_portfolio_download(analysis=analysis, selected_portfolio=portfolio, period=SimpleNamespace(label="09/2026"))
-    call = next(call for call in download.call_args_list if call.kwargs.get("key", "").startswith("portfolio_unified_pptx::"))
-    presentation = Presentation(BytesIO(call.kwargs["data"]))
-    assert len(presentation.slides) == 3
+        prepared = portfolio_page._prepare_complete_portfolio_pptx(
+            analysis=analysis, selected_portfolio=portfolio,
+            period=SimpleNamespace(label="09/2026"),
+        )
+    assert prepared.warnings == ()
+    presentation = Presentation(BytesIO(prepared.data))
+    assert len(presentation.slides) == 5  # Portfolio cover and references surround the three fixture blocks.
     assert _native_tables(presentation)[0].cell(2, 1).text == "≤ 5%"
-    assert _page().sources[0] in presentation.slides[-1].notes_slide.notes_text_frame.text
+    assert any(_page().sources[0] in slide.notes_slide.notes_text_frame.text for slide in presentation.slides if slide.has_notes_slide)

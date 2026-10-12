@@ -12,6 +12,7 @@ Estrutura: 7 + 4 slides por FIDC da seleção + tabelas de rentabilidade
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from io import BytesIO
 from pathlib import PurePosixPath
 from typing import Any, Iterable, Mapping
@@ -135,6 +136,10 @@ def build_somatorio_fidcs_pptx_bytes(
     research_outputs: Any | None = None,
     monthly_cdi_rates_by_fund: Mapping[str, Iterable[Any]] | None = None,
     benchmark_spreads_by_fund: Mapping[str, Mapping[str, float]] | None = None,
+    portfolio_mode: bool = False,
+    portfolio_name: str | None = None,
+    generated_at: datetime | None = None,
+    compact: bool = False,
 ) -> bytes:
     """Gera o deck v3 completo em formato PPTX."""
     try:
@@ -164,6 +169,9 @@ def build_somatorio_fidcs_pptx_bytes(
         XL_MARKER_STYLE=XL_MARKER_STYLE,
         Inches=Inches,
         Pt=Pt,
+        portfolio_mode=portfolio_mode,
+        compact=bool(portfolio_mode and compact),
+        portfolio_name=portfolio_name or str((getattr(outputs, "metadata", {}) or {}).get("portfolio_name") or "Carteira"),
     )
 
     # Data-base: último mês do consolidado
@@ -184,6 +192,11 @@ def build_somatorio_fidcs_pptx_bytes(
     con_cohorts = getattr(monitor_outputs, "consolidated_cohorts", pd.DataFrame())
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs else pd.DataFrame()
     fund_sections = _build_fund_sections(outputs, fund_monthly_map)
+    if portfolio_mode:
+        fund_sections = [
+            (number, cnpj, short_fund_name(raw_name), "Estrutura, crédito e rentabilidade", raw_name)
+            for number, cnpj, _header, _subtitle, raw_name in fund_sections
+        ]
     fund_return_pages = _build_fund_return_pages(
         outputs,
         fund_sections,
@@ -207,53 +220,77 @@ def build_somatorio_fidcs_pptx_bytes(
     next_page()
 
     # ---- Slide 2: Divisor 01 ----
-    _add_divider(prs, layout, "01", "Visão consolidada",
-                 "PL, carteira, risco e duration agregados", **deps)
-    next_page()
+    if not deps["compact"]:
+        _add_divider(prs, layout, "01", "Visão consolidada",
+                     "PL, carteira, risco e duration agregados", **deps)
+        next_page()
 
     # ---- Slides 3–6: Consolidado ----
-    _add_base_slide(prs, layout, con_monthly, con_monitor, "Soma de FIDCs — Consolidado",
+    consolidated_title = "Carteira — Consolidado" if portfolio_mode else "Soma de FIDCs — Consolidado"
+    _add_base_slide(prs, layout, con_monthly, con_monitor, consolidated_title,
                     next_page(), total_slides, data_base, is_subordination_fund=False, **deps)
-    _add_credit_slide(prs, layout, con_monitor, "Soma de FIDCs — Consolidado",
+    _add_credit_slide(prs, layout, con_monitor, consolidated_title,
                       next_page(), total_slides, data_base, **deps)
     _add_detail_slide(prs, layout, con_monitor, fund_monitor_map, con_cohorts,
-                      "Soma de FIDCs — Consolidado",
+                      consolidated_title,
                       next_page(), total_slides, data_base, **deps)
-    _add_roll_slide(prs, layout, con_monitor, roll_df, "Soma de FIDCs — Consolidado",
+    _add_roll_slide(prs, layout, con_monitor, roll_df, consolidated_title,
                     next_page(), total_slides, data_base, **deps)
 
     # ---- Per-fund blocks ----
     for sec_num, cnpj, hdr, sub, raw_name in fund_sections:
-        _add_divider(prs, layout, sec_num, hdr, sub, **deps)
-        next_page()
+        fund_slide_start = len(prs.slides)
+        if not deps["compact"]:
+            _add_divider(prs, layout, sec_num, hdr, sub, **deps)
+            next_page()
 
         fm = fund_monthly_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         mon = fund_monitor_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         coh = fund_cohort_map.get(cnpj, pd.DataFrame()) if cnpj else pd.DataFrame()
         is_mc_fidc = _is_mercado_credito_zero(raw_name)
+        fund_data_base = _portfolio_data_base(fm) if portfolio_mode else data_base
+        empty_monthly = deps["compact"] and fm.empty and mon.empty and coh.empty
 
         return_pages = fund_return_pages.get(cnpj, [])
-        for page_index, return_page in enumerate(return_pages, start=1):
+        return_groups = _portfolio_return_groups(return_pages) if deps["compact"] else [(frame,) for frame in return_pages]
+        for page_index, return_group in enumerate(return_groups, start=1):
             _add_fund_return_slide(
                 prs,
                 layout,
-                return_page,
+                return_group[0],
                 hdr,
                 next_page(),
                 total_slides,
-                data_base,
+                fund_data_base,
                 page_index=page_index,
-                page_count=len(return_pages),
+                page_count=len(return_groups),
                 **deps,
             )
+            if len(return_group) == 2:
+                _append_paired_return_table(prs, layout, return_group[1], hdr, fund_data_base, **deps)
 
-        _add_base_slide(prs, layout, fm, mon, hdr,
-                        next_page(), total_slides, data_base,
-                        is_subordination_fund=is_mc_fidc, **deps)
-        _add_credit_slide(prs, layout, mon, hdr,
-                          next_page(), total_slides, data_base, **deps)
-        _add_detail_slide(prs, layout, mon, {}, coh, hdr,
-                          next_page(), total_slides, data_base, **deps)
+        empty_inline = empty_monthly and bool(return_groups) and _append_empty_monthly_record(prs.slides[-1], **deps)
+        if not empty_inline:
+            _add_base_slide(prs, layout, fm, mon, hdr,
+                            next_page(), total_slides, fund_data_base,
+                            is_subordination_fund=is_mc_fidc, empty_monthly=empty_monthly, **deps)
+        if not empty_monthly:
+            _add_credit_slide(prs, layout, mon, hdr,
+                              next_page(), total_slides, fund_data_base, **deps)
+            _add_detail_slide(prs, layout, mon, {}, coh, hdr,
+                              next_page(), total_slides, fund_data_base, **deps)
+        else:
+            _append_portfolio_notes(
+                prs.slides[-1],
+                "Compactação: crédito e duration sem observação mensal na janela foram reunidos neste quadro. "
+                "Retornos disponíveis continuam em suas tabelas próprias; ausência de informe não foi tratada como zero.",
+            )
+        if portfolio_mode:
+            for fund_slide in list(prs.slides)[fund_slide_start:]:
+                _append_portfolio_notes(
+                    fund_slide,
+                    f"Fundo: {raw_name}\nCNPJ: {cnpj}\nÚltima competência deste fundo na janela: {fund_data_base}.",
+                )
 
     # ---- Slide 19: Síntese ----
     _add_synthesis(
@@ -268,6 +305,25 @@ def build_somatorio_fidcs_pptx_bytes(
         fund_monthly_map=fund_monthly_map,
         **deps,
     )
+
+    if portfolio_mode:
+        generated = generated_at or datetime.now(timezone.utc)
+        _append_portfolio_notes(
+            prs.slides[0],
+            "Carteira: " + deps["portfolio_name"] + "\n"
+            + "Gerado em: " + generated.isoformat() + "\n"
+            + "Fonte: Informe Mensal CVM. Unidade e perímetro seguem os indicadores originais.\n"
+            + "Nomes e CNPJs da cesta:\n"
+            + "\n".join(f"{raw_name} — {cnpj}" for _, cnpj, _, _, raw_name in fund_sections),
+        )
+        _refine_portfolio_native_presentation(prs, compact=deps["compact"])
+        if deps["compact"]:
+            first_content = prs.slides[1]
+            _append_portfolio_notes(first_content, "Compactação: divisores separados foram integrados aos títulos dos fundos; nenhuma identidade da cesta foi retirada.")
+            for index, slide in enumerate(prs.slides, start=1):
+                for shape in slide.shapes:
+                    if shape.has_text_frame and shape.text.startswith("Página "):
+                        shape.text_frame.paragraphs[0].runs[0].text = f"Página {index} de {len(prs.slides)}"
 
     buf = BytesIO()
     prs.save(buf)
@@ -291,21 +347,28 @@ def _add_cover(prs, layout, data_base: str, *, Inches, Pt, RGBColor, **_kw) -> N
     line.line.fill.background()
 
     # Título principal
-    _textbox(slide, "Mercado de FIDCs",
-             left=1.0, top=2.50, width=10.0, height=0.80,
-             size=44, bold=True, color=_WHITE, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    portfolio_mode = bool(_kw.get("portfolio_mode"))
+    cover_title = str(_kw.get("portfolio_name") or "Carteira") if portfolio_mode else "Mercado de FIDCs"
+    _textbox(slide, cover_title,
+             left=1.0, top=2.50, width=10.0, height=1.30 if portfolio_mode else 0.80,
+             size=32 if portfolio_mode else 44, bold=True, color=_WHITE,
+             word_wrap=portfolio_mode, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     # Subtítulo
     subtitle = f"Visão consolidada e por fundo — Data-base {data_base}"
     _textbox(slide, subtitle,
-             left=1.0, top=3.50, width=10.5, height=0.45,
+             left=1.0, top=4.00 if portfolio_mode else 3.50, width=10.5, height=0.45,
              size=18, bold=False, color=_SUBTITLE_FG, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     # Rodapé canto inferior direito
-    _textbox(slide, "Análise Setorial de Crédito",
+    _textbox(slide, "Toma Conta" if portfolio_mode else "Análise Setorial de Crédito",
              left=_SW - 5.5, top=_SH - 0.50, width=5.0, height=0.35,
              size=10, bold=False, color=_SUBTITLE_FG,
              align_right=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    if _kw.get("compact"):
+        _textbox(slide, "Divisores integrados aos títulos. Retornos complementares reunidos quando cabem.\nSéries compactadas ficam identificadas nos quadros e nas notas.",
+                 left=1.0, top=5.50, width=10.5, height=0.60, size=12, bold=False, color=_SUBTITLE_FG,
+                 word_wrap=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
 
 def _add_divider(
@@ -362,11 +425,19 @@ def _add_synthesis(
         fund_monitor_map=fund_monitor_map,
         fund_monthly_map=fund_monthly_map,
     )
+    if _kw.get("compact"):
+        sections = _compact_synthesis_sections(
+            slide, sections, consolidated_monitor, fund_monthly_map, fund_monitor_map,
+        )
 
     for col_left, hdr_color, hdr_text, bullets in [
         (col_left_1, _ORANGE, "Pontos de atenção", sections["attention"]),
         (col_left_2, _BLACK, "Destaques positivos", sections["highlights"]),
     ]:
+        if _kw.get("portfolio_mode"):
+            hdr_color = _BLACK
+        if _kw.get("compact"):
+            hdr_text = "Crédito e cobertura" if col_left == col_left_1 else "Carteira e estrutura"
         _textbox(slide, hdr_text,
                  left=col_left, top=col_top, width=col_w, height=0.35,
                  size=16, bold=True, color=hdr_color,
@@ -397,17 +468,23 @@ def _add_base_slide(
     CategoryChartData, XL_CHART_TYPE, XL_DATA_LABEL_POSITION,
     XL_LEGEND_POSITION, **_kw,
 ) -> None:
+    if _kw.get("compact"):
+        return _add_compact_base_slide(prs, layout, monthly_df, monitor_df, title, page_num, total, data_base,
+                                      is_subordination_fund=is_subordination_fund,
+                                      Inches=Inches, Pt=Pt, RGBColor=RGBColor,
+                                      CategoryChartData=CategoryChartData, XL_CHART_TYPE=XL_CHART_TYPE,
+                                      XL_DATA_LABEL_POSITION=XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION=XL_LEGEND_POSITION, **_kw)
     slide = prs.slides.add_slide(layout)
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
 
     _slide_header(slide, title, data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-    _kpi_strip(slide, monitor_df, monthly_df, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _kpi_strip(slide, monitor_df, monthly_df, portfolio_mode=bool(_kw.get("portfolio_mode")), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     df = monthly_df
     cats = _category_labels(df)
-    slots = _grid_2x2()
+    slots = _grid_2x2(portfolio_mode=bool(_kw.get("portfolio_mode")))
 
     _chart_pl_stacked(slide, slots[0], df, cats,
                       CategoryChartData=CategoryChartData, RGBColor=RGBColor,
@@ -418,6 +495,7 @@ def _add_base_slide(
                         title="% Subordinação Total ex-360",
                         column="subordinacao_total_ex360_pct",
                         df=df, cats=cats, color=_GRAY,
+                        portfolio_mode=bool(_kw.get("portfolio_mode")),
                         clip_outlier=is_subordination_fund,
                         CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                         XL_CHART_TYPE=XL_CHART_TYPE, Inches=Inches, Pt=Pt)
@@ -425,12 +503,14 @@ def _add_base_slide(
                         title="NPL Over 90d ex-360 / Carteira",
                         column="npl_over90_ex360_pct",
                         df=df, cats=cats, color=_BLACK, metric_kind="npl_pct",
+                        portfolio_mode=bool(_kw.get("portfolio_mode")),
                         CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                         XL_CHART_TYPE=XL_CHART_TYPE, Inches=Inches, Pt=Pt)
     _chart_percent_line(slide, slots[3],
                         title="Cobertura PDD / NPL Over 90d ex-360",
                         column="pdd_npl_over90_ex360_pct",
                         df=df, cats=cats, color=_ORANGE, metric_kind="coverage_pct",
+                        portfolio_mode=bool(_kw.get("portfolio_mode")),
                         CategoryChartData=CategoryChartData, RGBColor=RGBColor,
                         XL_CHART_TYPE=XL_CHART_TYPE, Inches=Inches, Pt=Pt)
 
@@ -444,17 +524,23 @@ def _add_credit_slide(
     CategoryChartData, XL_CHART_TYPE, XL_LABEL_POSITION,
     XL_LEGEND_POSITION, XL_MARKER_STYLE, **_kw,
 ) -> None:
+    if _kw.get("compact"):
+        return _add_compact_credit_slide(prs, layout, monitor_df, title, page_num, total, data_base,
+                                        Inches=Inches, Pt=Pt, RGBColor=RGBColor,
+                                        CategoryChartData=CategoryChartData, XL_CHART_TYPE=XL_CHART_TYPE,
+                                        XL_LABEL_POSITION=XL_LABEL_POSITION, XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+                                        XL_MARKER_STYLE=XL_MARKER_STYLE, **_kw)
     slide = prs.slides.add_slide(layout)
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
 
     _slide_header(slide, title, data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-    _kpi_strip(slide, monitor_df, pd.DataFrame(), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _kpi_strip(slide, monitor_df, pd.DataFrame(), portfolio_mode=bool(_kw.get("portfolio_mode")), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     df = monitor_df
     cats = _category_labels(df)
-    slots = _grid_2x2()
+    slots = _grid_2x2(portfolio_mode=bool(_kw.get("portfolio_mode")))
 
     _chart_bar_money(slide, slots[0], title="Carteira Bruta ex-360",
                      column="carteira_ex360", series_name="Carteira Bruta ex-360",
@@ -503,21 +589,46 @@ def _add_detail_slide(
     CategoryChartData, XL_CHART_TYPE, XL_LABEL_POSITION,
     XL_LEGEND_POSITION, XL_MARKER_STYLE, **_kw,
 ) -> None:
+    if _kw.get("compact"):
+        return _add_compact_detail_slide(prs, layout, monitor_df, fund_monitor_map, cohort_df, title, page_num, total, data_base,
+                                        Inches=Inches, Pt=Pt, RGBColor=RGBColor,
+                                        CategoryChartData=CategoryChartData, XL_CHART_TYPE=XL_CHART_TYPE,
+                                        XL_LABEL_POSITION=XL_LABEL_POSITION, XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+                                        XL_MARKER_STYLE=XL_MARKER_STYLE, **_kw)
     slide = prs.slides.add_slide(layout)
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
 
     _slide_header(slide, title, data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-    _kpi_strip(slide, monitor_df, pd.DataFrame(), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _kpi_strip(slide, monitor_df, pd.DataFrame(), portfolio_mode=bool(_kw.get("portfolio_mode")), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
-    slots = _grid_1x2()
+    slots = _grid_1x2(portfolio_mode=bool(_kw.get("portfolio_mode")))
 
     # Duration chart — legenda ABAIXO do eixo X para evitar colisão
     dur_df = _build_duration_frame(monitor_df, fund_monitor_map)
     dur_series = [c for c in dur_df.columns if c not in {"competencia_dt", "competencia"}]
     dur_specs = [(s, _short_name(s), color)
                  for s, color in zip(dur_series, [_BLACK, _ORANGE, _GRAY, _GRAY_MID])]
+    if _kw.get("portfolio_mode"):
+        colors = [_BLACK, _ORANGE, _GRAY, _GRAY_MID, _GRAY_PALE, "383838", "585858"]
+        dur_specs = [(short_fund_name(series), series, colors[index % len(colors)])
+                     for index, series in enumerate(dur_series)]
+        if fund_monitor_map:
+            missing_duration = [
+                cnpj for cnpj, frame in fund_monitor_map.items()
+                if frame.empty or "duration_months" not in frame.columns
+                or pd.to_numeric(frame["duration_months"], errors="coerce").notna().sum() == 0
+            ]
+            if missing_duration:
+                slots = [(left, top, width, height - 0.35) for left, top, width, height in slots]
+                _textbox(
+                    slide,
+                    f"Duration: {len(fund_monitor_map) - len(missing_duration)}/{len(fund_monitor_map)} fundos com série. Ausentes nas notas.",
+                    left=_MX, top=6.90, width=_SW - 2 * _MX, height=0.25,
+                    size=11, bold=False, color=_GRAY, Inches=Inches, Pt=Pt, RGBColor=RGBColor,
+                )
+                _append_portfolio_notes(slide, "Duration sem série informada na janela: " + ", ".join(missing_duration))
     _chart_multi_line(slide, slots[0],
                       title="Duration por FIDC",
                       df=dur_df, cats=_category_labels(dur_df),
@@ -620,9 +731,9 @@ def _add_fund_return_slide(
         for column_index, weight in enumerate(weights):
             table.columns[column_index].width = Inches(available_width * weight / total_weight)
     else:
-        series_width = 2.10
-        trailing_width = 1.50
-        ytd_width = 1.55
+        series_width = 1.85 if _kw.get("portfolio_mode") else 2.10
+        trailing_width = 1.00 if _kw.get("portfolio_mode") else 1.50
+        ytd_width = 1.00 if _kw.get("portfolio_mode") else 1.55
         month_columns = [column for column in columns if column not in _RETURN_SUMMARY_COLUMNS]
         month_width = (
             (available_width - series_width - trailing_width - ytd_width) / len(month_columns)
@@ -648,10 +759,10 @@ def _add_fund_return_slide(
         cell = table.cell(0, column_index)
         _style_return_table_cell(
             cell,
-            str(column),
-            fill_color=_ORANGE,
-            text_color=_WHITE,
-            font_size=6.0 if is_comparison else 6.5,
+            _portfolio_return_header(str(column)) if _kw.get("portfolio_mode") else str(column),
+            fill_color=_CARD_BG if _kw.get("portfolio_mode") else _ORANGE,
+            text_color=_BLACK if _kw.get("portfolio_mode") else _WHITE,
+            font_size=11 if _kw.get("portfolio_mode") else 6.0 if is_comparison else 6.5,
             bold=True,
             alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.CENTER,
             vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
@@ -671,7 +782,7 @@ def _add_fund_return_slide(
                 text,
                 fill_color=fill_color,
                 text_color=_BLACK if text != "N/D" else _GRAY,
-                font_size=7.5,
+                font_size=11 if _kw.get("portfolio_mode") else 7.5,
                 bold=column == RETURN_SERIES_COLUMN,
                 alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.RIGHT,
                 vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
@@ -680,6 +791,13 @@ def _add_fund_return_slide(
                 Pt=Pt,
                 RGBColor=RGBColor,
             )
+
+    if _kw.get("portfolio_mode"):
+        _append_portfolio_notes(
+            slide,
+            "Cabeçalhos completos de rentabilidade:\n"
+            + "\n".join(f"{_portfolio_return_header(str(column))}: {column}" for column in columns),
+        )
 
     _textbox(
         slide,
@@ -744,22 +862,28 @@ def _add_roll_slide(
     CategoryChartData, XL_CHART_TYPE, XL_LABEL_POSITION,
     XL_LEGEND_POSITION, XL_MARKER_STYLE, **_kw,
 ) -> None:
+    if _kw.get("compact"):
+        return _add_compact_roll_slide(prs, layout, roll_df, title, page_num, total, data_base,
+                                      Inches=Inches, Pt=Pt, RGBColor=RGBColor,
+                                      CategoryChartData=CategoryChartData, XL_CHART_TYPE=XL_CHART_TYPE,
+                                      XL_LABEL_POSITION=XL_LABEL_POSITION, XL_LEGEND_POSITION=XL_LEGEND_POSITION,
+                                      XL_MARKER_STYLE=XL_MARKER_STYLE, **_kw)
     slide = prs.slides.add_slide(layout)
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
 
     _slide_header(slide, title, data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
-    _kpi_strip(slide, monitor_df, pd.DataFrame(), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _kpi_strip(slide, monitor_df, pd.DataFrame(), portfolio_mode=bool(_kw.get("portfolio_mode")), Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
     if roll_df is None or not isinstance(roll_df, pd.DataFrame) or roll_df.empty:
-        _empty_placeholder(slide, _grid_2x2()[0],
+        _empty_placeholder(slide, _grid_2x2(portfolio_mode=bool(_kw.get("portfolio_mode")))[0],
                            "Roll rates por mês do ano",
                            "Dados de sazonalidade não disponíveis.",
                            Inches=Inches, Pt=Pt, RGBColor=RGBColor)
         return
 
-    slots = _grid_2x2()
+    slots = _grid_2x2(portfolio_mode=bool(_kw.get("portfolio_mode")))
     roll_metrics = [
         ("Roll 61-90 por mês do ano", "roll_61_90_m3"),
         ("Roll 91-120 por mês do ano", "roll_91_120_m4"),
@@ -825,12 +949,17 @@ def _slide_footer(slide, page_num: int, total: int, *, Inches, Pt, RGBColor) -> 
 
 def _kpi_strip(
     slide, monitor_df: pd.DataFrame, monthly_df: pd.DataFrame,
-    *, Inches, Pt, RGBColor,
+    *, Inches, Pt, RGBColor, portfolio_mode: bool = False,
 ) -> None:
     """KPI cards v3: fundo #F5F5F5, cantos arredondados, sem borda."""
     cards = _build_kpi_cards(monitor_df, monthly_df)
     if not cards:
         return
+    remaining = []
+    if portfolio_mode:
+        remaining = [(label.replace("NPL Over ", "NPL > ").replace(" ex-360", ""), value)
+                     for label, value in cards[1:4]]
+        cards = [("Carteira ex-360", cards[0][1]), ("NPL > 90d ex-360", cards[4][1]), cards[5]]
 
     total_w = _SW - _MX * 2
     gap = 0.15
@@ -849,7 +978,7 @@ def _kpi_strip(
         card.line.fill.background()
 
         tf = card.text_frame
-        tf.word_wrap = True
+        tf.word_wrap = not portfolio_mode
         tf.margin_left = Inches(0.06)
         tf.margin_right = Inches(0.06)
         tf.margin_top = Inches(0.06)
@@ -860,7 +989,7 @@ def _kpi_strip(
         r1 = p1.add_run()
         r1.text = label.upper()
         r1.font.name = "Calibri"
-        r1.font.size = Pt(9)
+        r1.font.size = Pt(11 if portfolio_mode else 9)
         r1.font.bold = False
         r1.font.color.rgb = _rgb(_GRAY, RGBColor)
 
@@ -872,6 +1001,24 @@ def _kpi_strip(
         r2.font.size = Pt(18)
         r2.font.bold = True
         r2.font.color.rgb = _rgb(_BLACK, RGBColor)
+
+    if remaining:
+        from pptx.enum.text import PP_ALIGN
+
+        native = slide.shapes.add_table(1, len(remaining), Inches(_MX), Inches(1.30), Inches(total_w), Inches(0.30)).table
+        for index, (label, value) in enumerate(remaining):
+            cell = native.cell(0, index)
+            cell.text = f"{label}: {value}"
+            cell.fill.solid()
+            cell.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
+            cell.margin_top = cell.margin_bottom = Inches(0.02)
+            cell.margin_left = cell.margin_right = Inches(0.06)
+            for paragraph in cell.text_frame.paragraphs:
+                paragraph.alignment = PP_ALIGN.LEFT
+                for run in paragraph.runs:
+                    run.font.name = "Calibri"
+                    run.font.size = Pt(11)
+                    run.font.color.rgb = _rgb(_GRAY, RGBColor)
 
 
 # ===========================================================================
@@ -903,6 +1050,9 @@ def _chart_pl_stacked(
 
     chart = _place_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, cdata, Inches)
     _style_chart(chart, "PL por classe", "Competência", scale_lbl, "#,##0.0", RGBColor, Pt)
+    observed = [value for values in (senior_vals, subord_vals) for value in values if value is not None]
+    if observed and min(observed) >= 0:
+        chart.value_axis.minimum_scale = 0
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
@@ -942,13 +1092,23 @@ def _chart_percent_line(
     slide, slot, title: str, column: str,
     df: pd.DataFrame, cats: list[str], color: str,
     *, CategoryChartData, RGBColor, XL_CHART_TYPE, Inches, Pt,
-    clip_outlier: bool = False, metric_kind: str = "general_pct",
+    clip_outlier: bool = False, metric_kind: str = "general_pct", portfolio_mode: bool = False,
 ) -> None:
     if df.empty or not cats or column not in df.columns:
         _empty_placeholder(slide, slot, title, "Sem dados.", Inches=Inches, Pt=Pt, RGBColor=RGBColor)
         return
 
     raw = pd.to_numeric(df[column], errors="coerce")
+    if portfolio_mode and raw.notna().sum() == 0:
+        denominator = pd.to_numeric(df.get("npl_over90_ex360", pd.Series(dtype=float)), errors="coerce")
+        reason = (
+            "Não aplicável: NPL > 90d ex-360 é zero na janela."
+            if metric_kind == "coverage_pct" and not denominator.empty and denominator.notna().all() and denominator.eq(0).all()
+            else "N/D: série sem valor informado na janela."
+        )
+        _empty_placeholder(slide, slot, title, reason, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+        _append_portfolio_notes(slide, f"{title}: {reason}")
+        return
     values = [_pct_val(v) for v in raw]
 
     cdata = CategoryChartData()
@@ -1168,22 +1328,24 @@ def _chart_cohorts(
 # GRID LAYOUTS
 # ===========================================================================
 
-def _grid_2x2() -> list[tuple[float, float, float, float]]:
+def _grid_2x2(*, portfolio_mode: bool = False) -> list[tuple[float, float, float, float]]:
     w = (_SW - _MX * 2 - _GAP_X) / 2
-    h = (_CTX_H - _GAP_Y) / 2
+    top = 1.70 if portfolio_mode else _CTX_TOP
+    h = (_FTR_TOP - top - _GAP_Y) / 2
     return [
-        (_MX, _CTX_TOP, w, h),
-        (_MX + w + _GAP_X, _CTX_TOP, w, h),
-        (_MX, _CTX_TOP + h + _GAP_Y, w, h),
-        (_MX + w + _GAP_X, _CTX_TOP + h + _GAP_Y, w, h),
+        (_MX, top, w, h),
+        (_MX + w + _GAP_X, top, w, h),
+        (_MX, top + h + _GAP_Y, w, h),
+        (_MX + w + _GAP_X, top + h + _GAP_Y, w, h),
     ]
 
 
-def _grid_1x2() -> list[tuple[float, float, float, float]]:
+def _grid_1x2(*, portfolio_mode: bool = False) -> list[tuple[float, float, float, float]]:
     w = (_SW - _MX * 2 - _GAP_X) / 2
+    top = 1.70 if portfolio_mode else _CTX_TOP
     return [
-        (_MX, _CTX_TOP, w, _CTX_H),
-        (_MX + w + _GAP_X, _CTX_TOP, w, _CTX_H),
+        (_MX, top, w, _FTR_TOP - top),
+        (_MX + w + _GAP_X, top, w, _FTR_TOP - top),
     ]
 
 
@@ -1423,6 +1585,524 @@ def _set_text(text_frame, text, size, bold, color, RGBColor) -> None:
 # ===========================================================================
 # DATA HELPERS
 # ===========================================================================
+
+def _chart_dependencies(deps, *names):
+    return {name: deps[name] for name in ("Inches", "Pt", "RGBColor", "CategoryChartData", "XL_CHART_TYPE", *names) if name in deps}
+
+
+def _component(name, frame, columns, render, *, reason=None):
+    from services.portfolio_presentation_state import classify_component
+
+    frame = frame if isinstance(frame, pd.DataFrame) else pd.DataFrame()
+    return dict(name=name, frame=frame, columns=tuple(columns), render=render,
+                state=classify_component(frame, columns), reason=reason)
+
+
+def _component_labels(frame):
+    if "competencia_dt" in frame:
+        return _category_labels(frame)
+    if "competencia" in frame:
+        return frame["competencia"].astype(str).tolist()
+    if "cohort" in frame and "mes_ciclo" in frame:
+        return (frame["cohort"].astype(str) + " · " + frame["mes_ciclo"].astype(str)).tolist()
+    return [str(index + 1) for index in range(len(frame))]
+
+
+def _component_note(component):
+    import json
+    import math
+
+    frame = component["frame"]
+    state = component["state"]
+    identities = [column for column in ("competencia", "competencia_dt", "cohort", "cohort_dt", "mes_ciclo") if column in frame]
+    columns = list(dict.fromkeys([*identities, *component["columns"]]))
+    records = []
+    for _, row in frame.iterrows():
+        record = {}
+        for column in columns:
+            value = row.get(column)
+            value = None if pd.isna(value) else value.item() if hasattr(value, "item") else value
+            record[column] = str(value) + " (não finito)" if isinstance(value, float) and not math.isfinite(value) else value
+        records.append(record)
+    reason = component.get("reason") or ("nenhum valor finito informado" if state.status == "absent" else "todos os valores finitos são exatamente zero")
+    return (f"Compactação: {component['name']} | {state.status} | {reason}. "
+            f"{state.finite_count} valores finitos; {state.missing_count} lacunas. "
+            "Gráfico substituído por registro explícito; dados originais completos:\n"
+            + json.dumps(records, ensure_ascii=False, default=str, allow_nan=False))
+
+
+def _component_grid(count, *, top, bottom):
+    width = _SW - 2 * _MX
+    height = bottom - top
+    if count <= 1:
+        return [(_MX, top, width, height)]
+    half_width = (width - _GAP_X) / 2
+    if count == 2:
+        return [(_MX, top, half_width, height), (_MX + half_width + _GAP_X, top, half_width, height)]
+    half_height = (height - _GAP_Y) / 2
+    slots = [(_MX, top, half_width, half_height), (_MX + half_width + _GAP_X, top, half_width, half_height)]
+    if count == 3:
+        return [*slots, (_MX, top + half_height + _GAP_Y, width, half_height)]
+    return [*slots, (_MX, top + half_height + _GAP_Y, half_width, half_height),
+            (_MX + half_width + _GAP_X, top + half_height + _GAP_Y, half_width, half_height)]
+
+
+def _zero_gap_rows(components):
+    labels = []
+    rows = []
+    for component in components:
+        state = component["state"]
+        if state.status != "zero" or not state.has_gaps:
+            continue
+        frame = component["frame"]
+        own_labels = _component_labels(frame)
+        for label in own_labels:
+            if label not in labels:
+                labels.append(label)
+        for column in component["columns"]:
+            values = frame[column].tolist() if column in frame else [None] * len(frame)
+            mapped = dict(zip(own_labels, values))
+            rows.append((f"{component['name']} · {column}", mapped))
+    return labels, rows
+
+
+def _add_zero_gap_table(slide, labels, rows, *, top, Inches, Pt, RGBColor):
+    from pptx.enum.text import MSO_VERTICAL_ANCHOR, PP_ALIGN
+
+    shape = slide.shapes.add_table(len(rows) + 1, len(labels) + 1,
+                                  Inches(_MX), Inches(top), Inches(_SW - 2 * _MX), Inches(0.38 + len(rows) * 0.30))
+    table = shape.table
+    table.columns[0].width = Inches(3.3)
+    for column in list(table.columns)[1:]:
+        column.width = Inches((_SW - 2 * _MX - 3.3) / len(labels))
+    table.rows[0].height = Inches(0.38)
+    for row in list(table.rows)[1:]:
+        row.height = Inches(0.30)
+    aliases = {"roll_61_90_m3_pct": "61–90d", "roll_91_120_m4_pct": "91–120d",
+               "roll_121_150_m5_pct": "121–150d", "roll_151_180_m6_pct": "151–180d",
+               "npl_1_90_pct": "1–90d", "npl_91_360_pct": "91–360d",
+               "pl_subordinada_mezz_ex360": "Sub. + mezanino", "pl_senior": "Sênior",
+               "subordinacao_total_ex360_pct": "Subordinação (%)",
+               "pdd_npl_over90_ex360_pct": "Cobertura (%)", "npl_over90_ex360_pct": "90d (%)",
+               "duration_months": "Meses", "valor_pct": "Valor (%)"}
+    contents = [["0 / N/D na base", *labels]]
+    for name, values in rows:
+        for raw, label in aliases.items():
+            name = name.replace(raw, label)
+        contents.append([name, *["0" if _num(values.get(label)) == 0 else "N/D" for label in labels]])
+    for row_index, row in enumerate(contents):
+        for column_index, text in enumerate(row):
+            _style_return_table_cell(table.cell(row_index, column_index), text,
+                                     fill_color=_CARD_BG if row_index == 0 else _WHITE,
+                                     text_color=_BLACK, font_size=11, bold=row_index == 0,
+                                     alignment=PP_ALIGN.LEFT if column_index == 0 else PP_ALIGN.RIGHT,
+                                     vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE, word_wrap=column_index == 0,
+                                     Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+
+
+def _add_component_slide(prs, layout, title, page_num, total, data_base, components, *, monitor=None, monthly=None, **deps):
+    active = [component for component in components if component["state"].status == "observed"]
+    if len(active) > 4:
+        raise ValueError("Mais de quatro componentes observados exigem paginação explícita; nenhum gráfico pode ser descartado.")
+    Inches, Pt, RGBColor = (deps[key] for key in ("Inches", "Pt", "RGBColor"))
+    slide = prs.slides.add_slide(layout)
+    slide.background.fill.solid()
+    slide.background.fill.fore_color.rgb = _rgb(_WHITE, RGBColor)
+    _slide_header(slide, title, data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    show_kpis = monthly is not None
+    if show_kpis:
+        _kpi_strip(slide, monitor, monthly, portfolio_mode=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    else:
+        _textbox(slide, "KPIs da mesma posição no quadro de estrutura.", left=_MX, top=0.58,
+                 width=_SW - 2 * _MX, height=0.24, size=11, bold=False, color=_GRAY,
+                 Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+        _append_portfolio_notes(slide, "Compactação: KPIs repetidos permanecem no quadro de estrutura da mesma posição.")
+    inactive = [component for component in components if component["state"].status != "observed"]
+    gap_labels, gap_rows = _zero_gap_rows(inactive)
+    inline_gap = bool(gap_rows) and len(gap_labels) <= 13 and len(gap_rows) <= 7
+    caption_height = 0.58 if inactive else 0
+    gap_height = 0.38 + len(gap_rows) * 0.30 if inline_gap else 0
+    bottom = _FTR_TOP - 0.08 - caption_height - gap_height
+    top = 1.70 if show_kpis else 0.95
+    for component, slot in zip(active, _component_grid(len(active), top=top, bottom=bottom)):
+        component["render"](slide, slot)
+    if inactive:
+        parts = []
+        for component in inactive:
+            state = component["state"]
+            status = component.get("reason") or ("N/D" if state.status == "absent" else f"0 em {state.row_count} observações" if not state.has_gaps else f"0 e N/D em {state.row_count} observações")
+            parts.append(f"{component['name']}: {status}")
+            _append_portfolio_notes(slide, _component_note(component))
+        caption = "Compactação: " + "; ".join(parts) + ". Dados completos nas notas."
+        if deps.get("empty_monthly"):
+            caption += " Crédito e duration sem informe mensal foram reunidos aqui; as tabelas de retorno permanecem próprias."
+        _textbox(slide, caption, left=_MX, top=_FTR_TOP - caption_height - 0.03,
+                 width=_SW - 2 * _MX, height=caption_height, size=11, bold=False, color=_GRAY,
+                 word_wrap=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    if inline_gap:
+        _add_zero_gap_table(slide, gap_labels, gap_rows, top=bottom + 0.04, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    elif gap_rows:
+        for start in range(0, len(gap_labels), 13):
+            for row_start in range(0, len(gap_rows), 18):
+                extra = prs.slides.add_slide(layout)
+                _slide_header(extra, title + " — Zeros e lacunas", data_base, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+                _slide_footer(extra, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+                _add_zero_gap_table(extra, gap_labels[start:start + 13], gap_rows[row_start:row_start + 18], top=0.80, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+                _append_portfolio_notes(extra, "Compactação: registro nativo completo de zeros e lacunas; 0 e N/D permanecem distintos.")
+    if not active:
+        _textbox(slide, "Sem componente gráfico com valor não zero nesta janela.", left=_MX, top=top + 0.15,
+                 width=_SW - 2 * _MX, height=0.35, size=14, bold=True, color=_BLACK,
+                 Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    return slide
+
+
+def _add_compact_base_slide(prs, layout, monthly, monitor, title, page_num, total, data_base, *, is_subordination_fund=False, **deps):
+    cats = _category_labels(monthly)
+    common = _chart_dependencies(deps)
+    stacked = _chart_dependencies(deps, "XL_LEGEND_POSITION", "XL_DATA_LABEL_POSITION")
+    components = [
+        _component("PL por classe", monthly, ("pl_senior", "pl_subordinada_mezz_ex360"),
+                   lambda slide, slot: _chart_pl_stacked(slide, slot, monthly, cats, **stacked)),
+        _component("Subordinação ex-360", monthly, ("subordinacao_total_ex360_pct",),
+                   lambda slide, slot: _chart_percent_line(slide, slot, "% Subordinação Total ex-360", "subordinacao_total_ex360_pct", monthly, cats, _GRAY,
+                                                         clip_outlier=is_subordination_fund, portfolio_mode=True, **common)),
+        _component("NPL > 90d ex-360", monthly, ("npl_over90_ex360_pct",),
+                   lambda slide, slot: _chart_percent_line(slide, slot, "NPL Over 90d ex-360 / Carteira", "npl_over90_ex360_pct", monthly, cats, _BLACK,
+                                                         metric_kind="npl_pct", portfolio_mode=True, **common)),
+        _component("Cobertura PDD / NPL", monthly, ("pdd_npl_over90_ex360_pct",),
+                   lambda slide, slot: _chart_percent_line(slide, slot, "Cobertura PDD / NPL Over 90d ex-360", "pdd_npl_over90_ex360_pct", monthly, cats, _ORANGE,
+                                                         metric_kind="coverage_pct", portfolio_mode=True, **common)),
+    ]
+    denominator = pd.to_numeric(monthly.get("npl_over90_ex360", pd.Series(dtype=float)), errors="coerce")
+    if components[-1]["state"].status == "absent" and not denominator.empty and denominator.notna().all() and denominator.eq(0).all():
+        components[-1]["reason"] = "não aplicável (NPL zero)"
+    # A positive or negative PDD stays visible even when coverage has a zero denominator.
+    pdd = _component("PDD total (R$)", monthly, ("pdd_total",),
+                     lambda slide, slot: _chart_bar_money(slide, slot, "PDD total", "pdd_total", "PDD total", monthly, cats,
+                                                         **_chart_dependencies(deps, "XL_LABEL_POSITION")))
+    if components[-1]["state"].status != "observed" and pdd["state"].status == "observed":
+        components.append(pdd)
+    return _add_component_slide(prs, layout, title + " — Estrutura", page_num, total, data_base, components, monitor=monitor, monthly=monthly, **deps)
+
+
+def _add_compact_credit_slide(prs, layout, frame, title, page_num, total, data_base, **deps):
+    cats = _category_labels(frame)
+    line = _chart_dependencies(deps, "XL_LABEL_POSITION", "XL_LEGEND_POSITION", "XL_MARKER_STYLE")
+    components = [
+        _component("Carteira ex-360", frame, ("carteira_ex360",),
+                   lambda slide, slot: _chart_bar_money(slide, slot, "Carteira Bruta ex-360", "carteira_ex360", "Carteira Bruta ex-360", frame, cats,
+                                                       **_chart_dependencies(deps, "XL_LABEL_POSITION"))),
+        _component("YoY da carteira", frame, ("carteira_ex360_yoy_pct",),
+                   lambda slide, slot: _chart_multi_line(slide, slot, "Crescimento YoY carteira bruta ex-360", frame, cats,
+                                                        [("Crescimento YoY", "carteira_ex360_yoy_pct", _ORANGE)], "%", **line)),
+        _component("NPL por severidade", frame, ("npl_1_90_pct", "npl_91_360_pct"),
+                   lambda slide, slot: _chart_stacked_npl(slide, slot, frame, cats,
+                                                         **_chart_dependencies(deps, "XL_LABEL_POSITION", "XL_LEGEND_POSITION"))),
+        _component("Roll rates", frame, ("roll_61_90_m3_pct", "roll_91_120_m4_pct", "roll_121_150_m5_pct", "roll_151_180_m6_pct"),
+                   lambda slide, slot: _chart_multi_line(slide, slot, "Roll rates", frame, cats,
+                                                        [("Roll 61–90 M-3", "roll_61_90_m3_pct", _BLACK), ("Roll 91–120 M-4", "roll_91_120_m4_pct", _GRAY),
+                                                         ("Roll 121–150 M-5", "roll_121_150_m5_pct", _GRAY_MID), ("Roll 151–180 M-6", "roll_151_180_m6_pct", _ORANGE)],
+                                                        "%", metric_kind="roll_pct", **line)),
+    ]
+    return _add_component_slide(prs, layout, title + " — Crédito", page_num, total, data_base, components, **deps)
+
+
+def _add_compact_detail_slide(prs, layout, monitor, fund_map, cohorts, title, page_num, total, data_base, **deps):
+    duration = _build_duration_frame(monitor, fund_map)
+    columns = [column for column in duration if column not in ("competencia", "competencia_dt")]
+    colors = [_BLACK, _ORANGE, _GRAY, _GRAY_MID, _GRAY_PALE, "383838", "585858"]
+    line = _chart_dependencies(deps, "XL_LABEL_POSITION", "XL_LEGEND_POSITION", "XL_MARKER_STYLE")
+    components = [
+        _component("Duration", duration, columns,
+                   lambda slide, slot: _chart_multi_line(slide, slot, "Duration por FIDC", duration, _category_labels(duration),
+                                                        [(short_fund_name(column), column, colors[index % len(colors)]) for index, column in enumerate(columns)],
+                                                        "meses", value_is_percent=False, metric_kind="duration", **line)),
+        _component("Cohorts recentes", cohorts, ("valor_pct",),
+                   lambda slide, slot: _chart_cohorts(slide, slot, cohorts, **line)),
+    ]
+    slide = _add_component_slide(prs, layout, title + " — Duration e cohorts", page_num, total, data_base, components, **deps)
+    missing = [short_fund_name(_raw_fund_name(frame, fallback=cnpj))
+               for cnpj, frame in fund_map.items()
+               if frame.empty or "duration_months" not in frame
+               or pd.to_numeric(frame["duration_months"], errors="coerce").notna().sum() == 0]
+    if missing:
+        caption = next(shape for shape in slide.shapes if shape.has_text_frame and shape.text.startswith("KPIs da mesma posição"))
+        caption.text_frame.paragraphs[0].runs[0].text = f"Duration: {len(fund_map) - len(missing)}/{len(fund_map)} fundos com série; ausências nas notas."
+        _append_portfolio_notes(slide, "Duration sem série informada na janela: " + ", ".join(missing))
+    return slide
+
+
+def _add_compact_roll_slide(prs, layout, frame, title, page_num, total, data_base, **deps):
+    line = _chart_dependencies(deps, "XL_LABEL_POSITION", "XL_LEGEND_POSITION", "XL_MARKER_STYLE")
+    components = []
+    for label, metric in (("Roll 61–90", "roll_61_90_m3"), ("Roll 91–120", "roll_91_120_m4"),
+                          ("Roll 121–150", "roll_121_150_m5"), ("Roll 151–180", "roll_151_180_m6")):
+        wide = _research_roll_wide(frame, metric_id=metric)
+        columns = [column for column in wide if column not in ("competencia", "competencia_dt", "month", "ordem")]
+        colors = [_BLACK, _GRAY, _GRAY_MID, _GRAY_PALE]
+        render = lambda slide, slot, wide=wide, columns=columns, label=label: _chart_multi_line(
+            slide, slot, label.replace("–", "-") + " por mês do ano", wide, wide.get("competencia", pd.Series(dtype=str)).astype(str).tolist(),
+            [(column, column, colors[index % len(colors)]) for index, column in enumerate(columns)], "%", metric_kind="roll_pct", **line)
+        components.append(_component(label, wide, columns, render))
+    if all(component["state"].status == "absent" for component in components) and len(prs.slides):
+        previous = prs.slides[-1]
+        for component in components:
+            _append_portfolio_notes(previous, _component_note(component))
+        visible = next((shape for shape in previous.shapes if shape.has_text_frame and shape.text.startswith("Compactação:")), None)
+        if visible is not None:
+            visible.text_frame.text += " Sazonalidade: N/D (sem série finita)."
+        else:
+            _textbox(previous, "Compactação: sazonalidade N/D, sem série finita. Detalhes nas notas.",
+                     left=_MX, top=6.86, width=_SW - 2 * _MX, height=0.28, size=11, bold=False, color=_GRAY,
+                     **{key: deps[key] for key in ("Inches", "Pt", "RGBColor")})
+        return
+    return _add_component_slide(prs, layout, title + " — Sazonalidade", page_num, total, data_base, components, **deps)
+
+
+def _portfolio_return_groups(pages: list[pd.DataFrame]) -> list[tuple[pd.DataFrame, ...]]:
+    """Pair complementary views only when every series and readable row fits."""
+    monthly = [frame for frame in pages if not any(column in frame for column in _RETURN_COMPARISON_DETAIL_COLUMNS)]
+    comparisons = [frame for frame in pages if any(column in frame for column in _RETURN_COMPARISON_DETAIL_COLUMNS)]
+    groups = []
+    used = set()
+    for frame in monthly:
+        match = next((index for index, other in enumerate(comparisons)
+                      if index not in used and frame[RETURN_SERIES_COLUMN].tolist() == other[RETURN_SERIES_COLUMN].tolist()), None)
+        other = comparisons[match] if match is not None else None
+        # Existing row heights at 11 pt; two captions and native table headers.
+        fits = other is not None and 0.48 + 0.68 + 0.24 * (len(frame) + len(other)) + 0.42 <= 5.96
+        if fits:
+            groups.append((frame, other))
+            used.add(match)
+        else:
+            groups.append((frame,))
+    groups.extend((frame,) for index, frame in enumerate(comparisons) if index not in used)
+    return groups
+
+
+def _append_paired_return_table(prs, layout, frame, title, data_base, *, Inches, Pt, RGBColor, **kwargs) -> None:
+    """Copy a second native table into the readable space of the first slide."""
+    from copy import deepcopy
+    from pptx import Presentation
+
+    target = prs.slides[-1]
+    first = next(shape for shape in target.shapes if shape.has_table)
+    second_top = first.top / 914400 + first.height / 914400 + 0.42
+    temporary = Presentation()
+    temporary.slide_width = prs.slide_width
+    temporary.slide_height = prs.slide_height
+    _add_fund_return_slide(temporary, temporary.slide_layouts[6], frame, title, 1, 1, data_base,
+                          page_index=1, page_count=1, Inches=Inches, Pt=Pt, RGBColor=RGBColor, **kwargs)
+    original = next(shape for shape in temporary.slides[0].shapes if shape.has_table)
+    element = deepcopy(original._element)
+    identity = element.find(".//{http://schemas.openxmlformats.org/presentationml/2006/main}cNvPr")
+    identity.set("id", str(max(shape.shape_id for shape in target.shapes) + 1))
+    identity.set("name", "Comparação de rentabilidade")
+    element.xfrm.off.y = Inches(second_top)
+    target.shapes._spTree.insert_element_before(element, "p:extLst")
+    _textbox(target, "Comparativo reunido neste slide — CDI, spread e referência de emissão", left=_MX, top=second_top - 0.29,
+             width=_SW - 2 * _MX, height=0.22, size=11, bold=True, color=_BLACK,
+             Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _append_portfolio_notes(target, temporary.slides[0].notes_slide.notes_text_frame.text)
+    _append_portfolio_notes(target, "Compactação: tabelas mensais e comparativas reunidas no mesmo slide; todas as séries e células originais foram preservadas.")
+
+
+def _append_empty_monthly_record(slide, *, Inches, Pt, RGBColor, **_kwargs):
+    """Keep an identified no-monthly-data fund next to its retained return tables."""
+    from pptx.enum.text import MSO_VERTICAL_ANCHOR, PP_ALIGN
+
+    tables = [shape for shape in slide.shapes if shape.has_table]
+    if not tables:
+        return False
+    top = max((shape.top + shape.height) / 914400 for shape in tables) + 0.28
+    if top + 1.0 > 6.72:
+        return False
+    _textbox(slide, "Indicadores mensais: N/D, sem informe utilizável na janela selecionada.",
+             left=_MX, top=top, width=_SW - 2 * _MX, height=0.22, size=11, bold=False, color=_GRAY,
+             Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    table = slide.shapes.add_table(2, 6, Inches(_MX), Inches(top + 0.27),
+                                   Inches(_SW - 2 * _MX), Inches(0.58)).table
+    for row_index, values in enumerate((("PL", "Carteira", "NPL", "PDD", "Cobertura", "Duration"), ("N/D",) * 6)):
+        for column_index, text in enumerate(values):
+            _style_return_table_cell(table.cell(row_index, column_index), text,
+                                     fill_color=_CARD_BG if row_index == 0 else _WHITE, text_color=_BLACK,
+                                     font_size=11, bold=row_index == 0, alignment=PP_ALIGN.LEFT,
+                                     vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE, word_wrap=False,
+                                     Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+    _append_portfolio_notes(slide, "Compactação: estrutura, crédito e duration sem observação mensal foram reunidos nesta tabela nativa de N/D. "
+                            "O fundo continua identificado; retornos disponíveis foram mantidos integralmente. Ausência não foi tratada como zero.")
+    return True
+
+
+def _portfolio_data_base(frame: pd.DataFrame) -> str:
+    """Label a fund with its own observed date; never use the portfolio date."""
+    row = _latest_row(frame)
+    if row is None:
+        return "N/D"
+    observed = pd.to_datetime(row.get("competencia_dt"), errors="coerce")
+    return _fmt_month(observed) if pd.notna(observed) else "N/D"
+
+
+def _portfolio_return_header(column: str) -> str:
+    return {
+        RETURN_TRAILING_12M_COLUMN: "12M (%)",
+        RETURN_TRAILING_12M_CDI_COLUMN: "CDI 12M (%)",
+        RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN: "Spread 12M (% a.a.)",
+        RETURN_YTD_COLUMN: "YTD (%)",
+        RETURN_YTD_CDI_COLUMN: "CDI YTD (%)",
+        RETURN_YTD_IMPLIED_SPREAD_COLUMN: "Spread YTD (% a.a.)",
+        RETURN_ISSUANCE_SPREAD_COLUMN: "CDI+ emissão (% a.a.)",
+        RETURN_TRAILING_12M_SPREAD_GAP_COLUMN: "Gap 12M (bps)",
+        RETURN_YTD_SPREAD_GAP_COLUMN: "Gap YTD (bps)",
+    }.get(column, column)
+
+
+def _append_portfolio_notes(slide, text: str) -> None:
+    notes = slide.notes_slide.notes_text_frame
+    notes.text = "\n".join(part for part in (notes.text.strip(), text.strip()) if part)
+
+
+def _refine_portfolio_native_presentation(prs, *, compact=False) -> None:
+    """Apply portfolio-only typography and final labels without changing caches."""
+    from pptx.oxml.xmlchemy import OxmlElement
+    from pptx.util import Inches, Pt
+
+    scale = (11, 12, 14, 16, 20, 24, 32)
+
+    def size(value: float) -> int:
+        return next((candidate for candidate in scale if candidate >= value), scale[-1])
+
+    def manual_layout(element, *, x, y, width, height, plot=False):
+        layout = element.find("{http://schemas.openxmlformats.org/drawingml/2006/chart}layout")
+        if layout is None:
+            layout = OxmlElement("c:layout")
+            if element.tag.endswith("}legend"):
+                element.insert_element_before(layout, "c:overlay", "c:spPr", "c:txPr", "c:extLst")
+            else:
+                element.insert(0, layout)
+        for child in list(layout):
+            layout.remove(child)
+        manual = OxmlElement("c:manualLayout")
+        layout.append(manual)
+        if plot:
+            target = OxmlElement("c:layoutTarget")
+            target.set("val", "inner")
+            manual.append(target)
+        for tag in ("xMode", "yMode", "wMode", "hMode"):
+            mode = OxmlElement("c:" + tag)
+            mode.set("val", "factor")
+            manual.append(mode)
+        for tag, value in (("x", x), ("y", y), ("w", width), ("h", height)):
+            coordinate = OxmlElement("c:" + tag)
+            coordinate.set("val", str(value))
+            manual.append(coordinate)
+
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            text_frames = []
+            if shape.has_text_frame:
+                if shape.text.startswith(f"* {CVM_RETURN_REINVESTMENT_NOTE}"):
+                    _append_portfolio_notes(slide, CVM_RETURN_REINVESTMENT_NOTE)
+                    shape.text_frame.text = "Retornos CVM. Reinvestimentos e lacunas: consulte as notas."
+                text_frames.append(shape.text_frame)
+            if shape.has_table:
+                for row in shape.table.rows:
+                    for cell in row.cells:
+                        text_frames.append(cell.text_frame)
+            for text_frame in text_frames:
+                text_frame.margin_top = text_frame.margin_bottom = Inches(0.01)
+                for paragraph in text_frame.paragraphs:
+                    for run in paragraph.runs:
+                        run.font.name = "Calibri"
+                        run.font.size = Pt(size(run.font.size.pt if run.font.size else 11))
+            if not shape.has_chart:
+                continue
+            chart = shape.chart
+            chart.category_axis.has_title = False
+            for axis in (chart.category_axis, chart.value_axis):
+                axis.tick_labels.font.size = Pt(11)
+                axis.tick_labels.font.name = "Calibri"
+            if chart.has_legend:
+                chart.legend.font.size = Pt(11)
+                chart.legend.include_in_layout = False
+                legend = chart._chartSpace.find(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}legend")
+                plot_area = chart._chartSpace.find(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}plotArea")
+                manual_layout(plot_area, x=0.15, y=0.16, width=0.82, height=0.55, plot=True)
+                manual_layout(legend, x=0.02, y=0.87, width=0.96, height=0.11)
+            for props in chart._chartSpace.iter():
+                if props.tag.endswith("}rPr") or props.tag.endswith("}defRPr"):
+                    previous = float(props.get("sz", "1100")) / 100
+                    props.set("sz", str(size(previous) * 100))
+            is_line = "LINE" in str(chart.chart_type)
+            observed = [float(value) for series in chart.series for value in series.values if value is not None]
+            if observed and min(observed) >= 0 and chart.value_axis.minimum_scale is None:
+                chart.value_axis.minimum_scale = 0
+            if observed and max(observed) > 0 and chart.value_axis.maximum_scale is None:
+                if "STACKED" in str(chart.chart_type):
+                    totals = [sum(max(0, float(value)) for value in values if value is not None)
+                              for values in zip(*(series.values for series in chart.series))]
+                    upper = max(totals, default=max(observed))
+                else:
+                    upper = max(observed)
+                if upper > 0 and upper * 1.15 > (chart.value_axis.minimum_scale or 0):
+                    chart.value_axis.maximum_scale = upper * 1.15
+            labeled_points = set()
+            dense_labels = None
+            if compact and is_line and len(chart.series) > 6:
+                # Keep every series; select legible annotations, with the consolidated first.
+                dense_labels = set()
+                endpoints = []
+                value_range = (chart.value_axis.maximum_scale or max(observed, default=1)) - (chart.value_axis.minimum_scale or min(observed, default=0))
+                separation = abs(value_range) * 0.30 / max(shape.height / 914400 * 0.55, 0.5)
+                order = sorted(range(len(chart.series)), key=lambda index: chart.series[index].name != "Consolidado")
+                for index in order:
+                    points = [(position, value) for position, value in enumerate(chart.series[index].values) if value is not None]
+                    if not points:
+                        continue
+                    point = points[-1]
+                    if any(point[0] == earlier[0] and abs(point[1] - earlier[1]) < separation for earlier in endpoints):
+                        continue
+                    dense_labels.add(index)
+                    endpoints.append(point)
+                _append_portfolio_notes(slide, "Rótulos finais próximos: o consolidado tem prioridade. As demais anotações são espaçadas; todas as séries e valores continuam no gráfico e na planilha nativa.")
+            for series_index, series in enumerate(chart.series):
+                valid = [(index, value) for index, value in enumerate(series.values) if value is not None]
+                last = valid[-1][0] if valid else None
+                labels = series._element.find("{http://schemas.openxmlformats.org/drawingml/2006/chart}dLbls")
+                if labels is None:
+                    continue
+                repeated = is_line and last is not None and (last, series.values[last]) in labeled_points
+                for label in list(labels):
+                    if not label.tag.endswith("}dLbl"):
+                        continue
+                    index = label.find("{http://schemas.openxmlformats.org/drawingml/2006/chart}idx")
+                    dense_stack = "STACKED" in str(chart.chart_type) and len(series.values) > 8
+                    if dense_stack or repeated or dense_labels is not None and series_index not in dense_labels or index is None or int(index.get("val")) != last:
+                        labels.remove(label)
+                if last is not None and is_line and not repeated and (dense_labels is None or series_index in dense_labels):
+                    labeled_points.add((last, series.values[last]))
+                    position = series.points[last].data_label
+                    from pptx.enum.chart import XL_DATA_LABEL_POSITION
+                    position.position = XL_DATA_LABEL_POSITION.ABOVE if dense_labels is not None else (
+                        XL_DATA_LABEL_POSITION.ABOVE if series_index % 2 == 0
+                        else XL_DATA_LABEL_POSITION.BELOW
+                    )
+            category_axis = chart._chartSpace.find(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}catAx")
+            if category_axis is not None:
+                skip = category_axis.find("{http://schemas.openxmlformats.org/drawingml/2006/chart}tickLblSkip")
+                if skip is None:
+                    skip = OxmlElement("c:tickLblSkip")
+                    category_axis.insert_element_before(skip, "c:tickMarkSkip", "c:noMultiLvlLbl", "c:extLst")
+                category_count = max((len(series.values) for series in chart.series), default=0)
+                skip.set("val", "2" if category_count > 9 else "1")
+        _append_portfolio_notes(
+            slide,
+            "Rótulos numéricos priorizam o último ponto válido; todos os pontos e séries continuam nos gráficos nativos editáveis. "
+            "Pontos finais idênticos compartilham um rótulo. Barras empilhadas densas priorizam o total destacado; valores dos segmentos permanecem nos dados editáveis. "
+            "Competências extensas podem ter rótulos alternados para preservar a leitura.",
+        )
+
 
 def _build_fund_return_pages(
     outputs: Any,
@@ -1713,6 +2393,42 @@ def _latest_row(frame: pd.DataFrame | None) -> pd.Series | None:
     return df.iloc[-1]
 
 
+def _compact_synthesis_sections(slide, sections, consolidated_monitor, fund_monthly_map, fund_monitor_map):
+    """Refine the existing conclusions; keep the original wording in notes."""
+    generic = {
+        "Sem alerta automático adicional com a base disponível.",
+        "Verificar manualmente eventos regulatórios relevantes antes de uso externo.",
+        "Manter leitura por fundo para identificar concentração de risco.",
+        "Deck gerado com gráficos nativos e editáveis no PowerPoint.",
+        "Data-base, fonte e paginação preservadas automaticamente.",
+        "Indicadores percentuais recalculados a partir das bases consolidadas.",
+    }
+    names = {
+        _raw_fund_name(frame, fallback=cnpj): short_fund_name(_raw_fund_name(frame, fallback=cnpj))
+        for mapping in (fund_monthly_map, fund_monitor_map) for cnpj, frame in mapping.items()
+    }
+    result = {}
+    removed = []
+    delta = _latest_delta(consolidated_monitor, "npl_over90_ex360_pct")
+    for section, bullets in sections.items():
+        visible = []
+        for bullet in bullets:
+            if bullet in generic:
+                removed.append(bullet)
+                continue
+            if delta == 0 and bullet.startswith("Over 90 ex-360 avançou "):
+                bullet = "Over 90 ex-360 estável versus mês anterior (variação zero)."
+            for full_name, short_name in sorted(names.items(), key=lambda item: len(item[0]), reverse=True):
+                if full_name:
+                    bullet = bullet.replace(full_name, short_name)
+            visible.append(bullet)
+        result[section] = visible
+    if removed:
+        _append_portfolio_notes(slide, "Compactação: textos automáticos sem conclusão financeira foram retirados da síntese: " + " | ".join(removed))
+    _append_portfolio_notes(slide, "Síntese original, antes da apresentação compacta:\n" + "\n".join(bullet for bullets in sections.values() for bullet in bullets))
+    return result
+
+
 def _latest_fund_metric(
     fund_map: dict[str, pd.DataFrame],
     column: str,
@@ -1847,7 +2563,7 @@ def _fmt_money(v) -> str:
     scale_div, scale_lbl = _money_scale(pd.Series([v]))
     scaled = v / scale_div
     dec = 0 if abs(scaled) >= 10 else 1
-    unit = scale_lbl.replace("R$ ", "")
+    unit = scale_lbl.removeprefix("R$").strip()
     return f"R$ {_br(scaled, dec)} {unit}".strip()
 
 
