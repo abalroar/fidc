@@ -1,0 +1,902 @@
+{
+  "source_before": "09730513",
+  "source_after": "ca008e8a",
+  "regression": {
+    "tests_passed": 255,
+    "mandatory_suites": [
+      "test_portfolio_page",
+      "test_meli_credit_monitor",
+      "test_pptx_merge",
+      "test_document_comparison_ppt"
+    ],
+    "last_run": "255 passed in 39.07s"
+  },
+  "financial_inputs": {
+    "files_unchanged": 2368,
+    "manifest_sha256": "6f080093ce7c1e544f11091a330ccd9e2f40718e757cb11330505ce03da9300d",
+    "matrix_sha256_before": "b0a23f02290d5bde912edc349d0121eeac42a1eac0f96f812bbb6ea054f46457",
+    "matrix_sha256_after": "b0a23f02290d5bde912edc349d0121eeac42a1eac0f96f812bbb6ea054f46457"
+  },
+  "presentation_rule": "Sem série finita: N/D. Todos os valores finitos exatamente zero: registro compacto, com lacunas separadas. Qualquer valor não zero, pequeno ou negativo: gráfico mantido. Nenhum limiar, tipo de fundo ou PL da última posição decide a compactação.",
+  "assembly": "Uma capa e paginação contínua; capa B repetida retirada e referências da análise acrescentadas. Gráficos, planilhas embutidas e células nativas mantidos na costura.",
+  "risks_and_limits": [
+    "Competência comum e histórico mensal mantêm os perímetros e regras existentes; na Cloudwalk são referências distintas (fevereiro versus agosto de 2026).",
+    "A seleção 12M preserva o mês de ancoragem do produtor, com 13 competências no histórico mensal; a janela efetiva é informada.",
+    "CW Kick Ass II não possui observação mensal utilizável nessa janela. Seu retorno próprio disponível é anterior; não se inferiu encerramento nem se substituiu ausência por zero.",
+    "Supersim não tinha IME local suficiente; Agis (Atlas) usa a carteira existente de um fundo como caso-limite. Carteira de 101 fundos não rodada; 23 séries de retorno e 11 fundos foram cobertos em testes de escala.",
+    "Não foram alterados cálculos, pipelines, caches financeiros, integração, regra de competência ou migração de infraestrutura. Master/layouts e seções nativas completas ficam para outra rodada.",
+    "PDFs renderizados com LibreOffice; a abertura real no Office e os downloads do navegador têm registros separados. Nenhuma validação pública ou publicação é representada por estes arquivos locais.",
+    "Actual PowerPoint and analytical Excel opening blocked. Passing tests/PDF do not validate Office.",
+    "Independent revert of every helper commit not verified; new modules have dependent consumers."
+  ],
+  "portfolios": {
+    "cloudwalk": {
+      "name": "Cloudwalk (Fundos Adquirência 1T26)",
+      "fund_count": 11,
+      "requested_window": "10/2025 a 09/2026",
+      "effective_window": [
+        "08/2025",
+        "08/2026"
+      ],
+      "common_position": "02/2026",
+      "latest_observed": "08/2026",
+      "total_slides": {
+        "before": 122,
+        "after": 80
+      },
+      "blocks": {
+        "A_fundosnet": {
+          "before": 2,
+          "after": 2,
+          "titles_before": [
+            "Cloudwalk (Fundos Adquirência 1T26)",
+            "Estrutura e capital"
+          ],
+          "titles_after": [
+            "Cloudwalk (Fundos Adquirência 1T26)",
+            "Estrutura e capital"
+          ]
+        },
+        "B_mensal": {
+          "before": 73,
+          "after": 46,
+          "titles_before": [
+            "Mercado de FIDCs",
+            "01 —",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "02 —",
+            "CW Kick Ass I — Rentabilidade por série",
+            "CW Kick Ass I — Rentabilidade por série",
+            "CW Kick Ass I",
+            "CW Kick Ass I",
+            "CW Kick Ass I",
+            "03 —",
+            "CW Akira I — Rentabilidade por série",
+            "CW Akira I — Rentabilidade por série",
+            "CW Akira I",
+            "CW Akira I",
+            "CW Akira I",
+            "04 —",
+            "CW Kick Ass II — Rentabilidade por série",
+            "CW Kick Ass II — Rentabilidade por série",
+            "CW Kick Ass II",
+            "CW Kick Ass II",
+            "CW Kick Ass II",
+            "05 —",
+            "CW Akira II — Rentabilidade por série",
+            "CW Akira II — Rentabilidade por série",
+            "CW Akira II",
+            "CW Akira II",
+            "CW Akira II",
+            "06 —",
+            "CW Big Pic. I — Rentabilidade por série",
+            "CW Big Pic. I — Rentabilidade por série",
+            "CW Big Pic. I",
+            "CW Big Pic. I",
+            "CW Big Pic. I",
+            "07 —",
+            "CW Big Pic. II — Rentabilidade por série",
+            "CW Big Pic. II — Rentabilidade por série",
+            "CW Big Pic. II",
+            "CW Big Pic. II",
+            "CW Big Pic. II",
+            "08 —",
+            "CW Big Pic. III — Rentabilidade por série",
+            "CW Big Pic. III — Rentabilidade por série",
+            "CW Big Pic. III",
+            "CW Big Pic. III",
+            "CW Big Pic. III",
+            "09 —",
+            "CW Big Pic. IV — Rentabilidade por série",
+            "CW Big Pic. IV — Rentabilidade por série",
+            "CW Big Pic. IV",
+            "CW Big Pic. IV",
+            "CW Big Pic. IV",
+            "10 —",
+            "CW A.I. — Rentabilidade por série",
+            "CW A.I. — Rentabilidade por série",
+            "CW A.I.",
+            "CW A.I.",
+            "CW A.I.",
+            "11 —",
+            "CW PI — Rentabilidade por série",
+            "CW PI — Rentabilidade por série",
+            "CW PI",
+            "CW PI",
+            "CW PI",
+            "12 —",
+            "CW Bela — Rentabilidade por série",
+            "CW Bela — Rentabilidade por série",
+            "CW Bela",
+            "CW Bela",
+            "CW Bela",
+            "Síntese — Pontos de atenção e destaques"
+          ],
+          "titles_after": [
+            "Cloudwalk (Fundos Adquirência 1T26)",
+            "Carteira — Consolidado — Estrutura",
+            "Carteira — Consolidado — Crédito",
+            "Carteira — Consolidado — Duration e cohorts",
+            "CW Kick Ass I — Rentabilidade por série",
+            "CW Kick Ass I — Estrutura",
+            "CW Kick Ass I — Crédito",
+            "CW Kick Ass I — Duration e cohorts",
+            "CW Akira I — Rentabilidade por série",
+            "CW Akira I — Estrutura",
+            "CW Akira I — Crédito",
+            "CW Akira I — Duration e cohorts",
+            "CW Kick Ass II — Rentabilidade por série",
+            "CW Akira II — Rentabilidade por série",
+            "CW Akira II — Estrutura",
+            "CW Akira II — Crédito",
+            "CW Akira II — Duration e cohorts",
+            "CW Big Pic. I — Rentabilidade por série",
+            "CW Big Pic. I — Estrutura",
+            "CW Big Pic. I — Crédito",
+            "CW Big Pic. I — Duration e cohorts",
+            "CW Big Pic. II — Rentabilidade por série",
+            "CW Big Pic. II — Estrutura",
+            "CW Big Pic. II — Crédito",
+            "CW Big Pic. II — Duration e cohorts",
+            "CW Big Pic. III — Rentabilidade por série",
+            "CW Big Pic. III — Estrutura",
+            "CW Big Pic. III — Crédito",
+            "CW Big Pic. III — Duration e cohorts",
+            "CW Big Pic. IV — Rentabilidade por série",
+            "CW Big Pic. IV — Estrutura",
+            "CW Big Pic. IV — Crédito",
+            "CW Big Pic. IV — Duration e cohorts",
+            "CW A.I. — Rentabilidade por série",
+            "CW A.I. — Estrutura",
+            "CW A.I. — Crédito",
+            "CW A.I. — Duration e cohorts",
+            "CW PI — Rentabilidade por série",
+            "CW PI — Estrutura",
+            "CW PI — Crédito",
+            "CW PI — Duration e cohorts",
+            "CW Bela — Rentabilidade por série",
+            "CW Bela — Estrutura",
+            "CW Bela — Crédito",
+            "CW Bela — Duration e cohorts",
+            "Síntese — Pontos de atenção e destaques"
+          ]
+        },
+        "C_estrutura": {
+          "before": 12,
+          "after": 11,
+          "titles_before": [
+            "Cloudwalk (Fundos Adquirência 1T26) | RDB Parati nos regulamentos",
+            "CLOUDWALK KICK ASS I SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK AKIRA I SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK KICK ASS II SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK AKIRA II FIDC SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK BIG PICTURE I SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK BIG PICTURE II SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK BIG PICTURE III SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK BIG PICTURE IV SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK A.I. SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK PI SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões",
+            "CLOUDWALK BELA SEGMENTO MEIOS DE PAGAMENTO | estrutura e emissões"
+          ],
+          "titles_after": [
+            "CW Kick Ass I | estrutura e emissões",
+            "CW Akira I | estrutura e emissões",
+            "CW Kick Ass II | estrutura e emissões",
+            "CW Akira II | estrutura e emissões",
+            "CW Big Pic. I | estrutura e emissões",
+            "CW Big Pic. II | estrutura e emissões",
+            "CW Big Pic. III | estrutura e emissões",
+            "CW Big Pic. IV | estrutura e emissões",
+            "CW A.I. | estrutura e emissões",
+            "CW PI | estrutura e emissões",
+            "CW Bela | estrutura e emissões"
+          ]
+        },
+        "D_documental": {
+          "before": 35,
+          "after": 21,
+          "titles_before": [
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Recebíveis e elegibilidade",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Subordinação, gatilhos e proteção",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Alocação e mecânica contratual",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Alocação e mecânica contratual",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Alocação e mecânica contratual",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Alocação e mecânica contratual",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Alocação e mecânica contratual",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Emissões e remuneração",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Amortização e calendário de pagamentos",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Amortização e calendário de pagamentos",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Amortização e calendário de pagamentos",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Custos estruturais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Custos estruturais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Custos estruturais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais",
+            "Curadoria Cloudwalk (Fundos Adquirência 1T26) – Monitoramento IME e controles documentais"
+          ],
+          "titles_after": [
+            "Recebíveis e elegibilidade",
+            "Recebíveis e elegibilidade",
+            "Recebíveis e elegibilidade",
+            "Subordinação, gatilhos e proteção",
+            "Subordinação, gatilhos e proteção",
+            "Subordinação, gatilhos e proteção",
+            "Subordinação, gatilhos e proteção",
+            "Subordinação, gatilhos e proteção",
+            "Alocação e mecânica contratual",
+            "Emissões e remuneração",
+            "Emissões e remuneração",
+            "Emissões e remuneração",
+            "Emissões e remuneração",
+            "Emissões e remuneração",
+            "Emissões e remuneração",
+            "Amortização e calendário de pagamentos",
+            "Amortização e calendário de pagamentos",
+            "Custos estruturais",
+            "Custos estruturais",
+            "Monitoramento IME e controles documentais",
+            "Monitoramento IME e controles documentais"
+          ]
+        }
+      },
+      "titles_final": [
+        "Cloudwalk (Fundos Adquirência 1T26)",
+        "Estrutura e capital",
+        "Carteira — Consolidado — Estrutura",
+        "Carteira — Consolidado — Crédito",
+        "Carteira — Consolidado — Duration e cohorts",
+        "CW Kick Ass I — Rentabilidade por série",
+        "CW Kick Ass I — Estrutura",
+        "CW Kick Ass I — Crédito",
+        "CW Kick Ass I — Duration e cohorts",
+        "CW Akira I — Rentabilidade por série",
+        "CW Akira I — Estrutura",
+        "CW Akira I — Crédito",
+        "CW Akira I — Duration e cohorts",
+        "CW Kick Ass II — Rentabilidade por série",
+        "CW Akira II — Rentabilidade por série",
+        "CW Akira II — Estrutura",
+        "CW Akira II — Crédito",
+        "CW Akira II — Duration e cohorts",
+        "CW Big Pic. I — Rentabilidade por série",
+        "CW Big Pic. I — Estrutura",
+        "CW Big Pic. I — Crédito",
+        "CW Big Pic. I — Duration e cohorts",
+        "CW Big Pic. II — Rentabilidade por série",
+        "CW Big Pic. II — Estrutura",
+        "CW Big Pic. II — Crédito",
+        "CW Big Pic. II — Duration e cohorts",
+        "CW Big Pic. III — Rentabilidade por série",
+        "CW Big Pic. III — Estrutura",
+        "CW Big Pic. III — Crédito",
+        "CW Big Pic. III — Duration e cohorts",
+        "CW Big Pic. IV — Rentabilidade por série",
+        "CW Big Pic. IV — Estrutura",
+        "CW Big Pic. IV — Crédito",
+        "CW Big Pic. IV — Duration e cohorts",
+        "CW A.I. — Rentabilidade por série",
+        "CW A.I. — Estrutura",
+        "CW A.I. — Crédito",
+        "CW A.I. — Duration e cohorts",
+        "CW PI — Rentabilidade por série",
+        "CW PI — Estrutura",
+        "CW PI — Crédito",
+        "CW PI — Duration e cohorts",
+        "CW Bela — Rentabilidade por série",
+        "CW Bela — Estrutura",
+        "CW Bela — Crédito",
+        "CW Bela — Duration e cohorts",
+        "Síntese — Pontos de atenção e destaques",
+        "CW Kick Ass I | estrutura e emissões",
+        "CW Akira I | estrutura e emissões",
+        "CW Kick Ass II | estrutura e emissões",
+        "CW Akira II | estrutura e emissões",
+        "CW Big Pic. I | estrutura e emissões",
+        "CW Big Pic. II | estrutura e emissões",
+        "CW Big Pic. III | estrutura e emissões",
+        "CW Big Pic. IV | estrutura e emissões",
+        "CW A.I. | estrutura e emissões",
+        "CW PI | estrutura e emissões",
+        "CW Bela | estrutura e emissões",
+        "Recebíveis e elegibilidade",
+        "Recebíveis e elegibilidade",
+        "Recebíveis e elegibilidade",
+        "Subordinação, gatilhos e proteção",
+        "Subordinação, gatilhos e proteção",
+        "Subordinação, gatilhos e proteção",
+        "Subordinação, gatilhos e proteção",
+        "Subordinação, gatilhos e proteção",
+        "Alocação e mecânica contratual",
+        "Emissões e remuneração",
+        "Emissões e remuneração",
+        "Emissões e remuneração",
+        "Emissões e remuneração",
+        "Emissões e remuneração",
+        "Emissões e remuneração",
+        "Amortização e calendário de pagamentos",
+        "Amortização e calendário de pagamentos",
+        "Custos estruturais",
+        "Custos estruturais",
+        "Monitoramento IME e controles documentais",
+        "Monitoramento IME e controles documentais",
+        "Referências da análise"
+      ],
+      "financial_sha256_before": "4d358deba9be3154e69ddb80742d5d1f2b37f05f9c83ee9298024e2be7fa4d8f",
+      "financial_sha256_after": "4d358deba9be3154e69ddb80742d5d1f2b37f05f9c83ee9298024e2be7fa4d8f",
+      "representative_values_before_and_after": {
+        "pl_common_position_brl": 12654615584.179998,
+        "npl_over90_latest_month_brl": 0.0,
+        "pdd_latest_month_brl": 7341.46
+      },
+      "original_nonzero_native_charts": [
+        {
+          "block": "A_fundosnet",
+          "original_nonzero_charts": 2,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "B_mensal",
+          "original_nonzero_charts": 53,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "C_estrutura",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "D_documental",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        }
+      ],
+      "native_charts_after": 60,
+      "native_tables_after": 80,
+      "all_cnpjs_retained": true,
+      "financial_frames_unchanged": true,
+      "native_chart_data_unchanged_by_finalizer": true,
+      "native_table_cells_unchanged_by_finalizer": true,
+      "pdf_pages": {
+        "A_fundosnet": 2,
+        "B_mensal": 46,
+        "C_estrutura": 11,
+        "D_documental": 21
+      },
+      "final_pdf_pages": 80,
+      "reorganization_and_omissions": [
+        "B: 12 divisores integrados aos títulos; 11 pares de tabelas de retorno reunidos, mantendo todas as células.",
+        "B: sazonalidade sem série finita registrada no quadro de duration; três quadros mensais vazios de CW Kick Ass II reunidos na tabela N/D junto ao retorno.",
+        "B: componentes exatamente zero registrados nas notas; zeros com lacunas também aparecem em tabelas nativas. Cinco gráficos mantêm o PDD pequeno positivo.",
+        "C: síntese de RDB não localizado em 11/11 fundos incorporada ao primeiro quadro, com ressalva e evidências completas nas notas.",
+        "D: colunas de curadoria idênticas agrupadas; textos, limites documentais e referências mantidos nas notas."
+      ],
+      "export_warnings": [],
+      "real_downloads": {
+        "financial_values_match": true,
+        "metadata_complete_in_all_files": false,
+        "rdb_matches_selection": false,
+        "files": {
+          "resumo.xlsx": {
+            "values_match": true,
+            "selection_metadata": null,
+            "numeric_counts": {
+              "missing_cells": 26,
+              "numeric_cells": 182,
+              "zero_cells": 64,
+              "percent_numeric_cells": 39
+            },
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 0
+          },
+          "base.xlsx": {
+            "values_match": true,
+            "selection_metadata": null,
+            "numeric_counts": {
+              "missing_cells": 3685,
+              "numeric_cells": 8387,
+              "zero_cells": 5287,
+              "percent_numeric_cells": 2635
+            },
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 0
+          },
+          "base.zip": {
+            "values_match": true,
+            "selection_metadata": null,
+            "numeric_counts": null,
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 0
+          },
+          "estrutura.xlsx": {
+            "values_match": true,
+            "selection_metadata": null,
+            "numeric_counts": {
+              "missing_cells": 5,
+              "numeric_cells": 66,
+              "zero_cells": 1,
+              "percent_numeric_cells": 0
+            },
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 6
+          }
+        }
+      }
+    },
+    "meli_credito": {
+      "name": "MELI (FIDCs Mercado Crédito 0, I e II)",
+      "fund_count": 3,
+      "requested_window": "10/2025 a 09/2026",
+      "effective_window": [
+        "08/2025",
+        "08/2026"
+      ],
+      "common_position": "08/2026",
+      "latest_observed": "08/2026",
+      "total_slides": {
+        "before": 41,
+        "after": 33
+      },
+      "blocks": {
+        "A_fundosnet": {
+          "before": 4,
+          "after": 4,
+          "titles_before": [
+            "MELI (FIDCs Mercado Crédito 0, I e II)",
+            "Estrutura e capital",
+            "Crédito e cobertura",
+            "Deterioração acumulada"
+          ],
+          "titles_after": [
+            "MELI (FIDCs Mercado Crédito 0, I e II)",
+            "Estrutura e capital",
+            "Crédito e cobertura",
+            "Deterioração acumulada"
+          ]
+        },
+        "B_mensal": {
+          "before": 25,
+          "after": 18,
+          "titles_before": [
+            "Mercado de FIDCs",
+            "01 —",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "02 —",
+            "Mercado Crédito FIDC — Rentabilidade por série",
+            "Mercado Crédito FIDC — Rentabilidade por série",
+            "Mercado Crédito FIDC",
+            "Mercado Crédito FIDC",
+            "Mercado Crédito FIDC",
+            "03 —",
+            "Mercado Crédito I Brasil FIDC — Rentabilidade por série",
+            "Mercado Crédito I Brasil FIDC — Rentabilidade por série",
+            "Mercado Crédito I Brasil FIDC",
+            "Mercado Crédito I Brasil FIDC",
+            "Mercado Crédito I Brasil FIDC",
+            "04 —",
+            "Mercado Crédito II Brasil FIDC — Rentabilidade por série",
+            "Mercado Crédito II Brasil FIDC — Rentabilidade por série",
+            "Mercado Crédito II Brasil FIDC",
+            "Mercado Crédito II Brasil FIDC",
+            "Mercado Crédito II Brasil FIDC",
+            "Síntese — Pontos de atenção e destaques"
+          ],
+          "titles_after": [
+            "MELI (FIDCs Mercado Crédito 0, I e II)",
+            "Carteira — Consolidado — Estrutura",
+            "Carteira — Consolidado — Crédito",
+            "Carteira — Consolidado — Duration e cohorts",
+            "Carteira — Consolidado — Sazonalidade",
+            "MC 0 — Rentabilidade por série",
+            "MC 0 — Estrutura",
+            "MC 0 — Crédito",
+            "MC 0 — Duration e cohorts",
+            "MC I — Rentabilidade por série",
+            "MC I — Estrutura",
+            "MC I — Crédito",
+            "MC I — Duration e cohorts",
+            "MC II — Rentabilidade por série",
+            "MC II — Estrutura",
+            "MC II — Crédito",
+            "MC II — Duration e cohorts",
+            "Síntese — Pontos de atenção e destaques"
+          ]
+        },
+        "C_estrutura": {
+          "before": 5,
+          "after": 4,
+          "titles_before": [
+            "MELI (FIDCs Mercado Crédito 0, I e II) | RDB Parati nos regulamentos",
+            "MERCADO CRÉDITO | estrutura e emissões",
+            "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE | estrutura e emissões",
+            "MERCADO CRÉDITO II BRASIL DE | estrutura e emissões (1/2)",
+            "MERCADO CRÉDITO II BRASIL DE | estrutura e emissões (2/2)"
+          ],
+          "titles_after": [
+            "MC 0 | estrutura e emissões",
+            "MC I | estrutura e emissões",
+            "MC II | estrutura e emissões (1/2)",
+            "MC II | estrutura e emissões (2/2)"
+          ]
+        },
+        "D_documental": {
+          "before": 7,
+          "after": 7,
+          "titles_before": [
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Recebíveis e elegibilidade",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Subordinação, gatilhos e proteção",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Alocação e mecânica contratual",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Emissões e remuneração",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Amortização e calendário de pagamentos",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Custos estruturais",
+            "Curadoria MELI (FIDCs Mercado Crédito 0, I e II) – Monitoramento IME e controles documentais"
+          ],
+          "titles_after": [
+            "Recebíveis e elegibilidade",
+            "Subordinação, gatilhos e proteção",
+            "Alocação e mecânica contratual",
+            "Emissões e remuneração",
+            "Amortização e calendário de pagamentos",
+            "Custos estruturais",
+            "Monitoramento IME e controles documentais"
+          ]
+        }
+      },
+      "titles_final": [
+        "MELI (FIDCs Mercado Crédito 0, I e II)",
+        "Estrutura e capital",
+        "Crédito e cobertura",
+        "Deterioração acumulada",
+        "Carteira — Consolidado — Estrutura",
+        "Carteira — Consolidado — Crédito",
+        "Carteira — Consolidado — Duration e cohorts",
+        "Carteira — Consolidado — Sazonalidade",
+        "MC 0 — Rentabilidade por série",
+        "MC 0 — Estrutura",
+        "MC 0 — Crédito",
+        "MC 0 — Duration e cohorts",
+        "MC I — Rentabilidade por série",
+        "MC I — Estrutura",
+        "MC I — Crédito",
+        "MC I — Duration e cohorts",
+        "MC II — Rentabilidade por série",
+        "MC II — Estrutura",
+        "MC II — Crédito",
+        "MC II — Duration e cohorts",
+        "Síntese — Pontos de atenção e destaques",
+        "MC 0 | estrutura e emissões",
+        "MC I | estrutura e emissões",
+        "MC II | estrutura e emissões (1/2)",
+        "MC II | estrutura e emissões (2/2)",
+        "Recebíveis e elegibilidade",
+        "Subordinação, gatilhos e proteção",
+        "Alocação e mecânica contratual",
+        "Emissões e remuneração",
+        "Amortização e calendário de pagamentos",
+        "Custos estruturais",
+        "Monitoramento IME e controles documentais",
+        "Referências da análise"
+      ],
+      "financial_sha256_before": "cb35de66132fab9d5855e63143866357e5e6c9a9c069249d5451fd8d562152bf",
+      "financial_sha256_after": "cb35de66132fab9d5855e63143866357e5e6c9a9c069249d5451fd8d562152bf",
+      "representative_values_before_and_after": {
+        "pl_common_position_brl": 5900098355.190001,
+        "npl_over90_latest_month_brl": 583718000.62,
+        "pdd_latest_month_brl": 2307254677.63
+      },
+      "original_nonzero_native_charts": [
+        {
+          "block": "A_fundosnet",
+          "original_nonzero_charts": 6,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "B_mensal",
+          "original_nonzero_charts": 44,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "C_estrutura",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "D_documental",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        }
+      ],
+      "native_charts_after": 50,
+      "native_tables_after": 25,
+      "all_cnpjs_retained": true,
+      "financial_frames_unchanged": true,
+      "native_chart_data_unchanged_by_finalizer": true,
+      "native_table_cells_unchanged_by_finalizer": true,
+      "pdf_pages": {
+        "A_fundosnet": 4,
+        "B_mensal": 18,
+        "C_estrutura": 4,
+        "D_documental": 7
+      },
+      "final_pdf_pages": 33,
+      "reorganization_and_omissions": [
+        "B: quatro divisores integrados aos títulos e três pares de retorno reunidos; gráficos com NPL real preservados.",
+        "C: quadro de RDB sem evidência localizado na nota da cesta; nenhuma informação de crédito foi retirada."
+      ],
+      "export_warnings": [],
+      "real_downloads": {
+        "status": "Pending browser-download records for final source."
+      }
+    },
+    "agis_atlas": {
+      "name": "Agis (Atlas)",
+      "fund_count": 1,
+      "requested_window": "07/2025 a 06/2026",
+      "effective_window": [
+        "06/2025",
+        "06/2026"
+      ],
+      "common_position": "06/2026",
+      "latest_observed": "06/2026",
+      "total_slides": {
+        "before": 26,
+        "after": 22
+      },
+      "blocks": {
+        "A_fundosnet": {
+          "before": 4,
+          "after": 4,
+          "titles_before": [
+            "Agis (Atlas)",
+            "Estrutura e capital",
+            "Crédito e cobertura",
+            "Deterioração acumulada"
+          ],
+          "titles_after": [
+            "Agis (Atlas)",
+            "Estrutura e capital",
+            "Crédito e cobertura",
+            "Deterioração acumulada"
+          ]
+        },
+        "B_mensal": {
+          "before": 13,
+          "after": 10,
+          "titles_before": [
+            "Mercado de FIDCs",
+            "01 —",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "Soma de FIDCs — Consolidado",
+            "02 —",
+            "ÁGIS - NÃO PADRONIZADOS — Rentabilidade por série",
+            "ÁGIS - NÃO PADRONIZADOS — Rentabilidade por série",
+            "ÁGIS - NÃO PADRONIZADOS",
+            "ÁGIS - NÃO PADRONIZADOS",
+            "ÁGIS - NÃO PADRONIZADOS",
+            "Síntese — Pontos de atenção e destaques"
+          ],
+          "titles_after": [
+            "Agis (Atlas)",
+            "Carteira — Consolidado — Estrutura",
+            "Carteira — Consolidado — Crédito",
+            "Carteira — Consolidado — Duration e cohorts",
+            "Carteira — Consolidado — Sazonalidade",
+            "ÁGIS - NÃO PADRONIZADOS — Rentabilidade por série",
+            "ÁGIS - NÃO PADRONIZADOS — Estrutura",
+            "ÁGIS - NÃO PADRONIZADOS — Crédito",
+            "ÁGIS - NÃO PADRONIZADOS — Duration e cohorts",
+            "Síntese — Pontos de atenção e destaques"
+          ]
+        },
+        "C_estrutura": {
+          "before": 2,
+          "after": 1,
+          "titles_before": [
+            "Agis (Atlas) | RDB Parati nos regulamentos",
+            "ÁGIS - NÃO PADRONIZADOS | estrutura e emissões"
+          ],
+          "titles_after": [
+            "ÁGIS - NÃO PADRONIZADOS | estrutura e emissões"
+          ]
+        },
+        "D_documental": {
+          "before": 7,
+          "after": 7,
+          "titles_before": [
+            "Curadoria Agis (Atlas) – Recebíveis e elegibilidade",
+            "Curadoria Agis (Atlas) – Subordinação, gatilhos e proteção",
+            "Curadoria Agis (Atlas) – Alocação e mecânica contratual",
+            "Curadoria Agis (Atlas) – Emissões e remuneração",
+            "Curadoria Agis (Atlas) – Amortização e calendário de pagamentos",
+            "Curadoria Agis (Atlas) – Custos estruturais",
+            "Curadoria Agis (Atlas) – Monitoramento IME e controles documentais"
+          ],
+          "titles_after": [
+            "Recebíveis e elegibilidade",
+            "Subordinação, gatilhos e proteção",
+            "Alocação e mecânica contratual",
+            "Emissões e remuneração",
+            "Amortização e calendário de pagamentos",
+            "Custos estruturais",
+            "Monitoramento IME e controles documentais"
+          ]
+        }
+      },
+      "titles_final": [
+        "Agis (Atlas)",
+        "Estrutura e capital",
+        "Crédito e cobertura",
+        "Deterioração acumulada",
+        "Carteira — Consolidado — Estrutura",
+        "Carteira — Consolidado — Crédito",
+        "Carteira — Consolidado — Duration e cohorts",
+        "Carteira — Consolidado — Sazonalidade",
+        "ÁGIS - NÃO PADRONIZADOS — Rentabilidade por série",
+        "ÁGIS - NÃO PADRONIZADOS — Estrutura",
+        "ÁGIS - NÃO PADRONIZADOS — Crédito",
+        "ÁGIS - NÃO PADRONIZADOS — Duration e cohorts",
+        "Síntese — Pontos de atenção e destaques",
+        "ÁGIS - NÃO PADRONIZADOS | estrutura e emissões",
+        "Recebíveis e elegibilidade",
+        "Subordinação, gatilhos e proteção",
+        "Alocação e mecânica contratual",
+        "Emissões e remuneração",
+        "Amortização e calendário de pagamentos",
+        "Custos estruturais",
+        "Monitoramento IME e controles documentais",
+        "Referências da análise"
+      ],
+      "financial_sha256_before": "adbcf2a02a71a81b4c9699f189d704269add40e945ed968e900c64efa5ee799f",
+      "financial_sha256_after": "adbcf2a02a71a81b4c9699f189d704269add40e945ed968e900c64efa5ee799f",
+      "representative_values_before_and_after": {
+        "pl_common_position_brl": 485279694.2,
+        "npl_over90_latest_month_brl": 37851091.67,
+        "pdd_latest_month_brl": 104344929.71
+      },
+      "original_nonzero_native_charts": [
+        {
+          "block": "A_fundosnet",
+          "original_nonzero_charts": 6,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "B_mensal",
+          "original_nonzero_charts": 24,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "C_estrutura",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        },
+        {
+          "block": "D_documental",
+          "original_nonzero_charts": 0,
+          "all_native_values_and_categories_retained": true
+        }
+      ],
+      "native_charts_after": 30,
+      "native_tables_after": 14,
+      "all_cnpjs_retained": true,
+      "financial_frames_unchanged": true,
+      "native_chart_data_unchanged_by_finalizer": true,
+      "native_table_cells_unchanged_by_finalizer": true,
+      "pdf_pages": {
+        "A_fundosnet": 4,
+        "B_mensal": 10,
+        "C_estrutura": 1,
+        "D_documental": 7
+      },
+      "final_pdf_pages": 22,
+      "reorganization_and_omissions": [
+        "B: dois divisores integrados aos títulos e um par de retorno reunido; gráficos com NPL real preservados.",
+        "C: quadro de RDB sem evidência localizado na nota da cesta; nenhuma informação de crédito foi retirada."
+      ],
+      "export_warnings": [],
+      "real_downloads": {
+        "status": "Pending browser-download records for final source."
+      }
+    }
+  },
+  "office_validation": {
+    "status": "blocked",
+    "source_frozen": "ca008e8a",
+    "rule": "Regra 9 do pedido: parar e documentar quando o PowerPoint pede reparo.",
+    "cloudwalk": {
+      "original_attached_122": "opened_without_repair",
+      "A_2": "opened_without_repair",
+      "B_46": "opened_without_repair",
+      "C_11": "opened_without_repair",
+      "D_21": "opened_without_repair",
+      "merged_before_finalizer_80": "PowerPoint_requested_repair_cancelled",
+      "download_final_80": "PowerPoint_requested_repair_cancelled",
+      "download_analytical_xlsx": "Excel_requested_recovery_not_accepted_cancel_attempt_post_state_unconfirmed",
+      "native_ppt_sha256": "eb078ffebf6f2a3fba2a777f6b546d86caf9edc59b810b6e9699f7defa47fdf5",
+      "native_xlsx_sha256": "8e1ca18c23286365c7cebca36988049f5d63be27109b47905c18ec8ac04c94f1"
+    },
+    "ppt_observed_defect": "Four identical Notes Masters, with only three entries in the presentation list; the standard allows at most one. First failing native stage is the merger.",
+    "ppt_cause_status": "Strong candidate, corrective experiment not authorized or performed.",
+    "xlsx_cause_status": "Pending read-only diagnosis and native isolation.",
+    "no_repaired_files": true,
+    "meli_agis_final_downloads_office": "pending_after_rule_9_stop",
+    "pdf_rendering": "15 PDFs, four blocks and final deck per case, rendered by LibreOffice; auxiliary proof."
+  },
+  "actual_download_validation": {
+    "cloudwalk": {
+      "files": [
+        "resumo.xlsx",
+        "base.xlsx",
+        "base.zip",
+        "estrutura.xlsx",
+        "carteira-final.pptx"
+      ],
+      "selection": "all 11 exact selected CNPJs",
+      "xlsx_csv_financial_values": "match frozen references without rounding delta",
+      "rdb": "11 selected funds, absence explicit, no foreign fund",
+      "context": "present in all four data exports",
+      "ppt_native_charts": 60,
+      "benchmark_difference": "In eight return tables, CDI is now available where the offline reference had N/D. Fund quota returns are unchanged."
+    },
+    "meli_agis": "final browser downloads pending after stop"
+  },
+  "responsive_page_validation": {
+    "case": "Cloudwalk",
+    "widths": [
+      1280,
+      760,
+      390
+    ],
+    "mobile_page_scroll_width": 390,
+    "help": [
+      "click",
+      "Enter"
+    ],
+    "physical_device_touch_gesture": "not tested",
+    "portfolio_101": "AppTest, exact 101 CNPJs and 102 scope options; financial export not generated"
+  }
+}
