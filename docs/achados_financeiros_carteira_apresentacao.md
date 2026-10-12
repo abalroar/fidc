@@ -18,7 +18,7 @@ Registro da revisão de Carteira e dos seus arquivos. Cálculos, cobertura e reg
 
 **Impacto:** a aba RDB pode incluir fundos de outras carteiras. Seus registros não comprovam a existência de RDB nos fundos selecionados e precisam ser interpretados pelo CNPJ de cada linha.
 
-**Tratamento nesta rodada:** correção opt-in `portfolio_mode=True`, exclusiva do fluxo da carteira. A aba RDB conserva todos os registros documentais dos CNPJs exatos selecionados, com seus campos originais, e inclui uma linha explícita de “Não localizado” e N/D por fundo sem registro no cadastro consultado. A Metodologia registra os CNPJs alheios excluídos e as lacunas. Snapshot, Emissões, Validações, o produtor financeiro e o comportamento padrão dos outros consumidores permanecem iguais.
+**Tratamento nesta rodada:** correção opt-in `portfolio_mode=True`, exclusiva do fluxo da carteira. A aba RDB conserva todos os registros documentais dos CNPJs exatos selecionados, com seus campos originais, e inclui uma linha explícita de “Não localizado” e N/D por fundo sem registro no cadastro consultado. A Metodologia registra os CNPJs alheios excluídos e as lacunas. Os valores de Snapshot, Emissões e Validações, o produtor financeiro e o perímetro RDB padrão dos outros consumidores permanecem iguais. A correção comum do filtro Excel sobreposto é documentada separadamente como compatibilidade Office.
 
 **Limite e decisão futura:** ausência no cadastro documental consultado não comprova inexistência de RDB. Ampliar a curadoria exige leitura dos documentos dos CNPJs sem registro. Uma eventual aplicação do recorte a outros consumidores deve ser autorizada e validada separadamente.
 
@@ -54,8 +54,14 @@ Registro da revisão de Carteira e dos seus arquivos. Cálculos, cobertura e reg
 
 ## 6. Benchmark adicional no download real
 
-**Evidência:** o replay financeiro congelado tinha CDI N/D em oito tabelas comparativas. O download real obteve CDI de 14,63% para set/25–ago/26 e 9,32% para jan–ago/26 nas janelas gerais, além de 7,00% na janela própria da Bela Série 2. Os retornos das cotas e os 60 gráficos nativos permaneceram iguais; spreads e diferenças derivados passaram a ter valores porque o benchmark ficou disponível.
+**Evidência:** o replay financeiro congelado tinha CDI N/D em oito tabelas Cloudwalk e três MELI. Os downloads reais obtiveram CDI de 14,63% para set/25–ago/26 e 9,32% para jan–ago/26 nas janelas gerais, com janelas próprias por série (incluindo 7,00% na Bela Série 2). Agis não apresentou esse delta. Os retornos das cotas e os gráficos nativos permaneceram iguais; spreads e diferenças derivados passaram a ter valores porque o benchmark ficou disponível. A matriz registra as células afetadas por carteira e série.
 
 **Tratamento nesta rodada:** não alterar o resolver, sua cache ou a fórmula de comparação. A diferença de insumo externo está registrada separadamente da invariância do replay congelado. O arquivo não permite identificar com segurança a origem e a data de consulta de cada taxa CDI; não foi atribuída uma fonte individual por suposição.
 
 **Decisão futura:** ampliar a rastreabilidade do benchmark por série/janela, registrando a fonte efetivamente usada e sua consulta, com testes do contrato financeiro. Essa ampliação exige escopo próprio de dados e fica fora desta rodada de apresentação.
+
+## 7. Over 90d bruto e ex-360 representam visões distintas
+
+**Evidência:** em `consolidated_monthly`, Agis em jun/26 tem Over 90d bruto de R$ 37.906.949,58 e saldo >360 de R$ 55.857,91; a visão ex-360 existente resulta em R$ 37.851.091,67. MELI em ago/26 tem R$ 585.560.777,63 bruto, R$ 1.842.777,01 >360 e R$ 583.718.000,62 ex-360.
+
+**Tratamento nesta rodada:** valores e regra preservados; a evidência de validação identifica o campo bruto e a simulação ex-360. A diferença não comprova baixa econômica efetiva. Qualquer revisão do indicador ou de sua interpretação exige decisão financeira separada.

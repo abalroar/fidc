@@ -1,8 +1,10 @@
-# Diagnóstico de abertura no PowerPoint — somente leitura
+# Diagnóstico de abertura no PowerPoint — histórico e resolução
 
-O download `carteira-final.pptx` (80 slides) pediu reparo no PowerPoint. O reparo foi cancelado. O código está congelado em `ca008e8a`; nenhuma correção, reparo pelo Office ou nova versão de apresentação foi produzida nesta investigação.
+**Resolução atual:** `a5b2e8fb` corrige a concatenação para um único master de notas compatível. Após autorização para retomar, os downloads reais Cloudwalk/MELI/Agis abriram no PowerPoint sem reparo, com 80/33/22 slides. Notas, gráficos, planilhas internas, tabelas e fontes foram preservados. [Validação final e reversão](diagnostico_compatibilidade_office_carteira.md).
 
-## Conclusão principal
+O restante deste documento registra a investigação inicial em `ca008e8a`. Naquele estado, o download `carteira-final.pptx` (80 slides) pediu reparo; o alerta foi cancelado e a implementação parou pela regra 9. As hipóteses e apontadores de código abaixo se referem à versão anterior à correção, sem reparação de arquivos pelo Office.
+
+## Conclusão da investigação inicial
 
 O pacote contém **quatro Notes Masters**. O padrão PresentationML admite no máximo **um** por apresentação. Essa incompatibilidade já aparece no deck obtido pela concatenação dos quatro blocos, antes do finalizer, e permanece no arquivo baixado. Os quatro blocos isolados **abriram sem reparo** no PowerPoint; a concatenação desses mesmos blocos **pediu reparo**, com cancelamento sem reparar. Portanto, a origem foi restringida ao **merger**, e a duplicação de Notes Masters é o mecanismo mais provável. A confirmação de toda a cadeia causal exige uma futura correção aprovada, seguida de abertura sem reparo.
 
@@ -49,7 +51,7 @@ As probabilidades são classificações qualitativas, não estimativas estatíst
 - `services/portfolio_ppt_presentation.py::_restore_native_parts`, linhas 169–186, repõe os masters de notas originais junto aos demais parts protegidos. Uma normalização futura não pode ser desfeita por essa restauração.
 - `tests/test_portfolio_ppt_document.py::test_finalization_reuses_existing_notes_master_after_merging_documentary_decks`, linha 169, verifica reabertura e preservação byte a byte de vários masters, sem impor o contrato de um único master. A correção desse teste deve ser assumida como mudança intencional de um bug de embalagem.
 
-## Proposta conservadora para decisão
+## Proposta da investigação inicial, posteriormente implementada
 
 Os quatro Notes Masters atuais têm o **mesmo hash de XML** (`970fd6eed1e6c9ce4ccf270a6ed26e381f852de88d22d5eff8cf75f383b85311`). Os temas de notas `theme2` a `theme5` também são idênticos entre si (`3d2fb2883cfcaa95ba6d9bc7d6203b2487dec9c04cf22cc12ee8b899e7f505a5`). Portanto, há uma rota de correção pequena e objetiva: reutilizar a mesma cadeia de notas já existente, alterar apenas os relacionamentos das notes slides para esse master e remover as cópias duplicadas/registro excedente. Não exige migração dos masters/layouts visuais e pode conservar todos os textos das notas.
 
@@ -59,7 +61,7 @@ Validação para essa eventual retomada: matriz Cloudwalk/MELI/um fundo, compara
 
 ## Evidências
 
-- [Compatibilidade com Office](diagnostico_compatibilidade_office_carteira.md): estado dos bloqueios e decisão pendente.
+- [Compatibilidade com Office](diagnostico_compatibilidade_office_carteira.md): causas, correções, validação final e limites.
 - [Alerta de reparo no PowerPoint](evidencias/carteira_export_e_pagina/reparo_powerpoint.png): captura da abertura do download final.
 
-O inventário técnico dos pacotes, as capturas da isolação e os logs permanecem no dossiê local de validação. Esse dossiê não integra a documentação pública. A investigação deixou os fontes, os quatro blocos e o download intactos.
+O inventário técnico dos pacotes, as capturas da isolação e os logs permanecem no dossiê local de validação. Esse dossiê não integra a documentação pública. A investigação inicial deixou os fontes, os quatro blocos e o download intactos; a correção posterior foi isolada no commit indicado no início.

@@ -1,15 +1,15 @@
 {
   "source_before": "09730513",
-  "source_after": "ca008e8a",
+  "source_after": "a5b2e8fb",
   "regression": {
-    "tests_passed": 255,
+    "tests_passed": 271,
     "mandatory_suites": [
       "test_portfolio_page",
       "test_meli_credit_monitor",
       "test_pptx_merge",
       "test_document_comparison_ppt"
     ],
-    "last_run": "255 passed in 39.07s"
+    "last_run": "271 passed in 34.92s"
   },
   "financial_inputs": {
     "files_unchanged": 2368,
@@ -23,11 +23,11 @@
     "Competência comum e histórico mensal mantêm os perímetros e regras existentes; na Cloudwalk são referências distintas (fevereiro versus agosto de 2026).",
     "A seleção 12M preserva o mês de ancoragem do produtor, com 13 competências no histórico mensal; a janela efetiva é informada.",
     "CW Kick Ass II não possui observação mensal utilizável nessa janela. Seu retorno próprio disponível é anterior; não se inferiu encerramento nem se substituiu ausência por zero.",
-    "Supersim não tinha IME local suficiente; Agis (Atlas) usa a carteira existente de um fundo como caso-limite. Carteira de 101 fundos não rodada; 23 séries de retorno e 11 fundos foram cobertos em testes de escala.",
+    "Supersim não tinha IME local suficiente; Agis (Atlas) usa a carteira existente de um fundo como caso-limite. Export financeiro de 101 fundos não rodado; 23 séries de retorno e 11 fundos foram cobertos em testes de escala.",
     "Não foram alterados cálculos, pipelines, caches financeiros, integração, regra de competência ou migração de infraestrutura. Master/layouts e seções nativas completas ficam para outra rodada.",
     "PDFs renderizados com LibreOffice; a abertura real no Office e os downloads do navegador têm registros separados. Nenhuma validação pública ou publicação é representada por estes arquivos locais.",
-    "Actual PowerPoint and analytical Excel opening blocked. Passing tests/PDF do not validate Office.",
-    "Independent revert of every helper commit not verified; new modules have dependent consumers."
+    "A comparação congelada usa os mesmos inputs antes/depois. O download real pode receber observações adicionais de CDI pelo resolver já existente; somente CDI acumulado, spreads implícitos e gaps derivados mudam nesses comparativos, registrados por célula. As taxas diárias e a mistura HTTPS/FTP não são persistidas no PPTX.",
+    "A execução real com cache CSV pode divergir nas últimas casas binárias; desvios até 2e-15 relativos são registrados, com tipos e formatos preservados. Não são mudanças de cálculo ou do valor exibido."
   ],
   "portfolios": {
     "cloudwalk": {
@@ -366,7 +366,10 @@
       "financial_sha256_after": "4d358deba9be3154e69ddb80742d5d1f2b37f05f9c83ee9298024e2be7fa4d8f",
       "representative_values_before_and_after": {
         "pl_common_position_brl": 12654615584.179998,
-        "npl_over90_latest_month_brl": 0.0,
+        "npl_over90_ex360_latest_month_brl": 0.0,
+        "npl_over90_gross_latest_month_brl": 0.0,
+        "npl_over360_latest_month_brl": 0.0,
+        "monthly_values_competence": "08/2026",
         "pdd_latest_month_brl": 7341.46
       },
       "original_nonzero_native_charts": [
@@ -414,12 +417,12 @@
       "export_warnings": [],
       "real_downloads": {
         "financial_values_match": true,
-        "metadata_complete_in_all_files": false,
-        "rdb_matches_selection": false,
+        "metadata_complete_in_all_files": true,
+        "rdb_matches_selection": true,
         "files": {
           "resumo.xlsx": {
             "values_match": true,
-            "selection_metadata": null,
+            "selection_metadata": true,
             "numeric_counts": {
               "missing_cells": 26,
               "numeric_cells": 182,
@@ -431,7 +434,7 @@
           },
           "base.xlsx": {
             "values_match": true,
-            "selection_metadata": null,
+            "selection_metadata": true,
             "numeric_counts": {
               "missing_cells": 3685,
               "numeric_cells": 8387,
@@ -443,14 +446,14 @@
           },
           "base.zip": {
             "values_match": true,
-            "selection_metadata": null,
+            "selection_metadata": true,
             "numeric_counts": null,
             "float_roundtrip_differences": 0,
             "equivalent_name_differences": 0
           },
           "estrutura.xlsx": {
             "values_match": true,
-            "selection_metadata": null,
+            "selection_metadata": true,
             "numeric_counts": {
               "missing_cells": 5,
               "numeric_cells": 66,
@@ -458,9 +461,734 @@
               "percent_numeric_cells": 0
             },
             "float_roundtrip_differences": 0,
-            "equivalent_name_differences": 6
+            "equivalent_name_differences": 8
           }
         }
+      },
+      "actual_pptx_validation": {
+        "slides": 80,
+        "native_charts": 60,
+        "native_tables": 80,
+        "notes_master_parts": 1,
+        "notes_master_entries": 1,
+        "notes_for_every_slide": true,
+        "all_selected_cnpjs_present": true,
+        "native_chart_values_match": true,
+        "native_table_values_match_except_live_cdi_and_generation_time": true,
+        "benchmark_tables_changed": 8,
+        "float_roundtrip_differences": 0,
+        "cdi_differences": [
+          {
+            "slide": 10,
+            "title": "CW Akira I — Rentabilidade por série",
+            "cnpj": "42085830000109",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "74,78%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-34,02%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-9,05%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-9,30%"
+              }
+            ]
+          },
+          {
+            "slide": 19,
+            "title": "CW Big Pic. I — Rentabilidade por série",
+            "cnpj": "54218673000141",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-4,64%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-6,36%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,53%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-11,28%"
+              }
+            ]
+          },
+          {
+            "slide": 23,
+            "title": "CW Big Pic. II — Rentabilidade por série",
+            "cnpj": "54218941000125",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-4,51%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-6,26%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-8,12%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-8,83%"
+              }
+            ]
+          },
+          {
+            "slide": 27,
+            "title": "CW Big Pic. III — Rentabilidade por série",
+            "cnpj": "54219179000100",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-4,34%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-6,13%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-3,89%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-4,48%"
+              }
+            ]
+          },
+          {
+            "slide": 31,
+            "title": "CW Big Pic. IV — Rentabilidade por série",
+            "cnpj": "54248022000102",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-3,87%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-5,80%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-5,06%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-0,61%"
+              }
+            ]
+          },
+          {
+            "slide": 35,
+            "title": "CW A.I. — Rentabilidade por série",
+            "cnpj": "57609282000146",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,80%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,81%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,63%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-6,69%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-7,29%"
+              }
+            ]
+          },
+          {
+            "slide": 39,
+            "title": "CW PI — Rentabilidade por série",
+            "cnpj": "60356171000180",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,73%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,68%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,73%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,68%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,73%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,68%"
+              },
+              {
+                "series": "Subordinada 1 · item 3",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1 · item 3",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-7,34%"
+              },
+              {
+                "series": "Subordinada 1 · item 3",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1 · item 3",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-7,73%"
+              },
+              {
+                "series": "Mezanino 2 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 2 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,73%"
+              },
+              {
+                "series": "Mezanino 2 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 2 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,68%"
+              }
+            ]
+          },
+          {
+            "slide": 43,
+            "title": "CW Bela — Rentabilidade por série",
+            "cnpj": "62393679000183",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "0,05%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "0,69%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-0,05%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-0,05%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "0,60%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "1,26%"
+              },
+              {
+                "series": "Mezanino 1 · Série 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "3,27%"
+              },
+              {
+                "series": "Mezanino 1 · Série 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 1 · Série 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "4,08%"
+              },
+              {
+                "series": "Mezanino 1 · Série 3",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Mezanino 1 · Série 3",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "0,52%"
+              },
+              {
+                "series": "Mezanino 1 · Série 3",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Mezanino 1 · Série 3",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "0,52%"
+              },
+              {
+                "series": "Mezanino 1 · Série 4",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Mezanino 1 · Série 4",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "3,21%"
+              },
+              {
+                "series": "Mezanino 1 · Série 4",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Mezanino 1 · Série 4",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "3,21%"
+              },
+              {
+                "series": "Subordinada 1 · item 5",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Subordinada 1 · item 5",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "239,60%"
+              },
+              {
+                "series": "Subordinada 1 · item 5",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Subordinada 1 · item 5",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "239,60%"
+              }
+            ]
+          }
+        ]
+      },
+      "actual_office_opening": {
+        "pptx": "Abriu no PowerPoint sem Repair.",
+        "analytical_xlsx": "Abriu no Excel com seis abas sem recuperação.",
+        "repaired_file_used": false,
+        "evidence": [
+          "download-cloudwalk-excel.txt",
+          "download-cloudwalk-powerpoint.txt"
+        ]
+      },
+      "actual_download_pdf_pages": 80,
+      "office_opening": {
+        "actual_pptx": "opened_without_repair",
+        "actual_analytical_xlsx": "opened_without_recovery",
+        "analytical_sheet_count": 6
+      },
+      "actual_download_sha256": {
+        "carteira-final.pptx": "2ab7fc090612fae778e77faded47a8e1d54f26059c4da1cb907f395a75f8d15a",
+        "resumo.xlsx": "fc1d5c9428a1b37e562a17a0ac94d023f81387b40affb70747959b3a9db42a39",
+        "base.xlsx": "9114c91749a7428a160426fac9f1174cdcfc98df7f031556542fb7b21086b96a",
+        "base.zip": "d6fc455f295f915cb30ecdc24249c9e11b2921e9ab50aa87931eac31d8ae6460",
+        "estrutura.xlsx": "b74f3fa3c7a6d73ff41600746f288742c11064dc07cce4000cf574b6e819c458"
       }
     },
     "meli_credito": {
@@ -624,7 +1352,10 @@
       "financial_sha256_after": "cb35de66132fab9d5855e63143866357e5e6c9a9c069249d5451fd8d562152bf",
       "representative_values_before_and_after": {
         "pl_common_position_brl": 5900098355.190001,
-        "npl_over90_latest_month_brl": 583718000.62,
+        "npl_over90_ex360_latest_month_brl": 583718000.62,
+        "npl_over90_gross_latest_month_brl": 585560777.63,
+        "npl_over360_latest_month_brl": 1842777.01,
+        "monthly_values_competence": "08/2026",
         "pdd_latest_month_brl": 2307254677.63
       },
       "original_nonzero_native_charts": [
@@ -668,7 +1399,460 @@
       ],
       "export_warnings": [],
       "real_downloads": {
-        "status": "Pending browser-download records for final source."
+        "financial_values_match": true,
+        "metadata_complete_in_all_files": true,
+        "rdb_matches_selection": true,
+        "files": {
+          "resumo.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 0,
+              "numeric_cells": 208,
+              "zero_cells": 0,
+              "percent_numeric_cells": 52
+            },
+            "float_roundtrip_differences": 13,
+            "equivalent_name_differences": 0
+          },
+          "base.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 247,
+              "numeric_cells": 3679,
+              "zero_cells": 278,
+              "percent_numeric_cells": 1379
+            },
+            "float_roundtrip_differences": 112,
+            "equivalent_name_differences": 0
+          },
+          "base.zip": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": null,
+            "float_roundtrip_differences": 286,
+            "equivalent_name_differences": 0
+          },
+          "estrutura.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 7,
+              "numeric_cells": 18,
+              "zero_cells": 0,
+              "percent_numeric_cells": 0
+            },
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 1
+          }
+        }
+      },
+      "actual_pptx_validation": {
+        "slides": 33,
+        "native_charts": 50,
+        "native_tables": 25,
+        "notes_master_parts": 1,
+        "notes_master_entries": 1,
+        "notes_for_every_slide": true,
+        "all_selected_cnpjs_present": true,
+        "native_chart_values_match": true,
+        "native_table_values_match_except_live_cdi_and_generation_time": true,
+        "benchmark_tables_changed": 3,
+        "float_roundtrip_differences": 71,
+        "cdi_differences": [
+          {
+            "slide": 9,
+            "title": "MC 0 — Rentabilidade por série",
+            "cnpj": "33254370000104",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-22,71%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-33,39%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,83%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "7,00%"
+              },
+              {
+                "series": "Sênior · Série 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,83%"
+              },
+              {
+                "series": "Sênior · Série 3",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "4,58%"
+              },
+              {
+                "series": "Sênior · Série 3",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,42%"
+              },
+              {
+                "series": "Sênior · Série 3",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "4,58%"
+              },
+              {
+                "series": "Sênior · Série 3",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,42%"
+              },
+              {
+                "series": "Sênior · Série 4",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "3,47%"
+              },
+              {
+                "series": "Sênior · Série 4",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,37%"
+              },
+              {
+                "series": "Sênior · Série 4",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "3,47%"
+              },
+              {
+                "series": "Sênior · Série 4",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,37%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-19,25%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-31,86%"
+              }
+            ]
+          },
+          {
+            "slide": 13,
+            "title": "MC I — Rentabilidade por série",
+            "cnpj": "37511828000114",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-7,47%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-7,75%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "3,08%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "2,56%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "10,66%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "21,37%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Subordinada 1 · item 2",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "64,00%"
+              }
+            ]
+          },
+          {
+            "slide": 17,
+            "title": "MC II — Rentabilidade por série",
+            "cnpj": "41970012000126",
+            "visible_monthly_window": [
+              "set/25",
+              "ago/26"
+            ],
+            "changes": [
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "14,63%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,58%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "9,32%"
+              },
+              {
+                "series": "Sênior · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-12,30%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "13,39%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-32,33%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "8,14%"
+              },
+              {
+                "series": "Mezanino 1 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-17,36%"
+              },
+              {
+                "series": "Subordinada 1 · item 4",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Subordinada 1 · item 4",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-68,02%"
+              },
+              {
+                "series": "Subordinada 1 · item 4",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Subordinada 1 · item 4",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-68,02%"
+              },
+              {
+                "series": "Mezanino 4 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 4 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-9,89%"
+              },
+              {
+                "series": "Mezanino 4 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 4 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-9,89%"
+              },
+              {
+                "series": "Mezanino 5 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 5 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,21%"
+              },
+              {
+                "series": "Mezanino 5 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 5 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,21%"
+              },
+              {
+                "series": "Mezanino 6 · Série 1",
+                "column": "CDI 12M (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 6 · Série 1",
+                "column": "Spread 12M (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,10%"
+              },
+              {
+                "series": "Mezanino 6 · Série 1",
+                "column": "CDI YTD (%)",
+                "frozen": "N/D",
+                "download": "1,09%"
+              },
+              {
+                "series": "Mezanino 6 · Série 1",
+                "column": "Spread YTD (% a.a.)",
+                "frozen": "N/D",
+                "download": "-10,10%"
+              }
+            ]
+          }
+        ]
+      },
+      "actual_office_opening": {
+        "pptx": "Abriu no PowerPoint sem Repair.",
+        "analytical_xlsx": "Abriu no Excel com seis abas sem recuperação.",
+        "repaired_file_used": false,
+        "evidence": [
+          "download-meli-excel.txt",
+          "download-meli-powerpoint.txt"
+        ]
+      },
+      "actual_download_pdf_pages": 33,
+      "office_opening": {
+        "actual_pptx": "opened_without_repair",
+        "actual_analytical_xlsx": "opened_without_recovery",
+        "analytical_sheet_count": 6
+      },
+      "actual_download_sha256": {
+        "carteira-final.pptx": "d1da1e8a78cde4acf2b770950f546dd7fe022255f2d5bacca430d54534ffeaeb",
+        "resumo.xlsx": "e2460ebb7e887b2db970ba6fff68e05eb11a38155f3441d74c9394c871a4e19b",
+        "base.xlsx": "b821f43507cc30cf80065f8dbfb3e98217f3658cd8e64c6caa5413cc07b7a3c5",
+        "base.zip": "f84f49308939f54e2df56ef581d5205fdf7b2ff5f85491b6d1d821d674453c0e",
+        "estrutura.xlsx": "776ee0089c37d3a476be96ec1bfeafe3ec622533d6657ac9e4736609177ef2a5"
       }
     },
     "agis_atlas": {
@@ -795,7 +1979,10 @@
       "financial_sha256_after": "adbcf2a02a71a81b4c9699f189d704269add40e945ed968e900c64efa5ee799f",
       "representative_values_before_and_after": {
         "pl_common_position_brl": 485279694.2,
-        "npl_over90_latest_month_brl": 37851091.67,
+        "npl_over90_ex360_latest_month_brl": 37851091.67,
+        "npl_over90_gross_latest_month_brl": 37906949.58,
+        "npl_over360_latest_month_brl": 55857.91,
+        "monthly_values_competence": "06/2026",
         "pdd_latest_month_brl": 104344929.71
       },
       "original_nonzero_native_charts": [
@@ -839,11 +2026,108 @@
       ],
       "export_warnings": [],
       "real_downloads": {
-        "status": "Pending browser-download records for final source."
+        "financial_values_match": true,
+        "metadata_complete_in_all_files": true,
+        "rdb_matches_selection": true,
+        "files": {
+          "resumo.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 0,
+              "numeric_cells": 208,
+              "zero_cells": 26,
+              "percent_numeric_cells": 52
+            },
+            "float_roundtrip_differences": 13,
+            "equivalent_name_differences": 0
+          },
+          "base.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 94,
+              "numeric_cells": 1806,
+              "zero_cells": 154,
+              "percent_numeric_cells": 656
+            },
+            "float_roundtrip_differences": 78,
+            "equivalent_name_differences": 0
+          },
+          "base.zip": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": null,
+            "float_roundtrip_differences": 188,
+            "equivalent_name_differences": 0
+          },
+          "estrutura.xlsx": {
+            "values_match": true,
+            "selection_metadata": true,
+            "numeric_counts": {
+              "missing_cells": 2,
+              "numeric_cells": 4,
+              "zero_cells": 0,
+              "percent_numeric_cells": 0
+            },
+            "float_roundtrip_differences": 0,
+            "equivalent_name_differences": 1
+          }
+        }
+      },
+      "actual_pptx_validation": {
+        "slides": 22,
+        "native_charts": 30,
+        "native_tables": 14,
+        "notes_master_parts": 1,
+        "notes_master_entries": 1,
+        "notes_for_every_slide": true,
+        "all_selected_cnpjs_present": true,
+        "native_chart_values_match": true,
+        "native_table_values_match_except_live_cdi_and_generation_time": true,
+        "benchmark_tables_changed": 0,
+        "float_roundtrip_differences": 57,
+        "cdi_differences": []
+      },
+      "actual_office_opening": {
+        "pptx": "Abriu no PowerPoint sem Repair.",
+        "analytical_xlsx": "Abriu no Excel com seis abas sem recuperação.",
+        "repaired_file_used": false,
+        "evidence": [
+          "download-agis-excel.txt",
+          "download-agis-powerpoint.txt"
+        ]
+      },
+      "actual_download_pdf_pages": 22,
+      "office_opening": {
+        "actual_pptx": "opened_without_repair",
+        "actual_analytical_xlsx": "opened_without_recovery",
+        "analytical_sheet_count": 6
+      },
+      "actual_download_sha256": {
+        "carteira-final.pptx": "78144faa49819b72378061a80fb98f6893d3b68f81c1ff402d523499959219b1",
+        "resumo.xlsx": "78e312e116918bc3f9bd72218ccb54b8231d528ed5a2833086a87296efe1804d",
+        "base.xlsx": "a4825246b2f805505071bd7c34aae2439ce6faa19f4da6d3071e63efaa948810",
+        "base.zip": "483f15c4d680459db2f97cd93f15d9d14c5b3c56b9c0c4776110dcfc3a95d201",
+        "estrutura.xlsx": "5d0eea04127742c93aab5443bdd118f1a5f9e058571f4f488f85c8ae2f65105e"
       }
     }
   },
-  "office_validation": {
+  "financial_value_context": {
+    "producer": "services/mercado_livre_dashboard.py → consolidated_monthly",
+    "unit": "BRL",
+    "npl_over90": "Soma dos buckets de atraso a partir de 91 dias, incluindo acima de 360 dias.",
+    "npl_over90_ex360": "Visão comparável existente que subtrai o saldo acima de 360 dias do NPL acima de 90 dias. É simulação de apresentação ex-360; não documenta uma baixa econômica efetiva.",
+    "formula_source": "services/mercado_livre_dashboard.py:1159,1184",
+    "pl_common_position": "PL do dashboard na competência comum; a competência dos valores mensais é registrada separadamente."
+  },
+  "compatibility_fixes": {
+    "analytical_xlsx_commit": "6c1297d7",
+    "pptx_merge_commit": "a5b2e8fb",
+    "xlsx": "Retirado apenas o filtro de worksheet sobreposto às quatro tabelas nativas; filtros próprios das tabelas e filtros de folhas sem tabela preservados. Valores, tipos, estilos e table parts mantidos.",
+    "pptx": "Um master de notas compatível na montagem, com todas as notas preservadas."
+  },
+  "office_validation_history": {
     "status": "blocked",
     "source_frozen": "ca008e8a",
     "rule": "Regra 9 do pedido: parar e documentar quando o PowerPoint pede reparo.",
@@ -866,36 +2150,6 @@
     "meli_agis_final_downloads_office": "pending_after_rule_9_stop",
     "pdf_rendering": "15 PDFs, four blocks and final deck per case, rendered by LibreOffice; auxiliary proof."
   },
-  "actual_download_validation": {
-    "cloudwalk": {
-      "files": [
-        "resumo.xlsx",
-        "base.xlsx",
-        "base.zip",
-        "estrutura.xlsx",
-        "carteira-final.pptx"
-      ],
-      "selection": "all 11 exact selected CNPJs",
-      "xlsx_csv_financial_values": "match frozen references without rounding delta",
-      "rdb": "11 selected funds, absence explicit, no foreign fund",
-      "context": "present in all four data exports",
-      "ppt_native_charts": 60,
-      "benchmark_difference": {
-        "affected_comparison_tables": 8,
-        "quota_returns": "unchanged",
-        "native_charts": "60 identical to frozen replay",
-        "general_12m_window": "set/25–ago/26",
-        "general_cdi_12m_pct": 14.63,
-        "ytd_window": "jan/26–ago/26",
-        "general_cdi_ytd_pct": 9.32,
-        "bela_series_2_own_window_cdi_pct": 7.0,
-        "source_per_rate": "Not identifiable from the exported file; no individual source or query date inferred.",
-        "before": "CDI N/D in offline frozen reference",
-        "after": "CDI available in real download with derived spreads/gaps"
-      }
-    },
-    "meli_agis": "final browser downloads pending after stop"
-  },
   "responsive_page_validation": {
     "case": "Cloudwalk",
     "widths": [
@@ -910,5 +2164,13 @@
     ],
     "physical_device_touch_gesture": "not tested",
     "portfolio_101": "AppTest, exact 101 CNPJs and 102 scope options; financial export not generated"
+  },
+  "revert_limit": "Commits anteriores de helpers têm consumidores dependentes; reversão isolada de todos eles não foi verificada. Os dois commits de compatibilidade Office são independentes entre si.",
+  "office_validation": {
+    "status": "passed_for_three_actual_pptx_and_three_actual_analytical_xlsx",
+    "files_repaired_by_office": false,
+    "summary_cloudwalk_opened": true,
+    "other_summary_and_base_xlsx_native_opening_completed": false,
+    "public_app_validation": "not_published_or_validated"
   }
 }
