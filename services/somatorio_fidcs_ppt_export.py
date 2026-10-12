@@ -903,6 +903,9 @@ def _chart_pl_stacked(
 
     chart = _place_chart(slide, slot, XL_CHART_TYPE.COLUMN_STACKED, cdata, Inches)
     _style_chart(chart, "PL por classe", "Competência", scale_lbl, "#,##0.0", RGBColor, Pt)
+    observed = [value for values in (senior_vals, subord_vals) for value in values if value is not None]
+    if observed and min(observed) >= 0:
+        chart.value_axis.minimum_scale = 0
     chart.has_legend = True
     _style_legend(chart, XL_LEGEND_POSITION.BOTTOM, RGBColor, Pt)
     if chart.series:
