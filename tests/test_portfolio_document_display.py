@@ -8,6 +8,7 @@ from pptx.enum.text import PP_ALIGN
 from services.deep_dive_models import DeepDiveManifest
 from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 from services.document_curation_comparison import DocumentComparisonPage
+from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION, compact_document_frame
 
 
 def _manifest():
@@ -31,8 +32,8 @@ def _page():
     )
 
 
-def _presentation(*, portfolio_mode=False, pages=None):
-    return Presentation(BytesIO(build_document_comparison_pptx_bytes(_manifest(), pages or [_page()], portfolio_mode=portfolio_mode)))
+def _presentation(*, portfolio_mode=False, pages=None, compact=False):
+    return Presentation(BytesIO(build_document_comparison_pptx_bytes(_manifest(), pages or [_page()], portfolio_mode=portfolio_mode, compact=compact)))
 
 
 def _tables(presentation):
@@ -84,3 +85,109 @@ def test_portfolio_mode_keeps_pagination_for_long_rows_and_many_funds():
     portfolio = _presentation(portfolio_mode=True, pages=[page])
     assert len(default.slides) == len(portfolio.slides)
     assert _values(default) == _values(portfolio)
+
+
+def test_compact_document_frame_groups_only_identical_full_columns_and_keeps_order():
+    frame = pd.DataFrame({
+        "Critério": ["Taxa", "Devedor"],
+        "Fundo A": ["5%", "Emissor A"],
+        "Fundo B": ["5%", "Emissor A"],
+        "Fundo C": ["5%", "Emissor C"],
+    }, index=[4, 9])
+    before = frame.copy(deep=True)
+    compact, mappings = compact_document_frame(frame)
+    assert compact.index.tolist() == [4, 9]
+    assert compact.iloc[:, 0].tolist() == ["Taxa", "Devedor"]
+    assert len(compact.columns) == 3
+    assert compact.iloc[:, 1].tolist() == ["5%", "Emissor A"]
+    assert compact.iloc[:, 2].tolist() == ["5%", "Emissor C"]
+    assert "Fundo A" in mappings[0] and "Fundo B" in mappings[0]
+    assert "Fundo C" in mappings[1]
+    pd.testing.assert_frame_equal(frame, before)
+
+
+def test_compact_document_frame_zero_is_distinct_from_missing_and_close_values_are_distinct():
+    frame = pd.DataFrame({
+        "Critério": ["Quantidade", "Taxa"],
+        "Fundo A": [0, "1,0%"],
+        "Fundo B": [None, "1,0%"],
+        "Fundo C": [0, "1,00%"],
+    }, dtype=object)
+    compact, _ = compact_document_frame(frame)
+    assert len(compact.columns) == 4
+    assert compact.iloc[0, 1] == "0"
+    assert compact.iloc[0, 2] == "-"
+    assert compact.iloc[1, 1] == "1,0%"
+    assert compact.iloc[1, 3] == "1,00%"
+
+
+def test_compact_document_frame_all_funds_is_explicit_and_has_full_identity_mapping():
+    legal_name = _manifest().funds[0]["name"]
+    funds = [*_manifest().funds, {"name": "FUNDO B RAZÃO SOCIAL", "short_name": "Fundo B", "cnpj": "22222222000122"}]
+    frame = pd.DataFrame({"Critério": ["Devedor"], "CW Kick Ass I": ["Emissores"], "Fundo B": ["Emissores"]})
+    compact, mappings = compact_document_frame(frame, funds=funds)
+    assert compact.columns.tolist() == ["Critério", "Todos os fundos"]
+    assert legal_name in mappings[0]
+    assert "CNPJ 42085816000105" in mappings[0]
+    assert "FUNDO B RAZÃO SOCIAL" in mappings[0]
+    assert "CNPJ 22222222000122" in mappings[0]
+
+
+def test_compact_document_frame_single_fund_and_no_fund_columns_stay_unmerged():
+    single = pd.DataFrame({"Critério": ["Taxa"], "Fundo A": [0]})
+    compact, mappings = compact_document_frame(single)
+    assert compact.columns.tolist() == single.columns.tolist()
+    assert compact.iloc[0, 1] == "0"
+    assert mappings == ()
+    criteria_only = pd.DataFrame({"Critério": ["Taxa"]})
+    compact, mappings = compact_document_frame(criteria_only)
+    pd.testing.assert_frame_equal(compact, criteria_only)
+    assert mappings == ()
+
+
+def test_compact_document_frame_large_group_labels_do_not_collide_and_retain_all_members():
+    frame = pd.DataFrame({"Critério": ["Regra"]})
+    for index in range(6):
+        frame[f"Fundo {index}"] = ["A" if index < 3 else "B"]
+    compact, mappings = compact_document_frame(frame)
+    assert compact.columns.tolist() == ["Critério", "3 fundos", "3 fundos (2)"]
+    assert len(mappings) == 2
+    assert all(f"Fundo {index}" in "\n".join(mappings) for index in range(6))
+    assert compact.iloc[0, 1:].tolist() == ["A", "B"]
+
+
+def test_compact_ppt_is_opt_in_and_explains_grouping_in_caption_and_native_notes():
+    frame = pd.DataFrame({"Critério": ["Devedor", "Taxa"], "CW Kick Ass I": ["Emissores", 0], "Fundo B": ["Emissores", 0]})
+    page = DocumentComparisonPage("Regras iguais", frame, notes=("Qualificação documental preservada.",), sources=("Regulamento, p. 3",))
+    default = _presentation(portfolio_mode=True, pages=[page])
+    compact = _presentation(portfolio_mode=True, pages=[page], compact=True)
+    assert len(_tables(default)[0].columns) == 3
+    table = _tables(compact)[0]
+    assert len(table.columns) == 2
+    assert table.cell(0, 1).text == "Todos os fundos"
+    assert table.cell(2, 1).text == "0"
+    slide = compact.slides[0]
+    visible = "\n".join(shape.text for shape in slide.shapes if shape.has_text_frame)
+    notes = slide.notes_slide.notes_text_frame.text
+    assert DOCUMENT_GROUPING_CAPTION in visible
+    assert "Todos os fundos →" in notes
+    assert "Fundo B" in notes
+    assert _manifest().funds[0]["name"] in notes
+    assert page.notes[0] in notes and page.sources[0] in notes
+    caption = next(shape for shape in slide.shapes if shape.has_text_frame and shape.text == DOCUMENT_GROUPING_CAPTION)
+    table_shape = next(shape for shape in slide.shapes if shape.has_table)
+    assert caption.top + caption.height < table_shape.top
+
+
+def test_compact_ppt_retains_long_clauses_and_continues_without_overflow():
+    clause = " ".join(f"cláusula{index}" for index in range(600))
+    page = DocumentComparisonPage("Texto extenso", pd.DataFrame({"Critério": ["Amortização"], "Fundo A": [clause], "Fundo B": [clause]}))
+    compact = _presentation(portfolio_mode=True, pages=[page], compact=True)
+    assert len(compact.slides) > 1
+    text = "\n".join(table.cell(row, 1).text for table in _tables(compact) for row in range(1, len(table.rows)))
+    assert all(f"cláusula{index}" in text for index in range(600))
+    assert "..." not in text and "…" not in text
+    for slide in compact.slides:
+        for shape in slide.shapes:
+            assert shape.top + shape.height <= compact.slide_height
+            assert shape.left + shape.width <= compact.slide_width

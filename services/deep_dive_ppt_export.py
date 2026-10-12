@@ -55,6 +55,7 @@ def build_document_comparison_pptx_bytes(
     pages: Sequence[DocumentComparisonPage],
     *,
     portfolio_mode: bool = False,
+    compact: bool = False,
 ) -> bytes:
     """Render documentary comparisons as editable, source-cited slide tables.
 
@@ -83,8 +84,17 @@ def build_document_comparison_pptx_bytes(
         frame = page.frame.copy()
         if frame.empty or not len(frame.columns):
             continue
-        for column in frame.columns[1:]:
-            frame[column] = frame[column].map(_document_cell_text)
+        group_notes = ()
+        grouped = False
+        if compact:
+            from services.portfolio_document_display import compact_document_frame
+            original_column_count = len(frame.columns)
+            frame, group_notes = compact_document_frame(frame, funds=manifest.funds)
+            grouped = len(frame.columns) < original_column_count
+        else:
+            for column in frame.columns[1:]:
+                frame[column] = frame[column].map(_document_cell_text)
+        table_top = DOCUMENT_TABLE_TOP + (.22 if grouped else 0)
         note_lines = [line for note in page.notes if (clean := public_document_text(note)) for line in textwrap.wrap(clean, width=165)]
         note_groups = [note_lines[start : start + 8] for start in range(0, len(note_lines), 8)] or [[]]
         for selected in comparison_column_chunks(frame, max_funds=DOCUMENT_MAX_FUNDS):
@@ -92,8 +102,8 @@ def build_document_comparison_pptx_bytes(
             header_height = max(0.43, _document_row_height(pd.Series(selected.columns), widths))
             for visible_notes in note_groups:
                 notes_height = len(visible_notes) * 0.155 + 0.15 if visible_notes else 0
-                for segment, heights in _document_row_pages(selected, widths, header_height, notes_height=notes_height):
-                    jobs.append((page, segment, widths, header_height, heights, visible_notes, notes_height))
+                for segment, heights in _document_row_pages(selected, widths, header_height, notes_height=notes_height, table_top=table_top):
+                    jobs.append((page, segment, widths, header_height, heights, visible_notes, notes_height, group_notes, grouped, table_top))
 
     if not jobs:
         raise ValueError("Não há tabelas documentais disponíveis para exportação.")
@@ -118,17 +128,20 @@ def build_document_comparison_pptx_bytes(
         run.font.color.rgb = rgb(color)
         return shape
 
-    for index, (page, frame, widths, header_height, row_heights, visible_notes, notes_height) in enumerate(jobs, start=1):
+    for index, (page, frame, widths, header_height, row_heights, visible_notes, notes_height, group_notes, grouped, table_top) in enumerate(jobs, start=1):
         slide = prs.slides.add_slide(prs.slide_layouts[6])
         slide.background.fill.solid()
         slide.background.fill.fore_color.rgb = rgb(WHITE)
         title = page.title if portfolio_mode else f"{manifest.title} – {page.title}"
         title_size = 23 if len(title) <= 95 else 20
         text_box(slide, title, DOCUMENT_LEFT, 0.32, DOCUMENT_WIDTH, 0.61, title_size, bold=True, color=ORANGE)
+        if grouped:
+            from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION
+            text_box(slide, DOCUMENT_GROUPING_CAPTION, DOCUMENT_LEFT, 1.00, DOCUMENT_WIDTH, .18, 10, color=MID)
         height = header_height + sum(row_heights)
         table = slide.shapes.add_table(
             len(frame) + 1, len(frame.columns),
-            Inches(DOCUMENT_LEFT), Inches(DOCUMENT_TABLE_TOP),
+            Inches(DOCUMENT_LEFT), Inches(table_top),
             Inches(DOCUMENT_WIDTH), Inches(height),
         ).table
         table.first_row = False
@@ -145,7 +158,7 @@ def build_document_comparison_pptx_bytes(
                 cell = table.cell(row_index, col_index)
                 cell.text = "\n".join(_document_wrapped_lines(value, widths[col_index]))
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = rgb(HEADER_ORANGE if row_index == 0 else WHITE)
+                cell.fill.fore_color.rgb = rgb(SOFT if row_index == 0 and portfolio_mode else HEADER_ORANGE if row_index == 0 else WHITE)
                 cell.margin_left = cell.margin_right = Inches(DOCUMENT_CELL_PADDING)
                 cell.margin_top = cell.margin_bottom = Inches(0.045)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
@@ -159,7 +172,7 @@ def build_document_comparison_pptx_bytes(
                         run.font.name = FONT
                         run.font.size = Pt(DOCUMENT_FONT_SIZE)
                         run.font.bold = row_index == 0 or col_index == 0
-                        run.font.color.rgb = rgb(WHITE if row_index == 0 else BLACK)
+                        run.font.color.rgb = rgb(WHITE if row_index == 0 and not portfolio_mode else BLACK)
                 _document_cell_borders(cell, header=row_index == 0, last=row_index == len(frame))
 
         if visible_notes:
@@ -181,6 +194,8 @@ def build_document_comparison_pptx_bytes(
             notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
         if page.notes:
             notes.extend(["Observações:", *page.notes])
+        if group_notes:
+            notes.extend(["Composição das colunas (valores documentais idênticos):", *group_notes])
         notes.extend(["Fontes:", *(page.sources or (manifest.source or "Fonte documental não localizada",))])
         slide.notes_slide.notes_text_frame.text = "\n".join(notes)
 
@@ -221,8 +236,8 @@ def _document_row_height(row: pd.Series, widths: list[float]) -> float:
     return max(0.265, lines * DOCUMENT_LINE_HEIGHT + 0.105)
 
 
-def _document_row_pages(frame: pd.DataFrame, widths: list[float], header_height: float, *, notes_height: float = 0) -> list[tuple[pd.DataFrame, list[float]]]:
-    available = DOCUMENT_TABLE_BOTTOM - DOCUMENT_TABLE_TOP - header_height - notes_height
+def _document_row_pages(frame: pd.DataFrame, widths: list[float], header_height: float, *, notes_height: float = 0, table_top: float = DOCUMENT_TABLE_TOP) -> list[tuple[pd.DataFrame, list[float]]]:
+    available = DOCUMENT_TABLE_BOTTOM - table_top - header_height - notes_height
     max_lines = max(1, int((available - 0.105) / DOCUMENT_LINE_HEIGHT))
     expanded = []
     for _, row in frame.iterrows():

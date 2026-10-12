@@ -489,6 +489,7 @@ def _render_portfolio_analysis_surface(
             show_portfolio_selector=False,
             show_curation_tools=False,
             compact=True,
+            portfolio_mode=True,
         )
     with structure_tab:
         _render_structure_tab(
@@ -1247,7 +1248,7 @@ def _build_documentary_portfolio_deck(portfolio: PortfolioRecord, *, portfolio_m
     pages = build_document_comparison_pages(manifest)
     if not pages:
         return None
-    return build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True) if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages)
+    return build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True) if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages)
 
 
 def _safe_file_token(value: object) -> str:

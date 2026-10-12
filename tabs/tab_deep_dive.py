@@ -307,6 +307,7 @@ def render_tab_deep_dive(
     show_portfolio_selector: bool = True,
     show_curation_tools: bool = True,
     compact: bool = False,
+    portfolio_mode: bool = False,
 ) -> None:
     _ = show_curation_tools
     manifests = list_deep_dives()
@@ -362,11 +363,11 @@ def render_tab_deep_dive(
             key="deep_dive_manifest",
         )
 
-    _render_document_curation(manifest)
+    _render_document_curation(manifest, portfolio_mode=portfolio_mode)
     _render_update_prompt(selected_portfolio=selected_portfolio, manifest=manifest)
 
 
-def _render_document_curation(manifest: Any) -> None:
+def _render_document_curation(manifest: Any, *, portfolio_mode: bool = False) -> None:
     reading_date = _format_reading_date(getattr(manifest, "generated_at", ""))
     st.markdown("### Comparativos documentais")
     st.markdown(
@@ -374,7 +375,7 @@ def _render_document_curation(manifest: Any) -> None:
         unsafe_allow_html=True,
     )
     st.caption("CVM e Fundos.NET. Regras documentais por fundo.")
-    _render_fund_reading(manifest)
+    _render_fund_reading(manifest, portfolio_mode=portfolio_mode)
 
     warnings = _useful_manifest_warnings(manifest)
     if warnings:
@@ -463,27 +464,54 @@ def _curated_key_findings(manifest: Any, *, limit: int = 4) -> tuple[tuple[str, 
     return tuple(output)
 
 
-def _render_fund_reading(manifest: Any) -> None:
+def _render_fund_reading(manifest: Any, *, portfolio_mode: bool = False) -> None:
     pages = build_document_comparison_pages(manifest)
     if not pages:
         st.info("Comparativo documental não localizado neste pacote.")
         return
     from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 
-    st.download_button(
-        "Baixar análise documental (PPTX)",
-        data=build_document_comparison_pptx_bytes(manifest, pages),
-        file_name=f"comparativos_documentais_{manifest.deep_dive_id}.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        key=f"document_comparisons_pptx::{manifest.deep_dive_id}",
-        help="Tabelas comparativas editáveis, com as mesmas informações da tela e fontes completas nas notas dos slides.",
-        on_click="ignore",
-    )
+    if portfolio_mode:
+        from services.on_demand_download import current_download_store, download_context_signature, render_native_deferred_download
+        from services.portfolio_document_display import compact_document_frame
+        source_root = Path(__file__).resolve().parents[1]
+        namespace = f"portfolio_documents::{manifest.deep_dive_id}"
+        signature = download_context_signature(manifest, pages, source_paths=(
+            source_root / "services/deep_dive_ppt_export.py",
+            source_root / "services/portfolio_document_display.py",
+        ))
+        store = current_download_store(st.session_state, namespace=namespace, signature=signature)
+        render_native_deferred_download(
+            store=store, namespace=namespace, artifact="documentary_pptx",
+            label="Comparativos (PPTX)", file_name=f"comparativos_documentais_{manifest.deep_dive_id}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            producer=lambda: build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True),
+            help_text="Mesmas regras da tela, em tabelas editáveis. Identificação e fontes nas notas.",
+        )
+    else:
+        st.download_button(
+            "Baixar análise documental (PPTX)",
+            data=build_document_comparison_pptx_bytes(manifest, pages),
+            file_name=f"comparativos_documentais_{manifest.deep_dive_id}.pptx",
+            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            key=f"document_comparisons_pptx::{manifest.deep_dive_id}",
+            help="Tabelas comparativas editáveis, com as mesmas informações da tela e fontes completas nas notas dos slides.",
+            on_click="ignore",
+        )
     for page_number, page in enumerate(pages, start=1):
-        for frame in comparison_column_chunks(page.frame):
-            st.markdown(_comparison_table_html(page.title, frame, page_number), unsafe_allow_html=True)
-        for note in page.notes:
-            st.caption(note)
+        shown = page.frame
+        groups = ()
+        if portfolio_mode:
+            shown, groups = compact_document_frame(page.frame, funds=manifest.funds)
+        for frame in comparison_column_chunks(shown):
+            st.markdown(_comparison_table_html(page.title, frame, page_number, portfolio_mode=portfolio_mode), unsafe_allow_html=True)
+        if portfolio_mode and (groups or page.notes):
+            with st.expander(f"Fundos e ressalvas · {page.title}", expanded=False):
+                for note in (*groups, *page.notes):
+                    st.caption(note)
+        else:
+            for note in page.notes:
+                st.caption(note)
     sources = tuple(dict.fromkeys(source for page in pages for source in page.sources))
     if sources:
         with st.expander("Fontes documentais e bases de cálculo", expanded=False):
@@ -491,7 +519,7 @@ def _render_fund_reading(manifest: Any) -> None:
                 st.markdown(escape(source))
 
 
-def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int) -> str:
+def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *, portfolio_mode: bool = False) -> str:
     """Semantic HTML table with the same short comparison cells as the deck."""
     def cell(value: object, *, fact: bool = True) -> str:
         text = document_comparison_value(value) if fact else public_document_text(value)
@@ -503,6 +531,14 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int) ->
         first = cell(row.iloc[0], fact=False)
         values = [cell(row[c]) for c in frame.columns[1:]]
         rows.append(f"<tr><th scope='row'>{first}</th>" + "".join(f"<td>{v}</td>" for v in values) + "</tr>")
+    portfolio_css = (
+        ".document-comparison--portfolio h4{color:#202020;font-size:1.05rem;}"
+        ".document-comparison--portfolio thead th{background:#f7f7f7;color:#202020;font-weight:600;text-align:left;}"
+        ".document-comparison--portfolio td{text-align:left;}"
+        ".document-comparison--portfolio .document-comparison-scroll:focus-visible{outline:2px solid #ff5a00;}"
+        if portfolio_mode else ""
+    )
+    extra_class = " document-comparison--portfolio" if portfolio_mode else ""
     return (
         "<style>.document-comparison{margin:1.6rem 0 0.5rem;color:#202020;}"
         ".document-comparison h4{color:#b95000;font-size:1.25rem;margin:0 0 0.8rem;}"
@@ -515,9 +551,11 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int) ->
         ".document-comparison td{text-align:center;white-space:normal;overflow-wrap:anywhere;}"
         ".document-comparison tbody tr:last-child>*{border-bottom:1px solid #bcbcbc;}"
         "@media(max-width:700px){.document-comparison table{min-width:700px;}}"
-        "</style>"
-        f"<section class='document-comparison' aria-label='Comparativo {page_number}: {escape(title)}'>"
-        f"<h4>{escape(title)}</h4><div class='document-comparison-scroll'>"
+        f"{portfolio_css}</style>"
+        f"<section class='document-comparison{extra_class}' aria-label='Comparativo {page_number}: {escape(title)}'>"
+        f"<h4>{escape(title)}</h4><div class='document-comparison-scroll'"
+        + (" tabindex='0' role='region' aria-label='Tabela documental, rolagem horizontal'" if portfolio_mode else "")
+        + ">"
         f"<table><thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div></section>"
     )
 

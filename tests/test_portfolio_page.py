@@ -380,6 +380,7 @@ class PortfolioPageTests(unittest.TestCase):
             show_portfolio_selector=False,
             show_curation_tools=False,
             compact=True,
+            portfolio_mode=True,
         )
 
     def test_retry_action_forces_a_fresh_load_and_reruns(self) -> None:
