@@ -198,6 +198,7 @@ def _money(value: float | None) -> str:
 
 def build_fidc_analytical_pptx_bytes(
     funds: Iterable[object], *, portfolio_name: str, generated_at: datetime | None = None,
+    compact: bool = False,
 ) -> bytes:
     funds = list(funds)
     # Presentation names must not change the analytical rows or the Excel data.
@@ -215,9 +216,32 @@ def build_fidc_analytical_pptx_bytes(
         generated_at = generated_at.replace(tzinfo=ZoneInfo("America/Sao_Paulo"))
     generation_date = generated_at.astimezone(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y")
     deck = Deck("CRÉDITO ESTRUTURADO | CURADORIA DOCUMENTAL")
-    _render_rdb_synthesis(deck, display_data, portfolio_name, generation_date=generation_date, legal_names=legal_names)
-    for item in display_data:
-        _render_fund_slides(deck, item, generation_date=generation_date, legal_name=legal_names.get(item.cnpj, item.name))
+    all_rdb_missing = compact and bool(display_data) and all(item.rdb_status == "Não localizado" for item in display_data)
+    portfolio_rdb_note = (
+        f"RDB não localizado em {len(display_data)}/{len(display_data)} fundos nos documentos consultados. "
+        "Ausência não prova inexistência; detalhamento integral nas notas."
+        if all_rdb_missing else None
+    )
+    portfolio_rdb_notes = [f"Carteira: {portfolio_name}"]
+    if all_rdb_missing:
+        portfolio_rdb_notes.append(portfolio_rdb_note)
+        for item in display_data:
+            portfolio_rdb_notes.extend([
+                f"{legal_names.get(item.cnpj, item.name)} · CNPJ {item.cnpj}",
+                f"RDB: {item.rdb_status} · {item.rdb_finding} · Fonte: {_public_source(item.rdb_source)}",
+            ])
+    else:
+        _render_rdb_synthesis(deck, display_data, portfolio_name, generation_date=generation_date, legal_names=legal_names)
+    for index, item in enumerate(display_data):
+        _render_fund_slides(
+            deck, item, generation_date=generation_date, legal_name=legal_names.get(item.cnpj, item.name),
+            compact=compact, shared_rdb_missing=all_rdb_missing,
+            portfolio_rdb_note=portfolio_rdb_note if index == 0 else None,
+            portfolio_rdb_notes=portfolio_rdb_notes if index == 0 and all_rdb_missing else (),
+        )
+    if compact:
+        for slide in deck.prs.slides:
+            _style_compact_slide(slide)
     from services.presentation_text import public_pptx_bytes
     output = BytesIO(); deck.prs.save(output); return public_pptx_bytes(output.getvalue())
 
@@ -286,7 +310,7 @@ def _table_pages(rows: list[list[str]], widths: list[float], *, size: float, max
         chunks = max(1, max((len(value) + maximum_lines - 1) // maximum_lines for value in lines))
         for chunk_index in range(chunks):
             chunk = ["\n".join(value[chunk_index * maximum_lines:(chunk_index + 1) * maximum_lines]) for value in lines]
-            if chunk_index:
+            if chunk_index and len(row) > 1:
                 chunk[0] = f"{row[0]} (continuação)"
                 if len(chunk) > 1 and not chunk[1]:
                     chunk[1] = row[1]
@@ -309,6 +333,48 @@ def _rdb_conclusion(data: list[FidcSlideData]) -> str:
     return f"Resultado por fundo — {states}. A leitura se limita aos documentos consultados."
 
 
+def _style_compact_slide(slide) -> None:
+    """Apply the portfolio font scale without changing financial text values."""
+    for shape in slide.shapes:
+        if shape.has_text_frame:
+            is_title = .5 <= shape.top / 914400 <= .6
+            footer = shape.top / 914400 >= 7
+            if is_title:
+                shape.top = Inches(.50)
+                shape.height = Inches(.60)
+            for paragraph in shape.text_frame.paragraphs:
+                paragraph.space_before = paragraph.space_after = Pt(0)
+                paragraph.line_spacing = 1.0
+                for run in paragraph.runs:
+                    current_size = run.font.size or paragraph.font.size
+                    current = current_size.pt if current_size else 10
+                    if footer:
+                        size = 9
+                    elif is_title:
+                        size = 22 if len(shape.text) <= 100 else 13
+                    else:
+                        size = next((value for value in (10, 11, 13, 22, 32) if value >= current), 32)
+                    run.font.name = "Calibri"
+                    run.font.size = Pt(size)
+                    if footer:
+                        run.font.color.rgb = Deck.rgb(GRAY_700)
+        if shape.has_table:
+            for row_index, row in enumerate(shape.table.rows):
+                for cell in row.cells:
+                    for paragraph in cell.text_frame.paragraphs:
+                        for run in paragraph.runs:
+                            run.font.name = "Calibri"
+                            run.font.size = Pt(10)
+                            if row_index == 0:
+                                run.font.color.rgb = Deck.rgb(GRAY_700)
+
+
+def _control_pages(validations: list[str], *, width: float, height: float) -> list[str]:
+    lines = [line for issue in dict.fromkeys(validations) for line in _cell_lines(f"• {issue}", width, 10)]
+    maximum_lines = max(1, int(height / (10 / 72 * 1.28)))
+    return ["\n".join(lines[start:start + maximum_lines]) for start in range(0, len(lines), maximum_lines)]
+
+
 def _render_rdb_synthesis(deck: Deck, data: list[FidcSlideData], portfolio_name: str, *, generation_date: str, legal_names: dict[str, str]) -> None:
     widths = [2.95, 1.5, 7.6]
     pages = _table_pages(
@@ -329,15 +395,26 @@ def _render_rdb_synthesis(deck: Deck, data: list[FidcSlideData], portfolio_name:
         slide.notes_slide.notes_text_frame.text = "\n".join(notes)
 
 
-def _render_fund_slides(deck: Deck, data: FidcSlideData, *, generation_date: str, legal_name: str) -> None:
+def _render_fund_slides(
+    deck: Deck, data: FidcSlideData, *, generation_date: str, legal_name: str,
+    compact: bool = False, shared_rdb_missing: bool = False,
+    portfolio_rdb_note: str | None = None, portfolio_rdb_notes: Iterable[str] = (),
+) -> None:
+    table_size = 10 if compact else 9
+    table_height = 4.62 if compact else 4.78
     issuance_rows = [[issuance.date, issuance.series, _money(issuance.volume_mm).replace("R$ ", ""), issuance.remuneration] for issuance in data.issuances]
     first_widths = [.65, 2.05, .9, 1.65]
     continued_widths = [.65, 3.0, .9, 4.7]
-    first_pages = _table_pages(issuance_rows, first_widths, size=9, maximum_height=4.78, maximum_rows=7)
+    first_pages = _table_pages(issuance_rows, first_widths, size=table_size, maximum_height=table_height, maximum_rows=7)
     chunks = [first_pages[0]]
     remaining = [row for group in first_pages[1:] for row in group]
     if remaining:
-        chunks.extend(_table_pages(remaining, continued_widths, size=9, maximum_height=4.78, maximum_rows=7))
+        chunks.extend(_table_pages(remaining, continued_widths, size=table_size, maximum_height=table_height, maximum_rows=7))
+    visible_controls = list(data.validations)
+    if compact and shared_rdb_missing:
+        visible_controls = [value for value in visible_controls if value != "RDB não localizado nos documentos extraídos; ausência não prova inexistência."]
+    control_pages = _control_pages(visible_controls, width=2.53, height=3.1) if compact else []
+    extensive_minimum = compact and len(_cell_lines(data.minimum_subordination, 3.73, 11)) > 3
     for page, chunk in enumerate(chunks, 1):
         title = f"{_presentation_name(data.name)} | estrutura e emissões" + (f" ({page}/{len(chunks)})" if len(chunks) > 1 else "")
         slide = deck.slide(title)
@@ -351,7 +428,10 @@ def _render_fund_slides(deck: Deck, data: FidcSlideData, *, generation_date: str
                 ["Cotas sênior / PL", _pct(data.senior_pct_pl)], ["Cotas subordinadas / PL", _pct(data.subordinated_pct_pl)],
                 ["Volume emitido identificado", _money(data.identified_issuance_volume_mm)], ["Primeira / última emissão", f"{data.first_issuance} / {data.last_issuance}"],
             ]
-            deck.native_table(slide, snapshot, .62, 1.43, [2.18, 1.55], row_height=.34, header_height=.34, size=9, aligns="lr")
+            if compact:
+                _native_readable_table(deck, slide, snapshot, .62, 1.43, [2.18, 1.55], size=10, aligns="lr")
+            else:
+                deck.native_table(slide, snapshot, .62, 1.43, [2.18, 1.55], row_height=.34, header_height=.34, size=9, aligns="lr")
             deck.text(slide, "Emissões e remuneração", 4.62, 1.40, 4.0, .3, size=11, bold=True)
             x, w = 4.62, 5.25
         else:
@@ -360,26 +440,59 @@ def _render_fund_slides(deck: Deck, data: FidcSlideData, *, generation_date: str
         rows = [["Data", "Série / classe", "Volume", "Remuneração"], *chunk]
         if not chunk:
             rows.append(["N/D", "Dados insuficientes para reconstrução", "N/D", "N/D"])
-        _native_readable_table(deck, slide, rows, x, 1.76, first_widths if page == 1 else continued_widths, size=9, aligns="llrl")
+        _native_readable_table(deck, slide, rows, x, 1.76, first_widths if page == 1 else continued_widths, size=table_size, aligns="llrl")
         if page == 1:
-            deck.text(slide, "Subordinação mínima", .62, 4.37, 2.0, .24, size=10, color=ORANGE, bold=True)
-            deck.text(slide, data.minimum_subordination, 2.45, 4.34, 1.9, .36, size=11, bold=True)
-            deck.text(slide, "RDB", .62, 4.91, 2.0, .24, size=10, color=ORANGE, bold=True)
+            if compact:
+                deck.text(slide, "Subordinação mínima", .62, 4.20, 3.73, .24, size=11, color=ORANGE, bold=True)
+                minimum = "Regra extensa — leitura integral na continuação e nas notas." if extensive_minimum else data.minimum_subordination
+                deck.text(slide, minimum, .62, 4.53, 3.73, .48, size=11, bold=True)
+            else:
+                deck.text(slide, "Subordinação mínima", .62, 4.37, 2.0, .24, size=10, color=ORANGE, bold=True)
+                deck.text(slide, data.minimum_subordination, 2.45, 4.34, 1.9, .36, size=11, bold=True)
+            deck.text(slide, "RDB", .62, 5.13 if compact else 4.91, 2.0, .24, size=10, color=ORANGE, bold=True)
             finding = f"{data.rdb_status}: {data.rdb_finding}"
-            if len(_cell_lines(finding, 3.73, 9)) > 5:
+            if len(_cell_lines(finding, 3.73, table_size)) > 5:
                 finding = f"{data.rdb_status}. Leitura completa nas notas."
-            deck.text(slide, finding, .62, 5.19, 3.73, .92, size=9, color=GRAY_700)
+            deck.text(slide, finding, .62, 5.46 if compact else 5.19, 3.73, .76 if compact else .92, size=table_size, color=GRAY_700)
             deck.text(slide, "Perfil de amortização", 10.15, 1.40, 2.3, .3, size=11, bold=True)
-            deck.block(slide, 10.15, 1.76, 2.53, 3.67, GRAY_100)
-            deck.text(slide, "Dados insuficientes para reconstrução confiável do waterfall.", 10.42, 3.05, 2.0, .7, size=10, color=GRAY_500, bold=True, align=1)
-            deck.text(slide, "Controles", 10.15, 5.62, 1.3, .22, size=9, color=ORANGE, bold=True)
-            deck.text(slide, "\n".join(f"• {x}" for x in data.validations[:3]) or "• Sem divergência material identificada", 10.15, 5.88, 2.53, .72, size=7.5, color=GRAY_700)
+            if compact:
+                deck.text(slide, "Cronograma quantificável: N/D. Textos documentais nas notas.", 10.15, 1.80, 2.53, .76, size=10, color=GRAY_700)
+                deck.text(slide, "Controles", 10.15, 3.0, 2.53, .24, size=11, color=ORANGE, bold=True)
+                deck.text(slide, control_pages[0] if control_pages else "Demais controles registrados nas notas.", 10.15, 3.34, 2.53, 3.10, size=10, color=GRAY_700)
+                if portfolio_rdb_note:
+                    deck.text(slide, portfolio_rdb_note, .62, 6.64, 12.05, .24, size=10, color=GRAY_700)
+            else:
+                deck.block(slide, 10.15, 1.76, 2.53, 3.67, GRAY_100)
+                deck.text(slide, "Dados insuficientes para reconstrução confiável do waterfall.", 10.42, 3.05, 2.0, .7, size=10, color=GRAY_500, bold=True, align=1)
+                deck.text(slide, "Controles", 10.15, 5.62, 1.3, .22, size=9, color=ORANGE, bold=True)
+                deck.text(slide, "\n".join(f"• {x}" for x in data.validations[:3]) or "• Sem divergência material identificada", 10.15, 5.88, 2.53, .72, size=7.5, color=GRAY_700)
         sources = sorted({_public_source(i.source) for i in data.issuances if i.source != "N/D"})
         deck.footer(slide, f"CVM · {data.competence} | Fundos.NET/B3 · Fontes nas notas. Gerado em {generation_date}.")
         notes = [f"{legal_name} · CNPJ {data.cnpj}", f"Posição CVM: {data.competence}", f"Geração: {generation_date}", f"RDB: {data.rdb_status} · {data.rdb_finding}", f"Fonte RDB: {_public_source(data.rdb_source)}", "Emissões:"]
         notes.extend(f"{i.date} · {i.series} · {_money(i.volume_mm)} · {i.remuneration} · Amortização: {i.amortization} · Fonte: {_public_source(i.source)}" for i in data.issuances)
         notes.extend(["Fontes:", *sources, "Controles:", *data.validations])
+        if compact:
+            notes.append(f"Subordinação mínima: {data.minimum_subordination}")
+        if page == 1 and portfolio_rdb_notes:
+            notes.extend(["Cobertura RDB da cesta completa:", *portfolio_rdb_notes])
         slide.notes_slide.notes_text_frame.text = "\n".join(notes)
+    if compact:
+        if extensive_minimum:
+            minimum_rows = _table_pages([[data.minimum_subordination]], [12.05], size=10, maximum_height=4.78)
+            for index, rows in enumerate(minimum_rows, 1):
+                title = f"{_presentation_name(data.name)} | subordinação mínima"
+                if len(minimum_rows) > 1:
+                    title += f" ({index}/{len(minimum_rows)})"
+                slide = deck.slide(title)
+                _native_readable_table(deck, slide, [["Regra documental integral"], *rows], .62, 1.76, [12.05], size=10, aligns="l")
+                deck.footer(slide, f"CVM · {data.competence} | Fundos.NET/B3 · Fontes nas notas. Gerado em {generation_date}.")
+                slide.notes_slide.notes_text_frame.text = "\n".join(notes)
+        for index, controls in enumerate(control_pages[1:], 2):
+            slide = deck.slide(f"{_presentation_name(data.name)} | controles documentais ({index}/{len(control_pages)})")
+            deck.text(slide, "Controles — continuação", .62, 1.40, 8, .3, size=11, bold=True)
+            deck.text(slide, controls, .62, 1.86, 12.05, 4.8, size=10, color=GRAY_700)
+            deck.footer(slide, f"CVM · {data.competence} | Fundos.NET/B3 · Fontes nas notas. Gerado em {generation_date}.")
+            slide.notes_slide.notes_text_frame.text = "\n".join(notes)
 
 
 def build_fidc_analytical_xlsx_bytes(funds: Iterable[object], *, portfolio_name: str) -> bytes:

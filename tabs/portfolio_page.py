@@ -1072,6 +1072,7 @@ def _prepare_complete_portfolio_pptx(
     try:
         decks.append(build_fidc_analytical_pptx_bytes(
             selected_portfolio.funds, portfolio_name=selected_portfolio.name,
+            compact=True,
         ))
     except Exception as exc:  # noqa: BLE001
         warnings.append(f"Estrutura, emissões e RDB: {exc}")
