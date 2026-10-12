@@ -1065,6 +1065,7 @@ def _prepare_complete_portfolio_pptx(
                 benchmark_spreads_by_fund=benchmark_spreads_by_fund,
                 portfolio_mode=True,
                 portfolio_name=selected_portfolio.name,
+                compact=True,
             ))
         except Exception as exc:  # noqa: BLE001
             warnings.append(f"Base analítica: {exc}")

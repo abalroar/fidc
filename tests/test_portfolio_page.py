@@ -259,6 +259,7 @@ class PortfolioPageTests(unittest.TestCase):
             benchmark_spreads_by_fund=benchmark_by_fund,
             portfolio_mode=True,
             portfolio_name=portfolio.name,
+            compact=True,
         )
         exported = next(call.kwargs["data"] for call in download_button.call_args_list
                         if call.kwargs.get("mime") == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
