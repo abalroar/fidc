@@ -6,10 +6,20 @@ from collections.abc import Iterable, Mapping
 import pandas as pd
 
 from services.fund_name_display import short_fund_name
-from services.presentation_text import document_comparison_value
+from services.presentation_text import document_comparison_value, public_document_text
 
 
 DOCUMENT_GROUPING_CAPTION = "Colunas idênticas agrupadas; composição de cada grupo nas notas."
+
+
+def portfolio_document_warnings(warnings: Iterable[object]) -> tuple[str, ...]:
+    """Keep every nonempty caveat, sanitizing public references without a limit."""
+    return tuple(
+        public_document_text(warning)
+        or "Ressalva com referência privada; conteúdo omitido na apresentação pública."
+        for warning in warnings
+        if warning is not None and str(warning).strip()
+    )
 
 
 def _short_label(value: object) -> str:
@@ -86,4 +96,4 @@ def compact_document_frame(
     return compact, tuple(mappings)
 
 
-__all__ = ["DOCUMENT_GROUPING_CAPTION", "compact_document_frame"]
+__all__ = ["DOCUMENT_GROUPING_CAPTION", "compact_document_frame", "portfolio_document_warnings"]

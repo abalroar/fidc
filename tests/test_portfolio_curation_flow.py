@@ -40,3 +40,46 @@ def test_standalone_documentary_table_keeps_its_original_presentation():
     original = tab_deep_dive._comparison_table_html("Título", frame, 1)
     assert "document-comparison--portfolio" not in original
     assert "background:#ff6200" in original
+
+
+def test_portfolio_curation_keeps_two_material_points_and_all_fifteen_reading_caveats():
+    warnings = tuple(f"Lacuna RESSALVA_{index:02}: condição documental {index}." for index in range(14)) + (
+        "Pacote gerado exclusivamente da cesta. Referência /Users/analista/Documentos/consulta.pdf. "
+        + "Texto integral preservado. " * 40 + "FINAL_DA_RESSALVA.",
+    )
+    manifest = SimpleNamespace(generated_at="2026-10-07T11:08:04-03:00", warnings=warnings)
+    with (
+        patch.object(tab_deep_dive, "_render_fund_reading"),
+        patch.object(tab_deep_dive.st, "expander", return_value=nullcontext()) as expander,
+        patch.object(tab_deep_dive.st, "markdown") as markup,
+        patch.object(tab_deep_dive.st, "caption"),
+    ):
+        tab_deep_dive._render_document_curation(manifest, portfolio_mode=True)
+    expander.assert_called_once_with("Ressalvas da leitura", expanded=False)
+    highlights = markup.call_args_list[-2].args[0]
+    assert "RESSALVA_00" in highlights and "RESSALVA_01" in highlights
+    assert "RESSALVA_02" not in highlights
+    all_caveats = markup.call_args_list[-1].args[0]
+    assert all(f"RESSALVA_{index:02}" in all_caveats for index in range(14))
+    assert "Pacote gerado exclusivamente da cesta." in all_caveats
+    assert "FINAL_DA_RESSALVA." in all_caveats
+    assert "consulta.pdf" in all_caveats
+    assert "/Users/analista" not in all_caveats
+    assert len([line for line in all_caveats.splitlines() if line.startswith("- ")]) == 15
+    assert manifest.warnings == warnings
+
+
+def test_standalone_curation_keeps_original_two_point_limit_without_new_expander():
+    warnings = tuple(f"Lacuna RESSALVA_{index:02}: condição documental." for index in range(5))
+    manifest = SimpleNamespace(generated_at="2026-10-07T11:08:04-03:00", warnings=warnings)
+    with (
+        patch.object(tab_deep_dive, "_render_fund_reading"),
+        patch.object(tab_deep_dive.st, "expander") as expander,
+        patch.object(tab_deep_dive.st, "markdown") as markup,
+        patch.object(tab_deep_dive.st, "caption"),
+    ):
+        tab_deep_dive._render_document_curation(manifest)
+    expander.assert_not_called()
+    highlights = markup.call_args_list[-1].args[0]
+    assert "RESSALVA_00" in highlights and "RESSALVA_01" in highlights
+    assert "RESSALVA_02" not in highlights

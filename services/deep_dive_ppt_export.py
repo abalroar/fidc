@@ -190,6 +190,11 @@ def build_document_comparison_pptx_bytes(
         if portfolio_mode:
             notes.append(f"Documento: {manifest.title}")
             notes.extend(f"{fund.get('short_name') or fund.get('name')} · {fund.get('name') or 'razão social não informada'} · CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
+            if index == 1:
+                from services.portfolio_document_display import portfolio_document_warnings
+                warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
+                if warnings:
+                    notes.extend(["Ressalvas da leitura:", *warnings])
         else:
             notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
         if page.notes:

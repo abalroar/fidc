@@ -381,6 +381,12 @@ def _render_document_curation(manifest: Any, *, portfolio_mode: bool = False) ->
     if warnings:
         st.markdown("#### Pontos de atenção")
         st.markdown("\n".join(f"- {escape(item)}" for item in warnings))
+    if portfolio_mode:
+        from services.portfolio_document_display import portfolio_document_warnings
+        all_warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
+        if all_warnings:
+            with st.expander("Ressalvas da leitura", expanded=False):
+                st.markdown("\n\n".join(f"- {escape(item)}" for item in all_warnings))
 
 
 def _curation_base_bullets(manifest: Any) -> tuple[str, ...]:

@@ -1,3 +1,4 @@
+from dataclasses import replace
 from io import BytesIO
 from pathlib import Path
 
@@ -8,7 +9,8 @@ from pptx.enum.text import PP_ALIGN
 from services.deep_dive_models import DeepDiveManifest
 from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 from services.document_curation_comparison import DocumentComparisonPage
-from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION, compact_document_frame
+from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION, compact_document_frame, portfolio_document_warnings
+from services.pptx_merge import merge_pptx_bytes
 
 
 def _manifest():
@@ -191,3 +193,46 @@ def test_compact_ppt_retains_long_clauses_and_continues_without_overflow():
         for shape in slide.shapes:
             assert shape.top + shape.height <= compact.slide_height
             assert shape.left + shape.width <= compact.slide_width
+
+
+def test_portfolio_documentary_ppt_keeps_all_manifest_caveats_once_in_first_slide_notes_only():
+    warnings = tuple(f"RESSALVA_{index:02}: lacuna documental {index}." for index in range(14)) + (
+        "RESSALVA_14: arquivo /Users/analista/Documentos/consulta.pdf. "
+        + "Texto integral preservado. " * 40 + "FINAL_DA_RESSALVA.",
+    )
+    manifest = replace(_manifest(), warnings=warnings)
+    pages = [_page(), replace(_page(), title="Proteções")]
+    payload = build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True)
+    portfolio = Presentation(BytesIO(payload))
+    default = Presentation(BytesIO(build_document_comparison_pptx_bytes(manifest, pages)))
+    assert len(portfolio.slides) == len(default.slides) == 2
+    assert _values(portfolio) == _values(default)
+    notes = [slide.notes_slide.notes_text_frame.text for slide in portfolio.slides]
+    for warning in portfolio_document_warnings(warnings):
+        assert warning in notes[0]
+        assert "\n".join(notes).count(warning) == 1
+    assert "Ressalvas da leitura:" in notes[0]
+    assert "Ressalvas da leitura:" not in notes[1]
+    assert "/Users/analista" not in "\n".join(notes)
+    assert "FINAL_DA_RESSALVA." in notes[0]
+    visible = "\n".join(shape.text for slide in portfolio.slides for shape in slide.shapes if shape.has_text_frame)
+    assert "RESSALVA_" not in visible
+    assert all("RESSALVA_" not in slide.notes_slide.notes_text_frame.text for slide in default.slides)
+    assert manifest.warnings == warnings
+    prefix = build_document_comparison_pptx_bytes(_manifest(), [_page()])
+    merged = Presentation(BytesIO(merge_pptx_bytes(prefix, payload)))
+    merged_notes = [slide.notes_slide.notes_text_frame.text for slide in merged.slides]
+    assert len(merged.slides) == 3
+    assert "Ressalvas da leitura:" not in merged_notes[0]
+    assert "Ressalvas da leitura:" not in merged_notes[2]
+    for warning in portfolio_document_warnings(warnings):
+        assert warning in merged_notes[1]
+        assert "\n".join(merged_notes).count(warning) == 1
+
+
+def test_portfolio_caveat_sanitization_retains_duplicates_and_signals_private_only_content():
+    warnings = ["Lacuna documental.", "Lacuna documental.", "Imagem fornecida", "", None]
+    output = portfolio_document_warnings(warnings)
+    assert output[:2] == ("Lacuna documental.", "Lacuna documental.")
+    assert len(output) == 3
+    assert output[2] == "Ressalva com referência privada; conteúdo omitido na apresentação pública."
