@@ -495,18 +495,58 @@ def _render_fund_slides(
             slide.notes_slide.notes_text_frame.text = "\n".join(notes)
 
 
-def build_fidc_analytical_xlsx_bytes(funds: Iterable[object], *, portfolio_name: str) -> bytes:
-    data = build_slide_data(funds)
+def _portfolio_rdb_evidence(
+    evidence: pd.DataFrame,
+    data: list[FidcSlideData],
+    legal_names: dict[str, str],
+) -> tuple[pd.DataFrame, int, int]:
+    if "CNPJ" not in evidence.columns:
+        raise ValueError("O cadastro documental de RDB não contém a coluna CNPJ.")
+    selected_cnpjs = {normalize_cnpj(item.cnpj) for item in data}
+    evidence_cnpjs = evidence["CNPJ"].map(normalize_cnpj)
+    selected = evidence.loc[evidence_cnpjs.isin(selected_cnpjs)].copy()
+    located_cnpjs = set(evidence_cnpjs.loc[selected.index])
+    missing_rows = []
+    for item in data:
+        cnpj = normalize_cnpj(item.cnpj)
+        if cnpj in located_cnpjs:
+            continue
+        row = dict.fromkeys(evidence.columns, "N/D")
+        values = {
+            "CNPJ": item.cnpj,
+            "Fundo": legal_names.get(cnpj, item.name),
+            "Status": "Não localizado",
+            "Achado regulamento": "Nenhum registro de RDB localizado no cadastro documental consultado.",
+            "Função documentada": "N/D; não inferido.",
+        }
+        row.update({key: value for key, value in values.items() if key in row})
+        missing_rows.append(row)
+    if missing_rows:
+        selected = pd.concat([selected, pd.DataFrame(missing_rows, columns=evidence.columns)], ignore_index=True)
+    return selected, len(evidence) - int(evidence_cnpjs.isin(selected_cnpjs).sum()), len(missing_rows)
+
+
+def build_fidc_analytical_xlsx_bytes(
+    funds: Iterable[object], *, portfolio_name: str, portfolio_mode: bool = False,
+) -> bytes:
+    portfolio_funds = tuple(funds) if portfolio_mode else None
+    data = build_slide_data(portfolio_funds if portfolio_mode else funds)
     wb = Workbook(); wb.remove(wb.active)
     _write_sheet(wb, "Snapshot", [
         ["Carteira", "CNPJ", "FIDC", "Competência", "PL (R$ mm)", "DC / PL", "Sênior / PL", "Subordinada / PL", "Volume emitido (R$ mm)", "Primeira emissão", "Última emissão", "Subordinação mínima"]
     ] + [[portfolio_name, d.cnpj, d.name, d.competence, d.pl_mm, d.receivables_pct_pl, d.senior_pct_pl, d.subordinated_pct_pl, d.identified_issuance_volume_mm, d.first_issuance, d.last_issuance, d.minimum_subordination] for d in data], "tbSnapshot")
     _write_sheet(wb, "Emissões", [["CNPJ", "FIDC", "Data", "Série / classe", "Tipo", "Volume (R$ mm)", "Remuneração", "Amortização", "Fonte"]] + [[d.cnpj, d.name, i.date, i.series, i.quota_class, i.volume_mm, i.remuneration, i.amortization, i.source] for d in data for i in d.issuances], "tbEmissoes")
     evidence = pd.read_csv(RDB_EVIDENCE, dtype=str, keep_default_na=False)
+    if portfolio_mode:
+        legal_names = {normalize_cnpj(fund.cnpj): fund.display_name for fund in portfolio_funds}
+        evidence, excluded_rdb_rows, missing_rdb_funds = _portfolio_rdb_evidence(evidence, data, legal_names)
     _write_sheet(wb, "RDB", [list(evidence.columns)] + evidence.values.tolist(), "tbRDB")
     _write_sheet(wb, "Validações", [["CNPJ", "FIDC", "Controle / divergência"]] + [[d.cnpj, d.name, issue] for d in data for issue in (d.validations or ["Sem divergência material identificada"])] , "tbValidacoes")
     ws = wb.create_sheet("Metodologia"); ws.append(["Campo", "Regra"])
     for row in [("Separação", "extração → normalização → cálculos → validação → renderização"), ("PL e composição", "última competência disponível por CNPJ em vehicle_monthly.csv.gz"), ("Emissões", "perfil regulatório curado; deduplicação por data, série, volume e primeira fonte"), ("Waterfall", "somente produzido com cronograma documental quantificável; caso contrário, N/D"), ("RDB", "matriz documental por CNPJ, com página e status explícito/parcial/não localizado")]: ws.append(row)
+    if portfolio_mode:
+        ws.append(["RDB — perímetro", f"CNPJs exatos da cesta. {excluded_rdb_rows} registro(s) de outros CNPJs excluído(s)."])
+        ws.append(["RDB — lacunas", f"{missing_rdb_funds} fundo(s) sem registro no cadastro consultado, indicados como Não localizado e N/D. Ausência de evidência documental não comprova inexistência de RDB."])
     _style_sheet(ws); output = BytesIO(); wb.save(output); return output.getvalue()
 
 

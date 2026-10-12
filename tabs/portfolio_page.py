@@ -936,7 +936,7 @@ def _render_unified_portfolio_download(
         key=f"portfolio_download_data::{selected_portfolio.id}",
     ):
         if compact:
-            st.caption("O Excel de estrutura mantém a aba RDB do cadastro documental global; confira os CNPJs dessa aba.")
+            st.caption("RDB limitado aos CNPJs da cesta. Ausências documentais aparecem como Não localizado/N/D.")
         for artifact, label, name, mime, producer in (
             (
                 "snapshot_excel", "Resumo histórico da carteira (Excel)",
@@ -1057,7 +1057,7 @@ def _portfolio_download_context_signature(
 def _prepare_analytical_portfolio_xlsx(portfolio: PortfolioRecord) -> bytes:
     from services.fidc_analytical_slide import build_fidc_analytical_xlsx_bytes
 
-    return build_fidc_analytical_xlsx_bytes(portfolio.funds, portfolio_name=portfolio.name)
+    return build_fidc_analytical_xlsx_bytes(portfolio.funds, portfolio_name=portfolio.name, portfolio_mode=True)
 
 
 def _portfolio_ppt_return_inputs(analysis: PortfolioAnalysisData) -> tuple[Any, str | None]:
