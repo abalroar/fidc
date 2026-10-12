@@ -191,6 +191,6 @@ def test_prepared_portfolio_download_contains_comparison_and_documentary_notes()
         )
     assert prepared.warnings == ()
     presentation = Presentation(BytesIO(prepared.data))
-    assert len(presentation.slides) == 3
+    assert len(presentation.slides) == 5  # Portfolio cover and references surround the three fixture blocks.
     assert _native_tables(presentation)[0].cell(2, 1).text == "≤ 5%"
-    assert _page().sources[0] in presentation.slides[-1].notes_slide.notes_text_frame.text
+    assert any(_page().sources[0] in slide.notes_slide.notes_text_frame.text for slide in presentation.slides if slide.has_notes_slide)

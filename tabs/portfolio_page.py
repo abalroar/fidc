@@ -1089,10 +1089,21 @@ def _prepare_complete_portfolio_pptx(
     output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
     ppt_scope_consistent = dashboard_cnpjs == output_cnpjs and not analysis.load_errors
     decks: list[bytes] = []
+    blocks: list[tuple[str, int]] = []
+
+    def append_block(name: str, payload: bytes) -> None:
+        from io import BytesIO
+        from pptx import Presentation
+        count = len(Presentation(BytesIO(payload)).slides)
+        if not count:
+            raise ValueError("Bloco sem slides.")
+        decks.append(payload)
+        blocks.append((name, count))
+
     warnings: list[str] = []
     if analysis.aggregate_bundle is not None and ppt_scope_consistent:
         try:
-            decks.append(build_dashboard_pptx_bytes(
+            append_block("A", build_dashboard_pptx_bytes(
                 analysis.aggregate_bundle.dashboard, requested_period_label=period.label,
             ))
         except Exception as exc:  # noqa: BLE001
@@ -1106,7 +1117,7 @@ def _prepare_complete_portfolio_pptx(
                     outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
                 )
             monthly_cdi_rates_by_fund, benchmark_spreads_by_fund = return_inputs
-            decks.append(build_somatorio_fidcs_pptx_bytes(
+            append_block("B", build_somatorio_fidcs_pptx_bytes(
                 outputs=analysis.outputs, monitor_outputs=analysis.monitor_outputs,
                 research_outputs=analysis.research_outputs,
                 monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
@@ -1120,7 +1131,7 @@ def _prepare_complete_portfolio_pptx(
     else:
         warnings.append("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.")
     try:
-        decks.append(build_fidc_analytical_pptx_bytes(
+        append_block("C", build_fidc_analytical_pptx_bytes(
             selected_portfolio.funds, portfolio_name=selected_portfolio.name,
             compact=True,
         ))
@@ -1129,12 +1140,30 @@ def _prepare_complete_portfolio_pptx(
     try:
         documentary_deck = _build_documentary_portfolio_deck(selected_portfolio, portfolio_mode=True)
         if documentary_deck is not None:
-            decks.append(documentary_deck)
+            append_block("D", documentary_deck)
+        else:
+            warnings.append("Curadoria documental: pacote comparativo não localizado para esta cesta.")
     except Exception as exc:  # noqa: BLE001
         warnings.append(f"Curadoria documental: {exc}")
     if not decks:
         raise ValueError("Nenhuma parte da apresentação pôde ser preparada.")
     data = decks[0] if len(decks) == 1 else merge_pptx_bytes(decks[0], *decks[1:])
+    from services.portfolio_ppt_presentation import finalize_portfolio_pptx
+    context = analysis.reference_context or build_portfolio_presentation_context(
+        analysis=analysis, portfolio=selected_portfolio, period=period,
+    )
+    identities = []
+    for fund in selected_portfolio.funds:
+        scope = next((item for item in analysis.scopes if item.cnpj == fund.cnpj), None)
+        dashboard = (scope.snapshot_dashboard or scope.dashboard) if scope is not None else None
+        info = getattr(dashboard, "fund_info", {}) or {}
+        legal_name = next((value for value in (info.get("nome_fundo"), info.get("nome_classe"), info.get("denominacao"))
+                           if value and str(value).strip() not in {"N/D", "-"}), fund.display_name)
+        identities.append({"name": legal_name, "display_name": fund.display_name, "cnpj": fund.cnpj})
+    data = finalize_portfolio_pptx(
+        data, context=context, blocks=blocks,
+        funds=identities, warnings=tuple(warnings),
+    )
     return PreparedDownload(data=data, warnings=tuple(warnings))
 
 

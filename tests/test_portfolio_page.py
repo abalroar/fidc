@@ -263,7 +263,11 @@ class PortfolioPageTests(unittest.TestCase):
         )
         exported = next(call.kwargs["data"] for call in download_button.call_args_list
                         if call.kwargs.get("mime") == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
-        self.assertEqual(len(Presentation(BytesIO(exported)).slides), 2)
+        document = Presentation(BytesIO(exported))
+        self.assertEqual(len(document.slides), 4)  # Partial fixture gains cover + references.
+        self.assertIn(portfolio.name, document.slides[0].shapes[0].text)
+        self.assertIn("Referências da análise", "\n".join(shape.text for shape in document.slides[-1].shapes if shape.has_text_frame))
+        self.assertIn("Curadoria documental", document.slides[-1].notes_slide.notes_text_frame.text)
 
     def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
         fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
