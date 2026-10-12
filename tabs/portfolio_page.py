@@ -1105,6 +1105,7 @@ def _prepare_complete_portfolio_pptx(
         try:
             append_block("A", build_dashboard_pptx_bytes(
                 analysis.aggregate_bundle.dashboard, requested_period_label=period.label,
+                portfolio_mode=True,
             ))
         except Exception as exc:  # noqa: BLE001
             warnings.append(f"Visão Fundos.NET: {exc}")
