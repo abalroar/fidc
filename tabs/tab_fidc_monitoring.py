@@ -339,6 +339,7 @@ def render_portfolio_cockpit_snapshot(
     selected_portfolio: PortfolioRecord,
     selected_cnpjs: set[str] | None = None,
     context_items: tuple[tuple[str, object], ...] | None = None,
+    portfolio_mode: bool = False,
 ) -> bool:
     """Render the compact per-fund monitoring snapshot inside another page section."""
     _render_monitoring_css()
@@ -360,7 +361,7 @@ def render_portfolio_cockpit_snapshot(
     if context_items is None:
         _render_cockpit_tab(success_outputs)
     else:
-        _render_cockpit_tab(success_outputs, context_items=context_items)
+        _render_cockpit_tab(success_outputs, context_items=context_items, portfolio_mode=portfolio_mode)
     return True
 
 
@@ -681,6 +682,7 @@ def _render_cockpit_tab(
     outputs: list[dict[str, Any]],
     *,
     context_items: tuple[tuple[str, object], ...] | None = None,
+    portfolio_mode: bool = False,
 ) -> None:
     reporting_statuses = fetch_fidc_reporting_statuses(
         {str(item.get("cnpj") or "") for item in outputs}
@@ -707,7 +709,9 @@ def _render_cockpit_tab(
             with st.expander("Critério da competência do comparativo", expanded=False):
                 st.caption(assessment.note)
     eligible = set(assessment.eligible_cnpjs)
-    if context_items is not None:
+    if portfolio_mode:
+        st.caption(f"Comparativo · {_format_competencia_label(reference)} · {len(eligible)} fundos elegíveis")
+    elif context_items is not None:
         latest_coverage = assessment.coverage_df.iloc[-1]
         st.html(analysis_context_html((*context_items,
             ("Posição do comparativo", _format_competencia_label(reference)),
@@ -720,6 +724,7 @@ def _render_cockpit_tab(
             [item for item in outputs if str(item.get("cnpj") or "") in eligible],
             reference,
             compact_identity=context_items is not None,
+            inline_identifiers=not portfolio_mode,
         ),
         unsafe_allow_html=True,
     )
@@ -1042,6 +1047,7 @@ def _limit_status(value: float | None, limit: float | None, *, higher_is_better:
 
 def _render_cockpit_table_html(
     outputs: list[dict[str, Any]], latest: str, *, compact_identity: bool = False,
+    inline_identifiers: bool = True,
 ) -> str:
     fund_width = 172
     min_width = max(460 + fund_width * (len(outputs) + 1), 980)
@@ -1066,10 +1072,13 @@ def _render_cockpit_table_html(
             full_name = str(item['display_name'])
             if compact_identity:
                 name = short_fund_name(full_name)
+                cnpj = escape(format_cnpj(item.get('cnpj') or ''))
+                identifier = f"<small>{cnpj}</small>" if inline_identifiers else ""
+                detailed_identifier = "" if inline_identifiers else f"<br>CNPJ {cnpj}"
                 html.append(
                     f"<th><details class='financial-fund-identity'><summary aria-label='Identificação de {escape(full_name, quote=True)}'>{escape(name)}</summary>"
-                    f"<span>{escape(full_name)}</span></details>"
-                    f"<small>{escape(format_cnpj(item.get('cnpj') or ''))}</small></th>"
+                    f"<span>{escape(full_name)}{detailed_identifier}</span></details>"
+                    f"{identifier}</th>"
                 )
             else:
                 html.append(f"<th>{escape(full_name)}</th>")

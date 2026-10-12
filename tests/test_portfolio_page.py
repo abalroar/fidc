@@ -457,8 +457,8 @@ class PortfolioPageTests(unittest.TestCase):
             dashboard_errors={},
             load_errors={},
         )
-        portfolio = Mock(id="portfolio-1")
-        period = Mock()
+        portfolio = SimpleNamespace(id="portfolio-1", name="Carteira de teste", funds=())
+        period = SimpleNamespace(label="Janela de teste")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
 
         with (

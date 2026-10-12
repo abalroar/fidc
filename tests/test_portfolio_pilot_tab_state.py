@@ -206,12 +206,12 @@ def test_structure_reuses_approved_components_and_order_for_each_portfolio(monke
     assert [call[0] for call in components.mock_calls] == ["cockpit", "cards", "chart", "table", "memory"]
     components.cockpit.assert_called_once_with(
         period=period, selected_portfolio=portfolio, selected_cnpjs={scope.cnpj},
-        context_items=(("Fonte", "Informe Mensal · CVM/Fundos.NET"), ("Janela histórica visual", "Set/25 – Ago/26")),
+        context_items=(), portfolio_mode=True,
     )
-    components.cards.assert_called_once_with(dashboard, interactive_help=True)
+    components.cards.assert_called_once_with(dashboard, interactive_help=True, portfolio_mode=True, slot_key=scope.value)
     components.chart.assert_called_once_with(
         dashboard, slot_key=f"portfolio_structure::{portfolio_id}::{scope.value}",
-        show_return_section=False, responsive_labels=True,
+        show_return_section=False, responsive_labels=True, portfolio_mode=True,
     )
     components.table.assert_called_once_with(base, accessible=True)
     assert portfolio_page.st.session_state[f"portfolio_structure_scope::{portfolio_id}::selection"] == "Seller"
