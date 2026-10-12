@@ -2025,7 +2025,12 @@ def _portfolio_credit_zero_note(history: pd.DataFrame) -> str:
             parts.append(f"{label} 0,00%{suffix}")
     if not observed:
         return "N/D — inadimplência e PDD sem dados no período."
-    return " · ".join(parts) + ". Gráfico dispensado: as séries disponíveis são zero."
+    window = ""
+    if "competencia" in history:
+        labels = history["competencia"].dropna().astype(str).tolist()
+        if labels:
+            window = f"Histórico {labels[0]} → {labels[-1]}. "
+    return window + " · ".join(parts) + ". Gráfico dispensado: as séries disponíveis são zero."
 
 
 def _portfolio_coverage_unavailable_note(history: pd.DataFrame) -> str:

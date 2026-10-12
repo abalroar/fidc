@@ -247,3 +247,8 @@ def test_empty_percentage_pl_explains_zero_or_missing(ui, monkeypatch, pl, expec
     ime._render_structural_risk_section(dashboard, portfolio_mode=True, show_return_section=False)
     assert any(expected in call.args[0] for call in ui["caption"].call_args_list)
     ui["altair_chart"].assert_not_called()
+
+
+def test_compacted_zero_caption_identifies_its_effective_history():
+    history = _credit_history([0.0, 0.0], [0.0, 0.0], [None, None], [0.0, 0.0])
+    assert ime._portfolio_credit_zero_note(history).startswith("Histórico 01/2026 → 02/2026.")
