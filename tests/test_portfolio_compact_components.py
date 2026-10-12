@@ -67,8 +67,8 @@ def test_compact_snapshot_keeps_zero_and_all_six_indicators_available(ui):
     assert "R$ 99,0 mm" not in html
     assert "14,36%" in html
     support = ui["caption"].call_args.args[0]
-    assert "Ativo R$ 100,1 mm" in support
-    assert "Vencidos R$ 0,00" in support
+    assert r"Ativo R\$ 100,1 mm" in support
+    assert r"Vencidos R\$ 0,00" in support
     assert "Cobertura não calculável (vencidos zero)" in support
     assert summary == before
 

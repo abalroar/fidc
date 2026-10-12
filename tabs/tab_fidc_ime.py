@@ -2158,7 +2158,7 @@ def _render_financial_snapshot_cards(
     if portfolio_mode:
         st.caption(" · ".join(
             f"{label} {value}" for label, value in _portfolio_snapshot_support_values(summary)
-        ))
+        ).replace("$", r"\$"))
         if interactive_help:
             from services.portfolio_structure_ui import structural_snapshot_help_html
 
