@@ -1847,7 +1847,7 @@ def _fmt_money(v) -> str:
     scale_div, scale_lbl = _money_scale(pd.Series([v]))
     scaled = v / scale_div
     dec = 0 if abs(scaled) >= 10 else 1
-    unit = scale_lbl.replace("R$ ", "")
+    unit = scale_lbl.removeprefix("R$").strip()
     return f"R$ {_br(scaled, dec)} {unit}".strip()
 
 
