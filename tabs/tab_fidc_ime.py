@@ -2112,9 +2112,13 @@ def _render_financial_snapshot_cards(
             val_str = _format_percent(value)
         else:
             val_str = _format_brl_compact(value)
+        display_label = (
+            {"PL total": "PL", "DCs totais": "DCs", "Subordinação reportada": "Subordinação"}.get(label, label)
+            if portfolio_mode else label
+        )
         return (
             f'<div class="fidc-snapshot-card">'
-            f'<div class="fidc-snapshot-card__label">{escape(label)}</div>'
+            f'<div class="fidc-snapshot-card__label">{escape(display_label)}</div>'
             f'<div class="fidc-snapshot-card__value">{escape(val_str)}</div>'
             f'{help_html}'
             f'</div>'
@@ -2140,8 +2144,15 @@ def _render_financial_snapshot_cards(
         ]
 
     cards_html = "\n".join(cards)
+    row_class = "fidc-snapshot-row fidc-snapshot-row--portfolio" if portfolio_mode else "fidc-snapshot-row"
+    if portfolio_mode:
+        st.html(
+            '<style>@media(max-width:640px){'
+            '.fidc-snapshot-row--portfolio>.fidc-snapshot-card:last-child{grid-column:1/-1;}'
+            '}</style>'
+        )
     st.markdown(
-        f'<div class="fidc-snapshot-row">{cards_html}</div>',
+        f'<div class="{row_class}">{cards_html}</div>',
         unsafe_allow_html=True,
     )
     if portfolio_mode:

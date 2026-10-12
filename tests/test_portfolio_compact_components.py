@@ -62,7 +62,7 @@ def test_compact_snapshot_keeps_zero_and_all_six_indicators_available(ui):
 
     html = ui["markdown"].call_args.args[0]
     assert html.count('class="fidc-snapshot-card"') == 3
-    assert "PL total" in html and "DCs totais" in html and "Subordinação reportada" in html
+    assert ">PL</div>" in html and ">DCs</div>" in html and ">Subordinação</div>" in html
     assert "R$ 0,00" in html  # A reported DC zero cannot become the fallback denominator.
     assert "R$ 99,0 mm" not in html
     assert "14,36%" in html
