@@ -342,6 +342,14 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
                 self.assertEqual({}, state[f"prepared_downloads::portfolio::{self.portfolio.id}"]["files"])
 
     def test_partial_source_scope_preserves_requested_basket_and_warns_on_omitted_blocks(self) -> None:
+        from pptx import Presentation
+        from pptx.util import Inches
+        native = Presentation()
+        native.slide_width = Inches(13.333)
+        native.slide_height = Inches(7.5)
+        native.slides.add_slide(native.slide_layouts[6])
+        stream = BytesIO()
+        native.save(stream)
         cnpj = self.portfolio.funds[0].cnpj
         analysis = replace(
             self.analysis,
@@ -351,19 +359,22 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         with (
             patch("services.fundonet_ppt_export.build_dashboard_pptx_bytes") as dashboard,
             patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as monthly,
-            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=b"native-analytical") as analytical,
+            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=stream.getvalue()) as analytical,
             patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=None),
             patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs") as cdi,
         ):
             prepared = portfolio_page._prepare_complete_portfolio_pptx(
                 analysis=analysis, selected_portfolio=self.portfolio, period=self.period,
             )
-        analytical.assert_called_once_with(self.portfolio.funds, portfolio_name=self.portfolio.name)
+        analytical.assert_called_once_with(self.portfolio.funds, portfolio_name=self.portfolio.name, compact=True)
         dashboard.assert_not_called()
         monthly.assert_not_called()
         cdi.assert_not_called()
-        self.assertEqual(b"native-analytical", prepared.data)
-        self.assertEqual(("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.",), prepared.warnings)
+        finalized = Presentation(BytesIO(prepared.data))
+        self.assertEqual(3, len(finalized.slides))  # Cover, available block, references.
+        self.assertIn(self.portfolio.name, finalized.slides[0].shapes[0].text)
+        self.assertIn("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.", prepared.warnings)
+        self.assertIn("Curadoria documental: pacote comparativo não localizado para esta cesta.", prepared.warnings)
 
     def test_native_ppt_composition_matches_previous_pipeline(self) -> None:
         from pptx import Presentation
@@ -371,6 +382,8 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
 
         def native_deck(title: str, value: str) -> bytes:
             deck = Presentation()
+            deck.slide_width = Inches(13.333)
+            deck.slide_height = Inches(7.5)
             slide = deck.slides.add_slide(deck.slide_layouts[6])
             table = slide.shapes.add_table(2, 2, Inches(1), Inches(1), Inches(6), Inches(2)).table
             table.cell(0, 0).text = title
@@ -411,10 +424,10 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
             resolver.assert_called_once()  # Baseline only; the requested PPT reuses resolved inputs.
         before = Presentation(BytesIO(baseline))
         after = Presentation(BytesIO(prepared.data))
-        self.assertEqual(3, len(after.slides))
-        self.assertEqual(len(before.slides), len(after.slides))
-        for left, right in zip(before.slides, after.slides, strict=True):
-            self.assertEqual(left.notes_slide.notes_text_frame.text, right.notes_slide.notes_text_frame.text)
+        self.assertEqual(3, len(before.slides))
+        self.assertEqual(5, len(after.slides))  # Native blocks plus portfolio cover and references.
+        for left, right in zip(before.slides, list(after.slides)[1:-1], strict=True):
+            self.assertIn(left.notes_slide.notes_text_frame.text, right.notes_slide.notes_text_frame.text)
             left_tables = [shape.table for shape in left.shapes if shape.has_table]
             right_tables = [shape.table for shape in right.shapes if shape.has_table]
             self.assertEqual(len(left_tables), len(right_tables))
