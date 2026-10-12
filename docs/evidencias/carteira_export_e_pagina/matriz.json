@@ -861,7 +861,7 @@
     },
     "ppt_observed_defect": "Four identical Notes Masters, with only three entries in the presentation list; the standard allows at most one. First failing native stage is the merger.",
     "ppt_cause_status": "Strong candidate, corrective experiment not authorized or performed.",
-    "xlsx_cause_status": "Pending read-only diagnosis and native isolation.",
+    "xlsx_cause_status": "Read-only XML/package inspection completed: 66 original numeric cells and formats unchanged, styles byte-identical, IDs/relations/views valid. Cause remains pending native isolation.",
     "no_repaired_files": true,
     "meli_agis_final_downloads_office": "pending_after_rule_9_stop",
     "pdf_rendering": "15 PDFs, four blocks and final deck per case, rendered by LibreOffice; auxiliary proof."
@@ -880,7 +880,19 @@
       "rdb": "11 selected funds, absence explicit, no foreign fund",
       "context": "present in all four data exports",
       "ppt_native_charts": 60,
-      "benchmark_difference": "In eight return tables, CDI is now available where the offline reference had N/D. Fund quota returns are unchanged."
+      "benchmark_difference": {
+        "affected_comparison_tables": 8,
+        "quota_returns": "unchanged",
+        "native_charts": "60 identical to frozen replay",
+        "general_12m_window": "set/25–ago/26",
+        "general_cdi_12m_pct": 14.63,
+        "ytd_window": "jan/26–ago/26",
+        "general_cdi_ytd_pct": 9.32,
+        "bela_series_2_own_window_cdi_pct": 7.0,
+        "source_per_rate": "Not identifiable from the exported file; no individual source or query date inferred.",
+        "before": "CDI N/D in offline frozen reference",
+        "after": "CDI available in real download with derived spreads/gaps"
+      }
     },
     "meli_agis": "final browser downloads pending after stop"
   },

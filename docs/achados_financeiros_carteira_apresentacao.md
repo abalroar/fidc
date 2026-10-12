@@ -51,3 +51,11 @@ Registro da revisão de Carteira e dos seus arquivos. Cálculos, cobertura e reg
 **Tratamento nesta rodada:** regra e lookback conservados. A ajuda explica a âncora, e o histórico do gráfico informa as competências exibidas.
 
 **Decisão futura:** decidir entre explicitar o rótulo “12M + âncora” ou adotar outro contrato de exibição. Uma revisão da quantidade de pontos deve preservar as bases necessárias para YoY e os acumulados compostos existentes.
+
+## 6. Benchmark adicional no download real
+
+**Evidência:** o replay financeiro congelado tinha CDI N/D em oito tabelas comparativas. O download real obteve CDI de 14,63% para set/25–ago/26 e 9,32% para jan–ago/26 nas janelas gerais, além de 7,00% na janela própria da Bela Série 2. Os retornos das cotas e os 60 gráficos nativos permaneceram iguais; spreads e diferenças derivados passaram a ter valores porque o benchmark ficou disponível.
+
+**Tratamento nesta rodada:** não alterar o resolver, sua cache ou a fórmula de comparação. A diferença de insumo externo está registrada separadamente da invariância do replay congelado. O arquivo não permite identificar com segurança a origem e a data de consulta de cada taxa CDI; não foi atribuída uma fonte individual por suposição.
+
+**Decisão futura:** ampliar a rastreabilidade do benchmark por série/janela, registrando a fonte efetivamente usada e sua consulta, com testes do contrato financeiro. Essa ampliação exige escopo próprio de dados e fica fora desta rodada de apresentação.
