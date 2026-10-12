@@ -42,6 +42,10 @@ def build_portfolio_presentation_context(*, analysis, portfolio, period, generat
     if now.tzinfo is None:
         now = now.replace(tzinfo=ZoneInfo("America/Sao_Paulo"))
     now = now.astimezone(ZoneInfo("America/Sao_Paulo"))
+    preserved = getattr(analysis, "reference_context", None)
+    if preserved is not None:
+        common = preserved.common_position
+        latest = preserved.latest_observed
     return PortfolioPresentationContext(
         name=portfolio.name,
         fund_count=len(portfolio.funds),

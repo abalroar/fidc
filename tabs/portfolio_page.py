@@ -69,6 +69,7 @@ class PortfolioAnalysisScope:
     kind: str
     cnpj: str
     dashboard: Any
+    position_competence: str | None = None
 
 
 @dataclass(frozen=True)
@@ -81,6 +82,7 @@ class PortfolioAnalysisData:
     verification_report: pd.DataFrame | None
     dashboard_errors: dict[str, str]
     load_errors: dict[str, str]
+    reference_context: Any = None
 
 
 class PortfolioAnalysisUnavailable(RuntimeError):
@@ -423,6 +425,17 @@ def _render_portfolio_analysis_surface(
         show_caption=False,
         control_label="Filtro visual de toda a análise",
     )
+    # Preserve the producer's snapshot reference separately from the selected
+    # historical window. The financial filtering rules remain unchanged.
+    context = build_portfolio_presentation_context(
+        analysis=replace(analysis, outputs=display_outputs),
+        portfolio=selected_portfolio, period=period,
+    )
+    analysis = replace(analysis, scopes=tuple(
+        replace(scope, position_competence=getattr(scope.dashboard, "latest_competencia", "N/D"))
+        for scope in analysis.scopes
+    ), reference_context=context)
+    coverage_analysis = analysis
     analysis = _filter_analysis_dashboards_to_outputs(analysis, display_outputs)
     monitor_outputs = somatorio_tab._build_credit_monitor_for_display(
         outputs=calculation_outputs,
@@ -439,17 +452,14 @@ def _render_portfolio_analysis_surface(
         verification_report=verification_report,
         dashboard_errors=analysis.dashboard_errors,
         load_errors=analysis.load_errors,
-    )
-
-    context = build_portfolio_presentation_context(
-        analysis=analysis, portfolio=selected_portfolio, period=period,
+        reference_context=context,
     )
     with st.container(key="portfolio_structure_context"):
         st.html(analysis_context_html((
             ("Histórico", context.historical_window),
-            ("Posição comum", context.common_position),
+            ("Posição comum da cesta", context.common_position),
         )))
-    _render_analysis_coverage_alert(analysis=analysis, selected_portfolio=selected_portfolio)
+    _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
 
     _render_unified_portfolio_download(
         analysis=analysis,
@@ -836,7 +846,7 @@ def _render_unified_portfolio_download(
     file_token = _safe_file_token(selected_portfolio.name)
 
     st.caption(
-        "Arquivos da cesta completa, com o histórico selecionado. Documentos conservam a data de leitura."
+        "Cesta completa. Dados mensais seguem o histórico; estrutura, emissões e documentos conservam seus cortes."
         if compact else
         f"Downloads da carteira completa · {len(selected_portfolio.funds)} fundos. "
         "A janela visual da análise é aplicada aos dados mensais. A escolha de escopos "
@@ -979,6 +989,12 @@ def _portfolio_download_context_signature(
         root / "data/industry_study/vehicle_monthly.csv.gz",
         root / "data/regulatory_profiles/meutudo_ago26_rdb_evidence.csv",
     }
+    source_paths.update(root / path for path in (
+        "services/fundonet_ppt_export.py", "services/somatorio_fidcs_ppt_export.py",
+        "services/fidc_analytical_slide.py", "services/deep_dive_ppt_export.py",
+        "services/portfolio_presentation_context.py", "services/pptx_merge.py",
+        "services/portfolio_ppt_presentation.py", "services/portfolio_document_display.py",
+    ))
     for directory in ("data/regulatory_profiles", "data/regulatory_knowledge", "data/deep_dives"):
         source_paths.update(path for path in (root / directory).rglob("*") if path.is_file())
     return download_context_signature(
@@ -1046,6 +1062,8 @@ def _prepare_complete_portfolio_pptx(
                 research_outputs=analysis.research_outputs,
                 monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
                 benchmark_spreads_by_fund=benchmark_spreads_by_fund,
+                portfolio_mode=True,
+                portfolio_name=selected_portfolio.name,
             ))
         except Exception as exc:  # noqa: BLE001
             warnings.append(f"Base analítica: {exc}")
@@ -1058,7 +1076,7 @@ def _prepare_complete_portfolio_pptx(
     except Exception as exc:  # noqa: BLE001
         warnings.append(f"Estrutura, emissões e RDB: {exc}")
     try:
-        documentary_deck = _build_documentary_portfolio_deck(selected_portfolio)
+        documentary_deck = _build_documentary_portfolio_deck(selected_portfolio, portfolio_mode=True)
         if documentary_deck is not None:
             decks.append(documentary_deck)
     except Exception as exc:  # noqa: BLE001
@@ -1209,7 +1227,7 @@ def _render_legacy_portfolio_download(
             st.caption(f"Parte não incluída no PPT: {warning}")
 
 
-def _build_documentary_portfolio_deck(portfolio: PortfolioRecord) -> bytes | None:
+def _build_documentary_portfolio_deck(portfolio: PortfolioRecord, *, portfolio_mode: bool = False) -> bytes | None:
     from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
     from services.deep_dive_store import deep_dive_portfolio_match_rank, list_deep_dives
     from services.document_curation_comparison import build_document_comparison_pages
@@ -1226,7 +1244,9 @@ def _build_documentary_portfolio_deck(portfolio: PortfolioRecord) -> bytes | Non
         key=lambda item: (deep_dive_portfolio_match_rank(item, portfolio.id, signature), item.generated_at or ""),
     )
     pages = build_document_comparison_pages(manifest)
-    return build_document_comparison_pptx_bytes(manifest, pages) if pages else None
+    if not pages:
+        return None
+    return build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True) if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages)
 
 
 def _safe_file_token(value: object) -> str:
@@ -1333,7 +1353,7 @@ def _render_scoped_views(
 
 
 def _render_scope_header(scope: PortfolioAnalysisScope, *, structure_pilot: bool = False) -> None:
-    position = getattr(scope.dashboard, "latest_competencia", "N/D")
+    position = scope.position_competence or getattr(scope.dashboard, "latest_competencia", "N/D")
     detail = f"Posição {'comum ' if scope.kind == 'consolidated' else ''}{position}"
     identity = ""
     if scope.kind == "fund":

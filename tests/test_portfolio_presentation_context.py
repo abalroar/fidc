@@ -36,3 +36,19 @@ def test_absent_reference_is_not_an_invented_month():
         period=SimpleNamespace(label="Janela solicitada"),
     )
     assert context.common_position == context.latest_observed == "N/D"
+
+
+def test_visual_window_does_not_relabel_the_original_snapshot_reference():
+    original = SimpleNamespace(common_position="02/2026", latest_observed="08/2026")
+    analysis = SimpleNamespace(
+        outputs=SimpleNamespace(metadata={"display_period_label": "out-25 → dez-25"}),
+        aggregate_bundle=SimpleNamespace(dashboard=SimpleNamespace(latest_competencia="12/2025")),
+        reference_context=original,
+    )
+    context = build_portfolio_presentation_context(
+        analysis=analysis, portfolio=SimpleNamespace(name="Carteira", funds=(1,)),
+        period=SimpleNamespace(label="12M"),
+    )
+    assert context.common_position == "02/2026"
+    assert context.latest_observed == "08/2026"
+    assert context.historical_window == "out-25 → dez-25"
