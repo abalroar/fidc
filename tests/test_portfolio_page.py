@@ -360,6 +360,8 @@ class PortfolioPageTests(unittest.TestCase):
         portfolio = Mock(id="portfolio-1")
         period = SimpleNamespace(cache_key="period-1")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
         failure = portfolio_page.PortfolioAnalysisUnavailable(message="Dados indisponíveis.")
 
         with (
@@ -388,6 +390,8 @@ class PortfolioPageTests(unittest.TestCase):
         portfolio = Mock(id="portfolio-1")
         period = SimpleNamespace(cache_key="period-1")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
         failure = portfolio_page.PortfolioAnalysisUnavailable(message="Falha transitória.")
         session_state = {"portfolio_page_context_signature": "stale"}
 
@@ -464,6 +468,8 @@ class PortfolioPageTests(unittest.TestCase):
         portfolio = SimpleNamespace(id="portfolio-1", name="Carteira de teste", funds=())
         period = SimpleNamespace(label="Janela de teste")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        for tab in tabs:
+            tab.open = True  # Native 1.56 tabs expose their active state.
 
         with (
             patch("tabs.portfolio_page._preload_portfolio_data"),
