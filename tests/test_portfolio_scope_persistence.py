@@ -193,6 +193,9 @@ def test_removed_active_fund_stays_sanitized_when_comparison_is_expanded_again()
     app.multiselect(key="portfolio_analysis_scopes::A").set_value([f"fund::{FUND_A}"]).run()
     _ok(app)
     assert app.session_state["test_visible_values"] == (f"fund::{FUND_A}",)
+    app.toggle(key="portfolio_analysis_show_all::A").set_value(True).run()
+    _ok(app)
+    assert app.session_state["test_visible_values"] == (f"fund::{FUND_A}",)
 
 
 def test_real_carteira_101_uses_exact_saved_ids_and_one_scope_selector_without_fund_tabs():
@@ -218,9 +221,6 @@ def test_real_carteira_101_uses_exact_saved_ids_and_one_scope_selector_without_f
     assert app.session_state["test_scale_active"] == f"fund::{cnpjs[-1]}"
     assert len(app.tabs) == len(portfolio_page.PORTFOLIO_VIEW_TABS)
     assert catalog_path.read_bytes() == original
-    app.toggle(key="portfolio_analysis_show_all::A").set_value(True).run()
-    _ok(app)
-    assert app.session_state["test_visible_values"] == (f"fund::{FUND_A}",)
 
 
 def test_one_scope_detail_keeps_every_compared_fund_in_duration(monkeypatch):

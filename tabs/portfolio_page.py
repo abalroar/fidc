@@ -1651,9 +1651,17 @@ def _render_delinquency_tab(
             )
 
         credit_tab._chart_title("Cohorts recentes", credit_tab._cohort_notes(), interactive_help=True)
+        cohorts = _scope_cohorts(analysis, scope)
+        comparable_cohorts = cohorts
+        if not cohorts.empty:
+            # Match the existing chart's eight most recent cohorts for presence only.
+            dated = cohorts.assign(cohort_dt=pd.to_datetime(cohorts["cohort_dt"], errors="coerce"))
+            recent = dated[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(8)["cohort"]
+            comparable_cohorts = cohorts[cohorts["cohort"].isin(recent)]
         render_portfolio_series(
-            _scope_cohorts(analysis, scope), columns=("valor_pct",), title="Cohorts recentes",
-            chart_factory=cohort_chart, absence_reason="Safras sem observação nesta janela.",
+            cohorts, columns=("valor_pct",), title="Cohorts recentes",
+            chart_factory=cohort_chart, comparable_frame=comparable_cohorts,
+            absence_reason="Safras sem observação nesta janela.",
         )
 
     _render_scoped_views(selected_scopes, render_scope)

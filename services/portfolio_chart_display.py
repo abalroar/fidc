@@ -30,7 +30,7 @@ def render_portfolio_series(
         return state.status
     if state.status == "absent":
         partial = comparable_frame is not None and visible.empty and not frame.empty
-        reason = "Sem competência com universo completo; dados parciais no detalhe." if partial else absence_reason
+        reason = ("Sem competência com universo completo; dados parciais no detalhe." if "universe_complete" in frame else "Sem observação no recorte do gráfico; dados fora do recorte no detalhe.") if partial else absence_reason
         st.caption(f"{title}: N/D. {reason}")
         if partial:
             identity = [name for name in ("competencia", "universe_complete") if name in frame]
@@ -39,9 +39,13 @@ def render_portfolio_series(
         return state.status
 
     gap_note = "; lacunas marcadas como N/D" if state.has_gaps else ""
-    st.caption(f"{title}: zero nos {state.finite_count} valores observados{gap_note}. Gráfico compactado.")
-    identity = [name for name in ("competencia", "cohort", "mes_ciclo") if name in visible]
-    shown = visible.reindex(columns=list(dict.fromkeys([*identity, *columns]))).copy()
+    partial = comparable_frame is not None and len(visible) < len(frame)
+    scope_note = " na base comparável" if comparable_frame is not None else ""
+    partial_note = " Observações fora do recorte do gráfico incluídas no detalhe." if partial else ""
+    st.caption(f"{title}: zero nos {state.finite_count} valores observados{scope_note}{gap_note}. Gráfico compactado.{partial_note}")
+    detailed = frame if partial else visible
+    identity = [name for name in ("competencia", "cohort", "mes_ciclo", "universe_complete") if name in detailed]
+    shown = detailed.reindex(columns=list(dict.fromkeys([*identity, *columns]))).copy()
     with st.expander(f"Valores por competência · {title}", expanded=False):
         st.dataframe(shown, hide_index=True, width="stretch")
     return state.status

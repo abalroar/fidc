@@ -49,3 +49,13 @@ def test_existing_visual_ineligibility_is_explained_without_changing_original_fr
     assert ui['dataframe'].call_args.args[0].loc[0, 'npl'] == 12.
     chart.assert_not_called()
     pd.testing.assert_frame_equal(frame, original)
+
+
+def test_zero_in_comparable_base_preserves_nonzero_partial_rows(ui):
+    frame = pd.DataFrame({'competencia': ['jan/26', 'fev/26'], 'npl': [0., 12.], 'universe_complete': [True, False]})
+    status = display.render_portfolio_series(frame, columns=['npl'], title='NPL', chart_factory=Mock(),
+        comparable_frame=frame[frame.universe_complete])
+    assert status == 'zero'
+    assert 'na base comparável' in ui['caption'].call_args.args[0]
+    shown = ui['dataframe'].call_args.args[0]
+    pd.testing.assert_frame_equal(shown, frame[['competencia', 'universe_complete', 'npl']])
