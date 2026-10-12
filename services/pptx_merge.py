@@ -16,6 +16,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 from io import BytesIO
+import json
 import posixpath
 import re
 from typing import Iterable
@@ -41,6 +42,7 @@ _THEME_REL_TYPE = f"{_R_NS}/theme"
 _NOTES_MASTER_REL_TYPE = f"{_R_NS}/notesMaster"
 
 _SLIDE_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.presentationml.slide+xml"
+_NOTES_MASTER_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"
 
 
 class PptxMergeError(ValueError):
@@ -93,6 +95,13 @@ class _ContentTypes:
     def to_bytes(self) -> bytes:
         return _serialize_xml(self.root)
 
+    def remove_override(self, part_path: str) -> None:
+        part_name = f"/{part_path}"
+        for node in list(self.root.findall(f"{{{_CT_NS}}}Override")):
+            if node.get("PartName") == part_name:
+                self.root.remove(node)
+        self.overrides.pop(part_name, None)
+
 
 def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
     """Append slides from ``additional_pptx`` to ``primary_pptx`` in order.
@@ -115,10 +124,13 @@ def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
     """
     destination = _read_package(primary_pptx, label="deck principal")
     _validate_core_parts(destination, label="deck principal")
-    if not additional_pptx:
-        return public_pptx_bytes(bytes(primary_pptx))
-
     destination_content_types = _ContentTypes.from_files(destination)
+    if not additional_pptx:
+        if len(_notes_master_paths(destination_content_types)) <= 1:
+            return public_pptx_bytes(bytes(primary_pptx))
+        _register_notes_masters(destination, content_types=destination_content_types)
+        destination[_CONTENT_TYPES_PATH] = destination_content_types.to_bytes()
+        return public_pptx_bytes(_write_package(destination))
     destination_layout = _find_compatible_blank_layout(destination)
     destination_layout_signature = _layout_chain_signature(destination, destination_layout)
     destination_size = _slide_size(destination)
@@ -141,7 +153,7 @@ def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
             deck_index=deck_index,
         )
 
-    _register_notes_masters(destination)
+    _register_notes_masters(destination, content_types=destination_content_types)
     destination[_CONTENT_TYPES_PATH] = destination_content_types.to_bytes()
     merged = _write_package(destination)
     _validate_openable_presentation(merged)
@@ -304,33 +316,148 @@ def _copy_part_with_relationships(
     return destination_part
 
 
-def _register_notes_masters(files: dict[str, bytes]) -> None:
-    """Register copied notes masters in the presentation as required by OOXML."""
-    masters = sorted(name for name in files if name.startswith("ppt/notesMasters/") and name.endswith(".xml"))
+def _notes_master_paths(content_types: _ContentTypes) -> list[str]:
+    return sorted(path.lstrip("/") for path, kind in content_types.overrides.items() if kind == _NOTES_MASTER_CONTENT_TYPE)
+
+
+def _notes_chain_signature(files: dict[str, bytes], part_path: str, *, active: frozenset[str] = frozenset()) -> str:
+    """Compare the complete notes-master design, including related content.
+
+    Part names and relationship IDs are package-local. Resolve them to their
+    content before comparing; distinct themes, media or URLs remain distinct.
+    Cyclic/custom incompatible chains stop instead of silently converting.
+    """
+    if part_path in active:
+        raise PptxMergeError(f"Cadeia cíclica de notesMaster não suportada: {part_path!r}.")
+    if part_path not in files:
+        raise PptxMergeError(f"Parte da cadeia de notesMaster ausente: {part_path!r}.")
+    active = active | {part_path}
+    relationships = []
+    ids = {}
+    rels_path = _relationships_path(part_path)
+    if rels_path in files:
+        for relation in _xml(files, rels_path).findall(f"{{{_REL_NS}}}Relationship"):
+            attributes = {key: value for key, value in relation.attrib.items() if key not in {"Id", "Target"}}
+            external = str(relation.get("TargetMode") or "").lower() == "external"
+            attributes["TargetMode"] = "External" if external else "Internal"
+            if external:
+                target = str(relation.get("Target") or "")
+            else:
+                target = _notes_chain_signature(
+                    files,
+                    _resolve_relationship_target(owner_part=part_path, target=str(relation.get("Target") or "")),
+                    active=active,
+                )
+            item = json.dumps([attributes, target], sort_keys=True, ensure_ascii=False)
+            relationship_id = str(relation.get("Id") or "")
+            if not relationship_id or relationship_id in ids:
+                raise PptxMergeError(f"ID de relacionamento inválido/duplicado na cadeia de notesMaster: {part_path!r}.")
+            ids[relationship_id] = sha256(item.encode()).hexdigest()
+            relationships.append(item)
+    payload = files[part_path]
+    if part_path.endswith(".xml"):
+        root = _xml(files, part_path)
+        for node in root.iter():
+            for attribute, value in list(node.attrib.items()):
+                if attribute.startswith(f"{{{_R_NS}}}"):
+                    if value not in ids:
+                        raise PptxMergeError(f"Referência sem relacionamento na cadeia de notesMaster: {part_path!r}, {value!r}.")
+                    node.set(attribute, ids[value])
+        payload = etree.tostring(root, method="c14n")
+    return sha256(payload + json.dumps(sorted(relationships), ensure_ascii=False).encode()).hexdigest()
+
+
+def _register_notes_masters(files: dict[str, bytes], *, content_types: _ContentTypes) -> None:
+    """Share one compatible Notes Master, as required by PresentationML.
+
+    This corrects an objective packaging bug for every concatenated export;
+    the notes content and all slide/chart data retain their source behavior.
+    """
+    masters = _notes_master_paths(content_types)
     if not masters:
         return
     root = _xml(files, _PRESENTATION_PATH)
     rels = _xml(files, _PRESENTATION_RELS_PATH)
     relationships = rels.findall(f"{{{_REL_NS}}}Relationship")
-    known = {
-        _resolve_relationship_target(owner_part=_PRESENTATION_PATH, target=str(node.get("Target") or ""))
-        for node in relationships
-        if node.get("Type") == _NOTES_MASTER_REL_TYPE
-    }
+    master_relationships = [node for node in relationships if node.get("Type") == _NOTES_MASTER_REL_TYPE]
+    referenced = [_resolve_relationship_target(owner_part=_PRESENTATION_PATH, target=str(node.get("Target") or "")) for node in master_relationships]
+    canonical = next((path for path in referenced if path in masters), masters[0])
+    for master in masters:
+        if _xml(files, master).tag != f"{{{_P_NS}}}notesMaster":
+            raise PptxMergeError(f"Root XML inválido no notesMaster: {master!r}.")
+    if len(masters) > 1:
+        signature = _notes_chain_signature(files, canonical)
+        for master in masters:
+            if _notes_chain_signature(files, master) != signature:
+                raise PptxMergeError(
+                    f"Notes masters incompatíveis: {canonical!r} e {master!r}; conteúdo e cadeias de fonte/tema precisam de revisão antes da concatenação."
+                )
+    duplicates = set(masters) - {canonical}
+    candidate_themes = set()
+    for master in duplicates:
+        rels_path = _relationships_path(master)
+        if rels_path in files:
+            for relation in _xml(files, rels_path).findall(f"{{{_REL_NS}}}Relationship"):
+                if relation.get("Type") == _THEME_REL_TYPE:
+                    candidate_themes.add(_resolve_relationship_target(owner_part=master, target=str(relation.get("Target") or "")))
+    for rels_path in list(files):
+        if not rels_path.endswith(".rels") or rels_path == _PRESENTATION_RELS_PATH:
+            continue
+        if not duplicates:
+            break
+        owner = posixpath.join(posixpath.dirname(posixpath.dirname(rels_path)), posixpath.basename(rels_path).removesuffix(".rels"))
+        rel_root = _xml(files, rels_path)
+        changed = False
+        for relation in rel_root.findall(f"{{{_REL_NS}}}Relationship"):
+            if relation.get("Type") != _NOTES_MASTER_REL_TYPE:
+                continue
+            target = _resolve_relationship_target(owner_part=owner, target=str(relation.get("Target") or ""))
+            if target not in masters:
+                raise PptxMergeError(f"Relacionamento de notesMaster sem part registrado: {target!r}.")
+            if target in duplicates:
+                relation.set("Target", posixpath.relpath(canonical, posixpath.dirname(owner)))
+                changed = True
+        if changed:
+            files[rels_path] = _serialize_xml(rel_root)
+    for master in duplicates:
+        files.pop(master)
+        files.pop(_relationships_path(master), None)
+        content_types.remove_override(master)
+    # Remove only themes used exclusively by removed notes masters. Preserve
+    # all chart/workbook/media parts and the visual slide master/layout chain.
+    referenced_parts = set()
+    for rels_path in files:
+        if not rels_path.endswith(".rels"):
+            continue
+        owner = "" if rels_path == "_rels/.rels" else posixpath.join(posixpath.dirname(posixpath.dirname(rels_path)), posixpath.basename(rels_path).removesuffix(".rels"))
+        for relation in _xml(files, rels_path).findall(f"{{{_REL_NS}}}Relationship"):
+            if str(relation.get("TargetMode") or "").lower() != "external":
+                referenced_parts.add(_resolve_relationship_target(owner_part=owner, target=str(relation.get("Target") or "")))
+    for theme in candidate_themes - referenced_parts:
+        files.pop(theme, None)
+        files.pop(_relationships_path(theme), None)
+        content_types.remove_override(theme)
     used_ids = {str(node.get("Id") or "") for node in relationships}
+    canonical_relationship = next((node for node in master_relationships if _resolve_relationship_target(owner_part=_PRESENTATION_PATH, target=str(node.get("Target") or "")) == canonical), None)
+    for node in master_relationships:
+        if node is not canonical_relationship:
+            rels.remove(node)
+    if canonical_relationship is None:
+        canonical_relationship = etree.SubElement(rels, f"{{{_REL_NS}}}Relationship")
+        canonical_relationship.set("Id", _allocate_relationship_id(used_ids, start=_next_relationship_number(used_ids)))
+        canonical_relationship.set("Type", _NOTES_MASTER_REL_TYPE)
+        canonical_relationship.set("Target", posixpath.relpath(canonical, posixpath.dirname(_PRESENTATION_PATH)))
+    relationship_id = str(canonical_relationship.get("Id"))
     id_list = root.find(f"{{{_P_NS}}}notesMasterIdLst")
     if id_list is None:
         id_list = etree.Element(f"{{{_P_NS}}}notesMasterIdLst")
         slide_masters = root.find(f"{{{_P_NS}}}sldMasterIdLst")
         root.insert(root.index(slide_masters) + 1 if slide_masters is not None else 0, id_list)
-    for master in masters:
-        if master in known:
-            continue
-        relationship_id = _allocate_relationship_id(used_ids, start=_next_relationship_number(used_ids))
-        relationship = etree.SubElement(rels, f"{{{_REL_NS}}}Relationship")
-        relationship.set("Id", relationship_id)
-        relationship.set("Type", _NOTES_MASTER_REL_TYPE)
-        relationship.set("Target", posixpath.relpath(master, posixpath.dirname(_PRESENTATION_PATH)))
+    master_id = next((node for node in id_list if node.get(f"{{{_R_NS}}}id") == relationship_id), None)
+    for node in list(id_list):
+        if node is not master_id:
+            id_list.remove(node)
+    if master_id is None:
         master_id = etree.SubElement(id_list, f"{{{_P_NS}}}notesMasterId")
         master_id.set(f"{{{_R_NS}}}id", relationship_id)
     files[_PRESENTATION_PATH] = _serialize_xml(root)

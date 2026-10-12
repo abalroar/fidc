@@ -12,12 +12,12 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
 from pptx.enum.text import MSO_AUTO_SIZE, PP_ALIGN
-from pptx.opc.constants import RELATIONSHIP_TYPE as RT
 from pptx.util import Inches, Pt
 
 from services.bba_deck import _set_cell_borders, _use_plain_table_style
 from services.portfolio_presentation_context import PortfolioPresentationContext
 from services.presentation_text import public_document_text
+from services.pptx_merge import PptxMergeError
 
 
 BLACK = "1F1F1F"
@@ -191,15 +191,13 @@ def finalize_portfolio_pptx(
     blocks: Sequence[tuple[str, int]], funds: Iterable[object], warnings: Sequence[str] = (),
 ) -> bytes:
     """Finalize only the portfolio flow; shared generators remain unchanged."""
+    with ZipFile(BytesIO(payload)) as archive:
+        master_parts = [node for node in etree.fromstring(archive.read("[Content_Types].xml")) if node.get("ContentType") == "application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"]
+        if len(master_parts) > 1:
+            raise PptxMergeError("A apresentação contém vários notes masters; concatene cadeias compatíveis com o merger antes da finalização.")
     prs = Presentation(BytesIO(payload))
     if sum(count for _, count in blocks) != len(prs.slides) or any(count < 0 for _, count in blocks):
         raise ValueError("A contagem dos blocos não corresponde aos slides da apresentação.")
-    existing_notes_masters = [relationship.target_part for relationship in prs.part.rels.values() if relationship.reltype == RT.NOTES_MASTER]
-    if existing_notes_masters:
-        # Concatenation retains each source notes master. python-pptx's lazy
-        # accessor expects one; choose an existing one for new notes in memory
-        # without rewriting or replacing any master/relationship in the file.
-        prs.part.__dict__["notes_master_part"] = existing_notes_masters[0]
     records = []; offset = 0; first_by_block = {}
     compactions = []
     for name, count in blocks:
@@ -235,7 +233,8 @@ def finalize_portfolio_pptx(
         records.insert(0, (main_cover, "Capa"))
     if a_cover is not None and b_cover is not None:
         previous = [shape.text for shape in b_cover.shapes if shape.has_text_frame and shape.text]
-        _append_notes(references, ["Compactação: capa repetida do bloco B retirada; capa A preservada.", "Texto original da capa B:", *previous])
+        original_notes = b_cover.notes_slide.notes_text_frame.text if b_cover.has_notes_slide else ""
+        _append_notes(references, ["Compactação: capa repetida do bloco B retirada; capa A preservada.", "Texto original da capa B:", *previous, "Notas originais da capa B:", _public_note(original_notes)])
         records = [(slide, name) for slide, name in records if slide is not b_cover]
         slide_id = next(node for node in prs.slides._sldIdLst if prs.part.related_slide(node.rId) is b_cover)
         prs.part.drop_rel(slide_id.rId); prs.slides._sldIdLst.remove(slide_id)

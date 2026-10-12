@@ -166,7 +166,7 @@ def test_inconsistent_block_count_fails_before_modifying_the_document():
         finalize_portfolio_pptx(payload, context=CONTEXT, blocks=[("A", 1)], funds=FUNDS)
 
 
-def test_finalization_reuses_existing_notes_master_after_merging_documentary_decks():
+def test_finalization_preserves_single_compatible_notes_master_and_all_documentary_notes():
     first, _ = _fixture(full=False)
     second, _ = _fixture(full=False)
     merged = merge_pptx_bytes(first, second)
@@ -174,11 +174,45 @@ def test_finalization_reuses_existing_notes_master_after_merging_documentary_dec
     presentation = Presentation(BytesIO(payload))
     assert len(presentation.slides) == 6
     assert all(slide.has_notes_slide for slide in presentation.slides)
+    notes = "\n".join(slide.notes_slide.notes_text_frame.text for slide in presentation.slides)
+    assert notes.count("C · repetição documental agrupada") >= 2
+    assert notes.count("D · repetição documental agrupada") >= 2
     with ZipFile(BytesIO(merged)) as before, ZipFile(BytesIO(payload)) as after:
+        assert len([path for path in after.namelist() if path.startswith("ppt/notesMasters/") and path.endswith(".xml")]) == 1
+        masters = etree.fromstring(after.read("ppt/presentation.xml")).xpath("//p:notesMasterId", namespaces={"p": "http://schemas.openxmlformats.org/presentationml/2006/main"})
+        assert len(masters) == 1
         for path in before.namelist():
             if path.startswith("ppt/notesMasters/"):
                 assert before.read(path) == after.read(path)
     _assert_no_dangling_references(payload)
+
+
+def test_finalizer_rejects_legacy_multiple_master_package_instead_of_hiding_it_in_a_cache():
+    source, blocks = _fixture(full=False)
+    output = BytesIO()
+    with ZipFile(BytesIO(source)) as before, ZipFile(output, "w") as target:
+        for path in before.namelist():
+            data = before.read(path)
+            if path == "[Content_Types].xml":
+                types = etree.fromstring(data)
+                etree.SubElement(types, "{http://schemas.openxmlformats.org/package/2006/content-types}Override", PartName="/ppt/notesMasters/notesMaster2.xml", ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml")
+                data = etree.tostring(types)
+            target.writestr(path, data)
+        target.writestr("ppt/notesMasters/notesMaster2.xml", before.read("ppt/notesMasters/notesMaster1.xml"))
+    with pytest.raises(ValueError, match="vários notes masters"):
+        finalize_portfolio_pptx(output.getvalue(), context=CONTEXT, blocks=blocks, funds=FUNDS)
+
+
+def test_unique_notes_of_removed_duplicate_cover_are_preserved_in_references():
+    before, blocks = _fixture()
+    source = Presentation(BytesIO(before))
+    unique_note = "Fonte documental exclusiva da capa B: documento 123456, p. 9. Ressalva integral."
+    source.slides[2].notes_slide.notes_text_frame.text = unique_note
+    output = BytesIO(); source.save(output)
+    payload = finalize_portfolio_pptx(output.getvalue(), context=CONTEXT, blocks=blocks, funds=FUNDS)
+    finalized = Presentation(BytesIO(payload))
+    assert len(finalized.slides) == 6
+    assert unique_note in finalized.slides[-1].notes_slide.notes_text_frame.text
 
 
 def test_individual_snapshot_competence_stays_visible_in_the_unified_footer():
