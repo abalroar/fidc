@@ -558,6 +558,8 @@ def _write_sheet(wb: Workbook, title: str, rows: list[list[object]], table_name:
         ref = f"A1:{ws.cell(ws.max_row, ws.max_column).coordinate}"
         table = Table(displayName=table_name, ref=ref); table.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showRowStripes=True, showFirstColumn=False, showLastColumn=False)
         ws.add_table(table)
+        # Excel rejects a worksheet filter overlapping the native table filter.
+        ws.auto_filter.ref = None
 
 
 def _style_sheet(ws) -> None:
