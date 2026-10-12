@@ -53,6 +53,8 @@ DOCUMENT_MAX_FUNDS = 4
 def build_document_comparison_pptx_bytes(
     manifest: DeepDiveManifest,
     pages: Sequence[DocumentComparisonPage],
+    *,
+    portfolio_mode: bool = False,
 ) -> bytes:
     """Render documentary comparisons as editable, source-cited slide tables.
 
@@ -120,7 +122,7 @@ def build_document_comparison_pptx_bytes(
         slide = prs.slides.add_slide(prs.slide_layouts[6])
         slide.background.fill.solid()
         slide.background.fill.fore_color.rgb = rgb(WHITE)
-        title = f"{manifest.title} – {page.title}"
+        title = page.title if portfolio_mode else f"{manifest.title} – {page.title}"
         title_size = 23 if len(title) <= 95 else 20
         text_box(slide, title, DOCUMENT_LEFT, 0.32, DOCUMENT_WIDTH, 0.61, title_size, bold=True, color=ORANGE)
         height = header_height + sum(row_heights)
@@ -150,7 +152,7 @@ def build_document_comparison_pptx_bytes(
                 cell.text_frame.word_wrap = True
                 cell.text_frame.auto_size = MSO_AUTO_SIZE.NONE
                 for paragraph in cell.text_frame.paragraphs:
-                    paragraph.alignment = PP_ALIGN.LEFT if col_index == 0 else PP_ALIGN.CENTER
+                    paragraph.alignment = PP_ALIGN.LEFT if portfolio_mode or col_index == 0 else PP_ALIGN.CENTER
                     paragraph.space_before = paragraph.space_after = Pt(0)
                     paragraph.line_spacing = 1.0
                     for run in paragraph.runs:
@@ -164,10 +166,19 @@ def build_document_comparison_pptx_bytes(
             text_box(slide, "\n".join(visible_notes), DOCUMENT_LEFT, DOCUMENT_TABLE_BOTTOM - notes_height + 0.1, DOCUMENT_WIDTH, notes_height, 10, color=MID)
 
         reading_date = _document_reading_date(manifest.generated_at)
-        text_box(slide, f"Leitura documental: {reading_date}. Fontes e referências nas notas do slide.", DOCUMENT_LEFT, 7.03, DOCUMENT_WIDTH - 1, 0.18, 8.5, color=MID)
+        footer = (
+            f"Documentos · Leitura: {reading_date} · Fontes nas notas"
+            if portfolio_mode else
+            f"Leitura documental: {reading_date}. Fontes e referências nas notas do slide."
+        )
+        text_box(slide, footer, DOCUMENT_LEFT, 7.03, DOCUMENT_WIDTH - 1, 0.18, 8.5, color=MID)
         text_box(slide, f"{index}/{len(jobs)}", SLIDE_W - DOCUMENT_LEFT - 0.7, 7.03, 0.7, 0.18, 8.5, color=MID, align=PP_ALIGN.RIGHT)
         notes = [page.title, f"Leitura documental: {manifest.generated_at or 'data não informada'}"]
-        notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
+        if portfolio_mode:
+            notes.append(f"Documento: {manifest.title}")
+            notes.extend(f"{fund.get('short_name') or fund.get('name')} · {fund.get('name') or 'razão social não informada'} · CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
+        else:
+            notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
         if page.notes:
             notes.extend(["Observações:", *page.notes])
         notes.extend(["Fontes:", *(page.sources or (manifest.source or "Fonte documental não localizada",))])
