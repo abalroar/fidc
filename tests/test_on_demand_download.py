@@ -33,6 +33,7 @@ def _portfolio_download_test_app(portfolio, analysis) -> None:
 
     selected = st.selectbox("Período do teste", ["original", "revisto"])
     period = SimpleNamespace(cache_key=selected, label=selected)
+    st.toggle("Somente fundo escolhido na tela", key="scope_filter")
 
     def build_snapshot(*args, **kwargs):
         st.session_state["snapshot_calls"] = st.session_state.get("snapshot_calls", 0) + 1
@@ -126,7 +127,7 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         )
         self.period = SimpleNamespace(cache_key="2025-10::2026-09", label="10/2025 a 09/2026")
 
-    def test_cloudwalk_does_not_prepare_any_file_on_render(self) -> None:
+    def test_render_does_not_prepare_any_file_on_render(self) -> None:
         state = {}
         with (
             patch("tabs.portfolio_page.st.session_state", state),
@@ -169,9 +170,9 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
             snapshot.assert_called_once()
             self.assertIs(self.analysis.outputs, snapshot.call_args.args[0])
             context = snapshot.call_args.kwargs["export_context"]
-            self.assertEqual(11, context["Fundos solicitados"])
+            self.assertEqual(len(self.portfolio.funds), context["Fundos solicitados"])
             self.assertEqual(self.period.label, context["Período solicitado"])
-            self.assertEqual(11, len(context["CNPJs da cesta solicitada"].split("; ")))
+            self.assertEqual(len(self.portfolio.funds), len(context["CNPJs da cesta solicitada"].split("; ")))
             self.assertEqual(b"snapshot", download.call_args.kwargs["data"])
             for producer in (ppt, full, csv, analytical):
                 producer.assert_not_called()
@@ -184,12 +185,29 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
                 download.assert_not_called()
             self.assertEqual(1, snapshot.call_count)
 
-    def test_nonpilot_keeps_existing_download_flow(self) -> None:
-        with patch("tabs.portfolio_page._render_legacy_portfolio_download") as legacy:
-            portfolio_page._render_unified_portfolio_download(
-                analysis=self.analysis, selected_portfolio=replace(self.portfolio, id="other"), period=self.period,
-            )
-        legacy.assert_called_once()
+    def test_other_portfolios_prepare_separate_files_without_calling_legacy(self) -> None:
+        state = {}
+        other_portfolio = replace(self.portfolio, id="other", name="Outra carteira")
+        with (
+            patch("tabs.portfolio_page.st.session_state", state),
+            patch("tabs.portfolio_page.st.caption"),
+            patch("tabs.portfolio_page.st.expander", return_value=nullcontext()),
+            patch("services.on_demand_download.st.spinner", return_value=nullcontext()),
+            patch("services.on_demand_download.st.download_button"),
+            patch("services.on_demand_download.st.button", side_effect=lambda *a, **kw: kw["key"].endswith("::snapshot_excel")),
+            patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", side_effect=[b"first", b"other"]),
+            patch("tabs.portfolio_page._render_legacy_portfolio_download") as legacy,
+        ):
+            for portfolio in (self.portfolio, other_portfolio):
+                portfolio_page._render_unified_portfolio_download(
+                    analysis=self.analysis, selected_portfolio=portfolio, period=self.period,
+                )
+        legacy.assert_not_called()
+        first = state[f"prepared_downloads::portfolio::{self.portfolio.id}"]["files"]
+        other = state["prepared_downloads::portfolio::other"]["files"]
+        self.assertEqual(b"first", first["snapshot_excel"].data)
+        self.assertEqual(b"other", other["snapshot_excel"].data)
+        self.assertIsNot(first, other)
 
     def test_streamlit_request_rerun_help_and_period_invalidation(self) -> None:
         from streamlit.testing.v1 import AppTest
@@ -206,6 +224,10 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         download = next(element for element in app.get("download_button") if element.proto.label == "Baixar: Resumo histórico da carteira (Excel)")
         self.assertIn("posição comum", download.proto.help)
         app.run()
+        self.assertEqual(b"snapshot-original", app.session_state[store_key]["files"]["snapshot_excel"].data)
+        self.assertEqual(1, app.session_state["snapshot_calls"])
+        app.toggle(key="scope_filter").set_value(True).run()
+        self.assertEqual([], list(app.exception))
         self.assertEqual(b"snapshot-original", app.session_state[store_key]["files"]["snapshot_excel"].data)
         self.assertEqual(1, app.session_state["snapshot_calls"])
         app.selectbox[0].set_value("revisto").run()
@@ -289,6 +311,59 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         ppt.assert_not_called()
         snapshot.assert_called_once()
         self.assertEqual(b"snapshot", download.call_args.kwargs["data"])
+
+    def test_document_source_revision_discards_prepared_file_without_regenerating(self) -> None:
+        state = {}
+        with TemporaryDirectory() as directory:
+            source = Path(directory) / "rdb-source.csv"
+            source.write_text("source-version-one", encoding="utf-8")
+            with (
+                patch("pathlib.Path.rglob", side_effect=lambda *args: iter((source,))),
+                patch("tabs.portfolio_page.st.session_state", state),
+                patch("tabs.portfolio_page.st.caption"),
+                patch("tabs.portfolio_page.st.expander", return_value=nullcontext()),
+                patch("services.on_demand_download.st.spinner", return_value=nullcontext()),
+                patch("services.on_demand_download.st.download_button") as download,
+                patch("services.on_demand_download.st.button", side_effect=lambda *a, **kw: kw["key"].endswith("::snapshot_excel")),
+                patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"snapshot") as snapshot,
+            ):
+                portfolio_page._render_unified_portfolio_download(
+                    analysis=self.analysis, selected_portfolio=self.portfolio, period=self.period,
+                )
+                self.assertEqual(b"snapshot", download.call_args.kwargs["data"])
+                source.write_text("source-version-two", encoding="utf-8")
+                with patch("services.on_demand_download.st.button", return_value=False):
+                    download.reset_mock()
+                    portfolio_page._render_unified_portfolio_download(
+                        analysis=self.analysis, selected_portfolio=self.portfolio, period=self.period,
+                    )
+                download.assert_not_called()
+                snapshot.assert_called_once()
+                self.assertEqual({}, state[f"prepared_downloads::portfolio::{self.portfolio.id}"]["files"])
+
+    def test_partial_source_scope_preserves_requested_basket_and_warns_on_omitted_blocks(self) -> None:
+        cnpj = self.portfolio.funds[0].cnpj
+        analysis = replace(
+            self.analysis,
+            outputs=SimpleNamespace(fund_monthly={cnpj: pd.DataFrame()}),
+            scopes=(),
+        )
+        with (
+            patch("services.fundonet_ppt_export.build_dashboard_pptx_bytes") as dashboard,
+            patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as monthly,
+            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=b"native-analytical") as analytical,
+            patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=None),
+            patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs") as cdi,
+        ):
+            prepared = portfolio_page._prepare_complete_portfolio_pptx(
+                analysis=analysis, selected_portfolio=self.portfolio, period=self.period,
+            )
+        analytical.assert_called_once_with(self.portfolio.funds, portfolio_name=self.portfolio.name)
+        dashboard.assert_not_called()
+        monthly.assert_not_called()
+        cdi.assert_not_called()
+        self.assertEqual(b"native-analytical", prepared.data)
+        self.assertEqual(("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.",), prepared.warnings)
 
     def test_native_ppt_composition_matches_previous_pipeline(self) -> None:
         from pptx import Presentation
@@ -400,6 +475,22 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
                 self.assertEqual(len(names), len(set(names)))
                 self.assertEqual({"topRight", "bottomLeft", "bottomRight"}, set(names))
                 self.assertIn(pane.get("activePane"), names)
+
+
+class MeliDemandDownloadTests(PortfolioDemandDownloadTests):
+    """Exercise the complete download lifecycle with the approved Seller basket."""
+
+    def setUp(self) -> None:
+        super().setUp()
+        self.portfolio = PortfolioRecord(
+            id="47b0eb1b7bea42ef85233f9b1186129c", name="MELI (FIDC Sellers I, II e III)",
+            funds=tuple(PortfolioFund(cnpj=cnpj, display_name=name) for cnpj, name in (
+                ("50473039000102", "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA"),
+                ("55471753000177", "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA"),
+                ("63572282000111", "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA"),
+            )),
+            created_at="2026-04-22", updated_at="2026-04-22",
+        )
 
 
 if __name__ == "__main__":

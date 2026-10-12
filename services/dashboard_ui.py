@@ -248,14 +248,14 @@ def analytical_components_css(scope: str) -> str:
 {selector} .fidc-snapshot-card:nth-child(-n+2) .dashboard-indicator-help-body {{ left: 0; right: auto; }}
 {selector} .dashboard-indicator-help-body p {{ font-size: .78rem; line-height: 1.45; margin: 0 0 .4rem; }}
 {selector} .dashboard-indicator-help-body a {{ color: #a94100; font-size: .78rem; }}
-{selector} .monitor-wide-wrapper {{ max-height: 620px; overflow: auto; border: 1px solid {GRID}; border-radius: 4px; }}
+{selector} .monitor-wide-wrapper {{ max-width: 100%; max-height: 620px; overflow: auto; container-type: inline-size; border: 1px solid {GRID}; border-radius: 4px; }}
 {selector} .monitor-wide-section {{ margin-bottom: 0; }}
 {selector} .monitor-wide-section summary {{
     background: #f7f5f2; color: {INK}; font-weight: 500; min-height: 44px;
     border-bottom: 1px solid {GRID}; padding: .65rem .75rem;
 }}
 {selector} .monitor-wide-section > summary,
-{selector} .wide-section > summary {{ position: sticky; left: 0; width: min(1436px, calc(100vw - 4rem)); box-sizing: border-box; }}
+{selector} .wide-section > summary {{ position: sticky; left: 0; width: 100cqi; box-sizing: border-box; }}
 {selector} .monitor-wide-table {{ font-size: 13px; font-variant-numeric: tabular-nums; }}
 {selector} .monitor-wide-table th {{ border-bottom: 1px solid {GRID}; padding: .6rem .65rem; vertical-align: bottom; }}
 {selector} .monitor-wide-table td {{ padding: .45rem .65rem; }}
@@ -267,7 +267,7 @@ def analytical_components_css(scope: str) -> str:
 {selector} .financial-fund-identity summary {{ background: #fff; border: 0; padding: .3rem 0; font-size: 13px; min-height: 44px; }}
 {selector} .financial-fund-identity summary:focus-visible {{ outline: 2px solid {ACCENT}; }}
 {selector} .financial-fund-identity span {{ font-size: 11px; font-weight: 400; line-height: 1.4; }}
-{selector} .wide-table-wrapper {{ max-width: 100%; max-height: 620px; overflow: auto; border: 1px solid {GRID}; border-radius: 4px; }}
+{selector} .wide-table-wrapper {{ max-width: 100%; max-height: 620px; overflow: auto; container-type: inline-size; border: 1px solid {GRID}; border-radius: 4px; }}
 {selector} .wide-section summary {{ background: #f7f5f2; color: {INK}; border-bottom: 1px solid {GRID}; font-weight: 500; min-height: 44px; padding: .65rem .75rem; }}
 {selector} .wide-section summary::marker {{ color: {MUTED}; }}
 {selector} .wide-table {{ font-size: 13px; font-variant-numeric: tabular-nums; }}
@@ -284,7 +284,6 @@ def analytical_components_css(scope: str) -> str:
     {selector} .dashboard-analysis-context {{ grid-template-columns: 1fr 1fr; gap: .55rem .75rem; padding: .65rem; }}
     {selector} .monitor-wide-table th.label-col, {selector} .monitor-wide-table td.label {{ max-width: 140px; }}
     {selector} .monitor-wide-table col:first-child, {selector} .wide-table col:first-child {{ width: 140px !important; }}
-    {selector} .monitor-wide-section > summary, {selector} .wide-section > summary {{ width: calc(100vw - 2rem); }}
     {selector} .fidc-snapshot-row {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }}
     {selector} .fidc-snapshot-card {{ min-width: 0; }}
     {selector} .fidc-snapshot-card:nth-child(odd) .dashboard-indicator-help-body {{ left: 0; right: auto; }}

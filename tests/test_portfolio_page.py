@@ -221,6 +221,12 @@ class PortfolioPageTests(unittest.TestCase):
         benchmark_by_fund = {cnpj: {"senior:1": 0.035}}
 
         with (
+            patch("tabs.portfolio_page.st.session_state", {}),
+            patch(
+                "services.on_demand_download.st.button",
+                side_effect=lambda *args, **kwargs: kwargs["key"].endswith("::complete_pptx"),
+            ),
+            patch("services.on_demand_download.st.spinner", return_value=nullcontext()),
             patch(
                 "tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs",
                 return_value=(cdi_by_fund, benchmark_by_fund),
