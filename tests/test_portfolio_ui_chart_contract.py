@@ -240,3 +240,23 @@ def test_endpoint_readability_bounds_text_without_changing_roll_data_scale_or_le
     pd.testing.assert_frame_equal(frame, before)
     legacy = visuals.roll_rates_chart(frame).to_dict(validate=True)
     assert isinstance(legacy["layer"][1]["mark"]["dy"], int)
+
+
+def test_portfolio_duration_domain_tracks_robbin_range_and_keeps_valid_zero():
+    dates = pd.date_range('2025-12-01', periods=9, freq='MS')
+    values = [46.,47.,51.,52.,57.,60.,59.,66.,69.]
+    frame = pd.DataFrame({'competencia': dates.strftime('%m/%Y'), 'competencia_dt': dates,
+                          'duration_days': values, 'data_quality': ['ok']*9})
+    before = frame.copy(deep=True)
+    spec = ime._duration_line_chart(frame, portfolio_mode=True).to_dict(validate=True)
+    line = spec['layer'][0]
+    domain = line['encoding']['y']['scale']['domain']
+    assert 0 < domain[0] < min(values) and max(values) < domain[1] < 80
+    assert [r['duration_days'] for r in _rows(spec,line)] == values
+    pd.testing.assert_frame_equal(frame,before)
+    legacy = ime._duration_line_chart(frame).to_dict(validate=True)
+    assert legacy['layer'][0]['encoding']['y']['scale']['zero'] is True
+    frame.loc[0,'duration_days'] = 0.
+    zero_spec = ime._duration_line_chart(frame,portfolio_mode=True).to_dict(validate=True)
+    assert zero_spec['layer'][0]['encoding']['y']['scale']['domain'][0] == 0.
+    assert _rows(zero_spec,zero_spec['layer'][0])[0]['duration_days'] == 0.

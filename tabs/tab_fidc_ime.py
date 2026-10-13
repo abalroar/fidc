@@ -5880,7 +5880,11 @@ def _duration_line_chart(duration_history_df: pd.DataFrame, *, portfolio_mode: b
         _data_min = float(_vals.min())
         _data_max = float(_vals.max())
         _data_range = (_data_max - _data_min) if len(_vals) >= 2 else _data_max * 0.1
-        if _data_max > 0 and _data_range < _data_max * _ZOOM_THRESHOLD and _data_min > 0:
+        if portfolio_mode:
+            _pad = max(_data_range * 0.12, abs(_data_max) * 0.02, 1.0)
+            _lower = max(0.0, _data_min - _pad) if _data_min >= 0 else _data_min - _pad
+            y_scale = alt.Scale(domain=[_lower, _data_max + _pad], zero=False)
+        elif _data_max > 0 and _data_range < _data_max * _ZOOM_THRESHOLD and _data_min > 0:
             _pad = max(_data_range, _data_max * 0.05)
             y_scale = alt.Scale(domain=[max(0.0, _data_min - _pad), _data_max + _pad * 0.5], zero=False)
         else:
