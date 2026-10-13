@@ -1,0 +1,722 @@
+{
+  "schema_version": 1,
+  "cnpj": "49920525000134",
+  "name": "IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:08Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:01:23Z",
+  "routes": [
+    {
+      "url": "https://www.gov.br/cvm",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 481219,
+          "reference_date": "21/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481219",
+          "source_excerpt": "axa de Administração;\n\n(v)      além de manter disponíveis em sua sede e agências (conforme aplicável) e nas instituições\n         que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.gov.br/cvm),\n         no    website   da   Administradora   (https://www.daycoval.com.br/investimentos/mercado-\n         capitais) e/ou, conforme aplicável, no Periódico utilizado para divulgação de informações"
+        },
+        {
+          "document_id": 481854,
+          "reference_date": "23/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481854",
+          "source_excerpt": "axa de Administração;\n\n(v)      além de manter disponíveis em sua sede e agências (conforme aplicável) e nas instituições\n         que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.gov.br/cvm),\n         no    website   da   Administradora   (https://www.daycoval.com.br/investimentos/mercado-\n         capitais) e/ou, conforme aplicável, no Periódico utilizado para divulgação de informações"
+        },
+        {
+          "document_id": 614567,
+          "reference_date": "29/02/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
+          "source_excerpt": "(v)      além de manter disponíveis em sua sede e agências (conforme aplicável) e\n               nas instituições que coloquem Cotas do Fundo, divulgar anualmente, no\n               website da CVM (www.gov.br/cvm), no website da Administradora\n               (https://www.daycoval.com.br/investimentos/mercado-capitais)          e/ou,\n               conforme aplicável, no Periódico utilizado para divulgação de in"
+        },
+        {
+          "document_id": 486473,
+          "reference_date": "03/07/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
+          "source_excerpt": "(v)      além de manter disponíveis em sua sede e agências (conforme aplicável) e\n               nas instituições que coloquem Cotas do Fundo, divulgar anualmente, no\n               website da CVM (www.gov.br/cvm), no website da Administradora\n               (https://www.daycoval.com.br/investimentos/mercado-capitais)            e/ou,\n               conforme aplicável, no Periódico utilizado para divulgação de"
+        },
+        {
+          "document_id": 487778,
+          "reference_date": "07/07/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=487778",
+          "source_excerpt": "(v)      além de manter disponíveis em sua sede e agências (conforme aplicável) e\n               nas instituições que coloquem Cotas do Fundo, divulgar anualmente, no\n               website da CVM (www.gov.br/cvm), no website da Administradora\n               (https://www.daycoval.com.br/investimentos/mercado-capitais)            e/ou,\n               conforme aplicável, no Periódico utilizado para divulgação de"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:26Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 481219,
+          "reference_date": "21/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481219",
+          "source_excerpt": "sede e agências (conforme aplicável) e nas instituições\n         que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.gov.br/cvm),\n         no    website   da   Administradora   (https://www.daycoval.com.br/investimentos/mercado-\n         capitais) e/ou, conforme aplicável, no Periódico utilizado para divulgação de informações\n         relativas ao Fundo, o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades"
+        },
+        {
+          "document_id": 481854,
+          "reference_date": "23/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481854",
+          "source_excerpt": "sede e agências (conforme aplicável) e nas instituições\n         que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.gov.br/cvm),\n         no    website   da   Administradora   (https://www.daycoval.com.br/investimentos/mercado-\n         capitais) e/ou, conforme aplicável, no Periódico utilizado para divulgação de informações\n         relativas ao Fundo, o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 481219,
+          "reference_date": "21/06/2023",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481219",
+          "source_excerpt": ".1.A política de exercício de direito de voto adotada pela Gestora pode ser obtida na página da\n     Gestora     na    rede     mundial        de   computadores,    no     seguinte     endereço:\n     https://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-\n     202301241955.pdf\n\n10.8.   Não obstante a diligência da Administradora em colocar em prática a política de\ninvestimento, composição e diversificação da carteira do Fundo prevista no presente Regu"
+        },
+        {
+          "document_id": 878633,
+          "reference_date": "01/04/2025",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
+          "source_excerpt": "SEUS TITULARES O DIREITO DE VOTO.\n\n8.25   A política de exercício de direito de voto adotada pela Gestora pode ser obtida na\npágina da Gestora na rede mundial de computadores, no seguinte endereço:\n\nhttps://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-\n202301241955.pdf.\n\n\n                                                                                         58"
+        },
+        {
+          "document_id": 481854,
+          "reference_date": "23/06/2023",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481854",
+          "source_excerpt": ".1.A política de exercício de direito de voto adotada pela Gestora pode ser obtida na página da\n     Gestora     na    rede     mundial        de   computadores,    no     seguinte     endereço:\n     https://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-\n     202301241955.pdf\n\n10.8.   Não obstante a diligência da Administradora em colocar em prática a política de\ninvestimento, composição e diversificação da carteira do Fundo prevista no presente Regu"
+        },
+        {
+          "document_id": 614567,
+          "reference_date": "29/02/2024",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
+          "source_excerpt": "0.7.1. A política de exercício de direito de voto adotada pela Gestora pode ser obtida na página da\nGestora     na       rede      mundial      de      computadores,     no     seguinte     endereço:\nhttps://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-\n202301241955.pdf\n\n10.8. Não obstante a diligência da Administradora em colocar em prática a política de investimento,\ncomposição e diversificação da carteira do Fundo prevista no presente Regulamento"
+        },
+        {
+          "document_id": 486473,
+          "reference_date": "03/07/2023",
+          "page": 38,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
+          "source_excerpt": "1.A política de exercício de direito de voto adotada pela Gestora pode ser obtida na página da\n     Gestora     na     rede    mundial     de     computadores,      no     seguinte     endereço:\n     https://dashboard.jgp.com.br/documents/politica-de-voto-gestoras-marco-2022pdf-\n     202301241955.pdf\n\n10.8.   Não obstante a diligência da Administradora em colocar em prática a política de\ninvestimento, composição e diversificação da carteira do Fundo prevista no presente Regu"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "url": "https://www.jgp.com.br/esg/conheca-nossa-metodologia/",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 878633,
+          "reference_date": "01/04/2025",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
+          "source_excerpt": "resultados ASG da Classe, sempre referente ao exercício social anterior do Fundo (“Relatório\n     de      Ações     Continuadas        JGP”),    que       será     divulgado     no      link:\n     https://www.jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PRESTADORES DE SERVIÇOS ESSENCIAIS\n\n     5.1.    O Fundo é administrado pelo BANCO DAYCOVAL S.A., instituição devidamente\n     autorizada pela CVM por meio do Ato Declaratório n° 17.552, de 05"
+        },
+        {
+          "document_id": 912005,
+          "reference_date": "22/05/2025",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=912005",
+          "source_excerpt": "resultados ASG da Classe, sempre referente ao exercício social anterior do Fundo (“Relatório\n     de      Ações     Continuadas       Régia”),    que       será    divulgado     no      link:\n     https://www.jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PRESTADORES DE SERVIÇOS ESSENCIAIS\n\n     5.1.    O Fundo é administrado pelo BANCO DAYCOVAL S.A., instituição devidamente\n     autorizada pela CVM por meio do Ato Declaratório n° 17.552, de 05"
+        },
+        {
+          "document_id": 1076645,
+          "reference_date": "30/12/2025",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+          "source_excerpt": "resultados ASG da Classe, sempre referente ao exercício social anterior do Fundo (“Relatório\n     de      Ações     Continuadas       Régia”),    que       será    divulgado     no      link:\n     https://www.jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PRESTADORES DE SERVIÇOS ESSENCIAIS\n\n     5.1.    O Fundo é administrado pelo BANCO DAYCOVAL S.A., instituição devidamente\n     autorizada pela CVM por meio do Ato Declaratório n° 17.552, de 05"
+        },
+        {
+          "document_id": 752411,
+          "reference_date": "04/10/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752411",
+          "source_excerpt": "resultados ASG da Classe, sempre referente ao exercício social anterior do Fundo (“Relatório\n     de      Ações     Continuadas        JGP”),    que       será     divulgado     no      link:\n     https://www.jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PRESTADORES DE SERVIÇOS ESSENCIAIS\n\n     5.1.    O Fundo é administrado pelo BANCO DAYCOVAL S.A., instituição devidamente\n     autorizada pela CVM por meio do Ato Declaratório n° 17.552, de 05"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.jgp.com.br/esg/conheca-nossa-metodologia/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-capitais",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 878633,
+          "reference_date": "01/04/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
+          "source_excerpt": "Cotistas), pelos seguintes meios:\n\n              Endereço para correspondência: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-\n              200, Bela Vista – São Paulo, SP.\n\n              Site: https://www.daycoval.com.br/investimentos/mercado-capitais\n              E-mail: adm.fundos@bancodaycoval.com.br\n\n      11.3.   O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\n      relativamente às suas informações e documentos, in"
+        },
+        {
+          "document_id": 912005,
+          "reference_date": "22/05/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=912005",
+          "source_excerpt": "ções por parte dos Cotistas), pelos seguintes meios:\n\n        Endereço para correspondência: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-\n        200, Bela Vista – São Paulo, SP.\n\n        Site: https://www.daycoval.com.br/investimentos/mercado-capitais\n        E-mail: adm.fundos@bancodaycoval.com.br\n\n11.3.   O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\nrelativamente às suas informações e documentos, inclusive no que diz"
+        },
+        {
+          "document_id": 1076645,
+          "reference_date": "30/12/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+          "source_excerpt": "ções por parte dos Cotistas), pelos seguintes meios:\n\n        Endereço para correspondência: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-\n        200, Bela Vista – São Paulo, SP.\n\n        Site: https://www.daycoval.com.br/investimentos/mercado-capitais\n        E-mail: adm.fundos@bancodaycoval.com.br\n\n11.3.   O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\nrelativamente às suas informações e documentos, inclusive no que diz"
+        },
+        {
+          "document_id": 614567,
+          "reference_date": "29/02/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
+          "source_excerpt": "conforme aplicável) e\n               nas instituições que coloquem Cotas do Fundo, divulgar anualmente, no\n               website da CVM (www.gov.br/cvm), no website da Administradora\n               (https://www.daycoval.com.br/investimentos/mercado-capitais)          e/ou,\n               conforme aplicável, no Periódico utilizado para divulgação de informações\n               relativas ao Fundo, o valor do Patrimônio Líquido, o valor das Cotas, as"
+        },
+        {
+          "document_id": 486473,
+          "reference_date": "03/07/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
+          "source_excerpt": "conforme aplicável) e\n               nas instituições que coloquem Cotas do Fundo, divulgar anualmente, no\n               website da CVM (www.gov.br/cvm), no website da Administradora\n               (https://www.daycoval.com.br/investimentos/mercado-capitais)            e/ou,\n               conforme aplicável, no Periódico utilizado para divulgação de informações\n               relativas ao Fundo, o valor do Patrimônio Líquido, o valor das Cotas, as"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-capitais",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://jgp.com.br/esg/conheca-nossa-metodologia/",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 878633,
+          "reference_date": "01/04/2025",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
+          "source_excerpt": "ra a classificação do Fundo\n     como “Verde” (“Formulário de Metodologia ESG”), bem como os relatórios de\n     monitoramento eventuais, podem ser visualizadas no website da Gestora no endereço:\n     https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PÚBLICO-ALVO DA CLASSE\n\n     5.1     A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo\n     prazo, compatível com a política de investimento, composição e dive"
+        },
+        {
+          "document_id": 912005,
+          "reference_date": "22/05/2025",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=912005",
+          "source_excerpt": "ra a classificação do Fundo\n     como “Verde” (“Formulário de Metodologia ESG”), bem como os relatórios de\n     monitoramento eventuais, podem ser visualizadas no website da Gestora no endereço:\n     https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PÚBLICO-ALVO DA CLASSE\n\n     5.1     A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo\n     prazo, compatível com a política de investimento, composição e dive"
+        },
+        {
+          "document_id": 1076645,
+          "reference_date": "30/12/2025",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076645",
+          "source_excerpt": "ra a classificação do Fundo\n     como “Verde” (“Formulário de Metodologia ESG”), bem como os relatórios de\n     monitoramento eventuais, podem ser visualizadas no website da Gestora no endereço:\n     https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PÚBLICO-ALVO DA CLASSE\n\n     5.1     A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo\n     prazo, compatível com a política de investimento, composição e dive"
+        },
+        {
+          "document_id": 752411,
+          "reference_date": "04/10/2024",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752411",
+          "source_excerpt": "ra a classificação do Fundo\n     como “Verde” (“Formulário de Metodologia ESG”), bem como os relatórios de\n     monitoramento eventuais, podem ser visualizadas no website da Gestora no endereço:\n     https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n5.   PÚBLICO-ALVO DA CLASSE\n\n     5.1     A Classe é destinada a Investidores Autorizados que busquem rentabilidade, no longo\n     prazo, compatível com a política de investimento, composição e dive"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:50Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://jgp.com.br/esg/conheca-nossa-metodologia/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/Asset/documentos?lang=ptbr",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 467847,
+          "reference_date": "22/05/2023",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=467847",
+          "source_excerpt": "rede mundial de computadores, no seguinte endereço:\n       https://www.daycoval.com.br/Asset/documentos?lang=ptbr\n\n10.8.     Não obstante a diligência da Administradora em colocar em prática a política de investimento, composição\ne diversificação da carteira do Fundo prevista no presente Regulamento, os investim"
+        },
+        {
+          "document_id": 468325,
+          "reference_date": "24/05/2023",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=468325",
+          "source_excerpt": "rede mundial de computadores, no seguinte endereço:\n      https://www.daycoval.com.br/Asset/documentos?lang=ptbr\n\n10.8.   Não obstante a diligência da Administradora em colocar em prática a política de investimento, composição\ne diversificação da carteira do Fundo prevista no presente Regulamento, os investimen"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/Asset/documentos?lang=ptbr",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 561873,
+          "reference_date": "29/09/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=561873",
+          "source_excerpt": "de 2023. Esta reunião de Comitê está registrada na Ata Nº 20231127-6.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 624162,
+          "reference_date": "29/12/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624162",
+          "source_excerpt": "e 2024. Esta reunião de Comitê está registrada na Ata Nº 20240222-11.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 688990,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=688990",
+          "source_excerpt": "e 2024. Esta reunião de Comitê está registrada na Ata Nº 20240603-14.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 561873,
+          "reference_date": "29/09/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=561873",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 624162,
+          "reference_date": "29/12/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624162",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 688990,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=688990",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 561873,
+          "reference_date": "29/09/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=561873",
+          "source_excerpt": "direto para a JGP Gestão de Crédito Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia\n    Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries. Por"
+        },
+        {
+          "document_id": 624162,
+          "reference_date": "29/12/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624162",
+          "source_excerpt": "direto para a JGP Gestão de Crédito Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia\n    Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries. Por"
+        },
+        {
+          "document_id": 688990,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=688990",
+          "source_excerpt": "direto para a JGP Gestão de Crédito Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia\n    Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries. Por"
+        },
+        {
+          "document_id": 760684,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760684",
+          "source_excerpt": "direto para a JGP Gestão de Crédito Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia\n    Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries. Por"
+        },
+        {
+          "document_id": 935068,
+          "reference_date": "30/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935068",
+          "source_excerpt": "to para a JGP Gestão de Crédito Ltda., porém,\n     atribui ratings de crédito para diversos outros f undos que estão sob sua gestão, os quais podem ser consultados no website de ssa\n     agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solf ácil Energia\n     Solar e Serviços Financeiros Ltda (Contratante) na f orma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 760684,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760684",
+          "source_excerpt": "de 2024. Esta reunião de Comitê está registrada na Ata Nº 20240812-2.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 935078,
+          "reference_date": "31/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935078",
+          "source_excerpt": "de 2025. Esta reunião de Comitê está registrada na Ata Nº 20250213-6.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 760684,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760684",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 935078,
+          "reference_date": "31/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935078",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FI",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 935068,
+          "reference_date": "30/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935068",
+          "source_excerpt": "24. Esta reunião de Comitê está registrada na Ata Nº 20241106-9.\n2.   As presentes classif icações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n     https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FI CFIDCs.html\n3.   As classif icações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n     agência em suas classif icações de risco de crédito d"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:25Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 935068,
+          "reference_date": "30/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935068",
+          "source_excerpt": "o da metodologia genérica comumente aplicada por essa\n     agência em suas classif icações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), dispon ível\n     em: https://www.austin.com.br/Documentos/Metodologia -Rating-Securiticacao_Recebiveis.html\n4.   Não é a primeira vez que a Austin Rating classif ica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n     anteriormente classif ic"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:04Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "- Série super sênior: Rating Nacional de Longo Prazo afirmado em ‘AA+sf(bra)’; Perspectiva\n Estável.\n\n\n -- Série sênior: Rating Nacional de Longo Prazo afirmado em ‘Asf(bra)’; Perspectiva Estável.\n\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025   1/12"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "AA+sf(bra)\n                                               Natl LT        AA+sf(bra)             Affirmed\n          BRKNSTCRI000\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025   2/12"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "eniores dos\n CRIs Solfácil I e II, a série senior do CRI Solfácil I e a cota sênior do Green Solfácil IIII FIDC já\n estão no rating mais alto possível, considerando o teto na categoria ‘AAsf(bra)’.\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025   3/12"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "fetando a cobertura de perdas e os múltiplos aplicáveis às\n transações.\n\n\n -- Um aumento inesperado nas taxas de pré-pagamento pode levar a perdas por pré-\n pagamento maiores do que as projetadas.\n\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025   4/12"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "-sf(bra)’.\n\n\n Aumento de 25% da perda-base: Série super sênior: ‘AA+sf(bra)’; Série sênior: ‘A+sf(bra)’.\n\n\n Aumento de 50% da perda-base: Série super sênior: ‘AA+sf(bra)’; Série sênior: ‘A-sf(bra)’.\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025   5/12"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1789017",
+        "final_url": "https://www.fitchratings.com/research/pt/structured-finance/fitch-affirms-ratings-of-solfacil-securitization-issuances-04-02-2025",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/brasil’",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "Os ratings atribuídos pela Fitch são revisados, pelo menos, anualmente.\n\n\n A Fitch publica a lista de conflitos de interesse reais e potenciais no Anexo X do Formulário\n de Referência, disponível em ‘www.fitchratings.com/brasil’.\n\n\n Para informações sobre possíveis alterações na classificação de risco de crédito veja o item:\n Sensibilidade dos Ratings.\n\n\n Conforme a classe de ativo da emissão, a Fitch poderá realizar análise"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "lação e taxas de juros.\n\n\n Para esclarecimentos quanto à diferenciação dos símbolos de produtos estruturados e\n aqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\n ‘www.fitchratings.com/brasil’.\n\n\n Informações adicionais estão disponíveis em ‘www.fitchratings.com’ e em\n ‘www.fitchratings.com/brasil’.\n\n\n A Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros ser"
+        },
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "s e\n aqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\n ‘www.fitchratings.com/brasil’.\n\n\n Informações adicionais estão disponíveis em ‘www.fitchratings.com’ e em\n ‘www.fitchratings.com/brasil’.\n\n\n A Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\n à entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\n A lista"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:31Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u2019' in position 12: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos”",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "cido outros serviços\n à entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\n A lista de outros serviços prestados às entidades classificadas está disponível em\n ‘www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos”. A\n prestação deste serviço não configura, em nossa opinião, conflito de interesses em face da\n classificação de risco de crédito.\n\n\n A Fitch Ratings foi paga para determinar cada rating de crédito li"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 62: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "teria (28 de novembro\n de 2023);\n\n\n -- Structured Finance and Covered Bonds Counterparty Rating Criteria: Derivative\n Addendum (28 de novembro de 2023).\n\n\n Informações adicionais estão disponíveis em www.fitchratings.com\n\n PARTICIPATION STATUS\n\n The rated entity (and/or its agents) or, in the case of structured finance, one or more of the\n transaction parties participated in the rating process except that the followi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:22Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1804808",
+        "final_url": "https://www.fitchratings.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://fitchratings.com/understandingcreditratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1092918,
+          "reference_date": "31/03/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1092918",
+          "source_excerpt": "s ratings de crédito da Fitch estão sujeitos a algumas limitações e termos de isenção\n de responsabilidade. Por favor, veja no link a seguir essas limitações e termos de isenção de\n responsabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as def\n\n\n READ MORE\n\n\n SOLICITATION STATUS\n\n The ratings above were solicited and assigned or maintained at the request of the rated\n entity/issuer or a related third party. Any exception"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1797245",
+        "final_url": "https://www.fitchratings.com/products/rating-definitions",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "cnpj": "63953620000165",
+  "name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:20Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:55Z",
+  "routes": [
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "(iii) acima, emitidas por Instituições Autorizadas, com liquidez diária e vencimento\n\n    BTG Pactual\n    SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                                   1\n\nClicksign 5616d885-8e2b-40d9-861e-75413fca8eb1"
+        },
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "o de\n                                                 Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado,\n\n\n    BTG Pactual\n    SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                                   2\n\nClicksign 5616d885-8e2b-40d9-861e-75413fca8eb1"
+        },
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "efere aos procedimentos a serem adotados\n             pelo Administrador na hipótese de Patrimônio Líquido negativo da Classe.\n\n\n\n    BTG Pactual\n    SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                                  3\n\nClicksign 5616d885-8e2b-40d9-861e-75413fca8eb1"
+        },
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "Despesas que não constituam Encargos correm por conta do Prestador de Serviço\n             Essencial que a tiver contratado.\n\n\n\n\n    BTG Pactual\n    SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                            4\n\nClicksign 5616d885-8e2b-40d9-861e-75413fca8eb1"
+        },
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, preferências, prerrogativas,\n\n\n\n    BTG Pactual\n    SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                              5\n\nClicksign 5616d885-8e2b-40d9-861e-75413fca8eb1"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1222863,
+          "reference_date": "02/06/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "source_excerpt": "Dia Útil conforme a metodologia de avaliação descrita no manual do Administrador ou, ainda, nos manuais do\n             Custodiante, disponíveis nos seus respectivos websites, no endereço https://www.btgpactual.com/asset-\n             management/administracao-fiduciaria#documentos\n    9.2      As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros integrantes\n             da"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

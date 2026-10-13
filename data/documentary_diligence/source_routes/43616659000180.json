@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "cnpj": "43616659000180",
+  "name": "TALÓ 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:04Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:57:04Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 400836,
+          "reference_date": "10/01/2023",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400836",
+          "source_excerpt": "ivulgada pela B3 no informativo\n                                                diário       disponível   em      sua     página      na      Internet\n                                                (http://www.b3.com.br).\n\n\n                “Termo de Adesão”               Significa o “Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do Taló 1 Fundo de Investimento em Dir"
+        },
+        {
+          "document_id": 791844,
+          "reference_date": "28/11/2024",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+          "source_excerpt": "is) Dias Úteis, calculada e divulgada pela B3\n                                               no informativo diário disponível em sua página na Internet\n                                               (http://www.b3.com.br).\n\n\n                  Taxa Máxima de               Significa a taxa a que o Custodiante terá direito pela\n                 Custódia                      prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 299290,
+          "reference_date": "06/05/2022",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299290",
+          "source_excerpt": "da e divulgada pela B3 no informativo\n                                                diário       disponível   em     sua    página   na     Internet\n                                                (http://www.b3.com.br).\n\n\n               “Termo de Adesão”                Significa o “Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do Taló 1 Fundo de Investimento em Dir"
+        },
+        {
+          "document_id": 299300,
+          "reference_date": "06/05/2022",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299300",
+          "source_excerpt": "da e divulgada pela B3 no informativo\n                                                diário       disponível   em     sua    página   na     Internet\n                                                (http://www.b3.com.br).\n\n\n               “Termo de Adesão”                Significa o “Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do Taló 1 Fundo de Investimento em Dir"
+        },
+        {
+          "document_id": 303254,
+          "reference_date": "12/05/2022",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=303254",
+          "source_excerpt": "vulgada pela B3 no informativo\n                                                 diário      disponível   em      sua     página      na      Internet\n                                                 (http://www.b3.com.br).\n\n\n               “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao\n                                                 Regulamento do Taló 1 Fundo de Investimento em D"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 400836,
+          "reference_date": "10/01/2023",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400836",
+          "source_excerpt": "tação em vigor (tais como o critério de marcação a mercado) e no manual de\n               precificação               do                 Administrador        disponível              em\n               “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n               os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n               seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, co"
+        },
+        {
+          "document_id": 299290,
+          "reference_date": "06/05/2022",
+          "page": 57,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299290",
+          "source_excerpt": "mentação em vigor (tais como o critério de marcação a mercado) e no manual de\n               precificação                do                Administrador              disponível     em\n               “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n               os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n               seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, co"
+        },
+        {
+          "document_id": 299300,
+          "reference_date": "06/05/2022",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299300",
+          "source_excerpt": "mentação em vigor (tais como o critério de marcação a mercado) e no manual de\n               precificação                do                Administrador              disponível     em\n               “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n               os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n               seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, co"
+        },
+        {
+          "document_id": 303254,
+          "reference_date": "12/05/2022",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=303254",
+          "source_excerpt": "ntação em vigor (tais como o critério de marcação a mercado) e no manual de\n                precificação               do                Administrador               disponível     em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos,"
+        },
+        {
+          "document_id": 328154,
+          "reference_date": "15/07/2022",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=328154",
+          "source_excerpt": "ção em vigor (tais como o critério de marcação a mercado) e no manual de\n                precificação               do                Administrador        disponível               em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos,"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 400836,
+          "reference_date": "10/01/2023",
+          "page": 123,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400836",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo encontram-\n               se disponíveis para acesso pelos Cotistas na página do Administrador no website\n               http://www.oliveiratrust.com.br/portal/. Qualquer alteração na empresa de auditoria\n               contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando\n               for o caso, publicada nas páginas na re"
+        },
+        {
+          "document_id": 299290,
+          "reference_date": "06/05/2022",
+          "page": 144,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299290",
+          "source_excerpt": "DocuSign Envelope ID: EC3DFA30-2964-45E7-A8D4-E58D424C7CA1\n\n\n\n\n               website http://www.oliveiratrust.com.br/portal/. Qualquer alteração na empresa de auditoria\n               contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando\n               for o caso, publicada nas páginas na re"
+        },
+        {
+          "document_id": 299300,
+          "reference_date": "06/05/2022",
+          "page": 140,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299300",
+          "source_excerpt": "DocuSign Envelope ID: EC3DFA30-2964-45E7-A8D4-E58D424C7CA1\n\n\n\n\n               website http://www.oliveiratrust.com.br/portal/. Qualquer alteração na empresa de auditoria\n               contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando\n               for o caso, publicada nas páginas na re"
+        },
+        {
+          "document_id": 303254,
+          "reference_date": "12/05/2022",
+          "page": 121,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=303254",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo\n                encontram-se disponíveis para acesso pelos Cotistas na página do Administrador no\n                website http://www.oliveiratrust.com.br/portal/. Qualquer alteração na empresa de auditoria\n                contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando\n                for o caso, publicada nas páginas na"
+        },
+        {
+          "document_id": 328154,
+          "reference_date": "15/07/2022",
+          "page": 123,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=328154",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo\n                encontram-se disponíveis para acesso pelos Cotistas na página do Administrador no\n                website http://www.oliveiratrust.com.br/portal/. Qualquer alteração na empresa de auditoria\n                contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando\n                for o caso, publicada nas páginas na"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:29Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 400836,
+          "reference_date": "10/01/2023",
+          "page": 134,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=400836",
+          "source_excerpt": "Creditórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n               perdas       em      Ativos       de     Crédito         do      Administrador   disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n               pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n               comportamento de atrasos substancialment"
+        },
+        {
+          "document_id": 299290,
+          "reference_date": "06/05/2022",
+          "page": 159,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299290",
+          "source_excerpt": "Creditórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n               perdas       em       Ativos      de     Crédito         do      Administrador   disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n               pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n               comportamento de atrasos substancialment"
+        },
+        {
+          "document_id": 299300,
+          "reference_date": "06/05/2022",
+          "page": 155,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299300",
+          "source_excerpt": "Creditórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n               perdas       em       Ativos      de     Crédito         do      Administrador   disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n               pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n               comportamento de atrasos substancialment"
+        },
+        {
+          "document_id": 303254,
+          "reference_date": "12/05/2022",
+          "page": 132,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=303254",
+          "source_excerpt": "editórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n                perdas      em       Ativos      de      Crédito         do      Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        },
+        {
+          "document_id": 328154,
+          "reference_date": "15/07/2022",
+          "page": 134,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=328154",
+          "source_excerpt": "editórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n                perdas      em       Ativos       de     Crédito         do      Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791844,
+          "reference_date": "28/11/2024",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+          "source_excerpt": "Docusign Envelope ID: 2953DBE5-8BB2-4590-99A6-45F2589EB093\n\n\n\n\n                                               ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                               da Secretaria de Fazenda        SEFAZ da circunscrição da\n                                               Cedente.\n\n\n                  Classe"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791844,
+          "reference_date": "28/11/2024",
+          "page": 152,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791844",
+          "source_excerpt": "itos Creditórios Adquiridos da Classe Única com base no Manual de Provisão\n                 para      perdas   em     Ativos     de     Crédito   do   Administrador   disponível   em\n                 http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n                 89.pdf, observado o disposto acima.\n\n\n                 Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui\n                 um comportamento de atrasos"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:30Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 311463,
+          "reference_date": "22/04/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=311463",
+          "source_excerpt": "Subordinadas Mezanino e 15.000 Cotas Subordinadas\nTel.: 55 11 3377 0707                Júnior, com valor unitário de R$ 1,0 mil, somando, portanto, valor de emissão global de R$\nFax: 55 11 3377 0739\nwww.austin.com.br                    300,0 milhões."
+        },
+        {
+          "document_id": 311463,
+          "reference_date": "22/04/2022",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=311463",
+          "source_excerpt": "ilizar a opinião ora indicada.\n\n12. A eventual entrada desta classificação preliminar em processo de revisão será notificada pela Austin Rating ao lado do anúncio da própria\n    classificação no site www.austin.com.br, na seção específica “Ratings Preliminares”, com a inscrição “EM REVISÃO”.\n13. As eventuais alterações decorrentes de processos de revisão ou de início de novos processos analíticos serão sempre relat"
+        },
+        {
+          "document_id": 391251,
+          "reference_date": "08/11/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=391251",
+          "source_excerpt": "da Relação Mínima SR, para 131,0% até o final de 2022,\nTel.: 55 11 3377 0707\nFax: 55 11 3377 0739                 refletindo assembleia geral anterior, de 06 de julho de 2022, que aprovou waiver para\nwww.austin.com.br\n                                     desenquadramento da Razão Mínima."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 311463,
+          "reference_date": "22/04/2022",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=311463",
+          "source_excerpt": "22 de abril de 2022. Esta reunião foi registrada\n   na Ata Nº 20220422-1.\n\n2. As classificações atribuídas fazem parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em:"
+        },
+        {
+          "document_id": 391251,
+          "reference_date": "08/11/2022",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=391251",
+          "source_excerpt": "de novembro de 2022. Esta reunião foi\n   registrada na Ata Nº 20221108-13.\n\n2. As classificações atribuídas fazem parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em:"
+        },
+        {
+          "document_id": 420430,
+          "reference_date": "14/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420430",
+          "source_excerpt": "Esta reunião de Comitê\n   está registrada na Ata Nº 20230214-07.\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de"
+        },
+        {
+          "document_id": 467206,
+          "reference_date": "15/05/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=467206",
+          "source_excerpt": "Esta reunião de Comitê está\n   registrada na Ata Nº 20230515-21.\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de"
+        },
+        {
+          "document_id": 530851,
+          "reference_date": "19/09/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=530851",
+          "source_excerpt": "Esta reunião de Comitê está registrada\n   na Ata Nº 20230919-02.\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 311463,
+          "reference_date": "22/04/2022",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=311463",
+          "source_excerpt": "3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n   classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 391251,
+          "reference_date": "08/11/2022",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=391251",
+          "source_excerpt": "3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n   classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 420430,
+          "reference_date": "14/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420430",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n   http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 467206,
+          "reference_date": "15/05/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=467206",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n   http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 530851,
+          "reference_date": "19/09/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=530851",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n   http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

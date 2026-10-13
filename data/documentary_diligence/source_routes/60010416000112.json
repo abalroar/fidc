@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "cnpj": "60010416000112",
+  "name": "MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:17Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:03Z",
+  "routes": [
+    {
+      "url": "https://www.btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "dministrador mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de dúvidas\n       e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n           Website: www.btgpactual.com\n           SAC: 0800 772 2827\n           Ouvidoria: 0800 722 0048\n\n\n                                                     ***"
+        },
+        {
+          "document_id": 993786,
+          "reference_date": "20/03/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993786",
+          "source_excerpt": "INISTRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n        dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n            Website: www.btgpactual.com\n            SAC: 0800 772 2827\n            Ouvidoria: 0800 722 0048\n\n\n                                                              ***\n\n\n\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "ste Anexo e respectivos Apêndices.\n Utilização de Ativos     Não é permitida a integralização de Cotas, no todo ou em parte, com Direitos\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com                                                8"
+        },
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "representado por uma CCB, com taxa de juros prefixada e vencimento final anterior\n                       ao vencimento f inal da Classe;\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com                                                9"
+        },
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "ntidade Registradora.\n        4.4.7.   Após a f ormalização, o endosso de um Direito Creditório à Classe será irrevogável e irretratável,\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com                                              10"
+        },
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "fins regulatórios, 50% (cinquenta por cento) do\n        seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175.\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com                                               11"
+        },
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "as à Política de Investimentos\n4.14    A Classe poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio,\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com                                                  12"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management/administracao-fiduciaria",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "os contratos da Classe das f unções para os quais\n         f oram contratados, sendo certo que tais regras e procedimentos disponibilizados e mantidos atualizados\n         em seu website, no endereço www.btgpactual.com/asset-management/administracao-fiduciaria.\nGestão\n11.9     O Gestor, observadas as limitações legais e as previstas na regulamentação aplicável, tem poderes para\n         praticar os atos necessários à gestão da Carteira de ativos, podendo in"
+        },
+        {
+          "document_id": 993786,
+          "reference_date": "20/03/2025",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993786",
+          "source_excerpt": "rviços contratos da Classe das funções para os quais\n        foram contratados, sendo certo que tais regras e procedimentos disponibilizados e mantidos atualizados\n        em seu website, no endereço www.btgpactual.com/asset-management/administracao-fiduciaria.\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                              25"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-servicing/administracao-fiduciaria",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051393,
+          "reference_date": "09/10/2025",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "source_excerpt": "er extra grupo, expressas na\nf orma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no\ninf ormativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao Custodiante pela prestação dos serviços de\ncustódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 993786,
+          "reference_date": "20/03/2025",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993786",
+          "source_excerpt": "over extra grupo, expressas na\nforma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no\ninformativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços\n BTG Pactual\n SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

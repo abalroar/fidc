@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "37645417000111",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 107751118.39,
+    "credit_rights": null,
+    "overdue_credit": null,
+    "cash": null,
+    "pdd": null,
+    "fidc_quotas": null,
+    "senior_quotas": null,
+    "subordinated_quotas": null,
+    "mezzanine_quotas": null,
+    "subordinated_and_mezzanine_quotas": null,
+    "cpr": 0.0,
+    "liquid_assets": 1438683.71
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "37645417000111",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/37645417000111_202605.json",
+    "reported_fund_cnpj": "37645417000111",
+    "reported_class_cnpj": "37645417000111",
+    "reported_fund_cnpj_raw": "37645417000111",
+    "reported_class_cnpj_raw": "37645417000111",
+    "identity_basis": "class",
+    "warnings": [
+      "IME sem linhas de cotas suficientes para reconciliar saldos por camada; ausência preservada.",
+      "IME de FIAGRO: CPR e ativos para necessidades de liquidez são rubricas próprias; não equivalem automaticamente a direitos creditórios elegíveis ou reserva contratual. Saldos de subclasse sem identificação sênior/mezanino/júnior não demonstram subordinação."
+    ],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "layout": "FIAGRO-IME",
+    "fields": [
+      "net_asset_value",
+      "cpr",
+      "liquid_assets"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/VL_PATRIMONIO_LIQUIDO"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ],
+      "cpr": [
+        "DOC_ARQ/LISTA_INFORM/INFO_ATIVO/DET_VL_TOTAL_INVEST/DET_VL_ATIV_FINAN_LATO_SENSU/DET_TIT_CRED/VL_CPR"
+      ],
+      "liquid_assets": [
+        "DOC_ARQ/LISTA_INFORM/INFO_ATIVO/VL_TOTAL_MANTIDO_NECES_LIQ"
+      ]
+    },
+    "document_id": "1239479",
+    "version": 2,
+    "delivered_at": "03/07/2026 16:47",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239479",
+    "declared_fields_sha256": "bd46492df6c46cba257be33869be958e562ff72b7e7e4ab914d5c4611b8b5776"
+  },
+  "error": ""
+}

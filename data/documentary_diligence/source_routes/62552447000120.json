@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "cnpj": "62552447000120",
+  "name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:49Z",
+  "routes": [
+    {
+      "url": "https://www.btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200623,
+          "reference_date": "21/05/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "source_excerpt": "O Administrador mantém serviço de atendimento ao Cotista, responsável pelo esclarecimento de\n      dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n      Website: www.btgpactual.com\n      SAC: 0800 772 2827\n      Ouvidoria: 0800 722 0048\n                                                     ***"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/administracao",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200623,
+          "reference_date": "21/05/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "source_excerpt": "nciamento Livre em relação às Condições de Endosso, quando for o caso; tais regras e\n             procedimentos disponibilizados e mantidos atualizados no website do Gestor, no endereço:\n             https://www.btgpactual.com/administracao -f iduciaria.\n       4.7.2 O Endossante declarará, expressamente, em caráter irrevogável e irretratável, por meio dos\n             Contratos de Endosso, que os Direitos Creditórios Consignado Privado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:19Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/administracao",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management/administracao-f",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200623,
+          "reference_date": "21/05/2026",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "source_excerpt": "todo Dia Útil conforme a metodologia de avaliação descrita no manual d o Administrador ou, ainda, nos\n       manuais do Custodiante, disponíveis nos seus respectivos websites, no endereço\n       https://www.btgpactual.com/asset-management/administracao-f iduciaria#documentos.\n9.2    As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros\n       integrantes da Carteira serão, respectivamente, efetuadas ou rec"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:20Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-management/administracao-f",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200625,
+          "reference_date": "21/05/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200625",
+          "source_excerpt": "S FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E\n                        VALORES MOBILIÁRIOS\n                           - Administradora -\n\n\n\n\nBTG Pactual\nSAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

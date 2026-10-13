@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "cnpj": "50059866000146",
+  "name": "PAGALEVE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:08Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:01:42Z",
+  "routes": [
+    {
+      "url": "https://kanastra.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 652631,
+          "reference_date": "31/03/2023",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=652631",
+          "source_excerpt": "as matérias relevantes\nobrigatórias para o exercício do direito de voto. A política de voto de que trata este item ficará\ndisponível para consulta pública na rede mundial de computadores, no endereço\nhttps://kanastra.com.br/.\n\n\n\n                          CAPÍTULO XII – DO AGENTE DE COBRANÇA\n\n12.1. As atividades de agente de cobrança serão exercidas pelo AGENTE DE COBRANÇA,\nresponsável pela cobrança dos Direitos Creditório"
+        },
+        {
+          "document_id": 477218,
+          "reference_date": "12/06/2023",
+          "page": 28,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=477218",
+          "source_excerpt": "as decisões da Gestora nas assembleias de titulares\n         de ativos que conferem direito de voto.\n\n17.9.4   A política de exercício do direito de voto pode ser consultada no seguinte site\n         https://kanastra.com.br/.\n\n17.9.5   A Gestora deverá, por meio da Administradora, comunicar aos Cotistas, por carta registrada\n         com aviso de recebimento ou correio eletrônico aos Cotistas, sempre que houver alteração"
+        },
+        {
+          "document_id": 531448,
+          "reference_date": "29/09/2023",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=531448",
+          "source_excerpt": "nas assembleias de titulares de ativos\n         que conferem direito de voto.\n\n16.9.4   A política de exercício      do   direito   de   voto   pode   ser   consultada   no   seguinte   site\n         https://kanastra.com.br/.\n\n16.9.5   A Gestora deverá, por meio da Administradora, comunicar aos Cotistas, por carta registrada com\n         aviso de recebimento ou correio eletrônico aos Cotistas, sempre que houver alteração"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:05Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://kanastra.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 652631,
+          "reference_date": "31/03/2023",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=652631",
+          "source_excerpt": "rupo\n                        – Depósitos Interfinanceiros de um dia, calculadas e divulgadas\n                        diariamente pela B3, disponível em sua página na Internet\n                        (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                        dois) Dias Úteis, expressa na forma percentual ao ano;\n\nTermo de Cessão         é o \"Termo de Cessão de Direitos Creditórios\" que identifica a"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.bcb.gov.br/estabilidadefinanceira/scr",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 477218,
+          "reference_date": "12/06/2023",
+          "page": 71,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=477218",
+          "source_excerpt": "ados pela Pagaleve no\n                              Período de Desempenho em questão.\n\n“SCR”                         significa o Sistema de Informações de Créditos (SCR)\n                              https://www.bcb.gov.br/estabilidadefinanceira/scr.\n\n“Sistema Pagaleve”            significa a combinação de pessoas, tecnologia e procedimentos\n                              disponibilizada pela Pagaleve, como criadora do Arranjo de"
+        },
+        {
+          "document_id": 531448,
+          "reference_date": "29/09/2023",
+          "page": 61,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=531448",
+          "source_excerpt": "Pagaleve no\n                                 Período de Desempenho em questão.\n\n“SCR”                            significa o Sistema de Informações de Créditos (SCR)\n                                 https://www.bcb.gov.br/estabilidadefinanceira/scr.\n\n“Sistema Pagaleve”               significa a combinação de pessoas, tecnologia e procedimentos\n                                 disponibilizada pela Pagaleve, como criadora do Arranjo de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:43Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "2871",
+        "final_url": "https://www.bcb.gov.br/estabilidadefinanceira/scr",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://kanastra.com.br/governança/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 587390,
+          "reference_date": "18/01/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587390",
+          "source_excerpt": "DIREITO DE VOTO.\n\n\n       7.11.1          A política de exercício de direito de voto do Gestor está disponível na\n       página do Gestor na rede mundial de computadores, no seguinte endereço:\n       https://kanastra.com.br/governança/.\n\n\n8.      PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E POLÍTICA DE\nCRÉDITO\n\n\n8.1                    Processo de originação dos Direitos Creditórios\n\n\n         8.1.1         A originação dos Dire"
+        },
+        {
+          "document_id": 631102,
+          "reference_date": "28/03/2024",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=631102",
+          "source_excerpt": "A política de exercício de direito de voto do Gestor está disponível na página\n       do     Gestor    na    rede    mundial     de    computadores,      no    seguinte    endereço:\n       https://kanastra.com.br/governança/.\n\n\n8.      PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS\n\n\n8.1.    Processo de originação dos Direitos Creditórios\n\n\n       8.1.1.             A originação dos Direitos Creditórios se dá a partir da"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:05Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\xe7' in position 14: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://www.kanastra.com.br/governanca",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 872044,
+          "reference_date": "31/03/2025",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=872044",
+          "source_excerpt": "A política de exercício de direito de voto do Gestor está disponível na página\n       do     Gestor    na    rede     mundial    de    computadores,      no    seguinte    endereço:\n       https://www.kanastra.com.br/governanca.\n\n\n8.      PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS\n\n\n8.1.    Processo de originação dos Direitos Creditórios\n\n\n       8.1.1.             A originação dos Direitos Creditórios se dá a partir da"
+        },
+        {
+          "document_id": 888814,
+          "reference_date": "22/04/2025",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=888814",
+          "source_excerpt": "7.11.1.     A política de exercício de direito de voto do Gestor está disponível na página do Gestor na\n     rede mundial de computadores, no seguinte endereço: https://www.kanastra.com.br/governanca.\n\n\n8.            PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS\n\n\nProcesso de originação dos Direitos Creditórios\n\n\n8.1.          A originação dos Direitos Creditórios se dá a partir das transações d"
+        },
+        {
+          "document_id": 1052313,
+          "reference_date": "01/12/2025",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1052313",
+          "source_excerpt": "REITO DE VOTO.\n\n\n             7.11.1.      A política de exercício de direito de voto do Gestor está disponível na página do Gestor na\n             rede mundial de computadores, no seguinte endereço: https://www.kanastra.com.br/governanca.\n\n\n           8.          PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS\n\n         Processo de originação dos Direitos Creditórios\n\n\n         8.1.          A originação dos Direitos Creditórios se dá"
+        },
+        {
+          "document_id": 1241048,
+          "reference_date": "03/07/2026",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1241048",
+          "source_excerpt": "IREITO DE VOTO.\n\n\n            7.11.1.       A política de exercício de direito de voto do Gestor está disponível na página do Gestor na\n            rede mundial de computadores, no seguinte endereço: https://www.kanastra.com.br/governanca.\n\n\n           8.          PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS\n\n         Processo de originação dos Direitos Creditórios\n\n\n         8.1.          A originação dos Direitos Creditórios se dá"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:05Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.kanastra.com.br/governanca",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

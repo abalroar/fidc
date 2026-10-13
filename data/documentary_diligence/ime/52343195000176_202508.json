@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "52343195000176",
+  "competence": "08/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 3013627.75,
+    "credit_rights": 2536392.27,
+    "overdue_credit": 1986349.77,
+    "cash": 575.38,
+    "pdd": 632513.54,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 3013627.749998816,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 3013627.749998816
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "52343195000176",
+    "competence": "08/2025",
+    "path": "data/documentary_diligence/ime/52343195000176_202508.json",
+    "reported_fund_cnpj": "52343195000176",
+    "reported_class_cnpj": "52343195000176",
+    "reported_fund_cnpj_raw": "52343195000176",
+    "reported_class_cnpj_raw": "52343195000176",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "991259",
+    "version": 1,
+    "delivered_at": "15/09/2025 17:03",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=991259",
+    "declared_fields_sha256": "cef6f66188aaf2c92aa9ffb63e29cabaa7ea86010ce0d6242ee4151c8de82f88"
+  },
+  "error": ""
+}

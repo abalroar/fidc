@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "cnpj": "63066147000102",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS INCLUSÃO CREDIÁRIA RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:22Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1085946,
+          "reference_date": "15/01/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+          "source_excerpt": "iariamente pela B3, no informativo diário\n                                                   disponível    em     sua   página     na      Internet\n                                                   (http://www.b3.com.br).\n                        “CET”                      Significa o custo efetivo total da operação,\n                                                   correspondente à taxa que representa o custo total d"
+        },
+        {
+          "document_id": 1085946,
+          "reference_date": "15/01/2026",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+          "source_excerpt": "m base no informativo diário\n                                                   disponível na página na internet da B3 S.A. – Brasil,\n                                                   Bolsa, Balcão (http://www.b3.com.br).\n                        “Termo de Endosso”         Cada termo de endosso dos Direitos Creditórios\n                                                   Adquiridos, celebrado eletronicamente entre o"
+        },
+        {
+          "document_id": 1085943,
+          "reference_date": "15/01/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085943",
+          "source_excerpt": "iariamente pela B3, no informativo diário\n                                                   disponível    em     sua   página     na      Internet\n                                                   (http://www.b3.com.br).\n                        “CET”                      Significa o custo efetivo total da operação,\n                                                   correspondente à taxa que representa o custo total d"
+        },
+        {
+          "document_id": 1085943,
+          "reference_date": "15/01/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085943",
+          "source_excerpt": "m base no informativo diário\n                                                   disponível na página na internet da B3 S.A. – Brasil,\n                                                   Bolsa, Balcão (http://www.b3.com.br).\n                        “Termo de Endosso”         Cada termo de endosso dos Direitos Creditórios\n                                                   Adquiridos, celebrado eletronicamente entre o"
+        },
+        {
+          "document_id": 1094447,
+          "reference_date": "06/10/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447",
+          "source_excerpt": "Úteis, calculada com base no informativo diário\n                                 disponível na página na internet da B3 S.A. – Brasil,\n                                 Bolsa, Balcão (http://www.b3.com.br).\n       “Termo de Endosso”        Cada termo de endosso dos Direitos Creditórios\n                                 Adquiridos, celebrado eletronicamente entre o\n                                 Endossa"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.vortx.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1085946,
+          "reference_date": "15/01/2026",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+          "source_excerpt": "Endereço para correspondência: Rua Gilberto Sabino, nº 215, 4º andar,\n                               Pinheiros, CEP 05425-020, São Paulo - SP\n                               Site: https://www.vortx.com.br\n                               E-mail: fundos@vortx.com.br\n               9.4.     O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\n                        relativamente às s"
+        },
+        {
+          "document_id": 1085943,
+          "reference_date": "15/01/2026",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085943",
+          "source_excerpt": "Endereço para correspondência: Rua Gilberto Sabino, nº 215, 4º andar,\n                               Pinheiros, CEP 05425-020, São Paulo - SP\n                               Site: https://www.vortx.com.br\n                               E-mail: fundos@vortx.com.br\n               9.4.     O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\n                        relativamente às s"
+        },
+        {
+          "document_id": 1094447,
+          "reference_date": "06/10/2025",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447",
+          "source_excerpt": "dos Cotistas), pelos seguintes meios:\n               Endereço para correspondência: Rua Gilberto Sabino, nº 215, 4º andar,\n               Pinheiros, CEP 05425-020, São Paulo - SP\n               Site: https://www.vortx.com.br\n               E-mail: fundos@vortx.com.br\n9.4.    O Fundo poderá utilizar-se de meios físicos ou eletrônicos de comunicação\n        relativamente às suas informações e documentos, inclusive no que d"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:16Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "263951",
+        "final_url": "https://www.vortx.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/Z4%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1094447,
+          "reference_date": "06/10/2025",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447",
+          "source_excerpt": "alterada.\n“Manual de Provisão       Manual de provisão para perdas em ativos de crédito\npara Devedores            disponível na página na internet da Administradora\nDuvidosos”                (https://vortx.com.br/static/assets/manuais/Z4%20-\n                          %20GERENCIAMENTO%20DE%20RISCOS%20-\n                          %20PDD.v6.pdf).\n“Meta de Remuneração”     Significa a meta de rentabilidade de cada série de"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

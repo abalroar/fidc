@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50857998000113",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 166222508.55,
+    "credit_rights": 133638717.05,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 142845280.18970746,
+    "subordinated_quotas": 23377228.35976638,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 23377228.35976638
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50857998000113",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/50857998000113_202608.json",
+    "reported_fund_cnpj": "50857998000113",
+    "reported_class_cnpj": "50857998000113",
+    "reported_fund_cnpj_raw": "50857998000113",
+    "reported_class_cnpj_raw": "50857998000113",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1314159",
+    "version": 1,
+    "delivered_at": "10/09/2026 11:38",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1314159",
+    "declared_fields_sha256": "fc8e6dae1ed30acc10b0595c8a08634662dccda4a7a2293f70d101de66ec50f7"
+  },
+  "error": ""
+}

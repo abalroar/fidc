@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "48953864000154",
+  "competence": "04/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 19818866.04,
+    "credit_rights": 14505151.16,
+    "overdue_credit": 100881.84,
+    "cash": 791.88,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 7146254.461499999,
+    "subordinated_quotas": 12672611.580007674,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 12672611.580007674
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "48953864000154",
+    "competence": "04/2025",
+    "path": "data/documentary_diligence/ime/48953864000154_202504.json",
+    "reported_fund_cnpj": "48953864000154",
+    "reported_class_cnpj": "48953864000154",
+    "reported_fund_cnpj_raw": "48953864000154",
+    "reported_class_cnpj_raw": "48953864000154",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "904726",
+    "version": 1,
+    "delivered_at": "15/05/2025 14:50",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=904726",
+    "declared_fields_sha256": "626b9a7b4acce8ce3a93074c76e4178e488ec58864ecbbcec472e484ac02b23f"
+  },
+  "error": ""
+}

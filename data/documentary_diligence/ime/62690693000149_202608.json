@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "62690693000149",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 677396643.86,
+    "credit_rights": 635945236.6199999,
+    "overdue_credit": 17636933.18,
+    "cash": 0.0,
+    "pdd": 954384.05,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 677396643.8610517,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 677396643.8610517
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "62690693000149",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/62690693000149_202608.json",
+    "reported_fund_cnpj": "62690693000149",
+    "reported_class_cnpj": "62690693000149",
+    "reported_fund_cnpj_raw": "62690693000149",
+    "reported_class_cnpj_raw": "62690693000149",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1319542",
+    "version": 1,
+    "delivered_at": "15/09/2026 09:49",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1319542",
+    "declared_fields_sha256": "6dccad7b7572511a7db5fec1a2fc3a6247a0efacc42029fe6caad223a175d962"
+  },
+  "error": ""
+}

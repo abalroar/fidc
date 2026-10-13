@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "47280025000150",
+  "quarter": "2023-Q4",
+  "competence": "12/2023",
+  "quarter_source": "document_catalog",
+  "status": "identity_missing",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "BTG Pactual Serviços Financeiros S/A DTVM.\n                                                                               Praia de Botafogo 501, 6º andar,\n                                                                               Torre Corcovado - 22250-040\n                                                                               Rio de Janeiro RJ Brasil\n                                                                               Tel. +55-21-3262-4900 +55-21-3262-9600\n                                                                               Fax +55-21-3262-8600\n\n\n\n\n                                                                        Rio de Janeiro, 9 de fevereiro de 2024.\n\n\n\n               À\n               CVM – Comissão de Valores Mobiliários\n               Superintendência de Acompanhamento de Investidores Institucionais\n               Rua Sete de Setembro, nº 111 – 30º andar\n\n\n\n               Ref.:   Relatório Trimestral do FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS\n               ALBAUGH I - período encerrado em 29 de dezembro de 2023.\n\n\n\n\n               Prezados Senhores,\n\n\n               De acordo com o Artigo 8º da Instrução CVM n.º 356/01, na redação da Instrução CVM n.º\n               393/03, apresentamos as seguintes informações sobre o FUNDO DE INVESTIMENTO EM\n               DIREITOS CREDITORIOS ALBAUGH I (o “Fundo”), referente ao trimestre encerrado em 29\n               de dezembro de 2023.\n\n\n               O Fundo apresentou desempenho dentro das expectativas definidas pelo administrador, conforme\n               demonstrado na tabela abaixo:\n\n\n                     Data de\n                                          Patrimônio                 Valor da Cota            Variação Mensal\n                    Referência\n                    31/10/2023      R$         352,280,460.92   R$             1,128.68              -0.17%\n                    30/11/2023      R$         369,204,539.10   R$             1,153.45               2.19%\n                    29/12/2023      R$         377,365,757.14   R$             1,178.94               2.21%\n\n\n\n\nInternal Use Only"
+    },
+    {
+      "page": 2,
+      "text": "BTG Pactual Serviços Financeiros S/A DTVM.\n                                                                               Praia de Botafogo 501, 6º andar,\n                                                                               Torre Corcovado - 22250-040\n                                                                               Rio de Janeiro RJ Brasil\n                                                                               Tel. +55-21-3262-4900 +55-21-3262-9600\n                                                                               Fax +55-21-3262-8600\n\n\n\n\n               O Fundo encerrou o período em referência com uma carteira de investimento representando com\n               95,08 % (noventa e cinco virgula zero oito por cento) do seu patrimônio líquido investido em\n               Cotas de Fundos de Investimento em Direitos Creditórios e Direitos Creditórios. Este percentual\n               investido ficou acima do limite mínimo obrigatório previsto no Artigo 2, Inciso IV da Instrução\n               CVM nº 356/01.\n\n\n               Todas as demais operações do Fundo foram praticadas em consonância com a Política de\n               Investimento prevista no Regulamento do Fundo e com os limites de composição e\n               diversificação a ele aplicáveis.\n\n\n               Segue abaixo posição de enquadramento no período de referência:\n                                                                                              Cotas\n                     Data de       Direitos        Títulos     Operações         Outros       de FIC\n                                                                                                           Despesas\n                    Referência    Creditórios     Tesouro    Compromissadas      Ativos       FIDC/\n                                                                                               FIDC\n                    31/10/2023      57.88%                       0.00%           11.41%       36.62%         -5.90%\n                                                      -\n                    30/11/2023      54.91%                       0.00%           10.88%       40.21%         -6.00%\n                                                      -\n                    29/12/2023      45.82%                       0.00%           10.63%       49.26%         -5.71%\n                                                      -\n\n\n\n\n               Sendo o que nos cabia para o momento, colocamo-nos à disposição para quaisquer\n               esclarecimentos que se façam necessários.\n\n\n\n\n                                 BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DTVM\n\n\n\n\nInternal Use Only"
+    }
+  ],
+  "pages_total": 2,
+  "pages_extracted": 2,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "600343",
+    "reference_date": "12/2023",
+    "delivered_at": "09/02/2024 11:19",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=600343",
+    "sha256": "c88568f4a12424b8f4ed79808b077f2883363f12e864639538addc4ec83557e3",
+    "identity_verified": false
+  },
+  "identity": {
+    "status": "identity_missing",
+    "expected_cnpj": "47280025000150",
+    "cnpj_fundo": "",
+    "cnpj_classe": "",
+    "header_fields": []
+  },
+  "parsed_at": "2026-10-13T05:32:44Z",
+  "error": "Expected CNPJ not found in the first physical page of the PDF"
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "35868110000154",
+  "competence": "05/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 882775614.44,
+    "credit_rights": 823350160.76,
+    "overdue_credit": 9932320.38,
+    "cash": 14944.14,
+    "pdd": 4385585.09,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 636957930.4248,
+    "subordinated_quotas": 245817684.00656566,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 245817684.00656566
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "35868110000154",
+    "competence": "05/2025",
+    "path": "data/documentary_diligence/ime/35868110000154_202505.json",
+    "reported_fund_cnpj": "35868110000154",
+    "reported_class_cnpj": "35868110000154",
+    "reported_fund_cnpj_raw": "35868110000154",
+    "reported_class_cnpj_raw": "35868110000154",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "925467",
+    "version": 1,
+    "delivered_at": "16/06/2025 13:24",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=925467",
+    "declared_fields_sha256": "b57e199303a4cdbee8c43f4139f4b635c9a5218d283e3667f6c87da353d59d1e"
+  },
+  "error": ""
+}

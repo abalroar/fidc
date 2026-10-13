@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "40752367000186",
+  "quarter": "2022-Q2",
+  "competence": "06/2022",
+  "quarter_source": "document_catalog",
+  "status": "identity_missing",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "BTG Pactual Serviços Financeiros S/A DTVM.\n                                                                              Praia de Botafogo 501, 6º andar,\n                                                                              Torre Corcovado - 22250-040\n                                                                              Rio de Janeiro RJ Brasil\n                                                                              Tel. +55-21-3262-4900 +55-21-3262-9600\n                                                                              Fax +55-21-3262-8600\n\n\n\n\n                                                                        Rio de Janeiro, 12 de agosto de 2022.\n\n\n\n               À\n               CVM – Comissão de Valores Mobiliários\n               Superintendência de Acompanhamento de Investidores Institucionais\n               Rua Sete de Setembro, nº 111 – 30º andar\n\n\n\n               Ref.:   Relatório Trimestral do MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO\n               EM DIREITOS CREDITÓRIOS - período encerrado em 30 de junho de 2022.\n\n\n\n\n               Prezados Senhores,\n\n\n               De acordo com o Artigo 8º da Instrução CVM n.º 356/01, na redação da Instrução CVM n.º\n               393/03, apresentamos as seguintes informações sobre MT INSS RECEIVABLES II FUNDO DE\n               INVESTIMENTO EM DIREITOS CREDITÓRIOS (o “Fundo”), referente ao trimestre\n               encerrado em 30 de junho de 2022.\n\n\n               O Fundo apresentou desempenho dentro das expectativas definidas pelo administrador, conforme\n               demonstrado na tabela abaixo:\n\n\n                     Data de\n                                          Patrimônio                 Valor da Cota           Variação Mensal\n                    Referência\n                    29/04/2022       R$        254,194,493.75   R$             1,065.86              3.09%\n                    31/05/2022       R$        342,060,265.34   R$             1,066.73              0.08%\n                    30/06/2022       R$        386,445,577.65   R$             1,079.29              1.18%\n\n\n\n\nInternal Use Only"
+    },
+    {
+      "page": 2,
+      "text": "BTG Pactual Serviços Financeiros S/A DTVM.\n                                                                                Praia de Botafogo 501, 6º andar,\n                                                                                Torre Corcovado - 22250-040\n                                                                                Rio de Janeiro RJ Brasil\n                                                                                Tel. +55-21-3262-4900 +55-21-3262-9600\n                                                                                Fax +55-21-3262-8600\n\n\n\n\n               O Fundo encerrou o período em referência com uma carteira de investimento representando\n               75,93 % (setenta e cinco virgula noventa e três por cento) do seu patrimônio líquido investido em\n               Direitos Creditórios e Cotas de Fundos de Investimento em Direito Creditório. Este percentual\n               investido ficou acima do limite mínimo obrigatório previsto no Artigo 2, Inciso IV da Instrução\n               CVM nº 356/01.\n\n\n               Todas as demais operações do Fundo foram praticadas em consonância com a Política de\n               Investimento prevista no Regulamento do Fundo e com os limites de composição e\n               diversificação a ele aplicáveis.\n\n\n               Segue abaixo posição de enquadramento no período de referência:\n                                                                                            Cotas de\n                     Data de        Direitos       Títulos     Operações         Outros        FIC\n                                                                                                     Despesas\n                    Referência     Creditórios    Tesouro    Compromissadas      Ativos      FIDC/\n                                                                                              FIDC\n                    29/04/2022       90.93%        7.64%         0.00%           0.00%         0.12%          1.31%\n                    31/05/2022       86.34%       13.18%         0.00%           0.00%         0.89%         -0.42%\n                    30/06/2022       96.40%        4.11%         0.00%           0.00%         0.02%         -0.52%\n\n\n\n               Sendo o que nos cabia para o momento, colocamo-nos à disposição para quaisquer\n               esclarecimentos que se façam necessários.\n\n\n\n\n                                 BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DTVM\n\n\n\n\nInternal Use Only"
+    }
+  ],
+  "pages_total": 2,
+  "pages_extracted": 2,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "338068",
+    "reference_date": "06/2022",
+    "delivered_at": "12/08/2022 19:12",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=338068",
+    "sha256": "887f170e6d75be569ea5aa134c5d5625a2570705fcc70c4ca8f1b1a4f74294ca",
+    "identity_verified": false
+  },
+  "identity": {
+    "status": "identity_missing",
+    "expected_cnpj": "40752367000186",
+    "cnpj_fundo": "",
+    "cnpj_classe": "",
+    "header_fields": []
+  },
+  "parsed_at": "2026-10-13T05:31:25Z",
+  "error": "Expected CNPJ not found in the first physical page of the PDF"
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-13T06:29:04.703133+00:00",
+  "method": "Navegação real por Playwright no renderer e em app.py local; uma instância Streamlit por vez. Não comprova publicação ou deployment.",
+  "cases": [
+    {
+      "portfolio": "BTG Pactual (Fundos Consolidados 1T26)",
+      "funds": 6,
+      "main_themes": 10,
+      "headers_per_main_table": 7,
+      "exceptions": 0,
+      "katex": 0,
+      "reference_competence": "08/2026",
+      "lookthrough": "Mercado Crédito II",
+      "html_bytes": 1340671
+    },
+    {
+      "portfolio": "Carteira 1",
+      "funds": 101,
+      "main_themes": 10,
+      "headers_per_main_table": 102,
+      "exceptions": 0,
+      "katex": 0,
+      "html_bytes": 20965985,
+      "streamlit_rss_kib": 192608
+    },
+    {
+      "portfolio": "Agis (Atlas)",
+      "funds": 1,
+      "main_themes": 10,
+      "headers_per_main_table": 2,
+      "exceptions": 0,
+      "katex": 0,
+      "html_bytes": 163114
+    },
+    {
+      "app": "app.py",
+      "path": "Dados de Carteira → BTG → Documentos",
+      "funds": 6,
+      "main_themes": 10,
+      "reference_competence": "08/2026",
+      "exceptions": 0,
+      "financial_preload_started": false,
+      "streamlit_rss_kib": 321168,
+      "documentary_source_root_override": false,
+      "verified_class_fund_inversion_visible": true
+    }
+  ],
+  "downloads": {
+    "csv_rows": 460,
+    "zip_bytes": 757360,
+    "zip_funds": 7,
+    "zip_corpora": 7,
+    "zip_histories": 7,
+    "json_files_parse": true,
+    "private_paths_found": false,
+    "preparation": "somente no clique",
+    "sidecar_sha_mismatches": 0,
+    "csv_investee_ime_records": 7,
+    "csv_investee_relationship_records": 65,
+    "ppt_slides": 161,
+    "ppt_bytes": 3290628,
+    "ppt_notes_with_id_and_page": 161,
+    "ppt_observation_competence": "08/2026",
+    "ppt_private_paths_found": false,
+    "native_app_download_verified": true
+  },
+  "process_cleanup": {
+    "browser_closed": true,
+    "streamlit_closed": true
+  },
+  "limitations": [
+    "Teste funcional local; deployment não realizado.",
+    "Conteúdo documental pode mudar com reconstruções posteriores; revisão material final está em arquivo separado.",
+    "Carteira extensa conserva fontes atuais integrais em detalhes; HTML total foi cerca de21MB."
+  ],
+  "evidence_files": [
+    "output/playwright/documentos_btg_app_final.png",
+    "output/playwright/documentos_carteira_101_final.png",
+    "output/playwright/documentos_single_final.png"
+  ],
+  "ppt_visual_validation": {
+    "slides": [
+      1,
+      36,
+      46,
+      118,
+      131,
+      136
+    ],
+    "total_slides": 160,
+    "method": "Renderização de seis slides representativos por LibreOffice e inspeção visual pelo agente.",
+    "overlap_or_clipping_found": false,
+    "scope": "Amostra visual; não certifica leitura integral de161slides.",
+    "final_dataset_frozen": true
+  },
+  "final_ppt_snapshot": {
+    "slides": 160,
+    "bytes": 3270725,
+    "sha256": "09312fff3141836c57290287ccec0552703791018de11e1dc6c49c3247cdb342",
+    "notes_with_id_and_page": 160,
+    "reference_competence": "08/2026",
+    "private_paths_found": false,
+    "method": "Reconstrução pelo mesmo produtor do app após congelamento final dos195fundos; download nativo anterior foi verificado separadamente."
+  }
+}

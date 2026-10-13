@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "54218673000141",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 904587000.3,
+    "credit_rights": 799940311.78,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 881589441.777525,
+    "subordinated_quotas": 22997558.520015087,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 22997558.520015087
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "54218673000141",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/54218673000141_202605.json",
+    "reported_fund_cnpj": "54218673000141",
+    "reported_class_cnpj": "54218673000141",
+    "reported_fund_cnpj_raw": "54218673000141",
+    "reported_class_cnpj_raw": "54218673000141",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1301470",
+    "version": 2,
+    "delivered_at": "26/08/2026 19:47",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1301470",
+    "declared_fields_sha256": "140552caddbd2e25eb2651d0a9047642798b8cf911d5ce515e4ce5592cf767c5"
+  },
+  "error": ""
+}

@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cnpj": "63622842000103",
+  "name": "DESBRAVA UNO ARTIGOS ESPORTIVOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:42Z",
+  "routes": [
+    {
+      "url": "https://www.itau.com.br/investmentservices/custodia",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051646,
+          "reference_date": "01/12/2025",
+          "page": 89,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051646",
+          "source_excerpt": "isposto no artigo 13 da Instrução CVM 489, sendo facultada a\nanálise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do\nCustodiante, através do site: https://www.itau.com.br/investmentservices/custodia.\n\n\n\n\n                                                                                                              89"
+        },
+        {
+          "document_id": 1042148,
+          "reference_date": "11/11/2025",
+          "page": 89,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1042148",
+          "source_excerpt": "isposto no artigo 13 da Instrução CVM 489, sendo facultada a\nanálise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do\nCustodiante, através do site: https://www.itau.com.br/investmentservices/custodia.\n\n\n\n\n                                                                                                              89"
+        },
+        {
+          "document_id": 1043098,
+          "reference_date": "17/11/2025",
+          "page": 89,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1043098",
+          "source_excerpt": "isposto no artigo 13 da Instrução CVM 489, sendo facultada a\nanálise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do\nCustodiante, através do site: https://www.itau.com.br/investmentservices/custodia.\n\n\n\n\n                                                                                                              89"
+        },
+        {
+          "document_id": 1048679,
+          "reference_date": "27/11/2025",
+          "page": 89,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048679",
+          "source_excerpt": "isposto no artigo 13 da Instrução CVM 489, sendo facultada a\nanálise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do\nCustodiante, através do site: https://www.itau.com.br/investmentservices/custodia.\n\n\n\n\n                                                                                                              89"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:21Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

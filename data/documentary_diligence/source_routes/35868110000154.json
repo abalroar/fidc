@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "35868110000154",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV - CRÉDITO DE VEÍCULOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:55Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:18Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 792021,
+          "reference_date": "27/11/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+          "source_excerpt": "egulamento e no Contrato de Cobrança dos Direitos\n              Creditórios. Tais regras e procedimentos encontram-se descritos e disponíveis para consulta\n              no website do Administrador: <www.oliveiratrust.com.br>.\n\n              Empresa de Auditoria:\n\n              6.13.      Os serviços de auditoria das demonstrações financeiras e das demais contasdo\n              Fundo deverão ser prestados pelo Auditor In"
+        },
+        {
+          "document_id": 792021,
+          "reference_date": "27/11/2024",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792021",
+          "source_excerpt": "Fundo. A descrição da política de voto adotada pelo Administrador, na qualidadede gestor de\n              recursos, poderá ser obtida através do seguinte endereço eletrônico:\n              <www.oliveiratrust.com.br>.\n\n              9. CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS\n\n              9.1.          Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser\n              verificado"
+        },
+        {
+          "document_id": 537768,
+          "reference_date": "09/10/2023",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537768",
+          "source_excerpt": "critas neste Regulamento e no Contrato de Cobrança\n       dos Direitos Creditórios. Tais regras e procedimentos encontram-se descritos e\n       disponíveis para consulta no website do Administrador: <www.oliveiratrust.com.br>.\n\nEmpresa de Auditoria:\n\n6.10.      Os serviços de auditoria das demonstrações financeiras e das demais contas\ndo Fundo deverão ser prestados pelo Auditor Independente.\n\n                   7. REMUNE"
+        },
+        {
+          "document_id": 537768,
+          "reference_date": "09/10/2023",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537768",
+          "source_excerpt": "biliários que integrem a\ncarteira do Fundo. A descrição da política de voto adotada pelo Administrador, na qualidade\nde gestor de recursos, poderá ser obtida através do seguinte endereço eletrônico:\n<www.oliveiratrust.com.br>.\n\n9. CRITÉRIOS DE ELEGIBILIDADE DOS DIREITOS CREDITÓRIOS\n\n9.1.         Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser\nverificado e validado pelo Custodiante, de acordo com"
+        },
+        {
+          "document_id": 174945,
+          "reference_date": "30/04/2021",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=174945",
+          "source_excerpt": "descritas neste Regulamento e no Contrato de Cobrança\n     dos Direitos Creditórios. Tais regras e procedimentos encontram-se descritos e\n     disponíveis para consulta no website do Administrador: <www.oliveiratrust.com.br>.\n\nEmpresa de Auditoria:\n\n6.10.      Os serviços de auditoria das demonstrações financeiras e das demais contas\ndo Fundo deverão ser prestados pelo Auditor Independente.\n\n7. REMUNERAÇÃO DOS PRESTADOR"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "62552447000120",
+  "competence": "06/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 167490006.72,
+    "credit_rights": 164683585.35,
+    "overdue_credit": 304632.88,
+    "cash": 5225.06,
+    "pdd": 12384272.91,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 167490006.7236996,
+    "subordinated_quotas": 0.0,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 0.0
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "62552447000120",
+    "competence": "06/2026",
+    "path": "data/documentary_diligence/ime/62552447000120_202606.json",
+    "reported_fund_cnpj": "62552447000120",
+    "reported_class_cnpj": "62552447000120",
+    "reported_fund_cnpj_raw": "62552447000120",
+    "reported_class_cnpj_raw": "62552447000120",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1246925",
+    "version": 1,
+    "delivered_at": "14/07/2026 13:41",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1246925",
+    "declared_fields_sha256": "1e0508cbe12f552bb12dc42d2d9bc0bbcfb39c0504348bcc13b94d06847bf74a"
+  },
+  "error": ""
+}

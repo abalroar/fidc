@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "cnpj": "29226654000110",
+  "name": "INVESTCRED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:29:53Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:03Z",
+  "routes": [
+    {
+      "url": "https://www.singulare.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1023849,
+          "reference_date": "29/10/2025",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+          "source_excerpt": "bem como para\ndiligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais\nregras e procedimentos permanecerão disponíveis e atualizados para consulta no\nwebsite da Administradora (https://www.singulare.com.br/).\n\n\n6.3.2. A nomeação de qualquer terceiro responsável pela guarda dos Direitos\nCreditórios Elegíveis transferidos à Classe Única não exclui a responsabilidade da\nAdministradora.\n\n\n               GESTO"
+        },
+        {
+          "document_id": 1023849,
+          "reference_date": "29/10/2025",
+          "page": 66,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+          "source_excerpt": "cação da Administradora.\n\n\n10.3. A valorização dos demais Ativos Financeiros que compõem a carteira da Classe\nÚnica será efetuada com base nas regras descritas no manual do Custodiante\n(disponível no https://www.singulare.com.br/), bem como nas regras aplicáveis do\nBACEN e da CVM.\n\n\n10.4. A Administradora e o Custodiante deverão utilizar a metodologia de cálculo de\nprovisão para devedores duvidosos (PDD) disposta no Anexo IV ao"
+        },
+        {
+          "document_id": 187645,
+          "reference_date": "15/06/2021",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=187645",
+          "source_excerpt": "de serviços\nao Fundo, que lhe permitem verificar o cumprimento das obrigações pelos prestadores\nde serviços contratados, os quais serão divulgados e mantidos atualizados no website\nda Administradora https://www.singulare.com.br/ juntamente às demais informações de\nque trata o artigo 53-A da Instrução CVM 356/01.\n\n\n              CONTRATAÇÃO DE TERCEIROS\n\n\n9.1.   Gestão do Fundo. Os serviços de gestão da carteira do Fundo serã"
+        },
+        {
+          "document_id": 187645,
+          "reference_date": "15/06/2021",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=187645",
+          "source_excerpt": "bem\ncomo para diligenciar o cumprimento de suas obrigações nos termos deste\nRegulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados\npara consulta no website da Administradora (https://www.singulare.com.br/) juntamente\nàs demais informações que trata o artigo 53-A da Instrução CVM 356/01.\n\n\n9.4.2. Manutenção da Responsabilidade do Custodiante pela Guarda dos Documentos\nComprobatórios. Nos termos do artig"
+        },
+        {
+          "document_id": 187645,
+          "reference_date": "15/06/2021",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=187645",
+          "source_excerpt": "álculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\nFinanceiros que compõem a carteira do Fundo será efetuada com base nas regras\ndescritas no manual do Custodiante (disponível no https://www.singulare.com.br/), bem\ncomo nas regras aplicáveis do BACEN e da CVM.\n\n\n15.4. Provisão para Devedores Duvidosos (PDD). A Administradora e o Custodiante\ndeverão utilizar a metodologia de cálculo de provisão para devedore"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    },
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 290857,
+          "reference_date": "18/04/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=290857",
+          "source_excerpt": "18 de abril de 2022\n\n\n\n\n         Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 |\n                   Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 290857,
+          "reference_date": "18/04/2022",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=290857",
+          "source_excerpt": "Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 |\n                                        Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 290857,
+          "reference_date": "18/04/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=290857",
+          "source_excerpt": "62.285.390/0001-40.\n                  Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 |\n                            Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 290857,
+          "reference_date": "18/04/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=290857",
+          "source_excerpt": "Direitos Creditórios.\n                 Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 |\n                           Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 290857,
+          "reference_date": "18/04/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=290857",
+          "source_excerpt": "de      titularidade   da\n               Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 |\n                         Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,889 @@
+{
+  "cnpj": "62552447000120",
+  "verified_at": "2026-10-13T04:36:38+00:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "CCBs eletrônicas de consignado privado/FGTS; refinanciamento livre de CCBs pode perder consignação/cessão do saque-aniversário. TVM e cotas que invistam nesses TVM também admitidos.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "11",
+          "clause": "AnexoI4.2–4.3",
+          "excerpt": "4.2 Os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS são originados no âmbito de CCBs emitidas eletronicamente pelos Devedores ao Endossante, representando, respectivamente, empréstimos consignados, com desconto em f olha de pagamento, e empréstimos pessoais, com garantia de cessão f iduciária do Saque-aniversário. 4.3 A operacionalização é f eita por meio da plataforma eletrônica mantida pelo Originador e utilizada por ele em relação ao processamento e monitoramento das operações de crédito (“Plataforma VR”), de acordo com a legislação aplicável, observada a política de crédit",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "6",
+          "clause": "AnexoI1.2 Direitos Creditórios(d)",
+          "excerpt": "Refinanciamento Livre”, na forma de CCBs originadas no âmbito de um refinanciamento, de acordo com a política de cobrança vigente, de Direitos Creditórios Consignado Privado e de Direitos Creditórios FGTS, que não contem com o lastro de Consignação ou de cessão f iduciária do Saque-Aniversário, respectivamente; e (ii) “Ativos Financei",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "Direitos de refinanciamento livre têm mecanismo de pagamento diferente do consignado/FGTS original."
+    },
+    {
+      "criterion_id": "originator",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Banco VR S.A. (78.626.983/0001-63) ou outra sociedade do mesmo grupo: endossante. VR Benefícios e Serviços de Processamento S.A. (02.535.864/0004-86): originador e agente de retenção/cobrança; Plataforma VR.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "12",
+          "clause": "AnexoI4.4.1(i)",
+          "excerpt": "BANCO VR S.A., instituição f inanceira, com sede no município e Estado de São Paulo, na Av. Dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 78.626.983/0001- 63, ou qualquer outra sociedade do mesmo grupo econômico, na qualidade de endossante (“Endossante”), acompanhados de todos os direitos, privilégios, pref erências, prerrogativas, ações e garantias assegurados aos seus titulares; (ii) da subscrição de títulos de crédito e/ou valores mobiliários, incluindo, mas não se",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "29",
+          "clause": "AnexoI12.14",
+          "excerpt": "VR BENEFÍCIOS E SERVIÇOS DE PROCESSAMENTO S.A., sociedade anônima com sede no município e Estado de São Paulo, na Av. dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 02.535.864/0004-86 (“Agente de Retenção e Cobrança” ou “Originador”), para os serviços de retenção de Direitos Creditórios e de cobrança de Direitos Creditórios Inadimplidos, de acordo com os contratos de prestação de serviços de retenção e cobrança celebrados entre o Agente de Retenção e Cobrança e a Classe (“Contratos de Retenção/Cobrança”). 12.15 O Agente de Retenção e Cobrança poderá, às expensas da Classe,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "6",
+          "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
+          "excerpt": "Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "7",
+          "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
+          "excerpt": "(v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido. Sem prejuízo dos Critérios de Elegibilidade, a Classe somente poderá adquirir os Direitos Creditórios Ref inanciamento Livre, os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS com relação aos quais tenha se verif icado as seguintes Condições de Endosso, na forma prevista na Cláusula 4.7 (“Co",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "12",
+          "clause": "AnexoI4.6",
+          "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que, na data da sua aquisição (“Data de Aquisição”), atendam a todos os Critérios de Elegibilidade, a serem verif icados e validados pelo Gestor, de f orma individualizada e integral, e não por amostragem. 4.6.1 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Todos os Documentos Comprobatórios e, com relação a cada Direito Creditório, conforme apli",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após 180 dias da primeira integralização: DC≥50% PL para fins regulatórios.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "14",
+          "clause": "AnexoI4.9",
+          "excerpt": "4.9 Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, a Classe deverá manter alocados em Direitos Creditórios, no mínimo, para fins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido, nos termos da Lei 14.754 e da Resolução CMN 5.111, e, para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido, nos termos da Resolução CVM 175. Eventual desenquadramento da Carteira obrigará o Gestor aos procedimentos de desenquadramento e reenquadramento previstos na Lei 14.754 e na Resolução CMN 5.111, para f ins tributários, e na Resolução CVM 175, par",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "numerator": "credit_rights",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-05-21",
+        "requires_initial_date": true,
+        "limit": 50.0
+      }
+    },
+    {
+      "criterion_id": "tax_allocation",
+      "label": "Alocação para tratamento tributário",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após 180 dias da primeira integralização: DC≥67% PL para tratamento tributário. Desenquadramento segue Lei 14.754/CMN 5.111, separado do piso regulatório.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "14",
+          "clause": "AnexoI4.9",
+          "excerpt": "4.9 Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, a Classe deverá manter alocados em Direitos Creditórios, no mínimo, para fins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido, nos termos da Lei 14.754 e da Resolução CMN 5.111, e, para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido, nos termos da Resolução CVM 175. Eventual desenquadramento da Carteira obrigará o Gestor aos procedimentos de desenquadramento e reenquadramento previstos na Lei 14.754 e na Resolução CMN 5.111, para f ins tributários, e na Resolução CVM 175, par",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "numerator": "credit_rights",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-05-21",
+        "requires_initial_date": true,
+        "limit": 67.0
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Até 100% PL por mesmo devedor/grupo; até 100% da parcela DC originada por administrador/gestor/relacionadas; até 100% liquidez e 100% derivativos com exposição relacionada, preservadas condições específicas.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "14",
+          "clause": "AnexoI4.10–4.13",
+          "excerpt": "4.10 Nos termos do art. 45, §7º, inciso II, do Anexo Normativo II, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto abaixo, e Ativos Financeiros devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas partes relacionadas. 4.10.1 O uso de derivativos está restr",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "Regulamento permite concentração ampla; TVM têm limite específico 10% PL na elegibilidade."
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "not_applicable",
+      "value": "Classe sem subclasse; cotistas pari passu, sem preferência, prioridade ou subordinação. Nova divisão em subclasses exige aprovação assemblear.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "16",
+          "clause": "AnexoI5.1–5.1.1",
+          "excerpt": "5.1 A Classe não possui Subclasse. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, Amortização e resgate das Cotas estão descritos neste Capítulo e no Capítulo 6. 5.1.1 Não obstante, por deliberação conjunta dos Prestadores de Serviços Essenciais e mediante aprovação em Assembleia Especial, poderá haver a divisão de Classes em Subclasses, nos termos da Resolução CVM 175. Após a primeira emissão de Cotas, novas emissões de Cotas (de quaisquer Subclasses) dependem de aprovação dos Cotistas. 5.2 As Cotas são escrit",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "17",
+          "clause": "AnexoI5.4(iv)",
+          "excerpt": "pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os Cotistas. CAPÍTULO 6 – EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO E TRANSFERÊNCIA DAS COTAS Emissão das Cotas 6.1 As Emissões de Cotas poderão ser objeto de ofertas públicas, nos termos da Resolução CVM 160 e demais regulações aplicáveis (“Oferta”), ou objeto de colocação privada, sem registro perante a CVM, por não conf igurar uma Of erta, nos termos da regulamentação aplicável (“Colocação Privada”). 6.2 Após a primeira emissão, eventuais novas emissões de Cotas somente poderão ser realizadas com a aprovação de",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "expense_reserve",
+      "label": "Reserva de despesas",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Reserva de caixa em ativos financeiros/disponibilidades para despesas fixas e periódicas estimadas dos próximos 6 meses. Reconstituição precede amortizações e compras de DC.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "11",
+          "clause": "AnexoI3.4",
+          "excerpt": "3.4 A Classe manterá, em Ativos Financeiros e/ou disponibilidades de caixa, um valor destinado ao pagamento de despesas f ixas e periódicas da Classe (como a remuneração dos Prestadores de Serviços Essenciais e seu contratados, bem como as taxas, impostos ou co ntribuições f ederais, estaduais, municipais ou autárquicas que recaiam ou venham a recair sobre os bens, direitos e obrigações da Classe), estimadas para um horizonte temporal de 6 (seis) meses (“Reserva de Caixa”). 3.5 Adicionalmente aos Encargos, as seguintes despesas serão debitadas diretamente da Classe, nos termos do art. 51 do Anexo Norma",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "20",
+          "clause": "AnexoI8.1(ii)",
+          "excerpt": "constituição e/ou recomposição da Reserva de Caixa, nos termos da Cláusula 3.4 acima; (iii) pagamento de Amortização ou resgate de Cotas, conf orme aplicável; (iv) aquisição pela Classe de Direitos Creditórios, observando-se a Política de Investimentos; e (v) aquisição pela Classe de Ativos Financeiros, observando-se a Política de Investimentos. CAPÍTULO 9 – METODOLOGIA DE AVALIAÇÃO DOS ATIVOS DA CLASSE 9.1 Os Direitos Creditórios e Ativos Financeiros que compõem a Carteira terão seus valores calculados todo Dia Útil conforme a metodologia de avaliação descrita no manual d o Administrador ou, ainda, nos",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "IME de caixa agregado não permite estimar sozinho o orçamento contratual dos 6 meses."
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Ativos avaliados a cada DU pelos manuais do administrador/custodiante. PDD/perdas conforme ICVM 489 reduzem o saldo dos ativos; art. 13 rege exposição de um mesmo devedor, admitida análise individualizada.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "20",
+          "clause": "AnexoI9.1–9.2.1",
+          "excerpt": "9.1 Os Direitos Creditórios e Ativos Financeiros que compõem a Carteira terão seus valores calculados todo Dia Útil conforme a metodologia de avaliação descrita no manual d o Administrador ou, ainda, nos manuais do Custodiante, disponíveis nos seus respectivos websites, no endereço https://www.btgpactual.com/asset-management/administracao-f iduciaria#documentos. 9.2 As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução da CVM n.º 489, de 14 de janeiro de 2011, c",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "Cláusula não transcreve curva de provisão por faixa de atraso; percentual PDD do IME não reproduz manual."
+    },
+    {
+      "criterion_id": "coobligation",
+      "label": "Coobrigação e retenção de risco",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Endosso em preto irrevogável, definitivo e sem coobrigação do endossante; preservados direitos de resolver endosso ou vender créditos ao agente nos termos dos contratos.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "13",
+          "clause": "AnexoI4.6.3–4.6.4",
+          "excerpt": "4.6.4 Após a formalização, o endosso de um Direito Creditório Consignado Privado, Direito Creditório FGTS e Direito Creditório Refinanciamento Livre à Classe será irrevogável e irretratável, com a transf erência, à Classe, de f orma def initiva, sem coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, preferências, prerrogativas, garantias e ações a ele relacionados, bem como correção monetária, juros e encargos, sem prejuízo do direito da Classe (i) de exigir a resolução do endosso do respectivo D",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "16",
+          "clause": "AnexoI4.22",
+          "excerpt": "4.22 Exceto na medida em que eventualmente previsto no s Contratos de Endosso e/ou em instrumentos eventualmente celebrados entre a Classe e o Endossante e/ou o Agente de Retenção e Cobrança, conf orme aplicável, o Endossante e/ou o Agente de Retenção e Cobrança não serão responsáveis em caso de eventual inadimplemento dos Direitos Creditórios . 4.23 A Classe, o Administrador e o Gestor, bem como seus controladores, sociedades coligadas, controladas ou sob controle comum, e/ou subsidiárias, não respondem pela certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade, validade e/ou co",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias e constituição",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Consignado: FGTS/multa rescisória nos percentuais legais, quando operacionalmente disponível. FGTS: cessão fiduciária de saque-aniversário. Refinanciamento livre pode ficar sem esses lastros. Cotas sem garantia de prestadores, seguros ou FGC.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "8",
+          "clause": "AnexoICondições(ii)(c)",
+          "excerpt": "garantias prestadas pelo Endossante ou pelo Agente de Retenção/Cobrança com relação a esse Direito Creditório deverão ser verdadeiras, nos termos deste Contrato e do respectivo Termo de Endosso; (e) tenha sido realizado o tratamento dos dados pessoais de pessoa natural observando as leis e regulamentações que regem a privacidade e a proteção de dados pess",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "12",
+          "clause": "AnexoI4.3.2",
+          "excerpt": "alienação/cessão fiduciária; e (b) solicitar bloqueio de parte do saldo da conta vinculada do Devedor. Emitida a CCB em favor do Endossante e formalizada a alienação/cessão f iduciária pelo Devedor, o Endossante endossará eletronicamente a CCB em preto à Classe, que receberá todos os valores dela decorrentes (i.e., os Direitos Creditórios FGTS), após concluídas as f ormalidades de processamento pela CEF, na Conta da Classe. Caso a alienação/cessão f iduciária seja acionada nos termos da CCB, os recursos onerados serão liberados em favor do Endossante no",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "6",
+          "clause": "AnexoIRefinanciamentoLivre(d)",
+          "excerpt": "Refinanciamento Livre”, na forma de CCBs originadas no âmbito de um refinanciamento, de acordo com a política de cobrança vigente, de Direitos Creditórios Consignado Privado e de Direitos Creditórios FGTS, que não contem com o lastro de Consignação ou de cessão f iduciária do Saque-Aniversário, respectivamente; e (ii) “Ativos Financei",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "16",
+          "clause": "AnexoI4.25",
+          "excerpt": "4.25 As aplicações na Classe não contam com garantia: (i) do Administrador; (ii) do Gestor; (iii) do Endossante; (iv) do Custodiante; (v) dos demais prestadores de serviço da Classe; (vii) de qualquer mecanismo de seguro; e/ou (viii) do FGC. CAPÍTULO 5 – CARACTERÍSTICAS E CONDIÇÕES DAS COTAS 5.1 A Classe não possui Subclasse. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, Amortização e resgate das Cotas estão descritos neste Capítulo e no Capítulo 6. 5.1.1 Não obstante, por deliberação conjunta dos Prestadores de Serviços Essenciais e me",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Inclui RAET/intervenção do endossante/agentes; não entrega de arquivos Dataprev/CEF/lastro; descumprimentos de agentes/prestadores e repasses não sanados/justificados em 5 DU da notificação; invalidade de contratos e perda de autorizações.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "22",
+          "clause": "AnexoI11.1(i)–(v)",
+          "excerpt": "11.1 As seguintes hipóteses são consideradas eventos de avaliação (“Eventos de Avaliação”): (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante, da instituição f inanceira prestadora dos serviços de agente de conta vinculada à Classe (“Agente de Conta Vinculada”) e/ou do Agente de Retenção e Cobrança; (ii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas nos Contratos de Endosso, no Regulamento ou neste Anexo I, desde que esse não cumprimento não se",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "23",
+          "clause": "AnexoI11.1(vi)–(xi)",
+          "excerpt": "(vi) não cumprimento, pelo Agente de Conta Vinculada, de qualquer de suas obrigações estabelecidas no contrato de conta vinculada celebrado entre o Endossante, na qualidade de titular da Conta Vinculada, e a Classe (“Contrato de Conta Vinculada”), no Regulamento ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 5 (cinco) Dias Úteis a partir do recebimento, pelo Agente de Conta Vinculada, de notif icação, por escrito, enviada pelo Administrador, informando-o da ocorrência do respectivo evento; (vii) não c",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PL diário<R$ 1 milhão por 90 dias consecutivos após 90 dias iniciais; incapacidade de pagar encargos no vencimento; impossibilidade de adquirir créditos permitidos; prestadores sem substituto, decisão AGC ou CVM.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "24",
+          "clause": "AnexoI11.2(i)–(v)",
+          "excerpt": "11.2 As seguintes hipóteses são consideradas eventos de liquidação (“Eventos de Liquidação”): (i) caso seja deliberado em Assembleia Especial que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do Custodiante, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do Administrador sem que a Assembleia Especial ef icazmente nomeie instituição habilitada para substituí-lo, nos termos estab",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "25",
+          "clause": "AnexoI11.2(vi)–(ix)",
+          "excerpt": "(vi) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Custodiante, Administrador, ou Gestor, sem a sua ef etiva substituição nos termos deste Regulamento; (vii) se, após 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário inferior da Classe for inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos; (viii) caso, por inexistência de recursos líquidos, a Classe não possa fazer f rente aos Encargos nas respectivas datas",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Descumprimentos de endossante, agentes e prestadores: 5 DU da notificação. Falha operacional na integralização: 2 DU do vencimento sem multa/mora. Eventos de avaliação interrompem novas aquisições até cura/decisão AGC.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "22",
+          "clause": "AnexoI11.1(ii)–(v)",
+          "excerpt": "5 (cinco) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, inf ormando-o da ocorrência do respectivo evento; (iii) não cumprimento, pelo Endossante e/ou pelo Agente de Retenção e Cobrança, de sua obrigação de entregar os (a) arquivos eletrônicos disponibilizados mensalmente pela Dataprev ao Endossante, contendo (1) as Consignações processadas pela Dataprev no respectivo mês, identificando os Devedores e os valores que serão descontados de suas respectivas folhas de pagamentos, bem como",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "23",
+          "clause": "AnexoI11.1(vi)–(viii)",
+          "excerpt": "5 (cinco) Dias Úteis a partir do recebimento, pelo Agente de Retenção e Cobrança, de notificação, por escrito, enviada pelo Gestor, informando-o da ocorrência do respectivo evento; (vi) não cumprimento, pelo Agente de Conta Vinculada, de qualquer de suas obrigações estabelecidas no contrato de conta vinculada celebrado entre o Endossante, na qualidade de titular da Conta Vinculada, e a Classe (“Contrato de Conta Vinculada”), no Regulamento ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 5 (cinco) Dias Úte",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "19",
+          "clause": "AnexoI6.8.4",
+          "excerpt": "6.8.4 Em caso de inadimplência decorrente de falha operacional, será concedido aos Cotistas o prazo de 2 (dois) Dias Úteis contado da data de seu vencimento original para a realização do pagamento da integralização de Cotas sem a incidência de qualquer penalidade, multa ou mora. Transferência de Cotas 6.9 Não haverá direito de preferência aos Cotistas em relação às transferências de Cotas no mercado secundário. 6.10 No caso de alienação voluntária de Cotas, o Cotista alienante deverá solicitar por escrito ao Administrador e ao Gestor, a transf erência parcial ou total de suas Cotas, indicando o nom",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "24",
+          "clause": "AnexoI11.1.2",
+          "excerpt": "11.1.2 No momento de verificação de qualquer Evento de Avaliação, os procedimentos de aquisição de novos Direitos Creditórios deverão ser imediatamente interrompidos, até que: (i) seja prof erida decisão final em Assembleia Especial, convocada especificamente para este fim, nos termos do item 11.1.1 acima, autorizando a retomada dos procedimentos de aquisição de novos Direitos Creditórios e resgate das Cotas; e/ou (ii) seja sanado o Evento de Avaliação . 11.1.3 Na hipótese de não instalação da Assembleia Especial por f alta de quórum, o Administrador dará início aos",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "A cada DU: encargos/despesas adicionais → recomposição da reserva 6 meses → amortização/resgate → compra DC → ativos financeiros. Pagamentos às cotas proporcionais, sem preferência.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "20",
+          "clause": "AnexoI8.1(i)–(v)",
+          "excerpt": "8.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas (“Data da Primeira Integralização”) até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na conta corrente mantida pela Classe junto ao Custodiante, a ser utilizada para todos os recebimentos e transferências de recursos pela Classe (“Conta da Classe”) e/ou mantidos em Ativos Financeiros, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessári",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "19",
+          "clause": "AnexoI7.3",
+          "excerpt": "7.3 Quaisquer pagamentos aos Cotistas a título de Amortização deverão observar a ordem de alocação de recursos e abranger, proporcionalmente e sem direito de preferência ou prioridade, todas as Cotas, em benef ício de todos os respectivos titulares. Quando do pagamento de resgate de Cotas, as Cotas objeto de resgate serão canceladas. 7.4 Para f ins de Amortização, será considerado o valor da Cota do segundo Dia Útil anterior à data do pagamento da respectiva parcela da Amortização, por meio do Sistema de Pagamentos Brasileiro – SPB, observados os procedimentos do Escriturador e do mercado organizado em",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro e amostragem",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Verificação trimestral: amostra aleatória simples, distribuição binomial aproximada à normal, confiança 95%, margem de erro 5%; créditos inadimplidos/substituídos do trimestre verificados integralmente. Vícios comunicados em 5 DU.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "41",
+          "clause": "ComplementoIIitens1–4",
+          "excerpt": "1. O Gestor deverá realizar a verif icação dos Documentos Comprobatórios relativos aos Direitos Creditórios adquiridos pela Classe trimestralmente; sendo certo que o Endossante e/ou o Agente de Retenção/Cobrança, conforme o caso, deverão enviar os Documentos Comprobat órios para o Gestor. 2. Observado o disposto no inciso (i) do item 3 abaixo, numa data-base pré-estabelecida, será selecionada uma amostra aleatória simples para a determinação de um intervalo de confiança para a proporção de eventuais falhas, baseado numa distribuição binomial aproximada a uma distribuição normal com 95% (noventa e cinco por cento) de nível de confian",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "29",
+          "clause": "AnexoI12.12–12.13",
+          "excerpt": "12.12 Os Documentos Comprobatórios relativos aos Direitos Creditórios integrantes da Carteira inadimplidos e/ou substituídos num dado trimestre serão, no ref erido trimestre, objeto de verificação individualizada e integral pelo Custodiante ou terceiro por ele contratado. 12.13 Eventuais vícios verificados nos Documentos Comprobatórios que evidenciam o lastro dos Direitos Creditórios serão comunicados por escrito pelo Custodiante ao Administrador em até 5 (cinco) Dias Úteis da sua verif icação, para que sejam tomadas as medidas necessárias. Retenção e Cobrança dos Direitos Creditórios Inadimplidos 12.14 A Classe contra",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Taxa global sobre PL: 0, 90% a.a. até R$ 150 mi; 0, 80% até R$ 500 mi; 0, 75% até R$ 1 bi; 0, 65% acima R$ 1 bi. Mínimo R$ 50 mil/mês, ajuste em janeiro por IGP-M positivo; pagamento até 5º DU.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "30",
+          "clause": "AnexoI13.1 TaxaGlobal",
+          "excerpt": "Taxa Global Pelos serviços de administração, gestão, custódia, tesouraria, controladoria, escrituração, a Classe pagará um valor equivalente a um percentual incidente sobre o Patrimônio Líquido da Classe, conf orme a f aixa de Patrimônio Líquido da Classe prevista na tabela abaixo, apropriada diariamente e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, com",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": "Global remunera administração, gestão, custódia, tesouraria, controladoria e escrituração; percentual segregado não presumido."
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Classe não paga taxa de performance nem taxa de ingresso.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "30",
+          "clause": "AnexoI13.1 TaxadePerformance/Ingresso",
+          "excerpt": "Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Perf ormance. Taxa de Ingresso Não será cobrada dos Cotistas Taxa de Ingresso . CAPÍTULO 14 – CUSTOS REFERENTES À DEFESA DOS INTERESSES DA CLASSE 14.1 Todos os custos e despesas ref eridos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos, serão de inteira responsabilidade da Classe, não est ando o Administrador, o Gestor, o Endossante, os Devedores, o Custodiante e quaisquer de suas respectivas pessoas contr",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "rating",
+      "label": "Rating por subclasse e downgrade",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "not_applicable",
+      "value": "Cotas não serão objeto de classificação de risco.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "19",
+          "clause": "AnexoI6.11",
+          "excerpt": "6.11 As Cotas não serão objeto de classif icação de risco . CAPÍTULO 7 – AMORTIZAÇÃO DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos d a Classe aos Cotistas será f eita exclusivamente mediante a Amortização, observado o disposto neste Capítulo. 7.2 As Cotas poderão ser amortizadas através de uma Amortização programada, se houver, conforme prevista nos Apêndices, caso aplicável (“Amortização Programada”), e por meio amortização extraordinária das Cotas, a ser realizada por (a) por decisão do Gestor, para: (i) reenquadramento da Carteira ao mínimo de Direitos Creditórios que deve ser detido pel",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Unanimidade dos cotistas para substituir prestadores essenciais, elevar taxa global, reorganizar/liquidar, prestar garantia, mudar características das cotas, novas emissões, política, elegibilidade e eventos.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "21",
+          "clause": "AnexoI10.2(i)–(x)",
+          "excerpt": "10.2 Os seguintes quóruns deverão ser observados pela Assembleia Especial ao deliberar as matérias abaixo: Matéria Quórum (i) deliberar sobre substituição de Prestadores de Serviços Unanimidade dos Cotistas Essenciais, observado o disposto no art. 70, §1º da Parte Geral da Resolução CVM 175, quando aplicável; (ii) deliberar sobre elevação da Taxa Global, inclusive na Unanimidade dos Cotistas hipótese de restabelecimento de taxa que tenha sido objeto de redução; (iii) delibera",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade e limites de derivativos",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Derivativos restritos a proteção patrimonial ou troca de indexador sem risco de capital.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "14",
+          "clause": "AnexoI4.10.1",
+          "excerpt": "4.10.1 O uso de derivativos está restrito a operações que visem à proteção patrimonial ou, desde que não resulte em exposição a risco de capital, à troca de indexador e/ou do índice de referência. 4.11 Sem prejuízo de limites mais restritivos definidos neste Regulamento, o Gestor deverá observar, ainda, os seguintes limites de concentração para a composição da Carteira: (i) Até 100% (cem por cento) da parcela do Patrimônio Líquido investida em Direitos Creditórios poderão ser alocados em Direitos Creditórios originados ou cedidos pelo Administrador, Gestor e",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "changes",
+      "label": "Histórico de alterações materiais",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Ato 1200625 de 21/05/2026 atualiza divulgação de remuneração para plataforma ANBIMA, expressamente sem alterar valores pagos; aprova regulamento/anexo consolidados 1200623.",
+      "sources": [
+        {
+          "document_id": 1200625,
+          "title": "Ato do Administrador",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200625",
+          "reference_date": "2026-05-21",
+          "version": "Ato21/05/2026",
+          "page": "1",
+          "clause": "itens1–2",
+          "excerpt": "Ressalta-se que não haverá qualquer alteração nos valores pagos pelos cotistas... Aprovar o novo Anexo I e Regulamento consolidados",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à ResoluçãoCVM175",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Parte Geral e Anexo Normativo II da Resolução CVM 175; Anexo I mais específico prevalece sobre Parte Geral pela cláusula 1.6(v). Classe única sem subclasse nesta versão.",
+      "sources": [
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "1",
+          "clause": "ParteGeral1.1",
+          "excerpt": "1.1 V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA (“Fundo”), regido pela Lei n.º 10.406, de 10 de janeiro de 2002, conforme alterada (“Código Civil”), pela Resolução da Comissão de Valores Mobiliários (“CVM”) n.º 175, de 23 de dezembro de 2022, conf orme alterada (“Resolução CVM 175”), que inclui sua Parte Geral (“Parte Geral da Resolução CVM 175”) e seu Anexo Normativo II (“Anexo Normativo II”) terá como principais características: Classe de Cotas Classe única. Indeterminado, exceto se de outra forma vier a ser deliberado pelos titulares",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "2",
+          "clause": "ParteGeral1.6(v)",
+          "excerpt": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA direitos e obrigações distintos das demais Classes, nos termos do art. 5º da Parte Geral da Resolução CVM 175. 1.4 O Anexo de cada classe de Cotas (“Classe”), conforme aplicável, dispõe, sem prejuízo de outros requisitos e inf ormações previstos na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais prestadores de serviços; (ii) responsabilidade dos Cotistas e regime de insolvência; (iii) características, direitos, condições de emissão, subscrição, integralização,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        },
+        {
+          "document_id": 1200623,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "reference_date": "21/05/2026",
+          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+          "page": "16",
+          "clause": "AnexoI5.1",
+          "excerpt": "5.1 A Classe não possui Subclasse. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, Amortização e resgate das Cotas estão descritos neste Capítulo e no Capítulo 6. 5.1.1 Não obstante, por deliberação conjunta dos Prestadores de Serviços Essenciais e mediante aprovação em Assembleia Especial, poderá haver a divisão de Classes em Subclasses, nos termos da Resolução CVM 175. Após a primeira emissão de Cotas, novas emissões de Cotas (de quaisquer Subclasses) dependem de aprovação dos Cotistas. 5.2 As Cotas são escrit",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+          "identity_verified": true,
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+        }
+      ],
+      "risk_note": ""
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": [
+    {
+      "cnpj": "09215250000113",
+      "reason": "BTGPactualTesouroSelic é ativo financeiro de liquidez expresso na definição; não FIDC-alvo/lookthrough de crédito.",
+      "source": {
+        "document_id": 1200623,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+        "reference_date": "21/05/2026",
+        "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+        "page": "6",
+        "clause": "AnexoIAtivosFinanceiros(e)",
+        "excerpt": "Tesouro Selic Fundo de Investimento Renda Fixa Ref erenciado DI, inscrito no CNPJ sob o nº 09.215.250/0001-13; observados todos os limites de composição e diversificação da carteira da Classe (“Carteira”), estabelecidos neste Regulamento e na regulamentação aplicável. O objetivo da Classe não representa, sob qualquer hipótese, promessa, garantia ou sugestão da Classe ou de seus Prestadores de Serviços",
+        "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+        "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+        "identity_verified": true,
+        "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+      }
+    }
+  ]
+}

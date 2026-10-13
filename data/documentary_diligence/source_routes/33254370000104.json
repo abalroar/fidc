@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "cnpj": "33254370000104",
+  "name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:55Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:14Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "obre a Taxa de Administração e sobre a Taxa de Gestão e a\n\n                            versão mais atualizada deste Regulamento;\n\n\n\n                    k)      divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da\n\n                            Administradora (https://www.btgpactual.com/asset-management/administracao-\n\n                            fiduciaria) o valor do Patrimônio Líquido, o valor d"
+        },
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 109,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "(“Cotas Seniores” e “Fundo”, respectivamente), com seu regulamento\n\n                disponibilizado em [•] de [•] de [•], na página da CVM na rede mundial de computadores no\n\n                endereço www.cvm.gov.br, do qual este             Suplemento é parte integrante (“Regulamento”). O\n\n                Fundo é representado por sua gestora, a POLÍGONO CAPITAL LTDA., sociedade de\n\n                responsabilida"
+        },
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 113,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "dinadas Mezanino” e “Fundo”, respectivamente), com seu\n\n                regulamento disponibilizado em [•] de [•] de [•], na página da CVM na rede mundial de\n\n                computadores no endereço www.cvm.gov.br, do qual este            Suplemento é parte integrante\n\n                (“Regulamento”). O Fundo é representado por sua gestora, a POLÍGONO CAPITAL LTDA.,\n\n                sociedade de responsabilidad"
+        },
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 118,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "33.254.370-0001-04 (“Cotas Seniores” e “Fundo”, respectivamente), com seu regulamento\n\n                disponibilizado na página da CVM na rede mundial de computadores no endereço\n\n                www.cvm.gov.br, do qual este Apêndice é parte integrante (“Regulamento”).\n\n\n\n                2.     Serão emitidas, nos termos deste Suplemento, do Apêndice da Subclasse Sênior e do\n\n                Regulamento, 300"
+        },
+        {
+          "document_id": 1128340,
+          "reference_date": "03/03/2026",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+          "source_excerpt": "obre a Taxa de Administração e sobre a Taxa de Gestão e a\n\n                            versão mais atualizada deste Regulamento;\n\n\n\n                    k)      divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da\n\n                            Administradora (https://www.btgpactual.com/asset-management/administracao-\n\n                            fiduciaria) o valor do Patrimônio Líquido, o valor d"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management/administracao-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "versão mais atualizada deste Regulamento;\n\n\n\n                    k)      divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da\n\n                            Administradora (https://www.btgpactual.com/asset-management/administracao-\n\n                            fiduciaria) o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades\n\n                            acumuladas no mês e no ano civil a que se referirem, e os rel"
+        },
+        {
+          "document_id": 1128340,
+          "reference_date": "03/03/2026",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+          "source_excerpt": "versão mais atualizada deste Regulamento;\n\n\n\n                    k)      divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da\n\n                            Administradora (https://www.btgpactual.com/asset-management/administracao-\n\n                            fiduciaria) o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades\n\n                            acumuladas no mês e no ano civil a que se referirem, e os rel"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-management/administracao-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118467,
+          "reference_date": "19/02/2026",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118467",
+          "source_excerpt": "valores calculados\n\n                             conforme a metodologia de avaliação descrita no manual da Administradora,\n\n                             disponível      em       seu        website:   https://www.btgpactual.com/asset-\n\n                             management/administracao-fiduciaria#documentos.\n\n\n\n                            15.1.1 As provisões e as perdas relativas aos Direitos Creditórios Adquiridos e aos"
+        },
+        {
+          "document_id": 1128340,
+          "reference_date": "03/03/2026",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+          "source_excerpt": "valores calculados\n\n                             conforme a metodologia de avaliação descrita no manual da Administradora,\n\n                             disponível      em      seu         website:   https://www.btgpactual.com/asset-\n\n                             management/administracao-fiduciaria#documentos.\n\n\n\n                            15.1.1 As provisões e as perdas relativas aos Direitos Creditórios Adquiridos e aos"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

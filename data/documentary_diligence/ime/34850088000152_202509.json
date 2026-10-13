@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "34850088000152",
+  "competence": "09/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 569973177.92,
+    "credit_rights": 463054861.76,
+    "overdue_credit": 0.0,
+    "cash": 1726.41,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 522936034.99999994,
+    "subordinated_quotas": 47037141.21603719,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 47037141.21603719
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "34850088000152",
+    "competence": "09/2025",
+    "path": "data/documentary_diligence/ime/34850088000152_202509.json",
+    "reported_fund_cnpj": "34850088000152",
+    "reported_class_cnpj": "34850088000152",
+    "reported_fund_cnpj_raw": "34850088000152",
+    "reported_class_cnpj_raw": "34850088000152",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1012804",
+    "version": 1,
+    "delivered_at": "14/10/2025 13:39",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1012804",
+    "declared_fields_sha256": "eb7a5730d624dc78c9b31301a8768213ad71354e98f6b00de454badd0645d8d1"
+  },
+  "error": ""
+}

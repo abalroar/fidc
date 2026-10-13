@@ -1,0 +1,54 @@
+{
+  "cnpj": "34850088000152",
+  "verified_at": "2026-10-13T02:58:30-03:00",
+  "criteria": [
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Administradora: Genial Investimentos CTVM S.A., CNPJ27.652.684/0001-62. Gestora: Genial Gestão Ltda., CNPJ22.119.959/0001-83. A administradora exerce a custódia dos direitos ainda não passíveis de registro, conforme6.1; agências/auditoras elegíveis não identificam contratos efetivamente celebrados.",
+      "sources": [
+        {
+          "document_id": "1338073",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338073",
+          "reference_date": "01/10/2026",
+          "version": "1",
+          "page": "4",
+          "clause": "4.1.1",
+          "sha256": "26981686e7038879e36e0df2b1ba62a831e5d2b08ab421e1db2d0d4b4e841428",
+          "excerpt": "4.1.1. O Fundo é administrado pelo GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 6.819, de 17 de maio de 2002, à prestação de serviços de administração de carteira de títulos e valores mobiliários, inscrita no CNPJ/MF sob o nº 27.652.684/0001-62, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 228, sala 913, parte, Botafogo, CEP 22250-040.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1338073",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338073",
+          "reference_date": "01/10/2026",
+          "version": "1",
+          "page": "10",
+          "clause": "4.2.1",
+          "sha256": "26981686e7038879e36e0df2b1ba62a831e5d2b08ab421e1db2d0d4b4e841428",
+          "excerpt": "4.2.1. O Fundo é gerido pela GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM por meio do Ato Declaratório nº 14.519, em 30 de setembro de 2015, à prestação de serviços de gestão de carteira de títulos e valores mobiliários, inscrita no CNPJ/MF sob o nº 22.119.959/0001-83, com sede na com sede na Cidade e Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.400, conjunto 91 parte, CEP 05426-100.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1338073",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338073",
+          "reference_date": "01/10/2026",
+          "version": "1",
+          "page": "15",
+          "clause": "6.1",
+          "sha256": "26981686e7038879e36e0df2b1ba62a831e5d2b08ab421e1db2d0d4b4e841428",
+          "excerpt": "6.1. Nos termos do Ofício-Circular nº 8/2023/CVM/SSE, de 27 de setembro de 2023 e enquanto os Direitos Creditórios não forem considerados como passíveis de registro em Entidade Registradora, a Administradora, na qualidade de Custodiante, realizará o serviço de custódia dos Direitos Creditórios, nos termos do artigo 37 do Anexo Normativo II.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": ""
+    }
+  ]
+}

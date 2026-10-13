@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "cnpj": "62696791000193",
+  "name": "BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:20Z",
+  "routes": [
+    {
+      "url": "https://www.btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": ".2     O Administrador mantém serviço de atendimento ao Cotista, responsável pelo esclarecimento de\n        dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\nWebsite: www.btgpactual.com\nSAC: 0800 772 2827\nOuvidoria: 0800 722 0048\n                                                        ***\n\n\n\n\nBTG Pactual\nSAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.co m"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": "e menção à 1ª Série.\n\n\n\nBTG Pactual\n                                                                                                               1\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        },
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 34,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": "Cotistas titulares\n\n\nBTG Pactual\n                                                                                                                  2\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        },
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": "***\n\n\n\n\nBTG Pactual\n                                                                                                  3\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        },
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": "Subordinadas Juniores\n\n\nBTG Pactual\n                                                                                                                4\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        },
+        {
+          "document_id": 1143317,
+          "reference_date": "20/03/2026",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "source_excerpt": "ão antecipada da Classe.\n\n\n\n\nBTG Pactual\n                                                                                                           5\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

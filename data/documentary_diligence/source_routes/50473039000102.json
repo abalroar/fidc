@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "cnpj": "50473039000102",
+  "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:09Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:13Z",
+  "routes": [
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1245798,
+          "reference_date": "05/06/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245798",
+          "source_excerpt": "nho de 2026. Esta reunião de\n    Comitê está registrada na Ata nº 20260605-07.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 716991,
+          "reference_date": "12/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716991",
+          "source_excerpt": "sto de 2024.\n    Esta reunião de Comitê está registrada na Ata nº 20240812-17.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 798081,
+          "reference_date": "27/11/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798081",
+          "source_excerpt": "mbro de\n    2024. Esta reunião de Comitê está registrada na Ata nº 20241127-5.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 858232,
+          "reference_date": "26/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=858232",
+          "source_excerpt": "iro de\n    2025. Esta reunião de Comitê está registrada na Ata nº 20250226-10.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 909988,
+          "reference_date": "15/05/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909988",
+          "source_excerpt": "maio de\n    2025. Esta reunião de Comitê está registrada na Ata nº 20250515-1.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1245798,
+          "reference_date": "05/06/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245798",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        },
+        {
+          "document_id": 716991,
+          "reference_date": "12/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716991",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        },
+        {
+          "document_id": 798081,
+          "reference_date": "27/11/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798081",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        },
+        {
+          "document_id": 858232,
+          "reference_date": "26/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=858232",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        },
+        {
+          "document_id": 909988,
+          "reference_date": "15/05/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909988",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1245798,
+          "reference_date": "05/06/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1245798",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        },
+        {
+          "document_id": 603641,
+          "reference_date": "07/02/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=603641",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        },
+        {
+          "document_id": 716991,
+          "reference_date": "12/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716991",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        },
+        {
+          "document_id": 798081,
+          "reference_date": "27/11/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798081",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        },
+        {
+          "document_id": 858232,
+          "reference_date": "26/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=858232",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 909547,
+          "reference_date": "19/05/2025",
+          "page": 59,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909547",
+          "source_excerpt": "confiram aos seus titulares o direito de voto.\n\n\n                3.8.1            A íntegra da política relativa ao exercício do direito de voto da Gestora\n                está disponível no website: www.oliveiratrust.com.br.\n\n\n                Critérios de Elegibilidade\n\n\n                3.9              Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos\n                Creditórios que atendam, nas respe"
+        },
+        {
+          "document_id": 909547,
+          "reference_date": "19/05/2025",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909547",
+          "source_excerpt": "ções nos termos deste Anexo Descritivo e do Regulamento.\n                Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n                website da Administradora (www.oliveiratrust.com.br).\n\n\n                6.1.2            Cobrança       dos     Direitos   Creditórios   Adquiridos   Inadimplidos.\n                Administradora contratará o Custodiante para prestar o serviço de cobranç"
+        },
+        {
+          "document_id": 909547,
+          "reference_date": "19/05/2025",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909547",
+          "source_excerpt": "inadimplemento. Deverá ser observado, em todos os casos, a metodologia descrita no\n                manual de precificação de ativos da Administradora, disponível em seu site\n                (www.oliveiratrust.com.br).\n\n\n                10.2.2           Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos\n                Financeiros que compõem a carteira da Classe Única será efetuada com base nas"
+        },
+        {
+          "document_id": 790777,
+          "reference_date": "28/11/2024",
+          "page": 59,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=790777",
+          "source_excerpt": "confiram aos seus titulares o direito de voto.\n\n\n                3.8.1           A íntegra da política relativa ao exercício do direito de voto da Gestora\n                está disponível no website: www.oliveiratrust.com.br.\n\n\n                Critérios de Elegibilidade\n\n\n                3.9             Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos\n                Creditórios que atendam, nas respec"
+        },
+        {
+          "document_id": 790777,
+          "reference_date": "28/11/2024",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=790777",
+          "source_excerpt": "ções nos termos deste Anexo Descritivo e do Regulamento.\n                Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n                website da Administradora (www.oliveiratrust.com.br).\n\n\n                6.1.2           Cobrança        dos     Direitos   Creditórios   Adquiridos   Inadimplidos.\n                Administradora contratará o Custodiante para prestar o serviço de cobranç"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Escalas-de-Rating.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 603641,
+          "reference_date": "07/02/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=603641",
+          "source_excerpt": "iro de\n    2024. Esta reunião de Comitê está registrada na Ata nº 20240207-14.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Escalas-de-Rating.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Escalas-de-Rating.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Metodologias.html",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 603641,
+          "reference_date": "07/02/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=603641",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Metodologias.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Metodologias.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "ão\nrelevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem ser lidos em\nconjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações. Informações\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings afetados por esta ação de\nrating são disponibilizados no si"
+        },
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings afetados por esta ação de\nrating são disponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\n\nCritérios e Artigos Relacionados\nCritérios\n− Metodologias e premissas globais para transações de recebíveis comerciais, 29 de junho de\n  2021.\n− Estrutura Global de Avaliação de Riscos Operaciona"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "Conflitos de interesse potenciais da S&P Global Ratings\nA S&P Global Ratings publica a lista de conflitos de interesse reais ou potenciais na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nrespons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/regulatory/content/disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nresponsáveis por mais de 5% de suas receitas anuais.\n\nAs informações regulatórias (PCR - Presentation of Credit Ratings em sua sigla em inglês) da S&P\nGlobal Ratings são publicad"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e\nwww.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/usratingsfees",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690671,
+          "reference_date": "26/06/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690671",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nS&P Global Ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -438,6 +438,23 @@ def _render_portfolio_analysis_content(
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
 ) -> bool:
+    # Documents can be opened before any multi-year financial preload. This
+    # keeps documentary diligence usable for baskets without an IME cache and
+    # avoids fetching 24 months merely to read a regulation.
+    from services.documentary_diligence import has_documentary_diligence
+    early_tabs = None
+    if has_documentary_diligence(selected_portfolio):
+        early_tabs = _render_portfolio_view_tabs(selected_portfolio)
+        if early_tabs[-1].open:
+            with early_tabs[-1]:
+                deep_dive_tab.render_tab_deep_dive(
+                    selected_portfolio=selected_portfolio,
+                    show_portfolio_selector=False,
+                    show_curation_tools=False,
+                    compact=True,
+                    portfolio_mode=True,
+                )
+            return True
     try:
         _preload_portfolio_data(
             selected_portfolio=selected_portfolio,
@@ -537,7 +554,7 @@ def _render_portfolio_analysis_content(
     if st.session_state.get(f"portfolio_analysis_view::{selected_portfolio.id}") not in {"Documentos", SECTION_DEEP_DIVE}:
         _render_scope_header(active_scope, common_position=context.common_position, show_label=len(analysis.scopes) == 1)
     visible_scopes = (active_scope,)
-    structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = _render_portfolio_view_tabs(selected_portfolio)
+    structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = early_tabs or _render_portfolio_view_tabs(selected_portfolio)
     if curation_tab.open:
         with curation_tab:
             deep_dive_tab.render_tab_deep_dive(
@@ -546,6 +563,11 @@ def _render_portfolio_analysis_content(
                 show_curation_tools=False,
                 compact=True,
                 portfolio_mode=True,
+                reference_competence=context.common_position,
+                dashboards={
+                    scope.cnpj: scope.snapshot_dashboard if scope.snapshot_dashboard is not None else scope.dashboard
+                    for scope in coverage_analysis.scopes if scope.kind == "fund"
+                },
             )
     if structure_tab.open:
         with structure_tab:
@@ -1176,7 +1198,14 @@ def _prepare_complete_portfolio_pptx(
         analytical_data = ()
         warnings.append(f"Estrutura, emissões e RDB: {exc}")
     try:
-        documentary_manifest, documentary_pages = _documentary_portfolio_content(selected_portfolio)
+        documentary_manifest, documentary_pages = _documentary_portfolio_content(
+            selected_portfolio,
+            reference_competence=getattr(analysis.reference_context, "common_position", None),
+            dashboards={
+                scope.cnpj: scope.snapshot_dashboard if scope.snapshot_dashboard is not None else scope.dashboard
+                for scope in analysis.scopes if scope.kind == "fund"
+            },
+        )
         if not documentary_pages:
             warnings.append("Curadoria documental: pacote comparativo não localizado para esta cesta.")
     except Exception as exc:  # noqa: BLE001
@@ -1346,7 +1375,49 @@ def _render_legacy_portfolio_download(
             st.caption(f"Parte não incluída no PPT: {warning}")
 
 
-def _documentary_portfolio_content(portfolio: PortfolioRecord):
+def _documentary_portfolio_content(portfolio: PortfolioRecord, *, reference_competence=None, dashboards=None):
+    from services.documentary_diligence import (
+        build_documentary_comparison_pages,
+        documentary_manifest,
+        has_documentary_diligence,
+        load_documentary_portfolio,
+        load_documentary_lookthrough,
+    )
+    from services.documentary_ime_comparison import (
+        build_documentary_observations,
+        normalize_documentary_competence,
+        resolve_documentary_reference,
+    )
+
+    if has_documentary_diligence(portfolio):
+        funds = load_documentary_portfolio(portfolio)
+        resolved = resolve_documentary_reference(portfolio, dashboards=dashboards)
+        requested = normalize_documentary_competence(reference_competence)
+        reference = (requested if requested in resolved["common_competences"] else None) if requested else resolved["competence"]
+        observations = {
+            fund["cnpj"]: {
+                row["criterion_id"]: row
+                for row in build_documentary_observations(
+                    fund, competence=reference, dashboard=(dashboards or {}).get(fund["cnpj"]),
+                )
+            }
+            for fund in funds
+        }
+        for detail in load_documentary_lookthrough(funds):
+            underlying = detail["fund"]
+            observations[underlying["cnpj"]] = {
+                row["criterion_id"]: row
+                for row in build_documentary_observations(
+                    underlying, competence=reference, dashboard=(dashboards or {}).get(underlying["cnpj"]),
+                )
+            }
+        manifest = documentary_manifest(portfolio, funds, reference)
+        warnings = list(manifest.warnings) + resolved["warnings"]
+        if requested and requested not in resolved["common_competences"]:
+            warnings.append("Competência da análise sem IME comum para todos os CNPJs elegíveis; confronto documental suspenso.")
+        manifest = replace(manifest, warnings=tuple(warnings))
+        return manifest, tuple(build_documentary_comparison_pages(portfolio, funds, observations))
+
     from services.deep_dive_store import deep_dive_portfolio_match_rank, list_deep_dives
     from services.document_curation_comparison import build_document_comparison_pages
 
@@ -1367,6 +1438,8 @@ def _build_documentary_portfolio_deck(portfolio: PortfolioRecord, *, portfolio_m
     manifest, pages = _documentary_portfolio_content(portfolio)
     if not pages:
         return None
+    if manifest.deep_dive_id.startswith("documentary_diligence_"):
+        return build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=False)
     return (build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True)
             if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages))
 
@@ -1451,6 +1524,12 @@ def _render_stateful_tabs(labels: tuple[str, ...], *, key: str):
 
 def _render_portfolio_view_tabs(selected_portfolio: PortfolioRecord):
     key = f"portfolio_analysis_view::{selected_portfolio.id}"
+    # A new documentary basket opens without the multi-year IME download.
+    # Previously selected financial views continue to be restored verbatim.
+    if key not in st.session_state and f"{key}::selection" not in st.session_state:
+        from services.documentary_diligence import has_documentary_diligence
+        if has_documentary_diligence(selected_portfolio):
+            st.session_state[key] = "Documentos"
     for state_key in (key, f"{key}::selection"):
         if st.session_state.get(state_key) == SECTION_DEEP_DIVE:
             st.session_state[state_key] = "Documentos"

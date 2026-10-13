@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "42085816000105",
+  "competence": "12/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 206646757.66,
+    "credit_rights": 168318358.65,
+    "overdue_credit": 0.0,
+    "cash": 1685.61,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 194231593.029,
+    "subordinated_quotas": 12415164.67003994,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 12415164.67003994
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "42085816000105",
+    "competence": "12/2025",
+    "path": "data/documentary_diligence/ime/42085816000105_202512.json",
+    "reported_fund_cnpj": "42085816000105",
+    "reported_class_cnpj": "42085816000105",
+    "reported_fund_cnpj_raw": "42085816000105",
+    "reported_class_cnpj_raw": "42085816000105",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1085982",
+    "version": 2,
+    "delivered_at": "16/01/2026 10:38",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1085982",
+    "declared_fields_sha256": "ef9a3fe392fdb61a3dbe293e00244668dcdb4bec3385252dd6df9c90647b9816"
+  },
+  "error": ""
+}

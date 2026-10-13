@@ -1,0 +1,119 @@
+{
+  "cnpj": "18185812000114",
+  "verified_at": "2026-10-13T04:54:25Z",
+  "review_scope": "Leitura manual das páginas/cláusulas identificadas; sem extrapolar para os demais critérios.",
+  "criteria": [
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "67% do PL em direitos creditórios após 180 dias da primeira Data de Subscrição Inicial. Cotas de FIDC contam como direitos creditórios para enquadramento tributário.",
+      "sources": [
+        {
+          "document_id": 1343421,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+          "reference_date": "2026-10-08",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/18185812000114/1343421_regulamento.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/ea/ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2.txt",
+          "sha256": "ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2",
+          "page": "31",
+          "clause": "Artigo 74",
+          "excerpt": "Artigo 74 - O Fundo deverá, após 180 (cento e oitenta) dias contados da primeira Data de Subscrição Inicial do Fundo, observar a Alocação Mínima de 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios. São considerados Direitos Creditórios as cotas de fundo de investimento em direitos creditórios, para fins de enquadramento tributário, não se aplicando os Critérios de Elegibilidade ou Condições de Cessão, ficando a critério da Gestora sua aquisição.",
+          "identity_verified": true
+        }
+      ],
+      "reason": "",
+      "risk_note": "A inclusão das cotas de FIDC é explicitada para fins tributários; DC/PL isolado no IME não reproduz automaticamente esse perímetro.",
+      "rule": {},
+      "provenance": "verified_primary_override"
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sem taxa de ingresso, saída, desempenho ou performance.",
+      "sources": [
+        {
+          "document_id": 1343421,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+          "reference_date": "2026-10-08",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/18185812000114/1343421_regulamento.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/ea/ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2.txt",
+          "sha256": "ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2",
+          "page": "10",
+          "clause": "Artigo 21, Parágrafo Oitavo",
+          "excerpt": "Parágrafo Oitavo. O Fundo não possui taxa de ingresso, taxa de saída, e taxa de desempenho ou de performance.",
+          "identity_verified": true
+        }
+      ],
+      "reason": "",
+      "risk_note": "",
+      "rule": {},
+      "provenance": "verified_primary_override"
+    },
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "version_conflict",
+      "applicability": "applicable",
+      "value": "QI Corretora: administração e custódia. M8 Partners Gestora de Recursos Ltda. (18.038.439/0001-79): gestão. O CNPJ da QI aparece como 62.285.390/0001-40 no Art. 10 e 62.825.390/0001-40 no Art. 22.",
+      "sources": [
+        {
+          "document_id": 1343421,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+          "reference_date": "2026-10-08",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/18185812000114/1343421_regulamento.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/ea/ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2.txt",
+          "sha256": "ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2",
+          "page": "5",
+          "clause": "Artigo 10",
+          "excerpt": "Artigo 10 - O Fundo é administrado pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada a funcionar pelo BACEN e autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários e fundos de investimentos, nos termos do Ato Declaratório CVM nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, na Av. Rebouças, 2.942, 7º ao 12º andar, Parte I, CEP 05.402-500, Pinheiros, inscrita no CNPJ/MF sob o n.º 62.285.390/0001-40.",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1343421,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+          "reference_date": "2026-10-08",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/18185812000114/1343421_regulamento.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/ea/ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2.txt",
+          "sha256": "ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2",
+          "page": "10",
+          "clause": "Artigo 22",
+          "excerpt": "Artigo 22 - As atividades de custódia e controladoria dos ativos e passivos do Fundo previstas na RCVM 175, serão realizadas pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira com sede na Av. Rebouças, 2.942, 7º ao 12º andar, Parte I, Pinheiros, na cidade de São Paulo, Estado de São Paulo, inscrito no CNPJ sob o nº 62.825.390/0001-40, doravante designado Custodiante.",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1343421,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1343421",
+          "reference_date": "2026-10-08",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/18185812000114/1343421_regulamento.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/ea/ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2.txt",
+          "sha256": "ea7b2d996655ddf68273acd4bab694aef941dd43400d2a56c3a474ad6e3c99b2",
+          "page": "15",
+          "clause": "Artigo 31",
+          "excerpt": "Artigo 31 - A atividade de gestão da carteira do Fundo será exercida pela M8 PARTNERS GESTORA DE RECURSOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório n. 13.304, de 23 de setembro de 2013, inscrita no CNPJ/MF sob o nº 18.038.439/0001-79, sociedade com sede na cidade e Estado de São Paulo, na Rua Bandeira Paulista, n.º 477, 10º andar, CEP 04532-011 (“Gestora”). Artigo 32 - Sem prejuízo das suas obrigações decorrentes da regulamentação aplicável e nos demais itens deste Regulamento e pelo contrato celebrado com a Administradora ou Acordo Operacional, a Gestora será responsável por: (i) tomar as decisões de aquisição e alienação de Direitos de Crédito, em estrita observância à política de investimento, composição e diversificação da carteira do Fundo, incluindo sem limitação o disposto neste Regulamento e na regulamentação em vigor; (ii) tomar suas decisões de gestão da carteira do Fundo em consonância com as normas técnicas e administrativas adequadas às operações nos mercados financeiro e de capitais, observados os princípios de boa técnica de investimentos, bem como observar as disposições da regulamentação aplicável com relação ao exercício profissional de administração de carteiras de valores mobiliários; (iii) fornecer à Administradora e às autoridades fiscalizadoras, sempre que solicitadas, na esfera de sua competência, informações relativas às operações do Fundo e às demais atividades que vier a desenvolver durante a gestão da carteira",
+          "identity_verified": true
+        }
+      ],
+      "reason": "O mesmo documento traz dois CNPJs para a instituição identificada como QI. A correção cadastral não foi presumida.",
+      "risk_note": "Capa datada de 06/10/2026; referência Fundos.NET 08/10/2026.",
+      "rule": {},
+      "provenance": "verified_primary_override"
+    }
+  ]
+}

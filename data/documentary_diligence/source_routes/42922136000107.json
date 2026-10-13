@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "cnpj": "42922136000107",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:01Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:57:01Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1159092,
+          "reference_date": "10/04/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159092",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                  e divulgadas diariamente pela B3, disponível em sua\n                                  página na Internet (http://www.b3.com.br), base 252\n                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                  forma percentual ao ano;\n\n             CAPÍTULO III - DO OBJETIVO DO"
+        },
+        {
+          "document_id": 1074005,
+          "reference_date": "31/12/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074005",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                  e divulgadas diariamente pela B3, disponível em sua\n                                  página na Internet (http://www.b3.com.br), base 252\n                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                  forma percentual ao ano;\n\n            CAPÍTULO III - DO OBJETIVO DO"
+        },
+        {
+          "document_id": 998673,
+          "reference_date": "25/09/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998673",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                  e divulgadas diariamente pela B3, disponível em sua\n                                  página na Internet (http://www.b3.com.br), base 252\n                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                  forma percentual ao ano;\n\n            CAPÍTULO III - DO OBJETIVO DO"
+        },
+        {
+          "document_id": 908833,
+          "reference_date": "15/05/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908833",
+          "source_excerpt": "grupo Depósitos Interfinanceiros de um dia, calculadas\n                                  e divulgadas diariamente pela B3, disponível em sua\n                                  página na Internet (http://www.b3.com.br), base 252\n                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                  forma percentual ao ano;\n\n            CAPÍTULO III - DO OBJETIVO DO"
+        },
+        {
+          "document_id": 884459,
+          "reference_date": "25/11/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884459",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                  e divulgadas diariamente pela B3, disponível em sua\n                                  página na Internet (http://www.b3.com.br), base 252\n                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                  forma percentual ao ano;\n\n            CAPÍTULO III - DO OBJETIVO DO"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-capitais/informacoes-cotista",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 557626,
+          "reference_date": "15/11/2023",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557626",
+          "source_excerpt": "independente.\n\nIX - receber quaisquer rendimentos ou valores do FUNDO diretamente ou por meio de instituição\ncontratada;\n\nX – disponibilizar ao Cotista, gratuitamente, por meio do endereço eletrônico\nwww.daycoval.com.br/investimentos/mercado-capitais/informacoes-cotista    exemplar       do\nRegulamento do FUNDO, bem como cientificá-lo do nome do periódico utilizado para divulgação\nde informações e da Taxa de Administração praticada;\n\nXI - divulgar, anualmente, no pe"
+        },
+        {
+          "document_id": 557626,
+          "reference_date": "15/11/2023",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557626",
+          "source_excerpt": "XIII – disponibilizar      anualmente aos Cotistas, por meio do endereço eletrônico\nwww.daycoval.com.br/investimentos/mercado-capitais/informacoes-cotista documento contendo\ninformações sobre os rendimentos auferidos no ano civil e, com base nos dados relativos ao último\ndia do mês de dezembro, sobre o número de Cotas de sua propriedade e respectivo va"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-capitais/informacoes-cotista",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/institucional/mercado-capitais",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 557626,
+          "reference_date": "15/11/2023",
+          "page": 34,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557626",
+          "source_excerpt": "eve\nser: (i) divulgado por meio do Sistema de Envio de Documentos disponível na página da CVM; e (ii)\nmantido          na       página        da        ADMINISTRADORA               na        Internet\nhttps://www.daycoval.com.br/institucional/mercado-capitais e, enquanto a distribuição estiver em\ncurso, na página do distribuidor na Internet.\n\n23.3. A ADMINISTRADORA deve, no prazo máximo de 10 (dez) dias após o encerramento de\ncada mês, colocar à disposiçã"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/institucional/mercado-capitais",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

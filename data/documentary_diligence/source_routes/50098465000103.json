@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "cnpj": "50098465000103",
+  "name": "CHEMICAL XIII - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - INDÚSTRIA PETROQUÍMICA",
+  "generated_at": "2026-10-13T05:30:09Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:02Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 690567,
+          "reference_date": "01/07/2024",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+          "source_excerpt": "44 (quarenta e quatro) dígitos que\nidentifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua\nautorização      e   do    seu     conteúdo       no      ambiente       nacional\n(http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da\ncircunscrição da Cedente.\n“Classe” significa a Classe Única de Investimento em Direitos Creditórios do\nFundo.\n\"Clientes\": são os compradores de Produtos"
+        },
+        {
+          "document_id": 479060,
+          "reference_date": "15/06/2023",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=479060",
+          "source_excerpt": "ígitos que\n        identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua\n        autorização      e   do    seu      conteúdo      no     ambiente        nacional\n        (http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da\n        circunscrição da Cedente.\n        \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e\n        constantes da Relação de Cliente"
+        },
+        {
+          "document_id": 491837,
+          "reference_date": "14/07/2023",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=491837",
+          "source_excerpt": "ígitos que\n        identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua\n        autorização      e   do    seu      conteúdo      no     ambiente        nacional\n        (http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da\n        circunscrição da Cedente.\n        \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e\n        constantes da Relação de Cliente"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 554368,
+          "reference_date": "29/09/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=554368",
+          "source_excerpt": "ficação de Risco de Crédito,\nnos termos do disposto no artigo 16 da Resolução CVM no 9/2020.           Robert Krause                      Pedro Garufi                  Monitoramento\nConsulte a página www.moodyslocal.com/country/br para visualizar os       Assoc Dir-Credit Analyst/ML        Associate Credit Analyst/ML   monitoramento@moodys.com\nComunicados relativos às Ações de Rating referenciadas nesta              +55.11.304"
+        },
+        {
+          "document_id": 601599,
+          "reference_date": "29/12/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=601599",
+          "source_excerpt": "ficação de Risco de Crédito,\nnos termos do disposto no artigo 16 da Resolução CVM no 9/2020.           Robert Krause                      Pedro Garufi                  Monitoramento\nConsulte a página www.moodyslocal.com/country/br para visualizar os       Assoc Dir-Credit Analyst/ML        Associate Credit Analyst/ML   monitoramento@moodys.com\nComunicados relativos às Ações de Rating referenciadas nesta              +55.11.304"
+        },
+        {
+          "document_id": 658462,
+          "reference_date": "28/03/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=658462",
+          "source_excerpt": "icação de Risco de Crédito,\nnos termos do disposto no artigo 16 da Resolução CVM no 9/2020.            Robert Krause                      Pedro Garufi                  Monitoramento\nConsulte a página www.moodyslocal.com/country/br para visualizar os        Assoc Dir-Credit Analyst/ML        Associate Credit Analyst/ML   monitoramento@moodys.com\nComunicados relativos às Ações de Rating referenciadas nesta"
+        },
+        {
+          "document_id": 715182,
+          "reference_date": "28/06/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715182",
+          "source_excerpt": "ação de Risco de Crédito,\nnos termos do disposto no artigo 16 da Resolução CVM no 9/2020.            Robert Krause                      Pedro Garufi                  Matheus Marques\nConsulte a página www.moodyslocal.com/country/br para visualizar os        Assoc Dir-Credit Analyst/ML        Associate Credit Analyst/ML   Intern\nComunicados relativos às Ações de Rating referenciadas nesta\npublicação."
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 554368,
+          "reference_date": "29/09/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=554368",
+          "source_excerpt": "icas e procedimentos\n                                                                                                                                    e crédito. São incluídas anualmente no website www.moodys.com,\n                                      Corporate Governance Charter Documents                                                               mações acerca de certas relações que possam existir entre"
+        },
+        {
+          "document_id": 601599,
+          "reference_date": "29/12/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=601599",
+          "source_excerpt": "líticas e procedimentos destinados a preservar a independência dos ratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de\n    crédito. São incluídas anualmente no website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and\n    Shareholder Affiliation Policy” informações acerca de certas relações que possam existir entre administr"
+        },
+        {
+          "document_id": 658462,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=658462",
+          "source_excerpt": "líticas e procedimentos destinados a preservar a independência dos ratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de\n    crédito. São incluídas anualmente no website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and\n    Shareholder Affiliation Policy” informações acerca de certas relações que possam existir entre administr"
+        },
+        {
+          "document_id": 715182,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715182",
+          "source_excerpt": "cas e procedimentos\n    destinados a preservar a independência dos ratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de crédito. São incluídas anualmente no\n    website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca\n    de certas relações que possam existir entre administr"
+        },
+        {
+          "document_id": 782366,
+          "reference_date": "30/09/2024",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=782366",
+          "source_excerpt": "têm políticas e procedimentos destinados a preservar a independência dos ratings de crédito da Moody’s Invertors Sevices e de seus\nprocessos de ratings de crédito. São incluídas anualmente no website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de certas relações que\npossam existir entre administrador"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.moodys.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com.br/",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 782366,
+          "reference_date": "30/09/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=782366",
+          "source_excerpt": "TÓRIOS - INDÚSTRIA PETROQUÍMICA\nportanto, não deve ser considerada um Relatório\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 30/09/2024\n                                                         CHEMICAL XIII - FUNDO DE INVESTIMENTO EM DIREI"
+        },
+        {
+          "document_id": 840799,
+          "reference_date": "31/12/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=840799",
+          "source_excerpt": "TÓRIOS - INDÚSTRIA PETROQUÍMICA\nportanto, não deve ser considerada um Relatório\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 30/12/2024\n                                                         CHEMICAL XIII - FUNDO DE INVESTIMENTO EM DIREI"
+        },
+        {
+          "document_id": 903310,
+          "reference_date": "31/03/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=903310",
+          "source_excerpt": "TÓRIOS - INDÚSTRIA PETROQUÍMICA\nportanto, não deve ser considerada um Relatório\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 03/2025\n                                                         CHEMICAL XIII - FUNDO DE INVESTIMENTO EM DIREITOS"
+        },
+        {
+          "document_id": 963056,
+          "reference_date": "30/06/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=963056",
+          "source_excerpt": "L XIII - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - INDÚSTRIA PETROQUÍMICA\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 2T25\nvisualizar os Comunicados de Ações de Rating.            Resumo da Operação\nEsta publicação não deve ser cons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://ir.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 840799,
+          "reference_date": "31/12/2024",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=840799",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        },
+        {
+          "document_id": 903310,
+          "reference_date": "31/03/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=903310",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        },
+        {
+          "document_id": 963056,
+          "reference_date": "30/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=963056",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ir.moodys.com/investor-relations/default.aspx",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

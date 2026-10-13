@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "cnpj": "63657457000193",
+  "name": "MSV3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:46Z",
+  "routes": [
+    {
+      "url": "https://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1205333,
+          "reference_date": "27/05/2026",
+          "page": 78,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1205333",
+          "source_excerpt": "nte\n                               uma nota fiscal eletrônica e faculta a verificação da sua\n                               autorização e conteúdo no ambiente nacional\n                               (www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                               Fazenda - SEFAZ da circunscrição de cada Cedente.\n\n\"Classe Única\"                 A classe única de cotas do Fundo cujo funcionamento é"
+        },
+        {
+          "document_id": 1069421,
+          "reference_date": "17/12/2025",
+          "page": 80,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069421",
+          "source_excerpt": "nte\n                               uma nota fiscal eletrônica e faculta a verificação da sua\n                               autorização e conteúdo no ambiente nacional\n                               (www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                               Fazenda - SEFAZ da circunscrição de cada Cedente.\n\n\"Classe Única\"                 A classe única de cotas do Fundo cujo funcionamento é"
+        },
+        {
+          "document_id": 1066270,
+          "reference_date": "13/11/2025",
+          "page": 76,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066270",
+          "source_excerpt": "nte\n                               uma nota fiscal eletrônica e faculta a verificação da sua\n                               autorização e conteúdo no ambiente nacional\n                               (www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                               Fazenda - SEFAZ da circunscrição de cada Cedente.\n\n\"Classe Única\"                 A classe única de cotas do Fundo cujo funcionamento é"
+        },
+        {
+          "document_id": 1066271,
+          "reference_date": "09/12/2025",
+          "page": 80,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066271",
+          "source_excerpt": "nte\n                               uma nota fiscal eletrônica e faculta a verificação da sua\n                               autorização e conteúdo no ambiente nacional\n                               (www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                               Fazenda - SEFAZ da circunscrição de cada Cedente.\n\n\"Classe Única\"                 A classe única de cotas do Fundo cujo funcionamento é"
+        },
+        {
+          "document_id": 1066272,
+          "reference_date": "17/12/2025",
+          "page": 81,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066272",
+          "source_excerpt": "nte\n                               uma nota fiscal eletrônica e faculta a verificação da sua\n                               autorização e conteúdo no ambiente nacional\n                               (www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                               Fazenda - SEFAZ da circunscrição de cada Cedente.\n\n\"Classe Única\"                 A classe única de cotas do Fundo cujo funcionamento é"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "https://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalas-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118673,
+          "reference_date": "30/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
+          "source_excerpt": "to a cobrança extraordinária ficará sob responsabilidade da Manserv Investimentos e\n                                     Participações S.A. (MIP / Agente de Cobrança).\nEscala de rating disponível em:\nhttp://www.austin.com.br/Escalas-    O objetivo da Classe Única de Cotas do MSV3 FIDC é a valorização de suas Cotas através\nde-Rating.html\n                                     da aplicação preponderante dos recursos na aquisição de D"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118673,
+          "reference_date": "30/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
+          "source_excerpt": "invistam exclusivamente nos ativos listados nos itens (i) e/ou (ii) acima\nTel.: 55 11 3377 0707\nFax: 55 11 3377 0739                 administrados e geridos por qualquer das Instituições Autorizadas.\nwww.austin.com.br\n                                     De acordo com o Suplemento, a 1ª Série de Cotas Seniores, objeto da classificação, prevê"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118673,
+          "reference_date": "30/12/2025",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
+          "source_excerpt": "ezembro de 2025. Esta reunião de Comitê está\n    registrada na Ata nº 20251230-11.\n2. A classificação está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência em\n    suas classificações de risco de crédito de Cotas de Fundos de"
+        },
+        {
+          "document_id": 1249049,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1249049",
+          "source_excerpt": "a 01 de julho de 2026. A reunião\n   foi registrada na Ata Nº 20260701-02.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https"
+        },
+        {
+          "document_id": 1333152,
+          "reference_date": "31/08/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333152",
+          "source_excerpt": "dia 31 agosto de 2026. A reunião\n   foi registrada na Ata Nº 20260831-04.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118673,
+          "reference_date": "30/12/2025",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em\n    suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1118673,
+          "reference_date": "30/12/2025",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os quais\n    podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, essa agência também\n    classifica Cotas de outros fundos nos quais a Singulare CTVM S.A. atua como Administradora.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas"
+        },
+        {
+          "document_id": 1249049,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1249049",
+          "source_excerpt": "stora de Recursos Ltda., gestora\n    do Fundo, porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser\n    consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços\n    da Austin Rating para o Qi CVTM S.A., Administrador e Custodiante do Fundo, limita-se a outros fundos dos quais são partes\n    relacionadas, dando-se, assim, a"
+        },
+        {
+          "document_id": 1333152,
+          "reference_date": "31/08/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333152",
+          "source_excerpt": "stora de Recursos Ltda., gestora\n    do Fundo, porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser\n    consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços\n    da Austin Rating para o Qi CVTM S.A., Administrador e Custodiante do Fundo, limita-se a outros fundos dos quais são partes\n    relacionadas, dando-se, assim, a"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1249049,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1249049",
+          "source_excerpt": "html.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de r"
+        },
+        {
+          "document_id": 1333152,
+          "reference_date": "31/08/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333152",
+          "source_excerpt": "html.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securitizacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de r"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

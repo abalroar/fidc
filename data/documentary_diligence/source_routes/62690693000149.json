@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "cnpj": "62690693000149",
+  "name": "FIDC RANDONCORP SEGMENTO RECEBÍVEIS COMERCIAIS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:19Z",
+  "routes": [
+    {
+      "url": "https://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1028146,
+          "reference_date": "03/11/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+          "source_excerpt": "cultam a verificação da sua\n                                               autorização       e        conteúdo        no      ambiente         nacional\n                                               (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda\n                                               – SEFAZ da circunscrição dos Cedentes na rede mundial de\n                                               computador"
+        },
+        {
+          "document_id": 992732,
+          "reference_date": "11/09/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992732",
+          "source_excerpt": "te\nEletrônico”           uma nota fiscal eletrônica e facultam a verificação da sua\n                      autorização       e      conteúdo       no     ambiente       nacional\n                      (www.nfe.fazenda.gov.br) ou na página da Secretaria de Fazenda\n                      – SEFAZ da circunscrição dos Cedentes na rede mundial de\n                      computadores."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "https://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1028146,
+          "reference_date": "03/11/2025",
+          "page": 76,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028146",
+          "source_excerpt": "crita no manual\n          de apreçamento de ativos do Custodiante cujo teor está disponível aos Cotistas na sede do Administrador\n          ou na página do Custodiante na rede mundial de computadores https://ri.oliveiratrust.com.br/governanca-\n          corporativa/estatuto-codigos-e-politicas-subsidiaria/).\n\n\n     b.   Os Direitos Creditórios Cedidos terão seu valor calculado, todo Dia Útil, pelo Custodiante, sem prejuízo da\n          res"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:53Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 992732,
+          "reference_date": "11/09/2025",
+          "page": 66,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992732",
+          "source_excerpt": "ual de apreçamento de ativos do Custodiante cujo teor está disponível aos Cotistas na sede do\nAdministrador      ou   na   página    do    Custodiante     na    rede    mundial    de    computadores\n(http://www.oliveiratrust.com.br).\n\n\n\n                                                                                                        66"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:20Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

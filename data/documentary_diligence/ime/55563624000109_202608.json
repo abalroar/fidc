@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "55563624000109",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 125969321.61,
+    "credit_rights": 0.0,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 0.0,
+    "fidc_quotas": 125805817.27,
+    "senior_quotas": null,
+    "subordinated_quotas": null,
+    "mezzanine_quotas": null,
+    "subordinated_and_mezzanine_quotas": null
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "55563624000109",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/55563624000109_202608.json",
+    "reported_fund_cnpj": "55563624000109",
+    "reported_class_cnpj": "55563624000109",
+    "reported_fund_cnpj_raw": "55563624000109",
+    "reported_class_cnpj_raw": "55563624000109",
+    "identity_basis": "class",
+    "warnings": [
+      "Soma dos saldos de cotas diverge do PL oficial; saldos por camada não certificados."
+    ],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1315359",
+    "version": 1,
+    "delivered_at": "11/09/2026 11:25",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1315359",
+    "declared_fields_sha256": "edbd727b464e96e2ba481078c6aea703ed7a8c80a1fea7c65794263fca2f43f1"
+  },
+  "error": ""
+}

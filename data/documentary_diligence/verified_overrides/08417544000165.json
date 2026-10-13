@@ -1,0 +1,30 @@
+{
+  "cnpj": "08417544000165",
+  "verified_at": "2026-10-13T02:58:30-03:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Créditos vincendos de matrículas e semestralidades de serviços educacionais. Originados por bancos: contratos de crédito direto ao consumidor, CCBs ou outras modalidades de empréstimo. Originados por instituições de ensino ou ligadas ao setor: contratos de financiamento, bolsas restituíveis, programas de crédito estudantil e crediários. Incluem garantias dos alunos e devedores solidários; aquisição exige critérios12.1 e condições12.4.",
+      "sources": [
+        {
+          "document_id": "1220195",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1220195",
+          "reference_date": "09/06/2026",
+          "version": "1",
+          "page": "36",
+          "clause": "11.1(a)–(b)",
+          "sha256": "f5dd8ff9c71adfcc9dcd9d4a51d76fa214a8fd4b43f58ccbaee392917ad22e98",
+          "excerpt": "11.1 Os Direitos Creditórios a serem adquiridos pelo Fundo são direitos creditórios vincendos decorrentes de Contratos de Empréstimo, oriundos de financiamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamento de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos Critérios de Elegibilidade e às Condições de Cessão expostos nos itens 12.1 e 12.4 abaixo, podendo ser: (a) contratos de concessão de crédito, que podem estar revestidos de qualquer forma, inclusive documento foi assinado eletronicamente por Luca Falcão. contratos de crédito direto ao consumidor, CCBs ou outras modalidades de financiamento e empréstimo, que tenham como partes (i) Devedores que buscam crédito para pagamento de prestação de serviços educacionais e (ii) Cedentes Bancos; e (b) contratos de financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) Cedentes Instituições de Ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": ""
+    }
+  ]
+}

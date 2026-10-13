@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "45598747000121",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 377416791.58,
+    "credit_rights": 365302583.22,
+    "overdue_credit": 0.0,
+    "cash": 781.75,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 347903339.8981,
+    "subordinated_quotas": 29513451.749958154,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 29513451.749958154
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "45598747000121",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/45598747000121_202608.json",
+    "reported_fund_cnpj": "45598747000121",
+    "reported_class_cnpj": "45598747000121",
+    "reported_fund_cnpj_raw": "45598747000121",
+    "reported_class_cnpj_raw": "45598747000121",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1312965",
+    "version": 1,
+    "delivered_at": "09/09/2026 14:44",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1312965",
+    "declared_fields_sha256": "429a777cf175d83cd70af97f6aca5e9d87722bb9a0c6a573267d501f3e140607"
+  },
+  "error": ""
+}

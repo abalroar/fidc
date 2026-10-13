@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "cnpj": "57259989000170",
+  "name": "TRÊS TENTOS FIAGRO RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:08:24Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                                    disponível em sua página na Internet (http://www.b3.com.br).\n\n             “Termo de Adesão”                      Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                                    do TRÊS TENTOS FUNDO DE INVESTI"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "dois)\n                                              Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                              disponível em sua página na Internet (http://www.b3.com.br)."
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "dois)\n                                              Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                              disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                              do TRÊS TENTOS FUNDO DE INVESTIMENTO EM DIR"
+        },
+        {
+          "document_id": 767377,
+          "reference_date": "29/10/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n             “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                               do TRÊS TENTOS FUNDO DE INVESTIMENTO EM D"
+        },
+        {
+          "document_id": 830200,
+          "reference_date": "28/01/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
+          "source_excerpt": ")\n                                                Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                                disponível em sua página na Internet (http://www.b3.com.br).\n\n             “Termo de Adesão”                  Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                                do TRÊS TENTOS FUNDO DE INVESTIMENTO EM"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-subsidiaria/”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "iliários, conforme\n            estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e no\n            manual de precificação do Administrador disponível em\n            “https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-subsidiaria/”;\n            e (ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme a ta"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "do na regulamentação em vigor (tais como o critério de marcação a mercado)\n            e       no      manual       de      precificação     do      Administrador      disponível      em\n            “https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-subsidiaria/”;\n            e (ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme a ta"
+        },
+        {
+          "document_id": 767377,
+          "reference_date": "29/10/2024",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+          "source_excerpt": "do na regulamentação em vigor (tais como o critério de marcação a mercado)\n            e       no      manual       de      precificação     do     Administrador       disponível      em\n            “https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-subsidiaria/”;\n            e (ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme a ta"
+        },
+        {
+          "document_id": 830200,
+          "reference_date": "28/01/2025",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
+          "source_excerpt": "lecido na regulamentação em vigor (tais como o critério de marcação a mercado)\n            e     no     manual       de     precificação     do     Administrador       disponível      em\n            “https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-subsidiaria/”;\n            e (ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme a ta"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:12Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 70: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "itos de liquidação duvidosa para Direitos\n            Creditórios Adquiridos de acordo com a Instrução CVM 489/11 e de seu manual de provisão para\n            perda em ativos de crédito disponível em https://ri.oliveiratrust.com.br/governanca-\n            corporativa/estatuto-codigos-e-politicas-subsidiaria/, observadas as especificidades de cada\n            Classe, conforme disposto no respectivo Anexo Descritivo.\n\n            4.3. As dem"
+        },
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 101,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "características dos Direitos Creditórios\n            Elegíveis, sendo que a Administradora deverá provisionar de acordo com a metodologia de\n            provisão da Administradora disponível do site: https://ri.oliveiratrust.com.br/governanca-\n            corporativa/estatuto-codigos-e-politicas-subsidiaria/, a qual observará os termos descritos no\n            Anexo V a este Anexo Descritivo.\n\n            9.2.1.         Os Direitos Creditó"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "ós seu inadimplemento. Deverá ser observado,\n                em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                Administrador, disponível em seu website (https://ri.oliveiratrust.com.br/governanca-\n                corporativa/estatuto-codigos-e-politicas-subsidiaria/).\n\n                9.3.          Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n                Finance"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "itos de liquidação duvidosa para Direitos\n            Creditórios Adquiridos de acordo com a Instrução CVM 489/11 e de seu manual de provisão para\n            perda em ativos de crédito disponível em https://ri.oliveiratrust.com.br/governanca-\n            corporativa/estatuto-codigos-e-politicas-subsidiaria/, observadas as especificidades de cada\n            Classe, conforme disposto no respectivo Anexo Descritivo.\n\n            4.3. As dem"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 110,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "características dos Direitos Creditórios\n            Elegíveis, sendo que a Administradora deverá provisionar de acordo com a metodologia de\n            provisão da Administradora disponível do site: https://ri.oliveiratrust.com.br/governanca-\n\n\n\n\n                                                             - 54 -"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:53Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "ente contratado para auditoria do Fundo e das Classes encontram-se disponíveis\n            para     acesso    pelos    Cotistas    na     página    do     Administrador     no     website\n            https://www.oliveiratrust.com.br. Qualquer alteração na empresa de auditoria contratada será\n\n                Esta página é parte integrante da ata da Assembleia Geral de Cotistas do TRÊS TENTOS FUNDO DE INVESTIMENTO EM DIREITOS"
+        },
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "DF3-7847D0BC469F\n\n\n\n\n               “Manual de Marcação a             Significa o manual de marcação a mercado, que se encontra\n               Mercado”                          disponível no website: https://www.oliveiratrust.com.br.\n\n               “Meta de Amortização”             Significa com relação a cada série e Subclasse de Cotas, a meta\n                                                 de Amortização de Principal das Cota"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 38,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "sobre o Auditor Independente contratado para auditoria do Fundo e\n                das Classes encontram-se disponíveis para acesso pelos Cotistas na página do Administrador\n                no website https://www.oliveiratrust.com.br. Qualquer alteração na empresa de auditoria\n                contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for\n                o caso, publicada nas páginas na"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 59,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "República.\n\n\n\n                   “Manual de Marcação a            Significa o manual de marcação a mercado, que se encontra\n                   Mercado”                         disponível no website: https://www.oliveiratrust.com.br.\n\n                   “Meta de Amortização”            Significa com relação a cada série e Subclasse de Cotas, a meta\n                                                    de Amortização de Principal da"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "ente contratado para auditoria do Fundo e das Classes encontram-se disponíveis\n            para     acesso    pelos    Cotistas    na     página    do     Administrador     no     website\n            https://www.oliveiratrust.com.br. Qualquer alteração na empresa de auditoria contratada será\n            comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso, publicada nas\n            páginas na rede mun"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "Metodologia de Marcação a Mercado dos Swaps\n\n            Conforme     manual        de    precificação   do    Gestor,   disponível                                    no       website\n            https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n            Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n            Metodologia de Cálculo de Ajuste dos Swaps\n\n            Conforme     manual        de    precificação   do    G"
+        },
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "Metodologia de Cálculo de Ajuste dos Swaps\n\n            Conforme     manual        de    precificação   do    Gestor,   disponível                                    no       website\n            https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n            Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n            Tratamento dos Derivativos na hipótese de Liquidação Antecipada do Fundo\n\n\n                   Esta página é par"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "subordinada.\n\n                Metodologia de Marcação a Mercado dos Swaps\n\n                Conforme manual          de precificação do Gestor, disponível                 no    website\n                https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n                Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n                Metodologia de Cálculo de Ajuste dos Swaps\n\n                Conforme manual          de precificação do"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "1-Final.pdf).\n\n                Metodologia de Cálculo de Ajuste dos Swaps\n\n                Conforme manual          de precificação do Gestor, disponível                 no    website\n                https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n                Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n                Tratamento dos Derivativos na hipótese de Liquidação Antecipada do Fundo\n\n                Nos termos do"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "cota subordinada.\n\n            Metodologia de Marcação a Mercado dos Swaps\n\n            Conforme     manual        de    precificação   do    Gestor,   disponível        no     website\n            https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n            Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n            Metodologia de Cálculo de Ajuste dos Swaps\n\n            Conforme     manual        de    precificação   do    G"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:23Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "A6C-448A-8DF3-7847D0BC469F\n\n\n\n\n                                                 verificação da sua autorização e do seu conteúdo no ambiente\n                                                 nacional (http://www.nfe.fazenda.gov.br) ou no site da\n                                                 Secretaria de Fazenda – SEFAZ da circunscrição da Cedente.\n\n               “Classe” ou “Classe               Significa, quando utilizado"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 50,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "l Eletrônica e faculta a\n                                                    verificação da sua autorização e do seu conteúdo no ambiente\n                                                    nacional (http://www.nfe.fazenda.gov.br) ou no site da\n                                                    Secretaria de Fazenda – SEFAZ da circunscrição da Cedente.\n\n                   “Classe” ou “Classe              Significa, quando uti"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "a Nota Fiscal Eletrônica e faculta a\n                                              verificação da sua autorização e do seu conteúdo no ambiente\n                                              nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria\n                                              de Fazenda – SEFAZ da circunscrição da Cedente.\n\n\n\n                                                             -7-"
+        },
+        {
+          "document_id": 767377,
+          "reference_date": "29/10/2024",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+          "source_excerpt": "Nota Fiscal Eletrônica e faculta a\n                                               verificação da sua autorização e do seu conteúdo no ambiente\n                                               nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria\n                                               de Fazenda – SEFAZ da circunscrição da Cedente.\n\n\n\n                                                              -7-"
+        },
+        {
+          "document_id": 830200,
+          "reference_date": "28/01/2025",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
+          "source_excerpt": "ta Fiscal Eletrônica e faculta a\n                                                verificação da sua autorização e do seu conteúdo no ambiente\n                                                nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria\n                                                de Fazenda – SEFAZ da circunscrição da Cedente.\n\n\n\n                                                               -7-"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 101,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "ós seu inadimplemento. Deverá ser observado, em todos os casos, a\n            metodologia descrita no manual de precificação de ativos da Administradora, disponível em seu\n            website        (https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n            subsidiaria/).\n\n\n\n\n                                                             - 55 -"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "mobiliários, conforme estabelecido na regulamentação em vigor (tais como o critério de\n                marcação a mercado) e no manual de precificação do Administrador disponível em\n                “https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n                subsidiaria/”; e (ii) os direitos creditórios adquiridos serão contabilizados e registrados com\n                base em seu Preço de Aquisição, com apropriação de seus respectivos ren"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "Docusign Envelope ID: DAADC083-D3BB-4F76-8605-0BB4A456B432\n\n\n\n\n                deverá provisionar de acordo com a metodologia de provisão do Administrador disponível\n                do site: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n                subsidiaria/, a qual observará os termos descritos no Anexo V a este Anexo Descritivo.\n\n                9.2.1.         Os Direitos Creditórios Cedidos, em regra, serão avaliados de ac"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 111,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "ós seu inadimplemento. Deverá ser observado, em todos os casos, a\n            metodologia descrita no manual de precificação de ativos da Administradora, disponível em seu\n            website        (https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n            subsidiaria/).\n\n            9.3.           Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n            Financeiros que compõem a Carteira do Fundo será efetuada c"
+        },
+        {
+          "document_id": 767377,
+          "reference_date": "29/10/2024",
+          "page": 111,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+          "source_excerpt": "ós seu inadimplemento. Deverá ser observado, em todos os casos, a\n            metodologia descrita no manual de precificação de ativos da Administradora, disponível em seu\n            website        (https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n            subsidiaria/).\n\n            9.3.          Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n            Financeiros que compõem a Carteira do Fundo será efetuada co"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:52Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br/”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 941458,
+          "reference_date": "26/06/2025",
+          "page": 143,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo encontram-se\n            disponíveis para acesso pelos Cotistas na página do Administrador no website\n            “https://www.oliveiratrust.com.br/”. Qualquer alteração na empresa de auditoria contratada será\n            comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso, publicada nas\n            páginas na rede mun"
+        },
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 149,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria\n                do Fundo encontram-se disponíveis para acesso pelos Cotistas na página do Administrador\n                no website “https://www.oliveiratrust.com.br/”. Qualquer alteração na empresa de auditoria\n                contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for\n                o caso, publicada nas páginas na"
+        },
+        {
+          "document_id": 762901,
+          "reference_date": "22/10/2024",
+          "page": 152,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo encontram-se\n            disponíveis para acesso pelos Cotistas na página do Administrador no website\n            “https://www.oliveiratrust.com.br/”. Qualquer alteração na empresa de auditoria contratada será\n            comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso, publicada nas\n            páginas na rede mun"
+        },
+        {
+          "document_id": 767377,
+          "reference_date": "29/10/2024",
+          "page": 152,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo encontram-se\n            disponíveis para acesso pelos Cotistas na página do Administrador no website\n            “https://www.oliveiratrust.com.br/”. Qualquer alteração na empresa de auditoria contratada será\n            comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso, publicada nas\n            páginas na rede mun"
+        },
+        {
+          "document_id": 830200,
+          "reference_date": "28/01/2025",
+          "page": 143,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
+          "source_excerpt": "Informações sobre o Auditor Independente contratado para auditoria do Fundo encontram-se\n            disponíveis para acesso pelos Cotistas na página do Administrador no website\n            “https://www.oliveiratrust.com.br/”. Qualquer alteração na empresa de auditoria contratada será\n            comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso, publicada nas\n            páginas na rede mun"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:08Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 6: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1016583,
+          "reference_date": "16/10/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+          "source_excerpt": "á provisão para créditos de liquidação duvidosa para\n                Direitos Creditórios Adquiridos de acordo com seu manual de provisão para perda em ativos\n                de crédito disponível em https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                codigos-e-politicas-subsidiaria/, observadas as especificidades de cada Classe, conforme\n                disposto no respectivo Anexo Descritivo."
+        },
+        {
+          "document_id": 1239756,
+          "reference_date": "10/06/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239756",
+          "source_excerpt": "á provisão para créditos de liquidação duvidosa para\n                Direitos Creditórios Adquiridos de acordo com seu manual de provisão para perda em ativos\n                de crédito disponível em https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                codigos-e-politicas-subsidiaria/, observadas as especificidades de cada Classe, conforme\n                disposto no respectivo Anexo Descritivo."
+        },
+        {
+          "document_id": 1247697,
+          "reference_date": "09/07/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+          "source_excerpt": "á provisão para créditos de liquidação duvidosa para\n                Direitos Creditórios Adquiridos de acordo com seu manual de provisão para perda em ativos\n                de crédito disponível em https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                codigos-e-politicas-subsidiaria/, observadas as especificidades de cada Classe, conforme\n                disposto no respectivo Anexo Descritivo."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:12Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "51290497000160",
+  "name": "MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS",
+  "generated_at": "2026-10-13T05:30:10Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:53Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": "rviço de atendimento ao cotista, responsável pelo\n                esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado nos\n                meios abaixo:\n        Website: www.oliveiratrust.com.br\n        SAC: 21 3514-0000\n        Ouvidoria: 0800 591 9154\n\n\n\n\n                                               São Paulo, 21 de maio de 2025\n\n\n              OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E V"
+        },
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": "Política   de\n                                              de direito de voto, disponível em sua página na rede mundial de\n          Voto\n                                              computadores: www.oliveiratrust.com.br\n\n        Capítulo 2           – RESPONSABILIDADE DOS COTISTAS E REGIME DE INSOLVÊNCIA\n        2.1     A responsabilidade do Cotista está limitada ao valor por ele subscrito.\n        2.2     Caso o AD"
+        },
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": "da carteira da Classe terão seu valor de mercado apurado\n                conforme a metodologia descrita no manual de precificação de ativos do ADMINISTRADOR,\n                disponível em seu site (www.oliveiratrust.com.br).\n        9.3     Serão avaliados, nos termos da legislação e regulamentação vigente, todo Dia Útil: (a) os\n                Direitos Creditórios vincendos integrantes da carteira da Classe, de acordo c"
+        },
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": "integrantes da carteira da Classe, observados, em todos os casos,\n                a metodologia descrita no manual de precificação de ativos do ADMINISTRADOR,\n                disponível em seu site (www.oliveiratrust.com.br). Os Direitos Creditórios Inadimplidos\n                não terão seu valor corrigido pela respectiva taxa utilizada na aquisição após seu\n                inadimplemento.\n        9.4     As provisões e"
+        },
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": "o com a regulamentação vigente e a metodologia descrita no manual de provisão\n                para    perdas    do    ADMINISTRADOR,       também      disponível   em     seu    site\n                (www.oliveiratrust.com.br).\n        9.5     O Patrimônio Líquido equivale ao valor dos recursos em caixa acrescido do valor dos\n                Direitos Creditórios e dos Ativos Financeiros de Liquidez integrantes da carteira d"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 913141,
+          "reference_date": "21/05/2025",
+          "page": 65,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913141",
+          "source_excerpt": ", expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis,\n        calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet\n        (www.b3.com.br);\n        “Taxa Mínima de Endosso”: 19,44% (dezenove inteiros e quarenta e quatro centésimos por cento)\n        ao ano. A Taxa Mínima de Endosso poderá ser redefinida em Assembleia de Cotistas, nos ter"
+        },
+        {
+          "document_id": 956736,
+          "reference_date": "28/07/2025",
+          "page": 65,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956736",
+          "source_excerpt": ", expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis,\n        calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet\n        (www.b3.com.br);\n        “Taxa Mínima de Endosso”: 19,44% (dezenove inteiros e quarenta e quatro centésimos por cento)\n        ao ano. A Taxa Mínima de Endosso poderá ser redefinida em Assembleia de Cotistas, nos ter"
+        },
+        {
+          "document_id": 528268,
+          "reference_date": "28/09/2023",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=528268",
+          "source_excerpt": "ao ano, com base em um ano de 252 (duzentos e cinquenta\n            e dois) Dias Úteis, conforme calculada e divulgada pela B3, no informativo diário disponível em\n            sua página na internet (www.b3.com.br);\n\n            \"Termo de Endosso\": cada termo de endosso firmado entre um Endossante e o Fundo, com a\n            interveniência do Agente de Retenção e Cobrança, do Gestor e do Custodiante, conforme d"
+        },
+        {
+          "document_id": 526857,
+          "reference_date": "26/09/2023",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526857",
+          "source_excerpt": "ao ano, com base em um ano de 252 (duzentos e cinquenta\n            e dois) Dias Úteis, conforme calculada e divulgada pela B3, no informativo diário disponível em\n            sua página na internet (www.b3.com.br);\n\n            \"Termo de Endosso\": cada termo de endosso firmado entre um Endossante e o Fundo, com a\n            interveniência do Agente de Retenção e Cobrança, do Gestor e do Custodiante, conforme d"
+        },
+        {
+          "document_id": 526861,
+          "reference_date": "26/09/2023",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526861",
+          "source_excerpt": "ao ano, com base em um ano de 252 (duzentos e\n            cinquenta e dois) Dias Úteis, conforme calculada e divulgada pela B3, no informativo diário\n            disponível em sua página na internet (www.b3.com.br);\n\n            \"Termo de Endosso\": cada termo de endosso firmado entre um Endossante e o Fundo, com\n            a interveniência do Agente de Retenção e Cobrança, do Gestor e do Custodiante, conforme"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

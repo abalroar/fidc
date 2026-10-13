@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "62588266000154",
+  "name": "VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:49Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 995150,
+          "reference_date": "18/09/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995150",
+          "source_excerpt": "ízo\n      do disposto em demais normas aplicáveis e neste Regulamento.\n\n              6.1.1 As informações periódicas e eventuais do Fundo serão divulgadas no\n              website da Administradora: www.oliveiratrust.com.br.\n\n6.2   A Administradora é obrigada a divulgar, ampla e imediatamente, qualquer ato ou Fato\n      Relevante relativo ao Fundo, de modo a garantir, a todos os Cotistas, acesso às\n      informações que"
+        },
+        {
+          "document_id": 995150,
+          "reference_date": "18/09/2025",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995150",
+          "source_excerpt": "os e valores mobiliários que confiram aos seus titulares o direito de\n       voto.\n\n3.11   A política de exercício de direito de voto adotada pela Gestora pode ser obtida no\n       website da Gestora www.oliveiratrust.com.br.\n\n3.12   A Gestora adota política de exercício de direito de voto em assembleias, que disciplina\n       os princípios gerais, o processo decisório e quais são as matérias relevantes obrigatórias"
+        },
+        {
+          "document_id": 995150,
+          "reference_date": "18/09/2025",
+          "page": 59,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995150",
+          "source_excerpt": "o aplicável.\n\n        14.5   O manual de precificação e provisionamento da Administradora poderá ser consultado\n               em sua página na rede mundial de computadores no endereço\n               www.oliveiratrust.com.br.\n\n                               CAPÍTULO 15– ASSEMBLEIA DE COTISTAS\n\n        15.1   Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente,\n               são aplicáveis"
+        },
+        {
+          "document_id": 1002580,
+          "reference_date": "29/09/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+          "source_excerpt": "rmas aplicáveis e neste Regulamento.\n\n                               6.1.1 As informações periódicas e eventuais do Fundo serão divulgadas no\n                               website da Administradora: www.oliveiratrust.com.br.\n\n              6.2     A Administradora é obrigada a divulgar, ampla e imediatamente, qualquer ato ou Fato\n                      Relevante relativo ao Fundo, de modo a garantir, a todos os Cotistas,"
+        },
+        {
+          "document_id": 1002580,
+          "reference_date": "29/09/2025",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+          "source_excerpt": "s titulares o direito de\n                      voto.\n\n              3.11    A política de exercício de direito de voto adotada pela Gestora pode ser obtida no\n                      website da Gestora www.oliveiratrust.com.br.\n\n              3.12    A Gestora adota política de exercício de direito de voto em assembleias, que disciplina\n                      os princípios gerais, o processo decisório e quais são as matérias"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

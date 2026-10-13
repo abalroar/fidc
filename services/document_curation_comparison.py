@@ -19,6 +19,7 @@ class DocumentComparisonPage:
     frame: pd.DataFrame
     notes: tuple[str, ...] = ()
     sources: tuple[str, ...] = ()
+    preserve_typed_statuses: bool = False
 
 
 def _text(value: object) -> str:

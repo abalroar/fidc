@@ -1,0 +1,785 @@
+{
+  "cnpj": "59357545000100",
+  "verified_at": "2026-10-13T04:35:09+00:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "FIC de classe única: investimento preponderante em cotas de outros FIDCs; cotas investidas são direitos creditórios por equiparação. Gestora também pode adquirir direitos creditórios diretamente conforme o Anexo.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "43",
+          "clause": "Anexo art21 e parágrafo único",
+          "excerpt": "Parágrafo Único Uma vez que o investimento nas Cotas do Ativos-Alvo não corresponde a um investimento direto em Direitos Creditórios, sendo direitos creditórios por equiparação, uma série de disposições comuns à securitização de Direitos Creditórios não será aplicável ao investimento nas Cotas do Ativos- Alvo. A título meramente exemplificativo, não existem processos de originação ou política de concessão de crédito, tampouco há que se falar em verificação ou",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "44",
+          "clause": "Anexo art30",
+          "excerpt": "Artigo 30. A Gestora poderá realizar o investimento nesta Classe em Direitos Creditórios, nos termos deste Anexo e da regulamentação aplicável. Parágrafo 1º São considerados como Direitos Creditórios Não-Padronizados os Direitos Creditórios que possuam ao menos uma das seguintes características: (a) Estejam vencidos e pendentes de pagamento quando da cessão; (b) Decorrentes de receitas públicas originárias ou derivadas da União, dos Esta",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Mandato permite exposição direta e indireta; a composição efetiva exige a posição mensal."
+    },
+    {
+      "criterion_id": "investee",
+      "label": "Classes investidas e limites do FIC",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Posição auditada em 31/12/2025: 2.681 cotas do Soulpay FIDC, CNPJ 48.967.719/0001-22, valor de R$ 3.072 mil.",
+      "sources": [
+        {
+          "document_id": "1147896",
+          "title": "Demonstrações Financeiras",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1147896",
+          "reference_date": "2025-12-31",
+          "version": "1",
+          "page": "16–17",
+          "clause": "Nota 4, Composição da carteira e item(c)",
+          "excerpt": "4. Títulos e valores mobiliários Composição da carteira 31/12/2025 Valor de Faixa de Descrição Quantidade mercado vencimento Títulos públicos federais 10 46 Notas do Tesouro Nacional 10 46 Acima de 1 ano Cotas de fundos 1.100 90 Renda fixa Itaú Soberano RF Simples FC (a) 1.100 90 Sem vencimento FIRF ID Soberano (b) 0,05 - Sem vencimento Direitos creditórios 2.681 3.072 FIDC Soulpay (c) 2.681 3.072 Sem vencimento  c) O Soulpay Fundo de Investimento em Direitos Creditórios, CNPJ: 48.967.719/0001-22, administrado pela Singulare Corretora de Títulos e Valores Mobiliários S.A., CNPJ da administradora: 62.285.390/0001-40 foi constituído sob a forma de condomínio de natureza especial fechado com prazo de duração indeterminado, iniciou suas atividades em 11 de janeiro de 2023 e destina-se a investidores qualificados. Seu objetivo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação preponderante de seu patrimônio líquido na aquisição de direitos creditórios detidos pela cedente em face da devedora, formalizados pelos documentos comprobatórios, que atendam aos critérios de elegibilidade e às condições de cessão estabelecidos no regulamento do Fundo. As demonstrações financeiras relativas ao exercício findo em 30 de junho de 2025 foram devidamente auditadas, com emissão do relatório do auditor independente em 29 de setembro de 2025, sem modificação de opinião. ",
+          "sha256": "d9b9849b26c429aecc2001afd4a99663b7ec4605eb4eab3b9e64e97dc79da95a",
+          "type": "audited_position",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "risk_note": "A DF identifica posição histórica efetiva; subclasse e peso sobre PL não foram identificados. Não comprova investimento na competência mensal atual. Regulamento não nomeia classe exclusiva.",
+      "reason": "Regulamento constitutivo obtido e lido: define classes de FIDCs como ativos-alvo, sem individualizar CNPJs investidos; AGC 1333880 trata de DFs e não identifica a carteira.",
+      "document_type": "audited_position",
+      "position_date": "2025-12-31",
+      "current_position_confirmed": false
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Piso literal de 67% do PL em classes de cotas de outros FIDCs. Art. 23 registra prazo como “180 (noventa) dias” do início das atividades; restante em ativos financeiros de liquidez.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "43",
+          "clause": "Anexo art23 e parágrafo único",
+          "excerpt": "Artigo 23. A Classe deverá manter, após 180 (noventa) dias do início de suas atividades, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em classes de cotas de outros fundos de investimento em direitos creditórios, nos termos da legislação vigente. Parágrafo Único A parcela do patrimônio não investida em Direitos Creditórios ou cotas deve ser aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inc",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Há divergência interna entre numeral 180 e extenso 90. Não presumir prazo inicial por uma dessas leituras sem esclarecimento."
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Um devedor pode chegar a 100% do PL. Uma classe investida também pode atingir 100% do PL; classes com administrador/gestor/consultoria do Vitae ou partes relacionadas admitem 100%.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "43",
+          "clause": "Anexo art26",
+          "excerpt": "Artigo 26. A aplicação de recursos em Direitos Creditórios e outros Ativos de responsabilidade ou coobrigação de um mesmo devedor não está limitada a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "44",
+          "clause": "Anexo art26–29",
+          "excerpt": "Artigo 29. O investimento da Classe em cotas de uma mesma classe pode exceder 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe, podendo atingir concentração de até 100% (cem por cento), nos termos do artigo 47 do Anexo Normativo II. Parágrafo Único Poderá ser investido até 100% (cem por cento em classes de cotas que contem com serviços da Administrador, Gestora, Consultoria Especializada ou suas partes relacionadas. Ar",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Art. 62 declara inexistência de piso atual. Se a estrutura passar a adotá-lo, prevê sênior/PL ≥50% e mezanino/PL ≥25%, com monitoramento diário.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "55",
+          "clause": "Anexo art62(a)–(b)",
+          "excerpt": "Artigo 62. Não há subordinação mínima na estrutura ainda. No entanto, caso venha a ter, a subordinação da Classe será apurada mediante a observância dos parâmetros de subordinação abaixo descritos, os quais deverão ser monitorados diariamente. (a) Índice de Subordinação Sênior: representado pela relação mínima a ser observada entre o valor das Cotas Seniores e o Patrimônio Líquido da Classe, a qual deverá representar o percentual mínimo",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Esses percentuais referem-se às próprias cotas sênior e MZ; não são pisos de júnior nem proteção subordinada. Ativação futura da regra não foi comprovada por suplemento."
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Se houver índices ativos, reenquadramento em 15 DU; após esse prazo, AGC decide aporte em até 30 dias da AGC, amortização compulsória, waiver por até 30 dias, exclusão da regra ou liquidação, nessa ordem.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "55",
+          "clause": "Anexo art63(a)–(e)",
+          "excerpt": "Artigo 63. No caso de desenquadramento dos Índices de Subordinação da Classe, a Administradora comunicará a Gestora e os Cotistas para que seja realizado o necessário reenquadramento. Caso o reenquadramento não ocorra no prazo de 15 (quinze) Dias Úteis, a Administradora convocará Assembleia de Cotistas para que seja deliberada as seguintes opções, na seguinte ordem de preferência: (a) Comprometimento pelos Cotistas com o aporte de novas Cotas para que os",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Cura condicionada à existência dos índices; não aplicar à declaração de ausência atual de subordinação."
+    },
+    {
+      "criterion_id": "liquidity_reserve",
+      "label": "Reserva de liquidez",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Administrador e gestor devem constituir, sempre que possível, reserva para amortização, resgate e caixa, respeitando a ordem de alocação do Anexo.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "25",
+          "clause": "Parte Geral art63",
+          "excerpt": "Artigo 63. Observada a ordem de alocação de recursos prevista no Anexo, a Administradora e a Gestora deverão constituir, sempre que possível, Reserva de Pagamento de Amortização, Resgate e de Caixa, nos termos previstos no Anexo. CAPÍTULOXV. ASSEMBLEIA DE COTISTAS Artigo 64. Compete privativamente à Assembleia de Cotistas deliberar sobre: (a) Tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Cláusula estabelece constituição condicional sem piso numérico; não inferir percentual mínimo."
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Valorização diária das cotas pelo manual de marcação a mercado. Classificação contábil dos direitos creditórios e PDD seguem ICVM 489 e Manual de PDD da administradora.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "24",
+          "clause": "Parte Geral art58 e parágrafo único",
+          "excerpt": "Artigo 58. As Cotas serão valorizadas todo dia útil conforme disposto neste Regulamento, no Anexo e nos respectivos Suplementos, conformidade Manual de Marcação a Mercado da Administradora. Parágrafo Único A classificação das operações com Direitos Creditórios, para efeitos contábeis, bem como cálculo de provisão para perdas, seguirá o disposto na Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e o Manual de PDD da Administr",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "O regulamento remete ao Manual de PDD; curva numérica por atraso não é transcrita nessa cláusula."
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Diariamente: encargos → provisionamento de recursos → amortização/resgate → devolução de valores aportados aos titulares sênior e MZ, por resgate ou amortização.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "56",
+          "clause": "Anexo art69(a)–(c)",
+          "excerpt": "Artigo 69. Diariamente, a partir da 1ª Data de Emissão de Cotas e até a liquidação integral das obrigações da Classe, sempre preservada a manutenção de sua boa ordem legal, administrativa e operacional, serão utilizados os recursos da Classe disponíveis para atender às exigibilidades da Classe, obrigatoriamente, na seguinte ordem de preferência: (a) Pagamento dos encargos da Classe, devidos nos termos deste Regulamento e da legislaç",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "57",
+          "clause": "Anexo art69(d)",
+          "excerpt": "Devolução aos titulares das Seniores e das Subordinadas Mezaninos dos valores aportados na Classe, por meio do resgate ou amortização, conforme aplicável. CAPÍTULOXIII. ASSEMBLEIAS ESPECIAIS DE COTISTAS Artigo 70. As Assembleia Especiais, considerando o atual status regulatório das regras de vigência e transição da Resolução CVM nº 175 acontecerão, tão somente, por intermédio de Assembleia de Cotistas, nos termos deste Regulamento. CAPÍTULOXIV. LIQUIDAÇÃ",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "payments",
+      "label": "Juros, amortização e vencimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Aplicação em D+0; pedido de resgate sem carência de solicitação. Conversão D+360 ou DU seguinte; pagamento no primeiro dia útil após conversão. Art. 66 admite resgate compulsório sênior/MZ para reenquadrar índices.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "55",
+          "clause": "Anexo art64–65",
+          "excerpt": "Artigo 64. As aplicações e os resgates de Cotas serão efetuados à vista, pelo respectivo Valor Unitário, por débito e crédito em conta corrente, documento de ordem de crédito, B3 ou outro mecanismo de transferência de recursos autorizado pelo BACEN. Artigo 65. O termos e condições para aplicação e resgate observarão o disposto abaixo e",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "56",
+          "clause": "Anexo art65 tabela e art66",
+          "excerpt": "Conversão: A conversão das Cotas, assim entendida como a definição do Valor Unitário para efeito do pagamento de seu resgate, será realizada no 360º contado do dia da Data de Solicitação de Resgate ou no Dia Útil subsequente, caso tal Resgate data não seja considerada Dia Útil (D+360). Pagamento: O resgate das Cotas será pago no 1º (primeiro) Dia",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PL negativo é evento de avaliação; AGC decide liquidação antecipada ou concessão de cura e manutenção. Dissidentes sênior podem pedir resgate; dissidência MZ/Jr depende de não comprometer os índices.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "57",
+          "clause": "Anexo art72(a), §1º–2º",
+          "excerpt": "Artigo 72. São considerados como hipóteses de Evento de Avaliação, no qual a Administradora convocará os Cotistas da Classe para deliberar acerca da: (a) da existência de Evento de Liquidação Antecipada; ou (b) concessão de prazo de cura e manutenção do funcionamento da Classe: (a) Constatação de Patrimônio Líquido Negativo. Parágrafo 1º Caso os Cotistas deliberem pela manutenção do funcionamento do Fundo, surgirá o direito dos Cotistas S",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Inclui PL<R$ 1 milhão sem incorporação durante prazo remetido à regulamentação, decisão AGC, conversão de avaliação em liquidação e prestador essencial sem substituto habilitado. Suspende amortizações/resgates e aquisições; AGC define plano e cronograma.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "57",
+          "clause": "Anexo art73(a)–(d)",
+          "excerpt": "Artigo 73. São considerados como hipóteses de Evento de Liquidação Antecipada da Classe: (a) Caso a Classe mantenha Patrimônio Líquido inferior a R$ 1.000.000,00 (um milhão de reais) e não for incorporada em outro fundo de investimento em direitos creditórios ou classe, nos termos e pelo período previsto na regulamentação aplicável; (b) Deliberação pela Assembleia de Cotistas; (c)",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "58",
+          "clause": "Anexo art73 §1º–3º",
+          "excerpt": "Parágrafo 1º Na hipótese de ocorrência de qualquer Evento de Liquidação Antecipada e/ou de deliberação por qualquer motivo pela liquidação da Classe, a Administradora, imediatamente: (a) suspenderá o pagamento de amortização ou resgate das Cotas, se houver; (b) interromperá a aquisição de Direitos Creditórios e de Ativos Financeiros; e (c) convocará a Assembleia de Cotistas para deliberar os procedimentos de liquidação da Classe. Parágrafo 2º A Assemble",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 05% a.a. sobre PL da classe, mínimo R$ 5 mil/mês; provisão diária 1/252; pagamento até 5º DU do mês seguinte; reajuste anual pelo IPCA positivo.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "41",
+          "clause": "Anexo art13 e §1º",
+          "excerpt": "Artigo 13. A Taxa de Administração da Classe, a ser paga à Admintradora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05% (zero vírgula zero cinco por cento) ao ano a ser calculado sobre o valor total do Patrimônio Líquido da Classe, observado, ainda, o valor mínimo mensal de R$ 5.000,00 (cinco mil reais). Parágrafo 1º A Taxa de Administração deverá ser paga à Administradora, mensalmente, até o 5º Dia Útil do mes sub",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "42",
+          "clause": "Anexo art13 §2º",
+          "excerpt": "Parágrafo 2º A Taxa de Administração será reajustada anualmente, pela variação positiva do IPCA do período. Artigo 14. A Taxa de Gestão da Classe, a ser paga à Gestora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05% (zero vírgula zero cinco por cento) ao ano a ser calculado sobre o valor total do Patrimônio Líquido da Classe, observado, ainda, o valor mínimo mensal de R$ 5.000,00 (cinco mil reais). Parág",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 05% a.a. sobre PL da classe, mínimo R$ 5 mil/mês; provisão diária 1/252; pagamento até 5º DU do mês seguinte; reajuste anual pelo IPCA positivo.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "42",
+          "clause": "Anexo art14 e §1º–2º",
+          "excerpt": "Artigo 14. A Taxa de Gestão da Classe, a ser paga à Gestora pelos serviços prestados à Classe, corresponde ao percentual anual de 0,05% (zero vírgula zero cinco por cento) ao ano a ser calculado sobre o valor total do Patrimônio Líquido da Classe, observado, ainda, o valor mínimo mensal de R$ 5.000,00 (cinco mil reais). Parágrafo 1º A Taxa de Gestão deverá ser paga à Administradora, mensalmente, até o 5º Dia Útil do mes subsequente ao mês da",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sem taxa de performance, saída ou ingresso.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "42",
+          "clause": "Anexo art16",
+          "excerpt": "Artigo 16. A Classe não goza de cobrança de Taxa de Performance, Taxa de Saída ou Taxa de Ingresso. Artigo 17. A Taxa de Custódia da Classe e a Taxa de Distribuição estão englobadas na Taxa de Administração, sendo a Taxa Máxima de Distribuição equivalente a 0,001%. Artigo 18. A remuneração do Agente de Cobrança será, caso contratado, encargos da Classe. Artigo 19. Os demais prestadores de serviços seguem as regras dispostas neste",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "custody_fee",
+      "label": "Custódia, escrituração e encargos",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Custódia e distribuição incluídas na taxa administrativa; taxa máxima de distribuição 0, 001%.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "42",
+          "clause": "Anexo art17",
+          "excerpt": "Artigo 17. A Taxa de Custódia da Classe e a Taxa de Distribuição estão englobadas na Taxa de Administração, sendo a Taxa Máxima de Distribuição equivalente a 0,001%. Artigo 18. A remuneração do Agente de Cobrança será, caso contratado, encargos da Classe. Artigo 19. Os demais prestadores de serviços seguem as regras dispostas neste Regulamento e na regulamentação aplicável sobre a caracterização como encargo da Classe. A",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Regra geral: maioria dos votos presentes, qualquer número instala AGC. Substituição de prestador essencial:≥2/3 do PL; gestor exige adicionalmente 100% das cotas subordinadas. Incorporação/cisão/liquidação e aumento de taxas: maioria de cotas emitidas em primeira convocação; presentes em segunda.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "25",
+          "clause": "Parte Geral art64(b)",
+          "excerpt": "Artigo 64. Compete privativamente à Assembleia de Cotistas deliberar sobre: (a) Tomar anualmente, no prazo máximo de 4 (quatro) meses após o encerramento do exercício social, as contas relativas ao Fundo e deliberar sobre as demonstrações financeiras do Fundo e da Classe; (b) A substituição de Prestador de Serviços Essenciais;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "26",
+          "clause": "Parte Geral art64(j)–(k)",
+          "excerpt": "(j) Deliberar sobre a elevação da Taxa de Administração cobrada pela Administradora, inclusive na hipótese de restabelecimento de taxa que tenha sido objeto de redução; (k) A fusão, a incorporação, a cisão, total ou parcial, a transformação ou a liquidação do Fundo ou da Classe de Cotas; (l) A alteração do Regulamento, ressalvado o disposto na regulamentação aplicável; (m) O Plano de",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "28",
+          "clause": "Parte Geral art69 e §1º",
+          "excerpt": "Artigo 69. A Assembleia de Cotistas se instala com a presença de qualquer número de Cotistas e possui como quórum de votação, em regra, o da maioria de votos dos presentes, cabendo a cada Cota um voto. Parágrafo 1º Não obstante o acima, no caso: (a) das deliberações previstas no item “b” do artigo 64 acima, resta estabelecido o quórum de votação qualificado equivalente a, pelo menos 2/3 do Patrimônio Líquido da Classe, sendo que caso a delibe",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "ID Corretora de Títulos e Valores Mobiliários S.A. (16.695.922/0001-09): administradora/custodiante/escrituradora. VIA INVEST Gestora de Recursos Ltda. (44.141.694/0001-52): gestora.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "2",
+          "clause": "Definições Administradora",
+          "excerpt": "Administradora”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek nº 1726, conjunto 194, 19º andar, inscrita no CNPJ/MF sob nº 16.695.922/0001- 09, devidamente autorizada pela CVM a prestar os serviços de administração de carteira de valores mobiliários, por meio do",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "3",
+          "clause": "Definições Custodiante/Escriturador",
+          "excerpt": "Custodiante”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada; “CVM”: A Comissão de Valores Mobiliários; “Dia Útil”: Qualquer dia que não seja sábado, domingo ou dias declarados como feriado nacional no Brasil ou na sede da Administradora. Caso as datas em que venham a ocorrer eventos nos termos do Regulamento não sejam Dias Úteis,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "4",
+          "clause": "Definição Gestora",
+          "excerpt": "Gestora”: VIA INVEST GESTORA DE RECURSOS LTDA., sociedade empresária limitada, inscrita no CNPJ sob o nº 44.141.694/0001-52, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n° 1106, 17° e 18º andares, Bela Vista, CEP 01.310-914, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro e amostragem",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Para investimento em cotas de ativos-alvo, Anexo art. 21 declara inexistência de originação/concessão de crédito, verificação/guarda de comprovantes e cobrança específica das cotas investidas; cotista atesta ciência no termo de adesão.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "43",
+          "clause": "Anexo art21 parágrafo único",
+          "excerpt": "Parágrafo Único Uma vez que o investimento nas Cotas do Ativos-Alvo não corresponde a um investimento direto em Direitos Creditórios, sendo direitos creditórios por equiparação, uma série de disposições comuns à securitização de Direitos Creditórios não será aplicável ao investimento nas Cotas do Ativos- Alvo. A título meramente exemplificativo, não existem processos de originação ou política de concessão de crédito, tampouco há que se falar em verificação ou",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": "Dispensa declarada para a exposição em cotas; não afasta diligência no lastro dos FIDCs investidos nem se estende automaticamente a créditos diretos permitidos pelo art. 30."
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade e limites de derivativos",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Derivativos vedados, inclusive para proteger posições à vista. Ativos/créditos no exterior também vedados.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "43",
+          "clause": "Anexo art24–25",
+          "excerpt": "Artigo 24. A Classe não poderá realizar operações com derivativos, nem mesmo com o objetivo exclusivo de proteger posições detidas a vista. Artigo 25. A Classe não poderá realizar aplicação de recursos na aquisição de Direitos Creditórios e Ativos de liquidez no exterior. Artigo 26. A aplicação de recursos em Direitos Creditórios e outros Ativos de responsabilidade ou coobrigação de um mesmo devedor não está limitada a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à Resolução CVM175",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Anexo art. 49 organiza classe única e subclasses Sênior, MZ e Jr sob a Resolução CVM 175; art. 77 limita responsabilidade do cotista ao valor subscrito. Art. 78 prevê bloqueios imediatos para PL negativo e plano em 20 dias.",
+      "sources": [
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "51",
+          "clause": "Anexo art49",
+          "excerpt": "Artigo 49. As Cotas correspondem a frações ideais de seu Patrimônio Líquido. O Fundo será de Classe Única, considerando os termos da Resolução CVM nº 175 e as disposições da CVM acerca das regras de transição, adaptação e vigência da referida normativa e determinados dispositivos específicos. Parágrafo 1º O Fundo poderá ter subclasses: (i) seniores (“Subclasse Seniores”); (ii) Subordinada Mezanino (“Subclasse Mezanino”); e (iii) Subordinada J",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "59",
+          "clause": "Anexo art77",
+          "excerpt": "Artigo 77. Esta Classe adota para seus Cotistas o regime de responsabilidade limitada ao valor das cotas subscritas, nos termos do artigo 18 da Resolução CVM n 175. Artigo 78. Considerando que a Classe determina responsabilidade limitada para os",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        },
+        {
+          "document_id": 1002276,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+          "reference_date": "28/01/2025",
+          "version": "Regulamento constitutivo 28/01/2025",
+          "page": "60",
+          "clause": "Anexo art78(a)–(b)",
+          "excerpt": "Docusign Envelope ID: 5C572A80-D75A-4B93-A6B6-5043132A9703 Cotistas, conforme acima disposto, nos casos em que a Administradora verifique que o Patrimônio Líquido da Classe de Cotas está negativo, deverá: (a) Imediatamente, em relação à Classe de Cotas: (i) Fechar a Classe para resgates e não permitir que sejam realizadas amortização de Cotas; (ii) Não permitir que sejam realizadas novas subscrições de Cotas;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+          "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+          "identity_verified": true,
+          "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+        }
+      ],
+      "risk_note": ""
+    }
+  ],
+  "lookthrough": [
+    {
+      "cnpj": "48967719000122",
+      "label": "Soulpay Fundo de Investimento em Direitos Creditórios",
+      "relationship": "verified_position",
+      "status": "verified_position",
+      "position_date": "2025-12-31",
+      "competence": "2025-12",
+      "current_position_confirmed": false,
+      "subclass": null,
+      "quantity": 2681,
+      "observed_value": 3072000,
+      "unit": "BRL",
+      "weight_pct": null,
+      "sources": [
+        {
+          "document_id": "1147896",
+          "title": "Demonstrações Financeiras",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1147896",
+          "reference_date": "2025-12-31",
+          "version": "1",
+          "page": "16–17",
+          "clause": "Nota 4, Composição da carteira e item(c)",
+          "excerpt": "4. Títulos e valores mobiliários Composição da carteira 31/12/2025 Valor de Faixa de Descrição Quantidade mercado vencimento Títulos públicos federais 10 46 Notas do Tesouro Nacional 10 46 Acima de 1 ano Cotas de fundos 1.100 90 Renda fixa Itaú Soberano RF Simples FC (a) 1.100 90 Sem vencimento FIRF ID Soberano (b) 0,05 - Sem vencimento Direitos creditórios 2.681 3.072 FIDC Soulpay (c) 2.681 3.072 Sem vencimento  c) O Soulpay Fundo de Investimento em Direitos Creditórios, CNPJ: 48.967.719/0001-22, administrado pela Singulare Corretora de Títulos e Valores Mobiliários S.A., CNPJ da administradora: 62.285.390/0001-40 foi constituído sob a forma de condomínio de natureza especial fechado com prazo de duração indeterminado, iniciou suas atividades em 11 de janeiro de 2023 e destina-se a investidores qualificados. Seu objetivo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação preponderante de seu patrimônio líquido na aquisição de direitos creditórios detidos pela cedente em face da devedora, formalizados pelos documentos comprobatórios, que atendam aos critérios de elegibilidade e às condições de cessão estabelecidos no regulamento do Fundo. As demonstrações financeiras relativas ao exercício findo em 30 de junho de 2025 foram devidamente auditadas, com emissão do relatório do auditor independente em 29 de setembro de 2025, sem modificação de opinião. ",
+          "sha256": "d9b9849b26c429aecc2001afd4a99663b7ec4605eb4eab3b9e64e97dc79da95a",
+          "type": "audited_position",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "reason": "Posição auditada histórica em 31/12/2025; não confirma composição na competência comum atual nem identifica subclasse/peso sobre PL."
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "cnpj": "44141694000152",
+      "reason": "VIA INVEST é gestora, não classe investida identificada.",
+      "source": {
+        "document_id": 1002276,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+        "reference_date": "28/01/2025",
+        "version": "Regulamento constitutivo 28/01/2025",
+        "page": "4",
+        "clause": "Definição Gestora",
+        "excerpt": "Gestora”: VIA INVEST GESTORA DE RECURSOS LTDA., sociedade empresária limitada, inscrita no CNPJ sob o nº 44.141.694/0001-52, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n° 1106, 17° e 18º andares, Bela Vista, CEP 01.310-914, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio",
+        "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+        "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+        "identity_verified": true,
+        "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+      }
+    },
+    {
+      "cnpj": "16695922000109",
+      "reason": "ID Corretora é administradora/custodiante/escrituradora, não classe investida.",
+      "source": {
+        "document_id": 1002276,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002276",
+        "reference_date": "28/01/2025",
+        "version": "Regulamento constitutivo 28/01/2025",
+        "page": "2",
+        "clause": "Definição Administradora",
+        "excerpt": "Administradora”: ID CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek nº 1726, conjunto 194, 19º andar, inscrita no CNPJ/MF sob nº 16.695.922/0001- 09, devidamente autorizada pela CVM a prestar os serviços de administração de carteira de valores mobiliários, por meio do",
+        "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1002276_regulamento.pdf",
+        "sha256": "d182d02b5b02d48b382292fa5710b07ba6086a1241ce98c4d914a1519cedb80a",
+        "identity_verified": true,
+        "identity_verification_method": "denominação Vitae exata + consulta Fundos.NET por CNPJ + AGC1333880 com CNPJ; regulamento contém CNPJ em constituição"
+      }
+    }
+  ],
+  "identity_evidence": {
+    "document_id": 1333880,
+    "title": "AGO",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333880",
+    "reference_date": "17/09/2026 09:15",
+    "version": "AGC17/09/2026",
+    "page": "1",
+    "clause": "itens1e5",
+    "excerpt": "VITAE FI EM COTAS... inscrito no CNPJ/ME sob o59.357.545/0001-00; AGC de17/09/2026 aprova DFs.",
+    "local_path": "/Users/matheusjprates/fidc/data/raw/59357545000100/1333880_assembleia.pdf",
+    "sha256": "1fbdd87cfc4712c2c75af2c54a5438c83b041100161097ba6a6a3740c92e698e",
+    "identity_verified": true
+  }
+}

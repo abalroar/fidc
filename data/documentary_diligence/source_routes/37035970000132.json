@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "cnpj": "37035970000132",
+  "name": "CD CASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:56Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:21Z",
+  "routes": [
+    {
+      "url": "http://www.austin.com.br/Escalas-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 357026,
+          "reference_date": "20/09/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=357026",
+          "source_excerpt": "s operações\nset/22: Atribuição: ‘brB+(sf)’\n                                     para entrega ou prestação futura, a performar, limitada por Regulamento em 30,0% do PL.\nEscala de rating disponível em:\nhttp://www.austin.com.br/Escalas-    Do ponto de vista da estrutura de capital, o Fundo está autorizado a emitir Cotas Seniores e\nde-Rating.html\n                                     Cotas Subordinadas das subclasses Mezanino e Júnior"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 357026,
+          "reference_date": "20/09/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=357026",
+          "source_excerpt": "integralização de Cotas. Sendo que no 35º mês ocorrerá\nTel.: 55 11 3377 0707                o resgate integral das Cotas (1/1), com o pagamento no mesmo dia do mês que ocorreu a\nFax: 55 11 3377 0739\nwww.austin.com.br                    primeira integralização de Cotas da Classe, pelo valor da Cota do dia, encerrando-se a\n                                     referida classe de cotas. A amortização ocorrerá a parti"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 357026,
+          "reference_date": "20/09/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=357026",
+          "source_excerpt": "2022. Esta reunião de Comitê está registrada na Ata nº 20220920-1.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 420272,
+          "reference_date": "09/02/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420272",
+          "source_excerpt": "2023. Esta reunião de Comitê está registrada na Ata nº 20230209-11.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 469716,
+          "reference_date": "12/05/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=469716",
+          "source_excerpt": "2023. Esta reunião de Comitê está registrada na Ata nº 20230512-4.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 512480,
+          "reference_date": "10/08/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=512480",
+          "source_excerpt": "2023. Esta reunião de Comitê está registrada na Ata nº 20230810-4.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 558187,
+          "reference_date": "22/11/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=558187",
+          "source_excerpt": "2023. Esta reunião de Comitê está registrada na Ata nº 20231122-1.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 357026,
+          "reference_date": "20/09/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=357026",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 420272,
+          "reference_date": "09/02/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420272",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 469716,
+          "reference_date": "12/05/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=469716",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 512480,
+          "reference_date": "10/08/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=512480",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 558187,
+          "reference_date": "22/11/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=558187",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 357026,
+          "reference_date": "20/09/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=357026",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os\n    quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também\n    não presta qualquer serviço de rating direto para a Singulare Corretora de Títulos e Valores Mobiliários S.A., Administradora e\n    Custodiante, e tampouco para partes a esta"
+        },
+        {
+          "document_id": 420272,
+          "reference_date": "09/02/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420272",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os\n    quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também não\n    presta qualquer serviço de rating direto para a Singulare Corretora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante,\n    e tampouco para partes a esta"
+        },
+        {
+          "document_id": 469716,
+          "reference_date": "12/05/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=469716",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os\n    quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também não\n    presta qualquer serviço de rating direto para a Singulare Corretora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante,\n    e tampouco para partes a esta"
+        },
+        {
+          "document_id": 512480,
+          "reference_date": "10/08/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=512480",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os\n    quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também não\n    presta qualquer serviço de rating direto para a Singulare Corretora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante,\n    e tampouco para partes a esta"
+        },
+        {
+          "document_id": 558187,
+          "reference_date": "22/11/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=558187",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os\n    quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também não\n    presta qualquer serviço de rating direto para a Singulare Corretora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante,\n    e tampouco para partes a esta"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 722520,
+          "reference_date": "04/07/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=722520",
+          "source_excerpt": "2024. Esta reunião de Comitê está registrada na Ata nº 20240704-1.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 756391,
+          "reference_date": "30/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756391",
+          "source_excerpt": "2024. Esta reunião de Comitê está registrada na Ata nº 20240830-2.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 815814,
+          "reference_date": "30/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815814",
+          "source_excerpt": "2024. Esta reunião de Comitê está registrada na Ata nº 20241230-8.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 866084,
+          "reference_date": "21/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=866084",
+          "source_excerpt": "2025. Esta reunião de Comitê está registrada na Ata nº 20250321-01.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 984559,
+          "reference_date": "22/05/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984559",
+          "source_excerpt": "2025. Esta reunião de Comitê está registrada na Ata nº 20250522-03.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 722520,
+          "reference_date": "04/07/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=722520",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 756391,
+          "reference_date": "30/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756391",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 815814,
+          "reference_date": "30/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815814",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 866084,
+          "reference_date": "21/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=866084",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 984559,
+          "reference_date": "22/05/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984559",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 804799,
+          "reference_date": "17/12/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=804799",
+          "source_excerpt": "gulare Corretora de Títulos e Valores Mobiliários S.A.\n\n\n\n\nAv. Brig. Faria Lima, 1355 ▪ 5° e 15° andares ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br | www.singulare.com.br"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

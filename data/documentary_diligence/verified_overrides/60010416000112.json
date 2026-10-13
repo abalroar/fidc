@@ -1,0 +1,730 @@
+{
+  "cnpj": "60010416000112",
+  "verified_at": "2026-10-13T04:39:56+00:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "CCB eletrônica de consignado privado concedido pelo endossante via Plataforma MT e averbada na Dataprev; também TVM elegíveis.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "9",
+          "clause": "AnexoI4.2",
+          "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja f eito por Consignação",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "originator",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Parati CFI (03.311.443/0001-91): endossante. Tudo Serviços S.A. (27.852.506/0001-85): retenção/cobrança; originação processada pela Plataforma MT.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "44",
+          "clause": "Glossário, Endossante",
+          "excerpt": "“Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Entidade Registradora\": instituição autorizada pelo BACEN para realizar as atividades de registro e constituição, alteração e desconstituição de ônus e gravames sobre ativos f inanceiros registrados; “Escrituração”: significa a escrituração da Consignação a ser realizada pelo Empregador, junto ao eSocial, após recebimento de notif icação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação; “Eventos de Avaliação”: os eventos de avaliação descritos no item 10.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 10.3 deste Anexo; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 44",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "41",
+          "clause": "Glossário, Agente de Retenção/Cobrança",
+          "excerpt": "“Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob nº 27.852.506/0001-85; “Agente Escriturador”: O Administrador, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; “Amortização”: signif ica cada uma das amortizações ordinárias de Cotas; “Amortização Extraordinária”: amortização extraordinária das Cotas Seniores, conforme deliberado pela Assembleia Especial de Cotistas, para reestabelecer o Índice de Subordinação, nos termos do item 5.5.1 do Anexo I; \"ANBIMA\": Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; \"Código ANBIMA\": Código ANBIMA de Regulação e Melhores Práticas para Administração de Recursos de Terceiros “Anexos”: tem o signif icado atribuído no Art. 3, inciso IV, da Resolução CVM 175, Parte Geral; “Apêndice”: cada um dos apêndices que integram este Anexo, descritivos de cada Subclasse de Cotas ou de aspectos aplicáveis à Classe; \"Arquivos Dataprev\": Arquivo de Consignações fornecido mensalmente pela Dataprev ao Endossante, contendo a totalidade das operações pend",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "28",
+          "clause": "AnexoI11.23",
+          "excerpt": "Tudo Serviços S.A., sociedade anônima, com sede no município de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no Contrato de Serviços MT e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na regulamentação aplicável: (i) caso aplicável, atuar na retenção (defesa) de operações de empréstimo consignado cujos Direitos Creditórios sejam de titularidade da Classe, em caso d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "ticket",
+      "label": "Limites por contrato e devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cláusula 4.4(ii) cita R$ 100 mil por devedor, substituídos pela disposição específica 4.4.1 por R$ 150 mil, preservados limites do Contrato de Endosso. Idade na emissão ≤64 anos, 11 meses e 29 dias.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "10",
+          "clause": "AnexoI4.4(ii), (iv),4.4.1",
+          "excerpt": "R$ 100.000,00 (cem mil reais), observado o disposto no item 4.4.1 abaixo; (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. 4.4.1. O limite máximo de exposição da Classe por Devedor estabeleci",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Prevalência da cláusula específica 4.4.1; limite privado do Contrato não foi presumido."
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "TVM ≤3% do PL; CDB/RDB do endossante ≤R$ 25 milhões. Até 100% do PL por devedor/grupo, sujeito aos limites específicos de elegibilidade e à política de crédito do Contrato de Endosso.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "11",
+          "clause": "AnexoI4.4.9(iv),4.5(iii)",
+          "excerpt": "3,00% (três por cento) do Patrimônio Líquido da Classe. Ativos Financeiros de Liquidez 4.5 A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios será necessariamente alocada no seguintes ativos (“Ativos Financeiros de Liquidez”). (i) moeda corrente nacional; (ii) títulos do Tesouro SELIC, anteriormente denominado letra f inanceira do Tesouro Nacional (LFT); (iii) certif icados de depósito bancário (CDB) ou recibos de depósito bancário (RDB) com prazo máximo de vencimento equivalente ao prazo remanescente",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "12",
+          "clause": "AnexoI4.7–4.8",
+          "excerpt": "4.7 A Classe deverá observar, ainda, os limites de concentração definidos na Política de Crédito, que integra o Contrato de Endosso como Anexo 3.2(v). 4.8 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto no item 4.15 abaixo, e Ativos Financeiros de Liquidez devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda q",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Direitos creditórios ≥50% do PL para fins regulatórios após 180 dias de atividade.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "11",
+          "clause": "AnexoI4.6",
+          "excerpt": "4.6 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá manter alocado, no mínimo: para f ins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CMN 5.111; e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 11",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2025-10-09",
+        "numerator": "credit_rights",
+        "limit": 50.0,
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "tax_allocation",
+      "label": "Alocação para tratamento tributário",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Direitos creditórios ≥67% do PL para fins tributários após 180 dias de atividade.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "11",
+          "clause": "AnexoI4.6",
+          "excerpt": "4.6 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá manter alocado, no mínimo: para f ins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CMN 5.111; e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 11",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2025-10-09",
+        "numerator": "credit_rights",
+        "limit": 67.0,
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PL das cotas subordinadas/PL da classe ≥5%, apurado a cada dia útil enquanto houver sênior. Desenquadramento suspende compras até o dia útil seguinte e exige comunicação à sênior/subordinadas.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "45",
+          "clause": "GlossárioÍndice de Subordinação",
+          "excerpt": "Índice de Subordinação”: signif ica a razão mínima admitida entre: (a) Patrimônio Líquido das Cotas Subordinadas; e (b) o Patrimônio Líquido da Classe, conforme apurada pelo Gestor em cada Dia Útil, equivalente a 5% (cinco por cento); “Instituições Autorizadas”: qualquer das seguintes instituições f inanceiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; “Instrução CVM 489”: Instrução nº 489 da CVM, de 14 de janeiro de 2011, conf orme alterada; “Investidores",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "14",
+          "clause": "AnexoI5.6–5.7",
+          "excerpt": "5.6 Enquanto existirem Cotas Seniores em circulação, a Classe obrigatoriamente deverá observar o Índice Subordinação, o qual será apurado todo Dia Útil e será acessível aos Cotistas da Classe por meio do site do Administrador. 5.7 Caso o Índice de Subordinação não seja atendido em qualquer data de apuração, o Administrador deverá imediatamente, até o Dia Útil seguinte à data de apuração em questão, (a) suspender a aquisição de novos Direitos Creditórios; (b) informar tal fato aos titulares de Cotas Seniores; e (c) comunicar tal fato por escrito aos Cotistas Subordinados, para que, em querendo, s",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2025-10-09",
+        "numerator": "subordinated_quotas",
+        "limit": 5.0,
+        "cure_days": 10,
+        "cure_unit": "dias úteis consecutivos",
+        "requires_senior_outstanding": true
+      }
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Subordinados manifestam aporte em 3 dias úteis da comunicação e integralizam em 10 dias úteis subsequentes. Índice fora por 10 dias úteis consecutivos gera avaliação. Falta de arquivos Dataprev/lastro e atraso sênior: 2 dias úteis. Outros descumprimentos de endossante/agentes/prestadores: 10 dias úteis da notificação.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "14",
+          "clause": "AnexoI5.7.1–5.7.2",
+          "excerpt": "5.7.1 abaixo. 5.7.1 Na hipótese do item 5.7 os titulares de Cotas Subordinadas terão o prazo de 3 (três) Dias Úteis contado do recebimento da comunicação enviada pelo Administrador para manifestar sua intenção de subscrever e integralizar novas Cotas Subordinadas, de f orma a restabelecer o Índice de Subordinação. Caso assim se manifestem, o Administrador e os titulares de Cotas Subordinadas deverão, nos 10 (dez) Dias Úteis subsequentes tomar todas as providências necessárias para que as novas Cotas Subordinadas sejam emitidas, subscritas e integraliza",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "19",
+          "clause": "AnexoI10.1(ii)–(vii)",
+          "excerpt": "10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante; (ii) em caso de desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justif icado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de noti",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "20",
+          "clause": "AnexoI10.1(xiii)",
+          "excerpt": "(xiii) no caso de não serem realizados pagamentos de amortização e/ou resgate de Cotas Seniores, nos termos, prazos e condições previstos no presente Regulamento e nos respectivos Apêndices e Suplementos, não sanados em até 2 (dois) Dias Úteis contados do prazo final do respectivo evento; (xiv) no caso de pagamento de resgate e/ou amortização de Cotas Subordinadas em desacordo com os termos, prazos e condições previstos no presente Regulamento e no respectivo Apêndice. 10.1.1 Na ocorrência de qualquer Evento de Avaliação, será convocada Assembleia Especial de Cotistas,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "revolving",
+      "label": "Revolvência e desinvestimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Investimento por 24 meses da primeira integralização; admite reinvestimento em novos direitos. Depois, inicia amortização mensal em caixa com índice de subordinação atendido.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "12",
+          "clause": "AnexoI4.11–4.12.1",
+          "excerpt": "4.11 A Classe terá um Período de Investimento de 24 (vinte e quatro) meses, contados da Data da 1ª Integralização de Cotas da Classe. 4.12 Durante o Período de Investimento, a Classe utilizará os recursos provenientes da integralização das Cotas para investir em Direitos Creditórios e Ativos Financeiros de Liquidez, de acordo com a Política de Investimento estabelecida no presente Anexo I, sendo permitida, durante o Período de Investimento, a aquisição de novos Direitos Creditórios com os recursos decorrentes do pagamento dos Direitos Creditórios integrantes da carteira da Classe, desde que respei",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "15",
+          "clause": "AnexoI7.3",
+          "excerpt": "7.3 Após o encerramento do Período de Investimento, e desde que o Índice de Subordinação esteja sendo cumprido, as Cotas serão amortizadas mensalmente, em regime de caixa, nas datas e prazos previstos nos respectivos Suplementos, em montante correspondente ao valor dos recursos disponíveis na Conta de Movimentação da Classe, somados aos Ativos Financeiros de Liquidez, respeitando a ordem de alocação dos recursos, observado o disposto no item abaixo em relação às Cotas Subordinadas. 7.3.1. As Cotas Subordinadas poderão ser amortizadas caso sejam atingidas, cumulativamente, as segui",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Investimento: encargos → derivativos → compra de direitos → liquidez. Após 24 meses: encargos → derivativos → amortização sênior → subordinadas conforme PL relativo e índice → liquidez. Liquidação: pagamento integral da sênior antes das subordinadas.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "16",
+          "clause": "AnexoI7.11(i)–(ii),7.12",
+          "excerpt": "7.11 Sem prejuízo do disposto do disposto nos itens 7.1 a 7.10 acima, a partir da Data da 1ª Integralização de Cotas até a liquidação integral das Obrigações da Classe, sempre preservando a manutenção da boa ordem legal, administrativa e operacional da Classe, o Gestor obriga-se a utilizar os recursos disponíveis na Conta de Movimentação da Classe e/ou mantidos em Ativos Financeiros de Liquidez, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação, na forma dos itens e tabela abaixo, de modo que cada um dos itens listado apenas será contemplado após o direcionamento do montante",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "junior_release",
+      "label": "Liberação e amortização da júnior",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Amortização subordinada exige índice cumprido, ausência de avaliação/liquidação e ausência de inadimplemento pecuniário do agente; resgate subordinado somente na liquidação.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "15",
+          "clause": "AnexoI7.3.1,7.6",
+          "excerpt": "7.3.1. As Cotas Subordinadas poderão ser amortizadas caso sejam atingidas, cumulativamente, as seguintes condições: (i) o Índice de Subordinação esteja sendo atendido; (ii) desde que não esteja em curso um Evento de Avaliação e/ou Evento de Liquidação; e (iii) não tenha ocorrido ou esteja em andamento nenhum inadimplemento pecuniário pelo Agente de Retenção/Cobrança, nos termos do presente Regulamento, do Contrato de Endosso e do Contrato de Serviços MT. 7.4. As Amortizações serão realizadas tomando-se por base o Valor U",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia dePDD ecurva poratraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PDD quando há evidência de redução do valor recuperável. Créditos sem mercado ativo avaliados diariamente conforme ICVM 489. Provisões reduzem o saldo; perdas do mesmo devedor seguem o art.13, admitida análise individualizada.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "17",
+          "clause": "AnexoI8.1(iv)–(v),8.3–8.3.1",
+          "excerpt": "8.1 Os ativos da Carteira serão avaliados todos os Dias Úteis de acordo com critérios consistentes e verif icáveis, apoiados por inf ormações externas e internas que levem em consideração aspectos relacionados aos Devedores e às características da transação correspondente, de acordo com a seguinte metodologia de avaliação. (i) os Ativos Financeiros de Liquidez deverão ser registrados e ter seus valores ajustados a mercado, sujeitos às regras e procedimentos definidos no manual de marcação a mercado do Custodiante e de acordo com as regras do Banco Central e da CVM, aplicá",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Curva numérica por atraso não é transcrita; manuais/contrato têm perímetro distinto do indicador agregado do IME."
+    },
+    {
+      "criterion_id": "coobligation",
+      "label": "Coobrigação e retenção de risco",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Deterioração posterior não gera coobrigação/regresso, salvo má-fé, culpa ou dolo comprovados. Desconformidade na data do endosso permite resolução; recompra compulsória/opção de venda preservadas nos termos do contrato.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "10",
+          "clause": "AnexoI4.4.5",
+          "excerpt": "4.4.5. Caso um Direito Creditório endossado à Classe deixe de atender quaisquer Critérios de Elegibilidade, quaisquer condições de endosso e/ou quaisquer declarações e garantias referentes a esse Direito Creditório, conforme previsto no Contrato de Endosso, após seu endosso à Classe, não haverá coobrigação nem direito de regresso da Classe contra o Endossante, o Administrador, o Custodiante, o Gestor e/ou o Agente de Retenção/Cobrança, exceto em caso de má-fé, culpa ou dolo comprovado, hipótese em que a parte que agiu com má-f é, culpa ou dolo comprovado",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "11",
+          "clause": "AnexoI4.4.7",
+          "excerpt": "sem coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, pref erências, prerrogativas, garantias e ações a ele relacionados, bem como correção monetária, juros e encargos, sem prejuízo do direito da Classe (i) de exigir a recompra compulsória do respectivo Direito Creditório, de acordo com os termos do Contrato de Endosso; ou (ii) de vender Direitos Creditórios ao Agente de Retenção/Cobrança (opção de venda), em ambos os casos estritamente nos termos do Contrato de Endosso.",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos deavaliação",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "RAET/intervenção do endossante; índice fora por 10 dias úteis; descumprimentos com curas de 2/10 dias úteis; perda de titularidade subordinada pelo público-alvo; atraso sênior não sanado em 2 dias úteis; amortização subordinada indevida.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "19",
+          "clause": "AnexoI10.1(i)–(vii)",
+          "excerpt": "10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante; (ii) em caso de desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justif icado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de noti",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "20",
+          "clause": "AnexoI10.1(viii)–(xiv)",
+          "excerpt": "(xiii) no caso de não serem realizados pagamentos de amortização e/ou resgate de Cotas Seniores, nos termos, prazos e condições previstos no presente Regulamento e nos respectivos Apêndices e Suplementos, não sanados em até 2 (dois) Dias Úteis contados do prazo final do respectivo evento; (xiv) no caso de pagamento de resgate e/ou amortização de Cotas Subordinadas em desacordo com os termos, prazos e condições previstos no presente Regulamento e no respectivo Apêndice. 10.1.1 Na ocorrência de qualquer Evento de Avaliação, será convocada Assembleia Especial de Cotistas,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos deliquidação",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Essenciais/custodiante sem substituto, decisão AGC/CVM, intervenção, PL diário <R$ 1 milhão por 90 dias consecutivos após 90 dias iniciais e impossibilidade de adquirir direitos permitidos.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "21",
+          "clause": "AnexoI10.3(i)–(viii)",
+          "excerpt": "10.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do Custodiante, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do Administrador sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 40% a.a. sobre PL, incluindo gestão, escrituração e controladoria. Mínimo R$ 20 mil/mês, reajustado pelo IPCA positivo em janeiro. Provisão diária 1/252 e pagamento no 5º dia útil do mês seguinte.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "29",
+          "clause": "AnexoI12.1–12.1.2",
+          "excerpt": "12.1 Pelos serviços de administração, escrituração, controladoria de ativos e passivo, e gestão de carteira, o Administrador fará jus a uma Taxa de Administração equivalente a 0,40% (quarenta centésimos por cento) por ano sobre o Patrimônio Líquido da Classe, a ser pago mensalmente, por período vencido da data em que ocorrer a primeira integralização de Cotas da Classe A, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, assegurado um valor mínimo mensal de R$ 20.000,00 (vinte mil reais), sendo este valor atualizado pela variação positiva do IPCA sempre em janeiro de cada ano,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark eapuração",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sem taxas de performance, ingresso ou saída.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "29",
+          "clause": "AnexoI12.2",
+          "excerpt": "12.2 Não serão cobradas da Classe ou dos Cotistas taxas de perf ormance, de ingresso ou de saída. Taxa Máxima de Custódia 12.3 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao Custodiante, de modo que taxa máxima de custódia a ser paga pela Classe ao Custodiante corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobrança 12.4 Para a prestação de serviços à Classe, o Agente de Retenção/Cobrança f ará jus a uma remuneração a ser auf erida todo Dia Útil e paga mensalmente, a título de Encargo da Cla",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "custody_fee",
+      "label": "Custódia, escrituração eencargos",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Custódia de 0% a.a. Retenção/cobrança é encargo adicional: RAC de 4% a.a. sobre fórmula própria da Carteira Elegível. Venda da carteira gera remuneração antecipada de RAC × preço × anos restantes.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "29",
+          "clause": "AnexoI12.3–12.4",
+          "excerpt": "12.3 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao Custodiante, de modo que taxa máxima de custódia a ser paga pela Classe ao Custodiante corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobrança 12.4 Para a prestação de serviços à Classe, o Agente de Retenção/Cobrança f ará jus a uma remuneração a ser auf erida todo Dia Útil e paga mensalmente, a título de Encargo da Classe, a qual será calculada com base na seguinte f órmula:",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "30",
+          "clause": "AnexoI12.4definições,12.5–12.5.1",
+          "excerpt": "RAC = Remuneração do Agente de Retenção e Cobrança,tendo como valor 4,00% (quatro por cento) ao ano. 12.5 A remuneração prevista no item 12.4 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conf orme estabelecido no Contrato de Serviços MT. 12.5.1. Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobra",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Fórmula do RAC tem composição base 252 DU/21 dias; não somar a 4% do PL como taxa administrativa."
+    },
+    {
+      "criterion_id": "remuneration",
+      "label": "Remuneração por subclasse esérie",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Primeira sênior: CDI + spread de 4, 80% a.a., acrescido de 15% do excesso de spread subordinado, com teto CDI +6, 00% a.a. Adicional apurado mensalmente e pago em amortização/encerramento.",
+      "sources": [
+        {
+          "document_id": 993785,
+          "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993785",
+          "reference_date": "20/03/2025",
+          "version": "1ªemissão20/03/2025",
+          "page": "5",
+          "clause": "Suplemento1ªsênior BenchmarkSênior",
+          "excerpt": "4,80% (quatro inteiros e oitenta centésimos por cento)calculado por Dia Útil à base de 1/252 (um inteiro e duzentos e cinquenta e dois avos); e (ii) “Benchmark Sênior Adicional”: o parâmetro adicional de rentabilidade a ser buscado pela Classe para remunerar as Cotas Seniores, correspondente 15,00% (quinze por cento) do excesso de spread das Cotas Subordinadas com cap de remuneração total das Cotas Seniores pela variação do CDI acrescido de 6,00% (seis por cento",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/60010416000112/993785_documentary_review.pdf",
+          "sha256": "0826e0eae2c51afabf59bbc49fc7647598d03da5ca6de0f9725850a8bd6af457",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Termo específico da primeira emissão de 20/03/2025, distinto de taxa deperformance e do suplemento modelo com campos não preenchidos do regulamento."
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro eamostragem",
+      "theme": "Garantias eoperação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Trimestral: amostra aleatória simples, confiança 95%, erro 5%, distribuição binomial aproximada à normal. Inadimplidos/substituídos do trimestre analisados integralmente.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "59",
+          "clause": "Complemento7itens1–4",
+          "excerpt": "1. O Gestor deverá realizar a verif icação dos Documentos Comprobatórios relativos aos Direitos Creditórios adquiridos pela Classe trimestralmente; sendo certo que o Endossante e/ou o Agente de Retenção/Cobrança, conforme o caso, deverão enviar os Documentos Comprobatórios para o Gestor, conf orme def inido nos itens conf orme def inido nos itens 11.16 e 11.17 do Anexo I. 2. Observado o disposto no inciso (i) do item 3 abaixo, numa data-base pré-estabelecida, será selecionada uma amostra aleatória simples para a determinação de um intervalo de confiança para a proporção de eventuais f alhas, baseado numa distribuição binomial aproxi",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns ematérias reservadas",
+      "theme": "Governança ealterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Unanimidade das cotas em circulação para alterações do Anexo, troca de essenciais/custodiante, taxas, reorganização/liquidação, garantias, direitos das cotas, política/elegibilidade, eventos e insolvência. Demais matérias por maioria das cotas emitidas.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "18",
+          "clause": "AnexoI9.2(ii)–(xvii)",
+          "excerpt": "(ii) alterar este Anexo I e seus complementos, incluindo mas não se limitando aos Apêndices de cada uma das subclasses; (iii) deliberar sobre substituição de Prestadores de Serviços Essenciais, observado o disposto no Art. 70, §1º da parte geral da Resolução CVM 175, quando aplicável, ou do Custodiante; (iv) deliberar sobre elevação da Taxa de Administração, inclusive na hipótese de restabelecimento de taxa que tenha sido objeto de redução; (v) deliberar sobre incorporação, fusão, cisão total ou parcial, a transformação ou liquidação da Classe; (vi) alter",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "19",
+          "clause": "AnexoI9.8–9.9",
+          "excerpt": "9.8 As deliberações constantes dos incisos (ii), (iii), (iv), (v), (vi), (vii), (x), (xi), (xii), (xiii) e (xvii) acima, apenas serão aprovadas, seja em primeira ou em segunda convocação, por unanimidade dos votos dos titulares das Cotas em circulação. 9.9 As deliberações relativas aos demais incisos do item 9.2 acima apenas serão aprovadas, seja em primeira ou em segunda convocação, mediante o voto favorável dos Cotistas que representem a maioria das Cotas emitidas pela Classe. 9.10 Somente os Cotistas, seus representantes legais ou procuradores legalmente nomeados há menos de 1 (um) ano ter",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à ResoluçãoCVM175",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Classe única fechada, de prazo indeterminado, com subclasses Sênior/Subordinada. Responsabilidade do cotista limitada ao subscrito; Parte Geral, Anexo I, Apêndices e Suplementos.",
+      "sources": [
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "8",
+          "clause": "AnexoI1.2",
+          "excerpt": "Tipo de Condomínio Fechado. Prazo de Duração Indeterminado. Classe de Investimento Não. em Cotas Tipo “Financeiro”. Classificação ANBIMA Foco de atuação “Créditos Consignados”. O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de Elegibilidade, estabelecidos no Ca",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1051393,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+          "reference_date": "09/10/2025",
+          "version": "Regulamento09/10/2025",
+          "page": "9",
+          "clause": "AnexoI2.1–2.3",
+          "excerpt": "2.1 A responsabilidade do Cotista está limitada ao valor por ele subscrito. 2.2 Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência de pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, o Administrador deverá adotar as medidas aplicáveis previstas na Resolução CVM 175 2.3 Serão aplicáveis as disposições da Resolução CVM 175 no que se ref ere aos procedimentos a serem adotados pelo Administrador na hipótese de Patrimônio Líquido negativo da Classe, visando a liquidação da Classe e que não remanesçam",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/60010416000112/1051393_regulamento.pdf",
+          "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": []
+}

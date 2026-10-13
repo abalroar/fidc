@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "52200741000110",
+  "quarter": "2026-Q2",
+  "competence": "06/2026",
+  "quarter_source": "document_catalog",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "DEMONSTRATIVO TRIMESTRAL\n\nFundo:                                                                                            NORDE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS\nCNPJ:                                                                                                                                 52.200.741/0001-10\nPeríodo de Referência:                                                                                                                 2º Trimestre/2026\nData Base:                                                                                                                                    30/06/2026\n\nI. Composição da Carteira                                                     51.555.510/0001-66\n\nA seguir segue a composição da Carteira em 30/06/2026\n\n                                                       Descrição                    Valor (R$)        % sob PL\n                                         Disponibilidades                                   181,09           0,00%\n                                         Títulos Públicos Federais                               -           0,00%\n                                         Operações de Crédito                      166.180.749,70          95,90%\n                                         Provisão para Perdas (PDD)                  (9.326.376,37)         -5,38%\n                                         Outros Ativos                              16.607.741,69            9,58%\n                                         Valores a Receber                                       -           0,00%\n                                         Contas a Pagar                                (177.770,24)         -0,10%\n                                         Patrimônio Líquido                        173.284.525,87         100,00%\n\nIV. Processos Judiciais e/ou Administrativos:\n\nO Fundo apresenta os seguintes processos judiciais e/ou administrativos:\n\n\nNão existe ação judicial de cobrança ou propositura de processo administrativo, judicial ou arbitral, envolvendo a Classe de Cotas.\n\n\nV. Informações do Gestor:\n\na) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de ativos;\n\n\nNão houve alteração na politica de investimento no período de referencia\nb) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de direitos creditórios no trimestre:\n\n i. critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros\n demonstrativos trimestrais; e\n\nNão ocorreram alterações quanto aos critérios de concessão de crédito da Classe no trimestre analisado.\n\n ii. eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no\n regulamento ou em outros demonstrativos trimestrais;\n\nNão ocorreram alterações quanto aos critérios de concessão de crédito da Classe no trimestre analisado.\n\n\nc) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n\nNão ocorreram alterações nas garantias com impacto relevante na carteira\n\nd) forma como se operou a cessão dos direitos creditórios, incluindo:\n\n i. descrição de contratos relevantes firmados com esse propósito, se houver; e\n\nNão houve contratos relevantes firmados no período do trimestre analisado\n\n ii. indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n\n\nNão houve alterações no periodo de referência."
+    },
+    {
+      "page": 2,
+      "text": "e) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da carteira;\n\n\nNão houveram pré-pagamentos\nf) condições de alienação, a qualquer título, de direitos creditórios, incluindo: a) momento da alienação (antes ou depois do vencimento); e, b) motivação da\nalienação;\n\n\nNão houve alienação no trimestre\n\ng) impacto no valor do patrimônio líquido e na rentabilidade da carteira de ativos de uma possível descontinuidade, a qualquer título, da originação ou\ncessão de direitos creditórios; e\n\n\nA descontinuidade da originação de direitos creditórios não geraria efeito sobre a carteira do fundo.\n\nh) informações sobre fatos ocorridos que afetaram a regularidade dos fluxos financeiros oriundos dos direitos creditórios, incluindo, mas não se limitando, a\nquaisquer eventos que acarretem na liquidação ou amortização antecipada de direitos creditórios.\n\nNão houve ocorrências que afetaram a regularidade dos fluxos de pagamentos previstos.\n\nLimine Trust DTVM Ltda."
+    }
+  ],
+  "pages_total": 2,
+  "pages_extracted": 2,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "1285806",
+    "reference_date": "06/2026",
+    "delivered_at": "12/08/2026 16:23",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1285806",
+    "sha256": "e9b6ff68f8173228843b5c1e9a3596048809d5af51120e5eb00e2248bc611933",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "52200741000110",
+    "cnpj_fundo": "52200741000110",
+    "cnpj_classe": "",
+    "header_fields": [
+      {
+        "cnpj": "52200741000110",
+        "page": 1,
+        "text": "NORDE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS\nCNPJ:                                                                                                                                 52.200.741/0001-10\nPeríodo de Referência:                                                                                                                 2º Trimestre/2"
+      },
+      {
+        "cnpj": "51555510000166",
+        "page": 1,
+        "text": "2º Trimestre/2026\nData Base:                                                                                                                                    30/06/2026\n\nI. Composição da Carteira                                                     51.555.510/0001-66\n\nA seguir segue a composição da Carteira em 30/06/2026\n\n                                                       Descrição                    Valor (R$"
+      }
+    ],
+    "header_cnpj": "52200741000110",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:33:37Z",
+  "error": ""
+}

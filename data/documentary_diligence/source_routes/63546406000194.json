@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "63546406000194",
+  "name": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:32Z",
+  "routes": [
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1130478,
+          "reference_date": "05/03/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130478",
+          "source_excerpt": "s\n                                                 Úteis, calculadas e divulgadas pela B3, no informativo diário disponível\n                                                 em sua página na internet (www.b3.com.br), acrescido de uma\n                                                 sobretaxa (spread) a ser definida no Procedimento de Bookbuilding,\n                                                 limitada a, no mí"
+        },
+        {
+          "document_id": 1130478,
+          "reference_date": "05/03/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130478",
+          "source_excerpt": "s\n                                                 Úteis, calculadas e divulgadas pela B3, no informativo diário disponível\n                                                 em sua página na internet (www.b3.com.br), acrescido de uma\n                                                 sobretaxa (spread) de 3,50% (três inteiros e cinquenta centésimos por\n                                                 cento) ao ano)"
+        },
+        {
+          "document_id": 1130478,
+          "reference_date": "05/03/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130478",
+          "source_excerpt": "s\n                                                 Úteis, calculadas e divulgadas pela B3, no informativo diário disponível\n                                                 em sua página na internet (www.b3.com.br), acrescido de uma\n                                                 sobretaxa (spread) de 4,75% (quatro inteiros e setenta e cinco\n                                                 centésimos por cento)"
+        },
+        {
+          "document_id": 1130478,
+          "reference_date": "05/03/2026",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130478",
+          "source_excerpt": "s\n                                                 Úteis, calculadas e divulgadas pela B3, no informativo diário disponível\n                                                 em sua página na internet (www.b3.com.br), acrescido de uma\n                                                 sobretaxa (spread) de 7,50% (sete inteiros e cinquenta centésimos por\n                                                 cento) ao ano,"
+        },
+        {
+          "document_id": 1130481,
+          "reference_date": "05/03/2026",
+          "page": 163,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+          "source_excerpt": "no informativo diário disponível em sua página na internet\n                   Meta de Rentabilidade\n                                                 (www.b3.com.br), acrescido de uma sobretaxa (spread) a ser\n                          Sênior\n                                                 definida no Procedimento de Bookbuilding, limitada a, no"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

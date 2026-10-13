@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "cnpj": "55401645000128",
+  "name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:15Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:07:13Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1051890,
+          "reference_date": "01/12/2025",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                            diariamente pela B3, disponível em sua página na Internet\n                            (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                            dois) Dias Úteis, expressa na forma percentual ao ano;\n\n “Termo de Endosso”         Documento pelo qual será formalizado o endosso dos Dir"
+        },
+        {
+          "document_id": 984906,
+          "reference_date": "04/09/2025",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984906",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                            diariamente pela B3, disponível em sua página na Internet\n                            (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                            dois) Dias Úteis, expressa na forma percentual ao ano;\n\n “Termo de Endosso”         Documento pelo qual será formalizado o endosso dos Dir"
+        },
+        {
+          "document_id": 677871,
+          "reference_date": "04/06/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=677871",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                             diariamente pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano;\n\n“Termo de Endosso”:          Documento pelo qual será formalizado o endosso dos D"
+        },
+        {
+          "document_id": 677890,
+          "reference_date": "11/06/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=677890",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                             diariamente pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano;\n\n“Termo de Endosso”:          Documento pelo qual será formalizado o endosso dos D"
+        },
+        {
+          "document_id": 759636,
+          "reference_date": "15/10/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759636",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                           diariamente pela B3, disponível em sua página na Internet\n                           (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                           Dias Úteis, expressa na forma percentual ao ano;\n\n“Termo de Endosso”:        Documento pelo qual será formalizado o endosso dos Direi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.singulare.com.br/compliance/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 793132,
+          "reference_date": "02/12/2024",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=793132",
+          "source_excerpt": "os\nseus titulares o direito de voto.\n\n6.17. A política de exercício de direito de voto adotada pela Gestora pode ser obtida\nna página da Gestora na rede mundial de computadores, no seguinte endereço:\nhttps://www.singulare.com.br/compliance/.\n\n6.18. Não obstante a diligência da Gestora em colocar em prática a Política de\nInvestimento, composição e diversificação da carteira da Classe prevista no presente\nRegulamento, os investimentos da C"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

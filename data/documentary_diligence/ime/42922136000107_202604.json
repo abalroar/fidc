@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "42922136000107",
+  "competence": "04/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 4596033555.7,
+    "credit_rights": 5836996373.18,
+    "overdue_credit": 546439771.55,
+    "cash": 0.0,
+    "pdd": 1246772185.71,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 4596033555.689462,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 4596033555.689462
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "42922136000107",
+    "competence": "04/2026",
+    "path": "data/documentary_diligence/ime/42922136000107_202604.json",
+    "reported_fund_cnpj": "42922136000107",
+    "reported_class_cnpj": "42922136000107",
+    "reported_fund_cnpj_raw": "42922136000107",
+    "reported_class_cnpj_raw": "42922136000107",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1193605",
+    "version": 1,
+    "delivered_at": "15/05/2026 10:58",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1193605",
+    "declared_fields_sha256": "23fa85b7d128bdc2ddd762efce1c4f3b15ca00f7b692f20947ef6692854fd60a"
+  },
+  "error": ""
+}

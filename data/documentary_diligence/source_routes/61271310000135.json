@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "cnpj": "61271310000135",
+  "name": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:14Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 994705,
+          "reference_date": "19/09/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "source_excerpt": "O Administrador mantém serviço de atendimento ao Cotista, responsável pelo\nesclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado no seguinte\nendereço eletrônico: https://www.oliveiratrust.com.br/.\n\n\n                                 São Paulo, 19 de setembro de 2025\n\n\n\n          ____________________________                 ____________________________\n               OLIVEIRA TRUST"
+        },
+        {
+          "document_id": 935449,
+          "reference_date": "10/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935449",
+          "source_excerpt": "trador mantém serviço de atendimento ao Cotista, responsável pelo\n         esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado no seguinte\n         endereço eletrônico: https://www.oliveiratrust.com.br/.\n\n\n\n                                                São Paulo, 10 de junho de 2025.\n\n\n\n                   ____________________________                   ____________________________"
+        },
+        {
+          "document_id": 1009459,
+          "reference_date": "08/10/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1009459",
+          "source_excerpt": "istrador mantém serviço de atendimento ao Cotista, responsável pelo\n        esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado no seguinte\n        endereço eletrônico: https://www.oliveiratrust.com.br/.\n\n\n                                              São Paulo, 08 de outubro de 2025\n\n\n\n                    ____________________________                   ____________________________"
+        },
+        {
+          "document_id": 1065760,
+          "reference_date": "16/12/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065760",
+          "source_excerpt": "istrador mantém serviço de atendimento ao Cotista, responsável pelo\n        esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado no seguinte\n        endereço eletrônico: https://www.oliveiratrust.com.br/.\n\n\n                                             São Paulo, 16 de dezembro de 2025.\n\n\n\n                    ____________________________                   ____________________________"
+        },
+        {
+          "document_id": 1065761,
+          "reference_date": "16/12/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065761",
+          "source_excerpt": "O Administrador mantém serviço de atendimento ao Cotista, responsável pelo\nesclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado no seguinte\nendereço eletrônico: https://www.oliveiratrust.com.br/.\n\n\n                                São Paulo, 16 de dezembro de 2025.\n\n\n\n          ____________________________                 ____________________________\n               OLIVEIRA TRUST"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf",
+      "source_type": "administrator",
+      "candidate_type": "document_unknown",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 994705,
+          "reference_date": "19/09/2025",
+          "page": 92,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "source_excerpt": "e ajustadas mensalmente\ne abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual\nde Provisão para perdas em Ativos de Crédito do Administrador disponível em\nhttp://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\nobservado o disposto acima.\n\nCaso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento\nde atrasos substancialmente diferente ao estimado pela política de provis"
+        },
+        {
+          "document_id": 935449,
+          "reference_date": "10/06/2025",
+          "page": 91,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935449",
+          "source_excerpt": "e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual\n         de Provisão para perdas em Ativos de Crédito do Administrador disponível em\n         http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n         observado o disposto acima.\n\n         Caso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento\n         de atrasos substancialmente diferente ao estim"
+        },
+        {
+          "document_id": 1009459,
+          "reference_date": "08/10/2025",
+          "page": 92,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1009459",
+          "source_excerpt": "e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual\n        de Provisão para perdas em Ativos de Crédito do Administrador disponível em\n        http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n        observado o disposto acima.\n\n        Caso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento\n        de atrasos substancialmente diferente ao estimado"
+        },
+        {
+          "document_id": 1065760,
+          "reference_date": "16/12/2025",
+          "page": 94,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065760",
+          "source_excerpt": "e abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual\n        de Provisão para perdas em Ativos de Crédito do Administrador disponível em\n        http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n        observado o disposto acima.\n\n        Caso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento\n        de atrasos substancialmente diferente ao estimado"
+        },
+        {
+          "document_id": 1065761,
+          "reference_date": "16/12/2025",
+          "page": 92,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065761",
+          "source_excerpt": "e ajustadas mensalmente\ne abrangerão toda a carteira de Direitos Creditórios Adquiridos da Classe Única com base no Manual\nde Provisão para perdas em Ativos de Crédito do Administrador disponível em\nhttp://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\nobservado o disposto acima.\n\nCaso o Administrador e/ou a Gestora constatem que a carteira da Classe I possui um comportamento\nde atrasos substancialmente diferente ao estimado pela política de provis"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1159923,
+          "reference_date": "10/04/2026",
+          "page": 95,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159923",
+          "source_excerpt": "io Líquido esteja protegida de variações de mercado, tais como taxas de juros e Variação\nCambial.\n\nO Administrador realizará a marcação a mercado dos derivativos contratados conforme disposto no\nsite www.oliveiratrust.com.br.\n\nOperações de Swap para proteção patrimonial contra exposição de risco em variação cambial\n\nA Classe I realizará a contratação de Swap exclusivamente com o objetivo de proteção patrimonial\nrelacionad"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,49 @@
+{
+  "cnpj": "59602002000101",
+  "verified_at": "2026-10-13T04:55:18Z",
+  "review_scope": "Leitura integral de ocorrências de performance na versão identificada; definição do encargo não inferida de competência da assembleia.",
+  "criteria": [
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "clause_not_found",
+      "applicability": "unresolved",
+      "value": "",
+      "sources": [
+        {
+          "document_id": 1181571,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1181571",
+          "reference_date": "2026-04-27",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59602002000101/1181571_regulamento_review_20261007.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/59602002000101/1181571_5baf1585a623e7bb.txt",
+          "sha256": "5baf1585a623e7bba5848b7e63c7cc46d0715f9fa5a8a2c76471fa2472814b6e",
+          "identity_verified": true,
+          "page": "24",
+          "clause": "Encargos — alínea (p)",
+          "excerpt": "(p) Taxa de Performance;"
+        },
+        {
+          "document_id": 1181571,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1181571",
+          "reference_date": "2026-04-27",
+          "version": "1",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/59602002000101/1181571_regulamento_review_20261007.pdf",
+          "text_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/text/59602002000101/1181571_5baf1585a623e7bb.txt",
+          "sha256": "5baf1585a623e7bba5848b7e63c7cc46d0715f9fa5a8a2c76471fa2472814b6e",
+          "identity_verified": true,
+          "page": "28",
+          "clause": "Item 10.1.1(c)",
+          "excerpt": "(c) redução da Taxa de Administração, da Taxa de Gestão, da Taxa de Performance ou da remuneração devida à(s) Consultoria(s) Especializada(s) ou ao Agente de Cobrança Extraordinária."
+        }
+      ],
+      "reason": "Na versão 1181571, performance aparece como rubrica de encargos (alínea p, p. 24) e na competência para redução de taxas (10.1.1(c), p. 28). Essas menções não especificam percentual, benchmark ou apuração.",
+      "risk_note": "A ausência de uma regra localizada preserva aplicabilidade em apuração; não foi inferida taxa zero.",
+      "rule": {},
+      "provenance": "verified_primary_override"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "cnpj": "52340225000190",
+  "name": "INOVA CREDTECH III FIDC SEGMENTO MULTICARTEIRA DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:11Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:27Z",
+  "routes": [
+    {
+      "url": "https://www.liberumratings.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "retrizes e boas práticas\n                                             estabelecidas para o processo de avaliação. A política completa pode ser\n                                             acessada em www.liberumratings.com.br.\n\n\n\n\nID 1759758991516                                                                                                               Página 3 de 20"
+        },
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "s para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas disponível no\n                               site da Liberum Ratings. www.liberumratings.com.br\n\nPROCESSO DE DILIGÊNCIA         A presente avaliação se apoiou, entre outros, no uso de bases de dados\nSOBRE OS ATIVOS DE FINANÇAS    históricas e comparativas para este tipo de ativo e o uso de mode"
+        },
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "ta anual da Liberum Ratings?\nNão.A Liberum Ratings publica anualmente a lista de entidades que representam mais do que 5% do seu\nfaturamento em seu Formulário do Anexo 13. Acesse o formulário no site www.liberumratings.com.br.\n\nA Liberum Ratings, seus analistas de classificação de risco de crédito ou demais pessoas envolvidas no processo\nde emissão de uma determinada classificação de risco, seus cônjuges, dependentes ou co"
+        },
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "nformações contidas e/ou\ndisseminadas pelo website da Liberum Ratings.\n\nOs ratings e quaisquer outras opiniões emitidas pela Liberum Ratings, ou outros materiais, são disponibilizados em\nseu website (www.liberumratings.com.br). Tais publicações são meras opiniões e devem ser interpretadas como tal.\nDe nenhum modo e sob nenhuma circunstância devem ser consideradas como fatos ou verdades sobre a capacidade\nde crédito do emiss"
+        },
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "classificações de risco\nemitidas pela Liberum Ratings podem ser alteradas, suspensas ou retiradas a qualquer momento. Os ratings públicos\nemitidos pela Liberum Ratings são atualizados em seu website (www.liberumratings.com.br).\n\nNa maior parte dos casos, os trabalhos realizados pela Liberum Ratings são remunerados pelos emissores,\nestruturadores ou garantidores dos ativos avaliados.\n\n\n\n\ncontato@liberumratings.com.br\n+55 (11"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br/pt/publications-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "LIMITADA\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-scales.php",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1010103,
+          "reference_date": "30/09/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+          "source_excerpt": "methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:45Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-scales.php",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

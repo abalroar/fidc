@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "41197066000109",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 626922437.72,
+    "credit_rights": 710984714.35,
+    "overdue_credit": 70531573.89,
+    "cash": 2020933.51,
+    "pdd": 163040719.33,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 397810915.6495,
+    "subordinated_quotas": 159396947.11971003,
+    "mezzanine_quotas": 67023504.509909995,
+    "subordinated_and_mezzanine_quotas": 226420451.62962002
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "41197066000109",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/41197066000109_202607.json",
+    "reported_fund_cnpj": "41197066000109",
+    "reported_class_cnpj": "41197066000109",
+    "reported_fund_cnpj_raw": "41197066000109",
+    "reported_class_cnpj_raw": "41197066000109",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1295689",
+    "version": 2,
+    "delivered_at": "18/08/2026 09:53",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1295689",
+    "declared_fields_sha256": "d2f65885b5728a85313ec0368bb2215675cea113c15f1824d9ffbb714ceb9440"
+  },
+  "error": ""
+}

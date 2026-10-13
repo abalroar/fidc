@@ -1,0 +1,42 @@
+{
+  "cnpj": "38658727000133",
+  "verified_at": "2026-10-13T03:00:49-03:00",
+  "criteria": [
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias constituídas",
+      "theme": "Garantias e cobrança",
+      "status": "extraction_pending",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [],
+      "rule": {},
+      "risk_note": "Declaração limitada ao período da DF; garantias posteriores não foram verificadas. Garantias preexistentes desconhecidas no fator de risco do regulamento 1216296 descrevem ônus de terceiros.",
+      "reason": "Regulamento atual 1216296: não foi identificada uma disposição de garantia constituída em favor do fundo. O trecho de risco sobre ônus anteriores à cessão não identifica proteção contratual. A declaração auditada de 2026-06-03 está no histórico e se limita ao período da DF.",
+      "history": [
+        {
+          "reference_date": "2026-06-03",
+          "value": "DF de encerramento da administração, 03/06/2026: no período 01/02–03/06/2026, não existiam garantias reais ou fidejussórias vinculadas aos direitos creditórios da classe.",
+          "sources": [
+            {
+              "document_id": "1308081",
+              "title": "Demonstrações Financeiras - Substituição de administrador",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1308081",
+              "reference_date": "03/06/2026",
+              "version": "2",
+              "page": "20",
+              "clause": "Nota 5(i), Garantias",
+              "sha256": "12f1c0b4e7006d984c2cfd9c3245761963759f2febc3c382f0536b0e1d5371c4",
+              "excerpt": "i) Garantias No período de 01 de fevereiro a 03 de junho de 2026 (Data da transferência da administração do Fundo), não existem garantias reais ou fidejussórias vinculadas aos direitos creditórios integrantes da carteira da Classe.",
+              "verification": "analyst_primary_clause",
+              "type": "audited_financial_statement"
+            }
+          ],
+          "document_type": "audited_observation",
+          "assessment": "Declaração auditada sobre a carteira no período da DF; não confirma a regra contratual atual nem situações posteriores.",
+          "provenance": "verified_override"
+        }
+      ]
+    }
+  ]
+}

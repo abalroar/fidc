@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "cnpj": "58154011000106",
+  "name": "FARMTECH KEY ACCOUNTS - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO - RESP LTDA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:09:06Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 803105,
+          "reference_date": "13/12/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803105",
+          "source_excerpt": "ma Nota Fiscal e faculta a\n                                                   verificação da sua autorização e do seu conteúdo no\n                                                   ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                   da respectiva circunscrição daSecretaria de Fazenda –\n                                                   SEFAZ da respectiva circunscriçã"
+        },
+        {
+          "document_id": 803107,
+          "reference_date": "13/12/2024",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803107",
+          "source_excerpt": "te uma Nota Fiscal e faculta a\n                                                 verificação da sua autorização e do seu conteúdo no\n                                                 ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                 da respectiva circunscrição daSecretaria de Fazenda –\n                                                 SEFAZ da respectiva circunscrição."
+        },
+        {
+          "document_id": 803100,
+          "reference_date": "13/11/2024",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803100",
+          "source_excerpt": "uma Nota Fiscal e faculta a\n                                                  verificação da sua autorização e do seu conteúdo no\n                                                  ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                  da respectiva circunscrição daSecretaria de Fazenda –\n                                                  SEFAZ da respectiva circunscrição."
+        },
+        {
+          "document_id": 803103,
+          "reference_date": "29/11/2024",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
+          "source_excerpt": "uma Nota Fiscal e faculta a\n                                                  verificação da sua autorização e do seu conteúdo no\n                                                  ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                  da respectiva circunscrição daSecretaria de Fazenda\n                                                  SEFAZ da respectiva circunscrição."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 803105,
+          "reference_date": "13/12/2024",
+          "page": 34,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803105",
+          "source_excerpt": "Úteis, calculada e divulgada pela B3\n                                                   no informativo diário disponível em sua página na Internet\n                                                   (http://www.b3.com.br).\n\n\n                 “Taxa Máxima de Custódia”         Significa a taxa a que o Custodiante terá direito pela\n                                                   prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 803107,
+          "reference_date": "13/12/2024",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803107",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3\n                                                 no informativo diário disponível em sua página na Internet\n                                                 (http://www.b3.com.br).\n\n\n                 “Taxa Máxima de                 Significa a taxa a que o Custodiante terá direito pela\n                 Custódia”                       prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 803100,
+          "reference_date": "13/11/2024",
+          "page": 29,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803100",
+          "source_excerpt": "as Úteis, calculada e divulgada pela B3\n                                                  no informativo diário disponível em sua página na Internet\n                                                  (http://www.b3.com.br).\n\n\n                 “Taxa Máxima de                  Significa a taxa a que o Custodiante terá direito pela\n                 Custódia”                        prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 803103,
+          "reference_date": "29/11/2024",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
+          "source_excerpt": "as Úteis, calculada e divulgada pela B3\n                                                  no informativo diário disponível em sua página na Internet\n                                                  (http://www.b3.com.br).\n\n\n                  Taxa Máxima de Custódia         Significa a taxa a que o Custodiante terá direito pela\n                                                  prestação de seus serviços de custódia."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pd",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 803105,
+          "reference_date": "13/12/2024",
+          "page": 69,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803105",
+          "source_excerpt": "mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\n                critério de marcação a mercado) e no manual de precificação do Administrador disponível\n                em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pd\n                f”; e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base\n                em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos,"
+        },
+        {
+          "document_id": 803107,
+          "reference_date": "13/12/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803107",
+          "source_excerpt": "es mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\n               critério de marcação a mercado) e no manual de precificação do Administrador disponível\n               em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pd"
+        },
+        {
+          "document_id": 803103,
+          "reference_date": "29/11/2024",
+          "page": 66,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
+          "source_excerpt": "s mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\n                critério de marcação a mercado) e no manual de precificação do Administrador disponível\n                em http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pd\n                f e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base\n                em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos,"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:15Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 803105,
+          "reference_date": "13/12/2024",
+          "page": 154,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803105",
+          "source_excerpt": "Docusign Envelope ID: 0EC62435-C713-4A4F-80AB-31D059A21547\n\n\n\n\n                para     perdas     em     Ativos     de     Crédito   do   Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n                89.pdf, observado o disposto acima.\n\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui\n                um comportamento de atrasos s"
+        },
+        {
+          "document_id": 803107,
+          "reference_date": "13/12/2024",
+          "page": 142,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803107",
+          "source_excerpt": "eitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão\n               para     perdas     em     Ativos    de       Crédito   do   Administrador    disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n               89.pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui\n               um comportamento de atrasos subst"
+        },
+        {
+          "document_id": 803103,
+          "reference_date": "29/11/2024",
+          "page": 151,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
+          "source_excerpt": "Docusign Envelope ID: FA35165B-2C30-4064-88D8-C3A4988D300D\n\n\n\n\n                para    perdas      em     Ativos      de      Crédito       do     Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n                89.pdf, observado o disposto acima.\n\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui\n                um comportamento de atrasos s"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:30Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 803100,
+          "reference_date": "13/11/2024",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803100",
+          "source_excerpt": "nforme estabelecido na regulamentação em vigor (tais como o\n                critério de marcação a mercado) e no manual de precificação do Administrador disponível\n                em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e\n                (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, confo"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "cnpj": "31570767000180",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRADEPAY VAREJO I - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:54Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:09Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1203635,
+          "reference_date": "25/05/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203635",
+          "source_excerpt": "o\n                         – Depósitos Interfinanceiros de um dia, calculadas e\n                         divulgadas diariamente pela B3, disponível em sua página na\n                         Internet (http://www.b3.com.br), base 252 (duzentos e\n                         cinquenta e dois) Dias Úteis, expressa na forma percentual\n                         ao ano;\n\n                               CAPÍTULO III"
+        },
+        {
+          "document_id": 830636,
+          "reference_date": "03/02/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830636",
+          "source_excerpt": "o\n                         – Depósitos Interfinanceiros de um dia, calculadas e\n                         divulgadas diariamente pela B3, disponível em sua página na\n                         Internet (http://www.b3.com.br), base 252 (duzentos e\n                         cinquenta e dois) Dias Úteis, expressa na forma percentual\n                         ao ano;\n\n                               CAPÍTULO III"
+        },
+        {
+          "document_id": 618145,
+          "reference_date": "11/03/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618145",
+          "source_excerpt": "– Depósitos Interfinanceiros de um dia, calculadas e\n                              divulgadas diariamente pela B3, disponível em sua página na\n                              Internet (http://www.b3.com.br), base 252 (duzentos e\n                              cinquenta e dois) Dias Úteis, expressa na forma percentual\n                              ao ano;\n\n                                 CAPÍTULO III"
+        },
+        {
+          "document_id": 618961,
+          "reference_date": "11/03/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618961",
+          "source_excerpt": "– Depósitos Interfinanceiros de um dia, calculadas e\n                              divulgadas diariamente pela B3, disponível em sua página na\n                              Internet (http://www.b3.com.br), base 252 (duzentos e\n                              cinquenta e dois) Dias Úteis, expressa na forma percentual\n                              ao ano;\n\n                                 CAPÍTULO III"
+        },
+        {
+          "document_id": 687880,
+          "reference_date": "27/06/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=687880",
+          "source_excerpt": "– Depósitos Interfinanceiros de um dia, calculadas e\n                              divulgadas diariamente pela B3, disponível em sua página na\n                              Internet (http://www.b3.com.br), base 252 (duzentos e\n                              cinquenta e dois) Dias Úteis, expressa na forma percentual\n                              ao ano;\n\n                                 CAPÍTULO III"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149570,
+          "reference_date": "10/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149570",
+          "source_excerpt": "sta(s) classe(s) de ativo(s) é descrita na Metodologia de Ratings de Finanças Estruturadas\n                                                                      disponível no site da Liberum Ratings. www.liberumratings.com.br\nJuliana Lima\nMauricio Bassi                                                        PROCESSO DE DILIGÊNCIA SOBRE OS ATIVOS DE FINANÇAS ESTRUTURADAS\nRodrigo Indiani"
+        },
+        {
+          "document_id": 149570,
+          "reference_date": "10/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149570",
+          "source_excerpt": "), onde os devedores são os clientes dessas indústrias,\nnotadamente distribuidores e varejistas.\n\n\n\n\nEsta classificação é sujeita a alterações. Para verificar a última classificação disponível acesse www.liberumratings.com.br\nLIBERUM RATINGS\nTel: 55 11 3165-4222\nSão Paulo - Brasil\nEm caso de dúvidas, entre em contato conosco:\ncontato@liberumratings.com.br\nwww.liberumratings.com.br\n\n       57131924646947428"
+        },
+        {
+          "document_id": 149570,
+          "reference_date": "10/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149570",
+          "source_excerpt": "a última classificação disponível acesse www.liberumratings.com.br\nLIBERUM RATINGS\nTel: 55 11 3165-4222\nSão Paulo - Brasil\nEm caso de dúvidas, entre em contato conosco:\ncontato@liberumratings.com.br\nwww.liberumratings.com.br\n\n       57131924646947428\n                                                                                     Finanças Estruturadas / Fundos de Investimentos em Direitos Creditórios"
+        },
+        {
+          "document_id": 149570,
+          "reference_date": "10/12/2020",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149570",
+          "source_excerpt": "a anual da Liberum Ratings? Não. A Liberum Ratings publica anualmente a lista de\nentidades que representam mais do que 5% do seu faturamento em seu Formulário do Anexo 13. Acesse o formulário no site www.liberumratings.com.br.\nA Liberum Ratings, seus analistas de classificação de risco de crédito ou demais pessoas envolvidas no processo de emissão de uma determinada classificação de risco,\nseus cônjuges, dependentes ou com"
+        },
+        {
+          "document_id": 149570,
+          "reference_date": "10/12/2020",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149570",
+          "source_excerpt": "informações contidas e/ou disseminadas pelo website da Liberum Ratings.\nOs ratings e quaisquer outras opiniões emitidas pela Liberum Ratings, ou outros materiais, são disponibilizados em seu website (www.liberumratings.com.br). Tais\npublicações são meras opiniões e devem ser interpretadas como tal. De nenhum modo e sob nenhuma circunstância devem ser consideradas como fatos ou verdades\nsobre a capacidade de crédito do emiss"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.brltrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 134564,
+          "reference_date": "21/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134564",
+          "source_excerpt": "s\nlimites e as restrições previstas na legislação vigente e neste Regulamento.\n\n\n\n\n                   Rua Iguatemi, 151, 19º andar/CEP.:01451-011/São Paulo – SP\n                                       www.brltrust.com.br\n                                               -1-"
+        },
+        {
+          "document_id": 134564,
+          "reference_date": "21/12/2020",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134564",
+          "source_excerpt": "s:\n\na) títulos de emissão do Tesouro Nacional;\nb) títulos de emissão do BACEN;\n\n\n\n\n                   Rua Iguatemi, 151, 19º andar/CEP.:01451-011/São Paulo – SP\n                                       www.brltrust.com.br\n                                               -2-"
+        },
+        {
+          "document_id": 134564,
+          "reference_date": "21/12/2020",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134564",
+          "source_excerpt": "s ou entidades autorizadas à\nprestação desses serviços pelo BACEN ou pela CVM.\n\n\n\n\n                   Rua Iguatemi, 151, 19º andar/CEP.:01451-011/São Paulo – SP\n                                       www.brltrust.com.br\n                                               -3-"
+        },
+        {
+          "document_id": 134564,
+          "reference_date": "21/12/2020",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134564",
+          "source_excerpt": "N   \n                                            (1 + TC) 252 \nonde:\n\n\n\n\n                   Rua Iguatemi, 151, 19º andar/CEP.:01451-011/São Paulo – SP\n                                       www.brltrust.com.br\n                                               -4-"
+        },
+        {
+          "document_id": 134564,
+          "reference_date": "21/12/2020",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134564",
+          "source_excerpt": "adas para efeito de amortização e\nresgate, nos termos do presente Regulamento.\n\n\n\n\n                   Rua Iguatemi, 151, 19º andar/CEP.:01451-011/São Paulo – SP\n                                       www.brltrust.com.br\n                                               -5-"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 242333,
+          "reference_date": "22/11/2021",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=242333",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos\nou dos devedores. A S&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e\nratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 320214,
+          "reference_date": "14/06/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320214",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou\ndos devedores. A S&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings\npúblicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 354479,
+          "reference_date": "18/08/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354479",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou\ndos devedores. A S&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings\npúblicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 410169,
+          "reference_date": "26/01/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=410169",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com(por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adiciona"
+        },
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/usratingsfees",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 242333,
+          "reference_date": "22/11/2021",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=242333",
+          "source_excerpt": "e\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\n  S&P Global Ratings"
+        },
+        {
+          "document_id": 320214,
+          "reference_date": "14/06/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320214",
+          "source_excerpt": "e\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\n S&P Global Ratings"
+        },
+        {
+          "document_id": 354479,
+          "reference_date": "18/08/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354479",
+          "source_excerpt": "e\ndistribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC."
+        },
+        {
+          "document_id": 410169,
+          "reference_date": "26/01/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=410169",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC."
+        },
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-methodologies.php",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 448231,
+          "reference_date": "05/02/2023",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448231",
+          "source_excerpt": "FIDC TRADEPAY VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA            Metodologia(s) Liberum Ratings de Finanças Estruturadas Saiba mais em:\n                                 http://www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO             Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                                 Saiba mais em: http://www.liberumratings.com.br/pt/public"
+        },
+        {
+          "document_id": 510290,
+          "reference_date": "24/07/2023",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510290",
+          "source_excerpt": "FIDC TRADEPAY VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA            Metodologia(s) Liberum Ratings de Finanças Estruturadas Saiba mais em:\n                                 http://www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO             Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                                 Saiba mais em: http://www.liberumratings.com.br/pt/public"
+        },
+        {
+          "document_id": 617881,
+          "reference_date": "21/02/2024",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=617881",
+          "source_excerpt": "VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas Saiba mais em:\n                               http://www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publicatio"
+        },
+        {
+          "document_id": 723373,
+          "reference_date": "16/08/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723373",
+          "source_excerpt": "VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas Saiba mais em:\n                               http://www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publicatio"
+        },
+        {
+          "document_id": 723378,
+          "reference_date": "17/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723378",
+          "source_excerpt": "VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA         Metodologia(s) Liberum Ratings de Finanças Estruturadas Saiba mais em:\n                              http://www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO          Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                              Saiba mais em: http://www.liberumratings.com.br/pt/publications"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-methodologies.php",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 448231,
+          "reference_date": "05/02/2023",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448231",
+          "source_excerpt": "s.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO             Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                                 Saiba mais em: http://www.liberumratings.com.br/pt/publications-\n                                 scales.php\n\nFREQUÊNCIA DE                    A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                    descrita na"
+        },
+        {
+          "document_id": 723378,
+          "reference_date": "17/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723378",
+          "source_excerpt": "ratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO          Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                              Saiba mais em: http://www.liberumratings.com.br/pt/publications-\n                              scales.php\n\nFREQUÊNCIA DE                 A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                 descrita na Metodolog"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:45Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "R$ 15,2 milhões                        Abril de 2024\nmezanino\n\n2ª série de cotas   Não classificadas      Não classificadas          R$ 14,5 milhões                        Abril de 2024\nmezanino\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "”, e o foco da escala é\no mercado financeiro brasileiro. A Escala Nacional Brasil de ratings de crédito não é diretamente comparável à escala global da S&P Global Ratings ou a qualquer outra escala\n\n\nspglobal.com/ratings                                                                                                                             14 de março de 2023           2"
+        },
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "io de 2012\n  − Princípios dos ratings de crédito, 16 de fevereiro de 2011\n\n\nArtigo\n  − Ratings de 5 operações de recebíveis comerciais reafirmados após revisão de critério, 27 de dezembro de 2021\n\n\n\n\nspglobal.com/ratings                                                                                                                    14 de março de 2023            3"
+        },
+        {
+          "document_id": 448232,
+          "reference_date": "14/03/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448232",
+          "source_excerpt": "obre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings                                                                                                                    14 de março de 2023             4"
+        },
+        {
+          "document_id": 487533,
+          "reference_date": "06/06/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=487533",
+          "source_excerpt": "R$ 12,9 milhões                           Abril de 2024\nmezanino\n\n2ª série de cotas   Não classificadas     Não classificadas       R$ 12,4 milhões                           Abril de 2024\nmezanino\n\n\n\nspglobal.com/ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-scales.php",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 510290,
+          "reference_date": "24/07/2023",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510290",
+          "source_excerpt": "s.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO             Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                                 Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                    A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                    descrita na Metodologia de Ratings de Finanças Estrutura"
+        },
+        {
+          "document_id": 617881,
+          "reference_date": "21/02/2024",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=617881",
+          "source_excerpt": "tings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        },
+        {
+          "document_id": 723373,
+          "reference_date": "16/08/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723373",
+          "source_excerpt": "tings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        },
+        {
+          "document_id": 730554,
+          "reference_date": "28/08/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=730554",
+          "source_excerpt": "tings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        },
+        {
+          "document_id": 878059,
+          "reference_date": "17/03/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878059",
+          "source_excerpt": "methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:45Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-scales.php",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 710389,
+          "reference_date": "23/07/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=710389",
+          "source_excerpt": "ão relevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem\nser lidos em conjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações.\nInformações detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings\nmencionados neste relatório são disponibilizados no site pú"
+        },
+        {
+          "document_id": 710389,
+          "reference_date": "23/07/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=710389",
+          "source_excerpt": "ções detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings\nmencionados neste relatório são disponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\nCritérios e Artigos Relacionados\n\nCritérios\n− Metodologia e premissas globais para CLOs e CDOs corporativos, 21 de junho de 2019\n− Critério para atribuição de ratings ‘CCC+’, ‘CCC’, ‘CCC-’ e ‘CC’,"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br/pt/publications-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 878059,
+          "reference_date": "17/03/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878059",
+          "source_excerpt": "VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        },
+        {
+          "document_id": 900361,
+          "reference_date": "30/04/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=900361",
+          "source_excerpt": "VAREJO I\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://brazil.ratings.spglobal.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 997703,
+          "reference_date": "18/08/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997703",
+          "source_excerpt": "Inclusão de mais tipos de fundos sob a mesma metodologia, como fundos de investimentos\n    imobiliário, fundos de fundos, fundos de direitos creditórios de classe e cota única, entre\n    outros.\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 997703,
+          "reference_date": "18/08/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997703",
+          "source_excerpt": "Empírica Goal One\n•   Fundo de Investimento em Direitos Creditórios Creditas Consignado\n•   Fundo de Investimento em Direitos Creditórios LF I - Segmento Financeiro -\n    Responsabilidade Limitada\n\n\nbrazil.ratings.spglobal.com                                                                                     18 de agosto de 2025         2"
+        },
+        {
+          "document_id": 997703,
+          "reference_date": "18/08/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997703",
+          "source_excerpt": "em Direitos Creditórios Multisetorial Master II\n•   Fundo de Investimento em Direitos Creditórios Multisetorial Master III\n•   Empírica Soberano - Fundo de Investimento Renda Fixa Referenciado DI\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                     18 de agosto de 2025        3"
+        },
+        {
+          "document_id": 997703,
+          "reference_date": "18/08/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997703",
+          "source_excerpt": "agosto de 2025\n•     Metodologia de rating de volatilidade de fundos na Escala Nacional Brasil, 18 de agosto de\n      2025\n\n\n\n    Artigo\n•     Definições de ratings na Escala Nacional Brasil\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                        18 de agosto de 2025     4"
+        },
+        {
+          "document_id": 997703,
+          "reference_date": "18/08/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997703",
+          "source_excerpt": "sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                         18 de agosto de 2025            5"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://brazil.ratings.spglobal.com/pt",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

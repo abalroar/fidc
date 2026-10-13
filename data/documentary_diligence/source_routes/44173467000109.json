@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "cnpj": "44173467000109",
+  "name": "MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE",
+  "generated_at": "2026-10-13T05:30:04Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:57:38Z",
+  "routes": [
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1078471,
+          "reference_date": "30/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078471",
+          "source_excerpt": "Nome:\n          Cargo:                                           Cargo:\n\n\n                                                                                               btgpactual.com"
+        },
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "al Arbitral, que deverá ocorrer de acordo com o\n                                   Regulamento de Arbitragem.\n\nBTG Pactual\n     Corporativo | Interno\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                      1"
+        },
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "para decidir sobre toda e qualquer questão, quer relacionada ao processo ou\nBTG Pactual\n     Corporativo | Interno\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                   2"
+        },
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "ela\n                  sua contratação, deverá fiscalizar tal serviço. As atribuições e a responsabilidade pela\nBTG Pactual\n     Corporativo | Interno\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                      3"
+        },
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "revistos neste Regulamento, considerando-se\n        a presentes os cotistas que tenham respondido a consulta.\n\nBTG Pactual\n     Corporativo | Interno\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                             4"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "Minuta – 24/08/2023\n\n\n\n\nRegulamento\n MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS\n[RESPONSABILIDADE LIMITADA]\nCNPJ nº 44.173.467/0001-09\n\n        Website: www.btgpactual.com\n        SAC: 0800 772 2827\n        Ouvidoria: 0800 722 0048\n                                        Rio de Janeiro, 27 de novembro de 2024.\n        BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-",
+      "source_type": "exchange",
+      "candidate_type": "assembleia",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "r cento ao ano). Para fins desse cálculo, para as Cotas cujo Benchmark seja atrelado à\n        Taxa DI, deverá ser considerada a Taxa DI futura negociada na B3 (atualmente verificável no site\n        https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-\n        dados/marketdata/cotacoes/derivativos.htm) com vencimento mais próximo ao prazo equivalente ao\n        prazo médio dos Direitos Creditórios do portfólio.\n        4.7.1     Os cálculos referen"
+        },
+        {
+          "document_id": 320078,
+          "reference_date": "14/06/2022",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+          "source_excerpt": "o ano). Para fins desse\ncálculo, para as Cotas cujo Benchmark seja atrelado à Taxa DI, deverá ser considerada\na    Taxa    DI   futura   negociada      na   B3   (atualmente   verificável  no    site\nhttps://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-\ndados/marketdata/cotacoes/derivativos.htm) com vencimento mais próximo ao prazo\nequivalente ao prazo médio dos Direitos Creditórios do portfólio.\n\nParágrafo Primeiro Os cálculos referentes a Taxa Mín"
+        },
+        {
+          "document_id": 355220,
+          "reference_date": "23/09/2022",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+          "source_excerpt": "o ano). Para fins desse\ncálculo, para as Cotas cujo Benchmark seja atrelado à Taxa DI, deverá ser considerada\na    Taxa    DI   futura   negociada      na   B3   (atualmente   verificável  no    site\nhttps://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-\ndados/marketdata/cotacoes/derivativos.htm) com vencimento mais próximo ao prazo\nequivalente ao prazo médio dos Direitos Creditórios do portfólio.\n\nParágrafo Primeiro Os cálculos referentes a Taxa Mín"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:34Z",
+        "error": "TimeoutError: The read operation timed out"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management/administracao-fiduciaria",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "contratos da Classe das funções para os quais foram contratados, sendo certo que tais regras e\n        procedimentos disponibilizados e mantidos atualizados em seu website, no endereço\n        www.btgpactual.com/asset-management/administracao-fiduciaria.\n\n\n\nBTG Pactual\n     Corporativo | Interno\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-servicing/administracao-fiduciaria",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791513,
+          "reference_date": "28/11/2024",
+          "page": 56,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+          "source_excerpt": "over extra grupo, expressas\nna forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela\nB3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços\nde custódia;\n“Taxa PSF”: tem o significado descrito no item 13.1;\n“Taxa PSF Agregada”: tem o signi"
+        },
+        {
+          "document_id": 320078,
+          "reference_date": "14/06/2022",
+          "page": 83,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+          "source_excerpt": "ma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculada\ne divulgada pela B3 S.A. – Brasil, Bolsa, Balcão (“B3”), no informativo diário disponível\nem sua página na internet (www.b3.com.br), acrescido exponencialmente de um spread\ncorrespondente a 2,40% (dois inteiros e quarenta centésimos por cento) ao ano,\ncalculado por Dia Útil à base de 1/252 (um inteiro e duzentos e cinquenta e dois"
+        },
+        {
+          "document_id": 320078,
+          "reference_date": "14/06/2022",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+          "source_excerpt": "ma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculada\ne divulgada pela B3 S.A. – Brasil, Bolsa, Balcão (“B3”), no informativo diário disponível\nem sua página na internet (www.b3.com.br), acrescido exponencialmente de um spread\ncorrespondente a 6,00 % (seis por cento) ao ano, calculado por Dia Útil à base de 1/252\n(um inteiro e duzentos e cinquenta e dois avos).\n\n20.   Após a data da"
+        },
+        {
+          "document_id": 355220,
+          "reference_date": "23/09/2022",
+          "page": 83,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+          "source_excerpt": "ma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculada\ne divulgada pela B3 S.A. – Brasil, Bolsa, Balcão (“B3”), no informativo diário disponível\nem sua página na internet (www.b3.com.br), acrescido exponencialmente de um spread\ncorrespondente a 2,40% (dois inteiros e quarenta centésimos por cento) ao ano,\ncalculado por Dia Útil à base de 1/252 (um inteiro e duzentos e cinquenta e dois"
+        },
+        {
+          "document_id": 355220,
+          "reference_date": "23/09/2022",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+          "source_excerpt": "ma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculada\ne divulgada pela B3 S.A. – Brasil, Bolsa, Balcão (“B3”), no informativo diário disponível\nem sua página na internet (www.b3.com.br), acrescido exponencialmente de um spread\ncorrespondente a 6,00 % (seis por cento) ao ano, calculado por Dia Útil à base de 1/252\n(um inteiro e duzentos e cinquenta e dois avos).\n\n20.   Após a data da"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 320078,
+          "reference_date": "14/06/2022",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+          "source_excerpt": "e propriedade do Fundo que concedem esse\ndireito de voto.\nParágrafo único     A versão completa da política de votação do Gestor\nestá  disponível   em     seu  website,   no      seguinte   endereço:\nwww.btgpactual.com/asset-management.\n\n                 CAPÍTULO XXIII – RESOLUÇÃO DE CONFLITOS\n\n69.   Com exceção de disputas relacionadas a obrigações sujeitas à execução\njudicial imediata, todas as demais disputas relacionadas ou refe"
+        },
+        {
+          "document_id": 355220,
+          "reference_date": "23/09/2022",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+          "source_excerpt": "e propriedade do Fundo que concedem esse\ndireito de voto.\nParágrafo único     A versão completa da política de votação do Gestor\nestá  disponível   em     seu  website,   no      seguinte   endereço:\nwww.btgpactual.com/asset-management.\n\n                 CAPÍTULO XXIII – RESOLUÇÃO DE CONFLITOS\n\n69.   Com exceção de disputas relacionadas a obrigações sujeitas à execução\njudicial imediata, todas as demais disputas relacionadas ou refe"
+        },
+        {
+          "document_id": 791325,
+          "reference_date": "18/11/2024",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791325",
+          "source_excerpt": "Ativos Financeiros de propriedade do Fundo\nque concedem esse direito de voto.\nParágrafo único A versão completa da política de votação do Gestor está disponível\nem seu website, no seguinte endereço: www.btgpactual.com/asset-management.\n\n\n                  CAPÍTULO XXIII – RESOLUÇÃO DE CONFLITOS\n\n69.    Com exceção de disputas relacionadas a obrigações sujeitas à execução judicial\nimediata, todas as demais disputas relacionadas ou r"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:24Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-management",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br/pt_br/market-data-e-",
+      "source_type": "exchange",
+      "candidate_type": "assembleia",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791325,
+          "reference_date": "18/11/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791325",
+          "source_excerpt": "seis décimos por cento ao ano). Para fins desse cálculo, para as Cotas cujo\nBenchmark seja atrelado à Taxa DI, deverá ser considerada a Taxa DI futura negociada na\nB3 (atualmente verificável no site https://www.b3.com.br/pt_br/market-data-e-\nindices/servicos-de-dados/marketdata/cotacoes/derivativos.htm) com vencimento mais\npróximo ao prazo equivalente ao prazo médio dos Direitos Creditórios do portfólio.\n\nParágrafo Primeiro       Os cálc"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:38Z",
+        "error": "TimeoutError: The read operation timed out"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

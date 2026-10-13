@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "cnpj": "58349979000198",
+  "name": "VOLKSWAGEN TERA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RECEBÍVEIS COMERCIAIS RESP LTDA",
+  "generated_at": "2026-10-13T05:30:17Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:09:34Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 826212,
+          "reference_date": "28/01/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212",
+          "source_excerpt": "e atendimento ao Cotista, responsável pelo esclarecimento de dúvidas e pelo\n                recebimento de reclamações, cujas informações encontram-se no seguinte endereço eletrônico:\n                www.oliveiratrust.com.br;\n\n            (x) realizar, por conta e em nome do Fundo, e com recursos financeiros do próprio Fundo, o pagamento da\n                taxa de fiscalização devida, conforme aplicável, nos termos do art"
+        },
+        {
+          "document_id": 826212,
+          "reference_date": "28/01/2025",
+          "page": 61,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212",
+          "source_excerpt": "me\n                          estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e no\n                          manual de precificação da Administradora disponível em www.oliveiratrust.com.br.\n\n                     16.1.2. Os Direitos Creditórios serão contabilizados e registrados com base em seu Preço de\n                          Aquisição, com apropriação de seus respectivos rendimentos,"
+        },
+        {
+          "document_id": 826213,
+          "reference_date": "28/01/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+          "source_excerpt": "de atendimento ao Cotista, responsável pelo esclarecimento de dúvidas e pelo\n               recebimento de reclamações, cujas informações encontram-se no seguinte endereço eletrônico:\n               www.oliveiratrust.com.br;\n\n            (x) realizar, por conta e em nome do Fundo, e com recursos financeiros do próprio Fundo, o pagamento da\n                taxa de fiscalização devida, conforme aplicável, nos termos do art"
+        },
+        {
+          "document_id": 826213,
+          "reference_date": "28/01/2025",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+          "source_excerpt": "estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e no\n                           manual de precificação da Administradora disponível em www.oliveiratrust.com.br.\n\n                     16.1.2. Os Direitos Creditórios serão contabilizados e registrados com base em seu Preço de\n                           Aquisição, com apropriação de seus respectivos rendimentos"
+        },
+        {
+          "document_id": 822809,
+          "reference_date": "04/12/2024",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
+          "source_excerpt": "e atendimento ao Cotista, responsável pelo esclarecimento de dúvidas e pelo\n                recebimento de reclamações, cujas informações encontram-se no seguinte endereço eletrônico:\n                www.oliveiratrust.com.br;\n\n            (y) realizar, por conta e em nome do Fundo, e com recursos financeiros do próprio Fundo, o pagamento da\n                taxa de fiscalização devida, conforme aplicável, nos termos do art"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 826212,
+          "reference_date": "28/01/2025",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212",
+          "source_excerpt": "res o direito de voto.\n\n                     11.1.14.A política de exercício de direito de voto adotada pela Gestora pode ser obtida no site da\n                          Gestora, no seguinte endereço https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                          codigos-e-politicas-subsidiaria/.\n\n                     11.1.15.A GESTORA ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n                          ASSEMBLEIAS, QUE DISCIP"
+        },
+        {
+          "document_id": 826213,
+          "reference_date": "28/01/2025",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+          "source_excerpt": "es o direito de voto.\n\n                     11.1.14.A política de exercício de direito de voto adotada pela Gestora pode ser obtida no site da\n                           Gestora, no seguinte endereço https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                           codigos-e-politicas-subsidiaria/.\n\n                     11.1.15.A GESTORA ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n                           ASSEMBLEIAS, QUE DISC"
+        },
+        {
+          "document_id": 822809,
+          "reference_date": "04/12/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
+          "source_excerpt": "-8271-D38B08B883D2\n\n\n\n\n                     11.1.14.A política de exercício de direito de voto adotada pela Gestora pode ser obtida no site da\n                           Gestora, no seguinte endereço https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                           codigos-e-politicas-subsidiaria/.\n\n                     11.1.15.A GESTORA ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n                           ASSEMBLEIAS, QUE DISC"
+        },
+        {
+          "document_id": 823153,
+          "reference_date": "20/01/2025",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823153",
+          "source_excerpt": "es o direito de voto.\n\n                     11.1.14.A política de exercício de direito de voto adotada pela Gestora pode ser obtida no site da\n                           Gestora, no seguinte endereço https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n                           codigos-e-politicas-subsidiaria/.\n\n                     11.1.15.A GESTORA ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n                           ASSEMBLEIAS, QUE DISC"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:12Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 826212,
+          "reference_date": "28/01/2025",
+          "page": 89,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212",
+          "source_excerpt": "nota fiscal eletrônica e faculta a verificação da sua autorização e\n                                                      conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou no site\n                                                      da Secretaria de Fazenda - SEFAZ da circunscrição da Cedente\n\n              \"Classe\"                                significa classe ú"
+        },
+        {
+          "document_id": 826213,
+          "reference_date": "28/01/2025",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+          "source_excerpt": "nota fiscal eletrônica e faculta a verificação da sua autorização e\n                                                      conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou no site\n                                                      da Secretaria de Fazenda - SEFAZ da circunscrição da Cedente\n\n              \"Classe\"                                significa classe ú"
+        },
+        {
+          "document_id": 822809,
+          "reference_date": "04/12/2024",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
+          "source_excerpt": "nota fiscal eletrônica e faculta a verificação da sua autorização e\n                                                      conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou no site\n                                                      da Secretaria de Fazenda - SEFAZ da circunscrição da Cedente\n\n              \"Classe\"                                significa classe ú"
+        },
+        {
+          "document_id": 823153,
+          "reference_date": "20/01/2025",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823153",
+          "source_excerpt": "nota fiscal eletrônica e faculta a verificação da sua autorização e\n                                                      conteúdo no ambiente nacional (www.nfe.fazenda.gov.br) ou no site\n                                                      da Secretaria de Fazenda - SEFAZ da circunscrição da Cedente\n\n              \"Classe\"                                significa classe ú"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "https://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 826212,
+          "reference_date": "28/01/2025",
+          "page": 102,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826212",
+          "source_excerpt": "Dias Úteis, apurada e divulgada pela B3, no informativo diário\n                                                     disponível em sua página na internet (www.b3.com.br).\n\n              \"Taxa Mínima de Cessão\"                significa Taxa DI + 2,30% (dois inteiros e trinta centésimos por cento)\n                                                     ao ano."
+        },
+        {
+          "document_id": 826213,
+          "reference_date": "28/01/2025",
+          "page": 99,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213",
+          "source_excerpt": "Dias Úteis, apurada e divulgada pela B3, no informativo diário\n                                                     disponível em sua página na internet (www.b3.com.br).\n\n              \"Taxa Mínima de Cessão\"                significa Taxa DI + 2,30% (dois inteiros e trinta centésimos por cento)\n                                                     ao ano."
+        },
+        {
+          "document_id": 822809,
+          "reference_date": "04/12/2024",
+          "page": 98,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
+          "source_excerpt": "Dias Úteis, apurada e divulgada pela B3, no informativo diário\n                                                     disponível em sua página na internet (www.b3.com.br).\n\n              \"Taxa Mínima de Cessão\"                significa Taxa DI + 2,10% (dois inteiros e dez centésimos por cento) ao\n                                                     ano."
+        },
+        {
+          "document_id": 823153,
+          "reference_date": "20/01/2025",
+          "page": 99,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823153",
+          "source_excerpt": "Dias Úteis, apurada e divulgada pela B3, no informativo diário\n                                                     disponível em sua página na internet (www.b3.com.br).\n\n              \"Taxa Mínima de Cessão\"                significa Taxa DI + 2,30% (dois inteiros e trinta centésimos por cento)\n                                                     ao ano."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

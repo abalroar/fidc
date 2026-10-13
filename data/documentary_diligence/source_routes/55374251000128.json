@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "cnpj": "55374251000128",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BLUE II SEGMENTO CRÉDITO CORPORATIVO DE RESP LTDA",
+  "generated_at": "2026-10-13T05:30:15Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:07:02Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "e atendimento ao Cotista, responsável pelo esclarecimento de\n                dúvidas e pelo recebimento de reclamações, cujas informações encontram-se no\n                seguinte endereço eletrônico: https://www.oliveiratrust.com.br/;\n\n\n                                                                                                   5"
+        },
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "tulos e valores mobiliários que confiram aos seus titulares\n        o direito de voto. A versão integral da política de voto da Gestora encontra-se disposta no\n        website da Gestora no endereço: https://www.oliveiratrust.com.br/.\n\n        24.5. Para fins do disposto neste Regulamento, considera-se o correio eletrônico como\n        uma forma de correspondência válida nas comunicações entre a Administradora, a Gestora,"
+        },
+        {
+          "document_id": 684546,
+          "reference_date": "21/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684546",
+          "source_excerpt": "atendimento ao Cotista, responsável pelo esclarecimento de\n                 dúvidas e pelo recebimento de reclamações, cujas informações encontram-se no\n                 seguinte endereço eletrônico: https://www.oliveiratrust.com.br/;\n\n\n                                                                                                    5"
+        },
+        {
+          "document_id": 684546,
+          "reference_date": "21/06/2024",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684546",
+          "source_excerpt": "tulos e valores mobiliários que confiram aos seus titulares\n        o direito de voto. A versão integral da política de voto da Gestora encontra-se disposta no\n        website da Gestora no endereço: https://www.oliveiratrust.com.br/.\n\n        24.5. Para fins do disposto neste Regulamento, considera-se o correio eletrônico como\n        uma forma de correspondência válida nas comunicações entre a Administradora, a Gestora,"
+        },
+        {
+          "document_id": 674800,
+          "reference_date": "03/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674800",
+          "source_excerpt": "atendimento ao Cotista, responsável pelo esclarecimento de\n                 dúvidas e pelo recebimento de reclamações, cujas informações encontram-se no\n                 seguinte endereço eletrônico: https://www.oliveiratrust.com.br/;\n\n\n                                                                                                    5"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "tulos e valores mobiliários, conforme\n         estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e\n         no manual de precificação do Administrador disponível em www.oliveiratrust.com.br.\n\n         16.1.2. Os Direitos Creditórios serão contabilizados e registrados com base em seu Preço\n         de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de"
+        },
+        {
+          "document_id": 684546,
+          "reference_date": "21/06/2024",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684546",
+          "source_excerpt": "tulos e valores mobiliários, conforme\n         estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e\n         no manual de precificação do Administrador disponível em www.oliveiratrust.com.br.\n\n         16.1.2. Os Direitos Creditórios serão contabilizados e registrados com base em seu Preço\n         de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de"
+        },
+        {
+          "document_id": 674800,
+          "reference_date": "03/06/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674800",
+          "source_excerpt": "tulos e valores mobiliários, conforme\n         estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e\n         no manual de precificação do Administrador disponível em www.oliveiratrust.com.br.\n\n         16.1.2. Os Direitos Creditórios serão contabilizados e registrados com base em seu Preço\n         de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de"
+        },
+        {
+          "document_id": 683808,
+          "reference_date": "20/06/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683808",
+          "source_excerpt": "títulos e valores mobiliários, conforme\n        estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado) e\n        no manual de precificação do Administrador disponível em www.oliveiratrust.com.br.\n\n\n\n                                                                                               26"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": ", expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e\n        dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo diário disponível em sua\n        página na internet (www.b3.com.br);\n\n        “Taxa SELIC”: significa a taxa de juros apurada no Sistema Especial de Liquidação e\n        Custódia, divulgada pelo seu Departamento de Operações do Mercado Aberto, Divisão de\n        Admin"
+        },
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 69,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "ign Envelope ID: F7E591E7-D72F-436C-B26C-CD76F5FA28DC\n\n\n\n\n                                          dias, calculada e divulgada pela B3, disponível na página\n                                          www.b3.com.br, em seu informativo diário (Taxa DI), acrescida de\n                                          sobretaxa de 3,65% (três inteiros e sessenta e cinco centésimos\n                                          p"
+        },
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 73,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "entual ao ano, com base 252 (duzentos e\n                                          cinquenta e dois) dias, calculada e divulgada pela B3, disponível na\n                                          página www.b3.com.br, em seu informativo diário (Taxa DI),\n                                          acrescida de sobretaxa de 5,75% (cinco inteiros e setenta e cinco\n                                          centésimos c"
+        },
+        {
+          "document_id": 686750,
+          "reference_date": "25/06/2024",
+          "page": 77,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686750",
+          "source_excerpt": "” expressa na forma percentual ao ano, com base 252\n                              (duzentos e cinquenta e dois) dias, calculada e divulgada pela\n                              B3, disponível na página www.b3.com.br, em seu informativo\n                              diário (Taxa DI), acrescida de sobretaxa de 8,89% (oito inteiros\n                              e oitenta e nove centésimos por cento) (“Sobretaxa Meza"
+        },
+        {
+          "document_id": 686749,
+          "reference_date": "25/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686749",
+          "source_excerpt": "forma percentual ao ano, com base 252 (duzentos e cinquenta e\n                               dois) dias, calculada e divulgada pela B3, disponível na página\n                               www.b3.com.br, em seu informativo diário (Taxa DI), acrescida\n                               de sobretaxa de 3,65% (três inteiros e sessenta e cinco\n                               centésimos por cento) (“Sobretaxa"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 861298,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861298",
+          "source_excerpt": "de 2024. A reunião de Comitê está registrada na Ata Nº 20250317-1.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 945237,
+          "reference_date": "05/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=945237",
+          "source_excerpt": "de 2025. A reunião de Comitê está registrada na Ata Nº 20250605-1.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1025519,
+          "reference_date": "24/10/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025519",
+          "source_excerpt": "de 2025. A reunião de Comitê está registrada na Ata Nº 20251024-1.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1067947,
+          "reference_date": "17/12/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1067947",
+          "source_excerpt": "de 2025. A reunião de Comitê está registrada na Ata Nº 20251217-5.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1118666,
+          "reference_date": "12/02/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118666",
+          "source_excerpt": "de 2026. A reunião de Comitê está registrada na Ata Nº 20260212-10.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 861298,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861298",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 945237,
+          "reference_date": "05/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=945237",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1025519,
+          "reference_date": "24/10/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025519",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1067947,
+          "reference_date": "17/12/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1067947",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1118666,
+          "reference_date": "12/02/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118666",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 861298,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861298",
+          "source_excerpt": "serviço direto para a Oliveira Trust Servicer S.A., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Oliveira Trust\n    Distribuidora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante do Fundo, limita-se a outros fundos do"
+        },
+        {
+          "document_id": 945237,
+          "reference_date": "05/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=945237",
+          "source_excerpt": "serviço direto para a Oliveira Trust Servicer S.A., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Oliveira Trust\n    Distribuidora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante do Fundo, limita-se a outros fundos do"
+        },
+        {
+          "document_id": 1025519,
+          "reference_date": "24/10/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025519",
+          "source_excerpt": "serviço direto para a Oliveira Trust Servicer S.A., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Oliveira Trust\n    Distribuidora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante do Fundo, limita-se a outros fundos do"
+        },
+        {
+          "document_id": 1067947,
+          "reference_date": "17/12/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1067947",
+          "source_excerpt": "serviço direto para a Oliveira Trust Servicer S.A., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Oliveira Trust\n    Distribuidora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante do Fundo, limita-se a outros fundos do"
+        },
+        {
+          "document_id": 1118666,
+          "reference_date": "12/02/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118666",
+          "source_excerpt": "serviço direto para a Oliveira Trust Servicer S.A., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Oliveira Trust\n    Distribuidora de Títulos e Valores Mobiliários S.A., Administradora e Custodiante do Fundo, limita-se a outros fundos do"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

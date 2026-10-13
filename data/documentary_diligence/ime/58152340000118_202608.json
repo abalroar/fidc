@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "58152340000118",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 495258391.26,
+    "credit_rights": 580451797.66,
+    "overdue_credit": 59896904.15,
+    "cash": 6.35,
+    "pdd": 97915604.94,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 251123737.005,
+    "subordinated_quotas": 244134654.25459966,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 244134654.25459966
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "58152340000118",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/58152340000118_202608.json",
+    "reported_fund_cnpj": "58152340000118",
+    "reported_class_cnpj": "58152340000118",
+    "reported_fund_cnpj_raw": "58152340000118",
+    "reported_class_cnpj_raw": "58152340000118",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1320062",
+    "version": 1,
+    "delivered_at": "15/09/2026 14:35",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1320062",
+    "declared_fields_sha256": "5ad04f811ad47043cda38fef2a32aa35b4780ef7e637118874af77628f4194a1"
+  },
+  "error": ""
+}

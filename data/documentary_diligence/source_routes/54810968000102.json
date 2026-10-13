@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "cnpj": "54810968000102",
+  "name": "ANGÁ FGTS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:14Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:06:41Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 937760,
+          "reference_date": "22/04/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937760",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e\n                           divulgadas diariamente pela B3, disponível em sua página\n                           na Internet (http://www.b3.com.br), base 252 (duzentos e\n                           cinquenta e dois) Dias Úteis, expressa na forma percentual\n                           ao ano;\n\n “Taxa Média de            A média das taxas que cada um"
+        },
+        {
+          "document_id": 666748,
+          "reference_date": "21/05/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666748",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e\n                           divulgadas diariamente pela B3, disponível em sua página\n                           na Internet (http://www.b3.com.br), base 252 (duzentos e\n                           cinquenta e dois) Dias Úteis, expressa na forma percentual\n                           ao ano;\n\n “Taxa Média de            A média das taxas que cada um"
+        },
+        {
+          "document_id": 666837,
+          "reference_date": "22/05/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666837",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e\n                           divulgadas diariamente pela B3, disponível em sua página\n                           na Internet (http://www.b3.com.br), base 252 (duzentos e\n                           cinquenta e dois) Dias Úteis, expressa na forma percentual\n                           ao ano;\n\n “Taxa Média de            A média das taxas que cada um"
+        },
+        {
+          "document_id": 794749,
+          "reference_date": "02/12/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794749",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e\n                           divulgadas diariamente pela B3, disponível em sua página\n                           na Internet (http://www.b3.com.br), base 252 (duzentos e\n                           cinquenta e dois) Dias Úteis, expressa na forma percentual\n                           ao ano;\n\n “Taxa Média de            A média das taxas que cada um"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 937760,
+          "reference_date": "22/04/2025",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937760",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                             se disponível em seu website, no seguinte endereço:\n                             www.angaasset.com.br.\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\naquisição de Direitos Creditórios e/ou Ativos Financeiros d"
+        },
+        {
+          "document_id": 666748,
+          "reference_date": "21/05/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666748",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                             se disponível em seu website, no seguinte endereço:\n                             www.angaasset.com.br.\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\naquisição de Direitos Creditórios e/ou Ativos Financeiros d"
+        },
+        {
+          "document_id": 666837,
+          "reference_date": "22/05/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666837",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                             se disponível em seu website, no seguinte endereço:\n                             www.angaasset.com.br.\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\naquisição de Direitos Creditórios e/ou Ativos Financeiros d"
+        },
+        {
+          "document_id": 794749,
+          "reference_date": "02/12/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794749",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                             se disponível em seu website, no seguinte endereço:\n                             www.angaasset.com.br.\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\naquisição de Direitos Creditórios e/ou Ativos Financeiros d"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 937760,
+          "reference_date": "22/04/2025",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937760",
+          "source_excerpt": "apurado conforme a metodologia\nde avaliação descrita no manual de marcação a mercado da Administradora, cujo teor\nestá          disponível           no          site        da         Administradora\n(https://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-\ndocumentos).\n\n17.2. Os Direitos Creditórios integrantes da Carteira da Classe A serão calculados pela\nAdministradora e terão seu valor calculado, todo Dia Útil, pelos respectivos custos de\naquisição,"
+        },
+        {
+          "document_id": 937760,
+          "reference_date": "22/04/2025",
+          "page": 83,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937760",
+          "source_excerpt": "ção de metodologia de apuração do\nseu valor de mercado, em conformidade com o manual de marcação a mercado da\nAdministradora,         disponível        em        sua        página         eletrônica:\nhttps://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-\ndocumentos.\n\nAs provisões e as perdas com Direitos Creditórios da Classe A serão constituídas\nconsiderando a aplicação dos percentuais a seguir mencionados sobre o valor dos\nDireitos Creditórios, con"
+        },
+        {
+          "document_id": 666748,
+          "reference_date": "21/05/2024",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666748",
+          "source_excerpt": "apurado conforme a metodologia\nde avaliação descrita no manual de marcação a mercado da Administradora, cujo teor\nestá          disponível           no          site        da         Administradora\n(https://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-\ndocumentos).\n\n17.2. Os Direitos Creditórios integrantes da Carteira da Classe A serão calculados pela\nAdministradora e terão seu valor calculado, todo Dia Útil, pelos respectivos custos de\naquisição,"
+        },
+        {
+          "document_id": 666748,
+          "reference_date": "21/05/2024",
+          "page": 83,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666748",
+          "source_excerpt": "ção de metodologia de apuração do\nseu valor de mercado, em conformidade com o manual de marcação a mercado da\nAdministradora,         disponível        em        sua        página         eletrônica:\nhttps://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-\ndocumentos.\n\nAs provisões e as perdas com Direitos Creditórios da Classe A serão constituídas\nconsiderando a aplicação dos percentuais a seguir mencionados sobre o valor dos\nDireitos Creditórios, con"
+        },
+        {
+          "document_id": 666837,
+          "reference_date": "22/05/2024",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666837",
+          "source_excerpt": "apurado conforme a metodologia\nde avaliação descrita no manual de marcação a mercado da Administradora, cujo teor\nestá          disponível           no          site        da         Administradora\n(https://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-\ndocumentos).\n\n17.2. Os Direitos Creditórios integrantes da Carteira da Classe A serão calculados pela\nAdministradora e terão seu valor calculado, todo Dia Útil, pelos respectivos custos de\naquisição,"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-capitais/politicas-manuais-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

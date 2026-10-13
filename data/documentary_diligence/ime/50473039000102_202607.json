@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50473039000102",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 3686747654.57,
+    "credit_rights": 3557613504.68,
+    "overdue_credit": 0.0,
+    "cash": 664.65,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 1750204415.4700632,
+    "subordinated_quotas": 1936543239.100139,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1936543239.100139
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50473039000102",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/50473039000102_202607.json",
+    "reported_fund_cnpj": "50473039000102",
+    "reported_class_cnpj": "50473039000102",
+    "reported_fund_cnpj_raw": "50473039000102",
+    "reported_class_cnpj_raw": "50473039000102",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1292393",
+    "version": 1,
+    "delivered_at": "14/08/2026 14:49",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1292393",
+    "declared_fields_sha256": "74020c985a84ecdaf089be04d3ea0eacdacdb8c99c62fe77125fafdf11973fd6"
+  },
+  "error": ""
+}

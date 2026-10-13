@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "65327006000113",
+  "competence": "09/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 989737.42,
+    "credit_rights": 485711.78,
+    "overdue_credit": 0.0,
+    "cash": 2010.12,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 989737.42,
+    "subordinated_quotas": 0.0,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 0.0
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "65327006000113",
+    "competence": "09/2026",
+    "path": "data/documentary_diligence/ime/65327006000113_202609.json",
+    "reported_fund_cnpj": "65327006000113",
+    "reported_class_cnpj": "65327006000113",
+    "reported_fund_cnpj_raw": "65327006000113",
+    "reported_class_cnpj_raw": "65327006000113",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1342185",
+    "version": 1,
+    "delivered_at": "07/10/2026 16:12",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1342185",
+    "declared_fields_sha256": "78401d3f027f6349cfb1dea02a324323d5c4c9bdee11cf3a01c0e7a8239aa238"
+  },
+  "error": ""
+}

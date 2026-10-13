@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "cnpj": "62010175000137",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES IV",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:29Z",
+  "routes": [
+    {
+      "url": "https://www.vortx.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 971924,
+          "reference_date": "13/08/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971924",
+          "source_excerpt": "ADMINISTRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n       dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n\n\n       Website: https://www.vortx.com.br/\n       SAC: (11)3030-7177"
+        },
+        {
+          "document_id": 971910,
+          "reference_date": "31/07/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971910",
+          "source_excerpt": "O ADMINISTRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n      dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n\n\n      Website: https://www.vortx.com.br/\n      SAC: (11)3030-7177\n      Ouvidoria: 0800 887 0456"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "263951",
+        "final_url": "https://www.vortx.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.vortx.com.br/ri",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 971924,
+          "reference_date": "13/08/2025",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971924",
+          "source_excerpt": "lados todo Dia Útil conforme a metodologia de avaliação descrita no manual do\n      ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos seus respectivos\n      websites, nos endereços https://www.vortx.com.br/ri.\n\n\n9.2   As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros\n      de Liquidez integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas"
+        },
+        {
+          "document_id": 971924,
+          "reference_date": "13/08/2025",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971924",
+          "source_excerpt": "se das funções para os quais foram contratados, sendo certo que tais regras e\n         procedimentos    disponibilizados   e   mantidos      atualizados   em   seu   website,   no   endereço\n         https://www.vortx.com.br/ri.\n\n\nGestão\n12.8     O GESTOR, observadas as limitações legais e as previstas na regulamentação aplicável, tem poderes\n         para praticar os atos necessários à gestão da Carteira de ativos, na sua r"
+        },
+        {
+          "document_id": 971910,
+          "reference_date": "31/07/2025",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971910",
+          "source_excerpt": "lados todo Dia Útil conforme a metodologia de avaliação descrita no manual do\n      ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos seus respectivos\n      websites, nos endereços https://www.vortx.com.br/ri."
+        },
+        {
+          "document_id": 971910,
+          "reference_date": "31/07/2025",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971910",
+          "source_excerpt": "sse das funções para os quais foram contratados, sendo certo que tais regras e\n         procedimentos    disponibilizados   e   mantidos    atualizados   em   seu    website,   no   endereço\n         https://www.vortx.com.br/ri.\n\n\nGestão\n12.8     O GESTOR, observadas as limitações legais e as previstas na regulamentação aplicável, tem poderes\n         para praticar os atos necessários à gestão da Carteira de ativos, na sua r"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 971924,
+          "reference_date": "13/08/2025",
+          "page": 78,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971924",
+          "source_excerpt": "over extra grupo, expressas\nna forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela\nB3, no informativo diário disponível em sua página na internet (www.b3.com.br);"
+        },
+        {
+          "document_id": 971910,
+          "reference_date": "31/07/2025",
+          "page": 78,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971910",
+          "source_excerpt": "over extra grupo, expressas\nna forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela\nB3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n\n\nTaxa Máxima de Distribuição\n\n\nTermo de Adesão                                                                         175, por meio do qual o\nCotista adere a este Regulamento e que deve ser firmado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com.br/",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1068603,
+          "reference_date": "24/11/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1068603",
+          "source_excerpt": "o          FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES IV\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 3T25\nvisualizar os Comunicados de Ações de Rating.            Resumo da Operação\nEsta publicação não deve ser cons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://ir.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1068603,
+          "reference_date": "24/11/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1068603",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ir.moodys.com/investor-relations/default.aspx",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

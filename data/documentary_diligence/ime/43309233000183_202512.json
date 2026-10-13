@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "43309233000183",
+  "competence": "12/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 3504103.46,
+    "credit_rights": 3396869.2600000002,
+    "overdue_credit": 435875.2,
+    "cash": 726.19,
+    "pdd": 435875.2,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 3504103.4600099996,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 3504103.4600099996
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "43309233000183",
+    "competence": "12/2025",
+    "path": "data/documentary_diligence/ime/43309233000183_202512.json",
+    "reported_fund_cnpj": "43309233000183",
+    "reported_class_cnpj": "43309233000183",
+    "reported_fund_cnpj_raw": "43309233000183",
+    "reported_class_cnpj_raw": "43309233000183",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1079675",
+    "version": 1,
+    "delivered_at": "12/01/2026 16:08",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1079675",
+    "declared_fields_sha256": "03a1255931eba8dfce7ec3a4c8c41fafba9a3e2cfa63350de51619224f35c484"
+  },
+  "error": ""
+}

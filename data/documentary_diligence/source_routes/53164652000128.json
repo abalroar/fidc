@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "cnpj": "53164652000128",
+  "name": "IS SOL AGORA GREEN II ESG FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:12Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:49Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1337687,
+          "reference_date": "01/10/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337687",
+          "source_excerpt": "regulamentação aplicável.\n\n  O Novo Regulamento estará à disposição dos Cotistas e de quem mais possa interessar no website da CVM\n  (www.cvm.gov.br). O Novo Regulamento será encaminhado à CVM, por meio de sistema eletrônico\n  disponível na rede mundial de computadores, e, se for o caso, à entidade administradora do mercado\n  organizado em que as c"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.jgp.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 572380,
+          "reference_date": "08/12/2023",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=572380",
+          "source_excerpt": "cio de direito de voto adotada pela Gestora pode ser obtida\n                     na   página   da   Gestora   na   rede   mundial   de   computadores,   no   seguinte   endereço:\n                     www.jgp.com.br.\n\n            11.1.17.         Não obstante a diligência da Administradora em colocar em prática a política de\n            investimento, composição e diversificação da carteira do Fundo prevista no pr"
+        },
+        {
+          "document_id": 574921,
+          "reference_date": "21/12/2023",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574921",
+          "source_excerpt": "ireito de voto adotada pela Gestora pode ser\n                                    obtida na página da Gestora na rede mundial de computadores, no seguinte\n                                    endereço: www.jgp.com.br.\n\n            11.1.18.         Não obstante a diligência da Administradora em colocar em prática a política de\n            investimento, composição e diversificação da carteira do Fundo prevista no pr"
+        },
+        {
+          "document_id": 587443,
+          "reference_date": "17/01/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587443",
+          "source_excerpt": "eito de voto adotada pela Gestora pode ser\n                                     obtida na página da Gestora na rede mundial de computadores, no seguinte\n                                     endereço: www.jgp.com.br.\n\n             11.1.18.        Não obstante a diligência da Administradora em colocar em prática a política de\n             investimento, composição e diversificação da carteira do Fundo prevista no p"
+        },
+        {
+          "document_id": 590160,
+          "reference_date": "24/01/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=590160",
+          "source_excerpt": "eito de voto adotada pela Gestora pode ser\n                                     obtida na página da Gestora na rede mundial de computadores, no seguinte\n                                     endereço: www.jgp.com.br.\n\n             11.1.18.        Não obstante a diligência da Administradora em colocar em prática a política de\n             investimento, composição e diversificação da carteira do Fundo prevista no p"
+        },
+        {
+          "document_id": 647878,
+          "reference_date": "25/04/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647878",
+          "source_excerpt": "ireito de voto adotada pela Gestora pode ser\n                                    obtida na página da Gestora na rede mundial de computadores, no seguinte\n                                    endereço: www.jgp.com.br.\n\n            11.1.18.         Não obstante a diligência da Administradora em colocar em prática a política de\n            investimento, composição e diversificação da carteira do Fundo prevista no pr"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.jgp.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://jgp.com.br/esg/conheca-nossa-",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 574921,
+          "reference_date": "21/12/2023",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574921",
+          "source_excerpt": "cer.\n\n            11.1.8.O Parecer emitido pela Certificadora Verde será entregue até a 1ª Data de Integralização das\n            Cotas    Seniores   e   ficará   disponível   no   seguinte   link:   https://jgp.com.br/esg/conheca-nossa-\n            metodologia/. A Certificadora Verde é independente, não sendo parte relacionada da Administradora,\n            da Gestora ou da Descarbonize.\n\n            11.1.9.Após o final do Período d"
+        },
+        {
+          "document_id": 587443,
+          "reference_date": "17/01/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587443",
+          "source_excerpt": "r.\n\n             11.1.8.O Parecer emitido pela Certificadora Verde será entregue até a 1ª Data de Integralização das\n             Cotas   Seniores    e   ficará   disponível   no   seguinte   link:   https://jgp.com.br/esg/conheca-nossa-\n             metodologia/. A Certificadora Verde é independente, não sendo parte relacionada da Administradora,\n             da Gestora ou da Descarbonize.\n\n             11.1.9.Após o final do Períod"
+        },
+        {
+          "document_id": 590160,
+          "reference_date": "24/01/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=590160",
+          "source_excerpt": "er.\n\n             11.1.8.O Parecer emitido pela Certificadora Verde será entregue até a 1ª Data de Integralização das\n             Cotas   Seniores   e   ficará   disponível   no   seguinte   link:   https://jgp.com.br/esg/conheca-nossa-\n             metodologia/. A Certificadora Verde é independente, não sendo parte relacionada da Administradora,\n             da Gestora ou da Descarbonize.\n\n             11.1.9.Após o final do Períod"
+        },
+        {
+          "document_id": 647878,
+          "reference_date": "25/04/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647878",
+          "source_excerpt": "cer.\n\n            11.1.8.O Parecer emitido pela Certificadora Verde será entregue até a 1ª Data de Integralização das\n            Cotas    Seniores   e   ficará   disponível   no   seguinte   link:   https://jgp.com.br/esg/conheca-nossa-\n            metodologia/. A Certificadora Verde é independente, não sendo parte relacionada da Administradora,\n            da Gestora ou da Descarbonize.\n\n            11.1.9.Após o final do Período d"
+        },
+        {
+          "document_id": 682998,
+          "reference_date": "13/06/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
+          "source_excerpt": "r.\n\n             11.1.8.O Parecer emitido pela Certificadora Verde será entregue até a 1ª Data de Integralização das\n             Cotas   Seniores    e   ficará   disponível   no   seguinte   link:   https://jgp.com.br/esg/conheca-nossa-\n             metodologia/. A Certificadora Verde é independente, não sendo parte relacionada da Administradora,\n             da Gestora ou da Descarbonize.\n\n             11.1.9.Após o final do Períod"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://jgp.com.br/esg/conheca-nossa-metodologia/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://jgp.com.br/esg/conheca-nossa-metodologia/",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 574921,
+          "reference_date": "21/12/2023",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574921",
+          "source_excerpt": "Projetos de Geração Energia Elétrica financiados por meio\n            das CCBs relacionadas aos Direitos Creditórios Adquiridos pelo Fundo. Tal parecer ficará disponível no\n            seguinte link: https://jgp.com.br/esg/conheca-nossa-metodologia/. Como a aquisição pelo Fundo de\n            Direitos Creditórios ocorre ordinaria e materialmente somente durante o Período de Carência, não será\n            produzido e disponibilizado outro parecer"
+        },
+        {
+          "document_id": 574921,
+          "reference_date": "21/12/2023",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574921",
+          "source_excerpt": "ii) o relatório de reporte ESG, conforme modelo disponibilizado\n            pela    ANBIMA,     serão   elaborados    pela   Gestora   e   ficarão   disponíveis   no      seguinte   link:\n            https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n            11.1.11.          Além das políticas de investimento e legislação pertinente, os Direitos Creditórios que\n            serão adquiridos pelo Fundo passarão por política de integridade e é"
+        },
+        {
+          "document_id": 587443,
+          "reference_date": "17/01/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587443",
+          "source_excerpt": "ojetos de Geração Energia Elétrica financiados por meio\n             das CCBs relacionadas aos Direitos Creditórios Adquiridos pelo Fundo. Tal parecer ficará disponível no\n             seguinte link: https://jgp.com.br/esg/conheca-nossa-metodologia/. Como a aquisição pelo Fundo de\n             Direitos Creditórios ocorre ordinaria e materialmente somente durante o Período de Carência, não será\n             produzido e disponibilizado outro parece"
+        },
+        {
+          "document_id": 587443,
+          "reference_date": "17/01/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587443",
+          "source_excerpt": "AGORAGREEN-II-ESG-FDIC.PDF; e (ii) o\n             relatório de reporte ESG, conforme modelo disponibilizado pela ANBIMA, será elaborado pela Gestora e\n             ficará disponível no seguinte link: https://jgp.com.br/esg/conheca-nossa-metodologia/.\n\n             11.1.11.        Além das políticas de investimento e legislação pertinente, os Direitos Creditórios que\n             serão adquiridos pelo Fundo passarão por política de integridade e é"
+        },
+        {
+          "document_id": 590160,
+          "reference_date": "24/01/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=590160",
+          "source_excerpt": "ojetos de Geração Energia Elétrica financiados por meio\n             das CCBs relacionadas aos Direitos Creditórios Adquiridos pelo Fundo. Tal parecer ficará disponível no\n             seguinte link: https://jgp.com.br/esg/conheca-nossa-metodologia/. Como a aquisição pelo Fundo de\n             Direitos Creditórios ocorre ordinaria e materialmente somente durante o Período de Carência, não será"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:50Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://jgp.com.br/esg/conheca-nossa-metodologia/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://jgp.com.br/esg/conheca-nossa-metodologia/.”",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 587442,
+          "reference_date": "17/01/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587442",
+          "source_excerpt": "porte ESG, conforme modelo disponibilizado\n                                       pela ANBIMA, será elaborado pela Gestora e ficará disponível no seguinte link:\n                                       https://jgp.com.br/esg/conheca-nossa-metodologia/.”\n\n\n             Uma vez que a presente alteração visa atender uma exigência da Associação Brasileira das Entidades dos\n             Mercados Financeiros – ANBIMA, é dispensada a realização de assemble"
+        },
+        {
+          "document_id": 647873,
+          "reference_date": "25/04/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647873",
+          "source_excerpt": "df; e (ii) o relatório de reporte ESG, conforme modelo disponibilizado\n                         pela ANBIMA, será elaborado pela Gestora e ficará disponível no seguinte link:\n                         https://jgp.com.br/esg/conheca-nossa-metodologia/.”\n\n            Uma vez que a presente alteração visa atender uma exigência da Associação Brasileira das Entidades dos\n            Mercados Financeiros – ANBIMA, é dispensada a realização de assembleia"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:08Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 37: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 663185,
+          "reference_date": "31/03/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663185",
+          "source_excerpt": "Pedro Garufi\n                                                                                                                                 ci a      Monitoramento\nConsulte a página www.moodyslocal.com/country/br para visualizar os\nComunicados relativos às Ações de Rating referenciadas nesta\npublicação.\n\n\n\n\nResumo da Operação\n                                                                          Assoc Dir-"
+        },
+        {
+          "document_id": 668050,
+          "reference_date": "31/03/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=668050",
+          "source_excerpt": "ficação de Risco de Crédito,\nnos termos do disposto no artigo 16 da Resolução CVM no 9/2020.           Robert Krause                      Pedro Garufi                  Monitoramento\nConsulte a página www.moodyslocal.com/country/br para visualizar os       Assoc Dir-Credit Analyst/ML        Associate Credit Analyst/ML   monitoramento@moodys.com\nComunicados relativos às Ações de Rating referenciadas nesta\npublicação."
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 663185,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663185",
+          "source_excerpt": "líticas e procedimentos destinados a preservar a independência dos ratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de crédito. São\n    incluídas anualmente no website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder\n    Affiliation Policy” informações acerca de certas relações que possam existir entre administr"
+        },
+        {
+          "document_id": 668050,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=668050",
+          "source_excerpt": "líticas e procedimentos destinados a preservar a independência dos ratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de crédito. São\n    incluídas anualmente no website www.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder\n    Affiliation Policy” informações acerca de certas relações que possam existir entre administr"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.moodys.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-Metodologia-ASG-Sol-",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 647873,
+          "reference_date": "25/04/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647873",
+          "source_excerpt": "lo e “Tutorial Para Cadastro de Fundos Sustentáveis”\n                         disponibilizados   pela   ANBIMA,         poderá      ser   acessado     através   do      link:\n                         https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-Metodologia-ASG-Sol-\n                         AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo disponibilizado\n                         pela ANBIMA, será elaborado pela Gestora e ficará disp"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:08Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 647878,
+          "reference_date": "25/04/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647878",
+          "source_excerpt": "IMA”, (i) o formulário de metodologia ASG, conforme\n            modelo e “Tutorial Para Cadastro de Fundos Sustentáveis” disponibilizados pela ANBIMA, poderá ser\n            acessado através do link: https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-\n            Metodologia-ASG-Sol-AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo\n            disponibilizado pela ANBIMA, será elaborado pela Gestora e ficará disponível"
+        },
+        {
+          "document_id": 682998,
+          "reference_date": "13/06/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
+          "source_excerpt": "A”, (i) o formulário de metodologia ASG, conforme\n             modelo e “Tutorial Para Cadastro de Fundos Sustentáveis” disponibilizados pela ANBIMA, poderá ser\n             acessado através do link: https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-\n             Metodologia-ASG-Sol-AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo\n             disponibilizado pela ANBIMA, será elaborado pela Gestora e ficará disponív"
+        },
+        {
+          "document_id": 684596,
+          "reference_date": "21/06/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684596",
+          "source_excerpt": "A”, (i) o formulário de metodologia ASG, conforme\n             modelo e “Tutorial Para Cadastro de Fundos Sustentáveis” disponibilizados pela ANBIMA, poderá ser\n             acessado através do link: https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-\n             Metodologia-ASG-Sol-AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo\n             disponibilizado pela ANBIMA, será elaborado pela Gestora e ficará disponív"
+        },
+        {
+          "document_id": 700604,
+          "reference_date": "16/07/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
+          "source_excerpt": "IMA”, (i) o formulário de metodologia ASG, conforme\n            modelo e “Tutorial Para Cadastro de Fundos Sustentáveis” disponibilizados pela ANBIMA, poderá ser\n            acessado através do link: https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-\n            Metodologia-ASG-Sol-AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo\n            disponibilizado pela ANBIMA, será elaborado pela Gestora e ficará disponível"
+        },
+        {
+          "document_id": 773460,
+          "reference_date": "05/11/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
+          "source_excerpt": "IMA”, (i) o formulário de metodologia ASG, conforme\n            modelo e “Tutorial Para Cadastro de Fundos Sustentáveis” disponibilizados pela ANBIMA, poderá ser\n            acessado através do link: https://www.jgp.com.br/wp-content/uploads/2024/04/Formulario-\n            Metodologia-ASG-Sol-AgoraGreen-II-ESG-FDIC.pdf; e (ii) o relatório de reporte ESG, conforme modelo\n            disponibilizado pela ANBIMA, será elaborado pela Gestora e ficará disponível"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:08Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com.br/",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 961442,
+          "reference_date": "30/06/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=961442",
+          "source_excerpt": "IS SOL AGORA GREEN II ESG FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 2T25\nvisualizar os Comunicados de Ações de Rating.            Resumo da Operação\nEsta publicação não deve ser cons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://ir.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 961442,
+          "reference_date": "30/06/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=961442",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ir.moodys.com/investor-relations/default.aspx",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

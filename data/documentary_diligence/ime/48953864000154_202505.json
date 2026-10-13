@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "48953864000154",
+  "competence": "05/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 12296248.87,
+    "credit_rights": 8312332.68,
+    "overdue_credit": 5656969.14,
+    "cash": 706.75,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 3575857.30155,
+    "subordinated_quotas": 8720391.569976246,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 8720391.569976246
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "48953864000154",
+    "competence": "05/2025",
+    "path": "data/documentary_diligence/ime/48953864000154_202505.json",
+    "reported_fund_cnpj": "48953864000154",
+    "reported_class_cnpj": "48953864000154",
+    "reported_fund_cnpj_raw": "48953864000154",
+    "reported_class_cnpj_raw": "48953864000154",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "925464",
+    "version": 1,
+    "delivered_at": "16/06/2025 13:24",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=925464",
+    "declared_fields_sha256": "6b4cad70cfc0ba812c6cabf988f1ae63b9a98c421d4bc83c3ff5270d38b2f66c"
+  },
+  "error": ""
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "44272584000120",
+  "quarter": "2024-Q3",
+  "competence": "09/2024",
+  "quarter_source": "pdf_header",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "DEMONSTRATIVO TRIMESTRAL – 3º TRIMESTRE 2024\n\nFundo: LAVORO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DAS\nCADEIAS PRODUTIVAS AGROINDUSTRIAIS\nCNPJ: 44.272.584/0001-20\n1ª Integralização de Cotas: 27/07/2022\nEm atendimento ao disposto no artigo 27º, do anexo II da Instrução CVM nº 175, de 23 de\ndezembro de 2022, segue:\n\nInformações da carteira do fundo e cumprimento da alocação mínima em direitos\ncreditórios:\n\nI)    Limites de Composição:\n\nEm até 180 (cento e oitenta) dias da Data da 1ª Integralização, a Classe deverá possuir parcela\nsuperior a 50,00% do seu Patrimônio Líquido representada por Direitos Creditórios.\n\na. Composição da Carteira em 30 de setembro de 2024\n\n                                        Valor Mercado Atual         Quantidade de\n  Composição                                                                              % PL\n                                               (R$)               Direitos Creditórios\n  Direitos Creditórios Adimplentes        R$81.684.091,77                2527            61,99%\n  Direitos Creditórios Inadimplentes      R$26.614.275,73                1060            20,20%\n  Total                                   R$108.298.367,50               3587            82,19%\n  PDD                                      R$2.568.046,45                                0,02%\n\n\n  Outros Ativos                           R$28.744.023,51                                21,81%\n  Passivo                                  R$2.703.068,64                                2,05%\n  Patrimônio líquido                      R$131.771.275,92                               100,00%\n\n\nb. Aquisições no trimestre:\n\n                   Quantidade de Direitos Creditórios         Valor Mercado Atual (R$)\n                                 1801                            R$58.604.479,73\n\n\nc. Taxas:\n As negociações foram realizadas com as taxas de mercado.\n\nII)   Os resultados da última verificação do lastro dos direitos creditórios realizado pelo\n      custodiante:\n\na. Metodologia:\nConforme previsto no Art. 38 do Anexo II da Instrução 175, o custodiante dos direitos creditórios\ndeve verificar a existência, integridade e titularidade do lastro dos direitos creditórios que\ningressaram na carteira no período a título de substituição, assim como o lastro dos direitos\ncreditórios vencidos e não pagos no mesmo período."
+    },
+    {
+      "page": 2,
+      "text": "b. População de títulos vencidos e não liquidados no trimestre:\n\n                         Quantidade de Direitos Creditórios        Valor Mercado Atual (R$)\n                                         725                            R$23.531.967,35\n\n\n  c. População de títulos substituídos no trimestre:\n\n                         Quantidade de Direitos Creditórios        Valor Mercado Atual (R$)\n                                          0                                 R$0,00\n\n\n  II)    Resultado da verificação de lastro por amostragem ou não, realizada pelo custodiante,\n         explicitando, dentre o universo analisado, a quantidade e a relevância dos créditos\n         inexistentes por ventura encontrados:\n\n  Conclusão:\n\n                                                                           Quant.\n                                        Quant.             % de                           % de        Valor de Mercado\n    Composição         Amostra                                              Itens\n                                    Inconsistências   inconsistências                   pendência           Atual\n                                                                         pendentes\nDireitos Creditórios\n                           0               0              0,00%              0            0,00%           R$ 0,00\nSubstituídos ¹\nDireitos Creditórios\n                          725              0              0,00%              0            0,00%       R$23.531.967,35\nInadimplentes ²\n        Total             725              0              0,00%              0            0,00%       R$23.531.967,35\n\n\n  ¹ validamos a documentação comprobatória de 0 recebíveis, que representam a totalidade de 0 direitos creditórios\n  substituídos.\n  ² validamos a documentação comprobatória de 725 recebíveis, que representam a totalidade de 725 parcelas\n  inadimplentes.\n\n\n\n  III) Os resultados do registro dos direitos creditórios no que se refere à origem, existência e\n       exigibilidade desses ativos, explicitando a quantidade e a relevância dos créditos que\n       não foram aceitos para registro;\n\n  O fundo não possui ativos passíveis de registro.\n\n\n\n  Atenciosamente,\n\n  Vórtx Distribuidora de Títulos e Valores Mobiliário Ltda."
+    },
+    {
+      "page": 3,
+      "text": ""
+    },
+    {
+      "page": 4,
+      "text": ""
+    }
+  ],
+  "pages_total": 4,
+  "pages_extracted": 2,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "782077",
+    "reference_date": "09/2024",
+    "delivered_at": "18/11/2024 13:57",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=782077",
+    "sha256": "a5b6491460184c8b23886d24cddea4137436aff4a94ad65222bc61ac7d7f3749",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "44272584000120",
+    "cnpj_fundo": "44272584000120",
+    "cnpj_classe": "",
+    "header_fields": [
+      {
+        "cnpj": "44272584000120",
+        "page": 1,
+        "text": "DEMONSTRATIVO TRIMESTRAL – 3º TRIMESTRE 2024\n\nFundo: LAVORO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DAS\nCADEIAS PRODUTIVAS AGROINDUSTRIAIS\nCNPJ: 44.272.584/0001-20\n1ª Integralização de Cotas: 27/07/2022\nEm atendimento ao disposto no artigo 27º, do anexo II da Instrução CVM nº 175, de 23 de\ndezembro de 2022, segu"
+      }
+    ],
+    "header_cnpj": "44272584000120",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:32:20Z",
+  "error": ""
+}

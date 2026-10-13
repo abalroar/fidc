@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "cnpj": "65836995000170",
+  "name": "PNEUCASH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:20Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:12:26Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "arenta e quatro) dígitos que identifica\nda NFe”                 univocamente uma Nota Fiscal e faculta a verificação da sua autorização\n                        e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br)\n                        ou no site da Secretaria de Fazenda – SEFAZ da circunscrição do\n                        Cedente."
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "dentifica\n               da NFe”                 univocamente uma Nota Fiscal e faculta a verificação da sua autorização\n                                       e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br)\n                                       ou no site da Secretaria de Fazenda – SEFAZ da circunscrição do\n                                       Cedente.\n\n\n\n\nCONFIDENCIAL"
+        },
+        {
+          "document_id": 1178986,
+          "reference_date": "30/04/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+          "source_excerpt": "identifica univocamente uma Nota Fiscal e faculta a\n                              verificação da sua autorização e do seu conteúdo no\n                              ambiente nacional (http://www.nfe.fazenda.gov.br) ou\n                              no site da Secretaria de Fazenda – SEFAZ da\n                              circunscrição do Cedente.\n\n\n“Classe” ou “Classe Única”    Classe única de Cotas, constituída"
+        },
+        {
+          "document_id": 1182214,
+          "reference_date": "07/05/2026",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+          "source_excerpt": "a Fiscal e faculta a\n                                                      verificação da sua autorização e do seu conteúdo no\n                                                      ambiente nacional (http://www.nfe.fazenda.gov.br) ou\n                                                      no site da Secretaria de Fazenda – SEFAZ da\n                                                      circunscrição do Cedente."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "vigente e a metodologia descrita no manual de provisão para perdas do\n                       Administrador, também disponível na sua página na rede mundial de\n                       computadores em: https://www.daycoval.com.br/investimentos/mercado-\n                       capitais/politicas-manuaisdocumentos.\n\n\n“Política de           Significa a política de cobrança dos Direitos Creditórios adotada pelo\nCobrança”              Agente de Cobrança"
+        },
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "ulamentação vigente e a metodologia descrita no\n                  manual de PDD do Administrador, também disponível na sua página na rede mundial de\n                  computadores           em:       https://www.daycoval.com.br/investimentos/mercado-\n                  capitais/politicas-manuaisdocumentos .\n\n\n\n           5.13   O Índice de Liquidez Sênior deverá ser de, no mínimo, 1,00 (um inteiro) e será calculado\n                  em cada data d"
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "ita no manual de provisão para perdas do\n                                      Administrador, também disponível na sua página na rede mundial de\n                                      computadores em: https://www.daycoval.com.br/investimentos/mercado-\n                                      capitais/politicas-manuaisdocumentos.\n\n\n               “Política de           Significa a política de cobrança dos Direitos Creditórios adotada pelo"
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "egulamentação vigente e a metodologia descrita no\n                 manual de PDD do Administrador, também disponível na sua página na rede mundial de\n                 computadores           em:       https://www.daycoval.com.br/investimentos/mercado-\n                 capitais/politicas-\n                 manuaisdocumentoshttps://www.daycoval.com.br/investimentos/mercado-\n                 capitais/politicas-manuaisdocumentos .\n\n\n\n          5.13   O"
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "a página na rede mundial de\n                 computadores           em:       https://www.daycoval.com.br/investimentos/mercado-\n                 capitais/politicas-\n                 manuaisdocumentoshttps://www.daycoval.com.br/investimentos/mercado-\n                 capitais/politicas-manuaisdocumentos .\n\n\n\n          5.13   O Índice de Liquidez Sênior deverá ser de, no mínimo, 1,00 (um inteiro) e será calculado\n                 em cada data de a"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "nica, o direito de voto em relação aos\n          ativos integrantes da Carteira que configuram aos seus titulares o direito\n          de voto, nos termos da política de voto estabelecida em\n          www.angaasset.com.br;\n\n(xiii)    tomar suas decisões de gestão da carteira da Classe Única em\n          consonância com as normas aplicáveis às operações nos mercados\n          financeiro e de capitais, observados os prin"
+        },
+        {
+          "document_id": 1178986,
+          "reference_date": "30/04/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+          "source_excerpt": "e Única, o direito de voto em relação aos\n         ativos integrantes da Carteira que configuram aos seus titulares o direito\n         de voto, nos termos da política de voto estabelecida em\n         www.angaasset.com.br;\n\n(xiii)   tomar suas decisões de gestão da carteira da Classe Única em\n         consonância com as normas aplicáveis às operações nos mercados\n         financeiro e de capitais, observados os princíp"
+        },
+        {
+          "document_id": 1182214,
+          "reference_date": "07/05/2026",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+          "source_excerpt": "ativos integrantes da Carteira que configuram aos seus titulares o direito\n                                 de voto, nos termos da política de voto estabelecida em\n                                 www.angaasset.com.br;\n\n                        (xiii)   tomar suas decisões de gestão da carteira da Classe Única em\n                                 consonância com as normas aplicáveis às operações nos mercados"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 50,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "inadimplemento. Deverá ser observado, em todos os casos, a metodologia descrita no\n                  manual de precificação de ativos do Administrador, disponível em seu site\n                  (https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-\n                  documentos).\n\n           4.32   Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                  compõem a carteira do Fundo será efetuada com bas"
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "inadimplemento. Deverá ser observado, em todos os casos, a metodologia descrita no\n                 manual de precificação de ativos do Administrador, disponível em seu site\n                 (https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-\n                 documentos).\n\n          4.32   4.31Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                 compõem a carteira do Fundo será efetuada com ba"
+        },
+        {
+          "document_id": 1178986,
+          "reference_date": "30/04/2026",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+          "source_excerpt": "de desconto após seu\n       inadimplemento. Deverá ser observado, em todos os casos, a metodologia descrita no\n       manual de precificação de ativos do Administrador, disponível em seu site\n       (https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-\n       documentos)."
+        },
+        {
+          "document_id": 1182214,
+          "reference_date": "07/05/2026",
+          "page": 60,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+          "source_excerpt": "manual de precificação de ativos do Administrador, disponível em seu site\n                        (https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-\n                        documentos).\n\n                 27.27 Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                        compõem a carteira do Fundo será"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/servicos-fiduciarios/politicas-manuais-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1322406,
+          "reference_date": "14/09/2026",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "source_excerpt": "7.21   A política de exercício de direito de voto adotada pelo Gestor pode ser obtida na página\n                  do Gestor na rede mundial de computadores, no seguinte endereço:\n                  http://www.angaasset.com.br\n\n           7.22   Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                  composição e diversificação da carteira da Classe prevista no presente Regul"
+        },
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 59,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "7.21   A política de exercício de direito de voto adotada pelo Gestor pode ser obtida na página\n                 do Gestor na rede mundial de computadores, no seguinte endereço:\n                 http://www.angaasset.com.br\n\n\n\n\nCONFIDENCIAL"
+        },
+        {
+          "document_id": 1178986,
+          "reference_date": "30/04/2026",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+          "source_excerpt": "30.19 A política de exercício de direito de voto adotada pelo Gestor pode ser obtida na página\n       do Gestor na rede mundial              de    computadores,      no   seguinte    endereço:\n       http://www.angaasset.com.br\n\n30.20 Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n       composição e diversificação da carteira da Classe prevista no presente Regulamento, os\n       inves"
+        },
+        {
+          "document_id": 1182214,
+          "reference_date": "07/05/2026",
+          "page": 65,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+          "source_excerpt": "ireito de voto adotada pelo Gestor pode ser obtida na página\n                        do Gestor na rede mundial               de   computadores,      no   seguinte    endereço:\n                        http://www.angaasset.com.br\n\n                 30.20 Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                        composição e diversificação da carteira da Classe prevista no pre"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:09Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.brwww.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1320162,
+          "reference_date": "14/09/2026",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+          "source_excerpt": "ativos integrantes da Carteira que configuram aos seus titulares o direito\n                        de voto, nos termos da política de voto estabelecida em\n                        www.angaasset.com.brwww.angaasset.com.br;\n\n               (xiii)   tomar suas decisões de gestão da carteira da Classe Única em\n                        consonância com as normas aplicáveis às operações nos mercados\n                        fi"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:27Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

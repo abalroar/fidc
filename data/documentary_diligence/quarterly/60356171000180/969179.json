@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "60356171000180",
+  "quarter": "2025-Q2",
+  "competence": "06/2025",
+  "quarter_source": "document_catalog",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "Informe Trimestral de FIDC\n\nÀ\n\nComissão de Valores Mobiliários – CVM\n\n\nPrezados,\n\nEm atendimento à Resolução 175, Artigo 27, inciso V, servimo-nos da presente para encaminhar o\nDemonstrativo Trimestral do CLOUDWALK PI FIDC RL, CNPJ: 60.356.171/0001-80, (“Fundo”), relativo ao\ntrimestre encerrado em 30/06/2025,.\n\nNeste relatório, são abordados os seguintes temas:\n\n\nSobre os resultados da última verificação do lastro dos direitos creditórios do fundo.\n\nDe acordo com o relatório de lastro disponibilizado pelo Custodiante, não foram identificadas\ninconsistências significativas na verificação da documentação dos direitos creditórios do fundo. Todos os\nprocedimentos realizados foram concluídos satisfatoriamente em atendimento à legislação em vigor.\n\nSobre o registro dos direitos creditórios em entidade registradora.\n\nTodos os créditos estão liberados para registro.\n\nSobre a existência de processos judiciais envolvendo o FIDC.\n\nO administrador do fundo não tem conhecimento de ações judiciais envolvendo o fundo no trimestre em\nreferência.\n\nSobre a aquisição de precatórios federais em fundos destinados ao público em geral.\n\nO fundo não se destina ao público em geral.\n\nAs informações a seguir são destinadas à apresentação do relatório trimestral do gestor.\n\nEm atendimento ao parágrafo § 4º, inciso V, artigo 27 da Resolução 175, informamos ainda que, até a\ndata de divulgação deste demonstrativo trimestral, o gestor não encaminhou ao administrador o relatório\ntrimestral da gestão, conforme estabelecido pela legislação em vigor.\n\nSendo o que nos cabia para o momento, nos colocamos à disposição para prestar quaisquer\nesclarecimentos adicionais que se fizerem necessários.\n\n                                            Atenciosamente\n                               BTG Pactual Serviços Financeiros S/A DTVM\n\n\n\n\nbtgpactual.com                                                                                          1"
+    }
+  ],
+  "pages_total": 1,
+  "pages_extracted": 1,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "969179",
+    "reference_date": "06/2025",
+    "delivered_at": "14/08/2025 09:41",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=969179",
+    "sha256": "d41b370f3cf4bbe4af033d75cbf021214ba47daf287a80e8f1bc96cad9d6ecde",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "60356171000180",
+    "cnpj_fundo": "60356171000180",
+    "cnpj_classe": "",
+    "header_fields": [
+      {
+        "cnpj": "60356171000180",
+        "page": 1,
+        "text": "Informe Trimestral de FIDC\n\nÀ\n\nComissão de Valores Mobiliários – CVM\n\n\nPrezados,\n\nEm atendimento à Resolução 175, Artigo 27, inciso V, servimo-nos da presente para encaminhar o\nDemonstrativo Trimestral do CLOUDWALK PI FIDC RL, CNPJ: 60.356.171/0001-80, (“Fundo”), relativo ao\ntrimestre encerrado em 30/06/2025,.\n\nNeste relatório, são abordados os seguintes temas:\n\n\nSobre os resultados da última verif"
+      }
+    ],
+    "header_cnpj": "60356171000180",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:34:56Z",
+  "error": ""
+}

@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "cnpj": "42154687000160",
+  "name": "MULTIPLIKE PLUS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:01Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:56Z",
+  "routes": [
+    {
+      "url": "https://brazil.ratings.spglobal.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "ão classificada    Não classificada   R$ 30,3 milhões         Maio de 2029\n\n3ª série de cotas subordinadas mezanino Não classificada+   Não classificada   R$ 1,0 milhão           Setembro de 2027\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "13 de maio de 2025\n\n    9ª série de cotas\n                                                13 de maio de 2025                        13 de maio de 2025\n    subordinadas mezanino\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                                             30 de junho de 2026   2"
+        },
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "sor ou emissão pela S&P\nNational Ratings não deve ser vista como uma garantia da precisão, completude ou\ntempestividade da (i) informação na qual a S&P National Ratings se baseou em conexão com o\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                           30 de junho de 2026          3"
+        },
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": ", a S&P National Ratings avalia o impacto de mudanças materiais nos\nModelos de Ratings e, quando apropriado, emite Ratings de Crédito revisados se assim\nrequerido pelo Modelo de Ratings atualizado.\n\n\nbrazil.ratings.spglobal.com                                                                                           30 de junho de 2026          4"
+        },
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                           30 de junho de 2026           5"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://brazil.ratings.spglobal.com/pt",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A\nS&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites\nwww.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicion"
+        },
+        {
+          "document_id": 354611,
+          "reference_date": "22/08/2022",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354611",
+          "source_excerpt": "nte dos emissores ou subscritores dos\ntítulos ou dos devedores. A S&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas\nanálises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicion"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 823307,
+          "reference_date": "17/01/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823307",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e\nwww.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 851785,
+          "reference_date": "25/02/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851785",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e\nwww.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/usratingsfees",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1237281,
+          "reference_date": "30/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237281",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicionais sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 354611,
+          "reference_date": "22/08/2022",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354611",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicionais sobre nossos honorários de\nrating estão disponíveis em www.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial\nServices LLC.\n\n\n\n\nS&P Global Ratings"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 823307,
+          "reference_date": "17/01/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823307",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 851785,
+          "reference_date": "25/02/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851785",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 313543,
+          "reference_date": "03/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
+          "source_excerpt": "3 de junho de 2022\n                ________________________\n\n\n\n\nAv. Bri                                           -919 | Tel.: (55 11) 2827-3500 | Ouvidoria:\n             ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 313543,
+          "reference_date": "03/06/2022",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
+          "source_excerpt": "......105\n\n\n\n\n           Av. Bri                                                         -919 | Tel.: (55 11) 2827-3500 | Ouvidoria:\n                                      ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 313543,
+          "reference_date": "03/06/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
+          "source_excerpt": "seus Cotistas a valorização de suas\n\n        Av. Bri                                                -919 | Tel.: (55 11) 2827-3500 | Ouvidoria:\n                          ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 313543,
+          "reference_date": "03/06/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
+          "source_excerpt": "IMA e na regulamentação aplicável:\n\n        Av. Bri                                                 -919 | Tel.: (55 11) 2827-3500 | Ouvidoria:\n                           ouvidoria@singulare.com.br | www.singulare.com.br"
+        },
+        {
+          "document_id": 313543,
+          "reference_date": "03/06/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
+          "source_excerpt": "conforme calculadas pela Gestora;\n\n      Av. Bri                                                  -919 | Tel.: (55 11) 2827-3500 | Ouvidoria:\n                          ouvidoria@singulare.com.br | www.singulare.com.br"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 354611,
+          "reference_date": "22/08/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354611",
+          "source_excerpt": "Conflitos de interesse potenciais da S&P Global Ratings\nA S&P Global Ratings publica a lista de conflitos de interesse reais ou potenciais na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nrespon"
+        },
+        {
+          "document_id": 851785,
+          "reference_date": "25/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851785",
+          "source_excerpt": "Conflitos de interesse potenciais da S&P Global Ratings\nA S&P Global Ratings publica a lista de conflitos de interesse reais ou potenciais na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nrespons"
+        },
+        {
+          "document_id": 907223,
+          "reference_date": "13/05/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=907223",
+          "source_excerpt": "Conflitos de interesse potenciais da S&P Global Ratings\nA S&P Global Ratings publica a lista de conflitos de interesse reais ou potenciais na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nrespons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/regulatory/content/disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 354611,
+          "reference_date": "22/08/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=354611",
+          "source_excerpt": "a seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nresponsáveis por mais de 5% de suas receitas anuais.\n\nAs informações regulatórias (PCR - Presentation of Credit Ratings em sua sigla em inglês) da S&P\nGlobal Ratings são publicad"
+        },
+        {
+          "document_id": 851785,
+          "reference_date": "25/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851785",
+          "source_excerpt": "na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nresponsáveis por mais de 5% de suas receitas anuais.\n\nAs informações regulatórias (PCR - Presentation of Credit Ratings em sua sigla em inglês) da S&P\nGlobal Ratings são publicad"
+        },
+        {
+          "document_id": 907223,
+          "reference_date": "13/05/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=907223",
+          "source_excerpt": "na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nresponsáveis por mais de 5% de suas receitas anuais.\n\nAs informações regulatórias (PCR - Presentation of Credit Ratings em sua sigla em inglês) da S&P\nGlobal Ratings são publicad"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "R$127,5 milhões\njuniores\n(i) O rating define a capacidade do emissor de efetuar os pagamentos do principal e dos juros referentes à emissão e está sujeito a mudanças a\nqualquer momento.\nTabela 1\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "stimentos temporários                                       R$ 19,9 milhões\nPercentual de investimentos temporários sobre o PL\nsênior                                                          3,6%\n\n\n\n\nspglobal.com/ratings                                                                                                                           9 de setembro de 2024   2"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "escala nacional utilizada pela S&P Global Ratings ou por suas afiliadas,\nrefletindo sua estrutura única, desenvolvida exclusivamente para atender as necessidades do mercado financeiro brasileiro.\n\n\n\n\nspglobal.com/ratings                                                                                                                        9 de setembro de 2024   3"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "bro de 2021.\n\n\nArtigo\n− S&P Global Ratings atribui ratings ‘brA (sf)’ à 6ª série de cotas seniores e ‘brBBB (sf)’ às cotas\n  subordinadas mezanino B do Multiplike Plus FIDC, 22 de agosto de 2022.\n\n\n\n\nspglobal.com/ratings                                                                                                              9 de setembro de 2024   4"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings                                                                                                                 9 de setembro de 2024             5"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "ão relevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem\nser lidos em conjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações.\nInformações detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings\nmencionados neste relatório são disponibilizados no site pú"
+        },
+        {
+          "document_id": 734879,
+          "reference_date": "09/07/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=734879",
+          "source_excerpt": "ções detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings\nmencionados neste relatório são disponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\nCritérios e Artigos Relacionados\n\nCritérios\n− Metodologia e premissas globais para CLOs e CDOs corporativos, 21 de junho de 2019.\n− Critério para atribuição de ratings 'CCC+', 'CCC', 'CCC-' e 'CC'"
+        },
+        {
+          "document_id": 823307,
+          "reference_date": "17/01/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823307",
+          "source_excerpt": "ão relevantes para os ratings, têm significados específicos que lhes são atribuídos em\nnossos Critérios e, por isso, devem ser lidos em conjunto com tais Critérios. Consulte os Critérios de Rating em\nwww.spglobal.com/ratings para mais informações. Informações detalhadas estão disponíveis aos assinantes\ndo RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste relatório são\ndisponibilizados no site pú"
+        },
+        {
+          "document_id": 823307,
+          "reference_date": "17/01/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823307",
+          "source_excerpt": "ções detalhadas estão disponíveis aos assinantes\ndo RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste relatório são\ndisponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\nCritérios e Artigos Relacionados\n    Critérios\n•     Critério para atribuição de ratings ‘CCC+’, ‘CCC’, ‘CCC-‘ e ‘CC’, 1 de outubro de 2012\n•     Metodologia para derivar taxas de juros estressada"
+        },
+        {
+          "document_id": 851785,
+          "reference_date": "25/02/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851785",
+          "source_excerpt": "ão relevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem\nser lidos em conjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações.\nInformações detalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings\nafetados por esta ação de rating são disponibilizados no si"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://disclosure.spglobal.com/ratings/pt/regulatory/ratings-criteria",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 907223,
+          "reference_date": "13/05/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=907223",
+          "source_excerpt": "ão relevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem\nser lidos em conjunto com tais Critérios. Consulte os Critérios de Rating em\nhttps://disclosure.spglobal.com/ratings/pt/regulatory/ratings-criteria para mais informações. As descrições de cada\ncategoria de rating da S&P Global Ratings estão disponíveis nas “Definições de Ratings da S&P Global Ratings”, em\nhttps://www.spglobal.com/ratings/pt/regu"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/regulatory/content/ratings-definitions",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 907223,
+          "reference_date": "13/05/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=907223",
+          "source_excerpt": "m/ratings/pt/regulatory/ratings-criteria para mais informações. As descrições de cada\ncategoria de rating da S&P Global Ratings estão disponíveis nas “Definições de Ratings da S&P Global Ratings”, em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/ratings-definitions. Informações detalhadas estão disponíveis aos\nassinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste relatório são disponibilizados no\nsite público da S&P Global Rat"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

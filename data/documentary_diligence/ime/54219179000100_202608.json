@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "54219179000100",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 152123245.99,
+    "credit_rights": 135501981.2,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 412.81,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 143260183.76895002,
+    "subordinated_quotas": 8863062.220494552,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 8863062.220494552
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "54219179000100",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/54219179000100_202608.json",
+    "reported_fund_cnpj": "54219179000100",
+    "reported_class_cnpj": "54219179000100",
+    "reported_fund_cnpj_raw": "54219179000100",
+    "reported_class_cnpj_raw": "54219179000100",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1315309",
+    "version": 1,
+    "delivered_at": "11/09/2026 11:25",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1315309",
+    "declared_fields_sha256": "dbd7295d3a91320b96ca8675ce19129c895e66dafc459db9700f5f4a99afe08d"
+  },
+  "error": ""
+}

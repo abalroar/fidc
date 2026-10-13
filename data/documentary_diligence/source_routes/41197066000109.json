@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "cnpj": "41197066000109",
+  "name": "IFOOD PAGO CRÉDITO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO DE RESP LIMITADA",
+  "generated_at": "2026-10-13T05:29:59Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:43Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1337964,
+          "reference_date": "01/10/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337964",
+          "source_excerpt": "sobre o website onde podem ser encontradas informações relativas ao Fundo, sobre a Taxa\n              de Administração e sobre a Taxa de Gestão;\n\n    (xii)     divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora\n              (https://www.bancogenial.com/pt-BR/AdministracaoFiduciaria), o valor do Patrimônio\n              Líquido, o valor das Cotas, as rentabilidades acumuladas no"
+        },
+        {
+          "document_id": 1337671,
+          "reference_date": "01/10/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337671",
+          "source_excerpt": "regulamentação aplicável.\n\n  O Novo Regulamento estará à disposição dos Cotistas e de quem mais possa interessar no website da CVM\n  (www.cvm.gov.br). O Novo Regulamento será encaminhado à CVM, por meio de sistema eletrônico\n  disponível na rede mundial de computadores, e, se for o caso, à entidade administradora do mercado\n  organizado em que as c"
+        },
+        {
+          "document_id": 1076481,
+          "reference_date": "30/12/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1076481",
+          "source_excerpt": "onde podem ser encontradas informações relativas ao Fundo, sobre a Taxa\n                      de Administração e sobre a Taxa de Gestão;\n\n             (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora\n                      (https://www.bancogenial.com/pt-BR/AdministracaoFiduciaria), o valor do Patrimônio\n                      Líquido, o valor das Cotas, as rentabilidad"
+        },
+        {
+          "document_id": 188311,
+          "reference_date": "22/06/2021",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=188311",
+          "source_excerpt": "ação;\n\n        (vi)     além de manter disponíveis em sua sede e agências (conforme aplicável) e nas instituições\n                 que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.cvm.gov.br),\n                 no          website            da          Administradora              (https://www.bancogenial.com/pt-\n                 BR/AdministracaoFiduciaria) e/ou, conforme aplicável, no Peri"
+        },
+        {
+          "document_id": 188315,
+          "reference_date": "22/06/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=188315",
+          "source_excerpt": "ação;\n\n        (vi)     além de manter disponíveis em sua sede e agências (conforme aplicável) e nas instituições\n                 que coloquem Cotas do Fundo, divulgar anualmente, no website da CVM (www.cvm.gov.br),\n                 no          website            da          Administradora              (https://www.bancogenial.com/pt-\n                 BR/AdministracaoFiduciaria) e/ou, conforme aplicável, no Peri"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalas-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 237590,
+          "reference_date": "30/09/2021",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=237590",
+          "source_excerpt": "os a serem adquiridos pelo MovilePay Crédito I FIDC serão representados por\nEscala de rating disponível em:     Cédulas de Crédito Bancário (CCBs) eletrônicas emitidas por pessoas físicas e jurídicas\nhttp://www.austin.com.br/Escalas-\nde-Rating.html                      (Devedores) que façam parte da Plataforma iFood e possuam conta digital na Zoop\n                                    Tecnologia e Meios de Pagamento S.A. (Zoop). Es"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 237590,
+          "reference_date": "30/09/2021",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=237590",
+          "source_excerpt": "conjuntamente), equivalente à “Relação Mínima Sênior”\nTel.: 55 11 3377 0707               definida em Regulamento, é de 25,0% do PL, o que significa que a participação máxima das\nFax: 55 11 3377 0739\nwww.austin.com.br                   Cotas Seniores sobre o PL está limitada a 75,0%. Já as Cotas Subordinadas Júnior terão"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 237590,
+          "reference_date": "30/09/2021",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=237590",
+          "source_excerpt": "-se no dia 06 de agosto de\n   2021. A reunião de Comitê está registrada na Ata Nº 20210806-4.\n\n2. A classificações integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em: http://www.austin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações de\n   Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 268492,
+          "reference_date": "31/12/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=268492",
+          "source_excerpt": "reunião de comitê está registrada na Ata Nº 20220215-5.\n\n2. A classificações integram a “Escala           Nacional   de   Ratings   de   Crédito   de   Cotas    de   FIDCs”,     disponível    em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 306079,
+          "reference_date": "31/03/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=306079",
+          "source_excerpt": "a reunião de comitê está registrada na Ata Nº 20220513-3.\n\n2. A   classificações   integram   a   “Escala   Nacional   de   Ratings   de   Crédito   de   Cotas   de   FIDCs”,     disponível    em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 340714,
+          "reference_date": "30/06/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340714",
+          "source_excerpt": "reunião de comitê está registrada na Ata Nº 20220811-10.\n\n2. A   classificações   integram   a   “Escala   Nacional   de   Ratings   de   Crédito   de   Cotas   de   FIDCs”,     disponível    em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 378277,
+          "reference_date": "30/09/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=378277",
+          "source_excerpt": "reunião de comitê está registrada na Ata Nº 20221111-19.\n\n2. A classificações integram a “Escala           Nacional   de   Ratings   de   Crédito   de   Cotas    de   FIDCs”,     disponível    em:\n   http://www.austin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 237590,
+          "reference_date": "30/09/2021",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=237590",
+          "source_excerpt": "ustin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações de\n   Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 268492,
+          "reference_date": "31/12/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=268492",
+          "source_excerpt": "ustin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 306079,
+          "reference_date": "31/03/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=306079",
+          "source_excerpt": "ustin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 340714,
+          "reference_date": "30/06/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340714",
+          "source_excerpt": "ustin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 378277,
+          "reference_date": "30/09/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=378277",
+          "source_excerpt": "ustin.com.br/escalas.\n\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações\n   de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "e 10%, respectivamente.\n\n\nA metodologia utilizada neste(s) rating(s) foi Metodologia de Rating para Operações\nEstruturadas, publicada em 25 de outubro de 2023 e disponível na seção de metodologias\nem www.moodyslocal.com/country/br.\n\n\n\nO presente Comunicado de Ação de Rating é um Relatório de Classificação de Risco de\nCrédito, nos termos do disposto no artigo 16 da Resolução CVM no 9/2020.\n\nO presente Relatório de Classificação"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "e(s) classificada(s) ou seu(s)\nagente(s) designado(s) e atribuído(s) sem alterações decorrentes dessa divulgação.\n\nConsulte   o   Formulário    de     Referência   da     Moody’s,   disponivel     em\nwww.moodyslocal.com/country/br, para divulgações gerais sobre potenciais conflitos de\ninteresse.\n\nA Moody's pode ter fornecido Outro(s) Serviço(s) Permitido(s) à(s) entidade(s)\nclassificada(s) no período de 12 meses que antecederam"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agências de rating relacionadas à Moody’s Local no\nperíodo de 12 meses que antecedeu esta Ação de Rating. Consulte a página\nwww.moodyslocal.com/country/br para maiores informações a respeito.\n\n\n\n\n1ª Série de Cotas Seniores                 11/04/2024                         NA\n2ª Série de Cotas Seniores                 11/04/2024"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "u parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento Moody's Local Brazil Ratings Scale disponível em\nwww.moodyslocal.com/country/br para mais informações sobre o significado de cada\ncategoria de rating e a definição de default e recuperação.\n\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rating são aplicáveis\na"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "o.\n\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rating são aplicáveis\nao(s) Rating(s) e, quando houver, também à perspectiva ou à revisão do(s) respectivo(s)\nRating(s).\n\nConsulte www.moodyslocal.com/country/br para divulgações regulatórias adicionais."
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br/regulatory-disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "s por reguladores, associações setoriais, institutos de pesquisa, agentes setoriais\nou de governo, e autarquias e órgãos públicos. Consulte a “Lista de Fontes de Informações\nPúblicas” através do link www.moodyslocal.com/country/br/regulatory-disclosures.\n\n\nA Moody’s adota todas as medidas necessárias para que as informações utilizadas na\natribuição de Ratings sejam de qualidade suficiente e proveniente de fontes que a Moody’s\nconsidera confiáveis inc"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "relatório \"Lista de Serviços Auxiliares e Outros Serviços Providos a Entidades com Rating da\nMoody's através do link www.moodyslocal.com/country/br/regulatory-disclosures para mais\ninformações.\n\nAlgumas entidades classificadas pela Moody’s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agências de rating relacionadas à Moody’s Local no\nperío"
+        },
+        {
+          "document_id": 666281,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666281",
+          "source_excerpt": "/04/2024                         NA\n\n\nOs Ratings da Moody's são monitorados constantemente. Todos os Ratings da Moody's são\nrevisados pelo menos uma vez a cada período de 12 meses.\n\nConsulte a página www.moodyslocal.com/country/br/regulatory-disclosures para saber se\na(s) entidade(s) classificada(s) ou parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:50Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

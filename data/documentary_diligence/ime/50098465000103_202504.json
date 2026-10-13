@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50098465000103",
+  "competence": "04/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 163979787.05,
+    "credit_rights": 123233865.09,
+    "overdue_credit": 3794891.59,
+    "cash": 500.0,
+    "pdd": 1466576.85,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 136721066.56434,
+    "subordinated_quotas": 16412192.4996,
+    "mezzanine_quotas": 10846527.9282,
+    "subordinated_and_mezzanine_quotas": 27258720.4278
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50098465000103",
+    "competence": "04/2025",
+    "path": "data/documentary_diligence/ime/50098465000103_202504.json",
+    "reported_fund_cnpj": "50098465000103",
+    "reported_class_cnpj": "50098465000103",
+    "reported_fund_cnpj_raw": "50098465000103",
+    "reported_class_cnpj_raw": "50098465000103",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "907199",
+    "version": 1,
+    "delivered_at": "15/05/2025 20:16",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=907199",
+    "declared_fields_sha256": "79aa2a4360f1473f0800781ad87d46c2fd4cbf7553d42e890d761615698dc714"
+  },
+  "error": ""
+}

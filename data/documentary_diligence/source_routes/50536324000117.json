@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "cnpj": "50536324000117",
+  "name": "MAQNELSON FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:09Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:20Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "ão as características dos Direitos Creditórios, sendo que a\n              Administradora deverá provisionar de acordo com a metodologia de provisão da\n              Administradora disponível do site: www.oliveiratrust.com.br.\n\n              9.6.1         Os Direitos Creditórios, em regra, serão avaliados de acordo com a taxa de\n              desconto aplicada na aquisição dos respectivos Direitos Creditórios. Os Direitos"
+        },
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "após seu inadimplemento. Deverá ser observado, em todos os casos, a\n              metodologia descrita no manual de precificação de ativos da Administradora, disponível em\n              seu website (www.oliveiratrust.com.br).\n\n              9.6.2         Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n              Financeiros que compõem a Carteira da Classe será efetuada com base nas regras desc"
+        },
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 109,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "e marcação a mercado, que se\n                                                             encontra       disponível        no     website:\n                                                             https://www.oliveiratrust.com.br.\n\n          “Manual de PDD”                                    Significa o manual de provisão para devedores\n                                                             duvidosos da Administradora, o"
+        },
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 109,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "istradora, o qual se encontra\n                                                             disponível               no            website:\n                                                             https://www.oliveiratrust.com.br.\n\n          “Meta de Amortização”                              Caso a Amortização Sequencial esteja em curso, é\n                                                             o Valor Principal de Referê"
+        },
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 130,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "rme previstas\n              no Contrato de Cessão.\n\n              2.2.3.           A política de exercício de direito de voto adotada pela Gestora pode ser\n              obtida no website da Gestora: https://www.oliveiratrust.com.br.\n\n              2.3.          Custodiante. As atividades de custódia, controladoria e escrituração das\n              Cotas do Fundo serão exercidas pela própria Administradora, na qualidade de Custodi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 95,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "ulta a verificação da sua autorização\n                                                             e do seu conteúdo no ambiente nacional\n                                                             (http://www.nfe.fazenda.gov.br) ou no site da\n                                                             Secretaria de Fazenda – SEFAZ da circunscrição da\n                                                             Cedente."
+        },
+        {
+          "document_id": 756476,
+          "reference_date": "09/10/2024",
+          "page": 93,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756476",
+          "source_excerpt": "te uma Nota Fiscal\n                             Eletrônica e faculta a verificação da sua autorização\n                             e do seu conteúdo no ambiente nacional\n                             (http://www.nfe.fazenda.gov.br) ou no site da\n                             Secretaria de Fazenda – SEFAZ da circunscrição da\n                             Cedente."
+        },
+        {
+          "document_id": 492372,
+          "reference_date": "12/07/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=492372",
+          "source_excerpt": "iscal Eletrônica e\n                                                  faculta a verificação da sua autorização e do seu conteúdo\n                                                  no ambiente nacional (http://www.nfe.fazenda.gov.br)\n                                                  ou no site da Secretaria de Fazenda – SEFAZ da\n                                                  circunscrição da Cedente.\n\n\n                 CMN"
+        },
+        {
+          "document_id": 582950,
+          "reference_date": "10/01/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=582950",
+          "source_excerpt": "identifica univocamente uma Nota Fiscal Eletrônica e\n                           faculta a verificação da sua autorização e do seu conteúdo\n                           no ambiente nacional (http://www.nfe.fazenda.gov.br)\n                           ou no site da Secretaria de Fazenda            SEFAZ da\n                           circunscrição da Cedente.\n\n\nCMN                        Conselho Monetário Nacional.\n\n\nCNP"
+        },
+        {
+          "document_id": 644265,
+          "reference_date": "23/04/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644265",
+          "source_excerpt": "identifica univocamente uma Nota Fiscal Eletrônica e\n                           faculta a verificação da sua autorização e do seu conteúdo\n                           no ambiente nacional (http://www.nfe.fazenda.gov.br)\n                           ou no site da Secretaria de Fazenda – SEFAZ da\n                           circunscrição da Cedente.\n\n\nCMN                        Conselho Monetário Nacional.\n\n\nCNPJ"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 128,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "Docusign Envelope ID: EEC7C4A2-2324-4FCF-81A9-FA7CD6E343E0\n\n\n\n\n              Conforme manual de precificação do Gestor, disponível no                          website\n              https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n              Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n              Metodologia de Cálculo de Ajuste dos Swaps\n\n              Conforme manual de precificação do Gestor, dispon"
+        },
+        {
+          "document_id": 918862,
+          "reference_date": "04/06/2025",
+          "page": 128,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=918862",
+          "source_excerpt": "sao_2020.1-Final.pdf).\n\n              Metodologia de Cálculo de Ajuste dos Swaps\n\n              Conforme manual de precificação do Gestor, disponível no                          website\n              https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n              Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n              Tratamento dos Derivativos na hipótese de Liquidação Antecipada da Classe\n\n              Nos termos do Arti"
+        },
+        {
+          "document_id": 756476,
+          "reference_date": "09/10/2024",
+          "page": 126,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756476",
+          "source_excerpt": "Conforme manual de precificação do Gestor, disponível no                          website\nhttps://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\nPrecifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\nMetodologia de Cálculo de Ajuste dos Swaps\n\nConforme manual de precificação do Gestor, disponível no                          website\nh"
+        },
+        {
+          "document_id": 756476,
+          "reference_date": "09/10/2024",
+          "page": 126,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756476",
+          "source_excerpt": "-\nPrecifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\nMetodologia de Cálculo de Ajuste dos Swaps\n\nConforme manual de precificação do Gestor, disponível no                          website\nhttps://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\nPrecifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\nTratamento dos Derivativos na hipótese de Liquidação Antecipada da Classe\n\nNos termos do Artigo 13.1 do Anexo Descritivo, na hipótese d"
+        },
+        {
+          "document_id": 492372,
+          "reference_date": "12/07/2023",
+          "page": 118,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=492372",
+          "source_excerpt": "vencimento em t;\n\n\n                Metodologia de Marcação a Mercado dos Swaps\n\n                Conforme manual de precificação do Gestor, disponível no                        website\n                https://www.oliveiratrust.com.br/wp-content/uploads/2020/12/Manual-de-\n                Precifica%C3%A7%C3%A3o-de-Ativos-MTM_versao_2020.1-Final.pdf).\n\n\n                Metodologia de Cálculo de Ajuste dos Swaps"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:23Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

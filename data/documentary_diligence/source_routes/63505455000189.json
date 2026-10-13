@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "63505455000189",
+  "name": "IS GREEN SOLFÁCIL VII FINANCEIRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA LIM",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:29Z",
+  "routes": [
+    {
+      "url": "https://www.bancogenial.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1090052,
+          "reference_date": "06/01/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090052",
+          "source_excerpt": "e ID: 07FB5785-EFDA-4087-B7A9-65DB0FA9BBFA\n\n\n\n\n                             6.2.5.   A Administradora divulgará as informações deste item no seguinte endereço\n                             eletrônico: www.bancogenial.com.br\n\n                             6.2.6.   A Administradora disponibiliza central de atendimento aos Cotistas para\n                             envio de reclamações e esclarecimento de quaisquer dúvidas"
+        },
+        {
+          "document_id": 1078323,
+          "reference_date": "06/01/2025",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078323",
+          "source_excerpt": "e ID: 07FB5785-EFDA-4087-B7A9-65DB0FA9BBFA\n\n\n\n\n                             6.2.5.   A Administradora divulgará as informações deste item no seguinte endereço\n                             eletrônico: www.bancogenial.com.br\n\n                             6.2.6.   A Administradora disponibiliza central de atendimento aos Cotistas para\n                             envio de reclamações e esclarecimento de quaisquer dúvidas"
+        },
+        {
+          "document_id": 1094169,
+          "reference_date": "26/01/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094169",
+          "source_excerpt": "base no último Dia Útil daquele mês.\n\n                             6.2.5.   A Administradora divulgará as informações deste item no seguinte endereço\n                             eletrônico: www.bancogenial.com.br\n\n                             6.2.6.   A Administradora disponibiliza central de atendimento aos Cotistas para\n                             envio de reclamações e esclarecimento de quaisquer dúvidas"
+        },
+        {
+          "document_id": 1199536,
+          "reference_date": "14/05/2026",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "source_excerpt": "base no último Dia Útil daquele mês.\n\n                             7.2.5. A Administradora divulgará as informações deste item no seguinte endereço\n                             eletrônico: www.bancogenial.com.br\n\n                             7.2.6. A Administradora disponibiliza central de atendimento aos Cotistas para\n                             envio de reclamações e esclarecimento de quaisquer dúvidas ou"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "url": "https://angaasset.com.br/",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1199536,
+          "reference_date": "14/05/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "source_excerpt": ", os\n                     resultados ESG da Classe, sempre referente ao exercício social anterior do Fundo (“Relatório\n                     de Ações Continuadas Angá”), o qual será divulgado no link: https://angaasset.com.br/.\n\n\n\n                     2.6.    Além da obrigação acima, a Gestora manterá o formulário de metodologia ESG\n                     atualizado, nos termos do Código da ANBIMA (“Formulário de Metodologia”"
+        },
+        {
+          "document_id": 1199536,
+          "reference_date": "14/05/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "source_excerpt": "estora manterá o formulário de metodologia ESG\n                     atualizado, nos termos do Código da ANBIMA (“Formulário de Metodologia”), o qual será\n                     disponibilizado no link: https://angaasset.com.br/.\n\n\n\n              3.     DOS PRESTADORES DE SERVIÇOS DO FUNDO\n\n\n\n\n                                                                                                                 5"
+        },
+        {
+          "document_id": 1199536,
+          "reference_date": "14/05/2026",
+          "page": 28,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "source_excerpt": "cação do Fundo\n              como “Verde” (“Formulário de Metodologia ASG”), bem como os relatórios de monitoramento\n              eventuais, podem ser visualizadas no website da Gestora no endereço: https://angaasset.com.br/.\n\n              3.     PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA\n\n                     3.1.   A Administradora verificará se o Patrimônio Líquido da Classe Única está negativo\n                     nos"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:05Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1199536,
+          "reference_date": "14/05/2026",
+          "page": 108,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "source_excerpt": "te Anexo.\n\n                                       (i)     A política de exercício de direito de voto adotada pela Gestora pode\n                                       ser obtida no website da Gestora: www.angaasset.com.br.\n\n                     2.3.    Custodiante. As atividades atribuídas ao Custodiante descritas nos artigos 38 e 39\n                     do Anexo Normativo II da Resolução CVM 175 e outras atividades re"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

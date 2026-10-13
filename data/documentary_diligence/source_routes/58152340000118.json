@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "58152340000118",
+  "name": "MONEE II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO - RESP. LIMITADA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:09:02Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1191019,
+          "reference_date": "14/05/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1191019",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                 e divulgadas diariamente pela B3, disponível em sua\n                                 página na Internet (http://www.b3.com.br), base 252\n                                 (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                 forma percentual ao ano;\n\n\n    CAPÍTULO III -    DO OBJETIVO DO FUNDO"
+        },
+        {
+          "document_id": 1324346,
+          "reference_date": "18/09/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324346",
+          "source_excerpt": "grupo – Depósitos Interfinanceiros de um dia, calculadas\n                                 e divulgadas diariamente pela B3, disponível em sua\n                                 página na Internet (http://www.b3.com.br), base 252\n                                 (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                 forma percentual ao ano;\n\n\n    CAPÍTULO III -    DO OBJETIVO DO FUNDO"
+        },
+        {
+          "document_id": 898514,
+          "reference_date": "07/05/2025",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898514",
+          "source_excerpt": "(http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                       Dias Úteis, expressa na forma percentual ao ano.\n\n\n “Termo de             significa o termo de adesão ao Regulamento e este Anexo\n Adesão"
+        },
+        {
+          "document_id": 898516,
+          "reference_date": "07/05/2025",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898516",
+          "source_excerpt": "(http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                       Dias Úteis, expressa na forma percentual ao ano.\n\n\n “Termo de             significa o termo de adesão ao Regulamento e este Anexo\n Adesão"
+        },
+        {
+          "document_id": 1074008,
+          "reference_date": "31/12/2025",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074008",
+          "source_excerpt": "(http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                       Dias Úteis, expressa na forma percentual ao ano.\n\n\n “Termo de             significa o termo de adesão ao Regulamento e este Anexo\n Adesão"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

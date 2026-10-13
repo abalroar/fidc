@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "cnpj": "48953864000154",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS ASAAS II - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:08Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:01:00Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "por força de\ndisposições regulamentares aplicáveis.\n\n\n6.5.   As informações periódicas e eventuais do Fundo e de cada da Classe de Cotas serão\ndisponibilizadas no site da Administradora, no endereço: www.oliveiratrust.com.br.\n\n\n6.6.   A Administradora preservará a correspondência devolvida ou seu registro eletrônico\nenquanto o Cotista não efetuar o resgate ou amortização total das cotas de sua\ntitularidade, sem prejuízo d"
+        },
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "as matérias relevantes obrigatórias para o exercício do direito de voto. A política de voto\nde que trata este item ficará disponível para consulta pública na rede mundial de\ncomputadores, no endereço www.oliveiratrust.com.br.\n\n\n9.4.   Fica eleito o foro da comarca da cidade de São Paulo, Estado de São Paulo, com\nexpressa renúncia a qualquer outro, por mais privilegiado que possa ser, para propositura"
+        },
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "detentores de títulos e valores mobiliários que confiram\naos seus titulares o direito de voto. A íntegra da política relativa ao exercício do direito de\nvoto da Gestora está disponível em seu website www.oliveiratrust.com.br.\n\n\n2.11. A aquisição de novos Direitos Creditórios com a utilização de recursos financeiros\n                                                                    , observada a ordem de\nalocação de recur"
+        },
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": ", bem como para\ndiligenciar o cumprimento de suas obrigações nos termos deste Anexo I-A. Tais regras e\nprocedimentos permanecerão disponíveis e atualizados para consulta no website da\nAdministradora (www.oliveiratrust.com.br) juntamente às demais informações que trata\na Resolução CVM 175/22.\n\n\n6.5.2. Manutenção da Responsabilidade do Custodiante pela Guarda dos Documentos\nComprobatórios. Nos termos do artigo 39 da Resoluç"
+        },
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "12.4. Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos Financeiros\nque compõem a carteira da Classe será efetuada com base nas regras descritas no manual\nda Administradora (www.oliveiratrust.com.br), bem como nas regras aplicáveis do BACEN\ne da CVM."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "da legislação e regulamentação\nvigentes, conforme descrição contida no Manual da Administradora de Provisão para\nPerdas em Ativos de Crédito, disponível em sua página na rede mundial de computadores:\nhttps://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\nsubsidiaria/.\n\n\n12.3.1.          Os Direitos Creditórios e os Ativos Financeiros que compõem a Carteira da\nClasse terão seus valores calculados conforme a metodologia de avaliação e precificação\ndesc"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:52Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "calculados conforme a metodologia de avaliação e precificação\ndescrita no Manual de Apreçamento de Ativos da Administradora, disponível em sua página\nna   rede       mundial     de   computadores:   https://ri.oliveiratrust.com.br/governanca-\ncorporativa/estatuto-codigos-e-politicas-subsidiaria/.\n\n\n12.3.2.          As provisões para perdas e as perdas havidas com Direitos Creditórios ou\ncom os Ativos Financeiros integrantes da Carteira se"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:53Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 774314,
+          "reference_date": "05/11/2024",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+          "source_excerpt": "editórios Cedidos\nde acordo com o disposto na regulamentação vigente e com o Manual de Provisão Para\nPerdas em Ativos de Crédito da Administradora, disponível para consulta no site da\nAdministradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-\ne-politicas-subsidiaria/.\n\n\n12.3.5.          Após materialização do inadimplemento de um Direito Creditório Cedido a\nprovisão será realizada com base na metodologia do Manual de Provisão Para Perdas"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "o de acompanhamento do FIDC\nPeríodo de acompanhamento do FIDC                                     Junho a setembro de 2023\n\nObservações mensais disponíveis                                       4\n\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "e risco de contraparte: metodologia e premissas, 8 de março de 2019.\n\n− Estrutura global para a análise da estrutura de pagamento e fluxo de caixa de operações\n  estruturadas, 22 de dezembro de 2020.\nspglobal.com/ratings                                                                                                                        29 de fevereiro de 2024   2"
+        },
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "ais e de governança nos ratings de crédito, 10 de outubro de 2021.\n\n\nArtigo\n  − S&P Global Ratings atribui rating ‘brAA (sf)’ à 1ª série de cotas seniores do FIDC Asaas II, 5 de junho\n    de 2023\n\n\n\n\nspglobal.com/ratings                                                                                          29 de fevereiro de 2024   3"
+        },
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings                                                                                                                 29 de fevereiro de 2024           4"
+        },
+        {
+          "document_id": 613986,
+          "reference_date": "29/02/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613986",
+          "source_excerpt": "o de acompanhamento do FIDC\nPeríodo de acompanhamento do FIDC                                     Junho a dezembro de 2023\n\nObservações mensais disponíveis                                       7\n\n\n\n\nspglobal.com/ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "ão\nrelevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem ser lidos em\nconjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações. Informações\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste\nrelatório são disponibilizados no site pú"
+        },
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "ções\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste\nrelatório são disponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\nCritérios e Artigos Relacionados\n\nCritérios\n− Metodologias e premissas globais para transações de recebíveis comerciais, 29 de junho de\n  2021.\n− Estrutura Global de Avaliação de Riscos Operaciona"
+        },
+        {
+          "document_id": 613986,
+          "reference_date": "29/02/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613986",
+          "source_excerpt": "ão\nrelevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem ser lidos em\nconjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações. Informações\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste\nrelatório são disponibilizados no site pú"
+        },
+        {
+          "document_id": 613986,
+          "reference_date": "29/02/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613986",
+          "source_excerpt": "ções\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste\nrelatório são disponibilizados no site público da S&P Global Ratings em www.spglobal.com/ratings.\n\n\n\nCritérios e Artigos Relacionados\n\nCritérios\n− Metodologias e premissas globais para transações de recebíveis comerciais, 29 de junho de\n  2021.\n− Estrutura Global de Avaliação de Riscos Operaciona"
+        },
+        {
+          "document_id": 697178,
+          "reference_date": "05/07/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697178",
+          "source_excerpt": "ão\nrelevantes para os ratings, têm significados específicos que lhes são atribuídos em nossos Critérios e, por isso, devem ser lidos em\nconjunto com tais Critérios. Consulte os Critérios de Rating em www.spglobal.com/ratings para mais informações. Informações\ndetalhadas estão disponíveis aos assinantes do RatingsDirect no site www.capitaliq.com. Todos os ratings mencionados neste\nrelatório são disponibilizados no site pú"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 613986,
+          "reference_date": "29/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613986",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 697178,
+          "reference_date": "05/07/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697178",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 725433,
+          "reference_date": "23/08/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=725433",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito)\ne www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        },
+        {
+          "document_id": 847532,
+          "reference_date": "19/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=847532",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A S&P reserva-se o direito\nde divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites www.spglobal.com/ratings/pt/ (gratuito) e\nwww.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicion"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/usratingsfees",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 613985,
+          "reference_date": "29/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613985",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 613986,
+          "reference_date": "29/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=613986",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 697178,
+          "reference_date": "05/07/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697178",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 725433,
+          "reference_date": "23/08/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=725433",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\nspglobal.com/ratings"
+        },
+        {
+          "document_id": 847532,
+          "reference_date": "19/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=847532",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias publicações ou por intermédio de terceiros redistribuidores.\nInformações adicionais sobre nossos honorários de rating estão disponíveis em www.spglobal.com/usratingsfees.\n\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nspglobal.com/ratings"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 847532,
+          "reference_date": "19/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=847532",
+          "source_excerpt": "Conflitos de interesse potenciais da S&P Global Ratings\nA S&P Global Ratings publica a lista de conflitos de interesse reais ou potenciais na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nrespons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/regulatory/content/disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 847532,
+          "reference_date": "19/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=847532",
+          "source_excerpt": "na seção\n“Potenciais Conflitos de Interesse”, disponível em https://www.spglobal.com/ratings/pt.\n\nFaixa limite de 5%\nA S&P Global Ratings Brasil publica em seu Formulário de Referência, disponível em\nhttps://www.spglobal.com/ratings/pt/regulatory/content/disclosures, o nome das entidades\nresponsáveis por mais de 5% de suas receitas anuais.\n\nAs informações regulatórias (PCR - Presentation of Credit Ratings em sua sigla em inglês) da S&P\nGlobal Ratings são publicad"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:23Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

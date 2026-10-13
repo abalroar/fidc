@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "36083634000100",
+  "quarter": "2026-Q2",
+  "competence": "06/2026",
+  "quarter_source": "pdf_header",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "Demonstrativo Trimestral De FIDC 2º Trimestre 2026\n\nÀ\nComissão de Valores Mobiliários – CVM\n\nEm atendimento ao disposto no art. 27 do Anexo Normativo II da Resolução CVM 175\n(“Resolução 175”), apresentamos as informações referentes ao Demonstrativo Trimestral\ndo BRASIL MICROCRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS\nCREDITÓRIOS, CNPJ 36.083.634/0001-00 (“Classe”) relativo ao 2º Trimestre 2026:\n\n\n 1.   Resultado da verificação de lastro dos direitos creditórios realizados pelo custodiante,\n      nos termos do art. 38 do Anexo Normativo II da Resolução 175.\n\nConforme previsto no art. 38 do Anexo II da Resolução 175, o custodiante deve verificar a\nexistência, integridade e titularidade do lastro dos direitos creditórios que ingressaram na\ncarteira do Fundo a título de substituição, assim como o lastro dos direitos creditórios vencidos\ne não pagos no trimestre. Quando aplicável, os procedimentos de verificação foram concluídos\nsatisfatoriamente em atendimento à norma vigente e não foram identificadas inconsistências\nsignificativas no trimestre em referência.\n\n\n 2. Resultado do registro dos direitos creditórios no que se refere à origem, existência e\n    exigibilidade desses ativos.\n\nForam observados os requisitos de registro dos direitos creditórios em atendimento à norma\nvigente, se aplicável.\n\n 3. Existência de processos judiciais envolvendo o FIDC.\n\nA Classe tem conhecimento de ações judiciais que estão sendo devidamente tratadas\njuridicamente e serão divulgadas nas Demonstrações Financeiras da Classe.\n\n 4. Informações referentes a aquisição de precatórios federais em fundos destinados ao\n    público geral.\n\nA Classe não se destina ao público geral.\n\n\n\nAs informações adicionais deste Demonstrativo são referentes ao relatório trimestral do\ngestor, conforme disposto no § 3º do art. 27 do Anexo Normativo II da Resolução 175.\n\n\n\n\n                                       Atenciosamente,"
+    }
+  ],
+  "pages_total": 1,
+  "pages_extracted": 1,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "1278815",
+    "reference_date": "06/2026",
+    "delivered_at": "06/08/2026 17:16",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278815",
+    "sha256": "70353eb87f4e317571e52c73eca9f3a80f3dca934eace5c6241e96361d767e4d",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "36083634000100",
+    "cnpj_fundo": "36083634000100",
+    "cnpj_classe": "36083634000100",
+    "header_fields": [
+      {
+        "cnpj": "36083634000100",
+        "page": 1,
+        "text": "– CVM\n\nEm atendimento ao disposto no art. 27 do Anexo Normativo II da Resolução CVM 175\n(“Resolução 175”), apresentamos as informações referentes ao Demonstrativo Trimestral\ndo BRASIL MICROCRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS\nCREDITÓRIOS, CNPJ 36.083.634/0001-00 (“Classe”) relativo ao 2º Trimestre 2026:\n\n\n 1.   Resultado da verificação de lastro dos direitos creditórios realizados pelo custodiante,\n      nos"
+      }
+    ],
+    "header_cnpj": "36083634000100",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:30:51Z",
+  "error": ""
+}

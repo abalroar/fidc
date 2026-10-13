@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "48953864000154",
+  "competence": "02/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 30175530.89,
+    "credit_rights": 25320478.96,
+    "overdue_credit": 0.0,
+    "cash": 951.32,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 14283816.250100002,
+    "subordinated_quotas": 15891714.640009386,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 15891714.640009386
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "48953864000154",
+    "competence": "02/2025",
+    "path": "data/documentary_diligence/ime/48953864000154_202502.json",
+    "reported_fund_cnpj": "48953864000154",
+    "reported_class_cnpj": "48953864000154",
+    "reported_fund_cnpj_raw": "48953864000154",
+    "reported_class_cnpj_raw": "48953864000154",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "859444",
+    "version": 1,
+    "delivered_at": "17/03/2025 13:15",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=859444",
+    "declared_fields_sha256": "60c7198003531108069bb47d60998b5a469f36aa77b280843edfc452465acdb2"
+  },
+  "error": ""
+}

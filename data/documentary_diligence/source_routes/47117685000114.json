@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "cnpj": "47117685000114",
+  "name": "SOLIS KEDU FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:06Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:59:11Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 776480,
+          "reference_date": "12/11/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=776480",
+          "source_excerpt": "o\n                         – Depósitos Interfinanceiros de um dia, calculadas e\n                         divulgadas diariamente pela B3, disponível em sua página na\n                         Internet (http://www.b3.com.br), base 252 (duzentos e\n                         cinquenta e dois) Dias Úteis, expressa na forma percentual ao\n                         ano;\n\n                                CAPÍTULO III"
+        },
+        {
+          "document_id": 988409,
+          "reference_date": "11/09/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+          "source_excerpt": "o\n                         – Depósitos Interfinanceiros de um dia, calculadas e\n                         divulgadas diariamente pela B3, disponível em sua página na\n                         Internet (http://www.b3.com.br), base 252 (duzentos e\n                         cinquenta e dois) Dias Úteis, expressa na forma percentual ao\n                         ano;\n\n                                CAPÍTULO III"
+        },
+        {
+          "document_id": 427591,
+          "reference_date": "09/03/2023",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=427591",
+          "source_excerpt": "rfinanceiros de um dia,\n                          calculadas e divulgadas diariamente pela B3,\n                          disponível    em     sua   página    na    Internet\n                          (http://www.b3.com.br), base 252 (duzentos e\n                          cinquenta e dois) Dias Úteis, expressa na forma\n                          percentual ao ano;\n\n Termo de Cessão:         é o \"Termo de Cessão de Direitos"
+        },
+        {
+          "document_id": 481254,
+          "reference_date": "21/06/2023",
+          "page": 50,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481254",
+          "source_excerpt": "rfinanceiros de um dia,\n                          calculadas e divulgadas diariamente pela B3,\n                          disponível    em     sua   página    na    Internet\n                          (http://www.b3.com.br), base 252 (duzentos e\n                          cinquenta e dois) Dias Úteis, expressa na forma\n                          percentual ao ano;\n\n Termo de Cessão:         é o \"Termo de Cessão de Direitos"
+        },
+        {
+          "document_id": 709094,
+          "reference_date": "31/07/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=709094",
+          "source_excerpt": "rupo – Depósitos Interfinanceiros de um dia, calculadas\n                                    e divulgadas diariamente pela B3, disponível em sua\n                                    página na Internet (http://www.b3.com.br), base 252\n                                    (duzentos e cinquenta e dois) Dias Úteis, expressa na\n                                    forma percentual ao ano;\n\n             CAPÍTULO III - DO OBJETIV"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.brltrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 355319,
+          "reference_date": "01/07/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355319",
+          "source_excerpt": "o, pelo Agente\nde Depósito, de suas obrigações nos termos deste Regulamento e do Contrato de\nDepósito. Tais regras e procedimentos encontram-se disponíveis para consulta no\nwebsite da Administradora (www.brltrust.com.br ).\n\n\n\n                                           6"
+        },
+        {
+          "document_id": 355319,
+          "reference_date": "01/07/2022",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355319",
+          "source_excerpt": "esempenho, pelo\nCustodiante, de suas obrigações descritas neste Regulamento e no Contrato de\nCustódia. Tais regras e procedimentos encontram-se disponíveis para consulta no\nwebsite da Administradora (www.brltrust.com.br ).\n\n\n                               CAPÍTULO IV\n                  DOS OUTROS PROFISSIONAIS CONTRATADOS\n\n\n\n\n                                             7"
+        },
+        {
+          "document_id": 355319,
+          "reference_date": "01/07/2022",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355319",
+          "source_excerpt": "r o cumprimento, pela\nGestora, de suas obrigações descritas neste Regulamento e no Contrato de Gestão.\nTais regras e procedimentos encontram-se disponíveis para consulta no website da\nAdministradora (www.brltrust.com.br ).\n\nParágrafo quinto - É vedado à Administradora, o Custodiante, a Gestora e consultor\nespecializado ou partes relacionadas, tal como definidas pelas regras contábeis que\ntratam deste assunto, ceder"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

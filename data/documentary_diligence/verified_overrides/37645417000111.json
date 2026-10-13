@@ -1,0 +1,196 @@
+{
+  "cnpj": "37645417000111",
+  "verified_at": "2026-10-13T03:00:49-03:00",
+  "criteria": [
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Administradora e custodiante: Vórtx DTVM Ltda., CNPJ 22.610.500/0001-88. Gestora: Brave Gestora de Recursos Ltda., CNPJ 35.704.148/0001-91. Artigos 5º/8º e glossário 46 identificam os contratados; a lista de agências disponíveis no glossário 3 não identifica rating contratado.",
+      "sources": [
+        {
+          "document_id": "1266403",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+          "reference_date": "13/07/2026",
+          "version": "1",
+          "page": "25",
+          "clause": "Parte Geral, Artigo 5º",
+          "sha256": "e2ea8d3142c3a90b1c3c3b527fe9da86df6dc3c43a6bdf43a0e9b9cb94f32ee5",
+          "excerpt": "Artigo 5º A atividade de administração do Fundo será exercida pela VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016, que terá poderes para praticar todos os atos necessários à administração do Fundo, na sua respectiva esfera de atuação.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1266403",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+          "reference_date": "13/07/2026",
+          "version": "1",
+          "page": "29",
+          "clause": "Parte Geral, Artigo 8º",
+          "sha256": "e2ea8d3142c3a90b1c3c3b527fe9da86df6dc3c43a6bdf43a0e9b9cb94f32ee5",
+          "excerpt": "Artigo 8º As atividades de gestão profissional da carteira do Fundo serão exercidas pela BRAVE GESTORA DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Olimpíadas, nº 194/200, conjunto 81, Vila Olímpia, CEP 04551-000, inscrita no CNPJ sob o nº 35.704.148/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de títulos e valores mobiliários e fundos de investimento, nos termos do Ato Declaratório CVM nº 17.918, de 16 de junho de 2020.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1266403",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+          "reference_date": "13/07/2026",
+          "version": "1",
+          "page": "18",
+          "clause": "Glossário, 46(Custodiante)",
+          "sha256": "e2ea8d3142c3a90b1c3c3b527fe9da86df6dc3c43a6bdf43a0e9b9cb94f32ee5",
+          "excerpt": "46. Custodiante: a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016,",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Art. 28 remete ao manual Vórtx. MO0024 v4 (jan/2026–jan/2027): PDD por faixas sobre VP, calibradas por migração de atrasos e perda esperada, ou X–Y: antes X, somente perda esperada; entre X/Y, provisão gradual nos dias úteis; em Y, 100%. Efeito vagão abrange todos os fluxos do devedor e, quando compatível, do coobrigado. Garantias precisam autenticidade, suficiência, liquidez e exequibilidade. Impairment pode alcançar 100%; suficiência revisada anualmente ou por eventos excepcionais.",
+      "sources": [
+        {
+          "document_id": "1266403",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1266403",
+          "reference_date": "13/07/2026",
+          "version": "1",
+          "page": "85",
+          "clause": "Anexo Descritivo, Artigo 28º (continuação)",
+          "sha256": "e2ea8d3142c3a90b1c3c3b527fe9da86df6dc3c43a6bdf43a0e9b9cb94f32ee5",
+          "excerpt": "As provisões e as perdas com Direitos Creditórios ou com os Ativos Financeiros integrantes da carteira da Classe Única de Cotas serão, respectivamente, efetuadas ou reconhecidas nos termos da regulamentação vigente e da metodologia descrita no manual da Administradora, também disponível em seu site.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "VORTX-PDD-2026",
+          "title": "Manual de Provisão para Devedores Duvidosos — Vórtx MO0024, 4ª versão",
+          "url": "https://assets-web.vortx.com.br/website/media/20260122221625/VORTX_GRUPO_MANUAL_PDD.pdf",
+          "reference_date": "2026-01-22",
+          "version": "4",
+          "page": "1",
+          "clause": "Identificação, versão e vigência",
+          "sha256": "9e71ed42308faeb2e556f200c3a178799308fe42ee99ac638c65f503e29113b5",
+          "excerpt": "Manual de Provisão para Devedores Duvidosos Identificação Título Manual de Provisão de Devedores Duvidosos Código MO0024 Tipo Manual Versão 4ª Versão Data de Vigência Janeiro de 2026 a janeiro de 2027 Área responsável Riscos",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "VORTX-PDD-2026",
+          "title": "Manual de Provisão para Devedores Duvidosos — Vórtx MO0024, 4ª versão",
+          "url": "https://assets-web.vortx.com.br/website/media/20260122221625/VORTX_GRUPO_MANUAL_PDD.pdf",
+          "reference_date": "2026-01-22",
+          "version": "4",
+          "page": "4",
+          "clause": "1, Introdução e escopo",
+          "sha256": "9e71ed42308faeb2e556f200c3a178799308fe42ee99ac638c65f503e29113b5",
+          "excerpt": "1. Introdução O presente Manual tem como objetivo a formalização da metodologia utilizada para a PDD de Direitos Creditórios utilizada pela Vórtx. Através de sua definição espera-se alcançar a provisão de perdas mais adequada para os Direitos Creditórios e evitar a transferência de riqueza entre cotistas. A estrutura a ser descrita leva em consideração as normas e regulamentação aplicáveis, sendo estas a Instrução CVM 489, o Código AGRT e a Instrução CVM 175. O documento em questão é aplicável a todos os FIDC sob a administração da Vórtx que não tenham uma política de provisão específica definida em regulamento. Para fins de estimativa de valores recuperáveis dos direitos creditórios e mensuração da PDD, a Vórtx considera exclusivamente fatores relacionados ao ativo, ao devedor/cedente (quando aplicável), às garantias e à dinâmica da carteira, não sendo utilizados, para esse fim, o nível de subordinação, mecanismos de proteção do passivo ou outras estruturas de mitigação de risco do lado do passivo.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "VORTX-PDD-2026",
+          "title": "Manual de Provisão para Devedores Duvidosos — Vórtx MO0024, 4ª versão",
+          "url": "https://assets-web.vortx.com.br/website/media/20260122221625/VORTX_GRUPO_MANUAL_PDD.pdf",
+          "reference_date": "2026-01-22",
+          "version": "4",
+          "page": "10–11",
+          "clause": "3.4–3.6, Efeito Vagão, garantias e impairment",
+          "sha256": "9e71ed42308faeb2e556f200c3a178799308fe42ee99ac638c65f503e29113b5",
+          "excerpt": "3.4. Efeito Vagão O Efeito Vagão refere-se ao provisionamento sobre os créditos atribuídos a um mesmo devedor, mensurando-se a respectiva provisão sobre o seu fluxo de caixa esperado. O Efeito Vagão será aplicado nas seguintes situações: (i) Para um Direito Creditório na mesma Classe de cotas, aplica-se o Efeito Vagão à totalidade das parcelas vincendas, conforme seu maior atraso; (ii) Existindo outros Direitos Creditórios do mesmo devedor na Classe, é aplicada a extensão do Efeito Vagão aos demais fluxos de pagamento; (iii) Para Direitos Creditórios que prevejam a coobrigação do cedente, será aplicado Efeito Vagão a todos os Direitos Creditórios que tenham o mesmo coobrigado, desde que a aplicação do efeito vagão seja compatível com as características do respectivo Direito Creditório. Na aplicação do efeito vagão, deverão ser consideradas a natureza da transação e as características das garantias associadas aos Direitos Creditórios, incluindo, no mínimo, sua suficiência e liquidez. 3.5. Garantias Caso uma operação conte eventualmente com garantias, estas podem ser utilizadas como redutor de PDD desde que sejam observados, no mínimo, as seguintes premissas: (i) Autenticidade e correta formalização; (ii) Suficiência e liquidez, observado eventual risco de crédito da operação (e.g. valor de venda forçada e tempo mensurável de monetização); e (iii) Exequibilidade dos créditos (judicial ou extrajudicialmente); 3.6. Impairment O gestor do fundo ou a área de Risco podem apresentar relatório de impairment sobre a capacidade do Direito Creditório ser efetivamente pago. Através do racional econômico, será avaliado a necessidade de até 100% de provisionamento de perdas ou no limite da cobertura das garantias, que deverá ser aprovado via Comissão de Precificação. O impairment poderá se dar devido a eventos de crédito como recuperação judicial ou falência de contrapartes relevantes do Direito Creditório, deterioração de indicadores financeiros da contraparte, fluxo de recebimento realizado inferior ao previsto, dentre outros.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "VORTX-PDD-2026",
+          "title": "Manual de Provisão para Devedores Duvidosos — Vórtx MO0024, 4ª versão",
+          "url": "https://assets-web.vortx.com.br/website/media/20260122221625/VORTX_GRUPO_MANUAL_PDD.pdf",
+          "reference_date": "2026-01-22",
+          "version": "4",
+          "page": "11–13",
+          "clause": "4.1–4.2.1, Faixas e parametrização X–Y",
+          "sha256": "9e71ed42308faeb2e556f200c3a178799308fe42ee99ac638c65f503e29113b5",
+          "excerpt": "4.1. Parametrização por faixas A metodologia de provisão por faixas de provisionamento é uma abordagem amplamente utilizada no mercado financeiro brasileiro para determinar o provisionamento de perdas em ativos de crédito. Ela consiste em segmentar os títulos em intervalos de provisionamento e aplicar um percentual de provisão pré-definido sobre o valor presente de cada título. Em adição à utilização dos dias de atraso para definição dos percentuais, a Perda Esperada também é considerada para definir o percentual de provisionamento das faixas. Para a definição e revisão das faixas de provisionamento, é realizada avaliação da movimentação dos ativos pendentes de pagamento entre as diferentes faixas de atraso, por meio de uma matriz de migração, que compara a posição do estoque em períodos distintos, geralmente de um mês para o outro. A taxa de migração de uma determinada faixa é calculada a partir da relação entre o saldo, a valor presente, dos ativos que migraram para faixas de maior atraso no período corrente e o saldo da faixa imediatamente inferior observado no período anterior, considerando também a componente de perda esperada. Uma vez definidos, os percentuais de provisionamento por faixa permanecem vigentes por um determinado período, sendo aplicados de forma uniforme ao estoque de ativos enquadrados em cada faixa, até que sejam formalmente reavaliados. A reavaliação dos percentuais e das faixas de atraso deverá respeitar as diretrizes estabelecidas neste Manual. 4.2. Parametrização X-Y A metodologia de provisionamento de PDD no modelo X–Y consiste na definição de dois marcos temporais, contados a partir do vencimento do ativo, que delimitam o período no qual ocorrerá a apropriação gradual da provisão por atraso. Essa metodologia estabelece: • o momento inicial a partir do qual o ativo passa a ser considerado em atraso relevante para fins de provisionamento; e • o momento final no qual o ativo atinge o nível máximo de provisionamento, correspondente a 100% do valor do crédito. O provisionamento ocorre de forma progressiva ao longo do intervalo definido entre os parâmetros X e Y, refletindo o aumento do risco de perda à medida que o prazo aumenta. A metodologia X–Y utiliza duas variáveis principais: X – Número de dias de início do provisionamento por atraso efetivo: Quantidade de dias após o vencimento do pagamento do ativo a partir do qual se inicia o provisionamento adicional por atraso efetivo. Y – Número de dias para o encerramento do provisionamento: Quantidade de dias após o vencimento do pagamento do ativo em que o provisionamento atinge 100% do valor do crédito. Nota 1: Essa parametrização é um caso particular da parametrização por faixas igualmente espaçadas e com incrementos de mesma variação constante. 4.2.1. Racional de cálculo da metodologia X-Y Os parâmetros X e Y são definidos em dias corridos, porém a apropriação da provisão é realizada exclusivamente em dias úteis, respeitando a rotina operacional e contábil da Administradora. Dessa forma, o valor total a ser provisionado entre os dias X e Y é distribuído de maneira proporcional ao longo dos dias úteis compreendidos nesse intervalo, de modo que: • antes do Dia X, não há provisionamento adicional por atraso efeito, mas pode haver por perda esperada; • entre os Dias X e Y, o provisionamento é reconhecido de forma gradual e considerando os dias úteis; e • no Dia Y, o ativo encontra-se integralmente provisionado (100%). Essa abordagem visa assegurar aderência aos princípios de prudência, consistência e tempestividade na mensuração das perdas associadas aos créditos em atraso, refletindo de forma adequada o risco de crédito ao longo do tempo.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "VORTX-PDD-2026",
+          "title": "Manual de Provisão para Devedores Duvidosos — Vórtx MO0024, 4ª versão",
+          "url": "https://assets-web.vortx.com.br/website/media/20260122221625/VORTX_GRUPO_MANUAL_PDD.pdf",
+          "reference_date": "2026-01-22",
+          "version": "4",
+          "page": "13",
+          "clause": "5, Estudo de suficiência da provisão",
+          "sha256": "9e71ed42308faeb2e556f200c3a178799308fe42ee99ac638c65f503e29113b5",
+          "excerpt": "5. Estudo de suficiência da provisão A Vórtx avalia periodicamente a aderência da carteira do Fundo aos parâmetros da Metodologia de PDD aplicada, a fim de garantir a correta aplicação dos provisionamentos. Para tanto, é calculado o indicador de perda observada (%PerdaObservada) para se comparar com o percentual de provisionamento de perda esperada (%PDD) do período do estoque. No caso do %PerdaObservada ser significativamente maior que o %PDD pode haver indícios de uma insuficiência de provisão, enquanto o caso onde, %PerdaObservada seja significativamente menor que %PDD pode indicar um excesso de provisão. Essas divergências podem ser resultado de alteração do perfil de risco de crédito, dentre outros fatores. Não obstante, em ambos os cenários será avaliado a necessidade de recalibrar extraordinariamente os percentuais de provisionamento e será solicitado ao gestor do fundo esclarecimentos sobre alteração do perfil de risco de crédito dos direitos creditórios. Este processo é feito de forma contínua ao longo da vida do fundo, realizado anualmente, podendo ser realizado em intervalo menor no caso de ocorrência de eventos excepcionais, alterações legais, regulatórias ou ordens executivas que indiquem necessidade de reavaliação das métricas adotadas na sua construção, visando garantir a aderência dos percentuais em relação às perdas observadas no fundo.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "O manual descreve alternativas e parâmetros específicos por carteira; não publica quais faixas/percentuais ou X/Y foram adotados pelo Ubyfol. Seu escopo geral menciona FIDCs sem política específica; vínculo aqui é a remissão expressa do regulamento da classe ao manual da administradora. A curva BRL Trust da DF 2025 permanece histórica.",
+      "history": [
+        {
+          "reference_date": "2025-12-31",
+          "value": "DF 31/12/2025, administrada pela BRL Trust: perda = valor contábil antes da revisão − VP do novo fluxo esperado, quando piora a estimativa de perdas. Curva sobre VP por dias de atraso: 0 dia: —; 1–14: 0,40%; 15–34: 1,88%; 35–62: 4,62%; 63–95: 21,30%; 96–127: 30,59%; 128–157: 40,73%; 158–188: 51,61%; 189–218: 62,25%; 219–248: 74,63%; 249–279: 85,63%; 280–317: 99,69%; ≥318: 100%.",
+          "sources": [
+            {
+              "document_id": "1151850",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151850",
+              "reference_date": "31/12/2025",
+              "version": "1",
+              "page": "14–15",
+              "clause": "Nota 3(e.2), Perdas estimadas em créditos de liquidação duvidosa",
+              "sha256": "524ad8103a28d395e21123c8099e31e40956293874ce26684c32b708ff736f5d",
+              "excerpt": "e.2) Perdas estimadas em créditos de liquidação duvidosa A perda por redução no valor de recuperação é mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. Para o reconhecimento das perdas com recuperação dos direitos creditórios é aplicado os seguintes percentuais sobre o valor presente: Mínimo de dias em Máximo de dias Percentual de Faixas de Atraso atraso em atraso Constituição A 0 0 - B 1 14 0,40% C 15 34 1,88% D 35 62 4,62% E 63 95 21,30% F 96 127 30,59% G 128 157 40,73% H 158 188 51,61% 13 UBYFOL AGRO III FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA (anteriormente denominado Ubyfol Agro Fundo de Investimento em Direitos Creditórios III Responsabilidade Limitada) (CNPJ nº 37.645.417/0001-11) (Administrado pela BRL Trust Distribuidora de Títulos e Valores Mobiliários S.A.) (CNPJ: 13.486.793/0001-42) Notas explicativas às demonstrações financeiras Para os exercícios findos em 31 de dezembro de 2025 e de 2024 (Em milhares de Reais, exceto o valor unitário das cotas) Mínimo de dias em Máximo de dias Percentual de Faixas de Atraso atraso em atraso Constituição I 189 218 62,25% J 219 248 74,63% K 249 279 85,63% L 280 317 99,69% M 318 - 100,00%",
+              "verification": "analyst_primary_clause"
+            }
+          ],
+          "assessment": "Metodologia contábil auditada de 2025 sob BRL Trust, anterior à administração Vórtx. Não transferida para a régua atual.",
+          "provenance": "verified_override"
+        }
+      ]
+    },
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias constituídas",
+      "theme": "Garantias e cobrança",
+      "status": "extraction_pending",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [],
+      "rule": {},
+      "risk_note": "Declaração contábil limitada aos exercícios indicados; não comprova situação posterior a 2025. Risco de ônus desconhecido no regulamento atual não constitui garantia em favor do fundo.",
+      "reason": "Regulamento atual 1266403: não foi identificada uma disposição de garantia constituída em favor do fundo. O trecho de risco sobre ônus anteriores à cessão não identifica proteção contratual. A declaração auditada de 2025-12-31 está no histórico e se limita ao período da DF.",
+      "history": [
+        {
+          "reference_date": "2025-12-31",
+          "value": "DF 31/12/2025: nos exercícios 2025 e 2024, não existiam garantias reais ou fidejussórias vinculadas aos direitos creditórios da carteira.",
+          "sources": [
+            {
+              "document_id": "1151850",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151850",
+              "reference_date": "31/12/2025",
+              "version": "1",
+              "page": "20",
+              "clause": "Nota 6(f), Garantias",
+              "sha256": "524ad8103a28d395e21123c8099e31e40956293874ce26684c32b708ff736f5d",
+              "excerpt": "f) Garantias Nos exercícios findos de 31 de dezembro de 2025 e de 2024, não existem garantias reais ou fidejussórias vinculadas aos direitos creditórios integrantes da carteira do Fundo. 19",
+              "verification": "analyst_primary_clause",
+              "type": "audited_financial_statement"
+            }
+          ],
+          "document_type": "audited_observation",
+          "assessment": "Declaração auditada sobre a carteira no período da DF; não confirma a regra contratual atual nem situações posteriores.",
+          "provenance": "verified_override"
+        }
+      ]
+    }
+  ]
+}

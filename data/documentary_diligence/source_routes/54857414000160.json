@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "54857414000160",
+  "name": "INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:14Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:06:47Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 975459,
+          "reference_date": "20/08/2025",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975459",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                disponível em sua página na Internet (http://www.b3.com.br).\n\n“Termo de Adesão”               Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                do Indie Merx Raiz I Crédito Agro Fundo de Investimento em"
+        },
+        {
+          "document_id": 1263627,
+          "reference_date": "01/06/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263627",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                disponível em sua página na Internet (http://www.b3.com.br).\n\n“Termo de Adesão”               Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                do Indie Merx Raiz I Crédito Agro Fundo de Investimento em"
+        },
+        {
+          "document_id": 644517,
+          "reference_date": "23/04/2024",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644517",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                               disponível em sua página na Internet (http://www.b3.com.br).\n\n“Termo de Adesão”              Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                               do Raiz I Crédito Agro Fundo de Investimento em Direitos"
+        },
+        {
+          "document_id": 683576,
+          "reference_date": "19/06/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683576",
+          "source_excerpt": "0\n\n\n\n\n                                              Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                              disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                              do Indie Merx Raiz I Crédito Agro Fundo de"
+        },
+        {
+          "document_id": 683577,
+          "reference_date": "19/06/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683577",
+          "source_excerpt": "0\n\n\n\n\n                                              Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                              disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                              do Indie Merx Raiz I Crédito Agro Fundo de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

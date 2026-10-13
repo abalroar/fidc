@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "cnpj": "45598747000121",
+  "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
+  "generated_at": "2026-10-13T05:30:06Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:59:05Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 298052,
+          "reference_date": "07/03/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298052",
+          "source_excerpt": "Fundo estão devidamente qualificados no Formulário de\n    Informações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\n    Valores Mobiliários – CVM (www.cvm.gov.br).\n\n    CAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n\n    Artigo 10       Para efeito da regulamentação em vigor, o FUNDO, em função da composição de sua carteira de\n    investimento"
+        },
+        {
+          "document_id": 298052,
+          "reference_date": "07/03/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298052",
+          "source_excerpt": "8      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\n    do Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\n    Artigo 49      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\n    como o dia em que não houver expediente bancário, em virtude de determinações de ór"
+        },
+        {
+          "document_id": 298052,
+          "reference_date": "07/03/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298052",
+          "source_excerpt": "o relevante será divulgado, ampla, obrigatória e imediatamente a todos os cotistas,\n    por meio de da website do Administrador (www.gerafuturo.com.br) e na Comissão de Valores Mobiliários – CVM\n    (www.cvm.gov.br), através do Sistema de Envio de Documentos.\n    Artigo 54        O Administrador, desde que previamente solicitado pelo cotista, poderá disponibilizar informações\n    adicionais sobre o Fundo, inclusi"
+        },
+        {
+          "document_id": 298055,
+          "reference_date": "28/04/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298055",
+          "source_excerpt": "Fundo estão devidamente qualificados no Formulário de\n    Informações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\n    Valores Mobiliários – CVM (www.cvm.gov.br).\n\n    CAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n    Artigo 10      Para fins do disposto no “Código ANBIMA de Regulação e Melhores Práticas para Administração de\n    Recursos de"
+        },
+        {
+          "document_id": 298055,
+          "reference_date": "28/04/2022",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298055",
+          "source_excerpt": "8      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\n    do Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\n    Artigo 49      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\n    como o dia em que não houver expediente bancário, em virtude de determinações de ór"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 298629,
+          "reference_date": "05/05/2022",
+          "page": 91,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298629",
+          "source_excerpt": "apurada e divulgada pela B3 no\n                                                       Informativo Diário, disponível em sua página na internet\n                                                       (http://www.b3.com.br).\n\n\n               “Taxa Mínima de Cessão”                 Conforme definida no Contrato de Cessão."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.bancogenial.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791590,
+          "reference_date": "29/11/2024",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791590",
+          "source_excerpt": "erviço de atendimento ao Cotista, responsável pelo esclarecimento de dúvidas e\n            pelo recebimento de reclamações, cujas informações encontram-se no seguinte endereço\n            eletrônico: www.bancogenial.com.br;\n\n            (dd) realizar, por conta e em nome do Fundo, o pagamento da taxa de fiscalização devida na\n            data de encerramento de cada oferta, conforme aplicável, nos termos do artigo 5º, I"
+        },
+        {
+          "document_id": 883977,
+          "reference_date": "22/04/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883977",
+          "source_excerpt": "erviço de atendimento ao Cotista, responsável pelo esclarecimento de dúvidas e\n            pelo recebimento de reclamações, cujas informações encontram-se no seguinte endereço\n            eletrônico: www.bancogenial.com.br;\n\n            (dd) realizar, por conta e em nome do Fundo, o pagamento da taxa de fiscalização devida na\n            data de encerramento de cada oferta, conforme aplicável, nos termos do artigo 5º, I"
+        },
+        {
+          "document_id": 1338074,
+          "reference_date": "01/10/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+          "source_excerpt": "Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana.\n    pelo recebimento de reclamações, cujas informações encontram-se no seguinte endereço\n    eletrônico: www.bancogenial.com.br;\n\n    (dd) realizar, por conta e em nome do Fundo, o pagamento da taxa de fiscalização devida na\n    data de encerramento de cada oferta, conforme aplicável, nos termos do artigo 5º, II, “b”, da Lei n"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

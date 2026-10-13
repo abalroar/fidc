@@ -1,0 +1,701 @@
+{
+  "cnpj": "22175345000119",
+  "verified_at": "2026-10-13T04:34:01+00:00",
+  "criteria": [
+    {
+      "criterion_id": "investee",
+      "label": "Classes investidas e limites do FIC",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Mandato admite cotas de FIDCs; Viainvest, Times (30.035.329/0001-59) e Multiplik (23.426.441/0001-55) têm exceções expressas às condições de cessão e concentração. A cláusula identifica ativos permitidos; não demonstra posição efetivamente detida.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "11",
+          "clause": "Anexo I 4.7(x)",
+          "excerpt": "As condições acima não serão observados para aquisição de cotas dos seguinte Fundos: (i) Viainvest Fundo de Investimento em Direitos Creditórios Multisetorial (ii) Times Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 30.035.329/0001-59 e (iii) Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.7.2 O GESTOR dispõe de regras e procedimentos adequados, por escrito e passíveis de verificação, que permitem a ver",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "12",
+          "clause": "Anexo I 4.10.2",
+          "excerpt": "4.10.2 Os limites de concentração acima não serão observados para aquisição de cotas dos seguinte Fundos: (i) Viainvest Fundo de Investimento em Direitos Creditórios Multisetorial (ii) Times Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 30.035.329/0001-59 e (iii) Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.11 A Classe poderá, direta ou indiretamente: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR, pelo GESTOR e",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "A aquisição dos fundos excepcionados não recebe os mesmos filtros de adimplência, enquadramento e concentração dos demais fundos-alvo."
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cotas de fundos-alvo ≥85% do PL após 180 dias do início das atividades; parcela restante em ativos financeiros de liquidez.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "12",
+          "clause": "Anexo I 4.8–4.9",
+          "excerpt": "4.8 A parcela do Patrimônio Líquido que não estiver alocada em Cotas dos Fundos-Alvo será necessariamente alocada em Ativos Financeiros de Liquidez. Limites de Concentração e Vedações para a Composição da Carteira 4.9 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá, para fins regulatórios, possuir parcela mínima de 85% (oitenta e cinco por cento) de seu patrimônio líquido representados por Cotas de Fundos Alvo conforme Anexo II da Resolução CVM 175. 4.10 As aplicações da Classe em Cotas de Fundos Alvo podem representar até 100% (cem por cento) do Patrimônio Líqu",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "limit": 85.0,
+        "unit": "percent",
+        "numerator": "fidc_quotas",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-05-19",
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sênior de um FIDC ≤20% do PL. Investimentos em MZ/Jr de FIDCs ≤PL das MZ/Jr do FIC; capital sênior aplicado em sênior ou liquidez. Limites passam a valer 120 dias após AGC de alteração. Viainvest, Times e Multiplik excepcionados.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "12",
+          "clause": "Anexo I 4.10(i)–(ii), 4.10.1–4.10.2",
+          "excerpt": "4.10 As aplicações da Classe em Cotas de Fundos Alvo podem representar até 100% (cem por cento) do Patrimônio Líquido do Fundo, devendo respeitar os limites de concentração abaixo (“Limites de Concentração”): (i) os ativos alocados em cotas de subclasse sênior, de um mesmo FIDC, não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido da referida classe do Fundo; (ii) o total de ativos alocados em quotas subordinadas mezanino e/ou júnior nos FIDCs investidos deverão representar no",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Fundos-alvo sem inadimplemento a cotistas no maior período entre 12 meses e penúltima data de pagamento; sem eventos de avaliação/liquidação nos últimos 12 meses; enquadrados na aquisição; relação mínima sênior expressa de 133, 34%. Viainvest/Times/Multiplik excepcionados.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "11",
+          "clause": "Anexo I 4.7(ii)–(vi), (x)",
+          "excerpt": "4.7 A Classe somente poderá adquirir os Direitos Creditórios com relação aos quais tenham se verificado as seguintes Condições de Cessão, a serem validadas pelo Comitê de Investimento e pela Gestora e Cogestora: (i) sejam emitidas por FIDCs cuja política de investimento estabeleça que parte preponderante do Patrimônio Líquido do FIDC seja investida em direitos creditórios provenientes de, no mínimo, um dos seguintes segmentos: comercial, industrial, prestação de serviços, agrícola, imobiliário, de hipotecas, financeiro, ou",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "133, 34% é condição literal do FIDC investido, distinta dos índices próprios do FIC; a fórmula desta condição não foi individualizada nesse trecho."
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "version_conflict",
+      "applicability": "applicable",
+      "value": "Conflito interno: Glossário define (MZ+Jr)/PL e (MZ inferiores+Jr)/PL; Apêndices exigem respectivamente ≥125% e ≥111, 11%. Ambos usam o nome Índice de Subordinação. Apuração diária após primeira integralização da subclasse.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "39",
+          "clause": "Glossário Índices de Subordinação",
+          "excerpt": "Índice de Subordinação Sênior”: é o resultado mínimo obrigatório da divisão de (a) o somatório do valor de todas as Cotas Mezanino, se houver, e de todas as Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, a ser apurado todo Dia Útil pelo ADMINISTRADOR; “Índice de Subordinação Mezanino”: é, para cada Subclasse de Cotas Mezanino, o resultado mínimo obrigatório, conforme previsto no respectivo Apêndice, da divisão de (a) o somatório do valor de todas as (i) Cotas Mezanino que se subordinem à Subclasse de Cotas Mezanino em questão, que se encontrem em circulação, e (ii) Cotas Sub",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "43",
+          "clause": "Apêndice Sênior 3.1–3.1.1",
+          "excerpt": "3.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 125% (cento e vinte e cinco por cento). 3.1.1. O Índice de Subordinação Sênior será apurado todo Dia Útil pelo Administrador. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas de cada Subclasse poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (i) seja obse",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "44",
+          "clause": "Apêndice Mezanino 3.1–3.1.1",
+          "excerpt": "3.1. Após a Data da 1ª Integralização de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze por cento) 3.1.1. O Índice de Subordinação Mezanino será apurado todo Dia Útil pelo Administrador. 3.1.2. Verificado Excesso de Subordinação, desde que assim seja deliberado por maioria dos votos de seus titulares, as Cotas Subordinadas Júnior poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Garantia – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Fórmula/denominador e patamares documentados são incompatíveis na leitura literal; prevalência não resolvida no corpus. Não converter 125%/111, 11% em percentual júnior/PL por suposição."
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Desenquadramento por mais de 10 DU consecutivos gera aviso às subordinadas. Resposta até 15º DU do recebimento; integralização em até 5 DU da manifestação. Administrador adota procedimentos em até 2 DU da manifestação.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "43",
+          "clause": "Apêndice Sênior 3.1.2–3.1.4",
+          "excerpt": "3.1.2. Na hipótese de desenquadramento de qualquer das Razões Mínimas por período superior a 10 (dez) Dias Úteis e consecutivos, a Administradora deverá comunicar os titulares de cotas de Subclasse Subordinadas, cuja Relação Mínima estiver desenquadrada (“Aviso de Desenquadramento da Razão Mínima”), para que decidam se realizarão aporte adicional de recursos para o reenquadramento do à Relação Mínima, mediante a emissão e integralização de novas cotas das Subclasses Subordinadas. 3.1.3. Os Cotistas Subordinados deverão responder ao Aviso de Desenquadramento da Razão Mínima, impreterivelme",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "45",
+          "clause": "Apêndice Mezanino 3.1.3–3.1.5",
+          "excerpt": "3.1.3. Na hipótese de desenquadramento de qualquer das Razões Mínimas por período superior a 10 (dez) Dias Úteis e consecutivos, a Administradora deverá comunicar os titulares de cotas de Subclasse Subordinadas, cuja Relação Mínima estiver desenquadrada (“Aviso de Desenquadramento da Razão Mínima”), para que decidam se realizarão aporte adicional de recursos para o reenquadramento do à Relação Mínima, mediante a emissão e integralização de novas cotas das Subclasses Subordinadas. 3.1.4. Os Cotistas Subordinados deverão responder ao Aviso de Desenquadramento da Razão Mínima, impreterivelme",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Prazos sucessivos têm marcos diferentes; não resumir a uma cura de 10 dias."
+    },
+    {
+      "criterion_id": "expense_reserve",
+      "label": "Reserva de despesas",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Reserva em ativos financeiros de liquidez cobre encargos estimados do mês calendário imediatamente seguinte. Provisionamento sucede pagamento dos encargos atuais e antecede resgates.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "17",
+          "clause": "Anexo I 7.1(i)–(ii)",
+          "excerpt": "7.1 O ADMINISTRADOR e o GESTOR obrigam-se a, a partir da primeira Data de Emissão de Cotas até a liquidação integral das Obrigações do da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvado, enquanto em curso um Evento de Avaliação e/ou um Evento de Liquidação, o disposto nos itens 10.1.2 e 10.4.1 abai",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "40",
+          "clause": "Glossário Reserva de Despesas",
+          "excerpt": "Reserva de Despesas”: é a parcela do Patrimônio Líquido a ser retida e destinada exclusivamente para pagamento dos Encargos, nos termos do item 7.1(ii) deste Anexo, e mantida exclusivamente em Ativos Financeiros de Liquidez; “Resolução CVM 160”: Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada; “Resolução CVM 175”: Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 40",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cotas investidas e liquidez avaliadas a cada DU por manual do administrador/custodiante; provisões e perdas seguem ICVM 489 e reduzem o saldo dos ativos. Art.13 da ICVM 489 orienta perdas de um mesmo devedor, admitida análise individualizada.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "18",
+          "clause": "Anexo I 8.1–8.2.1",
+          "excerpt": "8.1 As cotas do Fundos-Alvo e Ativos Financeiros de Liquidez que compõem a Carteira da Classe terão seus valores calculados todo Dia Útil conforme a metodologia de avaliação descrita no manual do ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos seus respectivos websites, nos endereços www.btgpactual.com/asset-management/administracao-fiduciaria. 8.2 As provisões para perdas e as perdas havidas com as cotas dos Fundos-Alvo ou com os Ativos Financeiros de Liquidez integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta f",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "A cláusula remete ao manual; não fornece curva percentual por dias de atraso."
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Inclui descumprimento de prestador não sanado em 10 DU da notificação, insolvência/intervenção, gestor sem substituto, alteração regulatória prejudicial, divergência de precificação, downgrade de 2 níveis fora da mesma faixa e atraso em resgates.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "21",
+          "clause": "Anexo I 10.1(i)–(viii)",
+          "excerpt": "10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) inobservância pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento da Classe, verificada pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o ADMINISTRADOR, o CUSTODIANTE e/ou o GESTOR, conforme o caso, não o sane",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Inclui prestador essencial/custodiante sem substituto, perda de habilitação, determinação CVM e PL diário <R$ 1 milhão por 90 dias consecutivos após os 90 dias iniciais. Falta de aporte subordinado no prazo previsto também aciona liquidação.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "22",
+          "clause": "Anexo I 10.3(i)–(ix)",
+          "excerpt": "10.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do CUSTODIANTE, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do ADMINISTRADOR ou GESTOR sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "23",
+          "clause": "Anexo I 10.3(ix)–(x), 10.4",
+          "excerpt": "Subordinadas na forma prevista neste Regulamento, após o decurso do prazo estabelecido (x) na superveniência de qualquer disposição normativa das autoridades públicas competentes, notadamente da CVM, que impeça o funcionamento regular do Fundo e/ou da Classe. Procedimentos de Liquidação Antecipada 10.4 Verificado quaisquer dos Eventos de Liquidação, o ADMINISTRADOR deverá dar início aos procedimentos de liquidação antecipada da Classe, definidos nos itens a seguir. 10.4.1 Na hipótese prevista no item 10.4 acima, o ADMINISTRADOR deverá: (i) interromp",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "rating",
+      "label": "Rating por subclasse e downgrade",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cotas sujeitas a rating contratado pelo gestor; alterações comunicadas individualmente por e-mail. Queda de 2 níveis frente ao rating original, desconsideradas quedas dentro da mesma faixa, constitui evento de avaliação.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "17",
+          "clause": "Anexo I 5.24",
+          "excerpt": "5.24 As Cotas serão objeto de classificação de risco pela Agência Classificadora de Risco contratada pelo Gestor. Qualquer alteração na classificação de risco das Cotas deverá ser comunicada aos Cotistas por meio de correspondência eletrônica endereçada a cada um dos Cotistas. CAPÍTULO 6 – ATRIBUIÇÃO DE RESULTADO ÀS COTAS 6.1 As Cotas, independentemente da classe, terão seu valor calculado e divulgado pelo ADMINISTRADOR todo Dia Útil, no fechamento dos mercados, a partir do Dia Útil seguinte à primeira integralização de Cotas da respectiva classe, até a data de resgate total das Cotas da respectiva cla",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "21",
+          "clause": "Anexo I 10.1(vii)",
+          "excerpt": "rebaixamento da classificação de risco em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída, de forma a desconsiderar as quedas que ocorrem na mesma faixa de classificação de risco e de acordo com os critérios de classificação das respectivas agências de classificação de risco; e (viii) Atraso no pagamento de resgates das Cotas. 10.1.1 Na ocorrência de qualquer Evento de Avaliação, será convocada Assembleia Especial de Cotistas, para avaliar o grau de comprometimento das atividades da Classe em razão do Evento de Ava",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "O regulamento estabelece obrigação e gatilho; nenhuma nota vigente por subclasse foi presumida."
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Diariamente: encargos → reserva de encargos do mês seguinte → resgate sênior com benchmark → resgate mezanino respeitando senioridade → valores MZ com benchmark → resgate Jr → despesas de liquidação.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "17",
+          "clause": "Anexo I 7.1(i)–(iv)",
+          "excerpt": "7.1 O ADMINISTRADOR e o GESTOR obrigam-se a, a partir da primeira Data de Emissão de Cotas até a liquidação integral das Obrigações do da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvado, enquanto em curso um Evento de Avaliação e/ou um Evento de Liquidação, o disposto nos itens 10.1.2 e 10.4.1 abai",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "18",
+          "clause": "Anexo I 7.1(iv)–(vii)",
+          "excerpt": "Subordinação entre as respectivas Subclasses; (v) pagamento, aos titulares das Cotas Subordinadas Mezanino, do resgate das Cotas Subordinadas Mezanino correspondente aos valores aportados à Classe, acrescidos dos rendimentos calculados de acordo com o Benchmark das Cotas Subordinadas Mezanino; (vi) pagamento dos valores referentes ao resgate das Cotas Subordinadas Junior; e (vii) provisionamento de recursos para pagamento das despesas relacionadas à liquidação e extinção da Classe, ainda que exigíveis em data posterior ao encerramento de suas atividades. C",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "remuneration",
+      "label": "Remuneração por subclasse e série",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sênior: CDI+2, 5%; mezanino: CDI+3, 5%. Benchmarks limitam remuneração e não constituem garantia; resgate solicitado pago no 91º dia, sem carência inicial para Sênior/MZ.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "42",
+          "clause": "Apêndice Sênior 1.1(ii), 1.2–1.4",
+          "excerpt": "1.2. Não se admitirá a subdivisão da Classe de Cotas Seniores em séries, nos termos do Artigo 2º, inciso XXIII, do Anexo II da Resolução CVM 175, visto que o FUNDO é constituído como condomínio aberto. 1.2. Benchmark Sênior. A Classe buscará atingir, para as Cotas Seniores, o Benchmark Sênior, qual seja, CDI + 2,5% (dois e meio por cento). 1.3. O Benchmark Sênior não representa e nem devem ser considerados uma promessa, garantia ou sugestão de rentabilidade aos Cotistas Seniores, por parte da Classe, do Administrador, do Gestor e/ou do Cedente. 1.4. Independentemente do valor do Patrimônio Líquido da Classe,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "44",
+          "clause": "Apêndice Mezanino 1.1(iii), 1.2–1.4",
+          "excerpt": "1.2. Benchmark Mezanino. A Classe buscará atingir, para as Cotas Mezanino, o Benchmark Mezanino, qual seja de CDI + 3,5% (três e meio por cento). 1.3. O Benchmark Mezanino não representa e nem deve ser considerado uma promessa, garantia ou sugestão de rentabilidade Cotistas Mezanino por parte da Classe, do Administrador, do Gestor e/ou do Cedente. 1.4. Independentemente do valor do Patrimônio Líquido da Classe, os Cotistas detentores de Cotas Mezanino não farão jus a uma rentabilidade superior ao Benchmark Mezanino respectivamente, o qual representará o limite máximo de remuneração possível para as Cotas Mezanino. 2",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Taxa global 1, 25% a.a. sobre PL da subclasse Jr; apropriação diária em 252 DU; pagamento até 5º DU do mês seguinte. Número do mínimo mensal: R$ 18.250; correção anual em janeiro por IGP-M positivo.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "26",
+          "clause": "Anexo I capítulo12, Taxa Global",
+          "excerpt": "1,25% (um inteiro e vinte e cinco centésimos por cento) ao ano, apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se refere, incidente sobre a parcela do Patrimônio Líquido da Classe Taxa Global correspondente a Subclasse Subordinada Junior, observada remuneração mínima mensal de R$ 18.250,00 (dezoito mil e quinhentos e cinquenta",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Taxa global não equivale à taxa administrativa isolada. Extenso do mínimo diz dezoito mil e quinhentos e cinquenta, divergindo do número R$ 18.250; valores segregados estão na plataforma de transparência indicada."
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "A classe não paga taxa de performance.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "26",
+          "clause": "Anexo I capítulo12, Taxa de Performance",
+          "excerpt": "Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Performance. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - 26 b l",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Política de investimento, elegibilidade e eventos: maioria das cotas subscritas. Substituição de gestor/cogestor/custodiante: maioria absoluta dos cotistas Jr. Fiança/aval/retenção de risco: 2/3 das cotas subscritas. Eventos para liquidação: maioria das cotas presentes.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "19",
+          "clause": "Anexo I 9.2(iii), (vi), (viii)–(ix)",
+          "excerpt": "(iii) Deliberar sobre substituição do Gestor, Co-gestor ou dos Cotistas detentores das Custodiante Cotas Subordinadas Júnior. Em primeira convocação, pela (iv) deliberar sobre elevação da Taxa de Administração, Taxa maioria das Cotas Subscritas da de Performance, inclusive na hipótese de restabelecimento de Classe; e, em segunda taxa que tenha sido objeto de redução;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "20",
+          "clause": "Anexo I 9.2(xiv)–(xvi)",
+          "excerpt": "(xiv) alterações na Política de Investimentos; Classe (xv) alterações nos Critérios de Elegibilidade e nas Maioria das Cotas Subscritas da Condições de Cessão; Classe (xvi) alteração dos Eventos de Avaliação, dos Eventos de Maioria das Cotas Subscritas da Liquidação e/ou das consequências deles decorrentes em Classe",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cogestor VIA INVEST Gestora de Recursos Ltda. (44.141.694/0001-52), identificado na ficha da classe. Esse CNPJ pertence ao prestador e não ao FIDC investido.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "8",
+          "clause": "Anexo I 1.2 Cogestor",
+          "excerpt": "VIA INVEST GESTORA DE RECURSOS LTDA., sociedade empresária limitada, inscrita no CNPJ sob o nº 44.141.694/0001-52, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n° 1106, COGESTOR 17° e 18º andares, Bela Vista, CEP 01.310-914, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratórionº20.600 de 16 de fevereiro de 2023 (“Cogestor”)",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à Resolução CVM175",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Regulamento consolidado estrutura Parte Geral, Anexo I da classe única e Apêndices Sênior, MZ e Jr, sob Parte Geral e Anexo Normativo II da Resolução CVM 175; classe aberta de prazo indeterminado.",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "1",
+          "clause": "Parte Geral 1.1",
+          "excerpt": "1.1 FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA (“FUNDO”), regido pela Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada (“Código Civil”), pela parte geral e o Anexo Normativo II da Resolução nº 175, de 23 de dezembro de 2022, conforme alterada, da Comissão de Valores Mobiliários (respectivamente, “CVM” e “Resolução CVM 175”), terá como principais características: Classe de Cotas Classe única. Indeterminado, exceto se de outra forma vier a ser deliberado pelos cotistas Praz",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "8",
+          "clause": "Anexo I 1.2",
+          "excerpt": "Tipo de Condomínio Aberto. Indeterminado, exceto se de outra forma vier a ser deliberado pelos Prazo de Duração Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Sim. Cotas Tipo “Outros”. Foco de atuação “Fomento Mercantil”. A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS Classificação ANBIMA",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    }
+  ],
+  "lookthrough": [
+    {
+      "cnpj": "30035329000159",
+      "name": "Times FIDC Multissetorial",
+      "relationship": "permitted_mandate",
+      "position_status": "not_evidenced",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "11",
+          "clause": "Anexo I 4.7(x)",
+          "excerpt": "Times Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 30.035.329/0001-59 e (iii) Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.7.2 O GESTOR dispõe de regras e procedimentos adequados, por escrito e passíveis de verificação, que permitem a verificação do cumprimento, pelo CUSTODIANTE, da obrigação de validar os Direitos Creditórios em relação às Condições de Cessão, quando for o caso; tais BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "12",
+          "clause": "Anexo I 4.10.2",
+          "excerpt": "Times Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 30.035.329/0001-59 e (iii) Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.11 A Classe poderá, direta ou indiretamente: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR, pelo GESTOR e/ou pela Consultora, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto; e (ii) ceder Direitos Creditórios a qualquer das pessoas, fundos d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ]
+    },
+    {
+      "cnpj": "23426441000155",
+      "name": "Multiplik FIDC Multissetorial",
+      "relationship": "permitted_mandate",
+      "position_status": "not_evidenced",
+      "sources": [
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "11",
+          "clause": "Anexo I 4.7(x)",
+          "excerpt": "Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.7.2 O GESTOR dispõe de regras e procedimentos adequados, por escrito e passíveis de verificação, que permitem a verificação do cumprimento, pelo CUSTODIANTE, da obrigação de validar os Direitos Creditórios em relação às Condições de Cessão, quando for o caso; tais BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - 11 b l",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1199304,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+          "reference_date": "19/05/2026",
+          "version": "Regulamento consolidado 19/05/2026",
+          "page": "12",
+          "clause": "Anexo I 4.10.2",
+          "excerpt": "Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.11 A Classe poderá, direta ou indiretamente: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR, pelo GESTOR e/ou pela Consultora, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto; e (ii) ceder Direitos Creditórios a qualquer das pessoas, fundos de investimento ou entidades referidas no item (i) acima. Àqueles referidos no item (i) acima é igualmente vedado: (a) ceder Direitos Creditórios à",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+          "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+          "identity_verified": true
+        }
+      ]
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "cnpj": "44141694000152",
+      "reason": "VIA INVEST Gestora de Recursos Ltda., Cogestor da classe; prestador, não fundo-alvo.",
+      "source": {
+        "document_id": 1199304,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+        "reference_date": "19/05/2026",
+        "version": "Regulamento consolidado 19/05/2026",
+        "page": "8",
+        "clause": "Anexo I 1.2 Cogestor",
+        "excerpt": "VIA INVEST GESTORA DE RECURSOS LTDA., sociedade empresária limitada, inscrita no CNPJ sob o nº 44.141.694/0001-52, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, n° 1106, COGESTOR 17° e 18º andares, Bela Vista, CEP 01.310-914, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratórionº20.600 de 16 de fevereiro de 2023 (“Cogestor”)",
+        "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+        "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+        "identity_verified": true
+      }
+    }
+  ],
+  "unresolved_named_investees": [
+    {
+      "name": "Viainvest FIDC Multissetorial",
+      "reason": "Nome listado nas exceções do mandato; CNPJ não individualizado na cláusula lida.",
+      "source": {
+        "document_id": 1199304,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199304",
+        "reference_date": "19/05/2026",
+        "version": "Regulamento consolidado 19/05/2026",
+        "page": "12",
+        "clause": "Anexo I 4.10.2",
+        "excerpt": "Viainvest Fundo de Investimento em Direitos Creditórios Multisetorial (ii) Times Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 30.035.329/0001-59 e (iii) Multiplik Fundo de Investimento em Direitos Creditórios Multisetorial, inscrito no CNPJ sob o nº 23.426.441/0001-55. 4.11 A Classe poderá, direta ou indiretamente: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR, pelo GESTOR e/ou pela Consultora, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto;",
+        "local_path": "/Users/matheusjprates/fidc/data/raw/22175345000119/1199304_regulamento.pdf",
+        "sha256": "a2b0c5ad8fc2973a1792bb5178603a77f1d8fed77a311bba9516ddd2b641d5c0",
+        "identity_verified": true
+      }
+    }
+  ]
+}

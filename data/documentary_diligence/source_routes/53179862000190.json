@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "cnpj": "53179862000190",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II",
+  "generated_at": "2026-10-13T05:30:12Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:05:01Z",
+  "routes": [
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 729143,
+          "reference_date": "28/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=729143",
+          "source_excerpt": "ril de 2024. Esta reunião de Comitê está registrada na ata nº 20240410-3.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 729143,
+          "reference_date": "28/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=729143",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de FIDC"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 729143,
+          "reference_date": "28/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=729143",
+          "source_excerpt": "ratings de crédito ou de qualidade de gestão às Gestoras, mas possui igualmente classificações de outros Fundos desses prestadores,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html..\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serviços\n    adicionais ao serviço de classificação de risco para o Fund"
+        },
+        {
+          "document_id": 935485,
+          "reference_date": "31/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935485",
+          "source_excerpt": "erviço direto para a Artesanal Investimentos Ltda., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Administradora /\n    Custodiante do Fundo se dá em relação ao rating de qualidade de gestão de sua área de gestão de recursos. Essa agência"
+        },
+        {
+          "document_id": 1090108,
+          "reference_date": "31/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090108",
+          "source_excerpt": "erviço direto para a Artesanal Investimentos Ltda., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Administradora /\n    Custodiante do Fundo se dá em relação ao rating de qualidade de gestão de sua área de gestão de recursos. Essa agência"
+        },
+        {
+          "document_id": 1090111,
+          "reference_date": "30/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090111",
+          "source_excerpt": "erviço direto para a Artesanal Investimentos Ltda., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Administradora /\n    Custodiante do Fundo se dá em relação ao rating de qualidade de gestão de sua área de gestão de recursos. Essa agência"
+        },
+        {
+          "document_id": 1090112,
+          "reference_date": "30/09/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090112",
+          "source_excerpt": "erviço direto para a Artesanal Investimentos Ltda., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para a Administradora /\n    Custodiante do Fundo se dá em relação ao rating de qualidade de gestão de sua área de gestão de recursos. Essa agência"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 935485,
+          "reference_date": "31/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935485",
+          "source_excerpt": "2025. A reunião de Comitê está registrada\n   na Ata Nº 20250305-12.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1090108,
+          "reference_date": "31/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090108",
+          "source_excerpt": "2025. A reunião de Comitê está registrada\n   na Ata Nº 20250514-18.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1090111,
+          "reference_date": "30/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090111",
+          "source_excerpt": "2025. A reunião de Comitê está registrada\n   na Ata Nº 20250807-03.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1090112,
+          "reference_date": "30/09/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090112",
+          "source_excerpt": "2025. A reunião de Comitê está registrada\n   na Ata Nº 20251022-02.\n\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 935485,
+          "reference_date": "31/12/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935485",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1090108,
+          "reference_date": "31/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090108",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1090111,
+          "reference_date": "30/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090111",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        },
+        {
+          "document_id": 1090112,
+          "reference_date": "30/09/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090112",
+          "source_excerpt": "ml\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de ri"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "cnpj": "41970012000126",
+  "name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:00Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:44Z",
+  "routes": [
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1077334,
+          "reference_date": "19/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "source_excerpt": "Monteiro\n                            Presidente                                       Secretária\n\n\n\n\n                                                                                                  btgpactual.com"
+        },
+        {
+          "document_id": 1077334,
+          "reference_date": "19/12/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "source_excerpt": "do intencionalmente em branco.\n                                            Página de assinaturas a seguir)\n\n\n\n\n                                                                                         btgpactual.com"
+        },
+        {
+          "document_id": 1302706,
+          "reference_date": "27/08/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "source_excerpt": "RESPONSABILIDADE LIMITADA\n\n\n\n                                                    20 de agosto de 2026\n\n\n\n\n                                                                                    btgpactual.com"
+        },
+        {
+          "document_id": 1302706,
+          "reference_date": "27/08/2026",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "source_excerpt": "btgpactual.com"
+        },
+        {
+          "document_id": 1302706,
+          "reference_date": "27/08/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "source_excerpt": "..................171\n\n\n\n\n                                                                                                                                                                              btgpactual.com"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1077334,
+          "reference_date": "19/12/2025",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "source_excerpt": "no “Manual Para\n                                                     Provisão de Devedores Duvidosos do Administrador”,\n                                                     disponível em seu website (www.btgpactual.com/asset-\n                                                     management/administracao-fiduciaria), para os Direitos\n                                                     Creditórios PPV.\n\n                  \"D"
+        },
+        {
+          "document_id": 1077334,
+          "reference_date": "19/12/2025",
+          "page": 118,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "source_excerpt": "te, de suas\n                 obrigações descritas neste Regulamento. Tais regras e procedimentos encontram-se disponíveis\n                 para       consulta   no   website    do    Administrador   (https://www.btgpactual.com/asset-\n                 management/administracao-fiduciaria).\n\n\n                18.2. O Custodiante será responsável pelas seguintes atividades:\n\n\n                    (i)       realizar a custódia qualifica"
+        },
+        {
+          "document_id": 792579,
+          "reference_date": "29/11/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
+          "source_excerpt": "a no “Manual Para\n                                                    Provisão de Devedores Duvidosos do Administrador”,\n                                                    disponível em seu website (www.btgpactual.com/asset-\n                                                    management/administracao-fiduciaria), para os Direitos\n                                                    Creditórios PPV.\n\n                  \"Dir"
+        },
+        {
+          "document_id": 792579,
+          "reference_date": "29/11/2024",
+          "page": 115,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
+          "source_excerpt": "de suas obrigações\n                descritas neste Regulamento. Tais regras e procedimentos encontram-se disponíveis para\n                consulta     no      website      do         Administrador   (https://www.btgpactual.com/asset-\n                management/administracao-fiduciaria).\n\n\n                18.2.O Custodiante será responsável pelas seguintes atividades:\n\n\n                    (i)     realizar a custódia qualificada d"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1077334,
+          "reference_date": "19/12/2025",
+          "page": 109,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "source_excerpt": "Fundo, sobre a Taxa de Administração, sobre a Taxa de Custódia e sobre a Taxa de\n                             Gestão;\n\n\n                    (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website do\n                             Administrador, o valor do Patrimônio Líquido do Fundo, o valor das Cotas, as\n                             rentabilidades acumuladas no mês e no ano civil a"
+        },
+        {
+          "document_id": 1302706,
+          "reference_date": "27/08/2026",
+          "page": 90,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "source_excerpt": "tradas informações relativas ao Fundo, sobre a Taxa de\n                   Administração, sobre a Taxa de Custódia e sobre a Taxa de Gestão;\n\n          (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website do Administrador, o\n                   valor do Patrimônio Líquido do Fundo, o valor das Cotas, as rentabilidades acumuladas no mês\n                   e no ano civil a que se referirem, e"
+        },
+        {
+          "document_id": 792579,
+          "reference_date": "29/11/2024",
+          "page": 105,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
+          "source_excerpt": "Fundo, sobre a Taxa de Administração, sobre a Taxa de Custódia e sobre a Taxa de\n                             Gestão;\n\n\n                    (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website do\n                             Administrador, o valor do Patrimônio Líquido do Fundo, o valor das Cotas, as\n                             rentabilidades acumuladas no mês e no ano civil a"
+        },
+        {
+          "document_id": 909707,
+          "reference_date": "19/05/2025",
+          "page": 106,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
+          "source_excerpt": "tivas ao\n                    Fundo, sobre a Taxa de Administração, sobre a Taxa de Custódia e sobre a Taxa de\n                    Gestão;\n\n\n          (xii)     divulgar anualmente, no website da CVM (www.cvm.gov.br), no website do\n                    Administrador, o valor do Patrimônio Líquido do Fundo, o valor das Cotas, as\n                    rentabilidades acumuladas no mês e no ano civil a que se referirem,"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-management/administracao-fiduciaria",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1302706,
+          "reference_date": "27/08/2026",
+          "page": 99,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "source_excerpt": "Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44\n\n\n\n\n     Regulamento. Tais regras e procedimentos encontram-se disponíveis para consulta no website do\n     Administrador (https://www.btgpactual.com/asset-management/administracao-fiduciaria).\n\n     18.3. Pelos serviços de custódia e controladoria dos Direitos Creditórios e Ativos Financeiros, o\n     Custodiante fará jus à Taxa de Custódia, que está incluída na Taxa de Administração defini"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-servicing/administracao-fiduciaria",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/assetmanagement/administracao-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 909707,
+          "reference_date": "19/05/2025",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
+          "source_excerpt": "Provisão de Devedores Duvidosos do Administrador”,\n                                     disponível           em             seu          website\n                                     (www.btgpactual.com/assetmanagement/administracao-\n                                     fiduciaria), para os Direitos Creditórios PPV.\n\n\n        \"Direitos Creditórios PPV\"\n                                     significam os direitos creditórios adquir"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:24Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/assetmanagement/administracao-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/assetmanagement/administracao-fiduciaria",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 909707,
+          "reference_date": "19/05/2025",
+          "page": 116,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
+          "source_excerpt": "gações\n      descritas neste Regulamento. Tais regras e procedimentos encontram-se disponíveis para\n      consulta              no             website             do              Administrador\n      (https://www.btgpactual.com/assetmanagement/administracao-fiduciaria).\n\n\n      18.2.O Custodiante será responsável pelas seguintes atividades:\n\n\n          (i)       realizar a custódia qualificada dos Ativos Financeiros;\n\n\n          (ii)      verificar a existência, int"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/assetmanagement/administracao-fiduciaria",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,955 @@
+{
+  "cnpj": "41970012000126",
+  "verified_at": "2026-10-13T04:42:13+00:00",
+  "criteria": [
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após 180 dias da primeira integralização: ≥67% do PL em direitos definidos pelo art. 4 da Resolução CMN 5.111.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "6",
+          "clause": "DefiniçãoAlocaçãoMínima deInvestimento",
+          "excerpt": "Alocação Mínima de significa a alocação de, no mínimo, 67% (sessenta e sete Investimento\" por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios, que sejam definidos como \"direitos creditórios\", nos termos do artigo 4º da Resolução CMN 5.111. \"Alteração Normativa\" significa a ocorrência de: (a) qualquer alteração nas leis, normas ou na regulamentação aplicáveis aos Cotistas Seniores e/ou aos Coti",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "40",
+          "clause": "5.1.2",
+          "excerpt": "5.1.2. Após o prazo de 180 (cento e oitenta) dias contados da Data da Primeira Integralização de Cotas do Fundo, o Fundo deverá observar, no mínimo, a Alocação Mínima de Investimento. 5.1.3. Os Cotistas do Fundo terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Numerador contratual exige ativos elegíveis CMN; total DC agregado exige validação desse perímetro.",
+      "rule": {
+        "operator": ">=",
+        "limit": 67.0,
+        "unit": "percent",
+        "numerator": "cmn_5111_eligible_credit_rights",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "fund",
+        "effective_status": "document_date_only",
+        "document_date": "2026-08-27",
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis eaquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "CCBs de crédito parcelado/empréstimo pessoal, adimplentes, com 1 a 24 parcelas futuras e amortização mensal. Principal original ≤R$ 30 mil para consumidor e ≤R$ 1 milhão para comerciante.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "43",
+          "clause": "5.2.1(i)–(v)",
+          "excerpt": "5.2.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, aos seguintes Critérios de Elegibilidade, cumulativamente (em conjunto, os \"Critérios de Elegibilidade\"): (i) os Direitos Creditórios tenham sido originados de operações de Crédito Parcelado ou Empréstimo Pessoal e representados por CCBs; (ii) os Direitos Creditórios não estejam inadimplidos; (iii) os Direitos Creditórios sejam compostos por, no mínimo, 1 (uma) parcela e, no máximo, de 24 (vinte e quatro) parcelas mensais de pagamen",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "MZ A: (MZ B + MZ C + Júnior)/PL ≥20%; MZ B: (MZ C + Júnior)/PL ≥15%; MZ C: Júnior/PL ≥10%. Apuração diária; Step Down aumenta os pisos conforme o valor da redução, sem cumulação.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "31",
+          "clause": "DefiniçãoRazão deSubordinaçãoMezaninoA",
+          "excerpt": "Razão de Subordinação significa a razão entre: (i) a soma do valor das Cotas Mezanino A\" Subordinadas Mezanino B em Circulação, do valor das Cotas Subordinadas Mezanino C em Circulação e do valor das Cotas Subordinadas Júnior em Circulação; e (ii) o Patrimônio Líquido do Fundo ambos calculados em uma mesma data, equivalente a 20% (vinte por cento). Caso seja caracterizado um Evento de Step-Down, a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "32",
+          "clause": "DefiniçõesRazõesMezaninoB/C",
+          "excerpt": "Razão de Subordinação Mezanino B será calculada diariamente pelo Gestor e disponibilizada em cada Data de Envio do Relatório de Acompanhamento, por meio do respectivo Relatório de Acompanhamento, sendo certo que, em caso de desenquadramento da Razão de Subordinação Mezanino B, o Administrador deverá comunicar imediatamente tal fato aos Cotistas, após notificação do Gestor nesse sentido.",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "A camada mezanino detida pelo PLGN precisa ser identificada; somar todas as MZ não valida a proteção de MZ A/B/C individualmente."
+    },
+    {
+      "criterion_id": "coverage",
+      "label": "Razões decobertura porcamada",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Senioridade Máxima limita os valores seniores integralizados à Base de Investimento. Base = disponibilidades sem reserva + Advance Rate × principal adimplente ajustado − próximos pagamentos a cotistas − despesas até a próxima data de pagamento.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "7",
+          "clause": "DefiniçãoBasedeInvestimento",
+          "excerpt": "Base de Investimento\" significa a soma de: (i) Disponibilidades do Fundo (excluindo o montante na Reserva para Despesas); e (ii) btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "8",
+          "clause": "ContinuaçãoBasedeInvestimento",
+          "excerpt": "o produto do: (a) Advance Rate; e (b) Valor Ajustado Agregado dos Direitos Creditórios (excluídos – para fins de esclarecimento – desse valor os Direitos Creditórios em relação aos quais tenha ocorrido uma Condição Resolutiva ou de Recompra ou um dos eventos listados no item 5.1.6.1 abaixo antes da efetiva recompra/compra ali prevista, conforme aplicável); menos (iii) a soma dos valores a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "34",
+          "clause": "DefiniçãoSenioridadeMáxima",
+          "excerpt": "Senioridade Máxima\" significa o valor máximo das Cotas Seniores emitidas e integralizadas pelos Cotistas Seniores, o qual deverá, em cada Data Base, ou por ocasião de cada Chamada de Capital de qualquer pagamento de valores aos Cotistas Subordinados, seja em decorrência do Benchmark Mezanino, dos Rendimentos Adicionais, de Amortização, de Amortização Acelerada, amortização",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Não é razão DC/PL; requer carteira individual, abatimentos e fluxos futuros."
+    },
+    {
+      "criterion_id": "aging_trigger",
+      "label": "Gatilhos deatraso erolagem",
+      "theme": "Qualidade dacarteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Step Down 1: média móvel de juros excedentes ≤62, 5% ou inadimplência ≥8%; Step Down 2: juros ≤52, 5%. Redução do Advance Rate/aumento dos pisos MZ: 5 pontos pela condição de juros do nível 1, inadimplência menos 8% pela condição de atraso, ou 15 pontos no nível 2; gatilhos alternativos.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "22",
+          "clause": "DefiniçõesStepDown1/2",
+          "excerpt": "Evento de Step-Down Nível 1\" significa o evento em que: (i) a Média Móvel do Índice de Juros Excedente passe a ser inferior ou igual a 62,5% (sessenta e dois e meio por cento); ou (ii) a Média Móvel do Índice de Inadimplência passe a ser maior ou igual a 8% (oito por cento). \"Evento de Step-Down Nível 2\" significa o evento em que a Média Móvel do Índice de Juros Excedente passe a ser inferior ou igual a 52,5% (cinquenta e dois e meio por cento).",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "37",
+          "clause": "ValoresdeReduçãoStepDown1/2",
+          "excerpt": "Valor de Redução Evento de significa, na ocorrência de um Evento de Step-Down Step-Down Nível 1\" Nível 1 nos termos do item (i) da definição de Evento de Step-Down Nível 1, 5% (cinco por cento); Na ocorrência de um Evento de Step-Down Nível 1 nos termos do item (ii) da definição de Evento de Step-Down Nível 1, o Índice de Inadimplência menos 8% (oito por cento). \"Valor de Redução Evento de significa, na ocorrência de um Evento de Step-",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Índices contratuais não correspondem automaticamente ao Over 90/estoque do IME; não tratar 8% como limite sobre qualquer métrica pública."
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Cura, aporte e recomposição",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Evento informado pelo administrador e Mercado Pago/IFMeLi em 3DU da ciência. Aquisições param e AGC convocada em 2DU decide liquidação ou preservação. Pagamento qualificado/sênior/MZ: 2DU. Obrigações gerais: menor prazo entre contrato e 45dias; informações falsas: 30dias. Agente de cobrança/recebimento segue cura contratual e substituição em 120dias. Conta inacessível: 5DU; informação afetando PL >5%: 30dias. Não há prazo único para todos os eventos.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "78–81",
+          "clause": "11.1(v)–(x),(xxvi),(xxix)",
+          "excerpt": "11.1. São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências, observado que (a) os subitens (i), (ii), (iii), (iv), (v), (vi), (xi), (xvii), (xxiii), (xxiv), (xxvi), (xxviii),(xxx) e (xxxi) abaixo serão verificados pelo Administrador; (b) os subitens (ix), (xvii) e (xxix)abaixo serão verificados pelo Gestor; (c) o item (xxv) abaixo será verificado pelos Cotistas Seniores e/ou pelo Administrador; (d) os subitens (vii), (viii), (xii), (xiii), (xiv), (xv), (xvi), (xviii), (xix), (xx), (xxi), (xxii) poderão ser verificados pelo Administrador e/ou pelo Gestor; e (e) o item (xxx) poderá ser verificado pelos Cotistas Seniores, sem prejuízo, em qualquer caso, da obrigação do Mercado Pago e da Instituição Financeira MeLi disposta no item 11.1.2 abaixo: (i) não observância do prazo de 180 (cento e oitenta) dias contados da Data da Primeira Integralização de Cotas do Fundo, ou do prazo adicional concedido pela CVM, se for o caso, para alocação dos recursos do Fundo na aquisição de Direitos Creditórios em montante que corresponda a, no mínimo, a Alocação Mínima de Investimento, conforme disposto no item 5.1.2 acima; (ii) na hipótese de serem realizados pagamentos de rendimentos, Amortização ou resgate de Cotas Subordinadas Mezanino ou de Cotas Subordinadas Júnior em desacordo com este Regulamento; (iii) o Fundo deixe de deter natureza jurídica de condomínio de natureza especial, nos termos da legislação aplicável; (iv) caso a Assembleia Geral de Cotistas convocada nos termos do item 5.3.5.1 delibere que a Inconsistência Relevante verificada constitui um Evento de Avaliação; (v) não realização de pagamento da Meta de Rentabilidade Sênior e/ou da Meta de Rentabilidade Mezanino aplicável, da Amortização de Cotas Seniores e/ou de Cotas Subordinadas Mezanino ou amortização integral/resgate de Cotas Seniores e/ou de Cotas Subordinadas Mezanino em até 2 (dois) Dias Úteis contados da esperada Data de Pagamento ou Data de Amortização Integral definidas nos respectivos Apêndices, conforme aplicável, observado que, após a Data Limite de Investimento em Direitos Creditórios e/ou em caso de Evento de Amortização Acelerada e/ou Evento de Liquidação, a ausência de amortização de Cotas Subordinadas Mezanino, nos termos da ordem de alocação de recursos prevista no item 20.3, enquanto não houver a amortização integral/resgate de todas as Cotas Seniores, não será considerada um Evento de Avaliação; (vi) não realização de pagamento decorrente de um Evento de Pagamento Qualificado nos termos do item 12.7, subitem (ii), observado o prazo de cura de 2 (dois) Dias Úteis contados da respectiva data esperada; (vii) na ocorrência de um inadimplemento de quaisquer obrigações assumidas pelo Mercado Pago e/ou por qualquer Endossante em quaisquer Documentos do Fundo que não seja sanado (se passível de cura) no prazo cura estabelecido no respectivo Documento do Fundo ou no prazo de 45 (quarenta e cinco) dias contados de seu conhecimento ou notificação, conforme o caso, o que for menor (exceto por: (a) um Inadimplemento do Agente de Cobrança ou um Inadimplemento do Agente de Recebimento, que deverá observar o disposto no subitem (x) abaixo; e (b) o descumprimento do Agente de Recebimento de envio do arquivo retorno diariamente para o Administrador na forma do item 5.4.6.2 deste Regulamento e do Contrato de Agente de Recebimento, ao qual não se aplicará o prazo de cura estabelecido neste subitem); (viii) verificação de que quaisquer declarações, informações ou garantias prestadas ou fornecidas pelo Mercado Pago e/ou por quaisquer Endossantes, conforme aplicável: (a) no âmbito da elaboração de cada Relatório de Acompanhamento, no Relatório de Índice Financeiro e/ou quaisquer informações referentes aos Direitos Creditórios Adquiridos eram incorretas ou falsas, cuja incorreção ou falsidade resulte em uma contingência de valor superior a 2% (dois por cento) do Valor Agregado de Investimento Sênior na data de entrega de tais relatórios, documentos ou informações; ou (b) nos Documentos do Fundo dos quais sejam parte ou em qualquer documento escrito entregue pelo Mercado Pago ou por quaisquer Endossantes por força deste Regulamento ou dos Documentos do Fundo eram falsas ou incorretas em qualquer aspecto relevante na data em que foram prestadas; desde que, em ambos os casos, não sejam curadas (se passíveis de cura) no prazo de 30 (trinta) dias contados do conhecimento do Mercado Pago e/ou de quaisquer Endossantes ou da notificação nesse sentido pelo Administrador, o que ocorrer primeiro; (ix) ocorrência de qualquer evento ou situação que acarrete a não detenção, pelo Fundo, de titularidade plena sobre os Direitos Creditórios Adquiridos integrantes da Carteira, livres e desembaraçados de quaisquer ônus ou gravames, que impacte adversamente 3,5% (três inteiros e cinco décimos por cento) do Valor Agregado dos Direitos Creditórios, de forma individual ou agregada; (x) ocorrência de um Inadimplemento do Agente de Cobrança ou de um Inadimplemento do Agente de Recebimento, não sanado no prazo de cura previsto no Contrato de Cobrança e no Contrato de Agente de Recebimento, se houver, sem que o Agente de Cobrança ou o Agente de Recebimento seja substituído em até 120 (cento e vinte) dias contados de deliberação neste sentido pela Assembleia Geral de Cotistas; (xi) o Cotista titular das Cotas Subordinadas Júnior, nos termos do item 7.7 acima, deixe de deter 100% (cem por cento) das Cotas Subordinadas Júnior, sem prévia aprovação da Assembleia Geral de Cotistas, na forma do Capítulo 9 acima, exceto em caso permitido por este Regulamento; (xii) inadimplemento pela MeLi e/ou pelas Subsidiárias Relevantes da MeLi: (a) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante os Cotistas Seniores ou qualquer de suas Partes Relacionadas, cujo valor de principal, individual ou agregado, seja superior a US$25.000.000,00 (vinte e cinco milhões de dólares norte-americanos) ou seu valor equivalente em outras moedas; ou (b) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante quaisquer terceiros, cujo valor de principal, individual ou agregado, seja superior a US$75.000.000,00 (setenta e cinco milhões de dólares norte-americanos) ou seu valor equivalente em outras moedas, sendo que este subitem permanecerá válido apenas enquanto houver Cotas Seniores em Circulação e estas não sejam integralmente alienadas a terceiros nos termos do item 7.24 e seus subitens; (xiii) (a) a aquisição de titularidade, direta ou indiretamente, por quaisquer Pessoas ou grupo (conforme determinado pelo Securities Exchange Act of 1934) e pela regulamentação da Comissão de Títulos e Câmbios dos Estados Unidos (Securities and Exchange Commission) de ações representantes de Controle do montante total e em circulação de ações com direito de voto de emissão da MeLi (exceto por quaisquer aquisições por um ou mais Acionistas Permitidos); (b) ocupação da maioria dos cargos (que não sejam cargos vagos) do conselho de administração da MeLi por Pessoas que não tenham sido: (1) nomeadas pelo conselho de administração da MeLi; (2) indicadas por membros do conselho de administração nomeados; (3) indicadas por qualquer Acionista Permitido; (xiv) alteração de Controle, direto ou indireto, do Mercado Pago, da Instituição Financeira MeLi ou do Cotista Subordinado Júnior, de forma que a MeLi deixe de deter o Controle, direto ou indireto, do Mercado Pago, da Instituição Financeira MeLi ou do Cotista Subordinado Júnior, conforme o caso, sendo que para os fins deste item uma reorganização societária não será considerada alteração de Controle do Mercado Pago, da Instituição Financeira Meli ou do Cotista Subordinado Júnior; (xv) decisão judicial, arbitral ou administrativa exequível, não passível de recursos, contra o Mercado Pago ou a Instituição Financeira MeLi, que imponha constrição sobre seus ativos ou obrigação de pagamento cujo valor seja, de forma individual ou agregada, superior, em moeda corrente nacional, a US$75.000.000,00 (setenta e cinco milhões de dólares norte-americanos), ou seu valor equivalente em outras moedas; (xvi) decisão judicial, arbitral ou administrativa exequível, não passível de recursos, contra o Fundo, que imponha constrição sobre seus ativos ou obrigação de pagamento cujo valor seja, de forma individual ou agregada, superior, em moeda corrente nacional, a US$25.000.000,00 (vinte e cinco milhões de dólares norte-americanos), ou seu valor equivalente em outras moedas; (xvii) caso a Assembleia Geral de Cotistas convocada nos termos do item 5.3.5.1 delibere que a Inconsistência Relevante verificada constitui um Evento de Avaliação; (xviii) a qualquer tempo após a respectiva celebração, caso quaisquer dos Documentos do Fundo tenham sua validade, eficácia ou a exequibilidade contestada pelo Mercado Pago judicialmente; (xix) caso o Mercado Pago não realize, direta ou indiretamente, a aquisição de Direitos Creditórios em decorrência das hipóteses previstas no item 5.1.6.1 acima; (xx) com relação à MeLi ou ao Mercado Pago: (a) caso uma autoridade competente homologue ou decrete a falência ou determine a ocorrência de qualquer procedimento aplicável à MeLi ou ao Mercado Pago nos termos das leis de falência aplicáveis à MeLi ou ao Mercado Pago; (b) caso seja iniciado um procedimento involuntário contra a MeLi ou o Mercado Pago no âmbito das leis de falência aplicáveis ou caso uma autoridade competente nomeie um agente de liquidação, receptor, trustee ou qualquer outra entidade com poderes semelhantes sobre à MeLi ou ao Mercado Pago ou sobre parte substancial de propriedade da MeLi ou do Mercado Pago; ou (c) caso haja nomeação involuntária de um administrador interino, trustee, administrador ou custodiante para parte substancial de propriedade da MeLi ou do Mercado Pago; ou caso seja expedido mandado de penhora, ordem de execução ou qualquer procedimento semelhante contra a totalidade ou parte substancial de sua propriedade, exceto se sanado, suspenso ou revogado em até 30 (trinta) dias contados de sua ciência, conforme aplicável; (xxi) com relação à MeLi, à Instituição Financeira MeLi ou ao Mercado Pago, conforme aplicável: (a) em caso de ingresso em juízo com requerimento acerca de determinação de falência, insolvência, recuperação ou outro processo similar, nos termos das leis de falências aplicáveis ao Mercado Pago ou à MeLi ou o Mercado Pago ou a MeLi concorde com o ingresso de medida para reverter um procedimento involuntário ou para converter um procedimento involuntário em voluntário no âmbito da respectiva lei aplicável, ou concorde com a nomeação por qualquer autoridade competente de interventor, trustee, administrador ou custodiante para assumir parte substancial de sua propriedade; ou caso o Mercado Pago ou a MeLi realize cessão em benefício de seus credores; ou (b) caso o Mercado Pago ou a MeLi declare por escrito sua incapacidade para pagar suas dívidas em suas respectivas datas de vencimento; ou o conselho de administração resolva ou autorize qualquer ação para aprovar qualquer dos eventos previstos neste item (xxi) ou no item (xviii) acima; (xxii) com relação ao Mercado Pago ou à Instituição Financeira Meli, em caso de: (a) pedido de autofalência ou pedido de falência formulado por terceiros e não elidido no prazo legal; (b) decretação de regime de administração especial temporária (RAET), ou intervenção, conforme aplicável; (c) decretação ex officio de liquidação extrajudicial; (d) declaração de insolvência; ou (e) aprovação da dissolução, extinção ou liquidação; (xxiii) a realização de qualquer alteração aos Contratos de Endosso, ao Contrato de Cobrança e a quaisquer outros contratos celebrados pelo Fundo, que não seja objeto de deliberação em Assembleia Geral de Cotistas, e em relação aos quais os Cotistas Seniores manifestem sua discordância em até 5 (cinco) Dias Úteis a contar do recebimento de notificação do Administrador acerca da referida alteração; (xxiv) a celebração de novos Contratos de Endosso, ou de quaisquer outros contratos pelo Fundo, após a Data da Primeira Integralização de Cotas do Fundo que não seja objeto de deliberação em Assembleia Geral de Cotistas; (xxv) com relação ao Mercado Pago, não fornecimento das informações necessárias para que os Cotistas Seniores possam atualizar a Matriz de Perdas semestralmente, a partir da Data da Primeira de Integralização, dentro do prazo de 30 (trinta) dias a partir da data de solicitação pelo Administrador; (xxvi) caso o Mercado Pago promova restrição ou cancelamento de acesso, pelo Custodiante, à Conta de Pagamento do Fundo, inclusive de forma involuntária, em razão de atendimentos de ordens, determinações ou decisões de autoridades competentes, sem que o Fundo tenha obtido ou restabelecido acesso aos recursos devidos em função dos Direitos Creditórios Adquiridos em 5 (cinco) Dias Úteis; (xxvii) verificação de inobservância, por parte da MeLi, do Índice Financeiro Avaliação, calculado em conformidade com suas demonstrações financeiras públicas; (xxviii)não ocorrência de amortização extraordinária das Cotas Seniores e/ou das Cotas Subordinadas Mezanino nos prazos e na forma prevista neste Regulamento; (xxix) sem prejuízo dos itens acima, inobservância, por parte da MeLi, de qualquer obrigação de envio de dados ou informações necessárias às atividades do Fundo, que acarrete em marcação de ativos ou provisionamento incorreto que impacte o Patrimônio Líquido do Fundo em mais de 5% (cinco por cento), não sanada no prazo de 30 (trinta) dias, contado da data de tal inobservância por parte da MeLi; (xxx) caso o Administrador não envie aos Cotistas o relatório indicado no item 21.3 até o dia 31 de outubro de cada ano, observado o prazo de cura de até 30 (trinta) dias corridos; e (xxxi) caso o Administrador ingresse com um pedido de declaração judicial de insolvência.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "82",
+          "clause": "11.1.1–11.1.4",
+          "excerpt": "11.1.1. O Administrador será responsável por reportar aos Cotistas sobre a ocorrência de quaisquer dos Eventos de Avaliação referidos acima, no prazo de 3 (três) Dias Úteis contados do momento em que tomar conhecimento do fato diretamente, pelo Gestor, pelo Custodiante, pelo Mercado Pago, pelos Cotistas ou por meio de qualquer parte interessada, conforme o caso. 11.1.2. Sem prejuízo do disposto no item 11.1.1 acima, o Mercado Pago e/ou a Instituição Financeira MeLi deverão informar o Administrador, da ocorrência de um Evento de Avaliação em até 3 (três) Dias Úteis a contar da data em que tomarem conhecimento da ocorrência de qualquer Evento de Avaliação. 11.1.3. Na ocorrência de quaisquer dos Eventos de Avaliação, o Fundo interromperá os procedimentos de aquisição de Direitos Creditórios e o Administrador convocará, em até 2 (dois) Dias Úteis, uma Assembleia Geral de Cotistas, a qual decidirá, observados os quóruns estabelecidos no Capítulo 9 acima: (i) se o referido Evento de Avaliação deve ser considerado como um Evento de Liquidação do Fundo, assim como se haverá liquidação antecipada do Fundo e quais os procedimentos a serem adotados na liquidação; ou (ii) se o referido Evento de Avaliação não deve ser considerado como um Evento de Liquidação do Fundo e, nesse caso, que medidas devem ser adotadas para preservar os direitos dos Cotistas do Fundo. 11.1.4. No caso de a Assembleia Geral de Cotistas deliberar que qualquer dos Eventos de Avaliação constitui um Evento de Liquidação do Fundo, o Administrador observará os procedimentos de que tratam o item 11.2 e seguintes abaixo sem que, para tanto, seja necessária a convocação de uma nova Assembleia Geral de Cotistas, podendo a Assembleia Geral de Cotistas que considerar um Evento de Avaliação como um Evento de Liquidação do Fundo deliberar sobre os procedimentos relacionados à liquidação do Fundo independentemente de qualquer notificação aos Cotistas ausentes à referida Assembleia Geral de Cotistas.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Curas distintas por obrigação e passibilidade; comunicação/substituição não são confundidas com cura."
+    },
+    {
+      "criterion_id": "expense_reserve",
+      "label": "Reserva dedespesas",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Reserva de 1, 05% do PL desde a primeira integralização, verificada/recomposta diariamente e mantida nos ativos financeiros da cláusula 5.1.7. Regra também consta na versão 19/12/2025.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "102",
+          "clause": "20.1–20.1.2",
+          "excerpt": "20.1. A partir da Data da Primeira Integralização de Cotas do Fundo, o Administrador deverá constituir e manter, durante todo o prazo de vigência do Fundo, uma reserva equivalente a 1,05% (um inteiro e cinco centésimos por cento) do Patrimônio Líquido do Fundo, apurado na respectiva data de constituição ou recomposição da Reserva para Despesas. A Reserva para Despesas será constituída ou recomposta com recursos recebidos dos pagamentos dos Direitos Creditórios e dos Ativos Financeiros segundo os critérios estabelecidos neste Regulamento. 20.1.1. O valor da Reserva para Despesas será verificado pelo Administrador diariamente. Sempre que for consta",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1077334,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+          "reference_date": "19/12/2025",
+          "version": "Regulamento19/12/2025",
+          "page": "123",
+          "clause": "20.1–20.1.1",
+          "excerpt": "20.1. A partir da Data da Primeira Integralização, o Administrador deverá constituir e manter, durante todo o prazo de vigência do Fundo, uma reserva equivalente a 1,05% (um inteiro e cinco centésimos por cento) do Patrimônio Líquido do Fundo, apurado na respectiva data de constituição ou recomposição da Reserva para Despesas. A Reserva para Despesas será constituída ou recomposta com recursos recebidos dos pagamentos dos Direitos Creditórios e dos Ativos Financeiros segundo os critérios estabelecidos neste Regulamento. 20.1.1. O valor da Reserva para Despesas será verificado pelo Admin",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1077334_regulamento.pdf",
+          "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Reserva segregada incluindo liquidez elegível; cash/disponibilidades do IME não é numerador exato.",
+      "rule": {
+        "operator": ">=",
+        "limit": 1.05,
+        "unit": "percent",
+        "numerator": "expense_reserve_assets",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "fund",
+        "effective_status": "document_date_only",
+        "document_date": "2026-08-27"
+      }
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Complemento XIII: base VP da carteira em atraso; efeito vagão sobre todo o contrato. Tabela inicial sem garantia: 0–15d 0%; 16–30d 50%; 31–60d 91%; 61–90d 95%; 91–120d 97%; 121–150d 98%; literal >151d 100%. Com garantia: 0d 0%; 1–30d 0,5%; 31–60d 5%; 61–90d 15%; 91–120d 30%; 121–150d 50%; 151–180d 75%; literal >181d 100%. Após formar histórico, percentuais resultam do produto das migrações até a faixa de perda, com média dos últimos 3 meses e atualização até 5º DU de cada mês. Renegociação preserva categoria original.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "48",
+          "clause": "6.3–6.4",
+          "excerpt": "6.3. As provisões e as perdas relativas aos Direitos Creditórios Adquiridos e aos Ativos Financeiros serão efetuadas e reconhecidas pelo Administrador, de acordo com a metodologia prevista na Instrução CVM 489. 6.4. Sem prejuízo do disposto acima, o Administrador irá calcular as provisões referentes aos Direitos Creditórios conforme metodologia de provisionamento para devedores duvidosos disposta no COMPLEMENTO XIII deste Regulamento.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "160–163",
+          "clause": "Complemento XIII, curvas, premissas e taxas de migração",
+          "excerpt": "COMPLEMENTO XIII PROCEDIMENTOS E METODOLOGIA DE PROVISIONAMENTO PARA DEVEDORES DUVIDOSOS DE DIREITOS CREDITÓRIOS Este complemento é parte integrante do regulamento do Mercado Crédito II Brasil Fundo de Investimento em Direitos Creditórios de Responsabilidade Limitada. O presente documento apresenta a metodologia de provisionamento de direitos creditórios decorrentes de empréstimos na modalidade de Crédito Parcelado ou Empréstimo Pessoal concedidos a usuários do Mercado Pago pela Instituição Financeira MeLi e representados por CCBs com seus respectivos Documentos Comprobatórios. A metodologia de provisionamento é baseada em uma análise de migração histórica dos contratos entre 7 diferentes categorias: Direitos Creditórios sem garantia: Legenda Dias de Atraso Categoria Percentual de Provisionamento (%) Faixa 0 0 dias Adimplente 0,0% Faixa 1 1 a 15 dias Atraso 0,0% Faixa 2 16 a 30 dias Atraso 50,0% Faixa 3 31 a 60 dias Atraso 91,0% Faixa 4 61 a 90 dias Atraso 95,0% Faixa 5 91 a 120 dias Atraso 97,0% Faixa 6 121 a 150 dias Atraso 98,0% Faixa 7 Acima de 151 dias Perda 100% Direitos Creditórios com garantia: Faixa Dias de Atraso Categoria Percentual de Provisionamento (%) Faixa 0 0 dias Adimplente 0,0% Faixa 1 1 a 30 dias Atraso 0,5% Faixa 2 31 a 60 dias Atraso 5,0% Faixa 3 61 a 90 dias Atraso 15,0% Faixa 4 91 a 120 dias Atraso 30,0% Faixa 5 121 a 150 dias Atraso 50,0% Faixa 6 151 a 180 dias Atraso 75,0% Faixa 7 Acima de 181 dias Perda 100,0% Definição de Categoria: Adimplente - O contrato não tem nenhuma parcela em atraso; Atraso - O contrato está com alguma parcela em atraso; Perda - O contrato está pelo menos uma parcela vencida e com um atraso equivalente à Faixa 7. Premissas: - Para efeito de cálculo das provisões em cada faixa de atraso, será levado em consideração na base de cálculo o montante de principal da carteira vencida e em aberto somado ao provisionamento dos juros de cada empréstimo, isto é, será levado em consideração o valor presente da carteira em atraso. - Para cada uma das faixas acima (em Atraso ou Adimplente), é definido um \"Percentual de Provisionamento\" que é revisitado ao final de cada mês. - O \"Percentual de Provisionamento\" de cada uma das faixas representa a probabilidade de que o empréstimo migre até a Faixa 7, onde ganha o status de Perda. Desta maneira, o \"Percentual de Provisionamento\" é resultado da multiplicação cumulativa das \"Taxas de Migração\" (conforme definição abaixo) entre as faixas até a Faixa 7. - Atualização do Percentual de Provisionamento: O \"Percentual de Provisionamento\" é revisitado ao final de cada mês com o objetivo de calibrar melhor a taxa de migração real observada na carteira de crédito. Ao longo do ano, o Percentual de Provisionamento é atualizado 12 vezes: i) em Janeiro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Outubro, Novembro e Dezembro; ii) em Fevereiro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Novembro, Dezembro e Janeiro; iii) em Março, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Dezembro, Janeiro e Fevereiro; iv) em Abril, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Janeiro, Fevereiro e Março; v) em Maio, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Fevereiro, Março e Abril; vi) em Junho, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Março, Abril e Maio; vii) em Julho, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Abril, Maio e Junho; viii) em Agosto, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Maio, Junho e Julho; ix) em Setembro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Junho, Julho e Agosto; x) em Outubro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Julho, Agosto e Setembro; xi) em Novembro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Agosto, Setembro e Outubro; xii) em Dezembro, levando em conta a Taxa de Migração Aplicada (conforme definido abaixo) dos meses de Setembro, Outubro e Novembro. Nota: A atualização mensal do novo Percentual de Provisionamento deverá ser realizada e aplicada à carteira até o 5º (quinto) Dia Útil dos referidos meses, devendo vigorar até uma nova atualização, seguindo novamente esta cronologia. - Período de perdas: Com base no desempenho histórico e considerando o comportamento da carteira, o período de perda utilizado é de acordo com os dias informados na Faixa 7. - Recuperações: As recuperações são excluídas da análise de migração. Uma estimativa para recuperações futuras e cessão de Direitos Creditórios inadimplidos pelo Fundo a terceiros são incluídas posteriormente no cálculo de provisão. - Migração de Faixa de Atraso: A metodologia utilizada para o cálculo da migração dos contratos pelas faixas de atraso considera não só as parcelas vencidas, mas também as parcelas a vencer dos Contratos (\"efeito vagão\"), migrando o saldo devedor do contrato como um todo para a próxima faixa de atraso. - Taxa de Migração Aplicada: Com o objetivo de suavizar quaisquer ocorrências pontuais e incomuns que resultem em variação brusca nas taxas de migração, a \"Taxa de Migração Aplicada\" para o cálculo do Percentual de Provisionamento é resultante de um cálculo de média simples das \"Taxas de Migração\" (conforme definição abaixo) observadas no último dia dos últimos 3 meses. - Janela de Análise: Durante os doze primeiros meses de atividade do Fundo, enquanto não existir tal histórico, serão considerados os respectivos percentuais determinados de acordo com a faixa de atraso na tabela acima. - Renegociação: Direitos Creditórios que sejam renegociados por qualquer motivo, independentemente da anuência do Fundo, deverão ser considerados na categoria do contrato original. Taxa de Migração: Analisar os saldos históricos de cada faixa de atraso permite observar o padrão comportamental da carteira mês a mês. A ideia é observar a migração dos saldos em atraso de uma categoria para a outra no passar do tempo. As taxas de migração são calculadas como a porcentagem de uma categoria ou faixa que migrou para a próxima no mês seguinte. Por Exemplo, em 31/01/18: • A Taxa de Migração da Faixa 1 é resultante da divisão do valor de principal dos recebíveis da própria Faixa 1 em 31/01/18 pelo valor de principal dos recebíveis da categoria \"Adimplente\" de 31/12/17; • A Taxa de Migração da Faixa 2 é resultante da divisão do valor de principal dos recebíveis da própria Faixa 2 em 31/01/18 pelo valor de principal dos recebíveis da Faixa 1 de 31/12/17; • A Taxa de Migração da Faixa 3 é resultante da divisão do valor de principal dos recebíveis da própria Faixa 3 em 31/01/18 pelo valor de principal dos recebíveis da Faixa 2 de 31/12/17; • A Taxa de Migração da Faixa 4 dias é resultante da divisão do valor de principal dos recebíveis da própria Faixa 4 em 31/01/18 pelo valor de principal dos recebíveis da Faixa 3 de 31/12/17; • A Taxa de Migração da Faixa 5 dias é resultante da divisão do valor de principal dos recebíveis da própria Faixa 5 em 31/01/18 pelo valor de principal dos recebíveis da Faixa 4 de 31/12/17; e • A Taxa de Migração da Faixa 6 dias é resultante da divisão do valor de principal dos recebíveis da própria Faixa 6 em 31/01/18 pelo valor de principal dos recebíveis da Faixa 5 de 31/12/17. As Taxas de Migração são sempre observadas no último dia de cada mês. Para efeito da política de provisionamento, e para o cálculo dos Percentuais de Provisionamento considera- se a Taxa de Migração Aplicada, resultante de um cálculo de média simples das \"Taxas de Migração\" das taxas dos últimos 3 meses. Percentual de Provisionamento: Cada categoria ou faixa de atraso possui um Percentual de Provisionamento diferente que é calculado a partir das Taxas de Migração. Como mencionado acima, o Percentual de Provisionamento de cada uma das faixas representa a probabilidade de que o empréstimo migre até a Faixa 7, onde ganha o status de Perda. Desta maneira, o \"Percentual de Provisionamento\" é resultado da multiplicação cumulativa das taxas de migração entre as faixas até a Faixa 7. • O Percentual de Provisionamento da Faixa 0 (\"Adimplente\" ou \"Em dia\") é resultado da multiplicação entre as Taxas de Migração das Faixas 1, 2, 3, 4, 5, 6 e 7; • O Percentual de Provisionamento da Faixa 1 é resultado da multiplicação entre as Taxas de Migração das Faixas 2, 3, 4, 5, 6 e 7; • O Percentual de Provisionamento da Faixa 2 é resultado da multiplicação entre as Taxas de Migração das Faixas 3, 4; 5, 6 e 7; • O Percentual de Provisionamento da Faixa 3 é resultado da multiplicação entre as Taxas de Migração das Faixas 4, 5, 6 e 7; • O Percentual de Provisionamento da Faixa 4 é resultado da multiplicação entre as Taxas de Migração das Faixas 5, 6 e 7; • O Percentual de Provisionamento da Faixa 5 é resultado da multiplicação entre as Taxas de Migração das Faixas 6 e 7; • O Percentual de Provisionamento da Faixa 6 é equivalente à Taxa de Migração da Faixa 7; e • O Percentual de Provisionamento da Faixa 7 é 100% dado que é considerado \"Perda\". Conforme já mencionado acima, o \"Percentual de Provisionamento\" é revisitado ao final de cada mês com o objetivo de calibrar melhor a taxa de migração real observada na carteira de crédito.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Tabela inicial aplica-se nos primeiros 12 meses enquanto não existe histórico; percentuais posteriores são recalibrados mensalmente. Texto literal deixa dias 151(sem garantia) e 181(com garantia) sem faixa explícita. Não comparar tabela estática ou PDD/PL agregado do IME com cálculo por contrato/migração."
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem dealocação derecursos",
+      "theme": "Fluxo decaixa eprazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Antes do limite de aquisição: encargos/reserva → agentes até 1% a.a. do PL → rentabilidade sênior → amortizações extraordinárias → rentabilidade/amortização MZ A, B, C → agentes excedentes → Júnior → compras de direitos/liquidez. Após limite/evento: sênior integral → MZ A integral → MZ B integral → MZ C integral → agentes excedentes → Júnior.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "102",
+          "clause": "20.2(i)–(vii)",
+          "excerpt": "20.2. Até a Data Limite de Investimento em Direitos Creditórios, e desde que não haja a ocorrência de um Evento de Amortização Acelerada, de um Evento de Avaliação ou de um Evento de Liquidação do Fundo, o Administrador deverá, em cada Dia Útil, por meio dos competentes débitos realizados na Conta de Pagamento, na Conta do Fundo, alocar os recursos decorrentes da integralização das Cotas e do recebimento de recursos provenientes da Carteira do Fundo, na seguinte ordem, conforme aplicável: (i) pagamento de despesas e encargos de responsabilidade do Fundo, devidos nos termos deste Regulamento e da legislação aplicável, incluindo a Taxa de Ad",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "103",
+          "clause": "20.2(viii)–(xvi)",
+          "excerpt": "(viii) caso seja uma Data de Pagamento, pagamento da Meta de Rentabilidade Mezanino aos titulares de Cotas Subordinadas Mezanino B em Circulação, observado o disposto no respectivo Apêndice, sempre limitado ao valor que, considerada pro forma o pagamento da Meta de Rentabilidade Mezanino pretendido, não haja desenquadramento da Senioridade Máxima; (ix) caso seja uma Data de Pagamento e tenha sido alterada a Data Limite de Investimento em Direitos Creditórios sem voto afirmativo ou manifestação favorável dos titulares de Cotas Subordinadas Mezanino, realização de amortização extraor",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "104",
+          "clause": "20.3(i)–(xiii)",
+          "excerpt": "(i) pagamento de despesas e encargos de responsabilidade do Fundo, devidos nos termos deste Regulamento e da legislação aplicável, incluindo a Taxa de Administração, a Taxa de Custódia e a Taxa de Gestão, exceto pela remuneração do Agente de Recebimento e do Agente de Cobrança e pelo Reembolso de Despesas do Agente de Cobrança; (ii) recomposição do saldo da Reserva para Despesas, exceto pela remuneração do Agente de Recebimento e do Agente de Cobrança e pelo Reembolso de Despesas do Agente de Cobrança; (iii) caso seja uma Data de Pagamento, pagamento da remuneração do Agente de Receb",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "105",
+          "clause": "20.3(xiv)–(xv)",
+          "excerpt": "(xiv) uma vez amortizada/resgatada a totalidade das Cotas Seniores e das Cotas Subordinadas Mezanino, pagamento da Amortização das Cotas Subordinadas Júnior, conforme orientação do Gestor; e (xv) na hipótese de haver recursos disponíveis na Conta de Pagamento, na Conta do Fundo ao término de cada Dia Útil, aquisição de Ativos Financeiros. 20.3.1. Para os fins de que trata o item 20.3 acima, na hipótese de ocorrência de um Evento de Amortização Acelerada, de um Evento de Avaliação ou de um Evento de Liquidação do Fundo, o Administrador poderá, inclusive, observada a deliberação em Assembleia Geral",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "No regime sequencial, MZ recebe após resgate integral da camada superior; condição é material para FIC mezanino."
+    },
+    {
+      "criterion_id": "sequential",
+      "label": "Pró-rata, sequencial eaceleração",
+      "theme": "Fluxo decaixa eprazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Amortização acelerada se inadimplência média móvel >12, 50%, juros excedentes <45%, senioridade desenquadrada até a próxima Data Base, evento regulatório, inadimplemento de agentes ou índice financeiro. Aplica waterfall sequencial da cláusula 20.3.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "84",
+          "clause": "12.1(i)–(vi)",
+          "excerpt": "12.1. São considerados Eventos de Amortização Acelerada das Cotas quaisquer das seguintes ocorrências: (i) caso a Média Móvel do Índice de Inadimplência em qualquer Data Base seja superior a 12,50% (doze e meio por cento), conforme verificado pelo Gestor no Relatório de Acompanhamento e informado ao Administrador; (ii) caso a Média Móvel do Índice de Juros Excedente em qualquer Data Base seja inferior a 45% (quarenta e cinco por cento), conforme verificado pelo Gestor no Relatório de Acompanhamento e informado ao Administrador; (iii) ocorrência de um Evento Reg",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "103",
+          "clause": "20.3",
+          "excerpt": "20.3. Após a Data Limite de Investimento em Direitos Creditórios ou antes de tal data em caso de ocorrência de um Evento de Amortização Acelerada, de um Evento de Avaliação ou de um Evento de Liquidação (e enquanto a Assembleia Geral de Cotistas não delibere pelo retorno à alocação de recursos btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "junior_release",
+      "label": "Liberação eamortização dajúnior",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Júnior após resgate integral de sênior/MZ, salvo amortização extraordinária: ausência de eventos, respeito pró-forma à Senioridade Máxima/razões MZ, Data de Pagamento própria e Certificado de Base enviado aos cotistas.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "76",
+          "clause": "10.3",
+          "excerpt": "10.3. As Cotas Subordinadas Júnior somente poderão ser amortizadas parcial ou integralmente após a amortização integral/resgate das Cotas Seniores e das Cotas Subordinadas Mezanino, ressalvada a hipótese de Amortização Extraordinária, a qual estará permitida desde que se verifique o cumprimento dos seguintes critérios, cumulativamente: btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "77",
+          "clause": "10.3(i)–(vi),10.4.2",
+          "excerpt": "(i) o Administrador não tenha identificado nem tenha sido informado sobre a ocorrência de qualquer Evento de Avaliação, Evento de Liquidação Antecipada, Evento de Amortização Acelerada, Evento de Inadimplemento do Gestor e/ou do Administrador, Inadimplemento do Agente de Cobrança e/ou Inadimplemento do Agente de Recebimento em curso; (ii) a Amortização Extraordinária, considerada realizada pro forma, não resulte em qualquer Evento de Amortização Acelerada, Evento de Avaliação ou Evento de Liquidação Antecipada; (iii) a Amortização Extraordinária seja realizada em uma Data de Pagamento de Am",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "repurchase",
+      "label": "Recompra eindenização",
+      "theme": "Qualidade dacarteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Opção de compra Mercado Pago limitada a 10% do Valor Máximo de Investimento Sênior; exceções: amortização integral/extraordinária ou créditos vencidos há mais de 90 dias. Preço maior entre mercado e VP menos PDD; operação não pode sanar Step Down.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "42",
+          "clause": "5.1.6.3–5.1.6.4",
+          "excerpt": "5.1.6.3. Sem prejuízo do disposto nos itens 5.1.6.1 e 5.1.6.2 acima, o Mercado Pago, diretamente ou por meio de qualquer entidade integrante de seu grupo econômico e/ou veículo de investimento estruturado por entidade do grupo econômico da MeLi, terá a opção de adquirir até a Data Limite de Investimento em Direitos Creditórios, nos termos previstos no Contrato de Agente de Recebimento, Direitos Creditórios Adquiridos, desde que: (i) notifique o Gestor a respeito do exercício da Opção de Compra de Direitos Creditórios até a Data Base 1 do mês correspondente; (ii) considerada pro forma a aquisição pretendida, não haja desenquadramento da Senioridade Máxima;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "cross_default",
+      "label": "Crossdefault einsolvência",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Me Li/subsidiárias relevantes: dívida inadimplida >US$ 25 milhões contra cotistas seniores/relacionados ou >US$ 75 milhões contra terceiros. Demais casos de insolvência/intervenção previstos na cláusula 11.1.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "79",
+          "clause": "11.1(xii)",
+          "excerpt": "(xii) inadimplemento pela MeLi e/ou pelas Subsidiárias Relevantes da MeLi: (a) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante os Cotistas Seniores ou qualquer de suas Partes Relacionadas, cujo valor de principal, individual ou agregado, seja superior a US$25.000.000,00 (vinte e cinco milhões de dólares norte-americanos) ou seu valor equivalente em outras moedas; ou (b) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante quaisquer terceiros, cujo valor de principal, individual ou agregado,",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "81",
+          "clause": "11.1(xxi)–(xxii)",
+          "excerpt": "(xxii) com relação ao Mercado Pago ou à Instituição Financeira Meli, em caso de: (a) pedido de autofalência ou pedido de falência formulado por terceiros e não elidido no prazo legal; (b) decretação de regime de administração especial temporária (RAET), ou intervenção, conforme aplicável; (c) decretação ex officio de liquidação extrajudicial; (d) declaração de insolvência; ou (e) aprovação da dissolução, extinção ou liquidação; (xxiii) a realização de qualquer alteração aos Contratos de Endosso, ao Contrato de Cobrança e a quaisquer outros contratos celebrados pelo Fundo, que não seja objeto de d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos deliquidação",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PL médio <R$ 1 milhão por 3 meses consecutivos; administrador/gestor/custodiante sem substituto por 180 dias; acesso à conta não restabelecido em 5 dias úteis sem redirecionamento; ilegalidade com compra sênior não concluída em 30 dias úteis.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "82",
+          "clause": "11.2(i)–(v)",
+          "excerpt": "11.2. São considerados Eventos de Liquidação do Fundo quaisquer das seguintes ocorrências: (i) caso seja deliberado em Assembleia Geral de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) caso os Cotistas deliberem em Assembleia Geral de Cotistas pela não realização de aporte de recursos no Fundo e pela não alienação de Direitos Creditórios e/ou Ativos Financeiros para suprir a necessidade de recursos para pagamento de despesas e encargos do Fundo que não possam ser cobertos pelas Disponibilidades, quando convocados para tal deliberação;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "83",
+          "clause": "11.2(vi)",
+          "excerpt": "(vi) na ocorrência de um Evento de Ilegalidade, caso a efetiva aquisição da totalidade das Cotas Seniores pelo comprador indicado pelo Cotista Subordinado pelo valor unitário das Cotas Seniores calculado na forma deste Regulamento não ocorra em até 30 (trinta) Dias Úteis contados da data de realização da convocação da Assembleia Geral de Cotistas convocada para esse fim, conforme previsto no item 12.8. 11.2.1. O Administrador será responsável por reportar aos Cotistas sobre a ocorrência de quaisquer dos Eventos de Liquidação referidos acima, no momento em que tomar conhecimento do fato diretamente",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base emínimo",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 075% a.a. sobre PL; mínimo R$ 15 mil/mês, incluindo custódia/escrituração. Provisão diária e pagamento no 5º dia útil; valores fixos corrigidos anualmente pelo IPCA.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "100",
+          "clause": "19.1–19.1.3",
+          "excerpt": "19.1. Pelos serviços de administração e escrituração de Cotas será devida, pelo Fundo, uma Taxa de Administração, equivalente ao percentual de 0,075% (setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$15.000,00 (quinze mil reais). 19.1.1. A Taxa de Custódia devida pelo Fundo pelos serviços de custódia qualificada dos Direitos Creditórios integrantes da Carteira está incluída na Taxa de Administração. 19.1.2. A Taxa de Administração e a Taxa de Custódia serão provisionadas diariamente e pagas mensalmente, sendo a parcela disposta no item 19.1 paga no 5º (quinto) Dia Útil do m",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "101",
+          "clause": "19.5",
+          "excerpt": "19.5. Os valores fixos descritos neste Capítulo serão corrigidos anualmente pelo IPCA. 19.5.1. O Gestor não receberá qualquer remuneração dos Devedores e Ativos Financeiros adquiridos pelo Fundo, ou suas respectivas Partes Relacionadas, relacionada à aquisição dos Direitos Creditórios e Ativos Financeiros ou à prestação dos serviços para o Fundo, seja diretamente ou por meio de qualquer de suas Partes Relacionadas, incluindo, sem limitação, comissões pela intermediação de operações e remunerações por serviços prestados de qualquer natureza, devendo transferir ao Fundo qualquer benefício ou vantagem que possa alcançar neste sentido.",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base emínimo",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Percentuais por faixas da soma de PL Mercado Crédito II + Mercado Crédito 0: 0, 20% até R$ 2, 1 bilhões; 0, 15% de 2, 1 a 2, 5 bilhões; 0, 13% de 2, 5 a 3 bilhões; 0, 10% acima de 3 bilhões. Teto de 0, 20% do PL próprio se o outro fundo sair da gestão.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "101",
+          "clause": "19.2–19.3",
+          "excerpt": "19.2. Pelos serviços de gestão da Carteira será devida, pelo Fundo, uma Taxa de Gestão no valor equivalente ao percentual incidente determinado pela tabela abaixo sobre as faixas da soma de patrimônio líquido do Fundo e do Mercado Crédito Fundo de Investimento em Direitos Creditórios Não Padronizado, inscrito no CNPJ sob o nº 33.254.370/0001-04, conforme também indicados na tabela abaixo, acrescido, se for o caso, dos montantes previstos no item 19.2.1 baixo: PL Mínimo (R$) PL Máximo (R$) Percentual (% a.a.) Sem Limite Até 0,00 zero De 0,01",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark eapuração",
+      "theme": "Emissões ecustos",
+      "status": "clause_not_found",
+      "applicability": "unresolved",
+      "value": "",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "88",
+          "clause": "14.1matériasreservadas",
+          "excerpt": "performance, taxa de ingresso ou taxa de saída dos Cotistas. Capítulo 14 – DAS DEMONSTRAÇÕES FINANCEIRAS 14.1. O Fundo terá escrituração contábil própria, separada da relativa ao Administrador e deverá: (i) manter e implementar procedimentos administrativos e operacionais; e (ii) guardar e manter todos os documentos, livros, registros e demais informações materialmente necessárias para a adequada administração do Fundo. 14.2. O exercício social do Fundo iniciar-se-á em 1º de janeiro e encerrar-se-á em 31 de dezembro de cada ano. 14.3. O Fundo está sujeito às normas de escrituração, elaboração, remessa e publicidad",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "100",
+          "clause": "19.1",
+          "excerpt": "19.1. Pelos serviços de administração e escrituração de Cotas será devida, pelo Fundo, uma Taxa de Administração, equivalente ao percentual de 0,075% (setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$15.000,00 (quinze mil reais). 19.1.1. A Taxa de Custódia devida pelo Fundo pelos serviços de custódia qualificada dos Direitos Creditórios integrantes da Carteira está incluída na Taxa de Administração. 19.1.2. A Taxa de Administração e a Taxa de Custódia serão provisionadas diariamente e pagas mensalmente, sendo a parcela disposta no item 19.1 paga no 5º (quinto) Dia Útil do m",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        },
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "101",
+          "clause": "19.2",
+          "excerpt": "19.2. Pelos serviços de gestão da Carteira será devida, pelo Fundo, uma Taxa de Gestão no valor equivalente ao percentual incidente determinado pela tabela abaixo sobre as faixas da soma de patrimônio líquido do Fundo e do Mercado Crédito Fundo de Investimento em Direitos Creditórios Não Padronizado, inscrito no CNPJ sob o nº 33.254.370/0001-04, conforme também indicados na tabela abaixo, acrescido, se for o caso, dos montantes previstos no item 19.2.1 baixo: PL Mínimo (R$) PL Máximo (R$) Percentual (% a.a.) Sem Limite Até 0,00 zero De 0,01",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "",
+      "reason": "A menção nas matérias da AGC autoriza criação/aumento de taxas. O capítulo19 fixa administração/gestão e não institui taxa de performance; não foi localizado percentual ou fórmula de performance nessa versão."
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade elimites dederivativos",
+      "theme": "Hedge eprestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Derivativos vedados em qualquer hipótese; day trade e ativos no exterior também vedados.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "43",
+          "clause": "5.1.10–5.1.12",
+          "excerpt": "5.1.10. O Fundo não poderá realizar operações de day trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia. 5.1.11. O Fundo não poderá contratar, em nenhuma hipótese, operações de derivativos. 5.1.12. O Fundo não pode adquirir Direitos Creditórios e/ou Ativos Financeiros no exterior. 5.1.13. O Fundo não poderá contratar operações para aquisição de Direitos Creditórios com empresas Partes Relacionadas do Administrador, do Gestor, do Custodiante e/ou do consultor especializado, se houver. 5.1.14. O Fundo poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu p",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias econstituição",
+      "theme": "Garantias eoperação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cotas sem garantia dos prestadores, endossantes, agentes, seguros ou FGC. Proteção da estrutura depende das camadas e da Base de Investimento.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "43",
+          "clause": "5.1.15",
+          "excerpt": "5.1.15. As aplicações no Fundo não contam com garantia: (i) do Administrador; (ii) do Gestor; (iii) dos Endossantes; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) da Entidade Registradora, (vii) de qualquer mecanismo de seguro; ou (viii) do FGC. 5.2. Critérios de Elegibilidade e Condições de Cessão 5.2.1. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, aos seguintes Critérios de Elegibilidade, cumulativamente (em conjunto, os \"Critérios de Elegibilidade\"): (i) os Direitos Creditórios tenham sido originados de operações",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação àResoluçãoCVM175",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Consolidado 27/08/2026: condomínio fechado sob Resolução CVM 175 e arts.1368 C–F do Código Civil, com subclasses sênior, MZ A/B/C e Júnior. Classificação ANBIMA financeiro/crédito pessoal pela referência 23/03/2026.",
+      "sources": [
+        {
+          "document_id": 1302706,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "Regulamento27/08/2026",
+          "page": "39",
+          "clause": "1.1–1.3",
+          "excerpt": "1.1. O MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA, é um fundo de investimento em direitos creditórios constituído sob a forma de condomínio fechado de natureza especial, de modo que as Cotas somente serão amortizadas integralmente ao término do respectivo prazo de duração das respectivas Séries e/ou Subclasses de Cotas, conforme definidas nos respectivos Apêndices, ou em caso de liquidação do Fundo, regido pela Resolução do CMN n° 2.907, de 29 de novembro de 2001, conforme alterada, pela Resolução CVM 175, pelos artigos 1.368-C a 1.368-F do Código Civil Brasileiro, pelo presente Regulamento e pela",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "identity_verified": true
+        }
+      ],
+      "risk_note": "Consolidado 27/08/2026 não certifica vigência histórica dos IME s fev/jun 2026; versão 19/12/2025 preservada para confronto datado."
+    },
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Administrador: BTG Pactual Serviços Financeiros DTVM, CNPJ 59.281.253/0001-23. Gestor: Polígono Capital Ltda., CNPJ 43.241.789/0001-85. Custodiante: Banco BTG Pactual S.A., CNPJ 30.306.294/0001-45. Lista de agências elegíveis não identifica rating contratado.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "4",
+          "clause": "Definição Administrador",
+          "excerpt": "\"Administrador\" significa o BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no CNPJ/MF sob o nº 59.281.253/0001- 23, autorizada a funcionar pelo Banco Central do Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, ou seu sucessor a qualquer título.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "23",
+          "clause": "Definição Gestor",
+          "excerpt": "\"Gestor\" significa a POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada, com sede no município de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 2601, 12º andar, Jardim Paulistano, CEP 01.452-000, inscrita no CNPJ/MF sob nº 43.241.789/0001-85, autorizada à prestação do serviço de gestão de carteiras de valores mobiliários pela CVM, de acordo com o Ato Declaratório CVM nº 19.368, expedido em 07 de dezembro de 2021.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "15",
+          "clause": "Definição Custodiante",
+          "excerpt": "\"Custodiante\" significa o BANCO BTG PACTUAL S.A., instituição financeira, com sede no município e estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22.250-911, inscrita no CNPJ/MF sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "investee",
+      "label": "Classes investidas e look-through",
+      "theme": "Recebíveis e aquisição",
+      "status": "not_applicable",
+      "applicability": "not_applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "40",
+          "clause": "5.1.1",
+          "excerpt": "5.1.1. A Carteira do Fundo será composta por: (i) preponderantemente, Direitos Creditórios Adquiridos; e (ii) Ativos Financeiros elencados no item 5.1.6 abaixo, em observância aos índices de composição e diversificação da Carteira do Fundo estabelecidos neste Regulamento e na regulamentação aplicável.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "42",
+          "clause": "5.1.7(i)–(iv)",
+          "excerpt": "5.1.7. A parcela do Patrimônio Líquido do Fundo que não estiver alocada em Direitos Creditórios será alocada nos Ativos Financeiros abaixo relacionados: (i) Letras Financeiras do Tesouro Nacional (LFT); (ii) operações compromissadas, com liquidez diária, lastreadas nos títulos mencionados na alínea (i) acima, desde que celebradas com qualquer das Instituições Autorizadas; (iii) certificados de depósito bancário, com liquidez diária cujas rentabilidades sejam vinculadas à Taxa DI, de emissão de Instituições Autorizadas; e/ou (iv) cotas de fundos de investimento que invistam exclusivamente nos Ativos Financeiros mencionados nas alíneas (i), (ii) e/ou (iii) acima administrados pelo Administrador ou por Instituições Autorizadas.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "",
+      "reason": "Estrutura de crédito direto. Direitos da carteira são CCBs; cotas permitidas na parcela de liquidez investem exclusivamente em LFT, compromissadas ou CDBs DI. Regulamento não identifica classe FIDC investida. Reservas ou cotas próprias não constituem look-through."
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "31 eventos. Números principais: alocação mínima não atingida em 180d; pagamento sênior/MZ ou qualificado atrasado 2DU; obrigação Mercado Pago/endossante não curada no menor prazo entre contrato e 45d; informação falsa com contingência >2% do investimento sênior, sem cura em 30d; perda de titularidade impactando 3,5% dos direitos; agente não substituído em 120d; cotista deixa de deter 100% da júnior. Cross-default MeLi: principal >US$25mi perante seniores/relacionadas ou >US$75mi perante terceiros, enquanto houver sênior nas condições 11.1(xii). Condenações: Mercado Pago/IFMeLi >US$75mi ou Fundo >US$25mi. Liquidez consolidada MeLi deve ser >US$100mi. Outros: conta inacessível por 5DU; dados da Matriz de Perdas não fornecidos em 30d; erro de informação afetando PL >5% não sanado em 30d; relatório até 31/10 com cura 30d. Também controle, insolvência, validade contratual e pagamento subordinado irregular. Aquisições param; AGC convocada em 2DU decide cura ou liquidação.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "78–81",
+          "clause": "11.1(i)–(xxxi)",
+          "excerpt": "11.1. São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências, observado que (a) os subitens (i), (ii), (iii), (iv), (v), (vi), (xi), (xvii), (xxiii), (xxiv), (xxvi), (xxviii),(xxx) e (xxxi) abaixo serão verificados pelo Administrador; (b) os subitens (ix), (xvii) e (xxix)abaixo serão verificados pelo Gestor; (c) o item (xxv) abaixo será verificado pelos Cotistas Seniores e/ou pelo Administrador; (d) os subitens (vii), (viii), (xii), (xiii), (xiv), (xv), (xvi), (xviii), (xix), (xx), (xxi), (xxii) poderão ser verificados pelo Administrador e/ou pelo Gestor; e (e) o item (xxx) poderá ser verificado pelos Cotistas Seniores, sem prejuízo, em qualquer caso, da obrigação do Mercado Pago e da Instituição Financeira MeLi disposta no item 11.1.2 abaixo: (i) não observância do prazo de 180 (cento e oitenta) dias contados da Data da Primeira Integralização de Cotas do Fundo, ou do prazo adicional concedido pela CVM, se for o caso, para alocação dos recursos do Fundo na aquisição de Direitos Creditórios em montante que corresponda a, no mínimo, a Alocação Mínima de Investimento, conforme disposto no item 5.1.2 acima; (ii) na hipótese de serem realizados pagamentos de rendimentos, Amortização ou resgate de Cotas Subordinadas Mezanino ou de Cotas Subordinadas Júnior em desacordo com este Regulamento; (iii) o Fundo deixe de deter natureza jurídica de condomínio de natureza especial, nos termos da legislação aplicável; (iv) caso a Assembleia Geral de Cotistas convocada nos termos do item 5.3.5.1 delibere que a Inconsistência Relevante verificada constitui um Evento de Avaliação; (v) não realização de pagamento da Meta de Rentabilidade Sênior e/ou da Meta de Rentabilidade Mezanino aplicável, da Amortização de Cotas Seniores e/ou de Cotas Subordinadas Mezanino ou amortização integral/resgate de Cotas Seniores e/ou de Cotas Subordinadas Mezanino em até 2 (dois) Dias Úteis contados da esperada Data de Pagamento ou Data de Amortização Integral definidas nos respectivos Apêndices, conforme aplicável, observado que, após a Data Limite de Investimento em Direitos Creditórios e/ou em caso de Evento de Amortização Acelerada e/ou Evento de Liquidação, a ausência de amortização de Cotas Subordinadas Mezanino, nos termos da ordem de alocação de recursos prevista no item 20.3, enquanto não houver a amortização integral/resgate de todas as Cotas Seniores, não será considerada um Evento de Avaliação; (vi) não realização de pagamento decorrente de um Evento de Pagamento Qualificado nos termos do item 12.7, subitem (ii), observado o prazo de cura de 2 (dois) Dias Úteis contados da respectiva data esperada; (vii) na ocorrência de um inadimplemento de quaisquer obrigações assumidas pelo Mercado Pago e/ou por qualquer Endossante em quaisquer Documentos do Fundo que não seja sanado (se passível de cura) no prazo cura estabelecido no respectivo Documento do Fundo ou no prazo de 45 (quarenta e cinco) dias contados de seu conhecimento ou notificação, conforme o caso, o que for menor (exceto por: (a) um Inadimplemento do Agente de Cobrança ou um Inadimplemento do Agente de Recebimento, que deverá observar o disposto no subitem (x) abaixo; e (b) o descumprimento do Agente de Recebimento de envio do arquivo retorno diariamente para o Administrador na forma do item 5.4.6.2 deste Regulamento e do Contrato de Agente de Recebimento, ao qual não se aplicará o prazo de cura estabelecido neste subitem); (viii) verificação de que quaisquer declarações, informações ou garantias prestadas ou fornecidas pelo Mercado Pago e/ou por quaisquer Endossantes, conforme aplicável: (a) no âmbito da elaboração de cada Relatório de Acompanhamento, no Relatório de Índice Financeiro e/ou quaisquer informações referentes aos Direitos Creditórios Adquiridos eram incorretas ou falsas, cuja incorreção ou falsidade resulte em uma contingência de valor superior a 2% (dois por cento) do Valor Agregado de Investimento Sênior na data de entrega de tais relatórios, documentos ou informações; ou (b) nos Documentos do Fundo dos quais sejam parte ou em qualquer documento escrito entregue pelo Mercado Pago ou por quaisquer Endossantes por força deste Regulamento ou dos Documentos do Fundo eram falsas ou incorretas em qualquer aspecto relevante na data em que foram prestadas; desde que, em ambos os casos, não sejam curadas (se passíveis de cura) no prazo de 30 (trinta) dias contados do conhecimento do Mercado Pago e/ou de quaisquer Endossantes ou da notificação nesse sentido pelo Administrador, o que ocorrer primeiro; (ix) ocorrência de qualquer evento ou situação que acarrete a não detenção, pelo Fundo, de titularidade plena sobre os Direitos Creditórios Adquiridos integrantes da Carteira, livres e desembaraçados de quaisquer ônus ou gravames, que impacte adversamente 3,5% (três inteiros e cinco décimos por cento) do Valor Agregado dos Direitos Creditórios, de forma individual ou agregada; (x) ocorrência de um Inadimplemento do Agente de Cobrança ou de um Inadimplemento do Agente de Recebimento, não sanado no prazo de cura previsto no Contrato de Cobrança e no Contrato de Agente de Recebimento, se houver, sem que o Agente de Cobrança ou o Agente de Recebimento seja substituído em até 120 (cento e vinte) dias contados de deliberação neste sentido pela Assembleia Geral de Cotistas; (xi) o Cotista titular das Cotas Subordinadas Júnior, nos termos do item 7.7 acima, deixe de deter 100% (cem por cento) das Cotas Subordinadas Júnior, sem prévia aprovação da Assembleia Geral de Cotistas, na forma do Capítulo 9 acima, exceto em caso permitido por este Regulamento; (xii) inadimplemento pela MeLi e/ou pelas Subsidiárias Relevantes da MeLi: (a) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante os Cotistas Seniores ou qualquer de suas Partes Relacionadas, cujo valor de principal, individual ou agregado, seja superior a US$25.000.000,00 (vinte e cinco milhões de dólares norte-americanos) ou seu valor equivalente em outras moedas; ou (b) de obrigações de pagamento, conforme aplicável, em qualquer operação de Endividamento perante quaisquer terceiros, cujo valor de principal, individual ou agregado, seja superior a US$75.000.000,00 (setenta e cinco milhões de dólares norte-americanos) ou seu valor equivalente em outras moedas, sendo que este subitem permanecerá válido apenas enquanto houver Cotas Seniores em Circulação e estas não sejam integralmente alienadas a terceiros nos termos do item 7.24 e seus subitens; (xiii) (a) a aquisição de titularidade, direta ou indiretamente, por quaisquer Pessoas ou grupo (conforme determinado pelo Securities Exchange Act of 1934) e pela regulamentação da Comissão de Títulos e Câmbios dos Estados Unidos (Securities and Exchange Commission) de ações representantes de Controle do montante total e em circulação de ações com direito de voto de emissão da MeLi (exceto por quaisquer aquisições por um ou mais Acionistas Permitidos); (b) ocupação da maioria dos cargos (que não sejam cargos vagos) do conselho de administração da MeLi por Pessoas que não tenham sido: (1) nomeadas pelo conselho de administração da MeLi; (2) indicadas por membros do conselho de administração nomeados; (3) indicadas por qualquer Acionista Permitido; (xiv) alteração de Controle, direto ou indireto, do Mercado Pago, da Instituição Financeira MeLi ou do Cotista Subordinado Júnior, de forma que a MeLi deixe de deter o Controle, direto ou indireto, do Mercado Pago, da Instituição Financeira MeLi ou do Cotista Subordinado Júnior, conforme o caso, sendo que para os fins deste item uma reorganização societária não será considerada alteração de Controle do Mercado Pago, da Instituição Financeira Meli ou do Cotista Subordinado Júnior; (xv) decisão judicial, arbitral ou administrativa exequível, não passível de recursos, contra o Mercado Pago ou a Instituição Financeira MeLi, que imponha constrição sobre seus ativos ou obrigação de pagamento cujo valor seja, de forma individual ou agregada, superior, em moeda corrente nacional, a US$75.000.000,00 (setenta e cinco milhões de dólares norte-americanos), ou seu valor equivalente em outras moedas; (xvi) decisão judicial, arbitral ou administrativa exequível, não passível de recursos, contra o Fundo, que imponha constrição sobre seus ativos ou obrigação de pagamento cujo valor seja, de forma individual ou agregada, superior, em moeda corrente nacional, a US$25.000.000,00 (vinte e cinco milhões de dólares norte-americanos), ou seu valor equivalente em outras moedas; (xvii) caso a Assembleia Geral de Cotistas convocada nos termos do item 5.3.5.1 delibere que a Inconsistência Relevante verificada constitui um Evento de Avaliação; (xviii) a qualquer tempo após a respectiva celebração, caso quaisquer dos Documentos do Fundo tenham sua validade, eficácia ou a exequibilidade contestada pelo Mercado Pago judicialmente; (xix) caso o Mercado Pago não realize, direta ou indiretamente, a aquisição de Direitos Creditórios em decorrência das hipóteses previstas no item 5.1.6.1 acima; (xx) com relação à MeLi ou ao Mercado Pago: (a) caso uma autoridade competente homologue ou decrete a falência ou determine a ocorrência de qualquer procedimento aplicável à MeLi ou ao Mercado Pago nos termos das leis de falência aplicáveis à MeLi ou ao Mercado Pago; (b) caso seja iniciado um procedimento involuntário contra a MeLi ou o Mercado Pago no âmbito das leis de falência aplicáveis ou caso uma autoridade competente nomeie um agente de liquidação, receptor, trustee ou qualquer outra entidade com poderes semelhantes sobre à MeLi ou ao Mercado Pago ou sobre parte substancial de propriedade da MeLi ou do Mercado Pago; ou (c) caso haja nomeação involuntária de um administrador interino, trustee, administrador ou custodiante para parte substancial de propriedade da MeLi ou do Mercado Pago; ou caso seja expedido mandado de penhora, ordem de execução ou qualquer procedimento semelhante contra a totalidade ou parte substancial de sua propriedade, exceto se sanado, suspenso ou revogado em até 30 (trinta) dias contados de sua ciência, conforme aplicável; (xxi) com relação à MeLi, à Instituição Financeira MeLi ou ao Mercado Pago, conforme aplicável: (a) em caso de ingresso em juízo com requerimento acerca de determinação de falência, insolvência, recuperação ou outro processo similar, nos termos das leis de falências aplicáveis ao Mercado Pago ou à MeLi ou o Mercado Pago ou a MeLi concorde com o ingresso de medida para reverter um procedimento involuntário ou para converter um procedimento involuntário em voluntário no âmbito da respectiva lei aplicável, ou concorde com a nomeação por qualquer autoridade competente de interventor, trustee, administrador ou custodiante para assumir parte substancial de sua propriedade; ou caso o Mercado Pago ou a MeLi realize cessão em benefício de seus credores; ou (b) caso o Mercado Pago ou a MeLi declare por escrito sua incapacidade para pagar suas dívidas em suas respectivas datas de vencimento; ou o conselho de administração resolva ou autorize qualquer ação para aprovar qualquer dos eventos previstos neste item (xxi) ou no item (xviii) acima; (xxii) com relação ao Mercado Pago ou à Instituição Financeira Meli, em caso de: (a) pedido de autofalência ou pedido de falência formulado por terceiros e não elidido no prazo legal; (b) decretação de regime de administração especial temporária (RAET), ou intervenção, conforme aplicável; (c) decretação ex officio de liquidação extrajudicial; (d) declaração de insolvência; ou (e) aprovação da dissolução, extinção ou liquidação; (xxiii) a realização de qualquer alteração aos Contratos de Endosso, ao Contrato de Cobrança e a quaisquer outros contratos celebrados pelo Fundo, que não seja objeto de deliberação em Assembleia Geral de Cotistas, e em relação aos quais os Cotistas Seniores manifestem sua discordância em até 5 (cinco) Dias Úteis a contar do recebimento de notificação do Administrador acerca da referida alteração; (xxiv) a celebração de novos Contratos de Endosso, ou de quaisquer outros contratos pelo Fundo, após a Data da Primeira Integralização de Cotas do Fundo que não seja objeto de deliberação em Assembleia Geral de Cotistas; (xxv) com relação ao Mercado Pago, não fornecimento das informações necessárias para que os Cotistas Seniores possam atualizar a Matriz de Perdas semestralmente, a partir da Data da Primeira de Integralização, dentro do prazo de 30 (trinta) dias a partir da data de solicitação pelo Administrador; (xxvi) caso o Mercado Pago promova restrição ou cancelamento de acesso, pelo Custodiante, à Conta de Pagamento do Fundo, inclusive de forma involuntária, em razão de atendimentos de ordens, determinações ou decisões de autoridades competentes, sem que o Fundo tenha obtido ou restabelecido acesso aos recursos devidos em função dos Direitos Creditórios Adquiridos em 5 (cinco) Dias Úteis; (xxvii) verificação de inobservância, por parte da MeLi, do Índice Financeiro Avaliação, calculado em conformidade com suas demonstrações financeiras públicas; (xxviii)não ocorrência de amortização extraordinária das Cotas Seniores e/ou das Cotas Subordinadas Mezanino nos prazos e na forma prevista neste Regulamento; (xxix) sem prejuízo dos itens acima, inobservância, por parte da MeLi, de qualquer obrigação de envio de dados ou informações necessárias às atividades do Fundo, que acarrete em marcação de ativos ou provisionamento incorreto que impacte o Patrimônio Líquido do Fundo em mais de 5% (cinco por cento), não sanada no prazo de 30 (trinta) dias, contado da data de tal inobservância por parte da MeLi; (xxx) caso o Administrador não envie aos Cotistas o relatório indicado no item 21.3 até o dia 31 de outubro de cada ano, observado o prazo de cura de até 30 (trinta) dias corridos; e (xxxi) caso o Administrador ingresse com um pedido de declaração judicial de insolvência.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "25",
+          "clause": "Definição Índice Financeiro Avaliação",
+          "excerpt": "\"Índice Financeiro Avaliação\" significa, em relação à MeLi, o seguinte índice financeiro: Liquidez Consolidada: verificação de que a Liquidez Consolidada é maior que US$100.000.000,00 (cem milhões de dólares norte-americanos). O Índice Financeiro Avaliação será calculado pelo Mercado Pago, com base nas demonstrações financeiras auditadas ou informações financeiras trimestrais da MeLi, e encaminhado ao Administrador e ao Gestor trimestralmente por meio do Relatório de Índice Financeiro, nos termos do item 18.15 abaixo, e após revisão e confirmação do cálculo pelo Gestor, disponibilizado pelo Gestor no Relatório de Acompanhamento.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "82",
+          "clause": "11.1.1–11.1.4",
+          "excerpt": "11.1.1. O Administrador será responsável por reportar aos Cotistas sobre a ocorrência de quaisquer dos Eventos de Avaliação referidos acima, no prazo de 3 (três) Dias Úteis contados do momento em que tomar conhecimento do fato diretamente, pelo Gestor, pelo Custodiante, pelo Mercado Pago, pelos Cotistas ou por meio de qualquer parte interessada, conforme o caso. 11.1.2. Sem prejuízo do disposto no item 11.1.1 acima, o Mercado Pago e/ou a Instituição Financeira MeLi deverão informar o Administrador, da ocorrência de um Evento de Avaliação em até 3 (três) Dias Úteis a contar da data em que tomarem conhecimento da ocorrência de qualquer Evento de Avaliação. 11.1.3. Na ocorrência de quaisquer dos Eventos de Avaliação, o Fundo interromperá os procedimentos de aquisição de Direitos Creditórios e o Administrador convocará, em até 2 (dois) Dias Úteis, uma Assembleia Geral de Cotistas, a qual decidirá, observados os quóruns estabelecidos no Capítulo 9 acima: (i) se o referido Evento de Avaliação deve ser considerado como um Evento de Liquidação do Fundo, assim como se haverá liquidação antecipada do Fundo e quais os procedimentos a serem adotados na liquidação; ou (ii) se o referido Evento de Avaliação não deve ser considerado como um Evento de Liquidação do Fundo e, nesse caso, que medidas devem ser adotadas para preservar os direitos dos Cotistas do Fundo. 11.1.4. No caso de a Assembleia Geral de Cotistas deliberar que qualquer dos Eventos de Avaliação constitui um Evento de Liquidação do Fundo, o Administrador observará os procedimentos de que tratam o item 11.2 e seguintes abaixo sem que, para tanto, seja necessária a convocação de uma nova Assembleia Geral de Cotistas, podendo a Assembleia Geral de Cotistas que considerar um Evento de Avaliação como um Evento de Liquidação do Fundo deliberar sobre os procedimentos relacionados à liquidação do Fundo independentemente de qualquer notificação aos Cotistas ausentes à referida Assembleia Geral de Cotistas.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Rol completo e condições específicas na fonte. Falta de amortização MZ após fim do investimento/amortização acelerada/liquidação, enquanto sênior não foi integralmente paga, tem exceção em 11.1(v). Prazos em dias sem qualificador são preservados assim."
+    },
+    {
+      "criterion_id": "purchase_option",
+      "label": "Opção de compra de direitos creditórios",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Mercado Pago/grupo MeLi pode recomprar créditos até fim do investimento, sem desenquadrar senioridade nem curar StepDown. Preço: maior entre mercado e VP menos provisões. Limite 10% do investimento sênior máximo, com exceções para amortização integral aprovada, amortização extraordinária 12.4 ou atraso >90dias.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "42",
+          "clause": "5.1.6.3",
+          "excerpt": "5.1.6.3. Sem prejuízo do disposto nos itens 5.1.6.1 e 5.1.6.2 acima, o Mercado Pago, diretamente ou por meio de qualquer entidade integrante de seu grupo econômico e/ou veículo de investimento estruturado por entidade do grupo econômico da MeLi, terá a opção de adquirir até a Data Limite de Investimento em Direitos Creditórios, nos termos previstos no Contrato de Agente de Recebimento, Direitos Creditórios Adquiridos, desde que: (i) notifique o Gestor a respeito do exercício da Opção de Compra de Direitos Creditórios até a Data Base 1 do mês correspondente; (ii) considerada pro forma a aquisição pretendida, não haja desenquadramento da Senioridade Máxima; e (iii) tal aquisição não acarrete na cura de um Evento de Step-Down (\"Opção de Compra de Direitos Creditórios\"). O preço de aquisição dos Direitos Creditórios objeto da Opção de Compra dos Direitos Creditórios será o maior entre (i) o valor de mercado de tais Direitos Creditórios e (ii) o equivalente ao valor presente do respectivo Direito Creditório, deduzido de quaisquer provisões para perdas (incluindo provisão para devedores duvidosos – PDD) constituídas pelo Fundo em relação a tal Direito Creditório, de acordo com a regulamentação aplicável e as políticas contábeis do Fundo. A Opção de Compra de Direitos Creditórios nos termos deste item estará limitada a 10% (dez por cento) do Valor Máximo de Investimento Sênior, de forma agregada ou individual, exceto (a) em caso de deliberação, em Assembleia Geral de Cotistas, pela amortização integral antecipada das Cotas Seniores, ou (b) caso esteja em curso amortização antecipada extraordinária das Cotas nos termos do item 12.4 abaixo, ou (c) caso os referidos Direitos Creditórios Adquiridos estejam vencidos e não pagos há mais de 90 (noventa) dias, casos em que a Opção de Compra de Direitos Creditórios poderá ser exercida independentemente do limite de 10% (dez por cento) descrito acima.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Preço de opção/limite de recompra não define PDD."
+    },
+    {
+      "criterion_id": "loss_matrix_advance_rate",
+      "label": "Matriz de Perdas e Advance Rate",
+      "theme": "Subordinação e cobertura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Advance Rate ponderado = min(75%; 100%−[Perda Ponderada×3−Excesso Spread Líquido×Prazo Médio Ponderado]). Perda ponderada segmenta produto, prazo e rating. Spread líquido desconta custos mínimos 1%aa sobre direitos e taxa sênior estressada = benchmark+5%. StepDown reduz o Advance Rate pelo gatilho. Matriz contratual e PDD contábil são metodologias distintas.",
+      "sources": [
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "4–5",
+          "clause": "Definição Advance Rate Ponderado",
+          "excerpt": "\"Advance Rate Ponderado\" significa, em qualquer Data Base, o resultado obtido a partir da seguinte fórmula: Advance Rate Ponderado = o menor entre (i) 75,00%; e (ii) 100,00% – [(PP x MS) – (ESL x PMP)] onde: PP = Perda Ponderada MS = múltiplo de stress equivalente a 3,00 ESL = Excesso de spread líquido, equivalente a Taxa Interna de Retorno dos Direitos Creditórios Adquiridos Adimplentes, subtraído: (i) o somatório (a) da Taxa de Administração (a qual inclui a remuneração do Agente de Recebimento), (b) da Taxa de Gestão, e (c) da remuneração do Agente de Cobrança e os demais custos de cobrança dos Direitos Creditórios para Cobrança Extraordinária, todos custos deste item (i) considerados como percentuais anuais do Valor Agregado dos Direitos Creditórios, observado que o custo total previsto neste item (i) será, para fins deste cálculo, no mínimo igual a 1,00% (um por cento) ao ano sobre o Valor Agregado dos Direitos Creditórios; e (ii) a Taxa Estressada das Cotas Seniores Taxa Interna de Retorno = em qualquer Data Base, a taxa interna de retorno mensal, multiplicada por 12 (doze), dos Direitos Creditórios Adquiridos Adimplentes, calculado da seguinte forma: Em que: N = número total de meses remanescentes n = mês de referência Cn = fluxo de caixa dos Direitos Creditórios Adquiridos Adimplentes no mês \"n\", considerando para esse cálculo a premissa de perda conforme Matriz de Perda, separados por tipo de produto e por prazo original, e aplicação do múltiplo MS r = taxa interna de retorno mensal, sendo certo que, no caso dos Direitos Creditórios que sejam Direitos Creditórios CCB DE, para r será apurado com base em juros mensais equivalentes a 50% (cinquenta por cento) da taxa de juros mensal contratada nas respectivas CCBs Taxa Estressada das Cotas Seniores = em qualquer Data Base, a soma de (i) 5,00% (cinco por cento); e (ii) o Benchmark Sênior. PMP = em qualquer Data Base, o prazo médio ponderado, em anos, dos Direitos Creditórios Adquiridos Adimplentes, separados por tipo de produto e por prazo original, calculado na forma de planilha acordada entre as partes. O Advance Rate Ponderado será calculado pelo Gestor com base no Valor Agregado dos Direitos Creditórios em cada Data Base.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1302706",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+          "reference_date": "27/08/2026",
+          "version": "1",
+          "page": "30",
+          "clause": "Definição Perda Ponderada",
+          "excerpt": "\"Perda Ponderada\" significa, em qualquer Data Base, a perda esperada ponderada calculada da carteira de Direitos Creditórios Adquiridos Adimplentes, originados e/ou processados no âmbito da Plataforma Mercado Pago, calculada com base em cada tipo de Direito Creditório, prazo de vencimento e classificação de risco (rating), ponderado pelo Valor Principal de cada Direito Creditório e na Matriz de Perdas elaborada na forma do COMPLEMENTO XV a este Regulamento. A Matriz de Perdas será atualizada semestralmente, a partir da Data da Primeira de Integralização, pelos Cotistas Seniores, com base em informações fornecidas pelo Mercado Pago, sempre que solicitado pelo Administrador e/ou pelo Gestor, dentro do prazo de 30 (trinta) dias a partir da data de solicitação pelo Administrador e/ou pelo Gestor. \"Pessoas\" significa uma pessoa física, sociedade por ações, sociedade limitada ou qualquer outro tipo de companhia admitida no Brasil, sociedade, associação ou qualquer outro tipo de entidade ou organização, incluindo organizações governamentais ou subdivisões políticas, incluindo referência aos seus representantes, procuradores e sucessores. \"PIX\" significa a modalidade de pagamento instantâneo regulamentada pelo Banco Central, nos termos da Resolução do Banco Central nº 1, de 12 de agosto de 2020, conforme alterada, e demais legislações aplicáveis. \"Plataforma Mercado Libre\" significa a plataforma eletrônica de comercialização da MeLi. \"Plataforma Mercado Pago\" significa a plataforma eletrônica de pagamentos do Mercado Pago. \"Polígono\" significa a POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada, com sede no município de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 2601, 12º andar, Jardim Paulistano, CEP 01.452-000, inscrita no CNPJ/MF sob nº 43.241.789/0001-85, autorizada à prestação do serviço de administração de carteiras de valores mobiliários pela CVM, de acordo com o Ato Declaratório CVM nº 19.368, expedido em 07 de dezembro de 2021. \"Política de Cobrança de significa a política de cobrança de Direitos Creditórios Direitos Creditórios para para Cobrança Extraordinária a ser observada pelo Cobrança Extraordinária\" Agente de Cobrança e pelo Custodiante, ou por terceiro por ele contratado, prevista no COMPLEMENTO IV deste Regulamento. \"Política de Investimento\" significa a política de investimento do Fundo prevista no Capítulo 5 deste Regulamento.",
+          "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "PDD/DC agregado do IME não substitui parâmetros da Matriz de Perdas."
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": [
+    {
+      "cnpj": "33254370000104",
+      "reason": "PLdeMercadoCrédito0 entra na base de taxa gestão, não estabelece investimentoII→0.",
+      "source": {
+        "document_id": 1302706,
+        "title": "Regulamento",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+        "reference_date": "27/08/2026",
+        "version": "Regulamento27/08/2026",
+        "page": "101",
+        "clause": "19.2",
+        "excerpt": "19.2. Pelos serviços de gestão da Carteira será devida, pelo Fundo, uma Taxa de Gestão no valor equivalente ao percentual incidente determinado pela tabela abaixo sobre as faixas da soma de patrimônio líquido do Fundo e do Mercado Crédito Fundo de Investimento em Direitos Creditórios Não Padronizado, inscrito no CNPJ sob o nº 33.254.370/0001-04, conforme também indicados na tabela abaixo, acrescido, se for o caso, dos montantes previstos no item 19.2.1 baixo: PL Mínimo (R$) PL Máximo (R$) Percentual (% a.a.) Sem Limite Até 0,00 zero De 0,01",
+        "local_path": "/Users/matheusjprates/fidc/data/raw/41970012000126/1302706_regulamento.pdf",
+        "sha256": "b113727bc2bc3b1a6b0d18f02bf2143068fd912df2d83cbb91ab44fcb30a3379",
+        "identity_verified": true
+      }
+    }
+  ]
+}

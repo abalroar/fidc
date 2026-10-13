@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "42462306000100",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 87853640.33,
+    "credit_rights": 0.0,
+    "overdue_credit": 0.0,
+    "cash": 775279.81,
+    "pdd": 0.0,
+    "fidc_quotas": 98205929.23,
+    "senior_quotas": 64793171.85,
+    "subordinated_quotas": 9794166.339853214,
+    "mezzanine_quotas": 13266302.47992,
+    "subordinated_and_mezzanine_quotas": 23060468.819773212
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "42462306000100",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/42462306000100_202608.json",
+    "reported_fund_cnpj": "42462306000100",
+    "reported_class_cnpj": "42462306000100",
+    "reported_fund_cnpj_raw": "42462306000100",
+    "reported_class_cnpj_raw": "42462306000100",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1312705",
+    "version": 1,
+    "delivered_at": "09/09/2026 10:48",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1312705",
+    "declared_fields_sha256": "0c20086fc565dac1fd85f936c049c06175807f31bcec1aca7ad9616f7803f8ec"
+  },
+  "error": ""
+}

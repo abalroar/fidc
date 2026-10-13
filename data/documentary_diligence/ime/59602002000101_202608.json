@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "59602002000101",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 73124578.98,
+    "credit_rights": 69554724.03,
+    "overdue_credit": 563092.62,
+    "cash": 750.39,
+    "pdd": 1472844.07,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 52431140.24354614,
+    "subordinated_quotas": 6809231.079987539,
+    "mezzanine_quotas": 13884207.651949,
+    "subordinated_and_mezzanine_quotas": 20693438.731936537
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "59602002000101",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/59602002000101_202608.json",
+    "reported_fund_cnpj": "59602002000101",
+    "reported_class_cnpj": "59602002000101",
+    "reported_fund_cnpj_raw": "59602002000101",
+    "reported_class_cnpj_raw": "59602002000101",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1320485",
+    "version": 1,
+    "delivered_at": "15/09/2026 16:39",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1320485",
+    "declared_fields_sha256": "7746b422770265c5f02bec0ec130b7640724d52689fb31851e014362a5a84933"
+  },
+  "error": ""
+}

@@ -1,0 +1,812 @@
+{
+  "cnpj": "63953620000165",
+  "verified_at": "2026-10-13T04:43:51+00:00",
+  "criteria": [
+    {
+      "criterion_id": "originator",
+      "label": "Originador eendossante",
+      "theme": "Recebíveis eaquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Parati CFI (03.311.443/0001-91): endossante/cedente. Tudo Serviços (27.852.506/0001-85): retenção/cobrança e Plataforma MT, ambas identificadas na própria classe.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "5",
+          "clause": "4.3–4.4",
+          "excerpt": "4.3 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91 (“Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias asse",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "19",
+          "clause": "12.6",
+          "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará, na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Nomeação nominal atual da classe; distinta da origem histórica dos ativos recebidos por cisão de outros veículos."
+    },
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dosrecebíveis",
+      "theme": "Recebíveis eaquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "CCBs eletrônicas de consignado privado, originadas pela Plataforma MT e averbadas na Dataprev; admite também TVM.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "5",
+          "clause": "4.4",
+          "excerpt": "4.4 Os Direitos Creditórios Consignado Privado são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Clas",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "1",
+          "clause": "1.1Objetivo",
+          "excerpt": "Direitos Creditórios Crédito Consignado”, representados por cédula de crédito bancário regida pela Lei nº 10.931, emitida eletronicamente por um devedor em favor do endossante (“CCB”) e, consequentemente, os recebíveis decorrente de cada uma das parcelas vincendas, representando um empréstimo consignado concedido pelo endossante ao devedor, e cujo pagamento ordinário é feito por desconto de cada prestação vincenda de uma CCB na folha de",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após 180 dias do início: direitos creditórios ≥50% do PL para fins regulatórios.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "6",
+          "clause": "4.13",
+          "excerpt": "4.13 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá manter alocado, no mínimo, para fins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CMN 5.111, e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175. 4.14 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto nest",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-06-02",
+        "limit": 50.0,
+        "numerator": "credit_rights",
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "tax_allocation",
+      "label": "Alocação paratratamento tributário",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após 180 dias do início: direitos creditórios ≥67% do PL para fins tributários.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "6",
+          "clause": "4.13",
+          "excerpt": "4.13 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá manter alocado, no mínimo, para fins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CMN 5.111, e para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM 175. 4.14 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto nest",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "not_stated",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-06-02",
+        "limit": 67.0,
+        "numerator": "credit_rights",
+        "requires_initial_date": true
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração pordevedor, cedente egrupo",
+      "theme": "Recebíveis eaquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Até 100% do PL por devedor/grupo e em direitos não padronizados. Direitos de relacionados até 100% do PL; liquidez relacionada ≤50% do PL; derivativos relacionados até 100% da parcela. Precatórios federais vedados.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "6",
+          "clause": "4.14",
+          "excerpt": "4.14 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto neste Anexo I e Ativos Financeiros devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.15 Sem prejuízo de limites",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "7",
+          "clause": "4.15(i)–(v)",
+          "excerpt": "(i) A Classe poderá: (a) direta ou indiretamente, ter até 100% (cem por cento) do Patrimônio Líquido representado por Direitos Creditórios originados ou cedidos pelo Administrador, Gestor e/ou suas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto; e (b) ceder Direitos Creditórios a qualquer das pessoas, fundos de investimento ou entidades referidas no item (a) acima, desde que a entidade registradora e o Custodiante dos Direitos Creditórios não sejam partes relacionadas ao originador ou Cedente.",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis eaquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Gestor valida individual e integralmente antes e na aquisição, usando PL/estoque do dia útil anterior. Deterioração posterior não é desenquadramento/regresso, salvo má-fé, culpa ou dolo comprovados.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "6",
+          "clause": "4.10–4.10.3",
+          "excerpt": "4.10 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Enquanto houver sênior, subordinadas/PL ≥1%, apurado diariamente pelo administrador após primeira integralização sênior.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "23",
+          "clause": "ApêndiceSênior4.1–4.1.1",
+          "excerpt": "4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 1% (um por cento) (“Índice de Subordinação Sênior”). 4.1.1. O Índice de Subordinação Sênior corresponde ao resultado mínimo obrigatório da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, e será apurado todo Dia Útil pelo Administrador. 4.1.2. Verificado excesso do Índice de Subordinação Alvo (conforme definido no Apêndice da Subclasse Subordinada), as Cotas Subordinadas poderão ser objeto de Amortização Extra",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "unit": "percent",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "class",
+        "effective_status": "document_date_only",
+        "document_date": "2026-06-02",
+        "numerator": "subordinated_quotas",
+        "limit": 1.0,
+        "requires_senior_outstanding": true
+      }
+    },
+    {
+      "criterion_id": "junior_release",
+      "label": "Liberação eamortização dajúnior",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Liberação extraordinária do excedente à razão subordinadas/PL >10%. Exige ordem de pagamentos, obrigações em dia, ausência de eventos, liquidez suficiente e índices mantidos.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "24",
+          "clause": "ApêndiceSubordinada4.1",
+          "excerpt": "4.1. Verificado que o Índice de Subordinação Alvo é atendido, ou seja, que a representatividade de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe é superior à 10,00% (dez por cento) (“Índice de Subordinação Alvo”), as Cotas Subordinadas poderão ser objeto de Amortização Extraordinária até o limite excedente ao Índice de Subordinação Alvo– ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (i) seja observada a ordem de alocação de recursos definida no item 8.1 acima Anexo; (ii) não existam Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "23",
+          "clause": "ApêndiceSênior4.1.2",
+          "excerpt": "4.1.2. Verificado excesso do Índice de Subordinação Alvo (conforme definido no Apêndice da Subclasse Subordinada), as Cotas Subordinadas poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Subordinação – ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores – desde que: (a) seja observada a ordem de alocação de recursos definida no item 8.1 acima Anexo; (b) não existam Obrigações da Classe vencidas e não pagas; (c) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (d) existam suficientes Ativos Financeiros e/ou recur",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "10% é patamar de liberação, diferente do piso protetivo de 1%."
+    },
+    {
+      "criterion_id": "liquidity_reserve",
+      "label": "Reserva deliquidez",
+      "theme": "Proteção porcamada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Reserva exclusivamente com capital sênior durante o investimento: R$ 150 milhões no numeral, acrescidos diariamente do rendimento. Utilização depende de AGC com maioria de cada subclasse; após investimento entra na waterfall.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "12",
+          "clause": "8.2–8.2.1",
+          "excerpt": "8.2 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas Seniores (“Data da 1ª Integralização”) até o final do Período de Investimento, constituir e manter, exclusivamente a partir dos valores integralizados pelo Cotista Sênior, uma Reserva da Caixa, em montante correspondente a R$ 150.000.000,00 (cento e cinquenta milhões e quinhentos mil reais) corrigido diariamente pela rentabilidade auferida sob o referido montante (“Reserva de Caixa”). 8.2.1 A deliberação acerca da utilização dos valores mantidos na Reserva de Caixa dependerá de prévia aprovação em Asse",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "13",
+          "clause": "10.2(xvii)",
+          "excerpt": "(xvii) alterações na disciplina, critérios de constituição, manutenção Maioria das Cotas de cada Subclasse ou utilização da Reserva de Caixa, bem como deliberação acerca da BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 13 Clicksign 5616d885-8e2b-40d9-861e-75413fca8eb1",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Extenso da cláusula 8.2 diz 150 milhões 500 mil, divergindo de R$ 150 milhões. Caixa do IME agregado não demonstra conta segregada/rentabilidade acumulada."
+    },
+    {
+      "criterion_id": "revolving",
+      "label": "Revolvência edesinvestimento",
+      "theme": "Fluxo decaixa eprazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Investimento da primeira integralização até 29/06/2031; permite reinvestir pagamentos ou amortizar. Depois, novas compras somente por compromissos anteriores, preservação de investimentos ou recomendação e aprovação da AGC.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "7",
+          "clause": "4.17–4.17.3",
+          "excerpt": "4.17 O período compreendido entre a data da primeira integralização de Cotas da Classe até 29 de junho de 2031, constituirão o período de investimento da Classe, durante o qual, a Classe poderá adquirir Direitos Creditórios (“Período de Investimento”). 4.17.1 Durante o Período de Investimento, os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem dealocação derecursos",
+      "theme": "Fluxo decaixa eprazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Encargos → reserva de caixa → derivativos → rentabilidade adicional sênior → compras de direitos durante investimento → benchmark sênior → principal sênior → subordinadas com razão-alvo 10% → liquidez.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "11",
+          "clause": "8.1(i)",
+          "excerpt": "8.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas (“Data da 1ª Integralização”) até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvado, enquanto em curso um Evento de Avaliação e/ou um Evento de Liquidação, o disposto nos itens 11.1.2: (i)",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "12",
+          "clause": "8.1(ii)–(x)",
+          "excerpt": "(ii) constituição ou reestabelecimento da Reserva de Caixa, conforme definida abaixo, por meio da aquisição de Ativos Financeiros de Liquidez, observando-se a Política de Investimentos; (iii) pagamento de despesas relativas aos instrumentos de derivativos, conforme aplicável; (iv) pagamento da Rentabilidade Adicional Sênior, caso aplicável; (v) aquisição pela Classe de Direitos Creditórios, durante o Período de Investimento, observando-se a Política de Investimentos; (vi) pagamento do Benchmark Sênior, a critério do Gestor; (vii) pagamento da amortização do principal",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Compra de DC antecede amortização do benchmark/principal; principal sênior durante investimento exige tempo decorrido maior que duration dos DC."
+    },
+    {
+      "criterion_id": "payments",
+      "label": "Juros, amortização evencimento",
+      "theme": "Fluxo decaixa eprazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sênior: benchmark trimestral no 5º dia útil durante investimento; depois, principal+rendimento em regime de caixa. Subordinada sujeita ao índice-alvo; periodicidade consta como “[trimestral]”.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "23",
+          "clause": "ApêndiceSênior5.1–5.2",
+          "excerpt": "5.1. Durante o Período de Investimento, desde que o Patrimônio Líquido da Classe assim permita, as Cotas Seniores farão jus à Amortização trimestral do saldo do Benchmark Sênior a ser realizada no 5º Dia Útil do mês (“Amortização de Benchmark das Cotas Seniores” e “Data de Amortização por Regime de Caixa de Cotas Seniores”, respectivamente). 5.2. Encerrado o Período de Investimento, desde que o Patrimônio Líquido da Classe assim permita, as Cotas Seniores farão jus à Amortização Programada de Cotas Seniores referente ao saldo do Benchmark Sênior ainda não amortizado e ao do saldo do seu Valor Unitário, conforme aplicável, a ser realizada em cada Data d",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "25",
+          "clause": "ApêndiceSubordinada5.1–5.2",
+          "excerpt": "5.1. Encerrado o Período de Investimento, desde que o Patrimônio Líquido da Classe assim permita e desde que atendido o Índice de Subordinação Alvo, as Cotas Subordinadas farão jus à Amortização [trimestral] do saldo do seu Valor Unitário, consideradas pro forma todas as amortizações pretendidas, seja atendida o Índice de Subordinação Sênior, conforme aplicável, a ser realizada no 5º Dia Útil do mês (“Amortização por Regime de Caixa Cotas Subordinadas” e “Data de Amortização Programada de Cotas Subordinadas”, respectivamente), observada a Ordem de Alocação de Recursos prevista na Classe. 5.2. Durante o Período de Investimento, as Cotas Subordi",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Periodicidade em colchetes no apêndice subordinado sinaliza redação não finalizada; não transformar em calendário confirmado."
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos deavaliação",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "RAET/intervenção do endossante; subordinação fora por 10 dias úteis; obrigações de endossante/prestadores por 10 dias úteis; arquivos Dataprev/lastro por 2 dias úteis. Também atraso sênior e eventos de cobrança/contratuais nas cláusulas seguintes.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "14",
+          "clause": "11.1(i)–(v)",
+          "excerpt": "11.1 As seguintes hipóteses são consideradas eventos de avaliação (“Eventos de Avaliação”): (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante; (ii) em caso de desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossan",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "15",
+          "clause": "11.1(vi)–(xiv)",
+          "excerpt": "Anexo I ao Regulamento CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA (vii) inobservância pelo Administrador, pelo Custodiante e/ou pelo Gestor de seus deveres e obrigações previstos neste Regulamento, bem como suas atribuições específicas nos outros contratos existentes referentes ao funcionamento da Classe, verificada pelo Administrador, pelo Custodiante e/ou pelo Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos deliquidação",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PL diário <R$ 1 milhão por 90 dias consecutivos após 90 dias iniciais; falta de liquidez para encargos; essenciais/custodiante sem substituto; decisão AGC/CVM/intervenção.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "16",
+          "clause": "11.2(i)–(viii)",
+          "excerpt": "11.2 As seguintes hipóteses são consideradas eventos de liquidação (“Eventos de Liquidação”): (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de resilição do Contrato de Custódia ou renúncia do Custodiante, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii) renúncia do Administrador sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabeleci",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos decura ereincidência",
+      "theme": "Eventos ecura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Índice fora por 10 dias úteis e obrigações do endossante por 10 dias úteis geram avaliação; arquivos Dataprev/lastro: 2 dias úteis. Cotista inadimplente: 5 dias úteis da notificação. IME mensal não comprova série diária de cura.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "14",
+          "clause": "11.1(ii)–(v)",
+          "excerpt": "11.1 As seguintes hipóteses são consideradas eventos de avaliação (“Eventos de Avaliação”): (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante; (ii) em caso de desenquadramento do Índice de Subordinação por 10 (dez) dias úteis consecutivos; (iii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossan",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "10",
+          "clause": "6.8",
+          "excerpt": "6.8 Observado o disposto nos boletins de subscrição, no caso de inadimplemento, a Administradora notificará o cotista inadimplente para sanar o inadimplemento no prazo de até 5 (cinco) Dias Úteis (“Cotista Inadimplente”). Caso o Cotista Inadimplente não sane o inadimplemento dentro de 5 (cinco) Dias Úteis contados do recebimento da notificação descrita acima, a Administradora poderá tomar as medidas previstas no Boletim de Subscrição. Colocação das Cotas 6.9 As Cotas poderão ser objeto de oferta pública a ser realizada nos termos da Resolução CVM 160 (“Oferta”) e/ou poderão ser colocadas de forma privada (“Colocação Privad",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia dePDD ecurva poratraso",
+      "theme": "Qualidade dacarteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Ativos avaliados a cada dia útil pelos manuais do administrador/custodiante. PDD/perdas conforme ICVM 489 reduzem o saldo; perdas do mesmo devedor seguem art.13, admitida análise individualizada.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "12",
+          "clause": "9.1–9.2.1",
+          "excerpt": "9.1 Os Direitos Creditórios e Ativos Financeiros que compõem a Carteira da Classe terão seus valores calculados todo Dia Útil conforme a metodologia de avaliação descrita no manual do Administrador ou, ainda, nos manuais do Custodiante, disponíveis nos seus respectivos websites, no endereço https://www.btgpactual.com/asset- management/administracao-fiduciaria#documentos 9.2 As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Dire",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "coobligation",
+      "label": "Coobrigação eretenção derisco",
+      "theme": "Qualidade dacarteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sem coobrigação/regresso contra endossante, administrador, gestor, custodiante/agente, salvo má-fé, culpa ou dolo comprovados. Direitos de recompra/opção de venda preservados conforme contrato.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "6",
+          "clause": "4.8,4.10.3",
+          "excerpt": "4.10.3 Não haverá coobrigação nem direito de regresso da Classe contra o Endossante, o Administrador, o Custodiante, o Gestor e/ou o Agente de Retenção/Cobrança, exceto em caso de má-fé, culpa ou dolo comprovado, hipótese em que a parte que agiu com má-fé, culpa ou dolo comprovado poderá ser responsabilizada pelas perdas incorridas pela Classe em relação aos respectivos Direitos Creditórios Crédito Consignado. 4.11 Além dos Critérios de Elegibilidade acima mencionados, a serem verificados pelo Gestor ou terceiro por ele contratado, o Endossante e o Agente de Retenção/Cobrança declararão, expr",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base emínimo",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 05% a.a. sobre PL alocado em DC Consignado Privado/Ativos de Liquidez MT. Mínimo R$ 2.500/mês, reajuste IGP-M positivo em janeiro; base 252 dias úteis e pagamento no 5º dia útil.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "19",
+          "clause": "Capítulo13TaxadeAdministração",
+          "excerpt": "Taxa de Administração positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas (“Taxa de Administração” e “IGP-M”, respectivamente). Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Base é a parcela MT específica, não necessariamente todo o PL da classe."
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base emínimo",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 05% a.a. sobre PL alocado em DC Consignado Privado/Ativos de Liquidez MT. Mínimo R$ 2.500/mês, reajuste IGP-M positivo em janeiro; base 252 dias úteis e pagamento no 5º dia útil.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "20",
+          "clause": "Capítulo13TaxadeGestão",
+          "excerpt": "0,05% (cinco centésimos por cento) ao ano, apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês que se refere, incidente sobre o Patrimônio Líquido da Classe alocado em Direitos Creditórios Consignado Privado e/ou Ativos de Liquidez MT, observada remuneração mínima mensal de R$ 2.500,00 (dois mil e quinhentos reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark eapuração",
+      "theme": "Emissões ecustos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sem taxas de performance ou ingresso; custódia máxima 0% a.a. e distribuição não cobrada.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "20",
+          "clause": "Capítulo13",
+          "excerpt": "Taxa de Performance Não será devido pelas Classes o pagamento de Taxa de Performance. 0,00% (zero por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe Taxa Máxima de Custódia (“Taxa Máxima de Custódia”). Taxa Máxima de Distribuição Não será cobrada Taxa de Distribuição. Taxa de Ingresso Não será cobrada da Classe ou dos Cotistas taxa de ingresso. CAPÍTULO 14 – CUSTOS REFERENTES À DEFESA DOS INTERESSES DA CLASSE 14.1 Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns ematérias reservadas",
+      "theme": "Governança ealterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Maioria de cada subclasse para política/elegibilidade/contratos/taxas/reorganização e uso da reserva. Essenciais: maioria da classe. Mudança de benchmark exige maioria sênior afetada e subordinadas.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "13",
+          "clause": "10.2(ii)–(xvii)",
+          "excerpt": "10.2 Os seguintes quóruns deverão ser observados pela Assembleia Especial de Cotistas ao deliberar as matérias abaixo: Matéria Quórum (i) deliberar sobre as demonstrações contábeis da Classe; Maioria das Cotas presentes (ii) alterar o presente Anexo; Maioria das Cotas de cada Subclasse (iii) deliberar sobre substituição de Prestadores de Serviços Maioria das Cotas da Classe Essenciais, observado o disposto no Artigo 70, §1º da parte geral da R",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "14",
+          "clause": "10.5–10.8",
+          "excerpt": "10.5 Caso a matéria em deliberação resulte ou possa resultar em uma redução do Índice de Subordinação de uma determinada Subclasse, somente podem votar os titulares de Subclasses de Cotas Seniores. 10.6 As deliberações que tenham por objeto alterações de Benchmark apenas serão aprovadas se assim deliberado: (i) pelos votos dos titulares da maioria das Cotas Seniores cujo Benchmark é alterado; e (ii) pelos votos dos titulares da maioria das Cotas Subordinadas em circulação. 10.7 As deliberações que tenham por objeto o aumento do Índice de Subordinação Sênior estão sujeitas à aprovação da maioria simples dos votos dos titu",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "10.7/10.8 repetem aumento do índice com quóruns distintos; interpretar regra específica demandará resolver conflito, sem presumir uma aprovação."
+    },
+    {
+      "criterion_id": "perimeter",
+      "label": "Classe, subclasse eresponsabilidade",
+      "theme": "Alocação eperímetro",
+      "status": "version_conflict",
+      "applicability": "applicable",
+      "value": "Classe Consignado Privado tem Sênior/Subordinada. Cláusula 2.1 limita responsabilidade ao subscrito; cláusula 6.7.1 permite chamadas para encargos acima do subscrito.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "3",
+          "clause": "2.1",
+          "excerpt": "2.1 A responsabilidade do Cotista está limitada ao valor por ele subscrito. 2.2 Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência de pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175. 2.3 Serão aplicáveis as disposições da Resolução CVM 175 no que se refere aos procedimentos a serem adotados pelo Administrador na hipótese de Patrimônio Líquido negativo da Classe. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "10",
+          "clause": "6.7.1",
+          "excerpt": "6.7.1 As Chamadas de Capital para a realização de investimentos serão realizadas a qualquer momento durante o Período de Investimento e estarão limitadas ao valor do capital subscrito de cada Cotista. As Chamadas de Capital para o pagamento de despesas e encargos do Fundo, com exceção de despesas relacionadas à instrumentos de derivativos e/ou Encargos não previstos no âmbito deste regulamento, poderão ser realizadas a qualquer momento durante o Prazo de Duração, mas não estarão limitadas ao valor do capital subscrito de cada Cotista. 6.7.2 Ao receber uma Chamada d",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Alcance das chamadas além do capital comprometido não resolvido textualmente; não certificar limitação apenas por título do fundo."
+    },
+    {
+      "criterion_id": "rating",
+      "label": "Rating porsubclasse edowngrade",
+      "theme": "Hedge eprestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Facultativo: gestor e cotistas subordinados precisam concordar em AGC. Nenhuma agência/nota atual deduzida dessa condição.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "11",
+          "clause": "6.14",
+          "excerpt": "6.14 As Cotas poderão ser objeto de classificação de risco pela contratada pelo Gestor, desde que em comum acordo entre Gestor e Cotistas Subordinados em Assembleia Especial de Cotistas (“Agência Classificadora de Risco”). CAPÍTULO 7 – AMORTIZAÇÃO DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos da Classe aos Cotistas será feita exclusivamente mediante a Amortização de Cotas, observado o disposto neste Capítulo e nos Apêndices. 7.2 As Cotas poderão ser amortizadas através de uma Amortização por Regime de Caixa, se houver conforme prevista nos Apêndices; e por meio amortização extraordinária das Cotas, a ser realiz",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação àResoluçãoCVM175",
+      "theme": "Alocação eperímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Anexo I específico da Classe Consignado Privado, com apêndices Sênior/Subordinada sob Resolução CVM 175. CNPJ da classe 63953620000165; guarda-chuva 63953619000130 contém outras classes.",
+      "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "1",
+          "clause": "AnexoI1.1",
+          "excerpt": "1.1 As principais características da Classe Consignado Privado (para fins deste Anexo, “Classe”) estão descritas abaixo: Tipo de Condomínio Fechado. Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas Prazo de Duração reunidos em Assembleia Especial de Cotistas. (“Prazo de Duração”) Tipo “Financeiro”. Classificação ANBIMA Foco de atuação “Créditos Consignados”. O obje",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "9",
+          "clause": "5.1",
+          "excerpt": "5.1 A Classe possui 2 (duas) Subclasses de Cotas, quais sejam, a subclasse sênior (“Subclasse Sênior” e “Cotas Seniores”) e a subclasse subordinada (“Subclasse Subordinada” e “Cotas Subordinadas” – as Cotas Subordinadas e Cotas Seniores, quando referidas em conjunto, “Cotas”). As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo e nos respectivos Apêndices. 5.2 As Cotas são escriturais, nominativas e correspondem a frações ideais do patrimônio da Classe, cuja propriedade presume-se: (i) pelo",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+        }
+      ],
+      "risk_note": "Vigência efetiva da versão 02/06/2026 não inferida da data de publicação; não aplicar a fev/26 automaticamente."
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": []
+}

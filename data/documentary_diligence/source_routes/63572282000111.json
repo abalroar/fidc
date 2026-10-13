@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "cnpj": "63572282000111",
+  "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:33Z",
+  "routes": [
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1242099,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242099",
+          "source_excerpt": "lho de 2026. Esta reunião de\n    Comitê está registrada na Ata nº 20260701-01.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 1297374,
+          "reference_date": "05/08/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1297374",
+          "source_excerpt": "sto de 2026. Esta reunião de Comitê está\n    registrada na Ata nº 20260805-12.\n2. As classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1242099,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242099",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        },
+        {
+          "document_id": 1297374,
+          "reference_date": "05/08/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1297374",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    https://www.austin.com.br/Documentos/Metodologia-Rating-Securiticacao_Recebiveis.html.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de FID"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1242099,
+          "reference_date": "01/07/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242099",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        },
+        {
+          "document_id": 1297374,
+          "reference_date": "05/08/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1297374",
+          "source_excerpt": "para\n    empresas de controle comum, sócios e funcionários desta, porém, atribui ratings de crédito para outros Fundos de sua Gestão,\n    os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência\n    também não presta qualquer serviço de rating direto para o Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.,\n    Administrador e Custodiante, e tampouco para partes"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1080487,
+          "reference_date": "05/01/2026",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080487",
+          "source_excerpt": "confiram aos seus titulares o direito de voto.\n\n\n                3.8.1           A íntegra da política relativa ao exercício do direito de voto da Gestora\n                está disponível no website: www.oliveiratrust.com.br.\n\n\n                Critérios de Elegibilidade\n\n\n                3.9             Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos\n                Creditórios que atendam, nas respec"
+        },
+        {
+          "document_id": 1080487,
+          "reference_date": "05/01/2026",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080487",
+          "source_excerpt": "ções nos termos deste Anexo Descritivo e do Regulamento.\n                Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n                website da Administradora (www.oliveiratrust.com.br).\n\n\n                6.1.2           Cobrança       dos     Direitos   Creditórios   Adquiridos   Inadimplidos.\n                Administradora contratará o Custodiante para prestar o serviço de cobrança"
+        },
+        {
+          "document_id": 1080487,
+          "reference_date": "05/01/2026",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080487",
+          "source_excerpt": "inadimplemento. Deverá ser observado, em todos os casos, a metodologia descrita no\n                manual de precificação de ativos da Administradora, disponível em seu site\n                (www.oliveiratrust.com.br).\n\n\n                10.2.2          Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos\n                Financeiros que compõem a carteira da Classe Única será efetuada com base nas"
+        },
+        {
+          "document_id": 1089845,
+          "reference_date": "21/01/2026",
+          "page": 58,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+          "source_excerpt": "confiram aos seus titulares o direito de voto.\n\n\n                3.8.1           A íntegra da política relativa ao exercício do direito de voto da Gestora\n                está disponível no website: www.oliveiratrust.com.br.\n\n\n                Critérios de Elegibilidade\n\n\n                3.9             Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos\n                Creditórios que atendam, nas respec"
+        },
+        {
+          "document_id": 1089845,
+          "reference_date": "21/01/2026",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+          "source_excerpt": "ções nos termos deste Anexo Descritivo e do Regulamento.\n                Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n                website da Administradora (www.oliveiratrust.com.br).\n\n\n                6.1.2           Cobrança       dos     Direitos   Creditórios   Adquiridos   Inadimplidos.\n                Administradora contratará o Custodiante para prestar o serviço de cobrança"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://repositorio.serpro.gov.br/docs/dpcac",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1080487,
+          "reference_date": "05/01/2026",
+          "page": 150,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080487",
+          "source_excerpt": "Policy Qualifier Id=CPS\n                                                             Qualifier:\n                                                                  http://repositorio.serpro.gov.br/docs/dpcac\n                                                    serprorfb.pdf\n\n\nElectronic Record and Signature Disclosure:\n   Accepted: 10/25/2021 4:37:53 PM\n   ID: d11805a9-b987-4560-8dce-bdd11bd9a89f\n\nTHIAGO"
+        },
+        {
+          "document_id": 1080487,
+          "reference_date": "05/01/2026",
+          "page": 150,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080487",
+          "source_excerpt": "Policy Qualifier Id=CPS\n                                                             Qualifier:\n                                                                  http://repositorio.serpro.gov.br/docs/dpcac\n                                                    serprorfb.pdf\n\n\nElectronic Record and Signature Disclosure:\n   Accepted: 10/25/2021 4:38:59 PM\n   ID: 4b5330b7-38b0-41eb-940e-d7aabce89c1c\n\n\nIn Per"
+        },
+        {
+          "document_id": 1089845,
+          "reference_date": "21/01/2026",
+          "page": 155,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+          "source_excerpt": "Policy Qualifier Id=CPS\n                                                             Qualifier:\n                                                                  http://repositorio.serpro.gov.br/docs/dpcac\n                                                    serprorfb.pdf\n\n\nElectronic Record and Signature Disclosure:\n   Accepted: 10/25/2021 4:37:53 PM\n   ID: d11805a9-b987-4560-8dce-bdd11bd9a89f\n\nTHIAGO"
+        },
+        {
+          "document_id": 1089845,
+          "reference_date": "21/01/2026",
+          "page": 155,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1089845",
+          "source_excerpt": "Policy Qualifier Id=CPS\n                                                             Qualifier:\n                                                                  http://repositorio.serpro.gov.br/docs/dpcac\n                                                    serprorfb.pdf\n\n\nElectronic Record and Signature Disclosure:\n   Accepted: 10/25/2021 4:38:59 PM\n   ID: 4b5330b7-38b0-41eb-940e-d7aabce89c1c\n\n\nIn Per"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:08Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

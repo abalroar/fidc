@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "63953620000165",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 10025862389.54,
+    "credit_rights": 9353368753.36,
+    "overdue_credit": 3637597.92,
+    "cash": 10000.0,
+    "pdd": 515382652.13,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 9655168515.166126,
+    "subordinated_quotas": 370693874.22999835,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 370693874.22999835
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "63953620000165",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/63953620000165_202608.json",
+    "reported_fund_cnpj": "63953620000165",
+    "reported_class_cnpj": "63953619000130",
+    "reported_fund_cnpj_raw": "63953620000165",
+    "reported_class_cnpj_raw": "63953619000130",
+    "identity_basis": "verified_fund_class_inversion",
+    "warnings": [
+      "Cadastro CVM vincula os CNPJs por ID_Registro_Fundo, independentemente dos nomes. Layout permitido somente para esta dupla exata: campo de fundo contém CNPJ da classe CP e campo de classe contém CNPJ do respectivo fundo. Existem várias classes; não usar class_unique nem nome para ampliar a correspondência."
+    ],
+    "identity_mapping": {
+      "schema_version": 1,
+      "cnpj": "63953620000165",
+      "relationship": "class_of_fund",
+      "status": "verified",
+      "fund_cnpj": "63953619000130",
+      "class_cnpj": "63953620000165",
+      "class_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+      "effective_from": "2025-12-05",
+      "registry_fund_id": "15695",
+      "registry_class_id": "33546",
+      "allowed_header_layout": "fund_class_inverted",
+      "allowed_header_pair": {
+        "NR_CNPJ_FUNDO": "63953620000165",
+        "NR_CNPJ_CLASSE": "63953619000130"
+      },
+      "sources": [
+        {
+          "document_id": "cvm-registro-fundo-15695-classe-33546",
+          "title": "Cadastro CVM de fundos e classes: vínculo por ID_Registro_Fundo",
+          "url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
+          "reference_date": "2025-12-05",
+          "version": "Registro Fundo15695; Classe33546; snapshot local identificado por SHA256",
+          "clause": "registro_fundo.csv: ID_Registro_Fundo=15695; registro_classe.csv: ID_Registro_Classe=33546, ID_Registro_Fundo=15695",
+          "sha256": "177485618af2239f2b451972fb6e46b217580b50a3bf70cdf01938882e415f93",
+          "identity_verified": true,
+          "excerpt": "{\"CNPJ_Fundo\": \"63953619000130\", \"ID_Registro_Fundo\": \"15695\", \"CNPJ_Classe\": \"63953620000165\", \"ID_Registro_Classe\": \"33546\", \"Denominacao_Classe\": \"CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA\", \"Data_Registro_Classe\": \"2025-12-05\"}"
+        },
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoI específico da Classe Consignado Privado",
+          "page": "1",
+          "clause": "AnexoI,1.1",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "excerpt": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA. CAPÍTULO1–CARACTERÍSTICAS GERAIS.1.1 As principais características da Classe Consignado Privado (para fins deste Anexo, Classe) estão descritas abaixo."
+        },
+        {
+          "document_id": 1222860,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222860",
+          "reference_date": "02/06/2026 10:00",
+          "version": "AGC12/06/2026",
+          "page": "1",
+          "clause": "Cabeçalho e deliberação4(i)(a)–(d)",
+          "sha256": "7b23ee63cd7e3df39fb0ddd1eba37277dea6600d607a6c77022ae4452f74240c",
+          "identity_verified": true,
+          "excerpt": "MT GLOBAL FIDC RESPONSABILIDADE LIMITADA, CNPJ63.953.619/0001-30. Deliberações alteram as taxas de gestão das classes Consignado Privado, INSS, Cartão Benefício e FGTS. Efeitos no fechamento de01/06/2026."
+        }
+      ],
+      "reason": "Cadastro CVM vincula os CNPJs por ID_Registro_Fundo, independentemente dos nomes. Layout permitido somente para esta dupla exata: campo de fundo contém CNPJ da classe CP e campo de classe contém CNPJ do respectivo fundo. Existem várias classes; não usar class_unique nem nome para ampliar a correspondência."
+    },
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1316675",
+    "version": 1,
+    "delivered_at": "11/09/2026 19:36",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1316675",
+    "declared_fields_sha256": "348b082ef8d00fcff8437d9832be7498f748a2dd95052619709b91d780e4b596"
+  },
+  "error": ""
+}

@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "cnpj": "43309233000183",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS LIVERPOOL RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:03Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:57:04Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 943032,
+          "reference_date": "09/07/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+          "source_excerpt": "uma Nota Fiscal e faculta a\n                                                  verificação da sua autorização e do seu conteúdo no\n                                                  ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                  da respectiva circunscrição da Secretaria de Fazenda –\n                                                  SEFAZ.\n\n\n                “Classe"
+        },
+        {
+          "document_id": 791922,
+          "reference_date": "27/11/2024",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791922",
+          "source_excerpt": "ma Nota Fiscal e faculta a\n                                                   verificação da sua autorização e do seu conteúdo no\n                                                   ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                                   da respectiva circunscrição da Secretaria de Fazenda\n                                                   SEFAZ.\n\n\n                 Classe"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 943032,
+          "reference_date": "09/07/2025",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+          "source_excerpt": "as Úteis, calculada e divulgada pela B3\n                                                  no informativo diário disponível em sua página na Internet\n                                                  (http://www.b3.com.br).\n\n\n                “Taxa Máxima de Custódia”         Significa a taxa a que o Custodiante terá direito pela\n                                                  prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 791922,
+          "reference_date": "27/11/2024",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791922",
+          "source_excerpt": "Úteis, calculada e divulgada pela B3\n                                                   no informativo diário disponível em sua página na Internet\n                                                   (http://www.b3.com.br).\n\n\n                 Taxa Máxima de Custódia           Significa a taxa a que o Custodiante terá direito pela\n                                                   prestação de seus serviços de custódia."
+        },
+        {
+          "document_id": 250447,
+          "reference_date": "28/10/2021",
+          "page": 34,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n\n             “Terceiros Fornecedores”          Significa os terceiros fornecedores aprovados pelo Originador e\n                                               pelo Gestor, após prévia anuência dos C"
+        },
+        {
+          "document_id": 250448,
+          "reference_date": "28/10/2021",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n\n             “Terceiros Fornecedores”          Significa os terceiros fornecedores aprovados pelo Originador e\n                                               pelo Gestor, após prévia anuência dos C"
+        },
+        {
+          "document_id": 389244,
+          "reference_date": "13/12/2022",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389244",
+          "source_excerpt": "no de 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                             disponível em sua página na Internet (http://www.b3.com.br).\n\n\nTerceiros Fornecedores       Significa os terceiros fornecedores aprovados pelo Originador e\n                             pelo Gestor, após prévia anuência dos Cotistas, nos termos do"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 943032,
+          "reference_date": "09/07/2025",
+          "page": 71,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+          "source_excerpt": "mobiliários, conforme estabelecido na regulamentação em vigor (tais como o critério de\n                marcação a mercado) e no manual de precificação do Administrador disponível em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu\n                Preço de Aquisição, com apropriação de seus respectivos rendimentos, confo"
+        },
+        {
+          "document_id": 250447,
+          "reference_date": "28/10/2021",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
+          "source_excerpt": "DocuSign Envelope ID: C590923A-F929-46B6-A4A6-7CCCAFECEDAA\n\n\n\n\n            “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os\n            Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme"
+        },
+        {
+          "document_id": 250448,
+          "reference_date": "28/10/2021",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
+          "source_excerpt": "DocuSign Envelope ID: C590923A-F929-46B6-A4A6-7CCCAFECEDAA\n\n\n\n\n            “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os\n            Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em seu Preço\n            de Aquisição, com apropriação de seus respectivos rendimentos, conforme"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 943032,
+          "reference_date": "09/07/2025",
+          "page": 158,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+          "source_excerpt": "rios Adquiridos da Classe Única com base no Manual de Provisão para\n                perdas      em       Ativos      de       Crédito         do       Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui um\n                comportamento de atrasos subst"
+        },
+        {
+          "document_id": 791922,
+          "reference_date": "27/11/2024",
+          "page": 157,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791922",
+          "source_excerpt": "ios Adquiridos da Classe Única com base no Manual de Provisão para\n                perdas       em      Ativos      de        Crédito         do       Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui um\n                comportamento de atrasos subst"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 250447,
+          "reference_date": "28/10/2021",
+          "page": 124,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
+          "source_excerpt": "o na CVM. Informações sobre o Auditor\n            Independente contratado para auditoria do Fundo encontram-se disponíveis para acesso pelos\n            Cotistas na página do Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer\n            alteração na empresa de auditoria contratada será comunicada por meio de carta simples\n            endereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede mun"
+        },
+        {
+          "document_id": 250448,
+          "reference_date": "28/10/2021",
+          "page": 121,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
+          "source_excerpt": "o na CVM. Informações sobre o Auditor\n            Independente contratado para auditoria do Fundo encontram-se disponíveis para acesso pelos\n            Cotistas na página do Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer\n            alteração na empresa de auditoria contratada será comunicada por meio de carta simples\n            endereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede mun"
+        },
+        {
+          "document_id": 389244,
+          "reference_date": "13/12/2022",
+          "page": 121,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389244",
+          "source_excerpt": "r independente registrado na CVM. Informações sobre o Auditor\nIndependente contratado para auditoria do Fundo encontram-se disponíveis para acesso pelos\nCotistas na página do Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer\nalteração na empresa de auditoria contratada será comunicada por meio de carta simples\nendereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede mundial de\ncomputadores dos"
+        },
+        {
+          "document_id": 731565,
+          "reference_date": "28/08/2024",
+          "page": 122,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731565",
+          "source_excerpt": "ado na CVM. Informações sobre o Auditor\n           Independente contratado para auditoria do Fundo encontram-se disponíveis para acesso pelos\n           Cotistas na página do Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer\n           alteração na empresa de auditoria contratada será comunicada por meio de carta simples\n           endereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede mundi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:29Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf",
+      "source_type": "administrator",
+      "candidate_type": "document_unknown",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 250447,
+          "reference_date": "28/10/2021",
+          "page": 139,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
+          "source_excerpt": "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador\n            disponível                                                                                  em\n            http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n            observado o disposto acima.\n\n            Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n            comportamento de atrasos substancialmente diferente ao"
+        },
+        {
+          "document_id": 250448,
+          "reference_date": "28/10/2021",
+          "page": 136,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
+          "source_excerpt": "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador\n            disponível                                                                                  em\n            http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n            observado o disposto acima.\n\n            Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n            comportamento de atrasos substancialmente diferente ao"
+        },
+        {
+          "document_id": 389244,
+          "reference_date": "13/12/2022",
+          "page": 136,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389244",
+          "source_excerpt": "dquiridos Agro do\nFundo com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador\ndisponível                                                                                  em\nhttp://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\nobservado o disposto acima.\n\nCaso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\ncomportamento de atrasos substancialmente diferente ao estimado pela política de provisão,"
+        },
+        {
+          "document_id": 731565,
+          "reference_date": "28/08/2024",
+          "page": 138,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731565",
+          "source_excerpt": "o com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador\n           disponível                                                                                  em\n           http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.pdf,\n           observado o disposto acima.\n\n           Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um comportamento\n           de atrasos substancialmente diferente ao est"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

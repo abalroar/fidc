@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "cnpj": "30659408000130",
+  "name": "PER FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:53Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:06Z",
+  "routes": [
+    {
+      "url": "https://w.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 150452,
+          "reference_date": "22/05/2018",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=150452",
+          "source_excerpt": "r extra grupo,\nexpressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas\ne divulgadas pela B3, no informativo diário disponível em sua página na internet (ww,w.b3.com.br);\n\n\"Taxa SELIC\": a taxa de juros apurada no Sistema Especial de Liquidação e Custódia,t divulgada pelo\nseu Departamento de Operações do Mercado Aberto, Divisão de Administração, 'disponível para\ncons"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

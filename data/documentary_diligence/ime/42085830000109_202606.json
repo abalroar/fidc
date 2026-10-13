@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "42085830000109",
+  "competence": "06/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 308205214.77,
+    "credit_rights": 255414395.99,
+    "overdue_credit": 0.0,
+    "cash": 971.48,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 291833008.88,
+    "subordinated_quotas": 16372205.889994234,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 16372205.889994234
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "42085830000109",
+    "competence": "06/2026",
+    "path": "data/documentary_diligence/ime/42085830000109_202606.json",
+    "reported_fund_cnpj": "42085830000109",
+    "reported_class_cnpj": "42085830000109",
+    "reported_fund_cnpj_raw": "42085830000109",
+    "reported_class_cnpj_raw": "42085830000109",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1248185",
+    "version": 1,
+    "delivered_at": "15/07/2026 01:03",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248185",
+    "declared_fields_sha256": "0cadd58a55e131a03b58109638d9ab9b768b734403ae84fc9d089ebde7695e4e"
+  },
+  "error": ""
+}

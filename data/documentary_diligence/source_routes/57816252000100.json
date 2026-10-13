@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "cnpj": "57816252000100",
+  "name": "NATURA PAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PESSOAL SOCIAL E IS RESP LTDA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:08:53Z",
+  "routes": [
+    {
+      "url": "http://www.oliveiratrust.com.br/scot/modulos/downloads/baixar.php?cod=2164812",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1182393,
+          "reference_date": "07/05/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182393",
+          "source_excerpt": "1.     Alterar a clausula 2.3.1 do Anexo I-A do Regulamento do Fundo, para indicar o\n                link correto para o Formulário de Metodologia ESG da Anbima que passa a ser\n                http://www.oliveiratrust.com.br/scot/modulos/downloads/baixar.php?cod=2164812,\n                desse modo a nova redação da cláusula supra mencionada passando onde se lê\n                “Formulario de Metodologia ESG” a idicar corretamente o link acima. Ficando a redação"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:14Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "109623",
+        "final_url": "https://api-site.oliveiratrust.com.br/Arquivos/FI-1357/2164812-71211-20260506184045.pdf",
+        "identity_validation": "not_performed_by_head"
+      },
+      "download_status": "downloaded_identity_verified",
+      "document_id": "OT2164812-ASG-NaturaPay",
+      "sha256": "eee4bc4a6ec02b806835bac14a268a892ac46572b99d54bddf69c48194e9a429",
+      "reference_date": null
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": ") cumprir integralmente sua Política de Investimentos Sustentáveis, mantendo-\n                     a disponível para consulta pública na rede mundial de computadores, no endereço\n                     www.oliveiratrust.com.br.\n\n             2.6.1. As atividades descritas nos itens “a” e “b” do inciso (i) do item 2.6 acima podem ser\n             prestados pela Gestora e/ou pela Administradora, observada a regulamentação apl"
+        },
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": "ESSOAL SOCIAL E IS RESPONSABILIDADE LIMITADA\n\n\n             6.5. As informações periódicas e eventuais do Fundo e da Classe serão disponibilizadas no\n             site da Administradora, no endereço: www.oliveiratrust.com.br.\n\n             6.6. A Administradora preservará a correspondência devolvida ou seu registro eletrônico\n             enquanto o Cotista não efetuar o resgate ou amortização total das cotas de sua titul"
+        },
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": "igatórias para o exercício do direito de voto. A política de voto de que\n             trata este item ficará disponível para consulta pública na rede mundial de computadores, no\n             endereço www.oliveiratrust.com.br.\n\n             9.4. Fica eleito o foro da comarca da cidade de São Paulo, Estado de São Paulo, com\n             expressa renúncia a qualquer outro, por mais privilegiado que possa ser, para propositur"
+        },
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": "uitamente, exemplar deste Anexo I-A, bem como\n                     cientificá-lo de que a divulgação de informações sobre a Classe é realizada por meio do\n                     site da Administradora (www.oliveiratrust.com.br) e disponibilização no Fundos.Net;\n\n                     (iii) além de manter disponíveis em sua sede e agências e nas instituições que\n                     coloquem Cotas, divulgar anualmente na form"
+        },
+        {
+          "document_id": 769056,
+          "reference_date": "30/10/2024",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769056",
+          "source_excerpt": "CREDITÓRIOS RECEBÍVEIS COMERCIAIS\n\n\n             6.5. As informações periódicas e eventuais do Fundo e da Classe serão disponibilizadas no\n             site da Administradora, no endereço: www.oliveiratrust.com.br.\n\n             6.6. A Administradora preservará a correspondência devolvida ou seu registro eletrônico\n             enquanto o Cotista não efetuar o resgate ou amortização total das cotas de sua titul"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": "ado conforme a metodologia de avaliação descrita no manual de precificação de ativos da\n             Administradora, cujo teor está disponível na sede da Administradora e em seu website:\n             https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n             subsidiaria/.\n\n             13.3. Será constituída provisão para créditos de liquidação duvidosa referente aos Direitos\n             Creditórios e aos Ativos Financeiros a partir do cálc"
+        },
+        {
+          "document_id": 769056,
+          "reference_date": "30/10/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769056",
+          "source_excerpt": "ado conforme a metodologia de avaliação descrita no manual de precificação de ativos da\n             Administradora, cujo teor está disponível na sede da Administradora e em seu website:\n             https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n             subsidiaria/.\n\n             13.3. Será constituída provisão para créditos de liquidação duvidosa referente aos Direitos\n             Creditórios e aos Ativos Financeiros a partir do cálc"
+        },
+        {
+          "document_id": 1016671,
+          "reference_date": "03/10/2025",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016671",
+          "source_excerpt": "ado conforme a metodologia de avaliação descrita no manual de precificação de ativos da\n             Administradora, cujo teor está disponível na sede da Administradora e em seu website:\n             https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n             subsidiaria/.\n\n             13.3. Será constituída provisão para créditos de liquidação duvidosa referente aos Direitos\n             Creditórios e aos Ativos Financeiros a partir do cálc"
+        },
+        {
+          "document_id": 1093027,
+          "reference_date": "22/01/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093027",
+          "source_excerpt": "ado conforme a metodologia de avaliação descrita no manual de precificação de ativos da\n             Administradora, cujo teor está disponível na sede da Administradora e em seu website:\n             https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n             subsidiaria/.\n\n             13.3. Será constituída provisão para créditos de liquidação duvidosa referente aos Direitos\n             Creditórios e aos Ativos Financeiros a partir do cálc"
+        },
+        {
+          "document_id": 1151279,
+          "reference_date": "30/03/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151279",
+          "source_excerpt": "ado conforme a metodologia de avaliação descrita no manual de precificação de ativos da\n             Administradora, cujo teor está disponível na sede da Administradora e em seu website:\n             https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-\n             subsidiaria/.\n\n             13.3. Será constituída provisão para créditos de liquidação duvidosa referente aos Direitos\n             Creditórios e aos Ativos Financeiros a partir do cálc"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:52Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas-/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1182394,
+          "reference_date": "07/05/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+          "source_excerpt": "rão reconhecidas no resultado do período, conforme as regras\n             e procedimentos do manual de provisão de perda da Administradora, conforme disponível no\n             site da Administradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n             codigos-e-politicas-subsidiaria/.\n\n             13.4. Para efeito da determinação do valor da carteira, devem ser observadas as normas e\n             os procedimentos previstos na legisl"
+        },
+        {
+          "document_id": 769056,
+          "reference_date": "30/10/2024",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769056",
+          "source_excerpt": "rão reconhecidas no resultado do período, conforme as regras\n             e procedimentos do manual de provisão de perda da Administradora, conforme disponível no\n             site da Administradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n             codigos-e-politicas-subsidiaria/.\n\n             13.4. Para efeito da determinação do valor da carteira, devem ser observadas as normas e\n             os procedimentos previstos na legisl"
+        },
+        {
+          "document_id": 1016671,
+          "reference_date": "03/10/2025",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016671",
+          "source_excerpt": "rão reconhecidas no resultado do período, conforme as regras\n             e procedimentos do manual de provisão de perda da Administradora, conforme disponível no\n             site da Administradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n             codigos-e-politicas-subsidiaria/.\n\n             13.4. Para efeito da determinação do valor da carteira, devem ser observadas as normas e\n             os procedimentos previstos na legisl"
+        },
+        {
+          "document_id": 1093027,
+          "reference_date": "22/01/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093027",
+          "source_excerpt": "rão reconhecidas no resultado do período, conforme as regras\n             e procedimentos do manual de provisão de perda da Administradora, conforme disponível no\n             site da Administradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n             codigos-e-politicas-subsidiaria/.\n\n             13.4. Para efeito da determinação do valor da carteira, devem ser observadas as normas e\n             os procedimentos previstos na legisl"
+        },
+        {
+          "document_id": 1151279,
+          "reference_date": "30/03/2026",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151279",
+          "source_excerpt": "rão reconhecidas no resultado do período, conforme as regras\n             e procedimentos do manual de provisão de perda da Administradora, conforme disponível no\n             site da Administradora: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-\n             codigos-e-politicas-subsidiaria/.\n\n             13.4. Para efeito da determinação do valor da carteira, devem ser observadas as normas e\n             os procedimentos previstos na legisl"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:12Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

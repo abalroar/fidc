@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "cnpj": "43866348000179",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS OPEA AGRO SUMITOMO CHEMICAL RESP LIMITADA",
+  "generated_at": "2026-10-13T05:30:04Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:57:09Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "Dias Úteis,\n                           calculada e divulgada pela B3 no informativo diário\n                           disponível     em       sua página     na    Internet\n                           (http://www.b3.com.br).\n\n“Termo de Adesão”          Significa o “Termo de Ciência de Risco e Adesão ao\n                           Regulamento do FUNDO DE INVESTIMENTO EM\n                           DIREITOS CREDITÓRIOS OPEA"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "Dias Úteis,\n                           calculada e divulgada pela B3 no informativo diário\n                           disponível     em       sua página     na    Internet\n                           (http://www.b3.com.br).\n\n“Termo de Adesão”          Significa o “Termo de Ciência de Risco e Adesão ao\n                           Regulamento do FUNDO DE INVESTIMENTO EM\n                           DIREITOS CREDITÓRIOS OPEA"
+        },
+        {
+          "document_id": 501991,
+          "reference_date": "06/07/2023",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=501991",
+          "source_excerpt": "entos e cinquenta e dois) Dias Úteis,\n                                    calculada e divulgada pela B3 no informativo diário disponível em sua\n                                    página na Internet (http://www.b3.com.br).\n\n\n“Terceiros Fornecedores”            Significa os terceiros fornecedores aprovados pelo Originador e pelo\n                                    Gestor, após prévia anuência dos Cotistas, nos termos do"
+        },
+        {
+          "document_id": 366415,
+          "reference_date": "22/09/2022",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=366415",
+          "source_excerpt": "252 (duzentos e cinquenta e dois) Dias Úteis, calculada\n                                e divulgada pela B3 no informativo diário disponível em sua página na\n                                Internet (http://www.b3.com.br).\n\n\n“Terceiros Fornecedores”        Significa os terceiros fornecedores aprovados pelo Originador e pelo\n                                Gestor, após prévia anuência dos Cotistas, nos termos do Acordo"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "e avaliação de títulos e\nvalores mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\ncritério de marcação a mercado) e no manual de precificação do Administrador\ndisponível em “https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e\n(ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em\nseu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a\ntaxa interna de retorno (T"
+        },
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 105,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "e avaliação de títulos\ne valores mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\ncritério de marcação a mercado) e no manual de precificação do Administrador\ndisponível em “https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e\n(ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em\nseu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "e avaliação de títulos e\nvalores mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\ncritério de marcação a mercado) e no manual de precificação do Administrador\ndisponível em “https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e\n(ii) os direitos creditórios adquiridos serão contabilizados e registrados com base em\nseu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a\ntaxa interna de retorno (T"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 103,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "e avaliação de títulos\ne valores mobiliários, conforme estabelecido na regulamentação em vigor (tais como o\ncritério de marcação a mercado) e no manual de precificação do Administrador\ndisponível em “https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e\n(ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em\nseu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a"
+        },
+        {
+          "document_id": 501991,
+          "reference_date": "06/07/2023",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=501991",
+          "source_excerpt": "liários, conforme estabelecido na regulamentação em vigor (tais como o critério de marcação a\nmercado)       e     no     manual        de    precificação   do    Administrador      disponível    em\n“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e (ii) os Direitos Creditórios\nAdquiridos Agro serão contabilizados e registrados com base em seu Preço de Aquisição, com\napropriação de seus respectivos rendimentos, conforme a taxa interna de retor"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 50: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/Z4%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "termos estabelecidos no manual de\nprovisão para perdas por redução no valor de recuperação ou provisão para perdas\ncom               devedores             duvidosos,           disponível           em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n4.3.   As demonstrações financeiras anuais do Fundo serão elaboradas conforme\ndefinido na Instrução CVM 489/11 e os valores de cada direito creditóri"
+        },
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 106,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "os estabelecidos no manual\nde provisão para perdas por redução no valor de recuperação ou provisão para perdas\ncom              devedores             duvidosos,            disponível               em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\nCAPÍTULO OITAVO – CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO,\n             SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS\n\n8.1.      Características das"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "termos estabelecidos no manual de\nprovisão para perdas por redução no valor de recuperação ou provisão para perdas\ncom               devedores             duvidosos,           disponível           em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n4.3.   As demonstrações financeiras anuais do Fundo serão elaboradas conforme\ndefinido na Instrução CVM 489/11 e os valores de cada direito creditóri"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "os estabelecidos no manual\nde provisão para perdas por redução no valor de recuperação ou provisão para perdas\ncom              devedores             duvidosos,            disponível               em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\nCAPÍTULO OITAVO – CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO,\n             SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS\n\n8.1.      Características das"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://vortx.com.br/investidor/fundos-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "registrado na CVM. Informações sobre o Auditor Independente contratado para\nauditoria do Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas\nna página do Administrador no website “https://vortx.com.br/investidor/fundos-\ninvestimento”. Qualquer alteração na empresa de auditoria contratada será\ncomunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso,"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 37,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "registrado na CVM. Informações sobre o Auditor Independente contratado para\nauditoria do Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas\nna página do Administrador no website “https://vortx.com.br/investidor/fundos-\ninvestimento”. Qualquer alteração na empresa de auditoria contratada será\ncomunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso,"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://portal.vortx.com.br/login",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 165,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "mento de suas obrigações nos\ntermos deste Anexo Descritivo. Tais regras e procedimentos permanecerão disponíveis\ne      atualizados       para       consulta  no      website     do      Custodiante\n(https://portal.vortx.com.br/login).\n\n14.4.1.    Em adição à verificação integral dos Documentos Comprobatórios conforme\na metodologia disposta no item 5.4 acima, o Custodiante verificará ainda, de maneira\nintegral, os Direitos Creditór"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 163,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "mento de suas obrigações nos\ntermos deste Anexo Descritivo. Tais regras e procedimentos permanecerão disponíveis\ne      atualizados       para       consulta  no      website     do      Custodiante\n(https://portal.vortx.com.br/login).\n\n14.4.1.    Em adição à verificação integral dos Documentos Comprobatórios conforme\na metodologia disposta no item 5.4 acima, o Custodiante verificará ainda, de maneira\nintegral, os Direitos Creditór"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "4994",
+        "final_url": "https://portal.vortx.com.br/login",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/investidor/fundos-investimento”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 741138,
+          "reference_date": "17/09/2024",
+          "page": 173,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741138",
+          "source_excerpt": "do na\nCVM. Informações sobre o Auditor Independente contratado para auditoria do Fundo\ne das Classes encontram-se disponíveis para acesso pelos Cotistas na página do\nAdministrador    no    website   “https://vortx.com.br/investidor/fundos-investimento”.\nQualquer alteração na empresa de auditoria contratada será comunicada por meio de\ncarta simples endereçada aos Cotistas e, quando for o caso, publicada nas páginas na\nrede mundial de computadores dos"
+        },
+        {
+          "document_id": 741139,
+          "reference_date": "17/09/2024",
+          "page": 171,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=741139",
+          "source_excerpt": "do na\nCVM. Informações sobre o Auditor Independente contratado para auditoria do Fundo\ne das Classes encontram-se disponíveis para acesso pelos Cotistas na página do\nAdministrador    no    website   “https://vortx.com.br/investidor/fundos-investimento”.\nQualquer alteração na empresa de auditoria contratada será comunicada por meio de\ncarta simples endereçada aos Cotistas e, quando for o caso, publicada nas páginas na\nrede mundial de computadores dos"
+        },
+        {
+          "document_id": 501991,
+          "reference_date": "06/07/2023",
+          "page": 113,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=501991",
+          "source_excerpt": "independente registrado na CVM. Informações sobre o Auditor Independente\ncontratado para auditoria do Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\nAdministrador no website “https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na\nempresa de auditoria contratada será comunicada por meio de carta simples endereçada aos Cotistas e,\nquando for o caso, publicada nas páginas na rede mundial de computadores dos"
+        },
+        {
+          "document_id": 366415,
+          "reference_date": "22/09/2022",
+          "page": 130,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=366415",
+          "source_excerpt": "website “https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de auditoria\ncontratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso,\npublicada nas páginas na rede mundial de computadores dos"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:34Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 36: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/Z4%20-%20GERENCIAMENTO%20DE%20RISCOS%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 501991,
+          "reference_date": "06/07/2023",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=501991",
+          "source_excerpt": "https://vortx.com.br/static/assets/manuais/Z4%20-%20GERENCIAMENTO%20DE%20RISCOS%20-\n%20PDD.v6.pdf.\n\n\n\n7.2.     As demonstrações financeiras anuais do Fundo serão elaboradas conforme definido na Instrução\nCVM 489/11 e os valores de cada Direito Creditório Adquirido e Ativo Financeiro"
+        },
+        {
+          "document_id": 366415,
+          "reference_date": "22/09/2022",
+          "page": 67,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=366415",
+          "source_excerpt": "rdo com os termos estabelecidos no manual de provisão para perdas por redução no valor\nde      recuperação    ou   provisão    para   perdas         com    devedores      duvidosos,   disponível   em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-%20GERENCIAMENTO%20DE%20RISCOS%20-\n%20PDD.v6.pdf.\n\n\n7.2.      As demonstrações financeiras anuais do Fundo serão elaboradas conforme definido na Instrução\nCVM 489/11 e os valores de cada Direito Creditório Adquirido e Ativo Financeiro"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:34Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/brasil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "Os ratings atribuídos pela Fitch são revisados, pelo menos, anualmente.\n\n\nA Fitch publica a lista de conflitos de interesse reais e potenciais no Anexo X do Formulário\nde Referência, disponível em www.fitchratings.com/brasil\n\n\nPara informações sobre possíveis alterações na classificação de risco de crédito veja o item:\nSensibilidade dos Ratings."
+        },
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "inflação e taxas de juros.\n\n\nPara esclarecimentos quanto à diferenciação dos símbolos de produtos estruturados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\nwww.fitchratings.com/brasil.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com/brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviç"
+        },
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "turados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\nwww.fitchratings.com/brasil.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com/brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\nA lista"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:21Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "s símbolos de produtos estruturados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\nwww.fitchratings.com/brasil.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com/brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta"
+        },
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "+1 312 606 2375\nhebbertt.soares@fitchratings.com\n\nMEDIA CONTACTS\n\nJaqueline Carvalho\nRio de Janeiro\n+55 21 4503 2623\njaqueline.carvalho@thefitchgroup.com\n\n\nInformações adicionais estão disponíveis em www.fitchratings.com\n\nPARTICIPATION STATUS"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:22Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1804808",
+        "final_url": "https://www.fitchratings.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "ornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\nA lista de outros serviços prestados às entidades classificadas está disponível em\nhttps://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos. A\nprestação deste serviço não configura, em nossa opinião, conflito de interesses em face da\nclassificação de risco de crédito.\n\n\nA Fitch Ratings foi paga para determinar cada rating de crédito lista"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:31Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1790885",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://fitchratings.com/understandingcreditratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "os ratings de crédito da Fitch estão sujeitos a algumas limitações e termos de isenção\nde responsabilidade. Por favor, veja no link a seguir essas limitações e termos de isenção de\nresponsabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\ndefinições de cada escala e categoria de rating, incluindo definições referentes a\ninadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\ndefinições de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1797245",
+        "final_url": "https://www.fitchratings.com/products/rating-definitions",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "sabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\ndefinições de cada escala e categoria de rating, incluindo definições referentes a\ninadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\ndefinições de ratings, na seção de exigências regulatórias. Os ratings públicos, critérios e\nmetodologias publicados estão permanentemente disponíveis neste website. O código de\nconduta da Fitch e"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/regulatory",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "compliance e outras políticas e procedimentos relevantes\ntambém estão disponíveis neste website, na seção \"código de conduta\". Os interesses\nrelevantes de diretores e acionistas estão disponíveis em\nhttps://www.fitchratings.com/site/regulatory. A Fitch pode ter fornecido outro serviço\nautorizado ou complementar à entidade classificada ou a partes relacionadas. Detalhes"
+        },
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "tístico Reconhecida Nacionalmente). Algumas subsidiárias de ratings de crédito\nde NRSROs são listadas no Item 3 do NRSRO Form e, portanto, podem atribuir ratings de\ncrédito em nome da NRSRO (consulte https://www.fitchratings.com/site/regulatory), mas\noutras subsidiárias de ratings de crédito não estão listadas no NRSRO Form (as “não-\nNRSROs”). Logo, ratings de crédito destas subsidiárias não são atribuídos em nome da\nNRSRO. Porém, funcionário"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778014",
+        "final_url": "https://www.fitchratings.com/regulatory",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/re/10238496",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 556330,
+          "reference_date": "30/09/2023",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556330",
+          "source_excerpt": "ções no melhor cenário de\nelevação e de oito graduações no pior cenário de rebaixamento no 99º percentil. Os\nmelhores e piores cenários de rating específicos do setor estão listados detalhadamente em\nhttps://www.fitchratings.com/site/re/10238496\n\n\nAs informações neste relatório são fornecidas \"tais como se apresentam\", sem que\nofereçam qualquer tipo de garantia, e a Fitch não garante ou atesta que um relatório ou seu\nconteúdo atenderá qualqu"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778013",
+        "final_url": "https://www.fitchratings.com/redirect/?q=/site/re/10238496",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

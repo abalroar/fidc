@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "cnpj": "51554551000138",
+  "name": "CLASSE ÚNICA DO FIDC CRÉDITO NITRO AGRO - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:10Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:03:37Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1261911,
+          "reference_date": "18/06/2026",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+          "source_excerpt": "ano de 252 (duzentos e cinquenta e dois)\n                            Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                            disponível em sua página na Internet (http://www.b3.com.br)."
+        },
+        {
+          "document_id": 806373,
+          "reference_date": "17/12/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+          "source_excerpt": "ano de 252 (duzentos e cinquenta e dois)\n                            Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                            disponível em sua página na Internet (http://www.b3.com.br).\n\n“Termo de Adesão”           Significa o “Termo de Ciência de Risco e Adesão ao\n                            Regulamento do FUNDO DE INVESTIMENTO EM DIREITOS\n                            CREDITÓRIOS NI"
+        },
+        {
+          "document_id": 596024,
+          "reference_date": "27/12/2023",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
+          "source_excerpt": "dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                          diário    disponível     em    sua    página     na    Internet\n                          (http://www.b3.com.br).\n\n“Termo de Adesão”         Significa o “Termo de Ciência de Risco e Adesão ao\n                          Regulamento do FUNDO DE INVESTIMENTO EM DIREITOS\n                          CREDITÓRIOS CRÉDITO"
+        },
+        {
+          "document_id": 616573,
+          "reference_date": "04/03/2024",
+          "page": 28,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616573",
+          "source_excerpt": "s) Dias Úteis,\n                          calculada e divulgada pela B3 no informativo diário\n                          disponível     em       sua página     na    Internet\n                          (http://www.b3.com.br).\n\n“Termo de Adesão”         Significa o “Termo de Ciência de Risco e Adesão ao\n                          Regulamento do FUNDO DE INVESTIMENTO EM\n                          DIREITOS CREDITÓRIOS CRÉDITO"
+        },
+        {
+          "document_id": 723193,
+          "reference_date": "12/08/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723193",
+          "source_excerpt": "ano de 252 (duzentos e cinquenta e dois)\n                            Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                            disponível em sua página na Internet (http://www.b3.com.br).\n\n“Termo de Adesão”           Significa o “Termo de Ciência de Risco e Adesão ao\n                            Regulamento do FUNDO DE INVESTIMENTO EM DIREITOS\n                            CREDITÓRIOS NI"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1261911,
+          "reference_date": "18/06/2026",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+          "source_excerpt": "ários,\nconforme estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado)\ne      no      manual       de      precificação      do     Administrador      disponível     em\n“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf” e (ii) os direitos\ncreditórios adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com\napropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (T"
+        },
+        {
+          "document_id": 806373,
+          "reference_date": "17/12/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+          "source_excerpt": "ários,\nconforme estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado)\ne      no      manual       de      precificação      do     Administrador      disponível     em\n“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf” e (ii) os direitos\ncreditórios adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com\napropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (T"
+        },
+        {
+          "document_id": 616573,
+          "reference_date": "04/03/2024",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616573",
+          "source_excerpt": "“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf”; e (ii) os Direitos\nCreditórios Adquiridos Cedente serão contabilizados e registrados com base em seu\nPreço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa\ninterna de re"
+        },
+        {
+          "document_id": 723193,
+          "reference_date": "12/08/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723193",
+          "source_excerpt": "ários,\nconforme estabelecido na regulamentação em vigor (tais como o critério de marcação a mercado)\ne      no      manual       de      precificação      do     Administrador      disponível     em\n“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf” e (ii) os direitos\ncreditórios adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com\napropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (T"
+        },
+        {
+          "document_id": 756242,
+          "reference_date": "04/10/2024",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756242",
+          "source_excerpt": "e avaliação de títulos e valores\nmobiliários, conforme estabelecido na regulamentação em vigor (tais como o critério de\nmarcação a mercado) e no manual de precificação do Administrador disponível em\n“https://vortx.com.br/static/assets/manuais/A5%20-%20MAM.Cj.v2.pdf” e (ii) os direitos\ncreditórios adquiridos serão contabilizados e registrados com base em seu Preço de\nAquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna\nde retorno (T"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 50: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/Z4%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1261911,
+          "reference_date": "18/06/2026",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+          "source_excerpt": "s termos estabelecidos no manual de provisão para perdas\npor redução no valor de recuperação ou provisão para perdas com devedores duvidosos, disponível\nem                                             https://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n4.1.1. Sem prejuízo do quanto disposto na Cláusula 4.1 acima, para a provisão dos valores\nreferentes aos Direitos Creditórios Adquiridos vencidos e n"
+        },
+        {
+          "document_id": 806373,
+          "reference_date": "17/12/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+          "source_excerpt": "em                            https://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n4.1.1. Sem prejuízo do quanto disposto na Cláusula 4.1 acima, para a provisão dos valores\nreferentes aos Direitos Creditórios Adquiridos vencidos e n"
+        },
+        {
+          "document_id": 596024,
+          "reference_date": "27/12/2023",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
+          "source_excerpt": "quiridos de acordo com os termos estabelecidos no manual de provisão\npara perdas por redução no valor de recuperação ou provisão para perdas com devedores\nduvidosos,        disponível       em        https://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n7.1.1.        Sem prejuízo do quanto disposto na Cláusula 7.1 acima, para a provisão dos\nvalores referentes aos Direitos Creditórios Adquiridos venci"
+        },
+        {
+          "document_id": 616573,
+          "reference_date": "04/03/2024",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616573",
+          "source_excerpt": "mos estabelecidos no manual\nde provisão para perdas por redução no valor de recuperação ou provisão para perdas\ncom               devedores             duvidosos,             disponível            em\nhttps://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n7.1.1.       Sem prejuízo do quanto disposto na Cláusula 7.1 acima, para a provisão\ndos valores referentes aos Direitos Creditórios Adquiridos vencid"
+        },
+        {
+          "document_id": 723193,
+          "reference_date": "12/08/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723193",
+          "source_excerpt": "em                            https://vortx.com.br/static/assets/manuais/Z4%20-\n%20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n4.1.1. Sem prejuízo do quanto disposto na Cláusula 4.1 acima, para a provisão dos valores\nreferentes aos Direitos Creditórios Adquiridos vencidos e n"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://vortx.com.br/investidor/fundos-investimento”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1261911,
+          "reference_date": "18/06/2026",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+          "source_excerpt": "obre\no Auditor Independente contratado para auditoria do Fundo e das Classes encontram-se disponíveis\npara     acesso    pelos     Cotistas    na    página    do     Administrador     no     website\n“https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de auditoria\ncontratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for o\ncaso, publicada nas páginas na rede mundial de computadores dos"
+        },
+        {
+          "document_id": 1261911,
+          "reference_date": "18/06/2026",
+          "page": 159,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+          "source_excerpt": "mações\nsobre o Auditor Independente contratado para auditoria do Fundo encontram-se disponíveis para\nacesso      pelos      Cotistas     na     página      do    Administrador        no      website\n“https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de auditoria\ncontratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for o\ncaso, publicada nas páginas na rede mundial de computadores dos"
+        },
+        {
+          "document_id": 806373,
+          "reference_date": "17/12/2024",
+          "page": 51,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+          "source_excerpt": "obre\no Auditor Independente contratado para auditoria do Fundo e das Classes encontram-se disponíveis\npara     acesso    pelos     Cotistas    na    página    do     Administrador     no     website\n“https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de auditoria\ncontratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for o\ncaso, publicada nas páginas na rede mundial de computadores dos"
+        },
+        {
+          "document_id": 806373,
+          "reference_date": "17/12/2024",
+          "page": 159,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+          "source_excerpt": "mações\nsobre o Auditor Independente contratado para auditoria do Fundo encontram-se disponíveis para\nacesso      pelos      Cotistas     na     página      do    Administrador        no      website\n“https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de auditoria\ncontratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for o\ncaso, publicada nas páginas na rede mundial de computadores dos"
+        },
+        {
+          "document_id": 596024,
+          "reference_date": "27/12/2023",
+          "page": 101,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
+          "source_excerpt": "nformações sobre o\nAuditor Independente contratado para auditoria do Fundo encontram-se disponíveis para\nacesso       pelos     Cotistas     na     página      do    Administrador     no     website\n“https://vortx.com.br/investidor/fundos-investimento”. Qualquer alteração na empresa de\nauditoria contratada será comunicada por meio de carta simples endereçada aos Cotistas e,\nquando for o caso, publicada nas páginas na rede mundial de computadores dos"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:34Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 36: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/A5%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 596024,
+          "reference_date": "27/12/2023",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
+          "source_excerpt": "ulos e valores mobiliários, conforme estabelecido na regulamentação\nem vigor (tais como o critério de marcação a mercado) e no manual de precificação do\nAdministrador       disponível       em       “https://vortx.com.br/static/assets/manuais/A5%20-\n%20MAM.Cj.v2.pdf”; e (ii) os Direitos Creditórios Adquiridos Cedente serão contabilizados e\nregistrados com base em seu Preço de Aquisição, com apropriação de seus respectivos\nrendimentos, conforme a"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://vortx.com.br/investidor/fundos-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 756242,
+          "reference_date": "04/10/2024",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756242",
+          "source_excerpt": "registrado na CVM. Informações sobre o Auditor Independente contratado para\nauditoria do Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas\nna página do Administrador no website “https://vortx.com.br/investidor/fundos-\ninvestimento”. Qualquer alteração na empresa de auditoria contratada será\ncomunicada por meio de carta simples endereçada aos Cotistas e, quando for o caso,\npublicada nas páginas na rede mundial de c"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

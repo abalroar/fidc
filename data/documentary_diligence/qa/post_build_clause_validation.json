@@ -1,0 +1,14 @@
+{
+  "scope": "Every confirmed primary_passage value and current source excerpt across all generated funds; automated relevance gate, not a full legal review. OCR final four-fund rebuild pending.",
+  "validator_fingerprint": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
+  "funds_checked": 195,
+  "remaining_failures": [],
+  "criterion_statuses": {
+    "clause_not_found": 2697,
+    "confirmed": 7829,
+    "extraction_pending": 582,
+    "referenced_document_missing": 3,
+    "version_conflict": 5,
+    "not_applicable": 1
+  }
+}

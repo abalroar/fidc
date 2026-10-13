@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "cnpj": "17468142000180",
+  "name": "VALOREM FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISETORIAL RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:51Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:55:44Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1271235,
+          "reference_date": "30/07/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1271235",
+          "source_excerpt": "dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                          diário   disponível     em     sua    página     na    Internet\n                          (http://www.b3.com.br).\n\n\n“Termo de Adesão”         Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                          do VALOREM FUNDO DE INVESTIMENTO EM DIREITOS\n                          CREDITÓRIOS"
+        },
+        {
+          "document_id": 1157934,
+          "reference_date": "09/04/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157934",
+          "source_excerpt": "dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                          diário   disponível     em     sua    página     na    Internet\n                          (http://www.b3.com.br).\n\n\n“Termo de Adesão”         Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                          do VALOREM FUNDO DE INVESTIMENTO EM DIREITOS\n                          CREDITÓRIOS"
+        },
+        {
+          "document_id": 789621,
+          "reference_date": "28/11/2024",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=789621",
+          "source_excerpt": "lgada pela B3 no informativo\n                                                     diário   disponível     em     sua    página     na    Internet\n                                                     (http://www.b3.com.br).\n\n\n              “Termo de Adesão”                      Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                                     do VALOREM FUNDO DE INVESTIM"
+        },
+        {
+          "document_id": 927399,
+          "reference_date": "16/06/2025",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927399",
+          "source_excerpt": "dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                          diário   disponível     em     sua    página     na    Internet\n                          (http://www.b3.com.br).\n\n\n“Termo de Adesão”         Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                          do VALOREM FUNDO DE INVESTIMENTO EM DIREITOS\n                          CREDITÓRIOS"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 130655,
+          "reference_date": "02/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=130655",
+          "source_excerpt": "Datado de\n\n         02 de dezembro de 2020\n       ________________________\n\n\n\n\n                     -919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n             www.singulare.com.br\n\n                                                                                           6"
+        },
+        {
+          "document_id": 130655,
+          "reference_date": "02/12/2020",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=130655",
+          "source_excerpt": "........... 57\n\n\n                                                           -919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n                                                   www.singulare.com.br\n\n                                                                                                                                 7"
+        },
+        {
+          "document_id": 130655,
+          "reference_date": "02/12/2020",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=130655",
+          "source_excerpt": "......... 84\n\n\n\n\n                                                           -919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n                                                   www.singulare.com.br\n\n                                                                                                                                 8"
+        },
+        {
+          "document_id": 130655,
+          "reference_date": "02/12/2020",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=130655",
+          "source_excerpt": "CAPÍTULO II - PRAZO DE DURAÇÃO DO FUNDO\n\n\n\n                                          -919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n                                  www.singulare.com.br\n\n                                                                                                                9"
+        },
+        {
+          "document_id": 130655,
+          "reference_date": "02/12/2020",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=130655",
+          "source_excerpt": ", interesses e\n      prerrogativas dos Cotistas;\n\n\n                                          -919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n                                  www.singulare.com.br\n\n                                                                                                               10"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 177886,
+          "reference_date": "07/05/2021",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177886",
+          "source_excerpt": "a de monitoramento de ratings para esta(s) classe(s) de ativo(s) é descrita na Metodologia de Ratings de Finanças Estruturadas\nRodrigo Indiani                   disponível no site da Liberum Ratings. www.liberumratings.com.br\n\nRomulo Belmok Charbel             PROCESSO DE DILIGÊNCIA SOBRE OS ATIVOS DE FINANÇAS ESTRUTURADAS\n                                  A presente avaliação se apoiou, entre outros, no uso de bases de d"
+        },
+        {
+          "document_id": 177886,
+          "reference_date": "07/05/2021",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177886",
+          "source_excerpt": "a anual da Liberum Ratings? Não. A Liberum Ratings publica anualmente a lista\nde entidades que representam mais do que 5% do seu faturamento em seu Formulário do Anexo 13. Acesse o formulário no site www.liberumratings.com.br.\nA Liberum Ratings, seus analistas de classificação de risco de crédito ou demais pessoas envolvidas no processo de emissão de uma determinada classificação de\nrisco, seus cônjuges, dependentes ou com"
+        },
+        {
+          "document_id": 177886,
+          "reference_date": "07/05/2021",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177886",
+          "source_excerpt": "informações contidas e/ou disseminadas pelo website da Liberum Ratings.\nOs ratings e quaisquer outras opiniões emitidas pela Liberum Ratings, ou outros materiais, são disponibilizados em seu website (www.liberumratings.com.br). Tais\npublicações são meras opiniões e devem ser interpretadas como tal. De nenhum modo e sob nenhuma circunstância devem ser consideradas como fatos ou\nverdades sobre a capacidade de crédito do emiss"
+        },
+        {
+          "document_id": 177886,
+          "reference_date": "07/05/2021",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177886",
+          "source_excerpt": "classificações de risco emitidas pela Liberum Ratings podem ser alteradas, suspensas ou retiradas a qualquer momento. Os\nratings públicos emitidos pela Liberum Ratings são atualizados em seu website (www.liberumratings.com.br).\nNa maior parte dos casos, os trabalhos realizados pela Liberum Ratings são remunerados pelos emissores, estruturadores ou garantidores dos ativos avaliados.\nCopyright©2021 Liberum Ratings Serviços Fi"
+        },
+        {
+          "document_id": 230829,
+          "reference_date": "28/10/2021",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=230829",
+          "source_excerpt": "nitoramento de ratings para esta(s) classe(s) de ativo(s) é descrita na Metodologia de Ratings de Finanças Estruturadas\n                                         disponível no site da Liberum Ratings. www.liberumratings.com.br\nJoão Pedro Pereira\nJose Marcos de Oliveira Redighieri       PROCESSO DE DILIGÊNCIA SOBRE OS ATIVOS DE FINANÇAS ESTRUTURADAS\nMauricio Bassi                           A presente avaliação se apoiou, en"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 217376,
+          "reference_date": "15/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=217376",
+          "source_excerpt": "15 de setembro de 2021. Esta reunião está registrada na Ata Nº\n   20210915-7. A presente classificação está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n2. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 253837,
+          "reference_date": "17/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=253837",
+          "source_excerpt": "dezembro de 2021. Esta reunião está registrada na Ata Nº\n   20211217-7. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”,\n   disponível em: http://www.austin.com.br/escalas.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 281347,
+          "reference_date": "09/03/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=281347",
+          "source_excerpt": "09 de março de 2022. Esta reunião está registrada na Ata Nº 20220309-5. As presentes classificações estão contempladas na\n   “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em: http://www.austin.com.br/escalas.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 329203,
+          "reference_date": "13/06/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=329203",
+          "source_excerpt": "09 de março de 2022. Esta reunião está registrada na Ata Nº 20220613-1. As presentes classificações estão contempladas na\n   “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em: http://www.austin.com.br/escalas.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 360649,
+          "reference_date": "22/08/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=360649",
+          "source_excerpt": "de agosto de 2022. Esta reunião\n   está registrada na Ata Nº 20220822-4. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito\n   de Cotas de FIDCs”, disponível em: http://www.austin.com.br/escalas.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 217376,
+          "reference_date": "15/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=217376",
+          "source_excerpt": "alas.\n2. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n3. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 253837,
+          "reference_date": "17/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=253837",
+          "source_excerpt": "s.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n3. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 281347,
+          "reference_date": "09/03/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=281347",
+          "source_excerpt": "s.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n3. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 329203,
+          "reference_date": "13/06/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=329203",
+          "source_excerpt": "s.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n3. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 360649,
+          "reference_date": "22/08/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=360649",
+          "source_excerpt": "s.\n2. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n3. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 217376,
+          "reference_date": "15/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=217376",
+          "source_excerpt": "para a Ouro Preto Gestão de Recursos S/A, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating também possui rating de crédito ativo para o\n    Banco Paulista S/A, instituição financeira que possui o controle societário da Singulare Corretora de Títulos e Valores Mo"
+        },
+        {
+          "document_id": 253837,
+          "reference_date": "17/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=253837",
+          "source_excerpt": "para a Ouro Preto Gestão de Recursos S/A, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating também possui rating de crédito ativo para o\n    Banco Paulista S/A, instituição financeira que possui o controle societário da Singulare Corretora de Títulos e Valores Mo"
+        },
+        {
+          "document_id": 281347,
+          "reference_date": "09/03/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=281347",
+          "source_excerpt": "para a Ouro Preto Gestão de Recursos S/A, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating também possui rating de crédito ativo para o\n    Banco Paulista S/A, instituição financeira que possui o controle societário da Singulare Corretora de Títulos e Valores Mo"
+        },
+        {
+          "document_id": 329203,
+          "reference_date": "13/06/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=329203",
+          "source_excerpt": "para a Ouro Preto Gestão de Recursos S/A, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating também possui rating de crédito ativo para o\n    Banco Paulista S/A, instituição financeira que possui o controle societário da Singulare Corretora de Títulos e Valores Mo"
+        },
+        {
+          "document_id": 360649,
+          "reference_date": "22/08/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=360649",
+          "source_excerpt": "para a Ouro Preto Gestão de Recursos S/A, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating também possui rating de crédito ativo para o\n    Banco Paulista S/A, instituição financeira que possui o controle societário da Singulare Corretora de Títulos e Valores Mo"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}
