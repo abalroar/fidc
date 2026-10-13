@@ -14,11 +14,14 @@ page satisfy that contract. Speaker notes and their source citations are kept.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Mapping
 from hashlib import sha256
 from io import BytesIO
 import json
+from pathlib import Path
 import posixpath
 import re
+import tempfile
 from typing import Iterable
 from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile
 
@@ -47,6 +50,289 @@ _NOTES_MASTER_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.pres
 
 class PptxMergeError(ValueError):
     """Raised when PPTX packages cannot be concatenated without fidelity loss."""
+
+
+_SERIAL_TEMP_BUDGET = 512 * 1024 * 1024
+_SERIAL_XML_LIMIT = 32 * 1024 * 1024
+_SERIAL_BATCH_SLIDES = 32
+
+
+class _SerialPackage(Mapping[str, bytes]):
+    """A member index, with no cache of decompressed package contents."""
+
+    def __init__(self, archive: ZipFile):
+        self.archive = archive
+        names = archive.namelist()
+        self.names = set(names)
+        if len(names) != len(self.names):
+            raise PptxMergeError("PPTX contém partes duplicadas.")
+        if any(name.startswith("/") or posixpath.normpath(name).startswith("../") for name in names):
+            raise PptxMergeError("PPTX contém caminho de parte inválido.")
+
+    def __getitem__(self, name: str) -> bytes:
+        if name not in self.names:
+            raise KeyError(name)
+        if self.archive.getinfo(name).file_size > _SERIAL_XML_LIMIT:
+            raise PptxMergeError(f"Parte excede o limite de leitura individual: {name!r}.")
+        return self.archive.read(name)
+
+    def __iter__(self):
+        return iter(self.names)
+
+    def __len__(self):
+        return len(self.names)
+
+    def __contains__(self, name):
+        return name in self.names
+
+
+def merge_pptx_files_serial(input_paths: Iterable[str | Path], output_path: str | Path) -> Path:
+    """Merge compatible, already-sanitized batches without loading a final deck.
+
+    At most one ZIP member is copied at a time. Only presentation/content-type
+    metadata and part-name maps survive between batches; neither all package
+    XML nor a ``Presentation`` for the result is created. Slide and notes XML
+    stay byte-for-byte intact. Inputs must contain at most 32 slides each.
+    """
+    paths = tuple(Path(path).resolve() for path in input_paths)
+    output = Path(output_path).resolve()
+    if not paths or output in paths:
+        raise PptxMergeError("Informe lotes de entrada e uma saída distinta.")
+    try:
+        input_bytes = sum(path.stat().st_size for path in paths)
+    except OSError as exc:
+        raise PptxMergeError("Lote PPTX ausente ou inacessível.") from exc
+    if input_bytes >= _SERIAL_TEMP_BUDGET:
+        raise PptxMergeError("Lotes excedem o orçamento temporário de 512 MiB.")
+
+    batches = []
+    size = layout_signature = notes_signature = table_styles_signature = None
+    canonical_layout = canonical_notes = None
+    # This pass holds only a single batch's structural metadata, never slides.
+    for batch_index, path in enumerate(paths):
+        try:
+            with ZipFile(path) as archive:
+                source = _SerialPackage(archive)
+                _validate_core_parts(source, label=f"lote {batch_index + 1}")
+                slides = _presentation_slide_paths(source)
+                if len(slides) > _SERIAL_BATCH_SLIDES:
+                    raise PptxMergeError("Lote serial excede 32 slides.")
+                current_size = _slide_size(source)
+                if size is not None and current_size != size:
+                    raise PptxMergeError("Lote usa tamanho de slide diferente.")
+                size = current_size
+                layout = _find_compatible_blank_layout(source)
+                signature = _layout_chain_signature(source, layout)
+                if layout_signature is not None and signature != layout_signature:
+                    raise PptxMergeError("Lote usa layout/master/tema incompatível.")
+                layout_signature = signature
+                canonical_layout = canonical_layout or layout
+                layouts = {}
+                signatures = {layout: signature}
+                for slide in slides:
+                    slide_layout = _slide_layout_path(source, slide)
+                    if slide_layout not in signatures:
+                        signatures[slide_layout] = _layout_chain_signature(source, slide_layout)
+                    if signatures[slide_layout] != layout_signature:
+                        raise PptxMergeError("Slide usa layout/master/tema incompatível.")
+                    layouts[slide] = slide_layout
+                styles = sha256(source["ppt/tableStyles.xml"]).hexdigest() if "ppt/tableStyles.xml" in source else ""
+                if table_styles_signature is not None and styles != table_styles_signature:
+                    raise PptxMergeError("Lotes usam tableStyles incompatíveis.")
+                table_styles_signature = styles
+                types = _ContentTypes.from_files(source)
+                masters = _notes_master_paths(types)
+                for master in masters:
+                    signature = _notes_chain_signature(source, master)
+                    if notes_signature is not None and signature != notes_signature:
+                        raise PptxMergeError("Notes masters incompatíveis entre lotes.")
+                    notes_signature = signature
+                if masters and canonical_notes is None:
+                    canonical_notes = masters[0]
+                batches.append((slides, layouts, masters))
+        except (BadZipFile, OSError, etree.XMLSyntaxError) as exc:
+            raise PptxMergeError(f"Lote {batch_index + 1} não é um PPTX válido.") from exc
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=output.parent, prefix=output.name + ".", suffix=".partial", delete=False) as stream:
+            temporary = Path(stream.name)
+        with ZipFile(temporary, "w", compression=ZIP_DEFLATED) as target:
+            written: set[str] = set()
+            planned: set[str] = set()
+            with ZipFile(paths[0]) as archive:
+                first = _SerialPackage(archive)
+                content_types = _ContentTypes.from_files(first)
+                presentation = _xml(first, _PRESENTATION_PATH)
+                presentation_rels = _xml(first, _PRESENTATION_RELS_PATH)
+                app_properties = first.get("docProps/app.xml")
+                slide_ids = presentation.find(f"{{{_P_NS}}}sldIdLst")
+                if slide_ids is None:
+                    slide_ids = etree.SubElement(presentation, f"{{{_P_NS}}}sldIdLst")
+                next_id = _next_presentation_slide_id(slide_ids)
+                used_rel_ids = {node.get("Id") for node in presentation_rels}
+                next_rel = _next_relationship_number(used_rel_ids)
+                duplicate_masters = set(batches[0][2]) - {canonical_notes}
+                skipped = duplicate_masters | {_relationships_path(name) for name in duplicate_masters}
+                for name in duplicate_masters:
+                    content_types.remove_override(name)
+                used_names = first.names - skipped
+                next_slide = _next_slide_part_number(first)
+                deferred = {_CONTENT_TYPES_PATH, _PRESENTATION_PATH, _PRESENTATION_RELS_PATH, "docProps/app.xml"}
+
+                def budget():
+                    if input_bytes + target.fp.tell() > _SERIAL_TEMP_BUDGET:
+                        raise PptxMergeError("Lotes e saída excedem o orçamento temporário de 512 MiB.")
+
+                def write_bytes(name, data):
+                    if name in written:
+                        raise PptxMergeError(f"Parte duplicada na saída: {name!r}.")
+                    target.writestr(name, data)
+                    written.add(name)
+                    budget()
+
+                def copy_member(source, source_name, destination_name):
+                    if destination_name in written:
+                        raise PptxMergeError(f"Parte duplicada na saída: {destination_name!r}.")
+                    with source.archive.open(source_name) as incoming, target.open(destination_name, "w") as outgoing:
+                        for block in iter(lambda: incoming.read(1024 * 1024), b""):
+                            outgoing.write(block)
+                    written.add(destination_name)
+                    budget()
+
+                for name in archive.namelist():
+                    if name in skipped or name in deferred:
+                        continue
+                    if name.endswith(".rels") and duplicate_masters:
+                        owner = "" if name == "_rels/.rels" else posixpath.join(posixpath.dirname(posixpath.dirname(name)), posixpath.basename(name).removesuffix(".rels"))
+                        relations = _xml(first, name)
+                        for relation in relations:
+                            if str(relation.get("TargetMode") or "").lower() != "external":
+                                referred = _resolve_relationship_target(owner_part=owner, target=relation.get("Target", ""))
+                                if referred in duplicate_masters:
+                                    relation.set("Target", posixpath.relpath(canonical_notes, posixpath.dirname(owner)))
+                        write_bytes(name, _serialize_xml(relations))
+                    else:
+                        copy_member(first, name, name)
+
+            total_slides = len(batches[0][0])
+            for batch_index, path in enumerate(paths[1:], start=2):
+                with ZipFile(path) as archive:
+                    source = _SerialPackage(archive)
+                    source_types = _ContentTypes.from_files(source)
+                    slides, layouts, masters = batches[batch_index - 1]
+                    mapping = {layout: canonical_layout for layout in layouts.values()}
+                    mapping.update({master: canonical_notes for master in masters})
+                    for slide in slides:
+                        mapping[slide] = f"ppt/slides/slide{next_slide}.xml"
+                        used_names.add(mapping[slide]); next_slide += 1
+
+                    def copy_part(part, destination):
+                        if destination in written or destination in planned:
+                            return
+                        if part not in source:
+                            raise PptxMergeError(f"Parte relacionada ausente: {part!r}.")
+                        planned.add(destination)
+                        used_names.add(destination)
+                        content_types.add_override(destination, source_types.content_type_for(part))
+                        rels_path = _relationships_path(part)
+                        rewritten = None
+                        if rels_path in source:
+                            rewritten = _xml(source, rels_path)
+                            for relation in rewritten:
+                                if str(relation.get("TargetMode") or "").lower() == "external":
+                                    continue
+                                referred = _resolve_relationship_target(owner_part=part, target=relation.get("Target", ""))
+                                if referred not in source:
+                                    raise PptxMergeError(f"Parte relacionada ausente: {referred!r}.")
+                                mapped = mapping.get(referred)
+                                if not mapped:
+                                    mapped = _allocate_part_name(referred, used_names, deck_index=batch_index)
+                                    mapping[referred] = mapped
+                                # Preallocated slide targets include notes backlinks
+                                # and internal hyperlinks to a later slide.
+                                if referred not in slides:
+                                    copy_part(referred, mapped)
+                                relation.set("Target", posixpath.relpath(mapped, posixpath.dirname(destination)))
+                        copy_member(source, part, destination)
+                        if rewritten is not None:
+                            write_bytes(_relationships_path(destination), _serialize_xml(rewritten))
+
+                    for slide in slides:
+                        destination = mapping[slide]
+                        copy_part(slide, destination)
+                        rel_id = _allocate_relationship_id(used_rel_ids, start=next_rel)
+                        next_rel = int(rel_id.removeprefix("rId")) + 1
+                        relation = etree.SubElement(presentation_rels, f"{{{_REL_NS}}}Relationship", Id=rel_id, Type=_SLIDE_REL_TYPE, Target=posixpath.relpath(destination, "ppt"))
+                        slide_id = etree.SubElement(slide_ids, f"{{{_P_NS}}}sldId", id=str(next_id))
+                        slide_id.set(f"{{{_R_NS}}}id", rel_id)
+                        next_id += 1; total_slides += 1
+
+            if canonical_notes:
+                for node in list(presentation_rels):
+                    if node.get("Type") == _NOTES_MASTER_REL_TYPE:
+                        presentation_rels.remove(node)
+                rel_id = _allocate_relationship_id(used_rel_ids, start=next_rel)
+                etree.SubElement(presentation_rels, f"{{{_REL_NS}}}Relationship", Id=rel_id, Type=_NOTES_MASTER_REL_TYPE, Target=posixpath.relpath(canonical_notes, "ppt"))
+                notes_ids = presentation.find(f"{{{_P_NS}}}notesMasterIdLst")
+                if notes_ids is None:
+                    notes_ids = etree.Element(f"{{{_P_NS}}}notesMasterIdLst")
+                    masters = presentation.find(f"{{{_P_NS}}}sldMasterIdLst")
+                    presentation.insert(presentation.index(masters) + 1 if masters is not None else 0, notes_ids)
+                notes_ids.clear()
+                node = etree.SubElement(notes_ids, f"{{{_P_NS}}}notesMasterId")
+                node.set(f"{{{_R_NS}}}id", rel_id)
+            if app_properties:
+                app = etree.fromstring(app_properties)
+                namespace = "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+                for label, count in (("Slides", total_slides), ("Notes", sum(name.startswith("ppt/notesSlides/") and name.endswith(".xml") for name in written))):
+                    node = app.find(f"{{{namespace}}}{label}")
+                    if node is not None:
+                        node.text = str(count)
+                write_bytes("docProps/app.xml", _serialize_xml(app))
+            write_bytes(_PRESENTATION_PATH, _serialize_xml(presentation))
+            write_bytes(_PRESENTATION_RELS_PATH, _serialize_xml(presentation_rels))
+            write_bytes(_CONTENT_TYPES_PATH, content_types.to_bytes())
+        if input_bytes + temporary.stat().st_size > _SERIAL_TEMP_BUDGET:
+            raise PptxMergeError("Lotes e saída excedem o orçamento temporário de 512 MiB.")
+        _validate_serial_package(temporary)
+        temporary.replace(output)
+        return output
+    except (BadZipFile, OSError, etree.XMLSyntaxError) as exc:
+        raise PptxMergeError("Falha ao reunir os lotes PPTX por arquivos.") from exc
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
+
+
+def _validate_serial_package(path: Path) -> None:
+    """Validate CRCs, XML and OPC targets one member at a time, no final DOM."""
+    with ZipFile(path) as archive:
+        package = _SerialPackage(archive)
+        _validate_core_parts(package, label="saída serial")
+        for name in archive.namelist():
+            if name.endswith((".xml", ".rels")):
+                root = _xml(package, name)
+                if name.endswith(".rels"):
+                    owner = "" if name == "_rels/.rels" else posixpath.join(posixpath.dirname(posixpath.dirname(name)), posixpath.basename(name).removesuffix(".rels"))
+                    ids = set()
+                    for relation in root:
+                        identifier = relation.get("Id")
+                        if not identifier or identifier in ids:
+                            raise PptxMergeError("ID de relacionamento ausente ou duplicado.")
+                        ids.add(identifier)
+                        if str(relation.get("TargetMode") or "").lower() != "external":
+                            target = _resolve_relationship_target(owner_part=owner, target=relation.get("Target", ""))
+                            if target not in package:
+                                raise PptxMergeError(f"Relacionamento sem parte de destino: {target!r}.")
+            else:
+                with archive.open(name) as stream:
+                    for _block in iter(lambda: stream.read(1024 * 1024), b""):
+                        pass
+        types = _ContentTypes.from_files(package)
+        if any(part.lstrip("/") not in package for part in types.overrides):
+            raise PptxMergeError("Tipo de conteúdo aponta para parte ausente.")
 
 
 @dataclass

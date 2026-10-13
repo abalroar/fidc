@@ -15,6 +15,7 @@ import pytest
 
 from services.deep_dive_models import DeepDiveManifest
 from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
+from services import deep_dive_ppt_export as documentary_export
 from services.document_curation_comparison import DocumentComparisonPage
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature
 from services.pptx_merge import merge_pptx_bytes
@@ -96,6 +97,114 @@ def test_document_comparison_paginates_all_funds_and_rows() -> None:
             for col in range(1, len(table.columns)):
                 observed.add(table.cell(row, col).text)
     assert observed == {f"Valor {fund}-{row}" for fund in range(7) for row in range(45)}
+
+
+def test_documentary_notes_follow_exact_four_fund_segments_without_source_loss() -> None:
+    records = [{"cnpj": f"{index:014d}", "name": f"Razão social {index}", "short_name": f"Fundo {index}"} for index in range(1, 9)]
+    manifest = replace(_manifest(), funds=tuple(records))
+    frame = pd.DataFrame({"Critério": ["Alocação"]})
+    sources = []
+    for fund in records:
+        frame[f"{fund['short_name']} · {fund['cnpj']}"] = [f"Piso específico {fund['cnpj']}"]
+        sources.extend((f"CNPJ {fund['cnpj']} · Regulamento · cláusula 4.1 · https://example.org/{fund['cnpj']}",
+                        f"CNPJ {fund['cnpj']} · Excerto integral exclusivo do fundo {fund['cnpj']}"))
+    common = "Fonte comum: definição do perímetro na Resolução CVM 175."
+    page = DocumentComparisonPage("Comparativo", frame, sources=tuple([*sources, common]), preserve_typed_statuses=True)
+    underlying = "41970012000126"
+    link = f"Vínculo: Fundo 1 · CNPJ {records[0]['cnpj']} → CNPJ {underlying} · posição auditada"
+    lookthrough = DocumentComparisonPage("Fundo 1 · classe investida", pd.DataFrame({"Critério": ["Natureza"], f"Mercado Crédito II · {underlying}": ["CCBs de crédito pessoal"]}), sources=(link, f"CNPJ {underlying} · Regulamento investido · cláusula 5.1"))
+    presentation = Presentation(BytesIO(build_document_comparison_pptx_bytes(manifest, [page, lookthrough], portfolio_mode=True)))
+    assert len(presentation.slides) == 3
+    seen = set()
+    for slide in list(presentation.slides)[:2]:
+        table = next(shape.table for shape in slide.shapes if shape.has_table)
+        headers = [table.cell(0, index).text.replace("\n", " ") for index in range(1, len(table.columns))]
+        visible = {fund["cnpj"] for fund in records if any(fund["cnpj"] in label for label in headers)}
+        assert len(visible) == 4
+        notes = slide.notes_slide.notes_text_frame.text
+        assert common in notes
+        for fund in records:
+            cnpj = fund["cnpj"]
+            if cnpj in visible:
+                seen.add(cnpj)
+                assert all(source in notes for source in sources if source.startswith(f"CNPJ {cnpj} ·"))
+                assert fund["name"] in notes
+                assert f"Piso específico {cnpj}" in " ".join(table.cell(1, column).text.replace("\n", " ") for column in range(1, len(table.columns)))
+            else:
+                assert cnpj not in notes
+                assert fund["name"] not in notes
+    assert seen == {fund["cnpj"] for fund in records}
+    own_notes = presentation.slides[2].notes_slide.notes_text_frame.text
+    assert link in own_notes and f"CNPJ {underlying} · Regulamento investido" in own_notes
+    assert underlying in own_notes
+    assert records[-1]["cnpj"] not in own_notes
+
+
+def test_ambiguous_legacy_columns_keep_unassigned_references():
+    page = DocumentComparisonPage("Legado", pd.DataFrame({"Critério": ["Limite"], "Alias sem cadastro": ["50%"]}),
+                                  sources=("CNPJ 57532556000146 · referência sem correspondência de coluna", "Fonte comum sem CNPJ"))
+    presentation = Presentation(BytesIO(build_document_comparison_pptx_bytes(_manifest(), [page], portfolio_mode=True)))
+    notes = presentation.slides[0].notes_slide.notes_text_frame.text
+    assert all(source in notes for source in page.sources)
+
+
+def test_source_notes_follow_visible_criterion_rows_and_their_continuations():
+    cnpj = "57532556000146"
+    first = f"CNPJ {cnpj} · Natureza · Excerto integral da cláusula de natureza"
+    second = f"CNPJ {cnpj} · Subordinação · Excerto integral da cláusula de subordinação"
+    common = "Fonte comum sem identificação de critério"
+    untyped = f"CNPJ {cnpj} · Regulamento consolidado sem rótulo de critério · cláusula 2.1"
+    relation = "Vínculo: origem CNPJ 12345678000199 → CNPJ 57532556000146 · fonte histórica"
+    frame = pd.DataFrame({"Critério": ["Natureza", "Subordinação"], f"FIDC Auto I · {cnpj}": ["origem do crédito " * 650, "proteção por subordinação " * 650]})
+    page = DocumentComparisonPage("Regras", frame, sources=(first, second, common, untyped, relation), preserve_typed_statuses=True)
+    presentation = Presentation(BytesIO(build_document_comparison_pptx_bytes(_manifest(), [page], portfolio_mode=True)))
+    assert len(presentation.slides) > 3
+    seen = set()
+    continuation_seen = False
+    for slide in presentation.slides:
+        table = next(shape.table for shape in slide.shapes if shape.has_table)
+        labels = [table.cell(row, 0).text.replace("\n", " ") for row in range(1, len(table.rows))]
+        visible = {label.removesuffix(" (continuação)") for label in labels}
+        notes = slide.notes_slide.notes_text_frame.text
+        if "Natureza" in visible:
+            assert first in notes
+            seen.add(first)
+        else:
+            assert first not in notes
+        if "Subordinação" in visible:
+            assert second in notes
+            seen.add(second)
+        else:
+            assert second not in notes
+        assert all(reference in notes for reference in (common, untyped, relation))
+        continuation_seen |= any("(continuação)" in label for label in labels)
+    assert seen == {first, second}
+    assert continuation_seen
+
+
+def test_file_batches_keep_global_order_native_cells_notes_and_footers():
+    records = [{"cnpj": f"{index:014d}", "name": f"Fundo legal {index}", "short_name": f"Fundo {index}"} for index in range(1, 9)]
+    manifest = replace(_manifest(), funds=tuple(records))
+    frame = pd.DataFrame({"Critério": ["Natureza"]})
+    sources = []
+    for fund in records:
+        frame[f"{fund['short_name']} · {fund['cnpj']}"] = [f"Crédito do fundo {fund['cnpj']}"]
+        sources.append(f"CNPJ {fund['cnpj']} · Natureza · Documento completo {fund['cnpj']} · cláusula 1.1")
+    pages = [DocumentComparisonPage("Comparação", frame, sources=tuple(sources), preserve_typed_statuses=True),
+             DocumentComparisonPage("Classe investida", pd.DataFrame({"Critério": ["Lastro"], "MCII · 41970012000126": ["CCBs"]}), sources=("Vínculo: origem documentada → CNPJ41970012000126", "CNPJ 41970012000126 · Lastro · regulamento específico"))]
+    expected = Presentation(BytesIO(build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True)))
+    with patch.object(documentary_export, "_DOCUMENT_SLIDE_BATCH_SIZE", 2):
+        actual = Presentation(BytesIO(build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True)))
+    assert len(actual.slides) == len(expected.slides) == 3
+    for index, (before, after) in enumerate(zip(expected.slides, actual.slides), start=1):
+        before_text = [shape.text for shape in before.shapes if shape.has_text_frame]
+        after_text = [shape.text for shape in after.shapes if shape.has_text_frame]
+        assert after_text == before_text
+        assert f"{index}/3" in after_text
+        before_table = next(shape.table for shape in before.shapes if shape.has_table)
+        after_table = next(shape.table for shape in after.shapes if shape.has_table)
+        assert [[cell.text for cell in row.cells] for row in after_table.rows] == [[cell.text for cell in row.cells] for row in before_table.rows]
+        assert after.notes_slide.notes_text_frame.text == before.notes_slide.notes_text_frame.text
 
 
 def test_document_comparison_retains_long_payment_schedule_without_overflow() -> None:
