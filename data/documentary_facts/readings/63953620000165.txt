@@ -1,0 +1,46 @@
+# MT Global — Classe Consignado Privado
+type: Consignado privado
+q1: D1 "serão descontados pela Dataprev da remuneração do Devedor"
+q2: D1 "equivalente ao prazo máximo permitido pelas leis"
+q3: D1 "o Patrimônio Líquido diário da Classe for inferior a R$ 1.000.000,00"
+q4: D1 "0,05% (cinco centésimos por cento) ao ano, apropriada diariamente"
+q5: D1 "FIPE. 0,05% (cinco centésimos por cento) ao ano"
+q6: D1 "positiva do CDI acrescida de 1,50%"
+q7: D1 "BTG Pactual Serviços Financeiros S.A."
+q8: D1 "Banco BTG Pactual S.A."
+q9: D1 "A Classe contratou a Tudo Serviços S.A."
+receivables: CCB de consignado privado (CLT), averbada na Dataprev | c4,c2
+originator: Parati CFI, via Plataforma MT | c4,c8
+assignor: Parati CFI (endossante) | c8
+debtor: Trabalhador com desconto em folha via Dataprev | q1
+recourse: Sem coobrigação, salvo má-fé, culpa ou dolo | c11
+eligibility: TVM só por subscrição primária, em reais | c68
+debtor_limit: R$ 150 mil | c16
+assignor_limit: Endossante único (Parati) | c8
+term_max: Até o prazo legal máximo da CCB | q2
+allocation: ≥ 50% do PL (67% para fins tributários) | c22 | value=50
+quota_structure: Sênior / Subordinada | c25,c26
+sub_senior: 1% · subord./PL | c30 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária; 10 DU fora do índice gera avaliação | c30,c32
+reserve: R$ 150 mi de capital sênior até o fim do investimento | c33
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | c36
+eval_triggers: Índice fora por 10 DU; falhas do endossante sem cura em 10 DU | c32
+liquidation: PL < R$ 1 mi por 90 dias; sem caixa para encargos; CVM/AGC | q3
+revolving: Investimento até 29/06/2031 | c43
+amortization: Regime de caixa e extraordinária; júnior acima do alvo de 10% | c48,c29
+admin_fee: 0,05% a.a.; mín. R$ 2,5 mil/mês (IGP-M) | q4,c49
+mgmt_fee: 0,05% a.a.; mín. R$ 2,5 mil/mês (IGP-M) | q5,c51
+perf_fee: Não prevista | Anexo: não será devida taxa de performance
+target_senior: CDI + 1,5% a.a. na parcela em consignado; CDI no restante | q6
+target_mezz: — | Sem cota mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | q7
+manager: n/d | Gestor não identificado no anexo da classe; a parte geral do fundo não está no acervo local
+custodian: Banco BTG Pactual | q8
+servicer: Tudo Serviços (retenção e cobrança) | q9
+investors: Profissionais | c63
+duration: n/d | Quadro de características com texto ilegível na extração do PDF
+payroll: Convênio do endossante com a Dataprev | c65
+age_limit: ≤ 64 anos, 11 meses e 29 dias na emissão | c68
+installment_min: Não prevista | Anexo não fixa parcela mínima
+leitura: Consignado CLT da Parati com colchão mínimo de 1% e reserva de R$ 150 mi de capital sênior.

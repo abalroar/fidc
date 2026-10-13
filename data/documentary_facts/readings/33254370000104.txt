@@ -1,0 +1,34 @@
+# Mercado Crédito (0)
+type: Crédito pessoal
+receivables: CCB de crédito parcelado, CCB Veículo (alienação fiduciária) e recebíveis PPV | o12,c83,c5
+originator: IFs parceiras (CCB) e lojistas cedentes (PPV), via Mercado Pago | c6,c5
+assignor: IFs parceiras e lojistas da plataforma Mercado Pago | c6,c5
+debtor: Tomadores de CCB e compradores na plataforma (PPV) | c6,c5
+recourse: Sem regresso contra cedentes, salvo culpa ou dolo | o11
+eligibility: CCB Veículo ≤ 60 meses e demais ≤ 25 meses; PPV de cedentes cadastrados | o12
+debtor_limit: Sem limite por emissor (dispensa regulatória) | c25
+assignor_limit: Sem limite por emissor (dispensa regulatória) | c25
+term_max: 60 meses (veículos); 25 meses (demais CCBs) | o12
+allocation: ≥ 50% do PL (67% para fins tributários) | o23,c25 | value=50
+quota_structure: Sênior / Mezanino / Júnior | c30,c35
+sub_senior: 25% · subord./PL; 30% ou 35% se o excesso de retorno cair | c34,o32 | basis=mez+jr/PL | value=25
+sub_mezz: n/d | Índice júnior medido sobre mezanino + júnior; mínimo não localizado no regulamento
+sub_check: A cada data de cálculo; júnior pode aportar para reenquadrar | c34,c39
+reserve: Reserva de remuneração sênior: próximas 3 datas de pagamento | o40
+pdd: Manual de PDD da administradora | c43
+eval_triggers: Alocação < 67% por 30 dias; excesso de spread < 0,01% acelera a sênior | c43,o46
+liquidation: Prestador sem substituto em 180 dias, entre outros | c22
+revolving: n/d | Regra de reinvestimento não localizada no regulamento
+amortization: Sênior conforme apêndice; mezanino pro rata se o índice for mantido | c57
+admin_fee: 0,07% a.a. do PL; mín. R$ 15 mil/mês | o58
+mgmt_fee: 0,20% a.a. até R$ 2,1 bi de PL agregado; menor acima | o62
+perf_fee: Não prevista | Regulamento: não serão cobradas taxas de performance
+target_senior: n/d | Meta definida em cada suplemento, não localizado com a taxa | why=DI + 3,00% da leitura anterior não tem fonte localizável no acervo
+target_mezz: n/d | Suplementos das cotas mezanino não localizados | why=A leitura anterior trata da cota sênior, não da mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | c72
+manager: Polígono Capital | c74
+custodian: Banco BTG Pactual | c76
+servicer: Mercado Pago (cobrança e recebimento) | c77,c78
+investors: Profissionais | c80
+duration: n/d | Prazo do fundo não localizado no texto; séries têm datas próprias | why=A leitura anterior trata do calendário de uma série sênior, sem fonte localizável
+leitura: Crédito pessoal, veículos e PPV do Mercado Pago com subordinação de 25% do PL, subindo a 30% ou 35%.

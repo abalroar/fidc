@@ -28,7 +28,7 @@ def test_portfolio_documentary_export_is_deferred_and_matches_compact_page_conte
         build.assert_not_called()
         rendered = "\n".join(call.args[0] for call in markup.call_args_list)
         assert "Todos os fundos" in rendered and "≤ 80%" in rendered
-        assert "document-comparison--portfolio" in rendered
+        assert "document-comparison--portfolio" not in rendered and "#ff6200" in rendered
         assert any(call.args[0] == "Leitura parcial preservada." for call in captions.call_args_list)
         assert download.call_args.kwargs["data"]() == b"native-pptx"
     build.assert_called_once_with(manifest, [page], portfolio_mode=True, compact=True)

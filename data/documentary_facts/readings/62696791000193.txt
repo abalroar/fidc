@@ -1,0 +1,42 @@
+# BTG Pactual Ceres Confina FIAGRO
+type: Agro/FIAGRO
+q1: D1 "a subclasse mezanino (“Subclasse Mezanino” e “Cotas Mezanino”)"
+q2: D1 "poderão ser destinados à aquisição pela Classe de novos"
+q3: D1 "Taxa de Administração 0,10% (um décimo por cento) ao ano com um mínimo mensal de R$ 10.000,00"
+q4: D1 "BTG Pactual Serviços Financeiros S.A. Distribuidora"
+q5: D1 "BTG Pactual Asset Management S.A."
+q6: D1 "Banco BTG Pactual S.A."
+receivables: Títulos de crédito e direitos da cadeia do agronegócio | c2
+originator: Não nomeado no regulamento | c7
+assignor: Não nomeado no regulamento (múltiplos cedentes) | c7
+debtor: Pessoas físicas e jurídicas da cadeia do agronegócio | c2
+recourse: Não prevista | Coobrigação definida em cada contrato de cessão, sem regra no regulamento
+eligibility: Em reais e registráveis; verificação por amostragem | c12
+debtor_limit: Sem limite por devedor | c13
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Não previsto | Regulamento não fixa prazo máximo dos créditos
+allocation: ≥ 51% do PL em direitos do agronegócio | c21 | value=51
+quota_structure: Sênior / Mezanino / Subordinada | q1
+sub_senior: 5% · (mez.+jr.)/PL | c27 | basis=mez+jr/PL
+sub_mezz: n/d | Apêndice da cota mezanino não está no acervo local
+sub_check: Apuração diária pelo administrador | c27
+reserve: Despesas estimadas para 6 meses | c30
+pdd: n/d | Critério de provisão não localizado no regulamento
+eval_triggers: n/d | Regulamento cita eventos de avaliação, mas não os define; anexo não está no acervo
+liquidation: Só por AGC ou fim do prazo da classe | c35
+revolving: Recebimentos podem comprar novos créditos, a critério do gestor | q2
+amortization: Sênior: benchmark semestral (jan/jul); júnior até CDI + 4,5% | c29,c39
+admin_fee: 0,10% a.a.; mín. R$ 10 mil/mês (IGP-M) | q3,c41
+mgmt_fee: 0% a.a. | c43
+perf_fee: Não prevista | Regulamento: não será devida taxa de performance
+target_senior: CDI + 4,5% a.a. (teto) | c47
+target_mezz: n/d | Apêndice da cota mezanino não está no acervo local
+administrator: BTG Pactual Serviços Financeiros DTVM | q4
+manager: BTG Pactual Asset Management, com cogestora | q5
+custodian: Banco BTG Pactual | q6
+servicer: Não nomeado no regulamento | c53
+investors: Profissionais | c56
+duration: Indeterminado | c57
+agro_backing: Títulos e direitos do agronegócio; cotas de outros FIAGRO | c2,c20
+collateral: Com ou sem garantias reais ou pessoais | c60
+leitura: FIAGRO multicedente sem limite por devedor; colchão de 5% (mez.+jr.) sob sênior a CDI + 4,5%.

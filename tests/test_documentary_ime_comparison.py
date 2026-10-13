@@ -193,18 +193,14 @@ def test_semantic_nonapplicable_subordination_stays_nonapplicable():
     assert "não aplicável" in observe(data)["reason"]
 
 
-def test_v2_documentary_export_keeps_all_new_pages(monkeypatch):
-    from tabs import portfolio_page
-    from services import documentary_diligence, documentary_ime_comparison, deep_dive_ppt_export
+def test_documentary_export_uses_reviewed_facts_pages(monkeypatch):
+    from tabs import portfolio_page, documentary_facts_view
+    from services import documentary_facts, deep_dive_ppt_export
     p = SimpleNamespace(id="new", name="Cesta", funds=[SimpleNamespace(cnpj=CNPJ)])
-    data = fund()
-    data["name"] = "MT Consignado"
     pages = (SimpleNamespace(title="Regra 1"), SimpleNamespace(title="Regra 2"))
-    monkeypatch.setattr(documentary_diligence, "has_documentary_diligence", lambda p: True)
-    monkeypatch.setattr(documentary_diligence, "load_documentary_portfolio", lambda p: [data])
-    monkeypatch.setattr(documentary_diligence, "build_documentary_comparison_pages", lambda *args: list(pages))
-    monkeypatch.setattr(documentary_ime_comparison, "resolve_documentary_reference", lambda *args, **kwargs: {"competence": "02/2026", "common_competences": ["02/2026"], "warnings": []})
-    monkeypatch.setattr(documentary_ime_comparison, "build_documentary_observations", lambda *args, **kwargs: [observe()])
+    manifest = SimpleNamespace(deep_dive_id="documentary_facts_new")
+    monkeypatch.setattr(documentary_facts, "portfolio_ready", lambda p: True)
+    monkeypatch.setattr(documentary_facts_view, "facts_comparison_content", lambda p: (manifest, list(pages)))
     calls = []
     def export(manifest, content, **kwargs):
         calls.append((manifest, content, kwargs))

@@ -1,0 +1,41 @@
+# IS Green Solfácil VI
+type: Energia solar
+q1: D1 "11.1 Os patamares de risco aplicáveis ao Fundo serão conforme tabela abaixo"
+q2: D1 "LIMINE TRUST DISTRIBUIDORA"
+q3: D1 "A gestão da carteira do Fundo é realizada por RÉGIA CAPITAL"
+q4: D1 "Promessa de Cessão de Direitos Creditórios Sem Coobrigação"
+q5: D1 "a Classe Única é destinada a Investidores Qualificados"
+q6: D1 "executar a respectiva Alienação Fiduciária de Equipamentos"
+receivables: CCB de financiamento de sistemas solares (PF e PJ) | c6,o17
+originator: Solfácil, por sua plataforma digital | c6
+assignor: Credor original, IFs parceiras ou fundos com originação Solfácil | c9
+debtor: Pessoas físicas e jurídicas que financiam sistemas solares | c22
+recourse: Sem coobrigação do cedente (contrato de cessão) | q4
+eligibility: Integrador não bloqueado; CCB ≤ 126 meses, carência ≤ 185 dias | o17,o24
+debtor_limit: R$ 350 mil (PF) e R$ 700 mil (PJ) por CCB; 20% do PL por devedor | o23,c21
+assignor_limit: Não previsto | Cedentes ligados à originação Solfácil; sem limite por cedente no regulamento
+term_max: 126 meses; carência ≤ 185 dias | o24
+allocation: ≥ 50% do PL (67% para fins tributários) | c29,c28 | value=50
+quota_structure: Sênior / Mez. A / Mez. B / Júnior (Solfácil) | o30,c36
+sub_senior: Cobertura sênior ≥ 133,3% (desalavancagem 1) ou 130,7% (nível 2) | q1 | basis=cobertura | value=133.3
+sub_mezz: Mez. A ≥ 5% · Mez. B ≥ 2,5% · Júnior ≥ 2% do PL | o30,c36
+sub_check: Verificação pela gestora; rompimento leva ao regime sequencial | c57
+reserve: Despesas de 3 meses e reserva de MTM do hedge | o40
+pdd: Manual da administradora, com regras do anexo da classe | c3
+eval_triggers: Atraso 90 > 15% desalavanca; rolagem 90 > 1,6% gera avaliação | q1,o46
+liquidation: n/d | Eventos de liquidação definidos no anexo descritivo; lista não localizada no texto extraído | why=A leitura anterior trata de gatilhos de desalavancagem, registrados nas linhas de cobertura e gatilhos
+revolving: n/d | Período de aquisição definido por regime e série; não localizado no texto extraído | why=A leitura anterior não indica período nem fonte localizável
+amortization: Pró-rata por metas; sequencial após desalavancagem | o55,c57
+admin_fee: 0,10% a.a. do PL; mín. R$ 10.833,33/mês | o59
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 18,5 mil/mês | o62
+perf_fee: Não prevista | Regulamento: não serão cobradas taxas de performance
+target_senior: n/d | Meta de cada série definida no suplemento, não localizado no acervo
+target_mezz: n/d | Meta de cada subclasse definida no suplemento, não localizado no acervo
+administrator: Limine Trust DTVM | q2
+manager: Régia Capital | q3
+custodian: n/d | Custodiante definido no anexo de definições da classe; nome não localizado no texto extraído
+servicer: Solfácil (cobrança extraordinária) | c77
+investors: Qualificados | q5
+duration: Prazo por série sênior e por subclasse mezanino | c82
+real_collateral: Alienação fiduciária dos equipamentos; desligamento remoto | q6
+leitura: Solar da Solfácil com cobertura sênior mínima de 133,3% e desalavancagem se o atraso 90 passar de 15%.

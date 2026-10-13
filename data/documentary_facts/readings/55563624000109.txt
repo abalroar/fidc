@@ -1,0 +1,43 @@
+# PLGN Marketplace FIC-FIDC
+type: FIC
+q1: D1 "cotas subordinadas mezanino de emissão da classe única do MERCADO CRÉDITO II"
+q2: D1 "11.1 As seguintes hipóteses são consideradas Eventos de Avaliação"
+q3: D1 "11.3 As seguintes hipóteses são consideradas Eventos de Liquidação"
+q4: D1 "Subclasse A encerra em 19 de junho de 2026"
+q5: D1 "acrescida de até 0,10%"
+q6: D1 "Subclasse B encerra em 19 de junho de 2028"
+receivables: Cotas mezanino do Mercado Crédito II (crédito do Mercado Pago) | q1,c3
+originator: Mercado Pago, na classe investida | c3
+assignor: — | FIC: cessão ocorre na classe investida (ver Mercado Crédito II)
+debtor: — | FIC: devedores finais estão na classe investida (ver Mercado Crédito II)
+recourse: — | FIC: não adquire direitos creditórios diretamente
+eligibility: Só cotas da classe investida e ativos de liquidez | c3,c66
+debtor_limit: — | FIC: limite por devedor se aplica na classe investida
+assignor_limit: — | FIC: limite por cedente se aplica na classe investida
+term_max: — | FIC: prazo dos créditos definido na classe investida
+allocation: ≥ 67% do PL em cotas da investida | c19 | value=67
+quota_structure: Subclasses A/B/C, só diferem no prazo | o21
+sub_senior: — | Subclasses sem subordinação entre si; a exposição é à cota mezanino da investida
+sub_mezz: — | Sem cota mezanino própria
+sub_check: — | Sem índice de subordinação próprio
+reserve: Despesas estimadas para 3 meses | c28
+pdd: Política de PDD do administrador (ICVM 489) sobre as cotas | c30
+eval_triggers: Prestador sem cura em 5 DU; compra inelegível não revertida em 30 dias | q2
+liquidation: Prestador sem substituto; decisão da CVM ou da AGC | q3
+revolving: Sem revolvência: recebimentos vão para amortização | c38
+amortization: Por decisão do gestor; subclasse A vence em 19/06/2026 | c38,q4
+admin_fee: Mín. R$ 10 mil/mês (IGP-M); teto + 0,10% a.a. sobre a investida | o43,q5
+mgmt_fee: 0,50% a.a.; mín. R$ 40 mil/mês (IPCA) + taxa por chamada | o46
+perf_fee: Não prevista | Regulamento cita taxa de performance apenas "se houver"; nenhuma fixada
+target_senior: — | Sem benchmark: resultado das cotas investidas
+target_mezz: — | Sem cota mezanino própria
+administrator: BTG Pactual Serviços Financeiros DTVM | c54
+manager: Polígono Capital | c55
+custodian: Banco BTG Pactual | c56
+servicer: — | FIC: cobrança ocorre na classe investida
+investors: Profissionais | c61
+duration: Indeterminado; subclasses vencem de 2026 a 2028 | c63,q4,q6
+investee: Mercado Crédito II Brasil FIDC NP (cota mezanino) | q1
+investee_share: ≥ 67% do PL (até 100%) | c19
+lookthrough: 41970012000126 | Mezanino | ≥ 67% do PL
+leitura: FIC concentrado na cota mezanino do Mercado Crédito II (Mercado Pago); risco depende da investida.

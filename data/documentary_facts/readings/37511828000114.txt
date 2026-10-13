@@ -1,0 +1,37 @@
+# Mercado Crédito I Brasil
+type: Crédito pessoal
+q1: D1 "equivalente a, no mínimo, 10% (dez por cento), observado que"
+q2: D1 "nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes"
+q3: D1 "13.2. São considerados Eventos de Liquidação do Fundo"
+receivables: CCB de crédito parcelado e empréstimo pessoal (consumidor e comerciante) | c3
+originator: Instituições financeiras parceiras, via Mercado Pago | c3,c14
+assignor: IFs parceiras do grupo Mercado Pago (endosso de CCB) | c3,c14
+debtor: Consumidores e comerciantes (CCB Consumidor e Comerciante) | c10
+recourse: Sem regresso contra cedentes, salvo culpa ou dolo | q2
+eligibility: Consumidor ≤ 24 meses; comerciante ≤ 36 meses e principal ≥ R$ 100 | c23,c24
+debtor_limit: 20% do PL; 0,5% dos DC por devedor | c13,o17
+assignor_limit: Não previsto | Limites por produto, perfil e prazo; sem limite por cedente
+term_max: 24 meses (consumidor); 36 meses (comerciante) | c23,c24
+allocation: ≥ 50% do PL em direitos creditórios | c27 | value=50
+quota_structure: Sênior / Mezanino / Júnior | c33,c56
+sub_senior: n/d | Proteção da sênior pela Senioridade Máxima (fórmula do regulamento), sem percentual fixo | why=O mínimo de 10% da leitura anterior é da júnior e está na linha da mezanino
+sub_mezz: Júnior ≥ 10% do PL; +10 p.p. se excesso de juros < 16% | q1 | basis=jr/PL
+sub_check: Diária; 30 dias para reenquadrar a júnior | c36,c41
+reserve: Reserva de despesas e reserva de benchmark da sênior | c43,c44
+pdd: n/d | Metodologia de PDD não localizada no regulamento
+eval_triggers: Inadimplência histórica de comerciante acima de 8% | o47
+liquidation: Decisão da AGC ou da CVM; falta de recursos para encargos | q3
+revolving: Compras até a data limite para aquisição de créditos | c55
+amortization: Sequencial: sênior antes de mezanino e júnior; aceleração por eventos | c56,c55
+admin_fee: 0,125% a.a. até R$ 500 mi; 0,11% e 0,09% acima | o57
+mgmt_fee: 0,12% a.a. do PL; mín. R$ 25 mil/mês | c64,o61
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark definido no apêndice de cada série; taxa não localizada nos documentos lidos
+target_mezz: n/d | Benchmark definido no apêndice de cada série; taxa não localizada nos documentos lidos
+administrator: Genial Investimentos CVM | c72
+manager: Polígono Capital | c74
+custodian: Genial Investimentos (o próprio administrador) | c76,c72
+servicer: Mercado Pago (cobrança) | c77
+investors: Profissionais | c80
+duration: Condomínio fechado; amortização final por série | c81
+leitura: Crédito pessoal via IFs parceiras do Mercado Pago, com júnior mínima de 10% do PL e degraus por performance.

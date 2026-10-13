@@ -327,9 +327,13 @@ def render_tab_deep_dive(
         selected_portfolio_id = selected_portfolio.id if selected_portfolio is not None else "Todos"
     selected_signature = portfolio_basket_signature(selected_portfolio.funds) if selected_portfolio else ""
     if selected_portfolio is not None:
-        from services.documentary_diligence import has_documentary_diligence, render_documentary_diligence
-        if has_documentary_diligence(selected_portfolio):
-            render_documentary_diligence(selected_portfolio, reference_competence=reference_competence, dashboards=dashboards)
+        # Reviewed per-fund facts replace the legacy package only when every
+        # fund of the basket is approved; versions are never mixed in a basket.
+        from services.documentary_facts import portfolio_has_any_facts, portfolio_ready
+        legacy = [m for m in manifests if deep_dive_matches_portfolio(m, selected_portfolio.id, selected_signature)]
+        if portfolio_ready(selected_portfolio) or (not legacy and portfolio_has_any_facts(selected_portfolio)):
+            from tabs.documentary_facts_view import render_documentary_facts
+            render_documentary_facts(selected_portfolio)
             return
     if not manifests:
         st.info("Ainda não há curadoria documental disponível.")
@@ -584,13 +588,12 @@ def _render_fund_reading(
         missing = ()
         if portfolio_mode:
             shown, _groups, missing = _portfolio_document_frame(page.frame, funds=funds)
+        if portfolio_mode and not shown.empty:
+            generic = shown.iloc[:, 0].map(lambda v: "controles documentais" in _fold_text(v))
+            shown = shown.loc[~generic]
         for frame in comparison_column_chunks(shown):
             if not frame.empty:
-                st.markdown(_comparison_table_html(page.title, frame, page_number, portfolio_mode=portfolio_mode), unsafe_allow_html=True)
-        if missing:
-            if shown.empty:
-                st.markdown(f"**{escape(page.title)}**")
-            st.caption("Sem informação documental para: " + "; ".join(missing) + ".")
+                st.markdown(_comparison_table_html(page.title, frame, page_number), unsafe_allow_html=True)
         if not portfolio_mode:
             for note in page.notes:
                 st.caption(note)
@@ -605,10 +608,20 @@ def _render_fund_reading(
                 st.markdown(escape(source))
 
 
-def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *, portfolio_mode: bool = False) -> str:
-    """Semantic HTML table with the same short comparison cells as the deck."""
+def _fold_text(value: object) -> str:
+    import unicodedata
+    text = unicodedata.normalize("NFKD", str(value))
+    return "".join(c for c in text if not unicodedata.combining(c)).casefold()
+
+
+def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *, portfolio_mode: bool = False, raw_values: bool = False, min_column_px: int = 0) -> str:
+    """Semantic HTML table with the same short comparison cells as the deck.
+
+    ``raw_values`` keeps reviewed answers verbatim (e.g. "Não nomeado no
+    regulamento"), bypassing the legacy cleaner that drops gap phrases.
+    """
     def cell(value: object, *, fact: bool = True) -> str:
-        text = document_comparison_value(value) if fact else public_document_text(value)
+        text = str(value) if raw_values else document_comparison_value(value) if fact else public_document_text(value)
         if fact and portfolio_mode and text == "-":
             text = "N/D"
         return escape(text).replace("\n", "<br>")
@@ -631,6 +644,8 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *,
         if portfolio_mode else ""
     )
     extra_class = " document-comparison--portfolio" if portfolio_mode else ""
+    if raw_values:
+        extra_class += " document-comparison--facts"
     if portfolio_mode and len(frame.columns) == 2:
         extra_class += " document-comparison--two-column"
     return (
@@ -645,12 +660,14 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *,
         ".document-comparison td{text-align:center;white-space:normal;overflow-wrap:anywhere;}"
         ".document-comparison tbody tr:last-child>*{border-bottom:1px solid #bcbcbc;}"
         "@media(max-width:700px){.document-comparison table{min-width:700px;}}"
+        ".document-comparison--facts td{overflow-wrap:normal;word-break:normal;hyphens:auto;}"
         f"{portfolio_css}</style>"
         f"<section class='document-comparison{extra_class}' aria-label='Comparativo {page_number}: {escape(title)}'>"
         f"<h4>{escape(title)}</h4><div class='document-comparison-scroll'"
         + (" tabindex='0' role='region' aria-label='Tabela documental, rolagem horizontal'" if portfolio_mode else "")
         + ">"
-        f"<table><thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div></section>"
+        + (f"<table style='min-width:{200 + min_column_px * (len(frame.columns) - 1)}px'>" if min_column_px else "<table>")
+        + f"<thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div></section>"
     )
 
 

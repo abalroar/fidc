@@ -1,0 +1,44 @@
+# V CDT 1
+type: Consignado privado
+q1: D2 "A Classe contratou a VR BENEFÍCIOS E SERVIÇOS DE PROCESSAMENTO S.A."
+q2: D2 "11.1 As seguintes hipóteses são consideradas eventos de avaliação"
+q3: D2 "for inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90"
+q4: D2 "Pelos serviços de administração, gestão, custódia"
+q5: D1 "BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DTVM"
+q6: D2 "BTG Pactual Asset Management S.A."
+q7: D2 "Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro"
+receivables: CCB de consignado privado e de antecipação do saque-aniversário FGTS | c2
+originator: Banco VR (concedente); VR Benefícios opera a plataforma | c3,q1
+assignor: Banco VR (endossante) | c3,c7
+debtor: Trabalhador com consignado em folha ou saque-aniversário FGTS | c2
+recourse: Sem coobrigação; resolução do endosso ou venda ao agente | c13
+eligibility: CCB de consignado ou FGTS; admite refinanciamento sem lastro de consignação | c6
+debtor_limit: Até 100% do PL (sem limite próprio no regulamento) | c30
+assignor_limit: Endossante único (Banco VR ou seu grupo) | c7
+term_max: n/d | Prazo máximo da CCB não fixado no anexo; remetido às normas do convênio
+allocation: ≥ 50% do PL (67% para fins tributários) | c21 | value=50
+quota_structure: Subclasse única | o24
+sub_senior: — | Subclasse única, sem subordinação entre cotistas
+sub_mezz: — | Subclasse única
+sub_check: — | Sem índice de subordinação
+reserve: Despesas estimadas para 6 meses | c32
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | c34
+eval_triggers: RAET do endossante ou agentes; falhas do endossante sem cura em 5 DU | q2
+liquidation: PL < R$ 1 mi por 90 dias; sem caixa para encargos | q3
+revolving: Recebimentos compram novos créditos ou amortizam | c41
+amortization: Programada (apêndice) e extraordinária pelo gestor | c47
+admin_fee: Taxa global 0,90% a.a. (PL até R$ 150 mi); mín. R$ 50 mil/mês | c22
+mgmt_fee: Incluída na taxa global | q4
+perf_fee: Não prevista | Regulamento: não será devida taxa de performance
+target_senior: — | Subclasse única, sem benchmark
+target_mezz: — | Subclasse única
+administrator: BTG Pactual Serviços Financeiros DTVM | q5
+manager: BTG Pactual Asset Management | q6
+custodian: Banco BTG Pactual | q7
+servicer: VR Benefícios (retenção e cobrança) | q1
+investors: Profissionais | c58
+duration: Indeterminado; condomínio fechado | c60
+payroll: Convênios do endossante: Dataprev (consignado) e CEF (FGTS) | c61,c63
+age_limit: n/d | Idade do devedor não limitada no anexo; remetida à política de crédito
+installment_min: Não prevista | Anexo não fixa parcela mínima
+leitura: Consignado privado e FGTS do Banco VR em cota única, sem colchão; taxa global de 0,90% a.a.

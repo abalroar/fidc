@@ -1,0 +1,40 @@
+# Mercado Crédito II Brasil
+type: Crédito pessoal
+q1: D1 "a Razão de Subordinação Sênior do Fundo será de, no mínimo, 40%"
+q2: D1 "11.1. São considerados Eventos de Avaliação do Fundo"
+q3: D1 "11.2. São considerados Eventos de Liquidação do Fundo"
+q4: D6 "1,75% (um inteiro e setenta e cinco centésimos por cento) ao ano"
+q5: D1 "Benchmark Regular: Taxa DI acrescida de 4,25%"
+q6: D1 "Benchmark Regular: Taxa DI acrescida de 5,45%"
+receivables: CCB de crédito parcelado e empréstimo pessoal (consumidor e comerciante) | c5,c3
+originator: Instituição Financeira MeLi, com intermediação do Mercado Pago | c5,c3
+assignor: IF MeLi e entidades e veículos do grupo Mercado Pago | o7
+debtor: Consumidores e comerciantes da plataforma (CCB Consumidor e Comerciante) | c10
+recourse: Sem coobrigação; compra pelo Mercado Pago só por inelegibilidade ou vício | o11,c12
+eligibility: Até 24 parcelas; principal ≤ R$ 30 mil (consumidor) ou R$ 1 mi (comerciante) | c15
+debtor_limit: R$ 45 mil (consumidor); R$ 2 mi (comerciante) | c18
+assignor_limit: Concentrado no grupo Mercado Pago | o7 | why=O 5% da leitura anterior vem de regulamento de 2023, sem correspondência no regulamento de 27/08/2026
+term_max: Até 24 parcelas mensais | c15
+allocation: ≥ 67% do PL em direitos creditórios | c26 | value=67
+quota_structure: Sênior / Mez. A / Mez. B / Mez. C / Júnior | c31
+sub_senior: 40% na 1ª integralização; depois, limite de Senioridade Máxima | q1 | basis=mez+jr/PL | value=none
+sub_mezz: Mez. A 20% · Mez. B 15% · Mez. C 10% (do PL) | c35,c36,c37
+sub_check: Diária; júnior tem 30 dias para reenquadrar | c42,c39
+reserve: Despesas: 1,05% do PL, recomposição diária | o44
+pdd: Matriz de perdas por safra e rating (Complemento XV) | c22
+eval_triggers: Alocação mínima em 180 dias; gatilhos de performance por safra | q2,c50,c54
+liquidation: PL médio < R$ 1 mi por 3 meses; prestador sem substituto em 180 dias | q3
+revolving: n/d | Data limite de investimentos definida nos apêndices das séries; não localizada no regulamento
+amortization: Sequencial: sênior, mezaninos A/B/C e, por último, júnior | c94
+admin_fee: 0,075% a.a. do PL; mín. R$ 15 mil/mês (inclui custódia) | o61
+mgmt_fee: Até 0,20% a.a., escalonada pelo PL | o65
+perf_fee: Não prevista | Regulamento: o fundo não cobra taxa de performance
+target_senior: DI + 1,75% a.a. (apêndice da versão anterior do regulamento) | q4
+target_mezz: DI + 4,25% a 5,45% a.a., conforme a subclasse | q5,q6
+administrator: BTG Pactual Serviços Financeiros DTVM | o76
+manager: Polígono Capital | c79
+custodian: Banco BTG Pactual | c81
+servicer: Mercado Pago (cobrança e recebimento) | c82,c83
+investors: Qualificados | c98
+duration: Indeterminado; amortização integral por série nos apêndices | c92
+leitura: Crédito pessoal do Mercado Pago com três mezaninos (20%, 15% e 10% do PL) e sênior limitada pela Senioridade Máxima.

@@ -1,0 +1,822 @@
+{
+ "schema_version": 1,
+ "cnpj": "54871427000194",
+ "name": "CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-13T16:05:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "670691",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691"
+  },
+  "D2": {
+   "document_id": "670690",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "28/05/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670690"
+  },
+  "D3": {
+   "document_id": "798101",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "10/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798101"
+  },
+  "D4": {
+   "document_id": "679614",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "13/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=679614"
+  },
+  "D5": {
+   "document_id": "677544",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "11/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=677544"
+  },
+  "D6": {
+   "document_id": "670687",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "19/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670687"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCCBs que agrupam CCBs de consignado em folha ou benefício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "4.2 Os Direitos Creditórios representados por Certif icados de Cédulas de Crédito Bancário (“CCCBs”), representativos de um agrupamento de determinadas CCBs, originadas no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, devidamente f ormalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "4.2.1 Cada Endossante deve ter celebrado convênio com órgão consignante, previamente à cessão de Direitos Creditórios à Classe, que contemplam a obrigação da manutenção da consignação/averbação junto ao novo órgão, de modo a possibilitar o pagamento dos Direitos Creditórios por meio de consignação em f olha de pagamento ou de benef ício ."
+    }
+   ],
+   "legacy": {
+    "value": "CCCBs de empréstimos pessoais consignados em folha ou benefício",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Não nomeado no regulamento",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "Endossantes são instituições financeiras conveniadas, nomeadas nos contratos de endosso",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Endossante”: cada instituição f inanceira que ceda Direitos Creditórios à Classe nos termos de um Contrato de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Endossantes vinculados a órgãos conveniados; nomes finais não identificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Não nomeado no regulamento (múltiplos endossantes)",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Endossante”: cada instituição f inanceira que ceda Direitos Creditórios à Classe nos termos de um Contrato de Endosso;"
+    }
+   ],
+   "legacy": {
+    "value": "Endossantes vinculados a órgãos conveniados; nomes finais não identificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Servidor público civil ou pensionista de órgão conveniado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 40,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Devedores”: pessoas físicas servidores públicos civis ou beneficiários de pensão de Órgão Conveniados emissores das CCBs;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas: servidores públicos civis e beneficiários de pensão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação; endosso em preto, definitivo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 10,
+     "clause": "cl. 4.7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "coobrigação nem direito de regresso da Classe contra o ADMINISTRADOR, o CUSTODIANTE o GESTOR e/ou o Endossante. 4.7.3 A f ormalização de cada aquisição de Direitos Creditórios pela Classe deverá incluir o endosso eletrônico em preto de cada CCB representativa do respectivo Direito Creditório em f avor da Classe, inclusive, mas não necessariamente, por meio d a celebração de Termos de Endosso (os quais, para f ins de esclarecimento, poderão ser levados a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 10,
+     "clause": "cl. 4.7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "irretratável, com a transferência, à Classe, de forma definitiva, sem coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 Anexo I ao Regulamento CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS pref erências, prerrogativas, garantias e ações a ele relacionados, bem como correção monetária, juros e encargos."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso irrevogável; recompra/indenização por vícios, fraude e contestação contratual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB adimplente; parcela > R$ 30; pagamento integral nos últimos 60 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(iii) CCBs cujo valor da prestação seja superior a R$ 30,00 (trinta reais); (iv) Idade do Devedor somada ao prazo remanescente da CCB deve ser igual ou inferior a 80 (oitenta) anos; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 3 Anexo I ao Regulamento CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (v) CCBs que até a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 10,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(ix) CCBs vinculadas ao órgão convenente, desde que o convênio não se encontre na Data de Aquisição em situação de suspensão; (x) Devedores adimplentes junto ao Endossante com relação aos Direitos Creditórios endossados à Classe; CCB cuja amortização ordinária dos valores devidos, nos últimos 60 (sessenta) dias, tenha ocorrido de f orma integral e ordinária."
+    }
+   ],
+   "legacy": {
+    "value": "CCB adimplente; parcela > R$ 30; próxima parcela < 60 dias; idade + prazo ≤ 80 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.7"
+   }
+  },
+  "debtor_limit": {
+   "display": "20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 10,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(xi) Endosso de todas as CCBs de um mesmo Devedor que não ultrapasse 20% (vinte por cento) do patrimônio líquido da Classe. 4.7.1 Os Documentos Comprobatórios deverão ser disponibilizados pelo respectivo Endossante (a) no prazo de 10 (dez) dias contados da Data de Aquisição dos 50 (cinquenta) casos que sejam solicitados pelo GESTOR, a seu exclusivo critério, (b) a totalidade dos demais Documentos Comprobatórios em f ormato digital em até 90 (noventa) dias a contar da Data de Aquisição, bem como dos Documen"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "CCBs do mesmo devedor ≤ 20% do PL; até 100% por endossante/originador",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.7"
+   }
+  },
+  "assignor_limit": {
+   "display": "Até 100% do PL por endossante",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 11,
+     "clause": "cl. 4.11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "tral autorizada pelo Banco Central não custodiados pelo Custodiante. 4.11.2 A Classe poderá ter até 100% (cem por cento) do Patrimônio Líquido representado por Direitos Creditórios originados ou cedidos por um mesmo Endossante e/ou originados por um mesmo Originador. 4.11.3 É vedada à Classe a aplicação recursos de seu Patrimônio Líquido na aquisição de Direitos Creditórios no exterior. 4.11.4 A Classe não poderá investir em Direitos Creditórios Não -Padronizados. Revolvência da Carteira de Direitos Creditórios 4.12 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, serão destinados a aquisição de Direitos Creditórios até o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), sendo certo que os recursos recebidos pela Classe após a aquisição em tal montante não poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios, aplicando-se, de resto, o disposto no item 8.1 abaixo no que se ref ere à ordem de alocação de tais recursos. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 7"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "CCBs do mesmo devedor ≤ 20% do PL; até 100% por endossante/originador",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.11.2"
+   }
+  },
+  "term_max": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Sem prazo máximo próprio; limite indireto de idade + prazo ≤ 80 anos",
+   "sources": [],
+   "legacy": {
+    "value": "CCB adimplente; parcela > R$ 30; próxima parcela < 60 dias; idade + prazo ≤ 80 anos",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL (67% para fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 11,
+     "clause": "cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios . 4.10 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto no item 4.15 abaixo e Ativos Financeiros de Liquidez devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo D"
+    },
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 5,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "composição da carteira com, no mínimo, 67% (sessenta e sete por cento) de direitos creditórios de acordo com a Lei nº 14.754, de 12 de dezembro de 2023 (“Lei 14.754”) e a Resolução do Conselho Monetário Nacional nº 5.111, de 21 de dezembro de 2023 (“Resolução CMN 5.111”). O IRF será considerado antecipação do devido no caso de beneficiário pessoa jurídica tributada com base no lucro real, presumido ou arbitrado e, nos demais casos, será considerado tributação exclusiva."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥ 50% do PL em direitos creditórios após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.9"
+   }
+  },
+  "quota_structure": {
+   "display": "Cota única, pari passu",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 14,
+     "clause": "cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "os direitos dos titulares das Cotas contra o Patrimônio Líquido nos termos deste Regulamento, são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas. Emissão, Subscrição e Integralização das Cotas 5.5 Após a primeira emissão, eventuais novas emissões de Cotas somente poderão ser realizadas com a aprovação de Assembleia Especial de Cotistas, sendo que o valor de emissão, o volume e demais características pertinentes à nova emissão corresponderão àquelas estabelecidas em ref erida Assembleia Especial de Cotistas. 5.6 As Cotas serão integralizadas pelo respectivo Valor Unitário, nos termos deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Cotas únicas, pari passu; sem subordinação entre cotistas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cota única; sem subordinação entre cotistas",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas únicas, pari passu; sem subordinação entre cotistas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cota única",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem índice de subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Cotas únicas, pari passu; sem subordinação entre cotistas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento sem reserva de caixa ou liquidez",
+   "sources": []
+  },
+  "pdd": {
+   "display": "ICVM 489 e manual do administrador; sem curva no regulamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 17,
+     "clause": "cl. 9.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "9.2.1 O ef eito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo f acultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual d o ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e inf ormações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "RAET do endossante; falhas do endossante sem cura em 10 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 17,
+     "clause": "cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "EVENTOS DE LIQUIDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária – RAET, intervenção ou liquidação extrajudicial do Endossante ou do Agente de Garantias; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 11 Anexo I ao Regulamento CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (ii) não cumprimento, por qualquer dos Endossantes, de qualquer de suas obrigações estabelecidas em cada Contrato de Endosso ou neste Regulamento e Anexo, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, inf ormando-o da ocorrência do respectivo evento;"
+    }
+   ],
+   "legacy": {
+    "value": "RAET/intervenção do endossante; prestador sem substituto; PL < R$ 1 mi por 90 dias após início",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 10.2"
+   }
+  },
+  "liquidation": {
+   "display": "PL < R$ 1 mi por 90 dias; prestador sem substituto; AGC",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 19,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(ii) na ocorrência de quaisquer dos Eventos de Avaliação e/ou Eventos de Liquidação . Eventos de Liquidação 11.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal f im; (iii) cessão ou renúncia do ADMINISTRADOR, GESTOR ou CUSTODIANTE sem que a Assembleia de Cotistas ef icazmente nomeie instituição habilit ada para substituí-lo, nos termos estabelecidos neste Regulamento; (iv) se, após 90 (noventa) dias do início das atividades da Classe, o Patrimônio Líquido diário inferior da Classe for inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "RAET/intervenção do endossante; prestador sem substituto; PL < R$ 1 mi por 90 dias após início",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "Compras até R$ 250 mi acumulados; depois só amortiza",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 11,
+     "clause": "cl. 4.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "Creditórios até o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), sendo certo que os recursos recebidos pela Classe após a aquisição em tal montante não poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios, aplicando-se, de resto, o disposto no item 8.1 abaixo no que se ref ere à ordem de alocação de tais recursos."
+    }
+   ],
+   "legacy": {
+    "value": "Novas aquisições até montante acumulado de R$ 250 milhões",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "A critério do gestor, conforme caixa; resgate na liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 15,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "ita exclusivamente mediante a Amortização e/ou o resgate de Cotas, observado o disposto neste Capítulo. 7.2 As amortizações de Cotas serão realizadas a qualquer tempo, a critério do GESTOR, observada a disponibilidade de recursos da Classe Única e a ordem de alocação de recursos prevista neste Anexo Descritivo. 7.3 As Cotas serão amortizadas mediante orientação do GESTOR e/ou deliberação da Assembleia Especial de Cotistas, observada a ordem de alocação de recursos prevista no Capítulo 8 abaixo. 7.3.1 Quaisquer pagamentos aos Cotistas a título de Amortização deverão abranger, proporcionalmente e sem direito de preferência ou prioridade, todas as Cotas, em benefício de todos os respectivos titulares."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → dissidentes → amortização/resgate → aquisições → liquidez",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 10 mil/mês (IGP-M)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 25,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "Administração nos seguintes moldes: o valor correspondente a 0,10% (dez centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 10.000,00 (dez mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive)."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a. do PL; mínimo R$ 10 mil/mês; IGP-M anual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 15 mil/mês (IGP-M)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 26,
+     "clause": "cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 15.000,00 (quinze mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive)."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. do PL; mínimo R$ 15 mil/mês; IGP-M anual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento sem taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Cota única, sem benchmark de rentabilidade",
+   "sources": [],
+   "legacy": {
+    "value": "Valor patrimonial; benchmark fixo não previsto para cotas únicas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Cota única",
+   "sources": [],
+   "legacy": {
+    "value": "Valor patrimonial; benchmark fixo não previsto para cotas únicas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 38,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“ADMINISTRADOR”: BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, à Praia de Botafogo, nº 501, 5º andar – parte, inscrita no CNPJ sob o nº 59.281.253/0001-23, autorizada a funcionar pelo BACEN e autorizada pela CVM para"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“GESTOR”: a BTG PACTUAL ASSET MANAGEMENT S.A. DTVM., inscrita no CNPJ/ME sob o nº 29.650.082/0001-00, com sede Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, n.º 501, 5° andar, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório núm"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“CUSTODIANTE”: o Banco BTG Pactual S.A., instituição financeira, com sede na Cidade e Estado do Rio de Janeiro, localizada à Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250-040, Brasil, e inscrita no CNPJ sob o nº 30.306.294/0001-45, o qual se encontra devidamente habilitado pela CVM BTG Pactual"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Não nomeado no regulamento",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 25,
+     "clause": "cl. 12.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "de Agente de Cobrança de Direitos Creditórios Inadimplidos, os quais poderão ser partes relacionadas ou integrar o grupo do ADMINISTRADOR ou dos demais prestadores de serviços da Classe. ] Serão atribuições do Agente de Cobrança, observado o disposto neste Regulamento e na regulamentação aplicável: (i) sempre que necessário, notificar os Devedores sobre a cessão dos Direitos Creditórios à Classe, nos termos do Art. 290 do Código Civil;"
+    }
+   ]
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Investidores Profissionais”: os investidores considerados profissionais, nos termos do Art. 11 da Resolução CVM 30; \"Lei Complementar nº 840\": Lei Complementar do Distrito Federal nº 840, de 23 de dezembro de 2011, conf orme alterada ou substituída de tempos em tempos;"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; prazo indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 42,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Prazo de Duração do FUNDO”: é o prazo de duração do FUNDO que, para f ins de esclarecimento, é indeterminado;"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; prazo indeterminado; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Convênio de cada endossante com órgão consignante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "4.2.1 Cada Endossante deve ter celebrado convênio com órgão consignante, previamente à cessão de Direitos Creditórios à Classe, que contemplam a obrigação da manutenção da consignação/averbação junto ao novo órgão, de modo a possibilitar o pagamento dos Direitos Creditórios por meio de consignação em f olha de pagamento ou de benef ício ."
+    },
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "“Convênio Órgãos Conveniados\": convênio f irmado entre um Endossante e um Órgão Conveniado, permitindo que os valores que fazem jus os Devedores sejam debitados em folha de pagamento ou de benefício dos Devedores para pagamento das CCB por eles emitidas junto ao Endossante, e sejam transferidos pelos Órgão Conveniados diretamente ao Endossante;"
+    }
+   ],
+   "legacy": {
+    "value": "Consignação em folha/benefício; seguros de sinistros conforme contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "Idade + prazo remanescente ≤ 80 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(iii) CCBs cujo valor da prestação seja superior a R$ 30,00 (trinta reais); (iv) Idade do Devedor somada ao prazo remanescente da CCB deve ser igual ou inferior a 80 (oitenta) anos; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 3 Anexo I ao Regulamento CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (v) CCBs que até a"
+    }
+   ],
+   "legacy": {
+    "value": "CCB adimplente; parcela > R$ 30; próxima parcela < 60 dias; idade + prazo ≤ 80 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.7"
+   }
+  },
+  "installment_min": {
+   "display": "> R$ 30 por parcela",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "670691",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/04/2024",
+     "page": 9,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+     "excerpt": "(iii) CCBs cujo valor da prestação seja superior a R$ 30,00 (trinta reais); (iv) Idade do Devedor somada ao prazo remanescente da CCB deve ser igual ou inferior a 80 (oitenta) anos; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 3 Anexo I ao Regulamento CLASSE ÚNICA DE RESPONSABILIDADE LIMITADA DO CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (v) CCBs que até a"
+    }
+   ],
+   "value": 30.0,
+   "legacy": {
+    "value": "CCB adimplente; parcela > R$ 30; próxima parcela < 60 dias; idade + prazo ≤ 80 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/04/2024, cl. 4.7"
+   }
+  }
+ },
+ "leitura": "Consignado público em cota única, sem colchão; endossantes não nomeados e até 20% do PL por devedor.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

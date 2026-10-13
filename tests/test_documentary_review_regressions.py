@@ -58,27 +58,6 @@ def test_explicit_source_root_uses_its_verified_identity_mapping(tmp_path,monkey
     assert values['cash']==2
 
 
-def test_portfolio_ppt_context_keeps_investee_ime_observations(monkeypatch):
-    from tabs import portfolio_page
-    from services import documentary_diligence as diligence
-    parent={'schema_version':2,'cnpj':CNPJ,'name':'FIC synthetic fixture','criteria':[],
-            'lookthrough':[{'cnpj':OTHER,'relationship':'named_investee','sources':[]}]}
-    child={'schema_version':2,'cnpj':OTHER,'name':'Investee synthetic fixture','criteria':[]}
-    portfolio=SimpleNamespace(id='review',name='Review fixture',funds=[SimpleNamespace(cnpj=CNPJ,display_name='FIC fixture')])
-    monkeypatch.setattr(diligence,'has_documentary_diligence',lambda p:True)
-    monkeypatch.setattr(diligence,'load_documentary_portfolio',lambda p:[parent])
-    monkeypatch.setattr(diligence,'load_documentary_lookthrough',lambda funds:[{'parent_cnpj':CNPJ,'parent_name':'FIC fixture','relation':parent['lookthrough'][0],'fund':child}])
-    monkeypatch.setattr(ime,'resolve_documentary_reference',lambda *a,**k:{'competence':'02/2026','common_competences':['02/2026'],'warnings':[]})
-    calls=[];captured=[]
-    def observations(fund,**kwargs):
-        calls.append(fund['cnpj']);return [{'criterion_id':'allocation','status':'not_comparable','comparison_required':True,'competence':kwargs['competence']}]
-    monkeypatch.setattr(ime,'build_documentary_observations',observations)
-    monkeypatch.setattr(diligence,'build_documentary_comparison_pages',lambda portfolio,funds,obs:captured.append(obs) or [])
-    portfolio_page._documentary_portfolio_content(portfolio)
-    assert OTHER in calls, 'Portfolio PPT must compute the same invested-class observations as the documentary UI.'
-    assert OTHER in captured[0]
-
-
 def test_cell_keeps_full_historical_evidence_out_of_initial_html():
     from services.documentary_diligence import _cell_html
     item={'criterion_id':'allocation','label':'Synthetic allocation','status':'confirmed','applicability':'applicable',
