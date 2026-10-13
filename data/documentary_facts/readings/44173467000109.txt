@@ -1,0 +1,48 @@
+# MT INSS Receivables III FIDC (BTG; Plataforma MT; consignado INSS)
+type: Consignado público
+q1: D2 "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade"
+q2: D2 "Investidores Profissionais, sendo que (i) as Cotas Subordinadas Mezanino serão subscritas exclusivamente"
+q3: D2 "a Razão de Garantia Sênior deverá ser igual ou superior a 111,11%"
+q4: D2 "o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11%"
+q5: D2 "o ADMINISTRADOR registrará provisão para créditos de liquidação duvidosa sempre que houver evidência"
+q6: D2 "11.1 Serão considerados como Eventos de Avaliação qualquer dos seguintes eventos"
+q7: D2 "o Administrador fará jus a uma “Taxa PSF Agregada” correspondente à soma de"
+q8: D2 "Classe ou dos Cotistas taxas de performance, de ingresso ou de saída"
+q9: D2 "4.8.1 A partir do momento em que a Classe atingir Patrimônio Líquido igual ou superior a R$ 10.000.000,00"
+q10: D2 "o respectivo Devedor deve ter entre 18 (dezoito) e 75"
+q11: D2 "(iv) 0,30% (cinquenta e cinco centésimos por cento)"
+receivables: CCBs de consignado INSS originadas na Plataforma MT | o1
+originator: Cedentes da Plataforma MT (ex.: Parati CFI) | c4,c7
+assignor: Parati CFI e demais cedentes definidos no regulamento | c7
+debtor: Beneficiários e pensionistas do INSS | c11
+recourse: Cessão definitiva, sem coobrigação do cedente | c12
+eligibility: CCB prefixada; saldo ≥ R$ 200; devedor de 18 a 75 anos na emissão | q1,q10
+debtor_limit: Até R$ 60 mil por devedor | c18
+assignor_limit: Não previsto | Limites do regulamento são por devedor e grupo econômico, não por cedente
+term_max: Prazo legal do consignado; vencimento antes do resgate da sênior | q1,c21
+allocation: ≥ 67% do PL em direitos creditórios após 180 dias | c24 | value=67
+quota_structure: Sênior / Mezanino / Júnior (júnior do agente de cobrança) | q2
+sub_senior: 10% · (mez.+jr.)/PL; razão de garantia ≥ 111,11% | q3 | basis=mez+jr/PL | value=10
+sub_mezz: Júnior ≥ 10% do patrimônio subordinado (mez.+jr.) | q4 | value=none
+sub_check: Diária, divulgada no site do administrador | q3
+reserve: Despesas de 2 meses; defesa da carteira de 5% do PL | c38,c39
+pdd: PCLD sempre que houver evidência de perda no valor recuperável | q5
+eval_triggers: Intervenção em cedente, descumprimento do contrato de cessão e outros | q6
+liquidation: Assembleia, PL médio < R$ 500 mil por 90 dias, saída de prestador | c44
+revolving: Compras só no período de investimento (3 meses após a oferta sênior) | c49
+amortization: Após o período de investimento, pela ordem de prioridade do anexo | c53
+admin_fee: Rateio de taxa agregada regressiva (0,45% a 0,30% a.a.); mín. R$ 20 mil/mês | q7,q11,c82
+mgmt_fee: Incluída na taxa agregada paga ao administrador | q7
+perf_fee: Não prevista | Regulamento veda taxa de performance | q8
+target_senior: n/d | Benchmark de cada série fica no suplemento, que não está no acervo
+target_mezz: n/d | Benchmark da mezanino fica no suplemento, que não está no acervo
+administrator: BTG Pactual Serviços Financeiros DTVM | c65
+manager: BTG Pactual Asset Management DTVM | c66
+custodian: Banco BTG Pactual | c67
+servicer: Tudo Serviços (retenção e cobrança) | c68
+investors: Investidores profissionais | q2
+duration: Classe fechada, prazo indeterminado | o73
+payroll: Consignação de benefícios do INSS (convênio) | o75
+age_limit: 18 a 75 anos; ≥ 40% até 60 anos quando PL ≥ R$ 10 mi | q10,q9
+installment_min: Saldo de cada CCB ≥ R$ 200 | c81
+leitura: Consignado INSS da Plataforma MT com 10% de subordinação; limite de R$ 60 mil por devedor e idade até 75 anos.

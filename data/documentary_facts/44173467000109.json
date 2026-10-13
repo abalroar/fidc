@@ -1,0 +1,883 @@
+{
+ "schema_version": 1,
+ "cnpj": "44173467000109",
+ "name": "MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-13T20:15:29Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1078471",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "30/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078471"
+  },
+  "D2": {
+   "document_id": "791513",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513"
+  },
+  "D3": {
+   "document_id": "1306234",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "31/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1306234"
+  },
+  "D4": {
+   "document_id": "467860",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/05/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=467860"
+  },
+  "D5": {
+   "document_id": "320076",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "14/06/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320076"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS originadas na Plataforma MT",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 10,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "4.1 Os Direitos Creditórios serão adquiridos integral ou parcialmente pela Classe sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de consignado INSS pela Plataforma MT",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes da Plataforma MT (ex.: Parati CFI)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 10,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo."
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Cedente”: (i) Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-245, inscrita no CNPJ sob nº 03.311.443/0001-91; (ii) QI Sociedade de Crédito Direto S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de São Paulo, estado do São Paulo, na Avenida Brigadeiro Faria Lima, 2.391, 1° andar, cj 12, CEP 01452-000, inscrita no CNPJ sob nº 32.402.502/0001-35; ou (ii"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Parati CFI e demais cedentes definidos no regulamento",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 51,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Cedente”: (i) Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-245, inscrita no CNPJ sob nº 03.311.443/0001-91; (ii) QI Sociedade de Crédito Direto S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de São Paulo, estado do São Paulo, na Avenida Brigadeiro Faria Lima, 2.391, 1° andar, cj 12, CEP 01452-000, inscrita no CNPJ sob nº 32.402.502/0001-35; ou (ii"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Beneficiários e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 53,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Devedores”: cada beneficiário ou pensionista do INSS que tenha tomado um empréstimo consignado com qualquer Cedente mediante a emissão eletrônica de uma CCB “Dia Útil”: é qualquer dia exceto: (i) sábados, domingos ou feriados nacionais, no Estado ou na Cidade de São Paulo; e (ii) aqueles sem expediente na B3;"
+    }
+   ],
+   "legacy": {
+    "value": "Beneficiários e pensionistas INSS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cessão definitiva, sem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "transferência, à Classe, de forma definitiva, sem coobrigação do Cedente, da plena titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, preferências, prerrogativas, garantias e ações a ele relacionados, bem como correção monetária, juros e encargos, sem prejuízo do direito da Classe (i) de resolver uma cessão de Direitos Creditórios (e, assim, ter o direito de vender (devolver) os respectivos Direitos Creditórios ao Cedente) ou (ii) de vender Direitos Creditórios ao Agente de Retenção/Cobrança (opção de venda), em ambos casos estritamente nos termos do Contrato de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB prefixada; saldo ≥ R$ 200; devedor de 18 a 75 anos na emissão",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "parâmetros definidos no Complemento 3 ao Anexo a este Regulamento. Critérios de Elegibilidade 4.8 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais);"
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "rá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima; (vi) os Direitos Creditórios deverão ser adquiridos em observância à Taxa Mínima de Cessão, nos termos do item 4.7 deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Até R$ 60 mil por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "(iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima;"
+    }
+   ],
+   "value": 60000.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Limites do regulamento são por devedor e grupo econômico, não por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Prazo legal do consignado; vencimento antes do resgate da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "parâmetros definidos no Complemento 3 ao Anexo a este Regulamento. Critérios de Elegibilidade 4.8 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais);"
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "(v) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 13,
+     "clause": "cl. 4.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "4.11 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá manter alocado, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CMN 5.111. 4.12 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 20% (vinte por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios e Ativos Financeiros devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que BTG Pactual Corporativo | Interno SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior (júnior do agente de cobrança)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 8,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "ítulos componentes de sua carteira. Investidores Profissionais, sendo que (i) as Cotas Subordinadas Mezanino serão subscritas exclusivamente pelo ADMINISTRADOR, seus sócios ou sociedades do seu Grupo Econômico, ou, ainda, por uma ou mais classes de investimento administradas pelo ADMINISTRADOR e/ou geridas pelo Público-Alvo GESTOR;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, cl. 1.2"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · (mez.+jr.)/PL; razão de garantia ≥ 111,11%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 19,
+     "clause": "cl. 5.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "s aos Cotistas da Classe por meio do site do ADMINISTRADOR. 5.16 Após a Data da 1ª Integralização de Cotas Seniores, a Razão de Garantia Sênior deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze centésimos por cento). Isto quer dizer que a Classe deverá ter, no mínimo, 10% (dez por cento) de seu Patrimônio Líquido representado por Cotas Subordinadas e, portanto, 90% (noventa por cento), no máximo, por Cotas Seniores. Esta relação será apurada diariamente e será acessível aos Cotistas através do site do ADMINISTRADOR. 5.17 Após a Data da 1ª Integralização de cada Subclasse de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze centésimos por cento). Isto quer dizer que a Classe deverá ter, no mínimo, 10% (dez por cento) de seu Patrimônio Subordinado representado por Cotas Subordinadas Júnior e, portanto, 90% (noventa por cento), no máximo, por Cotas Subordinadas Mezanino."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 10% do patrimônio subordinado (mez.+jr.)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 19,
+     "clause": "cl. 5.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "és do site do ADMINISTRADOR. 5.17 Após a Data da 1ª Integralização de cada Subclasse de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze centésimos por cento). Isto quer dizer que a Classe deverá ter, no mínimo, 10% (dez por cento) de seu Patrimônio Subordinado representado por Cotas Subordinadas Júnior e, portanto, 90% (noventa por cento), no máximo, por Cotas Subordinadas Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, divulgada no site do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 19,
+     "clause": "cl. 5.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "s aos Cotistas da Classe por meio do site do ADMINISTRADOR. 5.16 Após a Data da 1ª Integralização de Cotas Seniores, a Razão de Garantia Sênior deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze centésimos por cento). Isto quer dizer que a Classe deverá ter, no mínimo, 10% (dez por cento) de seu Patrimônio Líquido representado por Cotas Subordinadas e, portanto, 90% (noventa por cento), no máximo, por Cotas Seniores. Esta relação será apurada diariamente e será acessível aos Cotistas através do site do ADMINISTRADOR. 5.17 Após a Data da 1ª Integralização de cada Subclasse de Cotas Subordinadas Mezanino, o Índice de Subordinação Mezanino deverá ser igual ou superior a 111,11% (cento e onze inteiros e onze centésimos por cento). Isto quer dizer que a Classe deverá ter, no mínimo, 10% (dez por cento) de seu Patrimônio Subordinado representado por Cotas Subordinadas Júnior e, portanto, 90% (noventa por cento), no máximo, por Cotas Subordinadas Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, cl. 5.16"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 2 meses; defesa da carteira de 5% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 56,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Reserva de Despesas” é a reserva em valor correspondente a 2 (dois) meses de encargos projetados da Classe, a ser mantida pelo GESTOR na Conta de Movimentação da Classe, para arcar com as despesas e encargos da Classe;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 55,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Reserva de Defesa da Carteira”: é a reserva em valor correspondente a 5% (cinco por cento) do Patrimônio Líquido, a ser mantida pelo GESTOR em dinheiro ou Ativos Financeiros durante o Período de Investimento, BTG Pactual Corporativo | Interno SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 6 Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CNPJ nº 44.173.467/0001-09 cujos recursos serão empregados exclusivamente para defesa da carteira de Direitos Creditórios da Classe, por meio de Operações de Refinanciamento, durante a vigência da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "PCLD sempre que houver evidência de perda no valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 24,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "seu valor calculado a cada Dia Útil, de acordo com a Instrução CVM nº 489; e (v) o ADMINISTRADOR registrará provisão para créditos de liquidação duvidosa sempre que houver evidência de redução no valor recuperável dos ativos da Classe, de acordo com as regras e procedimentos definidos na Instrução CVM nº 489. BTG Pactual Corporativo | Interno SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 17 Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS [RESPONSABILIDADE LIMITADA] CNPJ nº 44.173.467/0001-09 CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se limitando a: (i) deliberar sobre as dem"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção em cedente, descumprimento do contrato de cessão e outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 26,
+     "clause": "cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "APÍTULO 11 – EVENTOS DE AVALIAÇÃO, EVENTOS DE LIQUIDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 11.1 Serão considerados como Eventos de Avaliação qualquer dos seguintes eventos, que, quando ocorrerem, farão com que o ADMINISTRADOR ou os Cotistas convoquem uma Assembleia de Cotistas para que esta, depois que o GESTOR e o ADMINISTRADOR expuserem a situação da Carteira, deliberem sobre a continuidade da Classe ou sua liquidação antecipada, e consequente definição do cronograma de pagamento aos Cotistas: (i) em caso de regime de administração especial temporária – RAET, intervenção ou liquidação extrajudicial de um dos Cedentes ou do Agente da Conta Vinculada; (ii) não cumprimento, por qualquer um dos Cedentes, de qualquer de suas obrigações estabelecidas no Contrato de Cessão ou neste Regulamento, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Cedente, de notificação, por escrito, enviada pelo ADMINISTRADOR, informando-o da ocorrência do respectivo evento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Assembleia, PL médio < R$ 500 mil por 90 dias, saída de prestador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 28,
+     "clause": "cl. 11.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Evento de Liquidação”): (i) por resolução da Assembleia de Cotistas, no caso descrito (vi) do item 10.2 acima; (ii) se a Classe mantiver um patrimônio líquido médio inferior a R$ 500.000,00 (quinhentos mil reais), pelo período de 90 (noventa) dias consecutivos e não for incorporado a outra classe de investimento em direitos creditórios; (iii) se a Assembleia de Cotistas decidir que um determinado Evento de Avaliação é um Evento de Liquidação; (iv) cessão ou renúncia pelo ADMINISTRADOR, pelo CUSTODIANTE ou pelo GESTOR, a qualquer momento e por qualquer razão, da prestação dos respectivos serviços previstos neste Regulamento, desde que não tenha sido substituída por outra instituição, dentro do prazo máximo de 60 (sessenta) dias, de acordo com os procedimentos estabelecidos neste Regulamento; (v) impossibilidade da Classe de adquirir Direitos Creditórios admitidos por sua política de investimento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Compras só no período de investimento (3 meses após a oferta sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 14,
+     "clause": "cl. 4.15",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "4.15 A Classe terá um Período de Investimento, que se inicia na primeira Data de Integralização de Cotas Subordinadas Júnior da 1ª (primeira) emissão de Cotas Subordinadas Júnior da Classe e se encerra no prazo de 3 (três) meses contados da data de encerramento da oferta das Cotas Seniores da 1ª (primeira) emissão de Cotas Seniores da Classe. Durante o Período de Investimento, a Classe utilizará os recursos provenientes da integralização das Cotas para investir em Direitos Creditórios e Ativos Financeiros, de acordo com a Política de Investimento estabelecida no presente Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Após o período de investimento, pela ordem de prioridade do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 14,
+     "clause": "cl. 4.15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "pagamento dos Direitos Creditórios e demais aplicações para amortização das Cotas, observada a ordem de prioridade de pagamento estabelecida neste Anexo, ressalvadas as disposições aplicáveis às Operações de Refinanciamento. Regras, procedimentos e limites para efetuar cessão de direitos creditórios para o cedente e suas partes relacionadas e para o Agente de Retenção/Cobrança 4.16 Nos termos dos Contratos de Cessão, na ocorrência de determinadas hipóteses, e sem prejuízo do previsto no Artigo 295 do Código Civil, os Cedentes ou o Agente de Retenção/Cobrança podem vir a ser notificados pelo GESTOR, para que realizem a recompra dos respectivos Direitos Creditórios. Outras disposições relativas à Política de Investimentos 4.17 A Classe poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/derivativos → reservas → sênior → mezanino → júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "Rateio de taxa agregada regressiva (0,45% a 0,30% a.a.); mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 36,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "crituração, controladoria de ativos e passivos e gestão de carteira prestados ao Fundo e aos demais Fundos PDL, o Administrador fará jus a uma “Taxa PSF Agregada” correspondente à soma de (i) 0,45% (quarenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja igual ou inferior a R$300.000.000,00 (trezentos milhões de reais); (ii) 0,40% (quarenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$300.000.000,00 (trezentos milhões de reais) e igual ou inferior a R$500.000.000,00 (quinhentos milhões de reais); (iii) 0,35% (trinta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$500.000.000,00 (quinhentos BTG Pactual Corporativo | Interno SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 29 Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS [RESPONSABILIDADE LIMITADA] CNPJ nº 44.173.467/0001-09 milhões de reais) e igual ou inferior a R$700.000.000,00 (setecentos milhões de reais);"
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 37,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "º 44.173.467/0001-09 milhões de reais) e igual ou inferior a R$700.000.000,00 (setecentos milhões de reais); (iv) 0,30% (cinquenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$700.000.000,00 (setecentos milhões de reais). 13.2 A Taxa PSF devida ao ADMINISTRADOR pelos serviços de administração fiduciária, escrituração e controladoria de ativos e passivos prestados à Classe será equivalente a um percentual da Taxa PSF Agregada, correspondente à razão entre o Patrimônio Líquido vis-à- vis o Patrimônio Líquido Agregado. 13.3 A Taxa PSF será calculada e reservada diariamente, a partir do Dia Útil seguinte à primeira Data de Integralização, com base no Patrimônio Líquido da Classe no dia imediatamente anterior, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e devida mensalmente ao ADMINISTRADOR, no 1º (primeiro) Dia Útil do mês subsequente. 13.4 Não obstante o acima disposto, o valor mínimo da Taxa PSF devida pela Classe ao ADMINISTRADOR será equivalente a R$ 20.000,00 (vinte mil reais) por mês."
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 37,
+     "clause": "cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "13.4 Não obstante o acima disposto, o valor mínimo da Taxa PSF devida pela Classe ao ADMINISTRADOR será equivalente a R$ 20.000,00 (vinte mil reais) por mês. O valor mínimo aqui previsto será atualizado anualmente, aos 15 (quinze) dias de janeiro de cada ano, a partir da 1ª (primeira) data de integralização de Cotas da Classe, com base na variação positiva do Índice Nacional de Preços ao Consumidor Amplo, calculado e divulgado pelo Instituto Nacional de Geografia e Estatística (IPCA/IBGE)."
+    }
+   ],
+   "legacy": {
+    "value": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês, IPCA anual",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa agregada paga ao administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 36,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "crituração, controladoria de ativos e passivos e gestão de carteira prestados ao Fundo e aos demais Fundos PDL, o Administrador fará jus a uma “Taxa PSF Agregada” correspondente à soma de (i) 0,45% (quarenta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja igual ou inferior a R$300.000.000,00 (trezentos milhões de reais); (ii) 0,40% (quarenta centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$300.000.000,00 (trezentos milhões de reais) e igual ou inferior a R$500.000.000,00 (quinhentos milhões de reais); (iii) 0,35% (trinta e cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido Agregado que seja superior a R$500.000.000,00 (quinhentos BTG Pactual Corporativo | Interno SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 29 Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS [RESPONSABILIDADE LIMITADA] CNPJ nº 44.173.467/0001-09 milhões de reais) e igual ou inferior a R$700.000.000,00 (setecentos milhões de reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Incluída no conjunto de serviços da taxa agregada; parcela própria não segregada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 37,
+     "clause": "cl. 13.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 13.6 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa Máxima de Custódia 13.7 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros não será devida nenhuma remuneração ao CUSTODIANTE, de modo que taxa máxima de custódia a ser paga pela Classe ao CUSTODIANTE corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobrança 13.8 Para a prestação de serviços à Classe, o Agente de Retenção/Cobrança fará jus a uma remuneração correspondente a 3,00% (três por cento) ao ano do valor do Patrimônio Líquido, alocado em Direitos Creditórios Elegíveis, com exclusão de provisões para perdas com devedores duvidosos. 13.9 A remuneração prevista no item 13.8 acima será calculada mensalmente pelo ADMINISTRADOR, de forma proporcional, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, devendo ser paga diretamente ao Agente de Retenção/Cobrança até o 10º (décimo) dia desse mês, conforme estabelecido no Contrato de Serviços MT. 13.9.1 Na hipótese de venda de qualquer parte dos Direitos Creditórios"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark de cada série fica no suplemento, que não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark da mezanino fica no suplemento, que não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 50,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“ADMINISTRADOR”: a BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, à Praia de Botafogo, nº 501, 5º andar – parte, inscrita no CNPJ sob o nº 59.281.253/0001-23, autorizada a funcionar pelo BACE"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 54,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“GESTOR”: a BTG Pactual Asset Management S.A. DTVM, instituição financeira constituída sob a forma de uma sociedade por ações, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Praia de Botafogo, 501, 5º andar (parte), CEP 22.250-040, inscrita no CNPJ sob nº 29.650.082/0001-00, devidamente credenciada junto à C"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 53,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“CUSTODIANTE”: o Banco BTG Pactual S.A., instituição financeira, com sede na Cidade e Estado do Rio de Janeiro, localizada à Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250-040, Brasil, e inscrita no CNPJ sob o nº 30.306.294/0001-45, o qual se encontra devidamente habilitado pela CVM para prestar os"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Tudo Serviços (retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 50,
+     "clause": "cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "“Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob nº 27.852.506/0001-85;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 8,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "ítulos componentes de sua carteira. Investidores Profissionais, sendo que (i) as Cotas Subordinadas Mezanino serão subscritas exclusivamente pelo ADMINISTRADOR, seus sócios ou sociedades do seu Grupo Econômico, ou, ainda, por uma ou mais classes de investimento administradas pelo ADMINISTRADOR e/ou geridas pelo Público-Alvo GESTOR;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada; cotistas profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Classe fechada, prazo indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 8,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "Prazo de Duração Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Não. Cotas Tipo “Financeiro”. Classificação ANBIMA Foco de atuação “Crédito Consignado”."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada; cotistas profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Consignação de benefícios do INSS (convênio)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 10,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB possa ser feito por Consignação."
+    }
+   ],
+   "legacy": {
+    "value": "Consignação de benefícios INSS/Dataprev",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "18 a 75 anos; ≥ 40% até 60 anos quando PL ≥ R$ 10 mi",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "rá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima; (vi) os Direitos Creditórios deverão ser adquiridos em observância à Taxa Mínima de Cessão, nos termos do item 4.7 deste Anexo;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 12,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "investimento que tenha o CUSTODIANTE como responsável pela prestação de serviços de custódia. 4.8.1 A partir do momento em que a Classe atingir Patrimônio Líquido igual ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo ADMINISTRADOR, nos termos deste Regulamento: (i) considerada pro forma cada cessão de Direitos Creditórios pretendida, pelo menos 40% (quarenta por cento) da carteira de Direitos Creditórios da Classe deverá ser composta por Direitos Creditórios Elegíveis devidos por Devedores que tenham até 60 anos, 11 meses e 29 dias de idade, inclusive na data de emissão da respectiva CCB;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "installment_min": {
+   "display": "Saldo de cada CCB ≥ R$ 200",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "791513",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 11,
+     "clause": "cl. 4.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791513",
+     "excerpt": "de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive;"
+    }
+   ],
+   "value": 200.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Consignado INSS da Plataforma MT com 10% de subordinação; limite de R$ 60 mil por devedor e idade até 75 anos.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -251,7 +251,7 @@ def _parse_facts(text: str) -> dict:
             out["leitura"] = rest
         elif re.fullmatch(r"q\d+", key):
             # q1: D2 "exact passage from the document"
-            m = re.match(r"((?:D|id)\d+)\s+[\"“](.+)[\"”]\s*$", rest)
+            m = re.match(r"((?:D|id)\d+|\*)\s+[\"“](.+)[\"”]\s*$", rest)
             if not m:
                 raise ValueError(f"Citação mal formada: {line}")
             out["quotes"][key] = (m.group(1), m.group(2))
@@ -294,12 +294,20 @@ def compile_facts(cnpj: str, facts_path: Path, work: Path) -> dict:
         issues.append(f"Tipo de fundo fora da lista: {fund_type!r}")
     quotes = {}
     for key, (label, quote) in parsed["quotes"].items():
-        doc = every.get(label[2:]) if label.startswith("id") else by_label.get(label)
-        if not doc:
-            issues.append(f"{key}: documento {label} inexistente")
-            continue
         words = re.findall(r"\S+", fold(quote))
-        match = re.search(r"\s+".join(re.escape(w) for w in words), doc.folded) if words else None
+        pattern = re.compile(r"\s+".join(re.escape(w) for w in words)) if words else None
+        if label == "*":  # any labelled document, in label order
+            label, doc, match = next(((lab, d, pattern.search(d.folded)) for lab, d in sorted(by_label.items(), key=lambda item: int(item[0][1:]))
+                                      if pattern and pattern.search(d.folded)), ("*", None, None))
+            if not doc:
+                issues.append(f"{key}: citação não encontrada em nenhum documento")
+                continue
+        else:
+            doc = every.get(label[2:]) if label.startswith("id") else by_label.get(label)
+            if not doc:
+                issues.append(f"{key}: documento {label} inexistente")
+                continue
+            match = pattern.search(doc.folded) if pattern else None
         if not match:
             issues.append(f"{key}: citação não encontrada em {label}")
             continue

@@ -1,0 +1,815 @@
+{
+ "schema_version": 1,
+ "cnpj": "62626409000175",
+ "name": "SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T20:19:13Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1152539",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "31/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539"
+  },
+  "D2": {
+   "document_id": "1020152",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "24/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1020152"
+  },
+  "D3": {
+   "document_id": "1017009",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "17/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017009"
+  },
+  "D4": {
+   "document_id": "1013481",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "14/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013481"
+  },
+  "D5": {
+   "document_id": "995532",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "09/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995532"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão cedidos pela SumUp",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 67,
+     "clause": "Apêndice B, cl. 11.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "a a aceitação dos Instrumentos de Pagamento, não havendo, portanto, concessão de crédito pelo Cedente aos Devedores. Os Direitos Creditórios serão originados pelo Cedente e devidos pelos Devedores, em observância às regras dos Arranjos de Pagamento. 11.2.5. Tendo em vista que o Fundo adquirirá apenas direitos creditórios que sejam os Direitos Creditórios, originados nos termos do item 11.2.4 acima, o Fundo não exigirá a observância de qualquer outra regra pelo Cedente para concessão de crédito aos Devedores, 64 REGULAMENTO DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.409/0001-75- DATADO DE 31 DE MARÇO DE 2026 de modo que não consta deste Regulamento uma política de concessão de crédito específica adotada pelo Cedente. 11.2.6. A formalização da cessão dos Direitos Creditórios dar-se-á por meio da celebração de Termos de Cessão, elaborados na forma estabelecida no Contrato de Cessão. 11.2.7."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 122,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "alor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Chargeback” significa a contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, Cliente, Estabelecimento Comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Citibank” significa o BANCO CITIBANK S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.111, 2º andar – parte, inscrito no CNPJ/MF sob o nº 33.479.023/0001-80. “Classe” significa classe única de Cotas fechada do Fundo, observa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "SumUp Instituição de Pagamento Brasil (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 122,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "alor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Chargeback” significa a contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, Cliente, Estabelecimento Comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Citibank” significa o BANCO CITIBANK S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.111, 2º andar – parte, inscrito no CNPJ/MF sob o nº 33.479.023/0001-80. “Classe” significa classe única de Cotas fechada do Fundo, observa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "SumUp Instituição de Pagamento Brasil (cedente único)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 122,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "alor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Chargeback” significa a contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, Cliente, Estabelecimento Comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Citibank” significa o BANCO CITIBANK S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.111, 2º andar – parte, inscrito no CNPJ/MF sob o nº 33.479.023/0001-80. “Classe” significa classe única de Cotas fechada do Fundo, observa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Emissores listados no complemento, autorizados pelo BACEN",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 128,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "como os demais documentos necessários para o funcionamento do Fundo. “Emissores” significam as instituições financeiras ou instituições de pagamento listadas no Complemento III, devidamente autorizadas pelo BACEN e, licenciadas pelas Bandeiras a emitir moeda eletrônica e/ou Instrumentos de Pagamento, com validade no Brasil, nos termos da legislação e da regulamentação aplicáveis. 13 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Entidades do Respectivo significam outras instituições financeiras e/ou instituições Grupo” de pagamento do conglomerado do Emissor em questão, bem como sociedades a eles ligadas e/ou coligadas, na data da cessão dos Direitos Creditórios ao Fundo. “Entidades Registradoras” significam as enti"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação do cedente ou de terceiros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 31,
+     "clause": "Apêndice B, cl. 10.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "Apêndice, o qual representa o limite máximo de remuneração possível para esta Subclasse de Cotas. (ii) Ausência de coobrigação do Cedente ou de terceiros. O Cedente não responde pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores. O pagamento dos Direitos Creditórios Cedidos não conta com coobrigação ou garantia de quaisquer terceiros. Na hipótese de inadimplemento dos Direitos Creditórios 28 REGULAMENTO DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.409/0001-75- DATADO DE 31 DE MARÇO DE 2026 Cedidos, portanto, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo. (iii) Fatores macroeconômicos. Como o Fundo aplicará seus recursos preponderantemente nos Direitos Creditórios Cedidos, dependerá da solvência dos Devedores para distribuição de rendimentos aos Cotistas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Moeda nacional; vencimento ≤ 360 dias; transações de crédito",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 69,
+     "clause": "Apêndice B, cl. 11.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "026 11.3. Critérios de Elegibilidade e Condições de Cessão 11.4. Critérios de Elegibilidade 11.4.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios devem ser expressos em moeda corrente nacional; (ii) o prazo entre a Data de Aquisição e a data de vencimento de cada Direito Creditório a ser adquirido deverá ser de, no máximo, 360 (trezentos e sessenta) dias corridos; (iii) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores ao Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento das Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema SumUp para a aquisição de bens e serviços ofertados pelos Estabelecimentos Comerciais; (iv) os Direitos Creditórios devem ser devidos pelos Devedores, não havendo limites de concentração estabelecidos por Devedor; e (v) o Cedente não poderá estar inadimplente perante o Fundo. 11.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por emissor não localizado no regulamento",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Cedente único (SumUp)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 122,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "alor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Chargeback” significa a contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, Cliente, Estabelecimento Comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Citibank” significa o BANCO CITIBANK S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.111, 2º andar – parte, inscrito no CNPJ/MF sob o nº 33.479.023/0001-80. “Classe” significa classe única de Cotas fechada do Fundo, observa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "Até 360 dias entre aquisição e vencimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 69,
+     "clause": "Apêndice B, cl. 11.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "026 11.3. Critérios de Elegibilidade e Condições de Cessão 11.4. Critérios de Elegibilidade 11.4.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios devem ser expressos em moeda corrente nacional; (ii) o prazo entre a Data de Aquisição e a data de vencimento de cada Direito Creditório a ser adquirido deverá ser de, no máximo, 360 (trezentos e sessenta) dias corridos; (iii) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores ao Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento das Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema SumUp para a aquisição de bens e serviços ofertados pelos Estabelecimentos Comerciais; (iv) os Direitos Creditórios devem ser devidos pelos Devedores, não havendo limites de concentração estabelecidos por Devedor; e (v) o Cedente não poderá estar inadimplente perante o Fundo. 11.4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos cedidos; 67% após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 118,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "DE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido da Classe a ser mantido em Direitos Creditórios Cedidos, a ser observado a partir do 180º (centésimo octogésimo) dia, contado da Data de Início do Fundo. “Amortização de Principal” significa a amortização do principal das Cotas Seniores, realizada conforme o item 14.3 deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 55,
+     "clause": "Apêndice B, cl. 10.13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "licação do regime específico dos fundos não sujeitos à tributação periódica. Caso a carteira deixe de ser composta por, no mínimo, 67% (sessenta e sete por cento) em Direitos Creditórios, após o prazo de 180 (cento e oitenta dias) contados da data da 1ª integralização de Cotas, e tal situação não seja sanada nos prazos previstos na legislação aplicável, ou o Fundo deixe se ser considerado uma entidade de investimento, os cotistas estarão sujeitos ao regime geral de tributação de fundos previsto no artigo 17 da Lei 14.754, de 12 de dezembro de 2023, conforme alterada, que prevê o pagamento de imposto de renda retido na fonte sobre os rendimentos das aplicações em fundos de investimento de forma automática no último Dia Útil dos meses de maio e novembro de cada ano (“come-cotas”), às alíquotas de 15% ou 20%, a depender do prazo da carteira do fundo, o que irá significar uma antecipação de recolhimento de impostos ao Cotista e, conforme o prazo de aplicação, a sujeição a tributação complementar determinada segundo uma tabela regressiva que vai de 22,5% (vinte e dois inteiros e cinco décimos por cento) a 15% (quinze por cento) no momento da distribuição de rendimentos ou amortização, descontada a antecipação"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 137,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "para determinação da Meta de Remuneração, conforme definida no respectivo Apêndice. “Subclasse” significam as subclasses de Cotas da Classe do Fundo, as quais são divididas em Cotas Seniores e Cotas Subordinadas Juniores. “SumUp” significa o Cedente. “Taxa de Administração” significa a remuneração devida à Administradora, nos termos do Capítulo 8 deste Regulamento. “Taxa de Cessão” significa, com relação a cada Direito Creditório Cedido, a taxa de cessão utilizada para determinar seu Preço de Aquisição na Data de Aquisição, observado que cada Taxa de Cessão deverá ser superior à respectiva Taxa Mínima de Cessão, nos termos do Contrato de Cessão. “Taxa de Gestão” significa a remuneração devida ao Gestor, nos termos do Capítulo 8 deste Regulamento. “Taxa DI” significa, com relação a cada Data de Cálculo, a taxa média referencial dos depósitos interfinanceiros (CDI Extra- Grupo), expressa na f"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "2,5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 131,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "er título. “Inconsistência Relevante” tem o significado atribuído no Complemento IV. “Índice de Subordinação” significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas Juniores em circulação e o Patrimônio Líquido, equivalente a 2,5% (dois inteiros e cinco décimos por cento). “Instituição Autorizada” significa qualquer das Instituições Elegíveis que possua classificação de risco de crédito de longo prazo, atribuída pela Agência Classificadora de Risco, igual ou superior (i) à mais elevada classificação de risco conferida às Cotas Seniores em circulação;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 2.5,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Frequência de apuração e cura do índice não localizadas",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Reservas de amortização e de despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 135,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "e Pagamento em questão, calculada nos termos deste Regulamento e do respectivo Apêndice. “Reserva de Amortização” significa com relação a cada Data de Cálculo, a reserva, a ser constituída em Disponibilidades pelo Gestor, para o 20 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 pagamento da Remuneração e da Amortização de Principal, conforme descrito no item 22.2 deste Regulamento. “Reserva de Despesas e significa a reserva, a ser constituída em Disponibilidades Encargos” pelo Gestor, para o pagamento dos encargos do Fundo, nos termos previstos no item 22.1 deste Regulamento. “Resolução BCB 150” significa a Resolução BCB nº 150, de 6 de outubro de 2021, conforme alterada. “Resolução BCB 80” significa a Resolução BCB nº 80, de 25 de março"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 136,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "emuneração e da Amortização de Principal, conforme descrito no item 22.2 deste Regulamento. “Reserva de Despesas e significa a reserva, a ser constituída em Disponibilidades Encargos” pelo Gestor, para o pagamento dos encargos do Fundo, nos termos previstos no item 22.1 deste Regulamento. “Resolução BCB 150” significa a Resolução BCB nº 150, de 6 de outubro de 2021, conforme alterada. “Resolução BCB 80” significa a Resolução BCB nº 80, de 25 de março de 2021, conforme alterada. “Resolução CVM 30” significa a Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada. “Resolução CVM nº 160” significa a Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada. “Resolução CVM nº 175” significa a Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada. “Resolução de Cessão” tem o significado atribuído no item 11.2.9. “SCR” significa o Sistema de Informações de Créditos do BACEN. “Séries” significam as séries distintas de Cotas Seniores da Classe. “Sistema SumUp” significa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisionamento da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 83,
+     "clause": "Apêndice B, cl. 16.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "stes terão seu valor definido conforme o Valor dos Direitos Creditórios, a ser determinado pela Administradora. 16.4. O manual de precificação e provisionamento da Administradora pode ser consultado no seu site: https://bemdtvm.bradesco/html/bemdtvm/general-information.shtm. 80 REGULAMENTO DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.409/0001-75- DATADO DE 31 DE MARÇO DE 2026 16.5. O Patrimônio Líquido, a ser apurado pela Administradora, equivale ao valor das Disponibilidades acrescido do Valor dos Direitos Creditórios, deduzidas as exigibilidades e as provisões do Fundo. 16.6. As Cotas terão seu valor calculado, em toda Data de Cálculo, nos termos descritos no Capítulo 13 deste Regulamento e das disposições regulamentares pertinentes. 17. DA ASSEMBLEIA GERAL 17.1. Competência da Assembleia 17.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating sênior sem atualização por 90 dias ou rebaixado 3 níveis",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 96,
+     "clause": "Apêndice B, cl. 18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "epasse dos respectivos valores da Conta Centralizadora do Cedente à Conta do Fundo. 18. DOS EVENTOS DE AVALIAÇÃO 18.1. São Eventos de Avaliação: (i) caso a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco das Cotas Seniores, por prazo igual ou superior a 90 (noventa) dias; (ii) rebaixamento da classificação de risco de qualquer Série das Cotas Seniores em 3 (três) níveis, ou mais, abaixo da classificação de risco originalmente atribuída à respectiva Série de Cotas Seniores; (iii) não divulgação, pela Administradora, do Relatório de Monitoramento, não sanada no prazo máximo de 05 (cinco) dias a contar da data em que o Relatório de Monitoramento deveria ter sido originalmente divulgado e desde que o Gestor encaminhe à Administradora, as informações previstas no item (l) que sejam de sua responsabilidade e, uma vez validadas pela Administradora, as referidas informações não sejam disponibilizadas pela Administradora aos Cotistas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Falta de créditos elegíveis; AGC; CVM; fim da prestação de serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 100,
+     "clause": "Apêndice B, cl. 19",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "ão, as providências previstas nos itens18.2 (ii) a (iv) acima deverão ser cessadas. 19. DOS EVENTOS DE LIQUIDAÇÃO 19.1. São Eventos de Liquidação: 97 REGULAMENTO DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.409/0001-75- DATADO DE 31 DE MARÇO DE 2026 (i) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação configura um Evento de Liquidação; (ii) caso seja declarada a insolvência do Fundo, nos termos do Código Civil; (iii) determinação da CVM, nos termos previstos na Resolução CVM nº 175; (iv) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pelo Gestor ou pelo Custodiante, sem que tenha havido sua efetiva substituição por outro prestador de serviços, observados os procedimentos e prazos descritos no Capítulo 9 deste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 63,
+     "clause": "Apêndice B, cl. 11.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "sendo permitida, nos termos deste Regulamento e do artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM nº 175, a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento. 11.1.4. No prazo de até 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe do Fundo deverá observar a Alocação Mínima. 11.1.5. Caso a Classe do Fundo não consiga atender à Alocação Mínima em até 180 (cento e oitenta) dias contados da Data de Início do Fundo, o Gestor, por conta e ordem do Fundo, poderá solicitar à CVM a prorrogação do prazo, apresentando os motivos que justifiquem tal prorrogação. Caso a CVM não aceite o pedido da Administradora ou caso, após o prazo adicional conferido pela CVM, a Classe do Fundo ainda não consiga enquadrar a Alocação Mínima, a Classe em questão e o Fundo deverão ser liquidados antecipadamente, devendo a Administradora, por conta e ordem do Fundo e observadas as disposições aplicáveis deste Regulamento, amortizar integralmente a totalidade das Cotas da Classe. 11.1.6. A parcela do Patrimônio Líquido não alocada em Direitos Creditórios Cedidos poderá ser mantida em moeda corrente nacional ou aplicada nos seguintes Ativos Financeiros: (i) Letras Financeiras do Tesouro Nacional (Tesouro Selic);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Por metas da série; sequencial após evento de liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 118,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "de um Evento de Liquidação, nos termos do Capítulo 15 deste Regulamento. “Amortização Sequencial” significa o critério de alocação dos recursos do Fundo para amortização das Cotas Seniores, adotado pela Administradora, após a eventual ocorrência de um Evento de Liquidação, nos termos do Capítulo 15 deste Regulamento. “ANBIMA” significa a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. 3 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Anexo Normativo II” significa o anexo II integrante da Resolução CVM nº 175 que dispõe sobre as regras específicas para os fundos de investimento em"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,039% a.a. do PL; mín. R$ 14.625/mês (custódia à parte)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 24,
+     "clause": "Apêndice B, cl. 8.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "roladoria, e escrituração, será cobrada do Fundo, a partir de 06 de outubro de 2025, como remuneração à Administradora, a remuneração de 0,039% (trinta e nove milésimos por cento) ao ano sobre o Patrimônio Líquido, respeitando o valor mínimo mensal de R$ 14.625,00 (quatorze mil seiscentos e vinte e cinco reais). 8.1.2. Pelos serviços de custódia qualificada, será cobrado do Fundo, a partir de 06 de outubro de 2025, como remuneração a ser paga ao Custodiante, o percentual de 0,02% (dois centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$ 2.571,42 (dois mil, quinhentos e setenta e um reais e quarenta e dois centavos). A remuneração do Custodiante será paga diretamente pelo Fundo e não integra a Taxa de Administração. 8.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,016% a.a. do PL; mín. R$ 6 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 25,
+     "clause": "Apêndice B, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "que seja promovida alteração do Regulamento. 8.2. O Fundo apurará e pagará, a partir de 06 de outubro de 2025, a Taxa de Gestão como remuneração ao Gestor pelos serviços de gestão fiduciária equivalente a 0,016% (dezesseis milésimos por cento) ao ano sobre o Patrimônio Líquido, respeitando o valor mínimo mensal de R$ 6.000,00 (seis mil reais). 8.2.1. A Taxa de Gestão prevista neste Capítulo 8 será apurada diariamente, à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos), com base no valor do Patrimônio Líquido verificado no Dia Útil anterior à realização do referido cálculo, sendo as parcelas devidas no 5º (quinto) Dia Útil de cada mês. 8.2.2. Os valores acima não incluem os demais encargos previstos no Capítulo 20 deste Regulamento, a serem debitados do Fundo pelo Gestor. 8.2.3. O Gestor pode estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pelo Fundo aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão acima fixada. 8.2.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não há taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa sobre a Taxa DI definida no apêndice de cada série; não localizada no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BEM DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 117,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "nifica a data da primeira integralização de Cotas de Cotas” determinada Subclasse ou Série. “Administradora” significa a BEM DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade regularmente constituída e em funcionamento no Brasil, devidamente autorizada e habilitada pela CVM a administrar carteiras de valores mobiliários, na categoria de administrador fiduciário, pelo Ato Declaratório CVM nº 3.067, de 6 de setembro de 1994, com sede na Cidade de Osasco, Estado de São Paulo, no Núcleo Cidade de Deus, Vila Yara, Prédio Prata, 4º andar, CEP 06029-900, inscrita no CNPJ/MF sob o nº 00.066.670/0001- 00, ou seu sucessor a qualquer título. “Agência Classificadora de significa a agência de classificação de risco contratada pelo Risco” Fundo, responsável pela avaliação de risco das Cotas, conforme aplicável, que poderá ser: (i) a Fitch Ratings Brasil Ltda.; (ii) a Moody’s América Latina Ltda.;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Banco Bradesco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 130,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "34.850.088/0001-52, observado que todas as referências à Fundo alcançam a sua Classe única. “Gestor” significa o BANCO BRADESCO S.A., instituição financeira participante aderente ao Foreign Account Tax Compliance Act (FATCA) com Global Intermediary Identification Number (GIIN) VWBCS9.00000.SP.076, devidamente autorizada pela 15 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 CVM para prestação dos serviços de gestão de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 1.085 de 30 de agosto de 1989, inscrita no CNPJ/MF sob o n° 60.746.948/0001-12, com escritório na cidade de São Paulo, Estado de São Paulo, na Ave"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Bradesco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 125,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "item 11.3 deste Regulamento, a serem verificados pelo Gestor, ou terceiro contratado. “Custodiante” significa a o BANCO BRADESCO S.A., instituição financeira com sede social no Núcleo Cidade de Deus, s/nº, Vila Yara, CEP 06.029-900, na cidade de Osasco, Estado de São Paulo, inscrito no CNPJ/MF sob o nº 60.746.948/0001-12, na qualidade de prestador dos serviços de custódia. “CVM” significa a Comissão de Valores Mobiliários. 10 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Data de Aquisição” significa cada Dia Útil em que ocorrer a celebração do Termo de Cessão e o pagamento do Preço de Aquisição referente à cessão dos Direitos Cre"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Cedente (SumUp) ou terceiro contratado pelo gestor",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 117,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "u (iii) a Standard & Poor’s Ratings do Brasil Ltda. “Agente de Cobrança significa o Cedente ou terceiro contratado pelo Gestor, em Extraordinária” nome do Fundo, para realizar a cobrança dos Direitos Creditórios Inadimplidos, observado o disposto na Política de Cobrança, no Contrato de Cobrança e neste Regulamento. 2 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Alocação Mínima” significa o percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido da Classe a ser mantido em Direitos Creditórios Cedidos, a ser observado a partir do 180º (centésimo octogésimo) dia, contado da D"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 122,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "alor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20. “Chargeback” significa a contestação de uma Transação de Pagamento, no todo ou em parte, pelo respectivo Usuário Final, Cliente, Estabelecimento Comercial, Bandeira ou Emissor, que pode resultar na não realização do pagamento, total ou parcial, de um Direito Creditório ou na obrigação de devolução do valor anteriormente pago pelos Devedores (inclusive por meio de compensação). “Citibank” significa o BANCO CITIBANK S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.111, 2º andar – parte, inscrito no CNPJ/MF sob o nº 33.479.023/0001-80. “Classe” significa classe única de Cotas fechada do Fundo, observa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 132,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "rdinadas Juniores, deverá ser o Cedente, nos termos do item 12.5.3 deste Regulamento. “Investidores Profissionais” significam os investidores considerados profissionais, nos termos do artigo 11 da Resolução CVM 30. “Lei 12.865/13” significa a Lei n° 12.865, de 9 de outubro de 2013, conforme alterada. “Limite Superior de significa, com relação a cada Data de Pagamento e cada Remuneração” Série de Cotas Seniores, o valor determinado pela Administradora, de acordo com a seguinte fórmula, e observado o disposto no item 4.2.3 deste Regulamento: Valor Unitário de Referência Corrigido Antes da Amortização - Valor Principal de Referência Anterior “Meta de Amortização” significa a soma dos valores correspondentes à Meta de Amortização de Principal e ao Limite Superior de Remuneração."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 135,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "Extraordinária, conforme o Complemento II ao presente Regulamento. “Prazo de Duração” significa o prazo de duração de cada Série ou Classe de Cotas, compreendido entre a respectiva Data de Contagem e a respectiva Data de Amortização Final. “Preço de Aquisição” significa o preço de aquisição dos Direitos Creditórios Cedidos, conforme especificado em cada Termo de Cessão. “Prestadores de Serviços significa, conjuntamente, a Administradora e o Gestor. Essenciais” “Regulamentação de Meios significa a Lei 12.865, a Resolução CMN 4.282, a Resolução Eletrônicos de Pagamento” BCB 150, a Resolução BCB 80, bem como toda regulamentação complementar editada pelo BACEN e CMN sobre o assunto, conforme alteradas ou substituídas. “Regulamento” significa este regulamento do Fundo, conforme alterado de tempos em tempos. “Relatório de significa o relatório disponibilizado pela Administradora, nos Monitoramento” termos do item (l) deste Regulamento. “Remuneração” s"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Transações em arranjos de pagamento, com registro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 119,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "conjunto: (i) Arquivo Analítico; e (ii) Arquivo de Oferta dos Direitos Creditórios. “Arranjo de Pagamento” significa cada conjunto de regras e procedimentos estabelecidos pela respectiva Bandeira, que disciplina a prestação de determinados serviços de pagamento ao público, tais como a emissão de Instrumentos de Pagamento aos Usuários Finais e o credenciamento de Clientes e Estabelecimentos Comerciais, bem como que define o uso de padrões operacionais e de segurança associados a essas 4 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 atividades, nos termos da Regulamentação de Meios Eletrônicos de Pagamento. “Assembleia Geral” significa a assembleia geral de Cotistas da Classe, ordinária ou extraordinária"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 143,
+     "clause": "Apêndice B, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "Conta do Fundo nos termos descritos no item 2.1 (iv) acima. Caso haja registro em entidade registradora, diretamente no domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório Cedido, o qual, no caso do Direito Creditório Cedido, deverá ser a Conta do Fundo. 3. Procedimentos de cobrança extraordinária dos Direitos Creditórios Inadimplidos 3.1. Os seguintes procedimentos deverão ser adotados pelo Agente de Cobrança Extraordinária: (i) Procedimentos para cobrança extrajudicial: No prazo máximo de 2 (dois) dias corridos após o inadimplemento de um Direito Creditório Cedido, ou imediatamente, caso de pedido de falência, recuperação judicial ou extrajudicial, intervenção, liquidação, propositura de medidas antecipatórias ou evento similar em relação aos Devedores, o Agente de Cobrança Extraordinária notificará extrajudicialmente os Devedores para efetuar o pagamento do Direito Creditório Inadimplido dentro de até 2 (dois) Dias Úteis contados do recebimento da notificação do Agente de Cobrança Extraordinária. (ii) Procedimento para cobrança judicial: Caso os Devedores não efetuem o pagamento do Direito Creditório Inadimplido no prazo previsto no parágrafo acima o Agente de Cobrança Extraordinária contratará escritório esp"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_lock": {
+   "display": "Domicílio na conta do fundo; conta vinculada do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 143,
+     "clause": "Apêndice B, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "Conta do Fundo nos termos descritos no item 2.1 (iv) acima. Caso haja registro em entidade registradora, diretamente no domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório Cedido, o qual, no caso do Direito Creditório Cedido, deverá ser a Conta do Fundo. 3. Procedimentos de cobrança extraordinária dos Direitos Creditórios Inadimplidos 3.1. Os seguintes procedimentos deverão ser adotados pelo Agente de Cobrança Extraordinária: (i) Procedimentos para cobrança extrajudicial: No prazo máximo de 2 (dois) dias corridos após o inadimplemento de um Direito Creditório Cedido, ou imediatamente, caso de pedido de falência, recuperação judicial ou extrajudicial, intervenção, liquidação, propositura de medidas antecipatórias ou evento similar em relação aos Devedores, o Agente de Cobrança Extraordinária notificará extrajudicialmente os Devedores para efetuar o pagamento do Direito Creditório Inadimplido dentro de até 2 (dois) Dias Úteis contados do recebimento da notificação do Agente de Cobrança Extraordinária. (ii) Procedimento para cobrança judicial: Caso os Devedores não efetuem o pagamento do Direito Creditório Inadimplido no prazo previsto no parágrafo acima o Agente de Cobrança Extraordinária contratará escritório esp"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 124,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "om Banco significam (i) o “Contrato de Business Center” e o “Contrato Depositário” de Serviços de Conta Vinculada”, conforme aditado de tempos em tempos, celebrados entre o Cedente e o Citibank; e (ii) o “Contrato de Prestação de Serviços de Depositário”, conforme aditado de tempos em tempos, celebrado com o Banco Bradesco S.A. “Cotas” significam as Cotas Seniores e as Cotas Subordinadas Juniores, quando referidas em conjunto. 9 COMPLEMENTO I – DEFINIÇÕES DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA CNPJ/MF Nº 62.626.409/0001-75 DE 14.10.2025 “Cotas Seniores” significa a Subclasse de cotas seniores da Classe que não se subordina às demais para efeitos de amortização e distribuição dos rendimentos da carteira do Fundo, nos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks cobertos por depósito do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152539",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 95,
+     "clause": "Apêndice B, cl. 17.3.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152539",
+     "excerpt": "a realizar os procedimentos operacionais aplicáveis aos Direitos Creditórios Cedidos e ao Fundo para a movimentação da Conta Centralizadora do Cedente que estavam em vigor anteriormente à data de sua contratação, e (iii) mantenha o mesmo princípio de Depósito Complementar Obrigatório pelo Cedente em caso de Cancelamentos 92 REGULAMENTO DO SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.409/0001-75- DATADO DE 31 DE MARÇO DE 2026 e Chargebacks, com o repasse dos respectivos valores da Conta Centralizadora do Cedente à Conta do Fundo. 18. DOS EVENTOS DE AVALIAÇÃO 18.1. São Eventos de Avaliação: (i) caso a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco das Cotas Seniores, por prazo igual ou superior a 90 (noventa) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da SumUp, cedente único, com júnior mínima de 2,5% do PL; gestão e custódia Bradesco.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
