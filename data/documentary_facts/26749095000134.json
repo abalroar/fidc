@@ -1,0 +1,776 @@
+{
+ "schema_version": 1,
+ "cnpj": "26749095000134",
+ "name": "PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESP LIMITADAL",
+ "fund_type": "Educacional",
+ "reviewed_at": "2026-10-13T16:16:04Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1261233",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "20/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261233"
+  },
+  "D2": {
+   "document_id": "1061833",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833"
+  },
+  "D3": {
+   "document_id": "1298072",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1298072"
+  },
+  "D4": {
+   "document_id": "1298070",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1298070"
+  },
+  "D5": {
+   "document_id": "1261463",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "21/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261463"
+  },
+  "D6": {
+   "document_id": "1261461",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "21/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261461"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Educacional",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Crédito estudantil (matrícula e mensalidades) e intercâmbio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 135,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Devedores” Os alunos das Instituições de Ensino ou intercambistas contratantes das Agências de Intercâmbio que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo “Devedores Cedidos” Devedores dos Direitos Credit"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 161,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "e c) o Aluno encaminha, para formalização e posterior arquivamento, os documentos necessários para a contratação de financiamento estudantil junto à Instituição Financeira ou a Instituição de Ensino (“Cedente”). 2. Originação"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito estudantil para matrículas e semestralidades; empréstimos/financiamentos e programas elegíveis.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Bancos parceiros e instituições de ensino, via programa Pravaler",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 127,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Cedentes” Cedentes Instituições de Ensino e Cedentes Bancos “Cedentes Bancos” As instituições financeiras que celebrarem, de tempos em tempos, (i) Contratos de Empréstimos com os Devedores para financiamento (a) de serviços educacionais"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "composição acionária, direta e indireta, da Gestora e do Agente de Cobrança Extraordinária. 3.8.2.2 A Gestora também é responsável pela implantação do programa de crédito estudantil e financiamento de programas de intercâmbios denominado Pravaler, através do qual exerce as funções de recepção e encaminhamento de pedidos de financiamentos estudantis e de programas de intercâmbio, intermediando a relação entre (i) alunos ou intercambistas e Cedentes Bancos e/ou (ii) alunos e Cedentes Instituições de Ensino, no contexto da obtenção de financiamento das me"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes bancos e instituições de ensino",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 127,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Cedentes” Cedentes Instituições de Ensino e Cedentes Bancos “Cedentes Bancos” As instituições financeiras que celebrarem, de tempos em tempos, (i) Contratos de Empréstimos com os Devedores para financiamento (a) de serviços educacionais"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Alunos e intercambistas, com devedor solidário quando previsto",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 135,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Devedores” Os alunos das Instituições de Ensino ou intercambistas contratantes das Agências de Intercâmbio que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo “Devedores Cedidos” Devedores dos Direitos Credit"
+    }
+   ],
+   "legacy": {
+    "value": "Alunos ou representantes, com devedor solidário nos contratos sujeitos à condição contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação dos cedentes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 101,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "11.9.5 Ausência de Coobrigação dos Cedentes. Os Cedentes, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum não respondem pelo pagamento dos Direitos 101 Confidencial Docusign Envelope ID: ECE168C9-66DB-4908-9D75-FD41E13E0167 Creditórios ou pela solvência dos Devedores."
+    }
+   ],
+   "legacy": {
+    "value": "Condições de cessão, resolução e recompra em contratos; vícios/culpa/dolo sujeitos a responsabilização.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não cedido pelo Itaú; intercâmbio suspenso se custo de crédito > 2%",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 69,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "iv) não sejam cedidos ou originados pelo Itaú Unibanco S.A. ou suas Afiliadas. a. Para fins dessa Condição de Cessão, Itaú Unibanco S.A. significa instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Praça Alfredo Egydio de Souza Aranha, n.º 100, Torre Olavo Setúbal, inscrita no CNPJ sob n.º 60.701.190/0001- 04. b."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 66,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "prestadas por Devedores Solidários. 5.1.1 Caso o Custo de Crédito-Programa Intercâmbio seja superior a 2% (dois por cento) em qualquer data de apuração do índice, a Classe Única não poderá realizar novas aquisições de Direitos Creditórios – Programas de Intercâmbio até que tal valor retorne a patamar inferior a 2% (dois por cento)."
+    }
+   ],
+   "legacy": {
+    "value": "Crédito vincendo e validação de contratos/lastro na cessão; regras especiais por etapa e espécie.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Menor entre 0,5% do PL e R$ 400 mil por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 65,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "mesmo Devedor em uma determinada data de verificação, não poderá ser superior ao menor dos seguintes valores contábeis: o equivalente a 0,5% (cinco décimos por cento) do Patrimônio Líquido ou R$ 400.000,00 (quatrocentos mil reais), atualizados anualmente, a partir da Data de Início do Fundo, pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo, divulgado pelo Instituto Brasileiro de Geografia e Estatística - IPCA."
+    }
+   ],
+   "value": 0.5,
+   "legacy": {
+    "value": "Limites por devedor/coobrigado e tipo de crédito exigem consulta individual; IME agregado não valida concentração.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Limites por devedor/coobrigado e tipo de crédito exigem consulta individual; IME agregado não valida concentração.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos contratos não localizado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Crédito vincendo e validação de contratos/lastro na cessão; regras especiais por etapa e espécie.",
+    "decision": "regression",
+    "why": "A leitura anterior trata de elegibilidade, não de prazo"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 125,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios “Amortização de Principal” Valor calculado de acordo com o item 7.8 do Anexo Descritivo em relação a cada série de Cotas Seniores e Cotas"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Alocação Mínima contratual após prazo de enquadramento; piso exato não transcrito sem reconciliação das definições.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino (A e B) / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 155,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Subclasses” As subclasses de Cotas da Classe Única “Subclasse de Cotas Seniores” A subclasse de Cotas Seniores da Classe Única, cujas características estão descritas no respectivo Apêndice de Cotas Seniores “Subclasse de Cotas Mezanino” A subclasse de Cotas Mezanino da Classe Única, cujas características estão des"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 155,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Subclasse de Cotas Mezanino” A subclasse de Cotas Mezanino da Classe Única, cujas características estão descritas no respectivo Apêndice de Cotas Mezanino “Subclasse de Cotas Subordinadas Junior” A subclasse de Cotas Subordinadas Juniores da Classe Única, cujas característi"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior, subordinadas mezanino e júnior; termos finais por série devem ser confirmados em apêndices.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "22% · subord./PL; sobe se atraso > 60 dias passar de 6%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 151,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "em circulação e o Patrimônio Líquido, equivalente a 22% (vinte e dois por cento), observado que, caso o Índice de Atraso Superior a 60 Dias seja igual ou superior ao percentual de 6% (seis por cento), a Relação Mínima Cotas Subordinadas será elevada, no mesmo dia em que ocorrer o evento, para 27% (vinte e sete por cento). Retornando o Índice de Atraso Superior a 60 Dias a um patamar inferior a 6% (seis por cento), a Relação Mínima Cotas Subordinadas será reduzida, no mesmo dia em que ocorrer o evento, para 22% (vinte e dois"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 22.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A: mínimo de 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 151,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Relação Mínima Por Camadas” Mezanino A: enquanto existente, a relação mínima será de 2% (dois por cento). O valor em circulação das Cotas Mezanino A contribuirá, quando existente, para o atendimento dos mínimos previstos neste Regulamento."
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Frequência de apuração e prazo de cura não localizados",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Reservas de amortização e de despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 152,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Reserva de Amortização” Reserva a ser constituída, a partir da 1ª Data de Integralização, em Disponibilidades, a ser calculada pela Gestora de acordo com o item 8.7 do Anexo Descritivo “Reserva de Despesas e Encargos” Reserva a ser constituída, a partir da 1ª Data de Integralização, em"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 152,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Reserva de Despesas e Encargos” Reserva a ser constituída, a partir da 1ª Data de Integralização, em Disponibilidades, a ser calculada pela Gestora de acordo com o item 8.8 do Anexo Descritivo 152 Confidencial Docusign Envelope ID: ECE168C9-66DB-4908-9D75-FD41E13E016"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas de 1 mês; 100% da próxima amortização até 5 DU antes; maior entre despesas+amortização e fluxo futuro.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2025, Anexo A"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de provisão sem trecho localizável no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Renegociados mantêm provisionamento de inadimplência; exceção para atraso <90 dias e fluxo sem novo inadimplemento.",
+    "decision": "regression",
+    "why": "A leitura anterior não tem fonte localizável no acervo"
+   }
+  },
+  "eval_triggers": {
+   "display": "Atraso > 90 dias acima de 8,5% ou > 180 dias acima de 6%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 107,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "Confidencial Docusign Envelope ID: ECE168C9-66DB-4908-9D75-FD41E13E0167 (iii)Índice de Atraso Superior a 90 Dias supere o percentual de 8,5% (oito inteiros e cinco décimos por cento); e (iv) Índice de Atraso Superior a 180 Dias supere o percentual de 6,0% (seis inteiros por cento). (c) amortização de Cotas em desacordo com os procedimentos definidos no presente Anexo Descritivo; (d) o desenquadramento da Relação Mínima, sem seu restabelecimento no prazo de 10 (dez) Dias Úteis contados de seu desenquadramento; (e) a Agência Classificadora de Risco não divulgar a atualização trimestral da classificação de risco referente às Cotas Seniores ou às Cotas Subordinadas Mezanino por prazo igual ou superior a 90 (noventa) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos30/60/90/180: 12%/10%/8,5%/6%; recorrência em 2 datas consecutivas, 3/6 meses ou 4/12.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/11/2025, Anexo A"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação definidos no regulamento; lista não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Atrasos30/60/90/180: 12%/10%/8,5%/6%; recorrência em 2 datas consecutivas, 3/6 meses ou 4/12.",
+    "decision": "regression",
+    "why": "A leitura anterior trata de gatilhos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "Novas cessões admitidas; intercâmbio suspenso se custo de crédito > 2%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 66,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "novas aquisições de Direitos Creditórios – Programas de Intercâmbio até que tal valor retorne a patamar inferior a 2% (dois por cento). 5.2 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por 66 Confidencial Docusign Envelope ID: ECE168C9-66DB-4908-9D75-FD41E13E0167 prest"
+    }
+   ],
+   "legacy": {
+    "value": "Novas cessões permitidas sob critérios/reservas; suspensas por eventos; fluxo longo de crédito estudantil.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Metas por série, condicionadas a caixa e prioridades",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 81,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "os fluxos futuros de (i) (a) pagamentos de amortizações de Cotas Seniores e de Cotas Subordinadas Mezanino, conforme o caso, (b) encargos e despesas e (c) preços de cessões de Direitos Creditórios relacionados aos Devedores Cedidos e (ii) recebimentos de (a) Direitos Creditórios relacionados aos Devedores Cedidos e (b) integralizações de Cotas Seniores ou Cotas Subordinadas Mezanino subscritas. 8.9.2 Os fluxos futuros listados no item 8.9.1 acima devem ser determinados de forma agregada por mês calendário, e devem ser considerados como aplicáveis às Datas de Aniversário correspondentes a cada tal mês."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/reservas e cotas prioritárias antes de júnior; evento altera alocação e suspende novas aquisições.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,50% a.a. do PL; mín. R$ 25,6 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 19,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "e a liquidação física ou eletrônica e financeira dos Direitos Creditórios da carteira do Fundo, em montante equivalente 0,50% (cinquenta centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de R$25.600,00 (vinte e cinco mil e seiscentos reais), da qual: (a) pelos serviços de Administração serão pagos: (i) 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido até R$ 300.000.000,00 (trezentos milhões de reais); acrescido de (ii) 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido que exceder R$ 300.000.000,00 (trezentos milhões de reais). A taxa prevista neste item “a” está sujeita ao valor mínimo mensal de R$ 16.200,00 (dezesseis mil e duzentos reais); e (b) pelos serviços de controladoria serão pagos: (i) 0,085% (oitenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido até R$ 300.000.000,00 (trezentos milhões de reais);"
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a./PL, mínimo R$ 25,6 mil/mês; taxa agrega administração e controladoria, com componentes próprios.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,05% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 19,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "tas de Classe fechada, cogestão da carteira e cobrança dos Direitos Creditórios Inadimplidos, a saber: 0,05% (cinco centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo 4.3 Os valores previstos neste item serão pagos pelo Fundo diretamente aos respectivos prestadores de serviços na forma dos seus respectivos contratos. 4.4 A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior, e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao dos serviços prestados. 4.5 Os valores mínimos mensais da Taxa de Administração e da Taxa de Gestão serão atualizados a cada período de 12 (doze) meses a contar da Data de Início do Fundo, ou, na menor periodicidade admitida em lei, pela variação acumulada do 19 Confidencial Docusign Envelope ID: ECE168C9-66DB-4908-9D75-FD41E13E01"
+    }
+   ],
+   "legacy": {
+    "value": "0,05% a.a./PL; mínimo mensal não identificado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não serão cobradas taxas de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa de cada série definida no suplemento; não localizada no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "DI + sobretaxa da mezanino A (10ª emissão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261233",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "20/07/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261233",
+     "excerpt": "Meta de Remuneração: Taxa DI, acrescida de Sobretaxa Mezanino A, da seguinte forma: As Cotas Subordinadas Mezanino A da 10ª Emissão serão valoradas diariamente, a partir do Dia Útil seguinte à Para verificar as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código DC05-1D75-2354-7447."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261233",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "20/07/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261233",
+     "excerpt": "iários, na categoria “administrador fiduciário” conforme o Ato Declaratório nº 6.696, de 21 de fevereiro de 2002, inscrita no CNPJ sob o nº 36.113.876/0001-91, com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 07, sala 201, Barra da Tijuca, CEP 22640-102, neste ato representada na forma de seu Estatuto Social, e PRAVALER S.A., sociedade anônima devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria “gestor de recursos”, conforme o Ato Declaratório nº 7.577, de 14 de janeiro de 2004, inscrita no CNPJ sob o nº 04.531.065/0001-14, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Dra. Ruth Cardoso, nº 7.221, 21º andar, Pinheiros, CEP 05425-902, neste ato representada na forma do seu Estatuto Social, ambas na qualidade de prestadores de serviço essenciais da CLASSE ÚNICA DE COTAS DO PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – RESPONSABILIDADE LIMITADA, inscrita no CNPJ sob o nº 26.749.095/0001-34 (“Classe”), vêm, por meio do presente instrumento particular, com base em autorização conferida pelos cotistas da Classe reunidos"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 133,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Custodiante” Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., sociedade autorizada pela CVM para o exercício"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Pravaler",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261233",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "20/07/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261233",
+     "excerpt": "º 3.434, bloco 07, sala 201, Barra da Tijuca, CEP 22640-102, neste ato representada na forma de seu Estatuto Social, e PRAVALER S.A., sociedade anônima devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria “gestor de recursos”, conforme o Ato Declaratório nº 7.577, de 14 de janeiro de 2004, inscrita no CNPJ sob o nº 04.531.065/0001-14, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Dra. Ruth Cardoso, nº 7.221, 21º andar, Pinheiros, CEP 05425-902, neste ato representada na forma do seu Estatuto Social, ambas na qualidade de prestadores de serviço essenciais da CLASSE ÚNICA DE COTAS DO PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – RESPONSABILIDADE LIMITADA, inscrita no CNPJ sob o nº 26.749.095/0001-34 (“Classe”), vêm, por meio do presente instrumento particular, com base em autorização conferida pelos cotistas da Classe reunidos Para verificar as assinaturas vá ao site https://assinaturas.certisign.com.br e utilize o código DC05-1D75-"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 133,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Custodiante” Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., sociedade autorizada pela CVM para o exercício"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Pravaler (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 125,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Agente de Cobrança Extraordinária” A Pravaler S.A., ou sua respectiva sucessora a qualquer título, contratada para realizar a cobrança dos Direitos Creditórios inadimplidos, nos termos do Contrato de Cobrança de Direitos Creditórios Inadimplidos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261233",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "20/07/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261233",
+     "excerpt": "exclusivamente junto a investidores profissionais, nos termos do Artigo 11 da Resolução da CVM nº 30, de 11 de Este documento foi assinado digitalmente por Lucas A"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; séries com prazo próprio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1061833",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/11/2025",
+     "page": 149,
+     "clause": "Anexo A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1061833",
+     "excerpt": "“Prazo de Duração” Prazo de duração de Emissão, compreendido entre a respectiva 1ª Data 149"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito estudantil do Pravaler com subordinação mínima de 22% e gatilho de atraso > 90 dias em 8,5%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

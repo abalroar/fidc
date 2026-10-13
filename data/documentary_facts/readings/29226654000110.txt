@@ -1,0 +1,35 @@
+# InvestCred (Credsystem)
+q1: D1 "O Fundo será gerido pela H2 KAPITAL S.A."
+type: Crédito pessoal
+receivables: CCB de financiamento e parcelamento de faturas de cartões Credsystem | c2,c11
+originator: IFs conveniadas, com a Credsystem como mandatária dos titulares | c2,c8
+assignor: Instituições financeiras conveniadas (endossantes) | c8
+debtor: Pessoas físicas portadoras de cartões Credsystem | c11
+recourse: Sem regresso nem coobrigação do endossante | c15,c14
+eligibility: n/d | Lista de critérios iniciada na cláusula 4.1; itens não localizados no texto extraído | why=A leitura anterior (36 meses, sem atraso) não tem trecho localizável
+debtor_limit: 5% do PL por devedor ou coobrigado | o19
+assignor_limit: Não previsto | Regulamento não limita concentração por endossante
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído | why=A leitura anterior não tem trecho localizável
+allocation: > 50% do PL em direitos elegíveis após 180 dias | c27 | value=50
+quota_structure: Sênior (séries) / Subordinada | c30
+sub_senior: n/d | Relação mínima subordinadas/sênior definida no suplemento de cada série
+sub_mezz: — | Sem cota mezanino
+sub_check: Índice apurado diariamente pela gestora | c32
+reserve: Caixa de 1 mês de despesas ordinárias | o37
+pdd: Metodologia própria por escore de crédito (anexo IV) | c42,c40
+eval_triggers: NPL 90 ≥ 62,5% da carteira; concentração fora por 3 meses | o43,c20
+liquidation: Avaliação convertida pela AGC, entre outros | c47
+revolving: n/d | Regra de revolvência não localizada no regulamento | why=A leitura anterior não tem trecho localizável
+amortization: Cronograma por suplemento; aceleração após evento de avaliação | c53,c54
+admin_fee: 0,125% a.a. até R$ 500 mi; 0,100% acima | o55
+mgmt_fee: 0,600% a.a. até R$ 500 mi, decrescente por faixa | o58
+perf_fee: 1,75% do que a cota subordinada render acima de 100% do DI | c59
+target_senior: n/d | Benchmark de cada série no suplemento; não localizado no acervo
+target_mezz: — | Sem cota mezanino
+administrator: Singulare CTVM | c65
+manager: H2 Kapital | q1
+custodian: Singulare CTVM | c18
+servicer: Credsystem (cobrança extraordinária) | c68
+investors: n/d | Público-alvo definido no anexo da classe; não localizado | why=A leitura anterior não tem trecho localizável
+duration: 20 anos | c75
+leitura: Refinanciamento de faturas da Credsystem com gatilho de NPL 90 em 62,5% e performance de 1,75% sobre a subordinada.

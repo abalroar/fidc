@@ -1,0 +1,813 @@
+{
+ "schema_version": 1,
+ "cnpj": "37511828000114",
+ "name": "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-13T16:05:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1338049",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049"
+  },
+  "D2": {
+   "document_id": "1337768",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337768"
+  },
+  "D3": {
+   "document_id": "1200490",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de crédito parcelado e empréstimo pessoal (consumidor e comerciante)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 48,
+     "clause": "Anexo VI, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "5.2. Os Direitos Creditórios serão originados por CCBs emitidas no âmbito da concessão de Crédito Parcelado, incluindo Empréstimos Pessoais, pelas Instituições Financeiras Parceiras aos Devedores CCB e deverão ser representados pelos Documentos Comprobatórios. 5.3. O processo de originação dos Direitos Creditórios e a Política de Originação e Concessão de Crédito estão descritas no Anexo IV a este Regulamento. 5.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de crédito parcelado a consumidores e comerciantes, originadas por IFs parceiras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituições financeiras parceiras, via Mercado Pago",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 48,
+     "clause": "Anexo VI, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "5.2. Os Direitos Creditórios serão originados por CCBs emitidas no âmbito da concessão de Crédito Parcelado, incluindo Empréstimos Pessoais, pelas Instituições Financeiras Parceiras aos Devedores CCB e deverão ser representados pelos Documentos Comprobatórios. 5.3. O processo de originação dos Direitos Creditórios e a Política de Originação e Concessão de Crédito estão descritas no Anexo IV a este Regulamento. 5.3.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Condições de Cessão” Significam os atributos aplicáveis aos Direitos Creditórios que serão verificados pelo Mercado (Assignment Conditions) Pago ou pelo Gestor, conforme o caso, 11 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. previamente a cada operação de aquisição de Direitos Creditórios pelo Fundo, conforme previstos no Capítulo Seventh deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "IFs parceiras; Mercado Pago atua como correspondente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "IFs parceiras do grupo Mercado Pago (endosso de CCB)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 48,
+     "clause": "Anexo VI, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "5.2. Os Direitos Creditórios serão originados por CCBs emitidas no âmbito da concessão de Crédito Parcelado, incluindo Empréstimos Pessoais, pelas Instituições Financeiras Parceiras aos Devedores CCB e deverão ser representados pelos Documentos Comprobatórios. 5.3. O processo de originação dos Direitos Creditórios e a Política de Originação e Concessão de Crédito estão descritas no Anexo IV a este Regulamento. 5.3.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 11,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Condições de Cessão” Significam os atributos aplicáveis aos Direitos Creditórios que serão verificados pelo Mercado (Assignment Conditions) Pago ou pelo Gestor, conforme o caso, 11 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. previamente a cada operação de aquisição de Direitos Creditórios pelo Fundo, conforme previstos no Capítulo Seventh deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "IFs parceiras; Mercado Pago atua como correspondente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Consumidores e comerciantes (CCB Consumidor e Comerciante)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Devedores” ou Significam os Devedores CCB Consumidor e os “Devedores CCB” Devedores CCB Comerciante, quando referidos em conjunto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso contra cedentes, salvo culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 52,
+     "clause": "Anexo VI, cl. 7.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "qualquer motivo que tenha ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, o Administrador o Gestor, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 7.2.3. Sem prejuízo ao disposto na Cláusula 7.2.1 acima, o Mercado Crédito poderá, diretamente ou por terceiro por ele indicado no âmbito dos Contratos de Endosso CCB, adquirir tais Direitos Creditórios Não Enquadrados, sem necessidade de aprovação pelo Cotista Sênior, desde que: (a) nenhum Evento de Avaliação, Evento de Amortização Acelerada ou Evento de Liquidação tenha ocorrido e esteja em curso e/ou a aquisição dos Direitos Creditórios Não Enquadrados não gere um Evento de Avaliação, Evento de Amortização Acelerada ou Evento de Liquidação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Consumidor ≤ 24 meses; comerciante ≤ 36 meses e principal ≥ R$ 100",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 53,
+     "clause": "Anexo VI, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "(ii) o prazo de vencimento de quaisquer Direitos Creditórios CCB Comerciante não poderá exceder 36 (trinta e seis) meses; (iii) exceto pelos Créditos Especiais (aos quais não serão aplicadas as limitações a seguir deste inciso, o Valor Principal Original de quaisquer Direitos Creditórios CCB Comerciante seja de, no mínimo, R$100,00 (cem Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 53,
+     "clause": "Anexo VI, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "(vi) o prazo de vencimento de quaisquer Direitos Creditórios CCB Consumidor não poderá exceder 24 (vinte e quatro) meses; (vii) o Devedor CCB deverá ser uma Pessoa incorporada, domiciliada ou cujos negócios são conduzidos no Brasil; (viii) o Devedor CCB não poderá ser: (a) uma afiliada ou um funcionário das Instituições Financeiras Parceiras, do Mercado Pago ou de suas Subsidiárias; (b) uma entidade governamental; ou (c) Falecido;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "20% do PL; 0,5% dos DC por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 49,
+     "clause": "Anexo VI, cl. 5.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "responsabilidade ou coobrigação de um mesmo Devedor, desde que limitado a 20% (vinte por cento) do Patrimônio Líquido do Fundo, nos termos do artigo 45 do Anexo Normativo II da Resolução CVM 175, observadas as exceções dispostas no parágrafo 3º do referido artigo. 5.10."
+    },
+    {
+     "doc": "D3",
+     "document_id": "1200490",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 143,
+     "clause": "Apêndice, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+     "excerpt": "(u) máximo de 0,5% (cinco décimos por cento) dos Direitos Creditórios Adquiridos relacionados a um único Devedor; e (v) máximo de 5% (cinco por cento) dos Direitos Creditórios CCB Comerciante Adquiridos consistem em Direitos Creditórios CCB Comerciante com prazo de vencimento superior a 24 (vinte e quatro) meses."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor único ≤ 0,5% dos DC; limites por produto, perfil e prazo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Limites por produto, perfil e prazo; sem limite por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor único ≤ 0,5% dos DC; limites por produto, perfil e prazo",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "24 meses (consumidor); 36 meses (comerciante)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 53,
+     "clause": "Anexo VI, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "(ii) o prazo de vencimento de quaisquer Direitos Creditórios CCB Comerciante não poderá exceder 36 (trinta e seis) meses; (iii) exceto pelos Créditos Especiais (aos quais não serão aplicadas as limitações a seguir deste inciso, o Valor Principal Original de quaisquer Direitos Creditórios CCB Comerciante seja de, no mínimo, R$100,00 (cem Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 53,
+     "clause": "Anexo VI, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "(vi) o prazo de vencimento de quaisquer Direitos Creditórios CCB Consumidor não poderá exceder 24 (vinte e quatro) meses; (vii) o Devedor CCB deverá ser uma Pessoa incorporada, domiciliada ou cujos negócios são conduzidos no Brasil; (viii) o Devedor CCB não poderá ser: (a) uma afiliada ou um funcionário das Instituições Financeiras Parceiras, do Mercado Pago ou de suas Subsidiárias; (b) uma entidade governamental; ou (c) Falecido;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 5,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, no mínimo, 50% Investimento” (cinquenta por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos Creditórios / PL >= 50%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "\"Cota Sênior\" Significa a cota de subclasse sênior emitida pelo Fundo, a qual não se subordina às demais para (Senior Quota) efeito de Amortização, Amortização Final e distribuição dos rendimentos da Carteira do Fundo, nos termos deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 58,
+     "clause": "Anexo VI, cl. 10.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "e/ou Amortização Final sobre as Cotas Subordinadas. A Amortização das Cotas Subordinadas Mezanino ocorrerá nos termos e condições previstos no respectivo Apêndice. A Amortização Final e/ou o consequente cancelamento das Cotas Subordinadas Mezanino somente ocorrerá quando não houver mais Cota Sênior em Circulação, ou seja, após a Amortização Final da Cota Sênior, ressalvado, contudo, a possibilidade de Amortização Acelerada das Cotas Subordinadas Mezanino antes da Amortização Final da Cota Sênior, exclusivamente na ocorrência de um Evento de Substituição Sem Justa Causa."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL, com majorações condicionais por excesso de juros e perdas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo VI"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Proteção da sênior pela Senioridade Máxima (fórmula do regulamento), sem percentual fixo",
+   "sources": [],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL, com majorações condicionais por excesso de juros e perdas",
+    "decision": "regression",
+    "why": "O mínimo de 10% da leitura anterior é da júnior e está na linha da mezanino"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 10% do PL; +10 p.p. se excesso de juros < 16%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 41,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "o, ambos apurados na (Minimum Junior Ratio) mesma data, equivalente a, no mínimo, 10% (dez por cento), observado que, (a) caso a Média Móvel do Índice de Juros Excedente esteja abaixo de 16% (dezesseis por cento), haverá aumento de 10 p.p. (dez pontos percentuais) na percentual acima indicado; (b) caso o Índice Histórico de Inadimplência Consumidor esteja acima de 9,5% (nove inteiros por cento), haverá aumento no percentual acima equivalente à diferença do Índice Histórico de Inadimplência Consumidor e 9,5% (nove inteiros e cinco décimos por cento);"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária; 30 dias para reenquadrar a júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 41,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "A Razão de Subordinação Júnior será calculada diariamente pelo Gestor e disponibilizada Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 64,
+     "clause": "Anexo VI, cl. 10.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "reenquadrar a Razão de Subordinação Júnior, sendo certo que tal reenquadramento deverá ocorrer no prazo de até 30 (trinta) dias contados da data de envio da notificação mencionada nesta Cláusula. 64 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 10.31.1."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL, com majorações condicionais por excesso de juros e perdas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo VI"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas e reserva de benchmark da sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 42,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Reserva de Significa a reserva a ser constituída pelo Benchmark” Administrador para fazer frente ao Benchmark Sênior, de acordo com as informações recebidas (Benchmark Reserve) do Gestor."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 42,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Reserva para Significa a reserva constituída pelo Administrador, Despesas” que será definida e monitorada pelo Gestor, nos termos deste Regulamento, para fazer frente ao (Reserve for Expenses) pagamento das despesas e encargos do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo VI"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Metodologia de PDD não localizada no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Inadimplência histórica de comerciante acima de 8%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1200490",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 33,
+     "clause": "Anexo IX",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+     "excerpt": "índice equivalente a 8% (oito por cento); e (Historical Merchant Default (ii) para fins de verificação de Evento de Amortização Rate) Acelerada, o índice equivalente a 7% (sete por cento). O Índice Histórico de Inadimplência Comerciante será calculado e disponibilizado pelo Gestor por meio do Relatório de Acompanhamento."
+    }
+   ],
+   "legacy": {
+    "value": "Índice histórico comerciante: avaliação 8%; amortização acelerada 7%; tabelas MOB adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Anexo IX"
+   }
+  },
+  "liquidation": {
+   "display": "Decisão da AGC ou da CVM; falta de recursos para encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 88,
+     "clause": "Anexo VI, cl. 13.1.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "ificação aos Cotistas ausentes à referida Assembleia Geral de Cotistas. Eventos de Liquidação 13.2. São considerados Eventos de Liquidação do Fundo quaisquer das seguintes ocorrências: (i) caso seja deliberado em Assembleia Geral de Cotistas que um Evento de Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. Avaliação constitui um Evento de Liquidação; (ii) caso os Cotistas deliberem em Assembleia Geral de Cotistas pela não realização de Chamada de Capital para suprir a necessidade de recursos para pagamento de despesas e encargos do Fundo que não possam ser cobertos pelas Disponibilidades, quando convocados para tal deliberação; (iii) caso haja determinação da CVM nesse sentido, em virtude de descumprimento de disposição legal ou regulamentar;"
+    }
+   ],
+   "legacy": {
+    "value": "Índice histórico comerciante: avaliação 8%; amortização acelerada 7%; tabelas MOB adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo VI, cl. 13.1.5"
+   }
+  },
+  "revolving": {
+   "display": "Compras até a data limite para aquisição de créditos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 6,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Amortização Significa o regime de Amortização das Cotas, a ser Acelerada” adotado pelo Administrador em caso de ocorrência de um Evento de Amortização (Accelerated Acelerada, Evento de Pagamento Qualificado, Amortization) Evento de Substituição Sem Justa Causa, e/ou após a Data Limite para Aquisição de Direitos Creditórios, conforme detalhado no Capítulo Fourteenth e Capítulo Nineteenth deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Sequencial: sênior antes de mezanino e júnior; aceleração por eventos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 58,
+     "clause": "Anexo VI, cl. 10.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "e/ou Amortização Final sobre as Cotas Subordinadas. A Amortização das Cotas Subordinadas Mezanino ocorrerá nos termos e condições previstos no respectivo Apêndice. A Amortização Final e/ou o consequente cancelamento das Cotas Subordinadas Mezanino somente ocorrerá quando não houver mais Cota Sênior em Circulação, ou seja, após a Amortização Final da Cota Sênior, ressalvado, contudo, a possibilidade de Amortização Acelerada das Cotas Subordinadas Mezanino antes da Amortização Final da Cota Sênior, exclusivamente na ocorrência de um Evento de Substituição Sem Justa Causa."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 6,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Amortização Significa o regime de Amortização das Cotas, a ser Acelerada” adotado pelo Administrador em caso de ocorrência de um Evento de Amortização (Accelerated Acelerada, Evento de Pagamento Qualificado, Amortization) Evento de Substituição Sem Justa Causa, e/ou após a Data Limite para Aquisição de Direitos Creditórios, conforme detalhado no Capítulo Fourteenth e Capítulo Nineteenth deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,125% a.a. até R$ 500 mi; 0,11% e 0,09% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1200490",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 105,
+     "clause": "Anexo IX, cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+     "excerpt": "Até R$500.000.000,00 0,125% Entre R$500.000.000,01 e 0,11% R$1.000.000.000,00 Acima de R$1.000.000.000,00 0,09% 18.1.1. A Taxa de Administração será provisionada e paga mensalmente, no 5º Dia Útil do mês posterior ao da prestação dos serviços. 18.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas cumulativas 0,125% / 0,11% / 0,09% a.a.; mínimo R$ 27 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/03/2026, Anexo IX, cl. 18.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,12% a.a. do PL; mín. R$ 25 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 105,
+     "clause": "cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "(doze centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo ou um valor mínimo mensal de R$25.000,00 (vinte e cinco mil reais), o que for maior (“Taxa de Gestão”)."
+    },
+    {
+     "doc": "D3",
+     "document_id": "1200490",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/03/2026",
+     "page": 106,
+     "clause": "Anexo IX, cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+     "excerpt": "18.2. Pelos serviços de gestão, o Gestor fará jus a uma remuneração equivalente a 0,12% a.a. (doze centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo ou um Taxa de Gestão . 18.2.1. A Taxa de Gestão será calculada e provisionada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga no 5º (quinto) Dia Útil do mês-calendário subsequente ao da prestação dos serviços. 18.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,12% a.a. sobre PL; mínimo não recuperável no texto extraído",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada série; taxa não localizada nos documentos lidos",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido no apêndice de cada série; taxa não localizada nos documentos lidos",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos CVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Administrador” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., (Administrator) instituição financeira devidamente organizada e validamente"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Banco Genial; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Polígono Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 29,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Gestor” Significa POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada constituída de (Manager) Para verificar as assinaturas vá ao site htt"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Banco Genial; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 17,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Custodiante” Significa o Administrador, instituição financeira responsável pelos serviços de custódia e controle (Custodian) dos ativos integrantes da Carteira do Fundo ou"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 4,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Administrador” Significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., (Administrator) instituição financeira devidamente organizada e validamente"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: Banco Genial; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "Mercado Pago (cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 5,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "“Agente de Cobrança Significa o Mercado Pago, contratado para CCB” ou “Agente de prestação dos serviços de cobrança dos Direitos Cobrança” Creditórios CCB vencidos e não pagos, nos termos e condições descritos neste Regulamento e no (CCB Collection Agent or Contrato de Prestação de Serviços de Cobrança."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 48,
+     "clause": "Anexo VI, cl. 2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "CAPÍTULO TERCEIRO - DO PÚBLICO-ALVO DO FUNDO 3.1. Podem participar do Fundo Investidores Profissionais que busquem rentabilidade, no longo prazo, compatível com a Política de Investimento, e aceitem os riscos associados aos investimentos do Fundo, sem prejuízo do disposto na Cláusula 10.12 abaixo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Condomínio fechado; amortização final por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338049",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 47,
+     "clause": "Anexo VI",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338049",
+     "excerpt": "CAPÍTULO PRIMEIRO – DA DENOMINAÇÃO, FORMA E PRAZO DE DURAÇÃO DO FUNDO 1.1. O MERCADO CRÉDITO I BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA, constituído sob a forma de condomínio fechado, de modo que as Cotas subscritas somente serão objeto de Amortização Final ao término do respectivo prazo de duração das respectiv"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Crédito pessoal via IFs parceiras do Mercado Pago, com júnior mínima de 10% do PL e degraus por performance.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

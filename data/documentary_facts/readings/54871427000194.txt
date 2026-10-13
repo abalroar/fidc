@@ -1,0 +1,42 @@
+# Consignado Delta Receivables I
+type: Consignado público
+q1: D1 "até 100% (cem por cento) do Patrimônio Líquido representado por Direitos Creditórios originados ou cedidos por um mesmo Endossante"
+q2: D1 "pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação"
+q3: D1 "11.1 As seguintes hipóteses são consideradas Eventos de Avaliação"
+q4: D1 "11.3 As seguintes hipóteses são consideradas Eventos de Liquidação"
+q5: D1 "As amortizações de Cotas serão realizadas a qualquer tempo"
+receivables: CCCBs que agrupam CCBs de consignado em folha ou benefício | o1,o75
+originator: Não nomeado no regulamento | c8 | Endossantes são instituições financeiras conveniadas, nomeadas nos contratos de endosso
+assignor: Não nomeado no regulamento (múltiplos endossantes) | c8
+debtor: Servidor público civil ou pensionista de órgão conveniado | c11
+recourse: Sem coobrigação; endosso em preto, definitivo | o12,c14
+eligibility: CCB adimplente; parcela > R$ 30; pagamento integral nos últimos 60 dias | o16,c77
+debtor_limit: 20% do PL | o19
+assignor_limit: Até 100% do PL por endossante | q1
+term_max: Não previsto | Sem prazo máximo próprio; limite indireto de idade + prazo ≤ 80 anos
+allocation: ≥ 50% do PL (67% para fins tributários) | o27,c29 | value=50
+quota_structure: Cota única, pari passu | q2
+sub_senior: — | Cota única; sem subordinação entre cotistas
+sub_mezz: — | Cota única
+sub_check: — | Sem índice de subordinação
+reserve: Não prevista | Regulamento sem reserva de caixa ou liquidez
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | c40
+eval_triggers: RAET do endossante; falhas do endossante sem cura em 10 DU | q3
+liquidation: PL < R$ 1 mi por 90 dias; prestador sem substituto; AGC | q4
+revolving: Compras até R$ 250 mi acumulados; depois só amortiza | o48
+amortization: A critério do gestor, conforme caixa; resgate na liquidação | q5
+admin_fee: 0,10% a.a. do PL; mín. R$ 10 mil/mês (IGP-M) | o54
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 15 mil/mês (IGP-M) | o58
+perf_fee: Não prevista | Regulamento sem taxa de performance
+target_senior: — | Cota única, sem benchmark de rentabilidade
+target_mezz: — | Cota única
+administrator: BTG Pactual Serviços Financeiros DTVM | c64
+manager: BTG Pactual Asset Management | c65
+custodian: Banco BTG Pactual | c66
+servicer: Não nomeado no regulamento | c69
+investors: Profissionais | c71
+duration: Indeterminado | c74
+payroll: Convênio de cada endossante com órgão consignante | o75,c76
+age_limit: Idade + prazo remanescente ≤ 80 anos | o78
+installment_min: > R$ 30 por parcela | o79
+leitura: Consignado público em cota única, sem colchão; endossantes não nomeados e até 20% do PL por devedor.

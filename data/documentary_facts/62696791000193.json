@@ -1,0 +1,696 @@
+{
+ "schema_version": 1,
+ "cnpj": "62696791000193",
+ "name": "BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-13T16:05:32Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1143317",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "20/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317"
+  },
+  "D2": {
+   "document_id": "1148821",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "27/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148821"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos de crédito e direitos da cadeia do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 6,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos def inida no Capítulo IV abaixo (“Política de Investimentos”), por meio de aplicação do seu Patrimônio Líquido (conforme def inido abaixo) nos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Direitos Creditórios do Agronegócio”): (i) títulos de crédito emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Não nomeado no regulamento",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 10,
+     "clause": "cl. 4.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "existência, validade e exequibilidade perante os respectivos Devedores. 4.5.1 Os Direitos Creditórios do Agronegócio serão adquiridos pela Classe por meio: (i) de contratos de cessão e/ou termos de cessão (“Contratos de Cessão”), contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e os respectivos cedentes (“Cedentes”) / endossantes (“Endossantes”), acompan"
+    }
+   ]
+  },
+  "assignor": {
+   "display": "Não nomeado no regulamento (múltiplos cedentes)",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 10,
+     "clause": "cl. 4.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "existência, validade e exequibilidade perante os respectivos Devedores. 4.5.1 Os Direitos Creditórios do Agronegócio serão adquiridos pela Classe por meio: (i) de contratos de cessão e/ou termos de cessão (“Contratos de Cessão”), contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e os respectivos cedentes (“Cedentes”) / endossantes (“Endossantes”), acompan"
+    }
+   ]
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas da cadeia do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 6,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos def inida no Capítulo IV abaixo (“Política de Investimentos”), por meio de aplicação do seu Patrimônio Líquido (conforme def inido abaixo) nos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Direitos Creditórios do Agronegócio”): (i) títulos de crédito emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada contrato de cessão, sem regra no regulamento",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Em reais e registráveis; verificação por amostragem",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 11,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "o Agronegócio que atendam cumulativamente aos seguintes critérios de elegibilidade, a serem verificados e validados pelo Gestor, por amostragem, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios do Agronegócio (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios do Agronegócio que, na Data de Aquisição (“Critérios de Elegibilidade”): (i) sejam representados"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 11,
+     "clause": "cl. 4.7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "4.7.2 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios do Agronegócio integrantes da carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.7.3 Na hipótese de eventuais Direitos Creditórios do Agronegócio elegíveis deixarem de atender a qualquer Critério de Elegibilidade após sua aquisição pela Classe, tal f ato não será entendido como um desenquadramento da carteira, tampouco haverá direito de regresso contra o Administrador e/ou o Gestor. Limites de concentração aplicáveis aos Direitos Creditórios do Agronegócio e fundos de investimento em Direitos Creditórios do Agronegócio investidos pela Classe 4.8 A Classe não possui limites para a alocação em Direitos Creditórios do Agronegócio devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não fixa prazo máximo dos créditos",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 51% do PL em direitos do agronegócio",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 10,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "mínima de 51% (cinquenta e um por cento) de seu Patrimônio Líquido representados por Direitos Creditórios do Agronegócio, enquanto a parcela de 49% (quarenta e nove por cento) remanescente deverá ser alocada em Outros Ativos ou Ativos Financeiros de Liquidez. 4.3 Os Direitos Creditórios do Agronegócio serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos."
+    }
+   ],
+   "value": 51.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 16,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "e possui 3 (três) Subclasses de Cotas, quais sejam, a subclasse sênior (“Subclasse Sênior” e “Cotas Seniores”), a subclasse mezanino (“Subclasse Mezanino” e “Cotas Mezanino”) e a subclasse subordinada (“Subclasse Subordinada” e “Cotas Subordinadas” – as Cotas Subordinadas, Cotas Seniores e Cotas Mezanino, quando ref eridas em conjunto, “Cotas”), admitindo ainda a emissão de novas séries (“Séries”) de Cotas Seniores, nos termos do seu respectivo Apêndice. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo e nos respectivos Apêndices. 7.3 As Cotas são escriturais, nominativas e correspondem a f rações ideais do patrimônio da Classe, cuja propriedade presume-se: (i) pelo registro do nome do Cotista no livro de registro de Cotistas, enquanto mantidas em conta de depósito mantidas junto ao Escriturador em nome dos respectivos Cotistas, nos termos do Art. 15 da Resolução CVM 175;"
+    }
+   ],
+   "legacy": {
+    "value": "2ª emissão sênior e 2ª emissão subordinada júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "5% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 34,
+     "clause": "Apêndice, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "4. Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 5% (cinco por cento) (“Índice de Subordinação”). 4.1.1. O Índice de Subordinação Sênior corresponde ao resultado mínimo obrigatório da divisão de (a) o somatório do valor de todas as Cotas Mezanino e das Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na f orma percentual, e será apurado todo Dia Útil pelo Administrador. 5. Negociação das Cotas 5.1."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Apêndice da cota mezanino não está no acervo local",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apuração diária pelo administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 34,
+     "clause": "Apêndice, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "4. Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 5% (cinco por cento) (“Índice de Subordinação”). 4.1.1. O Índice de Subordinação Sênior corresponde ao resultado mínimo obrigatório da divisão de (a) o somatório do valor de todas as Cotas Mezanino e das Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na f orma percentual, e será apurado todo Dia Útil pelo Administrador. 5. Negociação das Cotas 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Despesas estimadas para 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 16,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "(ii) constituição e/ou recomposição da reserva de despesas de modo que esta, ao final de cada Dia Útil, seja equivalente ao montante estimado dos encargos, a serem incorridos nos 6 (seis) meses calendário imediatamente subsequentes pelo Fundo e/ou a Classe (“Reserva de Despesas”); (iii) pagamento de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento cita eventos de avaliação, mas não os define; anexo não está no acervo",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Só por AGC ou fim do prazo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 23,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "11.1 A Classe será liquidada (i) em caso da liquidação antecipada deliberada em Assembleia Especial de Cotistas; ou (ii) pelo encerramento do Prazo de Duração da Classe. 11.2 Na ocorrência da liquidação da Classe, o Administrador: (i) liquidará todos os investimentos da Classe em Ativos Financeiros de Liquidez, conforme orientação do Gestor, transferindo todos os recursos daí resultantes para a Conta da Classe; (ii) realizará, de acordo com as orientações e instruções do Gestor, a alienação dos investimentos nos Direitos Creditórios do Agronegócio e nos Outros Ativos integrantes da carteira de investimentos da Classe; e (iii) realizará o pagamento dos encargos da Classe e a amortização das Cotas, até o limite dos recursos disponíveis na Conta da Classe. 11.2.1 No caso de Liquidação da Classe, os Cotistas terão o direito de partilhar o Patrimônio Líquido em igualdade de condições e na proporção de suas Cotas, deduzidas as despesas necessárias para a liquidação da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Recebimentos podem comprar novos créditos, a critério do gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 16,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "a, indenização pelo cedente e/ou desinvestimento de Direitos Creditórios do Agronegócio e/ou dos Outros Ativos, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios do Agronegócio e/ou dos Outros Ativos e/ou destinados ao resgate das Cotas, conf orme decisão do Gestor e desde que observada a ordem de alocação de recursos. 6 ORDEM DE ALOCAÇÃO DE RECURSOS 6.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação, de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvada a ocorrência de eventos extraordinários que afetem o funcionamento regular do Fundo e/ou da Classe: (i) pagamento dos encargos do Fundo e/ou da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Sênior: benchmark semestral (jan/jul); júnior até CDI + 4,5%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 34,
+     "clause": "Apêndice, cl. 4.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "(b) o valor do Patrimônio Líquido, expresso na f orma percentual, e será apurado todo Dia Útil pelo Administrador. 5. Negociação das Cotas 5.1. As Cotas Seniores não poderão ser negociadas no mercado secundário. 6. Amortização e Resgate das Cotas Seniores 6.1. Desde que o Patrimônio Líquido da Classe assim permita, a partir de janeiro de 2026, as Cotas Seniores f arão jus à Amortização semestral do Benchmark, a ser realizada no último Dia Útil dos meses de janeiro e de julho de cada ano (“Amortização Programada de Cotas Seniores” e “Data de Amortização Programada de Cotas Seniores”, respectivamente), observada a Ordem de Alocação de Recursos prevista no Anexo. 6.1.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 37,
+     "clause": "Apêndice, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "ordinadas em circulação, limitado ao percentual de 100% (cem por cento) da variação positiva do CDI acrescida de 4,50% (quatro inteiros e cinco décimos por cento) ao ano, considerando, para tanto a razão entre (i) o valor de integralização das Cotas Subordinadas Júnior em circulação e (ii) o valor de cada uma das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização das Cotas Subordinadas”). 4.2. Em complemento às"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior por chamadas de capital; cronograma de pagamento remetido ao apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a.; mín. R$ 10 mil/mês (IGP-M)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 28,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "(base 1/12): Taxa Base de cálculo e percentual Taxa de Administração 0,10% (um décimo por cento) ao ano com um mínimo mensal de R$ 10.000,00 (dez mil reais), pagos mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas (“Taxa de Administração” e “IGP-M”, respectivamente). Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na f alta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 28,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "s), pagos mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas (“Taxa de Administração” e “IGP-M”,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 28,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "Taxa de Gestão 0% (zero por cento) ao ano apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, incidente sobre o Patrimônio Líquido da Classe (“Taxa de Gestão”). Taxa Máxima de Custódia"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não será devida taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "CDI + 4,5% a.a. (teto)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 33,
+     "clause": "Apêndice, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "“Benchmark”, correspondente à 100% (cem por cento) da variação positiva do CDI acrescida de 4,5% (quatro inteiros e cinco décimos por cento) ao ano. 1.3. O Benchmark não representa e nem devem ser considerados uma promessa, garantia ou sugestão de rentabilidade aos Cotistas Seniores, por parte da Classe, do Administrador, do Gestor e/ou do Cedente. 1.4. Independentemente do valor do Patrimônio Líquido da Classe, os Cotistas detentores de Cotas Seniores não f arão jus a uma rentabilidade superior ao Benchmark, o qual representará o limite máximo de remuneração possível para as Cotas Seniores. 2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da cota mezanino não está no acervo local",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "reunidos em assembleia geral de Cotistas (“Prazo de Duração”). BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Administrador Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e credenciada como Administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“Administrador”), responsável pela administração f iduciária. BTG Pactual Asset Management S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management, com cogestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "nistrador”), responsável pela administração f iduciária. BTG Pactual Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar (parte), Botafogo, inscrito no CNPJ sob o nº 29.650.082/0001-00, autorizado à prestação dos serviços de Gestor administração de carteira de títulos e valores mobiliários de acordo com o Ato Declaratório nº 5.968, de 10 de maio de 2000 (“Gestor” e, quando ref erido conjuntamente com o Administrador, os “Prestadores de Serviços Essenciais”). Ceres Asset Gestão de Investimentos Ltda., inscrita no CNPJ sob o nº 40.962.925/0001-38, com sede no município de São Paulo, Estado de São Paulo, na Rua Joaquim Floriano, nº 413, 20º andar, Itaim Bibi, CEP 04534-011, Cogestora devidamente autorizada a adm"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "Profissionais” e “Resolução CVM 30”, respectivamente). Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Custódia e Tesouraria Torre Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciada como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (“Custodiante”). BTG Pactual Serviços Financeiros S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Não nomeado no regulamento",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 4,
+     "clause": "cl. 2.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "acompanhar projetos e a comercialização de imóveis rurais; (h) agente de cobrança; e, eventualmente, (i) outros serviços em benef ício do Fundo ou da classe de cotas. 2.1.3 Caso o prestador de serviço contratado pelos Prestadores de Serviços Essenciais não seja um participante de mercado regulado pela CVM, ou o serviço prestado ao Fundo não se encontre dentro da esf era de atuação da CVM, os Prestadores de Serviços Essenciais serão responsáveis apenas pela fiscalização de tal serviço."
+    }
+   ]
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "11 da Resolução CVM nº Público-Alvo 30, de 11 de maio de 2021, conf orme alterada (“Investidores Profissionais” e “Resolução CVM 30”, respectivamente)"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "zembro de 2022, conforme alterada, da Comissão de Valores Mobiliários (respectivamente, “Resolução CVM 175” e “CVM”), terá como principais características: Classe Classe única. Indeterminado, exceto se de outra f orma vier a ser deliberado pelos Cotistas Prazo de Duração reunidos em assembleia geral de Cotistas (“Prazo de Duração”). BTG"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Títulos e direitos do agronegócio; cotas de outros FIAGRO",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 6,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos def inida no Capítulo IV abaixo (“Política de Investimentos”), por meio de aplicação do seu Patrimônio Líquido (conforme def inido abaixo) nos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Direitos Creditórios do Agronegócio”): (i) títulos de crédito emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 7,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "(i) cotas de classes que apliquem mais de 50% (cinquenta por cento) de seu patrimônio líquido nos ativos referidos nos incisos “A” a “D” acima, o que inclui cotas de outros FIAGRO, mas não se limita a essa categoria de f undos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "collateral": {
+   "display": "Com ou sem garantias reais ou pessoais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1143317",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "20/03/2026",
+     "page": 11,
+     "clause": "cl. 4.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+     "excerpt": "(iv) sejam representados por direitos e/ou títulos representativos de crédito, com ou sem garantias reais ou pessoais a eles atreladas, incluindo, sem limitação, duplicatas, debêntures, contratos de locação e contratos mercantis de compra e venda de produtos e/ ou mercadorias perf ormados e/ou para entrega ou prestação f utura, bem como títulos ou certificados representativos desses contratos, decorrentes de operações nos segmentos f inanceiro, comercial, industrial, imobiliário, de hipotecas, de arrendamento mercantil e de prestação de serviços, observadas as vedações do item 4.28 abaixo deste Anexo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "FIAGRO multicedente sem limite por devedor; colchão de 5% (mez.+jr.) sob sênior a CDI + 4,5%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

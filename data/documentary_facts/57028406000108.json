@@ -1,0 +1,813 @@
+{
+ "schema_version": 1,
+ "cnpj": "57028406000108",
+ "name": "IS GREEN SOLFÁCIL VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Energia solar",
+ "reviewed_at": "2026-10-13T16:05:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1202319",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "21/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319"
+  },
+  "D2": {
+   "document_id": "1327991",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "24/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1327991"
+  },
+  "D3": {
+   "document_id": "796086",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "06/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=796086"
+  },
+  "D4": {
+   "document_id": "772560",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "06/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=772560"
+  },
+  "D5": {
+   "document_id": "732216",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "26/08/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732216"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Energia solar",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de financiamento de sistemas solares (PF e PJ)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "Os Direitos Creditórios serão originados pela Solfácil, por meio de sua plataforma digital, na qual poderão ser operacionalizadas as simulações de crédito oferecido aos Devedores e a contratação de tais operações de crédito, intermediadas juntamente ao(s) Credor(es) Original(is), mediante assinaturas eletrônicas de CCBs (“Originador”). 2.11 Nos termos do"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 108,
+     "clause": "Anexo, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "6. Condições de Transferência e Critérios de Elegibilidade 6.1 O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços (“Integradores Solares”) que estejam bloquea"
+    }
+   ],
+   "legacy": {
+    "value": "Financiamento de sistemas solares, representado por CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Solfácil, por sua plataforma digital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "Os Direitos Creditórios serão originados pela Solfácil, por meio de sua plataforma digital, na qual poderão ser operacionalizadas as simulações de crédito oferecido aos Devedores e a contratação de tais operações de crédito, intermediadas juntamente ao(s) Credor(es) Original(is), mediante assinaturas eletrônicas de CCBs (“Originador”). 2.11 Nos termos do"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Credor original, IFs parceiras ou fundos com originação Solfácil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 114,
+     "clause": "Anexo, cl. 12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Cedente” significa cada Credor Original ou Instituição Financeira Parceira, ou Fundo de Investimento em Direitos Creditórios destinado a aquisição de Direitos Creditórios, que tenha Solfácil como originadora, sendo certo que o Contrato de Transferência relativo a cada novo Fundo de Investimento em Direitos Creditórios Cedente deverá ser aprovado em Assembleia de Cotistas;"
+    }
+   ],
+   "legacy": {
+    "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas e jurídicas que financiam sistemas solares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 94,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "(b) o ticket máximo é de R$350.000,00 (trezentos e cinquenta mil reais) por Devedor e o prazo mais longo é de 126 (cento e vinte e seis) meses; e (c) a idade máxima do Devedor na data de emissão da respectiva CCB é 71 (setenta e um) anos. (ii) Para Devedores pessoa jurídica: (a) a Solfácil verifica a ausência de irregularidades financeiras relevantes do Devedor nos principais birôs de crédito e ausência de alto endividamento bancário;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação do cedente (contrato de cessão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 114,
+     "clause": "Anexo, cl. 12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "sembleia de Cotistas; (iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Cessão de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCD”) e a Originadora, com interveniência anuência da Gestora e da Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Integrador não bloqueado; CCB ≤ 126 meses, carência ≤ 185 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 108,
+     "clause": "Anexo, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "6. Condições de Transferência e Critérios de Elegibilidade 6.1 O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços (“Integradores Solares”) que estejam bloquea"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 109,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "no máximo, 126 (cento e vinte e seis) meses; 113 Clicksign b8ca4ad9-37c5-4515-bbe4-e473f4f5b94b (x) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs prefixadas em reais, adimplentes; prazo médio ≤2.400 dias; original ≤126 meses; carência ≤185 dias; nominal PF R$ 350 mil/PJ R$ 700 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo, cl. 5"
+   }
+  },
+  "debtor_limit": {
+   "display": "R$ 350 mil (PF) e R$ 700 mil (PJ) por CCB; 20% do PL por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 110,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "(xi) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos mil reais) se o Devedor for pessoa jurídica;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 22,
+     "clause": "Anexo, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico."
+    }
+   ],
+   "value": 350000.0,
+   "legacy": {
+    "value": "Limite nominal também agregado por devedor: PF R$ 350 mil/PJ R$ 700 mil; preço ≤101% do saldo contábil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Cedentes ligados à originação Solfácil; sem limite por cedente no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Limite nominal também agregado por devedor: PF R$ 350 mil/PJ R$ 700 mil; preço ≤101% do saldo contábil.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "126 meses; carência ≤ 185 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 109,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "no máximo, 126 (cento e vinte e seis) meses; 113 Clicksign b8ca4ad9-37c5-4515-bbe4-e473f4f5b94b (x) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs prefixadas em reais, adimplentes; prazo médio ≤2.400 dias; original ≤126 meses; carência ≤185 dias; nominal PF R$ 350 mil/PJ R$ 700 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL (67% para fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Alocação Mínima - Regulatório” O percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Alocação Mínima - Entidade de O percentual mínimo de 67% (sessenta e sete por Investimento” cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL em DC; 67%/PL para enquadramento tributário.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mez. A / Mez. B / Júnior (Solfácil)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 112,
+     "clause": "Anexo, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "1 Cotas Subordinadas 5% Mezanino A 2 Cotas Subordinadas 2,5% Mezanino B 9.3 O valor mínimo do Índice de Subordinação referente às Cotas Subordinadas Júnior será de 2% (dois por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 112,
+     "clause": "Anexo, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "9.3 O valor mínimo do Índice de Subordinação referente às Cotas Subordinadas Júnior será de 2% (dois por cento). 9.4 As Cotas Subordinadas Júnior somente poderão ser detidas pela Solfácil, seu controlador, sociedades por ela direta ou indiretamente controladas, suas coligadas e sociedades sob controle comum, vinculadas por interesse único e indissociável, observada, todavia, a possibilidade de constituição de garantia sobre as Cotas Subordinadas Júnior em favor de credores."
+    }
+   ],
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo, cl. 9"
+   }
+  },
+  "sub_senior": {
+   "display": "Cobertura sênior ≥ 133,3% (desalavancagem 1) ou 130,7% (nível 2)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 113,
+     "clause": "Anexo, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "10.3 A Reserva de MTM será aplicável à Classe Única. 11. Patamares de Risco 11.1 Os patamares de risco aplicáveis ao Fundo serão conforme tabela abaixo: Cotas Seniores Cotas Cotas Subordinadas Subordinadas Mezanino A Mezanino B “Patamar de 133,3% 111,1% 104,2% Desalavancagem 1” “Patamar de 130,7% 110,0% 103,6% Desalavancagem 2” “Patamar de Liberação 136,0% 113,3% 106,3% de Amortização Extraordinária” “Patamar de 15% (quinze por Desalavancagem de cento) Atrasos” “Patamar de 14% (quatorze Realavancagem de por cento) Atrasos” “Patamar de Avaliação 1,6% (um inteiro"
+    }
+   ],
+   "basis": "cobertura",
+   "value": 133.3,
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo, cl. 11"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. A ≥ 5% · Mez. B ≥ 2,5% · Júnior ≥ 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 112,
+     "clause": "Anexo, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "1 Cotas Subordinadas 5% Mezanino A 2 Cotas Subordinadas 2,5% Mezanino B 9.3 O valor mínimo do Índice de Subordinação referente às Cotas Subordinadas Júnior será de 2% (dois por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 112,
+     "clause": "Anexo, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "9.3 O valor mínimo do Índice de Subordinação referente às Cotas Subordinadas Júnior será de 2% (dois por cento). 9.4 As Cotas Subordinadas Júnior somente poderão ser detidas pela Solfácil, seu controlador, sociedades por ela direta ou indiretamente controladas, suas coligadas e sociedades sob controle comum, vinculadas por interesse único e indissociável, observada, todavia, a possibilidade de constituição de garantia sobre as Cotas Subordinadas Júnior em favor de credores."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Verificação pela gestora; rompimento leva ao regime sequencial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Amortização Sequencial” O regime de amortização das Cotas, a ser adotado pela Administradora, após a eventual ocorrência (i) de um Evento de Desalavancagem ou um Evento de Aceleração de Vencimento, até a ocorrência de um Evento de Realavancagem, conforme detalhado 11 do Anexo Descritivo, ou (ii) da liquidação da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 3 meses e reserva de MTM do hedge",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 58,
+     "clause": "Anexo, cl. 17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "Anexo Descritivo, incluindo-se a Taxa de Administração, referentes aos 3 (três) meses subsequentes. 17.2. Caso aplicável, conforme especificado no Anexo Definições Específicas da Classe, observada a ordem de alocação de recursos prevista no CAPÍTULO 11 deste Anexo Descritivo, a Administradora também deverá manter a Reserva de MTM, por conta e ordem do Fundo, equivalente ao valor ser determinado mensalmente pela Gestora, sendo certo que (i) caso o MTM Global das Operações de Deri"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas futuras; reserva de MTM negativo limitada ao menor entre valor absoluto do MTM e 1% do nocional agregado.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo, cl. 17"
+   }
+  },
+  "pdd": {
+   "display": "Manual da administradora, com regras do anexo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "12.1.1. As provisões e as perdas relativas aos Ativos Financeiros e aos Direitos Creditórios serão calculadas pela Administradora e instruídas ao Custodiante, de acordo com a regulamentação vigente, no manual de precificação e provisionamento da Administradora, no Anexo de Definições Específicas da Classe, observado que, em caso de divergência, deverão prevalecer as disposições do Anexo de Definições Específicas da Classe. 12.2."
+    }
+   ],
+   "legacy": {
+    "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eval_triggers": {
+   "display": "Atraso 90 > 15% desalavanca; rolagem 90 > 1,6% gera avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 113,
+     "clause": "Anexo, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "10.3 A Reserva de MTM será aplicável à Classe Única. 11. Patamares de Risco 11.1 Os patamares de risco aplicáveis ao Fundo serão conforme tabela abaixo: Cotas Seniores Cotas Cotas Subordinadas Subordinadas Mezanino A Mezanino B “Patamar de 133,3% 111,1% 104,2% Desalavancagem 1” “Patamar de 130,7% 110,0% 103,6% Desalavancagem 2” “Patamar de Liberação 136,0% 113,3% 106,3% de Amortização Extraordinária” “Patamar de 15% (quinze por Desalavancagem de cento) Atrasos” “Patamar de 14% (quatorze Realavancagem de por cento) Atrasos” “Patamar de Avaliação 1,6% (um inteiro"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 113,
+     "clause": "Anexo, cl. 10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "10.1 O Índice de Atrasos 90 será aplicável à Classe Única. 10.2 O Índice de Rolagem 90 será aplicável à Classe Única. 10.3 A Reserva de MTM será aplicável à Classe Única. 11."
+    }
+   ],
+   "legacy": {
+    "value": "Cobertura sênior/A/B: 133,33%/111,11%/104,17%; atraso90 >15%; rolagem90 >1,6%; patamares adicionais por regime.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 21/05/2026, Anexo, cl. 11"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação definidos no anexo descritivo; lista não localizada no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Cobertura sênior/A/B: 133,33%/111,11%/104,17%; atraso90 >15%; rolagem90 >1,6%; patamares adicionais por regime.",
+    "decision": "regression",
+    "why": "A leitura anterior trata de gatilhos de desalavancagem, registrados nas linhas de cobertura e gatilhos"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Período de aquisição definido por regime e série; não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições e amortização conforme regimes; período de carência/desinvestimento depende das séries.",
+    "decision": "regression",
+    "why": "A leitura anterior não indica período nem fonte localizável"
+   }
+  },
+  "amortization": {
+   "display": "Pró-rata por metas; sequencial após desalavancagem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 46,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "o item 11.3.1 acima, considerando que (1) as Metas de Amortização das Cotas Públicas serão determinadas (i) de forma a utilizar o máximo possível de Disponibilidades para amortização de Cotas e atender ao enquadramento de todos os Índices de Subordinação e as Razões de Cobertura, (ii) objetivando que as Razões de Cobertura aproximem-se o máximo possível dos respe"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Amortização Sequencial” O regime de amortização das Cotas, a ser adotado pela Administradora, após a eventual ocorrência (i) de um Evento de Desalavancagem ou um Evento de Aceleração de Vencimento, até a ocorrência de um Evento de Realavancagem, conforme detalhado 11 do Anexo Descritivo, ou (ii) da liquidação da Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Pro rata sujeito a metas; desalavancagem aciona sequencial com prioridade sênior → mezanino A → B → júnior.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,10% a.a. do PL; mín. R$ 10.833,33/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 105,
+     "clause": "Anexo, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "escrituração e controladora. A Taxa de Administração será de 0,10% a.a. (dez centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 10.833,33 (dez mil, oitocentos e trinta e três reais, e trinta e três centavos). (ii) Taxa Máxima de Custódia: A taxa máxima de custódia será devida pelo Fundo à Administradora pela prestação dos serviços de custódia."
+    }
+   ],
+   "legacy": {
+    "value": "0,10% a.a./PL; mínimo R$ 10.833,33/mês; IPCA positivo anual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 18,5 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 106,
+     "clause": "Anexo, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "contratados pela Gestora. A Taxa de Gestão terá a seguinte composição: 0,20% a.a. (vinte centésimos por cento ao ano) sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$18.500,00 (dezoito mil e quinhentos reais)."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a./PL; mínimo R$ 18,5 mil/mês; IPCA positivo anual.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não serão cobradas taxas de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de cada série definida no suplemento, não localizado no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de cada subclasse definida no suplemento, não localizado no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 18,
+     "clause": "Anexo X, cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "5. ____________________________________________________ LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA Administradora ____________________________________________________ RÉGIA CAPITAL LTDA. Gestora 22 Clicksign b8ca4ad9-37c5-4515-bbe4-e473f4f5b94b ANEXO I ao REGULAMENTO DO IS GREEN SOLFÁCIL VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ANEXO DESCRITIVO DA CLASSE ÚNICA DE COTAS DO IS GREEN SOLFÁCIL VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 1. CARACTERÍSTICAS GERAIS 1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Régia Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 102,
+     "clause": "Anexo, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "105 Clicksign b8ca4ad9-37c5-4515-bbe4-e473f4f5b94b 2.2 Gestora. A gestão da carteira do Fundo é realizada por RÉGIA CAPITAL LTDA., sociedade com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Rua Humaitá, nº 275, 11º (Parte) e 12º Andares, Humaitá, CEP 22261-005, inscrita no CNPJ sob o nº 54.464.258/0001-78, devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 22117, de 24 de maio de 2024 (“Gestora”). (i) A Gestora, observadas as limitações previstas no Regulamento e em seus Anexos, na lei e na regulamentação aplicável, tem poderes para praticar os atos necessários à gestão da carteira do Fundo. (ii) No âmbito das diligências relacionadas à aquisição de Direitos Creditórios, a Gestora deve verificar a existência, integridade e titularidade do lastro dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante definido no anexo de definições da classe; nome não localizado no texto extraído",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Solfácil (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 104,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "mplidos serão exercidas pela SOLFÁCIL ENERGIA SOLAR TECNOLOGIA E SERVIÇOS FINANCEIROS LTDA., sociedade com sede com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º a 5º e 6º andares, conjuntos 201 a 207, 210 e 211, anexos 501 a 511 e 601 a 611, CEP 05428-000, inscrita no CNPJ sob o nº 31.931.053/0001-50 (“Agente de Cobrança Extraordinária”), de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "da Gestora no endereço: https://jgp.com.br/esg/conheca-nossametodologia/. 1.3 PÚBLICO-ALVO. A Classe Única é destinada a Investidores Qualificados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos da Classe Única. 1.4 Quando se tratar de oferta pública de Cotas sujeita ao rito de registro automático de distribuição, o Cotista assinará declaração atestando a ciência da ausência de análise da oferta pela CVM, bem como das restrições à negociação das Cotas, nos termos da Resolução CVM 160. 1.5 EXERCÍCIO SOCIAL. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 31 de dezembro de cada ano. 2. Prestadores de Serviços 2.1 Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazos e remuneração de séries nos apêndices; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Prazo por série sênior e por subclasse mezanino",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 86,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "“Prazo de Duração” O prazo de duração de cada série de Cotas Seniores ou Subclasse de Cotas Subordinadas Mezanino, conforme o caso, compreendido entre a respectiva 1ª Data de Integralização de tais Cotas e a resp"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; prazos e remuneração de séries nos apêndices; investidores autorizados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "real_collateral": {
+   "display": "Alienação fiduciária dos equipamentos; desligamento remoto",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1202319",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 96,
+     "clause": "Anexo, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1202319",
+     "excerpt": "eder com a negativação dos Devedores com pagamentos em aberto em serviços de proteção ao crédito; e/ou (iii) executar a respectiva Alienação Fiduciária de Equipamentos. 4. Sendo constatadas quaisquer divergências, entre o valor devido e o valor efetivamente pago pelo respectivo Devedor, durante o procedimento para cobrança dos Direitos Creditórios Inadimplidos, será permitido ao Agente de Cobrança Extraordinária, a seu critério, conceder prorrogações, descontos ou parcelamentos aos respectivos Devedores, limitado à PDD do Direito Creditório, bem como alternativas que o Agente de Cobrança Extraordinária considere efetivas para o recebimento extrajudicial dos valores referentes aos Direitos Creditórios Inadimplidos, mediante aprovação prévia da Gestora e/ou Administradora. 5."
+    }
+   ],
+   "legacy": {
+    "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Solar da Solfácil com cobertura sênior mínima de 133,3% e desalavancagem se o atraso 90 passar de 15%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

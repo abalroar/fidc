@@ -1,0 +1,810 @@
+{
+ "schema_version": 1,
+ "cnpj": "33254370000104",
+ "name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-13T16:05:33Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1128340",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "03/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de crédito parcelado, CCB Veículo (alienação fiduciária) e recebíveis PPV",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "c) Deverão ter prazo máximo de vencimento equivalente a: (a) a 60 (sessenta) meses para as CCBs Veículos; ou (b) a 25 (vinte e cinco) meses para as demais CCBs. 2.3.6 Os Direitos Creditórios PPV deverão atender aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: a) O Cedente deverá ser pessoa física ou pessoa jurídica inscrita, respectivamente, no Cadastro de Pessoas Físicas ou Cadastro Nacional de Pessoas"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 91,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "Parcelado e que contenham garantia de alienação fiduciária de veículo automotor leve (autos e/ou motos). Para todos os fins deste Regulamento as CCBs Veículos serão consideradas CCBs."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "vez, representam direitos creditórios futuros a serem originados pelos Cedentes na medida em que comercializem produtos e/ou serviços por meio da plataforma digital do Mercado Pago, os quais também deverão respeitar os parâmetros da política de investimento, composição e diversificação da Carteira descritos no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de crédito parcelado e veículos; direitos PPV futuros da plataforma Mercado Pago",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "IFs parceiras (CCB) e lojistas cedentes (PPV), via Mercado Pago",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 93,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Crédito Parcelado“ significa o crédito concedido pelas Instituições Financeiras Parceiras, e com intermediação do Mercado Pago na qualidade de correspondente bancário, por meio da emissão, pelos Devedores, de CCBs em favor das respectivas Instituições Financeiras Parceiras. “Critérios de Elegibilidade“ tem o significado que lhe é atribuído no item 2.3.4 deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "vez, representam direitos creditórios futuros a serem originados pelos Cedentes na medida em que comercializem produtos e/ou serviços por meio da plataforma digital do Mercado Pago, os quais também deverão respeitar os parâmetros da política de investimento, composição e diversificação da Carteira descritos no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras originam CCBs; cedentes comerciais originam PPV",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "IFs parceiras e lojistas da plataforma Mercado Pago",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 93,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Crédito Parcelado“ significa o crédito concedido pelas Instituições Financeiras Parceiras, e com intermediação do Mercado Pago na qualidade de correspondente bancário, por meio da emissão, pelos Devedores, de CCBs em favor das respectivas Instituições Financeiras Parceiras. “Critérios de Elegibilidade“ tem o significado que lhe é atribuído no item 2.3.4 deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "vez, representam direitos creditórios futuros a serem originados pelos Cedentes na medida em que comercializem produtos e/ou serviços por meio da plataforma digital do Mercado Pago, os quais também deverão respeitar os parâmetros da política de investimento, composição e diversificação da Carteira descritos no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "Instituições financeiras parceiras originam CCBs; cedentes comerciais originam PPV",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Tomadores de CCB e compradores na plataforma (PPV)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 93,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Crédito Parcelado“ significa o crédito concedido pelas Instituições Financeiras Parceiras, e com intermediação do Mercado Pago na qualidade de correspondente bancário, por meio da emissão, pelos Devedores, de CCBs em favor das respectivas Instituições Financeiras Parceiras. “Critérios de Elegibilidade“ tem o significado que lhe é atribuído no item 2.3.4 deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 22,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "vez, representam direitos creditórios futuros a serem originados pelos Cedentes na medida em que comercializem produtos e/ou serviços por meio da plataforma digital do Mercado Pago, os quais também deverão respeitar os parâmetros da política de investimento, composição e diversificação da Carteira descritos no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "PF/PJ nas CCBs; Mercado Pago nos direitos PPV",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso contra cedentes, salvo culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Mercado Pago, o Custodiante ou seus Grupos Econômicos, exceto em casos de comprovação de culpa ou dolo da parte que gerou o dano. 3."
+    }
+   ],
+   "legacy": {
+    "value": "Perda posterior de elegibilidade não gera regresso, ressalvadas culpa ou dolo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB Veículo ≤ 60 meses e demais ≤ 25 meses; PPV de cedentes cadastrados",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "c) Deverão ter prazo máximo de vencimento equivalente a: (a) a 60 (sessenta) meses para as CCBs Veículos; ou (b) a 25 (vinte e cinco) meses para as demais CCBs. 2.3.6 Os Direitos Creditórios PPV deverão atender aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: a) O Cedente deverá ser pessoa física ou pessoa jurídica inscrita, respectivamente, no Cadastro de Pessoas Físicas ou Cadastro Nacional de Pessoas"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs originadas por IF parceira: veículos ≤ 60 meses; demais ≤ 25 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite por emissor (dispensa regulatória)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "CMN 5.111”), para fins tributários, e 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, conforme definição da Resolução CVM nº 175, para fins regulatórios. 2.1.4 O Fundo está dispensado de observar qualquer limite de concentração por emissor, nos termos do Art. 45, §7º, II, do Anexo Normativo II da Resolução CVM nº 175."
+    }
+   ],
+   "legacy": {
+    "value": "Dispensa do limite por emissor; critérios individuais conforme tipo de crédito",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Sem limite por emissor (dispensa regulatória)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "CMN 5.111”), para fins tributários, e 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, conforme definição da Resolução CVM nº 175, para fins regulatórios. 2.1.4 O Fundo está dispensado de observar qualquer limite de concentração por emissor, nos termos do Art. 45, §7º, II, do Anexo Normativo II da Resolução CVM nº 175."
+    }
+   ],
+   "legacy": {
+    "value": "Dispensa do limite por emissor; critérios individuais conforme tipo de crédito",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "60 meses (veículos); 25 meses (demais CCBs)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "c) Deverão ter prazo máximo de vencimento equivalente a: (a) a 60 (sessenta) meses para as CCBs Veículos; ou (b) a 25 (vinte e cinco) meses para as demais CCBs. 2.3.6 Os Direitos Creditórios PPV deverão atender aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: a) O Cedente deverá ser pessoa física ou pessoa jurídica inscrita, respectivamente, no Cadastro de Pessoas Físicas ou Cadastro Nacional de Pessoas"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs originadas por IF parceira: veículos ≤ 60 meses; demais ≤ 25 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL (67% para fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "2.1.3 Decorridos 180 (cento e oitenta) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo: 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, conforme definição da Resolução nº 5.111, de 21 de dezembro de 2023, do Conselho Monetário Nacional, conforme alterada (“Res."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "CMN 5.111”), para fins tributários, e 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, conforme definição da Resolução CVM nº 175, para fins regulatórios. 2.1.4 O Fundo está dispensado de observar qualquer limite de concentração por emissor, nos termos do Art. 45, §7º, II, do Anexo Normativo II da Resolução CVM nº 175."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Após 180 dias: 50% PL para fins regulatórios; 67% para fins tributários",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 6"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 102,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Subclasse” significam as subclasses de Cotas da Classe do Fundo, as quais são divididas em Cotas Seniores e subclasses de Cotas Subordinadas."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 97,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Índice de Subordinação Júnior“ significa a razão, a ser apurada pela Gestora em cada Data de Cálculo, entre (a) o valor das Cotas Subordinadas Júnior integralizadas e em circulação; e (b) o somatório do valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior integralizadas e em circulação."
+    }
+   ],
+   "legacy": {
+    "value": "Piso dinâmico: 25%, 30% ou 35%, conforme rentabilidade excedente média de três meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, Apêndice"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · subord./PL; 30% ou 35% se o excesso de retorno cair",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 97,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Índice de Subordinação “ significa a relação mínima, a ser apurada pela Gestora em cada Data de Cálculo, admitida entre: (a) o somatório do valor das Cotas Subordinadas em circulação e (b) o Patrimônio Líquido, cujo quociente, em nenhum caso, deverá ser inferior a 25% (vinte e cinco por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 43,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "R > 7% 25% 7% ≥ R ≥ 5,01% 30% 5,01% > R ≥ 0,01% 35% R < 0,01% Evento de Aceleração das Cotas Seniores 12."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Piso dinâmico: 25%, 30% ou 35%, conforme rentabilidade excedente média de três meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice júnior medido sobre mezanino + júnior; mínimo não localizado no regulamento",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "A cada data de cálculo; júnior pode aportar para reenquadrar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 97,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Índice de Subordinação “ significa a relação mínima, a ser apurada pela Gestora em cada Data de Cálculo, admitida entre: (a) o somatório do valor das Cotas Subordinadas em circulação e (b) o Patrimônio Líquido, cujo quociente, em nenhum caso, deverá ser inferior a 25% (vinte e cinco por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 85,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "Subordinadas Júnior para fins de reenquadramento do Índice de Subordinação e do Índice de Subordinação Júnior não implicará obrigação compromisso ou dever de realização de novos aportes por partes dos Cotistas Subordinados Juniores, os quais poderão, a seu exclusivo critério, subscrever ou não as novas cotas eventualmente emitidas. 2."
+    }
+   ],
+   "legacy": {
+    "value": "Piso dinâmico: 25%, 30% ou 35%, conforme rentabilidade excedente média de três meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, Apêndice"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de remuneração sênior: próximas 3 datas de pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "pagas nas próximas 3 (três) Datas de Pagamento. 13.4 Respeitadas as regras e a forma de amortização definidas no respectivo Apêndice de Cotas Subordinadas Mezanino, enquanto houver Cotas Seniores em circulação e não tenha sido verificado um Evento de Avaliação e/ou Evento de Liquidação Antecipada pela Administradora em relação ao(s) qual(is) a Assembleia Geral ainda não tenha se"
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de remuneração sênior: remuneração + principal, quando aplicável, das próximas 3 datas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de PDD da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 53,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "referentes aos Direitos Creditórios conforme metodologia de provisionamento para devedores duvidosos disposta no manual da Administradora. 53 Docusign Envelope ID: C734C7B4-F58D-4EB0-92FC-FCC07825E238 16. Eventos de Avaliação 16.1 São considerados Eventos de Avaliação: a) caso, após 180 (cento e oitenta) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 67% (sessenta e sete por cento) do seu Patrimônio Líquido representado por Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Alocação < 67% por 30 dias; excesso de spread < 0,01% acelera a sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 53,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "referentes aos Direitos Creditórios conforme metodologia de provisionamento para devedores duvidosos disposta no manual da Administradora. 53 Docusign Envelope ID: C734C7B4-F58D-4EB0-92FC-FCC07825E238 16. Eventos de Avaliação 16.1 São considerados Eventos de Avaliação: a) caso, após 180 (cento e oitenta) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 67% (sessenta e sete por cento) do seu Patrimônio Líquido representado por Direitos Creditórios;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "seja inferior a 0,01% (um centésimo por cento), o que deverá ser comunicado pela Gestora à Administradora, ou, caso os Cotistas Subordinados que representem a maioria das Cotas Subordinadas deliberem em Assembleia Geral pela destituição da Gestora sem Justa Causa, estará caracterizado um Evento de Aceleração das Cotas Seniores e deverá ser observado o procedimento previsto no ite"
+    }
+   ],
+   "legacy": {
+    "value": "Excesso de spread < 0,01% acelera sênior; safras de veículos: Over30 MOB3 > 5,5% ou Over60 MOB6 > 6,5% em 2 de 6 safras",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 53"
+   }
+  },
+  "liquidation": {
+   "display": "Prestador sem substituto em 180 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 34,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "exercício de suas funções até sua efetiva substituição, que deve ocorrer no prazo máximo de 180 (cento e oitenta) dias, contados a partir da renúncia. Caso a Administradora ou a Gestora não seja substituída em referido prazo, o Fundo deve ser liquidado, devendo a Gestora permanecer no exercício de suas funções até a conclusão da liquidação e a Administradora até o cancelamento do registro do Fundo na CVM."
+    }
+   ],
+   "legacy": {
+    "value": "Excesso de spread < 0,01% acelera sênior; safras de veículos: Over30 MOB3 > 5,5% ou Over60 MOB6 > 6,5% em 2 de 6 safras",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 34"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de reinvestimento não localizada no regulamento",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Sênior conforme apêndice; mezanino pro rata se o índice for mantido",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "forma pro rata quando da amortização das Cotas Seniores de acordo com a ordem de alocação de recursos prevista no Capítulo 14 do presente Regulamento e observado sempre o enquadramento do Índice de Subordinação. 13.4.1 O montante máximo de Cotas Subordinadas Mezanino a ser amortizado segundo o item 13.4 acima será aquele necessário para que, considerada pro forma a Amortização Mezanino, o Índice de Subordinação seja mantido."
+    }
+   ],
+   "legacy": {
+    "value": "3ª série: texto 18 meses; calendário inicia principal no mês 13. Divergência documental",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 47"
+   }
+  },
+  "admin_fee": {
+   "display": "0,07% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "itens 8.1.3 e 8.1.4, no montante de 0,07% (sete centésimos por cento) do Patrimônio Líquido do Fundo, garantindo-se à Administradora o valor mínimo mensal de R$15.000,00 (quinze mil reais) por mês a partir da Data de Subscrição Inicial do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "0,07% do PL; mínimo R$ 15 mil/mês; teto 0,30% a.a.; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 38"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. até R$ 2,1 bi de PL agregado; menor acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 39,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "De R$0,01 até R$2.100.000.000,00 0,20% 39 Docusign Envelope ID: C734C7B4-F58D-4EB0-92FC-FCC07825E238 % ao ano calculado com base no Patrimônio Líquido Patrimônio Líquido De R$2.100.000.000,01 até"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas do PL agregado com Mercado Crédito II: 0,20% / 0,15% / 0,13% / 0,10% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 03/03/2026, p. 39"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não serão cobradas taxas de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida em cada suplemento, não localizado com a taxa",
+   "sources": [],
+   "legacy": {
+    "value": "3ª sênior: DI + 3,00% a.a., com fator adicional por capital não utilizado",
+    "decision": "regression",
+    "why": "DI + 3,00% da leitura anterior não tem fonte localizável no acervo"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplementos das cotas mezanino não localizados",
+   "sources": [],
+   "legacy": {
+    "value": "3ª sênior: DI + 3,00% a.a., com fator adicional por capital não utilizado",
+    "decision": "regression",
+    "why": "A leitura anterior trata da cota sênior, não da mezanino"
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 89,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Administradora” significa a BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede no município e Estado do Rio de Janeiro,"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros DTVM; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Polígono Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 96,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Gestora“ significa a POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada, com sede no município de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros DTVM; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 93,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Custodiante“ significa o Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros DTVM; gestão: Polígono Capital",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "Mercado Pago (cobrança e recebimento)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 89,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Agente de Cobrança” significa o Mercado Pago, contratado para a prestação de serviços de agente de cobrança com relação aos Direitos Creditórios CCB Adquiridos do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 89,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Agente de Recebimento” significa o Mercado Pago, contratado para a prestação de serviços de agente de recebimento com relação aos Direitos Creditórios CCB Adquiridos do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1128340",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "03/03/2026",
+     "page": 98,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1128340",
+     "excerpt": "“Investidores Profissionais“ significam os investidores, conforme definidos no artigo 11, da Resolução CVM nº 30."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo do fundo não localizado no texto; séries têm datas próprias",
+   "sources": [],
+   "legacy": {
+    "value": "3ª sênior: calendário termina em abril/2028; prazo textual três anos da emissão",
+    "decision": "regression",
+    "why": "A leitura anterior trata do calendário de uma série sênior, sem fonte localizável"
+   }
+  }
+ },
+ "leitura": "Crédito pessoal, veículos e PPV do Mercado Pago com subordinação de 25% do PL, subindo a 30% ou 35%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

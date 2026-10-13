@@ -1,0 +1,40 @@
+# SumUp Solo
+type: Cartão/adquirência
+q1: D1 "18.1. São Eventos de Avaliação"
+q2: D1 "19.1. São Eventos de Liquidação"
+q3: D1 "Até R$300.000.000,00 0,090%"
+receivables: Recebíveis de transações de cartão cedidos pela SumUp | c3,c7
+originator: SumUp Instituição de Pagamento Brasil (credenciadora) | c7
+assignor: SumUp Instituição de Pagamento Brasil (cedente único) | c7
+debtor: Emissores de cartão (instituições financeiras) autorizados | c10,c6
+recourse: Sem coobrigação do cedente | c11
+eligibility: Emissor autorizado e adimplente; sem evento de insolvência | c17,c6
+debtor_limit: n/d | Limite por emissor não localizado no regulamento
+assignor_limit: Cedente único (SumUp) | c7
+term_max: n/d | Prazo máximo dos recebíveis não localizado no regulamento
+allocation: ≥ 50% do PL; 65% acordado após 180 dias | c21,c22 | value=50
+quota_structure: Sênior / Júnior | c24
+sub_senior: Cobertura PL/sênior ≥ 105% | c27 | basis=PL/sr | value=105
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Frequência de apuração e cura do índice não localizadas
+reserve: Reservas de amortização e de despesas e encargos | c33,c34
+pdd: Manual de provisionamento da administradora | c37
+eval_triggers: Meta de amortização não paga em 2 DU; rating sênior cai 2 notas | q1
+liquidation: Falta de créditos elegíveis; AGC; CVM; fim da prestação de serviços | q2
+revolving: Revolvência permitida | c45
+amortization: Por metas da série; sequencial após evento de liquidação | c48
+admin_fee: 0,090% a.a. até R$ 300 mi; 0,070% acima; mín. R$ 28 mil/mês | q3,c52
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | c56
+perf_fee: Não prevista | Regulamento: não há taxa de performance
+target_senior: n/d | Sobretaxa sobre a Taxa DI definida no apêndice de cada série; não localizada no acervo
+target_mezz: — | Sem cota mezanino
+administrator: Genial Investimentos CVM | c61
+manager: Genial Gestão | c62
+custodian: Genial Investimentos (o próprio administrador) | c63,c61
+servicer: Genial Gestão ou terceiro aprovado em assembleia | c64,c62
+investors: Profissionais | c67
+duration: Por série | c68
+card_receivables: Transações em arranjos de pagamento, com registro | c69,c72
+card_lock: Domicílio na conta do fundo; conta vinculada do cedente | c72,c73
+dilution: Cancelamentos e chargebacks cobertos por depósito do cedente | c74
+leitura: Recebíveis de cartão da SumUp, cedente único, com PL mínimo de 105% da sênior.

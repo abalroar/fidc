@@ -1,0 +1,38 @@
+# Quatá FDC FGTS
+type: FGTS
+q1: D1 "A QUATÁ GESTÃO DE RECURSOS LTDA."
+receivables: CCB de antecipação do saque-aniversário FGTS, com cessão fiduciária | c11,c2
+originator: Fintech do Corban ou outro parceiro do endossante | c6
+assignor: IFs parceiras (credor original) e fundos geridos pela gestora | o7,c78
+debtor: Pessoa física de 18 a 75 anos com saque-aniversário ativo | c11,o10
+recourse: Sem coobrigação; regresso só por má-fé, culpa ou dolo | o13,c14
+eligibility: Juros prefixados; retorno médio ≥ 1,35% a.m.; prazo ≤ 3.650 dias | o16,c24
+debtor_limit: R$ 50 mil por devedor | o19
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Até 3.650 dias, limitado ao resgate da última série sênior | c24
+allocation: ≥ 67% do PL em direitos creditórios | c26 | value=67
+quota_structure: Sênior / Mezanino / Júnior | o29,c31
+sub_senior: 15% · (mez.+jr.)/PL | o33 | basis=mez+jr/PL
+sub_mezz: 3% · júnior/PL | c34 | basis=jr/PL
+sub_check: 10 DU para reenquadrar os índices; depois, evento de avaliação | c38
+reserve: Caixa para 3 meses de despesas estimadas | o41
+pdd: Perda histórica sobre a carteira e faixas por atraso do administrador | c45,c20
+eval_triggers: Insolvência de endossante ou prestadores; índices fora por 10 DU | c48,c38
+liquidation: PL < R$ 1 mi por período prolongado; decisão da AGC | c51
+revolving: Período de investimento com carência de 6 meses | c52
+amortization: Encargos → reserva → sênior → mezanino → júnior | o55
+admin_fee: Faixas sobre o PL; mín. R$ 16,5 mil a R$ 20 mil/mês | c61
+mgmt_fee: 0,50% a.a. do PL | o62
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Benchmark de cada série no suplemento; não localizado no acervo
+target_mezz: n/d | Benchmark de cada série mezanino no suplemento; não localizado no acervo
+administrator: Singulare CTVM | c69
+manager: Quatá Gestão de Recursos | q1
+custodian: n/d | Custodiante não nomeado no texto extraído do regulamento
+servicer: Fintech do Corban (cobrança extraordinária) | c72
+investors: Profissionais | c75
+duration: Indeterminado | c76
+payroll: Saque-aniversário averbado no agente operador do FGTS | o77
+age_limit: De 18 a 75 anos, 11 meses e 29 dias na emissão | c81
+installment_min: Não prevista | Regulamento não fixa parcela mínima
+leitura: FGTS com colchão de 15% (mez.+jr.) e júnior de 3%; teto de R$ 50 mil por devedor.

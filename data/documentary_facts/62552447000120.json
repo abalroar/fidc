@@ -1,0 +1,732 @@
+{
+ "schema_version": 1,
+ "cnpj": "62552447000120",
+ "name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado privado",
+ "reviewed_at": "2026-10-13T16:05:32Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1200625",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "21/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200625"
+  },
+  "D2": {
+   "document_id": "1200623",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "21/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623"
+  },
+  "D3": {
+   "document_id": "988020",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "03/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988020"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado privado",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de consignado privado e de antecipação do saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "4.1 Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS são originados no âmbito de CCBs emitidas eletronicamente pelos Devedores ao Endossante, representando, respectivamente, empréstimos consignados, com desconto em f olha de pagamento, e empréstimos pessoais, com garantia de cessão f iduciária do Saque-aniversário."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Banco VR (concedente); VR Benefícios opera a plataforma",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 12,
+     "clause": "cl. 4.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "4.4.1 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) de contratos de endosso, de promessa de endosso ou de compromisso de endosso (“Contratos de Endosso”) e/ou de termos de endosso (“Termos de Endosso”) f irmados entre a Classe, na qualidade de endossatária, e o BANCO VR S.A., instituição f inanceira, com sede no município e Estado de São Paulo, na Av."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 29,
+     "clause": "cl. 12.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "icação, para que sejam tomadas as medidas necessárias. Retenção e Cobrança dos Direitos Creditórios Inadimplidos 12.14 A Classe contratou a VR BENEFÍCIOS E SERVIÇOS DE PROCESSAMENTO S.A., sociedade anônima com sede no município e Estado de São Paulo, na Av. dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 02.535.864/0004-86 (“Agente de Retenção e Cobrança” ou “Originador”), para os serviços de retenção de Direitos Creditórios e de cobrança de Direitos Creditórios Inadimplidos, de acordo com os contratos de prestação de serviços de retenção e cobrança celebrados entre o Agente de Retenção e Cobrança e a Classe (“Contratos de Retenção/Cobrança”). 12.15 O Agente de Retenção e Cobrança poderá, às expensas da Classe, subcontratar parte da atividade de cobrança a terceiros, sempre observadas os termos deste Anexo I e as especificidades do Direito Creditório. Auditoria 12.16 Os serviços de auditoria das demonstrações f inanceiras e demais contas da Classe serão prestados por Auditor Independente contratado pelo Administrador."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Banco VR (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 12,
+     "clause": "cl. 4.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "4.4.1 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) de contratos de endosso, de promessa de endosso ou de compromisso de endosso (“Contratos de Endosso”) e/ou de termos de endosso (“Termos de Endosso”) f irmados entre a Classe, na qualidade de endossatária, e o BANCO VR S.A., instituição f inanceira, com sede no município e Estado de São Paulo, na Av."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 12,
+     "clause": "cl. 4.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "Dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 78.626.983/0001- 63, ou qualquer outra sociedade do mesmo grupo econômico, na qualidade de endossante (“Endossante”), acompanhados de todos os direitos, pr"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Trabalhador com consignado em folha ou saque-aniversário FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "4.1 Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos. 4.2 Os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS são originados no âmbito de CCBs emitidas eletronicamente pelos Devedores ao Endossante, representando, respectivamente, empréstimos consignados, com desconto em f olha de pagamento, e empréstimos pessoais, com garantia de cessão f iduciária do Saque-aniversário."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação; resolução do endosso ou venda ao agente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 13,
+     "clause": "cl. 4.6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "transf erência, à Classe, de f orma def initiva, sem coobrigação do Endossante, da plena titularidade desse Direito Creditório, juntamente com todos os direitos, privilégios, preferências, prerrogativas, garantias e ações a ele relacionados, bem como correção monetária, juros e encargos, sem prejuízo do direito da Classe (i) de exigir a resolução do endosso do respectivo Direito Creditório, de acordo com os termos dos Contratos de Endosso; ou (ii) de vender Direitos Creditórios ao Agente de Retenção e Cobrança, de acordo com os termos dos Contratos de Endosso."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "CCB de consignado ou FGTS; admite refinanciamento sem lastro de consignação",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 6,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "de CCBs originadas no âmbito de um refinanciamento, de acordo com a política de cobrança vigente, de Direitos Creditórios Consignado Privado e de Direitos Creditórios FGTS, que não contem com o lastro de Consignação ou de cessão f iduciária do Saque-Aniversário, respectivamente; e (ii) “Ativos Financeiros”, assim entendidos como, em conjunto:"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Até 100% do PL (sem limite próprio no regulamento)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 14,
+     "clause": "cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "reenquadramento previstos na Lei 14.754 e na Resolução CMN 5.111, para f ins tributários, e na Resolução CVM 175, para f ins regulatórios. 4.10 Nos termos do art. 45, §7º, inciso II, do Anexo Normativo II, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto abaixo, e Ativos Financeiros devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobriga"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Endossante único (Banco VR ou seu grupo)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 12,
+     "clause": "cl. 4.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "Dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 78.626.983/0001- 63, ou qualquer outra sociedade do mesmo grupo econômico, na qualidade de endossante (“Endossante”), acompanhados de todos os direitos, pr"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo da CCB não fixado no anexo; remetido às normas do convênio",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL (67% para fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 14,
+     "clause": "cl. 4.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "alocados em Direitos Creditórios, no mínimo, para fins tributários, 67% (sessenta e sete por cento) do seu Patrimônio Líquido, nos termos da Lei 14.754 e da Resolução CMN 5.111, e, para fins regulatórios, 50% (cinquenta por cento) do seu Patrimônio Líquido, nos termos da Resolução CVM 175. Eventual desenquadramento da Carteira obrigará o Gestor aos procedimentos de desenquadramento e reenquadramento previstos na Lei 14.754 e na Resolução CMN 5.111, para f ins tributários, e na Resolução CVM 175, para f ins regulatórios. 4.10 Nos termos do art."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Subclasse única",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "988020",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "03/09/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988020",
+     "excerpt": "Subclasse de Cotas: subclasse única (“Cotas”). Número da Emissão da Classe: 1ª (primeira) emissão de Cotas da Classe. Quantidade de Cotas: 250.000 (duzentas e cinquenta mil) Cotas. Montante das Cotas: R$ 250.000.000,00 (duzentos e cinquenta milhões de reais). Valor Unitário das Cotas: R$ 1.000,00 (mil reais), na data da 1ª (primeira) integralização das Cotas (“Preço de Emissão” e “Data da 1ª Integralização de Cotas”, respectivamente)."
+    }
+   ],
+   "legacy": {
+    "value": "Subclasse única; piso de subordinação não indicado no suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Subclasse única, sem subordinação entre cotistas",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasse única; piso de subordinação não indicado no suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Subclasse única",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem índice de subordinação",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasse única; piso de subordinação não indicado no suplemento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Despesas estimadas para 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 11,
+     "clause": "cl. 3.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "e caixa, um valor destinado ao pagamento de despesas f ixas e periódicas da Classe (como a remuneração dos Prestadores de Serviços Essenciais e seu contratados, bem como as taxas, impostos ou co ntribuições f ederais, estaduais, municipais ou autárquicas que recaiam ou venham a recair sobre os bens, direitos e obrigações da Classe), estimadas para um horizonte temporal de 6 (seis) meses (“Reserva de Caixa”). 3.5 Adicionalmente aos Encargos,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "ICVM 489 e manual do administrador; sem curva no regulamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 20,
+     "clause": "cl. 9.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "9.2.1 O ef eito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no art. 13 da Instrução CVM 489, sendo f acultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual d o Administrador ou, ainda, no manual do Custodiante. CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 A Assembleia Especial desta Classe, se aplicável, é responsável por deliberar sobre as matérias específ icas da ref erida Classe, na f orma da Resolução CVM 175 e alterações posteriores. 10.1.1 Exceto se disposto de f orma contrária, aplicam-se às Assembleias Especiais as disposições previstas no Error! Reference source not found."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "RAET do endossante ou agentes; falhas do endossante sem cura em 5 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 22,
+     "clause": "cl. 10.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "AVALIAÇÃO, EVENTOS DE LIQUIDAÇÃO E PROCEDIMENTOS DE LIQUIDAÇÃO Eventos de Avaliação 11.1 As seguintes hipóteses são consideradas eventos de avaliação (“Eventos de Avaliação”): (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante, da instituição f inanceira prestadora dos serviços de agente de conta vinculada à Classe (“Agente de Conta Vinculada”) e/ou do Agente de Retenção e Cobrança; (ii) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas nos Contratos de Endosso, no Regulamento ou neste Anexo I, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 5 (cinco) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, inf ormando-o da ocorrência do respectivo evento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "PL < R$ 1 mi por 90 dias; sem caixa para encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 25,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "pós 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário inferior da Classe for inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos; (viii) caso, por inexistência de recursos líquidos, a Classe não possa fazer f rente aos Encargos nas respectivas datas de vencimento ; e (ix) impossibilidade de a Classe adquirir Direitos Creditórios admitidos pela Política de Investimentos. Procedimentos de Liquidação 11.3 Verif icado quaisquer dos Eventos de Liquidação, o Administrador deverá dar início aos procedimentos de liquidação da Classe, def inidos nos itens a seguir. 11.3.1 Na hipótese prevista no item 11.3 acima, o Administrador deverá: (i) interromper os procedimentos de aquisição de novos Direitos Creditórios e, se aplicável, de Amortização e resgate das Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Recebimentos compram novos créditos ou amortizam",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 14,
+     "clause": "cl. 4.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "Revolvência de Direitos Creditórios 4.14 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Endossante, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização, conforme decisão do Gestor e desde que observada a ordem de alocação de recursos def inida no item 8.1 abaixo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Programada (apêndice) e extraordinária pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 19,
+     "clause": "cl. 6.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "CAPÍTULO 7 – AMORTIZAÇÃO DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos d a Classe aos Cotistas será f eita exclusivamente mediante a Amortização, observado o disposto neste Capítulo. 7.2 As Cotas poderão ser amortizadas através de uma Amortização programada, se houver, conforme prevista nos Apêndices, caso aplicável (“Amortização Programada”), e por meio amortização extraordinária das Cotas, a ser realizada por (a) por decisão do Gestor, para: (i) reenquadramento da Carteira ao mínimo de Direitos Creditórios que deve ser detido pela Classe para f ins tributários/legais;"
+    }
+   ],
+   "legacy": {
+    "value": "Regime de caixa conforme disponibilidade; sem cronograma fechado",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "Taxa global 0,90% a.a. (PL até R$ 150 mi); mín. R$ 50 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 30,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "remuneração mínima mensal de R$ 50.000,00 (cinquenta mil reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do IGP-M, ou por índice distinto de correção monetária, desde que o valor seja inf erior à correção pelo IGP-M (\"Taxa Global\"). Patrimônio Líquido (R$) • % do Patrimônio Líquido • 0 – 150.000.000,00 • 0,90% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa global",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 30,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "A Taxa Base de cálculo e percentual Taxa Global Pelos serviços de administração, gestão, custódia, tesouraria, controladoria, escrituração, a Classe pagará um valor equivalente a um percentual incidente sobre o Patrimônio Líquido da Classe, conf orme a f aixa de Patrimônio Líquido da Classe prevista na tabela abaixo, apropriada diariamente e paga mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, com remuneração mínima mensal de R$ 50.000,00 (cinquenta mil reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do IGP-M, ou por índice distinto de correção monetária, desde que o valor seja inf erior à correção pelo IGP-M (\"Taxa Global\"). Patrimônio Líquido (R$)"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não será devida taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Subclasse única, sem benchmark",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Subclasse única",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1200625",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "21/05/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200625",
+     "excerpt": "RESPONSABILIDADE LIMITADA CNPJ n.º 62.552.447/0001-20 A Administradora, BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DTVM, com sede na Praia de Botafogo, n.º 501, 5º andar (parte), na Cidade e Estado do Rio de Janeiro, e inscrita no CNPJ sob o número 59.281.253/0001-23, na qualidade de administradora da V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA, inscrita no CNPJ/MF sob o número 62.552.447/0001-20 (\"Classe\"), serve-se da presente para: 1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "ratório CVM n.º 8.695, de 20 de março de 2006 (“Administrador”). BTG Pactual Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, n.º 501, 5º andar (parte), Torre Corcovado, bairro Botafogo, CEP 22250-040, inscrita no CNPJ sob o n.º 29.650.082/0001-00 e Gestor credenciada como administradora de carteira de valores mobiliários , categoria gestor de recursos, de acordo com o Ato Declaratório CVM n.º 5.968, de 10 de maio de 2000 (“Gestor” e, quando ref erido conjuntamente e indistintamente com o Administrador, “Prestadores de Serviços Essenciais”). Foro do município de São Paulo, Estado de São Paulo . Foro Aplicável Encerramento do Último dia do mês de novembro de cada ano. Exercício Social 1.2 Este regulamento é composto por esta parte geral, um ou mais anexos, conforme o número de classes aqui previsto e respectivos apêndices relativos a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "(“Investidores Profissionais” e “Resolução CVM 30”, respectivamente) Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, n.º 501, 5º andar (parte), Custódia da Classe e Torre Corcovado, bairro Botafogo, CEP 22250-040, inscrita no CNPJ sob Tesouraria o n.º 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório CVM n.º 7.204, de 25 de abril de 2003 (“Custodiante”). BTG Pactual Serviços Financeiros S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "VR Benefícios (retenção e cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 29,
+     "clause": "cl. 12.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "icação, para que sejam tomadas as medidas necessárias. Retenção e Cobrança dos Direitos Creditórios Inadimplidos 12.14 A Classe contratou a VR BENEFÍCIOS E SERVIÇOS DE PROCESSAMENTO S.A., sociedade anônima com sede no município e Estado de São Paulo, na Av. dos Bandeirantes, n.º 460, Brooklin Paulista, CEP 04553-900, inscrita no CNPJ sob o n.º 02.535.864/0004-86 (“Agente de Retenção e Cobrança” ou “Originador”), para os serviços de retenção de Direitos Creditórios e de cobrança de Direitos Creditórios Inadimplidos, de acordo com os contratos de prestação de serviços de retenção e cobrança celebrados entre o Agente de Retenção e Cobrança e a Classe (“Contratos de Retenção/Cobrança”). 12.15 O Agente de Retenção e Cobrança poderá, às expensas da Classe, subcontratar parte da atividade de cobrança a terceiros, sempre observadas os termos deste Anexo I e as especificidades do Direito Creditório. Auditoria 12.16 Os serviços de auditoria das demonstrações f inanceiras e demais contas da Classe serão prestados por Auditor Independente contratado pelo Administrador."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "11 e 13 da Público-Alvo Resolução CVM n.º 30, de 11 de maio de 2021, conforme alterada (“Investidores Profissionais” e “Resolução CVM 30”, respectivamente)"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; condomínio fechado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 5,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 As principais características da Classe estão descritas abaixo: Tipo de Condomínio Fechado. Indeterminado, exceto se de outra f orma vier a ser deliberado pelos Prazo de Duração Cotistas reunidos em Assembleia Especial (“Prazo de Duração da Clas"
+    }
+   ],
+   "legacy": {
+    "value": "Fundo/classe indeterminados; resgate conforme regulamento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "payroll": {
+   "display": "Convênios do endossante: Dataprev (consignado) e CEF (FGTS)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 23,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "Retenção e Cobrança, incluindo o Convênio Consignado Privado, o Convênio FGTS e as autorizações regulatórias concedidas pelo Banco Central; (xi) no caso de o Endossante e/ou o Agente de Retenção e Cobrança e/ou seus acionistas controladores diretos e/ou indiretos (pessoas f ísicas ou jurídicas), quotistas, diretores, conselheiros e/ou representantes e colaboradores do Endossante e/ou do Agente de Retenção e Cobrança ou seus acionistas controladores, (a) terem contra si uma decisão judicial transitada em julgado envolvendo (1) crimes contra a propriedade, (2) crimes de f alsificação"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1200623",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "21/05/2026",
+     "page": 13,
+     "clause": "cl. 4.6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+     "excerpt": "respectivo Endossante junto à CEF, e/ou (iv) os comprovantes de averbação na Plataforma Dataprev (“Documentos Suporte”), deverão ser disponibilizados pelo Endossante e/ou pelo Agente de Retenção e Cobrança ao Custodiante na data de aquisição do respectivo Direito Creditório pela Classe, sujeito à resolução do respectivo endosso, de acordo com os termos dos Contratos de Endosso."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Idade do devedor não limitada no anexo; remetida à política de crédito",
+   "sources": []
+  },
+  "installment_min": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "brl",
+   "reason": "Anexo não fixa parcela mínima",
+   "sources": []
+  }
+ },
+ "leitura": "Consignado privado e FGTS do Banco VR em cota única, sem colchão; taxa global de 0,90% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

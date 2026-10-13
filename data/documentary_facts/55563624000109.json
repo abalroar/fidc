@@ -1,0 +1,739 @@
+{
+ "schema_version": 1,
+ "cnpj": "55563624000109",
+ "name": "PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "FIC",
+ "reviewed_at": "2026-10-13T16:05:32Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1192614",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614"
+  },
+  "D2": {
+   "document_id": "811323",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "30/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811323"
+  },
+  "D3": {
+   "document_id": "703295",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=703295"
+  },
+  "D4": {
+   "document_id": "702585",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=702585"
+  },
+  "D5": {
+   "document_id": "691674",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "03/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691674"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FIC",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Cotas mezanino do Mercado Crédito II (crédito do Mercado Pago)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "CARTEIRA 4.1 Observados os demais termos deste Anexo, o objetivo da Classe é investir seus recursos em (i) cotas subordinadas mezanino de emissão da classe única do MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS, fundo de investimento em direitos creditórios inscrito no CNPJ sob o nº 41.970.012/0001-26 (“Cotas da Classe Investida” e “Classe Investida”, respectivamente), a qual, por sua vez, aplica seus recursos preponderantemente em direitos creditórios originados pela Mercado Pago, de acordo com os termos e condições estabelecidos no regulamento da Classe Investida; e (ii) em Ativos Financeiros de Liquidez."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "por sua vez, aplica seus recursos preponderantemente em direitos creditórios originados pela Mercado Pago, de acordo com os termos e condições estabelecidos no regulamento da Classe Investida; e (ii) em Ativos Financeiros de Liquidez. A Classe não possui política de concessão de créditos uma vez que sua Política de Investimentos não prevê o investimento e aquisição direta de direitos creditórios conforme definidos na Resolução CVM 175."
+    }
+   ],
+   "legacy": {
+    "value": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/04/2026, cl. 4.1"
+   }
+  },
+  "originator": {
+   "display": "Mercado Pago, na classe investida",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "por sua vez, aplica seus recursos preponderantemente em direitos creditórios originados pela Mercado Pago, de acordo com os termos e condições estabelecidos no regulamento da Classe Investida; e (ii) em Ativos Financeiros de Liquidez. A Classe não possui política de concessão de créditos uma vez que sua Política de Investimentos não prevê o investimento e aquisição direta de direitos creditórios conforme definidos na Resolução CVM 175."
+    }
+   ],
+   "legacy": {
+    "value": "Originação indireta Mercado Pago na classe investida",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cessão ocorre na classe investida (ver Mercado Crédito II)",
+   "sources": [],
+   "legacy": {
+    "value": "Originação indireta Mercado Pago na classe investida",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: devedores finais estão na classe investida (ver Mercado Crédito II)",
+   "sources": []
+  },
+  "recourse": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: não adquire direitos creditórios diretamente",
+   "sources": [],
+   "legacy": {
+    "value": "Alienação de cotas permitida se regras do investido permitirem",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Só cotas da classe investida e ativos de liquidez",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "por sua vez, aplica seus recursos preponderantemente em direitos creditórios originados pela Mercado Pago, de acordo com os termos e condições estabelecidos no regulamento da Classe Investida; e (ii) em Ativos Financeiros de Liquidez. A Classe não possui política de concessão de créditos uma vez que sua Política de Investimentos não prevê o investimento e aquisição direta de direitos creditórios conforme definidos na Resolução CVM 175."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 7,
+     "clause": "cl. 5.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "5.5 Observado o disposto no Anexo, admite-se a integralização e resgate de Cotas em Cotas da Classe Investida, a exclusivo critério do GESTOR, observados: (i) a Política de Investimentos; (ii) a necessidade de o ADMINISTRADOR e o GESTOR entenderem, a seu exclusivo critério, que o valor das Cotas da Classe Investida não difere substancialmente do valor dos direitos creditórios, atribuído nos termos do item 9 do Anexo, (iii) o Critério de Elegibilidade; e (iv) as demais disposições do Anexo e os requisitos e procedimentos legais e regulamentares aplicáveis para tanto."
+    }
+   ],
+   "legacy": {
+    "value": "Somente cotas da classe investida identificada + ativos de liquidez",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "FIC: limite por devedor se aplica na classe investida",
+   "sources": [],
+   "legacy": {
+    "value": "Concentração na classe investida; limites de devedor final não se aplicam diretamente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "FIC: limite por cedente se aplica na classe investida",
+   "sources": [],
+   "legacy": {
+    "value": "Concentração na classe investida; limites de devedor final não se aplicam diretamente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "FIC: prazo dos créditos definido na classe investida",
+   "sources": [],
+   "legacy": {
+    "value": "Somente cotas da classe investida identificada + ativos de liquidez",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em cotas da investida",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 13,
+     "clause": "cl. 4.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Cotas da Classe Investida. 4.11 Nos termos dos artigos 45, parágrafo 7º, e 47 parágrafo único do Anexo Normativo II à Resolução CVM 175, uma vez que as Cotas são destinadas exclusivamente a Investidores Profissionais, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Cotas da Classe Investida, as quais são emitidas pela Classe Investida."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Subclasses A/B/C, só diferem no prazo",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 15,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "5.1 A Classe possui 3 (três) Subclasses de Cotas, quais sejam, a subclasse A (“Subclasse A” e “Cotas Subclasse A”), a subclasse B (“Subclasse B” e “Cotas Subclasse B”) e a subclasse C (“Subclasse C” e “Cotas Subclasse C”, sendo a Subclasse A, a Subclasse B referidas em conjunto como “Subclasses”, e as Cotas Subclasse A e as Cotas Subclasse B sendo referidas em conjunto como “Cotas”), diferindo-se, exclusivamente, em relação aos prazos de duração de cada Subclasse, conforme prev"
+    }
+   ],
+   "legacy": {
+    "value": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Subclasses sem subordinação entre si; a exposição é à cota mezanino da investida",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino própria",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem índice de subordinação próprio",
+   "sources": [],
+   "legacy": {
+    "value": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Despesas estimadas para 3 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 18,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "(ii) constituição e/ou recomposição da Reserva de Despesas de modo que esta, ao final de cada Dia Útil, seja equivalente ao montante estimado dos Encargos, a serem incorridos nos 3 (três) meses calendário imediatamente subsequentes; (iii) pagamento de resgate de Cotas aos Cotistas Dissidentes, nos termos do item 11.4.1 abaixo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Política de PDD do administrador (ICVM 489) sobre as cotas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 19,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "acordo a metodologia descrita na política de provisão para devedores duvidosos do ADMINISTRADOR, nos termos da Instrução CVM 489. Desta forma, o valor do saldo das Cotas da Classe Investida e/ou Ativos Financeiros de Liquidez será reduzido pelo valor da provisão efetuada ou perda reconhecida. 9.2.1 O efeito de perda ou provisão para devedores duvidosos de Cotas da Classe Investida deverá ser mensurado levando-se em consideração o disposto no art."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Prestador sem cura em 5 DU; compra inelegível não revertida em 30 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 20,
+     "clause": "cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "TOS DE AVALIAÇÃO, EVENTOS DE LIQUIDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA Eventos de Avaliação 11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) inobservância pelo ADMINISTRADOR, pelo CUSTODIANTE e/ou pelo GESTOR de seus deveres e obrigações previstos neste Anexo, desde que, uma vez notificados para sanar ou justificar o descumprimento, o ADMINISTRADOR, o CUSTODIANTE e/ou o GESTOR, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação; (ii) aquisição, pela Classe, de Cotas da Classe Investida que estejam em desacordo com o Critério de Elegibilidade no momento de sua aquisição, não revertida em até 30 (trinta) dias; (iii) caso a Reserva de Despesas não seja constituída e/ou recomposta nos termos do item 8.1(ii) acima; (iv) verificação do descumprimento da Política de Investimentos no fechamento dos mercados por 15 (quinze) dias consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Prestador sem substituto; decisão da CVM ou da AGC",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 21,
+     "clause": "cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "aso caracterizado quaisquer dos Eventos de Avaliação e/ou Eventos de Liquidação. Eventos de Liquidação 11.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) na hipótese de renúncia do CUSTODIANTE, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Anexo; (iii) renúncia do ADMINISTRADOR ou do GESTOR sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Anexo; (iv) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (v) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal fim; (vi) intervenção ou liquidação extrajudicial do CUSTODIANTE, ADMINISTRADOR, ou GESTOR, sem a sua efetiva substituição nos termos deste Anexo;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Sem revolvência: recebimentos vão para amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 13,
+     "clause": "cl. 4.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "Revolvência da Carteira 4.13 Os recursos recebidos pela Classe em razão da liquidação das Cotas da Classe Investida, a qualquer título, incluindo pagamento regular ou por excussão ou execução de garantia, alienação, recompra, indenização e/ou desinvestimento, serão destinados à amortização ou resgate das Cotas, conforme decisão do GESTOR e desde que observada a ordem de alocação de recursos definida no item 8.1 abaixo, observado que tais recursos poderão ser utilizados para fazer frente ao pagamento de Encargos e/ou despesas extraordinárias da C"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Por decisão do gestor; subclasse A vence em 19/06/2026",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 13,
+     "clause": "cl. 4.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "Revolvência da Carteira 4.13 Os recursos recebidos pela Classe em razão da liquidação das Cotas da Classe Investida, a qualquer título, incluindo pagamento regular ou por excussão ou execução de garantia, alienação, recompra, indenização e/ou desinvestimento, serão destinados à amortização ou resgate das Cotas, conforme decisão do GESTOR e desde que observada a ordem de alocação de recursos definida no item 8.1 abaixo, observado que tais recursos poderão ser utilizados para fazer frente ao pagamento de Encargos e/ou despesas extraordinárias da C"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 45,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "nam-se a Investidores Profissionais. 3. Prazo das Cotas Subclasse A: 3.1. O prazo das Cotas Subclasse A encerra em 19 de junho de 2026. 4. Condições de Emissão, Distribuição, Subscrição, Integralização, Remuneração, Amortização e Resgate de Cotas Subclasse A: 4.1. Após a primeira Data de Emissão de Cotas, eventuais novas emissões de Cotas Subclasse A somente poderão ser realizadas (i) diretamente pelo ADMINISTRADOR por orientação do GESTOR, desde que limitado ao Capital Autorizado; ou (ii) com a aprovação de Assembleia Especial de Cotistas, observados os quóruns específicos, conforme aplicável, sendo que o valor de emissão, o volume e demais características pertinentes à nova emissão corresponderão àquelas estabelecidas em referida Assembleia Especial de Cotistas. Em caso de emissões de novas Cotas até o limite do Capital Autorizado, caberá ao GESTOR, em comum acordo com o ADMINISTRADOR, a escolha do critério de fixação do valor de emissão das novas Cotas. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos → pagamentos de cotas → aquisição/liquidez, conforme cap. 8",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/04/2026, cl. 4.12"
+   }
+  },
+  "admin_fee": {
+   "display": "Mín. R$ 10 mil/mês (IGP-M); teto + 0,10% a.a. sobre a investida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 28,
+     "clause": "cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "ADMINISTRADOR a Taxa Mínima de Administração nos seguintes moldes: o valor correspondente a R$ 10.000,00 (dez mil reais) mensais, atualizado pela variação positiva do IGP-M, no mês de janeiro de cada ano (“Taxa Mínima de Administração”)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 28,
+     "clause": "cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "solução CVM 175, a taxa máxima de administração corresponderá ao valor da Taxa Mínima de Administração acrescida de até 0,10% (dez centésimos por cento) ao ano incidente sobre o patrimônio líquido da Classe Investida, compreendendo a taxa de administração da Classe Investida geridos por partes relacionadas ao GESTOR, cujas cotas não estão admitidas à negociação em mercado organizado, conforme prevista no regulamento da Classe Investida (“Taxa Máxima de Administração” e, quando referida em conjunto com a Taxa Mínima de Administração, como “Taxa de Administração”)."
+    }
+   ],
+   "legacy": {
+    "value": "R$ 10 mil/mês; IGP-M positivo em janeiro; teto 0,10% a.a. sobre PL investido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,50% a.a.; mín. R$ 40 mil/mês (IPCA) + taxa por chamada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 29,
+     "clause": "cl. 13.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "gestão ordinária correspondente a 0,50% (cinquenta centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe, observado o montante mínimo de R$ 40.000,00 (quarenta mil reais) ao mês, corrigido anualmente pela variação positiva do Índice de Preços ao Consumidor Amplo, divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE (“Taxa de Gestão”); e (ii) a taxa de gestão extraordinária apurada e paga no momento de cada integralização de Cotas objeto de Cha"
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a. do PL; mínimo R$ 40 mil/mês IPCA; adicional 1,25% do capital integralizado",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/04/2026, cl. 13.4"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento cita taxa de performance apenas \"se houver\"; nenhuma fixada",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem benchmark: resultado das cotas investidas",
+   "sources": [],
+   "legacy": {
+    "value": "Resultado patrimonial das cotas investidas; sem DI + spread garantido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino própria",
+   "sources": [],
+   "legacy": {
+    "value": "Resultado patrimonial das cotas investidas; sem DI + spread garantido",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 41,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "“ADMINISTRADOR”: BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, à Praia de Botafogo, nº 501, 5º andar – parte, inscrita no CNPJ sob o nº 59.281.253/0001-23, autorizada a funcionar pelo BACEN e autorizad"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Polígono Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 43,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "“GESTOR”: a Polígono Capital Ltda., sociedade de responsabilidade limitada, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 2601, 12º andar, Jardim Paulistano, CEP 01452-000, inscrita no CNPJ sob nº 43.241.789/0001-85, autorizada à prestação do serviço de administração"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 42,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "“CUSTODIANTE”: o Banco BTG Pactual S.A., instituição financeira com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45, autorizada a funcionar pelo BACEN e autorizada pela CVM para a atividad"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "entity",
+   "reason": "FIC: cobrança ocorre na classe investida",
+   "sources": []
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 43,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "“Investidores Profissionais”: os investidores considerados profissionais, nos termos do Art. 11 da Resolução CVM 30;"
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; investidores profissionais; prazos por subclassse A/B/C",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; subclasses vencem de 2026 a 2028",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 43,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "“Prazo de Duração do FUNDO”: é o prazo de duração do FUNDO que, para fins de esclarecimento, é indeterminado;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 45,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "nam-se a Investidores Profissionais. 3. Prazo das Cotas Subclasse A: 3.1. O prazo das Cotas Subclasse A encerra em 19 de junho de 2026. 4. Condições de Emissão, Distribuição, Subscrição, Integralização, Remuneração, Amortização e Resgate de Cotas Subclasse A: 4.1. Após a primeira Data de Emissão de Cotas, eventuais novas emissões de Cotas Subclasse A somente poderão ser realizadas (i) diretamente pelo ADMINISTRADOR por orientação do GESTOR, desde que limitado ao Capital Autorizado; ou (ii) com a aprovação de Assembleia Especial de Cotistas, observados os quóruns específicos, conforme aplicável, sendo que o valor de emissão, o volume e demais características pertinentes à nova emissão corresponderão àquelas estabelecidas em referida Assembleia Especial de Cotistas. Em caso de emissões de novas Cotas até o limite do Capital Autorizado, caberá ao GESTOR, em comum acordo com o ADMINISTRADOR, a escolha do critério de fixação do valor de emissão das novas Cotas. 4.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 47,
+     "clause": "cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "nam-se a Investidores Profissionais. 3. Prazo das Cotas Subclasse B: 3.2. O prazo das Cotas Subclasse B encerra em 19 de junho de 2028. 4. Condições de Emissão, Distribuição, Subscrição, Integralização, Remuneração, Amortização e Resgate de Cotas Subclasse B: 4.1. Após a primeira Data de Emissão de Cotas, eventuais novas emissões de Cotas Subclasse B somente poderão ser realizadas (i) diretamente pelo ADMINISTRADOR por orientação do GESTOR, desde que limitado ao Capital Autorizado; ou (ii) com a aprovação de Assembleia Especial de Cotistas, observados os quóruns específicos, conforme aplicável, sendo que o valor de emissão, o volume e demais características pertinentes à nova emissão corresponderão àquelas estabelecidas em referida Assembleia Especial de Cotistas. Em caso de emissões de novas Cotas até o limite do Capital Autorizado, caberá ao GESTOR, em comum acordo com o ADMINISTRADOR, a escolha do critério de fixação do valor de emissão das novas Cotas. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "Fechado; investidores profissionais; prazos por subclassse A/B/C",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "investee": {
+   "display": "Mercado Crédito II Brasil FIDC NP (cota mezanino)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 11,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "CARTEIRA 4.1 Observados os demais termos deste Anexo, o objetivo da Classe é investir seus recursos em (i) cotas subordinadas mezanino de emissão da classe única do MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS, fundo de investimento em direitos creditórios inscrito no CNPJ sob o nº 41.970.012/0001-26 (“Cotas da Classe Investida” e “Classe Investida”, respectivamente), a qual, por sua vez, aplica seus recursos preponderantemente em direitos creditórios originados pela Mercado Pago, de acordo com os termos e condições estabelecidos no regulamento da Classe Investida; e (ii) em Ativos Financeiros de Liquidez."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investee_share": {
+   "display": "≥ 67% do PL (até 100%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1192614",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/04/2026",
+     "page": 13,
+     "clause": "cl. 4.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192614",
+     "excerpt": "mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Cotas da Classe Investida. 4.11 Nos termos dos artigos 45, parágrafo 7º, e 47 parágrafo único do Anexo Normativo II à Resolução CVM 175, uma vez que as Cotas são destinadas exclusivamente a Investidores Profissionais, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Cotas da Classe Investida, as quais são emitidas pela Classe Investida."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "FIC concentrado na cota mezanino do Mercado Crédito II (Mercado Pago); risco depende da investida.",
+ "lookthrough": [
+  {
+   "cnpj": "41970012000126",
+   "subclass": "Mezanino",
+   "share": "≥ 67% do PL"
+  }
+ ],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

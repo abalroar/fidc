@@ -339,8 +339,10 @@ def test_quarterly_conflict_preserves_declaration_and_both_sources():
     assert quarter["Status"] == "Declaração em conflito com o regulamento" and len(json.loads(quarter["Fontes"])) == 2
 
 
-def test_v2_tab_works_without_legacy_manifest():
+def test_tab_uses_reviewed_facts_when_every_fund_is_approved():
     from tabs import tab_deep_dive
-    with patch.object(tab_deep_dive, "list_deep_dives", return_value=[]), patch("services.documentary_diligence.has_documentary_diligence", return_value=True), patch("services.documentary_diligence.render_documentary_diligence") as render:
+    with patch.object(tab_deep_dive, "list_deep_dives", return_value=[]), \
+            patch("services.documentary_facts.portfolio_ready", return_value=True), \
+            patch("tabs.documentary_facts_view.render_documentary_facts") as render:
         tab_deep_dive.render_tab_deep_dive(selected_portfolio=portfolio(), show_portfolio_selector=False, compact=True, portfolio_mode=True, reference_competence="06/2026", dashboards={})
-    render.assert_called_once_with(portfolio(), reference_competence="06/2026", dashboards={})
+    render.assert_called_once_with(portfolio())

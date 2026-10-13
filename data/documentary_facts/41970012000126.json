@@ -1,0 +1,883 @@
+{
+ "schema_version": 1,
+ "cnpj": "41970012000126",
+ "name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-13T16:05:31Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1302706",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "27/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706"
+  },
+  "D2": {
+   "document_id": "1314682",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "10/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1314682"
+  },
+  "D3": {
+   "document_id": "999523",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "12/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999523"
+  },
+  "D4": {
+   "document_id": "813561",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "06/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=813561"
+  },
+  "D5": {
+   "document_id": "702576",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "10/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=702576"
+  },
+  "D6": {
+   "document_id": "1077334",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "19/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de crédito parcelado e empréstimo pessoal (consumidor e comerciante)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 41,
+     "clause": "cl. 5.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "5.1.4. Os Direitos Creditórios serão originados por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo Pessoal pela Instituição Financeira MeLi aos Devedores, sendo que os Direitos Creditórios deverão ser representados pelos Documentos Comprobatórios. 5.1.5. A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definido no artigo 2º, inciso XIII do Anexo Normativo II da Resolução CVM 175. 5.1.6. A Política de Originação e Concessão de Crédito para a concessão de Crédito Parcelado ou Empréstimo Pessoal está descrita no COMPLEMENTO III a este Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Direitos Creditórios CCB significam os direitos creditórios representados por Comerciante\" CCBs decorrentes da concessão de Crédito Parcelado pela Instituição Financeira MeLi aos Devedores CCB Comerciante, com intermediação do Mercado Pago na qualidade de correspondente bancário, os quais incluem os Direitos Creditórios CCB DE."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs endossadas por IF MeLi, entidades Mercado Pago e veículos do grupo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Instituição Financeira MeLi, com intermediação do Mercado Pago",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 41,
+     "clause": "cl. 5.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "5.1.4. Os Direitos Creditórios serão originados por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo Pessoal pela Instituição Financeira MeLi aos Devedores, sendo que os Direitos Creditórios deverão ser representados pelos Documentos Comprobatórios. 5.1.5. A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definido no artigo 2º, inciso XIII do Anexo Normativo II da Resolução CVM 175. 5.1.6. A Política de Originação e Concessão de Crédito para a concessão de Crédito Parcelado ou Empréstimo Pessoal está descrita no COMPLEMENTO III a este Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Direitos Creditórios CCB significam os direitos creditórios representados por Comerciante\" CCBs decorrentes da concessão de Crédito Parcelado pela Instituição Financeira MeLi aos Devedores CCB Comerciante, com intermediação do Mercado Pago na qualidade de correspondente bancário, os quais incluem os Direitos Creditórios CCB DE."
+    }
+   ],
+   "legacy": {
+    "value": "IF MeLi e entidades/veículos Mercado Pago que celebraram contrato de endosso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "IF MeLi e entidades e veículos do grupo Mercado Pago",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 20,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Endossante\" ou \"Endossantes\" significa a Instituição Financeira MeLi, as entidades integrantes do grupo Mercado Pago e/ou veículos ou fundos de investimento cujas cotas sejam detidas por entidades integrantes do grupo Mercado Pago que tenham, em sua carteira, Direitos Creditórios passíveis d"
+    }
+   ],
+   "legacy": {
+    "value": "IF MeLi e entidades/veículos Mercado Pago que celebraram contrato de endosso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Consumidores e comerciantes da plataforma (CCB Consumidor e Comerciante)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Devedores\" significam os Devedores CCB Consumidor e os Devedores CCB Comerciante, quando referidos em conjunto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação; compra pelo Mercado Pago só por inelegibilidade ou vício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 41,
+     "clause": "cl. 5.1.6.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "5.1.6.2.1. O disposto acima não caracteriza garantia ou coobrigação do Mercado Pago, que, em nenhuma hipótese se responsabilizou pela capacidade de pagamento e solvência dos Devedores, permanecendo tal risco integralmente suportado pelo Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 41,
+     "clause": "cl. 5.1.6.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "5.1.6.2.1. O disposto acima não caracteriza garantia ou coobrigação do Mercado Pago, que, em nenhuma hipótese se responsabilizou pela capacidade de pagamento e solvência dos Devedores, permanecendo tal risco integralmente suportado pelo Fundo. As obrigações assumidas pelo Mercado Pago e/ou pelos Endossantes nos Documentos do Fundo, incluindo no Contrato de Agente de Recebimento e nos Contratos de Endosso, limitam-se exclusivamente às hipóteses expressamente previstas em tais documentos, incluindo obrigações de natureza operacional, formal, documental e/ou relacionadas à elegibilidade, validade e formalização dos Direitos Creditórios, não implicando"
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição por Mercado Pago por inelegibilidade, vício ou falha imputável, com limites contratuais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Até 24 parcelas; principal ≤ R$ 30 mil (consumidor) ou R$ 1 mi (comerciante)",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 43,
+     "clause": "cl. 5.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "cumulativamente (em conjunto, os \"Critérios de Elegibilidade\"): (i) os Direitos Creditórios tenham sido originados de operações de Crédito Parcelado ou Empréstimo Pessoal e representados por CCBs; (ii) os Direitos Creditórios não estejam inadimplidos; (iii) os Direitos Creditórios sejam compostos por, no mínimo, 1 (uma) parcela e, no máximo, de 24 (vinte e quatro) parcelas mensais de pagamento futuro; (iv) os Direitos Creditórios possuam valor original de principal igual ou inferior a (1) R$30.000,00 (trinta mil reais) na data de sua emissão para os Direitos Creditórios CCB Consumidor, e (2) R$1.000.000,00 (um milhão de reais) na data de sua emissão para os Direitos Creditórios CCB Comerciante; e (v) os Direitos Creditórios prevejam pagamentos mensais para fins de amortização de principal. btgpactual.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 5.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "R$ 45 mil (consumidor); R$ 2 mi (comerciante)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 45,
+     "clause": "cl. 5.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "(xvi) o Valor Principal dos Direitos Creditórios CCB Consumidor devidos por um mesmo Devedor, considerada pro forma a aquisição de Direitos Creditórios pretendida, não exceda R$45.000,00 (quarenta e cinco mil reais); (xvii) a soma do Valor Principal dos Direitos Creditórios CCB Comerciante devidos por um mesmo Devedor, considerada pro forma a aquisição de Direitos Creditórios pretendida, não exceda R$2.000.000,00 (dois milhões de reais); e (xviii) a Senioridade Máxima não se encontre desenquadrada, considerada pro forma a aquisição de Direitos Creditórios pretendida."
+    }
+   ],
+   "value": 45000.0,
+   "legacy": {
+    "value": "5%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, cl. 5.2.4"
+   }
+  },
+  "assignor_limit": {
+   "display": "Concentrado no grupo Mercado Pago",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 20,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Endossante\" ou \"Endossantes\" significa a Instituição Financeira MeLi, as entidades integrantes do grupo Mercado Pago e/ou veículos ou fundos de investimento cujas cotas sejam detidas por entidades integrantes do grupo Mercado Pago que tenham, em sua carteira, Direitos Creditórios passíveis d"
+    }
+   ],
+   "legacy": {
+    "value": "5%",
+    "decision": "revised",
+    "why": "O 5% da leitura anterior vem de regulamento de 2023, sem correspondência no regulamento de 27/08/2026"
+   }
+  },
+  "term_max": {
+   "display": "Até 24 parcelas mensais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 43,
+     "clause": "cl. 5.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "cumulativamente (em conjunto, os \"Critérios de Elegibilidade\"): (i) os Direitos Creditórios tenham sido originados de operações de Crédito Parcelado ou Empréstimo Pessoal e representados por CCBs; (ii) os Direitos Creditórios não estejam inadimplidos; (iii) os Direitos Creditórios sejam compostos por, no mínimo, 1 (uma) parcela e, no máximo, de 24 (vinte e quatro) parcelas mensais de pagamento futuro; (iv) os Direitos Creditórios possuam valor original de principal igual ou inferior a (1) R$30.000,00 (trinta mil reais) na data de sua emissão para os Direitos Creditórios CCB Consumidor, e (2) R$1.000.000,00 (um milhão de reais) na data de sua emissão para os Direitos Creditórios CCB Comerciante; e (v) os Direitos Creditórios prevejam pagamentos mensais para fins de amortização de principal. btgpactual.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 5.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Alocação Mínima de significa a alocação de, no mínimo, 67% (sessenta e sete Investimento\" por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios, que sejam definidos como \"direitos creditórios\", nos termos do artigo 4º da Resolução CMN 5.111."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67% PL para enquadramento tributário; verificar índices adicionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mez. A / Mez. B / Mez. C / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 35,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Subclasse\" significam as subclasses de Cotas do Fundo, as quais são divididas em Cotas Seniores, Cotas Subordinadas Mezanino A, Cotas Subordinadas Mezanino B, Cotas Subordinadas Mezanino C e Cotas Subordinadas Júnior."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; eventos de step-down majoram a proteção",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, p. 35"
+   }
+  },
+  "sub_senior": {
+   "display": "40% na 1ª integralização; depois, limite de Senioridade Máxima",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 57,
+     "clause": "cl. 7.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "isco das Cotas em questão. Razão de Subordinação 7.31. Na Data da Primeira Integralização de Cotas Seniores a Razão de Subordinação Sênior do Fundo será de, no mínimo, 40% (quarenta por cento). 7.32. A Razão de Subordinação Sênior será calculada diariamente pelo Gestor e disponibilizada aos Cotistas nas respectivas Datas de Envio do Relatório de Acompanhamento por meio do respectivo Relatório de Acompanhamento. 7.32.1. Não obstante o cálculo diário e a divulgação mensal da Razão de Subordinação Sênior, não há: (i) obrigação de manutenção desta proporção durante o prazo de duração do Fundo e/ou dos Cotistas titulares de Cotas Subordinadas Júnior de aportar recursos no Fundo para manter a Razão de Subordinação Sênior; e (ii) qualquer consequência para o Fundo e/ou outorga de qualquer direito ou benefício específico aos Cotistas em caso de inobservância da Razão de Subordinação Sênior. 7.32.2. Na Data da Primeira Integralização de Cotas Subordinadas Mezanino A, a Razão de Subordinação Mezanino A deverá estar enquadrada, ou seja, deverá ser de, no mínimo, 20% (vinte por cento). 7.32.3."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; eventos de step-down majoram a proteção",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, cl. 7.31"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mez. A 20% · Mez. B 15% · Mez. C 10% (do PL)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Razão de Subordinação significa a razão entre: (i) a soma do valor das Cotas Mezanino A\" Subordinadas Mezanino B em Circulação, do valor das Cotas Subordinadas Mezanino C em Circulação e do valor das Cotas Subordinadas Júnior em Circulação; e (ii) o Patrimônio Líquido do Fundo ambos calculados em uma mesma data, equivalente a 20% (vinte por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 31,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Razão de Subordinação significa a razão entre: (i) a soma do valor das Cotas Mezanino B\" Subordinadas Mezanino C em Circulação e das Cotas Subordinadas Júnior em Circulação; e (ii) o Patrimônio btgpactual.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 Líquido do Fundo ambos calculados em uma mesma data, equivalente a 15% (quinze por"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 32,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "Subordinação Mezanino B, o Administrador deverá comunicar imediatamente tal fato aos Cotistas, após notificação do Gestor nesse sentido. \"Razão de Subordinação significa a relação mínima admitida entre o somatório do Mezanino C\" valor das Cotas Subordinadas Júnior em Circulação e o Patrimônio Líquido do Fundo, equivalente a 10% (dez por cento)."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária; júnior tem 30 dias para reenquadrar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 33,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "Razão de Subordinação Sênior apurada diariamente pelo Gestor e disponibilizada em cada Data de Envio do Relatório de Acompanhamento, por meio do respectivo Relatório de Acompanhamento. \"Razões de Subordinação significam a Razão de Subordinação Mezanino A, a Mezanino \" Razão de Subordinação Mezanino B e a Razão de Subordinação Mezanino C, quando referidas em conjunto."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 57,
+     "clause": "cl. 7.32.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "7.32.4. A partir da Data da Conversão (inclusive), a Razão de Subordinação Mezanino C deverá ser de, no mínimo, 10% (dez por cento). 7.32.5. Caso, em qualquer momento, qualquer das Razões de Subordinação Mezanino fique desenquadrada, deverá haver notificação por escrito do Administrador aos Cotistas Subordinados Júnior, que terão período de 30 (trinta) dias para aportar recursos adicionais no Fundo, por meio da subscrição e integralização de Cotas Subordinadas Júnior, para fins de reenquadramento da respectiva Razão de Subordinação Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior ≥ 10% PL; eventos de step-down majoram a proteção",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, p. 33"
+   }
+  },
+  "reserve": {
+   "display": "Despesas: 1,05% do PL, recomposição diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 102,
+     "clause": "cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "e manter, durante todo o prazo de vigência do Fundo, uma reserva equivalente a 1,05% (um inteiro e cinco centésimos por cento) do Patrimônio Líquido do Fundo, apurado na respectiva data de constituição ou recomposição da Reserva para Despesas. A Reserva para Despesas será constituída ou recomposta com recursos recebidos dos pagamentos dos Direitos Creditórios e dos Ativos Financeiros segundo os critérios estabelecidos neste Regulamento. 20.1.1. O valor da Reserva para Despesas será verificado pelo Administrador diariamente."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de despesas: 1,05% PL; recomposição diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Matriz de perdas por safra e rating (Complemento XV)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 30,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "base em cada tipo de Direito Creditório, prazo de vencimento e classificação de risco (rating), ponderado pelo Valor Principal de cada Direito Creditório e na Matriz de Perdas elaborada na forma do COMPLEMENTO XV a este Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "0,0%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, p. 30"
+   }
+  },
+  "eval_triggers": {
+   "display": "Alocação mínima em 180 dias; gatilhos de performance por safra",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 78,
+     "clause": "cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "Capítulo 11 – DOS EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO DO FUNDO Eventos de Avaliação 11.1. São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências, observado que (a) os subitens (i), (ii), (iii), (iv), (v), (vi), (xi), (xvii), (xxiii), (xxiv), (xxvi), (xxviii),(xxx) e (xxxi) abaixo serão verificados pelo Administrador; (b) os subitens (ix), (xvii) e (xxix)abaixo serão verificados pelo Gestor; (c) o item (xxv) abaixo será verificado pelos Cotistas Seniores e/ou pelo Administrador; (d) os subitens (vii), (viii), (xii), (xiii), (xiv), (xv), (xvi), (xviii), (xix), (xx), (xxi), (xxii) poderão ser verificados pelo Administrador e/ou pelo Gestor;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 40,
+     "clause": "cl. 4.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "do Mercado Pago e/ou dos Endossantes, sem prejuízo da caracterização de Evento de Avaliação em caso de não atingimento de tal meta, nos termos do inciso (v) do item 11.1 abaixo. 4.4. Nenhum Cotista Sênior e/ou Cotista Subordinado Mezanino fará jus à remuneração superior àquela estabelecida no respectivo Apêndice. Capítulo 5 – DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA DO FUNDO 5.1. Informações Gerais 5.1.1. A Carteira do Fundo será composta por: (i) preponderantemente, Direitos Creditórios Adquiridos; e (ii) Ativos Financeiros elencados no item 5.1.6 abaixo, em observância aos índices de composição e diversificação da Carteira do Fundo estabelecidos neste Regulamento e na regulamentação aplicável. 5.1.2. Após o prazo de 180 (cento e oitenta) dias contados da Data da Primeira Integralização de Cotas do Fundo, o Fundo deverá observar, no mínimo, a Alocação Mínima de Investimento. 5.1.3. Os Cotistas do Fundo terão sua responsabilidade limitada ao valor por eles subscrito, nos termos do artigo 18 da Resolução CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. btgpactual.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 5.1.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 21,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "Evento de Liquidação. \"Evento de Gatilho de significa a ocorrência de qualquer dos seguintes eventos, Performance de Safra\" conforme determinado pelo Gestor em cada Data Base: (i) 2 (duas) ou mais Safras de Originação que sejam consecutivas em mês de originação (isto é, Safras de Originação originadas em meses calendário imediatamente sequenciais, sem qualquer Safra de Originação intermediária que não tenha incorrido em Evento de Inadimplência de Performance de Safra) tenham, cada uma, incorrido em um Evento de Inadimplência de Performance de Safra na respectiva Data Base; ou (ii) 3 (três) ou mais Safras"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "PL médio < R$ 1 mi por 3 meses; prestador sem substituto em 180 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 82,
+     "clause": "cl. 11.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "e qualquer notificação aos Cotistas ausentes à referida Assembleia Geral de Cotistas. Eventos de Liquidação 11.2. São considerados Eventos de Liquidação do Fundo quaisquer das seguintes ocorrências: (i) caso seja deliberado em Assembleia Geral de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) caso os Cotistas deliberem em Assembleia Geral de Cotistas pela não realização de aporte de recursos no Fundo e pela não alienação de Direitos Creditórios e/ou Ativos Financeiros para suprir a necessidade de recursos para pagamento de despesas e encargos do Fundo que não possam ser cobertos pelas Disponibilidades, quando convocados para tal deliberação; (iii) se, durante 3 (três) meses consecutivos, o Patrimônio Líquido do Fundo médio for inferior a R$1.000.000,00 (um milhão de reais); (iv) renúncia ou destituição do Administrador, Gestor e/ou do Custodiante sem a sua devida substituição em até 180 (cento e oitenta) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Data limite de investimentos definida nos apêndices das séries; não localizada no regulamento",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Sequencial: sênior, mezaninos A/B/C e, por último, júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 50,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "consequente cancelamento das Cotas Subordinadas Júnior somente ocorrerá quando não houver mais Cotas Seniores ou Cotas Subordinadas Mezanino em Circulação, ou seja, após o último pagamento de Amortização e resgate das Cotas Seniores e Cotas Subordinadas Mezanino, ressalvado, contudo, que a possibilidade de Amortização Extraordinária das Cotas Subordinadas Júnior poderá ocorrer antes da amortização integral/resgate das Cotas Seniores e Cotas Subordinadas Mezanino exclusivamente conforme estabelecido no item 10.3 abaixo, caso nenhum Evento de Avaliação, Evento de Amortização Acelerada ou Evento de Liquidação"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas e reservas → sênior → MZ A → MZ B → MZ C → júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,075% a.a. do PL; mín. R$ 15 mil/mês (inclui custódia)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 100,
+     "clause": "cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "Administração, equivalente ao percentual de 0,075% (setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$15.000,00 (quinze mil reais). 19.1.1. A Taxa de Custódia devida pelo Fundo pelos serviços de custódia qualificada dos Direitos Creditórios integrantes da Carteira está incluída na Taxa de Administração. 19.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,075% a.a. do PL; mínimo R$ 15 mil/mês; inclui custódia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Até 0,20% a.a., escalonada pelo PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 101,
+     "clause": "cl. 19.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "o valor máximo da Taxa de Gestão equivalente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo. 19.3. A Taxa de Gestão será provisionada diariamente e paga mensalmente no 5º Dia Útil do mês posterior ao da prestação dos serviços. 19.4. O Gestor poderá estabelecer que parcelas da Taxa de Gestão sejam pagas diretamente pelo Fundo aos prestadores de serviços que eventualmente tenham sido subcontratados pelo Gestor, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Gestão."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas do PL agregado com Mercado Crédito 0: 0,20% / 0,15% / 0,13% / 0,10% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, cl. 19.2.1"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: o fundo não cobra taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 1,75% a.a. (apêndice da versão anterior do regulamento)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1077334",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "19/12/2025",
+     "page": 164,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+     "excerpt": "ou (c), a partir de 21 de maio de 2025 (inclusive), 1,75% (um inteiro e setenta e cinco centésimos por cento) ao ano, observado o disposto nos itens (ii) e (iii) abaixo; (ii) Benchmark Qualificado: o Benchmark aplicável conforme item (i) acima, acrescido de 2% (dois por cento) ao ano, em caso de um Evento de Amortização Acelerada, um Evento de Avaliação ou um Evento de Liquidação, ainda que tal(is) evento(s) tenha(m) ocorrido após a Data Limite de Investimento em Direitos Creditórios, até o resgate antecipado integral das Cotas Seniores. Os Benchmarks pre"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior DI + 1,75%; MZ A +3,00%; MZ B +4,25%; MZ C +5,45% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 19/12/2025, Apêndice"
+   }
+  },
+  "target_mezz": {
+   "display": "DI + 4,25% a 5,45% a.a., conforme a subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 153,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "l.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 (i) Benchmark Regular: Taxa DI acrescida de 4,25% (quatro inteiros e vinte e cinco centésimos por cento) ao ano; e Compensação Extraordinária: A ser inserida, se for o caso, nos termos dos itens 10.2.2 e 10.2.3 do Regulamento. Condições Resolutivas da Não aplicável. Subscrição de Cotas A Meta de Rentabilidade Subordinada Mezanino é apenas uma meta a ser perseguida pelo Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 155,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "o Benchmark Mezanino não poderá ser inferior a zero: (i) Benchmark Regular: Taxa DI acrescida de 5,45% (cinco inteiros e quarenta e cinco centésimos por cento) ao ano; e Compensação Extraordinária: A ser inserida, se for o caso, btgpactual.com Docusign Envelope ID: C54CAF83-07CF-85ED-82DD-D20196EA3C44 nos termos dos itens 10.2.2 e 10.2.3 do Regulamento. Condições Resolutivas da As Cotas Subordinadas Mezanino C subscritas, mas não Subscrição de Cotas integralizadas, poderão ser canceladas independentemente de qualquer aprovação caso a Chamada de Capital não ocorra até a Data Limite de Chamada de Capital. A Meta de Rentabilidade Subordinada Mezanino é apenas uma meta a ser perseguida pelo Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior DI + 1,75%; MZ A +3,00%; MZ B +4,25%; MZ C +5,45% a.a.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 27/08/2026, Apêndice"
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Administrador\" significa o BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, i"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros; custódia: Banco BTG; gestão: Polígono",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Polígono Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 23,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Gestor\" significa a POLÍGONO CAPITAL LTDA., sociedade de responsabilidade limitada, com sede no município de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, n° 2601, 12º andar, Jardim Pau"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros; custódia: Banco BTG; gestão: Polígono",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Custodiante\" significa o BANCO BTG PACTUAL S.A., instituição financeira, com sede no município e estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º an"
+    }
+   ],
+   "legacy": {
+    "value": "Administração: BTG Pactual Serviços Financeiros; custódia: Banco BTG; gestão: Polígono",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "Mercado Pago (cobrança e recebimento)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Agente de Cobrança\" significa o Mercado Pago, contratado para prestação dos serviços de cobrança dos Direitos Creditórios vencidos e não pagos, nos termos e condições descritos neste Regulamento e no Contrato de Cobrança."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "\"Agente de Recebimento\" significa o Mercado Pago, contratado para prestação de serviços de agente de recebimento dos Direitos Creditórios do Fundo, nos termos e condições descritos neste Regulamento e no Contrato de Agente de Recebimento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 40,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "3.1. Podem participar do Fundo Investidores Qualificados que busquem rentabilidade, no longo prazo, compatível com a Política de Investimento, e aceitem os riscos associados aos investimentos do Fundo, sem prejuízo do disposto nos itens 7.4 e 7.6 abaixo. 3.2. A perda posterior da qualidade de Investidor Qualificado pelo Cotista após seu investimento no Fundo não acarretará a exclusão do Cotista. 3.3. Não há valor mínimo de aplicação inicial e/ou de manutenção de investimento no Fundo. Capítulo 4 – DO OBJETIVO DO INVESTIMENTO 4.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; amortização integral por série nos apêndices",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1302706",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "27/08/2026",
+     "page": 39,
+     "clause": "cl. 1.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302706",
+     "excerpt": "utilizado, refere-se à amortização integral com o consequente cancelamento das Cotas, tendo em vista que se trata de Fundo constituído sob a forma de condomínio fechado. 1.2. O funcionamento do Fundo terá início na Data da Primeira Integralização de Cotas do Fundo. O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral de Cotistas. As Datas de Amortização Integral de cada Série de Cotas Seniores e das Cotas Subordinadas Mezanino de cada Subclasse e Série, conforme o caso, estarão definidas nos respectivos Apêndices."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior e MZ A/B/C: 14/08/2030, ou DU seguinte",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Crédito pessoal do Mercado Pago com três mezaninos (20%, 15% e 10% do PL) e sênior limitada pela Senioridade Máxima.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

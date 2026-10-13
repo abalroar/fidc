@@ -1,0 +1,40 @@
+# MT Consignado Privado I
+type: Consignado privado
+q1: D1 "se, após 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário"
+q2: D1 "as Cotas serão amortizadas mensalmente, em regime de caixa"
+q3: D1 "não sanados em até 2 (dois) Dias Úteis contados do prazo final do respectivo evento"
+receivables: CCB eletrônica de consignado privado (CLT), averbada na Dataprev | o1,c3
+originator: Parati CFI, via Plataforma MT | c5,c8
+assignor: Parati CFI (endossante único) | c8
+debtor: Trabalhador CLT com CTPS digital (eSocial cat. 101) | c11
+recourse: Sem coobrigação; recompra compulsória e opção de venda ao agente | c14
+eligibility: CCB prefixada vencendo antes da classe; TVM ≤ 3% do PL | o16,o19
+debtor_limit: R$ 150 mil | c21
+assignor_limit: Endossante único; CDB/RDB dele ≤ R$ 25 mi | c25
+term_max: Até o prazo legal; vencimento antes do fim da classe | o23
+allocation: ≥ 50% do PL (67% para fins tributários) | o26,c28 | value=50
+quota_structure: Sênior (séries) / Subordinada | c31
+sub_senior: 5% · subord./PL | c34 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária; 10 DU fora do índice gera avaliação | c37,c38
+reserve: Não prevista | Regulamento sem cláusula de reserva de caixa ou liquidez
+pdd: ICVM 489 e manual do administrador; sem curva no regulamento | c39
+eval_triggers: Índice fora por 10 DU; falhas do endossante sem cura em 2 a 10 DU | o42,q3
+liquidation: PL < R$ 1 mi por 90 dias; prestador sem substituto; CVM/AGC | q1
+revolving: 24 meses da 1ª integralização | o48
+amortization: Mensal após o investimento, em caixa, com índice atendido | q2
+admin_fee: 0,40% a.a. do PL; mín. R$ 20 mil/mês (IPCA) | o56
+mgmt_fee: Incluída na taxa de administração | c60
+perf_fee: Não prevista | Regulamento sem taxa de performance
+target_senior: CDI + 15% do excesso de spread; teto CDI + 6% a.a. | c63 | why=Spread de 4,80% da leitura anterior não consta dos documentos locais
+target_mezz: — | Sem cota mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | c65
+manager: BTG Pactual Asset Management | c66
+custodian: Banco BTG Pactual | c67
+servicer: Tudo Serviços (agente de retenção e cobrança) | c68
+investors: Profissionais; subordinada restrita ao grupo do agente | o71,c72
+duration: Indeterminado | c75
+payroll: Convênio do endossante com a Dataprev (consignado privado) | c77
+age_limit: ≤ 64 anos, 11 meses e 29 dias na emissão | o79
+installment_min: Não prevista | Regulamento não fixa parcela mínima
+leitura: Consignado CLT com colchão de 5% (subord./PL), endossante único Parati e teto de R$ 150 mil por devedor.

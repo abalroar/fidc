@@ -1,0 +1,876 @@
+{
+ "schema_version": 1,
+ "cnpj": "55401645000128",
+ "name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "FGTS",
+ "reviewed_at": "2026-10-13T16:15:21Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1051890",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890"
+  },
+  "D2": {
+   "document_id": "1051889",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051889"
+  },
+  "D3": {
+   "document_id": "987420",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "09/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=987420"
+  },
+  "D4": {
+   "document_id": "984909",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "04/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984909"
+  },
+  "D5": {
+   "document_id": "798348",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "10/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798348"
+  },
+  "D6": {
+   "document_id": "678447",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "12/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=678447"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "FGTS",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de antecipação do saque-aniversário FGTS, com cessão fiduciária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 14,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Devedores” As pessoas físicas titulares de contas vinculadas do FGTS, que tenham contratado empréstimos representados pela CCB e estejam com a opção da modalidade de Saque-Aniversário vigente na data da contratação do empréstimo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 60,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "(xiv) Insuficiência das Garantias dos Direitos Creditórios endossados. Os Direitos Creditórios são garantidos pela Cessão Fiduciária dos direitos aos Saques- Aniversários. Havendo o inadimplemento dos Direitos Creditórios endossados, os Devedores serão executados extrajudicial ou judicialmente, sendo possível, dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que a Classe A não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será afetado negativamente e a Classe A poderá não ter recursos suficientes 60 para efetuar o pagamento das Cotas. III – Riscos de Liquidez (xv) Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de antecipação do saque-aniversário FGTS; aquisições de IFs e FIDCs",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Fintech do Corban ou outro parceiro do endossante",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 18,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Originador – DC IF” Significa a FINTECH DO CORBAN LTDA., sociedade limitada com sede na cidade de Cássia, estado de Minas Gerais, na Rua Comendador Antenor Machado, nº 295, sala virtual 2, Centro, CEP 37980-000, inscrita no CNPJ sob o nº 48.672.821/0001-09 ou outro parceiro do Endossante Instituição Financeria que acesse uma plataforma eletrônica e Interfaces de Programação de Aplicação (“APIs”) do Endossante Instituição Financeria que permite a criação de estrut"
+    }
+   ],
+   "legacy": {
+    "value": "IFs aprovadas e fundos geridos pela Quatá; credor original conforme operação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "IFs parceiras (credor original) e fundos geridos pela gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Endossante” Em conjunto, Endossante Fundo e Credor Original;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "código de averbação correspondente; “Emissão” Significa cada emissão de Cotas Subordinadas Júnior; “Endossante” Em conjunto, Endossante Fundo e Credor Original; “Endossante Fundo” É cada fundo de investimento em direito creditório gerido pela Gestora que ceda Direitos Creditórios Fundos à Classe nos termos de um Contrato de Endosso, conforme aprovada em Assembleia Especial de Cotistas nos termos do inciso (xvii) do item 14.2 deste Anexo Descritivo;"
+    }
+   ],
+   "legacy": {
+    "value": "IFs aprovadas e fundos geridos pela Quatá; credor original conforme operação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoa física de 18 a 75 anos com saque-aniversário ativo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 14,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Devedores” As pessoas físicas titulares de contas vinculadas do FGTS, que tenham contratado empréstimos representados pela CCB e estejam com a opção da modalidade de Saque-Aniversário vigente na data da contratação do empréstimo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "no mínimo, 18 (dezoito) anos de idade e, no máximo, 75 (setenta e cinco) anos, 11 (onze) meses e 29 (vinte e nove) dias (inclusive); (viii) os Direitos Creditórios devem possuir taxa de juros prefixada; (ix) o endosso da CCB representativa dos Direitos Creditórios deve compreender a totalidade de suas parcelas vincendas; (x) os Direitos Creditórios não devem estar vencidos e não pagos na respectiva Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física; 18 a 75a11m29d na emissão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação; regresso só por má-fé, culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 29,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "direito de regresso contra a Gestora, a Administradora e/ou o Endossante, salvo na existência comprovada de má-fé, culpa ou dolo. 5.3. A validação pela Gestora dos Critérios de Elegibilidade ocorrerá, exclusivamente, por meio das informações disponibilizadas pelo Endossante, nos termos do Contrato de Endosso, incluindo, sem limitação, aquelas constantes nos arquivos e documentos enviados pelo Endossante na Data de Aquisição. 5.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "Creditórios sem Coobrigação e Outras Avenças celebrado entre a Classe A e um Endossante; “Cotas Seniores” As cotas da subclasse sênior de emissão desta Classe A, cujos termos e condições estão disciplinados no Apêndice das Cotas Seniores, as quais não se subordinam às demais classes de Cotas para efeito de amortização, resgate e distribuição dos rendimentos da Carteira;"
+    }
+   ],
+   "legacy": {
+    "value": "Endosso definitivo; documentos originais e condições no contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Juros prefixados; retorno médio ≥ 1,35% a.m.; prazo ≤ 3.650 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "retorno média mínima equivalente a 1,35% a.m. (um inteiro e trinta e cinco centésimos por cento ao mês), líquida dos custos de originação incorridos ou a incorrer, expressa por dias corridos em um ano de 365 (trezentos e sessenta e cinco) dias; (iv) a data de vencimento da primeira parcela dos Direitos Creditórios deve ocorrer dentro de, no máximo, 365 (trezentos e sessenta e cinco) dias corridos contados da respectiva Data de Aquisição;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "(ii) o prazo de vencimento final dos Direitos Creditórios deve ser de, no máximo, 3.650 (três mil, seiscentos e cinquenta) dias, limitado ao prazo de resgate da última série de Cotas Seniores em circulação; (iii) a aquisição pela Classe A dos Direitos Creditórios deve ser efetuada de forma a gerar à Classe A, considerado pro forma cada endosso pretendido uma taxa de retorno média mínima equivalente a 1,35% a.m."
+    }
+   ],
+   "legacy": {
+    "value": "Prefixado; retorno médio de aquisição ≥ 1,35% a.m.; prazo ≤ 3.650 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "R$ 50 mil por devedor",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "R$ 50.000,00 (cinquenta mil reais); (ii) o prazo de vencimento final dos Direitos Creditórios deve ser de, no máximo, 3.650 (três mil, seiscentos e cinquenta) dias, limitado ao prazo de resgate da última série de Cotas Seniores em circulação; (iii) a aquisição pela Classe A dos Direitos Creditórios deve ser efetuada de forma a gerar à Classe A, considerado pro forma cada endosso pretendido uma taxa de retorno média mínima equivalente a 1,35% a.m."
+    }
+   ],
+   "value": 50000.0,
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 50 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Saldo por devedor ≤ R$ 50 mil",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 3.650 dias, limitado ao resgate da última série sênior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "(ii) o prazo de vencimento final dos Direitos Creditórios deve ser de, no máximo, 3.650 (três mil, seiscentos e cinquenta) dias, limitado ao prazo de resgate da última série de Cotas Seniores em circulação; (iii) a aquisição pela Classe A dos Direitos Creditórios deve ser efetuada de forma a gerar à Classe A, considerado pro forma cada endosso pretendido uma taxa de retorno média mínima equivalente a 1,35% a.m."
+    }
+   ],
+   "legacy": {
+    "value": "Prefixado; retorno médio de aquisição ≥ 1,35% a.m.; prazo ≤ 3.650 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 5.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 10,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Alocação Mínima” O percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios, de acordo com a definição estabelecida pelo CMN e/ou CVM;"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Índice de Subordinação A relação equivalente a, no mínimo, 15% (quinze por cento) Sênior” entre o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 13,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Cotas Seniores” As cotas da subclasse sênior de emissão desta Classe A, cujos termos e condições estão disciplinados no Apêndice das Cotas Seniores, as quais não se subordinam às demais classes de Cotas para efeito de amortização, resgate e distribuição dos rendimentos da Carteira;"
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 3%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, p. 17"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Índice de Subordinação A relação equivalente a, no mínimo, 15% (quinze por cento) Sênior” entre o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 3%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, p. 17"
+   }
+  },
+  "sub_mezz": {
+   "display": "3% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 17,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Índice de Subordinação A relação equivalente a, no mínimo, 3% (três por cento) entre: Mezanino” (a) o valor das Cotas Subordinadas Júnior em circulação e (b) o Patrimônio Líquido da Classe A, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "10 DU para reenquadrar os índices; depois, evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 42,
+     "clause": "cl. 8.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "e o Índice de Subordinação Mezanino não sejam reestabelecidos, e tal situação não seja sanada no prazo de 10 (dez) Dias Úteis, estará configurado um Evento de Avaliação, e a Gestora adotará os procedimentos previstos no item 9.2 abaixo. 8.6.1."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino + júnior/PL ≥ 15%; júnior/PL ≥ 3%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 8.6"
+   }
+  },
+  "reserve": {
+   "display": "Caixa para 3 meses de despesas estimadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 48,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "reserva de caixa, constituída por Disponibilidades, em montante equivalente a 03 (três) meses de despesas estimadas da Classe A pela Gestora, com tais valores devendo ser indicados pela Gestora à Administradora no último Dia Útil de cada mês (“Reserva de Caixa”). 11.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de despesas estimadas; apuração mensal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Perda histórica sobre a carteira e faixas por atraso do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 76,
+     "clause": "cl. 18.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "Metodologia de Provisionamento Os Direitos Creditórios integrantes da Carteira da Classe A seguirão a seguinte metodologia de provisionamento: Perda Histórica (Spread de Cessão): Para o cálculo da perda histórica é realizada a divisão entre o valor inadimplido sobre o valor total da Carteira. Para a Classe A, considerando o produto de antecipação do Saque- Aniversário FGTS, a taxa de perda histórica é de 0% (zero por cento)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 76,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "semelhantes para o mesmo Devedor ou garantidor. Para mensurar a provisão sobre os Direitos Creditórios, a instituição aplica os percentuais informados na tabela abaixo. FAIXA PROVISÃO DE ATÉ A 0,00% 0 15 B FAIXA B do Administrador 16 30 C FAIXA C do Administrador 31 60 D FAIXA D do Administrador 61 90 E FAIXA E do Administrador 91 120"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Insolvência de endossante ou prestadores; índices fora por 10 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 43,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Evento de Avaliação”): (i) caso o Endossante, o Credor Original, um Originador, a Administradora, a Gestora, ou o custodiante entrem em processo de intervenção, liquidação, falência, recuperação judicial ou extrajudicial, regime de administração temporária ou tenham sua autorização para funcionamento cassada, conforme aplicável, ou evento equivalente; 43 (ii) caso haja descumprimento pelo Endossante, pelo Credor Original, por um Originador e/ou pelo Agente de Cobrança Extraordinária de qualquer de suas obrigações estabelecidas no Contrato de Endosso, no Contrato de Consultoria e no Contrato de Cobrança, desde que tal descumprimento não seja devidamente regularizado dentro do prazo de 10 (dez) Dias Úteis contado do recebimento pelo Endossante, pelo Credor Original, pelo respectivo Originador e/ou pelo Agente de Cobrança Extraordinária, conforme o caso, de aviso, por escrito, enviado pela Administradora, pelo Cotista ou pela Gestora, informando-o da ocorrência do evento em questão; (iii) caso ocorra a amortização de Cotas em desacordo com o disposto neste Anexo Descritivo; (iv) caso, a qualquer momento, o Comitê de Política Econômica (Copom) do BACEN estabeleça a meta Selic em taxa igual ou superior a 16% (dezesseis por cento) ao ano;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 42,
+     "clause": "cl. 8.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "e o Índice de Subordinação Mezanino não sejam reestabelecidos, e tal situação não seja sanada no prazo de 10 (dez) Dias Úteis, estará configurado um Evento de Avaliação, e a Gestora adotará os procedimentos previstos no item 9.2 abaixo. 8.6.1."
+    }
+   ],
+   "legacy": {
+    "value": "Intervenção/falência de endossante ou prestadores; índices e eventos do cap. 9/10",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 9.1"
+   }
+  },
+  "liquidation": {
+   "display": "PL < R$ 1 mi por período prolongado; decisão da AGC",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 46,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Evento de Liquidação”): (i) por deliberação de Assembleia Especial; (ii) caso seja deliberado em Assembleia Especial que um Evento de Avaliação constitui um Evento de Liquidação; (iii) manutenção do Patrimônio Líquido da Classe A inferior a R$ 1.000.000,00 46 (um milhão de reais) por período de 3 (três) meses consecutivos; (iv) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175; (v) caso, na hipótese cessação ou renúncia de qualquer dos Prestadores de Serviços Essenciais ou do custodiante, em 180 (cento e oitenta) dias contados da realização da Assembleia Especial para a deliberação sobre a sua substituição, não seja definido um substituto para o referido prestador de serviço, observados os procedimentos descritos neste Anexo Descritivo; e (vi) caso o Índice de Ágio seja maior do que o Ágio Máximo Permitido em uma Data de Verificação. 10.2."
+    }
+   ],
+   "legacy": {
+    "value": "Intervenção/falência de endossante ou prestadores; índices e eventos do cap. 9/10",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 10.1"
+   }
+  },
+  "revolving": {
+   "display": "Período de investimento com carência de 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 19,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Período de Carência” O período de 6 (seis) meses a contar do início do Período de Investimento – DC IF (inclusive), nos termos do inciso (i) do item 12.2. “Período de Em conjunto, Período de Investimento – DC Fundos e Período Investimento” de Investimento – DC IF. “Período de O período 3 (três) meses a contar da data de 04 de setembro Investimento – DC de 2025 (inclusive), no qual será permitida a aquisição dos Fundos” Direitos Creditórios Fundos, podendo ser encerrado antecipadamente, a critério da Gestora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Encargos → reserva → sênior → mezanino → júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 48,
+     "clause": "cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "(i) durante o Período de Carência, a alocação dos recursos observará a seguinte ordem: 48 a. pagamento dos encargos e despesas correntes da Classe A, incluindo todos os saldos e as despesas decorrentes de contratos de derivativos celebrados pela Classe A; b. constituição e manutenção da Reserva de Caixa; c."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas/derivativos → reserva → sênior → mezanino → júnior",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "Faixas sobre o PL; mín. R$ 16,5 mil a R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 40,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "de acordo com os percentuais indicados na tabela abaixo, assegurado um valor mínimo mensal de R$ 16.500,00 (dezesseis mil e quinhentos reais) do 1º (primeiro) ao 3º (terceiro) mês, contados da Data de Integralização Inicial, e R$ 20.000,00 (vinte mil reais) a partir do 4º (quarto) mês posterior a Data de Integralização Inicial, sendo este valor atualizado pela variação do IGP-M a cada intervalo de 12 (doze) meses (“Taxa de Administração”). Taxa de"
+    }
+   ],
+   "legacy": {
+    "value": "0,25%/0,23%/0,18% a.a.; mínimo R$ 16,5 mil nos 3 primeiros meses, R$ 20 mil depois",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,50% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 41,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "pagará à Gestora uma taxa de gestão em montante equivalente a 0,50% (cinquenta centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe A, a ser paga mensalmente, a partir da Data de Integralização Inicial, até o 5º (quinto) Dia Útil do mês subsequente ao da prestação do serviço, observado o montante mínimo mensal de R$ 25.000,00 (vinte e cinco mil reais) (“Taxa de Gestão”). 7.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,50% a.a. do PL; mínimo R$ 25 mil/mês + tributos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 7.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark de cada série no suplemento; não localizado no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark de cada série mezanino no suplemento; não localizado no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 9,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Administradora” Significa a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Quatá Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "os por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990. A QUATÁ GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 2.391, conjuntos 71 e 72, Jardim Paulistano, CEP 01452-000, inscrita no CNPJ sob o nº 09.456.933/0001-62, devidamente autorizada pela CVM para o Gestora exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 9.911, de 26 de junho de 2008 (“Gestora” e, quando referido conjuntamente e indistintamente com a Administradora, os “Prestadores de Serviços Essenciais”). Foro Aplicável Foro da Cidade de São Paulo, Estado de São Paulo. Encerramento do Último dia útil do mês de abril de cada ano. Exercício Social 1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado no texto extraído do regulamento",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Fintech do Corban (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 9,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "“Agente de Cobrança Significa (i) a Fintech do Corban, contratada pela Gestora para Extraordinária” a prestação dos serviços de cobrança extraordinária de Direitos Creditórios Instituição Financeira Inadimplidos ou (ii) o eventual prestador de serviço subcontratado pela Gestora para a 9 prestação dos serviços de cobrança extraordinária de Direitos Creditórios Fundos Inadimplidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 21,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "Público-Alvo Investidores Profissionais Tesouraria, Administradora Controladoria e Escrituração Subclasses A Classe A é constituída por 3 (três) subclasses de Cotas, quais 21 sejam: Cotas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "Prazo de Duração Indeterminado. A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Administradora"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Saque-aniversário averbado no agente operador do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 15,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "conforme o caso; e (ii) o código de averbação fornecido com base no protocolo disponibilizado pelo Agente Operador do FGTS, comprovando que houve a averbação do saldo do Saque- Aniversário em relação a cada Devedor, a ser informado por meio de arquivo apartado constando o número de proposta e o código de averbação correspondente; “Emissão” Significa cada emissão de Cotas Subordinadas Júnior;"
+    }
+   ],
+   "legacy": {
+    "value": "Cessão fiduciária do saque-aniversário, com bloqueio/averbação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "age_limit": {
+   "display": "De 18 a 75 anos, 11 meses e 29 dias na emissão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1051890",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/12/2025",
+     "page": 28,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051890",
+     "excerpt": "no mínimo, 18 (dezoito) anos de idade e, no máximo, 75 (setenta e cinco) anos, 11 (onze) meses e 29 (vinte e nove) dias (inclusive); (viii) os Direitos Creditórios devem possuir taxa de juros prefixada; (ix) o endosso da CCB representativa dos Direitos Creditórios deve compreender a totalidade de suas parcelas vincendas; (x) os Direitos Creditórios não devem estar vencidos e não pagos na respectiva Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Prefixado; retorno médio de aquisição ≥ 1,35% a.m.; prazo ≤ 3.650 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/12/2025, cl. 5.1"
+   }
+  },
+  "installment_min": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": [],
+   "legacy": {
+    "value": "Prefixado; retorno médio de aquisição ≥ 1,35% a.m.; prazo ≤ 3.650 dias",
+    "decision": "revised",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "FGTS com colchão de 15% (mez.+jr.) e júnior de 3%; teto de R$ 50 mil por devedor.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

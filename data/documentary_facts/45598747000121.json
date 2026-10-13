@@ -1,0 +1,843 @@
+{
+ "schema_version": 1,
+ "cnpj": "45598747000121",
+ "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T16:13:45Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1338074",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074"
+  },
+  "D2": {
+   "document_id": "1337797",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337797"
+  },
+  "D3": {
+   "document_id": "903840",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "14/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=903840"
+  },
+  "D4": {
+   "document_id": "887547",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=887547"
+  },
+  "D5": {
+   "document_id": "298051",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "07/03/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298051"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão cedidos pela SumUp",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 49,
+     "clause": "cl. 11.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "11.2.2. Os Direitos Creditórios serão identificados de forma individualizada e por Transação de Pagamento. 11.2.3. A cessão dos Direitos Creditórios ao Fundo, realizada nos termos do Contrato de Cessão, será definitiva, irrevogável e irretratável e incluirá todas as suas garantias e demais acessórios. 11.2.4. A aquisição dos Direitos Creditórios pelo Fundo observará as regras, as condições e os procedimentos estabelecidos no Contrato de Cessão, bem como o atendimento dos Critérios de Elegibilidade e das Condições de Cessão. 11.2.5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 89,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "SumUp Instituição de Pagamento Brasil (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 89,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "SumUp Instituição de Pagamento Brasil (cedente único)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 89,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Emissores de cartão (instituições financeiras) autorizados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "(h) Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. podem impor sanções disciplinares."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 96,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "Creditórios originados pelo Cedente que sejam devidos pelos Emissores autorizados neste Regulamento; e (ii) a soma do valor esperado para recebimento de tais Direitos Creditórios, o qual será calculado mensalmente pela Administradora referente aos últimos 30 (trinta) dias e divulgado no Relatório de Este docum"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 23,
+     "clause": "cl. 10.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "(b) Ausência de coobrigação do Cedente ou de terceiros . O Cedente não responde pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores. O pagamento dos Direitos Creditórios Cedidos não conta com coobrigação ou garantia de quaisquer terceiros. Na hipótese de inadimplemento dos Direitos Creditórios Cedidos, portanto, poderá haver um impacto Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. negativo no patrimônio e na rentabilidade do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Emissor autorizado e adimplente; sem evento de insolvência",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 51,
+     "clause": "cl. 11.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "(b) os Devedores não poderão estar inadimplentes perante (i) o Cedente, conforme informado pelo Cedente à Administradora; e/ou (ii) o Fundo; (c) a Administradora não poderá ter tido conhecimento de um Evento de Insolvência referente aos Devedores ou à Cedente; e Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 96,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "Creditórios originados pelo Cedente que sejam devidos pelos Emissores autorizados neste Regulamento; e (ii) a soma do valor esperado para recebimento de tais Direitos Creditórios, o qual será calculado mensalmente pela Administradora referente aos últimos 30 (trinta) dias e divulgado no Relatório de Este docum"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por emissor não localizado no regulamento",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Cedente único (SumUp)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 89,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos recebíveis não localizado no regulamento",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL; 65% acordado após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 85,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Alocação Mínima significa o percentual mínimo de 50% (cinquenta por cento) do Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 85,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Alocação Mínima Acordada” O percentual mínimo de 65% (sessenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Cedidos, a ser observado a partir do 180º (centésimo octogésimo) dia, contado da Data de Início do Fundo, calculado no Dia Útil anterior a uma Data de Referência com base na média do mês imediatamente anterior, excluída"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 101,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Subclasse” significam as subclasses de Cotas da Classe do Fundo, as quais são divididas em Cotas Seniores e Cotas Subordinadas Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Juniores."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "Cobertura PL/sênior ≥ 105%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 96,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Índice de Subordinação” significa a relação mínima admitida entre o Patrimônio Líquido e o somatório do valor das Cotas Seniores em circulação, equivalente a 105% (cento e cinco inteiros por cento)."
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 105.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Frequência de apuração e cura do índice não localizadas",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Reservas de amortização e de despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 100,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Reserva de Amortização” significa com relação a cada Data de Cálculo, a reserva, a ser constituída em Disponibilidades pela Gestora, para o pagamento da Remuneração e da Amortização de Principal, conforme descrito no item 21.2 deste Regulamento. Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 100,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Reserva de Despesas e significa a reserva, a ser constituída em Disponibilidades pela Encargos” Gestora, para o pagamento dos encargos do Fundo, nos termos previstos no item 21.1 deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisionamento da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 61,
+     "clause": "cl. 16.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "16.4. O manual de precificação e provisionamento da Administradora pode ser consultado no seu site: https://www.bancogenial.com/pt-BR/AdministracaoFiduciaria/Governanca. 16.5. O Patrimônio Líquido, a ser apurado pela Administradora, equivale ao valor das Disponibilidades acrescido do Valor dos Direitos Creditórios, deduzidas as exigibilidades e as provisões do Fundo. 61 Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 16.6."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Meta de amortização não paga em 2 DU; rating sênior cai 2 notas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 70,
+     "clause": "cl. 18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "da mesma Bandeira dos Direitos Creditórios Cedidos na Conta Centralizadora. 18. Eventos de Avaliação 18.1. São Eventos de Avaliação: (a) caso o Fundo deixe de efetuar: (i) o pagamento integral da Meta de Amortização, na respectiva Data de Pagamento, ou (ii) o integral dos resgates das Cotas Seniores, na respectiva Data de Resgate, e não regularizado no prazo de até 2 (dois) Dias Úteis; (b) caso a classificação de risco das Cotas Seniores, se existente, seja rebaixada, de forma Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. concomitante ou subsequente, em 2 (duas) notas em escala local, devidamente atribuída pela Agência Classificadora de Risco, em relação à nota atribuída às Cotas Seniores pela Agência Classificadora de Risco na respectiva data de emissão; (c) caso a Reserva de Amortização permaneça desenquadrada por prazo superior a 5 (cinco) Dias Úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Falta de créditos elegíveis; AGC; CVM; fim da prestação de serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 74,
+     "clause": "cl. 19",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "ores relativos aos Direitos Creditórios Cedidos serem transferidos a terceiros. 19. Eventos de Liquidação 19.1. São Eventos de Liquidação: (a) vedação legal e/ou impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade especificados neste Regulamento; (b) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação configura um Evento de Liquidação; Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. (c) determinação da CVM, nos termos previstos na Resolução CVM nº 175; (d) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora ou pelo Custodiante, sem que tenha havido sua efetiva substituição por outro prestador de serviços, observados os procedimentos e prazos descritos no Capítulo 9 deste Regulamento; (e) resilição ou rescisão do Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 45,
+     "clause": "cl. 11.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM nº 175, a revolvência dos Direitos Creditórios, desde respeitado o disposto neste Regulamento. Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. 11.1.4. No prazo de até 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe do Fundo deverá observar a Alocação Mínima Regulatória. 11.1.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Por metas da série; sequencial após evento de liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 86,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Amortização Sequencial” significa o critério de alocação dos recursos do Fundo para amortização das Cotas Seniores, adotado pela Administradora, após a eventual ocorrência de um Evento de Liquidação, nos termos do Capítulo 15 deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,090% a.a. até R$ 300 mi; 0,070% acima; mín. R$ 28 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 17,
+     "clause": "cl. 8.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "Patrimônio Líquido do Fundo Até R$300.000.000,00 0,090% De R$300.000.000,01 até 0,070% R$600.000.000,00 Acima de R$600.000.000,01 0,055% 8.1.1. Pelos serviços de custódia qualificada, será cobrado do Fundo, como remuneração a ser paga ao Custodiante, o percentual de 0,02% (dois centésimos por cento) ao ano sobre o Patrimônio Líquido, observado o valor mínimo mensal de: R$2.000,00 (dois mil reais). Pelos Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757. serviços de verificação de lastro, será devida uma taxa mensal ao Custodiante de R$3.000,00 (três mil reais). A remuneração do Custodiante será paga diretamente pelo Fundo e não integra a Taxa de Administração. 8.1.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 17,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "8.1. O Fundo apurará e pagará a Taxa de Administração, em montante equivalente à soma dos seguintes valores: 8.1.1. Pelos serviços de administração fiduciária, controladoria e escrituração, será Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. cobrada do Fundo, como remuneração à Administradora, a remuneração constante da tabela abaixo aplicável a cada faixa do Patrimônio Líquido, inclusive, observado o valor mínimo mensal de R$28.000,00 (vinte e oito mil reais)."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 18,
+     "clause": "cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "8.2. Pelos serviços de gestão, o Fundo pagará uma Taxa de Gestão ao Gestor, equivalente ao Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. percentual de 10% (dez cento) sobre a Taxa de Administração, limitada a R$ 4.000,00 (quatro mil reais). 8.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não há taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa sobre a Taxa DI definida no apêndice de cada série; não localizada no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Genial Investimentos CVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 85,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Administradora” significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº 6.819, de 17 de maio de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 95,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Gestora” significa a GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM para prestação dos serviços de gestão de Para verificar as assinaturas v"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 92,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Custodiante” significa a Administradora."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 85,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Administradora” significa o GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº 6.819, de 17 de maio de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Genial Gestão ou terceiro aprovado em assembleia",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 85,
+     "clause": "cl. 27.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Agente de Cobrança significa a Gestora ou terceiro contratado para realizar a Extraordinária” cobrança dos Direitos Creditórios Inadimplidos, conforme venha a ser deliberado em Assembleia Geral nos termos deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 95,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Gestora” significa a GENIAL GESTÃO LTDA., instituição devidamente autorizada pela CVM para prestação dos serviços de gestão de Para verificar as assinaturas v"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 97,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Investidores Profissionais” significam os investidores considerados profissionais, nos termos do artigo 11 da Resolução CVM 30."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 99,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Prazo de Duração” significa o prazo de duração de cada Série ou Classe de Cotas, Para verificar as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código 4196-D448-BE61-F757."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Transações em arranjos de pagamento, com registro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 87,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "“Arranjo de Pagamento” significa cada conjunto de regras e procedimentos estabelecidos pela respectiva Bandeira, que disciplina a prestação de determinados serviços de pagamento ao público, tais como a emissão de Instrumentos de Pagamento aos Usuários Finais e o credenciamento de Clientes e Estabelecimentos Comerciais, bem como que define o uso de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 106,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "registro em entidade registradora, diretamente no domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório Cedido, o qual, no caso do Direito Creditório Cedido, deverá ser a Conta do Fundo. 3. Procedimentos de cobrança extraordinária dos Direitos Creditórios Inadimplidos 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_lock": {
+   "display": "Domicílio na conta do fundo; conta vinculada do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 106,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "registro em entidade registradora, diretamente no domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório Cedido, o qual, no caso do Direito Creditório Cedido, deverá ser a Conta do Fundo. 3. Procedimentos de cobrança extraordinária dos Direitos Creditórios Inadimplidos 3.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 91,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "Depositário” Serviços de Conta Vinculada”, conforme aditado de tempos em tempos, celebrados entre o Cedente e o Banco Depositário Este documento foi assinado eletronicamente por Rodrigo Godoy e Cintia Santana. “Cotas” significam as Cotas Seniores e as Cotas Subordinadas Juniores, quando referidas em conjunto."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks cobertos por depósito do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1338074",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 70,
+     "clause": "cl. 17.3.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338074",
+     "excerpt": "movimentação da Conta Centralizadora do Cedente que estavam em vigor anteriormente à data de sua contratação, (b) manter o mesmo princípio de Depósito Complementar Obrigatório pelo Cedente em caso de Cancelamentos e Chargebacks, com o repasse dos respectivos valores da Conta Centralizadora do Cedente à Conta do Fundo, e (c) manter o fluxo de recebimento de operações de débito da mesma Bandeira dos Direitos Creditórios Cedidos na Conta Centralizadora. 18. Eventos de Avaliação 18.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da SumUp, cedente único, com PL mínimo de 105% da sênior.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
