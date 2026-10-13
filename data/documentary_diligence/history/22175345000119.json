@@ -3,17 +3,6 @@
   "cnpj": "22175345000119",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "db35801c7031ba3c50a8adfa83a378a0778d5c7089437def9e9cac0450f332b0",
-      "e8c9433f1edf1ca30faa693098436b439e30109c39f90e68fdcc697a881029ab",
-      "e4ecf879a7e826965f6da06fb7055ee479ec4cae074f2cc62019a2b96778d19b",
-      "43c9b68590c84b4445fb879210eecb8b1e9613ad56e077576575e0ba5f9aacf7",
-      "eb3e3aaaf93d0508a4775cfbaca65703d868d63788c862a97970e899b737fead",
-      "3deab9d5e1a94f28496ea8f49e1aabd0539b7b9f8feaeaf600c6b4a6e7a35484",
-      "2f2abe14901d05dc69cdb63e69e517ee49dc1e13268e52080618a6574020aa26",
-      "bb9c1fc1813c633813e0dcbbe6033c4e500473604a9881511191e8407b655299",
-      "bba12f18a4c2827613306eb98ee10e541e538345832ffbd8ead833eb9751397c"
-    ],
     "concentration": [
       "218ed014a1c26f70fc37b715804b635ee334a24e1f1c89b58073a90f4288107e",
       "2b3d586903ff0ff165720bb91572b9e00f4ad01d1481c29dd579ba939565ab9a",
@@ -317,24 +306,6 @@
       "39b6120a05964856f2808d6bc1f346dab301742f947a1b8393db5d2656497791",
       "ffa8d69110db8924bf913a5f23ccf99e3d0fa85c9445eab3e16a2573f0829d74"
     ],
-    "originator": [
-      "dc1e6aa6f825cd84541e618469833ae69343a3ec9b03f78ff87504dfa43d60ff",
-      "a84047d1cdec69a6187a3885c223b62b7db5b73592ea1b539d1a8555ed6c7fa6",
-      "ac5dabfe42c6e4445a54dc7a9193174489dedf4bff6f60f6d0c4bc330e46b4ed",
-      "a6dc51f0e1aa6108b76cb4d5ed7f0622c102e414ec6d2d4e05236cb747876bca",
-      "ced1e26d79d1592a4690c13354417be4458cc7b05237f06b1f2aa178de73bdce",
-      "441319265646bbf30359a3a1694b5d0aa13fd7e0e6fd0e83f41c98d403b93c37",
-      "6d6471289b3a9664eb05e5639f357b25a876da430c36ec12bd9230ddcf827a69",
-      "e74bb5058eb8c0cf5792f742c6e8a8f96737d868303d9b5e7645b6a036310142",
-      "6db6aad1c502efcf44445d45259034de823b99d57247264195271bf1922ef106",
-      "8a1f59f7145b738f9cd019db1ce7510a04acf12d3f859a14a19b462a0f59ce0b"
-    ],
-    "debtor": [
-      "5dd98c75dcf20ee718cca2033b8cee6b1488d3a8fd0dbe3242e6dc229e55e69f",
-      "efab2eb8aca31c1d56826cf50722e107ef78d550ef975ea2ae5601ee45bc5f05",
-      "e74bb5058eb8c0cf5792f742c6e8a8f96737d868303d9b5e7645b6a036310142",
-      "3ddf2897b0d2c4332f5592e90ac4cea33331b4f23347bc89d386f7dd6b1a5249"
-    ],
     "investee": [
       "6f35cd35585a452f923f3930e3669839ad8b5e2323717cb7cea7caac52a5d6c1",
       "e1b0c8095dac9c9adee04968d17cd6afc2506116fb44fe29cb9943cdbd9122e1",
@@ -418,6 +389,28 @@
       "cddcf4e0762473eb0f3a56ad1cf25432f69751aae2c7600ce88c7ac7790d7739",
       "8184a3f536d11f5b7a0b58275a8183cf1dbe74fc9dabc04720268dd019dbb8ac",
       "4f06251159cf63d195154e7e426cd9ef874e1c65cb04b4c8ca85ca0d0bb9ab05"
+    ],
+    "originator": [
+      "dc1e6aa6f825cd84541e618469833ae69343a3ec9b03f78ff87504dfa43d60ff",
+      "a84047d1cdec69a6187a3885c223b62b7db5b73592ea1b539d1a8555ed6c7fa6",
+      "ac5dabfe42c6e4445a54dc7a9193174489dedf4bff6f60f6d0c4bc330e46b4ed",
+      "a6dc51f0e1aa6108b76cb4d5ed7f0622c102e414ec6d2d4e05236cb747876bca",
+      "ced1e26d79d1592a4690c13354417be4458cc7b05237f06b1f2aa178de73bdce",
+      "441319265646bbf30359a3a1694b5d0aa13fd7e0e6fd0e83f41c98d403b93c37",
+      "6d6471289b3a9664eb05e5639f357b25a876da430c36ec12bd9230ddcf827a69",
+      "e74bb5058eb8c0cf5792f742c6e8a8f96737d868303d9b5e7645b6a036310142",
+      "6db6aad1c502efcf44445d45259034de823b99d57247264195271bf1922ef106",
+      "8a1f59f7145b738f9cd019db1ce7510a04acf12d3f859a14a19b462a0f59ce0b"
+    ],
+    "eligibility": [
+      "5dababa589a42ea33e1404d32dd852aa2e1d1492506017a0cb0f3aedc9664a84",
+      "e4ecf879a7e826965f6da06fb7055ee479ec4cae074f2cc62019a2b96778d19b",
+      "957678e2fa66ebebea934024723f234bc4e0773d129467a5c1e30cba9d0da771",
+      "eb3e3aaaf93d0508a4775cfbaca65703d868d63788c862a97970e899b737fead",
+      "3deab9d5e1a94f28496ea8f49e1aabd0539b7b9f8feaeaf600c6b4a6e7a35484",
+      "82b58f597c4cbc07907e840f8137ef9739c574b7e393150c138a106c21948b41",
+      "90848d31ea55081512021395379cd3d87a4d9530f4e76b853187935340fd084c",
+      "de5a915176c1b117069f6d32598e3b54598d1c46f5e5fd7ccf473a29f0b2d9b7"
     ]
   },
   "entries": {
@@ -710,24 +703,6 @@
         "4436080c05f72bdf08572983c353de76b1695104acc6f29fc350a581159c5ba5"
       ]
     },
-    "efab2eb8aca31c1d56826cf50722e107ef78d550ef975ea2ae5601ee45bc5f05": {
-      "reference_date": "2025-06-30",
-      "value": "13.2 Todos os custos e despesas ref eridos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos ou Direitos Creditórios a Perf ormar, serão de inteira responsabilidade da Classe, não estando o ADMINISTRADOR, o GESTOR, os Cedentes, os Devedores, o CUSTODIANTE e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos ref eridos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9e2f8ea170cbefbf8717e4d0eb280f5d54b3a5d979355ed115398236251dde62"
-      ]
-    },
-    "3ddf2897b0d2c4332f5592e90ac4cea33331b4f23347bc89d386f7dd6b1a5249": {
-      "reference_date": "2024-11-27",
-      "value": "13.2 Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos ou Direitos Creditórios a Performar, serão de inteira responsabilidade da Classe, não estando o ADMINISTRADOR, o GESTOR, os Cedentes, os Devedores, o CUSTODIANTE e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "84849f511d01359f5e52d34a76e53b134928b8fa2a9b84253f18cd8d12f48649"
-      ]
-    },
     "db35801c7031ba3c50a8adfa83a378a0778d5c7089437def9e9cac0450f332b0": {
       "reference_date": "2026-04-27",
       "value": "O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) no mínimo, 85% (oitenta e cinco por cento) em Direitos Creditórios que atendamaos Critérios de Elegibilidade e as Condições de Cessão, estabelecidos no Capítulo VII abaixo, especialmente cotas de outros fundos de investimento em direitos creditórios e (ii) no máximo, 15% (quinze por cento) em Ativos Objetivo Financeiros de Liquidez, observados todos os limites de composição e diversificação da Carteira da Classe, estabelecidos neste Regulamento e na regulamentação aplicável.",
@@ -735,15 +710,6 @@
       "provenance": "primary_passage",
       "sources": [
         "f0dc88261905205ef238ca96c9031582672e8464229a8bfa0c2c922169ae35fc"
-      ]
-    },
-    "e8c9433f1edf1ca30faa693098436b439e30109c39f90e68fdcc697a881029ab": {
-      "reference_date": "2025-06-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1bf1cbc699aa34eaeef5fbdce75111a4b4483db47eb9905843bbd0dc3651b188"
       ]
     },
     "43c9b68590c84b4445fb879210eecb8b1e9613ad56e077576575e0ba5f9aacf7": {
@@ -771,33 +737,6 @@
       "provenance": "primary_passage",
       "sources": [
         "39ea6f1c533097d1b674ae49a9d5933848efe852307b2de22551f3385553e635"
-      ]
-    },
-    "2f2abe14901d05dc69cdb63e69e517ee49dc1e13268e52080618a6574020aa26": {
-      "reference_date": "2025-06-30",
-      "value": "Cotas Tipo “Outros”. Foco de atuação “Fomento Mercantil”. A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS CREDITÓRIOS DIVERSIFICADA, COM NATUREZA E Classificação ANBIMA CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) no mínimo, 95% em Direitos Creditórios que atendam aos Critérios de Elegibilidade e as Condições de Cessão, estabelecidos no Capítulo VII abaixo, especialmente cotas de outros fundos de investimento em direitos creditórios e (ii) no máximo, 5% em Ativos Financeiros de Liquidez, observados todos os limites de composição e diversificação da Carteira da Objetivo Classe, estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3c8cccd2544d38bebb3866db6a8fae8218b5ade8467f3a604350348e496fa4ce"
-      ]
-    },
-    "bb9c1fc1813c633813e0dcbbe6033c4e500473604a9881511191e8407b655299": {
-      "reference_date": "2024-12-27",
-      "value": "Cotas Tipo “Outros”. Foco de atuação “Fomento Mercantil”. A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS Classificação ANBIMA CREDITÓRIOS DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) no mínimo, 95% em Direitos Creditórios que atendam aos Critérios de Elegibilidade e as Condições de Cessão, estabelecidos no Capítulo VII abaixo, especialmente cotas de outros fundos de investimento em direitos Objetivo creditórios e (ii) no máximo, 5% em Ativos Financeiros de Liquidez, observados todos os limites de composição e diversificação da Carteira da Classe, estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5530242a9dd8be5b69a7f1bd74ab91a9e422a84336708efa532540cab6218b9e"
-      ]
-    },
-    "bba12f18a4c2827613306eb98ee10e541e538345832ffbd8ead833eb9751397c": {
-      "reference_date": "2024-11-27",
-      "value": "Cotas Tipo “Outros”. Foco de atuação “Fomento Mercantil”. A CLASSE DE COTAS PODE INVESTIR EM CARTEIRA DE DIREITOS Classificação ANBIMA CREDITÓRIOS DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) no mínimo, 95% em Direitos Creditórios que atendam aos Critérios de Elegibilidade e as Condições de Cessão, estabelecidos no Capítulo VII abaixo, especialmente cotas de outros fundos de investimento em direitos Objetivo creditórios e (ii) no máximo, 5% em Ativos Financeiros de Liquidez, observados todos os limites de composição e diversificação da Carteira da Classe, estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2fba01c4ee048aa4feae5dd961ebf2da010fb38d462c1394875fcffa30699251"
       ]
     },
     "218ed014a1c26f70fc37b715804b635ee334a24e1f1c89b58073a90f4288107e": {
@@ -2691,6 +2630,42 @@
       "sources": [
         "26741940e5d52aac387eaf97c53ebc77fd3f671c39597391afce87fd6c8993a3"
       ]
+    },
+    "5dababa589a42ea33e1404d32dd852aa2e1d1492506017a0cb0f3aedc9664a84": {
+      "reference_date": "2025-06-30",
+      "value": "Risco de pré-pagamento dos Direitos Creditórios. A ocorrência de pré-pagamentos em relação a um ou mais Direitos Creditórios poderá ocasionar perdas à Classe. A ocorrência de pré- pagamentos (pagamento em data anterior àquela originalmente pactuada) de Direitos Creditórios reduz o horizonte original de rendimentos esperados pela Classe de tais Direitos Creditórios, uma vez que o pré-pagamento poderá, se assim permitido pela documentação do Direito Creditório ou, conforme o caso, pela legislação aplicável, ser realizado pelo valor de emissão do Direito Creditório atualizado até a data do pré-pagamento pela taxa de juros pactuada entre os Cedentes e os Devedores de tais Direitos Creditórios, de modo que os juros remuneratórios incidentes desde a data da realização do pré-pagamento até a data de vencimento do respectivo Direito Creditório deixam de ser devidos à Classe. Insuficiência dos Critérios de Elegibilidade. Os Critérios de Elegibilidade têm a finalidade de selecionar os Direitos Creditórios passíveis de aquisição pela Classe. Não obstante tais Critérios de Elegibilidade, a solvência dos Direitos Creditórios que compõem a Carteira depende integralmente, mas não somente, da situação econômico-financeira dos Devedores. Dessa forma, a observância pelo Custodiante dos Critérios de Elegibilidade não constitui garantia de adimplência dos Devedores.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1bf1cbc699aa34eaeef5fbdce75111a4b4483db47eb9905843bbd0dc3651b188"
+      ]
+    },
+    "82b58f597c4cbc07907e840f8137ef9739c574b7e393150c138a106c21948b41": {
+      "reference_date": "2025-06-30",
+      "value": "4.6.1 A verif icação e validação pelo GESTOR e pelo COGESTOR do enquadramento das Cotas dos Fundos-Alvo ao Critério de Elegibilidade será considerada como def initiva. Condições de Cessão",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "090f45264f8e43b4fd7e12a7294db92d711ca5a4fe6a7fedc84f635238166d30"
+      ]
+    },
+    "90848d31ea55081512021395379cd3d87a4d9530f4e76b853187935340fd084c": {
+      "reference_date": "2024-12-27",
+      "value": "4.7 Sem prejuízo do disposto no item, a Classe somente poderá adquirir os Direitos Creditórios com relação aos quais tenham se verificado as seguintes Condições de Cessão, a serem validadas pelo Comitê de Investimento e pela Gestora e Cogestora:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c6ae909a4281eafcfc6f96b93554b3624a5b7b88fdb87161a025c4d1d0854024"
+      ]
+    },
+    "de5a915176c1b117069f6d32598e3b54598d1c46f5e5fd7ccf473a29f0b2d9b7": {
+      "reference_date": "2024-11-27",
+      "value": "4.7 Sem prejuízo do disposto no item Error! Reference source not found., a Classe somente poderá adquirir os Direitos Creditórios com relação aos quais tenham se verificado as seguintes Condições de Cessão, a serem validadas pelo Comitê de Investimento e pela Gestora e Cogestora:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "760640e00817b7d788fe8f98fa93b4b91dd52a1270ef63804012fd7e35db681d"
+      ]
     }
   },
   "passages": {
@@ -3065,30 +3040,6 @@
       "clause": "",
       "excerpt": "Parágrafo 3º Riscos relativos aos FIDCs:\n(i) Risco de Concentração em FIDCs. Nos termos do Artigo 4º acima, o Fundo deverá aplicar,  no mínimo, 95% (noventa e cinco por cento) do seu Patrimônio Líquido em quotas dos FIDCs. O  risco associado às aplicações do Fundo é diretamente proporcional à concentração das aplicações,  conforme os limites estabelecidos no Artigo 5º, acima. Quanto maior a concentração das aplicações  do Fundo em um único emissor maior será a vulnerabilidade do Fundo em relação ao risco de  crédito desse emissor.\n(ii) Risco de Descontinuidade dos FIDCs. De acordo com o estabelecido na Instrução CVM 356,  os FIDCs deverão ter o mínimo de 50% (cinquenta por cento) do seu patrimônio líquido investido  em direitos creditórios. Consequentemente, a continuidade dos FIDCs pode ser comprometida,  independentemente de qualquer expectativa por parte dos quotistas quanto ao tempo de duração  de seus investimentos nos FIDCs, em função da continuidade das operações regulares dos  cedentes e da capacidade destes de originar direitos creditórios elegíveis para os FIDCs, bem como  da capacidade dos FIDCs em selecionar novos cedentes, tendo em vista a incapacidade dos  cedentes já selecionados de originar novos direitos creditórios elegíveis. Tendo em vista que a Política  de Investimentos do Fundo descrita no Capítulo IV acima estabelece que o Fundo deve voltar-se,  principalmente, à aplicação em quotas dos FIDCs, o Fundo poderá sofrer impactos negativos em  função da descontinuidade dos FIDCs.\n(iii) Performance e Riscos relacionados aos Cedentes. É provável que a estrutura dos FIDCs,  em cujas quotas o Fundo deverá investir, e durante o prazo de duração do Fundo, ocorrerão  diversas cessões de direitos creditórios pelos cedentes aos FIDCs. Nenhuma garantia pode ser  dada de que os cedentes continuarão atuando no ramo de atividade que atualmente possibilitam  os cedentes a originação dos direitos creditórios integrantes da carteira dos FIDCs. Portanto, o  patrimônio líquido dos FIDCs e, consequentemente, o Patrimônio Líquido do Fundo, poderão ser  afetados caso qualquer dos cedentes venha a interromper as atividades que resultam na originação  dos direitos creditórios e os FIDCs não tenham a capacidade de selecionar novos cedentes, tendo  em vista a incapacidade dos cedentes já selecionados de originar novos direitos creditórios  elegíveis.\n(iv) Adicionalmente, tendo em vista: (i) que os FIDCs buscarão adquirir, de tempos em tempos,  direitos creditórios originados por cedentes distintos; (ii) que cada carteira de direitos creditórios dos",
       "sha256": "0022a3d9737b92ae7342f3b45257afe62373d269dfa45fefe17bdc181cf934ae",
-      "verification": "primary_passage"
-    },
-    "9e2f8ea170cbefbf8717e4d0eb280f5d54b3a5d979355ed115398236251dde62": {
-      "document_id": "936489",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=936489",
-      "reference_date": "2025-06-30",
-      "version": "1",
-      "page": 27,
-      "clause": "13.2",
-      "excerpt": "13.2 Todos os custos e despesas ref eridos neste Capítulo, inclusive para salvaguarda de direitos e  prerrogativas da Classe e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios  Inadimplidos ou Direitos Creditórios a Perf ormar, serão de inteira responsabilidade da Classe, não  estando o ADMINISTRADOR, o GESTOR, os Cedentes, os Devedores, o CUSTODIANTE e quaisquer  de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas,  a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados  pelo adiantamento ou pagamento de valores relacionados aos procedimentos ref eridos neste Capítulo.",
-      "sha256": "b55ea9af2105223a3aba7f4b773bd38b97ab2060d7826a19e05de1b1cfefb3e4",
-      "verification": "primary_passage"
-    },
-    "84849f511d01359f5e52d34a76e53b134928b8fa2a9b84253f18cd8d12f48649": {
-      "document_id": "788490",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788490",
-      "reference_date": "2024-11-27",
-      "version": "1",
-      "page": 26,
-      "clause": "13.2",
-      "excerpt": "13.2 Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e  prerrogativas da Classe e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios  Inadimplidos ou Direitos Creditórios a Performar, serão de inteira responsabilidade da Classe, não  estando o ADMINISTRADOR, o GESTOR, os Cedentes, os Devedores, o CUSTODIANTE e quaisquer  de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas,  a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados  pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "sha256": "0aeb16103b063265dda8a0dd177db16ba4d3ce42ea98fa08c7acdf36bfbbde11",
       "verification": "primary_passage"
     },
     "f0dc88261905205ef238ca96c9031582672e8464229a8bfa0c2c922169ae35fc": {
@@ -5462,6 +5413,45 @@
       "excerpt": "A BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, com sede no município e estado do Rio de Janeiro, localizada à Praia de Botafogo, nº 501, 5º Andar (Parte), Torre Corcovado, Botafogo, e inscrita no CNPJ sob o nº 59.281.253/0001- 23, devidamente credenciada na CVM como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“Administradora”), na qualidade de administradora do FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS VIA MULTICRÉDITO RESPONSABILIDADE LIMITADA, inscrito no CNPJ sob o nº 22.175.345/0001-19 (“Fundo”), vem, por meio deste termo de apuração da Consulta Formal do Fundo (“Termo de Apuração”), divulgar, na forma de sumário, o resultado dos votos dos titulares de Cotas de emissão do Fundo (“Cotistas”), no âmbito da consulta formal, com prazo de resposta pelos Cotistas até 17 de fevereiro de 2025 (“Consulta Formal”).",
       "sha256": "1f58f05402d9528cc478842c195f5c583bde40c584c08907c73bf8d5f5b3996c",
       "verification": "primary_passage"
+    },
+    "090f45264f8e43b4fd7e12a7294db92d711ca5a4fe6a7fedc84f635238166d30": {
+      "document_id": "936489",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=936489",
+      "reference_date": "2025-06-30",
+      "version": "1",
+      "page": 10,
+      "clause": "4.6.1",
+      "excerpt": "4.6.1 A verif icação e validação pelo GESTOR e pelo COGESTOR do enquadramento das Cotas dos  Fundos-Alvo ao Critério de Elegibilidade será considerada como def initiva.\nCondições de Cessão",
+      "sha256": "b55ea9af2105223a3aba7f4b773bd38b97ab2060d7826a19e05de1b1cfefb3e4",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c6ae909a4281eafcfc6f96b93554b3624a5b7b88fdb87161a025c4d1d0854024": {
+      "document_id": "810763",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=810763",
+      "reference_date": "2024-12-27",
+      "version": "1",
+      "page": 12,
+      "clause": "4.7",
+      "excerpt": "4.7 Sem prejuízo do disposto no item, a Classe somente poderá adquirir os Direitos Creditórios com relação  aos quais tenham se verificado as seguintes Condições de Cessão, a serem validadas pelo Comitê de  Investimento e pela Gestora e Cogestora:",
+      "sha256": "ef48e9eed6f0351af63c75cb407d8b1cfe74152fa9d17f3bf0dfdf3de4635dfe",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "760640e00817b7d788fe8f98fa93b4b91dd52a1270ef63804012fd7e35db681d": {
+      "document_id": "788490",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788490",
+      "reference_date": "2024-11-27",
+      "version": "1",
+      "page": 10,
+      "clause": "4.7",
+      "excerpt": "4.7 Sem prejuízo do disposto no item Error! Reference source not found., a Classe somente poderá  adquirir os Direitos Creditórios com relação aos quais tenham se verificado as seguintes Condições de  Cessão, a serem validadas pelo Comitê de Investimento e pela Gestora e Cogestora:",
+      "sha256": "0aeb16103b063265dda8a0dd177db16ba4d3ce42ea98fa08c7acdf36bfbbde11",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

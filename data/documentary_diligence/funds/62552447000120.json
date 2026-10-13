@@ -2,11 +2,11 @@
   "schema_version": 2,
   "build_revision": 6,
   "corpus_revision": "5ce59cb785c019174fb36c4d7c2319b36f379cfe28e0f6a473570285f06fc438",
-  "override_revision": "eeef0cb91684d55a1f8136acd83f249047a687ef8c3e42d02d7f6dd7f807b66f",
+  "override_revision": "ccd3a2edb241c3f72054d9d8d4608a076fbe24aa7d162cf4345fa8bb9180d303",
   "quarterly_revision": "8f4f8ace80f82e24e5e91c21ac6d0e13b9a67a2027dfe7f10491a066de9086ca",
   "cnpj": "62552447000120",
   "name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-  "reviewed_at": "2026-10-13T03:57:53-03:00",
+  "reviewed_at": "2026-10-13T11:17:24-03:00",
   "corpus_status": {
     "inventoried": 23,
     "readable": 5,
@@ -226,58 +226,16 @@
       "criterion_id": "debtor",
       "label": "Devedor e consignação",
       "theme": "Recebíveis e aquisição",
-      "applicability": "applicable",
-      "status": "confirmed",
-      "value": "realizada pelo empregador, junto ao eSocial, após recebimento de notificação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação (“Escrituração”), e do desconto na respectiva folha de pagamento do Devedor.",
-      "reason": "",
-      "sources": [
-        {
-          "document_id": "1200623",
-          "title": "Regulamento",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
-          "reference_date": "2026-05-21",
-          "version": "1",
-          "page": 35,
-          "clause": "",
-          "excerpt": "ativos desses emissores, causando perdas à Classe e ao Cotista. Além disso, a f alta de capacidade ou disposição de pagar por qualquer dos emissores dos Ativos Financeiros de Liquidez ou das contrapartes nas transações que compõem a Carteira causará perdas à Classe, e o que também poderá incorrer em custos para f ins de recuperação de seus recebíveis.\n(v) Riscos associados aos Devedores: no caso de Devedores no âmbito das operações de consignado privado, a sua capacidade de pagamento poderá ser af etada se, por exemplo, o Devedor tiver o seu contrato de emprego rescindido ou em virtude de decisão judicial, o Devedor for obrigado a pagar alimentos, que têm prioridade sobre o empréstimo para f ins de desconto na f olha de benefícios. Além disso, a morte do Devedor, a extrapolação de sua margem consignável (inclusive em razão de qualquer diminuição da margem consignável permitida) ou a suspensão ou extinção do pagamento do benefício pago pela CEF ao respectivo Devedor podem interromper o desconto automático na folha de pagamento das prestações vincendas da CCB, e não há seguro ou mecanismo que garanta uma indenização à Classe nesses casos, o que poderá af etar a rentabilidade da Classe. Já no caso de Devedores no âmbito das operações de Saque-aniversário, como os Direitos Creditórios a serem endossados à Classe serão descontados pelo FGTS da remuneração do Devedor, na ocorrência de qualquer evento que, nos termos da legislação aplicável, determine o pagamento antecipado do Saque-aniversário ao Devedor, a exemplo do falecimento do Devedor, dentre outros, as parcelas do Saque- aniversário serão pagas antecipadamente e a Classe deverá utilizar tais montantes no pré-pagamento dos Direitos Creditórios. Nesta hipótese, a Classe poderá não encontrar Direitos Creditórios disponíveis para serem adquiridos pela Classe, o que poderá af etar a rentabilidade da Classe.\nRisco de liquidez\n(i) Risco de liquidez: consiste no risco de redução ou inexistência de demanda pelos ativos que compõem a Classe nos respectivos mercados em que são negociados, devido às condições específicas desses ativos ou aos mercados em que são negociados. Devido a esses riscos, o Gestor poderá encontrar dificuldades em liquidar posições ou negociar esses ativos pelo preço e prazo desejados, de acordo com a estratégia de gestão adotada pela Classe, que permanecerá exposto, durante o período de baixa liquidez, aos riscos associados a esses ativos e posições assumidas em mercados de derivativos, se houver, que poderão até exigir que o Gestor aceite descontos em seus preços para realizar negociações no mercado. Esses f atores poderão prejudicar o pagamento de Amortizações ao Cotista, nos valores e dentro dos termos aqui estabelecidos.\n(ii) Riscos do mercado secundário: A Classe é constituída sob a f orma de condomínio fechado, de modo que as Cotas somente serão resgatadas em virtude da liquidação da Classe. Uma vez que o Prazo de Duração da Classe é indeterminado, o Cotista titular das Cotas não terá liquidez em seu investimento na Classe, exceto\n(a) por ocasião das Amortizações e dos resgates, nos termos deste Regulamento; (b) por meio da alienação de suas Cotas no mercado secundário; ou (c) na liquidação antecipada do FUNDO ou da Classe.\nAlém disso, atualmente, o mercado secundário de cotas de fundos de investimento apresenta baixa liquidez, o que pode dificultar a venda das Cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao Cotista. Não há qualquer garantia do Administrador, do Gestor, da consultora ou do Custodiante em relação à possibilidade de venda das Cotas no mercado secundário ou ao preço obtido por elas, ou mesmo garantia de saída ao Cotista.\nRiscos específicos\n(i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do Devedor, o ref erido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que poderá resultar em perdas f inanceiras à Classe e aos Cotistas. Para os f ins deste Regulamento, “Empregador” signif ica a empresa com qual o Devedor mantém vínculo empregatício registrado junto à CTPS.\n(ii) Risco do Empregador não efetuar o desconto em folha: o repasse dos recursos oriundos dos Direitos Creditórios à Classe depende da realização, pelo Empregador, da escrituração da Consignação a ser",
-          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
-          "verification": "primary_passage"
-        },
-        {
-          "document_id": "1200623",
-          "title": "Regulamento",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
-          "reference_date": "2026-05-21",
-          "version": "1",
-          "page": 36,
-          "clause": "",
-          "excerpt": "realizada pelo empregador, junto ao eSocial, após recebimento de notificação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação (“Escrituração”), e do desconto na respectiva folha de pagamento do Devedor. Na hipótese do Empregador deixar de realizar a Escrituração ou os descontos na f olha de pagamento, não haverá repasse de recursos à Classe, podendo causar prejuízos à Classe e aos Cotistas.\n(iii) Risco de perda do vínculo empregatício com o Empregador: caso o Devedor perca o vínculo empregatício com o Empregador, não haverá remuneração e f olha de pagamento para realização dos descontos para pagamento dos Direitos Creditórios. Neste caso, não obstante a possibilidade do Agente de Retenção e Cobrança realizar a cobrança ativa dos Direitos Creditórios diretamente do Devedor, a ausência de remuneração poderá deixar o Devedor inadimplente perante a Classe até que o seu vínculo empregatício seja retomado e seja efetuado o procedimento operacional para que a CCB seja aditada e/ou seja realizado o Processo de Reinicialização. Tais situações poderão resultar em prejuízos à Classe e aos Cotistas.\n(iv) Risco relativo ao Agente de Retenção e Cobrança: A solvência do Agente de Retenção e Cobrança quanto às suas obrigações financeiras poderá impactar o cumprimento de suas obrigações perante a Classe e, consequentemente, os rendimentos da Classe poderão ser adversamente af etados.\nRiscos operacionais\n(i) Risco de irregularidade dos Documentos Comprobatórios e/ou Documentos Suporte: o terceiro contratado pelo Gestor, que atuará sob responsabilidade do Gestor, deverá realizar a verif icação da regularidade dos Documentos Comprobatórios. A Carteira poderá conter Direitos Creditórios com documentação irregular, o que poderá impedir que a Classe exerça plenamente as prerrogativas derivadas da titularidade dos Direitos Creditórios.\n(ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por meio de desconto na f olha de pagamento f eito pela Dataprev e pela CEF, conf orme aplicável. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios.\n(iii) Risco operacional do FGTS: o empréstimo contraído pelos Devedores é pago por meio de desconto dos Saques-aniversário feitos pelo FGTS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo a CEF, incluindo, sem se limitar, a erros e atrasos operacionais envolvendo a CEF. Nesse caso, a Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dif iculdades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios.\n(iv) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos pela Classe: as inf ormações para conciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev e o Arquivo de Liquidação Saque-aniversário, listando todos os empregados cujas f olhas de pagamento ou Saques Aniversário serão sujeitos a desconto no mês, nos valores acordados ao ef etuar a Consignação, e qualquer glosa será enviada pela CEF ao Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao Custodiante. Caso o Endossante não forneça essas informações em tempo hábil ou for verificada qualquer inconsistência nas informações recebidas pelo Custodiante, poderá isso impedir ou dar origem a falhas no processo de reconciliação dos valores depositados na Conta da Classe e causando perdas à Classe e ao Cotista.\n(v) Risco operacional dos sistemas: o desconto na f olha de pagamento e/ou nos Saques Aniversário das parcelas da CCB e a transf erência para o Endossante dos Direitos Creditórios serão processados por meio da Plataforma Dataprev, e o Endossante, o Administrador ou o Gestor não têm controle sobre esse processo.\nAssim, qualquer falha ou mudança nesse sistema poderá atrasar ou reduzir o desconto dos rendimentos dos Devedores ou sua transferência para a Classe. Nesse caso, a rentabilidade e a propriedade da Classe poderão ser adversamente af etadas enquanto o problema do sistema persistir, ou até que todos os valores sejam devidamente transf eridos.\n(vi) Risco operacional: em linha com as Cláusulas 4.3.1 e 4.3.2 do Anexo I deste Regulamento, o",
-          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
-          "verification": "primary_passage"
-        },
-        {
-          "document_id": "1200623",
-          "title": "Regulamento",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
-          "reference_date": "2026-05-21",
-          "version": "1",
-          "page": 5,
-          "clause": "",
-          "excerpt": "O objetivo da Classe é proporcionar aos seus Cotistas a valorização de  suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição  de:\n (i) “Direitos Creditórios”, assim entendidos como, em conjunto:\n (a) “Direitos Creditórios Consignado Privado”, na forma de  cédulas de crédito bancário, regidas pela Lei n.º 10.931,  de 2 de agosto de 2004, conforme alterada (“CCBs”),  emitidas eletronicamente por Devedores, em f avor do  Endossante, representando um empréstimo pessoal  consignado, de forma que o pagamento ocorra mediante  desconto de cada prestação vincenda da CCB na f olha  de pagamentos do Devedor (“Consignação”);\n (b) “Direitos Creditórios FGTS”, na f orma de CCBs  emitidas eletronicamente por Devedores, em f avor do  Objetivo Endossante, representando um empréstimo pessoal com  garantia de cessão f iduciária dos valores a que f azem jus  os Devedores ref erentes ao saque anual permitido aos  benef iciários do Fundo de Garantia do Tempo de Serviço  (“FGTS”) em seu mês de aniversário (“Saque-  aniversário”), regulado pela Lei n.º 8.036, de 11 de maio  de 1990, conforme alterada (“Lei 8.036”), nos termos dos  arts. 20, inciso XX, 20-A, inciso II, e 20-D, § 3º, da Lei\n 8.036, do art. 66-B da Lei n.º 4.728, de 14 de julho de  1965, e da Resolução CC/FGTS n.º 958, de 24 de abril  de 2020, conforme alterada (“Resolução FGTS 958”), de  f orma que parte do Saque-aniversário é utilizada para  liquidar as parcelas devidas da CCB;\n (c) “Direitos Creditórios TVM”, na f orma de direitos, títulos  e/ou valores mobiliários representativos de créditos  originados no âmbito de operações de sociedades",
-          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
-          "verification": "primary_passage"
-        }
-      ],
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
       "rule": {},
-      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
-      "provenance": "primary_passage",
-      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
-      "history": [],
-      "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
-        "valid": true
-      }
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
     },
     {
       "criterion_id": "eligibility",
@@ -285,7 +243,7 @@
       "theme": "Recebíveis e aquisição",
       "applicability": "applicable",
       "status": "confirmed",
-      "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+      "value": "Critérios de elegibilidade: Todos os créditos: moeda nacional; registro contábil e custódia possíveis; limites de concentração atendidos pro forma na aquisição; inexistência de impedimento ou exigência legal, administrativa ou judicial para endosso; atendimento à política de crédito e, quando aplicável, de cobrança. Consignado privado e FGTS: empréstimo do Endossante representado por CCB, com máximo de parcelas mensais ou anuais definido nas normas aplicáveis. Refinanciamento livre: refinanciamento de consignado privado ou FGTS. TVM: máximo de 10% do PL, a qualquer momento.",
       "reason": "",
       "sources": [
         {
@@ -294,26 +252,72 @@
           "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
           "reference_date": "21/05/2026",
           "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
-          "page": "6",
-          "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
-          "excerpt": "Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados",
+          "page": "6–7",
+          "clause": "Anexo I, item1.2 — Critérios de Elegibilidade (i)–(v)",
+          "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade, na f orma prevista no item 4.6 (“Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante;\n(c) atendam, pro forma, na Data de Aquisição, aos limites de concentração definidos no Capítulo 4 deste Anexo I; (d) não haver disposição legal ou regulamentar aprovada, ou ordem judicial ou administrativa emitida, que tenha como objetivo impedir ou impor limites ou exigências adicionais para o endosso de Direitos Creditórios decorrentes de transações dedutíveis da f olha de pagamento a f undos de investimento; (e) atendam à Política de Crédito e, conforme aplicável, à Política de Cobrança; e (ii) com relação aos Direitos Creditórios Consignado Privado : (a) decorram de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB com número máximo de parcelas mensais e sucessivas previsto nas normas aplicáveis; (iii) com relação aos Direitos Creditórios FGTS: (a) decorram de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB com número máximo de parcelas anuais e sucessivas previsto nas normas aplicáveis; (iv) com relação aos Direitos Creditórios Ref inanciamento Livre: (a) decorram do refinanciamento de Direitos Creditórios Consignado Privado ou Direitos Creditórios FGTS; e, (v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido.",
           "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
           "identity_verified": true,
-          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
-        },
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "O item4.6, p.12, disciplina verificação individual e integral, com base no dia útil anterior. A lista de condições está no item1.2, p.6–7; quantidade máxima de parcelas remetida à norma aplicável, sem número inventado.",
+      "provenance": "verified_override",
+      "precedence": "Leitura específica das cláusulas indicadas; condições e conflitos preservados. Seleção documental atual não comprova vigência jurídica por data isolada.",
+      "history": [
         {
-          "document_id": 1200623,
-          "title": "Regulamento",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+          "history_id": "98a46532e2ce50581ba6e0fd769d49257dac9031890de07033fe0d0db8757694",
+          "history_path": "history/62552447000120.json",
           "reference_date": "21/05/2026",
-          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
-          "page": "7",
-          "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
-          "excerpt": "(v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido. Sem prejuízo dos Critérios de Elegibilidade, a Classe somente poderá adquirir os Direitos Creditórios Ref inanciamento Livre, os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS com relação aos quais tenha se verif icado as seguintes Condições de Endosso, na forma prevista na Cláusula 4.7 (“Co",
-          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
-          "identity_verified": true,
-          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
-        },
+          "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "6",
+              "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "passage_id": "3545c35f6520843e46287690885deea7229e54153e21e85c9d553d44ae884210",
+              "excerpt_sha256": "ee04453bc9eb50e8b6c0cf59b6716cff132565edd0e215cb7c1fc077cf010d48"
+            },
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "7",
+              "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "passage_id": "aac9a015abb67ae8481be7334d1bea62b829b4577d1312544aa64931e7af7329",
+              "excerpt_sha256": "288ef6ab64e17ba03fbbc0500297faa59d146ba07957e09d8f6a305a41c18a8e"
+            },
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "12",
+              "clause": "AnexoI4.6",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "passage_id": "03868e4b013c6afb31adbb91d81679fb1294e620f07583c80cc43b78ac8da98f",
+              "excerpt_sha256": "1d4ee71d5c596765e5af7fcdeccbb9f80fa4669285db67b2c5e1e569b309b1e5"
+            }
+          ],
+          "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ],
+      "context_sources": [
         {
           "document_id": 1200623,
           "title": "Regulamento",
@@ -328,11 +332,15 @@
           "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
         }
       ],
-      "rule": {},
-      "risk_note": "",
-      "provenance": "verified_override",
-      "precedence": "Leitura específica das cláusulas indicadas; condições e conflitos preservados. Seleção documental atual não comprova vigência jurídica por data isolada.",
-      "history": []
+      "history_count": 1,
+      "history_ref": {
+        "path": "history/62552447000120.json",
+        "criterion_id": "eligibility",
+        "total_count": 1,
+        "preview_count": 1,
+        "full_text_deferred": true,
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
+      }
     },
     {
       "criterion_id": "ticket",
@@ -501,7 +509,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -588,10 +596,10 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -681,7 +689,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -756,7 +764,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -958,7 +966,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1185,7 +1193,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1322,7 +1330,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -1460,7 +1468,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1655,7 +1663,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -1666,7 +1674,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -1758,7 +1766,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -1842,10 +1850,10 @@
         "total_count": 2,
         "preview_count": 2,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2019,7 +2027,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2091,7 +2099,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2148,7 +2156,7 @@
       "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
       "history": [],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2235,10 +2243,10 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2288,7 +2296,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -2336,7 +2344,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     },
     {
@@ -2399,7 +2407,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "d95db8c0613d67ee84118c734588665265ea6b02f86a0318d6a844cbe1d0f82f"
+        "sha256": "5367105dedb4daaccadd215e1f4330f37b71830fd24c6dc7b0c877c6df52715a"
       }
     }
   ],
@@ -2671,40 +2679,42 @@
   "lookthrough_provenance": "verified_override",
   "criterion_revisions": {
     "receivables": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "investee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "investee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
     "pdd": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
     "evaluation": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
     "liquidation": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
     "guarantee": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
     "collection_account": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
-    "providers": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "legacy_events": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "providers": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "legacy_events": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
     "quota_grace": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
-    "debtor": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "perimeter": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "repurchase": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "cross_default": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "servicing": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "issue_volume": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "related_parties": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "audit": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "duration_investors": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "originator": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
-    "allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98"
+    "debtor": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "perimeter": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "repurchase": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "cross_default": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "servicing": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "issue_volume": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "related_parties": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "audit": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "duration_investors": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "originator": "a4c09d2ef24b1fdc2f5ec3b632138902c086d991cfcaea92e32c0b8d81e2ea8f",
+    "allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "eligibility": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c"
   },
   "semantic_validation_receipt": {
-    "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "confirmed_primary_checked": 12,
+    "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "confirmed_primary_checked": 11,
     "rejected": 0,
     "basis": "Relevância das fontes e valores disponíveis; não certifica vigência jurídica, números ou interpretação de leituras manuais."
   },
   "criterion_extractor_revisions": {
     "receivables": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "originator": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "debtor": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "originator": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09",
+    "debtor": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09",
     "investee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
     "guarantee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
     "providers": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "allocation": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f"
+    "allocation": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "eligibility": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09"
   }
 }

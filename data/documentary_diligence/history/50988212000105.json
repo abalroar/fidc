@@ -3,35 +3,6 @@
   "cnpj": "50988212000105",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "originator": [
-      "f32da2a9b9571f1cce18b4153c710aeb1922a7a6c7c93dab8379c2ccf010780a",
-      "40a89d55effed9339bfa124599342864a3827b2102c34ca44633fc0d419957b6",
-      "6441c64c967c9b92f0466501fd52238af263c9839607d16fc5cdf6455d1fe244",
-      "fff48e3e4e4fe6e8c62eb64010192f0bd4dd5d0f4328b3e71ee716599dd389a3",
-      "28113d47bf28a678780961b418f05d24c175ad4bd29f200ad705175ae61252d3",
-      "999049d828b4b4760f707699bcef1a104866bffd1bfb5eb44ab1d05b6d8cbcca",
-      "49102dfacd37bba68cf50aa747d0c7cf083ba94fcbf0f6b34b2eac012afb897a",
-      "88d0f66167dcd19008ac3f70a5265ed0cae3516da1f498d19548253e7391f48e"
-    ],
-    "debtor": [
-      "20543365b635f6dd0252f4edafb94a25239cb9e13027c4ce31f9da20d3b6edd3",
-      "72c40e390e0fddd354ca1eaad01035d6ceadf84d98125c324972ad8352cbb159",
-      "fff48e3e4e4fe6e8c62eb64010192f0bd4dd5d0f4328b3e71ee716599dd389a3",
-      "28113d47bf28a678780961b418f05d24c175ad4bd29f200ad705175ae61252d3",
-      "999049d828b4b4760f707699bcef1a104866bffd1bfb5eb44ab1d05b6d8cbcca",
-      "49102dfacd37bba68cf50aa747d0c7cf083ba94fcbf0f6b34b2eac012afb897a",
-      "88d0f66167dcd19008ac3f70a5265ed0cae3516da1f498d19548253e7391f48e"
-    ],
-    "eligibility": [
-      "1a59fd59ef2b2d03f03a9d2c65152dd1116902fe52d423daac82bed7d45b2b39",
-      "4b707321d19639d4df9b00b05fe7963b2b1b998d7aca88b619e38e5acb34dff6",
-      "90daad3755f35e4566fd1e135e01fa2df0019098b919225938ba995aa8a0fed1",
-      "ffce26f6a31e38b8fd21bedd46a41b38aa96711dbc95042e7b3bb982ba4893b6",
-      "ff1d0b0f9ad97a5a63740adbadce360d5cdecef0affb087f544da2d4ed4941a5",
-      "b178c1e1ea7e89cefaead76687674f6a4872f6073a7bb8219a453f0c85ac10b6",
-      "6cbbb3914a9dafc970daf356cc9387fbaa9bfbf8a3ba0b52b07d420d4b18794e",
-      "cbf908bf057a076a957dbb473a75e98eb91c8cb8dcae63d4b63e2d2acf07be7e"
-    ],
     "term": [
       "34ea2dcb5640cb261f6a474d223ffc26cea161cd9a2b0857860e457d3e793e20",
       "3fd45f270c0c3f2fcf75b90c222ff7119c76920ef38962cdedcc2ae5208ab1c0",
@@ -286,6 +257,29 @@
       "548c0d15b8f1eb0b383c54c6737c628e4f99a69483887a58b8121596ba3bf372",
       "1979d793ce8be1042759b62af8906cfabe7e0cb69873f1939420d20a100f8cb9",
       "8a94659ee1556e0235ac90f33242f05941d8362ffee072af096049ec77a15fb2"
+    ],
+    "originator": [
+      "f32da2a9b9571f1cce18b4153c710aeb1922a7a6c7c93dab8379c2ccf010780a",
+      "40a89d55effed9339bfa124599342864a3827b2102c34ca44633fc0d419957b6",
+      "6441c64c967c9b92f0466501fd52238af263c9839607d16fc5cdf6455d1fe244",
+      "fff48e3e4e4fe6e8c62eb64010192f0bd4dd5d0f4328b3e71ee716599dd389a3",
+      "28113d47bf28a678780961b418f05d24c175ad4bd29f200ad705175ae61252d3",
+      "999049d828b4b4760f707699bcef1a104866bffd1bfb5eb44ab1d05b6d8cbcca",
+      "49102dfacd37bba68cf50aa747d0c7cf083ba94fcbf0f6b34b2eac012afb897a",
+      "88d0f66167dcd19008ac3f70a5265ed0cae3516da1f498d19548253e7391f48e"
+    ],
+    "eligibility": [
+      "1a59fd59ef2b2d03f03a9d2c65152dd1116902fe52d423daac82bed7d45b2b39",
+      "4b707321d19639d4df9b00b05fe7963b2b1b998d7aca88b619e38e5acb34dff6",
+      "90daad3755f35e4566fd1e135e01fa2df0019098b919225938ba995aa8a0fed1",
+      "ffce26f6a31e38b8fd21bedd46a41b38aa96711dbc95042e7b3bb982ba4893b6",
+      "ff1d0b0f9ad97a5a63740adbadce360d5cdecef0affb087f544da2d4ed4941a5",
+      "b178c1e1ea7e89cefaead76687674f6a4872f6073a7bb8219a453f0c85ac10b6",
+      "6cbbb3914a9dafc970daf356cc9387fbaa9bfbf8a3ba0b52b07d420d4b18794e",
+      "cbf908bf057a076a957dbb473a75e98eb91c8cb8dcae63d4b63e2d2acf07be7e"
+    ],
+    "debtor": [
+      "20543365b635f6dd0252f4edafb94a25239cb9e13027c4ce31f9da20d3b6edd3"
     ]
   },
   "entries": {
@@ -389,15 +383,6 @@
       "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
       "sources": [
         "806d99063debc330e4e2be07487d5ae1e46e9ac00c093bd94721b8be816fa686"
-      ]
-    },
-    "72c40e390e0fddd354ca1eaad01035d6ceadf84d98125c324972ad8352cbb159": {
-      "reference_date": "2024-09-19",
-      "value": "8.7. Verificação dos Documentos Comprobatórios pela Gestora. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, a Gestora verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos a Classe Única no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria da Classe Única poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "83c4b73aed4823a34200428366d809be45dcca0c0faf52c5b01ecf4391bc75a9"
       ]
     },
     "1a59fd59ef2b2d03f03a9d2c65152dd1116902fe52d423daac82bed7d45b2b39": {
@@ -2033,18 +2018,6 @@
       "sha256": "56d3035e042e3c6dcb827f17d8f320a2e78d46d8f8acaa6ab5e26ac201daeb10",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-25, 33-34 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021"
-    },
-    "83c4b73aed4823a34200428366d809be45dcca0c0faf52c5b01ecf4391bc75a9": {
-      "document_id": "743214",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=743214",
-      "reference_date": "2024-09-19",
-      "version": "1",
-      "page": 43,
-      "clause": "8.7",
-      "excerpt": "8.7. Verificação dos Documentos Comprobatórios pela Gestora. Em decorrência da expressiva  diversificação de devedores e significativo volume de Direitos Creditórios cedidos, a Gestora  verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos a Classe Única no  respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes.\n A Agência de Classificação de Risco e a Empresa de Auditoria da Classe Única poderão solicitar  a qualquer momento o resultado dessa verificação.",
-      "sha256": "a4cd6e3a28d3d8c764a8ce73a7707424c3f62729a520a9a246612f41d0d3a0ae",
-      "verification": "primary_passage"
     },
     "b93ed24b5d74b039890b4af8c793869d354bc4cc46b05a599f8e6ad2acd24167": {
       "document_id": "1013021",

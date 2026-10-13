@@ -1,0 +1,77 @@
+{
+  "cnpj": "53662209000187",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Os devedores (sacados) são pessoas físicas ou jurídicas que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "sources": [
+        {
+          "document_id": "1239751",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+          "reference_date": "30/06/2026",
+          "version": 1,
+          "page": "7",
+          "clause": "Glossário — Devedores",
+          "excerpt": "Significam os devedores (sacados), pessoas físicas “Devedores” ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+          "sha256": "a980aa7cbafe358442b7dde87df7a00c86e1b78de62b3b96c12d216a475b4f21",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2026-06-30",
+          "value": "Significam os devedores (sacados), pessoas físicas “Devedores” ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.\n\nSignifica a ITR COMÉRCIO DE PNEUS S.A., sociedade por ações, com sede na Cidade de Barueri, “ITR” Estado de São Paulo, na V AC JOAO DE GOES, nº 1400, barracão B09, Jardim Itaquiti, CEP 06.422-150, inscrita no CNPJ/MF sob o nº 15.426.874/0001-82. Significam as notas fiscais eletrônicas representativas das Operações a Prazo que originaram os Direitos Creditórios Adquiridos pelo “Nota Fiscal” Fundo e/ou pela Classe Única, detidas pelos Cedentes contra os Devedores e cedidas de acordo com o estabelecido em cada Contrato de Cessão.",
+          "sources": [
+            {
+              "document_id": "1239751",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+              "reference_date": "2026-06-30",
+              "version": "1",
+              "page": 7,
+              "clause": "",
+              "excerpt": "Custodiante  Significam as datas em que serão realizados os  pagamentos do Prêmio de Excesso de Spread, as  quais deverão acontecer na data de amortização  “Data de Pagamento do Prêmio integral das Cotas Subordinadas Juniores do Fundo  de Excesso de Spread” ou na data de pagamento da remuneração das Cotas  Subordinadas Mezanino C, conforme previsto nos  respectivos Suplementos, observada a Ordem de  Alocação de Recursos.\n Significa a data da primeira subscrição e  “Data de Subscrição Inicial” integralização da respectiva Cota.\n Significam os devedores (sacados), pessoas físicas  “Devedores” ou jurídicas, que tenham estabelecido relação de  consumo dos Direitos Creditórios com as Cedentes.\n Significa qualquer dia exceto (i) sábados, domingos ou  “Dia Útil” feriados nacionais; e (ii) aqueles sem expediente na  B3.\n Significam os direitos creditórios performados (cujos  respectivos Produtos foram entregues ou retirados, ou  com pedidos emitidos) vincendos, existentes, livres e  desimpedidos de quaisquer ônus, gravames ou  restrições, de titularidade das Cedentes, originados no  “Direitos Creditórios” âmbito de Operações a Prazo envolvendo Produtos  celebradas entre as Cedentes e seus respectivos  Devedores, no mercado local, expressos em moeda  corrente nacional, cujas respectivas transações sejam  sempre representadas por Documentos  Comprobatórios.\n Significam os Direitos Creditórios adquiridos pelo  “Direitos Creditórios Adquiridos” Fundo e/ou pela Classe  Significam os Direitos Creditórios devidos e não  “Direitos Creditórios pagos, pelos Devedores, na respectiva data de  Inadimplidos” vencimento estipulada nos Documentos  Comprobatórios.\n Significam as disponibilidades do caixa do patrimônio  “Disponibilidades” líquido da Classe.\n Significa (i) o Contrato de Cessão; (ii) os Termos  de Cessão; e (iii) os arquivos em formato XML.\n certificados digitalmente das Notas Fiscais referentes  aos Direitos Creditórios, que se encontram  “Documentos Comprobatórios”  registradas eletronicamente em sistema próprio da  Secretaria da Fazenda Estadual e Receita Federal,  nos termos da legislação aplicável, individualizados  pela respectiva Chave de Acesso da Nfe.\n Significam os fundos de investimento no país que  tenham estrutura de gestão profissional,  “Entidade de Investimentos”  representada por agentes ou prestadores de serviços  com poderes para tomar decisões de investimento e",
+              "sha256": "a980aa7cbafe358442b7dde87df7a00c86e1b78de62b3b96c12d216a475b4f21",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1239751",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+              "reference_date": "2026-06-30",
+              "version": "1",
+              "page": 4,
+              "clause": "",
+              "excerpt": "sob o nº 57.755.217/0001-29, contratada para atuar  como auditor independente do Fundo, ou qualquer  uma das seguintes empresas de auditoria, que seja  encarregada de auditar as demonstrações financeiras  do Fundo: (i) Deloitte Touche Tohmatsu Auditores  Independentes; (ii) Ernst & Young Auditores  Independentes S/S; ou (iii) Pricewaterhouse Coopers  Auditores Independentes.\n Significa o Banco Central do Brasil.\n “BACEN”  Significam, quando mencionadas em conjunto, a CPX  “Cedentes” e a ITR.\n É um conjunto de 44 (quarenta e quatro) dígitos que  identifica univocamente uma Nota Fiscal e faculta a  verificação da sua autorização e do seu conteúdo no  “Chave de Acesso da NFe”  ambiente nacional (http://www.nfe.fazenda.gov.br) ou  no site da Secretaria de Fazenda – SEFAZ da  circunscrição do Cedente.\n Classe única de Cotas, constituída sob a forma de  condomínio fechado, conforme regras específicas  “Classe” ou “Classe Única” dispostas no respectivo Anexo Descritivo da Classe  Única.\n “CMN” Significa o Conselho Monetário Nacional.\n Significa o Cadastro Nacional da Pessoa Jurídica do  “CNPJ” Ministério da Fazenda.\n Significa o “Código de Administração de Recursos de  “Código ANBIMA” Terceiros” da ANBIMA, conforme em vigor.\n Significa a conta corrente mantida pelo Fundo, em  benefício da Classe Única, utilizada para  movimentação dos recursos da Classe, inclusive para  pagamento dos encargos da Classe e para a qual  “Conta da Classe” serão transferidos os recursos referentes aos Direitos  Creditórios adquiridos que sejam recebidos na Conta  de Cobrança e que tenham sido conciliados pelo  Custodiante. A Conta da Classe deverá ser aberta em  uma das Instituições Bancárias Autorizadas.\n Significam as contas correntes mantidas pelo Fundo,  em benefício da Classe Única, nas quais: (i) será  efetuada pelos Devedores a liquidação dos Direitos  Creditórios Adquiridos; e (ii) serão depositados os  “Conta de Cobrança” recursos provenientes da liquidação dos Direitos  Creditórios inadimplidos, se houver. As Contas de  Cobrança deverão ser abertas em uma das  Instituições Bancárias Autorizadas.\n Significa o contrato celebrado entre o Fundo e os  “Contrato de Formalização e  Agentes de Formalização e Cobrança, com a  Cobrança”  Interveniência do Gestor.",
+              "sha256": "a980aa7cbafe358442b7dde87df7a00c86e1b78de62b3b96c12d216a475b4f21",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1239751",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+              "reference_date": "2026-06-30",
+              "version": "1",
+              "page": 12,
+              "clause": "",
+              "excerpt": "Significam os investidores que se enquadrem no  conceito de investidor profissional definido no artigo  “Investidores Profissionais”  11, da Resolução da CVM nº 30, de 11 de maio de  2021, conforme alterada  Significam os Investidores que se enquadrem no  conceito de investidor qualificado definido no artigo 12  “Investidores Qualificados” da Resolução da CVM nº 30, de 11 de maio de 2021,  conforme alterada.\n Significa a ITR COMÉRCIO DE PNEUS S.A.,  sociedade por ações, com sede na Cidade de Barueri,  “ITR” Estado de São Paulo, na V AC JOAO DE GOES, nº  1400, barracão B09, Jardim Itaquiti, CEP 06.422-150,  inscrita no CNPJ/MF sob o nº 15.426.874/0001-82.\n Significam as notas fiscais eletrônicas  representativas das Operações a Prazo que  originaram os Direitos Creditórios Adquiridos pelo  “Nota Fiscal” Fundo e/ou pela Classe Única, detidas pelos Cedentes  contra os Devedores e cedidas de acordo com o  estabelecido em cada Contrato de Cessão.\n Significa o comércio dos Produtos, pelas Cedentes  junto aos Devedores, cujo pagamento é realizado a  “Operações a Prazo” prazo, conforme a política de vendas e serviços das  Cedentes.",
+              "sha256": "a980aa7cbafe358442b7dde87df7a00c86e1b78de62b3b96c12d216a475b4f21",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:58:42-03:00"
+}

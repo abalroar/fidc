@@ -3,15 +3,6 @@
   "cnpj": "51655558000146",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "8161a95fc1b84555215d2265ed9506586ddde8e021b244272df372fae4730801",
-      "9ddda8c9ceab63e98ce27acdcbf12f6b405579b55a3703af1b71a0ac5699b066",
-      "a0a00c52487e5efd0c0eae3b8b31c69d84279d864fc19ed758ce35aa8371dc9d",
-      "fff2091f64543503087affb7e81b5c685d028d853b43912ffce3df25bab54b06",
-      "149897fc0e91a8a095e385b8f9570292278de947915752c2da63f22b7d834441",
-      "2ccba62bcb0d4de72d20e26a9a51491bf7208bcb6e5566ee30d46e9750e2b91d",
-      "4ed70585fd5d2500406f3df6df5a52bb1e4db7c9b23f4ba15d459ce4023d5e8c"
-    ],
     "term": [
       "6ccda4addb748562b8d8ae1efd3e7d14b06bcc2e3624d3efb0a40d35573861a4"
     ],
@@ -254,16 +245,6 @@
       "2595abd2c0875b681033dfdf4f51f15ffa2b019dc10a0c6359a91c09eff43a8a",
       "17eb3c1748d82253d206f9cc0f2a423dc5914334c8d342a2b64996a8a4de3671"
     ],
-    "originator": [
-      "0cff042ac96113a694dca243614761563afb9c6bed1017a32ee27f6fda3684c5",
-      "838f962eee352c47ce86d7adb9392c9e62d6790a9f3f4ee98e4af55eaedf89bf"
-    ],
-    "debtor": [
-      "45ace4e7d5ca3867f8d440f0d22bb22decd9ca3d9608fd4aac897560aebdb977",
-      "69f6b975de4f3853cb39cb28a506bd491008f26e7d9e59bfe87f33420844b294",
-      "0794b3c81fdf9eb697552dee5d92a7eb3603f9c35d680f56a856bf2701261841",
-      "848ec488831b5c9a0c411d7d5652e99e8e72bdecba55022331512af7ec7a453a"
-    ],
     "guarantee": [
       "6e2a5eb237c5d78fbdf34414b67bdfe35c1d070344644b41dc4ed7e5c91be56c",
       "dcc542248897b917228372c8df38259789823f7a773fb4997c4d5be0a97e63bf",
@@ -292,6 +273,19 @@
       "4f28c656fb9a9dc7027ec505b493ce853b65c435ee3e1d45928e3dcd47b9e6c9",
       "a16ffdf0f110b14bc35b854b3b93359d6f83a3fed9a437b2c60b476bd849144c",
       "3975c1e5f228b2772b4a895b28b46342a31d504583f2dc849b376d37d93141d2"
+    ],
+    "originator": [
+      "342bae98f3025806ca80195084a1bbc0103d07eca80459490b6adeea6ab57a6e",
+      "aa13a1f5c088f37cdec1f558f5a9d62e50d9c30e78f9a94838215740209926b8"
+    ],
+    "eligibility": [
+      "12f41b6b5edb08f7be266734558c29e069890a03a12d70f201cb86f579b9e25d",
+      "7afc8618697bcc319c09e3630da236955a2dcedfe2f46c501b2f704e93355574",
+      "9d4ab47b15a83f15d9e44b47f9090525fd9f34ac176a729221700746177ddefd",
+      "a547506083a15460289119313fe84cc3aa08401d9e15eff0b90faf8fd0a98692",
+      "977a1f3dad483dbda04f3b51c54813389d96ece887c80d4213a86920623ecc56",
+      "e04fa789d459d7d3aef2047690893085fc359bfe4acd9598d0addc486411faf7",
+      "1e87209043e2839fc95a7398f110f510fec785550d9ac9ee8bbf22b42a7442e9"
     ]
   },
   "entries": {
@@ -303,123 +297,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "1cff5124bf08102a70e14be500ecf2cd4996a02f68c060570d7f8771ad7cf042"
-      ]
-    },
-    "0cff042ac96113a694dca243614761563afb9c6bed1017a32ee27f6fda3684c5": {
-      "reference_date": "2024-08-29",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9b8bb713b9d2d4e33699c70f517581e0c5c249a418ac5c3d9100def394a387ff"
-      ]
-    },
-    "838f962eee352c47ce86d7adb9392c9e62d6790a9f3f4ee98e4af55eaedf89bf": {
-      "reference_date": "2024-07-29",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1c00b95845c0b218c381543ce0e8bf28d7085c028d15e65ec1f74eb9338a465c"
-      ]
-    },
-    "45ace4e7d5ca3867f8d440f0d22bb22decd9ca3d9608fd4aac897560aebdb977": {
-      "reference_date": "2023-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "65cedd6d18d2994c26e44661d4667c0173d3b4eab494362a7c668a060f5a14eb"
-      ]
-    },
-    "69f6b975de4f3853cb39cb28a506bd491008f26e7d9e59bfe87f33420844b294": {
-      "reference_date": "2024-01-05",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f7ee5dafa4c4afbe5cd78e03ebdba4d63951a59fd9b18f8cbca041fea110d4ba"
-      ]
-    },
-    "0794b3c81fdf9eb697552dee5d92a7eb3603f9c35d680f56a856bf2701261841": {
-      "reference_date": "2023-08-03",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a6ec9ae46f841806dec418d5cac0329e2ae57f6b2622108b60eff0143aa5740e"
-      ]
-    },
-    "848ec488831b5c9a0c411d7d5652e99e8e72bdecba55022331512af7ec7a453a": {
-      "reference_date": "2023-08-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "33177e3c31ff3d1f7a1da104ffaf0bc26a16ca8ac7c1d981a48737dc0d10e002"
-      ]
-    },
-    "8161a95fc1b84555215d2265ed9506586ddde8e021b244272df372fae4730801": {
-      "reference_date": "2025-09-30",
-      "value": "A Classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva data de aquisição: (a) os direitos creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "92265dee69e636bbcca360c33ed79c7b50dce5a4d043dac3773b75847cd5a762"
-      ]
-    },
-    "9ddda8c9ceab63e98ce27acdcbf12f6b405579b55a3703af1b71a0ac5699b066": {
-      "reference_date": "2024-07-26",
-      "value": "Para fins do disposto na legislação e no Regulamento, são considerados critérios de elegibilidade, os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras: (I) prazo mínimo de 5 (cinco) dias;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c020db9f35a0639f2fdfddfb5a9b3ab8f1b53f2bfc430653ccaed737732ab52e"
-      ]
-    },
-    "a0a00c52487e5efd0c0eae3b8b31c69d84279d864fc19ed758ce35aa8371dc9d": {
-      "reference_date": "2024-08-29",
-      "value": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a844564c421581bbd4b4a49dc3c3e9784b270efec748e040b40a287b9e939fea"
-      ]
-    },
-    "fff2091f64543503087affb7e81b5c685d028d853b43912ffce3df25bab54b06": {
-      "reference_date": "2024-07-29",
-      "value": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7133f42e7272f20bf00974d0b6d9bad35d5644348a41ee8b0234f8959bba6481"
-      ]
-    },
-    "149897fc0e91a8a095e385b8f9570292278de947915752c2da63f22b7d834441": {
-      "reference_date": "2024-01-05",
-      "value": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0af5ed6d310d6eaf3365ec4b602ab274810ec6ac675df28c989fc000210b4a37"
-      ]
-    },
-    "2ccba62bcb0d4de72d20e26a9a51491bf7208bcb6e5566ee30d46e9750e2b91d": {
-      "reference_date": "2023-08-03",
-      "value": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "65870e1043f6baa9434df658700168279f46704a6b2aadfca8e48db2082a13b3"
-      ]
-    },
-    "4ed70585fd5d2500406f3df6df5a52bb1e4db7c9b23f4ba15d459ce4023d5e8c": {
-      "reference_date": "2023-08-02",
-      "value": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "472295507bcfceaa6b952400ad64a93d7dbeb0e506bfe98819f94fae24ecb1cd"
       ]
     },
     "6ccda4addb748562b8d8ae1efd3e7d14b06bcc2e3624d3efb0a40d35573861a4": {
@@ -1953,6 +1830,87 @@
       "sources": [
         "7f7257d23904263d9fddbf5882466510d7c51ca733af89324a22fc4d350716a9"
       ]
+    },
+    "12f41b6b5edb08f7be266734558c29e069890a03a12d70f201cb86f579b9e25d": {
+      "reference_date": "2025-09-30",
+      "value": "A Classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva data de aquisição: (a) os direitos creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva data de aquisição; (d) não sejam devidos por devedores que estejam inadimplentes perante à Classe; (e) estejam amparados pelos respectivos documentos comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias contados da respectiva data de ingresso no Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "92265dee69e636bbcca360c33ed79c7b50dce5a4d043dac3773b75847cd5a762"
+      ]
+    },
+    "7afc8618697bcc319c09e3630da236955a2dcedfe2f46c501b2f704e93355574": {
+      "reference_date": "2024-09-30",
+      "value": "A Classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva data de aquisição: (a) Os direitos creditórios deverão ser representados em moeda corrente nacional; (b) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) Não estejam vencidos e/ou pendentes de pagamento na respectiva data de aquisição; (d) Não sejam devidos por devedores que estejam inadimplentes perante a Classe; (e) Estejam amparados pelos respectivos documentos comprobatórios; e (f) Tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso na Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9d89f4491b0aadb484a1835f1b0fcfb8d228a2e8a93c9de6f773006bbbf0c81a"
+      ]
+    },
+    "9d4ab47b15a83f15d9e44b47f9090525fd9f34ac176a729221700746177ddefd": {
+      "reference_date": "2024-08-29",
+      "value": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso no Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cb15fbaa9fc491586543d5c032f6029295d27c701614a47ff45cd298ef505b21"
+      ]
+    },
+    "a547506083a15460289119313fe84cc3aa08401d9e15eff0b90faf8fd0a98692": {
+      "reference_date": "2024-07-29",
+      "value": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso no Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "807c8d90f712978d61b303751deecb5a3dc223bf275db695f9b7ce1226246dc5"
+      ]
+    },
+    "977a1f3dad483dbda04f3b51c54813389d96ece887c80d4213a86920623ecc56": {
+      "reference_date": "2024-01-05",
+      "value": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "25d077f27be0e91b999c3350646795824ea0444cae20bcbcc98208a6e1d6b314"
+      ]
+    },
+    "e04fa789d459d7d3aef2047690893085fc359bfe4acd9598d0addc486411faf7": {
+      "reference_date": "2023-08-03",
+      "value": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a3dd40e36a7d1e4e1d9da210f61f894c9e043044364fb331e19e0dc96a798b2a"
+      ]
+    },
+    "1e87209043e2839fc95a7398f110f510fec785550d9ac9ee8bbf22b42a7442e9": {
+      "reference_date": "2023-08-02",
+      "value": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e0a1dd81d57bdedbdc6574f70d34e05c3dd8c1e71179bcd44f0e079ff76b0fd1"
+      ]
+    },
+    "342bae98f3025806ca80195084a1bbc0103d07eca80459490b6adeea6ab57a6e": {
+      "reference_date": "2024-08-29",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8fc993d81d8c17a406b660e6a37119a8fcb92d1aebb29b923fe85867164d104c"
+      ]
+    },
+    "aa13a1f5c088f37cdec1f558f5a9d62e50d9c30e78f9a94838215740209926b8": {
+      "reference_date": "2024-07-29",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "588338560dd4b4d0397b929e067f8fbf6286787218fdd2630455e58826c06b0c"
+      ]
     }
   },
   "passages": {
@@ -1969,78 +1927,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1318766 | 11/09/2026 | regulamento | p. 35; 8.1 | data/raw/51655558000146/1318766_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1318766"
     },
-    "9b8bb713b9d2d4e33699c70f517581e0c5c249a418ac5c3d9100def394a387ff": {
-      "document_id": "728850",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=728850",
-      "reference_date": "2024-08-29",
-      "version": "1",
-      "page": 25,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "74e9e55055e248dedc9bd159537aaa5a53950bfca5af37dcf1eef0fc9fb43c01",
-      "verification": "primary_passage"
-    },
-    "1c00b95845c0b218c381543ce0e8bf28d7085c028d15e65ec1f74eb9338a465c": {
-      "document_id": "712152",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=712152",
-      "reference_date": "2024-07-29",
-      "version": "1",
-      "page": 25,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "9682c06122b38af540a01b0e2126e79bfd1cb6bb6f1865fc59211a53188e69b5",
-      "verification": "primary_passage"
-    },
-    "65cedd6d18d2994c26e44661d4667c0173d3b4eab494362a7c668a060f5a14eb": {
-      "document_id": "576545",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=576545",
-      "reference_date": "2023-09-30",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "RISCOS DE CRÉDITO DOS DIREITOS DE CRÉDITO E DOS ATIVOS FINANCEIROS: O Fundo somente procederá à amortização e/ou ao resgate das Cotas na medida em que os Direitos de Créditos sejam pagos pelos Devedores e/ou pelos Devedores Solidários e/ou os Ativos Financeiros sejam liquidados e/ou alienados e que os respectivos valores sejam transferidos ao Fundo. Neste sentido, não há qualquer garantia de que a amortização ou o resgate das Cotas ocorrerá integralmente nos prazos e pelos valores descritos neste Regulamento. Não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelos Cedentes qualquer outra Pessoa qualquer tipo de multa ou penalidade de qualquer natureza aos Cotistas. Os Direitos de Crédito e os Ativos Financeiros encontram-se sujeitos à capacidade dos seus respectivos devedoredors em honrar seus compromissos. Alterações nas condições",
-      "sha256": "29e88a40c558bc9215b78e9f57f2f5568f2858b0706dc0e0a14896d2120171b3",
-      "verification": "primary_passage"
-    },
-    "f7ee5dafa4c4afbe5cd78e03ebdba4d63951a59fd9b18f8cbca041fea110d4ba": {
-      "document_id": "579668",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579668",
-      "reference_date": "2024-01-05",
-      "version": "1",
-      "page": 18,
-      "clause": "13.2.3",
-      "excerpt": "13.2.3. RISCOS DE CRÉDITO DOS DIREITOS DE CRÉDITO E DOS ATIVOS FINANCEIROS: O Fundo  somente procederá à amortização e/ou ao resgate das Cotas na medida em que os Direitos de  Créditos sejam pagos pelos Devedores e/ou pelos Devedores Solidários e/ou os Ativos Financeiros  sejam liquidados e/ou alienados e que os respectivos valores sejam transferidos ao Fundo. Neste  sentido, não há qualquer garantia de que a amortização ou o resgate das Cotas ocorrerá  integralmente nos prazos e pelos valores descritos neste Regulamento. Não será devido pelo Fundo,  pela Administradora, pela Gestora, pelo Custodiante, pelos Cedentes qualquer outra Pessoa qualquer  tipo de multa ou penalidade de qualquer natureza aos Cotistas. Os Direitos de Crédito e os Ativos  Financeiros encontram-se sujeitos à capacidade dos seus respectivos devedoredors em honrar seus  compromissos. Alterações nas condições financeiras dos Devedores dos Direitos de Crédito e dos  Ativos Financeiros poderá afetar a capacidade do Fundo em honrar com seus compromissos nos  termos deste Regulamento.",
-      "sha256": "3b3130d981859f1ae24c9d71256d5094d20349a7df7504771641f611652d1e47",
-      "verification": "primary_passage"
-    },
-    "a6ec9ae46f841806dec418d5cac0329e2ae57f6b2622108b60eff0143aa5740e": {
-      "document_id": "510055",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510055",
-      "reference_date": "2023-08-03",
-      "version": "1",
-      "page": 18,
-      "clause": "13.2.3",
-      "excerpt": "13.2.3. RISCOS DE CRÉDITO DOS DIREITOS DE CRÉDITO E DOS ATIVOS FINANCEIROS: O Fundo  somente procederá à amortização e/ou ao resgate das Cotas na medida em que os Direitos de  Créditos sejam pagos pelos Devedores e/ou pelos Devedores Solidários e/ou os Ativos Financeiros  sejam liquidados e/ou alienados e que os respectivos valores sejam transferidos ao Fundo. Neste  sentido, não há qualquer garantia de que a amortização ou o resgate das Cotas ocorrerá  integralmente nos prazos e pelos valores descritos neste Regulamento. Não será devido pelo Fundo,  pela Administradora, pela Gestora, pelo Custodiante, pelos Cedentes qualquer outra Pessoa qualquer  tipo de multa ou penalidade de qualquer natureza aos Cotistas. Os Direitos de Crédito e os Ativos  Financeiros encontram-se sujeitos à capacidade dos seus respectivos devedoredors em honrar seus  compromissos. Alterações nas condições financeiras dos Devedores dos Direitos de Crédito e dos  Ativos Financeiros poderá afetar a capacidade do Fundo em honrar com seus compromissos nos",
-      "sha256": "77b3af599b1dd24c85ef468418019e933849bfa14a35a96a41e4978e731f2e71",
-      "verification": "primary_passage"
-    },
-    "33177e3c31ff3d1f7a1da104ffaf0bc26a16ca8ac7c1d981a48737dc0d10e002": {
-      "document_id": "510038",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510038",
-      "reference_date": "2023-08-02",
-      "version": "1",
-      "page": 18,
-      "clause": "13.2.3",
-      "excerpt": "13.2.3. RISCOS DE CRÉDITO DOS DIREITOS DE CRÉDITO E DOS ATIVOS FINANCEIROS: O Fundo  somente procederá à amortização e/ou ao resgate das Cotas na medida em que os Direitos de  Créditos sejam pagos pelos Devedores e/ou pelos Devedores Solidários e/ou os Ativos Financeiros  sejam liquidados e/ou alienados e que os respectivos valores sejam transferidos ao Fundo. Neste  sentido, não há qualquer garantia de que a amortização ou o resgate das Cotas ocorrerá  integralmente nos prazos e pelos valores descritos neste Regulamento. Não será devido pelo Fundo,  pela Administradora, pela Gestora, pelo Custodiante, pelos Cedentes qualquer outra Pessoa qualquer  tipo de multa ou penalidade de qualquer natureza aos Cotistas. Os Direitos de Crédito e os Ativos  Financeiros encontram-se sujeitos à capacidade dos seus respectivos devedoredors em honrar seus  compromissos. Alterações nas condições financeiras dos Devedores dos Direitos de Crédito e dos  Ativos Financeiros poderá afetar a capacidade do Fundo em honrar com seus compromissos nos",
-      "sha256": "7044fdad24ccb4b7c61462df001ad4d7159880e7f3fd4abdb95968570a111b1a",
-      "verification": "primary_passage"
-    },
     "92265dee69e636bbcca360c33ed79c7b50dce5a4d043dac3773b75847cd5a762": {
       "document_id": "1072262",
       "title": "Demonstrações Financeiras",
@@ -2051,78 +1937,6 @@
       "clause": "",
       "excerpt": "A Classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de  elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva data de  aquisição: (a) os direitos creditórios deverão ser representados em moeda corrente nacional;\n (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no  vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva data de  aquisição; (d) não sejam devidos por devedores que estejam inadimplentes perante à Classe;\n (e) estejam amparados pelos respectivos documentos comprobatórios; e (f) tenham prazo  mínimo de vencimento igual a 5 (cinco) dias contados da respectiva data de ingresso no Fundo.",
       "sha256": "15f531482aed70f6e6f09e2442a651673b566d18c96de5d5b51889fdbe8a9c04",
-      "verification": "primary_passage"
-    },
-    "c020db9f35a0639f2fdfddfb5a9b3ab8f1b53f2bfc430653ccaed737732ab52e": {
-      "document_id": "775575",
-      "title": "Demonstrações Financeiras - Substituição de administrador",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=775575",
-      "reference_date": "2024-07-26",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "Para fins do disposto na legislação e no Regulamento, são considerados critérios de elegibilidade, os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras: (I) prazo mínimo de 5\n(cinco) dias;",
-      "sha256": "46473d12b38a1583da8a811fd6617ba02ff8529d2ffe43d4806fe583260fb437",
-      "verification": "primary_passage"
-    },
-    "a844564c421581bbd4b4a49dc3c3e9784b270efec748e040b40a287b9e939fea": {
-      "document_id": "728850",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=728850",
-      "reference_date": "2024-08-29",
-      "version": "1",
-      "page": 33,
-      "clause": "7.2.1",
-      "excerpt": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "74e9e55055e248dedc9bd159537aaa5a53950bfca5af37dcf1eef0fc9fb43c01",
-      "verification": "primary_passage"
-    },
-    "7133f42e7272f20bf00974d0b6d9bad35d5644348a41ee8b0234f8959bba6481": {
-      "document_id": "712152",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=712152",
-      "reference_date": "2024-07-29",
-      "version": "1",
-      "page": 33,
-      "clause": "7.2.1",
-      "excerpt": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "9682c06122b38af540a01b0e2126e79bfd1cb6bb6f1865fc59211a53188e69b5",
-      "verification": "primary_passage"
-    },
-    "0af5ed6d310d6eaf3365ec4b602ab274810ec6ac675df28c989fc000210b4a37": {
-      "document_id": "579668",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579668",
-      "reference_date": "2024-01-05",
-      "version": "1",
-      "page": 9,
-      "clause": "5.1",
-      "excerpt": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "sha256": "3b3130d981859f1ae24c9d71256d5094d20349a7df7504771641f611652d1e47",
-      "verification": "primary_passage"
-    },
-    "65870e1043f6baa9434df658700168279f46704a6b2aadfca8e48db2082a13b3": {
-      "document_id": "510055",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510055",
-      "reference_date": "2023-08-03",
-      "version": "1",
-      "page": 9,
-      "clause": "5.1",
-      "excerpt": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "sha256": "77b3af599b1dd24c85ef468418019e933849bfa14a35a96a41e4978e731f2e71",
-      "verification": "primary_passage"
-    },
-    "472295507bcfceaa6b952400ad64a93d7dbeb0e506bfe98819f94fae24ecb1cd": {
-      "document_id": "510038",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510038",
-      "reference_date": "2023-08-02",
-      "version": "1",
-      "page": 9,
-      "clause": "5.1",
-      "excerpt": "5.1. Para fins do disposto na legislação e neste Regulamento, são considerados critérios de elegibilidade (“Critérios de Elegibilidade”), os quais serão verificados exclusivamente pelo Custodiante nas respectivas datas de cessão ao Fundo dos Direitos de Crédito, as seguintes regras:",
-      "sha256": "7044fdad24ccb4b7c61462df001ad4d7159880e7f3fd4abdb95968570a111b1a",
       "verification": "primary_passage"
     },
     "de4a5f4f16f0cc2efcba7690256abcb6be32bac1116f7ac337d810e9437757de": {
@@ -4038,6 +3852,108 @@
       "clause": "",
       "excerpt": "1. “Administradora”: significa a MASTER S.A. CORRETORA DE CÂMBIO, TÍTULOS E VALORES  MOBILIÁRIOS, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de  Botafogo, nº 228, Sala 1702 – Botafogo - CEP 22250-906, inscrita no CNPJ/ME sob nº\n 33.886.862/0001-12, devidamente autorizada à prestação dos serviços de administração de  carteira de títulos e valores mobiliários através do Ato Declaratório nº 1569, de 11 de janeiro de  1991;",
       "sha256": "3b3130d981859f1ae24c9d71256d5094d20349a7df7504771641f611652d1e47",
+      "verification": "primary_passage"
+    },
+    "9d89f4491b0aadb484a1835f1b0fcfb8d228a2e8a93c9de6f773006bbbf0c81a": {
+      "document_id": "810853",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=810853",
+      "reference_date": "2024-09-30",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva data de aquisição:\n(a) Os direitos creditórios deverão ser representados em moeda corrente nacional;\n(b) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento;\n(c) Não estejam vencidos e/ou pendentes de pagamento na respectiva data de aquisição;\n(d) Não sejam devidos por devedores que estejam inadimplentes perante a Classe;\n(e) Estejam amparados pelos respectivos documentos comprobatórios; e\n(f) Tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de  ingresso na Classe.",
+      "sha256": "f5f9ee1339ed83a2e618938aaa161c3cd376c30e9523631aa07dea174091a299",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cb15fbaa9fc491586543d5c032f6029295d27c701614a47ff45cd298ef505b21": {
+      "document_id": "728850",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=728850",
+      "reference_date": "2024-08-29",
+      "version": "1",
+      "page": "36–37",
+      "clause": "9.1",
+      "excerpt": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de  Aquisição;\n(d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo;\n(e) estejam amparados pelos respectivos Documentos Comprobatórios; e\n(f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da  respectiva data de ingresso no Fundo.",
+      "sha256": "74e9e55055e248dedc9bd159537aaa5a53950bfca5af37dcf1eef0fc9fb43c01",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "807c8d90f712978d61b303751deecb5a3dc223bf275db695f9b7ce1226246dc5": {
+      "document_id": "712152",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=712152",
+      "reference_date": "2024-07-29",
+      "version": "1",
+      "page": "36–37",
+      "clause": "9.1",
+      "excerpt": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de  Aquisição;\n(d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo;\n(e) estejam amparados pelos respectivos Documentos Comprobatórios; e\n(f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da  respectiva data de ingresso no Fundo.",
+      "sha256": "9682c06122b38af540a01b0e2126e79bfd1cb6bb6f1865fc59211a53188e69b5",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "25d077f27be0e91b999c3350646795824ea0444cae20bcbcc98208a6e1d6b314": {
+      "document_id": "579668",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579668",
+      "reference_date": "2024-01-05",
+      "version": "1",
+      "page": 16,
+      "clause": "10.7",
+      "excerpt": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "sha256": "3b3130d981859f1ae24c9d71256d5094d20349a7df7504771641f611652d1e47",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a3dd40e36a7d1e4e1d9da210f61f894c9e043044364fb331e19e0dc96a798b2a": {
+      "document_id": "510055",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510055",
+      "reference_date": "2023-08-03",
+      "version": "1",
+      "page": 16,
+      "clause": "10.7",
+      "excerpt": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "sha256": "77b3af599b1dd24c85ef468418019e933849bfa14a35a96a41e4978e731f2e71",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e0a1dd81d57bdedbdc6574f70d34e05c3dd8c1e71179bcd44f0e079ff76b0fd1": {
+      "document_id": "510038",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510038",
+      "reference_date": "2023-08-02",
+      "version": "1",
+      "page": 16,
+      "clause": "10.7",
+      "excerpt": "10.7. O Custodiante deverá validar os Direitos de Crédito em relação aos Critérios de Elegibilidade, no momento de cada cessão para o Fundo e verificar os Documentos Comprobatórios dos Direitos de Creditórios adquiridos pelo Fundo, no prazo máximo de até 15 (quinze) dias contados da data de ingresso dos Direitos de Crédito.",
+      "sha256": "7044fdad24ccb4b7c61462df001ad4d7159880e7f3fd4abdb95968570a111b1a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8fc993d81d8c17a406b660e6a37119a8fcb92d1aebb29b923fe85867164d104c": {
+      "document_id": "728850",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=728850",
+      "reference_date": "2024-08-29",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "sha256": "74e9e55055e248dedc9bd159537aaa5a53950bfca5af37dcf1eef0fc9fb43c01",
+      "verification": "primary_passage"
+    },
+    "588338560dd4b4d0397b929e067f8fbf6286787218fdd2630455e58826c06b0c": {
+      "document_id": "712152",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=712152",
+      "reference_date": "2024-07-29",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "sha256": "9682c06122b38af540a01b0e2126e79bfd1cb6bb6f1865fc59211a53188e69b5",
       "verification": "primary_passage"
     }
   }

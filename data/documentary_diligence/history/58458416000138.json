@@ -3,15 +3,6 @@
   "cnpj": "58458416000138",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "f64bbcaecb320ac08cf21b1e5cd896ab2bc29d9715893be856d7ec23c5843175",
-      "b0db43685646deb8d2f0998e427586c26b008b07fd944313528f813d17a7cac3",
-      "009e84338d9e05517818379424426f85a072dc9f5632e3d6c6def51d4e85263f",
-      "3df72da670c90b195eba392dfbb4d36afb1a45846e5488a476d7e27ce3d9246f",
-      "33693164d872b9e4c2c2b4950bdea60c5624f5cf3d12547fb48c2210d9d2ede3",
-      "93fef61ec3f1c2f0b589a97a8998cfaa0c809e46bef8f297033c6c15d6f1d467",
-      "832e0ec8dbb30fd3950ee293f14b25673d4c9c895fe73a2d9676bbe0b4cdec99"
-    ],
     "term": [
       "cf495c37c6c5a7ed49727099d30c5fc92f5d84505cff56f08792f9c6ed1bf98a",
       "dcc17ae1a33b28c2680172a4779a876b2bdc395cc521c48c96021c7d6bf3ac86",
@@ -296,22 +287,6 @@
     "quota_grace": [
       "9d6bb1daedada0ba65120d32df7e1de43b699f74dacc397ae77c48db68c45504"
     ],
-    "originator": [
-      "3a99e285ff621d0037e001f0993f713ba88ba8aa513851b89f9f687163bea5d3",
-      "1b831dbe717b147f061168cec78b66beb0abd6aaa3fb02703a8a5608f152a112",
-      "f899cbe4f3b857c8683744262785605df2d9f60aeada3c41324f4a91f589d78e",
-      "e07789633ac2b98a91e27e668160efae8c812886ffac41bf5ea2df48387dabcd",
-      "a72f9a1364fcf4102d3af1c7fd5f1ab87b6a3aa418cef1db3bd5b7fef2e27665"
-    ],
-    "debtor": [
-      "c9ba2e2c008ff6f0a0cf40ce7658c1d55f613e02e395555855f7a35475fa3e8a",
-      "6b60b66e0d192fa26e88a171a364ff7714c4458ad9a8585492a3c405e3c7dcbc",
-      "a3a4fe5d03b1cf9ec8a8ac29a0c387e0436f70720108af9f328bc0e1e79ed55d",
-      "b17a74d7cf5f5683a0c32b179d0c9b764c4ec65e224a5629307405afb09be093",
-      "723aa17e85d3ba2e8b973f60865488139d5dc8365d2d42578679a45211d5050e",
-      "a250485e5202a35b6439efe3cb6b729dc3eaf56b9f1f37e223bd86ac0a9fe5d2",
-      "8d22cb08f973ba709722fcf0e08126bef0af9c164fdf3e27ab89ed6a642b2e69"
-    ],
     "investee": [
       "5eefad4a890557fbb2a91a72a5e4c3bd162797d91768a2638f2bf2bd33109c17",
       "a70e1f22d786c88b87d69d6551e5ead7fbb7cb121ebccfc5a2044d2784fc3638",
@@ -367,6 +342,31 @@
       "88107cfcff31712bfd1e2f65d0a594c58a309ea42a84be74fb708af202a3da4d",
       "75d37f8b643bed7455859ae8f5eb2ea297d2af7f739de9ed15e483b47c50a17d",
       "94c6aead194404b532d436cf76883cba3cd1dc59854e9cffff5bf5371616d81e"
+    ],
+    "originator": [
+      "3a99e285ff621d0037e001f0993f713ba88ba8aa513851b89f9f687163bea5d3",
+      "1b831dbe717b147f061168cec78b66beb0abd6aaa3fb02703a8a5608f152a112",
+      "f899cbe4f3b857c8683744262785605df2d9f60aeada3c41324f4a91f589d78e",
+      "e07789633ac2b98a91e27e668160efae8c812886ffac41bf5ea2df48387dabcd",
+      "a72f9a1364fcf4102d3af1c7fd5f1ab87b6a3aa418cef1db3bd5b7fef2e27665"
+    ],
+    "eligibility": [
+      "f64bbcaecb320ac08cf21b1e5cd896ab2bc29d9715893be856d7ec23c5843175",
+      "f01b0fa798dbfe71f9a38ae171a427018e72a1da025d0c2d536070c049070770",
+      "03011722bdd8fe9cdf5b025c50ec053030582c2a56b1e8248af5241c566a092a",
+      "7da8f6a9535e1a3cf6b1ffa4ec144beaeec1ebc0a799835f052b85ff95c43c93",
+      "14614e8c8c0ac7bcda5373a5b482185b8fc9d789dd839b985de7169d9188c976",
+      "254c4d71ea55c2718c75c87f971ca5626d85434b962f589a1b8e012df96b2ec5",
+      "0f62262890dfe668bed75e5a9ae4976fb790dadb1df91d7201d52a3b6f750949"
+    ],
+    "debtor": [
+      "c9ba2e2c008ff6f0a0cf40ce7658c1d55f613e02e395555855f7a35475fa3e8a",
+      "c16487443c9bd9d6b9ac03ab071c8c4a759f7553ec75d6fd1f9cb10f09c38964",
+      "085a63edce4503355334a310c9a8b2f9cb2d5cb74b4b67204255f49d389b85ff",
+      "77815f88be691f22b99154ec84aadd7f33153b5abe0b32cecada79c53bd7a688",
+      "4a3552a1cf2d19703069ebe41e9023fdf9f081cec0afe99aa9461d4681ae2df0",
+      "b1a1a8481072dea53ad3ac05e563c0b9b416aefc7d5836cdde13f3fed2a1a641",
+      "63af154996c757ec784f24642b8a33d2ef66abc89de0d290e1c25a4ed4b15796"
     ]
   },
   "entries": {
@@ -498,60 +498,6 @@
         "edd1a347b11820de148316fdfcde184f8408d50dfaff4d83f045d4bd575f07aa"
       ]
     },
-    "6b60b66e0d192fa26e88a171a364ff7714c4458ad9a8585492a3c405e3c7dcbc": {
-      "reference_date": "2025-07-11",
-      "value": "(iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "79018e4bc97430613d86f26309dadb7ed970e81dcb26ac47de9a09a8cce18745"
-      ]
-    },
-    "a3a4fe5d03b1cf9ec8a8ac29a0c387e0436f70720108af9f328bc0e1e79ed55d": {
-      "reference_date": "2025-07-02",
-      "value": "(iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f94dc5353f362339a0f2a044dc9d5cba03081b02e18b55c8a569f1f51e7361d1"
-      ]
-    },
-    "b17a74d7cf5f5683a0c32b179d0c9b764c4ec65e224a5629307405afb09be093": {
-      "reference_date": "2025-07-11",
-      "value": "(iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f4864a2d29b64e451276c07b648a255b558c5df60577e5699c58d779330dc53e"
-      ]
-    },
-    "723aa17e85d3ba2e8b973f60865488139d5dc8365d2d42578679a45211d5050e": {
-      "reference_date": "2025-04-17",
-      "value": "(iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "469fecb3e12ebec9b4778607176d68e3a9b20b27de711c73ed1f271cb5fea68f"
-      ]
-    },
-    "a250485e5202a35b6439efe3cb6b729dc3eaf56b9f1f37e223bd86ac0a9fe5d2": {
-      "reference_date": "2025-04-08",
-      "value": "(iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2c51d1f264a0ff0c20aeed66185db08f33e6f66dfdd0c40f2cf9ac0978726f65"
-      ]
-    },
-    "8d22cb08f973ba709722fcf0e08126bef0af9c164fdf3e27ab89ed6a642b2e69": {
-      "reference_date": "2025-03-28",
-      "value": "15.1.4 Riscos específicos (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3a7373a57a973ef56d6717838ef2b5a8f9f7aa2afd7a83a65ff2c53c90a6f63f"
-      ]
-    },
     "f64bbcaecb320ac08cf21b1e5cd896ab2bc29d9715893be856d7ec23c5843175": {
       "reference_date": "2025-08-28",
       "value": "CCB prefixada/adimplente; duration média ≤ 30 meses",
@@ -560,60 +506,6 @@
       "risk_note": "Preço mínimo de compra e limites do endosso não integralmente obtidos.",
       "sources": [
         "0344e573dee1999417f31f1472362073d397a672929309bb61a3b16b316cb6ab"
-      ]
-    },
-    "b0db43685646deb8d2f0998e427586c26b008b07fd944313528f813d17a7cac3": {
-      "reference_date": "2025-07-11",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "79018e4bc97430613d86f26309dadb7ed970e81dcb26ac47de9a09a8cce18745"
-      ]
-    },
-    "009e84338d9e05517818379424426f85a072dc9f5632e3d6c6def51d4e85263f": {
-      "reference_date": "2025-07-02",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f94dc5353f362339a0f2a044dc9d5cba03081b02e18b55c8a569f1f51e7361d1"
-      ]
-    },
-    "3df72da670c90b195eba392dfbb4d36afb1a45846e5488a476d7e27ce3d9246f": {
-      "reference_date": "2025-07-11",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f4864a2d29b64e451276c07b648a255b558c5df60577e5699c58d779330dc53e"
-      ]
-    },
-    "33693164d872b9e4c2c2b4950bdea60c5624f5cf3d12547fb48c2210d9d2ede3": {
-      "reference_date": "2025-04-17",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "469fecb3e12ebec9b4778607176d68e3a9b20b27de711c73ed1f271cb5fea68f"
-      ]
-    },
-    "93fef61ec3f1c2f0b589a97a8998cfaa0c809e46bef8f297033c6c15d6f1d467": {
-      "reference_date": "2025-04-08",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2c51d1f264a0ff0c20aeed66185db08f33e6f66dfdd0c40f2cf9ac0978726f65"
-      ]
-    },
-    "832e0ec8dbb30fd3950ee293f14b25673d4c9c895fe73a2d9676bbe0b4cdec99": {
-      "reference_date": "2025-03-28",
-      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a9ae72671e4d887d4c81e9f3b3a32fee6f17596aa2137a27e29da064a89db442"
       ]
     },
     "cf495c37c6c5a7ed49727099d30c5fc92f5d84505cff56f08792f9c6ed1bf98a": {
@@ -2529,6 +2421,116 @@
       "sources": [
         "f4d8a9851577be6839fc000aa40ec57ee4bf2ef1637be3a8fe089514da3ab8d1"
       ]
+    },
+    "f01b0fa798dbfe71f9a38ae171a427018e72a1da025d0c2d536070c049070770": {
+      "reference_date": "2025-07-11",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "79018e4bc97430613d86f26309dadb7ed970e81dcb26ac47de9a09a8cce18745"
+      ]
+    },
+    "03011722bdd8fe9cdf5b025c50ec053030582c2a56b1e8248af5241c566a092a": {
+      "reference_date": "2025-07-02",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; 2",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f94dc5353f362339a0f2a044dc9d5cba03081b02e18b55c8a569f1f51e7361d1"
+      ]
+    },
+    "7da8f6a9535e1a3cf6b1ffa4ec144beaeec1ebc0a799835f052b85ff95c43c93": {
+      "reference_date": "2025-07-11",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses; e (vi) os Direitos Creditórios adquiridos deverão atender ao Preço Mínimo de Compra, conforme definido neste Anexo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f4864a2d29b64e451276c07b648a255b558c5df60577e5699c58d779330dc53e"
+      ]
+    },
+    "14614e8c8c0ac7bcda5373a5b482185b8fc9d789dd839b985de7169d9188c976": {
+      "reference_date": "2025-04-17",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; e (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "469fecb3e12ebec9b4778607176d68e3a9b20b27de711c73ed1f271cb5fea68f"
+      ]
+    },
+    "254c4d71ea55c2718c75c87f971ca5626d85434b962f589a1b8e012df96b2ec5": {
+      "reference_date": "2025-04-08",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final anterior ao vencimento final da série de Cotas Seniores de prazo mais longo; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por cento) do Patrimônio Líquido; (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB; e (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2c51d1f264a0ff0c20aeed66185db08f33e6f66dfdd0c40f2cf9ac0978726f65"
+      ]
+    },
+    "0f62262890dfe668bed75e5a9ae4976fb790dadb1df91d7201d52a3b6f750949": {
+      "reference_date": "2025-03-28",
+      "value": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a9ae72671e4d887d4c81e9f3b3a32fee6f17596aa2137a27e29da064a89db442"
+      ]
+    },
+    "c16487443c9bd9d6b9ac03ab071c8c4a759f7553ec75d6fd1f9cb10f09c38964": {
+      "reference_date": "2025-07-11",
+      "value": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "341d66a6b6814d274828cded965f374b5f49d97721f441b3a16680d9b0d81448"
+      ]
+    },
+    "085a63edce4503355334a310c9a8b2f9cb2d5cb74b4b67204255f49d389b85ff": {
+      "reference_date": "2025-07-11",
+      "value": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8742908ccc2f825b311afa570248623228166bc33f0550092237885d9f3d60d9"
+      ]
+    },
+    "77815f88be691f22b99154ec84aadd7f33153b5abe0b32cecada79c53bd7a688": {
+      "reference_date": "2025-04-17",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e3ce9640856dea62d061ab4e2798fcbbb9bd7dbd8984d81245e0636354e96474"
+      ]
+    },
+    "4a3552a1cf2d19703069ebe41e9023fdf9f081cec0afe99aa9461d4681ae2df0": {
+      "reference_date": "2025-04-08",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fd1c5b461eb5d9c8abc852c85ad0ed8b686c6329a7079eef5c71ece4db019ea0"
+      ]
+    },
+    "b1a1a8481072dea53ad3ac05e563c0b9b416aefc7d5836cdde13f3fed2a1a641": {
+      "reference_date": "2025-03-28",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a9ae72671e4d887d4c81e9f3b3a32fee6f17596aa2137a27e29da064a89db442"
+      ]
+    },
+    "63af154996c757ec784f24642b8a33d2ef66abc89de0d290e1c25a4ed4b15796": {
+      "reference_date": "2025-08-28",
+      "value": "15.1.4 Riscos específicos (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e aos Cotistas.",
+      "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "21ca8dda2b881a412bbd8f89cda5e2a9879ba0fbcdb98d675e5dc314a045ca04",
+        "97e553b8f88214e9da21957c998cc9778c94a69ce29ec8f3f087dda943032cc2",
+        "c2706a35c1f7e8afbc3c1dfb89ae3d5844317e317ce3511d2426ee11aa321a0d"
+      ]
     }
   },
   "passages": {
@@ -2760,18 +2762,6 @@
       "clause": "4.4",
       "excerpt": "4.4 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos seguintes  Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral,  previamente ao endosso do Direito Creditório, na respectiva Data de Aquisição:\n (i) caso haja Cotas Seniores em circulação, os Direitos Creditórios deverão possuir vencimento final  anterior ao vencimento final da série de Cotas Seniores de prazo mais longo;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma,  o endosso pretendido, não deverá exceder R$ 100.000,00 (cem mil reais);\n (iii) considerada pro forma a aquisição pretendida, o saldo devedor dos respectivos Devedores  pertencentes à cada Empregador não deverá representar concentração superior a 3% (três por  cento) do Patrimônio Líquido;\n (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64  (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da  respectiva CCB; e\n (v) considerada pro forma a aquisição pretendida, o prazo ponderado da Carteira, considerando-se  apenas os Direitos Creditórios, deverá ser de, no máximo, 30 (trinta) meses.",
       "sha256": "18e503195a1ea42671705fe60a2f9334b0cffca068bfa86555a48e0802ca7f71",
-      "verification": "primary_passage"
-    },
-    "3a7373a57a973ef56d6717838ef2b5a8f9f7aa2afd7a83a65ff2c53c90a6f63f": {
-      "document_id": "867398",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=867398",
-      "reference_date": "2025-03-28",
-      "version": "1",
-      "page": 32,
-      "clause": "15.1.4",
-      "excerpt": "15.1.4 Riscos específicos\n (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos  Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente  do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado  Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do  Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse  à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e  aos Cotistas.\n (ii) Risco do Empregador não efetuar o desconto em folha: o repasse dos recursos oriundos dos  Direitos Creditórios à Classe depende da realização, pelo Empregador, da Escrituração e do  desconto na respectiva folha de pagamento do Devedor. Na hipótese do Empregador deixar de  realizar a Escrituração ou os descontos na folha de pagamento, não haverá repasse de recursos  à Classe, podendo causar prejuízos à Classe e aos Cotistas.\n (iii) Risco de perda do vínculo empregatício com o Empregador: caso o Devedor perca o vínculo  empregatício com o Empregador, não haverá remuneração e folha de pagamento para realização  dos descontos para pagamento dos Direitos Creditórios. Neste caso, não obstante a possibilidade  do Agente de Retenção/Cobrança realizar a cobrança ativa dos Direitos Creditórios diretamente  do Devedor, a ausência de remuneração poderá deixar o Devedor inadimplente perante a Classe  até que o seu vínculo empregatício seja retomado e seja efetuado o procedimento operacional  para que a CCB seja aditada e/ou seja realizado o Processo de Reinicialização. Tais situações  poderão resultar em prejuízos à Classe e aos Cotistas.",
-      "sha256": "3d31dadc75900b7f7651df9fe62061d995a8afa4a711e27c402e3236c23a392e",
       "verification": "primary_passage"
     },
     "0344e573dee1999417f31f1472362073d397a672929309bb61a3b16b316cb6ab": {
@@ -5162,6 +5152,90 @@
       "clause": "",
       "excerpt": "Na qualidade de instituição administradora da CLASSE A DO MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA, classe de cotas de fundo de investimento, inscrito no CNPJ sob o nº 58.458.416/0001-38, constituída sob a forma de condomínio fechado (“Classe A” e “Fundo”, respectivamente), o BANCO DAYCOVAL S.A., instituição financeira com sede na cidade de São Paulo, estado de São Paulo, na Avenida Paulista, 1.793, Bela Vista, CEP 01.311-200, devidamente credenciada pela Comissão de Valores Mobiliários (“CVM”) para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 17.552, de 05 de dezembro de 2019, inscrita no Cadastro Nacional de Pessoas Jurídicas (“CNPJ”) sob o nº 62.232.889/0001-90, por meio deste instrumento, apura, na forma de sumário, abaixo indicado, o resultado dos votos dos titulares de cotas de emissão da Classe A (“Cotas” e “Cotistas”, respectivamente), no âmbito de Assembleia Especial realizada de forma não presencial, por meio da Consulta Formal iniciada em sistema eletrônico e enviada aos Cotistas no dia 18/08/2025, nos termos do artigo 76, §5º da Resolução CVM nº 175 de 23 de dezembro de 2022 (“Resolução CVM 175”) e do Regulamento do Fundo. De acordo com o estabelecido no Edital, o prazo para envio das manifestações findou em 28/08/2025, às 13h00.",
       "sha256": "1d9231d2f5bd97668a7c33e6f8caadf561bd69c964af323099a9e6a507c96970",
+      "verification": "primary_passage"
+    },
+    "341d66a6b6814d274828cded965f374b5f49d97721f441b3a16680d9b0d81448": {
+      "document_id": "947030",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=947030",
+      "reference_date": "2025-07-11",
+      "version": "1",
+      "page": 15,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo  Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por  via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de  Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos  Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento  regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
+      "sha256": "7297005957dbd2c15523525c67791a7dca4c1d59c19abcc2f41a4edeaa3cd950",
+      "verification": "primary_passage"
+    },
+    "8742908ccc2f825b311afa570248623228166bc33f0550092237885d9f3d60d9": {
+      "document_id": "947037",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=947037",
+      "reference_date": "2025-07-11",
+      "version": "1",
+      "page": 7,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo  Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por  via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de  Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos  Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento  regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
+      "sha256": "99a9dff27c141bc2de8beb5139c39663a52546bfde9a03033babe867f9ee6168",
+      "verification": "primary_passage"
+    },
+    "e3ce9640856dea62d061ab4e2798fcbbb9bd7dbd8984d81245e0636354e96474": {
+      "document_id": "882925",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=882925",
+      "reference_date": "2025-04-17",
+      "version": "1",
+      "page": 37,
+      "clause": "",
+      "excerpt": "\"Dataprev\": a Empresa de Tecnologia e Informações da Previdência DATAPREV, empresa estatal responsável pelo processamento de informações previdenciárias da Receita Federal do Brasil e pelo pagamento mensal de benefícios previdenciários, dentre outros;\n Depositário serviços de guarda dos Documentos Comprobatórios e dos Documentos Suporte, a qual não poderá ser, em relação à Classe, originador, Endossante, GESTOR ou parte a eles relacionadas;\n Devedores Trabalho e Previdência Social (CTPS) emitida de forma digital, conforme verificado e validado pela Dataprev, na categoria de nº 101 da tabela do eSocial, que tenha tomado um empréstimo consignado mediante a emissão eletrônica de uma CCB, nos termos da Lei nº 10.820, de 17 de dezembro de 2003, com a redação dada pela Medida Provisória nº 1.292 de 12 de março de 2025;\n Dia Útil e (ii) aqueles sem expediente na B3;\n Direitos Creditórios eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo consignado privado concedido pelo Endossante ao Devedor, e cujo pagamento ordinário é feito por Consignações;",
+      "sha256": "38bd5ab6bb8cdd2590b31d7f9358e635dffcf5db41ab24103976a2b3ac0c544e",
+      "verification": "primary_passage"
+    },
+    "fd1c5b461eb5d9c8abc852c85ad0ed8b686c6329a7079eef5c71ece4db019ea0": {
+      "document_id": "876310",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=876310",
+      "reference_date": "2025-04-08",
+      "version": "1",
+      "page": 37,
+      "clause": "",
+      "excerpt": "\"Dataprev\": a Empresa de Tecnologia e Informações da Previdência DATAPREV, empresa estatal responsável pelo processamento de informações previdenciárias da Receita Federal do Brasil e pelo pagamento mensal de benefícios previdenciários, dentre outros;\n Depositário serviços de guarda dos Documentos Comprobatórios e dos Documentos Suporte, a qual não poderá ser, em relação à Classe, originador, Endossante, GESTOR ou parte a eles relacionadas;\n Devedores Trabalho e Previdência Social (CTPS) emitida de forma digital, conforme verificado e validado pela Dataprev, na categoria de nº 101 da tabela do eSocial, que tenha tomado um empréstimo consignado mediante a emissão eletrônica de uma CCB, nos termos da Lei nº 10.820, de 17 de dezembro de 2003, com a redação dada pela Medida Provisória nº 1.292 de 12 de março de 2025;\n Dia Útil e (ii) aqueles sem expediente na B3;\n Direitos Creditórios eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo consignado privado concedido pelo Endossante ao Devedor, e cujo pagamento ordinário é feito por Consignações;",
+      "sha256": "18e503195a1ea42671705fe60a2f9334b0cffca068bfa86555a48e0802ca7f71",
+      "verification": "primary_passage"
+    },
+    "21ca8dda2b881a412bbd8f89cda5e2a9879ba0fbcdb98d675e5dc314a045ca04": {
+      "document_id": "982232",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+      "reference_date": "2025-08-28",
+      "version": "1",
+      "page": 30,
+      "clause": "15.1.4",
+      "excerpt": "15.1.4 Riscos específicos\n (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos  Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente  do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado  Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do  Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse  à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e  aos Cotistas.\n (ii) Risco do Empregador não efetuar o desconto em folha: o repasse dos recursos oriundos dos  Direitos Creditórios à Classe depende da realização, pelo Empregador, da Escrituração e do  desconto na respectiva folha de pagamento do Devedor. Na hipótese do Empregador deixar de  realizar a Escrituração ou os descontos na folha de pagamento, não haverá repasse de recursos  à Classe, podendo causar prejuízos à Classe e aos Cotistas.\n (iii) Risco de perda do vínculo empregatício com o Empregador: caso o Devedor perca o vínculo  empregatício com o Empregador, não haverá remuneração e folha de pagamento para realização  dos descontos para pagamento dos Direitos Creditórios. Neste caso, não obstante a possibilidade  do Agente de Retenção/Cobrança realizar a cobrança ativa dos Direitos Creditórios diretamente  do Devedor, a ausência de remuneração poderá deixar o Devedor inadimplente perante a Classe  até que o seu vínculo empregatício seja retomado e seja efetuado o procedimento operacional  para que a CCB seja aditada e/ou seja realizado o Processo de Reinicialização. Tais situações  poderão resultar em prejuízos à Classe e aos Cotistas.\n (iv) Risco relativo ao Agente de Retenção/Cobrança: A solvência do Agente de Retenção/Cobrança  quanto às suas obrigações financeiras poderá impactar o cumprimento de suas obrigações perante  a Classe e, consequentemente, os rendimentos da Classe poderão ser adversamente afetados.",
+      "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+      "verification": "primary_passage"
+    },
+    "97e553b8f88214e9da21957c998cc9778c94a69ce29ec8f3f087dda943032cc2": {
+      "document_id": "982232",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+      "reference_date": "2025-08-28",
+      "version": "1",
+      "page": 30,
+      "clause": "15.1.5",
+      "excerpt": "15.1.5 Riscos operacionais\n (i) Risco de irregularidade dos Documentos Comprobatórios e/ou Documentos Suporte: o  terceiro contratado pelo GESTOR, que atuará sob responsabilidade do GESTOR, deverá realizar  a verificação da regularidade dos Documentos Comprobatórios. A Carteira poderá conter Direitos  Creditórios com documentação irregular, o que poderá impedir que a Classe exerça plenamente  as prerrogativas derivadas da titularidade dos Direitos Creditórios.\n (ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por  meio de desconto na folha de pagamento feito pela Dataprev e pela CEF, conforme aplicável. É  possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões  operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não  receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento,  os recursos decorrentes dos Direitos Creditórios.\n (iii) Risco de validação das informações para conciliação e reconciliação dos Direitos  Creditórios adquiridos pela Classe: as informações para conciliação dos pagamentos, sendo  considerado como tal, também, o Arquivo Dataprev, listando todos os empregados cujas folhas  de pagamento serão sujeitas a desconto no mês, nos valores acordados ao efetuar a Consignação,",
+      "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+      "verification": "primary_passage"
+    },
+    "c2706a35c1f7e8afbc3c1dfb89ae3d5844317e317ce3511d2426ee11aa321a0d": {
+      "document_id": "982232",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+      "reference_date": "2025-08-28",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "subvenções, autorizações ou licenças, relevantes para o exercício regular dos negócios realizados pelo  Endossante ou pelo Agente da Conta Vinculada, incluindo o Convênio Consignado Privado, e as  autorizações regulatórias concedidas pelo Banco Central;\n (xi) no caso de o Endossante ou o Agente de Retenção/Cobrança e/ou seus acionistas controladores diretos  e/ou indiretos (pessoas físicas ou jurídicas), quotistas, diretores, conselheiros e/ou representantes e  colaboradores do Endossante ou seus acionistas controladores, (a) terem contra si uma decisão judicial  transitada em julgado envolvendo (1) crimes contra a propriedade, (2) crimes de falsificação, (3) crimes  contra o sistema financeiro nacional, (4) crimes contra o mercado de capitais, (5) crimes contra a  seguridade social, (6) crimes contra as relações de consumo e (7) crimes previstos na lei de falências;\n e/ou (b) violar as normas anticorrupção aplicáveis, especialmente a Lei nº 9.613, de 3 de março de  1998, conforme alterada ou substituída de tempos em tempos, e qualquer outra a que estejam sujeitos,  quer contratual ou legalmente, desde que a violação mencionada seja considerada como,  especialmente, mas não limitada a (1) financiamento, crédito, patrocínio ou outra forma de subvenção  à prática de atos ilícitos previstos na legislação anticorrupção, de combate à lavagem de dinheiro,  organizações antissociais e/ou crime organizado; (2) promessa, oferta ou entrega, direta ou  indiretamente, de qualquer objeto de valor a um funcionário público ou terceiros para obter ou manter  negócios ou para obter qualquer vantagem indevida; (3) aceitação ou compromisso de aceitar, de quem  quer que seja, por si ou por outrem, qualquer pagamento, doação, compensação, vantagens financeiras  ou não financeiras ou benefícios de qualquer tipo, direta ou indiretamente relacionados com o objeto da  Classe, que constituam uma prática ilegal, que violem as boas condutas, a ética, a moral e constitua  corrupção nos termos das leis dos países da sede e onde existam filiais das partes envolvidas, das  partes contratantes;\n (xii) caso o Índice de Liquidez seja inferior à 1 (um) em 2 (duas) Datas de Verificação;\n (xiii) caso, conjuntamente, o Índice de Perdas Estoque seja superior à 15% (quinze por cento) e a  rentabilidade mensal da cota Subordinada Júnior seja negativa em 2 (duas) Datas de Verificação  consecutivas;\n (xiv) caso o Público-Alvo das Cotas Subordinadas Júnior deixe de ser atendido;\n (xv) no caso de não serem realizados pagamentos de amortização e/ou resgate de Cotas Seniores e/ou  Cotas Subordinadas Mezanino, nos termos, prazos e condições previstos no presente Regulamento e  nos respectivos Apêndices e Suplementos, não sanados em até 5 (cinco) Dias Úteis contados do prazo  final do respectivo evento;\n (xvi) no caso de intercorrências operacionais, a CEF não realizar o repasse das consignações da folha de  pagamento dos Devedores ao Endossante por 30 (trinta) dias corridos consecutivos, contados da data  do repasse mensal previsto na legislação aplicável;\n (xvii) no caso de a conciliação na Conta Vinculada não ser realizada pelo Endossante, na figura de agente  de conta vinculada, em conformidade com os valores previstos nos Arquivos Dataprev e, desde que tal  fato não seja sanado em até 30 (trinta) dias, contados da data do recebimento pela Endossante dos  Arquivos Dataprev ou do recebimento dos recursos na Conta Vinculada, o que ocorrer primeiro;\n (xviii) no caso de não repasse pelo Endossante, na figura de agente de conta vinculada, dos valores recebidos  na Conta Vinculada e devidos à Classe em montante financeiro relevante e incontroverso, conforme  apurado pelo GESTOR, e que tal fato não seja sanado em até 30 (trinta) dias corridos do recebimento,  pelo Endossante, do Arquivo Dataprev ou do recebimento dos recursos na Conta Vinculada, o que  ocorrer primeiro;\n (xix) no caso do não pagamento pelo Agente de Retenção/Cobrança e/ou pelo Endossante dos preços de  opção de venda e recompra, respectivamente, em montante financeiro relevante, conforme apurado  pelo GESTOR, e que tal fato não seja sanado em até 30 (trinta) dias, contados do fim dos prazos de  cura definidos no Contrato de Endosso;\n (xx) caso a Conta Vinculada seja fechada, por qualquer motivo, e o Endossante não faça a abertura de uma  nova conta vinculada em tempo da Classe receber os recursos de sua titularidade, em montante  financeiro relevante e incontroverso, conforme apurado pelo GESTOR;\n (xxi) no caso de pagamento de resgate e/ou amortização de Cotas Subordinadas Júnior em desacordo com  os termos, prazos e condições previstos no presente Regulamento e no respectivo Apêndice, não  sanados em até 5 (cinco) Dias Úteis contados do prazo final do respectivo evento;",
+      "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
       "verification": "primary_passage"
     }
   }

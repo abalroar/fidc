@@ -3,12 +3,6 @@
   "cnpj": "63977188000142",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ba98e6f46cb3ddb9dd7e0439bb12bfdcc1290aea78ee244d1ba4df7aed665c0b",
-      "72a8f7ab9872c3e7a97165f54e796fe00c854919cbcd8c7cede9eb762dc8a750",
-      "5ac4f5be15039c5dfb098aa0b33c4eb11a0c2752d2cf1b535baa5a6e5a0e3312",
-      "81a0287688fd80dad6006ac1fddfd386ba6d025d207688a86d4e9f1e1609ba4a"
-    ],
     "term": [
       "b6c72ad583aef0bb9b9d82ab43d88549fc7cb21269919c191bb47c54deb22a36",
       "a382267bee09f139deaf86ddb379710b43e252c94b735d7a96a033394ff1b0df",
@@ -228,17 +222,6 @@
       "45c783d3efb0b7777cc1412e3d7b087ffa8f148d6733d122419a549fea125daa",
       "2077c2b2be0f4256acccd98e3596aefa083a50dcc289d3922e80045b1b42c70e"
     ],
-    "originator": [
-      "9889e7b943546e85f37fdd8ae8aa4caf8412d868c3dc65e7fd13257fb841aa3c",
-      "43edc534b71e6b447d324e720bb8958aa9aad57c767b8d204c180d7db0b6b120",
-      "a9c320381aedca47f3fed3d26375a020bcb5af1ec047be08f7407ff0589f6156",
-      "b2bc014567a79e2867172d461955916e7fb5b963cde39884d67cf0695075ae84"
-    ],
-    "debtor": [
-      "56cd4fc8c9c449f1f86809c3505098cbbfd4106b620f0b6209b293a409b34cb4",
-      "4478127e3783d3ee9db69cc75be9c1dd0e871220e44e585e37854fb1c673d25f",
-      "278d2cd80865197983eb404b4bd1c5176f2d8fe899bc1d4535e0a00f5cf38fcb"
-    ],
     "investee": [
       "c217b5f1a5474630f58a94a9d31ac773924811b18a500745d8d0126995b52e63",
       "190074a7a715da121ca833a9c34ef487db30586d15405717571e04f2cde2916f",
@@ -293,6 +276,23 @@
     ],
     "allocation": [
       "c479d29733b4dd88f8938a5939728b0dc4f2a0d138c38a1ced17f174b219be14"
+    ],
+    "originator": [
+      "9889e7b943546e85f37fdd8ae8aa4caf8412d868c3dc65e7fd13257fb841aa3c",
+      "43edc534b71e6b447d324e720bb8958aa9aad57c767b8d204c180d7db0b6b120",
+      "527b74ec98f65d278c04b5456e5d9865bec3282ed0e997122aa5ae29e8e9f11e",
+      "b2bc014567a79e2867172d461955916e7fb5b963cde39884d67cf0695075ae84"
+    ],
+    "eligibility": [
+      "571b22dd652e9d290b36d5e99c5906e6cb702da5e41a07fb2a32f913f1be686f",
+      "a58eeca9ee971865bdb072d9f7c4593ed6ad092e6389627210317cb04961e334",
+      "d9fccb35756c6c1fd2cb665547c03fb06fa1cd3958ed3d3c7c9cc3c831b4dffb",
+      "9b88270500ff0f7711478a785dbffe680c8eac2acec59961e02dd591f6e56127"
+    ],
+    "debtor": [
+      "e2ecbc1553ccb9a8d01967e86df0e5545c8bf59b916122f30f5cc9a4350aaa16",
+      "80799a989b5ac5926f3f73aa2eb12ee6287019086348a47f4ea698922837c269",
+      "6e67433f970969b99cb88c8cf20b8dd6cc144ba5e580b83472fba705ba5e9319"
     ]
   },
   "entries": {
@@ -314,15 +314,6 @@
         "942ee61fc2e150424a484649f89b2b1eb85dcb5de7731b682ea8209c5c2b77d6"
       ]
     },
-    "a9c320381aedca47f3fed3d26375a020bcb5af1ec047be08f7407ff0589f6156": {
-      "reference_date": "2026-05-06",
-      "value": "1.1.6. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, originador, Cedente, Gestora, Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b9f8e0545ab2ea4e7d5c00730a19d46b30abb028b6c7eb93ebc9edf6f49cbedd"
-      ]
-    },
     "b2bc014567a79e2867172d461955916e7fb5b963cde39884d67cf0695075ae84": {
       "reference_date": "2025-12-08",
       "value": "(vii) vender Cotas do FUNDO a instituições financeiras e sociedades de arrendamento mercantil cedentes de Direitos de Crédito, exceto quando se tratar de cotas cuja classe se subordine às demais para efeito de resgate;.",
@@ -330,24 +321,6 @@
       "provenance": "primary_passage",
       "sources": [
         "c62f81180a4a3a4d21c8d405d13f568a415fc7296623ce7b0029dfd43b832246"
-      ]
-    },
-    "56cd4fc8c9c449f1f86809c3505098cbbfd4106b620f0b6209b293a409b34cb4": {
-      "reference_date": "2026-06-22",
-      "value": "3.1.2. ANÁLISE DE CRÉDITO O limite de crédito será concedido a cada cliente a partir da análise de crédito que inclui: ficha cadastral e das documentações obtidas pela Consultora Especializada junto a empresa, em consultas de mercado realizadas, utilizando-se dos seguintes recursos, conforme o caso: a) Centrais de Informações; b) Histórico dos sacados; c) Documentação específica do cliente:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "aae0e78ac3f79f3481efa5556c00e2888aba3e074c8ffeacc35f69c9ef7b82eb"
-      ]
-    },
-    "4478127e3783d3ee9db69cc75be9c1dd0e871220e44e585e37854fb1c673d25f": {
-      "reference_date": "2026-05-21",
-      "value": "3.1.2. ANÁLISE DE CRÉDITO O limite de crédito será concedido a cada cliente a partir da análise de crédito que inclui: ficha cadastral e das documentações obtidas pela Consultora Especializada junto a empresa, em consultas de mercado realizadas, utilizando-se dos seguintes recursos, conforme o caso: a) Centrais de Informações; b) Histórico dos sacados; c) Documentação específica do cliente:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a0d2af0f3f07266e6e35127b604c7ef93f99a51c353d534a3aed2c8e29fdc918"
       ]
     },
     "ba98e6f46cb3ddb9dd7e0439bb12bfdcc1290aea78ee244d1ba4df7aed665c0b": {
@@ -375,15 +348,6 @@
       "provenance": "primary_passage",
       "sources": [
         "76cafb020fa25e2b42fbd41b117655b2988f8a27d9708d2aa170a3f3ad25c0e4"
-      ]
-    },
-    "81a0287688fd80dad6006ac1fddfd386ba6d025d207688a86d4e9f1e1609ba4a": {
-      "reference_date": "2025-12-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b6d70a28c37e6f6bbab99b2fc65bb9a19472ca86f3e2963331a339321ffab7f1"
       ]
     },
     "b6c72ad583aef0bb9b9d82ab43d88549fc7cb21269919c191bb47c54deb22a36": {
@@ -2004,13 +1968,76 @@
         "46c33d13876f1b17283456243b9c522d8f2a386237739702650f24636051450a"
       ]
     },
-    "278d2cd80865197983eb404b4bd1c5176f2d8fe899bc1d4535e0a00f5cf38fcb": {
-      "reference_date": "2025-12-08",
-      "value": "“Cartão Benefício” significa a modalidade de cartão de benefícios por meio do qual os Devedores, beneficiários do INSS e/ou servidores públicos do poder executivo da União cadastrados no SIGEPE/SIAPE, efetuam compras e saques e pagam suas faturas por meio de consignação em folha de pagamento;",
+    "527b74ec98f65d278c04b5456e5d9865bec3282ed0e997122aa5ae29e8e9f11e": {
+      "reference_date": "2026-05-06",
+      "value": "9.3.1 A vedação do caput não é aplicável caso: (i) a Entidade Registradora e a Administradora não forem partes relacionadas do originador ou da respectiva Cedente e, (ii) a Gestora, a Entidade Registradora e a Administradora não forem partes relacionadas entre si, nos termos da regulamentação aplicável.",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "2c61ffe1d4f08986944a2c9838b14cf92ddd07bc0642f03eaa36d987b808ea22"
+        "77f7140e0c8bbbf78f7cddc009c8725db1af079d556b4ac74adaa4dcc1b6fba1"
+      ]
+    },
+    "571b22dd652e9d290b36d5e99c5906e6cb702da5e41a07fb2a32f913f1be686f": {
+      "reference_date": "2026-06-22",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) as Cedentes encaminharão à Consultora Especializada e à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (ii) a Gestora encaminhará à Administradora as informações dos Direitos Creditórios selecionados para aquisição pelo Fundo; (iii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições de Cessão e, em paralelo, com base nas informações que a Cedente encaminhou, realizará a verificação da integridade e titularidade do lastro, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; (iv) a Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e, caso satisfeitas, a Gestora decidirá e aprovará a aquisição dos Direitos Creditórios, desde que estejam enquadrados à Política de Investimento, aderentes aos limites de concentração e em conformidade com os Critérios de Elegibilidade aplicáveis; e (v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do 19",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cbce7d2b00adb6ac27cf741399c3deee21aa77ddeb902c84f2abccb5402af4df"
+      ]
+    },
+    "a58eeca9ee971865bdb072d9f7c4593ed6ad092e6389627210317cb04961e334": {
+      "reference_date": "2026-05-21",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) as Cedentes encaminharão à Consultora Especializada e à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (ii) a Gestora encaminhará à Administradora as informações dos Direitos Creditórios selecionados para aquisição pelo Fundo; (iii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições de Cessão e, em paralelo, com base nas informações que a Cedente encaminhou, realizará a verificação da integridade e titularidade do lastro, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; (iv) a Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e, caso satisfeitas, a Gestora decidirá e aprovará a aquisição dos Direitos Creditórios, desde que estejam enquadrados à Política de Investimento, aderentes aos limites de concentração e em conformidade com os Critérios de Elegibilidade aplicáveis; e (v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do 19",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8c4443f91a3afa6c414275ed38935370dfddd88da6c228a994dbd430d2fdb5b1"
+      ]
+    },
+    "d9fccb35756c6c1fd2cb665547c03fb06fa1cd3958ed3d3c7c9cc3c831b4dffb": {
+      "reference_date": "2026-05-06",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) as Cedentes encaminharão à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (ii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições de Cessão e com base nas informações recebidas Cedente, realizará a verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4 abaixo, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; (iii) a Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e, caso satisfeitas, aprovará a aquisição dos Direitos Creditórios, desde que estejam enquadrados à Política de Investimento, aderentes aos limites de concentração e em conformidade com os Critérios de Elegibilidade aplicáveis; (iv) a Administradora acompanhará todo o processo de cessão; e (v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do preço de aquisição pela Administradora, em nome do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "76cafb020fa25e2b42fbd41b117655b2988f8a27d9708d2aa170a3f3ad25c0e4"
+      ]
+    },
+    "9b88270500ff0f7711478a785dbffe680c8eac2acec59961e02dd591f6e56127": {
+      "reference_date": "2025-12-08",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fa74519f3eeb1be843a0cfd0b05c6232131f07c5c5cb8dcb7465417362b7b1ef"
+      ]
+    },
+    "e2ecbc1553ccb9a8d01967e86df0e5545c8bf59b916122f30f5cc9a4350aaa16": {
+      "reference_date": "2026-06-22",
+      "value": "b) os devedores dos Direitos de Crédito devem ser pessoas físicas ou jurídicas;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2bfdb7ce9ecb96c96a407bc22c758c7dd742b07c8a6fa7a81d6db80fe4bd5da6"
+      ]
+    },
+    "80799a989b5ac5926f3f73aa2eb12ee6287019086348a47f4ea698922837c269": {
+      "reference_date": "2026-05-21",
+      "value": "b) os devedores dos Direitos de Crédito devem ser pessoas físicas ou jurídicas;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dfa80ccfeae2c51e8a63056fbead13b8db82236e9229ca170647618335b1e88e"
+      ]
+    },
+    "6e67433f970969b99cb88c8cf20b8dd6cc144ba5e580b83472fba705ba5e9319": {
+      "reference_date": "2025-12-08",
+      "value": "“Devedores” significa as pessoas físicasemitirem as CCB;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "15c508b3d39875f6bd1d1caf5624d5d17c03aef6a592be4c056f193b79df2ffd"
       ]
     }
   },
@@ -2039,18 +2066,6 @@
       "sha256": "5716d1bd86ac8d3d986733925e0cae741406921d0bc63da4e41e48dd3ea99dbe",
       "verification": "primary_passage"
     },
-    "b9f8e0545ab2ea4e7d5c00730a19d46b30abb028b6c7eb93ebc9edf6f49cbedd": {
-      "document_id": "1180976",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180976",
-      "reference_date": "2026-05-06",
-      "version": "1",
-      "page": 14,
-      "clause": "1.1.6",
-      "excerpt": "1.1.6. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, originador, Cedente, Gestora, Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "dd4888d711692fe0b613fdc253578fa3de1e48fd7a6200d6eec2647c22e556c7",
-      "verification": "primary_passage"
-    },
     "c62f81180a4a3a4d21c8d405d13f568a415fc7296623ce7b0029dfd43b832246": {
       "document_id": "1056763",
       "title": "Regulamento",
@@ -2061,30 +2076,6 @@
       "clause": "2.7",
       "excerpt": "2.7. Sem prejuízo das vedações previstas na Resolução CVM 175, é vedado à ADMINISTRADORA, em nome do FUNDO:\n(i) prestar fiança, aval, aceite ou coobrigar-se sob qualquer outra forma, exceto quando  se tratar de margens de garantia em operações realizadas em mercados de derivativos;\n(ii) realizar operações e negociar com Ativos Financeiros ou modalidades de investimento  não previstos na Resolução CVM 175 e/ou no presente Regulamento;\n(iii) aplicar recursos diretamente no exterior;\n(iv) adquirir Cotas do próprio FUNDO;\n(v) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas  previstas na Resolução CVM 175, bem como no Regulamento;\n(vi) vender Cotas do FUNDO a prestação;\n(vii) vender Cotas do FUNDO a instituições financeiras e sociedades de arrendamento  mercantil cedentes de Direitos de Crédito, exceto quando se tratar de cotas cuja classe se  subordine às demais para efeito de resgate;\n(viii) prometer rendimento predeterminado aos Cotistas;\n(ix) fazer, em sua propaganda ou em outros documentos apresentados aos investidores,  promessas de retiradas ou de rendimentos com base em seu próprio desempenho, no  desempenho alheio ou no de Ativos Financeiros ou modalidades de investimento disponíveis  no âmbito do mercado financeiro;\n(x) delegar poderes de administração da carteira do FUNDO;\n(xi) obter ou conceder empréstimos/financiamentos, admitindo-se a constituição de  créditos e a assunção de responsabilidade por débitos em decorrência de operações realizadas  em mercados de derivativos;\n(xii) efetuar locação, empréstimo, penhor ou caução dos direitos e demais ativos  integrantes da carteira do FUNDO, exceto quando se tratar de sua utilização como margem de  garantia nas operações realizadas em mercados de derivativos; e",
       "sha256": "a75186d80891e0acfca85e0f96815d961fd925486041e7c1baf5f7c11d96fc9e",
-      "verification": "primary_passage"
-    },
-    "aae0e78ac3f79f3481efa5556c00e2888aba3e074c8ffeacc35f69c9ef7b82eb": {
-      "document_id": "1226689",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226689",
-      "reference_date": "2026-06-22",
-      "version": "1",
-      "page": 67,
-      "clause": "3.1.2",
-      "excerpt": "3.1.2. ANÁLISE DE CRÉDITO  O limite de crédito será concedido a cada cliente a partir da análise de crédito que  inclui: ficha cadastral e das documentações obtidas pela Consultora Especializada  junto a empresa, em consultas de mercado realizadas, utilizando-se dos seguintes  recursos, conforme o caso:\n a) Centrais de Informações;\n b) Histórico dos sacados;\n c) Documentação específica do cliente:",
-      "sha256": "6e3a0176e0fc39793e9a5923e2089d2cdc24b516b3b519d48d176f5511c8cf42",
-      "verification": "primary_passage"
-    },
-    "a0d2af0f3f07266e6e35127b604c7ef93f99a51c353d534a3aed2c8e29fdc918": {
-      "document_id": "1200680",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200680",
-      "reference_date": "2026-05-21",
-      "version": "1",
-      "page": 67,
-      "clause": "3.1.2",
-      "excerpt": "3.1.2. ANÁLISE DE CRÉDITO  O limite de crédito será concedido a cada cliente a partir da análise de crédito que  inclui: ficha cadastral e das documentações obtidas pela Consultora Especializada  junto a empresa, em consultas de mercado realizadas, utilizando-se dos seguintes  recursos, conforme o caso:\n a) Centrais de Informações;\n b) Histórico dos sacados;\n c) Documentação específica do cliente:",
-      "sha256": "5716d1bd86ac8d3d986733925e0cae741406921d0bc63da4e41e48dd3ea99dbe",
       "verification": "primary_passage"
     },
     "cbce7d2b00adb6ac27cf741399c3deee21aa77ddeb902c84f2abccb5402af4df": {
@@ -2121,18 +2112,6 @@
       "clause": "7.1",
       "excerpt": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir:\n(i) as Cedentes encaminharão à Gestora as informações a respeito dos  Direitos Creditórios que pretendem ceder;\n(ii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições  de Cessão e com base nas informações recebidas Cedente, realizará a  verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4  abaixo, bem como o enquadramento à Política de Investimento, a  verificação dos limites de concentração e o atendimento dos Critérios de  Elegibilidade, conforme regras dispostas no Anexo da Classe Única;\n(iii) a Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e,  caso satisfeitas, aprovará a aquisição dos Direitos Creditórios, desde que  estejam enquadrados à Política de Investimento, aderentes aos limites de  concentração e em conformidade com os Critérios de Elegibilidade  aplicáveis;\n(iv) a Administradora acompanhará todo o processo de cessão; e\n(v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura  dos respectivos Instrumentos de Aquisição, conforme aplicável, e o  pagamento do preço de aquisição pela Administradora, em nome do  Fundo.",
       "sha256": "dd4888d711692fe0b613fdc253578fa3de1e48fd7a6200d6eec2647c22e556c7",
-      "verification": "primary_passage"
-    },
-    "b6d70a28c37e6f6bbab99b2fc65bb9a19472ca86f3e2963331a339321ffab7f1": {
-      "document_id": "1056763",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056763",
-      "reference_date": "2025-12-08",
-      "version": "1",
-      "page": 41,
-      "clause": "17.27",
-      "excerpt": "17.27. A cessão dos Direitos de Crédito à CLASSE observará os procedimentos descritos a seguir:\n(i) As ENTIDADES CONSIGNATÁRIAS e o CEDENTE encaminharão ao GESTOR as  informações a respeito dos Direitos de Crédito que o CEDENTE pretende endossar;\n(ii) o GESTOR verificará e garantirá o atendimento dos Direitos de Crédito aos Critérios de  Elegibilidade e à Política de Investimento, aprovando ou não sua aquisição;\n(iii) o GESTOR, ou terceiro por ele contratado, realizará a verificação do lastro dos Direitos  de Crédito;\n(iv) a ADMINISTRADORA e o GESTOR acompanharão toda oferta de cessão dos Direitos de  Crédito;\n(v) cumpridas e aprovadas as etapas acima, será assinado o respectivo Termo de Endosso  pelo FUNDO (representado pelo GESTOR), CEDENTE e GESTOR; e",
-      "sha256": "a75186d80891e0acfca85e0f96815d961fd925486041e7c1baf5f7c11d96fc9e",
       "verification": "primary_passage"
     },
     "f65beb3036668adf98b0c21b6f615127c178e745f01f535eb3427ef758217353": {
@@ -4174,15 +4153,64 @@
       "sha256": "cb2d3577624c4f9c5cd189218837348bd010d169749aa381ae3db0960462c889",
       "verification": "primary_passage"
     },
-    "2c61ffe1d4f08986944a2c9838b14cf92ddd07bc0642f03eaa36d987b808ea22": {
+    "77f7140e0c8bbbf78f7cddc009c8725db1af079d556b4ac74adaa4dcc1b6fba1": {
+      "document_id": "1180976",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180976",
+      "reference_date": "2026-05-06",
+      "version": "1",
+      "page": 23,
+      "clause": "9.3.1",
+      "excerpt": "9.3.1 A vedação do caput não é aplicável caso: (i) a Entidade Registradora e a Administradora não forem partes relacionadas do originador ou da respectiva Cedente e, (ii) a Gestora, a Entidade Registradora e a Administradora não forem partes relacionadas entre si, nos termos da regulamentação aplicável.",
+      "sha256": "dd4888d711692fe0b613fdc253578fa3de1e48fd7a6200d6eec2647c22e556c7",
+      "verification": "primary_passage"
+    },
+    "fa74519f3eeb1be843a0cfd0b05c6232131f07c5c5cb8dcb7465417362b7b1ef": {
       "document_id": "1056763",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056763",
       "reference_date": "2025-12-08",
       "version": "1",
-      "page": 6,
+      "page": "21–23",
+      "clause": "3.2",
+      "excerpt": "3.2. Sem prejuízo de outras atribuições impostas pela regulamentação em vigor e pelo presente Regulamento, o GESTOR é responsável pelas seguintes atividades:\n(i) Contratar, em nome do FUNDO, com terceiros devidamente habilitados e autorizados,  os seguintes serviços, se, conforme o caso, tais serviços não sejam prestados diretamente pelo  GESTOR:\na. intermediação de operações para a carteira de Direitos de Crédito e Ativos  Financeiros;\n b. Agente de Cobrança;\n c. distribuição de Cotas;\n d. consultoria de investimentos;\n e. classificação de risco por Agência Classificadora de Risco;\n f. formador de mercado de classe fechada; e  g. cogestão da carteira de Direitos de Crédito e Ativos Financeiros.\n(ii) estruturar o FUNDO e/ou a CLASSE, considerando, no mínimo, o conjunto das seguintes  atividades:\na. estabelecer a Política de Investimento;\n b. estimar a inadimplência da carteira de Direitos de Crédito;\n c. estimar o prazo médio ponderado da carteira de Direitos de Crédito;\n d. estabelecer como se darão os fluxos financeiros derivados dos Direitos de  Crédito; e  e. estabelecer hipóteses de liquidação antecipada que devem constar do  Regulamento.\n(iii) executar a Política de Investimentos, devendo analisar e selecionar os Direitos de  Crédito e Ativos Financeiros para a carteira da CLASSE;\n(iv) verificar o enquadramento dos Direitos de Crédito à Política de Investimento,  compreendendo no mínimo, a validação dos Critérios de Elegibilidade e a observância aos  requisitos de composição e diversificação da carteira, de forma individualizada ou por  amostragem, utilizando modelo estatístico consistente e passível de verificação;\n(v) caso aplicável, avaliar a aderência do risco de performance dos Direitos de Crédito à Política de Investimentos;\n(vi) Proceder com o registro dos Direitos de Crédito Elegíveis na Entidade Registradora da CLASSE, conforme aplicável;\n(vii) na hipótese de ocorrer substituição de Direitos de Crédito, por qualquer motivo, diligenciar para que a relação entre risco e retorno da carteira de Direitos de Crédito não seja alterada, nos termos da Política de Investimentos;\n(viii) efetuar a correta formalização dos documentos relativos à cessão dos Direitos de Crédito; e\n(ix) sem prejuízo de outros parâmetros estabelecidos no Regulamento, monitorar:\na. a Razão de Garantia;\n b. a adimplência da carteira de Direitos de Crédito e, em relação aos Direitos de  Crédito vencidos e não pagos, diligenciando para que sejam adotados os  procedimentos de cobrança, observado que essa última obrigação inexiste no  caso de hipóteses de dispensa previstas no Regulamento; e  c. a taxa de retorno dos Direitos de Crédito, considerando, no mínimo,  pagamentos, pré-pagamentos e inadimplência.\n(x) informar à ADMINISTRADORA de imediato, caso ocorra qualquer alteração em prestador de serviço por ele contratado;\n(xi) proceder à análise de crédito e de cobrança e avaliação dos modelos dos Documentos Representativos do Crédito;\n(xii) acompanhar a aderência, pelos CEDENTES, às Políticas de Concessão de Crédito por ele adotadas;\n(xiii) calcular e validar o Preço de Aquisição;\n(xiv) solicitar amortização, resgate e novas emissões das Cotas Subordinadas Júnior, respeitando as regras deste Regulamento;\n(xv) monitorar o fluxo de créditos recebidos nas Contas Fiduciárias,;\n(xvi) realizar recomendações para a Assembleia Especial de Cotistas sobre a emissão de novas Subclasses de Cotas;\n(xvii) desempenhar toda e qualquer função relacionada, direta ou indiretamente, à gestão  da carteira do FUNDO no que se refere aos Direitos de Crédito e Ativos Financeiros dela  integrantes, salvo se defeso por lei ou pela regulamentação aplicável;\n(xviii) gerir a liquidez (caixa) e os Ativos Financeiros integrantes da carteira da CLASSE, bem  como acompanhar, em conjunto com a ADMINISTRADORA, o gerenciamento do risco de  liquidez;\n(xix) monitorar, na sua esfera de competência e com base nas informações fornecidas pelo  CUSTODIANTE e/ou ADMINISTRADORA, conforme aplicável, os Eventos de Avaliação e Eventos  de Liquidação;\n(xx) analisar e selecionar os Direitos de Crédito e os Ativos Financeiros, dentre aqueles  apresentados pelo CEDENTE, para aquisição e, conforme o caso, alienação pela CLASSE, em  estrita observância à Política de Investimento, composição e diversificação da carteira do  FUNDO;\n(xxi) validar, previamente a cada cessão, as declarações do CEDENTE quanto à aderência  dos Direitos de Crédito aos Critérios de Elegibilidade previstos no Artigo 18.3;\n(xxii) celebrar ou realizar qualquer acordo, transação ou ato de alienação ou transferência,  no todo ou em parte, relacionado aos Direitos de Crédito Elegíveis ou aos Ativos Financeiros  integrantes da carteira da CLASSE, sempre de forma a preservar os direitos, interesses e  prerrogativas dos Cotistas;\n(xxiii) atuar em estrita concordância com a sua política de exercício de direito de voto em  assembleias, a qual disciplina os princípios gerais, o processo decisório e quais são as matérias  relevantes obrigatórias para o exercício do direito de voto em assembleias gerais de emissores  de Ativos Financeiros que componham a carteira do FUNDO, atuando sempre de acordo com  os melhores interesses do FUNDO;\n(xxiv) constituir procuradores, inclusive para os fins de proceder à cobrança amigável ou  judicial dos ativos integrantes da carteira do FUNDO, sendo que todas as procurações  outorgadas em nome do FUNDO não poderão ter prazo de validade superior a 12 (doze) meses,  contados da data de sua outorga, com exceção: (1) às procurações outorgadas ao Agente de  Cobrança; e (2) às procurações com poderes de representação em juízo, que poderão ser  outorgadas por prazo indeterminado, mas com finalidade específica; e",
+      "sha256": "a75186d80891e0acfca85e0f96815d961fd925486041e7c1baf5f7c11d96fc9e",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "2bfdb7ce9ecb96c96a407bc22c758c7dd742b07c8a6fa7a81d6db80fe4bd5da6": {
+      "document_id": "1226689",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1226689",
+      "reference_date": "2026-06-22",
+      "version": "1",
+      "page": 47,
       "clause": "",
-      "excerpt": "“Cartão Benefício” significa a modalidade de cartão de benefícios por meio do  qual os Devedores, beneficiários do INSS e/ou servidores  públicos do poder executivo da União cadastrados no  SIGEPE/SIAPE, efetuam compras e saques e pagam suas  faturas por meio de consignação em folha de pagamento;",
+      "excerpt": "b) os devedores dos Direitos de Crédito devem ser pessoas físicas ou jurídicas;",
+      "sha256": "6e3a0176e0fc39793e9a5923e2089d2cdc24b516b3b519d48d176f5511c8cf42",
+      "verification": "primary_passage"
+    },
+    "dfa80ccfeae2c51e8a63056fbead13b8db82236e9229ca170647618335b1e88e": {
+      "document_id": "1200680",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200680",
+      "reference_date": "2026-05-21",
+      "version": "1",
+      "page": 47,
+      "clause": "",
+      "excerpt": "b) os devedores dos Direitos de Crédito devem ser pessoas físicas ou jurídicas;",
+      "sha256": "5716d1bd86ac8d3d986733925e0cae741406921d0bc63da4e41e48dd3ea99dbe",
+      "verification": "primary_passage"
+    },
+    "15c508b3d39875f6bd1d1caf5624d5d17c03aef6a592be4c056f193b79df2ffd": {
+      "document_id": "1056763",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056763",
+      "reference_date": "2025-12-08",
+      "version": "1",
+      "page": 9,
+      "clause": "",
+      "excerpt": "“Devedores” significa as pessoas físicasemitirem as CCB;",
       "sha256": "a75186d80891e0acfca85e0f96815d961fd925486041e7c1baf5f7c11d96fc9e",
       "verification": "primary_passage"
     }

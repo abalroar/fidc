@@ -3,15 +3,6 @@
   "cnpj": "54857414000160",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "9c3e52fcb9567d8e0eb77069d922844c054839acbb1fb20aa117144520e5633e",
-      "5eb3b1be20aafa836c76f4207fb27f8d0ced53abaad7d6094ad81c5b85793c24",
-      "6e8075d9486fdc377a27779a524519652594180d2b0abb5cf303e81262c88688",
-      "7c0ad7bf90c86124ad4973853847c6faaf2a600bc5d7cd2b8d58623c904acbec",
-      "bd8edf0b2827becced03c0d333c1596da9be406c1ffcd74afcc757b3751adf09",
-      "72f80d13ae6b8b1f197e8039ea9dfd6758b63187e0a734d397afd7624cf8a261",
-      "6abebf49e7e2fd7f6eb7a00b751f4329a7957a11bd381a3e356e4ea5496d828a"
-    ],
     "ticket": [
       "93a6ca340a94e0d974455106f91a451fa50ce1aa1d3c89ad219c998f40221918",
       "0446067877ac931f894dc3de23657e84d3bf98844fd6ae6ccc5fd6f0164feefc",
@@ -456,26 +447,6 @@
       "1b509c171768681df1a0f3b421c7c5ea78fbe288d1e98633bef97900b69e0533",
       "37c0a0d220471ef24df7ee392ccf4e1752220367822caca20097b09e5e8dfc94"
     ],
-    "originator": [
-      "5893665a713e555b108af7b16d2cd67e6e0b251828c1e52b79fc5b2b61e8605f",
-      "9ee07b41835ae18cdb86d88004073359acd687603e8a4d0f5fa584508ebc49d6",
-      "adfd9b36bd4d46321233b478eab28a2d7ff911b47f1a0520b70804fc92a8c4b4",
-      "9c4e8765a086f7c3009fd440966946ac19b58fe8f0ebf395cc7647a403fed778",
-      "6f760e8811f264597c523e78ec95f8376875c302eca127db007ef5be4ea7a37c",
-      "f47ff2d0039527f7e863db2fb5bee537dae25bf8401ebdc927ad8f8278062f81",
-      "5e269f8c988777c82d4e6dbb22d59d05eb03338466b96fbaee2392459232bbb7",
-      "93c2dc9918d79bc9e9bdb39eab4ada9279d3e17eac614012514aaa462bc8c1a4"
-    ],
-    "debtor": [
-      "8ff63c32ce522611e2a8e008df465ab448a4aa7e16f8f9894bae069fad1d61c6",
-      "504fb14a4c08e56690e5347ff0a38a4350fbc9463acb73d18efac0bb5ef2c0ea",
-      "0cebaab69a441b7f6dd6ffec45f3487b29e13ea3ab12d15a437cc41ed5945ab1",
-      "a25aa7df8bc775b0216240f872ed04182a2875ebd644e970dd304ca727d5adea",
-      "b254a45cff3f54974a136ce80a7447a48996205ccc7e44299d2173c9a6dd309d",
-      "3e57fd71ed70cd95d2351cbe03e478147d5cfbe4edbcedc148fa8bbef6979a5d",
-      "064bdc5ada77a84d633ce710a40eba7482de013ef9f86abc1ce533bcbfd79eb5",
-      "9d067e522d658d070f9cead52b36183a1e107313adf43a34c181a29ddefc2aa9"
-    ],
     "guarantee": [
       "4e5bc787b9b220a79e4585268f6850bdae9b2fdc09fa8be4bf7448619774873c",
       "f30acb063ba37214278a232cdc2fa83197dea45d4fd0809442cf080b8ed9212e",
@@ -526,6 +497,40 @@
       "4a13cec312a6999329076a067582e5de48775667125c3a0c48eadacaa06e98fc",
       "e3d8336eef478cd6d5041491a191244bea9c988935bc35e44b720663541d21b6",
       "f524c918d0ba8cf5a2ddcf04f79f641be0f65d173aa9b11b1f2c74e7b5f5d59c"
+    ],
+    "originator": [
+      "9ee07b41835ae18cdb86d88004073359acd687603e8a4d0f5fa584508ebc49d6",
+      "adfd9b36bd4d46321233b478eab28a2d7ff911b47f1a0520b70804fc92a8c4b4",
+      "9c4e8765a086f7c3009fd440966946ac19b58fe8f0ebf395cc7647a403fed778",
+      "6f760e8811f264597c523e78ec95f8376875c302eca127db007ef5be4ea7a37c",
+      "f47ff2d0039527f7e863db2fb5bee537dae25bf8401ebdc927ad8f8278062f81",
+      "5e269f8c988777c82d4e6dbb22d59d05eb03338466b96fbaee2392459232bbb7",
+      "93c2dc9918d79bc9e9bdb39eab4ada9279d3e17eac614012514aaa462bc8c1a4"
+    ],
+    "eligibility": [
+      "9c3e52fcb9567d8e0eb77069d922844c054839acbb1fb20aa117144520e5633e",
+      "1dcce1c37904f38677d86c97f9942d76fe7497eea925aeedef7b7c602ac4ae29",
+      "4a12e1cf24e5cc1f4e6d2a1a1d6c16d242fc94c8d5b5c760427e9f17f5fac0ff",
+      "8ef2310116caa2217c30d6a3381023adb8bf3113ff9c922dfa3ab20fd6c96481",
+      "c3db506f9ffbcbe4dcb3e4ac769dd6278a3943f53608372583c0f122b7754e7f",
+      "f0222c5b4ce33c330b5921f056143e1bbc1739e3ac938b74f3754debe330b94c",
+      "2eb8f348beaa3d4235a9d0966bae3603bf5cfce4b8015db6689c85d17a125754",
+      "855ff213c01f0753398fde18d17133920bd29f9254f8ca763b567585639ca5a3"
+    ],
+    "debtor": [
+      "fd4c07b16f660775597971ebb0e7dbeb41405b300a30b79eb6e6f7521d723ac8",
+      "3398c0d858ead2dccb632366214eb138686f701faebaea8a4c7e64a53f40287c",
+      "f006640b232b32ce3bf2e38a58906e0097c3c4b8ae871dc0fa3c9b9dca66c1d8",
+      "912d4e3a0b1ca3d2d62814d0665ac2c6db434041d2bb2278dd9c345298323fc1",
+      "c822154317da0b67e0f8775f9c7337140581655a5bf26a23145a15afb515d1dd",
+      "7e2c125602eb55ca3c39d56d1b97a5fd71efb29b04cb230c568be13b36fa9d9c",
+      "9043d804bacd64e2eee3e85e2a4b069de6a4bbd1b7b8cbca015f578fe4cf5c0b",
+      "ad811340b4a9b5753a36b64e0e9f36370faf75c6e4afc635ea733c27701ecdcc",
+      "af139526dd431cca9952cf2f2b25dff33d69f4dc334cb2fc0b1095d0ecb0a7cb",
+      "0e00c505ac16bd46189569244130b4a61a87179eddaddf4239b43b2260251072",
+      "86731d383af9508dae929aaea1eb7142e013c37cc90ed70dd095c5043a2d1f1e",
+      "0d9228b326c914056b53cf20beb0b5f6acfeeb83680f6f3a2a3ec318dd4c31fa",
+      "f191190d45c93e5599623b39bd5ceec40ec567840fd755eb838d25e0a043da7b"
     ]
   },
   "entries": {
@@ -610,15 +615,6 @@
         "13bc759d3bc7db74350722745a283110b74b717b7315e4bb562d028f64ff136a"
       ]
     },
-    "5893665a713e555b108af7b16d2cd67e6e0b251828c1e52b79fc5b2b61e8605f": {
-      "reference_date": "2026-05-31",
-      "value": "(vi) os Direitos Creditórios que contem com Garantia Adicional de alienação fiduciária de imóvel deverão observar a Razão de Garantia Alienação Fiduciária de Imóvel, a ser apurada com base em laudo de avaliação de imóvel emitido por empresa autorizada, conforme lista de empresas previamente aprovadas entre a Administradora, a Gestora, a Cogestora e Originadora e constante dos Documentos do Fundo e/ou Documentos da Classe, conforme o caso;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d42834d985adbffd9058d35f19c841933f3aab2601b9a092daef56134c588420"
-      ]
-    },
     "9ee07b41835ae18cdb86d88004073359acd687603e8a4d0f5fa584508ebc49d6": {
       "reference_date": "2025-08-20",
       "value": "3.3. A Originadora, quando da indicação de Devedores à Classe e/ou oferta e/ou Cedentes para cessão de Direitos Creditórios Cessão à Classe, observará a política vigente de cadastro, originação e concessão de crédito, cujos principais termos e condições estão dispostos no Anexo IV deste Anexo Descritivo. A Política de Crédito e Originação constante do Anexo IV deste Anexo Descritivo poderá ser alterada a qualquer momento, mediante aprovação prévia da Assembleia Especial.",
@@ -682,24 +678,6 @@
         "3647d06bbed629f78d849d76b2816d2b83bfb6323b5acbcbc474d7422c0d0889"
       ]
     },
-    "8ff63c32ce522611e2a8e008df465ab448a4aa7e16f8f9894bae069fad1d61c6": {
-      "reference_date": "2026-05-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d42834d985adbffd9058d35f19c841933f3aab2601b9a092daef56134c588420"
-      ]
-    },
-    "504fb14a4c08e56690e5347ff0a38a4350fbc9463acb73d18efac0bb5ef2c0ea": {
-      "reference_date": "2025-08-20",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7b81410bb774bf8b0d297c2439ad12656290f0a8acc498ccfd0581086effd1e7"
-      ]
-    },
     "9c3e52fcb9567d8e0eb77069d922844c054839acbb1fb20aa117144520e5633e": {
       "reference_date": "2026-05-31",
       "value": "A Classe Única somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada proforma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta) dias;.",
@@ -709,33 +687,6 @@
         "8fa6dc8f8b580722a82601943e8f7a597b3a37ef4d2b1bbd9a7028da8f4520dc"
       ]
     },
-    "5eb3b1be20aafa836c76f4207fb27f8d0ced53abaad7d6094ad81c5b85793c24": {
-      "reference_date": "2025-08-20",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9a4eaadfb8e9f88b60904a5e047ac25fc0676da6ea10007f3938038a4e3e3cc9"
-      ]
-    },
-    "6e8075d9486fdc377a27779a524519652594180d2b0abb5cf303e81262c88688": {
-      "reference_date": "2025-05-31",
-      "value": "(vi) a concessão de waiver até o dia 30 de dezembro de 2024 em relação aos limites de concentração previstos como Critérios de Elegibilidade na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas respectivas alíneas, no Anexo descritivo da Classe Única do Fundo, de modo a serem observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem milhões de reais); e (vii) caso aprovados os itens “i”, “ii”, “iii”, “iv”, “v” e “vi”, a consolidação do Regulamento do Fundo, para refletir as deliberações aprovadas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1ae429615d7cd5d56a4167eb762d8c24cf30951f07a5c92156b89340679bb7d9"
-      ]
-    },
-    "7c0ad7bf90c86124ad4973853847c6faaf2a600bc5d7cd2b8d58623c904acbec": {
-      "reference_date": "2025-05-20",
-      "value": "3.5. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e à Condição de Aquisição, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ef1f28db05fade5f540c5b262e481edf0688875968f8ae5bd4d3a5497af297ee"
-      ]
-    },
     "bd8edf0b2827becced03c0d333c1596da9be406c1ffcd74afcc757b3751adf09": {
       "reference_date": "2025-03-24",
       "value": "",
@@ -743,24 +694,6 @@
       "provenance": "primary_passage",
       "sources": [
         "b0fbd92984c876bc3a2b2dc6dfa247a95bac1250c5e72eecc0742c27e28efd52"
-      ]
-    },
-    "72f80d13ae6b8b1f197e8039ea9dfd6758b63187e0a734d397afd7624cf8a261": {
-      "reference_date": "2025-03-24",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d7404c319a8ebfb0360f631a1c5b4398e12dc5180a6b7075c34f13af28c6573e"
-      ]
-    },
-    "6abebf49e7e2fd7f6eb7a00b751f4329a7957a11bd381a3e356e4ea5496d828a": {
-      "reference_date": "2024-10-28",
-      "value": "(vii) a prorrogação até o dia 30 de junho de 2025, do waiver concedido na AGC realizada em 05 de agosto de 2024, em relação aos Critérios de Elegibilidade referentes aos limites de concentração, previstos na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas respectivas alíneas, de modo a serem observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem milhões de reais);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ce6ba5d2b7ddb6e48923fbc86403ec9794f04c69d055920545a088b0745ca502"
       ]
     },
     "93a6ca340a94e0d974455106f91a451fa50ce1aa1d3c89ad219c998f40221918": {
@@ -4028,60 +3961,6 @@
         "5faffda3f83cdd463887d5b21860d1f9ded3930e3f71da4418d73c706c80380d"
       ]
     },
-    "0cebaab69a441b7f6dd6ffec45f3487b29e13ea3ab12d15a437cc41ed5945ab1": {
-      "reference_date": "2025-05-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f8abb4cf466ee5429538d47c529cc2d2e79bb450bbfb45086d089418cb7aeb34"
-      ]
-    },
-    "a25aa7df8bc775b0216240f872ed04182a2875ebd644e970dd304ca727d5adea": {
-      "reference_date": "2025-05-20",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6109d49868291b0033ee49bf0bfaae7d2f3630c570fb44bea3c2061eccfd7961"
-      ]
-    },
-    "b254a45cff3f54974a136ce80a7447a48996205ccc7e44299d2173c9a6dd309d": {
-      "reference_date": "2025-03-24",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5294ad974d8825f4a00127187f9b5252f6976c043d02dbf42b13387ea2c74831"
-      ]
-    },
-    "3e57fd71ed70cd95d2351cbe03e478147d5cfbe4edbcedc148fa8bbef6979a5d": {
-      "reference_date": "2025-03-24",
-      "value": "“Devedores” Significam os Devedores que são produtores rurais, pessoas físicas e/ou jurídicas, e/ou cooperativas de produtores rurais, indicadas pela Originadora e que sejam devedores dos Direitos Creditórios Adquiridos decorrentes das CPR-F emitidas diretamente em favor da Classe e/ou cedidas pelo Cedente à Classe, conforme o caso.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5bfad6b89c26cb3cae995be88d1302adb001a381f2b3e76fc4030cfd22f6298b"
-      ]
-    },
-    "064bdc5ada77a84d633ce710a40eba7482de013ef9f86abc1ce533bcbfd79eb5": {
-      "reference_date": "2024-04-23",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "95b631955dc011f07bdac457f98e85645b002becfd1a99c0ae5b7ae7e341bf2a"
-      ]
-    },
-    "9d067e522d658d070f9cead52b36183a1e107313adf43a34c181a29ddefc2aa9": {
-      "reference_date": "2025-08-20",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9b008bd07e5dd5ec5dde4fd1fe7d1045f723f015337aeab0e52bc5f52763c285"
-      ]
-    },
     "f30acb063ba37214278a232cdc2fa83197dea45d4fd0809442cf080b8ed9212e": {
       "reference_date": "2025-08-20",
       "value": "“Garantias Significam as garantias adicionais eventualmente outorgadas para o Adicionais” fiel cumprimento pelos Devedores das obrigações assumidas no âmbito dos Direitos Creditórios Adquiridos, além da Cessão Fiduciária, quais sejam, (i) penhor agrícola;.",
@@ -4098,6 +3977,186 @@
       "provenance": "primary_passage",
       "sources": [
         "cd6bdca06dbe738b3008c3577589b38d1ade6b12f49dd42d50789f720cbea958"
+      ]
+    },
+    "1dcce1c37904f38677d86c97f9942d76fe7497eea925aeedef7b7c602ac4ae29": {
+      "reference_date": "2025-08-20",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "64a9cfc89d692f9af0b493f879656d607f45c35d38076703bf9e897ad5794592"
+      ]
+    },
+    "4a12e1cf24e5cc1f4e6d2a1a1d6c16d242fc94c8d5b5c760427e9f17f5fac0ff": {
+      "reference_date": "2025-05-31",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta) dias; (c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos; e (d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR- F com Garantia Adicional de alienação fiduciária de imóvel rural; (ii) considerada pro forma a aquisição pretendida, os Direitos Creditórios que não contem com Garantias Adicionais poderão representar, no máximo, 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe; (iii) a concentração pro forma dos Direitos Creditórios Adquiridos pela Classe deverá observar as seguintes concentrações máximas por Cerealista: (a) até 100% (cem por cento) do Patrimônio Líquido da Classe poderá estar vinculado a Direitos Creditórios decorrentes de Contratos de Compra e Venda de Grãos celebrados com a Sipal, limitado a R$ 90.000 (noventa milhões de reais); (b) até 15,00% (quinze por cento) do Patrimônio Líquido da Classe poderá estar vinculado a Direitos Creditórios decorrentes de Contratos de Compra e Venda de Grãos celebrados com a Fazendão;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ae88b66919802c4215d79cc4d9bb0496f8d6579595f5dfedd455704077e54efc"
+      ]
+    },
+    "8ef2310116caa2217c30d6a3381023adb8bf3113ff9c922dfa3ab20fd6c96481": {
+      "reference_date": "2025-05-20",
+      "value": "4.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional; (b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que não contem com nenhuma Garantia Adicional e atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta) dias; (c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos; e (d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de alienação fiduciária de imóvel rural; (ii) considerada pro forma a aquisição pretendida, os Direitos Creditórios que não contem com Garantias Adicionais poderão representar, no máximo, 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe; (iii) a concentração pro forma dos Direitos Creditórios Adquiridos pela Classe deverá observar as seguintes concentrações máximas por Cerealista: (a) até 100% (cem por cento) do Patrimônio Líquido da Classe poderá estar vinculado a - 92 -",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "10792a98958346da0a37bb01e0dc62902940f5a6641d0df8d83ee28a1b8cc620"
+      ]
+    },
+    "c3db506f9ffbcbe4dcb3e4ac769dd6278a3943f53608372583c0f122b7754e7f": {
+      "reference_date": "2025-03-24",
+      "value": "“4.1 Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de alienação fiduciária de imóvel rural e de penhor agrícola e/ou alienação fiduciária de grãos, sendo que esta última não poderá ultrapassar 2,00% (dois inteiros por cento) do Patrimônio Líquido;” (v) a alteração da cláusula 4.1, inciso “xviii”, a fim de incluir o Estado do Maranhão como Unidade Federativa a ser verificada no percentual de concentração de 15% (quinze por cento) do Patrimônio Líquido, bem como majorar o percentual de concentração do Estado do Tocantins para 25% (vinte e cinco por cento) passando a vigorar com a seguinte redação:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b0fbd92984c876bc3a2b2dc6dfa247a95bac1250c5e72eecc0742c27e28efd52"
+      ]
+    },
+    "f0222c5b4ce33c330b5921f056143e1bbc1739e3ac938b74f3754debe330b94c": {
+      "reference_date": "2025-03-24",
+      "value": "“4.1 Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo Econômico deverá ser de até: (d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com Garantia Adicional de alienação fiduciária de imóvel rural e de penhor agrícola e/ou alienação fiduciária de grãos, sendo que esta última não poderá ultrapassar 2,00% (dois inteiros por cento) do Patrimônio Líquido;” (v) a alteração da cláusula 4.1, inciso “xviii”, alínea (e), a fim de incluir o Estado do Maranhão como Unidade Federativa a ser verificada no percentual de concentração de 15% (quinze por cento) do Patrimônio Líquido, bem como majorar o percentual de concentração do Estado do Tocantins para 25% (vinte e cinco por cento), passando a vigorar com a seguinte redação:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "48074d24975110b14c8429aee7544f86df115ea065ea4bc9be28ee44df25992e"
+      ]
+    },
+    "2eb8f348beaa3d4235a9d0966bae3603bf5cfce4b8015db6689c85d17a125754": {
+      "reference_date": "2024-10-28",
+      "value": "5. ORDEM DO DIA: Deliberar sobre (i) a inclusão no quadro de definições do Anexo Descrito, dos termos definidos, Bianchini, Inpasa e Três Tentos, bem como a alteração do termo definido Cerealistas; (ii) a alteração da cláusula 4.1, inciso “iii”, do Anexo Descritivo, a fim de incluir como Cerealistas a a Inpasa, concentração máxima de 50% (cinquenta por cento) do Patrimônio Líquido da Classe, e a Bianchini e Três Tentos, ambas, individualmente, com concentração máxima de 30% (trinta por cento) do Patrimônio Líquido da Classe; (iii) a alteração da cláusula 4.1, inciso “xii”, do Anexo Descritivo, a fim de alterar o prazo máximo dos Direitos Creditórios; (iv) a alteração da cláusula 4.1, inciso “xviii”, do Anexo Descritivo, a fim de incluir os percentuais de concentração máxima de Direitos Creditórios por Unidade da Federação sobre o Patrimônio Líquido de até 50% (cinquenta por cento) para o Estado do Rio Grande do Sul, até 20% (vinte por cento) para os Estados do Goiás, Mato Grosso do Sul, Rondônia, Santa Catarina, Minas Gerais, São Paulo e Pará, individualmente; (v) a alteração da hipótese de Evento de Avaliação, prevista na cláusula 10.1, inciso XLII, do Anexo Descritivo da Classe Única do Fundo, a fim de alterar a data limite que o Patrimônio Líquido da Classe possui para atingir o valor mínimo de R$ 100.000.000,00 (cem milhões de reais); (vi) a exclusão da obrigação de contratação de Swap para Direitos Creditórios com duration superior a 90 (noventa) dias, prevista no Anexo II – Política de Investimento em Derivativos; (vii) a prorrogação até o dia 30 de junho de 2025, do waiver concedido na AGC realizada em 05 de agosto de 2024, em relação aos Critérios de Elegibilidade referentes aos limites de concentração, previstos na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas respectivas alíneas, de modo a serem observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem milhões de reais); (viii) a concessão de waiver referente à cláusula 4.1, inciso “xviii”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ce6ba5d2b7ddb6e48923fbc86403ec9794f04c69d055920545a088b0745ca502"
+      ]
+    },
+    "855ff213c01f0753398fde18d17133920bd29f9254f8ca763b567585639ca5a3": {
+      "reference_date": "2024-08-05",
+      "value": "5. ORDEM DO DIA: Deliberar sobre (i) a inclusão da definição de “Terceiros Pré-aprovados” no Anexo descritivo da Classe Única do Fundo; (ii) inclusão da possibilidade de pagamento do Preço de Aquisição aos Terceiros Pré-Aprovados, no Anexo descritivo da Classe Única do Fundo; (iii) inclusão de nova hipótese considerada como um dos “Eventos de Avaliação”, no Anexo descritivo da Classe Única do Fundo; (iv) ajuste da concentração máxima permitida para a Cerealista Sipal, no Anexo descritivo da Classe Única do Fundo; (v) inclusão de novo Critério de Elegibilidade, no Anexo descritivo da Classe Única do Fundo; (vi) a concessão de waiver até o dia 30 de dezembro de 2024 em relação aos limites de concentração previstos como Critérios de Elegibilidade na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas respectivas alíneas, no Anexo descritivo da Classe Única do Fundo, de modo a serem observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem milhões de reais); e (vii) caso aprovados os itens “i”, “ii”, “iii”, “iv”, “v” e “vi”, a consolidação do Regulamento do Fundo, para refletir as deliberações aprovadas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5bbbc758bf89d0f3977dd70d555193da4f6f7877534862ed998ccf83e8a2c41d"
+      ]
+    },
+    "fd4c07b16f660775597971ebb0e7dbeb41405b300a30b79eb6e6f7521d723ac8": {
+      "reference_date": "2025-08-20",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4adcd63ffdcfb3b1e23bdef764bb99313254e2f603cfde8049191184fa17be62"
+      ]
+    },
+    "3398c0d858ead2dccb632366214eb138686f701faebaea8a4c7e64a53f40287c": {
+      "reference_date": "2025-05-20",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2bed2c73e1bae654e06ed8e1a934b95730a9995d1b18bd3543a6b45a8c15298c"
+      ]
+    },
+    "f006640b232b32ce3bf2e38a58906e0097c3c4b8ae871dc0fa3c9b9dca66c1d8": {
+      "reference_date": "2024-04-23",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "515c31156fda1b3550181920aa661ca834aead99272f205698d1ca66311f7b30"
+      ]
+    },
+    "912d4e3a0b1ca3d2d62814d0665ac2c6db434041d2bb2278dd9c345298323fc1": {
+      "reference_date": "2025-08-20",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "aa7744b07508cfba9faf16cd39260e6c7a8e8c83d28f2ee3b169e73bbe17b445"
+      ]
+    },
+    "c822154317da0b67e0f8775f9c7337140581655a5bf26a23145a15afb515d1dd": {
+      "reference_date": "2025-06-18",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "557e06cf6625011013f341522aa962475b407d194fd01684c92e9edebe7d2c9c"
+      ]
+    },
+    "7e2c125602eb55ca3c39d56d1b97a5fd71efb29b04cb230c568be13b36fa9d9c": {
+      "reference_date": "2025-06-18",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "347adce09899a51964c5f7dfb4b021af2002f99d5f915f078da5e05befbe3653"
+      ]
+    },
+    "9043d804bacd64e2eee3e85e2a4b069de6a4bbd1b7b8cbca015f578fe4cf5c0b": {
+      "reference_date": "2025-05-20",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e4bfa132c72c1ff56e8b29dadf01d8a8c590377fc88a5aab516cec15a8cd3a80"
+      ]
+    },
+    "ad811340b4a9b5753a36b64e0e9f36370faf75c6e4afc635ea733c27701ecdcc": {
+      "reference_date": "2025-04-11",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "24e01731bc96bf2946e474b28d29090c44f95986efd66486e106755c2a7a404c"
+      ]
+    },
+    "af139526dd431cca9952cf2f2b25dff33d69f4dc334cb2fc0b1095d0ecb0a7cb": {
+      "reference_date": "2024-10-28",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3f0101cadbda67711509b467ba2718bf9b77a95c773ce0748b9149c01579eb4f"
+      ]
+    },
+    "0e00c505ac16bd46189569244130b4a61a87179eddaddf4239b43b2260251072": {
+      "reference_date": "2024-08-05",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d5d23034245e95d371b7659c9a5bac588381e56e0f6a43024385a84a60a1f2de"
+      ]
+    },
+    "86731d383af9508dae929aaea1eb7142e013c37cc90ed70dd095c5043a2d1f1e": {
+      "reference_date": "2024-06-19",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1602cc21731b35dae028d59a3e4205fd5e116f8a406e764f6811fd2e7a2871b1"
+      ]
+    },
+    "0d9228b326c914056b53cf20beb0b5f6acfeeb83680f6f3a2a3ec318dd4c31fa": {
+      "reference_date": "2024-06-19",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f5af1e6f1ed15c06c90d513e21c88593460193659069a7b1076bc67eb390f6c1"
+      ]
+    },
+    "f191190d45c93e5599623b39bd5ceec40ec567840fd755eb838d25e0a043da7b": {
+      "reference_date": "2024-04-23",
+      "value": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2f0f875cef23cc169d7ce154f9520c307d3283a35e96f698a12626b68441c069"
       ]
     }
   },
@@ -4306,18 +4365,6 @@
       "sha256": "3a095af723e6ecfaf77bf27b989b1dbc74664e0d965a66b4dec1d73bdac3a274",
       "verification": "primary_passage"
     },
-    "7b81410bb774bf8b0d297c2439ad12656290f0a8acc498ccfd0581086effd1e7": {
-      "document_id": "975455",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975455",
-      "reference_date": "2025-08-20",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "4. ORDENS DO DIA: Deliberar sobre as seguintes matérias: (a) a alteração do Índice de Diversificação de Devedores, de 70 (setenta) para 25 (vinte e cinco) Devedores de Grupos Econômicos distintos, com a consequente alteração da definição de Índice de Diversificação de Devedores no Anexo Descritivo da Classe Única do Fundo; (b) a alteração da concentração máxima dos Direitos Creditórios no Estado do Rio Grande do Sul, de até 50% (cinquenta por cento) para até 30% (trinta por cento), e no Estado do Tocantins, e no Estado do Maranhão, para até 30% (trinta por cento), somados, com a consequente alteração do item “xviii” da cláusula 4.1 do Anexo Descritivo da Classe Única do Fundo; (c) a inclusão da limitação de 15% (quinze por cento) do Patrimônio Líquido para os Direitos Creditórios cujo prazo máximo, para aqueles que contem Garantia Adicional, é de 600 (seiscentos) dias, com a consequente alteração do subitem “b”, no item “xii”, da cláusula 4.1 do Anexo Descritivo da Classe Única do Fundo; (d) a alteração da concentração pro forma dos Direitos Creditórios Adquiridos pela Classe decorrentes de Contratos de Compra e Venda de Grãos celebrados com a Inpasa, de até 50% (cinquenta por cento) para até 30% (trinta por cento), com a consequente alteração do subitem “c”, no item “iii”, da cláusula 4.1 do Anexo Descritivo da Classe Única do Fundo; (e) a alteração das definições, no Anexo Descritivo da Classe Única do Fundo, de “Bianchini”, “Fazendão”, “Inpasa”, “Sipal” e “Três Tentos”, a fim de que essas empresas sejam referenciadas com seus Grupos Econômicos; (f) aprovados os itens “a” a “e”, a consolidação do Regulamento do Fundo; e (g) a autorização para que os Prestadores de Serviços Essenciais realizem as providências cabíveis para efetivação das deliberações aprovadas",
-      "sha256": "84a26225061cf6f73d3c845b206078af47736d05288d2a8d97ab72f0bcfead65",
-      "verification": "primary_passage"
-    },
     "8fa6dc8f8b580722a82601943e8f7a597b3a37ef4d2b1bbd9a7028da8f4520dc": {
       "document_id": "1306409",
       "title": "Demonstrações Financeiras",
@@ -4342,30 +4389,6 @@
       "sha256": "84a26225061cf6f73d3c845b206078af47736d05288d2a8d97ab72f0bcfead65",
       "verification": "primary_passage"
     },
-    "1ae429615d7cd5d56a4167eb762d8c24cf30951f07a5c92156b89340679bb7d9": {
-      "document_id": "981248",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=981248",
-      "reference_date": "2025-05-31",
-      "version": "1",
-      "page": 56,
-      "clause": "",
-      "excerpt": "Em Assembleia Geral Extraordinária de Cotistas de 05 de agosto de 2024, ocorreram as  seguintes deliberações: (i) a inclusão da definição de “Terceiros Pré-aprovados” no Anexo  descritivo da Classe Única do Fundo; (ii) inclusão da possibilidade de pagamento do Preço  de Aquisição aos Terceiros Pré-Aprovados, no Anexo descritivo da Classe Única do Fundo;\n (iii) inclusão de nova hipótese considerada como um dos “Eventos de Avaliação”, no Anexo  descritivo da Classe Única do Fundo; (iv) ajuste da concentração máxima permitida para a  Cerealista Sipal, no Anexo descritivo da Classe Única do Fundo; (v) inclusão de novo Critério  de Elegibilidade, no Anexo descritivo da Classe Única do Fundo; (vi) a concessão de waiver  até o dia 30 de dezembro de 2024 em relação aos limites de concentração previstos como  Critérios de Elegibilidade na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas  respectivas alíneas, no Anexo descritivo da Classe Única do Fundo, de modo a serem  observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem  milhões de reais); e (vii) caso aprovados os itens “i”, “ii”, “iii”, “iv”, “v” e “vi”, a consolidação  do Regulamento do Fundo, para refletir as deliberações aprovadas.",
-      "sha256": "d4189a656344504dc78fd0063ffaa6264a9c2688deb265c96d41ee07e66c99b9",
-      "verification": "primary_passage"
-    },
-    "ef1f28db05fade5f540c5b262e481edf0688875968f8ae5bd4d3a5497af297ee": {
-      "document_id": "909006",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909006",
-      "reference_date": "2025-05-20",
-      "version": "1",
-      "page": 95,
-      "clause": "3.5",
-      "excerpt": "3.5. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento, aos respectivos Critérios de Elegibilidade e à Condição de Aquisição, verificados em  cada respectiva Data de Aquisição.",
-      "sha256": "7d875c69dc98bb56da06b524dd061fb5b19dfee084dce7bdeaabad5a30c1b148",
-      "verification": "primary_passage"
-    },
     "b0fbd92984c876bc3a2b2dc6dfa247a95bac1250c5e72eecc0742c27e28efd52": {
       "document_id": "856322",
       "title": "AGE",
@@ -4376,18 +4399,6 @@
       "clause": "",
       "excerpt": "“4.1 Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos  Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição,  individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a  serem verificados pelo Cogestor, até a Data de Aquisição:\n(i) considerada pro forma a aquisição pretendida, a concentração  máxima por Devedor/Grupo Econômico deverá ser de até:\n(d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de  CPR-F com Garantia Adicional de alienação fiduciária de imóvel rural e  de penhor agrícola e/ou alienação fiduciária de grãos, sendo que esta  última não poderá ultrapassar 2,00% (dois inteiros por cento) do  Patrimônio Líquido;”\n(v) a alteração da cláusula 4.1, inciso “xviii”, a fim de incluir o Estado do Maranhão como Unidade Federativa a ser verificada no percentual de concentração de 15% (quinze por cento) do Patrimônio Líquido, bem como majorar o percentual de concentração do Estado do Tocantins para 25% (vinte e cinco por cento) passando a vigorar com a seguinte redação:",
       "sha256": "715980a3c242e92d340273cf60ed0dabcae8f8f1f2987e1da388c10ee96b09b5",
-      "verification": "primary_passage"
-    },
-    "d7404c319a8ebfb0360f631a1c5b4398e12dc5180a6b7075c34f13af28c6573e": {
-      "document_id": "877226",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=877226",
-      "reference_date": "2025-03-24",
-      "version": "1",
-      "page": 8,
-      "clause": "",
-      "excerpt": "““4.1 Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios  que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e  de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo  Cogestor, até a Data de Aquisição:\n(xviii) considerada pro forma a aquisição pretendida, a concentração máxima  dos Direitos Creditórios por Unidade da Federação deverá observar os seguintes  percentuais: (a) até 100% (cem por cento) do Patrimônio Líquido no Estado do Mato  Grosso; (b) até 70% (setenta por cento) do Patrimônio Líquido no Estado do Paraná;\n (c) até 50% (cinquenta por cento) do Patrimônio Líquido no Estado do Rio Grande do  Sul; (d) até 25% (vinte e cinco por cento) do Patrimônio Líquido no Estado Tocantins;\n (e) até 20% (vinte por cento) do Patrimônio Líquido nos Estados do Goiás, Mato Grosso  do Sul, Rondônia, Santa Catarina, Minas Gerais, São Paulo e Pará, individualmente; e\n (f) até 15% (quinze por cento) do Patrimônio Líquido nos Estados do Maranhão;”;”\n(vi) a alteração da cláusula 4.1, inciso “xxvi”, a fim de excetuar a Sipal da observância do limite de concentração de 25% (vinte e cinco por cento) do Patrimônio Líquido da Classe, no caso em que ocorrer o pagamento do Preço de Aquisição à Terceiros Pré-Aprovados, passando a vigorar com a seguinte redação:",
-      "sha256": "87d4f793d0970034c726c43f5536822e819e3ef79f1839dbba97c0bd2801fc5e",
       "verification": "primary_passage"
     },
     "ce6ba5d2b7ddb6e48923fbc86403ec9794f04c69d055920545a088b0745ca502": {
@@ -8381,78 +8392,6 @@
       "sha256": "5fec99c7549b304044ffc552a4cd90d759d8413c5320f845289886262a60ad6d",
       "verification": "primary_passage"
     },
-    "f8abb4cf466ee5429538d47c529cc2d2e79bb450bbfb45086d089418cb7aeb34": {
-      "document_id": "981248",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=981248",
-      "reference_date": "2025-05-31",
-      "version": "1",
-      "page": 36,
-      "clause": "",
-      "excerpt": "38. (a) O setor agrícola está sujeito a características específicas, inclusive, mas não  se limitando a: (i) natureza predominantemente sazonal, com o que as operações são  afetadas pelo ciclo das lavouras; (ii) condições meteorológicas adversas, inclusive secas,  inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis,  podendo ter impacto negativo na produção agrícola ou pecuária; (iii) incêndios e demais  sinistros; (iv) pragas e doenças, que podem atingir de maneira imprevisível as safras; (v)  preços praticados mundialmente, que têm sua cotação em dólar, além de estarem sujeitos  a flutuações significativas, dependendo (v.1) da oferta e demanda globais, (v.2) de  alterações dos níveis de subsídios agrícolas de certos produtores importantes  (principalmente Estados Unidos e Comunidade Europeia), (v.3) de mudanças de barreiras  comerciais de certos mercados consumidores importantes e (v.4) da adoção de outras  políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas;\n (vi) concorrência de commodities similares e/ou substitutivas; e (vii) acesso limitado ou  excessivamente oneroso à captação de recursos, além de alterações em políticas de  concessão de crédito, tanto por parte de órgãos governamentais como de instituições  privadas, para determinados participantes, inclusive os Devedores. A verificação de um ou  mais desses fatores poderá impactar negativamente o setor, afetando o pagamento dos  Direitos Creditórios e, consequentemente, a rentabilidade dos Cotistas; e (b) Não há como  assegurar que, no futuro, o negócio brasileiro (i) terá taxas de crescimento sustentável, e (ii)  não apresentará perdas em decorrência de condições climáticas desfavoráveis, redução de  preços de commodities do setor agrícola nos mercados nacional e internacional, alterações  em políticas de concessão de crédito para produtores nacionais, tanto da parte de órgãos  governamentais como de entidades privadas, que possam afetar a renda dos Devedores e,  consequentemente, a capacidade de pagamento dos Devedores, bem como outras crises  econômicas e políticas que possam afetar o setor agrícola em geral. A redução da  capacidade de pagamento dos Devedores poderá impactar negativamente a capacidade de  pagamento dos Direitos Creditórios Elegíveis.",
-      "sha256": "d4189a656344504dc78fd0063ffaa6264a9c2688deb265c96d41ee07e66c99b9",
-      "verification": "primary_passage"
-    },
-    "6109d49868291b0033ee49bf0bfaae7d2f3630c570fb44bea3c2061eccfd7961": {
-      "document_id": "909006",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909006",
-      "reference_date": "2025-05-20",
-      "version": "1",
-      "page": 80,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que controlem,  sejam controladas por, ou estejam sob controle comum de  determinada entidade ou que estejam sob o controle das mesmas  pessoas físicas. Os Grupos Econômicos de Devedores serão os  registrados na base de dados do Originador e informados ao  Custodiante e ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Originador. Para Pessoas Físicas, significa o  conglomerado econômico de produtores rurais que por meio de  relações familiares e/ou condomínio agrícola (mesmo que não  formalizado) exerçam atividades de produção agrícola em conjunto,  havendo comunicação de caixa, infraestrutura produtiva e  patrimônio.",
-      "sha256": "7d875c69dc98bb56da06b524dd061fb5b19dfee084dce7bdeaabad5a30c1b148",
-      "verification": "primary_passage"
-    },
-    "5294ad974d8825f4a00127187f9b5252f6976c043d02dbf42b13387ea2c74831": {
-      "document_id": "856322",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=856322",
-      "reference_date": "2025-03-24",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "A LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, na qualidade de administradora (“Administradora”) do INDIE MERX RAIZ I CRÉDITO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO – RESPONSABILIDADE LIMITADA, inscrito no CNPJ sob o nº 54.857.414/0001-60 (“Fundo”), vem, através deste, convidá- lo a participar da Assembleia Geral Extraordinária de Cotistas do Fundo, a ser realizada, em primeira convocação, no dia 24 de março de 2025, às 10h00 (dez horas), na sede social da Administradora, localizada na Av. Dr. Cardoso de Melo, nº 1184, 9º andar, conjunto 91, Vila Olímpia, São Paulo/SP, CEP 04548-004, e por meio de vídeo conferência no aplicativo Teams (“Assembleia”), tendo como ordem do dia deliberar sobre:\n(i) a alteração nas definições do Anexo Descritivo da Classe Única do Fundo (“Anexo Descritivo”) dos termos definidos “ADM”, “Bunge”, “Cargil”, “Cofco”, “Cerealistas”, “Contratos de Cessão”, “CPR-F”, “Devedores”, “Direitos Creditórios Cessão”, “Documentos Adicionais”, “Índices de Monitoramento”, “Louys Dreyfus” “Preço de Aquisição”, “Terceiro Cedente” e “Termo de Cessão”, passando a vigorar com a seguinte redação:",
-      "sha256": "715980a3c242e92d340273cf60ed0dabcae8f8f1f2987e1da388c10ee96b09b5",
-      "verification": "primary_passage"
-    },
-    "5bfad6b89c26cb3cae995be88d1302adb001a381f2b3e76fc4030cfd22f6298b": {
-      "document_id": "877226",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=877226",
-      "reference_date": "2025-03-24",
-      "version": "1",
-      "page": 4,
-      "clause": "",
-      "excerpt": "“Devedores” Significam os Devedores que são produtores rurais,  pessoas físicas e/ou jurídicas, e/ou cooperativas de  produtores rurais, indicadas pela Originadora e que  sejam devedores dos Direitos Creditórios Adquiridos  decorrentes das CPR-F emitidas diretamente em favor da  Classe e/ou cedidas pelo Cedente à Classe, conforme o  caso.",
-      "sha256": "87d4f793d0970034c726c43f5536822e819e3ef79f1839dbba97c0bd2801fc5e",
-      "verification": "primary_passage"
-    },
-    "95b631955dc011f07bdac457f98e85645b002becfd1a99c0ae5b7ae7e341bf2a": {
-      "document_id": "644514",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644514",
-      "reference_date": "2024-04-23",
-      "version": "1",
-      "page": 72,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que controlem,  sejam controladas por, ou estejam sob controle comum de  determinada entidade ou que estejam sob o controle das mesmas  pessoas físicas. Os Grupos Econômicos de Devedores serão os  registrados na base de dados do Originador e informados ao  Custodiante e ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Originador. Para Pessoas Físicas, significa o  conglomerado econômico de produtores rurais que por meio de  relações familiares e/ou condomínio agrícola (mesmo que não  formalizado) exerçam atividades de produção agrícola em conjunto,  havendo comunicação de caixa, infraestrutura produtiva e  patrimônio.",
-      "sha256": "3a095af723e6ecfaf77bf27b989b1dbc74664e0d965a66b4dec1d73bdac3a274",
-      "verification": "primary_passage"
-    },
-    "9b008bd07e5dd5ec5dde4fd1fe7d1045f723f015337aeab0e52bc5f52763c285": {
-      "document_id": "975459",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975459",
-      "reference_date": "2025-08-20",
-      "version": "1",
-      "page": 70,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que controlem,  sejam controladas por, ou estejam sob controle comum de  determinada entidade ou que estejam sob o controle das mesmas  pessoas físicas. Os Grupos Econômicos de Devedores serão os  registrados na base de dados do Originador e informados ao  Custodiante e ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Originador. Para Pessoas Físicas, significa o  conglomerado econômico de produtores rurais que por meio de  relações familiares e/ou condomínio agrícola (mesmo que não  formalizado) exerçam atividades de produção agrícola em conjunto,  havendo comunicação de caixa, infraestrutura produtiva e  patrimônio.",
-      "sha256": "94c8eba5a423c9240bdcd33fe38c422df6fc324d1b64251e8952c8f96bd7e3e5",
-      "verification": "primary_passage"
-    },
     "98aefe62753b804c18d7fb3f56fe75e71ed19b6e09ed50629b5b9f7e325ca03c": {
       "document_id": "975455",
       "title": "AGE",
@@ -8475,6 +8414,227 @@
       "clause": "",
       "excerpt": "“Garantias Significam as garantias adicionais eventualmente outorgadas para o Adicionais” fiel cumprimento pelos Devedores das obrigações assumidas no  âmbito dos Direitos Creditórios Adquiridos, além da Cessão  Fiduciária, quais sejam, (i) penhor agrícola; (ii) alienação fiduciária  de imóvel rural, observada a Razão de Garantia Alienação Fiduciária  de Imóvel; (iii) alienação fiduciária de grãos, observada a Razão de  Garantia Alienação Fiduciária de Grãos; e/ou (iv) outras garantias  que vierem a ser aprovadas, nos termos da Política de Crédito e  Originação, observadas as disposições previstas no Contrato de  Consultoria, Cobrança e Originação e na Política de Crédito e  Originação.",
       "sha256": "7d875c69dc98bb56da06b524dd061fb5b19dfee084dce7bdeaabad5a30c1b148",
+      "verification": "primary_passage"
+    },
+    "64a9cfc89d692f9af0b493f879656d607f45c35d38076703bf9e897ad5794592": {
+      "document_id": "975455",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975455",
+      "reference_date": "2025-08-20",
+      "version": "1",
+      "page": "99–101",
+      "clause": "4.1",
+      "excerpt": "4.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição:\n(i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo  Econômico deverá ser de até:\n(a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que  não contem com nenhuma Garantia Adicional;\n(b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso  de CPR-F que não contem com nenhuma Garantia Adicional e atendam,  cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data  de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo  Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta)  dias;\n(c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com  Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos; e\n(d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com  Garantia Adicional de alienação fiduciária de imóvel rural e de penhor agrícola e/ou  alienação fiduciária de grãos, sendo que esta última não poderá ultrapassar 2,00%  (dois inteiros por cento) do Patrimônio Líquido;\n(ii) considerada pro forma a aquisição pretendida, os Direitos Creditórios que não contem com  Garantias Adicionais poderão representar, no máximo, 25% (vinte e cinco por cento) do  Patrimônio Líquido da Classe;\n(iii) a concentração pro forma dos Direitos Creditórios Adquiridos pela Classe deverá observar  as seguintes concentrações máximas por Cerealista:\n(a) até 100% (cem por cento) do Patrimônio Líquido da Classe poderá estar vinculado a  Direitos Creditórios decorrentes de Contratos de Compra e Venda de Grãos  celebrados com a Sipal, limitado a R$90.000.000,00 (noventa milhões de reais);\n(b) até 15,00% (quinze por cento) do Patrimônio Líquido da Classe poderá estar  vinculado a Direitos Creditórios decorrentes de Contratos de Compra e Venda de  Grãos celebrados com a Fazendão;\n(c) até 30,00% (trinta por cento) do Patrimônio Líquido da Classe poderá estar vinculado  a Direitos Creditórios decorrentes de Contratos de Compra e Venda de Grãos  celebrados com a Inpasa; e,\n(d) até 30,00% (trinta por cento) do Patrimônio Líquido da Classe poderá estar vinculado  a Direitos Creditórios decorrentes de Contratos de Compra e Venda de Grãos  celebrados, individualmente, com a Três Tentos ou Bianchini;\n(iv) os Direitos Creditórios deverão ter sido originados de acordo com a Política de Crédito e  Originação;\n(v) os Direitos Creditórios deverão observar a Razão de Garantia Cessão Fiduciária, conforme  indicada no respectivo instrumento que formalizar a Cessão Fiduciária em questão, e os  recebíveis cedidos deverão ser garantidos pelos Cerealistas;\n(vi) os Direitos Creditórios que contem com Garantia Adicional de alienação fiduciária de  imóvel deverão observar a Razão de Garantia Alienação Fiduciária de Imóvel, a ser apurada  com base em laudo de avaliação de imóvel emitido por empresa autorizada, conforme lista  de empresas previamente aprovadas entre a Administradora, a Gestora, a Cogestora e  Originadora e constante dos Documentos do Fundo e/ou Documentos da Classe, conforme  o caso;\n(vii) os Direitos Creditórios que contem com Garantia Adicional de alienação fiduciária de grãos  deverão observar a Razão de Garantia Alienação Fiduciária de Grãos, conforme indicada  no respectivo instrumento que formalizar a Garantia Adicional em questão;\n(viii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;\n(ix) não poderão ser aceitos Direitos Creditórios cujos Devedores, bem como qualquer outro  Devedor pertencente ao mesmo Grupo Econômico de Devedores, conforme lista de Grupos  Econômicos enviada pela Originadora ao Gestor, estejam inadimplentes com o Fundo na  Data de Aquisição e/ou Devedores que tenham renegociados suas dívidas e não tenham  quitado o saldo em aberto;\n(x) não poderão ser aceitos Devedores que tenham entrado com pedido de recuperação judicial,  nos termos da Lei nº 11.101, de 9 de fevereiro de 2005, conforme em vigor, nos últimos 10\n (dez) anos, que tenham sofrido ações de cobrança, arresto ou monitória por parte das  Cerealistas que são contraparte do Fundo ou que estejam em processo de falência, a ser  validado com base no recebimento, pelo Cogestor, de declaração prestada pela Originadora  para cada Direito Creditório;\n(xi) os Direitos Creditórios devem ser créditos “performados”, ou seja, deverão representar uma  obrigação de pagamento incondicional pelo respectivo Devedor, independentemente de  qualquer ato da Originadora, dos Cerealistas e/ou do Fundo, sem prejuízo da obrigação darealização  do pagamento do Preço de Aquisição pela Classe;\n(xii) os Direitos Creditórios deverão possuir prazo máximo:\n(a) de 360 (trezentos e sessenta) dias, para aqueles sem Garantia Adicional, nos termos  do item (i), alínea (a), deste artigo 4.1;\n(b) de 600 (seiscentos) dias, para aqueles que contem com Garantia Adicional, nos termos  do item (i), alíneas (c) e (d), deste artigo 4.1, limitado a 15% (quinze por cento) do  Patrimônio Líquido;\n(c) de 60 (sessenta) dias, para aqueles que não contem com Garantia Adicional, nos  termos do item (i), alínea (b),deste artigo 4.1; e\n(d) equivalente a, no máximo, 30 (trinta) dias antes da Data de Resgate da série mais  longa de Cotas Seniores emcirculação, para os DireitosCreditórios Renegociados;\n(xiii) os Direitos Creditórios não poderão ser devidos por Devedores que atuem na cadeia  produtiva do tabaco, fumo e produtos derivados, conforme declaração realizada pela  Originadora no âmbito do Contrato de Consultoria, Cobrança e Originação;",
+      "sha256": "84a26225061cf6f73d3c845b206078af47736d05288d2a8d97ab72f0bcfead65",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "ae88b66919802c4215d79cc4d9bb0496f8d6579595f5dfedd455704077e54efc": {
+      "document_id": "981248",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=981248",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 20,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, cumulativamente,  na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes  Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição:\n(i) considerada pro forma a aquisição pretendida, a concentração máxima por  Devedor/Grupo Econômico deverá ser de até:\n(a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de  CPR-F que não contem com nenhuma Garantia Adicional;\n(b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido  no caso de CPR-F que não contem com nenhuma Garantia Adicional e  atendam, cumulativamente, aos seguintes requisitos: (1) seja apresentado,  até a respectiva Data de Aquisição o comprovante de entrega de grãos  pelo Devedor ao respectivo Cerealista; e (2) a CPR-F possua prazo de  vencimento de, no máximo, 60 (sessenta) dias;\n(c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F  com Garantia Adicional de penhor agrícola e/ou alienação fiduciária de  grãos; e\n(d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-  F com Garantia Adicional de alienação fiduciária de imóvel rural;\n(ii) considerada pro forma a aquisição pretendida, os Direitos Creditórios que não  contem com Garantias Adicionais poderão representar, no máximo, 25% (vinte  e cinco por cento) do Patrimônio Líquido da Classe;\n(iii) a concentração pro forma dos Direitos Creditórios Adquiridos pela Classe deverá  observar as seguintes concentrações máximas por Cerealista:\n(a) até 100% (cem por cento) do Patrimônio Líquido da Classe poderá estar  vinculado a Direitos Creditórios decorrentes de Contratos de Compra e  Venda de Grãos celebrados com a Sipal, limitado a R$ 90.000 (noventa  milhões de reais);\n(b) até 15,00% (quinze por cento) do Patrimônio Líquido da Classe poderá  estar vinculado a Direitos Creditórios decorrentes de Contratos de Compra  e Venda de Grãos celebrados com a Fazendão;",
+      "sha256": "d4189a656344504dc78fd0063ffaa6264a9c2688deb265c96d41ee07e66c99b9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "10792a98958346da0a37bb01e0dc62902940f5a6641d0df8d83ee28a1b8cc620": {
+      "document_id": "909006",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909006",
+      "reference_date": "2025-05-20",
+      "version": "1",
+      "page": 102,
+      "clause": "4.1",
+      "excerpt": "4.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição:\n(i) considerada pro forma a aquisição pretendida, a concentração máxima por Devedor/Grupo  Econômico deverá ser de até:\n(a) 0,5% (cinquenta centésimos por cento) do Patrimônio Líquido no caso de CPR-F que  não contem com nenhuma Garantia Adicional;\n(b) 1,5% (um inteiro e cinquenta centésimos por cento) do Patrimônio Líquido no caso  de CPR-F que não contem com nenhuma Garantia Adicional e atendam,  cumulativamente, aos seguintes requisitos: (1) seja apresentado, até a respectiva Data  de Aquisição o comprovante de entrega de grãos pelo Devedor ao respectivo  Cerealista; e (2) a CPR-F possua prazo de vencimento de, no máximo, 60 (sessenta)  dias;\n(c) 2,00% (dois inteiros por cento) do Patrimônio Líquido no caso de CPR-F com  Garantia Adicional de penhor agrícola e/ou alienação fiduciária de grãos; e\n(d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com  Garantia Adicional de alienação fiduciária de imóvel rural;\n(ii) considerada pro forma a aquisição pretendida, os Direitos Creditórios que não contem com  Garantias Adicionais poderão representar, no máximo, 25% (vinte e cinco por cento) do  Patrimônio Líquido da Classe;\n(iii) a concentração pro forma dos Direitos Creditórios Adquiridos pela Classe deverá observar  as seguintes concentrações máximas por Cerealista:\n(a) até 100% (cem por cento) do Patrimônio Líquido da Classe poderá estar vinculado a  - 92 -",
+      "sha256": "7d875c69dc98bb56da06b524dd061fb5b19dfee084dce7bdeaabad5a30c1b148",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "48074d24975110b14c8429aee7544f86df115ea065ea4bc9be28ee44df25992e": {
+      "document_id": "877226",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=877226",
+      "reference_date": "2025-03-24",
+      "version": "1",
+      "page": "7–8",
+      "clause": "",
+      "excerpt": "“4.1 Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios  que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e  de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo  Cogestor, até a Data de Aquisição:\n(i) considerada pro forma a aquisição pretendida, a concentração máxima por  Devedor/Grupo Econômico deverá ser de até:\n(d) 4,00% (quatro inteiros por cento) do Patrimônio Líquido no caso de CPR-F com  Garantia Adicional de alienação fiduciária de imóvel rural e de penhor agrícola e/ou  alienação fiduciária de grãos, sendo que esta última não poderá ultrapassar 2,00%  (dois inteiros por cento) do Patrimônio Líquido;”\n(v) a alteração da cláusula 4.1, inciso “xviii”, alínea (e), a fim de incluir o Estado do Maranhão como Unidade Federativa a ser verificada no percentual de concentração de 15% (quinze por cento) do Patrimônio Líquido, bem como majorar o percentual de concentração do Estado do Tocantins para 25% (vinte e cinco por cento), passando a vigorar com a seguinte redação:",
+      "sha256": "87d4f793d0970034c726c43f5536822e819e3ef79f1839dbba97c0bd2801fc5e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5bbbc758bf89d0f3977dd70d555193da4f6f7877534862ed998ccf83e8a2c41d": {
+      "document_id": "715938",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715938",
+      "reference_date": "2024-08-05",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "5. ORDEM DO DIA: Deliberar sobre (i) a inclusão da definição de “Terceiros Pré-aprovados” no Anexo descritivo da Classe Única do Fundo; (ii) inclusão da possibilidade de pagamento do Preço de Aquisição aos Terceiros Pré-Aprovados, no Anexo descritivo da Classe Única do Fundo; (iii) inclusão de nova hipótese considerada como um dos “Eventos de Avaliação”, no Anexo descritivo da Classe Única do Fundo; (iv) ajuste da concentração máxima permitida para a Cerealista Sipal, no Anexo descritivo da Classe Única do Fundo; (v) inclusão de novo Critério de Elegibilidade, no Anexo descritivo da Classe Única do Fundo; (vi) a concessão de waiver até o dia 30 de dezembro de 2024 em relação aos limites de concentração previstos como Critérios de Elegibilidade na cláusula 4.1, incisos “i”, “ii”, “iii”, “xvi”, “xvii”, “xviii” e “xxvi”, e suas respectivas alíneas, no Anexo descritivo da Classe Única do Fundo, de modo a serem observados como se o Patrimônio Líquido da Classe fosse de R$ 100.000.000,00 (cem milhões de reais); e (vii) caso aprovados os itens “i”, “ii”, “iii”, “iv”, “v” e “vi”, a consolidação do Regulamento do Fundo, para refletir as deliberações aprovadas.",
+      "sha256": "e4706157904af5a321f390b960ec0f6d715113aad31f14d6c514c2fb3ceeda0b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4adcd63ffdcfb3b1e23bdef764bb99313254e2f603cfde8049191184fa17be62": {
+      "document_id": "975455",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975455",
+      "reference_date": "2025-08-20",
+      "version": "1",
+      "page": 91,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "84a26225061cf6f73d3c845b206078af47736d05288d2a8d97ab72f0bcfead65",
+      "verification": "primary_passage"
+    },
+    "2bed2c73e1bae654e06ed8e1a934b95730a9995d1b18bd3543a6b45a8c15298c": {
+      "document_id": "909006",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909006",
+      "reference_date": "2025-05-20",
+      "version": "1",
+      "page": 94,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "7d875c69dc98bb56da06b524dd061fb5b19dfee084dce7bdeaabad5a30c1b148",
+      "verification": "primary_passage"
+    },
+    "515c31156fda1b3550181920aa661ca834aead99272f205698d1ca66311f7b30": {
+      "document_id": "644514",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644514",
+      "reference_date": "2024-04-23",
+      "version": "1",
+      "page": 85,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "3a095af723e6ecfaf77bf27b989b1dbc74664e0d965a66b4dec1d73bdac3a274",
+      "verification": "primary_passage"
+    },
+    "aa7744b07508cfba9faf16cd39260e6c7a8e8c83d28f2ee3b169e73bbe17b445": {
+      "document_id": "975459",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975459",
+      "reference_date": "2025-08-20",
+      "version": "1",
+      "page": 84,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "94c8eba5a423c9240bdcd33fe38c422df6fc324d1b64251e8952c8f96bd7e3e5",
+      "verification": "primary_passage"
+    },
+    "557e06cf6625011013f341522aa962475b407d194fd01684c92e9edebe7d2c9c": {
+      "document_id": "929295",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=929295",
+      "reference_date": "2025-06-18",
+      "version": "1",
+      "page": 85,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "04e5dd41283cda532143f48af8c2f5f61b37e4c7f747d3d58a6ea2118069061e",
+      "verification": "primary_passage"
+    },
+    "347adce09899a51964c5f7dfb4b021af2002f99d5f915f078da5e05befbe3653": {
+      "document_id": "929300",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=929300",
+      "reference_date": "2025-06-18",
+      "version": "1",
+      "page": 83,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "5e640267d31b767b3466d43d94663d61d66099cdab3b36490c76d4bb8055708f",
+      "verification": "primary_passage"
+    },
+    "e4bfa132c72c1ff56e8b29dadf01d8a8c590377fc88a5aab516cec15a8cd3a80": {
+      "document_id": "909008",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909008",
+      "reference_date": "2025-05-20",
+      "version": "1",
+      "page": 84,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "302e2e0c3c51a1510279b5c693aeffcd3913f0dae51794e9f9ddabb08f0867f9",
+      "verification": "primary_passage"
+    },
+    "24e01731bc96bf2946e474b28d29090c44f95986efd66486e106755c2a7a404c": {
+      "document_id": "879911",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=879911",
+      "reference_date": "2025-04-11",
+      "version": "1",
+      "page": 83,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "a70cc79e5a40a852d3e7dfa75fd92ad01af15e0d85595cc5d9b1c2d5eba8a419",
+      "verification": "primary_passage"
+    },
+    "3f0101cadbda67711509b467ba2718bf9b77a95c773ce0748b9149c01579eb4f": {
+      "document_id": "770187",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=770187",
+      "reference_date": "2024-10-28",
+      "version": "1",
+      "page": 84,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "0d13d729d006d0b02d726b7cfcef56f0d997e63ba8d75ad2c8f830d6efd3af4a",
+      "verification": "primary_passage"
+    },
+    "d5d23034245e95d371b7659c9a5bac588381e56e0f6a43024385a84a60a1f2de": {
+      "document_id": "715939",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715939",
+      "reference_date": "2024-08-05",
+      "version": "1",
+      "page": 84,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "92f2645131286121ba460166abb39e8e088091203006bad476831e23b5e4ac4d",
+      "verification": "primary_passage"
+    },
+    "1602cc21731b35dae028d59a3e4205fd5e116f8a406e764f6811fd2e7a2871b1": {
+      "document_id": "683576",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683576",
+      "reference_date": "2024-06-19",
+      "version": "1",
+      "page": 93,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas  ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo  Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de  Elegibilidade e à Política de Investimento.",
+      "sha256": "4c20f64de45009d0715cbbc042c1e56637d7c9f7849945d8a7d5122785d96416",
+      "verification": "primary_passage"
+    },
+    "f5af1e6f1ed15c06c90d513e21c88593460193659069a7b1076bc67eb390f6c1": {
+      "document_id": "683577",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683577",
+      "reference_date": "2024-06-19",
+      "version": "1",
+      "page": 84,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas  ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo  Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de  Elegibilidade e à Política de Investimento.",
+      "sha256": "8c12f2e92f3366f606fc9e2f56ab98b852b58549d4350a037573edfbb0aa775d",
+      "verification": "primary_passage"
+    },
+    "2f0f875cef23cc169d7ce154f9520c307d3283a35e96f698a12626b68441c069": {
+      "document_id": "644517",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644517",
+      "reference_date": "2024-04-23",
+      "version": "1",
+      "page": 82,
+      "clause": "3.1",
+      "excerpt": "3.1. Originação e Aquisição dos Direitos Creditórios. Os Devedores são pessoas físicas ou jurídicas que atuam no segmento do agronegócio, indicados pela Originadora e aprovados pelo Gestor e pelo Cogestor em observância à Política de Crédito e Originação, aos Critérios de Elegibilidade e à Política de Investimento.",
+      "sha256": "5fec99c7549b304044ffc552a4cd90d759d8413c5320f845289886262a60ad6d",
       "verification": "primary_passage"
     }
   }

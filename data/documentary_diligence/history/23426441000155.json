@@ -3,10 +3,6 @@
   "cnpj": "23426441000155",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "028473a6890ce1880392e062f9795772573b05bfa31ecedec00a1ce3c65922e9",
-      "e4eb04659a27fddbc18ea42129326cb3844591a5b51b9758c6e139644200d724"
-    ],
     "term": [
       "e04eeb8b5efbcd0b0ff9d8fdd5f5f7cc089c69558a86a78560380d63060fece6",
       "dde0f56a3f0675bf36a367fafd2a5104a580061c7fc1ae7361d81731c2229f3f",
@@ -325,29 +321,6 @@
       "3aa2bf7135db8ce0c7fea8b0d724593cc0630a8f7c9c1bdb4b3e618823b7b5ed",
       "d38f0cac6f763247181931a579c4fee5bf7501957cc8c60f244de96cd8cec6ab"
     ],
-    "originator": [
-      "f569804f81a231e2750d3d254dfc21c05f7d053e2d88edef765c8a8dedea076f",
-      "96b220e72fddc6d40d12976f6f49f0a5937c7b4db2f2cce92be9f8ae9c9c2d76"
-    ],
-    "debtor": [
-      "390fe8e1cdb83c2652acf12f10f023dd93a428ace8ae5d95b2dcb0f7b367d7b5",
-      "d6e1d87855286cc30e7d33decb8d3521dc0ba4e02afa56c1e6ca646994f0392c",
-      "ef1cf0cbecd060efea46f0bfd0ff06e1a2d6fe8b00a03639b462fe72b3a056e1",
-      "5b7a4b2f78f0ebb644489092ed53cda4bc3766b256ed02b58bb5f02ccc9c5f29",
-      "203972a3e83dae01e8bc7c624a826099c7cf1a1fb68898bdf5968889f15cdcf1",
-      "77eaf43ad4c5491bbd762faa5aa1589097c00385296c61daf82424d5a5c5c159",
-      "d81c8fbe12e959ed711153633933649a2f2034e5a7907123c61b15c45d70fd92",
-      "2728c18ce50c1fadb836cd9c0adb419fbf24e1e8395c5623da6c849d38f886c1",
-      "4fa1ede1a6d9b0450dc7f57298adc170b7005c751de70c6704460d415230a7e5",
-      "19304c510fb8d901ef829b2e866a3829e5b29c289023f27f7ee41a323eeb1504",
-      "c11d3d1171d718c0da902ea9bd33bb64ae0d99c3a950c5770d332589ec82bf9d",
-      "0892560aef0000e3a318e26e77e457d737f71675d274894ad047ec1fa158db70",
-      "ce1b5e6b0eee708014bcdf5a089097d8bac1e9812270e66e8371d94fafa3e5fd",
-      "d999f1e4d134c4ac8176e18e046e5fd6fdb0f83da91fb0b72544c6b759de2675",
-      "957060779bc11db0a6e935fd773f71ca7fff525c284367ea31b3f5d5237d44b8",
-      "13fd42d6ef59385b3bcbd6b738d60419ccf87cf570cdb1e7cfa8f42b1516a3c6",
-      "d7ccd4a1428c1f3a64f7db6780a3d86870a0c316f0913e5d5a157968967578ea"
-    ],
     "investee": [
       "e2b2dde3c2b7ec2bfe2e3cbf8346aaac37dcbbc559ecd92f7a51d153e34b8dc3",
       "14c6d6cdab23a3ca89269da93ed8cb40bd3bd3c37371fcfa1a1c2d3a8a52583f",
@@ -409,6 +382,14 @@
       "ef8a935058fa97f79f6020d0b8c5837d3932791ec11b64cb71858d7738024274",
       "e5a8cc23b2fe9194c32d99ac88910a72321856136261066918909defb0007a1a",
       "80363c4bcc2ede9ebc7aedf5a3b3fd5654061623f217e90cee45542d6129da30"
+    ],
+    "originator": [
+      "f569804f81a231e2750d3d254dfc21c05f7d053e2d88edef765c8a8dedea076f",
+      "96b220e72fddc6d40d12976f6f49f0a5937c7b4db2f2cce92be9f8ae9c9c2d76"
+    ],
+    "eligibility": [
+      "1916cb5df0f2a263c30806a379c5096ac36d0670cf5c82e3e05ec0689d779a58",
+      "cc989bfb18f87fe4fb02db6d91c844873c2e215188139d374b42ccd0308d6de0"
     ]
   },
   "entries": {
@@ -608,177 +589,6 @@
       "provenance": "primary_passage",
       "sources": [
         "30a05bd8589472225ed3f713340a668c8eb819da9150b43d91397d158ecc785c"
-      ]
-    },
-    "390fe8e1cdb83c2652acf12f10f023dd93a428ace8ae5d95b2dcb0f7b367d7b5": {
-      "reference_date": "2025-02-10",
-      "value": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7754d367495521b2702eb3ce05d89d812c50e5e50504bd87ad6003944104c351"
-      ]
-    },
-    "d6e1d87855286cc30e7d33decb8d3521dc0ba4e02afa56c1e6ca646994f0392c": {
-      "reference_date": "2025-02-10",
-      "value": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f213cfc1d857f49ad84a13e99d9244cf825f8c2da4a9cceb9af10d6d1a16786d"
-      ]
-    },
-    "ef1cf0cbecd060efea46f0bfd0ff06e1a2d6fe8b00a03639b462fe72b3a056e1": {
-      "reference_date": "2024-08-27",
-      "value": "Ressalta-se uma concentração de aproximadamente 80% do PL (em março/23) entre empresas cedentes e sacados de um mesmo grupo econômico do segmento de higiene e limpeza – Grupo Gtex – embora o Grupo não seja citado no Regulamento do MULTIPLIK FIDC. O Grupo Gtex é um relevante player em seu respectivo segmento, com receita líquida em 2022 de R$802 milhões, encerrou satisfatoriamente seu processo de recuperação judicial em 2021. Ainda assim, a Liberum Rating considera que o Grupo apresenta um perfil de risco de crédito alto e uma elevada alavancagem.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "52267ae087f2d7d27c566c108a56eb033bcdec65f833952e5833147909b4bf56"
-      ]
-    },
-    "5b7a4b2f78f0ebb644489092ed53cda4bc3766b256ed02b58bb5f02ccc9c5f29": {
-      "reference_date": "2024-02-20",
-      "value": "Critérios de Concentração. O Regulamento não define limites de concentração em relação a cedente, podendo concentrar até 100% do PL em um único cedente, elevando o risco da carteira. Quanto a concentração dos sacados, o Regulamento limita a concentração de um único sacado em 20% do PL, com algumas ressalvas. Vale destacar que o MULTIPLIK FIDC possui elevada concentração (aproximadamente 80% do PL, em março/23) em um grupo econômico do segmento de higiene e limpeza (Grupo Gtex), distribuído tanto como cedente quanto como sacado, apesar da empresa não ser citada no regulamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "892a5cc2e46f58e838f6a4774870deb435333fe84993aa363b94c6b530b68828"
-      ]
-    },
-    "203972a3e83dae01e8bc7c624a826099c7cf1a1fb68898bdf5968889f15cdcf1": {
-      "reference_date": "2023-08-29",
-      "value": "Ressalta-se uma concentração de aproximadamente 80% do PL (em março/23) entre empresas cedentes e sacados de um mesmo grupo econômico do segmento de higiene e limpeza – Grupo Gtex – embora o Grupo não seja citado no Regulamento do MULTIPLIK FIDC. O Grupo Gtex é um relevante player em seu respectivo segmento, com receita líquida em 2022 de cerca de R$942 milhões, encerrou satisfatoriamente seu processo de recuperação judicial em 2021. Ainda assim, a Liberum Rating considera que o Grupo apresenta um perfil de risco de crédito alto e uma elevada alavancagem.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2f3722f5ece373feeaa188d442d30a4a460471e54abc53ba8c96b60554087c80"
-      ]
-    },
-    "77eaf43ad4c5491bbd762faa5aa1589097c00385296c61daf82424d5a5c5c159": {
-      "reference_date": "2023-04-20",
-      "value": "Critérios de Concentração. O Regulamento não define limites de concentração em relação a cedente, podendo concentrar até 100% do PL em um único cedente, elevando o risco da carteira. Quanto a concentração dos sacados, o Regulamento limita a concentração de um único sacado em 20% do PL, com algumas ressalvas. Vale destacar que o MULTIPLIK FIDC possui elevada concentração (aproximadamente 80% do PL, em março/23) em um grupo econômico do segmento de higiene e limpeza (Grupo Gtex), distribuído tanto como cedente quanto como sacado, apesar da empresa não ser citada no regulamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5a25a859ebabdf42e444f9bd7cb85a4945a757c88612bd8d78bbf7c61436caf8"
-      ]
-    },
-    "d81c8fbe12e959ed711153633933649a2f2034e5a7907123c61b15c45d70fd92": {
-      "reference_date": "2021-02-26",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c6af9512233b49f9100ede24afe1d653bbf5a8898dbf65594066df85bce5c0fd"
-      ]
-    },
-    "2728c18ce50c1fadb836cd9c0adb419fbf24e1e8395c5623da6c849d38f886c1": {
-      "reference_date": "2025-02-10",
-      "value": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6dfe6580122acbe61e2703b4029145e73fda2f43f14fff7d54aa3a3bbde0b953"
-      ]
-    },
-    "4fa1ede1a6d9b0450dc7f57298adc170b7005c751de70c6704460d415230a7e5": {
-      "reference_date": "2025-02-10",
-      "value": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4f107204dcc96f8b90ce3aa29c9be157197f57a988abfe294e3f807531f02452"
-      ]
-    },
-    "19304c510fb8d901ef829b2e866a3829e5b29c289023f27f7ee41a323eeb1504": {
-      "reference_date": "2024-12-20",
-      "value": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2dff92d5969abd61beca6aa76b621db3ba1d6a281b24758333e22e2081936edd"
-      ]
-    },
-    "c11d3d1171d718c0da902ea9bd33bb64ae0d99c3a950c5770d332589ec82bf9d": {
-      "reference_date": "2024-11-14",
-      "value": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2591ea2bbd226bc78710827c628062be565084611750dd8f34ee8f75a6c51c2c"
-      ]
-    },
-    "0892560aef0000e3a318e26e77e457d737f71675d274894ad047ec1fa158db70": {
-      "reference_date": "2024-10-17",
-      "value": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7b4692129ad38b9dd486c487a27e91268adbd5ff17a2cb86a67c7f1f1b2924f4"
-      ]
-    },
-    "ce1b5e6b0eee708014bcdf5a089097d8bac1e9812270e66e8371d94fafa3e5fd": {
-      "reference_date": "2024-10-03",
-      "value": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "102afa083f7694255225cfd2e9ee507197ee563d0420ff6ac7ee527a181a9569"
-      ]
-    },
-    "d999f1e4d134c4ac8176e18e046e5fd6fdb0f83da91fb0b72544c6b759de2675": {
-      "reference_date": "2024-06-12",
-      "value": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e004fc8ef00d7fc349cb4bdf9775f0aa3fee358cb1af0cabee0fa8ab4817ab52"
-      ]
-    },
-    "957060779bc11db0a6e935fd773f71ca7fff525c284367ea31b3f5d5237d44b8": {
-      "reference_date": "2022-06-07",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0e87683508c876cfa57273ba9bb14723774045019de8dac45ff611b043d94692"
-      ]
-    },
-    "13fd42d6ef59385b3bcbd6b738d60419ccf87cf570cdb1e7cfa8f42b1516a3c6": {
-      "reference_date": "2021-09-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "164ff74f1330c3a6e002ddf75a82f98007c9f9e05d596824fa93083a77b6f6eb"
-      ]
-    },
-    "d7ccd4a1428c1f3a64f7db6780a3d86870a0c316f0913e5d5a157968967578ea": {
-      "reference_date": "2021-07-14",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fcd0a2779b68b5cb9d15ad79c5a4d692d9424e6c68a0b0151a8c8a2f7fd4941e"
-      ]
-    },
-    "028473a6890ce1880392e062f9795772573b05bfa31ecedec00a1ce3c65922e9": {
-      "reference_date": "2025-02-10",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4615d72ef29920c2505f2d4ed041e4372ba6fc97ead391418c5e7b3a9e4a4e77"
-      ]
-    },
-    "e4eb04659a27fddbc18ea42129326cb3844591a5b51b9758c6e139644200d724": {
-      "reference_date": "2025-02-10",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ef2cb62dd4dfb63990be645f66010cf524918d51a332099da33d1507945fc769"
       ]
     },
     "e04eeb8b5efbcd0b0ff9d8fdd5f5f7cc089c69558a86a78560380d63060fece6": {
@@ -3219,6 +3029,24 @@
       "sources": [
         "7a3f33d807dc76a80b4cbaf2dd7a08338a5788a3cb47caacb95d47c79d5c320f"
       ]
+    },
+    "1916cb5df0f2a263c30806a379c5096ac36d0670cf5c82e3e05ec0689d779a58": {
+      "reference_date": "2025-02-10",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) as Cedentes encaminharão à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (ii) a Gestora ou terceiro subcontratado, verificará o atendimento dos Direitos Creditórios às Condições de Cessão e, em paralelo, com base nas informações que a Cedente encaminhou, realizará a verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4 abaixo, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; (iii) A Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e, caso satisfeitas, aprovará a aquisição dos Direitos Creditórios, desde que estejam enquadrados à Política de Investimento, aderentes aos limites de concentração e em conformidade com os Critérios de Elegibilidade aplicáveis; (iv) A Administradora acompanhará o processo de cessão; e (v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do preço de aquisição pela Administradora, em nome do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4615d72ef29920c2505f2d4ed041e4372ba6fc97ead391418c5e7b3a9e4a4e77"
+      ]
+    },
+    "cc989bfb18f87fe4fb02db6d91c844873c2e215188139d374b42ccd0308d6de0": {
+      "reference_date": "2025-02-10",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) as Cedentes encaminharão à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (ii) a Gestora ou terceiro subcontratado, verificará o atendimento dos Direitos Creditórios às Condições de Cessão e, em paralelo, com base nas informações que a Cedente encaminhou, realizará a verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4 abaixo, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; (iii) A Gestora sinalizará que as Condições de Cessão foram ou não satisfeitas e, caso satisfeitas, aprovará a aquisição dos Direitos Creditórios, desde que estejam enquadrados à Política de Investimento, aderentes aos limites de concentração e em conformidade com os Critérios de Elegibilidade aplicáveis; (iv) A Administradora acompanhará o processo de cessão; e (v) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do preço de aquisição pela Administradora, em nome do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ef2cb62dd4dfb63990be645f66010cf524918d51a332099da33d1507945fc769"
+      ]
     }
   },
   "passages": {
@@ -3484,186 +3312,6 @@
       "clause": "12.1.1",
       "excerpt": "12.1.1. Poderão compor o patrimônio do Fundo, os Direitos Creditórios:\nI – com origem na venda de produtos ou na prestação de serviços realizadas pelos  Cedentes a seus clientes, originados conforme dispõe o Artigo anterior, cuja  existência, validade e exequibilidade (i) independam de prestação futura, portanto,  são créditos já performados, podendo ser representados por Duplicatas, Notas  Comerciais; ou por quaisquer outros títulos de crédito ou instrumentos contratuais  e/ou (ii) dependam de entrega ou prestação futura, desde que baseadas em  relações preexistentes e valores predeterminados, portanto, são créditos a  performar, podendo ser representados por contratos, bem como títulos ou  certificados representativos desses contratos.",
       "sha256": "65733737773c973d4ec0a8cc33cc2c8e5ed1f0c75a46198b005807878f651b4f",
-      "verification": "primary_passage"
-    },
-    "7754d367495521b2702eb3ce05d89d812c50e5e50504bd87ad6003944104c351": {
-      "document_id": "829223",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=829223",
-      "reference_date": "2025-02-10",
-      "version": "1",
-      "page": 82,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "9bad661403ad81fea03ea295a68d4377e7eeca3946bf3efd866d8a214d6f9852",
-      "verification": "primary_passage"
-    },
-    "f213cfc1d857f49ad84a13e99d9244cf825f8c2da4a9cceb9af10d6d1a16786d": {
-      "document_id": "835353",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835353",
-      "reference_date": "2025-02-10",
-      "version": "1",
-      "page": 73,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "65733737773c973d4ec0a8cc33cc2c8e5ed1f0c75a46198b005807878f651b4f",
-      "verification": "primary_passage"
-    },
-    "52267ae087f2d7d27c566c108a56eb033bcdec65f833952e5833147909b4bf56": {
-      "document_id": "742010",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=742010",
-      "reference_date": "2024-08-27",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "Ressalta-se uma concentração de aproximadamente 80% do PL (em  março/23) entre empresas cedentes e sacados de um mesmo grupo  econômico do segmento de higiene e limpeza – Grupo Gtex – embora o  Grupo não seja citado no Regulamento do MULTIPLIK FIDC. O Grupo Gtex é  um relevante player em seu respectivo segmento, com receita líquida em  2022 de R$802 milhões, encerrou satisfatoriamente seu processo de  recuperação judicial em 2021. Ainda assim, a Liberum Rating considera que  o Grupo apresenta um perfil de risco de crédito alto e uma elevada  alavancagem.",
-      "sha256": "6ee2efc7346503b4082bd6dfe88c7e74a03210d68e944a522f7c0e44ff1056ee",
-      "verification": "primary_passage"
-    },
-    "892a5cc2e46f58e838f6a4774870deb435333fe84993aa363b94c6b530b68828": {
-      "document_id": "614433",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614433",
-      "reference_date": "2024-02-20",
-      "version": "1",
-      "page": 6,
-      "clause": "",
-      "excerpt": "Critérios de Concentração. O Regulamento não define limites de  concentração em relação a cedente, podendo concentrar até 100% do PL  em um único cedente, elevando o risco da carteira. Quanto a concentração  dos sacados, o Regulamento limita a concentração de um único sacado em  20% do PL, com algumas ressalvas. Vale destacar que o MULTIPLIK FIDC  possui elevada concentração (aproximadamente 80% do PL, em março/23)  em um grupo econômico do segmento de higiene e limpeza (Grupo Gtex),  distribuído tanto como cedente quanto como sacado, apesar da empresa  não ser citada no regulamento.",
-      "sha256": "7c165be30d26680de25012e9751c95a368a606cc55a3b8a5bb0a579bb5b219b8",
-      "verification": "primary_passage"
-    },
-    "2f3722f5ece373feeaa188d442d30a4a460471e54abc53ba8c96b60554087c80": {
-      "document_id": "514446",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=514446",
-      "reference_date": "2023-08-29",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "Ressalta-se uma concentração de aproximadamente 80% do PL (em  março/23) entre empresas cedentes e sacados de um mesmo grupo  econômico do segmento de higiene e limpeza – Grupo Gtex – embora o  Grupo não seja citado no Regulamento do MULTIPLIK FIDC. O Grupo Gtex é  um relevante player em seu respectivo segmento, com receita líquida em  2022 de cerca de R$942 milhões, encerrou satisfatoriamente seu processo  de recuperação judicial em 2021. Ainda assim, a Liberum Rating considera  que o Grupo apresenta um perfil de risco de crédito alto e uma elevada  alavancagem.",
-      "sha256": "6801e30af0cc721fa511d4f5710691074cc6e85762eea56b0ebcf84417fb5a9f",
-      "verification": "primary_passage"
-    },
-    "5a25a859ebabdf42e444f9bd7cb85a4945a757c88612bd8d78bbf7c61436caf8": {
-      "document_id": "455040",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=455040",
-      "reference_date": "2023-04-20",
-      "version": "1",
-      "page": 6,
-      "clause": "",
-      "excerpt": "Critérios de Concentração. O Regulamento não define limites de  concentração em relação a cedente, podendo concentrar até 100% do PL  em um único cedente, elevando o risco da carteira. Quanto a  concentração dos sacados, o Regulamento limita a concentração de um  único sacado em 20% do PL, com algumas ressalvas. Vale destacar que o  MULTIPLIK FIDC possui elevada concentração (aproximadamente 80% do  PL, em março/23) em um grupo econômico do segmento de higiene e  limpeza (Grupo Gtex), distribuído tanto como cedente quanto como  sacado, apesar da empresa não ser citada no regulamento.",
-      "sha256": "a91ae225587f95a14c9116114e14058082c0639359c1074d25ee11646a6f45c5",
-      "verification": "primary_passage"
-    },
-    "c6af9512233b49f9100ede24afe1d653bbf5a8898dbf65594066df85bce5c0fd": {
-      "document_id": "162900",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=162900",
-      "reference_date": "2021-02-26",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "A composição da Carteira de Direitos Creditórios do Fundo deverá observar, ainda: a) O valor correspondente ao somatório do valor  presente dos Direitos Creditórios de titularidade do Fundo, devidos por cada Sacado ou coobrigado, será limitado a 20,0% do PL do Dia  Útil imediatamente anterior, incluindo neste percentual a exposição do Fundo ao respectivo Grupo Econômico na condição de Sacado  ou coobrigado dos Direitos Creditórios em conjunto; b) O Fundo poderá alocar, no máximo, 30,0% do PL do Dia Útil imediatamente  anterior em Direitos Creditórios devidos pelos 04 Sacados ou coobrigado com maior concentração no Fundo, incluindo neste percentual  a exposição do Fundo ao respectivo Grupo Econômico na condição de Sacado ou coobrigado dos Direitos Creditórios em conjunto;\n O total de Ativos de emissão ou de Direitos Creditórios de obrigação ou de coobrigação de qualquer pessoa pode representar até  20,0% do PL do Fundo, com exceção do disposto nos parágrafos abaixo.\n O Fundo poderá adquirir Direitos Creditórios e outros ativos de um mesmo devedor ou de coobrigação de uma mesma pessoa ou  entidade acima do limite de 20,0% do seu PL, desde que sejam atendidas as condições estabelecidas nos parágrafos seguintes deste  Limites de Artigo.\n Concentração:\n O percentual referido no caput deste Artigo poderá ser elevado quando: I – o Devedor ou coobrigado: a) tenha registro de companhia  aberta; b) seja instituição financeira ou equiparada, autorizada a funcionar pelo Banco Central do Brasil; ou c) seja sociedade  empresarial que tenha suas demonstrações financeiras relativas ao exercício social imediatamente anterior à data de constituição do  fundo elaboradas em conformidade com o disposto na Lei nº 6.404, de 15 de dezembro de 1976, e a regulamentação editada pela  CVM, e auditadas por auditor independente registrado na CVM, ressalvado o disposto no § 3º do Artigo 78. II – se tratar de aplicações  em:a) títulos públicos federais; b) operações compromissadas lastreadas em títulos públicos federais; e c) cotas de fundos que  possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b”. Na hipótese da alínea “c”  do inciso I do § 2º deste Artigo, as demonstrações financeiras do devedor ou coobrigado e o respectivo parecer do auditor  independente deverão ser arquivados na CVM pela instituição administradora, devendo ser atualizada anualmente: I – até a data de  encerramento do fundo; ou II – até o exercício em que os direitos creditórios de responsabilidade do Devedor ou do coobrigado  deixarem de representar mais de 20,0% dos Direitos Creditórios que integram o PL.",
-      "sha256": "df8e4afc53dd92ffb7cfdae96413aaa5c59e2e093aefd4829620cb9fe1034b2c",
-      "verification": "primary_passage"
-    },
-    "6dfe6580122acbe61e2703b4029145e73fda2f43f14fff7d54aa3a3bbde0b953": {
-      "document_id": "835714",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835714",
-      "reference_date": "2025-02-10",
-      "version": "1",
-      "page": 78,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "71640c4a4b3d6da1a9dcbace23a42815394048a53cfaa7bdbee0ec05dfc6eeb7",
-      "verification": "primary_passage"
-    },
-    "4f107204dcc96f8b90ce3aa29c9be157197f57a988abfe294e3f807531f02452": {
-      "document_id": "835717",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835717",
-      "reference_date": "2025-02-10",
-      "version": "2",
-      "page": 79,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "1fa50e22b0f1db39bc8251de3b26f3a7c0b782db705522e1b7f6d6fadc0d5730",
-      "verification": "primary_passage"
-    },
-    "2dff92d5969abd61beca6aa76b621db3ba1d6a281b24758333e22e2081936edd": {
-      "document_id": "807360",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=807360",
-      "reference_date": "2024-12-20",
-      "version": "1",
-      "page": 78,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "71640c4a4b3d6da1a9dcbace23a42815394048a53cfaa7bdbee0ec05dfc6eeb7",
-      "verification": "primary_passage"
-    },
-    "2591ea2bbd226bc78710827c628062be565084611750dd8f34ee8f75a6c51c2c": {
-      "document_id": "780095",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=780095",
-      "reference_date": "2024-11-14",
-      "version": "1",
-      "page": 37,
-      "clause": "",
-      "excerpt": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria  Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de  serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria  Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de  seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem  qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "8192b2d69de32ce53feff5d76c5b0c84369460587a1a6a3ba3b9c09db0f7b805",
-      "verification": "primary_passage"
-    },
-    "7b4692129ad38b9dd486c487a27e91268adbd5ff17a2cb86a67c7f1f1b2924f4": {
-      "document_id": "760676",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760676",
-      "reference_date": "2024-10-17",
-      "version": "1",
-      "page": 35,
-      "clause": "",
-      "excerpt": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "1bc7ca546b06a613b60cbb2a1a31022684f72eaa36684b41fed43fc235e9b4f4",
-      "verification": "primary_passage"
-    },
-    "102afa083f7694255225cfd2e9ee507197ee563d0420ff6ac7ee527a181a9569": {
-      "document_id": "751360",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=751360",
-      "reference_date": "2024-10-03",
-      "version": "1",
-      "page": 37,
-      "clause": "",
-      "excerpt": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "0c0b18e97c698afe7949a4627b48dcc7250a38098ab374837e7de31b8098b54b",
-      "verification": "primary_passage"
-    },
-    "e004fc8ef00d7fc349cb4bdf9775f0aa3fee358cb1af0cabee0fa8ab4817ab52": {
-      "document_id": "679251",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=679251",
-      "reference_date": "2024-06-12",
-      "version": "1",
-      "page": 38,
-      "clause": "",
-      "excerpt": "Artigo 95. A cobrança dos Direitos Creditórios vencidos e não pagos será realizada pela Consultoria Especializada diretamente, admitindo-se a contratação de tais serviços com empresa prestadora de serviços de cobrança indicada pela Consultoria Especializada. Os Cedentes e/ou a Consultoria Especializada deverão transferir ao Fundo, no prazo de 48 (quarenta e oito) horas da verificação de seu recebimento, quaisquer valores que eventualmente venha a receber dos Devedores, sem qualquer dedução ou desconto, a qualquer título.",
-      "sha256": "17fdc7731706a08da6b3cc36bbc3644def1e7f814c8ea100ffcdd40f00299f9e",
-      "verification": "primary_passage"
-    },
-    "0e87683508c876cfa57273ba9bb14723774045019de8dac45ff611b043d94692": {
-      "document_id": "315435",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=315435",
-      "reference_date": "2022-06-07",
-      "version": "1",
-      "page": 13,
-      "clause": "",
-      "excerpt": "Seção 3 Gestão da carteira Artigo 30. A atividade de gestão da carteira do Fundo será exercida pela Multiplica Capital Asset Management Ltda., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, 283- 14° andar, Conjunto 141, sala 2, inscrita no CNPJ sob o nº 07.252.227/0001- 73, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 8342, de 03 de junho de 2005 a exercer a atividade de gestão de recursos e doravante designada .\nParágrafo Primeiro. Sem prejuízo de outras atribuições impostas pela regulamentação em vigor, pelo presente Regulamento e pelo contrato celebrado com a Administradora, em nome do Fundo, a Gestora será responsável pelas seguintes atividades:\n I selecionar os Cedentes e Sacados, bem como os Direitos Creditórios, dentre aqueles  apresentados pela Consultoria Especializada e os Ativos Financeiros para integrar a carteira  do Fundo, definindo os respectivos preços e condições, dentro dos parâmetros de mercado;\n II observar e respeitar a política de investimento, de composição e de diversificação da  carteira do Fundo, conforme estabelecida neste Regulamento;\n III observar as disposições da regulamentação aplicável com relação à sua atividade de  administração de carteiras de valores mobiliários, incluindo as normas de conduta, as  vedações e as obrigações previstas na regulamentação vigente;\n IV tomar suas decisões de gestão em consonância com as normas técnicas e  administrativas adequadas às operações nos mercados financeiro e de capitais, observando  os princípios de boa técnica de investimentos; e  V fornecer à Administradora e às autoridades fiscalizadoras, sempre que assim  solicitada, na esfera de sua competência, informações relativas às operações do Fundo e às  demais atividades que vier a desenvolver durante a gestão da carteira do Fundo.",
-      "sha256": "383633e8319a6acf36d17af3fc91fcc1cb1ab36b2fc1c2c60acebd2fa1a95b15",
       "verification": "primary_passage"
     },
     "164ff74f1330c3a6e002ddf75a82f98007c9f9e05d596824fa93083a77b6f6eb": {

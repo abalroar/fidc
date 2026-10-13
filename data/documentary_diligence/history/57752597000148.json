@@ -3,17 +3,6 @@
   "cnpj": "57752597000148",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "8807ead3be8c03d0016361e1d94bf2c1f6c63ba0e246df71b47b0b1e8b4bca64",
-      "b670ec4253529a345ff474530769157f88cab18a01890f54b873f7bbf8039cfa",
-      "8ee49cb1ad082c48b329578343707ea7a8dc81b8f44c89024cd81af326a6cb5c",
-      "89c56a08a4c52f7b3cb2c4dd5c328473c8b197be93868ab202326e4fe03e7c4a",
-      "ab62ceba127f52cddaabdf14aa0ece5ac19afa8f3f8bf6df08d40adf30072f3e",
-      "a3caec953a51e344f3611bfab083834414ffbce0d3ca14ab8e79b3c214367961",
-      "e06fe194baca3f1c7ef28933545cbc0c055c757b0025d82db0537d8608351e56",
-      "035b585796b8067cf07445ac66bfe5de4c84c8e54199f7558ee115a31ebdca6c",
-      "223a9abe7f1f8e078ad5fd427c3f4b52c28642ef918a7aa4828585a7507bafd7"
-    ],
     "term": [
       "75515d5d82244f74aa0ac2fb0f50408cda786b9f79bfdf10665fd37a18f0e8cf"
     ],
@@ -350,29 +339,6 @@
       "02d375c18709faa611b1d2c82c2b1cbd7a6c60442ec8ccfd4a93c9f397e09d28",
       "3d8d195844825353ced8ccbf1b4ecadd6038d64509b63835af65d9176345bbab"
     ],
-    "originator": [
-      "a0f3ebb6ffeb57a250212e9c4c65ad9fa38781a1d64fc9d22e5b971042bbce93",
-      "24169f3975b49c9b4a06a3fc73c5de6c9569e539207b7ecd30757b311d6435e8",
-      "72ef3ae7fa8ecf734085f1feb7d339d0720349a96039272958fb4c3ece602b33",
-      "65c5912ac3c177f2c5c8f1b5a49b5798f674cfda7df9c670d2988b5a203d9f72",
-      "f1a2260ba3157f351b58f0d5ebfbd71e9d2361eac351fe60a29525000569fdb2",
-      "998855f18e9d1f2599d9d0f2c190979b4fa0609a8d16e67354d5d8d1bb1a5b82",
-      "32eb5ea049e5fe47609ad6aa293f87cf40205023685238134013fa89a2b1012d"
-    ],
-    "debtor": [
-      "0ac49b1a09e9ed03c087e08a45b59d7dc4f4e2779328048efb9a5eefb8b92ae0",
-      "05f5568040e5a8b447c41d880559eca688f20521afafda8630ed67451963110e",
-      "afa1e9c1bd846e79aa575850452ade1deec85c3e565ac2c8faf15f7da828f40a",
-      "39af908aaec5d74f07689e57c26d6c44bcb743fb8ab6ec4696c5f90ff3698d19",
-      "4f3b7920972f6ce8ff975acc12884e8a0cc3b158bf99ff3a9de16f8ff641038e",
-      "6e8a3f9d7a6fd975d20bc297ae46a30d327a09737b635870b6e4b7f1e351bb3b",
-      "bb58eb70f4559b8d1182ba58a809527f368d19643ca70eb361d510b12b8bc2bb",
-      "8df57411d6e05bb2bea083dae79496572f1ed99e06c4a93fd1fe46704d88d282",
-      "62c1fc6d40b9d421be84469c539ab6b9b230a97c0778870487cbcb5b4558b9e1",
-      "d5e9be334e13ff21c34620b4f2f56c1db0df9672d06a380188a93429848c2f9c",
-      "61934a68ebaa557221891c43155d62af37da7398c6593887149f05188df948e0",
-      "26714b072023d9787e3c2bcfab54f3c62472ddc0bc8871b0bc0693c8347b12f7"
-    ],
     "investee": [
       "1e503f0cf6822f2587cffea4aad7ffeed5ba005d3ce6722923d9a100c530cf63",
       "36eb8a56f71a1fb51f81b67dba428b39b5047a90f24e3d262cbf22bf0ff9e4b7",
@@ -416,6 +382,41 @@
       "2346bd779eaf3d6c0255331be5fdc6405e3c49f85fbd4cc71ed33cbf74da40de",
       "e9bafa661cc1b6aeb329fd002d0c23a1710909d18de911c0faa5972b92594bf3",
       "450fb14b430cd43d21bbfef9f2d6c94b9c420345a675803686ee10b335bc1215"
+    ],
+    "originator": [
+      "a0f3ebb6ffeb57a250212e9c4c65ad9fa38781a1d64fc9d22e5b971042bbce93",
+      "24169f3975b49c9b4a06a3fc73c5de6c9569e539207b7ecd30757b311d6435e8",
+      "21a721548890795b1712b94d430a10d525196f71b1451ddc21e7fdda60cf5b1b",
+      "72ef3ae7fa8ecf734085f1feb7d339d0720349a96039272958fb4c3ece602b33",
+      "65c5912ac3c177f2c5c8f1b5a49b5798f674cfda7df9c670d2988b5a203d9f72",
+      "f1a2260ba3157f351b58f0d5ebfbd71e9d2361eac351fe60a29525000569fdb2",
+      "998855f18e9d1f2599d9d0f2c190979b4fa0609a8d16e67354d5d8d1bb1a5b82",
+      "32eb5ea049e5fe47609ad6aa293f87cf40205023685238134013fa89a2b1012d",
+      "0987ce3edf91109d1c913ac43ebdf31c89eeb023bf4c232264531cf69b2acbd7"
+    ],
+    "eligibility": [
+      "8807ead3be8c03d0016361e1d94bf2c1f6c63ba0e246df71b47b0b1e8b4bca64",
+      "9d530b82b2435611a7e2bd3eb859b714e143eec68e9810d5325cb51945e0efeb",
+      "8ee49cb1ad082c48b329578343707ea7a8dc81b8f44c89024cd81af326a6cb5c",
+      "47c8519511123b8198d7e6f246f0a949113e85b26e10543319537a853c86163a",
+      "ab62ceba127f52cddaabdf14aa0ece5ac19afa8f3f8bf6df08d40adf30072f3e",
+      "a3caec953a51e344f3611bfab083834414ffbce0d3ca14ab8e79b3c214367961",
+      "e06fe194baca3f1c7ef28933545cbc0c055c757b0025d82db0537d8608351e56",
+      "035b585796b8067cf07445ac66bfe5de4c84c8e54199f7558ee115a31ebdca6c",
+      "223a9abe7f1f8e078ad5fd427c3f4b52c28642ef918a7aa4828585a7507bafd7"
+    ],
+    "debtor": [
+      "0ac49b1a09e9ed03c087e08a45b59d7dc4f4e2779328048efb9a5eefb8b92ae0",
+      "05f5568040e5a8b447c41d880559eca688f20521afafda8630ed67451963110e",
+      "afa1e9c1bd846e79aa575850452ade1deec85c3e565ac2c8faf15f7da828f40a",
+      "0783a407b5706337ca6a7381cbbd07ca3b4b7ed52aa818dd70c5ac08df2d4405",
+      "6e8a3f9d7a6fd975d20bc297ae46a30d327a09737b635870b6e4b7f1e351bb3b",
+      "bb58eb70f4559b8d1182ba58a809527f368d19643ca70eb361d510b12b8bc2bb",
+      "8df57411d6e05bb2bea083dae79496572f1ed99e06c4a93fd1fe46704d88d282",
+      "62c1fc6d40b9d421be84469c539ab6b9b230a97c0778870487cbcb5b4558b9e1",
+      "d5e9be334e13ff21c34620b4f2f56c1db0df9672d06a380188a93429848c2f9c",
+      "61934a68ebaa557221891c43155d62af37da7398c6593887149f05188df948e0",
+      "26714b072023d9787e3c2bcfab54f3c62472ddc0bc8871b0bc0693c8347b12f7"
     ]
   },
   "entries": {
@@ -520,15 +521,6 @@
         "bc932ee2549512e5416dc51cf5ebe1a82324ed82430dddb650f0b995c105854a"
       ]
     },
-    "4f3b7920972f6ce8ff975acc12884e8a0cc3b158bf99ff3a9de16f8ff641038e": {
-      "reference_date": "2025-06-27",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "86aa8dbd184a34a4cb81eadb43ace90b872af61656ef0c6779c014c4566c26f1"
-      ]
-    },
     "6e8a3f9d7a6fd975d20bc297ae46a30d327a09737b635870b6e4b7f1e351bb3b": {
       "reference_date": "2025-01-15",
       "value": "10. “Devedor(es)”: as pessoas físicas e jurídicas que sejam produtores rurais ou integrem a cadeia produtiva do agronegócio que mantêm relacionamento comercial com o Cedente e que figuram como devedores (sacados) dos Direitos Creditórios adquiridos pela Classe;",
@@ -602,15 +594,6 @@
         "b01a320a7178eaea15a0b9089b5269786a287974afeab555dd7b02252071922b"
       ]
     },
-    "b670ec4253529a345ff474530769157f88cab18a01890f54b873f7bbf8039cfa": {
-      "reference_date": "2026-05-20",
-      "value": "(ix) a alteração do Art. 20 (incisos VI a XV) e Art. 21 do Anexo Descritivo da Classe Única, para reformulação dos Critérios de Elegibilidade e dos Limites de Concentração por Devedor, com (a) alteração do prazo de inadimplência admitido para Devedores de 60 (sessenta) para 30 (trinta) dias; (b) inclusão de novos critérios relativos à denominação em Reais, originação conforme a política de concessão, prazos mínimo (7 dias) e máximo (360 dias) dos Direitos Creditórios, situação de recuperação judicial/extrajudicial e falência do Devedor, e performance dos Direitos Creditórios mediante apresentação do Comprovante de Entrega;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "60c3332adc219896cd7a7544f5bedeba427cc98be45165160fc4b26257d4160e"
-      ]
-    },
     "8ee49cb1ad082c48b329578343707ea7a8dc81b8f44c89024cd81af326a6cb5c": {
       "reference_date": "2026-01-15",
       "value": "Artigo 4º O Cedente será responsável pela existência, certeza, liquidez, exigibilidade, veracidade, legitimidade e correta formalização dos Direitos Creditórios que tenha cedido ao Fundo, nos termos dos artigos 286 e seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias expressadas em cumprimento às Condições de Cessão, aos Critérios de Elegibilidade e/ou no Contrato de Cessão, conforme aplicável, não havendo por parte do Administrador, do Custodiante, do Agente de Cobrança (enquanto tal), do Gestor e/ou do Coordenador Líder qualquer responsabilidade a esse respeito, observadas e mantidas, contudo, as responsabilidades do Gestor e do Custodiante previstas na Resolução CVM nº 175 e nas demais normas aplicáveis, no Código ANBIMA de Regulação e Melhores Práticas para os Administração de Recursos de Terceiros e no Contrato de Cessão, conforme aplicável.",
@@ -618,15 +601,6 @@
       "provenance": "primary_passage",
       "sources": [
         "13b00e4b88667a44327f99325eff97b7c25eb0593732ad1d2d1c83f474af25c4"
-      ]
-    },
-    "89c56a08a4c52f7b3cb2c4dd5c328473c8b197be93868ab202326e4fe03e7c4a": {
-      "reference_date": "2025-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "744c28b2b5d666f4b74f7f992b121dd6c52d054797472d1f967311fd41436eeb"
       ]
     },
     "ab62ceba127f52cddaabdf14aa0ece5ac19afa8f3f8bf6df08d40adf30072f3e": {
@@ -2952,13 +2926,51 @@
         "23d7059523af081cda3861ada17b6809eb2d3cac961f687bcf63614c050e1517"
       ]
     },
-    "39af908aaec5d74f07689e57c26d6c44bcb743fb8ab6ec4696c5f90ff3698d19": {
-      "reference_date": "2025-09-30",
-      "value": "",
+    "0987ce3edf91109d1c913ac43ebdf31c89eeb023bf4c232264531cf69b2acbd7": {
+      "reference_date": "2026-05-21",
+      "value": "Parágrafo Terceiro É vedada a aquisição de Direitos Creditórios originados ou cedidos pelo Administrador, Gestor ou partes a eles relacionados. Referida vedação não será aplicável, desde que expressamente afastada pelo respectivo Anexo Descritivo se: (i) o Gestor, a Entidade Registradora e o Custodiante dos Direitos Creditórios não sejam partes relacionadas entre si, exceto se a respectiva Classe seja destinada exclusivamente a Investidores Profissionais; e (ii) a Entidade Registradora e o Custodiante não sejam partes relacionadas ao Originador ou Cedente.\n\nParágrafo Terceiro O prestador de serviços contratado para os fins deste Artigo não poderá ser o originador dos Direitos Creditórios ou o Cedente e suas respectivas partes relacionadas, tal como definido pelas regras contábeis que tratam deste assunto, exceto conforme previsão dos §§ 3º e 4º do artigo 30 do Anexo Normativo II da Resolução CVM nº 175.",
+      "assessment": "Resposta anteriormente publicada rejeitada na validação de relevância: O trecho veda contratação ou conflito de prestadores; não identifica quem origina, cede ou deve os créditos da carteira.",
+      "provenance": "published_primary_answer_rejected",
+      "sources": [
+        "495deb9c38a182dea82595323667e558ca33f2c28c9a8ea817677e3048512a66",
+        "32529087463b5f2512029e8b26d3e7884f8cc093b3740869e64f1219fea97d81",
+        "1d06719c490ccfabc1e89fb65fce4304089b3960276c8166661517f03836afcc"
+      ]
+    },
+    "9d530b82b2435611a7e2bd3eb859b714e143eec68e9810d5325cb51945e0efeb": {
+      "reference_date": "2026-05-20",
+      "value": "(ix) a alteração do Art. 20 (incisos VI a XV) e Art. 21 do Anexo Descritivo da Classe Única, para reformulação dos Critérios de Elegibilidade e dos Limites de Concentração por Devedor, com (a) alteração do prazo de inadimplência admitido para Devedores de 60 (sessenta) para 30 (trinta) dias; (b) inclusão de novos critérios relativos à denominação em Reais, originação conforme a política de concessão, prazos mínimo (7 dias) e máximo (360 dias) dos Direitos Creditórios, situação de recuperação judicial/extrajudicial e falência do Devedor, e performance dos Direitos Creditórios mediante apresentação do Comprovante de Entrega; (c) reformulação do quadro de limites de concentração por categoria de Devedor; e (d) inclusão de vedação de aquisição de Direitos Creditórios de Devedores da cadeia produtiva do fumo/tabaco e de Devedores ligados por relação societária ao Cedente;",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "a897668a6cb0894cbfab01026220c63f8f1e3bbfde817c5421f77bb3167fe9a4"
+        "60c3332adc219896cd7a7544f5bedeba427cc98be45165160fc4b26257d4160e"
+      ]
+    },
+    "47c8519511123b8198d7e6f246f0a949113e85b26e10543319537a853c86163a": {
+      "reference_date": "2025-09-30",
+      "value": "Os direitos creditórios a serem cedidos ao Fundo deverão atender, ainda, às condições abaixo, bem como deverã ser validados pelo gestor, que será responsável por verificar os seguintes critérios de elegibilidade: a) os direitos creditórios deverão ser representados por arquivos XML, acompanhada pela respectiva duplicata que deu origem ao arquivo, e expressos em moeda corrente nacional; b) os direitos creditórios deverão ter prazo de vencimento mínimo de 7 dias contados da data de emissão da duplicata; c) os direitos creditórios deverão ter prazo de vencimento máximo de 360 dias contados da data de emissão da duplicata; d) a taxa mínima de cessão deve ser observada; e) somente poderão ser adquiridos direitos creditórios que não estejam vencidos e pendentes de pagamento na respectiva data de aquisição e pagamento; f) não poderão adquiridos direitos creditórios cujos devedores estejam inadimplentes perante o Fundo; e g) considerada pro forma a aquisição pretendida, o prazo médio da carteira de direitos creditórios deverá ser igual ou menor a 60 dias.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "744c28b2b5d666f4b74f7f992b121dd6c52d054797472d1f967311fd41436eeb"
+      ]
+    },
+    "21a721548890795b1712b94d430a10d525196f71b1451ddc21e7fdda60cf5b1b": {
+      "reference_date": "2025-09-30",
+      "value": "Os direitos creditórios podem ser classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente. (ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c51808a46db26483277a3b6603a45022a563702e16b610b26d17fbe667344331"
+      ]
+    },
+    "0783a407b5706337ca6a7381cbbd07ca3b4b7ed52aa818dd70c5ac08df2d4405": {
+      "reference_date": "2025-06-27",
+      "value": "10. “Devedor(es)”: as pessoas físicas e jurídicas que sejam produtores rurais ou integrem a cadeia produtiva do agronegócio que mantêm relacionamento comercial com o Cedente e que figuram como devedores (sacados) dos Direitos Creditórios adquiridos pela Classe;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7e93be9b36542bc5f966848a4b2533fc1ecf7f1a93370bc233d667b87cd774a2"
       ]
     }
   },
@@ -3095,18 +3107,6 @@
       "clause": "",
       "excerpt": "10. “Devedor(es)”: as pessoas físicas e jurídicas que sejam produtores rurais ou  integrem a cadeia produtiva do agronegócio que mantêm relacionamento comercial  com o Cedente e que figuram como devedores (sacados) dos Direitos Creditórios  adquiridos pela Classe;",
       "sha256": "cee169785f89771ab6c94e00ce4d0be356ed336ea4c1040e4aacdc7eb8239209",
-      "verification": "primary_passage"
-    },
-    "86aa8dbd184a34a4cb81eadb43ace90b872af61656ef0c6779c014c4566c26f1": {
-      "document_id": "934845",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=934845",
-      "reference_date": "2025-06-27",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "04. ORDEM DO DIA: (a) A substituição da atual prestadora de serviços de Gestão do  Fundo, a ATR GESTÃO DE RECURSOS FINANCEIROS LTDA., inscrita no CNPJ sob o nº  o nº 42.342.294/0001-80 (“Atual Gestora”), pela ORIZ ASSET MANAGEMENT LTDA.,  sociedade empresária com sede na cidade de São Paulo, Estado de São Paulo na Av.\n Brigadeiro Faria Lima, nº 2055, Jardim Paulistano, Conj. 152, CEP: 01.452-001, inscrita  no CNPJ/MF sob o nº 31.384.260/0001-31, devidamente habilitada para a prestação de  serviços de gestão de carteira de valores mobiliários perante a CVM, nos termos do Ato  Declaratório nº 17.185, de 7 de junho de 2019, (“Nova Gestora”); (b) Aprovar a criação  da Subclasse Sênior da Classe Única do Fundo, com suas respectivas características de  prazo, remuneração, valor de emissão e público-alvo; (c) Aprovar a alteração do caput e  do inciso XIV do artigo 18 do Capítulo III do Regulamento do Fundo, para alteração das  regras de concentração por devedor; (d) Aprovar a inclusão de novo parágrafo no Capítulo  II do Anexo Descritivo do Regulamento, permitindo a alocação, a critério da Gestora, em  cotas de FIDCs para fins de enquadramento fiscal nos termos da legislação vigente; (e)  Aprovar a atualização do termo definido “Devedores Especiais”, com a criação do conceito  específico de “Devedores Especiais Nível I” e inclusão da lista de emissores qualificados;\n (f) Aprovar a inclusão de novo parágrafo no Artigo 18 do Capítulo III do Regulamento, a  fim de prever a atuação do Comitê de Crédito da Gestora como responsável pela  classificação técnica dos Devedores conforme os níveis previstos no Regulamento; (g)  Aprovar a alteração do inciso VII do Artigo 20 do Capítulo IV do Regulamento do Fundo,  para redução do prazo médio da carteira de Direitos Creditórios para 60 (sessenta) dias;\n (h) Aprovar a atualização do termo definido “Instituições Autorizadas” na Parte Geral do  Regulamento, para inclusão do Banco Daycoval S.A. como instituição autorizada a operar  com o Fundo; (i) Aprovar a alteração do percentual do “Índice de Subordinação” e do  Artigo 29 do Capítulo XI do Anexo Descritivo do Regulamento do Fundo, para refletir o",
-      "sha256": "4820128b43f35959728ee7b8e5e9406669b930ec0367fd4fa874f88bdbd4aeb8",
       "verification": "primary_passage"
     },
     "8baaa435a48000edd35d4fa1544d2ee28186ae3b475ef2e0e99b46cbacc98da8": {
@@ -6148,16 +6148,64 @@
       "sha256": "4820128b43f35959728ee7b8e5e9406669b930ec0367fd4fa874f88bdbd4aeb8",
       "verification": "primary_passage"
     },
-    "a897668a6cb0894cbfab01026220c63f8f1e3bbfde817c5421f77bb3167fe9a4": {
+    "495deb9c38a182dea82595323667e558ca33f2c28c9a8ea817677e3048512a66": {
+      "document_id": "1200681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+      "reference_date": "2026-05-21",
+      "version": "1",
+      "page": 19,
+      "clause": "",
+      "excerpt": "Parágrafo Terceiro É vedada a aquisição de Direitos Creditórios originados ou cedidos pelo Administrador, Gestor ou partes a eles relacionados. Referida vedação não será aplicável, desde que expressamente afastada pelo respectivo Anexo Descritivo se: (i) o Gestor, a Entidade Registradora e o Custodiante dos Direitos Creditórios não sejam partes relacionadas entre si, exceto se a respectiva Classe seja destinada exclusivamente a Investidores Profissionais; e (ii) a Entidade Registradora e o Custodiante não sejam partes relacionadas ao Originador ou Cedente.",
+      "sha256": "4e347a2fbee7ab25779b3583d93bf0e56f6eedc603dc185fd026fc12812f78f4",
+      "verification": "primary_passage"
+    },
+    "32529087463b5f2512029e8b26d3e7884f8cc093b3740869e64f1219fea97d81": {
+      "document_id": "1200681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+      "reference_date": "2026-05-21",
+      "version": "1",
+      "page": 57,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro a soma das exposições aos Devedores classificados como Nível III e “Demais” não poderá ultrapassar 20% do Patrimônio Líquido.\n[IBBA: os critérios de elegibilidade abaixo estavam quebrados – parte acima e aparte abaixo. Consolidamos todos na cláusula anterior] Parágrafo Segundo Para efeito de cálculo dos limites de concentração previstos neste Anexo Descritivo, consideram-se como pertencentes a (i) um único Devedor os direitos creditórios e ativos financeiros de liquidez de responsabilidade ou coobrigação de devedores integrantes de um mesmo grupo econômico, ou (ii) a um único Cedente os direitos creditórios cedidos por Cedentes integrantes de um mesmo grupo econômico.",
+      "sha256": "4e347a2fbee7ab25779b3583d93bf0e56f6eedc603dc185fd026fc12812f78f4",
+      "verification": "primary_passage"
+    },
+    "1d06719c490ccfabc1e89fb65fce4304089b3960276c8166661517f03836afcc": {
+      "document_id": "1200681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+      "reference_date": "2026-05-21",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "Parágrafo Terceiro O prestador de serviços contratado para os fins deste Artigo não poderá ser o originador dos Direitos Creditórios ou o Cedente e suas respectivas partes relacionadas, tal como definido pelas regras contábeis que tratam deste assunto, exceto conforme previsão dos §§ 3º e 4º do artigo 30 do Anexo Normativo II da Resolução CVM nº 175.",
+      "sha256": "4e347a2fbee7ab25779b3583d93bf0e56f6eedc603dc185fd026fc12812f78f4",
+      "verification": "primary_passage"
+    },
+    "c51808a46db26483277a3b6603a45022a563702e16b610b26d17fbe667344331": {
       "document_id": "1065135",
       "title": "Demonstrações Financeiras",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065135",
       "reference_date": "2025-09-30",
       "version": "1",
-      "page": 20,
+      "page": 13,
       "clause": "",
-      "excerpt": "Risco inerente ao setor agro: O setor agropecuário está sujeito a características específicas, inclusive, mas não se limitando a natureza predominantemente sazonal, com o que as operações são afetadas pelo ciclo das lavouras, condições meteorológicas adversas, inclusive secas, inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária, incêndios e demais sinistros, pragas e doenças, que podem atingir de maneira imprevisível as safras e os semoventes, preços praticados mundialmente, que têm sua cotação em dólar, além de estarem sujeitos a flutuações significativas, dependendo da oferta e demanda globais, de alterações dos níveis de subsídios agrícolas de certos produtores importantes (principalmente Estados Unidos e Comunidade Europeia), de mudanças de barreiras comerciais de certos mercados consumidores importantes e da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas, concorrência de commodities similares e/ou substitutivas e acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados participantes, inclusive os devedores e/ou o cedente. A verificação de um ou mais desses fatores poderá impactar negativamente o setor, afetando o pagamento dos direitos creditórios e, consequentemente, a rentabilidade dos cotistas.",
+      "excerpt": "Os direitos creditórios podem ser classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente.\n(ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
       "sha256": "a0416308a75429133708244c1af6ebaae7448e442d99a9446b2f7535879f0a00",
+      "verification": "primary_passage"
+    },
+    "7e93be9b36542bc5f966848a4b2533fc1ecf7f1a93370bc233d667b87cd774a2": {
+      "document_id": "934845",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=934845",
+      "reference_date": "2025-06-27",
+      "version": "1",
+      "page": 46,
+      "clause": "",
+      "excerpt": "10. “Devedor(es)”: as pessoas físicas e jurídicas que sejam produtores rurais ou  integrem a cadeia produtiva do agronegócio que mantêm relacionamento comercial com o  Cedente e que figuram como devedores (sacados) dos Direitos Creditórios adquiridos pela  Classe;",
+      "sha256": "4820128b43f35959728ee7b8e5e9406669b930ec0367fd4fa874f88bdbd4aeb8",
       "verification": "primary_passage"
     }
   }

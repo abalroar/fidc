@@ -3,12 +3,6 @@
   "cnpj": "62588266000154",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "4f69ac145a67b440d5fc914653e93c40759221b5177af0c236d6a862e5ff369c",
-      "d708edd308ee215f9a5d151f524c81b6a5ef89f4e438c86ba09824893f78617f",
-      "6bdcec36450e626c05c4ae798eeffe6ac16ce85f38648767d2ed983774ae09de",
-      "28a14c580040b730783827406352290fac41097d8445685ab792e5fb07a2790a"
-    ],
     "ticket": [
       "742d7ceac1d3b6916aa609d0aed21cec664f2dcbd4e6a994084874b2507685cc",
       "1a55307e844b4d0a6c2acff0043cf26a7a5a83fbd9209972fd108decede78c81",
@@ -271,15 +265,6 @@
       "8efeb64f9574af79e7e6a871526ba502c9ae6986c6d9c858ee635fa159806263",
       "a2a70e47426473c9331f5b4a855427a25aa69730bde72bd35a97f8abc0e2765f"
     ],
-    "originator": [
-      "6f499bf845929c6d208fae1d8e257f02f16e534e7970babebf9a1d1824d47b6d"
-    ],
-    "debtor": [
-      "76c97ef601b0e82dc6cae07db4f9855d02383d5b7b3d294defd4242e64aad688",
-      "1a980caa513d6983ce35614e319cbf6ba13a4fdaa1a606fbb41d1b656078e78f",
-      "ab9ba4ec1f94f71eeab0dc9429600032b4738e177b9ff1699eda9e642a1ce7ad",
-      "f3de926db6282d677899557fbdd0a05adb6350a66a864cd4f211304c58f23949"
-    ],
     "investee": [
       "2e7a33ffec2cac1ed163da261dd578d9e657fc324940d191bb4bda11d4b86f4e",
       "d81009a2c4c575e6a146978a9b5dd7b9edce48f307f0fb6f1b2402656c2271ab",
@@ -303,6 +288,22 @@
       "cd46b8039bd593ee497a6d78d9040b7067b431787b07a993b5a10fc5323c8546",
       "f094a71a7b92799b897795d10d54c2855d9839206ab1360dbfce5c690a19d17c",
       "d24a70cbac27993b8fedae34838238d364f34eb949b917bbc87417237c315f44"
+    ],
+    "originator": [
+      "6f499bf845929c6d208fae1d8e257f02f16e534e7970babebf9a1d1824d47b6d"
+    ],
+    "eligibility": [
+      "4f69ac145a67b440d5fc914653e93c40759221b5177af0c236d6a862e5ff369c",
+      "c427c0dd849bfb150416fc95a97ae20dbc955a757c89df959fd42d756abb5994",
+      "2bfaabe1d37ca1f08cc7a36d38fea033ef54ddabf59a6440c8a4c41622a2cecf",
+      "42b0ec521016b81e222d7a877d09e90753c4af008ddea8e57e566d8a2123f760"
+    ],
+    "debtor": [
+      "76c97ef601b0e82dc6cae07db4f9855d02383d5b7b3d294defd4242e64aad688",
+      "36327f2af45a042ba4d65e4dfd8dd3028eb915e2056980dc5e090b7ee800db6b",
+      "d067a6f8bce13154392a9e552cf3a89a1403d972b728b8b22fe6818a4b664604",
+      "221189ae386e486ba2ccef13f12ed444f160b0be758fbb5b380bcc7bc9996509",
+      "79b301e6d816542a3c4ec4155ca4c0b8ac4ed6c64fb5ab931d8aa076e3d40739"
     ]
   },
   "entries": {
@@ -336,33 +337,6 @@
         "417c45c60204f47f10686be96497a730a679106b992676346da5c319722501fc"
       ]
     },
-    "1a980caa513d6983ce35614e319cbf6ba13a4fdaa1a606fbb41d1b656078e78f": {
-      "reference_date": "2025-09-18",
-      "value": "Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos Devedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a3b3da70f788346d39ab549e6c83915eaa465036bcb6723940b71814a68e02ca"
-      ]
-    },
-    "ab9ba4ec1f94f71eeab0dc9429600032b4738e177b9ff1699eda9e642a1ce7ad": {
-      "reference_date": "2025-09-15",
-      "value": "Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos Devedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0ae6074e26bbe487c99d7e811bc08388b447742e6f2c500487bf6d453f01ce59"
-      ]
-    },
-    "f3de926db6282d677899557fbdd0a05adb6350a66a864cd4f211304c58f23949": {
-      "reference_date": "2025-09-05",
-      "value": "Convênio da Facta com INSS. A Consignação de valores em folha de benefícios para pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "12b0d385d2006ad55f33cbf24e7319055d2cf7e2997ac7719c953a02d2df3d96"
-      ]
-    },
     "4f69ac145a67b440d5fc914653e93c40759221b5177af0c236d6a862e5ff369c": {
       "reference_date": "2025-09-29",
       "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
@@ -371,33 +345,6 @@
       "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
       "sources": [
         "5fc9a93e067dd66b7d32093277e835f248034ba991fe035a10e4c7cc85eceb25"
-      ]
-    },
-    "d708edd308ee215f9a5d151f524c81b6a5ef89f4e438c86ba09824893f78617f": {
-      "reference_date": "2025-09-18",
-      "value": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e Condições de Aquisição, conforme verificados pelos respectivos responsáveis indicados neste Anexo Descritivo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c741fdea69d6378d53598a5dcf21ad8b4aae2d369d3145b7bfbe85a33c5db26d"
-      ]
-    },
-    "6bdcec36450e626c05c4ae798eeffe6ac16ce85f38648767d2ed983774ae09de": {
-      "reference_date": "2025-09-15",
-      "value": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e Condições de Aquisição, conforme verificados pelos respectivos responsáveis indicados neste Anexo Descritivo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bb378e4fb268052762416382be55ca83c56befed17ff04b356a03fd6b332d0fe"
-      ]
-    },
-    "28a14c580040b730783827406352290fac41097d8445685ab792e5fb07a2790a": {
-      "reference_date": "2025-09-05",
-      "value": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e Condições de Aquisição, conforme verificados pelos respectivos responsáveis indicados neste Anexo Descritivo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2b2363c876cdd44415e6f040280b42e82d48cf83d7ab6f1116965bc421fb66c7"
       ]
     },
     "742d7ceac1d3b6916aa609d0aed21cec664f2dcbd4e6a994084874b2507685cc": {
@@ -1928,6 +1875,71 @@
       "sources": [
         "d8152a378ec3068f83fe2ad44621e6e577c4373043958a2216eae345751a0e73"
       ]
+    },
+    "c427c0dd849bfb150416fc95a97ae20dbc955a757c89df959fd42d756abb5994": {
+      "reference_date": "2025-09-18",
+      "value": "7.2 Sem prejuízo do disposto no item 7.1 acima, o Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Oferta, com base, exclusivamente, nas informações contidas no Arquivo CNAB/Requisição de Oferta, caso não esteja expressamente disposto de outra forma no Contrato de Endosso: (i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais); (ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no mínimo, a 200 (duzentos) reais; (iii) os Direitos Creditórios não podem ser oriundos dos benefícios de Códigos INSS Vedados exceto para operações que possuírem cobertura de seguro para a integralidade do crédito em caso de morte ou perda do benefício, nos Códigos de Benefício da Previdência Social de nºs 87 e 88. Os Devedores que recebem o benefício em razão de aposentadoria por invalidez (Código do Benefício na Previdência Social nº 32) ou incapacidade (Código do Benefício na Previdência Social nº 92) devem ter idade igual ou superior a 55 (cinquenta e cinco) anos, e mais de 15 (quinze) anos de Benefício concedido, conforme indicado pela Cedente no Arquivo CNAB/Requisição de Oferta, exceto caso possuam cobertura de seguro para a integralidade do crédito; (iv) a idade máxima do Devedor deve ser de 72 (setenta e dois) anos, 11 (onze) meses e 29 (vinte e nove) dias na concessão do crédito, ressalvado os casos com Seguro",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "52bb9d26972bd3d2ce2198fc04ae51b3ae515c7ce68d37cf641966409ff4667a"
+      ]
+    },
+    "2bfaabe1d37ca1f08cc7a36d38fea033ef54ddabf59a6440c8a4c41622a2cecf": {
+      "reference_date": "2025-09-15",
+      "value": "7.2 Sem prejuízo do disposto no item 7.1 acima, o Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Oferta, com base, exclusivamente, nas informações contidas no Arquivo CNAB/Requisição de Oferta, caso não esteja expressamente disposto de outra forma no Contrato de Endosso: (i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais);.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0e37aec7df9284204535f013413828e7e4ffc2b48967e4b0bc24af04ddcc9486"
+      ]
+    },
+    "42b0ec521016b81e222d7a877d09e90753c4af008ddea8e57e566d8a2123f760": {
+      "reference_date": "2025-09-05",
+      "value": "7.2 Sem prejuízo do disposto no item 7.1 acima, o Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Oferta, com base, exclusivamente, nas informações contidas no Arquivo CNAB/Requisição de Oferta, caso não esteja expressamente disposto de outra forma no Contrato de Endosso: (i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá exceder R$ 120.000,00 (cento e vinte mil reais); (ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no mínimo, a 200 (duzentos) reais; (iii) os Direitos Creditórios não podem ser oriundos dos benefícios de Códigos INSS Vedados exceto para operações que possuírem cobertura de seguro para a integralidade do crédito em caso de morte ou perda do benefício, nos Códigos de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bc94e43499372dd30e6b2a2362ff3d076524ceea04c5dd6a268d19df9eaba1b7"
+      ]
+    },
+    "36327f2af45a042ba4d65e4dfd8dd3028eb915e2056980dc5e090b7ee800db6b": {
+      "reference_date": "2025-09-18",
+      "value": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios integrantes da carteira da Classe;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "78003236b31f6304da7e38137863c73b29499417bf8328fbd471a9c0cb08135d"
+      ]
+    },
+    "d067a6f8bce13154392a9e552cf3a89a1403d972b728b8b22fe6818a4b664604": {
+      "reference_date": "2025-09-15",
+      "value": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios integrantes da carteira da Classe;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7baaa5ee19996a2e8f8dfe6c300e7bfe9ada575f92a36c7f9a96f3c477406ec8"
+      ]
+    },
+    "221189ae386e486ba2ccef13f12ed444f160b0be758fbb5b380bcc7bc9996509": {
+      "reference_date": "2025-09-05",
+      "value": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios integrantes da carteira da Classe; e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a331b2215f85ba5a08b3c86b4393023baa7cb7ca2e13ac386e8728ce45ab5ea4"
+      ]
+    },
+    "79b301e6d816542a3c4ec4155ca4c0b8ac4ed6c64fb5ab931d8aa076e3d40739": {
+      "reference_date": "2025-09-29",
+      "value": "Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos Devedores.\n\nOs Direitos Creditórios Adquiridos terão seus pagamentos realizados, via de regra, mediante repasses do INSS. A capacidade de o INSS a Dataprev efetuarem as Consignações devidas poderá ser afetada se, por força de decisão judicial ou administrativa, a margem de consignação dos respectivos Devedores para repagamento de CCBs for reduzida, inclusive em decorrência de obrigação de pagamento de pensão alimentícia ou outras obrigações que têm preferência em relação ao pagamento das CCBs.\n\nConvênio da Facta com INSS. A Consignação de valores em folha de benefícios para pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev.",
+      "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "a852fde6624340dec0f36d2067b2e4cb51642f6aec503a7fea39f630c78f50e8",
+        "fc37b5e228c34c24e344baaea3a536dc234586af68c087cb893cbf0101898f97",
+        "ef7574323034e4b6b0a7c2a6f2909b27139ba5d73461df99b7042451b6c7dce1"
+      ]
     }
   },
   "passages": {
@@ -1981,18 +1993,6 @@
       "sha256": "25d13cf380198e0ee651c5717732b9196ea8d2c04965b29b1239dae286277f57",
       "verification": "primary_passage"
     },
-    "12b0d385d2006ad55f33cbf24e7319055d2cf7e2997ac7719c953a02d2df3d96": {
-      "document_id": "987463",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=987463",
-      "reference_date": "2025-09-05",
-      "version": "1",
-      "page": 79,
-      "clause": "",
-      "excerpt": "Convênio da Facta com INSS. A Consignação de valores em folha de benefícios para pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras devem ser observadas para a manutenção do convênio, cujo descumprimento poderá levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do convênio nos termos outrora vigentes. Havendo o rompimento ou a não renovação do convênio, ou sua renovação em termos menos vantajosos à Facta, a sistemática de cobrança dos Direitos Creditórios Adquiridos, qual seja, a consignação em folha de benefícios, poderá ser comprometida, havendo necessidade de adoção de nova sistemática, que pode não ser tão eficaz ou até mostrar-se, na prática, inadequada ou com elevados custos operacionais para o Fundo.",
-      "sha256": "dcc6c4c8fe66882e356876ec3317494a9d426a1adaa3622a679430d45728dad6",
-      "verification": "primary_passage"
-    },
     "5fc9a93e067dd66b7d32093277e835f248034ba991fe035a10e4c7cc85eceb25": {
       "document_id": "1002580",
       "title": "Regulamento",
@@ -2005,42 +2005,6 @@
       "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
       "verification": "previous_review",
       "citation_original": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 31–32 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580"
-    },
-    "c741fdea69d6378d53598a5dcf21ad8b4aae2d369d3145b7bfbe85a33c5db26d": {
-      "document_id": "995150",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995150",
-      "reference_date": "2025-09-18",
-      "version": "1",
-      "page": 25,
-      "clause": "3.3.1",
-      "excerpt": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios  de Elegibilidade e Condições de Aquisição, conforme verificados pelos  respectivos responsáveis indicados neste Anexo Descritivo.",
-      "sha256": "d003b398111e3855dfc86979e4f9ad60f01ed8ca5e7bfaca7fcb7f46d089c641",
-      "verification": "primary_passage"
-    },
-    "bb378e4fb268052762416382be55ca83c56befed17ff04b356a03fd6b332d0fe": {
-      "document_id": "992656",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992656",
-      "reference_date": "2025-09-15",
-      "version": "1",
-      "page": 31,
-      "clause": "3.3.1",
-      "excerpt": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios  de Elegibilidade e Condições de Aquisição, conforme verificados pelos  respectivos responsáveis indicados neste Anexo Descritivo.",
-      "sha256": "25d13cf380198e0ee651c5717732b9196ea8d2c04965b29b1239dae286277f57",
-      "verification": "primary_passage"
-    },
-    "2b2363c876cdd44415e6f040280b42e82d48cf83d7ab6f1116965bc421fb66c7": {
-      "document_id": "987463",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=987463",
-      "reference_date": "2025-09-05",
-      "version": "1",
-      "page": 23,
-      "clause": "3.3.1",
-      "excerpt": "3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios  de Elegibilidade e Condições de Aquisição, conforme verificados pelos  respectivos responsáveis indicados neste Anexo Descritivo.",
-      "sha256": "dcc6c4c8fe66882e356876ec3317494a9d426a1adaa3622a679430d45728dad6",
-      "verification": "primary_passage"
     },
     "0499cd627994f5550fc436de8c1fdaf30cb899860ff9912dab6bb821f0183bcb": {
       "document_id": "987463",
@@ -3889,6 +3853,91 @@
       "clause": "2.4",
       "excerpt": "2.4 Tão logo tenha ciência de qualquer pedido de declaração judicial de insolvência, a  Administradora deve divulgar Fato Relevante, sendo certo que qualquer pedido de  declaração judicial de insolvência constitui um Evento de Liquidação da Classe.",
       "sha256": "dcc6c4c8fe66882e356876ec3317494a9d426a1adaa3622a679430d45728dad6",
+      "verification": "primary_passage"
+    },
+    "0e37aec7df9284204535f013413828e7e4ffc2b48967e4b0bc24af04ddcc9486": {
+      "document_id": "992656",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992656",
+      "reference_date": "2025-09-15",
+      "version": "1",
+      "page": "39–40",
+      "clause": "7.2",
+      "excerpt": "7.2 Sem prejuízo do disposto no item 7.1 acima, o Fundo somente poderá adquirir Direitos  Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de  elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na  respectiva Data de Oferta, com base, exclusivamente, nas informações contidas no  Arquivo CNAB/Requisição de Oferta, caso não esteja expressamente disposto de outra  forma no Contrato de Endosso:\n(i) o saldo dos Direitos Creditórios devidos por um mesmo Devedor não poderá  exceder R$ 120.000,00 (cento e vinte mil reais);\n(ii) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a média do  fluxo de pagamento mensal dos Direitos Creditórios Adquiridos equivalente a, no  mínimo, a 200 (duzentos) reais;\n(iii) os Direitos Creditórios não podem ser oriundos dos benefícios de Códigos INSS  Vedados exceto para operações que possuírem cobertura de seguro para a  integralidade do crédito em caso de morte ou perda do benefício, nos Códigos de  Benefício da Previdência Social de nºs 32, 87, 88 e 92. Os Devedores que recebem  o benefício em razão de aposentadoria por invalidez (Código do Benefício na  Previdência Social nº 32) ou incapacidade (Código do Benefício na Previdência  Social nº 92) devem ter idade igual ou superior a 55 (cinquenta e cinco) anos, ou  mais de 15 (quinze) anos de Benefício concedido, conforme indicado pela Cedente  no Arquivo CNAB/Requisição de Oferta;\n(iv) a idade máxima do Devedor deve ser de 72 (setenta e dois) anos, 11 (onze) meses  e 29 (vinte e nove) dias na concessão do crédito, ressalvado os casos com Seguro  Prestamista contratado, desde que tal seguro possua cobertura para a  integralidade da exposição ao crédito;\n(v) a aquisição dos Direitos Creditórios, considerada pro-forma, mantenha a idade  média dos Devedores em menor ou igual a 68 (sessenta e oito) anos (neste item,  não serão considerados para o cálculo da média de idade os contratos que  possuírem cobertura de seguro para integralidade da exposição do crédito);\n(vi) a soma de (a) idade do Devedor; e (b) prazo de vencimento da CCB não seja  superior a 80 (oitenta) anos, ressalvado os casos com Seguro Prestamista que  cubra a integralidade da exposição do crédito, para os quais não deve haver limite  de idade ao final do contrato;\n(vii) a carteira do Fundo deve ser composta por, no máximo, 60% (sessenta por cento)  dos Devedores do sexo masculino, conforme indicado pela Cedente no Arquivo  CNAB/Requisição de Oferta;\n(viii) cuja transferência, considerada pro-forma, mantenha a concentração da carteira  por idade (neste item, não serão considerados para o cálculo da média contratos  que possuírem cobertura integral de Seguro Prestamista):",
+      "sha256": "25d13cf380198e0ee651c5717732b9196ea8d2c04965b29b1239dae286277f57",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "78003236b31f6304da7e38137863c73b29499417bf8328fbd471a9c0cb08135d": {
+      "document_id": "995150",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995150",
+      "reference_date": "2025-09-18",
+      "version": "1",
+      "page": 34,
+      "clause": "",
+      "excerpt": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão  estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios  integrantes da carteira da Classe;",
+      "sha256": "d003b398111e3855dfc86979e4f9ad60f01ed8ca5e7bfaca7fcb7f46d089c641",
+      "verification": "primary_passage"
+    },
+    "7baaa5ee19996a2e8f8dfe6c300e7bfe9ada575f92a36c7f9a96f3c477406ec8": {
+      "document_id": "992656",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992656",
+      "reference_date": "2025-09-15",
+      "version": "1",
+      "page": 40,
+      "clause": "",
+      "excerpt": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão  estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios  integrantes da carteira da Classe;",
+      "sha256": "25d13cf380198e0ee651c5717732b9196ea8d2c04965b29b1239dae286277f57",
+      "verification": "primary_passage"
+    },
+    "a331b2215f85ba5a08b3c86b4393023baa7cb7ca2e13ac386e8728ce45ab5ea4": {
+      "document_id": "987463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=987463",
+      "reference_date": "2025-09-05",
+      "version": "1",
+      "page": 33,
+      "clause": "",
+      "excerpt": "(ix) os Devedores dos Direitos Creditórios devem ser pessoas físicas e não poderão  estar inadimplentes, na Data de Oferta, com relação a outros Direitos Creditórios  integrantes da carteira da Classe; e",
+      "sha256": "dcc6c4c8fe66882e356876ec3317494a9d426a1adaa3622a679430d45728dad6",
+      "verification": "primary_passage"
+    },
+    "a852fde6624340dec0f36d2067b2e4cb51642f6aec503a7fea39f630c78f50e8": {
+      "document_id": "1002580",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "reference_date": "2025-09-29",
+      "version": "1",
+      "page": 92,
+      "clause": "",
+      "excerpt": "Necessidade de cobrança extrajudicial e judicial dos Direitos Creditórios Adquiridos.\n Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar  judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos  Devedores. Nada garante, contudo, que referida cobrança atingirá os resultados  almejados, recuperando o total dos Direitos Creditórios Inadimplidos, o que poderá  implicar perdas patrimoniais às Cotas e aos Cotistas. Além disso, considerando que o  Fundo poderá adquirir Direitos Creditórios de baixo valor individual, é possível haver  Direitos Creditórios Inadimplidos cuja cobrança extrajudicial não tenha sucesso e que  não se justifique, do ponto de vista econômico, a sua cobrança judicial, importando em  perdas para os Cotistas. Ainda, os custos incorridos com os procedimentos extrajudiciais  ou judiciais necessários à cobrança dos Direitos Creditórios Adquiridos e à salvaguarda  dos direitos, das garantias e das prerrogativas dos Cotistas são de inteira e exclusiva  responsabilidade do Fundo e, consequentemente, dos Cotistas. A Administradora, a  Gestora, os Agentes de Cobrança e o Custodiante não serão responsáveis, em conjunto  ou isoladamente, por qualquer dano ou prejuízo sofrido pelo Fundo ou por qualquer  dos Cotistas em decorrência da não propositura (ou do não prosseguimento), pelo  Fundo ou pelos Cotistas, na hipótese acima descrita, de medidas judiciais ou  extrajudiciais necessárias à preservação de seus direitos e prerrogativas. Caso o Fundo",
+      "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+      "verification": "primary_passage"
+    },
+    "fc37b5e228c34c24e344baaea3a536dc234586af68c087cb893cbf0101898f97": {
+      "document_id": "1002580",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "reference_date": "2025-09-29",
+      "version": "1",
+      "page": 93,
+      "clause": "",
+      "excerpt": "Desconto em folha de benefício. Os Direitos Creditórios Adquiridos terão seus  pagamentos realizados, via de regra, mediante repasses do INSS. A capacidade de o  INSS a Dataprev efetuarem as Consignações devidas poderá ser afetada se, por força  de decisão judicial ou administrativa, a margem de consignação dos respectivos  Devedores para repagamento de CCBs for reduzida, inclusive em decorrência de  obrigação de pagamento de pensão alimentícia ou outras obrigações que têm  preferência em relação ao pagamento das CCBs. Na superveniência de outros descontos  prioritários, é possível que a margem consignável do Devedor se torne insuficiente para  pagamento das respectivas parcelas das CCBs, resultando em inadimplemento dos  Direitos Creditórios e possíveis perdas para o Fundo e os Cotistas. Adicionalmente,  eventuais alterações da regulamentação do INSS relativas a créditos consignados  poderão ter impactos negativos para as Cotas e impactar a rentabilidade dos Cotistas.\n O benefício pago pelo INSS ao devedor poderá ser reduzido, alterado ou cancelado,  incluindo, sem limitação, a verificação de fraude ou revisão do benefício. Caso um  Direito Creditório Adquirido venha a ser afetado por qualquer dos eventos descritos",
+      "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+      "verification": "primary_passage"
+    },
+    "ef7574323034e4b6b0a7c2a6f2909b27139ba5d73461df99b7042451b6c7dce1": {
+      "document_id": "1002580",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "reference_date": "2025-09-29",
+      "version": "1",
+      "page": 80,
+      "clause": "",
+      "excerpt": "Convênio da Facta com INSS. A Consignação de valores em folha de benefícios para  pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos  Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no  instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras  devem ser observadas para a manutenção do convênio, cujo descumprimento poderá  levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev  e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além  disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo  INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do  convênio nos termos outrora vigentes. Havendo o rompimento ou a não renovação do",
+      "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
       "verification": "primary_passage"
     }
   }

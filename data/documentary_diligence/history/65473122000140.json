@@ -3,10 +3,6 @@
   "cnpj": "65473122000140",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "3a43f5a1a33968d4eb87a9f7244333e4b7b3a3fe96c12ccdad371861b1f1cbd7",
-      "41a2ae4d957b104bf98f099934689d68acad59464ffeeb3d6f8d24a3b46476fd"
-    ],
     "term": [
       "d181804c291a210d7aa13ce30666401a6e296f7d0c43dc1356e764faad2ef927",
       "5600164e4db331536c5725c8154bbeb9d8319657676eebfdd274452017146426"
@@ -209,14 +205,6 @@
       "807c25715e6536b887c0ac33c2512615ce29cb381447478b8b47f66b873e74bd",
       "ae0c994fa29e2781b2cd297866c33b2dca6221883b797ffde0c1ebbac35c4884"
     ],
-    "originator": [
-      "6d4a45bc5a146043f7a5dd8853dc9d2285762bc0017c7f762ff7a9d617a1b279",
-      "ddf36d681d5305ed828e0e8c7380ccbcfa88d9af7475763a35d51272ed3b6577"
-    ],
-    "debtor": [
-      "a20b28873eaa6b0c7308ba2ab758e53555ba582e1cba68210251cfedb13a2999",
-      "aae73120e4dfd9dc0ffed5a2510e365bc2f8d73d1cd07c87b3ba0447f0b507d0"
-    ],
     "investee": [
       "4332fb8d6b15f5b2f3a11a4c0e3c331cadb312a8cde3bb969b3ce4ec6120511c"
     ],
@@ -236,18 +224,20 @@
     "allocation": [
       "895536d4ea157be19b1f35b81e81d9a6a492b76bd31f852af4e35f57d097e60e",
       "2c82bf7ee736b46474e7c70f4c77d7ad2a4a3e5d71981583a25bf78c2591164f"
+    ],
+    "originator": [
+      "0e8d91ae5215dfde664293fe0a32cb567ff28c01ac2095d476458937cfcc1087",
+      "ddf36d681d5305ed828e0e8c7380ccbcfa88d9af7475763a35d51272ed3b6577"
+    ],
+    "eligibility": [
+      "a372fc63631febbbfbcd9c5e0b3980f8a54a1cb3287296edf66fcf6bb0f5acd5",
+      "b9b75673cb18a5277c34ddbcc963da7812c23d89ee0510b35b6471c049a9a573"
+    ],
+    "debtor": [
+      "db5d35e6f4f142e0561d39e58f6846a13a0d66fe6c97e34fc4d731e152c56de8"
     ]
   },
   "entries": {
-    "6d4a45bc5a146043f7a5dd8853dc9d2285762bc0017c7f762ff7a9d617a1b279": {
-      "reference_date": "2026-03-23",
-      "value": "10.3.16. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "933dcff3a09e9681092735318ccfa0c80493b60da2257a308ca67e7df1fc33b3"
-      ]
-    },
     "ddf36d681d5305ed828e0e8c7380ccbcfa88d9af7475763a35d51272ed3b6577": {
       "reference_date": "2026-03-03",
       "value": "e/ou à Classe, salvo se (i) o gestor, a entidade registradora e o custodiante dos direitos creditórios não sejam partes relacionadas entre si, (ii) entidade registradora e o custodiante não sejam partes relacionadas ao originador ou cedente. O disposto no inciso não se aplica à classe exclusivamente destinada a investidores profissionais.",
@@ -264,33 +254,6 @@
       "provenance": "primary_passage",
       "sources": [
         "5a4f32d4addd5e294bf46b474b62f9adfd1a100e5983757bfad2965904a027f7"
-      ]
-    },
-    "aae73120e4dfd9dc0ffed5a2510e365bc2f8d73d1cd07c87b3ba0447f0b507d0": {
-      "reference_date": "2026-03-03",
-      "value": "Pessoas físicas ou jurídicas, denominadas como sacados, “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos Creditórios.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c25d9230660a4168ad2551bb555eb1bc20f6bce658e6849c514eff3c9aa2e616"
-      ]
-    },
-    "3a43f5a1a33968d4eb87a9f7244333e4b7b3a3fe96c12ccdad371861b1f1cbd7": {
-      "reference_date": "2026-03-23",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "94e1b74bd6612ef278bd079187ab121715ec6262d56e6287426fb0609ffb7f2c"
-      ]
-    },
-    "41a2ae4d957b104bf98f099934689d68acad59464ffeeb3d6f8d24a3b46476fd": {
-      "reference_date": "2026-03-03",
-      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "35bd84a7b966c23e38a4790297cb5f5407c1d40d988f87e7f5b215bffa50dc0f"
       ]
     },
     "d181804c291a210d7aa13ce30666401a6e296f7d0c43dc1356e764faad2ef927": {
@@ -1159,21 +1122,45 @@
       "sources": [
         "f185582245fe270ca2d47560e11d2d882acac58d7649896e70875b4c3489baba"
       ]
+    },
+    "a372fc63631febbbfbcd9c5e0b3980f8a54a1cb3287296edf66fcf6bb0f5acd5": {
+      "reference_date": "2026-03-23",
+      "value": "11.3.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o item previr data de referência específica: (i) os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3c8af425a35e9385538278cf029fb4da57cbc85372458050fa4328e72f72a86c"
+      ]
+    },
+    "b9b75673cb18a5277c34ddbcc963da7812c23d89ee0510b35b6471c049a9a573": {
+      "reference_date": "2026-03-03",
+      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas normas em vigor; (b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país; (c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; e (d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de acordo com a Política de Crédito. 4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva. 4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ad098f2b7cf4fccfe9c87d4b8f07ad12f493f45fd735477e3997588ba32f6618"
+      ]
+    },
+    "0e8d91ae5215dfde664293fe0a32cb567ff28c01ac2095d476458937cfcc1087": {
+      "reference_date": "2026-03-23",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "17a900b28e6a346ddaa163c6c826ded8493d3e027e735eb835db8f447192c6d9"
+      ]
+    },
+    "db5d35e6f4f142e0561d39e58f6846a13a0d66fe6c97e34fc4d731e152c56de8": {
+      "reference_date": "2026-03-23",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ea63c74dced0e5d9a0a0b4494fe6e5bf47e4ae4d3ce0d4f6f32dec32bc071060"
+      ]
     }
   },
   "passages": {
-    "933dcff3a09e9681092735318ccfa0c80493b60da2257a308ca67e7df1fc33b3": {
-      "document_id": "1157543",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157543",
-      "reference_date": "2026-03-23",
-      "version": "1",
-      "page": 25,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originador. As atividades da Sol Agora e das Instituições Financeiras Parceiras que  resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do Fundo  podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos  da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de problemas  relacionados às atividades da Sol Agora e das Instituições Financeiras Parceiras, o Fundo não consiga  adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá  haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e  consequentemente a liquidação antecipada do Fundo. Não há garantia de que a Sol Agora e as Instituições  Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios suficientes para que o  Fundo se enquadre às Alocações Mínimas e continue em existência. Além disso, a ausência e/ou redução na  quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá impactar negativamente na  rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos Financeiros com a  rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios.",
-      "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
-      "verification": "primary_passage"
-    },
     "bbe8640a6b1db210554afa12d26378b5ca405ab8a097d8274da284b052d01ad9": {
       "document_id": "1135317",
       "title": "Regulamento",
@@ -1196,42 +1183,6 @@
       "clause": "10.3.5",
       "excerpt": "10.3.5. Risco de não constituição da Alienação Fiduciária de Equipamentos. Nos termos do artigo 1.361, §  1º, do Código Civil, a Alienação Fiduciária de Equipamentos somente é constituída mediante o registro do  instrumento do qual consta a Alienação Fiduciária de Equipamentos no competente Cartório de Títulos e  Documentos. A comprovação da devida constituição da Alienação Fiduciária de Equipamentos não é um  Critério de Elegibilidade ou Condição de Aquisição, sendo que a CCB que contempla a Alienação Fiduciária  de Equipamentos somente poderá ser registrada no competente Cartório de Títulos e Documentos em caso  de inadimplemento pelo Devedor. Nesse sentido, é possível que o Fundo não tenha sucesso em executar  a Alienação Fiduciária de Equipamentos em caso de inadimplemento pelo Devedor. O eventual início de  qualquer procedimento de falência, insolvência, renegociação ampla de dívidas, dissolução, liquidação ou  recuperação judicial ou extrajudicial, ou benefício legal similar, em qualquer jurisdição, a qualquer tempo,  poderão eventualmente atingir os Equipamentos caso o instrumento de Alienação Fiduciária de  Equipamentos não tenha sido devidamente registrado no competente Cartório de Títulos e Documentos.\n Adicionalmente, terceiros que, antes do registro da respectiva CCB, tenham formalizado qualquer  aquisição, transferência ou oneração dos Equipamentos, poderão ter preferência sobre os respectivos  Equipamentos em caso de questionamentos. Nessas situações, o Fundo estará subordinado aos demais  credores dos Devedores e somente preferirão aos titulares de créditos subordinados aos demais credores,  se houver, e acionistas Devedores em relação à ordem de recebimento de seus créditos. Ainda, os  Equipamentos não serão objetos de avaliação, por empresa independente.",
       "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
-      "verification": "primary_passage"
-    },
-    "c25d9230660a4168ad2551bb555eb1bc20f6bce658e6849c514eff3c9aa2e616": {
-      "document_id": "1135317",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135317",
-      "reference_date": "2026-03-03",
-      "version": "1",
-      "page": 52,
-      "clause": "",
-      "excerpt": "Pessoas físicas ou jurídicas, denominadas como sacados,  “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos  Creditórios.",
-      "sha256": "10582f34283bf2fa871ce74240860ea6c470c8be4ba21dd3ea6899cd9134995a",
-      "verification": "primary_passage"
-    },
-    "94e1b74bd6612ef278bd079187ab121715ec6262d56e6287426fb0609ffb7f2c": {
-      "document_id": "1157543",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157543",
-      "reference_date": "2026-03-23",
-      "version": "1",
-      "page": 24,
-      "clause": "10.3.15",
-      "excerpt": "10.3.15. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A política  de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar- se,  primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não existirem  Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente, às Condições  de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e diversificação da  carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento do Fundo com relação  a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo, nos termos",
-      "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
-      "verification": "primary_passage"
-    },
-    "35bd84a7b966c23e38a4790297cb5f5407c1d40d988f87e7f5b215bffa50dc0f": {
-      "document_id": "1135317",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135317",
-      "reference_date": "2026-03-03",
-      "version": "1",
-      "page": 24,
-      "clause": "4.25",
-      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:",
-      "sha256": "10582f34283bf2fa871ce74240860ea6c470c8be4ba21dd3ea6899cd9134995a",
       "verification": "primary_passage"
     },
     "4886e87983ca300c03c3171cd19c3707a1eb15af5619ff633914d2efc63874fb": {
@@ -2314,6 +2265,56 @@
       "clause": "2.1",
       "excerpt": "2.1. A administração fiduciária do Fundo será realizada pela GENIAL INVESTIMENTOS CORRETORA  DE VALORES MOBILIARIOS S.A., instituição financeira autorizada pela CVM para o exercício  profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM  nº 6.819, expedido em 17 de maio de 2002, com sede na Cidade e Estado do Rio de Janeiro, na Praia  de Botafogo, 228, sala 913, inscrito no CNPJ/MF sob nº 27.652.684/0001-62 (\"Administradora\").",
       "sha256": "10582f34283bf2fa871ce74240860ea6c470c8be4ba21dd3ea6899cd9134995a",
+      "verification": "primary_passage"
+    },
+    "3c8af425a35e9385538278cf029fb4da57cbc85372458050fa4328e72f72a86c": {
+      "document_id": "1157543",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157543",
+      "reference_date": "2026-03-23",
+      "version": "1",
+      "page": "41–42",
+      "clause": "11.3.1",
+      "excerpt": "11.3.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente,  aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o  item previr data de referência específica:\n(i) os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos  Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(ii) os Direitos Creditórios devem ser ofertados em sua integralidade;\n(iii) nos termos do Ofício Circular CVM/SSE 8/2023, os Direitos Creditórios deverão estar disponíveis  para endosso no Sistema de Registro quando passíveis de registro por uma Entidade  Registradora;\n(iv) a idade do Devedor e do avalista, se pessoa física deve ser, na data de emissão da CCB, de no  máximo 65 (sessenta e cinco) anos, exceto caso possua contratação de seguro prestamista em  valor superior ao da CCB;\n(v) a partir do momento em que o Fundo já tiver adquirido R$50.000.000,00 (cinquenta milhões de  reais) ou mais em Direitos Creditórios, a quantidade máxima de Direitos Creditórios Adquiridos  relativos a Equipamentos comercializados por um mesmo Integrador não pode ser superior a  10% (dez por cento) do valor total de Direitos Creditórios Adquiridos da carteira do Fundo,  considerada pro forma a aquisição pretendida, sendo que a Sol Agora fornecerá informações à  Gestora em cada Data de Oferta de Direitos Creditórios identificando o Integrador que  comercializou os Equipamentos dos Projetos de Geração de Energia Elétrica financiados por cada  CCB ofertada;\n(vi) o Preço de Aquisição dos Direitos Creditórios deve corresponder a, no máximo: (a) quando o  endosso for realizado diretamente pela Instituição Financeira Parceira: 104% (cento e quatro  por cento) do valor presente do Valor Total Financiado; ou (b) quando o endosso for realizado  pelo Fundo Endossante, deverá ser calculado 104% (cento e quatro por cento) sobre o Valor  Presente dos Direitos Creditórios no estoque do Fundo Endossante, observado, em ambos os  casos, o respectivo detalhamento disposto no Contrato de Endosso;\n(vii) considerada pro forma a cessão pretendida, o valor presente da totalidade dos Direitos  Creditórios devido por um único devedor não poderá representar montante superior a (a), se  pessoa física, R$400.000,00 (quatrocentos mil reais), e (b), se pessoa jurídica, R$850.000,00  (oitocentos e cinquenta mil reais) por Grupo Econômico, observado, todavia, a possibilidade do  montante por devedor ultrapassar tal limite, desde que observados os requisitos abaixo:\n(a) considerada pro forma a aquisição pretendida, até 50 (cinquenta) Grupos Econômicos  podem ser Devedores de Direitos Creditórios acima do limite acima, desde que a soma  do valor presente dos Direitos Creditórios devidos por cada um desses Grupos  Econômicos não supere o equivalente a 1% (um por cento) do Patrimônio Líquido do  Fundo; e\n(b) considerada pro forma a aquisição pretendida, o valor presente dos Direitos Creditórios  devidos pelos 20 (vinte) maiores Grupos Econômicos (considerando-se, para tal análise,  a representatividade de tais Grupos Econômicos no Patrimônio Líquido do Fundo) não  supere o equivalente a 10% (dez por cento) do Patrimônio Líquido do Fundo;\n(viii) a partir do momento em que o Fundo já tiver adquirido R$50.000.00,00 (cinquenta milhões de  reais) ou mais em Direitos Creditórios, deve ser observado o seguinte limite de concentração,  considerando-se pro forma a aquisição pretendida: os Direitos Creditórios devidos por  Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão  representar mais que 10% (dez por cento) do Patrimônio Líquido do Fundo, exceto, conforme  informado pela Sol Agora a cada oferta de Direitos Creditórios, caso tal Devedor tenha seguro  de vida ou seguro prestamista em valor superior ao da CCB em questão;\n(ix) em cada Data de Aquisição e Pagamento, a taxa média ponderada do lote de Direitos Creditórios  a ser adquirido (a \"Taxa Média Ponderada do Lote\"), após sua conversão para spread sobre a  Taxa DI, deverá ser igual ou superior à remuneração média ponderada das Cotas em circulação  (a \"Remuneração Média Ponderada das Cotas\"), acrescida de 5,00% a.a. (cinco por cento ao  ano). O cálculo seguirá a seguinte metodologia: (1) Para cada Direito Creditório, seu spread  individual sobre a Taxa DI será calculado e, para Direitos Creditórios com remuneração pré-  fixada, a conversão utilizará a curva \"DI x pré\" divulgada pela B3 na Data-Base de Precificação  (o Dia Útil anterior à Data de Aquisição e Pagamento). (2) A Taxa Média Ponderada do Lote  corresponderá à média dos spreads individuais, ponderada pelo Valor Presente de cada  respectivo Direito Creditório. (3) A Remuneração Média Ponderada das Cotas será a média  ponderada das Metas de Rentabilidade das Cotas em circulação, utilizando-se, de forma linear  e permanente, os pesos de 75,0% para Cotas Seniores, 12,5% para Cotas Subordinadas  Mezanino A, 6,25% para Cotas Subordinadas Mezanino B e 6,25% para Cotas Subordinadas  Júnior;\n(x) o prazo máximo de cada Direito Creditório deverá ser de 2.921 (dois mil, novecentos e vinte e  um dias, observado que este não estará limitado ao prazo das Cotas Seniores e Cotas  Subordinadas Mezanino em circulação, desde que respeitados os Índices de Subordinação;\n(xi) o respectivo Devedor não poderá estar inadimplente com relação a qualquer Direito Creditório  Adquirido existente, na Data de Oferta de Direitos Creditórios;\n(xii) o Direito Creditório não poderá estar em atraso; e\n(xiii) as CCBs deverão ter carência máxima de 180 (cento e oitenta) dias.",
+      "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ad098f2b7cf4fccfe9c87d4b8f07ad12f493f45fd735477e3997588ba32f6618": {
+      "document_id": "1135317",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135317",
+      "reference_date": "2026-03-03",
+      "version": "1",
+      "page": "24–25",
+      "clause": "4.25",
+      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:\n(a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas  normas em vigor;\n(b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e  Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país;\n(c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou  gravames de qualquer natureza; e\n(d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de  acordo com a Política de Crédito.\n4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do  atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva.\n4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de  Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela  Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das  Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por  elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "sha256": "10582f34283bf2fa871ce74240860ea6c470c8be4ba21dd3ea6899cd9134995a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "17a900b28e6a346ddaa163c6c826ded8493d3e027e735eb835db8f447192c6d9": {
+      "document_id": "1157543",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157543",
+      "reference_date": "2026-03-23",
+      "version": "1",
+      "page": 41,
+      "clause": "11.3.1",
+      "excerpt": "11.3.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente,  aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o  item previr data de referência específica:\n(i) os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos  Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(ii) os Direitos Creditórios devem ser ofertados em sua integralidade;\n(iii) nos termos do Ofício Circular CVM/SSE 8/2023, os Direitos Creditórios deverão estar disponíveis  para endosso no Sistema de Registro quando passíveis de registro por uma Entidade  Registradora;\n(iv) a idade do Devedor e do avalista, se pessoa física deve ser, na data de emissão da CCB, de no  máximo 65 (sessenta e cinco) anos, exceto caso possua contratação de seguro prestamista em  valor superior ao da CCB;\n(v) a partir do momento em que o Fundo já tiver adquirido R$50.000.000,00 (cinquenta milhões de  reais) ou mais em Direitos Creditórios, a quantidade máxima de Direitos Creditórios Adquiridos  relativos a Equipamentos comercializados por um mesmo Integrador não pode ser superior a  10% (dez por cento) do valor total de Direitos Creditórios Adquiridos da carteira do Fundo,  considerada pro forma a aquisição pretendida, sendo que a Sol Agora fornecerá informações à  Gestora em cada Data de Oferta de Direitos Creditórios identificando o Integrador que  comercializou os Equipamentos dos Projetos de Geração de Energia Elétrica financiados por cada  CCB ofertada;\n(vi) o Preço de Aquisição dos Direitos Creditórios deve corresponder a, no máximo: (a) quando o  endosso for realizado diretamente pela Instituição Financeira Parceira: 104% (cento e quatro  por cento) do valor presente do Valor Total Financiado; ou (b) quando o endosso for realizado  pelo Fundo Endossante, deverá ser calculado 104% (cento e quatro por cento) sobre o Valor  Presente dos Direitos Creditórios no estoque do Fundo Endossante, observado, em ambos os  casos, o respectivo detalhamento disposto no Contrato de Endosso;\n(vii) considerada pro forma a cessão pretendida, o valor presente da totalidade dos Direitos  Creditórios devido por um único devedor não poderá representar montante superior a (a), se  pessoa física, R$400.000,00 (quatrocentos mil reais), e (b), se pessoa jurídica, R$850.000,00  (oitocentos e cinquenta mil reais) por Grupo Econômico, observado, todavia, a possibilidade do  montante por devedor ultrapassar tal limite, desde que observados os requisitos abaixo:",
+      "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
+      "verification": "primary_passage"
+    },
+    "ea63c74dced0e5d9a0a0b4494fe6e5bf47e4ae4d3ce0d4f6f32dec32bc071060": {
+      "document_id": "1157543",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1157543",
+      "reference_date": "2026-03-23",
+      "version": "1",
+      "page": 83,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Sol Agora.",
+      "sha256": "165e88c3ad8607cac6276005270d9eb38d15d63c74cf934a69067b599a37fd72",
       "verification": "primary_passage"
     }
   }

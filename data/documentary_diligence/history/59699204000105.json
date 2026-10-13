@@ -3,10 +3,6 @@
   "cnpj": "59699204000105",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "7bc56e8769e81c2d2fa0e1858b4581c915dde51c4d17e6d6fca94906306d64b1",
-      "c50c390866212e34a6f8440c5263d45c1d380e913b977b0dde889071233fe5c0"
-    ],
     "perimeter": [
       "9192e99087826ac90207f68f949eb0d2ebd5f2a386e7092078d292b09eedc605",
       "438e4a2f6b904e1e3bd01d6b29e381b5346a32e9f920544e9140996bed86526a"
@@ -118,10 +114,6 @@
     "quota_grace": [
       "46413ffd01861898884bd68059f7402454ee45e4179ea6d8df85569de9e9ccfe"
     ],
-    "originator": [
-      "1593ba6bbdb8311e88d706df33949559813de8536ff03fe037ba2ff84aae16ef",
-      "763b33e3ed7b34b116bb1f01b06089b5c425213cf5d27a7f3eb1ffc2309192f6"
-    ],
     "investee": [
       "e7f5753c9b68cb4104bc96085d57431d4867bb140381f95259f94c81be9d8e06",
       "87051c59b01592a1bbac8e7aed1f99064a8ce46d1782b288bd3abf7680400d81"
@@ -139,6 +131,14 @@
     "allocation": [
       "fe009a185f29ac88255e794182f935e9ed48c0ea411b983396505efc455b8630",
       "0b29eb0ca1bb223d704fc6bface67632157066ade33f64f3944f138019af009b"
+    ],
+    "originator": [
+      "1593ba6bbdb8311e88d706df33949559813de8536ff03fe037ba2ff84aae16ef",
+      "153c745a9333665b300c6d270ed71ef075ccd42b09bd14861d64b4dd0037a931"
+    ],
+    "eligibility": [
+      "7bc56e8769e81c2d2fa0e1858b4581c915dde51c4d17e6d6fca94906306d64b1",
+      "d5c546d8e9ba21e293083f4ff9d9870da6249a952c6e71a437085a4a42ae0b23"
     ]
   },
   "entries": {
@@ -162,15 +162,6 @@
         "2268a8872ec26bacaa2f133c7aa8bc0dbdcf0663d2da65ff8baba06365ec0f7d"
       ]
     },
-    "763b33e3ed7b34b116bb1f01b06089b5c425213cf5d27a7f3eb1ffc2309192f6": {
-      "reference_date": "2025-05-19",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "082d9a5eb91bf6932cef8cdc8362696ff921475b7c7d3ab01ebd43a16ae6a391"
-      ]
-    },
     "7bc56e8769e81c2d2fa0e1858b4581c915dde51c4d17e6d6fca94906306d64b1": {
       "reference_date": "2026-03-24",
       "value": "Créditos em reais, líquidos/exigíveis, vincendos; prazo mínimo 5 dias úteis; devedor adimplente",
@@ -179,15 +170,6 @@
       "risk_note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos.",
       "sources": [
         "48fc2d4ef0f84f5bfd8f0279200e7b999578b4946095c84c83974f0daf4c7311"
-      ]
-    },
-    "c50c390866212e34a6f8440c5263d45c1d380e913b977b0dde889071233fe5c0": {
-      "reference_date": "2025-05-19",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "490f2aecd23457b26f9c58677456fa27777c1d08a3b2be7908773c8ffe7b780f"
       ]
     },
     "fe009a185f29ac88255e794182f935e9ed48c0ea411b983396505efc455b8630": {
@@ -657,6 +639,24 @@
       "sources": [
         "f1f0848af5d6a8d8e805f3cdab63ba891f0107e5fb81704ab867e406f33da105"
       ]
+    },
+    "d5c546d8e9ba21e293083f4ff9d9870da6249a952c6e71a437085a4a42ae0b23": {
+      "reference_date": "2025-05-19",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "034a6bbca3542ac7c80f1010e71ddb47d6fc4dff46fee76425e1e8175f9260a1"
+      ]
+    },
+    "153c745a9333665b300c6d270ed71ef075ccd42b09bd14861d64b4dd0037a931": {
+      "reference_date": "2025-05-19",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo, nos termos do respectivo Contrato de Cessão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6ae906be3fa29f9193476b214c91c562b3b2440b25480b295379a516e34ad00e"
+      ]
     }
   },
   "passages": {
@@ -686,18 +686,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1143277; referência 24/03/2026; data/raw/59699204000105/1143277_documentary_review.txt; Glossário Cedente, p2; Anexo,6.5, p27; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1143277&cvm=true"
     },
-    "082d9a5eb91bf6932cef8cdc8362696ff921475b7c7d3ab01ebd43a16ae6a391": {
-      "document_id": "908282",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908282",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 23,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "28e62278ca9bd070ea38616d46eb121a715d8b5ba6c719522b8995e0effd126d",
-      "verification": "primary_passage"
-    },
     "48fc2d4ef0f84f5bfd8f0279200e7b999578b4946095c84c83974f0daf4c7311": {
       "document_id": "1143277",
       "title": "Regulamento",
@@ -710,18 +698,6 @@
       "sha256": "2348179ad0a7c88116d04faa7f9fd9586de04e9a702d88b96b696036efb63f9a",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1143277; referência 24/03/2026; data/raw/59699204000105/1143277_documentary_review.txt; Anexo,8.1, p30; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1143277&cvm=true"
-    },
-    "490f2aecd23457b26f9c58677456fa27777c1d08a3b2be7908773c8ffe7b780f": {
-      "document_id": "908282",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908282",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 27,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "28e62278ca9bd070ea38616d46eb121a715d8b5ba6c719522b8995e0effd126d",
-      "verification": "primary_passage"
     },
     "a346da241554214cd158259bb76becaaa2450447e9b25ee8f6cd3cae0868e6f7": {
       "document_id": "1143277",
@@ -1259,6 +1235,31 @@
       "page": 42,
       "clause": "16.3.1",
       "excerpt": "16.3.1 Na ocorrência de qualquer Evento de Liquidação, a Administradora  imediatamente (a) suspenderá a subscrição de novas Cotas e o  pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que  deverá interromper a aquisição de novos Direitos Creditórios; e\n (c) convocará a Assembleia para deliberar sobre a interrupção dos  procedimentos de liquidação da Classe ou o plano de liquidação elaborado  pelos Prestadores de Serviços Essenciais, nos termos do artigo 126 da  parte geral da Resolução CVM nº 175/22, incluindo o tratamento a ser  conferido aos Cotistas que não puderam ser contatados.",
+      "sha256": "28e62278ca9bd070ea38616d46eb121a715d8b5ba6c719522b8995e0effd126d",
+      "verification": "primary_passage"
+    },
+    "034a6bbca3542ac7c80f1010e71ddb47d6fc4dff46fee76425e1e8175f9260a1": {
+      "document_id": "908282",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908282",
+      "reference_date": "2025-05-19",
+      "version": "1",
+      "page": "7–8",
+      "clause": "5.4",
+      "excerpt": "5.4 Sem prejuízo de outras obrigações legais e regulamentares a que esteja sujeita, a Gestora obriga-se a:\n(a) cumprir as obrigações estabelecidas na regulamentação em vigor, em especial,  nos artigos 105 e 106 da parte geral da Resolução CVM nº 175/22 e no artigo 33  do Anexo Normativo II à Resolução CVM nº 175/22;\n(b) observar as vedações estabelecidas na regulamentação em vigor, em especial, nos  artigos 45 e 101 a 103 da parte geral da Resolução CVM nº 175/22;\n(c) informar a Administradora, imediatamente, caso ocorra a alteração de qualquer  dos Demais Prestadores de Serviços contratados pela Gestora, em nome do  Fundo;\n(d) providenciar, às suas expensas, a elaboração do material de divulgação da Classe;\n(e) diligenciar para que seja mantida, às suas expensas, atualizada e em perfeita  ordem a documentação relativa às operações da Classe;\n(f) observar as disposições do Regulamento e do Acordo Operacional;\n(g) cumprir as deliberações da Assembleia;\n(h) estruturar o Fundo, nos termos do artigo 33, §1º, do Anexo Normativo II à  Resolução CVM nº 175/22;\n(i) executar a política de investimento da Classe, devendo analisar e selecionar os  Direitos Creditórios Cedidos, e os Ativos Financeiros de Liquidez para a carteira  da Classe, o que inclui, no mínimo: (1) a verificação do enquadramento dos  Direitos Creditórios à política de investimento estabelecida no Anexo,  compreendendo a validação dos Direitos Creditórios em relação aos Critérios de  Elegibilidade e a observância aos requisitos de composição e diversificação da  carteira da Classe; e (2) a avaliação da aderência do risco de performance dos  Direitos Creditórios Cedidos não performados à política de investimento da  Classe;\n(j) (1) registrar os Direitos Creditórios Cedidos na Entidade Registradora ou em  mercado de balcão organizado autorizado pela CVM, ou depositá-los em  depositário central autorizado pela CVM ou pelo BACEN; ou (2) entregar os  Direitos Creditórios Cedidos ao Custodiante, conforme previsto no Anexo;\n(k) no âmbito das diligências relacionadas à aquisição dos Direitos Creditórios,  verificar: (1) a possibilidade de ineficácia da cessão à Classe em virtude de riscos  de natureza fiscal, alcançando os Direitos Creditórios Cedidos que tenham  representatividade no patrimônio da Classe; e (2) a existência, a integridade e a  titularidade do lastro dos Direitos Creditórios, na forma prevista no Anexo;\n(l) celebrar, em nome do Fundo, todos os documentos relativos à negociação dos  Direitos Creditórios Cedidos e dos Ativos Financeiros de Liquidez, incluindo, sem  limitação, os Contratos de Cessão, devendo encaminhar à Administradora a cópia  de cada documento celebrado em até 5 (cinco) Dias Úteis a contar da sua  celebração;",
+      "sha256": "28e62278ca9bd070ea38616d46eb121a715d8b5ba6c719522b8995e0effd126d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6ae906be3fa29f9193476b214c91c562b3b2440b25480b295379a516e34ad00e": {
+      "document_id": "908282",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908282",
+      "reference_date": "2025-05-19",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo,  nos termos do respectivo Contrato de Cessão.",
       "sha256": "28e62278ca9bd070ea38616d46eb121a715d8b5ba6c719522b8995e0effd126d",
       "verification": "primary_passage"
     }

@@ -3,17 +3,6 @@
   "cnpj": "50832746000130",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "1df77159f8626365fa7ff070b5e1284224b596f3022538236155e441e9f50389",
-      "d7e3a019bc7ff0dbc44e1595aa68bb6325792773b5c22e1cf29c369e91427e37",
-      "b0bf4fd91719ebecc51f6f0a848e92ddb079e76ea94556e6b906a90c0b0019f9",
-      "4f829479cd35d9d88ed19fa2b805ee115b627a1d186ce51680aa28a97e0f5817",
-      "6df6098587958a5f75bc56b8e1e5aa83caafbdb771cbca3b61a21ea1c013f340",
-      "1628700ca1047247ee9f061075af64f94468475110669dc813d9e6d1e2eb6913",
-      "d57665f954382f97ff2fcd8a6dccbbec6220cdbda3f6433aa8824468ecdd3610",
-      "5d28e428a88c9e724cc339c6c5a75ae2476a13041fcd5b3c18acb0611d830212",
-      "862ff6577250bb699ce23d9e1482f797fbc3cfe033fae09bf2341090a750f981"
-    ],
     "term": [
       "2ca9d321082689c8243744d426d43aab83604691fde2841c559e66bdb539d84f",
       "f48121dc5886bc2fd0fbfc22b4bdace84af1e67ed669185b2673995345ea67f4"
@@ -309,22 +298,6 @@
     "legacy_events": [
       "15da40e81377f7a1fceb9d18fb2855094af56baa7fd94b79d27c1d573c17982e"
     ],
-    "originator": [
-      "d7e3a019bc7ff0dbc44e1595aa68bb6325792773b5c22e1cf29c369e91427e37",
-      "b0bf4fd91719ebecc51f6f0a848e92ddb079e76ea94556e6b906a90c0b0019f9",
-      "0e22fe03006c4e8d0767fdaa52dbead5cfe826424bad9dcf3c5c23a8613b1956",
-      "4bae9dfe4a36f3fe0f1568d2c51e3798bfbd64a87df03453166959284b707d29",
-      "365c26b0ba8ffd64866cf5b7422f766a5c42782e1eafdf5b0fd5de447ff5abef",
-      "d730f72a2629e24056a4c49828274ea3328b807fad51460c35939a91c7f7c3d5",
-      "0ca6cf1e739598c3459784d40eeba29a9eb91bf71adb38e0b695a7bfcb2bec38",
-      "3d460dfc5ac70719e0db54d47204f3f5fb1b9647fe40d0d913f216a773ccaeb5",
-      "f6462cdba3a487a37de7db6ffdd173173725ba4544cd5a8316b028b5ff5c8835",
-      "d4a0fe0be93f7f08ae84a1331bd72d38be61aebbd835dce55ccf5f24ecc8dde5"
-    ],
-    "debtor": [
-      "a8eb88f12dacecfe684ad83cc45fded9e8aa9c5f66166a77ebeed9aba270eb3a",
-      "1098f186447559810cfe86e16e19f0ffecf3efbcebc7fcaba2084ba8bc2c62b3"
-    ],
     "investee": [
       "aade2208c7ae3852bdcff3b012a8f7627db821aff29432fe621cf4acd7d67b0b",
       "6197c85fa7a72beb496b4dcf866076cdcf8778ace01c9773e181c1e7327d0302",
@@ -361,6 +334,30 @@
       "f15e9ea583d2e5c2f02d9d529aa4dd8a6f6ec38f8f9b7c3bd02265487d7a0524",
       "f5cc5a2cdf5db40a3c0c82c303f5402c09c5122e2802154d9c2923d99f7f6fbe",
       "9bde4745bddbaba2b0248049e4821b84e029c9af679400946103b082dc29cdbd"
+    ],
+    "originator": [
+      "d3aefc3bd450fae634ecb6f520b55140bfed5a7a41aa934c0931d602bfabeb46",
+      "841bae31c6e4e7286aaa6ca49b99c87569e4369e304b56f5f772fae346e2f05d",
+      "0e22fe03006c4e8d0767fdaa52dbead5cfe826424bad9dcf3c5c23a8613b1956",
+      "4bae9dfe4a36f3fe0f1568d2c51e3798bfbd64a87df03453166959284b707d29",
+      "4f1110b8e188a4e004dafcced83ff10051c71b8187fa574f76fa87300ba06210",
+      "c9443f959654285c4123b1a500d873b3afe42e2273d66b3fb48d368c84e2b105",
+      "81dd8346e3d61a013576b784e8b3d0930ef7e784f9373b93e13c7ad1d9f23b60",
+      "0536dc3bfdb41476681de885f6230389f67159aab60bbf1258b88226ad2ba1d7",
+      "eb87bac2edf12ed491d2d80aef60dfa257b66b2ee1c3088d58ae21c6240a9b51",
+      "f462bab2acfed8d58691d596e8e67564b8fee070f2b386838ba083f6e376a6ac"
+    ],
+    "eligibility": [
+      "1df77159f8626365fa7ff070b5e1284224b596f3022538236155e441e9f50389",
+      "d7e3a019bc7ff0dbc44e1595aa68bb6325792773b5c22e1cf29c369e91427e37",
+      "b0bf4fd91719ebecc51f6f0a848e92ddb079e76ea94556e6b906a90c0b0019f9",
+      "4f829479cd35d9d88ed19fa2b805ee115b627a1d186ce51680aa28a97e0f5817",
+      "3623ec7abb634725511de205f57f7dc873f3ef8008847ef0aa89e05f19140a5c",
+      "fdcba8899f5a6a251af6de6cca24f3b8227569e7dfd325daf4a8335fe83dae6b",
+      "0fbe9e7664283751028cc7078b56084a86f8f33624fb836baea02d5bfa80b13a",
+      "b45b573848a95ec5010ca5e13e3ffe5b1585282b0d8fe302deb6a48fa674e3a5",
+      "c6ace5cc1a6548cd5e7f4776d6b08157db1b8b1245c2ae2a264fd767d1dc84bd",
+      "92397610742c2130707179f86f6e96c5a611cd54435e1d31c250f5981e7e1506"
     ]
   },
   "entries": {
@@ -419,69 +416,6 @@
         "532dddb22b5c446b5b2d2d120d175d917f605fb362d6e33d95dace9435ff4e71"
       ]
     },
-    "365c26b0ba8ffd64866cf5b7422f766a5c42782e1eafdf5b0fd5de447ff5abef": {
-      "reference_date": "2023-05-26",
-      "value": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co- Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "61df5247ed314d88268a4ce7b22f573eaf98fe3e6b12a8c23fd52384e2848a29"
-      ]
-    },
-    "d730f72a2629e24056a4c49828274ea3328b807fad51460c35939a91c7f7c3d5": {
-      "reference_date": "2023-10-24",
-      "value": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ba2c193a152e69290cf8be6b2639105f4df2fe103d1ba861f998efb4eed009f4"
-      ]
-    },
-    "0ca6cf1e739598c3459784d40eeba29a9eb91bf71adb38e0b695a7bfcb2bec38": {
-      "reference_date": "2023-07-25",
-      "value": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6b88ac71f14db62c16fcd4bf82e044a2677f40a003862989a353e3110e7869a4"
-      ]
-    },
-    "3d460dfc5ac70719e0db54d47204f3f5fb1b9647fe40d0d913f216a773ccaeb5": {
-      "reference_date": "2023-07-25",
-      "value": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co- Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dce5a8e6721e50737fb4f31c4bc75078359f6cc72209e92ecddc8ac843e3046c"
-      ]
-    },
-    "f6462cdba3a487a37de7db6ffdd173173725ba4544cd5a8316b028b5ff5c8835": {
-      "reference_date": "2023-07-25",
-      "value": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co- Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a529b48cb6b9f7ed8e8bac0ebeb9ce7d4ea871ec1ed27ef53aa8969285961a31"
-      ]
-    },
-    "d4a0fe0be93f7f08ae84a1331bd72d38be61aebbd835dce55ccf5f24ecc8dde5": {
-      "reference_date": "2023-07-25",
-      "value": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e45fb46f575b81436bb5e378edca7f6306cbe772eb17021e873f4fe5def43d3e"
-      ]
-    },
-    "a8eb88f12dacecfe684ad83cc45fded9e8aa9c5f66166a77ebeed9aba270eb3a": {
-      "reference_date": "2025-03-31",
-      "value": "a) Descrição Os direitos creditórios detidos pelo Fundo são originados através de: (i) notas fiscais, consubstanciadas em arquivos XML certificados digitalmente, representativos de operações de compra a prazo de insumos agrícolas e agropecuários detidos pela Boasafra Comércio e Representações Ltda e pela G.Borgio e Cia Ltda, em conjunto “Cedentes” contra os devedores (pessoa jurídica e pessoa física); e poderão ser também: (ii) cédula de produto rural com liquidação financeira (“CPR-F”) detidos pelas Cedentes contra os devedores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fca65dd1503deb952166681131f573a76572cac6a2c1dc30c6b465ea74a151bf"
-      ]
-    },
     "1098f186447559810cfe86e16e19f0ffecf3efbcebc7fcaba2084ba8bc2c62b3": {
       "reference_date": "2025-03-17",
       "value": "",
@@ -508,51 +442,6 @@
       "provenance": "primary_passage",
       "sources": [
         "bac4f2e37fb4b1174004b13cbcb4c7343e9f2a766143a9a2e9350ef6a8d9a594"
-      ]
-    },
-    "6df6098587958a5f75bc56b8e1e5aa83caafbdb771cbca3b61a21ea1c013f340": {
-      "reference_date": "2023-08-15",
-      "value": "(G. Borgio e cia Ltda. / Cedente / Agente de Cobrança). sujeitas às diversas condições O objetivo do Fundo é a valorização de suas Cotas através da aplicação preponderante dos apresentadas no tópico “Considerações Sobre o Rating recursos na aquisição de Direitos Creditórios conforme sua política de investimento, atendendo Preliminar” deste documento aos Critérios de Elegibilidade e Condições de Cessão.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "532dddb22b5c446b5b2d2d120d175d917f605fb362d6e33d95dace9435ff4e71"
-      ]
-    },
-    "1628700ca1047247ee9f061075af64f94468475110669dc813d9e6d1e2eb6913": {
-      "reference_date": "2023-05-26",
-      "value": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora, deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5bbc41faa7cd06a63be70c1c306f535aa6452b7d23f9a436f0120923e342561c"
-      ]
-    },
-    "d57665f954382f97ff2fcd8a6dccbbec6220cdbda3f6433aa8824468ecdd3610": {
-      "reference_date": "2023-10-24",
-      "value": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora e Co-Gestora, deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dc51b451410ab98dbfea0606a13acdabf3f76141685644718a48ec7149528e49"
-      ]
-    },
-    "5d28e428a88c9e724cc339c6c5a75ae2476a13041fcd5b3c18acb0611d830212": {
-      "reference_date": "2023-07-25",
-      "value": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora e Co-Gestora, deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "38e1d63433c96aca451b53891216ced4abd2c722dd785edb9013aa93ada0c29a"
-      ]
-    },
-    "862ff6577250bb699ce23d9e1482f797fbc3cfe033fae09bf2341090a750f981": {
-      "reference_date": "2023-07-25",
-      "value": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora, deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "29bc4c91a2ec4517d75eda8ac541b14989319ea126f60ae340e559e0386905a9"
       ]
     },
     "2ca9d321082689c8243744d426d43aab83604691fde2841c559e66bdb539d84f": {
@@ -2705,6 +2594,114 @@
       "sources": [
         "a3e21137e9bb9fa42be8356a50ecfa05938fcd77931d9d28e14744e5ed7a8b28"
       ]
+    },
+    "4f1110b8e188a4e004dafcced83ff10051c71b8187fa574f76fa87300ba06210": {
+      "reference_date": "2023-05-26",
+      "value": "(iv) Devedores não poderão ser controladores (inclusive pertencentes ao grupo de controle) e sociedades, direta ou indiretamente, controladas, coligadas ou sob controle das Cedentes (“Grupo Econômico”);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7e10fc8544e6e404ec0fede2c47854291ed5fd97c51e9120587aaaa576d8fa99"
+      ]
+    },
+    "c9443f959654285c4123b1a500d873b3afe42e2273d66b3fb48d368c84e2b105": {
+      "reference_date": "2023-10-24",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c5d459819068f6cc2a5aa6c7d04c695d90cb4b6e03be32ee12438673ed1c9af7"
+      ]
+    },
+    "81dd8346e3d61a013576b784e8b3d0930ef7e784f9373b93e13c7ad1d9f23b60": {
+      "reference_date": "2023-07-25",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6966d743e08019a5eaaa657a82076ae2f22a71c7fc6eb846610bd0a760295246"
+      ]
+    },
+    "0536dc3bfdb41476681de885f6230389f67159aab60bbf1258b88226ad2ba1d7": {
+      "reference_date": "2023-07-25",
+      "value": "(iv) Devedores não poderão ser controladores (inclusive pertencentes ao grupo de controle) e sociedades, direta ou indiretamente, controladas, coligadas ou sob controle das Cedentes (“Grupo Econômico”);",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f4725e9d6a392e34e592ed26ea1f55d8abf9d83902308ef1b5bb4f9e5172a5c2"
+      ]
+    },
+    "eb87bac2edf12ed491d2d80aef60dfa257b66b2ee1c3088d58ae21c6240a9b51": {
+      "reference_date": "2023-07-25",
+      "value": "(iv) Devedores não poderão ser controladores (inclusive pertencentes ao grupo de controle) e sociedades, direta ou indiretamente, controladas, coligadas ou sob controle das Cedentes (“Grupo Econômico”);",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0690f7059c75cf6bb5b27a508c88b02c4bec70912ce59bbbc79b0b4512bc9283"
+      ]
+    },
+    "f462bab2acfed8d58691d596e8e67564b8fee070f2b386838ba083f6e376a6ac": {
+      "reference_date": "2023-07-25",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c3306968c39bae1adfa14634a4032093b2f8f0c6f3345b887dd595e86a8a0b06"
+      ]
+    },
+    "3623ec7abb634725511de205f57f7dc873f3ef8008847ef0aa89e05f19140a5c": {
+      "reference_date": "2023-08-15",
+      "value": "brA-(sf)(p) proposta de emissão da 1ª Série de Cotas Seniores, 1ª Emissão de Cotas Subordinadas (risco de crédito baixo) Mezanino e 1ª Emissão de Cotas Subordinadas Júnior do Boa Safra Fundo de Investimento em Direitos Creditórios do Agronegócio (Boa Safra FIDC / Fundo), veículo inscrito no CNPJ/MF sob Cotas Sub. Mezanino nº 50.832.746/0001-30. (1ª Série) brBBB-(sf)(p) O Boa Safra FIDC foi registrado na Comissão de Valores Mobiliários - CVM em 26 de maio de 2023. No entanto, ainda se encontra em fase pré-operacional, motivo pelo qual do caráter, (risco de crédito moderado) ainda, preliminar das classificações, tornando-as, assim, sujeitas às condições previstas no Cotas Sub. Júnior item “Considerações Sobre os Ratings Preliminares”, mais adiante neste relatório. (1ª Emissão) brB-(sf)(p) Trata-se de um condomínio fechado, com prazo de duração indeterminado, que terá a administração e a custódia da Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A. (risco de crédito alto) (Oliveira Trust / Administradora / Custodiante) e gestão realizada pela Brave Gestora de Data: 15/ago/23 Recursos Ltda. (Brave / Gestora) e, também, pela Struttura Capital Gestão de Investimentos Validade: 13/nov/23 Ltda. (Struttura Capital / Co-Gestora). Conforme a minuta de regulamento (Minuta de Regulamento / Regulamento) os serviços de Agente de Cobrança serão executados pelas Cedentes, ou seja, a Boasafra Comércio e Representações Ltda. (Boasafra / Cedente / Agente Sobre o Rating Preliminar As opiniões preliminares estão de Cobrança) e G. Borgio e CIA Ltda. (G. Borgio e cia Ltda. / Cedente / Agente de Cobrança). sujeitas às diversas condições O objetivo do Fundo é a valorização de suas Cotas através da aplicação preponderante dos apresentadas no tópico “Considerações Sobre o Rating recursos na aquisição de Direitos Creditórios conforme sua política de investimento, atendendo Preliminar” deste documento aos Critérios de Elegibilidade e Condições de Cessão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "532dddb22b5c446b5b2d2d120d175d917f605fb362d6e33d95dace9435ff4e71"
+      ]
+    },
+    "fdcba8899f5a6a251af6de6cca24f3b8227569e7dfd325daf4a8335fe83dae6b": {
+      "reference_date": "2023-05-26",
+      "value": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e (ii) na política de investimento. No âmbito do processo de aprovação de crédito, serão avaliadas, ao menos, as seguintes informações: (a) perfil da operação, incluindo suas principais características, prazos, taxas e Garantias, inclusive considerando pro forma as Condições de Cessão e os Critérios de Elegibilidade; e (b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores deverão ter demonstrações financeiras auditadas por auditor independente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2ae76c9f076c492864fafe94f12ec27de5aaafd3b66c996b24f26faf42d4b20d"
+      ]
+    },
+    "0fbe9e7664283751028cc7078b56084a86f8f33624fb836baea02d5bfa80b13a": {
+      "reference_date": "2023-10-24",
+      "value": "11.3 O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra a Administradora, a Gestora, a Co-Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "267a5ef01684102f9dd28cfb817bfe4c406f4d1b61aa2274205a887493cb5e7f"
+      ]
+    },
+    "b45b573848a95ec5010ca5e13e3ffe5b1585282b0d8fe302deb6a48fa674e3a5": {
+      "reference_date": "2023-07-25",
+      "value": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e (ii) na política de investimento. No âmbito do processo de aprovação de crédito, serão avaliadas, ao menos, as seguintes informações: (a) perfil da operação, incluindo suas principais características, prazos, taxas e Garantias, inclusive considerando pro forma as Condições de Cessão e os Critérios de Elegibilidade; e (b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores deverão ter demonstrações financeiras auditadas por auditor independente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e1be8a4ec004d12fbcdf44d570cf3f9b89fb585fdd43aa9e098a60283817cacc"
+      ]
+    },
+    "c6ace5cc1a6548cd5e7f4776d6b08157db1b8b1245c2ae2a264fd767d1dc84bd": {
+      "reference_date": "2023-07-25",
+      "value": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e (ii) na política de investimento. No âmbito do processo de aprovação de crédito, serão avaliadas, ao menos, as seguintes informações: (a) perfil da operação, incluindo suas principais características, prazos, taxas e Garantias, inclusive considerando pro forma as Condições de Cessão e os Critérios de Elegibilidade; e (b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores deverão ter demonstrações financeiras auditadas por auditor independente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a07630b46473b53447e1db9edaa66b3f3219bed84737983b9a319c97665fc6f4"
+      ]
+    },
+    "92397610742c2130707179f86f6e96c5a611cd54435e1d31c250f5981e7e1506": {
+      "reference_date": "2023-07-25",
+      "value": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e (ii) na política de investimento. No âmbito do processo de aprovação de crédito, serão avaliadas, ao menos, as seguintes informações: (a) perfil da operação, incluindo suas principais características, prazos, taxas e Garantias, inclusive considerando pro forma as Condições de Cessão e os Critérios de Elegibilidade; e (b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores deverão ter demonstrações financeiras auditadas por auditor independente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2d6252018d0cfe9590751d9d2247a06207dc1c23c48ceebd6cc998a2658cca08"
+      ]
     }
   },
   "passages": {
@@ -2781,90 +2778,6 @@
       "sha256": "45cfffb5c628c4b6c5bf2d9b779455570a241e2d1ce74eacca36f6bc5e39921e",
       "verification": "primary_passage"
     },
-    "61df5247ed314d88268a4ce7b22f573eaf98fe3e6b12a8c23fd52384e2848a29": {
-      "document_id": "498471",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498471",
-      "reference_date": "2023-05-26",
-      "version": "1",
-      "page": 12,
-      "clause": "7.2.4",
-      "excerpt": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos  Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar  tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos  Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-  Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus  sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos  Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
-      "verification": "primary_passage"
-    },
-    "ba2c193a152e69290cf8be6b2639105f4df2fe103d1ba861f998efb4eed009f4": {
-      "document_id": "545431",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
-      "reference_date": "2023-10-24",
-      "version": "1",
-      "page": 12,
-      "clause": "7.1.16",
-      "excerpt": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos  Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências  que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual  consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que,  em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos  com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38,  parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "f0ab45202fdfcb6db6e0f49f6f556778438534d0c0f5fc32c4ae223abc56244d",
-      "verification": "primary_passage"
-    },
-    "6b88ac71f14db62c16fcd4bf82e044a2677f40a003862989a353e3110e7869a4": {
-      "document_id": "623230",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623230",
-      "reference_date": "2023-07-25",
-      "version": "2",
-      "page": 23,
-      "clause": "7.1.16",
-      "excerpt": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos  Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências  que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual  consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que,  em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos  com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38,  parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "13fa98389b39a0ff20042b6c9a4751b329a922372f36761748b0890396afcd0a",
-      "verification": "primary_passage"
-    },
-    "dce5a8e6721e50737fb4f31c4bc75078359f6cc72209e92ecddc8ac843e3046c": {
-      "document_id": "498473",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498473",
-      "reference_date": "2023-07-25",
-      "version": "1",
-      "page": 12,
-      "clause": "7.2.4",
-      "excerpt": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos  Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar  tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos  Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-  Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus  sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos  Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
-      "verification": "primary_passage"
-    },
-    "a529b48cb6b9f7ed8e8bac0ebeb9ce7d4ea871ec1ed27ef53aa8969285961a31": {
-      "document_id": "498474",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498474",
-      "reference_date": "2023-07-25",
-      "version": "1",
-      "page": 9,
-      "clause": "7.2.4",
-      "excerpt": "7.2.4 O depositário a ser contratado pelo Custodiante para a guarda dos  Documentos Comprobatórios não poderá contratar prestadores de serviço para realizar  tais diligências que sejam as Cedentes e/ou a originadora dos respectivos Direitos  Creditórios, eventual consultoria especializada contratada, ou, ainda a Gestora ou Co-  Gestora, sendo certo que, em qualquer dos casos, o Custodiante manterá em seus  sistemas, arquivos eletrônicos com os Documentos Comprobatórios dos Direitos  Creditórios, nos termos do Art. 38, parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "3521adc1f9a699a062556c3b9d8e82958353323aa9e3673dd0460d7e925285d3",
-      "verification": "primary_passage"
-    },
-    "e45fb46f575b81436bb5e378edca7f6306cbe772eb17021e873f4fe5def43d3e": {
-      "document_id": "541308",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=541308",
-      "reference_date": "2023-07-25",
-      "version": "2",
-      "page": 12,
-      "clause": "7.1.16",
-      "excerpt": "7.1.16 Caso o Custodiante contrate depositário para a guarda dos Documentos  Comprobatórios não poderá contratar prestadores de serviço para realizar tais diligências  que sejam as Cedentes e/ou a originadora dos respectivos Direitos Creditórios, eventual  consultoria especializada contratada, ou, ainda a Gestora ou Co-Gestora, sendo certo que,  em qualquer dos casos, o Custodiante manterá em seus sistemas, arquivos eletrônicos  com os Documentos Comprobatórios dos Direitos Creditórios, nos termos do Art. 38,  parágrafos 6º e 7º, da Instrução CVM nº 356/01.",
-      "sha256": "9327414dae93f90a83e2daa7dc792c27954c70d69f559ad16b662f4de0634658",
-      "verification": "primary_passage"
-    },
-    "fca65dd1503deb952166681131f573a76572cac6a2c1dc30c6b465ea74a151bf": {
-      "document_id": "934583",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=934583",
-      "reference_date": "2025-03-31",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "a) Descrição  Os direitos creditórios detidos pelo Fundo são originados através de: (i) notas fiscais, consubstanciadas  em arquivos XML certificados digitalmente, representativos de operações de compra a prazo de insumos  agrícolas e agropecuários detidos pela Boasafra Comércio e Representações Ltda e pela G.Borgio e Cia  Ltda, em conjunto “Cedentes” contra os devedores (pessoa jurídica e pessoa física); e poderão ser  também: (ii) cédula de produto rural com liquidação financeira (“CPR-F”) detidos pelas Cedentes contra  os devedores.",
-      "sha256": "9184c53013aadaaeca121b9ec3d237638abc5fb8cfff37e99f887a8b92eafa08",
-      "verification": "primary_passage"
-    },
     "d2db153f9a9b10a3ebc145e9526db38bc7e7cc90c3fc9aa5a07ccbdeed9f4e89": {
       "document_id": "864102",
       "title": "Relatório de Agência de Rating",
@@ -2900,54 +2813,6 @@
       "clause": "",
       "excerpt": "d) Critérios de elegibilidade  Os direitos creditórios que poderão ser adquiridos pelo Fundo, a serem verificados pelo custodiante, deverão  atender na respectiva data de aquisição e pagamento, cumulativamente, aos seguintes critérios de  elegibilidade:\n(i) os direitos creditórios deverão ser representados por arquivos XML e/ou por CPR‐F e expressos  em moeda corrente nacional;\n(ii) os direitos creditórios deverão ter prazo de vencimento mínimo de 10 dias contados da data de  emissão do direito creditório;\n(iii) os direitos creditórios deverão ter prazo de vencimento máximo de 360 dias contados da data de  emissão do direito creditório;\n 15",
       "sha256": "53bf97c8f9ddf84d535174b94fe73e974bc0e60662c3a8192f78b6af28b679bc",
-      "verification": "primary_passage"
-    },
-    "5bbc41faa7cd06a63be70c1c306f535aa6452b7d23f9a436f0120923e342561c": {
-      "document_id": "498471",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498471",
-      "reference_date": "2023-05-26",
-      "version": "1",
-      "page": 19,
-      "clause": "11.2",
-      "excerpt": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora, deverão atender,  cumulativamente, às seguintes Condições de Cessão:",
-      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
-      "verification": "primary_passage"
-    },
-    "dc51b451410ab98dbfea0606a13acdabf3f76141685644718a48ec7149528e49": {
-      "document_id": "545431",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
-      "reference_date": "2023-10-24",
-      "version": "1",
-      "page": 21,
-      "clause": "11.2",
-      "excerpt": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora e Co-Gestora,  deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "sha256": "f0ab45202fdfcb6db6e0f49f6f556778438534d0c0f5fc32c4ae223abc56244d",
-      "verification": "primary_passage"
-    },
-    "38e1d63433c96aca451b53891216ced4abd2c722dd785edb9013aa93ada0c29a": {
-      "document_id": "623230",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623230",
-      "reference_date": "2023-07-25",
-      "version": "2",
-      "page": 32,
-      "clause": "11.2",
-      "excerpt": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora e Co-Gestora,  deverão atender, cumulativamente, às seguintes Condições de Cessão:",
-      "sha256": "13fa98389b39a0ff20042b6c9a4751b329a922372f36761748b0890396afcd0a",
-      "verification": "primary_passage"
-    },
-    "29bc4c91a2ec4517d75eda8ac541b14989319ea126f60ae340e559e0386905a9": {
-      "document_id": "498473",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498473",
-      "reference_date": "2023-07-25",
-      "version": "1",
-      "page": 19,
-      "clause": "11.2",
-      "excerpt": "11.2 Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pelo Fundo, a serem verificados pela Gestora, deverão atender,  cumulativamente, às seguintes Condições de Cessão:",
-      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
       "verification": "primary_passage"
     },
     "96b2d9be7739c7b5662b96edba0025b86a3764f3ed5936190c215895622a7cc5": {
@@ -5597,6 +5462,131 @@
       "excerpt": "Administrado por  OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.\n Avenida das Américas, n.º 3.434, Bloco 07, sala 201, Centro Empresarial Mario Henrique Simonsen, CEP  22640-102, Rio de Janeiro – RJ  (“Administradora”)",
       "sha256": "f2830121d9195c15b5ba302f1b8225b3bdfbc6956700edf0ce8c9ce72a6497e5",
       "verification": "primary_passage"
+    },
+    "7e10fc8544e6e404ec0fede2c47854291ed5fd97c51e9120587aaaa576d8fa99": {
+      "document_id": "498471",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498471",
+      "reference_date": "2023-05-26",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "(iv) Devedores não poderão ser controladores (inclusive pertencentes  ao grupo de controle) e sociedades, direta ou indiretamente,  controladas, coligadas ou sob controle das Cedentes (“Grupo  Econômico”);",
+      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
+      "verification": "primary_passage"
+    },
+    "c5d459819068f6cc2a5aa6c7d04c695d90cb4b6e03be32ee12438673ed1c9af7": {
+      "document_id": "545431",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
+      "reference_date": "2023-10-24",
+      "version": "1",
+      "page": 71,
+      "clause": "",
+      "excerpt": "Notas Fiscais Significam as notas fiscais eletrônicas  (consubstanciadas em arquivos XML certificados  digitalmente das notas fiscais de remessa dos  Produtos, que se encontrem registradas  eletronicamente em sistema próprio da Secretaria da  Fazenda Estadual e Receita Federal, nos termos da  legislação vigente, individualizados pelas respectivas  Chaves de Acesso da NFe), representativas de  Operações de Compra a Prazo, detidas pelos  Cedentes contra os Devedores e cedidas de acordo  com o Contrato de Cessão. Para todos os efeitos,  poderá não ser considerado como válida a nota fiscal  eletrônica que possua arquivo XML originado há  mais de 180 (cento e oitenta) dias, contados a partir  da data de emissão da respectiva nota fiscal eletrônica  (NFe), que as informações não estejam condizentes  com os dados dos Direitos Creditórios XML  informados no Arquivo Remessa ou que esteja  marcada como inválida ou não passível de verificação  pelo sistema próprio da Secretaria de Fazenda  Estadual e Receita Federal.",
+      "sha256": "f0ab45202fdfcb6db6e0f49f6f556778438534d0c0f5fc32c4ae223abc56244d",
+      "verification": "primary_passage"
+    },
+    "f4725e9d6a392e34e592ed26ea1f55d8abf9d83902308ef1b5bb4f9e5172a5c2": {
+      "document_id": "498473",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498473",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "(iv) Devedores não poderão ser controladores (inclusive pertencentes  ao grupo de controle) e sociedades, direta ou indiretamente,  controladas, coligadas ou sob controle das Cedentes (“Grupo  Econômico”);",
+      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
+      "verification": "primary_passage"
+    },
+    "0690f7059c75cf6bb5b27a508c88b02c4bec70912ce59bbbc79b0b4512bc9283": {
+      "document_id": "498474",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498474",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "(iv) Devedores não poderão ser controladores (inclusive pertencentes  ao grupo de controle) e sociedades, direta ou indiretamente,  controladas, coligadas ou sob controle das Cedentes (“Grupo  Econômico”);",
+      "sha256": "3521adc1f9a699a062556c3b9d8e82958353323aa9e3673dd0460d7e925285d3",
+      "verification": "primary_passage"
+    },
+    "c3306968c39bae1adfa14634a4032093b2f8f0c6f3345b887dd595e86a8a0b06": {
+      "document_id": "541308",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=541308",
+      "reference_date": "2023-07-25",
+      "version": "2",
+      "page": 71,
+      "clause": "",
+      "excerpt": "Notas Fiscais Significam as notas fiscais eletrônicas  (consubstanciadas em arquivos XML certificados  digitalmente das notas fiscais de remessa dos  Produtos, que se encontrem registradas  eletronicamente em sistema próprio da Secretaria da  Fazenda Estadual e Receita Federal, nos termos da  legislação vigente, individualizados pelas respectivas  Chaves de Acesso da NFe), representativas de  Operações de Compra a Prazo, detidas pelos  Cedentes contra os Devedores e cedidas de acordo  com o Contrato de Cessão. Para todos os efeitos,  poderá não ser considerado como válida a nota fiscal  eletrônica que possua arquivo XML originado há  mais de 180 (cento e oitenta) dias, contados a partir  da data de emissão da respectiva nota fiscal eletrônica  (NFe), que as informações não estejam condizentes  com os dados dos Direitos Creditórios XML  informados no Arquivo Remessa ou que esteja  marcada como inválida ou não passível de verificação  pelo sistema próprio da Secretaria de Fazenda  Estadual e Receita Federal.",
+      "sha256": "9327414dae93f90a83e2daa7dc792c27954c70d69f559ad16b662f4de0634658",
+      "verification": "primary_passage"
+    },
+    "2ae76c9f076c492864fafe94f12ec27de5aaafd3b66c996b24f26faf42d4b20d": {
+      "document_id": "498471",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498471",
+      "reference_date": "2023-05-26",
+      "version": "1",
+      "page": 64,
+      "clause": "",
+      "excerpt": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas  com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e\n (ii) na política de investimento. No âmbito do processo de aprovação de crédito,  serão avaliadas, ao menos, as seguintes informações:\n(a) perfil da operação, incluindo suas principais características, prazos, taxas  e Garantias, inclusive considerando pro forma as Condições de Cessão e  os Critérios de Elegibilidade; e\n(b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem  Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores  deverão ter demonstrações financeiras auditadas por auditor  independente.",
+      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "267a5ef01684102f9dd28cfb817bfe4c406f4d1b61aa2274205a887493cb5e7f": {
+      "document_id": "545431",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
+      "reference_date": "2023-10-24",
+      "version": "1",
+      "page": 23,
+      "clause": "11.3",
+      "excerpt": "11.3 O desenquadramento de qualquer Direito Creditório aos Critérios de  Elegibilidade e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao  Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão,  recurso ou direito de regresso contra a Administradora, a Gestora, a Co-Gestora, o  Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas,  coligadas ou outras sociedades sob controle comum.",
+      "sha256": "f0ab45202fdfcb6db6e0f49f6f556778438534d0c0f5fc32c4ae223abc56244d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e1be8a4ec004d12fbcdf44d570cf3f9b89fb585fdd43aa9e098a60283817cacc": {
+      "document_id": "623230",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623230",
+      "reference_date": "2023-07-25",
+      "version": "2",
+      "page": 91,
+      "clause": "",
+      "excerpt": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas com base (i)  no atendimento dos Direitos Creditórios às Condições de Cessão e (ii) na política de  investimento. No âmbito do processo de aprovação de crédito, serão avaliadas, ao menos,  as seguintes informações:\n(a) perfil da operação, incluindo suas principais características, prazos, taxas e  Garantias, inclusive considerando pro forma as Condições de Cessão e os  Critérios de Elegibilidade; e\n(b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem  Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores deverão ter  demonstrações financeiras auditadas por auditor independente.",
+      "sha256": "13fa98389b39a0ff20042b6c9a4751b329a922372f36761748b0890396afcd0a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a07630b46473b53447e1db9edaa66b3f3219bed84737983b9a319c97665fc6f4": {
+      "document_id": "498473",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498473",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 64,
+      "clause": "",
+      "excerpt": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas  com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e\n (ii) na política de investimento. No âmbito do processo de aprovação de crédito,  serão avaliadas, ao menos, as seguintes informações:\n(a) perfil da operação, incluindo suas principais características, prazos, taxas  e Garantias, inclusive considerando pro forma as Condições de Cessão e  os Critérios de Elegibilidade; e\n(b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem  Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores  deverão ter demonstrações financeiras auditadas por auditor  independente.",
+      "sha256": "40ce3dc4497e8937bd87ae1f9e91e22dd343811addb8e95c404aca1df6a80c41",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2d6252018d0cfe9590751d9d2247a06207dc1c23c48ceebd6cc998a2658cca08": {
+      "document_id": "498474",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=498474",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 61,
+      "clause": "",
+      "excerpt": "Todas as aprovações de crédito pela Gestora e a Co-Gestora serão realizadas  com base (i) no atendimento dos Direitos Creditórios às Condições de Cessão e\n (ii) na política de investimento. No âmbito do processo de aprovação de crédito,  serão avaliadas, ao menos, as seguintes informações:\n(a) perfil da operação, incluindo suas principais características, prazos, taxas  e Garantias, inclusive considerando pro forma as Condições de Cessão e  os Critérios de Elegibilidade; e\n(b) no caso de Direitos Creditórios ofertados para cessão ou endosso sem  Coobrigação dos Cedentes ou de terceiros, os respectivos Devedores  deverão ter demonstrações financeiras auditadas por auditor  independente.",
+      "sha256": "3521adc1f9a699a062556c3b9d8e82958353323aa9e3673dd0460d7e925285d3",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

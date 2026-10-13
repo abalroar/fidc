@@ -3,16 +3,6 @@
   "cnpj": "49920525000134",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "48b793e60bcb113af05ad1e1bee18be9a6bd8abbc8390c2ee3fa1f7764ad79a8",
-      "9a231910c1bfb6fe8d1b6a95c7a0290bad2e189ef565e43a299ea21d00ca22fa",
-      "c1bef9a2c229b682b8439e5396ce23375d98b5a437a6c9c5607ae7bd1e6b2016",
-      "b98cf44c6c9dbd822b4b22d5456cbc0fe46226eba60a07df972d978302310704",
-      "fe07883e2beaa1438fc4065776153f30b94b15417c57579463381e6ad22237fa",
-      "207d6e0987f21528878108cd05a7fb704201203c25dd09be9eb17e575ad57eea",
-      "59ab2a67ce0aeaad13de4626b215ed496b84949b93492f0d7a4a8b19446715cd",
-      "1b38314d89811f4fa1e4ef55973de056c3918c7ea7fbd24a02dee590c522c0e2"
-    ],
     "ticket": [
       "8368d9901848c4954b8a1ba5aa9310c93cbf0100e1ebfa3eaba35762dd312ace",
       "705039c16ee290d1278ed6a77c1c24ee6c06a551ad213dace444ed49d3e4ca9b",
@@ -503,27 +493,6 @@
       "73a338e3fae26fd566e778f411e56b8fb5b36e37252c21de4d7535e8e50850ee",
       "2fdaf6d23db208247ae0443056df2fd70b7ae24117d69b23eeac700b1ee57095"
     ],
-    "originator": [
-      "36f995904f9eae9c702af3617020df7012b6eec670b56dfe110ddc05a05ed959",
-      "d9fb35891ba5f863566d581d47b3009234cc734f674b4d885bb5c7fdcafba77f",
-      "96c48238fca3ed3d92f4da56f9f5575a444e02069946413b0a599276a913ae2d",
-      "dd2f675c54e2e027a3eb718d800d651c1290e5da02436131c25867888ac38fde",
-      "fff3cef25ecc740e5d83381994d63c14ce14c8c2c23c8787904c607941390eb2",
-      "34f767108aef897de30986b9bc8bbc6a631d8901852119e7b8fc36cdfaa7cc63",
-      "0f4297d4354a3a0179af60b8c013b538b7c23f8762dde36cc4979c22893d3146",
-      "eea1f05e68854c7df1dea0a7bc4620bf2fef286a640f356c497d255c8a3c990b",
-      "1e82da56ff2a609f8414369550d526872ae9f195866177bf3763f5827181d445"
-    ],
-    "debtor": [
-      "6d1cfd8376d2d1eeffafef701bfde8851c3d915ed60461b4390c0727a921b282",
-      "f5a2ee59a58b7013269ad6c49fd317ee96d198d801a33d4ad3a46b65972aeff5",
-      "0df7c1d85ba68545bf9a4fb7e041359b9999dcdc620bf7f81fed71aa8ed3aee9",
-      "bb8aa9a78689b3ff0e8264b9a9aa8db0c03a33eb545a804ec4d075bad281ad32",
-      "be462d3dff312498048d657fff511e66a14ba7e5b38eb43213e92f4db569c585",
-      "320cbc6a5b9442c227fbae4f39582b3d7b84601eb954cd9ae7fb26255defb526",
-      "15e51882302962fac83783cdfd94969ab074b8a6d361865eaa348e78a8297a14",
-      "897b03f98065dd985f4ad125aae41c6f50962e288d38fe3f647c03ee0116dc2e"
-    ],
     "guarantee": [
       "35f8dff9707b56944b831d5532738963428fe06801642242572ff57bf0d1dce3",
       "6471b4e9b58e5ac585a3204b430bd728e363d244a958dcbc1ec1c45fe7cc3966",
@@ -582,6 +551,39 @@
       "eabe4dfc8a1a75d67cda31db225d85e311ef3590028dce7c9088926f4012f3c2",
       "4b48ccce9147607286638e24304825340d5ff40e0f9a11afbd43974322f929ec",
       "3bd0db3d34d4116704d255846df85c5727328b262c8c35ac8c1b43986b08306e"
+    ],
+    "originator": [
+      "e9c1f949933317272e97da5e9b51a0a0bd090c847757fd58cb39300212a64fae",
+      "224db3dc43fa9a5cecbb98b9477f69ff07a681c35a2a6ab5fded705cc93dfe27",
+      "36f995904f9eae9c702af3617020df7012b6eec670b56dfe110ddc05a05ed959",
+      "d9fb35891ba5f863566d581d47b3009234cc734f674b4d885bb5c7fdcafba77f",
+      "96c48238fca3ed3d92f4da56f9f5575a444e02069946413b0a599276a913ae2d",
+      "fc13a6bf34095158cb8e7d2bd7290390c4c82dcac66674900460ad7be602b954",
+      "dd2f675c54e2e027a3eb718d800d651c1290e5da02436131c25867888ac38fde",
+      "fff3cef25ecc740e5d83381994d63c14ce14c8c2c23c8787904c607941390eb2",
+      "5763f81273ca5e7c0fcacad7a0f1f554495126fde3db269b9a7bdd2a1e9bec41",
+      "34f767108aef897de30986b9bc8bbc6a631d8901852119e7b8fc36cdfaa7cc63",
+      "2b081a402b50a5cd4e66aa99381a0bf09d23a8e61fb819efa87df8dcbe0570b3",
+      "0f4297d4354a3a0179af60b8c013b538b7c23f8762dde36cc4979c22893d3146"
+    ],
+    "eligibility": [
+      "ea4c4776d83f95a4e45e2d593160ee82d145cf06033ee5b64233741673024bfa",
+      "f39248a86c10eeb238ec7f9145a41b363b93a218966cdc23aa8055127addb836",
+      "7598b3e9006a38e81f2502072ad72b7206eed1cb321bbcd138ddc3aac87b0e33",
+      "08f11178db9b0d7db08ca89fd801760b3c5a580b20176c324f8c4e03c1db1c73",
+      "b25635f5bfb1d11221bbc9b5d3b54865d53cd7e89c8bf0b9a8ef9f0b319dc744",
+      "d62e82c8c2cae6fa117a9dcce544e17f04612f8d659b4ca2407ce7b59627c914",
+      "4faf96aa9e947977e865221cfdad2f444deef7bdb288138f91db0ed295ee69d7",
+      "c5184326896b62315ec73a70040bb52135a9538aa05c2cd0613b91c59cf72add"
+    ],
+    "debtor": [
+      "59c49c5ed255f42e05870f1317bb4d218889a735881ca00ae69d9b08cb2f0229",
+      "bf90e4cee6ca3483e51cd4c7e4ff61aaa0475d61f2d333dc4def8c7d86edc636",
+      "e6405ea3de8e746025eb7149283429c0792dbb1da87c6f46bec5751c28ac89f6",
+      "81f855f1ecaa237c23ef68ce5ed134c4d3d3e1ea64109736e4b411232a701b50",
+      "23f99b2bc3b02fa1c9a519c87f7d87ff5156763bbac30fa53bfd6165ba931f52",
+      "c1c9b0927012d7784ea7b5de2bf3f728e29c120a3464af480d7bd16cf786273e",
+      "5ab4cbf99e4a10f9b5b1825f4edec794ec7e941f8c64ba59ffce47b5526f6d1e"
     ]
   },
   "entries": {
@@ -675,33 +677,6 @@
         "d602135ef1208ce8fb9f9d376ad6a071616992d12120811b7d0cd19d05235ea8"
       ]
     },
-    "eea1f05e68854c7df1dea0a7bc4620bf2fef286a640f356c497d255c8a3c990b": {
-      "reference_date": "2023-12-29",
-      "value": "Os Direitos Creditórios serão individualmente representados por CCB eletrônicas, originadas da concessão de Empréstimos Solares pelos Endossantes Iniciais aos Devedores por meio da Plataforma Solfácil.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "97d76e7fd3227ede6d73e5e43356c28f726752854022724e71fabfcaf95e0b70"
-      ]
-    },
-    "1e82da56ff2a609f8414369550d526872ae9f195866177bf3763f5827181d445": {
-      "reference_date": "2023-09-29",
-      "value": "Os Direitos Creditórios serão individualmente representados por CCB eletrônicas, originadas da concessão de Empréstimos Solares pelos Endossantes Iniciais aos Devedores por meio da Plataforma Solfácil.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4a3bc355daf20616fe307d697399af09b2fa99285875c46162ef526a4300bed1"
-      ]
-    },
-    "6d1cfd8376d2d1eeffafef701bfde8851c3d915ed60461b4390c0727a921b282": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bf2c4d79469232572e2138dd95c61686f31152ac8167a875d00c08060dccccd1"
-      ]
-    },
     "15e51882302962fac83783cdfd94969ab074b8a6d361865eaa348e78a8297a14": {
       "reference_date": "2025-05-22",
       "value": "",
@@ -736,69 +711,6 @@
       "provenance": "primary_passage",
       "sources": [
         "abcf6dd54e00ad50f87e8bf6117c9d2a12b26910d7a2d17dd62c5fb9190eb5fb"
-      ]
-    },
-    "9a231910c1bfb6fe8d1b6a95c7a0290bad2e189ef565e43a299ea21d00ca22fa": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "477c1036d6fddaf7fd595af417d77965249fb5df2b96336b20a984c1f75869b7"
-      ]
-    },
-    "c1bef9a2c229b682b8439e5396ce23375d98b5a437a6c9c5607ae7bd1e6b2016": {
-      "reference_date": "2025-05-22",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e9863598c7176eca9bddb16adfcb2d9fbdfc8a46f8cabef7a4e9e45355ae637d"
-      ]
-    },
-    "b98cf44c6c9dbd822b4b22d5456cbc0fe46226eba60a07df972d978302310704": {
-      "reference_date": "2025-04-01",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ecee28de73a9d86aa764406815235a8c940437f9d269f7a94084a299787429a3"
-      ]
-    },
-    "fe07883e2beaa1438fc4065776153f30b94b15417c57579463381e6ad22237fa": {
-      "reference_date": "2024-10-04",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f4cf94002824880dfd5ff7a5addd0a15998ef99f5b8174069f2045756da70687"
-      ]
-    },
-    "207d6e0987f21528878108cd05a7fb704201203c25dd09be9eb17e575ad57eea": {
-      "reference_date": "2024-02-29",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69448e397bf6c02cae876ae287efdec5d220b1ed9b010185daa3940dc69379bb"
-      ]
-    },
-    "59ab2a67ce0aeaad13de4626b215ed496b84949b93492f0d7a4a8b19446715cd": {
-      "reference_date": "2023-07-07",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0624cf2e936bcac0ff3aae307fab243dfcfeaf6879e9af077fef59b816d0b746"
-      ]
-    },
-    "1b38314d89811f4fa1e4ef55973de056c3918c7ea7fbd24a02dee590c522c0e2": {
-      "reference_date": "2023-07-03",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8de411ab986b1b72e242f9086f46ffe7081d15045a1ced677ad12b59260a8841"
       ]
     },
     "8368d9901848c4954b8a1ba5aa9310c93cbf0100e1ebfa3eaba35762dd312ace": {
@@ -4595,6 +4507,141 @@
       "sources": [
         "73327b094bd2587c1ac2bdc3f82d63692baeeca80e10905e0341da5c17c935a9"
       ]
+    },
+    "ea4c4776d83f95a4e45e2d593160ee82d145cf06033ee5b64233741673024bfa": {
+      "reference_date": "2024-12-31",
+      "value": "O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, na respectiva data de oferta de direitos creditórios: (i) devem ser observados os seguintes limites de concentração, considerando-se pro forma a aquisição pretendida: (a) o valor dos direitos creditórios devidos por um devedor individualmente não deverá representar mais de 0,10% (um décimo por cento) do patrimônio líquido do Fundo; e (b) o grupo dos 10 (dez) maiores devedores não poderá ser devedor de direitos creditórios cujo valor supere 1% (um inteiro por cento) do patrimônio líquido do Fundo. (ii) considerada pro forma a aquisição pretendida, o conjunto de direitos creditórios integrantes da carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 23% (vinte e três por cento) ao ano, levando em consideração o preço de aquisição; (iii) considerada pro forma a cessão pretendida, a média ponderada dos prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de no máximo 2.000 (dois mil) dias; (iv) o prazo máximo de cada direito creditório pré-fixado deverá ser de 3.845 (três mil oitocentos e quarenta e cinco) dias, contados da data de emissão da CCB; (v) o respectivo devedor não poderá estar inadimplente com relação a qualquer direito creditório adquirido existente, na data de oferta de direitos creditórios; (vi) o direito creditório não poderá estar em atraso;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "be33282734066f6d3eb60ed0c7c4eba1dce93adcc2b7dedc3992d26198790e1d"
+      ]
+    },
+    "f39248a86c10eeb238ec7f9145a41b363b93a218966cdc23aa8055127addb836": {
+      "reference_date": "2023-12-31",
+      "value": "O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, na respectiva data de oferta de direitos creditórios: (i) devem ser observados os seguintes limites de concentração, considerando-se pro forma a aquisição pretendida: (a) o valor dos direitos creditórios devidos por um devedor individualmente não deverá representar mais de 0,10% (um décimo por cento) do patrimônio líquido do Fundo; e (b) o grupo dos 10 (dez) maiores devedores não poderá ser devedor de direitos creditórios cujo valor supere 1% (um inteiro por cento) do patrimônio líquido do Fundo. (ii) considerada pro forma a aquisição pretendida, o conjunto de direitos creditórios integrantes da carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 23% (vinte e três por cento) ao ano, levando em consideração o preço de aquisição;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "58350aaf55ab541456dc53218bd5d8ed7c679df2c2fa25e1cefed3a67f80f72e"
+      ]
+    },
+    "7598b3e9006a38e81f2502072ad72b7206eed1cb321bbcd138ddc3aac87b0e33": {
+      "reference_date": "2025-05-22",
+      "value": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix), 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5a9014b0f25b60ffd4fe6e55dee4f945830adeffad5241027c99fd99e99a28ed"
+      ]
+    },
+    "08f11178db9b0d7db08ca89fd801760b3c5a580b20176c324f8c4e03c1db1c73": {
+      "reference_date": "2025-04-01",
+      "value": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix), 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dda49cb5017d12998bba5744a5069df7b417d221b79c7dd27b5baf7b291327ef"
+      ]
+    },
+    "b25635f5bfb1d11221bbc9b5d3b54865d53cd7e89c8bf0b9a8ef9f0b319dc744": {
+      "reference_date": "2024-10-04",
+      "value": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix), 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ecd3f448583b99937a04902ddd3cfc33d0afb85f19acefe13f4ae54d3d03559e"
+      ]
+    },
+    "d62e82c8c2cae6fa117a9dcce544e17f04612f8d659b4ca2407ce7b59627c914": {
+      "reference_date": "2024-02-29",
+      "value": "18.8.5. Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii), 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9ff32d9ec672cc3dc014b1f64171d90b1310f2fcad9546d85df98fea5b20db9f"
+      ]
+    },
+    "4faf96aa9e947977e865221cfdad2f444deef7bdb288138f91db0ed295ee69d7": {
+      "reference_date": "2023-07-07",
+      "value": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii), 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "201e1470f7dc30e7ffbedee79fb653ae83fcfd43b257db5d8d58b91bdcaa3bfa"
+      ]
+    },
+    "c5184326896b62315ec73a70040bb52135a9538aa05c2cd0613b91c59cf72add": {
+      "reference_date": "2023-07-03",
+      "value": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a: (i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii), 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima; (ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas Júnior; (iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em pagamento de Direitos Creditórios Adquiridos; (iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade; (v) redução da Taxa de Cobrança; e (vi) elevação do valor global dos Encargos do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "69680bcd3b43711d8b7b32fe6c1d3797a0ac2f20d907e3b9dd658cf4da2c09fc"
+      ]
+    },
+    "59c49c5ed255f42e05870f1317bb4d218889a735881ca00ae69d9b08cb2f0229": {
+      "reference_date": "2024-02-29",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b4c016aa04a1f9c8a2fcf76b51ceae6ccbb251e462cab47ea96e2e0c2f8e7d69"
+      ]
+    },
+    "bf90e4cee6ca3483e51cd4c7e4ff61aaa0475d61f2d333dc4def8c7d86edc636": {
+      "reference_date": "2023-07-07",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "91596bc4e0d6a74e694679c5d31101a29c348eb2d4e31c88cf454a051c5138f0"
+      ]
+    },
+    "e6405ea3de8e746025eb7149283429c0792dbb1da87c6f46bec5751c28ac89f6": {
+      "reference_date": "2023-07-03",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5707dddfe9a6e76439a08d77b35389d006f25f94296101a221f7b4cb46dc9ead"
+      ]
+    },
+    "81f855f1ecaa237c23ef68ce5ed134c4d3d3e1ea64109736e4b411232a701b50": {
+      "reference_date": "2023-06-23",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d8f2b4f0b9bad098b7b6af75d60a7391ed2520c0869b63d681382caeaa868049"
+      ]
+    },
+    "23f99b2bc3b02fa1c9a519c87f7d87ff5156763bbac30fa53bfd6165ba931f52": {
+      "reference_date": "2023-06-21",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b44c46d76f3a478de97183e7f42b2217ec3e73118df2f81b0a1dbc86e207d18f"
+      ]
+    },
+    "c1c9b0927012d7784ea7b5de2bf3f728e29c120a3464af480d7bd16cf786273e": {
+      "reference_date": "2023-05-24",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4d7cd4be2d1b158302df0ea3599ecf093a3564132b123ee64ab9464c1f344e8e"
+      ]
+    },
+    "5ab4cbf99e4a10f9b5b1825f4edec794ec7e941f8c64ba59ffce47b5526f6d1e": {
+      "reference_date": "2023-05-22",
+      "value": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dfff16da1a2da70706666a693ee5402f58ca743cd598de8d999defb4b9ed9591"
+      ]
     }
   },
   "passages": {
@@ -4740,78 +4787,6 @@
       "clause": "",
       "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente,  às seguintes condições de cessão, na respectiva data de oferta de direitos creditórios, exceto se o  item previr data de referência específica:\n(i) os direitos creditórios devem ter sido originados por meio da plataforma Solfácil e com a adoção  da política de crédito constante do anexo II ao regulamento do Fundo;\n(ii) os direitos creditórios devem ter sido formalizados por meio da emissão, pelos devedores, de  CCBs em favor de uma instituição financeira parceira;\n(iii) o contrato de alienação fiduciária de equipamento deverá estar devidamente assinado pelo  respectivo devedor, não sendo exigido o seu registro prévio no Cartório de Títulos e Documentos  competente, que será realizado apenas para fins de excussão, caso a cobrança do direito creditório  inadimplido mostre-se economicamente viável, observados os termos da política de crédito;\n(iv) os direitos creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de  qualquer natureza;",
       "sha256": "f1d92b0e895f22110e30daf69f4b1e28b37c6179167f0329f79f1fe55b123c63",
-      "verification": "primary_passage"
-    },
-    "e9863598c7176eca9bddb16adfcb2d9fbdfc8a46f8cabef7a4e9e45355ae637d": {
-      "document_id": "912005",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=912005",
-      "reference_date": "2025-05-22",
-      "version": "1",
-      "page": 62,
-      "clause": "11.7",
-      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "81a74bb2e8c0cb1610d7728df5734bcb05bef306418debcf81428c46db07ad90",
-      "verification": "primary_passage"
-    },
-    "ecee28de73a9d86aa764406815235a8c940437f9d269f7a94084a299787429a3": {
-      "document_id": "878633",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
-      "reference_date": "2025-04-01",
-      "version": "1",
-      "page": 62,
-      "clause": "11.7",
-      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "df53b748d655948da60f1445770ca7fbdcbc23a63df057390b613c8803bdbd2b",
-      "verification": "primary_passage"
-    },
-    "f4cf94002824880dfd5ff7a5addd0a15998ef99f5b8174069f2045756da70687": {
-      "document_id": "752411",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752411",
-      "reference_date": "2024-10-04",
-      "version": "1",
-      "page": 62,
-      "clause": "11.7",
-      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "4a674bfd8319f45bc0deabbb79f4814fb9e31a011477dd947526087f2825d68c",
-      "verification": "primary_passage"
-    },
-    "69448e397bf6c02cae876ae287efdec5d220b1ed9b010185daa3940dc69379bb": {
-      "document_id": "614567",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
-      "reference_date": "2024-02-29",
-      "version": "1",
-      "page": 59,
-      "clause": "18.8.5",
-      "excerpt": "18.8.5. Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das  Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii), 18.1(xviii),\n 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "52499f89c282b1fbd46b931f96d7c2674b693bfec4fc158fbbc54957cc3d62c2",
-      "verification": "primary_passage"
-    },
-    "0624cf2e936bcac0ff3aae307fab243dfcfeaf6879e9af077fef59b816d0b746": {
-      "document_id": "487778",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=487778",
-      "reference_date": "2023-07-07",
-      "version": "1",
-      "page": 60,
-      "clause": "18.8.5",
-      "excerpt": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento)  das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii),\n 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "15e915ce1d117e996443117ff094269c5ce1af502873e71afc9cd70f9862c9f9",
-      "verification": "primary_passage"
-    },
-    "8de411ab986b1b72e242f9086f46ffe7081d15045a1ced677ad12b59260a8841": {
-      "document_id": "486473",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
-      "reference_date": "2023-07-03",
-      "version": "1",
-      "page": 60,
-      "clause": "18.8.5",
-      "excerpt": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento)  das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii),\n 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(vi) elevação do valor global dos Encargos do Fundo.",
-      "sha256": "dc05faff69255496252c0c59379405e2e046a5dd5d9d86a32477b9233e663bd4",
       "verification": "primary_passage"
     },
     "b21bda7cdb5c95f58409493fad6001a29a430afff1e94ccaa44700df3dfadf26": {
@@ -9124,6 +9099,194 @@
       "clause": "",
       "excerpt": "A carteira do Fundo é composta, substancialmente, Nossos principais procedimentos de auditoria  por direitos creditórios representados por CCB consideraram, entre outros:\n eletrônicas, originadas da concessão de  empréstimos solares pelos endossantes iniciais aos Realizamos o entendimento do processo adotado  devedores por meio da plataforma da Solfácil pelo administrador e pelo custodiante do Fundo  Energia Solar Tecnologia e Serviços Financeiros quanto à guarda dos direitos creditórios,  Ltda. valorização e mensuração das perdas por redução  ao valor de recuperação.\n Os direitos creditórios são registrados pelo valor de  aquisição e atualizados com base na taxa de cessão Realizamos, em base de teste, o confronto dos  dos contratos cedidos, deduzidos de provisão para valores utilizados para apuração do valor presente  perdas esperadas, quando aplicável. dos direitos creditórios com base nos termos dos  contratos de cessão e, também em base amostral,  Na determinação da provisão para perdas por testes relacionados a: (i) inspeção dos contratos de  redução do valor de recuperação dos direitos cessão; e (ii) inspeção de documentação referente  creditórios, a administração do Fundo adota ao lastro, tal como o contrato de concessão do  metodologia própria e considera premissas e crédito ao devedor.\n julgamentos. A adoção de diferentes premissas e  julgamentos poderia resultar em saldo da provisão Analisamos a razoabilidade e a consistência das  para perdas por redução do valor de recuperação principais premissas utilizadas pela administração  significativamente diferente. para apuração da provisão para perdas por redução  ao valor de recuperação dos direitos creditórios.\n Em razão da relevância do saldo dos direitos  creditórios na carteira do Fundo, a existência, a Consideramos que os procedimentos adotados pela  valorização e a mensuração da provisão para perdas administração quanto à existência, valorização e  por redução ao valor de recuperação foram mensuração da provisão para perdas por redução  considerados áreas de foco de auditoria. ao valor de recuperação dos direitos creditórios, são  consistentes com as informações analisadas em  nossa auditoria.",
       "sha256": "f1d92b0e895f22110e30daf69f4b1e28b37c6179167f0329f79f1fe55b123c63",
+      "verification": "primary_passage"
+    },
+    "be33282734066f6d3eb60ed0c7c4eba1dce93adcc2b7dedc3992d26198790e1d": {
+      "document_id": "869880",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=869880",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente,  aos seguintes critérios de elegibilidade, na respectiva data de oferta de direitos creditórios:\n(i) devem ser observados os seguintes limites de concentração, considerando-se pro forma a  aquisição pretendida:\n(a) o valor dos direitos creditórios devidos por um devedor individualmente não  deverá representar mais de 0,10% (um décimo por cento) do patrimônio líquido do  Fundo; e\n(b) o grupo dos 10 (dez) maiores devedores não poderá ser devedor de direitos  creditórios cujo valor supere 1% (um inteiro por cento) do patrimônio líquido do  Fundo.\n(ii) considerada pro forma a aquisição pretendida, o conjunto de direitos creditórios integrantes da  carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 23% (vinte e três por cento)  ao ano, levando em consideração o preço de aquisição;\n(iii) considerada pro forma a cessão pretendida, a média ponderada dos prazos de vencimento das  CCBs integrantes do patrimônio do Fundo deverá ser de no máximo 2.000 (dois mil) dias;\n(iv) o prazo máximo de cada direito creditório pré-fixado deverá ser de 3.845 (três mil oitocentos e  quarenta e cinco) dias, contados da data de emissão da CCB;\n(v) o respectivo devedor não poderá estar inadimplente com relação a qualquer direito creditório  adquirido existente, na data de oferta de direitos creditórios;\n(vi) o direito creditório não poderá estar em atraso;",
+      "sha256": "6b9878200f2fe062d23b5ff9dc69246e794a4878a383adbe1d9979b451ca602d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "58350aaf55ab541456dc53218bd5d8ed7c679df2c2fa25e1cefed3a67f80f72e": {
+      "document_id": "630923",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=630923",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente,  aos seguintes critérios de elegibilidade, na respectiva data de oferta de direitos creditórios:\n(i) devem ser observados os seguintes limites de concentração, considerando-se pro forma a  aquisição pretendida:\n(a) o valor dos direitos creditórios devidos por um devedor individualmente não  deverá representar mais de 0,10% (um décimo por cento) do patrimônio líquido do  Fundo; e\n(b) o grupo dos 10 (dez) maiores devedores não poderá ser devedor de direitos  creditórios cujo valor supere 1% (um inteiro por cento) do patrimônio líquido do  Fundo.\n(ii) considerada pro forma a aquisição pretendida, o conjunto de direitos creditórios integrantes da  carteira do Fundo deverá ter uma taxa de retorno igual ou superior a 23% (vinte e três por cento)  ao ano, levando em consideração o preço de aquisição;",
+      "sha256": "f1d92b0e895f22110e30daf69f4b1e28b37c6179167f0329f79f1fe55b123c63",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5a9014b0f25b60ffd4fe6e55dee4f945830adeffad5241027c99fd99e99a28ed": {
+      "document_id": "912005",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=912005",
+      "reference_date": "2025-05-22",
+      "version": "1",
+      "page": 62,
+      "clause": "11.7",
+      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "81a74bb2e8c0cb1610d7728df5734bcb05bef306418debcf81428c46db07ad90",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dda49cb5017d12998bba5744a5069df7b417d221b79c7dd27b5baf7b291327ef": {
+      "document_id": "878633",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=878633",
+      "reference_date": "2025-04-01",
+      "version": "1",
+      "page": 62,
+      "clause": "11.7",
+      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "df53b748d655948da60f1445770ca7fbdcbc23a63df057390b613c8803bdbd2b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ecd3f448583b99937a04902ddd3cfc33d0afb85f19acefe13f4ae54d3d03559e": {
+      "document_id": "752411",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752411",
+      "reference_date": "2024-10-04",
+      "version": "1",
+      "page": 62,
+      "clause": "11.7",
+      "excerpt": "11.7 acima, estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nas Cláusulas 11.1(ii), 11.1(iv), 11.1(v), 11.1(vii), 11.1(ix),\n 11.1(xv), 11.1(xvi), 11.1(xvii), 11.1(xviii), 11.1(xix) e 11.1(xx) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela  que afete qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas  Subordinadas Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas  mediante dação em pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "4a674bfd8319f45bc0deabbb79f4814fb9e31a011477dd947526087f2825d68c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9ff32d9ec672cc3dc014b1f64171d90b1310f2fcad9546d85df98fea5b20db9f": {
+      "document_id": "614567",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
+      "reference_date": "2024-02-29",
+      "version": "1",
+      "page": 59,
+      "clause": "18.8.5",
+      "excerpt": "18.8.5. Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento) das  Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii), 18.1(xviii),\n 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "52499f89c282b1fbd46b931f96d7c2674b693bfec4fc158fbbc54957cc3d62c2",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "201e1470f7dc30e7ffbedee79fb653ae83fcfd43b257db5d8d58b91bdcaa3bfa": {
+      "document_id": "487778",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=487778",
+      "reference_date": "2023-07-07",
+      "version": "1",
+      "page": 60,
+      "clause": "18.8.5",
+      "excerpt": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento)  das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii),\n 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "15e915ce1d117e996443117ff094269c5ce1af502873e71afc9cd70f9862c9f9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "69680bcd3b43711d8b7b32fe6c1d3797a0ac2f20d907e3b9dd658cf4da2c09fc": {
+      "document_id": "486473",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
+      "reference_date": "2023-07-03",
+      "version": "1",
+      "page": 60,
+      "clause": "18.8.5",
+      "excerpt": "18.8.5.Sem prejuízo de posterior aprovação em Assembleia Geral, nos termos do item 18.7 acima,  estarão necessariamente sujeitas à aprovação de Cotistas titulares de 100% (cem por cento)  das Cotas Subordinadas Júnior as deliberações relativas a:\n(i) matérias previstas nos itens 18.1(ii), 18.1(vi), 18.1(vii), 18.1(viii), 18.1(x), 18.1(xii),\n 18.1(xviii), 18.1(xix), 18.1(xx), 18.1(xxi) e 18.1(xxii) acima;\n(ii) alteração de característica de qualquer classe de Cotas, em especial daquela que afete  qualquer vantagem, crie ou aumente qualquer obrigação relativa às Cotas Subordinadas  Júnior;\n(iii) aprovação dos procedimentos a serem adotados no resgate das Cotas mediante dação em  pagamento de Direitos Creditórios Adquiridos;\n(iv) alteração das Condições de Cessão e dos Critérios de Elegibilidade;\n(v) redução da Taxa de Cobrança; e\n(vi) elevação do valor global dos Encargos do Fundo.",
+      "sha256": "dc05faff69255496252c0c59379405e2e046a5dd5d9d86a32477b9233e663bd4",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b4c016aa04a1f9c8a2fcf76b51ceae6ccbb251e462cab47ea96e2e0c2f8e7d69": {
+      "document_id": "614567",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=614567",
+      "reference_date": "2024-02-29",
+      "version": "1",
+      "page": 76,
+      "clause": "",
+      "excerpt": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "sha256": "52499f89c282b1fbd46b931f96d7c2674b693bfec4fc158fbbc54957cc3d62c2",
+      "verification": "primary_passage"
+    },
+    "91596bc4e0d6a74e694679c5d31101a29c348eb2d4e31c88cf454a051c5138f0": {
+      "document_id": "487778",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=487778",
+      "reference_date": "2023-07-07",
+      "version": "1",
+      "page": 77,
+      "clause": "",
+      "excerpt": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "sha256": "15e915ce1d117e996443117ff094269c5ce1af502873e71afc9cd70f9862c9f9",
+      "verification": "primary_passage"
+    },
+    "5707dddfe9a6e76439a08d77b35389d006f25f94296101a221f7b4cb46dc9ead": {
+      "document_id": "486473",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486473",
+      "reference_date": "2023-07-03",
+      "version": "1",
+      "page": 77,
+      "clause": "",
+      "excerpt": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "sha256": "dc05faff69255496252c0c59379405e2e046a5dd5d9d86a32477b9233e663bd4",
+      "verification": "primary_passage"
+    },
+    "d8f2b4f0b9bad098b7b6af75d60a7391ed2520c0869b63d681382caeaa868049": {
+      "document_id": "481854",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481854",
+      "reference_date": "2023-06-23",
+      "version": "1",
+      "page": 76,
+      "clause": "",
+      "excerpt": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "sha256": "4ab074979ef55a12c8d3dd70fd261a48cced75929ab93a4afe6c55e53519c6a4",
+      "verification": "primary_passage"
+    },
+    "b44c46d76f3a478de97183e7f42b2217ec3e73118df2f81b0a1dbc86e207d18f": {
+      "document_id": "481219",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481219",
+      "reference_date": "2023-06-21",
+      "version": "1",
+      "page": 76,
+      "clause": "",
+      "excerpt": "“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.",
+      "sha256": "8064bf5de8425bad579309082802baa0acde417e2a2be01643a9533dd49015f0",
+      "verification": "primary_passage"
+    },
+    "4d7cd4be2d1b158302df0ea3599ecf093a3564132b123ee64ab9464c1f344e8e": {
+      "document_id": "468325",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=468325",
+      "reference_date": "2023-05-24",
+      "version": "1",
+      "page": 59,
+      "clause": "",
+      "excerpt": "“Cotas Significam as Cotas emitidas pelo Fundo, que se subordinam às Cotas Subordinadas Seniores e às Cotas Subordinadas Mezanino A para efeitos de amortização, Mezanino B” resgate e distribuição dos rendimentos da carteira do Fundo, nos termos do  Regulamento, mas que, para os mesmos efeitos, não se subordinam às Cotas  Subordinadas Júnior, nos termos deste Regulamento e dos respectivos  Suplementos.\n“Cotista” Significa o titular de Cotas do Fundo.\n“Cotista Sênior” Significam os titulares das Cotas Seniores.\n“Critérios de Significam os critérios para seleção dos Direitos Creditórios a serem Elegibilidade” adquiridos pelo Fundo, que serão verificados pelo Custodiante, nos termos do  item 12.2 deste Regulamento.\n“Custodiante” Significa a Administradora, na qualidade de custodiante dos ativos  integrantes da carteira, responsável pela controladoria do Fundo, custódia  qualificada dos ativos integrantes da carteira do Fundo, escrituração das  Cotas e guarda dos Documentos Comprobatórios, conforme Instrução CVM  356.\n“CVM” Significa a Comissão de Valores Mobiliários.\n“Data de Significa cada data de pagamento pelo Fundo ao respectivo Endossante do Aquisição e Preço de Aquisição, em moeda corrente nacional, nos termos do Contrato de Pagamento” Endosso. Cada Data de Aquisição e Pagamento deverá ocorrer na Data de  Oferta de Direitos Creditórios em que os respectivos Direitos Creditórios  sejam ofertados ao Fundo.\n“Data de Envio Significa todo 1º (primeiro) Dia Útil posterior a cada Data de Referência de do Relatório de cada mês.\nMonitoramento” “Data de Início Significa a data da primeira integralização de Cotas do Fundo.\ndo Fundo” “Data de Oferta Significa toda data em que um Endossante por meio da respectiva Gestora de Direitos do Endossante, nos termos do Contrato de Endosso, ofertar Direitos Creditórios” Creditórios para transferência ao Fundo, por meio do envio ao Custodiante de  arquivo contendo a identificação dos Direitos Creditórios ofertados.\n“Data de Significa cada uma das datas em que serão realizadas as amortizações das Pagamento” Cotas para pagamentos da Amortização das Cotas, conforme previstas no  Regulamento e no respectivo Suplemento, as quais somente poderão ocorrer  no 7º (sétimo) Dia Útil de cada mês, sendo certo que cada 7º (sétimo) Dia  Útil posterior à Data de Resgate continuará a ser uma Data de Pagamento  enquanto as respectivas Cotas não forem integralmente amortizadas.\n“Data de Significa o último Dia Útil de cada mês, a contar do mês da 1ª data de Referência” integralização da 1ª (primeira) série de Cotas Seniores, das Cotas  Subordinadas Mezanino A ou das Cotas Subordinadas Mezanino B, o que  ocorrer primeiro.\n“Data de Significa a data de resgate de cada série de Cotas Seniores ou classe de Cotas Resgate” Subordinadas Mezanino, especificada no respectivo Suplemento, ou a data  em que as Cotas sejam integralmente amortizadas, o que ocorrer primeiro,  observada a subordinação entre as Cotas.\n“Data de Significa o 1º (primeiro) Dia Útil posterior à Data de Referência de cada mês, Verificação” iniciando-se no mês imediatamente posterior ao 1º (primeiro) Mês Completo  de Alocação.\n“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar  junto a uma Instituição Financeira Parceira por meio da Plataforma Solfácil.\n“Dia Útil” Significa cada dia útil, para fins de operações praticadas no mercado  financeiro brasileiro, conforme especificados na Resolução do CMN nº 4.880,  de 23 de dezembro de 2020, conforme aditada de tempos em tempos. Caso  qualquer data em que venha a ocorrer qualquer evento relativo a  pagamentos, ou cuja definição envolva Dias Úteis, nos termos deste  Regulamento, não seja Dia Útil, conforme definição deste item, considerar-  se-á como a data devida para o referido evento o Dia Útil imediatamente  seguinte.\n“Direitos Significam todos os direitos creditórios originários de operações de Creditórios” Financiamento Solar para aquisição de Sistemas Solares, formalizadas por  meio da emissão de CCBs pelos respectivos Devedores em favor dos  Endossantes Iniciais, que devem ser Direitos Creditórios Pré-fixados.\n“Direitos Significam os Direitos Creditórios adquiridos pelo Fundo dos Endossantes, nos Creditórios termos do Contrato de Endosso e dos Termos de Endosso celebrados entre o Adquiridos” Fundo e o respectivos Endossantes.\n“Direitos Significam todos os Direitos Creditórios Adquiridos, em atraso, vencidos, Creditórios antecipadamente ou não, e não pagos pelos Devedores na respectiva data de Inadimplidos” vencimento.",
+      "sha256": "304a8ded39e96848b90d30db5fd9237799c57e695f13d39f88b007fc14a6a95d",
+      "verification": "primary_passage"
+    },
+    "dfff16da1a2da70706666a693ee5402f58ca743cd598de8d999defb4b9ed9591": {
+      "document_id": "467847",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=467847",
+      "reference_date": "2023-05-22",
+      "version": "1",
+      "page": 59,
+      "clause": "",
+      "excerpt": "do Fundo” “Data de Oferta Significa toda data em que um Endossante por meio da respectiva Gestora de Direitos do Endossante, nos termos do Contrato de Endosso, ofertar Direitos Creditórios” Creditórios para transferência ao Fundo, por meio do envio ao Custodiante de  arquivo contendo a identificação dos Direitos Creditórios ofertados.\n“Data de Significa cada uma das datas em que serão realizadas as amortizações das Pagamento” Cotas para pagamentos da Amortização das Cotas, conforme previstas no  Regulamento e no respectivo Suplemento, as quais somente poderão ocorrer  no 7º (sétimo) Dia Útil de cada mês, sendo certo que cada 7º (sétimo) Dia  Útil posterior à Data de Resgate continuará a ser uma Data de Pagamento  enquanto as respectivas Cotas não forem integralmente amortizadas.\n“Data de Significa o último Dia Útil de cada mês, a contar do mês da 1ª data de Referência” integralização da 1ª (primeira) série de Cotas Seniores, das Cotas  Subordinadas Mezanino A ou das Cotas Subordinadas Mezanino B, o que  ocorrer primeiro.\n“Data de Significa a data de resgate de cada série de Cotas Seniores ou classe de Cotas Resgate” Subordinadas Mezanino, especificada no respectivo Suplemento, ou a data  em que as Cotas sejam integralmente amortizadas, o que ocorrer primeiro,  observada a subordinação entre as Cotas.\n“Data de Significa o 1º (primeiro) Dia Útil posterior à Data de Referência de cada mês, Verificação” iniciando-se no mês imediatamente posterior ao 1º (primeiro) Mês Completo  de Alocação.\n“Devedores” Significam pessoas físicas ou jurídicas que obtenham um Financiamento Solar",
+      "sha256": "f6169910461dac5e7fe78bd22d15d4b68883603a8d4b1003be3d44adc94f919a",
       "verification": "primary_passage"
     }
   }

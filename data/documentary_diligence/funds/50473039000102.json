@@ -6,7 +6,7 @@
   "quarterly_revision": "5ea3daba750f07f1fe9f8d34980cbdc20db6f49d47161f416073b50a8d0c5980",
   "cnpj": "50473039000102",
   "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
-  "reviewed_at": "2026-10-13T03:57:22-03:00",
+  "reviewed_at": "2026-10-13T11:16:37-03:00",
   "corpus_status": {
     "inventoried": 90,
     "readable": 36,
@@ -341,7 +341,7 @@
         "total_count": 5,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -359,9 +359,9 @@
           "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909547",
           "reference_date": "2025-05-19",
           "version": "1",
-          "page": 15,
+          "page": 72,
           "clause": "",
-          "excerpt": "(b) em relação aos originadores que representem individualmente  10% (dez por cento) ou mais da carteira de Direitos Creditórios no  trimestre: (1) critérios para a concessão de crédito adotados pelos  originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais",
+          "excerpt": "(xi) Verificação do Lastro dos Direitos Creditórios dos Estabelecimentos  Comerciais. A Gestora ou a empresa por ela contratada realizará verificação periódica  para conferir a regularidade dos Documentos Comprobatórios dos Direitos Creditórios  dos Estabelecimentos Comerciais relacionados aos Direitos Creditórios dos  Estabelecimentos Comerciais cedidos ao Fundo. Em decorrência da expressiva  diversificação de Cedentes e significativo volume de Direitos Creditórios dos  Estabelecimentos Comerciais cedidos, a Gestora, nos parâmetros definidos neste  Anexo Descritivo e no Anexo II ao Anexo Descritivo, verificará por amostragem, em  periodicidade trimestral ou sempre que entender necessário ou conveniente, após a  cessão dos Direitos Creditórios dos Estabelecimentos Comerciais cedidos, o lastro dos  Direitos Creditórios dos Estabelecimentos Comerciais. Considerando que tal auditoria é  realizada após a cessão dos Direitos Creditórios dos Estabelecimentos Comerciais e  por amostragem, bem como a reduzida amostra de Documentos Adicionais utilizada  para a referida verificação, a carteira do Fundo poderá conter Direitos Creditórios dos  Estabelecimentos Comerciais cuja documentação apresente irregularidades, o que  poderá obstar o pleno exercício pelo Fundo das prerrogativas decorrentes da titularidade  dos Direitos Creditórios dos Estabelecimentos Comerciais. A auditoria será feita nos  Documentos Comprobatórios dos Direitos Creditórios dos Estabelecimentos  Comerciais, conforme especificado neste Anexo Descritivo e no Anexo II ao Anexo  72",
           "sha256": "51826432a3c2344c1d349efc06ffeae1d8d9f45a3ff78e362253c98cd266549c",
           "verification": "primary_passage"
         },
@@ -371,9 +371,9 @@
           "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909547",
           "reference_date": "2025-05-19",
           "version": "1",
-          "page": 72,
+          "page": 15,
           "clause": "",
-          "excerpt": "(xi) Verificação do Lastro dos Direitos Creditórios dos Estabelecimentos  Comerciais. A Gestora ou a empresa por ela contratada realizará verificação periódica  para conferir a regularidade dos Documentos Comprobatórios dos Direitos Creditórios  dos Estabelecimentos Comerciais relacionados aos Direitos Creditórios dos  Estabelecimentos Comerciais cedidos ao Fundo. Em decorrência da expressiva  diversificação de Cedentes e significativo volume de Direitos Creditórios dos  Estabelecimentos Comerciais cedidos, a Gestora, nos parâmetros definidos neste  Anexo Descritivo e no Anexo II ao Anexo Descritivo, verificará por amostragem, em  periodicidade trimestral ou sempre que entender necessário ou conveniente, após a  cessão dos Direitos Creditórios dos Estabelecimentos Comerciais cedidos, o lastro dos  Direitos Creditórios dos Estabelecimentos Comerciais. Considerando que tal auditoria é  realizada após a cessão dos Direitos Creditórios dos Estabelecimentos Comerciais e  por amostragem, bem como a reduzida amostra de Documentos Adicionais utilizada  para a referida verificação, a carteira do Fundo poderá conter Direitos Creditórios dos  Estabelecimentos Comerciais cuja documentação apresente irregularidades, o que  poderá obstar o pleno exercício pelo Fundo das prerrogativas decorrentes da titularidade  dos Direitos Creditórios dos Estabelecimentos Comerciais. A auditoria será feita nos  Documentos Comprobatórios dos Direitos Creditórios dos Estabelecimentos  Comerciais, conforme especificado neste Anexo Descritivo e no Anexo II ao Anexo  72",
+          "excerpt": "(b) em relação aos originadores que representem individualmente  10% (dez por cento) ou mais da carteira de Direitos Creditórios no  trimestre: (1) critérios para a concessão de crédito adotados pelos  originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais",
           "sha256": "51826432a3c2344c1d349efc06ffeae1d8d9f45a3ff78e362253c98cd266549c",
           "verification": "primary_passage"
         },
@@ -419,6 +419,29 @@
           "provenance": "previous_review_with_primary_locator"
         },
         {
+          "history_id": "3e5acb5c984c899ea81ef8fc92ab3e3796e123c2ca623e9db53042e14f08181b",
+          "history_path": "history/50473039000102.json",
+          "reference_date": "2025-03-31",
+          "value": "a) Descrição Representado por direitos creditórios performados, vincendos, por meio dos quais o Mercado Crédito Sociedade de Crédito, Financiamento e Investimento S.A. (“Mercado Crédito” ou “Cedente”) tem como propósito de: (i) viabilizar o pagamento antecipado de determinadas unidades de recebível composta por recebív…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "936462",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=936462",
+              "reference_date": "2025-03-31",
+              "version": "1",
+              "page": 15,
+              "sha256": "55a9debcb77577d21d53f387468a85be9fb60103181e4eb659cbe55c2539beac",
+              "verification": "primary_passage",
+              "passage_id": "3161b39637dfe4f217605c70010d561aba7ed142e34def6464b1f112b6108dc6",
+              "excerpt_sha256": "c169b5bf31969f2b4f622ab4f1382e9f80ca40bc811eff0d5415c9578f0cfe0c"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
           "history_id": "71fffba1de0731f466d305e319f4171075102dcaf30b4f8f52b5ad972af6255d",
           "history_path": "history/50473039000102.json",
           "reference_date": "2024-11-28",
@@ -440,72 +463,36 @@
           ],
           "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
           "provenance": "primary_passage"
-        },
-        {
-          "history_id": "87e274054517c4b405daefd3a9a0ad83fd0f8ea0b70048a1d46a5ce442d009a7",
-          "history_path": "history/50473039000102.json",
-          "reference_date": "2024-11-28",
-          "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2)…",
-          "value_truncated": true,
-          "sources": [
-            {
-              "document_id": "790772",
-              "title": "Instrumento Particular de Alteração do Regulamento",
-              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=790772",
-              "reference_date": "2024-11-28",
-              "version": "1",
-              "page": 18,
-              "sha256": "85846723b3de3c075e475113f5b7f122fb509918da4d1a9238cceee8576e543b",
-              "verification": "primary_passage",
-              "passage_id": "43edfff939a11f3dd9107ef1277d50b4c74da456595ea9403d152a6356c661d9",
-              "excerpt_sha256": "23f87a077960ec5c8b424920eeb0b519c2826fde661ce0ece4452bcd0d9b85aa"
-            }
-          ],
-          "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-          "provenance": "primary_passage"
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
-      "history_count": 8,
+      "history_count": 10,
       "history_ref": {
         "path": "history/50473039000102.json",
         "criterion_id": "originator",
-        "total_count": 8,
+        "total_count": 10,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
       "criterion_id": "debtor",
       "label": "Devedor e consignação",
       "theme": "Recebíveis e aquisição",
-      "applicability": "applicable",
-      "status": "confirmed",
-      "value": "Cotas: Pagamento: Direitos Creditórios: Decorridos 90 dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50,0% e, no máximo, 100,0% de seu Patrimônio Líquido (PL) na aquisição de Direitos Creditórios Elegíveis, nos termos do artigo 40 da Instrução CVM 356/01. O Fundo poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, ou de coobrigação de uma mesma Pessoa, sem a observância do limite de 20,0% de seu PL estabelecido no artigo 40-A da Instrução CVM 356/01, desde que respeitados os requisitos estabelecidos no parágrafo 1º do artigo 40-A da Instrução CVM 356/01. Ativos Financeiros: A parcela do PL do Fundo que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada Política de nos seguintes Ativos Financeiros: (i) títulos de emissão do Tesouro Nacional;.",
-      "reason": "",
-      "sources": [
-        {
-          "document_id": "798081",
-          "title": "Relatório de Agência de Rating",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798081",
-          "reference_date": "2024-11-27",
-          "version": "1",
-          "page": 1,
-          "clause": "",
-          "excerpt": "SELLER FIDC  CNPJ: 50.473.039/0001-02  Oliveira Trust Distribuidora de Títulos e  Condomínio: Fechado Administrador:\n Valores Mobiliários S.A.\n Prazo: Indeterminado Gestor: Oliveira Trust Servicer S.A.\n Oliveira Trust Distribuidora de Títulos e  Data de Registro: 27/abr/2023 Custodiante:\n Valores Mobiliários S.A.\n Classes de Agente de  Seniores / Subordinadas Mercado Pago Instituição de Pagamento Ltda.\n Cotas: Pagamento:\n Direitos Creditórios: Decorridos 90 dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50,0% e, no  máximo, 100,0% de seu Patrimônio Líquido (PL) na aquisição de Direitos Creditórios Elegíveis, nos termos do artigo 40 da  Instrução CVM 356/01.\n O Fundo poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, ou de coobrigação de uma mesma  Pessoa, sem a observância do limite de 20,0% de seu PL estabelecido no artigo 40-A da Instrução CVM 356/01, desde que  respeitados os requisitos estabelecidos no parágrafo 1º do artigo 40-A da Instrução CVM 356/01.\n Ativos Financeiros: A parcela do PL do Fundo que não estiver alocada em Direitos Creditórios Elegíveis poderá ser aplicada  Política de nos seguintes Ativos Financeiros: (i) títulos de emissão do Tesouro Nacional; (ii) títulos privados emitidos por instituições  Investimento: financeiras com classificação de risco (rating) igual a “AAA” em escala nacional emitida por agência classificadora de risco  que seja Fitch Rating Brasil Ltda., Moody’s América Latina Ltda. e/ou Standard & Poor’s Ratings do Brasil Ltda.; (iii) operações  compromissadas lastreadas nos títulos mencionados no item (i) acima, cuja contraparte seja uma instituição financeira de  primeira linha com classificação de risco (rating) igual a “AAA” em escala nacional emitida por agência classificadora de risco  que seja Fitch Rating Brasil Ltda., Moody’s América Latina Ltda. e/ou Standard & Poor’s Ratings do Brasil Ltda; e (iv) cotas  do ITAÚ SOBERANO RENDA FIXA SIMPLES FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO,  inscrito no CNPJ/MF sob o nº 06.175.696/0001-73, e do ITAÚ OT TITULOS PUBLICOS RENDA FIXA REFERENCIADO DI  FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO, inscrito no CNPJ/MF sob o nº 28.715.205/0001-  72.",
-          "sha256": "44d767b9d1c680103a1724854990f47a6d76878de2cbd3d35fbb8a82e176eaec",
-          "verification": "primary_passage"
-        }
-      ],
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra. A resposta da revisão anterior foi preservada no histórico, sem confirmação pelo documento atual.",
+      "sources": [],
       "rule": {},
-      "risk_note": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
-      "provenance": "primary_passage",
-      "precedence": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
       "history": [
         {
           "history_id": "f0bd7405390e49d127214f55ab10b284f553a7ea49174e969aad711cb1b2dd8e",
@@ -529,67 +516,16 @@
           ],
           "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
           "provenance": "previous_review_with_primary_locator"
-        },
-        {
-          "history_id": "ee86af438635901c52b3b9b79bd8331958434b3d2a736260d11218b02a5a5450",
-          "history_path": "history/50473039000102.json",
-          "reference_date": "2024-08-12",
-          "value": "Cotas: Pagamento: Direitos Creditórios: Decorridos 90 dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50,0% e, no máximo, 100,0% de seu Patrimônio Líquido (PL) na aquisição de Direitos Creditórios Elegíveis, nos termos do artigo 40 da Instrução CVM 356/01. O Fundo poderá adquirir Direitos Cr…",
-          "value_truncated": true,
-          "sources": [
-            {
-              "document_id": "716991",
-              "title": "Relatório de Agência de Rating",
-              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716991",
-              "reference_date": "2024-08-12",
-              "version": "1",
-              "page": 1,
-              "sha256": "40cc45cee1dd4a87e506672d5900427ebf6b89a6661832846e82fbf260bc3fad",
-              "verification": "primary_passage",
-              "passage_id": "e0283639482f5a920b5f51b020aba84021bbd9b6a25a7e069ac87f33b51ca3ce",
-              "excerpt_sha256": "8f511c79c59d5cddd318c67d38cee93523ee1fa92956147ad9bdda49dcf44b9c"
-            }
-          ],
-          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-          "provenance": "primary_passage"
-        },
-        {
-          "history_id": "abd402acbc5ed858b238881a6da28439c87ace44fe15d482111fa539082e41e1",
-          "history_path": "history/50473039000102.json",
-          "reference_date": "2024-02-07",
-          "value": "Cotas: Pagamento: Direitos Creditórios: Decorridos 90 dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50,0% e, no máximo, 100,0% de seu Patrimônio Líquido (PL) na aquisição de Direitos Creditórios Elegíveis, nos termos do artigo 40 da Instrução CVM 356/01. O Fundo poderá adquirir Direitos Cr…",
-          "value_truncated": true,
-          "sources": [
-            {
-              "document_id": "603641",
-              "title": "Relatório de Agência de Rating",
-              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=603641",
-              "reference_date": "2024-02-07",
-              "version": "1",
-              "page": 1,
-              "sha256": "85cfc39e9d27e9ff6ec522e6d54855a81f92c778039653c905c3247669b1cfa8",
-              "verification": "primary_passage",
-              "passage_id": "21d03f32eaed6677142b88826bb12a473ca8dce4cc487c338e9eabb1404b6e6c",
-              "excerpt_sha256": "8f511c79c59d5cddd318c67d38cee93523ee1fa92956147ad9bdda49dcf44b9c"
-            }
-          ],
-          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-          "provenance": "primary_passage"
         }
       ],
-      "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
-        "valid": true
-      },
-      "history_count": 7,
+      "history_count": 1,
       "history_ref": {
         "path": "history/50473039000102.json",
         "criterion_id": "debtor",
-        "total_count": 7,
-        "preview_count": 3,
+        "total_count": 1,
+        "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -598,7 +534,7 @@
       "theme": "Recebíveis e aquisição",
       "applicability": "applicable",
       "status": "confirmed",
-      "value": "3.9 Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade, conforme o respectivo Direito Creditório a ser adquirido pelo Fundo.",
+      "value": "3.9 Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade, conforme o respectivo Direito Creditório a ser adquirido pelo Fundo.\n\n3.9.1 Critérios de Elegibilidade dos Direitos Creditórios dos Estabelecimentos Comerciais. Com relação especificamente aos Direitos Creditórios dos Estabelecimentos Comerciais, o Fundo somente poderá adquirir Direitos Creditórios dos Estabelecimentos Comerciais, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios dos Estabelecimentos Comerciais”): (i) os Direitos Creditórios dos Estabelecimentos Comerciais deverão ser expressos em moeda corrente nacional; (ii) o Devedor não poderá estar inadimplente em relação ao Fundo na respectiva Data de Aquisição e Pagamento; (iii) os Direitos Creditórios dos Estabelecimentos Comerciais não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) os Direitos Creditórios dos Estabelecimentos Comerciais a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do Custodiante; (v) os Direitos Creditórios dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e 59\n\n3.9.2 Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito. Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (i) os Direitos Creditórios do Mercado Crédito deverão ser expressos em moeda corrente nacional; (ii) o Devedor não poderá estar inadimplente em relação ao Fundo na respectiva Data de Aquisição e Pagamento; (iii) os Direitos Creditórios do Mercado Crédito não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) os Direitos Creditórios do Mercado Crédito a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do Custodiante; (v) os Direitos Creditórios do Mercado Crédito ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (vi) os Direitos Creditórios do Mercado Crédito deverão ser provenientes da operação de pagamento com sub-rogação, na qual o Mercado Crédito tem como propósito (a) viabilizar o pagamento antecipado de determinadas U.Rs associadas às Dívidas do Devedor a determinados Estabelecimentos Comerciais, nos termos solicitados por tais Estabelecimentos Comerciais, e (b) se sub-rogar nos direitos de tais Estabelecimentos Comerciais de receber o valor devido pelo Devedor pela Transação de Pagamento.",
       "reason": "",
       "sources": [
         {
@@ -611,7 +547,8 @@
           "clause": "3.9",
           "excerpt": "3.9 Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos  Creditórios que atendam, nas respectivas Datas de Aquisição e Pagamento,  individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade,  conforme o respectivo Direito Creditório a ser adquirido pelo Fundo.",
           "sha256": "51826432a3c2344c1d349efc06ffeae1d8d9f45a3ff78e362253c98cd266549c",
-          "verification": "primary_passage"
+          "verification": "primary_passage",
+          "list_recovery_complete": true
         },
         {
           "document_id": "909547",
@@ -623,7 +560,8 @@
           "clause": "3.9.1",
           "excerpt": "3.9.1 Critérios de Elegibilidade dos Direitos Creditórios dos Estabelecimentos  Comerciais. Com relação especificamente aos Direitos Creditórios dos  Estabelecimentos Comerciais, o Fundo somente poderá adquirir Direitos Creditórios dos  Estabelecimentos Comerciais, caso sejam atendidos, nas respectivas Datas de  Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios  de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios dos  Estabelecimentos Comerciais”):\n(i) os Direitos Creditórios dos Estabelecimentos Comerciais deverão ser  expressos em moeda corrente nacional;\n(ii) o Devedor não poderá estar inadimplente em relação ao Fundo na  respectiva Data de Aquisição e Pagamento;\n(iii) os Direitos Creditórios dos Estabelecimentos Comerciais não poderão  estar vencidos, quando de sua aquisição pelo Fundo;\n(iv) os Direitos Creditórios dos Estabelecimentos Comerciais a serem  adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam  integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do  Custodiante;\n(v) os Direitos Creditórios dos Estabelecimentos Comerciais ofertados  deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco)  dias, contados da respectiva Data de Aquisição e Pagamento; e  59",
           "sha256": "51826432a3c2344c1d349efc06ffeae1d8d9f45a3ff78e362253c98cd266549c",
-          "verification": "primary_passage"
+          "verification": "primary_passage",
+          "list_recovery_complete": true
         },
         {
           "document_id": "909547",
@@ -635,7 +573,8 @@
           "clause": "3.9.2",
           "excerpt": "3.9.2 Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito.\n Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo  somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos,  nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma  cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos  Direitos Creditórios do Mercado Crédito”):\n(i) os Direitos Creditórios do Mercado Crédito deverão ser expressos em  moeda corrente nacional;\n(ii) o Devedor não poderá estar inadimplente em relação ao Fundo na  respectiva Data de Aquisição e Pagamento;\n(iii) os Direitos Creditórios do Mercado Crédito não poderão estar vencidos,  quando de sua aquisição pelo Fundo;\n(iv) os Direitos Creditórios do Mercado Crédito a serem adquiridos não  poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do  mesmo Grupo Econômico da Administradora, da Gestora e/ou do Custodiante;\n(v) os Direitos Creditórios do Mercado Crédito ofertados deverão ter prazo  final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados  da respectiva Data de Aquisição e Pagamento; e\n(vi) os Direitos Creditórios do Mercado Crédito deverão ser provenientes da  operação de pagamento com sub-rogação, na qual o Mercado Crédito tem como  propósito (a) viabilizar o pagamento antecipado de determinadas U.Rs associadas às  Dívidas do Devedor a determinados Estabelecimentos Comerciais, nos termos  solicitados por tais Estabelecimentos Comerciais, e (b) se sub-rogar nos direitos de tais  Estabelecimentos Comerciais de receber o valor devido pelo Devedor pela Transação  de Pagamento.",
           "sha256": "51826432a3c2344c1d349efc06ffeae1d8d9f45a3ff78e362253c98cd266549c",
-          "verification": "primary_passage"
+          "verification": "primary_passage",
+          "list_recovery_complete": true
         }
       ],
       "rule": {},
@@ -690,11 +629,11 @@
           "provenance": "primary_passage"
         },
         {
-          "history_id": "6408e5db12fc02f3c195bff81f7dab40dc168586ee2ecdc8fc279881e8b21f8a",
+          "history_id": "86eb5d50e510c19f06dd0647670a3ca55f48372b11a37cf29aed77cf193e5116",
           "history_path": "history/50473039000102.json",
           "reference_date": "2025-03-31",
-          "value": "",
-          "value_truncated": false,
+          "value": "Com relação especificamente aos direitos creditórios dos estabelecimentos comerciais, o Fundo somente poderá adquirir direitos creditórios dos estabelecimentos comerciais, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade…",
+          "value_truncated": true,
           "sources": [
             {
               "document_id": "936462",
@@ -713,6 +652,11 @@
           "provenance": "primary_passage"
         }
       ],
+      "semantic_validation": {
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      },
       "history_count": 11,
       "history_ref": {
         "path": "history/50473039000102.json",
@@ -720,12 +664,7 @@
         "total_count": 11,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
-      },
-      "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
-        "valid": true
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -861,10 +800,10 @@
         "total_count": 7,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -973,10 +912,10 @@
         "total_count": 12,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1093,7 +1032,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -1104,7 +1043,7 @@
         "total_count": 10,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -1211,10 +1150,10 @@
         "total_count": 3,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1317,7 +1256,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -1328,7 +1267,7 @@
         "total_count": 13,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -1459,10 +1398,10 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1597,10 +1536,10 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1709,10 +1648,10 @@
         "total_count": 12,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -1808,7 +1747,7 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -1941,10 +1880,10 @@
         "total_count": 8,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2078,10 +2017,10 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2199,7 +2138,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -2210,7 +2149,7 @@
         "total_count": 3,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -2286,10 +2225,10 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2411,10 +2350,10 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2547,10 +2486,10 @@
         "total_count": 12,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -2677,7 +2616,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -2688,7 +2627,7 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -2815,7 +2754,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -2826,7 +2765,7 @@
         "total_count": 8,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -2945,10 +2884,10 @@
         "total_count": 8,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -3047,7 +2986,7 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -3156,7 +3095,7 @@
         "total_count": 6,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -3219,7 +3158,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -3343,10 +3282,10 @@
         "total_count": 5,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -3463,7 +3402,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -3474,7 +3413,7 @@
         "total_count": 6,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -3608,10 +3547,10 @@
         "total_count": 19,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -3716,7 +3655,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -3727,7 +3666,7 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -3858,10 +3797,10 @@
         "total_count": 7,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -3911,7 +3850,7 @@
         "total_count": 1,
         "preview_count": 1,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -4051,7 +3990,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -4062,7 +4001,7 @@
         "total_count": 10,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -4196,10 +4135,10 @@
         "total_count": 6,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -4332,10 +4271,10 @@
         "total_count": 8,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -4444,10 +4383,10 @@
         "total_count": 20,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -4557,7 +4496,7 @@
         "total_count": 10,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -4689,10 +4628,10 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -4827,10 +4766,10 @@
         "total_count": 3,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -4954,10 +4893,10 @@
         "total_count": 5,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5090,10 +5029,10 @@
         "total_count": 7,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5226,10 +5165,10 @@
         "total_count": 5,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5339,10 +5278,10 @@
         "total_count": 12,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5476,10 +5415,10 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5607,7 +5546,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -5618,7 +5557,7 @@
         "total_count": 10,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -5725,10 +5664,10 @@
         "total_count": 18,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5861,10 +5800,10 @@
         "total_count": 9,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -5985,10 +5924,10 @@
         "total_count": 13,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       },
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       }
@@ -6091,7 +6030,7 @@
         }
       ],
       "semantic_validation": {
-        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
         "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
         "valid": true
       },
@@ -6102,7 +6041,7 @@
         "total_count": 4,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     },
     {
@@ -6198,7 +6137,7 @@
         "total_count": 5,
         "preview_count": 3,
         "full_text_deferred": true,
-        "sha256": "fe077129c4ddc3e0818319182f3d433ec865431e1157db679916fc0c3d4821ea"
+        "sha256": "3d66c24bd567cb13ab62a6874827e2d06ccf4fe4719dcdde0c863c5cb2d57994"
       }
     }
   ],
@@ -6250,61 +6189,62 @@
   "lookthrough_provenance": "primary_passage",
   "criterion_revisions": {
     "receivables": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "investee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "pdd": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "evaluation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "liquidation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "guarantee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "collection_account": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "providers": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "legacy_events": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "quota_grace": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "originator": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "debtor": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "eligibility": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "term": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "concentration": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "tax_allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "perimeter": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "res175": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "subordination": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "junior_release": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "liquidity_reserve": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "dilution": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "repurchase": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "coobligation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "cure": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "payments": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "servicing": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "collateral_check": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "replacement": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "rating": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "remuneration": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "admin_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "management_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "custody_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "quorum": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "related_parties": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "changes": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "audit": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "duration_investors": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "quota_classes": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "offers": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98"
+    "investee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "pdd": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "evaluation": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "liquidation": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "guarantee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "collection_account": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "providers": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "legacy_events": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "quota_grace": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "originator": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "debtor": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "eligibility": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "term": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "concentration": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "allocation": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "tax_allocation": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "perimeter": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "res175": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "subordination": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "junior_release": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "liquidity_reserve": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "dilution": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "repurchase": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "coobligation": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "cure": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "payments": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "servicing": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "collateral_check": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "replacement": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "rating": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "remuneration": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "admin_fee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "management_fee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "custody_fee": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "quorum": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "related_parties": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "changes": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "audit": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "duration_investors": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "quota_classes": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "offers": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c"
   },
   "semantic_validation_receipt": {
-    "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
-    "confirmed_primary_checked": 41,
+    "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+    "confirmed_primary_checked": 40,
     "rejected": 0,
     "basis": "Relevância das fontes e valores disponíveis; não certifica vigência jurídica, números ou interpretação de leituras manuais."
   },
   "criterion_extractor_revisions": {
     "receivables": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "originator": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "debtor": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "originator": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09",
+    "debtor": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09",
     "investee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
     "guarantee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
     "providers": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
-    "allocation": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f"
+    "allocation": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "eligibility": "ef02e65fe786396586482030cbe3d0fe303efb8acb2866209abbdd49fac0ca09"
   }
 }

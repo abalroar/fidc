@@ -3,16 +3,6 @@
   "cnpj": "52271464000136",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "0ba6967780c8504d130c0e9a4950d21033d51cd33ae46e3fadf4784821b0f827",
-      "51f70f6a8ad88ce6975b214da005a1364d99356d58bb10dd202c034fe57d0f2e",
-      "73b06f8baf898732d2321f09d5443f7b346f34f9e5b45dd98eea0682e28fc8bf",
-      "3ebef198825a06cfbdcdae3e93c4bb47b62e145ad1c22f6d20546cabbcf68faf",
-      "06aa711f14804f34f991a4e24ccd5fdb3056f0b845e01f56ef7c6cd49432d72d",
-      "ecacb227a84ff29dd099f4c5403c9c6b400903794ae855e1b41814306b352095",
-      "e60f9ae90e885abe509d19428032b2bba8a0f2dcb0f7aa51130d0e6878925a5a",
-      "63f6d61f53b67d40d7a9a975f2242ed788d4c0b3bee0e2a862409614f8351e67"
-    ],
     "term": [
       "a7ebee70a14fc36ddcf9c17714a579348f9770fc5bbe4a8bb73e96a2529affac",
       "efe70f0c207c6e16c130b864f330771d1dd079324886ea2909de5be27d9499d7",
@@ -419,27 +409,6 @@
       "aea27532f4faf66edbc0ecae7a7432a4a83da3bb66f0d260825fc6f9ebfe1005",
       "256a25d1de1fff27b5b5d4bb7b879dc4091f08c135d83cb7e045f45920e7a714"
     ],
-    "originator": [
-      "e40661153b733317cbef746c03a9d9aeff152aa96b14c0453ce72624d1964541",
-      "8e0a4a5234ed922b7917878c2106eaca9f407dccbb2c39ff870567e34d3e1d56",
-      "17f9ae24b13682206c881ad0c7e9638c450477ec9c4f2c84670c0c0e235495d2",
-      "1328d66862d38b53b8612ec55aed6770a834a5507a52ffde2e40726626818935",
-      "28cb3bcc48058eb1bbe844ca848606d277518f5c46f350adadda8ea4ee87a191",
-      "32006cde0ae99e694fea0c792ca85d176ce65280fdbce4ac44366986d70c6978",
-      "534d49ca2b2fb2aab66a505651f4ce5a68792c2cf5952b4bf4884b07167f151c",
-      "5e2fee114555a909165d119e7ae4075e7b2569ac9b8175ce55bb9fac60e42116",
-      "9b91734226a2c424f3af4d6cdf05cd7646920e2129086dcb4cfee2b07b6b4994",
-      "59229785ff61a4103c0683f1dfb56c531a324f69e7f49251fa62d7dcbac058fd"
-    ],
-    "debtor": [
-      "2af981b332d3c18a98d9f1c4c31a9f27e8cfadcb461369d7b9131598292256b6",
-      "f4783410f2591d5ff6ba1ed0863fe39a8f4efb2061e29a852ef9608dba1e3884",
-      "2c277a8bb4810250fb51af02f73fd465fc36abdba08a8183de441f872bbd25d0",
-      "036de686635d214b9514528ebdae1ee3e5a3d143bd6b99e6cc49a6b1eff60fe0",
-      "f5b7155cb213b6d4b867f7dd68abe9fe03ce8ef28e3f872272f24c76f3a2358d",
-      "6dc33578b1a3094ad49affa2100f9a3f7064cb84e1a0599c2227be8f577e89f0",
-      "723e5d22a3df7a9103015a108c9e0ce40f0960337a8071a871990a3e464cc4e4"
-    ],
     "investee": [
       "2125c3693f5b69b40744de7b56f8b9e06341a6de8dd1991f53675fbb56fb18dd",
       "525142f7595b75acd3f8bdf55c460f07c24e519cdc8c3a4d38bd19fc8aa862b5",
@@ -480,6 +449,32 @@
       "155868e366635d02f834ca08b99df513781e412cca0df48c6a4663221d7de0bd",
       "fe8a858ca82910ded164d9bd7a34a80886b76694d6dfc52fd44ba9b55cfda0d3",
       "088a692b0c4c8dcdb92bd7433d82ddddb867eec1fe3a6087941b2a30465e3589"
+    ],
+    "originator": [
+      "e40661153b733317cbef746c03a9d9aeff152aa96b14c0453ce72624d1964541",
+      "e75f39ca8e63b52af36c37d82b1e20f9ff092b938a61e01157040598baccc1ce",
+      "55a49e844793e58a7bcf9da9d5bfbaca61e4bec8a251762b561c43411eaa9670",
+      "17f9ae24b13682206c881ad0c7e9638c450477ec9c4f2c84670c0c0e235495d2",
+      "1328d66862d38b53b8612ec55aed6770a834a5507a52ffde2e40726626818935",
+      "28cb3bcc48058eb1bbe844ca848606d277518f5c46f350adadda8ea4ee87a191",
+      "32006cde0ae99e694fea0c792ca85d176ce65280fdbce4ac44366986d70c6978",
+      "e60f9ae90e885abe509d19428032b2bba8a0f2dcb0f7aa51130d0e6878925a5a",
+      "5e2fee114555a909165d119e7ae4075e7b2569ac9b8175ce55bb9fac60e42116",
+      "9b91734226a2c424f3af4d6cdf05cd7646920e2129086dcb4cfee2b07b6b4994",
+      "59229785ff61a4103c0683f1dfb56c531a324f69e7f49251fa62d7dcbac058fd"
+    ],
+    "eligibility": [
+      "df75e76f97de99a21f58b6541e4d3d8baa13f3aa1ac1fd28cabb80a96d062014",
+      "327f695e61aaf8ddd87355257f27180d9e7770673baa3872880ba9743b0d3246",
+      "bff04843413eeff61a83c57bfdaae193617f5182244bb6f85838eec0fe156399",
+      "66f2949b7aee45cafdde9d0349e49b0a21d6ad4a3d6980a70131d1be96e85658",
+      "d98b41ab5a736c3e5efe3435072aa3074a7bf5441cb540647af8da19c184732e",
+      "380c11f50bdd0733b2786c4c916909d06c4434da88f175afbf79ba9909b43cd6",
+      "f73cb8d4ffa911bfbb2a7b13f0205498ee45cefb5de51c88655fe6795a61f739",
+      "e4ed0ab6e3d608d2d30769fb270ac9d9d3e44d46174227c4864a214bfb61826f"
+    ],
+    "debtor": [
+      "2af981b332d3c18a98d9f1c4c31a9f27e8cfadcb461369d7b9131598292256b6"
     ]
   },
   "entries": {
@@ -501,15 +496,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "a9ba8179419450ea0ccfed3f76c57169fbc851988cf62bea91c56312f983cc3b"
-      ]
-    },
-    "8e0a4a5234ed922b7917878c2106eaca9f407dccbb2c39ff870567e34d3e1d56": {
-      "reference_date": "2024-06-30",
-      "value": "O Custodiante pode contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos direitos creditórios cedidos, desde que não seja o originador dos direitos creditórios cedidos, a Cedente, eventual consultor especializado contratado pelo Administrador para atuar no âmbito do Fundo, e demais partes relacionadas ao Fundo, tampouco demais partes relacionadas ao Fundo, tal como definido pelas regras contábeis que tratam deste assunto.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f2b4e9c35288cffd8eeada8a11be6d71f8525bacf61490c29006e807ae8b19b5"
       ]
     },
     "17f9ae24b13682206c881ad0c7e9638c450477ec9c4f2c84670c0c0e235495d2": {
@@ -546,15 +532,6 @@
       "provenance": "primary_passage",
       "sources": [
         "6d2602004be47f256828f19083a1de16d7eea54b4346d06c7d0a1d58a6e5c71e"
-      ]
-    },
-    "534d49ca2b2fb2aab66a505651f4ce5a68792c2cf5952b4bf4884b07167f151c": {
-      "reference_date": "2024-10-15",
-      "value": "O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos Direitos Creditórios Cedidos, desde que o referido terceiro não seja o originador dos Direitos Creditórios, um Cedente, a Gestora ou eventual consultor especializado contratado pela Administradora para atuar no âmbito do Fundo, tampouco demais partes relacionadas ao Fundo, tal como definido pelas regras contábeis que tratam deste assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "066c6afa2bcc44f9942f21857851a18ffa123c8233530db4aa0c39a45811675a"
       ]
     },
     "5e2fee114555a909165d119e7ae4075e7b2569ac9b8175ce55bb9fac60e42116": {
@@ -594,78 +571,6 @@
         "a9ba8179419450ea0ccfed3f76c57169fbc851988cf62bea91c56312f983cc3b"
       ]
     },
-    "f4783410f2591d5ff6ba1ed0863fe39a8f4efb2061e29a852ef9608dba1e3884": {
-      "reference_date": "2025-10-02",
-      "value": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "020ac20ffa76474ef996bbac98490b793c055b9fbfaf3d231ee89cfdeb9fc9d4"
-      ]
-    },
-    "2c277a8bb4810250fb51af02f73fd465fc36abdba08a8183de441f872bbd25d0": {
-      "reference_date": "2025-04-16",
-      "value": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b6bf017b5b9a9976d316d61e0265913f02fabf6e19f2547ecac59853cb7f9e29"
-      ]
-    },
-    "036de686635d214b9514528ebdae1ee3e5a3d143bd6b99e6cc49a6b1eff60fe0": {
-      "reference_date": "2025-02-07",
-      "value": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0fc6cc851c08cc0e8d23c35a7ad050f7af91b76a0426cd68fed1e5eabcf93645"
-      ]
-    },
-    "f5b7155cb213b6d4b867f7dd68abe9fe03ce8ef28e3f872272f24c76f3a2358d": {
-      "reference_date": "2024-11-26",
-      "value": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "023b78986f59bc9ce5d50245e9b7b513cd12a97ff8f653fc340247bf175df504"
-      ]
-    },
-    "6dc33578b1a3094ad49affa2100f9a3f7064cb84e1a0599c2227be8f577e89f0": {
-      "reference_date": "2024-10-15",
-      "value": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cb2e85e304f4d163ac5c827428319057c674ae774e7e484c0cf21f92f9072ae1"
-      ]
-    },
-    "723e5d22a3df7a9103015a108c9e0ce40f0960337a8071a871990a3e464cc4e4": {
-      "reference_date": "2023-09-20",
-      "value": "(xxxii) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 1.000.000,00 (um milhão de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7e5c298c0043411cfc2ab6a3619809b5c92b7f8c24ce55fd2da22d5b5e036e0b"
-      ]
-    },
-    "0ba6967780c8504d130c0e9a4950d21033d51cd33ae46e3fadf4784821b0f827": {
-      "reference_date": "2025-06-30",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante o Fundo; e (ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7319d4e2f1794a03dd9dd24684b487a53ad28a320ef20cc4bca9e961331baf8b"
-      ]
-    },
-    "51f70f6a8ad88ce6975b214da005a1364d99356d58bb10dd202c034fe57d0f2e": {
-      "reference_date": "2024-06-30",
-      "value": "Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório Adquirente;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8069a2a89493fed3048aea763f44bd46a1060e3fec0eb37c180a61d63b446e45"
-      ]
-    },
     "73b06f8baf898732d2321f09d5443f7b346f34f9e5b45dd98eea0682e28fc8bf": {
       "reference_date": "2025-10-02",
       "value": "",
@@ -691,33 +596,6 @@
       "provenance": "primary_passage",
       "sources": [
         "4709fc61977ec1f9727f7148831ef6ba8a98b49966a2b49e74c278ba2f95946d"
-      ]
-    },
-    "ecacb227a84ff29dd099f4c5403c9c6b400903794ae855e1b41814306b352095": {
-      "reference_date": "2024-11-26",
-      "value": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, a Classe somente poderá ter em sua carteira Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "94b9ebe23f3d6b909ab5624bfce741ac767ffb40265ecf1ab83f6bc2a5bc0030"
-      ]
-    },
-    "e60f9ae90e885abe509d19428032b2bba8a0f2dcb0f7aa51130d0e6878925a5a": {
-      "reference_date": "2024-10-15",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "559196177d98688bafc815e5ba62ca87df3782466b136bfdcb3230d7c10d48ac"
-      ]
-    },
-    "63f6d61f53b67d40d7a9a975f2242ed788d4c0b3bee0e2a862409614f8351e67": {
-      "reference_date": "2024-05-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0fa79d00596b22d23dbf5b1d43ec2edc7e9a7ba49668c8211d4ff27c3a6ace4f"
       ]
     },
     "a7ebee70a14fc36ddcf9c17714a579348f9770fc5bbe4a8bb73e96a2529affac": {
@@ -3485,6 +3363,96 @@
       "sources": [
         "ce2db96e3568d6bd0ad5f211f35534ce4b2f55550cc826592f51d6be7b5659d3"
       ]
+    },
+    "df75e76f97de99a21f58b6541e4d3d8baa13f3aa1ac1fd28cabb80a96d062014": {
+      "reference_date": "2025-06-30",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante o Fundo; e (ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional. (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor; (iv) prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias; (v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão; (vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento; (vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7319d4e2f1794a03dd9dd24684b487a53ad28a320ef20cc4bca9e961331baf8b"
+      ]
+    },
+    "bff04843413eeff61a83c57bfdaae193617f5182244bb6f85838eec0fe156399": {
+      "reference_date": "2025-10-02",
+      "value": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante a Classe; (ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional; (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor; (iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias; (v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão; (vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento; (vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe; (x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição; (xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e (xii) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios. 5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e279d620b94a65958a464d9a8d46af1d853fc3c1ba91961b6c6c49f7fab08eae"
+      ]
+    },
+    "66f2949b7aee45cafdde9d0349e49b0a21d6ad4a3d6980a70131d1be96e85658": {
+      "reference_date": "2025-04-16",
+      "value": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante a Classe; (ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional; (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor; (iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias; (v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão; (vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento; (vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe; (x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição; (xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e (xii) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios. 5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a0024c4c672b4b5762cbd73f7d73093016d7c8bb846d378744912f92dd84220"
+      ]
+    },
+    "d98b41ab5a736c3e5efe3435072aa3074a7bf5441cb540647af8da19c184732e": {
+      "reference_date": "2025-02-07",
+      "value": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante a Classe; (ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional; (iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor; (iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias; (v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão; (vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento; (vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe; (x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição; (xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e (xii) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios. 5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5cb2afdde69ca27e8b6d98fbe49e78e029960452d3009e132ce326b9baf3db3c"
+      ]
+    },
+    "380c11f50bdd0733b2786c4c916909d06c4434da88f175afbf79ba9909b43cd6": {
+      "reference_date": "2024-11-26",
+      "value": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, a Classe somente poderá ter em sua carteira Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe; (iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição; (v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e (vi) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios. 5.2.1. Verificação das Condições de Cessão. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios às respectivas Condições de Cessão nas operações de aquisição de Direitos Creditórios pelo Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6b7f07cbaa6e82fce6b4d8cd42192d8f3175f1c32cc9cc5820e65dc5a87c78b8"
+      ]
+    },
+    "f73cb8d4ffa911bfbb2a7b13f0205498ee45cefb5de51c88655fe6795a61f739": {
+      "reference_date": "2024-10-15",
+      "value": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pelo Fundo deverão estar registrados perante Entidade Registradoras em nome do Fundo; (iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos ao Fundo até o Limite de Aquisição; (v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e (vi) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios. 5.2.1. Verificação das Condições de Cessão. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios às respectivas Condições de Cessão nas operações de aquisição de Direitos Creditórios pelo Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b0869bd10e7f4118dff9c1ea09341de8cb460747c9470fad7a5cb39a7cf83349"
+      ]
+    },
+    "e4ed0ab6e3d608d2d30769fb270ac9d9d3e44d46174227c4864a214bfb61826f": {
+      "reference_date": "2024-05-28",
+      "value": "5.3. Verificação Definitiva. Respeitados os termos e condições do presente Regulamento, a verificação do atendimento dos Direitos Creditórios, (a) pelo Custodiante, aos Critérios de Elegibilidade; e (b) pela Gestora, às Condições de Cessão, será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b95499ca21a8c791386d09447d5066d32448bb853f3b80f2e6f8ea0e818bd457"
+      ]
+    },
+    "e75f39ca8e63b52af36c37d82b1e20f9ff092b938a61e01157040598baccc1ce": {
+      "reference_date": "2025-06-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d5bd371f1241f398d7fde94eb2d4719328ae4cba9362f866ff6c58b698d25a45"
+      ]
+    },
+    "55a49e844793e58a7bcf9da9d5bfbaca61e4bec8a251762b561c43411eaa9670": {
+      "reference_date": "2024-06-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8069a2a89493fed3048aea763f44bd46a1060e3fec0eb37c180a61d63b446e45"
+      ]
+    },
+    "e60f9ae90e885abe509d19428032b2bba8a0f2dcb0f7aa51130d0e6878925a5a": {
+      "reference_date": "2024-10-15",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "559196177d98688bafc815e5ba62ca87df3782466b136bfdcb3230d7c10d48ac"
+      ]
     }
   },
   "passages": {
@@ -3500,18 +3468,6 @@
       "sha256": "6a835e3f584d9c9aeefca500b28e4a63f348de365b10e75d6e5292631356129d",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1155755 | 18/03/2026 | regulamento | p. 66; 4.1.1 | data/raw/52271464000136/1155755_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755"
-    },
-    "f2b4e9c35288cffd8eeada8a11be6d71f8525bacf61490c29006e807ae8b19b5": {
-      "document_id": "750245",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750245",
-      "reference_date": "2024-06-30",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "O Custodiante pode contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a  verificação do lastro dos direitos creditórios cedidos, desde que não seja o originador dos  direitos creditórios cedidos, a Cedente, eventual consultor especializado contratado pelo  Administrador para atuar no âmbito do Fundo, e demais partes relacionadas ao Fundo,  tampouco demais partes relacionadas ao Fundo, tal como definido pelas regras contábeis que  tratam deste assunto.",
-      "sha256": "6d115391f79e26f2b8fe7591ba1cf09839bf250e51d83384c82bc0dfa0ed0b24",
-      "verification": "primary_passage"
     },
     "5bba1fe1f25f3e8fb3bc45dc6b5368931be47ac2224ce717b153d0fbe11c9d45": {
       "document_id": "1007659",
@@ -3561,18 +3517,6 @@
       "sha256": "0e3b94c722a62a658ead50a23c0aecdf6da2953202af04bab1e51e9af1510766",
       "verification": "primary_passage"
     },
-    "066c6afa2bcc44f9942f21857851a18ffa123c8233530db4aa0c39a45811675a": {
-      "document_id": "759884",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759884",
-      "reference_date": "2024-10-15",
-      "version": "1",
-      "page": 37,
-      "clause": "5.5",
-      "excerpt": "5.5. Verificação do Lastro dos Direitos Creditórios por Terceiros. O  Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para  realizar a verificação do lastro dos Direitos Creditórios Cedidos, desde que o referido  terceiro não seja o originador dos Direitos Creditórios, um Cedente, a Gestora ou  eventual consultor especializado contratado pela Administradora para atuar no  âmbito do Fundo, tampouco demais partes relacionadas ao Fundo, tal como definido  pelas regras contábeis que tratam deste assunto. Eventuais irregularidades  apontadas nesta verificação serão informadas à Administradora, à Gestora, ao  Auditor Independente e aos Cotistas.",
-      "sha256": "0b8e9f621a5cff4d3cbc9eb1cd5453cacb5454c9d707fbffe99b7ab7b41df149",
-      "verification": "primary_passage"
-    },
     "058aa266fee612509d7af2010f1505930bb04fdd0a6ce64c965ab4c3fa8627b4": {
       "document_id": "676385",
       "title": "Regulamento",
@@ -3609,78 +3553,6 @@
       "sha256": "2e8021d0221a63f672b15bb855710137fd8a86b0aff9cdbbc98f105978e2b8a5",
       "verification": "primary_passage"
     },
-    "020ac20ffa76474ef996bbac98490b793c055b9fbfaf3d231ee89cfdeb9fc9d4": {
-      "document_id": "1007659",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1007659",
-      "reference_date": "2025-10-02",
-      "version": "1",
-      "page": 115,
-      "clause": "",
-      "excerpt": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido  protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas  controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas  controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez  milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham  sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação  de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "sha256": "1303f70beea3fe540bb9b1b8e39c0e392631122e33c898b7135fd304be066078",
-      "verification": "primary_passage"
-    },
-    "b6bf017b5b9a9976d316d61e0265913f02fabf6e19f2547ecac59853cb7f9e29": {
-      "document_id": "883860",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883860",
-      "reference_date": "2025-04-16",
-      "version": "1",
-      "page": 115,
-      "clause": "",
-      "excerpt": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido  protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas  controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas  controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez  milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham  sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação  de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "sha256": "d63f72ed7c89dd1c74f38bce9490e5bf7d389982c0ae9e9edfa80192340fd1d8",
-      "verification": "primary_passage"
-    },
-    "0fc6cc851c08cc0e8d23c35a7ad050f7af91b76a0426cd68fed1e5eabcf93645": {
-      "document_id": "835901",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835901",
-      "reference_date": "2025-02-07",
-      "version": "1",
-      "page": 115,
-      "clause": "",
-      "excerpt": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "sha256": "739cc81105984ee8d82847966e40c1ad034cf85f2a455a92a37f75c9303ba9bc",
-      "verification": "primary_passage"
-    },
-    "023b78986f59bc9ce5d50245e9b7b513cd12a97ff8f653fc340247bf175df504": {
-      "document_id": "791538",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791538",
-      "reference_date": "2024-11-26",
-      "version": "1",
-      "page": 111,
-      "clause": "",
-      "excerpt": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido  protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas  controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas  controladas, cujo valor unitário ou total seja superior a R$ 10.000.000,00 (dez  milhões de reais) ou o equivalente em outras moedas, excetuados os que tenham  sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação  de seus efeitos dentro do prazo de 15 (quinze) dias;",
-      "sha256": "0e3b94c722a62a658ead50a23c0aecdf6da2953202af04bab1e51e9af1510766",
-      "verification": "primary_passage"
-    },
-    "cb2e85e304f4d163ac5c827428319057c674ae774e7e484c0cf21f92f9072ae1": {
-      "document_id": "759884",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759884",
-      "reference_date": "2024-10-15",
-      "version": "1",
-      "page": 91,
-      "clause": "",
-      "excerpt": "(xxxiv) a ocorrência de eventos que ensejem o protesto ou que tenham sido  protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas  controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas",
-      "sha256": "0b8e9f621a5cff4d3cbc9eb1cd5453cacb5454c9d707fbffe99b7ab7b41df149",
-      "verification": "primary_passage"
-    },
-    "7e5c298c0043411cfc2ab6a3619809b5c92b7f8c24ce55fd2da22d5b5e036e0b": {
-      "document_id": "526477",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526477",
-      "reference_date": "2023-09-20",
-      "version": "1",
-      "page": 93,
-      "clause": "",
-      "excerpt": "(xxxii) a ocorrência de eventos que ensejem o protesto ou que tenham sido  protestados títulos emitidos pela Subcredenciadora e/ou qualquer de suas Pessoas  controladas ou sacados contra a Subcredenciadora e/ou qualquer de suas Pessoas  controladas, cujo valor unitário ou total seja superior a R$ 1.000.000,00 (um milhão  de reais) ou o equivalente em outras moedas, excetuados os que tenham sido objeto  de medida judicial ou extrajudicial adequada para anulação ou sustação de seus  efeitos dentro do prazo de 15 (quinze) dias;",
-      "sha256": "2e8021d0221a63f672b15bb855710137fd8a86b0aff9cdbbc98f105978e2b8a5",
-      "verification": "primary_passage"
-    },
     "7319d4e2f1794a03dd9dd24684b487a53ad28a320ef20cc4bca9e961331baf8b": {
       "document_id": "999825",
       "title": "Demonstrações Financeiras",
@@ -3691,18 +3563,6 @@
       "clause": "",
       "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas  datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes  critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante o  Fundo; e\n(ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional.\n(iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas  Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da  respectiva data de aquisição, o que for menor;\n(iv) prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro  forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias;\n(v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de  Cessão;\n(vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto  se sanado nos termos do Regulamento;\n(vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer  Evento de Insolvência referente ao Direito Creditório;",
       "sha256": "66b013996122cde463b68b8eb60fbfe1132b8a9cd48ef1ac1b9e644e7dfbbfd0",
-      "verification": "primary_passage"
-    },
-    "8069a2a89493fed3048aea763f44bd46a1060e3fec0eb37c180a61d63b446e45": {
-      "document_id": "750245",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750245",
-      "reference_date": "2024-06-30",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá ter em sua carteira  Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer  Evento de Insolvência referente ao Direito Creditório Adquirente;\n (ii) os Direitos Creditórios, deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n (iii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n (iv) os contratos de credenciamento estejam vigentes na data de aquisição de Direitos  Creditórios.",
-      "sha256": "6d115391f79e26f2b8fe7591ba1cf09839bf250e51d83384c82bc0dfa0ed0b24",
       "verification": "primary_passage"
     },
     "035c801eb5ba57e51e97c97711f6ec4634f0aaf7261f0e9c88cdb5f09e14d5f1": {
@@ -3739,42 +3599,6 @@
       "clause": "5.1",
       "excerpt": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante a Classe;\n(ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional;\n(iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor;\n(iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias;\n(v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão;\n(vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento;\n(vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório;\n(viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe;\n(x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição;",
       "sha256": "739cc81105984ee8d82847966e40c1ad034cf85f2a455a92a37f75c9303ba9bc",
-      "verification": "primary_passage"
-    },
-    "94b9ebe23f3d6b909ab5624bfce741ac767ffb40265ecf1ab83f6bc2a5bc0030": {
-      "document_id": "791538",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791538",
-      "reference_date": "2024-11-26",
-      "version": "1",
-      "page": 66,
-      "clause": "5.2",
-      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, a  Classe somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;",
-      "sha256": "0e3b94c722a62a658ead50a23c0aecdf6da2953202af04bab1e51e9af1510766",
-      "verification": "primary_passage"
-    },
-    "559196177d98688bafc815e5ba62ca87df3782466b136bfdcb3230d7c10d48ac": {
-      "document_id": "759884",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759884",
-      "reference_date": "2024-10-15",
-      "version": "1",
-      "page": 36,
-      "clause": "5.2",
-      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pelo Fundo deverão estar registrados perante Entidade Registradoras em  nome do Fundo;\n (iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos ao Fundo até o Limite de Aquisição;\n(v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e",
-      "sha256": "0b8e9f621a5cff4d3cbc9eb1cd5453cacb5454c9d707fbffe99b7ab7b41df149",
-      "verification": "primary_passage"
-    },
-    "0fa79d00596b22d23dbf5b1d43ec2edc7e9a7ba49668c8211d4ff27c3a6ace4f": {
-      "document_id": "676385",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=676385",
-      "reference_date": "2024-05-28",
-      "version": "1",
-      "page": 32,
-      "clause": "5.2",
-      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório Adquirente;\n(ii) os Direitos Creditórios, deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n(iv) os contratos de credenciamento estejam vigentes na data de aquisição de  Direitos Creditórios.",
-      "sha256": "a8eb6b64e0f3e146b6b93ca149627e8af14f4d25f16b58b6e795db07b07ae9ec",
       "verification": "primary_passage"
     },
     "86590060817058c5270ba64a843805171a9856a77e2d0c4e1ac7feb1685928c2": {
@@ -7289,6 +7113,120 @@
       "clause": "15.1",
       "excerpt": "15.1 Competência da Assembleia Geral de Cotistas. É da competência privativa  da Assembleia Geral de Cotistas:\n(i) tomar anualmente, no prazo máximo de 4 (quatro) meses após o  encerramento do exercício social, as contas do Fundo e deliberar sobre as  demonstrações financeiras deste;\n(ii) alterar (a) o Benchmark, as Datas de Amortização Programada, as Datas de  Amortização de Remuneração, a Data de Resgate, conforme dispostos no  Suplemento; (b) os direitos e prerrogativas das Cotas Seniores e/ou a ordem de  prioridade nas amortizações e resgates de Cotas, dispostos no Capítulo Dezesseis  abaixo; (c) a ordem de alocação de recursos e a forma de cálculo das Cotas,  dispostas no Capítulo Quatorze acima; (d) os Eventos de Avaliação dispostos no  Capítulo Dezenove abaixo; (e) os Eventos de Liquidação dispostos no Capítulo Vinte  abaixo; (f) os Critérios de Elegibilidade; (h) os quóruns de votação e itens de  deliberação estabelecidos neste Regulamento; e (i) a Razão de Subordinação;\n(iii) excetuadas as matérias dispostas no item (ii) acima ou outras expressas nos  itens abaixo, alterar as demais disposições do presente Regulamento;\n(iv) deliberar acerca da substituição da Administradora, da Gestora, do  Custodiante, do Agente de Liquidação e/ou da Agência Classificadora de Risco por  qualquer agência de classificação de risco que não esteja expressamente prevista  neste Regulamento, caso aplicável;",
       "sha256": "2e8021d0221a63f672b15bb855710137fd8a86b0aff9cdbbc98f105978e2b8a5",
+      "verification": "primary_passage"
+    },
+    "e279d620b94a65958a464d9a8d46af1d853fc3c1ba91961b6c6c49f7fab08eae": {
+      "document_id": "1007659",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1007659",
+      "reference_date": "2025-10-02",
+      "version": "1",
+      "page": "70–71",
+      "clause": "5.1",
+      "excerpt": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos  Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento,  individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade  (“Critérios de Elegibilidade”):\n(i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente  perante a Classe;\n(ii) os Direitos Creditórios deverão ser expressos em moeda corrente  nacional;\n(iii) os Direitos Creditórios não poderão ter vencimento superior ao  vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco)  dias a contar da respectiva data de aquisição, o que for menor;\n(iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe,  considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e  oitenta) dias;\n(v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa  Mínima de Cessão;\n(vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação,  exceto se sanado nos termos do Regulamento;\n(vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em  nome da Classe;\n(x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos à Classe até o Limite de Aquisição;\n(xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n(xii) os contratos de subcredenciamento da Subcredenciadora junto às  Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos  Creditórios.\n5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição  responsável por verificar e validar o atendimento dos correspondentes Direitos  Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de  Direitos Creditórios pela Classe.",
+      "sha256": "1303f70beea3fe540bb9b1b8e39c0e392631122e33c898b7135fd304be066078",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2a0024c4c672b4b5762cbd73f7d73093016d7c8bb846d378744912f92dd84220": {
+      "document_id": "883860",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883860",
+      "reference_date": "2025-04-16",
+      "version": "1",
+      "page": "70–71",
+      "clause": "5.1",
+      "excerpt": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos  Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento,  individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade  (“Critérios de Elegibilidade”):\n(i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente  perante a Classe;\n(ii) os Direitos Creditórios deverão ser expressos em moeda corrente  nacional;\n(iii) os Direitos Creditórios não poderão ter vencimento superior ao  vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco)  dias a contar da respectiva data de aquisição, o que for menor;\n(iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe,  considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e  oitenta) dias;\n(v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa  Mínima de Cessão;\n(vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação,  exceto se sanado nos termos do Regulamento;\n(vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em  nome da Classe;\n(x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos à Classe até o Limite de Aquisição;\n(xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n(xii) os contratos de subcredenciamento da Subcredenciadora junto às  Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos  Creditórios.\n5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição  responsável por verificar e validar o atendimento dos correspondentes Direitos  Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de  Direitos Creditórios pela Classe.",
+      "sha256": "d63f72ed7c89dd1c74f38bce9490e5bf7d389982c0ae9e9edfa80192340fd1d8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5cb2afdde69ca27e8b6d98fbe49e78e029960452d3009e132ce326b9baf3db3c": {
+      "document_id": "835901",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835901",
+      "reference_date": "2025-02-07",
+      "version": "1",
+      "page": "70–71",
+      "clause": "5.1",
+      "excerpt": "5.1. Critérios de Elegibilidade. A Classe somente poderá adquirir Direitos Creditórios, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) o Devedor do respectivo Direito Creditório não poderá estar inadimplente perante a Classe;\n(ii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional;\n(iii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva data de aquisição, o que for menor;\n(iv) o prazo médio dos Direitos Creditórios integrantes da carteira da Classe, considerada pro forma a aquisição pretendida, não poderá exceder 180 (cento e oitenta) dias;\n(v) o Preço de Aquisição de cada Direito Creditório deverá considerar a Taxa Mínima de Cessão;\n(vi) não poderá ter ocorrido um Evento de Avaliação ou um Evento de Liquidação, exceto se sanado nos termos do Regulamento;\n(vii) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório;\n(viii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(ix) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em nome da Classe;\n(x) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão cedidos à Classe até o Limite de Aquisição;\n(xi) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou outros conteúdos ofertados pelos Infoprodutores; e\n(xii) os contratos de subcredenciamento da Subcredenciadora junto às Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos Creditórios.\n5.1.1. Verificação dos Critérios de Elegibilidade. A Gestora será a instituição responsável por verificar e validar o atendimento dos correspondentes Direitos Creditórios aos respectivos Critérios de Elegibilidade nas operações de aquisição de Direitos Creditórios pela Classe.",
+      "sha256": "739cc81105984ee8d82847966e40c1ad034cf85f2a455a92a37f75c9303ba9bc",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6b7f07cbaa6e82fce6b4d8cd42192d8f3175f1c32cc9cc5820e65dc5a87c78b8": {
+      "document_id": "791538",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791538",
+      "reference_date": "2024-11-26",
+      "version": "1",
+      "page": "66–67",
+      "clause": "5.2",
+      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, a  Classe somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pela Classe deverão estar registrados perante Entidade Registradoras em  nome da Classe;\n(iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos à Classe até o Limite de Aquisição;\n(v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n(vi) os contratos de subcredenciamento da Subcredenciadora junto às  Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos  Creditórios.\n5.2.1. Verificação das Condições de Cessão. A Gestora será a instituição  responsável por verificar e validar o atendimento dos correspondentes Direitos  Creditórios às respectivas Condições de Cessão nas operações de aquisição de  Direitos Creditórios pelo Fundo.",
+      "sha256": "0e3b94c722a62a658ead50a23c0aecdf6da2953202af04bab1e51e9af1510766",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b0869bd10e7f4118dff9c1ea09341de8cb460747c9470fad7a5cb39a7cf83349": {
+      "document_id": "759884",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759884",
+      "reference_date": "2024-10-15",
+      "version": "1",
+      "page": "36–37",
+      "clause": "5.2",
+      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pelo Fundo deverão estar registrados perante Entidade Registradoras em  nome do Fundo;\n (iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos ao Fundo até o Limite de Aquisição;\n(v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n(vi) os contratos de subcredenciamento da Subcredenciadora junto às  Credenciadoras aplicáveis estejam vigentes na data de aquisição de Direitos  Creditórios.\n5.2.1. Verificação das Condições de Cessão. A Gestora será a instituição  responsável por verificar e validar o atendimento dos correspondentes Direitos  Creditórios às respectivas Condições de Cessão nas operações de aquisição de  Direitos Creditórios pelo Fundo.",
+      "sha256": "0b8e9f621a5cff4d3cbc9eb1cd5453cacb5454c9d707fbffe99b7ab7b41df149",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b95499ca21a8c791386d09447d5066d32448bb853f3b80f2e6f8ea0e818bd457": {
+      "document_id": "676385",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=676385",
+      "reference_date": "2024-05-28",
+      "version": "1",
+      "page": 33,
+      "clause": "5.3",
+      "excerpt": "5.3. Verificação Definitiva. Respeitados os termos e condições do presente  Regulamento, a verificação do atendimento dos Direitos Creditórios, (a) pelo  Custodiante, aos Critérios de Elegibilidade; e (b) pela Gestora, às Condições de  Cessão, será considerada como definitiva.",
+      "sha256": "a8eb6b64e0f3e146b6b93ca149627e8af14f4d25f16b58b6e795db07b07ae9ec",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d5bd371f1241f398d7fde94eb2d4719328ae4cba9362f866ff6c58b698d25a45": {
+      "document_id": "999825",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=999825",
+      "reference_date": "2025-06-30",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "O Fundo adquirirá Direitos Creditórios que são oriundos do pagamento devido pela Redecard  S.A, CIELO S.A. e quaisquer instituições de pagamento devidamente autorizadas por uma ou  mais Bandeiras para participar de um ou mais Arranjos de Pagamento na qualidade de  credenciadores, nos termos do inciso III do artigo 3º da Resolução BACEN 80/21, desde que  autorizadas pelo BACEN e aprovadas pela Assembleia Geral (“credenciadora” e “devedora”) à  Plataforma Kiwify Educação e Tecnologia Ltda. (subcredenciadora e “cedente”) decorrentes de  Transações de Pagamento realizadas por Compradores dos Infoprodutores, à vista ou  parceladas, no âmbito do respectivo Arranjo de Pagamento, conforme descrição a seguir:\n(i) os Compradores dos Infoprodutores adquirem cursos e/ou outros conteúdos  oferecidos pelos Infoprodutores por meio da Plataforma Kiwify, podendo os  Compradores dos Infoprodutores utilizar Instrumentos de Pagamento de qualquer  Bandeira e Emissor, aceitos pelo sistema da Subcredenciadora, como forma de  pagamento, gerando, assim, Transações de Pagamentos; e\n(ii) de acordo com a regulamentação vigente, referidas Transações de Pagamento  geram múltiplas relações de crédito, sendo a mais relevante para fins da operação  do Fundo o crédito da Subcredenciadora em face da Credenciadora.",
+      "sha256": "66b013996122cde463b68b8eb60fbfe1132b8a9cd48ef1ac1b9e644e7dfbbfd0",
+      "verification": "primary_passage"
+    },
+    "8069a2a89493fed3048aea763f44bd46a1060e3fec0eb37c180a61d63b446e45": {
+      "document_id": "750245",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750245",
+      "reference_date": "2024-06-30",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá ter em sua carteira  Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a qualquer  Evento de Insolvência referente ao Direito Creditório Adquirente;\n (ii) os Direitos Creditórios, deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n (iii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e\n (iv) os contratos de credenciamento estejam vigentes na data de aquisição de Direitos  Creditórios.",
+      "sha256": "6d115391f79e26f2b8fe7591ba1cf09839bf250e51d83384c82bc0dfa0ed0b24",
+      "verification": "primary_passage"
+    },
+    "559196177d98688bafc815e5ba62ca87df3782466b136bfdcb3230d7c10d48ac": {
+      "document_id": "759884",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759884",
+      "reference_date": "2024-10-15",
+      "version": "1",
+      "page": 36,
+      "clause": "5.2",
+      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá ter em sua carteira Direitos Creditórios que atendam  cumulativamente às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou a Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) 100% (cem por cento) das U.Rs referentes aos Direitos Creditórios a serem  adquiridos pelo Fundo deverão estar registrados perante Entidade Registradoras em  nome do Fundo;\n (iv) considerada pro forma a aquisição pretendida, os Direitos Creditórios serão  cedidos ao Fundo até o Limite de Aquisição;\n(v) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Compradores dos Infoprodutores utilizando-se de Instrumentos de  Pagamento operacionalizado pela Plataforma Kiwify para aquisição de cursos e/ou  outros conteúdos ofertados pelos Infoprodutores; e",
+      "sha256": "0b8e9f621a5cff4d3cbc9eb1cd5453cacb5454c9d707fbffe99b7ab7b41df149",
       "verification": "primary_passage"
     }
   }

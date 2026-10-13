@@ -3,11 +3,6 @@
   "cnpj": "63168433000170",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "fab789575349af2b2a754d56f24147062b22ddd6b03362eee776cc738093566e",
-      "8def313a1d34c052ba6c1a5712d0db668dc13c65148983b7a0afc3244fdf04e4",
-      "06ff38b3381ce8579dfff04380e9e501eb015e1c0b4dce617718e4f9796eae2c"
-    ],
     "term": [
       "bf7b456d923147882ce56c88516f9d35cc1f7624e78597ceec4735a44cbbdea9",
       "791eae5f4898f94c3df3009293d4e6f93330cb10032b46159ed2152d817c5193",
@@ -214,16 +209,6 @@
       "843ffc356876e4c171c6921d520c12021cc39c613402e62ceacc519e7fb1b3b0",
       "c46d894cd9b110609d65820543f135f972255ded81145d869680f3cfab2ea527"
     ],
-    "originator": [
-      "44126adcfb63cabcc9267af629d9ce591569c27bdd8e032d97a2f969a41d0fc3",
-      "35abb8dd0a4dc01f45e155506e33832214d3935aa4cbf3bc96312b260a391aeb",
-      "01a84867bbd97425443f3393f4c048a71124e58aaef2795fb3c5e6389588ffb5"
-    ],
-    "debtor": [
-      "48287caf36a4c0f6f1402962ac3767c3fc48d5e0072cab37fd3c9cdf76ea4299",
-      "bc271b6a97fa864b8a398303cc8c1a585f20d66079dba8777b861f0fa8670681",
-      "35abb8dd0a4dc01f45e155506e33832214d3935aa4cbf3bc96312b260a391aeb"
-    ],
     "investee": [
       "1b1a0ce2331f90331ddea4326bf030adbbb01122902ffbf2448da5d2fada91a9",
       "65468c736b222ac8427fcac0924b658495ce4b6da7959ebe408db0b3a8a2e6c9",
@@ -248,6 +233,22 @@
       "43506b9caba416789fda319378806eb69c7b7101cd27f9d3917f5f72cc71b6f5",
       "d121d2bfa7aa213f378f45e29ce5f9e566d80b0f3299c878d37279e46a9f9f35",
       "6bcfdc7cc1f7519e8279787e3e300615eecb59274b9b4959ebe9cc7af8837a61"
+    ],
+    "originator": [
+      "8f236650d8f8225b6dcfcc6fd958242358e32492c417f699d6193d2c6d1b9634",
+      "35abb8dd0a4dc01f45e155506e33832214d3935aa4cbf3bc96312b260a391aeb",
+      "01a84867bbd97425443f3393f4c048a71124e58aaef2795fb3c5e6389588ffb5"
+    ],
+    "eligibility": [
+      "4ca2c97fc4f9d0931f723d1db08b8fac2302721548dc3f148b49fa6efd167b5e",
+      "bbdeda9f3a63758a16a2102b368a44d9130f58f8959502f95f59e0fd67bfd255",
+      "9f5b030cdc016c03fff9c8ea44e1b5cfa5f6f766195107276cd12dd807af141e"
+    ],
+    "debtor": [
+      "48287caf36a4c0f6f1402962ac3767c3fc48d5e0072cab37fd3c9cdf76ea4299",
+      "18366f9666c796d4716d8f3fd83f2ceac274c8c1c58b6eed4657136f72075e0f",
+      "298a98d61b1256a99876cb09c103b0956e1feb5ae250d5364d9c77730ee8ddec",
+      "093191f8c643965252a9fe6a7c62a9a4c6478a9188ca3424f4923575511f1fc0"
     ]
   },
   "entries": {
@@ -288,15 +289,6 @@
         "22ad899004e74f048bfc8e3624151fc6a5a3357d9b40b190c73b949c5773a940"
       ]
     },
-    "44126adcfb63cabcc9267af629d9ce591569c27bdd8e032d97a2f969a41d0fc3": {
-      "reference_date": "2025-10-27",
-      "value": "6.3.2. Para fins de esclarecimento, fica-se estabelecido que, durante o prazo de 30 (trinta) dias corridos indicado no item 6.3.1 acima, o Fundo poderá adquirir Direitos Creditórios, cuja venda do Clube LARCA seja realizada em formato distinto daquele indicado na Declaração de Transferência – Originador mencionada no item 6.3(xiii) acima por mês de vigência, desde que a aquisição de tais Direitos Creditórios não ultrapasse o montante total equivalente à 12% (doze por cento) do Valor Total da 1ª (Primeira) Emissão de Cotas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a85f06659eca2210d630ebc5dffe29d724069577549a269f714304f69124c8a1"
-      ]
-    },
     "35abb8dd0a4dc01f45e155506e33832214d3935aa4cbf3bc96312b260a391aeb": {
       "reference_date": "2025-10-21",
       "value": "5.9. Os documentos que formalizam a respectiva operação de crédito originadora de um Direito Creditório e que atendam integralmente ao \"checklist\" jurídico e cadastral pré- estabelecido e em formato previamente acordado entre o Cedente/Endossante e o Originador (\"Documentos Complementares\") são os seguintes: (i) cópia dos documentos de identificação pessoal dos Devedores; (ii) comprovante emitido na formalização da CCB, utilizando-se de tecnologia de biometria e reconhecimento facial (liveness), correspondente à prova de vida do",
@@ -323,42 +315,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "86879296bd663fb37fad2965bd0cc22ed00003be68b5fb5f7ded25cb4ed7e5dd"
-      ]
-    },
-    "bc271b6a97fa864b8a398303cc8c1a585f20d66079dba8777b861f0fa8670681": {
-      "reference_date": "2025-10-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "df691ee968752663e5690899f93cf6927438e73567b5f34d31791d5d39beacbe"
-      ]
-    },
-    "fab789575349af2b2a754d56f24147062b22ddd6b03362eee776cc738093566e": {
-      "reference_date": "2025-10-27",
-      "value": "5.2 As despesas não previstas neste Regulamento ou na regulamentação aplicável como Encargos deverão correr por conta do Prestador de Serviço Essencial responsável por sua contratação, observado que a Gestora, sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, poderá, às expensas da Classe Única, subcontratar terceiros para dar suporte e auxiliá-lo: (i) na verificação e validação dos Critérios de Elegibilidade; e (ii) na verificação do lastro dos Direitos Creditórios Transferidos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cfd39f00840aa0ed768fa294bc5ccafcca29bb2d96760e5ee226bae1b324f23e"
-      ]
-    },
-    "8def313a1d34c052ba6c1a5712d0db668dc13c65148983b7a0afc3244fdf04e4": {
-      "reference_date": "2025-10-21",
-      "value": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "22f94b2378d0d2b2cf470c32a7fd4fbd16995e59348cb2e70d0318d5faa8b1e3"
-      ]
-    },
-    "06ff38b3381ce8579dfff04380e9e501eb015e1c0b4dce617718e4f9796eae2c": {
-      "reference_date": "2025-10-13",
-      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ea6ac4d3dbf15bac00930a7f376c58a693fd8849be69ac82ed5592f49dbb5c3a"
       ]
     },
     "bf7b456d923147882ce56c88516f9d35cc1f7624e78597ceec4735a44cbbdea9": {
@@ -1477,6 +1433,60 @@
       "sources": [
         "fff540db3f67b536e3d02b77f6940f4e64c795705c3905a8381804ed6e7de011"
       ]
+    },
+    "4ca2c97fc4f9d0931f723d1db08b8fac2302721548dc3f148b49fa6efd167b5e": {
+      "reference_date": "2025-10-27",
+      "value": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento; (ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório ofertada ao Fundo poderá estar inadimplida na respectiva Data de Aquisição e Pagamento; (iii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido; (v) o Preço de Aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a Transferência de todas as parcelas vincendas) não deverá ser inferior a R$ 100,00 (cem reais); (vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$1.000,00 (mil reais); (vii) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "eee968c554fdbeb4d1a7df95c7c325760b62e12db15d335ac5c02d98ee5eb6a3"
+      ]
+    },
+    "bbdeda9f3a63758a16a2102b368a44d9130f58f8959502f95f59e0fd67bfd255": {
+      "reference_date": "2025-10-21",
+      "value": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento; (ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório ofertada ao Fundo poderá estar inadimplida na respectiva Data de Aquisição e Pagamento; (iii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido; (v) o Preço de Aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a Transferência de todas as parcelas vincendas) não deverá ser inferior a R$ 100,00 (cem reais); (vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$1.000,00 (mil reais); (vii) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4c491559a31ba3c19fe0a1be2d3914b5028e65b3c38d87c91063438219d54429"
+      ]
+    },
+    "9f5b030cdc016c03fff9c8ea44e1b5cfa5f6f766195107276cd12dd807af141e": {
+      "reference_date": "2025-10-13",
+      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento; (ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório poderá estar inadimplida na respectiva Data de Aquisição e Pagamento; (iii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido; (v) o Preço de Aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 100,00 (cem reais); (vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$1.000,00 (mil reais); (vii) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, o saldo devedor total, em valor presente, dos Direitos Creditórios Adquiridos devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ea6ac4d3dbf15bac00930a7f376c58a693fd8849be69ac82ed5592f49dbb5c3a"
+      ]
+    },
+    "8f236650d8f8225b6dcfcc6fd958242358e32492c417f699d6193d2c6d1b9634": {
+      "reference_date": "2025-10-27",
+      "value": "3.9 É vedado à Administradora, à Gestora, ao Custodiante (se houver) e ao Consultor Especializado (se houver) e suas Partes Relacionadas ceder ou originar, direta ou indiretamente, Direitos Creditórios ao Fundo, assim como adquirir, direta ou indiretamente, Direitos Creditórios, exceto (i) se a Entidade Registradora e o Custodiante (se houver) não forem Partes Relacionadas ao Originador ou ao Cedente/Endossante; ou (ii) se o Anexo Definições Específicas da Classe dispuser de outra forma.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e13dcac771a7470ce2663b8b60871fa4c6f3bbb7a7d485ccd526541476c96c14"
+      ]
+    },
+    "18366f9666c796d4716d8f3fd83f2ceac274c8c1c58b6eed4657136f72075e0f": {
+      "reference_date": "2025-10-27",
+      "value": "\"CCB\" As cédulas de crédito bancário reguladas pela Lei nº 10.931, de 2 de agosto de 2004, conforme alterada, emitidas pelos Devedores em favor do Credor Original (se houver), representativas dos empréstimos consignados concedidos pelo Credor Original (se houver) aos Devedores.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d2d1bcae1a3a7b5391fdd0008795ac604a9287199b249d76d3a7aa2ef69f26be"
+      ]
+    },
+    "298a98d61b1256a99876cb09c103b0956e1feb5ae250d5364d9c77730ee8ddec": {
+      "reference_date": "2025-10-21",
+      "value": "\"CCB\" As cédulas de crédito bancário reguladas pela Lei nº 10.931, de 2 de agosto de 2004, conforme alterada, emitidas pelos Devedores em favor do Credor Original (se houver), representativas dos empréstimos consignados concedidos pelo Credor Original (se houver) aos Devedores.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2338281444a97aa6eb0ae019a42d474a38ee4322a19fc91a47d8c2eca94b87df"
+      ]
     }
   },
   "passages": {
@@ -1529,18 +1539,6 @@
       "sha256": "e0e7ddc6863a28b1e8578981792747bdf2450bf3ad1e244137fa208883811099",
       "verification": "primary_passage"
     },
-    "a85f06659eca2210d630ebc5dffe29d724069577549a269f714304f69124c8a1": {
-      "document_id": "1022439",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022439",
-      "reference_date": "2025-10-27",
-      "version": "1",
-      "page": 151,
-      "clause": "6.3.2",
-      "excerpt": "6.3.2. Para fins de esclarecimento, fica-se estabelecido que, durante o prazo de  30 (trinta) dias corridos indicado no item 6.3.1 acima, o Fundo poderá adquirir  Direitos Creditórios, cuja venda do Clube LARCA seja realizada em formato  distinto daquele indicado na Declaração de Transferência – Originador mencionada  no item 6.3(xiii) acima por mês de vigência, desde que a aquisição de tais Direitos  Creditórios não ultrapasse o montante total equivalente à 12% (doze por cento) do  Valor Total da 1ª (Primeira) Emissão de Cotas.",
-      "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
-      "verification": "primary_passage"
-    },
     "8a56dd6dfa12fd57a6e4a42fcd0af57857b15e7ee6a694708ed2de77aa6a7131": {
       "document_id": "1017996",
       "title": "Regulamento",
@@ -1575,30 +1573,6 @@
       "clause": "",
       "excerpt": "Risco decorrente de Inconformidade das Informações Constantes das CCB. As CCB  das quais decorrem os Direitos Creditórios podem conter informações que não  correspondem ao valor do principal e juros efetivamente desembolsados para o  Devedor, ou ao prazo da operação. Tais divergências decorrem do fato de que, nos  casos que envolvem Portabilidade, a assinatura da CCB ocorre antes de o Originador  ter acesso às informações precisas da operação a ser portada (Pré-Paga) e não serão  consideradas inconsistências, inclusive para cômputo de Inconsistência Relevante.\n Adicionalmente, as informações finais das operações contratadas por meio das CCB  apesar de informadas aos Devedores, na forma da regulamentação aplicável, não há  aditamento formal das CCB nestes casos. As circunstâncias acima podem gerar  divergências de lastro e questionamentos, pelos Devedores, sobre o valor correto  dos Direitos Creditórios, fatos estes que podem acarretar dificuldades para a Classe  receber o pagamento ordinário dos Direitos Creditórios Transferidos ou para alienar  os Direitos Creditórios Transferidos a terceiros. Além disso, tais circunstâncias  podem acarretar dificuldades no recebimento extraordinário dos Direitos  Creditórios Transferidos e provocar questionamentos administrativos perante  órgãos de defesa do consumidor e/ou ações judiciais por parte dos Devedores. Tais  questionamentos podem envolver, por exemplo, a validade e exigibilidade do  crédito e das comunicações enviadas ao Devedor, mesmo diante da existência de  cláusulas contratuais, nas CCB, que preveem a eventual modificação dos valores  expressos nesses títulos de crédito. Nessas circunstâncias, podem ocorrer  dificuldades na cobrança judicial do crédito relativo aos Direitos Creditórios  Transferidos, bem como eventual condenação do Fundo, incluindo ao pagamento  de sucumbência, e, por conseguinte, acarretar prejuízos à Classe Única.",
       "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
-      "verification": "primary_passage"
-    },
-    "cfd39f00840aa0ed768fa294bc5ccafcca29bb2d96760e5ee226bae1b324f23e": {
-      "document_id": "1022439",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022439",
-      "reference_date": "2025-10-27",
-      "version": "1",
-      "page": 15,
-      "clause": "5.2",
-      "excerpt": "5.2 As despesas não previstas neste Regulamento ou na regulamentação aplicável como  Encargos deverão correr por conta do Prestador de Serviço Essencial responsável por sua  contratação, observado que a Gestora, sem prejuízo de sua responsabilidade prevista na Resolução  CVM 175, poderá, às expensas da Classe Única, subcontratar terceiros para dar suporte e auxiliá-lo:\n (i) na verificação e validação dos Critérios de Elegibilidade; e (ii) na verificação do lastro dos  Direitos Creditórios Transferidos.",
-      "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
-      "verification": "primary_passage"
-    },
-    "22f94b2378d0d2b2cf470c32a7fd4fbd16995e59348cb2e70d0318d5faa8b1e3": {
-      "document_id": "1017996",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017996",
-      "reference_date": "2025-10-21",
-      "version": "1",
-      "page": 144,
-      "clause": "6.1",
-      "excerpt": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora  na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"):\n(i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de  Aquisição e Pagamento;\n(ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório  ofertada ao Fundo poderá estar inadimplida na respectiva Data de Aquisição e  Pagamento;\n(iii) os Devedores deverão estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos;\n(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os  Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão  representar mais do que 20% (vinte por cento) do Patrimônio Líquido;",
-      "sha256": "88a3a3d46a018db97b97a3d0ca93deee07a80137bfc54448481180b5748ba1f6",
       "verification": "primary_passage"
     },
     "ea6ac4d3dbf15bac00930a7f376c58a693fd8849be69ac82ed5592f49dbb5c3a": {
@@ -2987,6 +2961,68 @@
       "clause": "2.1",
       "excerpt": "2.1. Administração Fiduciária: O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Rua  Cardeal Arcoverde, nº 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº\n 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração  fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023.",
       "sha256": "e0e7ddc6863a28b1e8578981792747bdf2450bf3ad1e244137fa208883811099",
+      "verification": "primary_passage"
+    },
+    "eee968c554fdbeb4d1a7df95c7c325760b62e12db15d335ac5c02d98ee5eb6a3": {
+      "document_id": "1022439",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022439",
+      "reference_date": "2025-10-27",
+      "version": "1",
+      "page": "144–145",
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora  na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"):\n(i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de  Aquisição e Pagamento;\n(ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório  ofertada ao Fundo poderá estar inadimplida na respectiva Data de Aquisição e  Pagamento;\n(iii) os Devedores deverão estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos;\n(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os  Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão  representar mais do que 20% (vinte por cento) do Patrimônio Líquido;\n(v) o Preço de Aquisição dos Direitos Creditórios integrantes de uma mesma  CCB ofertada ao Fundo (considerando a Transferência de todas as parcelas  vincendas) não deverá ser inferior a R$ 100,00 (cem reais);\n(vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma  mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas  vincendas) não deverá ser inferior a R$1.000,00 (mil reais);\n(vii) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, o  saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos  devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo:",
+      "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4c491559a31ba3c19fe0a1be2d3914b5028e65b3c38d87c91063438219d54429": {
+      "document_id": "1017996",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017996",
+      "reference_date": "2025-10-21",
+      "version": "1",
+      "page": "144–145",
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora  na respectiva Data de Aquisição e Pagamento (\"Critérios de Elegibilidade\"):\n(i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de  Aquisição e Pagamento;\n(ii) nenhuma das parcelas de cada CCB representativa de Direito Creditório  ofertada ao Fundo poderá estar inadimplida na respectiva Data de Aquisição e  Pagamento;\n(iii) os Devedores deverão estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos;\n(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os  Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão  representar mais do que 20% (vinte por cento) do Patrimônio Líquido;\n(v) o Preço de Aquisição dos Direitos Creditórios integrantes de uma mesma  CCB ofertada ao Fundo (considerando a Transferência de todas as parcelas  vincendas) não deverá ser inferior a R$ 100,00 (cem reais);\n(vi) o somatório do valor de face dos Direitos Creditórios integrantes de uma  mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas  vincendas) não deverá ser inferior a R$1.000,00 (mil reais);\n(vii) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, o  saldo devedor total, em valor presente, dos Direitos Creditórios Transferidos  devidos por um mesmo Devedor não poderá ultrapassar os valores abaixo:",
+      "sha256": "88a3a3d46a018db97b97a3d0ca93deee07a80137bfc54448481180b5748ba1f6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e13dcac771a7470ce2663b8b60871fa4c6f3bbb7a7d485ccd526541476c96c14": {
+      "document_id": "1022439",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022439",
+      "reference_date": "2025-10-27",
+      "version": "1",
+      "page": 26,
+      "clause": "3.9",
+      "excerpt": "3.9 É vedado à Administradora, à Gestora, ao Custodiante (se houver) e ao Consultor  Especializado (se houver) e suas Partes Relacionadas ceder ou originar, direta ou indiretamente,  Direitos Creditórios ao Fundo, assim como adquirir, direta ou indiretamente, Direitos Creditórios,  exceto (i) se a Entidade Registradora e o Custodiante (se houver) não forem Partes Relacionadas ao  Originador ou ao Cedente/Endossante; ou (ii) se o Anexo Definições Específicas da Classe dispuser  de outra forma.",
+      "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
+      "verification": "primary_passage"
+    },
+    "d2d1bcae1a3a7b5391fdd0008795ac604a9287199b249d76d3a7aa2ef69f26be": {
+      "document_id": "1022439",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1022439",
+      "reference_date": "2025-10-27",
+      "version": "1",
+      "page": 91,
+      "clause": "",
+      "excerpt": "\"CCB\" As cédulas de crédito bancário reguladas pela Lei nº\n 10.931, de 2 de agosto de 2004, conforme alterada,  emitidas pelos Devedores em favor do Credor Original  (se houver), representativas dos empréstimos  consignados concedidos pelo Credor Original (se  houver) aos Devedores.",
+      "sha256": "f4fcf418cd01f7fee9c2e3c930b08277e498d7858fcb8bc0211fb50a8756b987",
+      "verification": "primary_passage"
+    },
+    "2338281444a97aa6eb0ae019a42d474a38ee4322a19fc91a47d8c2eca94b87df": {
+      "document_id": "1017996",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017996",
+      "reference_date": "2025-10-21",
+      "version": "1",
+      "page": 91,
+      "clause": "",
+      "excerpt": "\"CCB\" As cédulas de crédito bancário reguladas pela Lei nº\n 10.931, de 2 de agosto de 2004, conforme alterada,  emitidas pelos Devedores em favor do Credor Original  (se houver), representativas dos empréstimos  consignados concedidos pelo Credor Original (se  houver) aos Devedores.",
+      "sha256": "88a3a3d46a018db97b97a3d0ca93deee07a80137bfc54448481180b5748ba1f6",
       "verification": "primary_passage"
     }
   }

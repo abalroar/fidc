@@ -3,14 +3,6 @@
   "cnpj": "58171340000165",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "39dd005d900d4e2cfbf2927ef8801d87d62ef9ba8aed843dc64eed59c0159c20",
-      "229a4d3f9f41e59d244434d0011603a1f600359d1ede33bccb3936d38d61b86e",
-      "d1342ef5fe4106e37a5766673143ba8b702b232c84c52f82b92c857f5b4e9979",
-      "48f9066f1047f24dc127f02a0370cf61650653514c93bc980c7c2a5c899b0359",
-      "fdc7f3de4cd82b206666890972b97d29ef97d04697b824deef5aac9b4fbaa488",
-      "6a6d1507c88ee55c3229b3fca9433b50565736ad51764548bf1c58667834b96f"
-    ],
     "term": [
       "0a5c1953e214eef2c108a81c1304faf0f74a7fc65ff33bef5ae214cbfedec987",
       "ce99c6b81a7fa4aee115b4e212c81c1e1e4548996ee25284d54b6889c60b6caf",
@@ -316,24 +308,6 @@
       "7da7788f233b2ef2430eb1064b666f2c39fb7bd606f477b525ba3321ccdf3da2",
       "b7a48423987d7985b72083cb3e42da7ef90888057baefaae9e7b1173109d8234"
     ],
-    "originator": [
-      "b08d3f028227b084f4c2abab89677ab1d04c09d549a79e636ef4ef3c770d9fa4",
-      "5a39cfdf4f2c32dc4347bc665c68d0be866fba2a9e32e24413a6977dc9fa9f43",
-      "cbb559113e456b90873725543e259c556885b287638786865b3ca5fac3d7fc37",
-      "52e9993d9e194f452ae9eddffd2f736fceb7ad701d60fc494cf74e86977099a3",
-      "d508c6cb9d6514ab486d2136f78cd0f63296d08921b50acfb02b839012e0fa31",
-      "72b05f6af0201e6b15ade64fe61810a19e4f9019bcbe1e396ba95fd143a743e6",
-      "c35798accee5425d1ec3394055fc7fff8ff99136aef1604bb464e0d3622ab263"
-    ],
-    "debtor": [
-      "0bb0590521bde593e657957a5e92537d62caddc4326c34cbd149103b15e9cbe2",
-      "40970d9c48574e78658cfb63c5670adfc97cf3452a51fbbf9e9abf6dca8b8f25",
-      "eb78445a55f844540d547ce05586ba3ad72435ff4ac304964ac5b487c0db666d",
-      "85beabc533ce2fbcbc0ee6beb7c0d8693c15ae7efc138955a54790af1e73adda",
-      "5c57dde163b0a99fbd2933d6605be76a2898363d36e7aeb811083907284b88e9",
-      "4c016a38caebdb203a98c43a8a968dbe4fdd085994011afc82ec5c14532ff7a9",
-      "0bd0ac821cc0dbce77c0a7a2fa0e905f5ea316f657ecc9339bd3bcd27db3563a"
-    ],
     "guarantee": [
       "d61d9fd1eed1df273a1634b08e42e4cd33ecddcd991585bd6db0f6fdd528f9ad",
       "e4f476b5e5b7a9fe65b8bef4e87a094ce34e5d22dd42c2a146ba90dd60e32610",
@@ -360,6 +334,26 @@
       "69118fa79b4bfef9f99b88b4e56916def8c9e93619d562f24ebd5124f6324c89",
       "181b522623790cf2e7b5286dddc61399ae6df6455c9cf400c85c8648ce770c03",
       "0e4f29909bd034173d35ab8b28fb53ae2d6b44572310efdb96461dcfd86927a8"
+    ],
+    "originator": [
+      "b08d3f028227b084f4c2abab89677ab1d04c09d549a79e636ef4ef3c770d9fa4",
+      "f89b1f80ad6f2e4cd15c0ba2bc43dc05abd7cd2951f4d163f660aa68dc4fc11e",
+      "399e6b0d9391de3359fa36c93b9185f3ce9d00e06fddb5f0d6375c2eb2b1c9f1",
+      "06fc8922bc9e1cc26fb86dd2966d4a8f4d7e0ee144740c4ed522730662c47365",
+      "c9979553bbf4b01b70e4c7e1d73075ff18656edf7dd9ee1004cd47c63ff2b79f",
+      "da704a758b11830d783d6f8f25d4b02e36415a2dd3e4517c92270138808096e6",
+      "dd14c12d9a97747d9f3378e6b1ca7eb62788483422f570cf5d3f3b6cc9122240"
+    ],
+    "eligibility": [
+      "ee116cf0bb77785343ca5176198af9398ae3ab8957615fcd9d6f3ab5a05bdf59",
+      "4066fc941a9c037056119be1db11b778bed58f3e5452f9987f3107825d0c832c",
+      "22ac61135c4a553818f98145e7b74acd6380c913388ffffdf91df8264d707b61",
+      "684a8da261884e34968ee72ec60a694dc8760dac48dd3bd54a2e6f09ef574a7e",
+      "b5eb10a52c4f200d99c6b025957bd41cf09c11ea6e42b425649b19a02c044598",
+      "f51277b4ceb039303c4fe282beba59f21bc4286c85db8924b8637ae597043565"
+    ],
+    "debtor": [
+      "0bb0590521bde593e657957a5e92537d62caddc4326c34cbd149103b15e9cbe2"
     ]
   },
   "entries": {
@@ -427,60 +421,6 @@
         "733c9447b4f0a7a9019bf4c4150f705cb5f4318c0a888dada5125f11755d324f"
       ]
     },
-    "5a39cfdf4f2c32dc4347bc665c68d0be866fba2a9e32e24413a6977dc9fa9f43": {
-      "reference_date": "2025-02-19",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6f93cd26fef1c3390f544da3f40aeb43c8dbe337230b00dcf2642c9ce51cf461"
-      ]
-    },
-    "cbb559113e456b90873725543e259c556885b287638786865b3ca5fac3d7fc37": {
-      "reference_date": "2024-12-09",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c8b8d151ced31ec0f7f3cf0a5ad4d4112585f9acdbb800dcf96835cb44489fd9"
-      ]
-    },
-    "52e9993d9e194f452ae9eddffd2f736fceb7ad701d60fc494cf74e86977099a3": {
-      "reference_date": "2025-02-19",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e9ea9462f911a4f28afc2df373ceb60323e5120ee0456f02b482cecef04998e5"
-      ]
-    },
-    "d508c6cb9d6514ab486d2136f78cd0f63296d08921b50acfb02b839012e0fa31": {
-      "reference_date": "2024-12-19",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4cf0efd166b6b2f99af4201bda606463a954b2723d9cca900065ce4e518d16f3"
-      ]
-    },
-    "72b05f6af0201e6b15ade64fe61810a19e4f9019bcbe1e396ba95fd143a743e6": {
-      "reference_date": "2024-12-19",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f01da7a129f69658432c694741e8e5ca83ac91e4df1ddd1610f1ab5c9361b9b5"
-      ]
-    },
-    "c35798accee5425d1ec3394055fc7fff8ff99136aef1604bb464e0d3622ab263": {
-      "reference_date": "2024-12-09",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b10210064ba1edc39a05de8822a291d8c12b1218dbaac12a902aa5e999158fc3"
-      ]
-    },
     "0bb0590521bde593e657957a5e92537d62caddc4326c34cbd149103b15e9cbe2": {
       "reference_date": "2025-03-13",
       "value": "Clientes do cedente; exclusões de grupo econômico e entes públicos.",
@@ -489,60 +429,6 @@
       "risk_note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos.",
       "sources": [
         "176876b2b73ea93ec1a3a13b86f6021815a7b2c5e3b29a20dd8dea1746961258"
-      ]
-    },
-    "39dd005d900d4e2cfbf2927ef8801d87d62ef9ba8aed843dc64eed59c0159c20": {
-      "reference_date": "2025-02-19",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "30b853c283ea1dbf38fdcc4eb2c853f076b05980b7acc10f132be13aab2dedd5"
-      ]
-    },
-    "229a4d3f9f41e59d244434d0011603a1f600359d1ede33bccb3936d38d61b86e": {
-      "reference_date": "2024-12-09",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fa8d05d0e073054684e55c04e1a666c43566632b607efd97022e5ce6a26c7ac1"
-      ]
-    },
-    "d1342ef5fe4106e37a5766673143ba8b702b232c84c52f82b92c857f5b4e9979": {
-      "reference_date": "2025-02-19",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5e5c3d14b6a44b67d33c265f385f3b6e8581171d2489579819a841b505dc71b6"
-      ]
-    },
-    "48f9066f1047f24dc127f02a0370cf61650653514c93bc980c7c2a5c899b0359": {
-      "reference_date": "2024-12-19",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4844201525365f6244399ce923a067f4e3e8ffa2c59d020e73174ba8d6de44d6"
-      ]
-    },
-    "fdc7f3de4cd82b206666890972b97d29ef97d04697b824deef5aac9b4fbaa488": {
-      "reference_date": "2024-12-19",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "29536b9278bdafeadbdce7958b1189753e602bfe643668f0bd97e64841a4dba8"
-      ]
-    },
-    "6a6d1507c88ee55c3229b3fca9433b50565736ad51764548bf1c58667834b96f": {
-      "reference_date": "2024-12-09",
-      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "adbc1cc093bf27c14c11343b4681acf300780a848d2ffcbd1f893be2d78e4533"
       ]
     },
     "0a5c1953e214eef2c108a81c1304faf0f74a7fc65ff33bef5ae214cbfedec987": {
@@ -2470,60 +2356,6 @@
         "50b91b9c286f819abbc095b5bc8e3ae3b52244cc8ff3a5e9c3005a4d24059c70"
       ]
     },
-    "40970d9c48574e78658cfb63c5670adfc97cf3452a51fbbf9e9abf6dca8b8f25": {
-      "reference_date": "2025-02-19",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "30296ac53e7222da0d74548107c97b9b64fa9f2635a771e6547209859e65e8d2"
-      ]
-    },
-    "eb78445a55f844540d547ce05586ba3ad72435ff4ac304964ac5b487c0db666d": {
-      "reference_date": "2024-12-09",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "12a5fed084c161a1ce8bbac3d97bf715f3ccf777f5b9671213fc0eda65bbdf45"
-      ]
-    },
-    "85beabc533ce2fbcbc0ee6beb7c0d8693c15ae7efc138955a54790af1e73adda": {
-      "reference_date": "2025-02-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "071dc415aae9323b15857dc909c4d6566373431b81e40bb50c341cc2e47bac39"
-      ]
-    },
-    "5c57dde163b0a99fbd2933d6605be76a2898363d36e7aeb811083907284b88e9": {
-      "reference_date": "2024-12-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c4763fc1547c2f9c9945a30e9b8271b11e65115af212c5baa914a61fa06a6b26"
-      ]
-    },
-    "4c016a38caebdb203a98c43a8a968dbe4fdd085994011afc82ec5c14532ff7a9": {
-      "reference_date": "2024-12-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3488cf43eb4078d510d8d88b13facda77f8efa551fea74893fdaa833e1ac47af"
-      ]
-    },
-    "0bd0ac821cc0dbce77c0a7a2fa0e905f5ea316f657ecc9339bd3bcd27db3563a": {
-      "reference_date": "2024-12-09",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e858aca4d87b17349024620061aadc13f77334a8757babbaf35801b334f51259"
-      ]
-    },
     "b97d183183a7c8c0edfe1c761160ee869daba486af5327a70b543fc42c49ac8e": {
       "reference_date": "2025-02-19",
       "value": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis.",
@@ -2576,6 +2408,114 @@
       "provenance": "primary_passage",
       "sources": [
         "017718fa41c4cc3c1898b00b33213d7896fcbe899f49aa131602524f51d1e8de"
+      ]
+    },
+    "ee116cf0bb77785343ca5176198af9398ae3ab8957615fcd9d6f3ab5a05bdf59": {
+      "reference_date": "2025-02-19",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "30b853c283ea1dbf38fdcc4eb2c853f076b05980b7acc10f132be13aab2dedd5"
+      ]
+    },
+    "4066fc941a9c037056119be1db11b778bed58f3e5452f9987f3107825d0c832c": {
+      "reference_date": "2024-12-09",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fa8d05d0e073054684e55c04e1a666c43566632b607efd97022e5ce6a26c7ac1"
+      ]
+    },
+    "22ac61135c4a553818f98145e7b74acd6380c913388ffffdf91df8264d707b61": {
+      "reference_date": "2025-02-19",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5e5c3d14b6a44b67d33c265f385f3b6e8581171d2489579819a841b505dc71b6"
+      ]
+    },
+    "684a8da261884e34968ee72ec60a694dc8760dac48dd3bd54a2e6f09ef574a7e": {
+      "reference_date": "2024-12-19",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4844201525365f6244399ce923a067f4e3e8ffa2c59d020e73174ba8d6de44d6"
+      ]
+    },
+    "b5eb10a52c4f200d99c6b025957bd41cf09c11ea6e42b425649b19a02c044598": {
+      "reference_date": "2024-12-19",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29536b9278bdafeadbdce7958b1189753e602bfe643668f0bd97e64841a4dba8"
+      ]
+    },
+    "f51277b4ceb039303c4fe282beba59f21bc4286c85db8924b8637ae597043565": {
+      "reference_date": "2024-12-09",
+      "value": "alterar as Condições de Cessão, os 80% (oitenta por cento) mais 1 (uma) das Cotas Critérios de Elegibilidade e a Política de em circulação e maioria das Cotas Subordinadas Investimento; Mezanino, em primeira e em segunda convocação; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do 2/3 (dois terços) das Cotas em circulação em Agente de Cobrança Extrajudicial, do primeira convocação e por, no mínimo, a maioria Agente de Cobrança Judicial e/ou de absoluta dos Cotistas presentes, desde que tais qualquer outro prestador de serviços do Cotistas presentes representem, no mínimo, 1/3 Fundo, com exceção do Auditor (um terço) da totalidade das Cotas emitidas pelo Independente, o qual poderá ser Fundo, em segunda convocação substituído em conformidade com as políticas internas do Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "adbc1cc093bf27c14c11343b4681acf300780a848d2ffcbd1f893be2d78e4533"
+      ]
+    },
+    "f89b1f80ad6f2e4cd15c0ba2bc43dc05abd7cd2951f4d163f660aa68dc4fc11e": {
+      "reference_date": "2025-02-19",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4557e4303001a95c1339b0ccbce9632ef3692f697fdaba232a36727e7fc28388"
+      ]
+    },
+    "399e6b0d9391de3359fa36c93b9185f3ce9d00e06fddb5f0d6375c2eb2b1c9f1": {
+      "reference_date": "2024-12-09",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "760fd63d2305bd0a48a5c6ee142ef223c639efdaa23fb931f7abc656773b87b6"
+      ]
+    },
+    "06fc8922bc9e1cc26fb86dd2966d4a8f4d7e0ee144740c4ed522730662c47365": {
+      "reference_date": "2025-02-19",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a8198ceb55cefb66b0d32b18edb923cfd88f6c7b90063fdff5af2fb463c043f6"
+      ]
+    },
+    "c9979553bbf4b01b70e4c7e1d73075ff18656edf7dd9ee1004cd47c63ff2b79f": {
+      "reference_date": "2024-12-19",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1cae3e687bdc80ce42186bf425cb360582a3227f7bddc0c9e374f4de9f817994"
+      ]
+    },
+    "da704a758b11830d783d6f8f25d4b02e36415a2dd3e4517c92270138808096e6": {
+      "reference_date": "2024-12-19",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "46fae4e2569658bdfc072cca3961db37d0b868fb3e0e6e09cc9bdf5e46e94d4f"
+      ]
+    },
+    "dd14c12d9a97747d9f3378e6b1ca7eb62788483422f570cf5d3f3b6cc9122240": {
+      "reference_date": "2024-12-09",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2dce349736152f078bec66a1ba1270aac051296b2a7ec3618a7da8288d1d71a2"
       ]
     }
   },
@@ -2664,78 +2604,6 @@
       "sha256": "a414d27a9024ca9dc1f02907dbc227dcd524d0bf096f647a94fdaa41dbdb38e3",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 861191; referência 13/03/2025; data/raw/58171340000165/861191_documentary_review.txt; p.42, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=861191&cvm=true"
-    },
-    "6f93cd26fef1c3390f544da3f40aeb43c8dbe337230b00dcf2642c9ce51cf461": {
-      "document_id": "846711",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846711",
-      "reference_date": "2025-02-19",
-      "version": "1",
-      "page": 28,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "a403121a412c8e9a83aaa8daef48b0822209cd03197383afa3dc273d15f50abe",
-      "verification": "primary_passage"
-    },
-    "c8b8d151ced31ec0f7f3cf0a5ad4d4112585f9acdbb800dcf96835cb44489fd9": {
-      "document_id": "798855",
-      "title": "Instrumento Particular de Emissão de Cotas",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798855",
-      "reference_date": "2024-12-09",
-      "version": "1",
-      "page": 38,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "43aa6ee42d351635ef70fdf027c06de007758ae693548543f942fe1d12316e73",
-      "verification": "primary_passage"
-    },
-    "e9ea9462f911a4f28afc2df373ceb60323e5120ee0456f02b482cecef04998e5": {
-      "document_id": "846712",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846712",
-      "reference_date": "2025-02-19",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "39af66d6677ef60ecfba415591ca7dcf42cce2c5bd85038f011839f4f1ab33c6",
-      "verification": "primary_passage"
-    },
-    "4cf0efd166b6b2f99af4201bda606463a954b2723d9cca900065ce4e518d16f3": {
-      "document_id": "805237",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=805237",
-      "reference_date": "2024-12-19",
-      "version": "1",
-      "page": 28,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "f31cbde0457d397a4b8c3008db4730a47ce07f4ed4d577e1748f1b0ec501b77d",
-      "verification": "primary_passage"
-    },
-    "f01da7a129f69658432c694741e8e5ca83ac91e4df1ddd1610f1ab5c9361b9b5": {
-      "document_id": "805238",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=805238",
-      "reference_date": "2024-12-19",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "685da16203c19068ab5eb008efc20ab6e12d2b90d643fa2a47d1949caeaa6672",
-      "verification": "primary_passage"
-    },
-    "b10210064ba1edc39a05de8822a291d8c12b1218dbaac12a902aa5e999158fc3": {
-      "document_id": "798858",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798858",
-      "reference_date": "2024-12-09",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "45453870da0177b4a30f76940d329f22dde0cc094b16dc320d4ff9ef582c87d4",
-      "verification": "primary_passage"
     },
     "176876b2b73ea93ec1a3a13b86f6021815a7b2c5e3b29a20dd8dea1746961258": {
       "document_id": "861191",
@@ -5024,78 +4892,6 @@
       "clause": "8.3",
       "excerpt": "8.3. O Administrador contratou a OPEA GESTORA DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 1º andar, conjunto 62, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestor da Carteira.",
       "sha256": "a403121a412c8e9a83aaa8daef48b0822209cd03197383afa3dc273d15f50abe",
-      "verification": "primary_passage"
-    },
-    "30296ac53e7222da0d74548107c97b9b64fa9f2635a771e6547209859e65e8d2": {
-      "document_id": "846711",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846711",
-      "reference_date": "2025-02-19",
-      "version": "1",
-      "page": 53,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "a403121a412c8e9a83aaa8daef48b0822209cd03197383afa3dc273d15f50abe",
-      "verification": "primary_passage"
-    },
-    "12a5fed084c161a1ce8bbac3d97bf715f3ccf777f5b9671213fc0eda65bbdf45": {
-      "document_id": "798855",
-      "title": "Instrumento Particular de Emissão de Cotas",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798855",
-      "reference_date": "2024-12-09",
-      "version": "1",
-      "page": 63,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "43aa6ee42d351635ef70fdf027c06de007758ae693548543f942fe1d12316e73",
-      "verification": "primary_passage"
-    },
-    "071dc415aae9323b15857dc909c4d6566373431b81e40bb50c341cc2e47bac39": {
-      "document_id": "846712",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846712",
-      "reference_date": "2025-02-19",
-      "version": "1",
-      "page": 50,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "39af66d6677ef60ecfba415591ca7dcf42cce2c5bd85038f011839f4f1ab33c6",
-      "verification": "primary_passage"
-    },
-    "c4763fc1547c2f9c9945a30e9b8271b11e65115af212c5baa914a61fa06a6b26": {
-      "document_id": "805237",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=805237",
-      "reference_date": "2024-12-19",
-      "version": "1",
-      "page": 53,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "f31cbde0457d397a4b8c3008db4730a47ce07f4ed4d577e1748f1b0ec501b77d",
-      "verification": "primary_passage"
-    },
-    "3488cf43eb4078d510d8d88b13facda77f8efa551fea74893fdaa833e1ac47af": {
-      "document_id": "805238",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=805238",
-      "reference_date": "2024-12-19",
-      "version": "1",
-      "page": 50,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "685da16203c19068ab5eb008efc20ab6e12d2b90d643fa2a47d1949caeaa6672",
-      "verification": "primary_passage"
-    },
-    "e858aca4d87b17349024620061aadc13f77334a8757babbaf35801b334f51259": {
-      "document_id": "798858",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798858",
-      "reference_date": "2024-12-09",
-      "version": "1",
-      "page": 50,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle comum  de determinada entidade ou que estejam sob o controle das  mesmas pessoas físicas. Os Grupos Econômicos de Devedores  serão os registrados na base de dados do Cedente e serão  informados ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de Devedores de  conhecimento do Cedente, nesta hipótese sempre antes da  realização de nova aquisição de Direitos Creditórios Elegíveis pela  Classe, sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante e o Gestor com,  no mínimo, 2 (dois) Dias Úteis de antecedência. Para verificação  dos Grupos Econômicos, será considerada sempre a raiz dos  respectivos CNPJ.",
-      "sha256": "45453870da0177b4a30f76940d329f22dde0cc094b16dc320d4ff9ef582c87d4",
       "verification": "primary_passage"
     },
     "9e7ad94ff15b1f24d70828227d5008a43fff85a6361ff29075fbda66e353b418": {

@@ -3,16 +3,6 @@
   "cnpj": "50857998000113",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "90c2a757d94a8cda35ddc70e0dfd170382e41ecc7de7c620df6520aebe99723c",
-      "6080d8f0c31c04307e762234ef2a46f30c9ce432a6727b15e45b30d524f0831f",
-      "da9c9bfec295f8a83e7c250388c4f19d6d68de24e6e70b36f827b9bfa7cffaf9",
-      "608e10cd1cad6290093a9398eb831a8c4f1dc9ea587604f42bcad57f11d84471",
-      "b920ba6c8d9922b526544d93566edaca6c2663f46ac53db0d7d60a68dde57be9",
-      "cc6c82991e98a64579d7a5c380981249cc8289ae0d410e088eaf12d2a9accc7a",
-      "e1d88e534a0e09bfe30fbddfc77302c427097808ad09fa300f235f7d0f70f1c9",
-      "7d682a10d40e0eaa7e31d6ed6c3f4a834bff2cfd6b919363cfef8c9aca927d99"
-    ],
     "term": [
       "45879a9aac0d659c71fe9a452816789a918864f074a44bfef77e50aa37a0e836",
       "1ba949d688762578c367124e6fb1e574335cad8b644c33bc6ee9f5e05107b72c"
@@ -343,15 +333,6 @@
       "7758aebd8c12b6bd78de245b63f21f17931128044a18a37532122a38ee570ca3",
       "b6ca6fc78bdd3e0448ef3fe3a2dcd2a50bb6ce7a744fc28902826004c59e2375"
     ],
-    "originator": [
-      "42757aec10dedd12cee8c30adf29a7b3ee8472abd2a7621cf01c400c66310ff8",
-      "121a4050098e4eb50b3e8cd31e0c0476e16e02d11e305589d3539affdd07b224",
-      "13b57c780ba1815e8476a5cc1b26872c59df7d344d133671437e86c23fbf8b5f",
-      "e7d254a50921be2970e40203180462843806637e2656d678308a0f310013fc7f",
-      "c57819ccd73d1c0a2513eab0665d294ef6fc16748b07f617325c3bf33356aecc",
-      "16bdc842081e90a0800e1b5caadd45e4303e6a5095b2fdbaa5815cb602449514",
-      "d03fcebe5df94b4b3f18afbabd2ea635e47f03f47aeeb9d6501ca2192b0c958e"
-    ],
     "investee": [
       "545af163fe6c044f5c0d1ef4957f6d4f59b4aad148ccf307c52b649035abbd6c",
       "ec0072837a998c6546a19c56dde1b591a7ed6d642eb4267c4c4b1b3ac99b7713",
@@ -390,6 +371,25 @@
       "0507f8e4755d0533adeaffa31209cf63cda50aaddbc70e717b4219ffa76d1f24",
       "9a2c8f7b7fa579cf7d233152b22da7cf9046702e1eeaf93bd03bf2ef40fb0d7f",
       "128717e7a85bbbe2b53cfda46b73f1607d8e812e19a7214d115cac3267e03c62"
+    ],
+    "originator": [
+      "42757aec10dedd12cee8c30adf29a7b3ee8472abd2a7621cf01c400c66310ff8",
+      "121a4050098e4eb50b3e8cd31e0c0476e16e02d11e305589d3539affdd07b224",
+      "13b57c780ba1815e8476a5cc1b26872c59df7d344d133671437e86c23fbf8b5f",
+      "e7d254a50921be2970e40203180462843806637e2656d678308a0f310013fc7f",
+      "c57819ccd73d1c0a2513eab0665d294ef6fc16748b07f617325c3bf33356aecc",
+      "16bdc842081e90a0800e1b5caadd45e4303e6a5095b2fdbaa5815cb602449514",
+      "d03fcebe5df94b4b3f18afbabd2ea635e47f03f47aeeb9d6501ca2192b0c958e"
+    ],
+    "eligibility": [
+      "90c2a757d94a8cda35ddc70e0dfd170382e41ecc7de7c620df6520aebe99723c",
+      "8959d3c52a372663602df682883415cd98a3640b919f893d228872fc0f48ab6f",
+      "525afbe63eae265a310105b58c2b0f6e53c4336619363718c412469a53446e54",
+      "608e10cd1cad6290093a9398eb831a8c4f1dc9ea587604f42bcad57f11d84471",
+      "b920ba6c8d9922b526544d93566edaca6c2663f46ac53db0d7d60a68dde57be9",
+      "eab0acfde1b8937c155085fa4a00e417cfbda8e1b8492dc7a6277fbc087057fc",
+      "630b7d500e9bc103f542240e475672591745eee6ab15bd2c380682ee4c2ef99a",
+      "f0c40e1c961beb9adb198ad35e631ccc349fd6d56195a1cb23db9e1afaa72e2a"
     ]
   },
   "entries": {
@@ -504,24 +504,6 @@
         "5721dbecce35ad382c42a1c4f02a2b1755eeb1d4253532e262b3a3eeff871e85"
       ]
     },
-    "6080d8f0c31c04307e762234ef2a46f30c9ce432a6727b15e45b30d524f0831f": {
-      "reference_date": "2025-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3cab1609a4e05bb4c8c6a28c9ad255f7254f43a79cc68b5b61c714bda178308e"
-      ]
-    },
-    "da9c9bfec295f8a83e7c250388c4f19d6d68de24e6e70b36f827b9bfa7cffaf9": {
-      "reference_date": "2024-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6df1e5de755b6083ed9ecbc52f8d8527018f31a2dcf14577ac0336d567e0d3bb"
-      ]
-    },
     "608e10cd1cad6290093a9398eb831a8c4f1dc9ea587604f42bcad57f11d84471": {
       "reference_date": "2025-10-06",
       "value": "3.3. A aquisição dos Direitos Creditórios pela Classe será realizada com base nas regras, condições e procedimentos estabelecidos nas Condições Gerais de Cessão, bem como de acordo com os Critérios de Elegibilidade e as Condições de Cessão, observado que as Formalizações Eletrônicas de Cessão serão armazenadas em arquivos digitais e mantidos em sistema adequado para tanto.",
@@ -547,24 +529,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a0197572853b69eabc238d8ea552dfe299fb7016e09d4b069b63572d5c3f81cf"
-      ]
-    },
-    "e1d88e534a0e09bfe30fbddfc77302c427097808ad09fa300f235f7d0f70f1c9": {
-      "reference_date": "2023-12-01",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5f5693c372fd0c0ed24d9dd083c330b3e2aa788be94d3db1ce72b1b00697b35f"
-      ]
-    },
-    "7d682a10d40e0eaa7e31d6ed6c3f4a834bff2cfd6b919363cfef8c9aca927d99": {
-      "reference_date": "2023-05-26",
-      "value": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; e",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "96c12345a64cc21ddbdc42787173ebf5c4d51f0b56d2b05fea73d5e10b75c912"
       ]
     },
     "45879a9aac0d659c71fe9a452816789a918864f074a44bfef77e50aa37a0e836": {
@@ -2676,6 +2640,51 @@
       "sources": [
         "141c3565b046db406d31d82a320fd1199e40528a1d71f2c16a60ecfdc2b65d7f"
       ]
+    },
+    "8959d3c52a372663602df682883415cd98a3640b919f893d228872fc0f48ab6f": {
+      "reference_date": "2025-09-30",
+      "value": "Condições de cessão. Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá adquirir direitos creditórios que atendam cumulativamente às seguintes Condições de cessão: (i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao direito creditório; (ii) os direitos creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) considerada pro forma a aquisição pretendida, existe a Equivalência de Créditos Subscredenciadora; (iv) considerada pro forma a aquisição pretendida, o direito creditório em questão não ficará mais do que 99% (noventa e nove por cento) do seu valor de face cedido ou onerado ao Fundo ou a qualquer terceiro; e (v) os direitos creditórios deverão ter valor nominal máximo de R$1.000 (um milhão de reais).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3cab1609a4e05bb4c8c6a28c9ad255f7254f43a79cc68b5b61c714bda178308e"
+      ]
+    },
+    "525afbe63eae265a310105b58c2b0f6e53c4336619363718c412469a53446e54": {
+      "reference_date": "2024-09-30",
+      "value": "(i) Os termos e condições do regulamento; (ii) Os termos, condições e procedimentos previstos no contrato de cessão e nos respectivos termos de cessão, incluindo, sem limitar-se às hipóteses de: a. Resolução de Cessão; e b. Excussão da coobrigação da Cedente e/ou da Fiança em relação aos Direitos Creditórios Inadimplidos, a qual ocorrerá: (a) independentemente de prévia e expressa aprovação pela Assembleia Geral, caso o saldo devedor de Direitos Creditórios de Referência seja inferior a 125% do valor das cotas seniores, ou (b) mediante prévia e expressa aprovação pela Assembleia Geral, caso o saldo Devedor de Direitos Creditórios de referência seja igual ou superior a 125% do valor das cotas seniores; (iii) Os procedimentos pertinentes à aquisição dos Direitos Creditórios Elegíveis e atendimento aos critérios de elegibilidade e às condições de cessão definidos no regulamento; e (iv) A política de investimento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6df1e5de755b6083ed9ecbc52f8d8527018f31a2dcf14577ac0336d567e0d3bb"
+      ]
+    },
+    "eab0acfde1b8937c155085fa4a00e417cfbda8e1b8492dc7a6277fbc087057fc": {
+      "reference_date": "2024-10-16",
+      "value": "2/3 (dois terços) das Cotas em circulação emitidas alterar (a) o Benchmark, as Datas de Amortização pela Classe e 100% (cem por cento) das Cotas Programada, as Datas de Amortização de Subordinadas Júnior emitidas Remuneração, a Data de Resgate, conforme dispostos no Suplemento; (b) os direitos e prerrogativas das Cotas Seniores, das Cotas Subordinadas Mezanino e/ou a ordem de prioridade nas amortizações e resgates de Cotas; (c) a ordem de alocação de recursos e a forma de cálculo das Cotas; (d) os Eventos de Avaliação; (e) os Eventos de Liquidação; (f) os Critérios de Elegibilidade e as Condições de Cessão; (h) os quóruns de votação e itens de deliberação estabelecidos neste Anexo; (i) as Razões de Subordinação; (j) o Índice de Diluição; e (h) o Índice de Resolução de Cessão, conforme todos dispostos neste Anexo; 2/3 (dois terços) das Cotas em circulação emitidas deliberar acerca da elevação da Taxa de pela Classe e 100% (cem por cento) das Cotas Administração, inclusive na hipótese de seu Subordinadas Júnior emitidas restabelecimento caso tenha sido objeto de redução; 2/3 (dois terços) das Cotas em circulação emitidas deliberar acerca da incorporação, fusão, cisão ou pela Classe e 100% (cem por cento) das Cotas prorrogação da Classe; Subordinadas Júnior emitidas 2/3 (dois terços) das Cotas em circulação emitidas aprovar emissões de Cotas Seniores e/ou Cotas pela Classe e 100% (cem por cento) das Cotas Subordinadas Mezanino; Subordinadas Júnior emitidas Maioria das Cotas emitidas se em primeira deliberar sobre a contratação de terceiro para atuar convocação e maioria das Cotas presentes se em como agente de cobrança extraordinária dos Direitos segunda convocação Creditórios Inadimplidos; Maioria das Cotas emitidas se em primeira resolver, na ocorrência de quaisquer Eventos de convocação e maioria das Cotas presentes se em Avaliação, (a) se tais Eventos de Avaliação devem segunda convocação ou não ser considerados como um Evento de Liquidação e (b) a respeito da continuidade da aquisição de Direitos Creditórios Elegíveis pela Classe; Maioria das Cotas emitidas se em primeira deliberar sobre a interrupção dos procedimentos de convocação e maioria das Cotas presentes se em liquidação da Classe na ocorrência de um Evento de segunda convocação Liquidação;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a0197572853b69eabc238d8ea552dfe299fb7016e09d4b069b63572d5c3f81cf"
+      ]
+    },
+    "630b7d500e9bc103f542240e475672591745eee6ab15bd2c380682ee4c2ef99a": {
+      "reference_date": "2023-12-01",
+      "value": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão: (i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a qualquer Evento de Insolvência referente ao Direito Creditório; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) considerada pro forma a aquisição pretendida, existe a Equivalência de Créditos Subscredenciadora; (iv) considerada pro forma a aquisição pretendida, o Direito Creditório em questão não ficará mais do que 99% (noventa e nove por cento) do seu valor de face cedido ou onerado ao Fundo ou a qualquer terceiro; e (v) os Direitos Creditórios deverão ter valor nominal máximo de R$1.000.000,00 (um milhão de reais). 5.2.1. Verificação das Condições de Cessão. Os Cedentes, representados pelo Agente de Formalização, serão responsáveis por verificar o atendimento dos",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "65a99f12059546da6bcefcf0f78534f3e0e952a19a6f7cbb52efc3cb760a75fd"
+      ]
+    },
+    "f0c40e1c961beb9adb198ad35e631ccc349fd6d56195a1cb23db9e1afaa72e2a": {
+      "reference_date": "2023-05-26",
+      "value": "5.3. Verificação Definitiva. Respeitados os termos e condições do presente Regulamento, a verificação do atendimento dos Direitos Creditórios, (a) pelo Custodiante, aos Critérios de Elegibilidade; e (b) pelos Cedentes, às Condições de Cessão, será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "748a8d450c234f95da6601fcb1a2983060f9d028f25d264bb1a419f684212f18"
+      ]
     }
   },
   "passages": {
@@ -2884,30 +2893,6 @@
       "clause": "",
       "excerpt": "2/3 (dois terços) das Cotas em circulação emitidas alterar (a) o Benchmark, as Datas de Amortização  pela Classe e 100% (cem por cento) das Cotas Programada, as Datas de Amortização de  Subordinadas Júnior emitidas Remuneração, a Data de Resgate, conforme  dispostos no Suplemento; (b) os direitos e  prerrogativas das Cotas Seniores, das Cotas  Subordinadas Mezanino e/ou a ordem de prioridade  nas amortizações e resgates de Cotas; (c) a ordem  de alocação de recursos e a forma de cálculo das  Cotas; (d) os Eventos de Avaliação; (e) os Eventos  de Liquidação; (f) os Critérios de Elegibilidade e as  Condições de Cessão; (h) os quóruns de votação e  itens de deliberação estabelecidos neste Anexo; (i)  as Razões de Subordinação; (j) o Índice de Diluição;\n e (h) o Índice de Resolução de Cessão, conforme  todos dispostos neste Anexo;\n 2/3 (dois terços) das Cotas em circulação emitidas deliberar acerca da elevação da Taxa de  pela Classe e 100% (cem por cento) das Cotas Administração, inclusive na hipótese de seu  Subordinadas Júnior emitidas restabelecimento caso tenha sido objeto de redução;\n 2/3 (dois terços) das Cotas em circulação emitidas deliberar acerca da incorporação, fusão, cisão ou  pela Classe e 100% (cem por cento) das Cotas prorrogação da Classe;\n Subordinadas Júnior emitidas  2/3 (dois terços) das Cotas em circulação emitidas aprovar emissões de Cotas Seniores e/ou Cotas  pela Classe e 100% (cem por cento) das Cotas Subordinadas Mezanino;\n Subordinadas Júnior emitidas  Maioria das Cotas emitidas se em primeira deliberar sobre a contratação de terceiro para atuar  convocação e maioria das Cotas presentes se em como agente de cobrança extraordinária dos Direitos  segunda convocação Creditórios Inadimplidos;\n Maioria das Cotas emitidas se em primeira resolver, na ocorrência de quaisquer Eventos de  convocação e maioria das Cotas presentes se em Avaliação, (a) se tais Eventos de Avaliação devem  segunda convocação ou não ser considerados como um Evento de  Liquidação e (b) a respeito da continuidade da  aquisição de Direitos Creditórios Elegíveis pela  Classe;\n Maioria das Cotas emitidas se em primeira deliberar sobre a interrupção dos procedimentos de  convocação e maioria das Cotas presentes se em liquidação da Classe na ocorrência de um Evento de  segunda convocação Liquidação;",
       "sha256": "7c1b8fc2d5425400d2e80c3247e7060dd47008fb662e73574523241aa72d2353",
-      "verification": "primary_passage"
-    },
-    "5f5693c372fd0c0ed24d9dd083c330b3e2aa788be94d3db1ce72b1b00697b35f": {
-      "document_id": "563791",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=563791",
-      "reference_date": "2023-12-01",
-      "version": "1",
-      "page": 41,
-      "clause": "5.2",
-      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente  às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) considerada pro forma a aquisição pretendida, existe a Equivalência de  Créditos Subscredenciadora;\n(iv) considerada pro forma a aquisição pretendida, o Direito Creditório em questão  não ficará mais do que 99% (noventa e nove por cento) do seu valor de face cedido  ou onerado ao Fundo ou a qualquer terceiro; e\n(v) os Direitos Creditórios deverão ter valor nominal máximo de  R$1.000.000,00 (um milhão de reais).",
-      "sha256": "f5f3fcaf37c105c760fe818062301fe442146dc5b87ab437ea33a08a4159ca3c",
-      "verification": "primary_passage"
-    },
-    "96c12345a64cc21ddbdc42787173ebf5c4d51f0b56d2b05fea73d5e10b75c912": {
-      "document_id": "472793",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=472793",
-      "reference_date": "2023-05-26",
-      "version": "1",
-      "page": 35,
-      "clause": "5.2",
-      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente  às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório; e",
-      "sha256": "077a748c81656253e40f6a9f8e8a5b385b0fcbbdd5c40b52c181fcc8c63529f8",
       "verification": "primary_passage"
     },
     "8cee0a07059ea425dfead66b439d8d7a927cb2f73824b114c5c2b06232cbc545": {
@@ -5522,6 +5507,32 @@
       "excerpt": "19.1. Eventos de Avaliação. São eventos de avaliação (“Eventos de  Avaliação”):\n(i) caso o Fundo deixe de efetuar o pagamento: (a) integral de qualquer  das Amortizações Programadas ou pagamento de Remuneração das Cotas Seniores  e/ou das Cotas Subordinadas Mezanino, na respectiva Data de Amortização  Programada ou Data de Amortização da Remuneração, e não regularizado no prazo  de até 2 (dois) Dias Úteis; e (b) integral dos resgates das Cotas Seniores e/ou das  Cotas Subordinadas Mezanino, na respectiva Data de Resgate;\n(ii) caso no Dia Útil imediatamente anterior a qualquer Data de Amortização  Programada das Cotas Seniores e/ou das Cotas Subordinadas Mezanino, o valor dos  recursos segregados na Reserva de Amortização não corresponda, no mínimo, ao",
       "sha256": "f5f3fcaf37c105c760fe818062301fe442146dc5b87ab437ea33a08a4159ca3c",
       "verification": "primary_passage"
+    },
+    "65a99f12059546da6bcefcf0f78534f3e0e952a19a6f7cbb52efc3cb760a75fd": {
+      "document_id": "563791",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=563791",
+      "reference_date": "2023-12-01",
+      "version": "1",
+      "page": 41,
+      "clause": "5.2",
+      "excerpt": "5.2. Condições de Cessão. Adicionalmente aos Critérios de Elegibilidade, o  Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente  às seguintes Condições de Cessão:\n(i) o respectivo Devedor e/ou o Cedente não poderá estar submetido(a) a  qualquer Evento de Insolvência referente ao Direito Creditório;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(iii) considerada pro forma a aquisição pretendida, existe a Equivalência de  Créditos Subscredenciadora;\n(iv) considerada pro forma a aquisição pretendida, o Direito Creditório em questão  não ficará mais do que 99% (noventa e nove por cento) do seu valor de face cedido  ou onerado ao Fundo ou a qualquer terceiro; e\n(v) os Direitos Creditórios deverão ter valor nominal máximo de  R$1.000.000,00 (um milhão de reais).\n5.2.1. Verificação das Condições de Cessão. Os Cedentes, representados pelo  Agente de Formalização, serão responsáveis por verificar o atendimento dos",
+      "sha256": "f5f3fcaf37c105c760fe818062301fe442146dc5b87ab437ea33a08a4159ca3c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "748a8d450c234f95da6601fcb1a2983060f9d028f25d264bb1a419f684212f18": {
+      "document_id": "472793",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=472793",
+      "reference_date": "2023-05-26",
+      "version": "1",
+      "page": 36,
+      "clause": "5.3",
+      "excerpt": "5.3. Verificação Definitiva. Respeitados os termos e condições do presente  Regulamento, a verificação do atendimento dos Direitos Creditórios, (a) pelo  Custodiante, aos Critérios de Elegibilidade; e (b) pelos Cedentes, às Condições de  Cessão, será considerada como definitiva.",
+      "sha256": "077a748c81656253e40f6a9f8e8a5b385b0fcbbdd5c40b52c181fcc8c63529f8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

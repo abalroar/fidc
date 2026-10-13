@@ -3,16 +3,6 @@
   "cnpj": "54248022000102",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ef7e3af02fa8d99a237af54a1238b70faeb370354a9b193c628c98fb9e2988c0",
-      "99071ff37423dbd8cba8ecbfcc78a277c53a4fbbd96eab23dcf15c96ca54990d",
-      "5f2e1f3e2a7082c39b7a20a1c3f9127c3ed1e02ae0661a227a00e6a56b4ed66d",
-      "4234ea7ee496e4ec8db544fbcbce296efe9a986e5d7f61fd11961e389e01d838",
-      "540e3eb24dcf7ad204c40d4b61b889b7adb9e958fbcbc02c5a1576a9eb7368b5",
-      "dd65c49f993a8e35110159e4f64785c96c56350ab76af053e048d5693e117682",
-      "189bc50742791faf79c6ca4712656835a853303d3112772779df0d61e12679ff",
-      "e0acbe0b8c608a2d1b72bb6281c8da0e9143c2d8e76b57d90bc53d0081be347c"
-    ],
     "concentration": [
       "7127f0ef500e5fca5c84ce3a171bf4cdd7a2879ce9d11d4f871a232cc5441bbd",
       "524da5f7d357e92e13f3187a0f90ba280052d58dc1b9d275641142cc6af436fc",
@@ -368,22 +358,6 @@
       "ac1235f06016cdab5279bbce3167cacae02e6a42b1d9a63c6283ab6de6cbcb1a",
       "181ca3e70948d36fd18a98d33aeb9ff3acccd17d82b496b6a23b4a82e41224ff"
     ],
-    "originator": [
-      "68299c558580947a15bc9090ddc3145eb5ff168e6a09e1a449dcfdf19bf8f39d",
-      "d9fc4d84a6ab85148d23b018d85be3dec4aeb9ba96d4c8b5def57c7db5040c5c",
-      "f19b9d94e9658a18fdfced5b02c5a4ab6a4f5ea8dc6658acdb3b1ee1b22dc6b5",
-      "5da655b6d683a2e6bace7e50446c52fc7046d2be915d2bcfa2fc62233150aa50"
-    ],
-    "debtor": [
-      "550600f89cbde28d06328dd556ce3a2258d83edee5568906e6305f8ea4e1f3aa",
-      "c78d72ba39a81b223c600f85703a7e54913229f34e28363c471e8c43195675b2",
-      "c10444c48a25bb4afe3ac03ab125706056a47c9b0fee48a648bac805ba5a5cf9",
-      "09b167eb70e25f4655f9d2d7ea9be831b7e0bb373fe3be7173bce1acae2029cc",
-      "d593327e0da9f4ba8877c71d9a8a1ed1446debcc08ddd6d7367b1d1473ae7844",
-      "cc26c6aaf59063e930726a391dbe1983a16b7e8e39e6a91f8f5669c151179fc4",
-      "99d74548ee3d9a57dbf5513a3c30bb4d9659130757984ccadcf19e1c9b7e184a",
-      "25f1f5a58f28a4c42c6a80b10c737c0235917d75000d59cdcb6be05e3b95c04b"
-    ],
     "investee": [
       "74f3d3cff35d696ac895035c8c1be20a1de90fa5fed8de934de7c193b52e989e",
       "dab171eb676d4cbe384372bbe22ccf21ddc32cd075268dcebe3e61ddfcb7e151",
@@ -432,6 +406,37 @@
       "31b9be5718b6ab8ab3b34989c12eb58fa6074e10e564702a50ffaf321d04b503",
       "386c47b8cdb91ae0c80050cc0c6d63875b46aeafeaeaf469cb90859e20aea8dc",
       "8d780ca01835499676b35c7478e1e62e5744506eef0e5715e5d7625eb4723130"
+    ],
+    "originator": [
+      "68299c558580947a15bc9090ddc3145eb5ff168e6a09e1a449dcfdf19bf8f39d",
+      "d9fc4d84a6ab85148d23b018d85be3dec4aeb9ba96d4c8b5def57c7db5040c5c",
+      "f19b9d94e9658a18fdfced5b02c5a4ab6a4f5ea8dc6658acdb3b1ee1b22dc6b5",
+      "5da655b6d683a2e6bace7e50446c52fc7046d2be915d2bcfa2fc62233150aa50",
+      "35f5e42fde2cc009882e2326f8e11deeb74b1bc049cc00f72f2ffc56b5d55155",
+      "a2cfed06d47db785776e4ea7faf36cfc6e68962c19acd4128daa90732066aa39",
+      "087673320a6392a3979798b6df8c1bbbdcfbaebe06ac85cbb0c6256481841dc7",
+      "824ba94b65277fe19bb0c645afc6e3a09eee56ebc21120dc7fcd7c9c1eab419b",
+      "18273ea2315e5a414a399aa31dc472a63eb61793c4925960c00b2e690f6dc56a"
+    ],
+    "eligibility": [
+      "ef7e3af02fa8d99a237af54a1238b70faeb370354a9b193c628c98fb9e2988c0",
+      "07e3ec4ddc29d8d15c07570fe650459eac5fd0b88a9c616def2c388913be23c6",
+      "5f2e1f3e2a7082c39b7a20a1c3f9127c3ed1e02ae0661a227a00e6a56b4ed66d",
+      "04883b931a19e0bd17f1c9590bb6863200a2e1332ada14c2c0776ea4a88bb4b8",
+      "2c006d2cab86f5c3d840d1ed11973e1a0d403c71ef57aca180407279baf1f700",
+      "dd65c49f993a8e35110159e4f64785c96c56350ab76af053e048d5693e117682",
+      "189bc50742791faf79c6ca4712656835a853303d3112772779df0d61e12679ff",
+      "5e93f464c8ada4805770117e0b356590a12321ad1a621d7dbf21b6bafc3e4472"
+    ],
+    "debtor": [
+      "550600f89cbde28d06328dd556ce3a2258d83edee5568906e6305f8ea4e1f3aa",
+      "ef204845c07f8d61a60aabab11f3615ddc4a1143daecd8e9027da2b69ef51d26",
+      "0760a776cfd3af631b0e08c05df167108c91f48328fa261720f5b4d85be0d528",
+      "aa984b2408649248df461bcb18607c94cdb848c752d86c67f7a045083f68b4f8",
+      "d19e46c391e1b2a5a69114b2aa1d36656b28722771f849b1a5d004a5e6c8b770",
+      "c35f7e69f2cad90497845607cdfccc8ee63c841153004559800d308b751da628",
+      "6d3d34bb9d4d6f35f2b24e0bc3bc56e228e6d8d663318902afbfabdf2408c3f4",
+      "ede866babef5b055c058400f1ef8232a0d5f7a9404348d13df16aea84915d2ad"
     ]
   },
   "entries": {
@@ -546,24 +551,6 @@
         "ab3fd29655964797f9d82d24713e581067bd02425b3cbe86d6e21dfe897943c2"
       ]
     },
-    "c78d72ba39a81b223c600f85703a7e54913229f34e28363c471e8c43195675b2": {
-      "reference_date": "2025-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "333a47e435ee23b69445d38534dee8baaad520995144502b5bff01e83601f67d"
-      ]
-    },
-    "c10444c48a25bb4afe3ac03ab125706056a47c9b0fee48a648bac805ba5a5cf9": {
-      "reference_date": "2024-12-31",
-      "value": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá adquirir direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou coobrigação de uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7e3296535b42ef3ec01ab885ff20d4758077b2bde8d50d082b44a677b84b95da"
-      ]
-    },
     "09b167eb70e25f4655f9d2d7ea9be831b7e0bb373fe3be7173bce1acae2029cc": {
       "reference_date": "2025-12-22",
       "value": "2.10. Limite de Concentração por Devedor. Exceto se previsto de forma diversa no Apêndice, a Classe A poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, ou de coobrigação de uma mesma Pessoa, sem a observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido caso os Devedores sejam instituições",
@@ -619,15 +606,6 @@
         "05f00de67b962c1e95b9cc3bb1158ee53788bad64dd49938d3d778581ac5f785"
       ]
     },
-    "99071ff37423dbd8cba8ecbfcc78a277c53a4fbbd96eab23dcf15c96ca54990d": {
-      "reference_date": "2025-12-31",
-      "value": "A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios devem ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das transações de pagamento realizadas por Usuários-Finais utilizando-se de instrumentos de pagamento, de quaisquer bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema Cloudwalk para a aquisição de bens, produtos e serviços ofertados pelos estabelecimentos credenciados, após o desconto das taxas aplicáveis;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "81312e38cbf4107e178925579ce4e6dbe0956cd73e41bfbdc8d1ddd97e7164f8"
-      ]
-    },
     "5f2e1f3e2a7082c39b7a20a1c3f9127c3ed1e02ae0661a227a00e6a56b4ed66d": {
       "reference_date": "2024-12-31",
       "value": "Critérios de Elegibilidade e Condições de Cessão Os Critérios de Elegibilidade e as Condições de Cessão têm a finalidade de selecionar e definir o tipo de Direitos Creditórios passíveis de aquisição pela Classe A. O adimplemento dos Direitos Creditórios depende, dentre outros fatores, da situação econômico-financeira dos Devedores. A observância, na data de aquisição dos Direitos Creditórios pela Classe A, dos Critérios de Elegibilidade e das Condições de Cessão não constitui garantia de adimplência dos respectivos devedores dos Direitos Creditórios de titularidade da Classe A.",
@@ -635,24 +613,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a4066a139ab928d2f5077060a4ababeed8b92a94d4799883c4a397695ecdcb72"
-      ]
-    },
-    "4234ea7ee496e4ec8db544fbcbce296efe9a986e5d7f61fd11961e389e01d838": {
-      "reference_date": "2025-12-22",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e2fa1b4554c5e201b4c476e32888c331fa99f88166a437a3ec50594c5241462d"
-      ]
-    },
-    "540e3eb24dcf7ad204c40d4b61b889b7adb9e958fbcbc02c5a1576a9eb7368b5": {
-      "reference_date": "2024-04-11",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2251002c6eee48e2d46d24c86913f581a90be4c2374e4f05043627ec18cb8334"
       ]
     },
     "dd65c49f993a8e35110159e4f64785c96c56350ab76af053e048d5693e117682": {
@@ -671,15 +631,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7bc31a5ce6f1f41a93bd05a065fe75709a0fe592999007c21e8c39b0d52cd4b6"
-      ]
-    },
-    "e0acbe0b8c608a2d1b72bb6281c8da0e9143c2d8e76b57d90bc53d0081be347c": {
-      "reference_date": "2024-03-05",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "64939be746e249479a67fa3d9b7b79f14fa17f8954a846287811e097f5efa92d"
       ]
     },
     "7127f0ef500e5fca5c84ce3a171bf4cdd7a2879ce9d11d4f871a232cc5441bbd": {
@@ -3149,6 +3100,150 @@
       "sources": [
         "2f76eb18075d2ae4b439febe382c4e9dffb2a4fc8c36b92ae2fcedcef2982408"
       ]
+    },
+    "07e3ec4ddc29d8d15c07570fe650459eac5fd0b88a9c616def2c388913be23c6": {
+      "reference_date": "2025-12-31",
+      "value": "A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios devem ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das transações de pagamento realizadas por Usuários-Finais utilizando-se de instrumentos de pagamento, de quaisquer bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema Cloudwalk para a aquisição de bens, produtos e serviços ofertados pelos estabelecimentos credenciados, após o desconto das taxas aplicáveis; (ii) os Direitos Creditórios devem ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores devem estar adimplentes com relação a todos os pagamentos devidos à Classe em virtude dos Direitos Creditórios cedidos à Classe A; (iv) os Direitos Creditórios não podem ter vencimento superior ao vencimento das cotas seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios devem ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva data de oferta; (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, o limite máximo de exposição da carteira da Classe A a Direitos Creditórios devidos por cada Emissor Não Qualificado será equivalente a 1% (um por cento) em relação ao Patrimônio Líquido. (vii) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios devidos por Emissores Qualificados deverá observar os seguintes limites máximos, por Emissor Qualificado:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "81312e38cbf4107e178925579ce4e6dbe0956cd73e41bfbdc8d1ddd97e7164f8"
+      ]
+    },
+    "04883b931a19e0bd17f1c9590bb6863200a2e1332ada14c2c0776ea4a88bb4b8": {
+      "reference_date": "2025-12-22",
+      "value": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento, de quaisquer Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema CloudWalk para a aquisição de bens, produtos e serviços ofertados pelos Estabelecimentos Credenciados, após o desconto das Taxas Aplicáveis; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores deverão estar adimplentes com relação a todos os pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos à Classe A; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, o limite máximo de exposição da carteira da Classe A a Direitos Creditórios devidos por cada Emissor Não Qualificado será equivalente a 1% (um por cento) em relação ao Patrimônio Líquido; e (vii) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios devidos por Emissores Qualificados deverá observar os seguintes limites máximos, por Emissor Qualificado:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e2fa1b4554c5e201b4c476e32888c331fa99f88166a437a3ec50594c5241462d"
+      ]
+    },
+    "2c006d2cab86f5c3d840d1ed11973e1a0d403c71ef57aca180407279baf1f700": {
+      "reference_date": "2024-04-11",
+      "value": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento, de quaisquer Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema CloudWalk para a aquisição de bens, produtos e serviços ofertados pelos Estabelecimentos Credenciados, após o desconto das Taxas Aplicáveis; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores deverão estar adimplentes com relação a todos os pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos à Classe A; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, o limite máximo de exposição da carteira da Classe A a Direitos Creditórios devidos por cada Emissor Não Qualificado será equivalente a 1% (um por cento) em relação ao Patrimônio Líquido; e (vii) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios devidos por Emissores Qualificados deverá observar os seguintes limites máximos, por Emissor Qualificado:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2251002c6eee48e2d46d24c86913f581a90be4c2374e4f05043627ec18cb8334"
+      ]
+    },
+    "5e93f464c8ada4805770117e0b356590a12321ad1a621d7dbf21b6bafc3e4472": {
+      "reference_date": "2024-03-05",
+      "value": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento, de quaisquer Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema CloudWalk para a aquisição de bens, produtos e serviços ofertados pelos Estabelecimentos Credenciados, após o desconto das Taxas Aplicáveis; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores deverão estar adimplentes com relação a todos os pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos à Classe A; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, o limite máximo de exposição da carteira da Classe A a Direitos Creditórios devidos por cada Emissor Não Qualificado será de 1% (um por cento) em relação ao Patrimônio Líquido; e (vii) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios devidos por Emissores Qualificados deverá observar os seguintes limites máximos, por Emissor Qualificado:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "64939be746e249479a67fa3d9b7b79f14fa17f8954a846287811e097f5efa92d"
+      ]
+    },
+    "35f5e42fde2cc009882e2326f8e11deeb74b1bc049cc00f72f2ffc56b5d55155": {
+      "reference_date": "2025-12-22",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2cb427a7277b2761b15ea9afe86079d815d63800daf1d7177c48827ac20ac278"
+      ]
+    },
+    "a2cfed06d47db785776e4ea7faf36cfc6e68962c19acd4128daa90732066aa39": {
+      "reference_date": "2024-04-11",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c3bef10af59ab3d67210fa92eaf1bf4942c58b50e4c8050492dbfe9d0eb18c61"
+      ]
+    },
+    "087673320a6392a3979798b6df8c1bbbdcfbaebe06ac85cbb0c6256481841dc7": {
+      "reference_date": "2024-04-11",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e95ba5fcf856fa5ccbc594f7e9b7c5217bf45380a81b51d009c452c8322d512e"
+      ]
+    },
+    "824ba94b65277fe19bb0c645afc6e3a09eee56ebc21120dc7fcd7c9c1eab419b": {
+      "reference_date": "2024-03-14",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6ea53a46935d9696a9120bd6db79d412f7ac05203deb4e93c6fa10ba2803af20"
+      ]
+    },
+    "18273ea2315e5a414a399aa31dc472a63eb61793c4925960c00b2e690f6dc56a": {
+      "reference_date": "2024-03-05",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "695a6b3b17706745abcbb31b809b087b314fe97976c076026173a26bd3f33520"
+      ]
+    },
+    "ef204845c07f8d61a60aabab11f3615ddc4a1143daecd8e9027da2b69ef51d26": {
+      "reference_date": "2025-12-31",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "155f6b29b91d0349bd403c530d6e231e7833c86abd97b9335289d89879606e38"
+      ]
+    },
+    "0760a776cfd3af631b0e08c05df167108c91f48328fa261720f5b4d85be0d528": {
+      "reference_date": "2024-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0708973bf16cc94f6590e18c1f5ef359e0691ec9f552b4b1d355c16ed4c4892f"
+      ]
+    },
+    "aa984b2408649248df461bcb18607c94cdb848c752d86c67f7a045083f68b4f8": {
+      "reference_date": "2025-12-22",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "86e5289f8823fe5704aa329a47bb9b34b5c2c37b239af99ffc71a372a1373944"
+      ]
+    },
+    "d19e46c391e1b2a5a69114b2aa1d36656b28722771f849b1a5d004a5e6c8b770": {
+      "reference_date": "2024-04-11",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5311844c7ce4bdacd4fdcca266fc5f89fd36b64c9ebec7443e0da8afe3c9a79c"
+      ]
+    },
+    "c35f7e69f2cad90497845607cdfccc8ee63c841153004559800d308b751da628": {
+      "reference_date": "2024-04-11",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "28df71c15ff3c2d7a7038280a9e16b1a8630a8399ea6a994032ec654de39cb2f"
+      ]
+    },
+    "6d3d34bb9d4d6f35f2b24e0bc3bc56e228e6d8d663318902afbfabdf2408c3f4": {
+      "reference_date": "2024-03-14",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "15a2320101c85e1c03cabde42a8bf6769219bbf821c73a0578f29ba85d56fbbd"
+      ]
+    },
+    "ede866babef5b055c058400f1ef8232a0d5f7a9404348d13df16aea84915d2ad": {
+      "reference_date": "2024-03-05",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f19d2566bdb44400ab40ed8bf545a1550df2852725130a201ed4d35136385ae7"
+      ]
     }
   },
   "passages": {
@@ -3271,30 +3366,6 @@
       "clause": "",
       "excerpt": "um com exposição de até 7% do PL, demais devedores qualificados no regulamento, cada um com exposição de até 5% do PL, e devedores não qualificados, cada um com exposição de até 1% do PL. Devedores não qualificados excluem explicitamente Credz S.A. Instituição de Pagamento, Zema Crédito, Financiamento e Investimento S.A., e Digicash do Brasil Ltda..\nAs Cotas Seniores contam um reforço de crédito de, no mínimo, 20% por meio da emissão de Cotas Subordinadas. Esse nível de subordinação cobre o risco de concentração relacionado aos dois maiores devedores sem avaliação da Moody’s Local, o que está em linha um rating na categoria A.br (sf).\nReforço de crédito elevado cobre risco de diluições. Em um cenário de default do cedente, o reforço de crédito é mais que suficiente para cobrir perdas resultantes de diluições considerando estresses condizentes com o rating das Cotas Seniores. Conforme relatório de consultoria externa obtido pela Moody´s Local para o período de janeiro de 2021 a outubro de 2023, a média de diluições foi de 0,26%, com desvio padrão de também 0,26%, considerando recebíveis com prazo decorrido de, no mínimo, um dia. A subordinação também cobre o risco remanescente de descasamento de taxas de juros entre ativos e Cotas Seniores.\nRisco de descasamento de taxa de juros mitigado pelo prazo curto dos recebíveis: Os direitos creditórios serão adquiridos a uma taxa pré-fixada indexada à taxa DI, enquanto as Cotas Seniores terão remuneração pós-fixada. A taxa de desconto aplicada aos novos recebíveis irá considerar a taxa DI vigente na cessão. Assim, existe um risco de descasamento de taxas de juros durante o prazo dos recebíveis. Esse risco é mitigado pelo prazo curto dos recebíveise o excesso de spread anualizado de cerca de 2,8% providenciado pela subordinação.\nVínculo de crédito com a CloudWalk na qualidade de originador dos recebíveis: Os direitos creditórios são originados pela CloudWalk a partir de transações feitas por usuários finais, utilizando-se de cartões de crédito em estabelecimentos que usam o Sistema CloudWalk. Os recebíveis originados pela CloudWalk têm um prazo médio de vencimento de seis meses e prazo médio de recebimento de três meses, o que resulta em elevada revolvência. No entanto, pela natureza dos recebíveis, a qualidade da carteira não seria diretamente impactada por uma deterioração nos negócios da CloudWalk. Mesmo assim, avaliamos que existe algum vínculo de crédito com o cedente, considerando a obrigação de resolução da cessão de recebíveis diluidos.\nBaixo risco de fungibilidade: Todos os recebíveis pertencentes à operação são depositados nas contas reservas dos bancos liquidantes, que são o Banco Bradesco S.A.\n(AAA.br estável), para as operações provenientes da bandeira Hiper; e o Banco BTG Pactual S.A. (AAA.br estável), para as transações com outras bandeiras. Os recursos serão transferidos no mesmo dia útil para as contas centralizadoras de movimentação restrita do cedente, domiciliadas nas mesmas instituições liquidantes de cada bandeira (bancos depositários). No mesmo dia útil, os bancos depositários creditarão os valores referentes aos recebíveis cedidos na conta do fundo, domiciliada no Genial. Em caso de default do Genial, poderá haver bloqueio de recursos do fundo, além de interrupção operacional.\nExiste, entretanto, um limite de R$ 100 mil em recursos que podem ser mantidos em tal conta. Além disso, o fluxo diário de recebíveis representa um valor pequeno em relação ao patrimônio líquido do fundo. Portanto, o risco de fungibilidade não limita o rating das Cotas Seniores.",
       "sha256": "66900e7d12cbc784a50287f4f5f4c8cf15cc4be057912ec270055bb2ced18a36",
-      "verification": "primary_passage"
-    },
-    "333a47e435ee23b69445d38534dee8baaad520995144502b5bff01e83601f67d": {
-      "document_id": "1151750",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151750",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 38,
-      "clause": "",
-      "excerpt": "Risco de Amortização de Cotas na Medida da Liquidação dos Ativos Integrantes da Carteira da Classe A e da Inexistência de Mercado Secundário para os Direitos Creditórios A Classe A está exposta a determinados riscos inerentes aos Direitos Creditórios Cedidos e aos Ativos Financeiros integrantes de sua carteira e, conforme o caso, aos mercados em que são negociados, incluindo a existência de vedações e/ou eventual impossibilidade da Administradora alienar os Direitos Creditórios Cedidos de titularidade da Classe A. Em decorrência do risco acima identificado e considerando-se que a Classe A somente procederá à amortização ou ao resgate das Cotas, em moeda corrente nacional, na medida em que (i) os Direitos Creditórios Cedidos de titularidade da Classe A sejam devidamente pagos pelos Devedores; (ii) os Ativos Financeiros integrantes de sua carteira sejam liquidados por suas respectivas contrapartes; e (iii) as verbas recebidas sejam depositadas na Conta da Classe, a Administradora, o Gestor, o Custodiante, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas encontram-se impossibilitados de determinar o intervalo de tempo necessário para a amortização ou o resgate integral das Cotas. O valor de amortização e, conforme o caso, do resgate das Cotas Seniores continuará a ser atualizado até a data de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido pela Classe A ou por qualquer pessoa, inclusive a Cedente, a Administradora, o Gestor, o Custodiante, o Agente de Cobrança Extraordinária, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas, todavia, qualquer multa ou penalidade, de qualquer natureza, caso o referido evento prolongue-se por prazo indeterminado ou não possa, por qualquer motivo, ser realizado. Ademais, o resgate das Cotas poderá ser realizado mediante a dação em pagamento de Direitos Creditórios, observados os procedimentos definidos neste Regulamento. Nessa hipótese, os Cotistas poderão encontrar dificuldades para alienar os Direitos Creditórios recebidos em dação e/ou cobrar os valores devidos pelos Devedores.",
-      "sha256": "956d399e8c097b7f6f71be20abcae2eb0b9d9d2551aeb468ab41cb111ad75533",
-      "verification": "primary_passage"
-    },
-    "7e3296535b42ef3ec01ab885ff20d4758077b2bde8d50d082b44a677b84b95da": {
-      "document_id": "864476",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864476",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá adquirir  direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou coobrigação de  uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio",
-      "sha256": "ac0da81a77f87b614050af3d6eb065e389033219fc28d865403c58af2f92fed0",
       "verification": "primary_passage"
     },
     "b78c9fe4b66d7068298f8df5550972231f313dad2b37d57ff498607ac4675613": {
@@ -6286,6 +6357,150 @@
       "clause": "",
       "excerpt": "O BANCO GENIAL S.A., instituição devidamente autorizada pela CVM, por meio do Ato Declaratório nº\n 15.455, de 13 de janeiro de 2017, à prestação de serviços de administração de carteira de títulos e valores  mobiliários, inscrita no Cadastro Nacional de Pessoas Jurídicas do Ministério da Fazenda (“CNPJ”) sob o nº\n 45.246.410/0001-55, autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional  de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 15.455,  expedido em 13 de janeiro de 2017, neste ato representada nos termos do seu estatuto social  (“Administradora”) em conjunto com a GENIAL GESTÃO LTDA., instituição devidamente autorizada pela  CVM para prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato  Declaratório nº 14.519, expedido em 30 de setembro de 2015 inscrita no CNPJ sob o nº 22.119.959/0001-  83, neste ato representada nos termos do seu contrato social (“Gestor” e, quando em conjunto à  Administradora, os “Prestadores de Serviços Essenciais”), na qualidade de Prestadores de Serviços  Essenciais da CLASSE A – RESPONSABILIDADE LIMITADA DO CLOUDWALK BIG PICTURE IV FUNDO  DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO, classe de  investimento em direitos creditórios inscrita no CNPJ sob o nº [54.248.022/0001-02] (“Classe”), constituída  sob a forma de condomínio fechado, com prazo indeterminado de duração, pertencente ao CLOUDWALK  BIG PICTURE IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE  PAGAMENTO (“Fundo”) sendo a Classe e o Fundo regidos pelo regulamento (“Regulamento”), o anexo  descritivo da Classe (“Anexo da Classe”) e seus respectivos complementos, disciplinados pela Resolução  da CVM nº 175, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”), e pelas demais  disposições legais e regulamentares que lhe forem aplicáveis, por meio deste “Ato Conjunto da  Administradora e do Gestor de Alteração do Regulamento da Classe A – Responsabilidade Limitada do  CloudWalk Big Picture IV Fundo de Investimento em Direitos Creditórios Segmento Meios de Pagamento”  (“Ato Conjunto”):",
       "sha256": "f1ccd46de858f1f239795689e087f497ff62e266db16de168d2528f517bb246f",
+      "verification": "primary_passage"
+    },
+    "2cb427a7277b2761b15ea9afe86079d815d63800daf1d7177c48827ac20ac278": {
+      "document_id": "1072746",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072746",
+      "reference_date": "2025-12-22",
+      "version": "1",
+      "page": 53,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de  Credenciamento, possibilita que estabelecimentos comerciais ou  profissionais autônomos aceitem os Instrumentos de Pagamento emitidos  por Emissores (incluindo os Devedores), no âmbito dos Arranjos de  Pagamento estabelecidos pelas Bandeiras, como meio de pagamento;\n(vi) no curso normal de seus negócios, os Estabelecimentos Credenciados  celebram diversas operações de venda de bens, produtos e/ou serviços  juntos aos Usuários-Finais, os quais podem utilizar Instrumentos de",
+      "sha256": "8ef03229cfc3d193bbb39e3784886f31e5a902b51dc472bca85762876fc46faa",
+      "verification": "primary_passage"
+    },
+    "c3bef10af59ab3d67210fa92eaf1bf4942c58b50e4c8050492dbfe9d0eb18c61": {
+      "document_id": "638463",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638463",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 57,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de  Credenciamento, possibilita que estabelecimentos comerciais ou  profissionais autônomos aceitem os Instrumentos de Pagamento emitidos  por Emissores (incluindo os Devedores), no âmbito dos Arranjos de  Pagamento estabelecidos pelas Bandeiras, como meio de pagamento;\n(vi) no curso normal de seus negócios, os Estabelecimentos Credenciados  celebram diversas operações de venda de bens, produtos e/ou serviços  juntos aos Usuários-Finais, os quais podem utilizar Instrumentos de",
+      "sha256": "f1ccd46de858f1f239795689e087f497ff62e266db16de168d2528f517bb246f",
+      "verification": "primary_passage"
+    },
+    "e95ba5fcf856fa5ccbc594f7e9b7c5217bf45380a81b51d009c452c8322d512e": {
+      "document_id": "638466",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638466",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 53,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de  Credenciamento, possibilita que estabelecimentos comerciais ou  profissionais autônomos aceitem os Instrumentos de Pagamento emitidos  por Emissores (incluindo os Devedores), no âmbito dos Arranjos de  Pagamento estabelecidos pelas Bandeiras, como meio de pagamento;\n(vi) no curso normal de seus negócios, os Estabelecimentos Credenciados  celebram diversas operações de venda de bens, produtos e/ou serviços  juntos aos Usuários-Finais, os quais podem utilizar Instrumentos de",
+      "sha256": "512a75143e5737baa192ba7a520af7e2ac334d0c659afb35b099eba39f4ef578",
+      "verification": "primary_passage"
+    },
+    "6ea53a46935d9696a9120bd6db79d412f7ac05203deb4e93c6fa10ba2803af20": {
+      "document_id": "622677",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622677",
+      "reference_date": "2024-03-14",
+      "version": "1",
+      "page": 52,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de",
+      "sha256": "5c5c01e0ab345e634448a66067198f8a323f011050ddb2268b9e6e893eee0f3e",
+      "verification": "primary_passage"
+    },
+    "695a6b3b17706745abcbb31b809b087b314fe97976c076026173a26bd3f33520": {
+      "document_id": "617723",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=617723",
+      "reference_date": "2024-03-05",
+      "version": "1",
+      "page": 51,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de  Credenciamento, possibilita que estabelecimentos comerciais ou  profissionais autônomos aceitem os Instrumentos de Pagamento emitidos",
+      "sha256": "9f58283c87900f99d892e647af7761a522354749484a14045568f99b4c5c8a22",
+      "verification": "primary_passage"
+    },
+    "155f6b29b91d0349bd403c530d6e231e7833c86abd97b9335289d89879606e38": {
+      "document_id": "1151750",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151750",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente instituições financeiras, inclusive para implementação de política econômica específica ou em decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento, nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "956d399e8c097b7f6f71be20abcae2eb0b9d9d2551aeb468ab41cb111ad75533",
+      "verification": "primary_passage"
+    },
+    "0708973bf16cc94f6590e18c1f5ef359e0691ec9f552b4b1d355c16ed4c4892f": {
+      "document_id": "864476",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864476",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 23,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente instituições financeiras, inclusive para implementação de política econômica específica ou em decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento, nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "ac0da81a77f87b614050af3d6eb065e389033219fc28d865403c58af2f92fed0",
+      "verification": "primary_passage"
+    },
+    "86e5289f8823fe5704aa329a47bb9b34b5c2c37b239af99ffc71a372a1373944": {
+      "document_id": "1072746",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072746",
+      "reference_date": "2025-12-22",
+      "version": "1",
+      "page": 74,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "8ef03229cfc3d193bbb39e3784886f31e5a902b51dc472bca85762876fc46faa",
+      "verification": "primary_passage"
+    },
+    "5311844c7ce4bdacd4fdcca266fc5f89fd36b64c9ebec7443e0da8afe3c9a79c": {
+      "document_id": "638463",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638463",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 77,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a",
+      "sha256": "f1ccd46de858f1f239795689e087f497ff62e266db16de168d2528f517bb246f",
+      "verification": "primary_passage"
+    },
+    "28df71c15ff3c2d7a7038280a9e16b1a8630a8399ea6a994032ec654de39cb2f": {
+      "document_id": "638466",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638466",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 73,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a",
+      "sha256": "512a75143e5737baa192ba7a520af7e2ac334d0c659afb35b099eba39f4ef578",
+      "verification": "primary_passage"
+    },
+    "15a2320101c85e1c03cabde42a8bf6769219bbf821c73a0578f29ba85d56fbbd": {
+      "document_id": "622677",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622677",
+      "reference_date": "2024-03-14",
+      "version": "1",
+      "page": 73,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "5c5c01e0ab345e634448a66067198f8a323f011050ddb2268b9e6e893eee0f3e",
+      "verification": "primary_passage"
+    },
+    "f19d2566bdb44400ab40ed8bf545a1550df2852725130a201ed4d35136385ae7": {
+      "document_id": "617723",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=617723",
+      "reference_date": "2024-03-05",
+      "version": "1",
+      "page": 71,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "9f58283c87900f99d892e647af7761a522354749484a14045568f99b4c5c8a22",
       "verification": "primary_passage"
     }
   }

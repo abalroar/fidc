@@ -3,16 +3,6 @@
   "cnpj": "53164652000128",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "bb4f01ad121ef574dfc343436e42b9025016470392962cdc40397775ff6fb0d8",
-      "d3c47cbc185da2751342f5babcccf933158a04b3e8475e595b3b92e123c130bb",
-      "4649d363970a30f8cb7db4aceca98c0bea699611d66c6c0b0558a7209d5c4f69",
-      "702b81498ecbf7d3d7a578c351c6dc56bf14b8e7c05218e417497c3a7b883612",
-      "151f02334700b102710cb37acf603305db863fcc2420908868b701825a33f3cd",
-      "84da94833f05eb8f79c35a2f0bcd2456c77ccfc34ec098f5169baf0893d37232",
-      "b37376ce08988608e58e47866f00b9d27345c3356d19c38c5ac5edd64e7a6913",
-      "cbb0d73f5e8edb92f322bda87f51c7419054c17d3e7d35d40a6426e21b6d2f98"
-    ],
     "term": [
       "3c1343bc7b0f87c0b99eb10fab1737025b6be758b65d5fbea4240127a5eb4f48",
       "7184882dc5f865d14529f7ad7c0b8f431fc19384307e21f1ebd3df72f4f718ef",
@@ -488,29 +478,6 @@
       "bdaf8684188934124f80ca63f27641e72896922f4778fd49748309ede12c3a0a",
       "fbccaf0beb469db49a67a678117ecfd1c9a98ed57494a75ac8bc2b8e5bbbdff0"
     ],
-    "originator": [
-      "eec368e0c2562841f6699215a37ae9d69bcb79ccf7fdefd3dc333b0506b92caa",
-      "92aaafc25e37ece3517ac2aa862d69b649115a3f3443dbd7c62fdfebec804688",
-      "a1b1ce52cb4aab14a21a95f3085ef7b16e804af220c5145a29c28b64bc9cb969",
-      "92ab58921c1876917234246811e0b93f3f1a7346d5c13f14f672829168f73233",
-      "74857b9930ae7c81d8900314986a31040d99f21cc9bf1f57e3858dd8d94b05bc",
-      "51fc4d546a8f24e1d24d37f66027696b9a7662a3db5f8651eeacabfb4c36c88a",
-      "b2a3c92db50537a595f7d339eb30201fee56eeb82b7c1941b7ed49e47759478a",
-      "78f1bd50278403c266e91885a1371eb1d5b803aa23505a8081911893f46c055b",
-      "66987152666293e0fb6f80876c4e9a293cd29119ee93c64c99790baabb4c6e69",
-      "113a752c0ec744e4c815b4cffad88123804b2975f657e37e4daf6dee41ca966b",
-      "87ce2cf37c5787ce0b0d2eee99e99c9e4ef45461bc957354fde0d4eb30841f41"
-    ],
-    "debtor": [
-      "6e02d3c97002e5eac8b247ad7ea3804e7bc3fbdae0acbf55fbd853220c1c4f3c",
-      "0e6797cebcf5b22dac79870d8b74ffbd51038643eb405e1f70ea7ed2c406b050",
-      "b35f7c574b3d55627b8cfbf3335ce6bf1d8df4cc5a77a98d11748271b2fae1e4",
-      "a50cc03af80cdb8e65e92f5871080b6cc961af2fd4501966a7483c4ac248b0f7",
-      "87b624c5b8da4f44bd113c241a30a90adcf0bddb8e24a64e197d96f24ad40b39",
-      "b7f55112ef5849e96df923dd710d6490521e49c44cbf179db8838aee71eff128",
-      "af70776b02da2c1504d0a6e5953fb181c49167a0fc43eabf57c4f2abb0101420",
-      "4c187d6460b72982c5e5e83c34c846ae7386538c4a626da4f33c42fe4f2cbbe3"
-    ],
     "guarantee": [
       "203a6a4d74f8b418db1a3610ac7cd4b9e04dd2f6bde9bf19f8eb971d7371df99",
       "cf70d812aee91e49c093402304f0e79e7001cd61a803349ad5c5401002089dce",
@@ -565,6 +532,41 @@
       "3edf97b94be0a2497cdc8af40d39b3297736252c28a892c45246e936d68e77a3",
       "86dc77b1cccd01b4dfd8ca27a53654a67529d791e44c61ffa34476ee8ba2770b",
       "97319600791b7ac2aa59e23346e38abd81b399f8cb71b6c3f75e0aece34bf953"
+    ],
+    "originator": [
+      "eec368e0c2562841f6699215a37ae9d69bcb79ccf7fdefd3dc333b0506b92caa",
+      "92aaafc25e37ece3517ac2aa862d69b649115a3f3443dbd7c62fdfebec804688",
+      "a1b1ce52cb4aab14a21a95f3085ef7b16e804af220c5145a29c28b64bc9cb969",
+      "92ab58921c1876917234246811e0b93f3f1a7346d5c13f14f672829168f73233",
+      "74857b9930ae7c81d8900314986a31040d99f21cc9bf1f57e3858dd8d94b05bc",
+      "51fc4d546a8f24e1d24d37f66027696b9a7662a3db5f8651eeacabfb4c36c88a",
+      "b71b84e2e6ea2b2956bb33c792675749ecfd2b24d36e3b27499bfa5141162ab9",
+      "7c43c5865f28d4e210ce2a6c30faad3af938ce1cb0eb3c6fe86edd92f520e9ca",
+      "994b57e548441364dfa74da3be0b942601b4a403264a59764cac993a80486f34",
+      "98866e550a0a856f41911959cd192c60fbdbb0b31384a75a0bc7860920c83f34"
+    ],
+    "eligibility": [
+      "66cad049d3e8e589455ae2e1728caa83fadb6d7b73d48abe0196f4c4a90f2928",
+      "0efb873c0c0976264f503056f7c9ade6909dee4a3cb7d2eb5eb5f4e9db08c3ce",
+      "48119473bd0e3faa820abf27d8a9c7d71b5d19afa8c522db76698691d9c568cf",
+      "6b0b1879592d20eb63cec686df66ddfebb72efc0947c277d556deaf7344261e9",
+      "d1c3845c96508f8845ad8ba5d71c12e1805ee5e1ed686806b33eda7cba7b965a",
+      "7212492b2aff33f9c085955489b73961a8bb8e8ec6ece0d7bf00907e525aaa09",
+      "fd6477eaae4c4e0d519a6db6a33852b2d53b4b014a5697d395fd751415de5c31",
+      "7a14f09d877a7767296f550e738c2d85a0c5b97db24c8f4c9269b4b4f00b00f1"
+    ],
+    "debtor": [
+      "f9c3f450d42c2ca36415392a8dbda033793ff63c13f8a106cbff7309987bcb28",
+      "c38349798d4e3137d3ba04cc1868fa9ee98e0c43c44d07dcc0b6979a12fb5db2",
+      "9371e20220eb60b0d1664309673d7aa4c4d47a5c9416641982cc3a1a4ac8ca37",
+      "9467b10a928d3acb6accaa13c29d9a6a726cc0c37cb9ca50005924785396c45d",
+      "74a6d65e0b9df6b016326cbb308b6b1ec6b624412473c43661e3aceb021075e1",
+      "81cf039f148c22f7df19ee6309a6760532935c4446b39a13341970c3b9a59071",
+      "35b9948c1f33d0d3c844c3b57b046a8ebb50d6797747daa7ff9dff7f7fe62451",
+      "b42aa98d73eb25f088977c7c3844c5a61c23ae6ad582d2a1440bf261676b65f9",
+      "b8786ccec490c7e356fb2c6342c4fbfe7c787dc4578e6bcb610f947ee199e9c8",
+      "25ed0f717d1a4a9a0cb718bba4efc398c4472ee9e99cedd7f3829a6672e3a944",
+      "bf8a62b7407a31f470a255de615f1d656ec6bbf25137f7202115ae52c1b73c92"
     ]
   },
   "entries": {
@@ -721,51 +723,6 @@
         "b8aed46c822a959dd7463a0e32f9926d9211cd9aec5b99fa8866df3219763cfd"
       ]
     },
-    "b2a3c92db50537a595f7d339eb30201fee56eeb82b7c1941b7ed49e47759478a": {
-      "reference_date": "2025-06-13",
-      "value": "10.3.17. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "13f408646b7b944738895164fd593227dd0ac40206fc62bfc243b233183b22f8"
-      ]
-    },
-    "78f1bd50278403c266e91885a1371eb1d5b803aa23505a8081911893f46c055b": {
-      "reference_date": "2024-11-27",
-      "value": "10.3.17. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "535ddd893df41c94aef9ef016cd12de0febc32a88f647e39824d8affcf507e98"
-      ]
-    },
-    "66987152666293e0fb6f80876c4e9a293cd29119ee93c64c99790baabb4c6e69": {
-      "reference_date": "2024-11-05",
-      "value": "10.3.17. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0a9d4da15b55f3ae6fca6428ddd125a1903d8ea9657438c292befd4a7e22e4f0"
-      ]
-    },
-    "113a752c0ec744e4c815b4cffad88123804b2975f657e37e4daf6dee41ca966b": {
-      "reference_date": "2024-07-16",
-      "value": "10.3.17. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "20c025bf70b5c502a52c1c2e0256135cc6e3a23cbd9eb0631376543d3c7b1d92"
-      ]
-    },
-    "87ce2cf37c5787ce0b0d2eee99e99c9e4ef45461bc957354fde0d4eb30841f41": {
-      "reference_date": "2024-06-21",
-      "value": "10.3.17. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f64369479276c55a26cb7e98c663b64345dd60f828b862ab215c5da7e12f4ac5"
-      ]
-    },
     "6e02d3c97002e5eac8b247ad7ea3804e7bc3fbdae0acbf55fbd853220c1c4f3c": {
       "reference_date": "2025-12-31",
       "value": "VIII. a partir do momento em que o Fundo já tiver adquirido R$50.000 ou mais em Direitos Creditórios, deve ser observado o seguinte limite de concentração, considerando-se pro forma a aquisição pretendida: os Direitos Creditórios devidos por Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10% (dez por cento) do Patrimônio Líquido do Fundo, exceto, conforme informado pela Sol Agora a cada oferta de Direitos Creditórios, caso tal Devedor tenha seguro de vida ou seguro prestamista em valor superior ao da CCB em questão;",
@@ -773,15 +730,6 @@
       "provenance": "primary_passage",
       "sources": [
         "c512241f966bbcc2888fab9a9144e764556fcb8744643bd0b0a5b388110c21e1"
-      ]
-    },
-    "0e6797cebcf5b22dac79870d8b74ffbd51038643eb405e1f70ea7ed2c406b050": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f8fe5045e1747ef355db60bd0a5720dee54b9b77b3fff93718d21c25dd58413d"
       ]
     },
     "b35f7c574b3d55627b8cfbf3335ce6bf1d8df4cc5a77a98d11748271b2fae1e4": {
@@ -827,87 +775,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7a7339e7356aa7e2a68ed3b4676a57ee6e49cfc746e0882cebcaf874c4a25fe8"
-      ]
-    },
-    "4c187d6460b72982c5e5e83c34c846ae7386538c4a626da4f33c42fe4f2cbbe3": {
-      "reference_date": "2024-06-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8d6b484e593aa9be8f140f1416b079823fff731612bf76d53edb2d18eec9051c"
-      ]
-    },
-    "bb4f01ad121ef574dfc343436e42b9025016470392962cdc40397775ff6fb0d8": {
-      "reference_date": "2025-12-31",
-      "value": "Notas explicativas às demonstrações financeiras 31 de dezembro de 2025 (Em milhares de Reais, exceto quando indicado de outra forma) O Fundo adquirirá apenas Direitos Creditórios que atendam às Condições de Aquisição, conforme verificados pela Administradora, de acordo com item 11.3.4 do Regulamento, e aos Critérios de Elegibilidade, conforme verificados pela Gestora, de acordo com item 11.3.3 do Regulamento, nas respectivas Datas de Oferta de Direitos Creditórios, sendo permitida, nos termos do Regulamento e do artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM 175, a revolvência dos Direitos Creditórios, desde que respeitado o disposto no Regulamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "870f719ae0c6e409e0def56b31fb0081991ec0ef47916da52f8f44d4acb0857c"
-      ]
-    },
-    "d3c47cbc185da2751342f5babcccf933158a04b3e8475e595b3b92e123c130bb": {
-      "reference_date": "2024-12-31",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o item previr data de referência específica: (i) Os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f8fe5045e1747ef355db60bd0a5720dee54b9b77b3fff93718d21c25dd58413d"
-      ]
-    },
-    "4649d363970a30f8cb7db4aceca98c0bea699611d66c6c0b0558a7209d5c4f69": {
-      "reference_date": "2025-06-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f99a1900ca5e20448dd5b1ad601903fb4f23036c397a118d96c07ef6546726ae"
-      ]
-    },
-    "702b81498ecbf7d3d7a578c351c6dc56bf14b8e7c05218e417497c3a7b883612": {
-      "reference_date": "2024-11-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d1ff2d367fb99bb92b76aa5e30102435527e30298a32ef2c8a27b73771e2c6ed"
-      ]
-    },
-    "151f02334700b102710cb37acf603305db863fcc2420908868b701825a33f3cd": {
-      "reference_date": "2024-11-05",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ffa461008f5adebce464c089733e4338beecb096a022b639ba55f0437378f300"
-      ]
-    },
-    "84da94833f05eb8f79c35a2f0bcd2456c77ccfc34ec098f5169baf0893d37232": {
-      "reference_date": "2024-07-16",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "76301f6d3f2d5a3019ddc55011fe57b1b7f32e49b96a96040fda19fee4b30555"
-      ]
-    },
-    "b37376ce08988608e58e47866f00b9d27345c3356d19c38c5ac5edd64e7a6913": {
-      "reference_date": "2024-06-21",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e4510746c6be0d7dc9f1632f66523711934d018a0f0b0d6aa7c05fb6ce18d18b"
-      ]
-    },
-    "cbb0d73f5e8edb92f322bda87f51c7419054c17d3e7d35d40a6426e21b6d2f98": {
-      "reference_date": "2024-06-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3da7439a36351f95cc75d02a156bf77b084b934ad9c9308559853eaa2390a86c"
       ]
     },
     "3c1343bc7b0f87c0b99eb10fab1737025b6be758b65d5fbea4240127a5eb4f48": {
@@ -4338,6 +4205,213 @@
       "sources": [
         "327c53139e6cfa8502a6ec41d524684549001b43b3bcb925f9cecfecf3d5bd69"
       ]
+    },
+    "66cad049d3e8e589455ae2e1728caa83fadb6d7b73d48abe0196f4c4a90f2928": {
+      "reference_date": "2025-12-31",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às seguintes Condições de Aquisição, na respectiva Data de Oferta de Direitos Creditórios: I. os Direitos Creditórios devem ter sido originados por meio da Plataforma Sol Agora e com a adoção da Política de Crédito constante do Complemento II do Regulamento; II. a CCB deve incluir a Alienação Fiduciária de Equipamento e o direito de desligamento remoto via wi-fi, observado o disposto no Contrato de Consultor de Cobrança; III. os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; IV. os Devedores não devem estar inadimplentes com o Endossante, com a Sol Agora ou com qualquer dos veículos para os quais a Sol Agora seja originadora; V. os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios, observado que as Alienações Fiduciárias poderão não estar registradas em Cartório de Títulos e Documentos no momento do endosso das CCBs; VI. o Endossante deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios; e VII. no caso de Direitos Creditórios relativos a financiamentos de Projetos de Geração Energia Elétrica na categoria de minigeração distribuída (conforme definido na Lei nº 14.300, de 6 de janeiro de 2022), o Integrador deverá indicar, através, inclusive, de visita ao Devedor, evidências que não houve desmatamento ou que houve desmatamento regularizado (mediante autorização para supressão vegetal) no local utilizado para instalação das placas fotovoltaicas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "96274cae66c4817ec5543aa725360954536feff8c58c4d7fff78efa0e808a791"
+      ]
+    },
+    "0efb873c0c0976264f503056f7c9ade6909dee4a3cb7d2eb5eb5f4e9db08c3ce": {
+      "reference_date": "2024-12-31",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às seguintes Condições de Aquisição, na respectiva Data de Oferta de Direitos Creditórios: (i) Os Direitos Creditórios devem ter sido originados por meio da Plataforma Sol Agora e com a adoção da Política de Crédito constante do Complemento II a este Regulamento; (ii) A CCB deve incluir a Alienação Fiduciária de Equipamento e o direito de desligamento remoto via wi-fi, observado o disposto no Contrato de Consultor de Cobrança; (iii) Os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (iv) Os Devedores não devem estar inadimplentes com o Endossante, com a Sol Agora ou com qualquer dos veículos para os quais a Sol Agora seja originadora; (v) Os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios, observado que as Alienações Fiduciárias poderão não estar registradas em Cartório de Títulos e Documentos no momento do endosso das CCBs; (vi) O Endossante deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios; e (vii) No caso de Direitos Creditórios relativos a financiamentos de Projetos de Geração Energia Elétrica na categoria de minigeração distribuída (conforme definido na Lei nº 14.300, de 6 de janeiro de 2022), o Integrador deverá indicar, através, inclusive, de visita ao Devedor, evidências que não houve desmatamento ou que houve desmatamento regularizado (mediante autorização para supressão vegetal) no local utilizado para instalação das placas fotovoltaicas d. Critérios de Elegibilidade",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d6e032b3cecea4f909133fd0cb8140d6eaa7da539be2508c8f7b2f9cc81eae00"
+      ]
+    },
+    "48119473bd0e3faa820abf27d8a9c7d71b5d19afa8c522db76698691d9c568cf": {
+      "reference_date": "2025-06-13",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dfbde033b818bd5111a7d9cce9e50cbf1c4b3522218cc4c68880cbc554bb1630"
+      ]
+    },
+    "6b0b1879592d20eb63cec686df66ddfebb72efc0947c277d556deaf7344261e9": {
+      "reference_date": "2024-11-27",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0e99386bdd01bdd6dac84f3aeb497fd3fc3e4bedcd1b348cde9a5e73d2138eb8"
+      ]
+    },
+    "d1c3845c96508f8845ad8ba5d71c12e1805ee5e1ed686806b33eda7cba7b965a": {
+      "reference_date": "2024-11-05",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1154c0ad86a7d198ab970e2f2d80507b2cd2fd22b00d30fd5b67995e8bcf7f56"
+      ]
+    },
+    "7212492b2aff33f9c085955489b73961a8bb8e8ec6ece0d7bf00907e525aaa09": {
+      "reference_date": "2024-07-16",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6f65275f3f99d6d25f17e7498e9917a264294a38d7a292791d508950ed79719c"
+      ]
+    },
+    "fd6477eaae4c4e0d519a6db6a33852b2d53b4b014a5697d395fd751415de5c31": {
+      "reference_date": "2024-06-21",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "921e3562e415416805cc3d22caf3bd5e268ab1284c939cfdffe33edba8ab4a25"
+      ]
+    },
+    "7a14f09d877a7767296f550e738c2d85a0c5b97db24c8f4c9269b4b4f00b00f1": {
+      "reference_date": "2024-06-13",
+      "value": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cbc6187b8569d6cb49a389872e34c3ef72029af162bab5544e59090f5358daf1"
+      ]
+    },
+    "b71b84e2e6ea2b2956bb33c792675749ecfd2b24d36e3b27499bfa5141162ab9": {
+      "reference_date": "2025-06-13",
+      "value": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c81c919c3bb0d3073f879c991ea99059935b162b5d83c4c6298a11699b3baa79"
+      ]
+    },
+    "7c43c5865f28d4e210ce2a6c30faad3af938ce1cb0eb3c6fe86edd92f520e9ca": {
+      "reference_date": "2024-11-27",
+      "value": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4fc3c21f9c213b07a375d4b5f7caf93d50a6de1ab43b431d074ae9088c1fb035"
+      ]
+    },
+    "994b57e548441364dfa74da3be0b942601b4a403264a59764cac993a80486f34": {
+      "reference_date": "2024-11-05",
+      "value": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6f096120530a1789ae5db481f1ee0144ed7d8982da4f0133546ae1fe2aa12aaa"
+      ]
+    },
+    "98866e550a0a856f41911959cd192c60fbdbb0b31384a75a0bc7860920c83f34": {
+      "reference_date": "2024-07-16",
+      "value": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e0d7176c4586f0b58bc7551beeb8a1929e47557e0ceaf5d5bcba2926c5e5cf5d"
+      ]
+    },
+    "f9c3f450d42c2ca36415392a8dbda033793ff63c13f8a106cbff7309987bcb28": {
+      "reference_date": "2025-06-13",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bc1fe8ae34ce725daf1cded88ae93d262249d063fb220c2b2eb72e540e79c661"
+      ]
+    },
+    "c38349798d4e3137d3ba04cc1868fa9ee98e0c43c44d07dcc0b6979a12fb5db2": {
+      "reference_date": "2024-11-27",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4b8024814aa25ad0c0481f69e00373da2ddc06c34d746e96a3d0378e72352713"
+      ]
+    },
+    "9371e20220eb60b0d1664309673d7aa4c4d47a5c9416641982cc3a1a4ac8ca37": {
+      "reference_date": "2024-11-05",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Sol Agora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e952d03b941f29fab4893cd5469806adc58c7b7244910356f42cc5cac08ba098"
+      ]
+    },
+    "9467b10a928d3acb6accaa13c29d9a6a726cc0c37cb9ca50005924785396c45d": {
+      "reference_date": "2024-07-16",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8bb22739698deaf514871facf3896f931bbe37ed93283975f53150f423e5d5a5"
+      ]
+    },
+    "74a6d65e0b9df6b016326cbb308b6b1ec6b624412473c43661e3aceb021075e1": {
+      "reference_date": "2024-06-21",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a58592aa435ac8bce4aead0b58d1d124ac70017e43f829aa9d2d95ce93c715e2"
+      ]
+    },
+    "81cf039f148c22f7df19ee6309a6760532935c4446b39a13341970c3b9a59071": {
+      "reference_date": "2024-06-13",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "01c7c48498625fac1375f91f0c7a3064cd0a6c3319e14e30fa93954c9d1f770a"
+      ]
+    },
+    "35b9948c1f33d0d3c844c3b57b046a8ebb50d6797747daa7ff9dff7f7fe62451": {
+      "reference_date": "2024-04-25",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f699c5149484b24b7faf9752687f60871166925157adf9c2d410cb7b8f1bdd55"
+      ]
+    },
+    "b42aa98d73eb25f088977c7c3844c5a61c23ae6ad582d2a1440bf261676b65f9": {
+      "reference_date": "2024-01-24",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "faead8e9a059c1a62bde552500017f4653dca8ed93487cc7ba6f6696cab03276"
+      ]
+    },
+    "b8786ccec490c7e356fb2c6342c4fbfe7c787dc4578e6bcb610f947ee199e9c8": {
+      "reference_date": "2024-01-17",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3155b68629aa4dddadc2ad9e0c1a72323274461f4d0f3146b04ad9022d42e8eb"
+      ]
+    },
+    "25ed0f717d1a4a9a0cb718bba4efc398c4472ee9e99cedd7f3829a6672e3a944": {
+      "reference_date": "2023-12-21",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3dcf743873ff7ed35e085bea300f1261db6282acbf77c336b16299c1dbe88255"
+      ]
+    },
+    "bf8a62b7407a31f470a255de615f1d656ec6bbf25137f7202115ae52c1b73c92": {
+      "reference_date": "2023-12-08",
+      "value": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração Energia Elétrica junto a uma Instituição Financeira Parceira por meio da Plataforma Descarbonize.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d8a46a05290988fdc6a6362aeb1ae05ae75c9b25a6e64c0e4027aa811efb6dd6"
+      ]
     }
   },
   "passages": {
@@ -4545,66 +4619,6 @@
       "sha256": "282d8bff0c4e1c51ca3ec0d70a536a01dda8d9f802fd08d01bda99d45ced7041",
       "verification": "primary_passage"
     },
-    "13f408646b7b944738895164fd593227dd0ac40206fc62bfc243b233183b22f8": {
-      "document_id": "930978",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=930978",
-      "reference_date": "2025-06-13",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originador. As atividades da Sol Agora e das Instituições Financeiras Parceiras  que resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do  Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado,  efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de  problemas relacionados às atividades da Sol Agora e das Instituições Financeiras Parceiras, o Fundo não  consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de  Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocação  Mínima e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a Sol Agora e  as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios  suficientes para que o Fundo se enquadre à Alocação Mínima e continue em existência. Além disso, a  ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá  impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos  Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios.",
-      "sha256": "dcffd21779e1ff9f9bd71d142dcae78279e3d63e78221e76dbd5e190432ab074",
-      "verification": "primary_passage"
-    },
-    "535ddd893df41c94aef9ef016cd12de0febc32a88f647e39824d8affcf507e98": {
-      "document_id": "791681",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791681",
-      "reference_date": "2024-11-27",
-      "version": "1",
-      "page": 27,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originador. As atividades da Sol Agora e das Instituições Financeiras Parceiras  que resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do  Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado,  efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de  problemas relacionados às atividades da Sol Agora e das Instituições Financeiras Parceiras, o Fundo não  consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de  Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocação  Mínima e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a Sol Agora e  as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios  suficientes para que o Fundo se enquadre à Alocação Mínima e continue em existência. Além disso, a  ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá  impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos  Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios.",
-      "sha256": "b80d2cb27c03544724d9d63c19bf7c9ee439b0e5c72b455cfb22f79fd14f52ce",
-      "verification": "primary_passage"
-    },
-    "0a9d4da15b55f3ae6fca6428ddd125a1903d8ea9657438c292befd4a7e22e4f0": {
-      "document_id": "773460",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
-      "reference_date": "2024-11-05",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originador. As atividades da Sol Agora e das Instituições Financeiras Parceiras  que resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do  Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado,  efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de  problemas relacionados às atividades da Sol Agora e das Instituições Financeiras Parceiras, o Fundo não  consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de  Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocação  Mínima e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a Sol Agora e  as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios  suficientes para que o Fundo se enquadre à Alocação Mínima e continue em existência. Além disso, a  ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá  impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos  Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios.",
-      "sha256": "8758309f12b95b0465db451019c2808ca607b34e2164e5e13abdcaa1e85828fb",
-      "verification": "primary_passage"
-    },
-    "20c025bf70b5c502a52c1c2e0256135cc6e3a23cbd9eb0631376543d3c7b1d92": {
-      "document_id": "700604",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
-      "reference_date": "2024-07-16",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originador. As atividades da Descarbonize e das Instituições Financeiras  Parceiras que resultam na originação dos Direitos Creditórios para atendimento à política de  investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive  condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais. Caso,  em decorrência de problemas relacionados às atividades da Descarbonize e das Instituições Financeiras  Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e  aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites  de Alocação Mínima e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a  Descarbonize e as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos  Creditórios suficientes para que o Fundo se enquadre à Alocação Mínima e continue em existência. Além  disso, a ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo  poderá impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição  de Ativos Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos  Creditórios.",
-      "sha256": "7f9705f3729222cd033233469adf16ebe4ebc91925899764d4ce2e0200e212bf",
-      "verification": "primary_passage"
-    },
-    "f64369479276c55a26cb7e98c663b64345dd60f828b862ab215c5da7e12f4ac5": {
-      "document_id": "684596",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684596",
-      "reference_date": "2024-06-21",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originador. As atividades da Descarbonize e das Instituições Financeiras  Parceiras que resultam na originação dos Direitos Creditórios para atendimento à política de  investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive  condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais. Caso,  em decorrência de problemas relacionados às atividades da Descarbonize e das Instituições Financeiras  Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e  aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites  de Alocação Mínima e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a  Descarbonize e as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos  Creditórios suficientes para que o Fundo se enquadre à Alocação Mínima e continue em existência. Além  disso, a ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo  poderá impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição  de Ativos Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos  Creditórios.",
-      "sha256": "30485a74a9b5781d425b1b8c5a39d0fcb92f4f79b9f8e03b05db0dd9bb4303c3",
-      "verification": "primary_passage"
-    },
     "c512241f966bbcc2888fab9a9144e764556fcb8744643bd0b0a5b388110c21e1": {
       "document_id": "1152066",
       "title": "Demonstrações Financeiras",
@@ -4615,18 +4629,6 @@
       "clause": "",
       "excerpt": "VIII. a partir do momento em que o Fundo já tiver adquirido R$50.000 ou mais em Direitos  Creditórios, deve ser observado o seguinte limite de concentração, considerando-se pro forma  a aquisição pretendida: os Direitos Creditórios devidos por Devedores pessoas físicas com  idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10% (dez por  cento) do Patrimônio Líquido do Fundo, exceto, conforme informado pela Sol Agora a cada  oferta de Direitos Creditórios, caso tal Devedor tenha seguro de vida ou seguro prestamista em  valor superior ao da CCB em questão;",
       "sha256": "60ade68e945bfd3edf512f63d395cdb5b9b897707a26c09f89e500226b885801",
-      "verification": "primary_passage"
-    },
-    "f8fe5045e1747ef355db60bd0a5720dee54b9b77b3fff93718d21c25dd58413d": {
-      "document_id": "871213",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=871213",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios  de Elegibilidade, na respectiva Data de Oferta de Direitos Creditórios, exceto se o item previr data de referência específica:\n(i) Os Direitos Creditórios devem ter sido devidamente formalizados por meio da emissão, pelos Devedores, de  CCBs em favor da Instituição Financeira Parceira;\n(ii) Os Direitos Creditórios devem ser ofertados em sua integralidade;\n(iii) A partir do momento em que os Direitos Creditórios passem a ser considerados como passíveis de registro, nos  termos do Ofício Circular CVM/SSE 8/2023, os Direitos Creditórios deverão estar  disponíveis para endosso no Sistema de Registro quando passíveis de registro por uma Entidade Registradora;\n(iv) A idade do Devedor e do avalista, se pessoa física deve ser, na data de emissão da CCB, de no máximo 65  (sessenta e cinco) anos, exceto caso possua contratação de seguro prestamista em valor superior ao da CCB;\n(v) A partir do momento em que o Fundo já tiver adquirido R$50.000 (cinquenta milhões de reais) ou mais em  Direitos Creditórios, a quantidade máxima de Direitos Creditórios Adquiridos relativos a Equipamentos comercializados  por um mesmo Integrador não pode ser superior a 10% (dez por cento) do valor total de Direitos Creditórios Adquiridos  da carteira do Fundo, considerada pro forma a aquisição pretendida, sendo que a Sol Agora fornecerá informações à  Gestora em cada Data de Oferta de Direitos Creditórios identificando o Integrador que comercializou os Equipamentos  dos Projetos de Geração de Energia Elétrica financiados por cada CCB ofertada;",
-      "sha256": "b676e076c0983fb5fee68627c1abd9025b692a97f9370d41d31ad62d703a18be",
       "verification": "primary_passage"
     },
     "1038912e83f50b6e65b76ed766758c8452f577676d5af9648c0836560d1bf305": {
@@ -4687,102 +4689,6 @@
       "clause": "",
       "excerpt": "do instrumento do qual consta a Alienação Fiduciária de Equipamentos no competente Cartório de Títulos  e Documentos. A comprovação da devida constituição da Alienação Fiduciária de Equipamentos não é  um Critério de Elegibilidade ou Condição de Aquisição, sendo que a CCB que contempla a Alienação  Fiduciária de Equipamentos somente poderá ser registrada no competente Cartório de Títulos e  Documentos em caso de inadimplemento pelo Devedor. Nesse sentido, é possível que o Fundo não  tenha sucesso em executar a Alienação Fiduciária de Equipamentos em caso de inadimplemento pelo  Devedor. O eventual início de qualquer procedimento de falência, insolvência, renegociação ampla de  dívidas, dissolução, liquidação ou recuperação judicial ou extrajudicial, ou benefício legal similar, em  qualquer jurisdição, a qualquer tempo, poderão eventualmente atingir os Equipamentos caso o  instrumento de Alienação Fiduciária de Equipamentos não tenha sido devidamente registrado no  competente Cartório de Títulos e Documentos. Adicionalmente, terceiros que, antes do registro da  respectiva CCB, tenham formalizado qualquer aquisição, transferência ou oneração dos Equipamentos,  poderão ter preferência sobre os respectivos Equipamentos em caso de questionamentos. Nessas  situações, o Fundo estará subordinado aos demais credores dos Devedores e somente preferirão aos  titulares de créditos subordinados aos demais credores, se houver, e acionistas Devedores em relação  à ordem de recebimento de seus créditos. Ainda, os Equipamentos não serão objetos de avaliação, por  empresa independente.",
       "sha256": "30485a74a9b5781d425b1b8c5a39d0fcb92f4f79b9f8e03b05db0dd9bb4303c3",
-      "verification": "primary_passage"
-    },
-    "8d6b484e593aa9be8f140f1416b079823fff731612bf76d53edb2d18eec9051c": {
-      "document_id": "682998",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
-      "reference_date": "2024-06-13",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "do instrumento do qual consta a Alienação Fiduciária de Equipamentos no competente Cartório de Títulos  e Documentos. A comprovação da devida constituição da Alienação Fiduciária de Equipamentos não é  um Critério de Elegibilidade ou Condição de Aquisição, sendo que a CCB que contempla a Alienação  Fiduciária de Equipamentos somente poderá ser registrada no competente Cartório de Títulos e  Documentos em caso de inadimplemento pelo Devedor. Nesse sentido, é possível que o Fundo não  tenha sucesso em executar a Alienação Fiduciária de Equipamentos em caso de inadimplemento pelo  Devedor. O eventual início de qualquer procedimento de falência, insolvência, renegociação ampla de  dívidas, dissolução, liquidação ou recuperação judicial ou extrajudicial, ou benefício legal similar, em  qualquer jurisdição, a qualquer tempo, poderão eventualmente atingir os Equipamentos caso o  instrumento de Alienação Fiduciária de Equipamentos não tenha sido devidamente registrado no  competente Cartório de Títulos e Documentos. Adicionalmente, terceiros que, antes do registro da  respectiva CCB, tenham formalizado qualquer aquisição, transferência ou oneração dos Equipamentos,  poderão ter preferência sobre os respectivos Equipamentos em caso de questionamentos. Nessas  situações, o Fundo estará subordinado aos demais credores dos Devedores e somente preferirão aos  titulares de créditos subordinados aos demais credores, se houver, e acionistas Devedores em relação  à ordem de recebimento de seus créditos. Ainda, os Equipamentos não serão objetos de avaliação, por  empresa independente.",
-      "sha256": "9f465d0a0903c1f2bf181423bf06bf9cf53c405f808314fc8e94dac1cb3b4fe7",
-      "verification": "primary_passage"
-    },
-    "870f719ae0c6e409e0def56b31fb0081991ec0ef47916da52f8f44d4acb0857c": {
-      "document_id": "1152066",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152066",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "Notas explicativas às demonstrações financeiras  31 de dezembro de 2025  (Em milhares de Reais, exceto quando indicado de outra forma)  O Fundo adquirirá apenas Direitos Creditórios que atendam às Condições de Aquisição, conforme  verificados pela Administradora, de acordo com item 11.3.4 do Regulamento, e aos Critérios de  Elegibilidade, conforme verificados pela Gestora, de acordo com item 11.3.3 do Regulamento, nas  respectivas Datas de Oferta de Direitos Creditórios, sendo permitida, nos termos do Regulamento e do  artigo 21, inciso VI, do Anexo Normativo II da Resolução CVM 175, a revolvência dos Direitos  Creditórios, desde que respeitado o disposto no Regulamento. A aquisição de Direitos Creditórios pelo  Fundo deverá observar a ordem de alocação prevista no Capítulo 15 do Regulamento.",
-      "sha256": "60ade68e945bfd3edf512f63d395cdb5b9b897707a26c09f89e500226b885801",
-      "verification": "primary_passage"
-    },
-    "f99a1900ca5e20448dd5b1ad601903fb4f23036c397a118d96c07ef6546726ae": {
-      "document_id": "930978",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=930978",
-      "reference_date": "2025-06-13",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "dcffd21779e1ff9f9bd71d142dcae78279e3d63e78221e76dbd5e190432ab074",
-      "verification": "primary_passage"
-    },
-    "d1ff2d367fb99bb92b76aa5e30102435527e30298a32ef2c8a27b73771e2c6ed": {
-      "document_id": "791681",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791681",
-      "reference_date": "2024-11-27",
-      "version": "1",
-      "page": 27,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "b80d2cb27c03544724d9d63c19bf7c9ee439b0e5c72b455cfb22f79fd14f52ce",
-      "verification": "primary_passage"
-    },
-    "ffa461008f5adebce464c089733e4338beecb096a022b639ba55f0437378f300": {
-      "document_id": "773460",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
-      "reference_date": "2024-11-05",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "8758309f12b95b0465db451019c2808ca607b34e2164e5e13abdcaa1e85828fb",
-      "verification": "primary_passage"
-    },
-    "76301f6d3f2d5a3019ddc55011fe57b1b7f32e49b96a96040fda19fee4b30555": {
-      "document_id": "700604",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
-      "reference_date": "2024-07-16",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "7f9705f3729222cd033233469adf16ebe4ebc91925899764d4ce2e0200e212bf",
-      "verification": "primary_passage"
-    },
-    "e4510746c6be0d7dc9f1632f66523711934d018a0f0b0d6aa7c05fb6ce18d18b": {
-      "document_id": "684596",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684596",
-      "reference_date": "2024-06-21",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "30485a74a9b5781d425b1b8c5a39d0fcb92f4f79b9f8e03b05db0dd9bb4303c3",
-      "verification": "primary_passage"
-    },
-    "3da7439a36351f95cc75d02a156bf77b084b934ad9c9308559853eaa2390a86c": {
-      "document_id": "682998",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
-      "reference_date": "2024-06-13",
-      "version": "1",
-      "page": 26,
-      "clause": "10.3.16",
-      "excerpt": "10.3.16. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A  política de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar-  se, primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não  existirem Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente,  às Condições de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e  diversificação da carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento  do Fundo com relação a seus limites de Alocação Mínima e consequentemente a liquidação antecipada  do Fundo, nos termos deste Regulamento.",
-      "sha256": "9f465d0a0903c1f2bf181423bf06bf9cf53c405f808314fc8e94dac1cb3b4fe7",
       "verification": "primary_passage"
     },
     "fca74df76fcca5b683244c21882fc56bda84534c85db5d1e0a5e1d4a4e69f08d": {
@@ -9067,6 +8973,290 @@
       "clause": "",
       "excerpt": "1. DATA, HORA E LOCAL: Realizada no dia 13 de junho de 2025, às 10h, de forma remota (“Assembleia”),  nas dependências da sede do BANCO GENIAL S.A., instituição financeira devidamente autorizada pela  Comissão de Valores Mobiliários (“CVM”) a administrar carteiras de valores mobiliários, conforme Ato  Declaratório nº 15.455, de 13 de janeiro de 2017, com sede na cidade do Rio de Janeiro, Estado do Rio  de Janeiro, na Praia de Botafogo, nº 228, sala 907, Botafogo, CEP 22250-040, inscrito no Cadastro  Nacional da Pessoa Jurídica do Ministério da Fazenda (“CNPJ/MF”) sob nº 45.246.410/0001-55, na  qualidade de administrador (“Administrador”) do IS SOL AGORA GREEN II ESG FUNDO DE  INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO DE RESPONSABILIDADE  LIMITADA, inscrito no CNPJ/MF sob o nº 53.164.652/0001-28 (“Fundo”).",
       "sha256": "16fbc0bcd04445d938ae8aaa23f69b937fc2f836f3eb52ebd1d29a472c65e025",
+      "verification": "primary_passage"
+    },
+    "96274cae66c4817ec5543aa725360954536feff8c58c4d7fff78efa0e808a791": {
+      "document_id": "1152066",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152066",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 20,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às  seguintes Condições de Aquisição, na respectiva Data de Oferta de Direitos Creditórios:\nI. os Direitos Creditórios devem ter sido originados por meio da Plataforma Sol Agora e com a  adoção da Política de Crédito constante do Complemento II do Regulamento;\nII. a CCB deve incluir a Alienação Fiduciária de Equipamento e o direito de desligamento remoto  via wi-fi, observado o disposto no Contrato de Consultor de Cobrança;\nIII. os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames  de qualquer natureza;\nIV. os Devedores não devem estar inadimplentes com o Endossante, com a Sol Agora ou com  qualquer dos veículos para os quais a Sol Agora seja originadora;\nV. os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio  dos Documentos Comprobatórios, observado que as Alienações Fiduciárias poderão não estar  registradas em Cartório de Títulos e Documentos no momento do endosso das CCBs;\nVI. o Endossante deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;\n e\nVII. no caso de Direitos Creditórios relativos a financiamentos de Projetos de Geração Energia  Elétrica na categoria de minigeração distribuída (conforme definido na Lei nº 14.300, de 6 de  janeiro de 2022), o Integrador deverá indicar, através, inclusive, de visita ao Devedor,  evidências que não houve desmatamento ou que houve desmatamento regularizado (mediante  autorização para supressão vegetal) no local utilizado para instalação das placas fotovoltaicas.",
+      "sha256": "60ade68e945bfd3edf512f63d395cdb5b9b897707a26c09f89e500226b885801",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d6e032b3cecea4f909133fd0cb8140d6eaa7da539be2508c8f7b2f9cc81eae00": {
+      "document_id": "871213",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=871213",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às seguintes Condições  de Aquisição, na respectiva Data de Oferta de Direitos Creditórios:\n(i) Os Direitos Creditórios devem ter sido originados por meio da Plataforma Sol Agora e com a adoção da Política  de Crédito constante do Complemento II a este Regulamento;\n(ii) A CCB deve incluir a Alienação Fiduciária de Equipamento e o direito de desligamento remoto via wi-fi,  observado o disposto no Contrato de Consultor de Cobrança;\n(iii) Os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer  natureza;\n(iv) Os Devedores não devem estar inadimplentes com o Endossante, com a Sol Agora ou com qualquer dos veículos  para os quais a Sol Agora seja originadora;\n(v) Os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos  Comprobatórios, observado que as Alienações Fiduciárias poderão não estar registradas em Cartório de Títulos e  Documentos no momento do endosso das CCBs;\n(vi) O Endossante deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios; e\n(vii) No caso de Direitos Creditórios relativos a financiamentos de Projetos de Geração Energia Elétrica na categoria  de minigeração distribuída (conforme definido na Lei nº 14.300, de 6 de janeiro de 2022), o Integrador deverá indicar,  através, inclusive, de visita ao Devedor, evidências que não houve desmatamento ou que houve desmatamento  regularizado (mediante autorização para supressão vegetal) no local utilizado para instalação das placas fotovoltaicas\nd. Critérios de Elegibilidade",
+      "sha256": "b676e076c0983fb5fee68627c1abd9025b692a97f9370d41d31ad62d703a18be",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dfbde033b818bd5111a7d9cce9e50cbf1c4b3522218cc4c68880cbc554bb1630": {
+      "document_id": "930978",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=930978",
+      "reference_date": "2025-06-13",
+      "version": "1",
+      "page": 47,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "dcffd21779e1ff9f9bd71d142dcae78279e3d63e78221e76dbd5e190432ab074",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0e99386bdd01bdd6dac84f3aeb497fd3fc3e4bedcd1b348cde9a5e73d2138eb8": {
+      "document_id": "791681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791681",
+      "reference_date": "2024-11-27",
+      "version": "1",
+      "page": 48,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "b80d2cb27c03544724d9d63c19bf7c9ee439b0e5c72b455cfb22f79fd14f52ce",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1154c0ad86a7d198ab970e2f2d80507b2cd2fd22b00d30fd5b67995e8bcf7f56": {
+      "document_id": "773460",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
+      "reference_date": "2024-11-05",
+      "version": "1",
+      "page": 47,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "8758309f12b95b0465db451019c2808ca607b34e2164e5e13abdcaa1e85828fb",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6f65275f3f99d6d25f17e7498e9917a264294a38d7a292791d508950ed79719c": {
+      "document_id": "700604",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
+      "reference_date": "2024-07-16",
+      "version": "1",
+      "page": 47,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "7f9705f3729222cd033233469adf16ebe4ebc91925899764d4ce2e0200e212bf",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "921e3562e415416805cc3d22caf3bd5e268ab1284c939cfdffe33edba8ab4a25": {
+      "document_id": "684596",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684596",
+      "reference_date": "2024-06-21",
+      "version": "1",
+      "page": 47,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "30485a74a9b5781d425b1b8c5a39d0fcb92f4f79b9f8e03b05db0dd9bb4303c3",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cbc6187b8569d6cb49a389872e34c3ef72029af162bab5544e59090f5358daf1": {
+      "document_id": "682998",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
+      "reference_date": "2024-06-13",
+      "version": "1",
+      "page": 47,
+      "clause": "11.3.5",
+      "excerpt": "11.3.5. Observados os termos e as condições do presente Regulamento, será considerada como  definitiva a verificação (i) pela Administradora, conforme estabelecido acima, do atendimento das  Condições de Aquisição e (ii) pela Gestora, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "9f465d0a0903c1f2bf181423bf06bf9cf53c405f808314fc8e94dac1cb3b4fe7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c81c919c3bb0d3073f879c991ea99059935b162b5d83c4c6298a11699b3baa79": {
+      "document_id": "930978",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=930978",
+      "reference_date": "2025-06-13",
+      "version": "1",
+      "page": 26,
+      "clause": "10.3.18",
+      "excerpt": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado  pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na  medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles  originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do  Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador  como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "sha256": "dcffd21779e1ff9f9bd71d142dcae78279e3d63e78221e76dbd5e190432ab074",
+      "verification": "primary_passage"
+    },
+    "4fc3c21f9c213b07a375d4b5f7caf93d50a6de1ab43b431d074ae9088c1fb035": {
+      "document_id": "791681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791681",
+      "reference_date": "2024-11-27",
+      "version": "1",
+      "page": 27,
+      "clause": "10.3.18",
+      "excerpt": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado  pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na  medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles  originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do  Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador  como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "sha256": "b80d2cb27c03544724d9d63c19bf7c9ee439b0e5c72b455cfb22f79fd14f52ce",
+      "verification": "primary_passage"
+    },
+    "6f096120530a1789ae5db481f1ee0144ed7d8982da4f0133546ae1fe2aa12aaa": {
+      "document_id": "773460",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
+      "reference_date": "2024-11-05",
+      "version": "1",
+      "page": 26,
+      "clause": "10.3.18",
+      "excerpt": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado  pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na  medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles  originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do  Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador  como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "sha256": "8758309f12b95b0465db451019c2808ca607b34e2164e5e13abdcaa1e85828fb",
+      "verification": "primary_passage"
+    },
+    "e0d7176c4586f0b58bc7551beeb8a1929e47557e0ceaf5d5bcba2926c5e5cf5d": {
+      "document_id": "700604",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
+      "reference_date": "2024-07-16",
+      "version": "1",
+      "page": 26,
+      "clause": "10.3.18",
+      "excerpt": "10.3.18. Risco de Rescisão do Contrato de Correspondente Bancário. O originador foi contratado  pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na  medida em que os Direitos Creditórios a serem adquiridos pelo Fundo são exclusivamente aqueles  originados pelo originador, na qualidade de correspondente bancário do Endossante, a existência do  Fundo está condicionada à continuidade das operações com Direitos Creditórios elegíveis do originador  como correspondente bancário do Endossante nos termos deste Regulamento, inclusive em volume",
+      "sha256": "7f9705f3729222cd033233469adf16ebe4ebc91925899764d4ce2e0200e212bf",
+      "verification": "primary_passage"
+    },
+    "bc1fe8ae34ce725daf1cded88ae93d262249d063fb220c2b2eb72e540e79c661": {
+      "document_id": "930978",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=930978",
+      "reference_date": "2025-06-13",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Sol Agora.",
+      "sha256": "dcffd21779e1ff9f9bd71d142dcae78279e3d63e78221e76dbd5e190432ab074",
+      "verification": "primary_passage"
+    },
+    "4b8024814aa25ad0c0481f69e00373da2ddc06c34d746e96a3d0378e72352713": {
+      "document_id": "791681",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791681",
+      "reference_date": "2024-11-27",
+      "version": "1",
+      "page": 90,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Sol Agora.",
+      "sha256": "b80d2cb27c03544724d9d63c19bf7c9ee439b0e5c72b455cfb22f79fd14f52ce",
+      "verification": "primary_passage"
+    },
+    "e952d03b941f29fab4893cd5469806adc58c7b7244910356f42cc5cac08ba098": {
+      "document_id": "773460",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773460",
+      "reference_date": "2024-11-05",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Sol Agora.",
+      "sha256": "8758309f12b95b0465db451019c2808ca607b34e2164e5e13abdcaa1e85828fb",
+      "verification": "primary_passage"
+    },
+    "8bb22739698deaf514871facf3896f931bbe37ed93283975f53150f423e5d5a5": {
+      "document_id": "700604",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=700604",
+      "reference_date": "2024-07-16",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "7f9705f3729222cd033233469adf16ebe4ebc91925899764d4ce2e0200e212bf",
+      "verification": "primary_passage"
+    },
+    "a58592aa435ac8bce4aead0b58d1d124ac70017e43f829aa9d2d95ce93c715e2": {
+      "document_id": "684596",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684596",
+      "reference_date": "2024-06-21",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "30485a74a9b5781d425b1b8c5a39d0fcb92f4f79b9f8e03b05db0dd9bb4303c3",
+      "verification": "primary_passage"
+    },
+    "01c7c48498625fac1375f91f0c7a3064cd0a6c3319e14e30fa93954c9d1f770a": {
+      "document_id": "682998",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682998",
+      "reference_date": "2024-06-13",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "9f465d0a0903c1f2bf181423bf06bf9cf53c405f808314fc8e94dac1cb3b4fe7",
+      "verification": "primary_passage"
+    },
+    "f699c5149484b24b7faf9752687f60871166925157adf9c2d410cb7b8f1bdd55": {
+      "document_id": "647878",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=647878",
+      "reference_date": "2024-04-25",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "eeba717142858af42b5367a2263d521b069c6257706ee48fab7b7f384d8fa5f2",
+      "verification": "primary_passage"
+    },
+    "faead8e9a059c1a62bde552500017f4653dca8ed93487cc7ba6f6696cab03276": {
+      "document_id": "590160",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=590160",
+      "reference_date": "2024-01-24",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "d9d4d5c736e384a6918a5eca3e93e63823b7bfd973db78b8420f81bcfb3ee5f4",
+      "verification": "primary_passage"
+    },
+    "3155b68629aa4dddadc2ad9e0c1a72323274461f4d0f3146b04ad9022d42e8eb": {
+      "document_id": "587443",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=587443",
+      "reference_date": "2024-01-17",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "75c60ed39aee603211940c4e49fc6ba5b58aad7287419e88232ed7e836efb15b",
+      "verification": "primary_passage"
+    },
+    "3dcf743873ff7ed35e085bea300f1261db6282acbf77c336b16299c1dbe88255": {
+      "document_id": "574921",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574921",
+      "reference_date": "2023-12-21",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "6927ca749814fd50cc5560e32bb23f71fc3e97e72a662bad457505f1be3ce302",
+      "verification": "primary_passage"
+    },
+    "d8a46a05290988fdc6a6362aeb1ae05ae75c9b25a6e64c0e4027aa811efb6dd6": {
+      "document_id": "572380",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=572380",
+      "reference_date": "2023-12-08",
+      "version": "1",
+      "page": 87,
+      "clause": "",
+      "excerpt": "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de  Projetos de Geração Energia Elétrica junto a uma Instituição Financeira  Parceira por meio da Plataforma Descarbonize.",
+      "sha256": "7bd6e87218730adea59d7d5cd29c5c13923fc3aa21e9e3fda800890b564b9f7c",
       "verification": "primary_passage"
     }
   }

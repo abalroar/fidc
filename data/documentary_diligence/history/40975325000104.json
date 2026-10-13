@@ -3,15 +3,6 @@
   "cnpj": "40975325000104",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "1d290673d6eed18852d9dd692cdb838b81d2bffaa418502132e69f9c61515e7e",
-      "0bb1dff3dd14896418af8bf4d1a345ec370e87afcc36bb6323f494962a95d433",
-      "f8e6f96c72989c8cde519cd4a3623e562b05a4f781acc02f22ac42769142d2eb",
-      "4ca0ac990e4c0f9a85a40322c7c088a8ef8231df4c3a5cf8cff20da93825f9ca",
-      "339322384d30219ffc6c9cd96bc0d2daa027b2a8bcc137e4006d0eefc8aaef92",
-      "d9b331fe1b15b2048b3c855fea870159759911573dd796d8ea02f280411f5ec8",
-      "42372d33651470711efc9f9bd941816529869970a987c4ccab9eb1a7c4d1ca1a"
-    ],
     "term": [
       "9f2c4151968cc9fa3b82ba08a64a4324dfc59e1e425c0f492861631046afa1e5"
     ],
@@ -248,24 +239,6 @@
       "a981d7d085ad476ad638e244e02f82fe1cf2f21beb37c70eed7d0fa5cdda1065",
       "bdb57a7670d548d9af5a39292211efa9a9f1d8f8faf41f54e886c398c7c71656"
     ],
-    "originator": [
-      "82748b6753597669b992fe5af3f7d9a95f8a659646747ef0e3431486a3555829",
-      "fae4084a9f370304d080992130e60117b33f1859f3cc3d2696160e28e6f18f8a",
-      "75293a9779def47405fdc5c66d34f471ba1d34aab8ed3e292f7aa8e00b5cff8f",
-      "97677907fa73397f2311387c15d0a22f8dddab84a99e7d0db082623a7ef79ceb",
-      "6281e97b067de83c0d6b8c8571e17c81e7ba0e31a5a1e345a3a6c6fcfa393ec2",
-      "1d262d5206d870cb414123260df2f80051ccb5ac3c1bb577065f16672234c1b9",
-      "8a940b375e4de931d5a42d1b1f18abab021338c568b988a5354aaf9cac59d845",
-      "b9f38907a1fe3e7dbca03229bdec87611d7c92919a70fdfca05acc552f5b0f12",
-      "8ba48b0cafdb8b0ee38ad878205224109d2625bb61e185228d430f2998eb7e98"
-    ],
-    "debtor": [
-      "0b553384e80488dbcde0b2a8f357f2594e6fa0f7e37e901f2394c34fdeffdf40",
-      "d5748002338800f2f983a502a3c932807acafbb2a8a1c715b9a358908c9297bc",
-      "781c5d0889783ee5748533c99e71503774ae59096c2030218a81e22a37497bf7",
-      "08d6f2926caadf75250291b73c50b4ffd0814b6557874854dd4d6413dc5b56ed",
-      "c3af08d204b84cd7e0af9e2f198bfb592477606d394d89c2555e3c78ca69f1d6"
-    ],
     "guarantee": [
       "6caea6887064b565976aea1134fad31bbd0f4a477991da38e647eb3cd04bf3df",
       "cde2f2dcd2386fc620b4ae3a7c52dfb73ff331e07d92fc04302e10bd40532670",
@@ -292,6 +265,29 @@
       "3c717bd34327304d05cd3633e1cd22ce3c59eeeea298088f6f197ccf0987fdbd",
       "34b143a87314cd2c77c7603856f64a85a6b0fcb36031c6156a8f0260545d8fab",
       "5fc1ecaa4f35c69fd70dcc937d0aa3bd8bbefa066f43644b09a0a34a86618323"
+    ],
+    "originator": [
+      "82748b6753597669b992fe5af3f7d9a95f8a659646747ef0e3431486a3555829",
+      "fae4084a9f370304d080992130e60117b33f1859f3cc3d2696160e28e6f18f8a",
+      "75293a9779def47405fdc5c66d34f471ba1d34aab8ed3e292f7aa8e00b5cff8f",
+      "97677907fa73397f2311387c15d0a22f8dddab84a99e7d0db082623a7ef79ceb",
+      "6281e97b067de83c0d6b8c8571e17c81e7ba0e31a5a1e345a3a6c6fcfa393ec2",
+      "d59a1e5a821921b5cb9e2a2addc6d550ab4e2c4213b856d3cfc472e5f7a04e40",
+      "0eeb3fc3ffa24d20d24cb775a11da7bc873e3cbfa344a8b5c9bece9d3837eb43",
+      "b9f38907a1fe3e7dbca03229bdec87611d7c92919a70fdfca05acc552f5b0f12",
+      "8ba48b0cafdb8b0ee38ad878205224109d2625bb61e185228d430f2998eb7e98",
+      "98f636486f43f40f1cc265f7c04aa4f592218bc53315afe6abbaf834f78830a8"
+    ],
+    "eligibility": [
+      "1d290673d6eed18852d9dd692cdb838b81d2bffaa418502132e69f9c61515e7e",
+      "94e9f54f092e5398f71f75d749e18c5242ee5d4b045e7bdfb8c792d79ddb995a",
+      "9622c260783c54da5bd51ac86f64a74cc6eb7e6ae2e1fe6226a3a3fd49656312",
+      "c1cad287528b25e31a8a4e1d1a594d39879b2fc9eed1c6f40714e5becf3f0c0e",
+      "71eaa8f573178dd311766936c17935a4deb3b50f3e37c2fb1bba4e2a82a7cb57",
+      "88c382acd403b3702d52ab7db104aef565248a29ba81fb9d94cdd0a18f0d7b3a",
+      "c8fe55c7c6d8227744c370813194a278fdbd00f932bbfaf64a8bc43a5fb4e6bd",
+      "96f086488392ba20aab9badb4c236a1c96a86fb82e9e123fac82c6564df699a2",
+      "dae7d28e19ccfaba449a91c8471feaaffa42fcb3624d7567fbe8860dab307fc1"
     ]
   },
   "entries": {
@@ -313,15 +309,6 @@
       "risk_note": "Regra documental; verificar versão, base e condições antes de monitorar.",
       "sources": [
         "65c171b0824f176550c931320a434c3db8d882742a962851ec758ac567f0191a"
-      ]
-    },
-    "fae4084a9f370304d080992130e60117b33f1859f3cc3d2696160e28e6f18f8a": {
-      "reference_date": "2024-09-30",
-      "value": "Risco decorrente dos critérios adotados pela Cedente na análise dos créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pela Cedente a seus Devedores, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e também de Devedores e também o risco relativo aos critérios de análise de crédito utilizados pela Gestora aos Devedores e à Cedente no momento da aquisição dos Direitos Creditórios pelo Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "46a1a5c8ca5989a2da06cc1076cc3c4d7bd87b4fbdad3f7f9d24022482c8398d"
       ]
     },
     "75293a9779def47405fdc5c66d34f471ba1d34aab8ed3e292f7aa8e00b5cff8f": {
@@ -351,24 +338,6 @@
         "2b266e54d429bb91215b400cd787635b7b23a64f80a72508a02baf2ce51c227d"
       ]
     },
-    "1d262d5206d870cb414123260df2f80051ccb5ac3c1bb577065f16672234c1b9": {
-      "reference_date": "2025-06-04",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "229235807cd32c9a417f16e4ca16dd3ef4791c69d49877874b08af0f4f50dc64"
-      ]
-    },
-    "8a940b375e4de931d5a42d1b1f18abab021338c568b988a5354aaf9cac59d845": {
-      "reference_date": "2024-10-01",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "87716e3c2ee85255ad0b39f72e83c52891259c663013a7b3f77c2262dd5cb1fd"
-      ]
-    },
     "b9f38907a1fe3e7dbca03229bdec87611d7c92919a70fdfca05acc552f5b0f12": {
       "reference_date": "2021-09-27",
       "value": "Risco decorrente dos critérios adotados pela Cedente na análise dos créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pela Cedente a seus Devedores, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e também de Devedores e também o risco relativo aos critérios de análise de crédito utilizados pela Gestora aos Devedores e à Cedente no momento da aquisição dos Direitos Creditórios pelo Fundo.",
@@ -395,60 +364,6 @@
       "risk_note": "Regra documental; verificar versão, base e condições antes de monitorar.",
       "sources": [
         "64fc21ad43937eca48708d94d9c5afc9fa643bffe826ce0f85e3fb7d0cf8314d"
-      ]
-    },
-    "0bb1dff3dd14896418af8bf4d1a345ec370e87afcc36bb6323f494962a95d433": {
-      "reference_date": "2025-12-31",
-      "value": "A Classe somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pela gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f922903612a669b89c153dd0c0fe6cd47a7ee87b8bd39624039911cc08d369a5"
-      ]
-    },
-    "f8e6f96c72989c8cde519cd4a3623e562b05a4f781acc02f22ac42769142d2eb": {
-      "reference_date": "2024-12-31",
-      "value": "A Classe somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pela gestora, de forma definitiva, na respectiva data de aquisição: (a) os direitos creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0be40465bb11ba23cd311d2dcfe9cb0c2c7c23402364f3d3175d92ae7f028422"
-      ]
-    },
-    "4ca0ac990e4c0f9a85a40322c7c088a8ef8231df4c3a5cf8cff20da93825f9ca": {
-      "reference_date": "2025-06-04",
-      "value": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "eda2cec493f82497e7c5012346bca77819d50a1ff317b498b7e316afaf7c3e14"
-      ]
-    },
-    "339322384d30219ffc6c9cd96bc0d2daa027b2a8bcc137e4006d0eefc8aaef92": {
-      "reference_date": "2024-10-01",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "301070433cd5a1faab5dec6ba9ffc00d4c33dbd4d26d283886eb31755cc5b157"
-      ]
-    },
-    "d9b331fe1b15b2048b3c855fea870159759911573dd796d8ea02f280411f5ec8": {
-      "reference_date": "2021-09-27",
-      "value": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a52a0295242ae027218debd1edf6ea857c56b6ce4022fd0a28838bacb3e202d8"
-      ]
-    },
-    "42372d33651470711efc9f9bd941816529869970a987c4ccab9eb1a7c4d1ca1a": {
-      "reference_date": "2021-02-04",
-      "value": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b3aaf8490ff42ea675105d686cdedec5d8d4557a8411f2c9feef389406da0fda"
       ]
     },
     "9f2c4151968cc9fa3b82ba08a64a4324dfc59e1e425c0f492861631046afa1e5": {
@@ -1956,49 +1871,111 @@
         "ce495e533711773831de01ff60c5187bde946b4e6350b5bb3f8341d2af11d080"
       ]
     },
-    "0b553384e80488dbcde0b2a8f357f2594e6fa0f7e37e901f2394c34fdeffdf40": {
-      "reference_date": "2023-12-31",
-      "value": "",
+    "98f636486f43f40f1cc265f7c04aa4f592218bc53315afe6abbaf834f78830a8": {
+      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
+      "reason": "Resposta automática anterior rejeitada: a introdução não transcrevia condições e a vedação de prestadores não identificava a origem dos créditos. Correção preservada para auditoria.",
+      "provenance": "rejected_automatic_selection",
+      "sources": [
+        "a37d09d22b825bb474d2a12361fa6f0df2fd70deb309aaa4ac4f183de22be77d"
+      ]
+    },
+    "94e9f54f092e5398f71f75d749e18c5242ee5d4b045e7bdfb8c792d79ddb995a": {
+      "reference_date": "2025-12-31",
+      "value": "A Classe somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pela gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso no Fundo.",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "05e65e63d234ae72ec27a261544df0417ff29b4418b43e09f48adf955be71cd1"
+        "f922903612a669b89c153dd0c0fe6cd47a7ee87b8bd39624039911cc08d369a5"
       ]
     },
-    "d5748002338800f2f983a502a3c932807acafbb2a8a1c715b9a358908c9297bc": {
+    "9622c260783c54da5bd51ac86f64a74cc6eb7e6ae2e1fe6226a3a3fd49656312": {
+      "reference_date": "2024-12-31",
+      "value": "A Classe somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pela gestora, de forma definitiva, na respectiva data de aquisição: (a) os direitos creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva data de aquisição; (d) não sejam devidos por devedores que estejam inadimplentes perante a classe; (e) estejam amparados pelos respectivos documentos comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso na Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0be40465bb11ba23cd311d2dcfe9cb0c2c7c23402364f3d3175d92ae7f028422"
+      ]
+    },
+    "c1cad287528b25e31a8a4e1d1a594d39879b2fc9eed1c6f40714e5becf3f0c0e": {
       "reference_date": "2022-12-31",
-      "value": "consumidores importantes e (iv) da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas; (e) concorrência de commodities similares e/ou substitutivas; e (f) acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados participantes, inclusive os Devedores. A verificação de um ou mais desses fatores poderá impactar negativamente o setor e, consequentemente, a rentabilidade do Fundo.",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade: a. A soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido.",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "8e40687f61d54493bc22f9bab0afcaabe6ef478eb835c5f9c65b883083557881"
+        "bb5e72808ec012c002db6e57b5fae19558dc8a0db65777a57ed0fffc453efd2f"
       ]
     },
-    "781c5d0889783ee5748533c99e71503774ae59096c2030218a81e22a37497bf7": {
-      "reference_date": "2021-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+    "71eaa8f573178dd311766936c17935a4deb3b50f3e37c2fb1bba4e2a82a7cb57": {
+      "reference_date": "2025-06-04",
+      "value": "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da respectiva data de ingresso no Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "ff24b1b048c28038df085a363fdf1e532303214df040cce72dd74856bbe8990b"
+        "28c65e72e8a4e8ce7374b22cff2442a061abbeefbad7bd32e984e0c6e55c0a0a"
       ]
     },
-    "08d6f2926caadf75250291b73c50b4ffd0814b6557874854dd4d6413dc5b56ed": {
+    "88c382acd403b3702d52ab7db104aef565248a29ba81fb9d94cdd0a18f0d7b3a": {
+      "reference_date": "2024-10-01",
+      "value": "5.4 Sem prejuízo de outras obrigações legais e regulamentares a que esteja sujeita, a Gestora obriga-se a: (a) cumprir as obrigações estabelecidas na regulamentação em vigor, em especial, nos artigos 105 e 106 da parte geral da Resolução CVM nº 175/22 e no artigo 33 do Anexo Normativo II à Resolução CVM nº 175/22; (b) observar as vedações estabelecidas na regulamentação em vigor, em especial, nos artigos 45 e 101 a 103 da parte geral da Resolução CVM nº 175/22; (c) informar a Administradora, imediatamente, caso ocorra a alteração de qualquer dos Demais Prestadores de Serviços contratados pela Gestora, em nome do Fundo; (d) providenciar, às suas expensas, a elaboração do material de divulgação da Classe; (e) diligenciar para que seja mantida, às suas expensas, atualizada e em perfeita ordem a documentação relativa às operações da Classe; (f) observar as disposições do Regulamento e do Acordo Operacional; (g) cumprir as deliberações da Assembleia; (h) estruturar o Fundo, nos termos do artigo 33, §1º, do Anexo Normativo II à Resolução CVM nº 175/22; (i) executar a política de investimento da Classe, devendo analisar e selecionar os Direitos Creditórios Cedidos, e os Ativos Financeiros de Liquidez para a carteira da Classe, o que inclui, no mínimo: (1) a verificação do enquadramento dos Direitos Creditórios à política de investimento estabelecida no Anexo, compreendendo a validação dos Direitos Creditórios em relação aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação da carteira da Classe; e (2) a avaliação da aderência do risco de performance dos Direitos Creditórios Cedidos não performados à política de investimento da Classe; (j) (1) registrar os Direitos Creditórios Cedidos na Entidade Registradora ou em mercado de balcão organizado autorizado pela CVM, ou depositá-los em",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bf9d76f9c1af8972cd32912701183612486638c3b3fe37dfc5e6d38487792b36"
+      ]
+    },
+    "c8fe55c7c6d8227744c370813194a278fdbd00f932bbfaf64a8bc43a5fb4e6bd": {
       "reference_date": "2021-09-27",
-      "value": "",
+      "value": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”): (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido.",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "b8da9a686516ed85fc34704fc3bb2edbcc12af00fc636fba752e0b0ecde5afa1"
+        "9acba7979392995caac105485660f108a80449cb89a5230870f04bfcbc02fbe5"
       ]
     },
-    "c3af08d204b84cd7e0af9e2f198bfb592477606d394d89c2555e3c78ca69f1d6": {
+    "96f086488392ba20aab9badb4c236a1c96a86fb82e9e123fac82c6564df699a2": {
       "reference_date": "2021-02-04",
-      "value": "",
+      "value": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”): (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido.",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "bc1ea184c50a19deee2860f3b4a1c0ab1452dad0b6f804f7d6bd486902d6b1fb"
+        "7e2d75c7ee3e189aca8dff9ddab8569dddc5bee582ba35d7ddcec0a008e0aec8"
+      ]
+    },
+    "dae7d28e19ccfaba449a91c8471feaaffa42fcb3624d7567fbe8860dab307fc1": {
+      "value": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.\n\n10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:",
+      "reason": "Resposta automática anterior rejeitada: a introdução não transcrevia condições e a vedação de prestadores não identificava a origem dos créditos. Correção preservada para auditoria.",
+      "provenance": "rejected_automatic_selection",
+      "sources": [
+        "59aaece8f5b930dd64bab527aae9ba3eaaf8cc49fbf14157f45f940c05e20217",
+        "2f97c8d5c3107049770c9fb99e5b4cbdec92741ee62ef16efa7052ed57d4c4c7"
+      ]
+    },
+    "fae4084a9f370304d080992130e60117b33f1859f3cc3d2696160e28e6f18f8a": {
+      "reference_date": "2024-09-30",
+      "value": "Risco decorrente dos critérios adotados pela Cedente na análise dos créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pela Cedente a seus Devedores, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e também de Devedores e também o risco relativo aos critérios de análise de crédito utilizados pela Gestora aos Devedores e à Cedente no momento da aquisição dos Direitos Creditórios pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "46a1a5c8ca5989a2da06cc1076cc3c4d7bd87b4fbdad3f7f9d24022482c8398d"
+      ]
+    },
+    "d59a1e5a821921b5cb9e2a2addc6d550ab4e2c4213b856d3cfc472e5f7a04e40": {
+      "reference_date": "2025-06-04",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cd0bae661b56d9d9d8275325729adb8bb2a695363c9bb1926e7571c0de550a5d"
+      ]
+    },
+    "0eeb3fc3ffa24d20d24cb775a11da7bc873e3cbfa344a8b5c9bece9d3837eb43": {
+      "reference_date": "2024-10-01",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo, nos termos do respectivo Contrato de Cessão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6aa78a29bcb721e217c4be37248aa26d03594f8ef231f8f5fbd82d36ffa1e5bc"
       ]
     }
   },
@@ -2015,18 +1992,6 @@
       "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1188990; 13/05/2026; data/raw/40975325000104/1188990_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1188990&cvm=true; p.35, 9.1"
-    },
-    "46a1a5c8ca5989a2da06cc1076cc3c4d7bd87b4fbdad3f7f9d24022482c8398d": {
-      "document_id": "811914",
-      "title": "Demonstrações Financeiras - Substituição de administrador",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811914",
-      "reference_date": "2024-09-30",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "Risco decorrente dos critérios adotados pela Cedente na análise dos créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pela Cedente a seus Devedores, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e também de Devedores e também o risco relativo aos critérios de análise de crédito utilizados pela Gestora aos Devedores e à Cedente no momento da aquisição dos Direitos Creditórios pelo Fundo.",
-      "sha256": "c5e08be649939bc793179ed9a587f2f298d590bbdae158eddc390b447e532f22",
-      "verification": "primary_passage"
     },
     "55caf37f2dcf61a4d123df16c382bcd8083cd669e6289927824eb1d7884d5e48": {
       "document_id": "622581",
@@ -2062,30 +2027,6 @@
       "clause": "",
       "excerpt": "x. Risco decorrente dos critérios adotados pela Cedente na análise dos  créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na  concessão de crédito pela Cedente a seus Devedores, já que é impossível  controlar ou impor regras para concessão desses créditos em razão do  grande número de originadores e também de Devedores e também o risco  relativo aos critérios de análise de crédito utilizados pela Gestora aos  Devedores e à Cedente no momento da aquisição dos Direitos Creditórios  pelo Fundo.",
       "sha256": "a88ff543b21a9ea6b61808f0c2495e3169508508d2e231cf75d93c76a1817195",
-      "verification": "primary_passage"
-    },
-    "229235807cd32c9a417f16e4ca16dd3ef4791c69d49877874b08af0f4f50dc64": {
-      "document_id": "917076",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917076",
-      "reference_date": "2025-06-04",
-      "version": "1",
-      "page": 25,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "dbd817208fbe5f8cb82e88183c7eac7d16d4035348aafb5066ff088108992dea",
-      "verification": "primary_passage"
-    },
-    "87716e3c2ee85255ad0b39f72e83c52891259c663013a7b3f77c2262dd5cb1fd": {
-      "document_id": "750576",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750576",
-      "reference_date": "2024-10-01",
-      "version": "1",
-      "page": 23,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "278ee5d40142ae96f9b6878c5ff848ebd2021576bea077b97f5af4484f475ffa",
       "verification": "primary_passage"
     },
     "a07f78ecd4ac1d3072aede4edc7d191cbdbd6f066e55a78705fced304975f3b4": {
@@ -2147,54 +2088,6 @@
       "clause": "",
       "excerpt": "A Classe somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de  elegibilidade, a ser verificado pela gestora, de forma definitiva, na respectiva data de aquisição: (a)  os direitos creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido  legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam  vencidos e/ou pendentes de pagamento na respectiva data de aquisição; (d) não sejam devidos por  devedores que estejam inadimplentes perante a classe; (e) estejam amparados pelos respectivos  documentos comprobatórios; e (f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis  contados da respectiva data de ingresso na Classe.",
       "sha256": "f6845a55fb5ad88aec9815add56fa2174c7a8f50f80b55db78eb30029945c074",
-      "verification": "primary_passage"
-    },
-    "eda2cec493f82497e7c5012346bca77819d50a1ff317b498b7e316afaf7c3e14": {
-      "document_id": "917076",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917076",
-      "reference_date": "2025-06-04",
-      "version": "1",
-      "page": 32,
-      "clause": "8.2.1",
-      "excerpt": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "dbd817208fbe5f8cb82e88183c7eac7d16d4035348aafb5066ff088108992dea",
-      "verification": "primary_passage"
-    },
-    "301070433cd5a1faab5dec6ba9ffc00d4c33dbd4d26d283886eb31755cc5b157": {
-      "document_id": "750576",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750576",
-      "reference_date": "2024-10-01",
-      "version": "1",
-      "page": 26,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "278ee5d40142ae96f9b6878c5ff848ebd2021576bea077b97f5af4484f475ffa",
-      "verification": "primary_passage"
-    },
-    "a52a0295242ae027218debd1edf6ea857c56b6ce4022fd0a28838bacb3e202d8": {
-      "document_id": "218049",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=218049",
-      "reference_date": "2021-09-27",
-      "version": "1",
-      "page": 24,
-      "clause": "11.3",
-      "excerpt": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):",
-      "sha256": "0620855b0a4af23ebdceb05018e73d987c0149cb50bb7814ecb6e9f89ef395a5",
-      "verification": "primary_passage"
-    },
-    "b3aaf8490ff42ea675105d686cdedec5d8d4557a8411f2c9feef389406da0fda": {
-      "document_id": "159104",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=159104",
-      "reference_date": "2021-02-04",
-      "version": "1",
-      "page": 23,
-      "clause": "11.3",
-      "excerpt": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):",
-      "sha256": "b4125d225f0d8ef935a899f33d92f16571b1c8a2c320b039b87773c8514955cf",
       "verification": "primary_passage"
     },
     "a1bced1624c0a3bb1f1f7ac4c718f08626f010d7297409e3c57ef25975eaa97a": {
@@ -4076,64 +3969,141 @@
       "sha256": "a88ff543b21a9ea6b61808f0c2495e3169508508d2e231cf75d93c76a1817195",
       "verification": "primary_passage"
     },
-    "05e65e63d234ae72ec27a261544df0417ff29b4418b43e09f48adf955be71cd1": {
-      "document_id": "622581",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622581",
-      "reference_date": "2023-12-31",
+    "a37d09d22b825bb474d2a12361fa6f0df2fd70deb309aaa4ac4f183de22be77d": {
+      "document_id": "1188990",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+      "reference_date": "2026-05-13",
       "version": "1",
       "page": 25,
-      "clause": "",
-      "excerpt": "Riscos relacionados ao setor de atuação dos Devedores: O setor agrícola está sujeito a características específicas, inclusive, mas não se limitando a: (a) natureza predominantemente sazonal, com o que as operações são afetadas pelo ciclo das lavouras; (b) condições meteorológicas adversas, inclusive secas, inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária; (c) incêndios e demais sinistros; (d) pragas e doenças, que podem atingir de maneira imprevisível as safras; (v) preços praticados mundialmente que estão sujeitos a flutuações significativas dependendo (i) da oferta e demanda globais, (ii) de alterações dos níveis de subsídios agrícolas de certos produtores importantes (principalmente Estados Unidos e Comunidade Europeia), (iii) de mudança de barreiras comerciais de certos mercados consumidores importantes e (iv) da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas; (e) concorrência de commodities similares e/ou substitutivas; e\n(f) acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados participantes, inclusive os Devedores. A verificação de um ou mais desses fatores poderá impactar negativamente o setor e, consequentemente, a rentabilidade do Fundo.",
-      "sha256": "c61e9e112c89511566d132adafb8cd414d48f68a0a9db6278082b89dabb0fa47",
+      "clause": "4.4.3",
+      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
+      "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
       "verification": "primary_passage"
     },
-    "8e40687f61d54493bc22f9bab0afcaabe6ef478eb835c5f9c65b883083557881": {
+    "bb5e72808ec012c002db6e57b5fae19558dc8a0db65777a57ed0fffc453efd2f": {
       "document_id": "434693",
       "title": "Demonstrações Financeiras",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=434693",
       "reference_date": "2022-12-31",
       "version": "1",
-      "page": 25,
+      "page": 17,
       "clause": "",
-      "excerpt": "consumidores importantes e (iv) da adoção de outras políticas públicas  que afetem as condições de mercado e os preços dos produtos agrícolas;\n (e) concorrência de commodities similares e/ou substitutivas; e (f)  acesso limitado ou excessivamente oneroso à captação de recursos,  além de alterações em políticas de concessão de crédito, tanto por parte  de órgãos governamentais como de instituições privadas, para  determinados participantes, inclusive os Devedores. A verificação de um  ou mais desses fatores poderá impactar negativamente o setor e,  consequentemente, a rentabilidade do Fundo.",
+      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade:\na. A soma dos direitos creditórios por Devedor não poderá ser superior a  20% (vinte por cento) do Patrimônio Líquido.",
       "sha256": "1bc0cb26d82e870b2813dc6a02f6524db2ca11dabca6ea03c7a2b7d731e79b54",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "ff24b1b048c28038df085a363fdf1e532303214df040cce72dd74856bbe8990b": {
-      "document_id": "274032",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=274032",
-      "reference_date": "2021-12-31",
+    "28c65e72e8a4e8ce7374b22cff2442a061abbeefbad7bd32e984e0c6e55c0a0a": {
+      "document_id": "917076",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917076",
+      "reference_date": "2025-06-04",
       "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "xvii. Riscos relacionados ao setor de atuação dos Devedores: O setor agrícola  está sujeito a características específicas, inclusive, mas não se limitando  a: (a) natureza predominantemente sazonal, com o que as operações são  afetadas pelo ciclo das lavouras; (b) condições meteorológicas adversas,  inclusive secas, inundações, granizo ou temperaturas extremamente  altas, que são fatores imprevisíveis, podendo ter impacto negativo na  produção agrícola ou pecuária; (c) incêndios e demais sinistros; (d)  pragas e doenças, que podem atingir de maneira imprevisível as safras;\n (v) preços praticados mundialmente que estão sujeitos a flutuações  significativas dependendo (i) da oferta e demanda globais, (ii) de  alterações dos níveis de subsídios agrícolas de certos produtores  importantes (principalmente Estados Unidos e Comunidade Europeia),\n (iii) de mudança de barreiras comerciais de certos mercados  consumidores importantes e (iv) da adoção de outras políticas públicas  que afetem as condições de mercado e os preços dos produtos agrícolas;\n (e) concorrência de commodities similares e/ou substitutivas; e (f)  acesso limitado ou excessivamente oneroso à captação de recursos,  além de alterações em políticas de concessão de crédito, tanto por parte  de órgãos governamentais como de instituições privadas, para  determinados participantes, inclusive os Devedores. A verificação de um",
-      "sha256": "a88ff543b21a9ea6b61808f0c2495e3169508508d2e231cf75d93c76a1817195",
-      "verification": "primary_passage"
+      "page": 35,
+      "clause": "10.1",
+      "excerpt": "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de  Aquisição;\n(d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo;\n(e) estejam amparados pelos respectivos Documentos Comprobatórios; e\n(f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da  respectiva data de ingresso no Fundo.",
+      "sha256": "dbd817208fbe5f8cb82e88183c7eac7d16d4035348aafb5066ff088108992dea",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "b8da9a686516ed85fc34704fc3bb2edbcc12af00fc636fba752e0b0ecde5afa1": {
+    "bf9d76f9c1af8972cd32912701183612486638c3b3fe37dfc5e6d38487792b36": {
+      "document_id": "750576",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750576",
+      "reference_date": "2024-10-01",
+      "version": "1",
+      "page": 7,
+      "clause": "5.4",
+      "excerpt": "5.4 Sem prejuízo de outras obrigações legais e regulamentares a que esteja sujeita, a Gestora obriga-se a:\n(a) cumprir as obrigações estabelecidas na regulamentação em vigor, em especial,  nos artigos 105 e 106 da parte geral da Resolução CVM nº 175/22 e no artigo 33  do Anexo Normativo II à Resolução CVM nº 175/22;\n(b) observar as vedações estabelecidas na regulamentação em vigor, em especial, nos  artigos 45 e 101 a 103 da parte geral da Resolução CVM nº 175/22;\n(c) informar a Administradora, imediatamente, caso ocorra a alteração de qualquer  dos Demais Prestadores de Serviços contratados pela Gestora, em nome do  Fundo;\n(d) providenciar, às suas expensas, a elaboração do material de divulgação da Classe;\n(e) diligenciar para que seja mantida, às suas expensas, atualizada e em perfeita  ordem a documentação relativa às operações da Classe;\n(f) observar as disposições do Regulamento e do Acordo Operacional;\n(g) cumprir as deliberações da Assembleia;\n(h) estruturar o Fundo, nos termos do artigo 33, §1º, do Anexo Normativo II à  Resolução CVM nº 175/22;\n(i) executar a política de investimento da Classe, devendo analisar e selecionar os  Direitos Creditórios Cedidos, e os Ativos Financeiros de Liquidez para a carteira  da Classe, o que inclui, no mínimo: (1) a verificação do enquadramento dos  Direitos Creditórios à política de investimento estabelecida no Anexo,  compreendendo a validação dos Direitos Creditórios em relação aos Critérios de  Elegibilidade e a observância aos requisitos de composição e diversificação da  carteira da Classe; e (2) a avaliação da aderência do risco de performance dos  Direitos Creditórios Cedidos não performados à política de investimento da  Classe;\n(j) (1) registrar os Direitos Creditórios Cedidos na Entidade Registradora ou em  mercado de balcão organizado autorizado pela CVM, ou depositá-los em",
+      "sha256": "278ee5d40142ae96f9b6878c5ff848ebd2021576bea077b97f5af4484f475ffa",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9acba7979392995caac105485660f108a80449cb89a5230870f04bfcbc02fbe5": {
       "document_id": "218049",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=218049",
       "reference_date": "2021-09-27",
       "version": "1",
-      "page": 34,
-      "clause": "",
-      "excerpt": "Riscos relacionados ao setor de atuação dos Devedores: O setor agrícola está sujeito a características específicas, inclusive, mas não se limitando a: (a) natureza predominantemente sazonal, com o que as operações são afetadas pelo ciclo das lavouras; (b) condições meteorológicas adversas, inclusive secas, inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária; (c) incêndios e demais sinistros; (d) pragas e doenças, que podem atingir de maneira imprevisível as safras; (v) preços praticados mundialmente que estão sujeitos a flutuações significativas dependendo (i) da oferta e demanda globais, (ii) de alterações dos níveis de subsídios agrícolas de certos produtores importantes (principalmente Estados Unidos e Comunidade Europeia), (iii) de mudança de barreiras comerciais de certos mercados consumidores importantes e (iv) da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas;\n(e) concorrência de commodities similares e/ou substitutivas; e (f) acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados participantes, inclusive os Devedores. A verificação de um ou mais desses fatores poderá impactar negativamente o setor e, consequentemente, a rentabilidade do Fundo.",
+      "page": 24,
+      "clause": "11.3",
+      "excerpt": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):\n(a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte  por cento) do Patrimônio Líquido.",
       "sha256": "0620855b0a4af23ebdceb05018e73d987c0149cb50bb7814ecb6e9f89ef395a5",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "bc1ea184c50a19deee2860f3b4a1c0ab1452dad0b6f804f7d6bd486902d6b1fb": {
+    "7e2d75c7ee3e189aca8dff9ddab8569dddc5bee582ba35d7ddcec0a008e0aec8": {
       "document_id": "159104",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=159104",
       "reference_date": "2021-02-04",
       "version": "1",
-      "page": 32,
-      "clause": "",
-      "excerpt": "Riscos relacionados ao setor de atuação dos Devedores: O setor agrícola está sujeito a características específicas, inclusive, mas não se limitando a: (a) natureza predominantemente sazonal, com o que as operações são afetadas pelo ciclo das lavouras; (b) condições meteorológicas adversas, inclusive secas, inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária; (c) incêndios e demais sinistros; (d) pragas e doenças, que podem atingir de maneira imprevisível as safras; (v) preços praticados mundialmente que estão sujeitos a flutuações significativas dependendo (i) da oferta e demanda globais, (ii) de alterações dos níveis de subsídios agrícolas de certos produtores importantes (principalmente Estados Unidos e Comunidade Europeia), (iii) de mudança de barreiras comerciais de certos mercados consumidores importantes e (iv) da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas;\n(e) concorrência de commodities similares e/ou substitutivas; e (f) acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados participantes, inclusive os Devedores. A verificação de um ou mais desses fatores poderá impactar negativamente o setor e, consequentemente, a rentabilidade do Fundo.",
+      "page": 23,
+      "clause": "11.3",
+      "excerpt": "11.3. Os Direitos Creditórios deverão atender, cumulativamente, aos critérios de elegibilidade abaixo definidos (“Critérios de Elegibilidade”):\n(a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte  por cento) do Patrimônio Líquido.",
       "sha256": "b4125d225f0d8ef935a899f33d92f16571b1c8a2c320b039b87773c8514955cf",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "59aaece8f5b930dd64bab527aae9ba3eaaf8cc49fbf14157f45f940c05e20217": {
+      "document_id": "1188990",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+      "reference_date": "2026-05-13",
+      "version": "1",
+      "page": 33,
+      "clause": "8.2.1",
+      "excerpt": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
+      "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+      "verification": "primary_passage"
+    },
+    "2f97c8d5c3107049770c9fb99e5b4cbdec92741ee62ef16efa7052ed57d4c4c7": {
+      "document_id": "1188990",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+      "reference_date": "2026-05-13",
+      "version": "1",
+      "page": 36,
+      "clause": "10.1",
+      "excerpt": "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:",
+      "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+      "verification": "primary_passage"
+    },
+    "46a1a5c8ca5989a2da06cc1076cc3c4d7bd87b4fbdad3f7f9d24022482c8398d": {
+      "document_id": "811914",
+      "title": "Demonstrações Financeiras - Substituição de administrador",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811914",
+      "reference_date": "2024-09-30",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "Risco decorrente dos critérios adotados pela Cedente na análise dos créditos: é o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pela Cedente a seus Devedores, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e também de Devedores e também o risco relativo aos critérios de análise de crédito utilizados pela Gestora aos Devedores e à Cedente no momento da aquisição dos Direitos Creditórios pelo Fundo.",
+      "sha256": "c5e08be649939bc793179ed9a587f2f298d590bbdae158eddc390b447e532f22",
+      "verification": "primary_passage"
+    },
+    "cd0bae661b56d9d9d8275325729adb8bb2a695363c9bb1926e7571c0de550a5d": {
+      "document_id": "917076",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917076",
+      "reference_date": "2025-06-04",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "sha256": "dbd817208fbe5f8cb82e88183c7eac7d16d4035348aafb5066ff088108992dea",
+      "verification": "primary_passage"
+    },
+    "6aa78a29bcb721e217c4be37248aa26d03594f8ef231f8f5fbd82d36ffa1e5bc": {
+      "document_id": "750576",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=750576",
+      "reference_date": "2024-10-01",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo,  nos termos do respectivo Contrato de Cessão.",
+      "sha256": "278ee5d40142ae96f9b6878c5ff848ebd2021576bea077b97f5af4484f475ffa",
       "verification": "primary_passage"
     }
   }

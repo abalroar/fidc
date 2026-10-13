@@ -3,11 +3,6 @@
   "cnpj": "63066147000102",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "0d52ee10484ed3e440d3c73fffd29918fce9de1bf439c126e9ce41832e4147a5",
-      "8dc7c796dc1b114167080945db10c24699967c075153f774f774115a59d004ea",
-      "5e2e7d431a86bb5bd1ab5308e7cf7ae91e0d4b1012ea3b68e4f4040d9a46467e"
-    ],
     "term": [
       "8dc7c796dc1b114167080945db10c24699967c075153f774f774115a59d004ea",
       "5e2e7d431a86bb5bd1ab5308e7cf7ae91e0d4b1012ea3b68e4f4040d9a46467e"
@@ -197,14 +192,6 @@
       "c4e2996902de2cb98f41e4847553f45b3a20c4300e4346bc4ed756406f0a3745",
       "b3e11d918a12a2043625482c1db11d936ca6d64fdacf704869991f5089bf4437"
     ],
-    "originator": [
-      "2e107c83812fda005dd93646ccb70cac73f4982a1009caedd79cb76061b7ecc7",
-      "085a32052361dada07ffea22988309389dca191c4c3594030c211694f3120c33"
-    ],
-    "debtor": [
-      "27c24ad6f28a05bf106329cbce463df1ac39785dc2d340038aa2c70450cf526f",
-      "23cb652b0238e2c7d33f6ba130fb6a5a4ec2aecab1eb94ecf27b70b7dec14c3f"
-    ],
     "guarantee": [
       "755789d1fa493f5f1b5796c4600c773b10d03a411b8d2bb96ffeb996cdb601e8",
       "b7b21c3c1e13c5c860cd94492ffa5ae5f0db523ca559f367a342b3c863689326"
@@ -221,6 +208,19 @@
       "66ff55404f7f677060f156605ab015f9d20f3ac562470b26157255cb7f4febbb",
       "9b92cdfb5c0e510b4c463bea3d469ff7d016984dcb869582a7209942c3ea817c",
       "abbd8e29f0b5ebe93fa4bebf7549ac4b94c65fc7475c7f64966787f1929aaf61"
+    ],
+    "originator": [
+      "2e107c83812fda005dd93646ccb70cac73f4982a1009caedd79cb76061b7ecc7",
+      "085a32052361dada07ffea22988309389dca191c4c3594030c211694f3120c33"
+    ],
+    "eligibility": [
+      "0d52ee10484ed3e440d3c73fffd29918fce9de1bf439c126e9ce41832e4147a5",
+      "ab841acdd90af46234b1ad1d481fcbd589b1ad210425e5541373eb458a745475",
+      "7462dd37059702024f0ae178c7643f5d3e91e7abd32f5e5ddfae9ee4b8c5b761"
+    ],
+    "debtor": [
+      "49863c667f25ea3355837769e590a95d6ae212b852dfeafe12f394d84c2f30cb",
+      "52273e8afa64a3c9ac91fe0a2b2ca7b8c909f1cc38c7b20297e9f11d500f623d"
     ]
   },
   "entries": {
@@ -258,24 +258,6 @@
       "provenance": "primary_passage",
       "sources": [
         "00c69448b677b37fbdd08fa0c5eab7b7d02c4f9295984eebe6e403f0ff49f835"
-      ]
-    },
-    "27c24ad6f28a05bf106329cbce463df1ac39785dc2d340038aa2c70450cf526f": {
-      "reference_date": "2025-10-06",
-      "value": "1. As Instituições Financeiras Parceiras são instituições financeiras que, no curso normal de seus negócios, dentre outras atividades, concedem aos Devedores crédito pessoal, representadas por cédulas de crédito bancário (“CCBs”), por intermédio de correspondentes bancários (“Crédito Parcelado”). 2. Para viabilizar a concessão do Crédito Parcelado, as Instituições Financeiras Parceiras contrataram a SuperSim Análise de Dados e Correspondente Bancário Ltda.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6ea5405ace5f4724b06fbc48ae65e4db40ae786625f1a535e32bf3f3b840018c"
-      ]
-    },
-    "23cb652b0238e2c7d33f6ba130fb6a5a4ec2aecab1eb94ecf27b70b7dec14c3f": {
-      "reference_date": "2025-10-06",
-      "value": "1. As Instituições Financeiras Parceiras são instituições financeiras que, no curso normal de seus negócios, dentre outras atividades, concedem aos Devedores crédito pessoal, representadas por cédulas de crédito bancário (“CCBs”), por intermédio de correspondentes bancários (“Crédito Parcelado”). 2. Para viabilizar a concessão do Crédito Parcelado, as Instituições Financeiras Parceiras contrataram a SuperSim Análise de Dados e Correspondente Bancário Ltda.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0aa9ba38023e0234fc8aa4680152553d9c3456d383bcea874437ce55fe9f86d3"
       ]
     },
     "0d52ee10484ed3e440d3c73fffd29918fce9de1bf439c126e9ce41832e4147a5": {
@@ -1411,6 +1393,42 @@
       "sources": [
         "cba65703f4be9a07320037809fc6705337a5bfd09551cdad8b16a5322654ea62"
       ]
+    },
+    "ab841acdd90af46234b1ad1d481fcbd589b1ad210425e5541373eb458a745475": {
+      "reference_date": "2025-10-06",
+      "value": "21.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição: (a) o prazo máximo de cada CCB deve ser o equivalente a 570 (quinhentos e setenta) dias corridos; (b) o prazo mínimo de cada CCB deve ser o equivalente a 150 (cento e cinquenta) dias corridos; (c) o principal mínimo a ser desembolsado para um Devedor de cada CCB deve ser o equivalente a R$ 1.000,00 (mil reais); (d) o principal máximo a ser desembolsado para um Devedor de cada CCB deve ser o equivalente a R$ 3.000,00 (três mil reais); (e) a taxa mínima de cada CCB deve ser de 10,10% a.m. (dez inteiros e dez décimos por cento) ao mês; e (f) os Direitos Creditórios deverão compreender a totalidade das parcelas de uma mesma CCB.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bbbec29f1d70c79390d926cb503132ce31b7e11702a239919adb3b13f3234087"
+      ]
+    },
+    "7462dd37059702024f0ae178c7643f5d3e91e7abd32f5e5ddfae9ee4b8c5b761": {
+      "reference_date": "2025-10-06",
+      "value": "21.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição: (a) o prazo máximo de cada CCB deve ser o equivalente a 570 (quinhentos e setenta) dias corridos; (b) o prazo mínimo de cada CCB deve ser o equivalente a 150 (cento e cinquenta) dias corridos; (c) o principal mínimo a ser desembolsado para um Devedor de cada CCB deve ser o equivalente a R$ 1.000,00 (mil reais); (d) o principal máximo a ser desembolsado para um Devedor de cada CCB deve ser o equivalente a R$ 3.000,00 (três mil reais); (e) a taxa mínima de cada CCB deve ser de 10,10% a.m. (dez inteiros e dez décimos por cento) ao mês; e (f) os Direitos Creditórios deverão compreender a totalidade das parcelas de uma mesma CCB.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e3b923787f4b3bb6ec0e411866014544ba1dc7fadd26180b27a1c010aa02dcd8"
+      ]
+    },
+    "49863c667f25ea3355837769e590a95d6ae212b852dfeafe12f394d84c2f30cb": {
+      "reference_date": "2025-10-06",
+      "value": "“Devedores” Pessoa física que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c7d3365085ac3ab68c074afa0aa42dbaaf721688a1cdb1027a9d674fdf0930ca"
+      ]
+    },
+    "52273e8afa64a3c9ac91fe0a2b2ca7b8c909f1cc38c7b20297e9f11d500f623d": {
+      "reference_date": "2025-10-06",
+      "value": "“Devedores” Pessoa física que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b3d813af17a7a8043135b455648f115b922a65be57a5606386282d3cc4050768"
+      ]
     }
   },
   "passages": {
@@ -1459,30 +1477,6 @@
       "page": 39,
       "clause": "17.11",
       "excerpt": "17.11. A Classe poderá adquirir Direitos Creditórios originados ou cedidos pela  Administradora, Gestora, consultoria especializada ou partes a eles relacionadas,  visto que (a) a Gestora, a Entidade Registradora e o Custodiante não são partes  relacionadas entre si; e (b) a Entidade Registradora e o Custodiante não são partes  relacionadas à SuperSim ou aos Cedentes, em linha com o disposto no § 1º, incisos  I e II, do artigo 42 do Anexo Normativo II da Resolução CVM 175.",
-      "sha256": "816523b594f11b5618b30ce8e139522e4569a59705aefaa0235aed35a4525949",
-      "verification": "primary_passage"
-    },
-    "6ea5405ace5f4724b06fbc48ae65e4db40ae786625f1a535e32bf3f3b840018c": {
-      "document_id": "1094443",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094443",
-      "reference_date": "2025-10-06",
-      "version": "1",
-      "page": 88,
-      "clause": "",
-      "excerpt": "1. As Instituições Financeiras Parceiras são instituições financeiras que, no curso normal  de seus negócios, dentre outras atividades, concedem aos Devedores crédito pessoal,  representadas por cédulas de crédito bancário (“CCBs”), por intermédio de  correspondentes bancários (“Crédito Parcelado”).\n2. Para viabilizar a concessão do Crédito Parcelado, as Instituições Financeiras  Parceiras contrataram a SuperSim Análise de Dados e Correspondente Bancário  Ltda. (“SuperSim”), como correspondente bancário e responsável pela prospecção e  operacionalização da contratação de novas operações de concessão de Crédito  Parcelado em conformidade com as diretrizes previamente estabelecidas pelas  Instituições Financeiras Parceiras.\n3. Para poder viabilizar a originação de novas operações de concessão de Crédito  Parcelado, a SuperSim desenvolveu e implementou uma plataforma digital que  permite aos seus usuários pessoa física interessados em contratar uma operação de  Crédito Parcelado, através da qual é possível realizar todo o processo de concessão  de Crédito Parcelado junto às Instituições Financeiras Parceiras de forma eletrônica  (“Plataforma SuperSim”).\n4. Os Devedores estarão sujeitos a uma análise de crédito realizada pela SuperSim e,  para que sejam elegíveis para a contratação de operações de Crédito Parcelado  através da Plataforma SuperSim, deverão ser observados os seguintes requisitos: (1)  deverão ser pessoas físicas: (a) residentes no Brasil; e (b) com idade entre 18 e 85  anos; e (2) poderão ou não ter suas informações disponibilizadas pelo Cadastro  Positivo (“Banco de Dados”), bem como poderão ter restrições relacionadas ao seu  histórico de consumo, crédito e pagamentos, identificadas através de ferramentas de  análise de crédito disponíveis no mercado, tais como Serasa e Boa Vista (“Bureau”).\n5. Para realização da análise de crédito, serão utilizados pela SuperSim processos e  algoritmos proprietários para avaliação de crédito com base, mas não se limitando  a: (a) informações disponíveis nos Bancos de Dados e Bureaus; (b) histórico do  Devedor junto à SuperSim; (c) dados cadastrais do Devedor; (d) equipamento de  telefonia móvel do Devedor; e (e) renda presumida do Devedor (“Credit Scoring”).\n A operação de Crédito Parcelado de cada Devedor poderá contar ou não com  instrumento de reforço de crédito ou garantia decorrente da tecnologia SuperSim,  devidamente aceita pelo Devedor através da concordância com os termos descritos  na CCB emitida, que permite o bloqueio de alguns recursos do aparelho celular  smartphone do Devedor até o pagamento da parcela devida ou quitação integral da  dívida representada pela CCB.\n6. Caso a concessão do Crédito Parcelado seja aprovada pela SuperSim, será  determinado um limite de crédito compatível com o conjunto de dados apresentados  e comprovados pelo Devedor. O plano e forma do pagamento devido pelos  Devedores por força das CCBs serão determinados nas próprias CCBs.",
-      "sha256": "997d571e8be80de5c3cfab117e3ea698a52fb04ced2793dae37ce1f2095cb9c8",
-      "verification": "primary_passage"
-    },
-    "0aa9ba38023e0234fc8aa4680152553d9c3456d383bcea874437ce55fe9f86d3": {
-      "document_id": "1094447",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447",
-      "reference_date": "2025-10-06",
-      "version": "1",
-      "page": 88,
-      "clause": "",
-      "excerpt": "1. As Instituições Financeiras Parceiras são instituições financeiras que, no curso normal  de seus negócios, dentre outras atividades, concedem aos Devedores crédito pessoal,  representadas por cédulas de crédito bancário (“CCBs”), por intermédio de  correspondentes bancários (“Crédito Parcelado”).\n2. Para viabilizar a concessão do Crédito Parcelado, as Instituições Financeiras  Parceiras contrataram a SuperSim Análise de Dados e Correspondente Bancário  Ltda. (“SuperSim”), como correspondente bancário e responsável pela prospecção e  operacionalização da contratação de novas operações de concessão de Crédito  Parcelado em conformidade com as diretrizes previamente estabelecidas pelas  Instituições Financeiras Parceiras.\n3. Para poder viabilizar a originação de novas operações de concessão de Crédito  Parcelado, a SuperSim desenvolveu e implementou uma plataforma digital que  permite aos seus usuários pessoa física interessados em contratar uma operação de  Crédito Parcelado, através da qual é possível realizar todo o processo de concessão  de Crédito Parcelado junto às Instituições Financeiras Parceiras de forma eletrônica  (“Plataforma SuperSim”).\n4. Os Devedores estarão sujeitos a uma análise de crédito realizada pela SuperSim e,  para que sejam elegíveis para a contratação de operações de Crédito Parcelado  através da Plataforma SuperSim, deverão ser observados os seguintes requisitos: (1)  deverão ser pessoas físicas: (a) residentes no Brasil; e (b) com idade entre 18 e 85  anos; e (2) poderão ou não ter suas informações disponibilizadas pelo Cadastro  Positivo (“Banco de Dados”), bem como poderão ter restrições relacionadas ao seu  histórico de consumo, crédito e pagamentos, identificadas através de ferramentas de  análise de crédito disponíveis no mercado, tais como Serasa e Boa Vista (“Bureau”).\n5. Para realização da análise de crédito, serão utilizados pela SuperSim processos e  algoritmos proprietários para avaliação de crédito com base, mas não se limitando  a: (a) informações disponíveis nos Bancos de Dados e Bureaus; (b) histórico do  Devedor junto à SuperSim; (c) dados cadastrais do Devedor; (d) equipamento de  telefonia móvel do Devedor; e (e) renda presumida do Devedor (“Credit Scoring”).\n A operação de Crédito Parcelado de cada Devedor poderá contar ou não com  instrumento de reforço de crédito ou garantia decorrente da tecnologia SuperSim,  devidamente aceita pelo Devedor através da concordância com os termos descritos  na CCB emitida, que permite o bloqueio de alguns recursos do aparelho celular  smartphone do Devedor até o pagamento da parcela devida ou quitação integral da  dívida representada pela CCB.\n6. Caso a concessão do Crédito Parcelado seja aprovada pela SuperSim, será  determinado um limite de crédito compatível com o conjunto de dados apresentados  e comprovados pelo Devedor. O plano e forma do pagamento devido pelos  Devedores por força das CCBs serão determinados nas próprias CCBs.",
       "sha256": "816523b594f11b5618b30ce8e139522e4569a59705aefaa0235aed35a4525949",
       "verification": "primary_passage"
     },
@@ -2883,6 +2877,30 @@
       "page": 18,
       "clause": "4.2",
       "excerpt": "4.2. A atividade de gestão profissional da Carteira da Classe Única será realizada pela  ELEMENTUM ASSET MANAGEMENT LTDA. sociedade limitada autorizada pela  CVM para o exercício profissional de administração de carteiras de valores  mobiliários, por meio do Ato Declaratório número 17.445 de 14 de outubro de 2019,  com sede na cidade de Barueri, Estado de São Paulo, Alameda Mamore, 535, 14º  andar, sala 1401, Alphaville Centro Industrial e Empresarial, CEP 06.454-040,  inscrita no CNPJ/MF sob o nº 09.645.906/0001-38 (“Gestora”).",
+      "sha256": "816523b594f11b5618b30ce8e139522e4569a59705aefaa0235aed35a4525949",
+      "verification": "primary_passage"
+    },
+    "c7d3365085ac3ab68c074afa0aa42dbaaf721688a1cdb1027a9d674fdf0930ca": {
+      "document_id": "1094443",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094443",
+      "reference_date": "2025-10-06",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "“Data de Verificação” O 10º (décimo) Dia Útil de cada mês, iniciando-se no 10º  (décimo) Dia Útil do mês imediatamente posterior à  Data de Integralização Inicial.\n“Data Final de Primeira Data de Pagamento com amortização de Carência” principal da Cota da Subclasse Sênior e/ou Cota da  Subclasse Mezanino em circulação com vencimento mais  longo.\n“Demais Prestadores de São os prestadores de serviços complementares Serviços” contratados pela Administradora ou pela Gestora, em  nome do Fundo e/ou da Classe Única.\n“Devedores” Pessoa física que emite a CCB em favor da Instituição  Financeira Parceira com o objetivo de realizar uma  operação de Crédito Parcelado.\n“Dia Útil” Significa qualquer dia que não seja (i) sábado, domingo  ou feriado declarado como nacional ou (ii) aqueles sem  expediente na B3.\n“Direitos Creditórios” São todos os direitos de crédito vincendos adquiridos ou  a serem adquiridos pela Classe Única, representados  por CCBs decorrentes da concessão de Crédito  Parcelado pelas Instituições Financeiras Parceiras aos  Devedores e com intermediação do Correspondente  Bancário.\n“Direitos Creditórios Os Direitos Creditórios que atendam aos Critérios de Adquiridos” Elegibilidade e que tenham sido adquiridos dos  Cedentes pela Classe Única.\n“Direitos Creditórios Os Direitos Creditórios que atendam, cumulativamente, Elegíveis” os Critérios de Elegibilidade.\n“Direito de Primeira O direito de preferência para aquisição de Cotas da Recusa” Subclasse Sênior e/ou Cotas da Subclasse Mezanino que  deverá ser conferido à Supersim, de acordo com os  termos previstos na Cláusula 24.41 deste Regulamento.\n“Disponibilidades” Significa a soma entre (a) recursos em caixa; e (b)  demais Ativos Financeiros, com exceção do Buffer.\n“Documentos Documentação complementar dos Direitos Creditórios Complementares” Adquiridos, compreendendo (a) a cópia simples do  documento de identidade do respectivo Devedor; (b) o  comprovante de desembolso do valor de cada CCB ao  Devedor, para a conta corrente de titularidade do  Devedor aberta em instituição financeira; (c)  documentos, informações e/ou evidências que  comprovam o cumprimento, pela SuperSim, da Política  de Crédito; e (d) outros documentos necessários e  suficientes para a comprovação da existência e da  validade dos Direitos Creditórios Adquiridos, bem como  para a sua cobrança extrajudicial e judicial.",
+      "sha256": "997d571e8be80de5c3cfab117e3ea698a52fb04ced2793dae37ce1f2095cb9c8",
+      "verification": "primary_passage"
+    },
+    "b3d813af17a7a8043135b455648f115b922a65be57a5606386282d3cc4050768": {
+      "document_id": "1094447",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447",
+      "reference_date": "2025-10-06",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "“Data de Verificação” O 10º (décimo) Dia Útil de cada mês, iniciando-se no 10º  (décimo) Dia Útil do mês imediatamente posterior à  Data de Integralização Inicial.\n“Data Final de Primeira Data de Pagamento com amortização de Carência” principal da Cota da Subclasse Sênior e/ou Cota da  Subclasse Mezanino em circulação com vencimento mais  longo.\n“Demais Prestadores de São os prestadores de serviços complementares Serviços” contratados pela Administradora ou pela Gestora, em  nome do Fundo e/ou da Classe Única.\n“Devedores” Pessoa física que emite a CCB em favor da Instituição  Financeira Parceira com o objetivo de realizar uma  operação de Crédito Parcelado.\n“Dia Útil” Significa qualquer dia que não seja (i) sábado, domingo  ou feriado declarado como nacional ou (ii) aqueles sem  expediente na B3.\n“Direitos Creditórios” São todos os direitos de crédito vincendos adquiridos ou  a serem adquiridos pela Classe Única, representados  por CCBs decorrentes da concessão de Crédito  Parcelado pelas Instituições Financeiras Parceiras aos  Devedores e com intermediação do Correspondente  Bancário.\n“Direitos Creditórios Os Direitos Creditórios que atendam aos Critérios de Adquiridos” Elegibilidade e que tenham sido adquiridos dos  Cedentes pela Classe Única.\n“Direitos Creditórios Os Direitos Creditórios que atendam, cumulativamente, Elegíveis” os Critérios de Elegibilidade.\n“Direito de Primeira O direito de preferência para aquisição de Cotas da Recusa” Subclasse Sênior e/ou Cotas da Subclasse Mezanino que  deverá ser conferido à Supersim, de acordo com os  termos previstos na Cláusula 24.41 deste Regulamento.\n“Disponibilidades” Significa a soma entre (a) recursos em caixa; e (b)  demais Ativos Financeiros, com exceção do Buffer.\n“Documentos Documentação complementar dos Direitos Creditórios Complementares” Adquiridos, compreendendo (a) a cópia simples do  documento de identidade do respectivo Devedor; (b) o  comprovante de desembolso do valor de cada CCB ao  Devedor, para a conta corrente de titularidade do  Devedor aberta em instituição financeira; (c)  documentos, informações e/ou evidências que  comprovam o cumprimento, pela SuperSim, da Política  de Crédito; e (d) outros documentos necessários e  suficientes para a comprovação da existência e da  validade dos Direitos Creditórios Adquiridos, bem como  para a sua cobrança extrajudicial e judicial.",
       "sha256": "816523b594f11b5618b30ce8e139522e4569a59705aefaa0235aed35a4525949",
       "verification": "primary_passage"
     }

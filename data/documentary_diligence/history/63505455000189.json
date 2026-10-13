@@ -3,14 +3,6 @@
   "cnpj": "63505455000189",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "376a1b560304da8e0ff54d874808672ae6e37c7a52f3e13b9507b39329b01173",
-      "442d1da4e5b2ef9dbcfccbbce1c2c8bf7ea6b3eaee88f1cf5b93ad3649f6a542",
-      "2fa5eeb67464ad8faa0c1fb9da1e0422bc336c9571a588b273c2a0ca4dc264cb",
-      "0362668ab7e6fc970dc1bdf7f345777e326fed37f7925093ee909db228b90577",
-      "dba4e4b25773b18f566d2ce5c8c140a8a257ce5204e8b13355654794793d9c2c",
-      "0507f6c0093c16a6b9144672ff789b574e6c640d872da94a08bbb7abd0c83f8d"
-    ],
     "ticket": [
       "43f8aba6107906203c00f3d6d9d4b6633ac2858307f2973c8250121fd06ea676",
       "451bd031eeadd60ae38985c7558c57ec0a6c5c33001d4232b947fb227030c3a8",
@@ -344,22 +336,6 @@
       "4f0e38e46013579be342f44648a73a875cff67c6dfa1e369ad4f2b87497558aa",
       "4c4f62b9bf5da7dd276b15b73e82a6637348ca03ba8741f800a6e4e829655b5d"
     ],
-    "originator": [
-      "af40edb85afd616ce1dd31cff4037e3699ec1adf1d5e2d12950e12709cbfc8be",
-      "dae7ef6abf341d9611855530d1722737e099d6a6e4624703502fec2a9af2e35f",
-      "8d2b49604ea8962a61e5d544361251abdf7b7698c54437d1687ec43a65566f0f",
-      "ed340edbc39c8d5af10c2d28cc190b87ad90fdb04ee23f1a6ebe3d5f64aba10a",
-      "29ae6e6aff04cec6506ddf0d339ebdd64e9d300a538f248ddc48b147b1881f11",
-      "12cddb3be26eab6a7b3a4e90af4a36f1fab91e5ceca80d7f27dadae3230ae356"
-    ],
-    "debtor": [
-      "9930c83c341ecda9e20d21360cd1e428ac3bd314b985a7b802028f143d374880",
-      "dd5b0182a275678b829d0c6c9c165fbcc9e9f3851fdd40ef048eeaa48088e765",
-      "efbfa41f39ab653d856bd46233ee9bd04e5e15ef51e787c6e3e09e695ee36c58",
-      "b117fcfdd1943f0cca902c1e16619dc6da661284469759c9a6e3b9f7b3c8f23b",
-      "0f6804737159c24ac4558a39db33bf2a250b3d0f35a20b773f1e64b5861bb6b8",
-      "03bd3fcb2230840322dff9b1c1cab7f0b8fc8d8084b36436ab52e9ba0caf12e4"
-    ],
     "investee": [
       "9f8257a88d0424b9460e2550266f67ea90afd515e7fce11cdfabeb3d07116153",
       "2ae33118ee170bcab4dce5c10a9bcf347b22159b3a188f8555874af06e4bc59b",
@@ -399,6 +375,26 @@
       "0d88abb3f70162ebd35afbc7787b558c984eeccc334d510ff5771c816529deca",
       "40b9acfca0e54b5590323b61db4dd3d2ee5866ba438760bba5729fc76b957803",
       "8c0aad0a174521cb7e2c5d78cd46e861b7de5a651f3aba154935adf33e6308d0"
+    ],
+    "originator": [
+      "1843b739839640cfa02eecf94826dc72343a20fde00751f6cce8c4c7920b05d4",
+      "dae7ef6abf341d9611855530d1722737e099d6a6e4624703502fec2a9af2e35f",
+      "d250a48956b7d2dc066d9150c54e6ac99999c4c6ff5ff22de8953951112df32f",
+      "ed340edbc39c8d5af10c2d28cc190b87ad90fdb04ee23f1a6ebe3d5f64aba10a",
+      "29ae6e6aff04cec6506ddf0d339ebdd64e9d300a538f248ddc48b147b1881f11",
+      "74711d804dc0ac4c0ad00d552c67c436033d35344fb150b9ecf2ff46dbe22b01",
+      "2696003a5b08a7bfb29dc19282654ec5e8a5f83844f275604927476f00162200"
+    ],
+    "eligibility": [
+      "35906b1f27eb73ca3761c0caa35cea39eca3e5a4203bee9b6c0e3a4b89a00e36",
+      "86ba4e6c8be239cb2157257e38ec7fdd21d5a1e9f4ec5974754de83472b5e831",
+      "22300a67b8e6a7849fec06cb42fbc011d934631282d42181f9d3b976cf1aae02",
+      "6ce49edd8ee510e73a7cad1784273f6b216f2db95bf1a71a21fe18414279beb1",
+      "12f4ef3da9a3010333cff16c1f6e16d74b0fbf03d43b683f9c3216d13bb8887a",
+      "f6039dcc8e45582213bf8cc40bf28298fe688a8149ae4eb15da4b866f5443c57"
+    ],
+    "debtor": [
+      "9e5ccb107112eb940f4354e1b8a571e0f81650d9855edc999275e53203bf41a5"
     ]
   },
   "entries": {
@@ -427,114 +423,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cccdfe80688225332efe653be094e13b47bee974a140f14ab293ec008c89b1d6"
-      ]
-    },
-    "9930c83c341ecda9e20d21360cd1e428ac3bd314b985a7b802028f143d374880": {
-      "reference_date": "2026-01-26",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2db188e81b8348e39e4b6819cee1de6d349970f4a819b0b1fcec80e8b0d901d7"
-      ]
-    },
-    "dd5b0182a275678b829d0c6c9c165fbcc9e9f3851fdd40ef048eeaa48088e765": {
-      "reference_date": "2026-01-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fcdab9cbb381d70906787f3aca9fd2b5ce42e1052ed5fa43260fc5265b75bbe9"
-      ]
-    },
-    "efbfa41f39ab653d856bd46233ee9bd04e5e15ef51e787c6e3e09e695ee36c58": {
-      "reference_date": "2026-01-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6a496aed02d49b4e09c5dfa03c3f80325c73ad698114ea2ab6b9403e2fd496de"
-      ]
-    },
-    "b117fcfdd1943f0cca902c1e16619dc6da661284469759c9a6e3b9f7b3c8f23b": {
-      "reference_date": "2025-11-03",
-      "value": "Pessoas físicas ou jurídicas, denominadas como sacados, “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos Creditórios.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d1b3fb61ce0fd54b25f8ec5837036154bc621be9dd9c145e6fda038f9d55e613"
-      ]
-    },
-    "0f6804737159c24ac4558a39db33bf2a250b3d0f35a20b773f1e64b5861bb6b8": {
-      "reference_date": "2025-01-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1ecf89ba855febb20338796562b40e28ae42c9740602ada2944cda883f442a4d"
-      ]
-    },
-    "03bd3fcb2230840322dff9b1c1cab7f0b8fc8d8084b36436ab52e9ba0caf12e4": {
-      "reference_date": "2025-01-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7c46696b325f9a46920939f30f7e6cddcce9af82ade95d84b93f861c12b82134"
-      ]
-    },
-    "376a1b560304da8e0ff54d874808672ae6e37c7a52f3e13b9507b39329b01173": {
-      "reference_date": "2026-01-26",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "96cc147aed628c41cd2699f3cf68138dca4c126cd40d2da0c5583fa635ef2476"
-      ]
-    },
-    "442d1da4e5b2ef9dbcfccbbce1c2c8bf7ea6b3eaee88f1cf5b93ad3649f6a542": {
-      "reference_date": "2026-01-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c0ce63b06125b6bbe8ad97dcce8d8c36625f8769698f535d9aca21b658b4dbfc"
-      ]
-    },
-    "2fa5eeb67464ad8faa0c1fb9da1e0422bc336c9571a588b273c2a0ca4dc264cb": {
-      "reference_date": "2026-01-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b593f7dd58031e686dd9b5a171036c9caf8583310709fd79c8db88403e9ad8db"
-      ]
-    },
-    "0362668ab7e6fc970dc1bdf7f345777e326fed37f7925093ee909db228b90577": {
-      "reference_date": "2025-11-03",
-      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9cffe1a64b8b6e00d5c61e357bc80a11102d10f2aaade9889ab444ae072a108a"
-      ]
-    },
-    "dba4e4b25773b18f566d2ce5c8c140a8a257ce5204e8b13355654794793d9c2c": {
-      "reference_date": "2025-01-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3d744c3b258f37f013142da2eb931105dcd44e44ab21ca223291605224cf3744"
-      ]
-    },
-    "0507f6c0093c16a6b9144672ff789b574e6c640d872da94a08bbb7abd0c83f8d": {
-      "reference_date": "2025-01-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "15bc8894f974e66367cd67090b21b99e3143aeb8d8b4fb4bb49fea74a87a8cd9"
       ]
     },
     "43f8aba6107906203c00f3d6d9d4b6633ac2858307f2973c8250121fd06ea676": {
@@ -2619,31 +2507,107 @@
         "b3270bc25243915cc494a678e28fa32d9d786254a76cb69a90c022506ea06018"
       ]
     },
-    "af40edb85afd616ce1dd31cff4037e3699ec1adf1d5e2d12950e12709cbfc8be": {
+    "35906b1f27eb73ca3761c0caa35cea39eca3e5a4203bee9b6c0e3a4b89a00e36": {
       "reference_date": "2026-01-26",
-      "value": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da Gestora e da Administradora;.",
+      "value": "",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "4d3f7b279a52e7b5f8ba93e5e2894ed2adadd9083843a2a732eaad621d2fc60f"
+        "333be1542317b070c1ea96a6a704d9815f35641de9adff82938a3607935cfdeb"
       ]
     },
-    "8d2b49604ea8962a61e5d544361251abdf7b7698c54437d1687ec43a65566f0f": {
+    "86ba4e6c8be239cb2157257e38ec7fdd21d5a1e9f4ec5974754de83472b5e831": {
+      "reference_date": "2026-01-08",
+      "value": "Quórum Geral de Aprovação de Matérias Quórum para Matérias sujeitas à Matéria Segunda aprovação específica Primeira Convocação de uma Série ou Convocação Subclasse de Cotas deliberar sobre as Maioria das Cotas em Maioria dos (i) demonstrações contábeis não aplicável circulação Cotistas presentes da Classe Única; alterar o Regulamento, o Anexo Descritivo e seus anexos, exceto nos casos expressamente previstos Maioria das Cotas em Maioria dos (ii) não aplicável nos itens abaixo, e circulação Cotistas presentes observado o disposto no item 5.1.3 da parte geral do Regulamento; Alteração do item 3 do Anexo Descritivo, ou de 75% (setenta e cinco qualquer outro item que Maioria das Cotas em Maioria dos por cento) das Cotas (iii) afete a política de circulação Cotistas presentes Subordinadas Júnior investimento, composição em circulação e diversificação da carteira do Fundo; alteração do item 5 do Anexo Descritivo e do item 6 deste Anexo Definições Específicas da 75% (setenta e cinco Classe, ou de qualquer Maioria das Cotas em Maioria dos por cento) das Cotas (iv) outro item que altere as circulação Cotistas presentes Subordinadas Júnior Condições de em circulação Transferência, se houver, ou os Critérios de Elegibilidade; 75% (setenta e cinco por cento) das Cotas Subordinadas Júnior em circulação; e Maioria das Cotas emitidas referentes às Subclasses com alteração de qualquer prioridade maior ou Maioria das Cotas em Maioria dos (v) Índice de Subordinação igual à Subclasse circulação Cotistas presentes ou Razão de Cobertura; relacionada ao Índice de Subordinação e/ou à Razão de Cobertura em questão, consideradas agrupadas nas suas respectivas Subclasses 75% (setenta e cinco alteração dos itens 11, 12 Maioria das Cotas em Maioria dos por cento) das Cotas (vi) e 13 do Anexo Descritivo circulação Cotistas presentes Subordinadas Júnior e deste item 13; em circulação",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c0ce63b06125b6bbe8ad97dcce8d8c36625f8769698f535d9aca21b658b4dbfc"
+      ]
+    },
+    "22300a67b8e6a7849fec06cb42fbc011d934631282d42181f9d3b976cf1aae02": {
       "reference_date": "2026-01-06",
-      "value": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da Gestora e da Administradora;.",
+      "value": "",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "5c0373eb3b711aab678e5283366131fa85f62436a262c3334f37d6882f99322c"
+        "975fc80af73aa5d43067b84b5fcc0ac3a8bf2c6e4f8d1fec2f76571c431ef7f2"
       ]
     },
-    "12cddb3be26eab6a7b3a4e90af4a36f1fab91e5ceca80d7f27dadae3230ae356": {
-      "reference_date": "2025-01-06",
-      "value": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da Gestora e da Administradora;.",
+    "6ce49edd8ee510e73a7cad1784273f6b216f2db95bf1a71a21fe18414279beb1": {
+      "reference_date": "2025-11-03",
+      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas normas em vigor; (b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país; (c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; e (d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de acordo com a Política de Crédito. 4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva. 4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "7c2bb9bbf3b215831672cb9304b7757b33def937961140b3af1155fa1df7a7da"
+        "da87ec4d5b52370529bd0548311b908bfad1b07e098b5bf72133fe36e067769c"
+      ]
+    },
+    "12f4ef3da9a3010333cff16c1f6e16d74b0fbf03d43b683f9c3216d13bb8887a": {
+      "reference_date": "2025-01-08",
+      "value": "Quórum Geral de Aprovação de Matérias Quórum para Matérias sujeitas à Matéria Segunda aprovação específica Primeira Convocação de uma Série ou Convocação Subclasse de Cotas deliberar sobre as Maioria das Cotas em Maioria dos (i) demonstrações contábeis não aplicável circulação Cotistas presentes da Classe Única; alterar o Regulamento, o Anexo Descritivo e seus anexos, exceto nos casos expressamente previstos Maioria das Cotas em Maioria dos (ii) não aplicável nos itens abaixo, e circulação Cotistas presentes observado o disposto no item 5.1.3 da parte geral do Regulamento; Alteração do item 3 do Anexo Descritivo, ou de 75% (setenta e cinco qualquer outro item que Maioria das Cotas em Maioria dos por cento) das Cotas (iii) afete a política de circulação Cotistas presentes Subordinadas Júnior investimento, composição em circulação e diversificação da carteira do Fundo; alteração do item 5 do Anexo Descritivo e do item 6 deste Anexo Definições Específicas da 75% (setenta e cinco Classe, ou de qualquer Maioria das Cotas em Maioria dos por cento) das Cotas (iv) outro item que altere as circulação Cotistas presentes Subordinadas Júnior Condições de em circulação Transferência, se houver, ou os Critérios de Elegibilidade; 75% (setenta e cinco por cento) das Cotas Subordinadas Júnior em circulação; e Maioria das Cotas emitidas referentes às Subclasses com alteração de qualquer prioridade maior ou Maioria das Cotas em Maioria dos (v) Índice de Subordinação igual à Subclasse circulação Cotistas presentes ou Razão de Cobertura; relacionada ao Índice de Subordinação e/ou à Razão de Cobertura em questão, consideradas agrupadas nas suas respectivas Subclasses 75% (setenta e cinco alteração dos itens 11, 12 Maioria das Cotas em Maioria dos por cento) das Cotas (vi) e 13 do Anexo Descritivo circulação Cotistas presentes Subordinadas Júnior e deste item 13; em circulação",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3d744c3b258f37f013142da2eb931105dcd44e44ab21ca223291605224cf3744"
+      ]
+    },
+    "f6039dcc8e45582213bf8cc40bf28298fe688a8149ae4eb15da4b866f5443c57": {
+      "reference_date": "2025-01-06",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b00dfe5a51d03e41a4af769d85d0b03fe3828baaca4391e56b1c6bacb5769ede"
+      ]
+    },
+    "1843b739839640cfa02eecf94826dc72343a20fde00751f6cce8c4c7920b05d4": {
+      "reference_date": "2026-01-26",
+      "value": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dea5db3d3e069cbfa5fdc254e64739574f5e24aff47d5f56ecc77d3ee4707a1f"
+      ]
+    },
+    "d250a48956b7d2dc066d9150c54e6ac99999c4c6ff5ff22de8953951112df32f": {
+      "reference_date": "2026-01-06",
+      "value": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "09c21c9ad9ae44e58946a0e86f4cdf7308160e4a9514c684d68909d4ad017df6"
+      ]
+    },
+    "74711d804dc0ac4c0ad00d552c67c436033d35344fb150b9ecf2ff46dbe22b01": {
+      "reference_date": "2025-01-06",
+      "value": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9e4732a4b8006071008ae8d41c4bb657d874dbd77705d7bb9ac7f9841f961108"
+      ]
+    },
+    "2696003a5b08a7bfb29dc19282654ec5e8a5f83844f275604927476f00162200": {
+      "reference_date": "2026-05-14",
+      "value": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços (“Integradores Solares”) que estejam bloqueadas definitivamente de operar por meio da Plataforma Solfácil na Data de Aquisição e Pagamento;.\n\nque o resgate e a amortização das Cotas ocorrerão integralmente conforme estabelecido neste Regulamento. Nessas hipóteses, não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se houver) ou pelo Endossante, qualquer multa ou penalidade, de qualquer natureza.\n\n(iii) “Endossante” significa cada Credor Original ou Instituição Financeira Parceira, ou Fundo de Investimento em Direitos Creditórios destinado a aquisição de Direitos Creditórios, que tenha Solfácil como originadora, sendo certo que o Contrato",
+      "assessment": "Resposta anteriormente publicada rejeitada na validação de relevância: O trecho veda contratação ou conflito de prestadores; não identifica quem origina, cede ou deve os créditos da carteira.",
+      "provenance": "published_primary_answer_rejected",
+      "sources": [
+        "539b3ff7c1fcb74ace4b18c668abb07ff62afd64444428746beec88ca5c4b302",
+        "91f13102032aa40d6efe7ce7649b6ba3521b6401e02b4ec3d6fdab496510f3bb",
+        "63ffe5c32187fda72ebaaaa96d616563f307339f3e3473cb909085581b1b06d0"
+      ]
+    },
+    "9e5ccb107112eb940f4354e1b8a571e0f81650d9855edc999275e53203bf41a5": {
+      "reference_date": "2026-05-14",
+      "value": "(iii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.\n\n(xvi) a idade dos Devedores pessoas físicas, na data de emissão da respectiva CCB, deve ser de, no máximo, 71 (setenta e um) anos; e",
+      "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "20b3180067e5c4148ef059c5413a7a16115429d716ea819cb3d1a2c8e75908b1",
+        "39ccc848cea8ab8c0a7116b65eae9d3e57276f33be038e17f8288d5e499e6a60",
+        "94fdf39a556b6daf7380fde95c386ca189d9aae2aa55a839bd06d4a5a4ebb37a"
       ]
     }
   },
@@ -2720,18 +2684,6 @@
       "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
       "verification": "primary_passage"
     },
-    "d1b3fb61ce0fd54b25f8ec5837036154bc621be9dd9c145e6fda038f9d55e613": {
-      "document_id": "1080157",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080157",
-      "reference_date": "2025-11-03",
-      "version": "1",
-      "page": 49,
-      "clause": "",
-      "excerpt": "Pessoas físicas ou jurídicas, denominadas como sacados,  “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos  Creditórios.",
-      "sha256": "20ea6c8ca76021c1bf9b20ebba3f14d5674518d383a0b98b665d98323426acec",
-      "verification": "primary_passage"
-    },
     "1ecf89ba855febb20338796562b40e28ae42c9740602ada2944cda883f442a4d": {
       "document_id": "1080134",
       "title": "Regulamento",
@@ -2790,18 +2742,6 @@
       "clause": "",
       "excerpt": "Quórum Geral de Aprovação de Matérias Quórum para  Matérias sujeitas à  Matéria Segunda aprovação específica  Primeira Convocação de uma Série ou  Convocação  Subclasse de Cotas  deliberar sobre as  Maioria das Cotas em Maioria dos\n (i) demonstrações contábeis não aplicável  circulação Cotistas presentes  da Classe Única;\n alterar o Regulamento, o  Anexo Descritivo e seus  anexos, exceto nos casos  expressamente previstos Maioria das Cotas em Maioria dos\n (ii) não aplicável  nos itens abaixo, e circulação Cotistas presentes  observado o disposto no  item 5.1.3 da parte geral  do Regulamento;\n Alteração do item 3 do  Anexo Descritivo, ou de  75% (setenta e cinco  qualquer outro item que  Maioria das Cotas em Maioria dos por cento) das Cotas\n (iii) afete a política de  circulação Cotistas presentes Subordinadas Júnior  investimento, composição  em circulação  e diversificação da  carteira do Fundo;\n alteração do item 5 do  Anexo Descritivo e do  item 6 deste Anexo  Definições Específicas da 75% (setenta e cinco  Classe, ou de qualquer Maioria das Cotas em Maioria dos por cento) das Cotas\n (iv)  outro item que altere as circulação Cotistas presentes Subordinadas Júnior  Condições de em circulação  Transferência, se houver,  ou os Critérios de  Elegibilidade;\n 75% (setenta e cinco  por cento) das Cotas  Subordinadas Júnior  em circulação; e  Maioria das Cotas  emitidas referentes às  Subclasses com  alteração de qualquer prioridade maior ou  Maioria das Cotas em Maioria dos\n (v) Índice de Subordinação igual à Subclasse  circulação Cotistas presentes  ou Razão de Cobertura; relacionada ao Índice  de Subordinação e/ou  à Razão de Cobertura  em questão,  consideradas  agrupadas nas suas  respectivas  Subclasses  75% (setenta e cinco  alteração dos itens 11, 12  Maioria das Cotas em Maioria dos por cento) das Cotas\n (vi) e 13 do Anexo Descritivo  circulação Cotistas presentes Subordinadas Júnior  e deste item 13;\n em circulação",
       "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
-      "verification": "primary_passage"
-    },
-    "9cffe1a64b8b6e00d5c61e357bc80a11102d10f2aaade9889ab444ae072a108a": {
-      "document_id": "1080157",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080157",
-      "reference_date": "2025-11-03",
-      "version": "1",
-      "page": 23,
-      "clause": "4.25",
-      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:",
-      "sha256": "20ea6c8ca76021c1bf9b20ebba3f14d5674518d383a0b98b665d98323426acec",
       "verification": "primary_passage"
     },
     "3d744c3b258f37f013142da2eb931105dcd44e44ab21ca223291605224cf3744": {
@@ -5159,40 +5099,164 @@
       "sha256": "9cb86fff8ecfe264a1c6b81d5f398044f4af08ced5d756f063bed19bc38a8607",
       "verification": "primary_passage"
     },
-    "4d3f7b279a52e7b5f8ba93e5e2894ed2adadd9083843a2a732eaad621d2fc60f": {
+    "539b3ff7c1fcb74ace4b18c668abb07ff62afd64444428746beec88ca5c4b302": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 113,
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos  Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos  Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:\n(i) os Direitos Creditórios não podem estar relacionados às empresas  prestadoras de serviços (“Integradores Solares”) que estejam bloqueadas  definitivamente de operar por meio da Plataforma Solfácil na Data de Aquisição e  Pagamento;\n(ii) os Direitos Creditórios devem ser originados de operações realizadas no  âmbito da Plataforma Solfácil para financiamento de placas fotovoltaicas,  equipamentos e sistemas acessórios para a geração, armazenamento e utilização de  energia solar, cuja aquisição e instalação é o objeto de financiamento por meio de  CCB, sendo a instalação realizada por Integradores Solares (“Sistemas Solares”),  com a adoção da Política de Originação e Concessão de Crédito constante no Anexo  III do Regulamento e representados por CCBs;\n(iii) se o Devedor for pessoa jurídica, o Devedor deve ter sido constituído pelo  menos 2 (dois) anos antes da data de emissão da CCB;\n(iv) o Devedor não poderá (a) estar sujeito a um Evento de Insolvência; ou (b)  estar falecido;",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+      "verification": "primary_passage"
+    },
+    "333be1542317b070c1ea96a6a704d9815f35641de9adff82938a3607935cfdeb": {
       "document_id": "1094169",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094169",
       "reference_date": "2026-01-26",
       "version": "1",
-      "page": 113,
-      "clause": "",
-      "excerpt": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa  de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado  entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº\n 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na  Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311-  930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E  INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no  CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado  de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros,  CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da  Gestora e da Administradora;",
+      "page": "107–108",
+      "clause": "6.2",
+      "excerpt": "6.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora  na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n(ii) os pagamentos das parcelas dos Direitos Creditórios devem ser realizados  em Reais (moeda brasileira);\n(iii) os Direitos Creditórios devem ter sido formalizados por meio da emissão,  pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(iv) o respectivo Devedor não deve estar em atraso ou inadimplente com o  Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de  Aquisição e Pagamento;\n(v) considerada pro forma o endosso pretendido, a média ponderada dos  prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de  no máximo 2.400 (dois mil e quatrocentos) dias;\n(vi) a taxa de Transferência aplicável aos Direitos Creditórios ofertados,  determinada como a taxa interna de retorno, expressa na forma percentual e  calculada diariamente sob forma de capitalização composta, com base em um ano  de 252 (duzentos e cinquenta e dois) Dias Úteis, considerando os fluxos de caixa de  todos os Direitos Creditórios ofertados, de forma agregada, considerando os Direitos  Creditórios Transferidos existentes, deverá ser igual ou superior à Taxa Mínima de  Transferência;\n(vii) o Direito Creditório seja um financiamento que prevê o pagamento do  principal e dos juros em parcelas mensais, sem a existência de parcela final em  montante superior às demais parcelas;\n(viii) o prazo máximo de vencimento original de cada Direito Creditório deverá ser  de, no máximo, 126 (cento e vinte e seis) meses;\n(ix) as CCBs que não estejam inadimplidas;\n(x) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;\n(xi) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos  e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos  mil reais) se o Devedor for pessoa jurídica; e\n(xii) considerada pro forma o endosso pretendido, o valor agregado dos Direitos  Creditórios devidos por qualquer Devedor (a) pessoa física não poderá representar  mais do que R$ 350.000,00 (trezentos e cinquenta mil reais), e (b) pessoa jurídica  não poderá representar mais do que R$700.000,00 (setecentos mil reais).\n6.2.1. Reinvestimentos Durante o Período de Revolvência. Durante o Período  de Revolvência, todos os recebimentos de principal e juros dos Direitos Creditórios  integrantes da Carteira deverão ser aplicados exclusivamente na aquisição de novos  Direitos Creditórios elegíveis, observados integralmente os Critérios de Elegibilidade  previstos nesta Seção.",
       "sha256": "574e7758f07e25932c35f5268f703a7040cbdd78aa776abff1b0ef2e57ca18a6",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "5c0373eb3b711aab678e5283366131fa85f62436a262c3334f37d6882f99322c": {
+    "975fc80af73aa5d43067b84b5fcc0ac3a8bf2c6e4f8d1fec2f76571c431ef7f2": {
       "document_id": "1090052",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090052",
       "reference_date": "2026-01-06",
       "version": "1",
-      "page": 113,
-      "clause": "",
-      "excerpt": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa  de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado  entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº\n 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na  Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311-  930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E  INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no  CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado  de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros,  CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da  Gestora e da Administradora;",
+      "page": "107–108",
+      "clause": "6.2",
+      "excerpt": "6.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora  na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n(ii) os pagamentos das parcelas dos Direitos Creditórios devem ser realizados  em Reais (moeda brasileira);\n(iii) os Direitos Creditórios devem ter sido formalizados por meio da emissão,  pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(iv) o respectivo Devedor não deve estar em atraso ou inadimplente com o  Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de  Aquisição e Pagamento;\n(v) considerada pro forma o endosso pretendido, a média ponderada dos  prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de  no máximo 2.400 (dois mil e quatrocentos) dias;\n(vi) a taxa de Transferência aplicável aos Direitos Creditórios ofertados,  determinada como a taxa interna de retorno, expressa na forma percentual e  calculada diariamente sob forma de capitalização composta, com base em um ano  de 252 (duzentos e cinquenta e dois) Dias Úteis, considerando os fluxos de caixa de  todos os Direitos Creditórios ofertados, de forma agregada, considerando os Direitos  Creditórios Transferidos existentes, deverá ser igual ou superior à Taxa Mínima de  Transferência;\n(vii) o Direito Creditório seja um financiamento que prevê o pagamento do  principal e dos juros em parcelas mensais, sem a existência de parcela final em  montante superior às demais parcelas;\n(viii) o prazo máximo de vencimento original de cada Direito Creditório deverá ser  de, no máximo, 126 (cento e vinte e seis) meses;\n(ix) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;\n(x) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos  e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos  mil reais) se o Devedor for pessoa jurídica; e\n(xi) considerada pro forma o endosso pretendido, o valor agregado dos Direitos  Creditórios devidos por qualquer Devedor (a) pessoa física não poderá representar  mais do que R$ 350.000,00 (trezentos e cinquenta mil reais), e (b) pessoa jurídica  não poderá representar mais do que R$700.000,00 (setecentos mil reais).\n6.2.1. Reinvestimentos Durante o Período de Revolvência. Durante o Período  de Revolvência, todos os recebimentos de principal e juros dos Direitos Creditórios  integrantes da Carteira deverão ser aplicados exclusivamente na aquisição de novos  Direitos Creditórios elegíveis, observados integralmente os Critérios de Elegibilidade  previstos nesta Seção.",
       "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "7c2bb9bbf3b215831672cb9304b7757b33def937961140b3af1155fa1df7a7da": {
+    "da87ec4d5b52370529bd0548311b908bfad1b07e098b5bf72133fe36e067769c": {
+      "document_id": "1080157",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1080157",
+      "reference_date": "2025-11-03",
+      "version": "1",
+      "page": "23–24",
+      "clause": "4.25",
+      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:\n(a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas  normas em vigor;\n(b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e  Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país;\n(c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou  gravames de qualquer natureza; e\n(d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de  acordo com a Política de Crédito.\n4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do  atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva.\n4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de  Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela  Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das  Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por  elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "sha256": "20ea6c8ca76021c1bf9b20ebba3f14d5674518d383a0b98b665d98323426acec",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b00dfe5a51d03e41a4af769d85d0b03fe3828baaca4391e56b1c6bacb5769ede": {
       "document_id": "1078323",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078323",
       "reference_date": "2025-01-06",
       "version": "1",
-      "page": 113,
-      "clause": "",
-      "excerpt": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa  de Endosso de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado  entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira autorizada pelo BACEN, inscrita no CNPJ/MF sob o nº\n 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na  Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311-  930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO, FINANCIAMENTO E  INVESTIMENTO S.A., instituição financeira autorizada pelo BACEN, inscrita no  CNPJ/MF sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado  de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros,  CEP 05.408-003 (“Solfácil SCFI”) e a Originadora, com interveniência anuência da  Gestora e da Administradora;",
+      "page": "107–108",
+      "clause": "6.2",
+      "excerpt": "6.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora  na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n(ii) os pagamentos das parcelas dos Direitos Creditórios devem ser realizados  em Reais (moeda brasileira);\n(iii) os Direitos Creditórios devem ter sido formalizados por meio da emissão,  pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(iv) o respectivo Devedor não deve estar em atraso ou inadimplente com o  Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de  Aquisição e Pagamento;\n(v) considerada pro forma o endosso pretendido, a média ponderada dos  prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de  no máximo 2.400 (dois mil e quatrocentos) dias;\n(vi) a taxa de Transferência aplicável aos Direitos Creditórios ofertados,  determinada como a taxa interna de retorno, expressa na forma percentual e  calculada diariamente sob forma de capitalização composta, com base em um ano  de 252 (duzentos e cinquenta e dois) Dias Úteis, considerando os fluxos de caixa de  todos os Direitos Creditórios ofertados, de forma agregada, considerando os Direitos  Creditórios Transferidos existentes, deverá ser igual ou superior à Taxa Mínima de  Transferência;\n(vii) o Direito Creditório seja um financiamento que prevê o pagamento do  principal e dos juros em parcelas mensais, sem a existência de parcela final em  montante superior às demais parcelas;\n(viii) o prazo máximo de vencimento original de cada Direito Creditório deverá ser  de, no máximo, 126 (cento e vinte e seis) meses;\n(ix) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;\n(x) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos  e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos  mil reais) se o Devedor for pessoa jurídica; e\n(xi) considerada pro forma o endosso pretendido, o valor agregado dos Direitos  Creditórios devidos por qualquer Devedor (a) pessoa física não poderá representar  mais do que R$ 350.000,00 (trezentos e cinquenta mil reais), e (b) pessoa jurídica  não poderá representar mais do que R$700.000,00 (setecentos mil reais).\n6.2.1. Reinvestimentos Durante o Período de Revolvência. Durante o Período  de Revolvência, todos os recebimentos de principal e juros dos Direitos Creditórios  integrantes da Carteira deverão ser aplicados exclusivamente na aquisição de novos  Direitos Creditórios elegíveis, observados integralmente os Critérios de Elegibilidade  previstos nesta Seção.",
       "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dea5db3d3e069cbfa5fdc254e64739574f5e24aff47d5f56ecc77d3ee4707a1f": {
+      "document_id": "1094169",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094169",
+      "reference_date": "2026-01-26",
+      "version": "1",
+      "page": 105,
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos  Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos  Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "sha256": "574e7758f07e25932c35f5268f703a7040cbdd78aa776abff1b0ef2e57ca18a6",
+      "verification": "primary_passage"
+    },
+    "09c21c9ad9ae44e58946a0e86f4cdf7308160e4a9514c684d68909d4ad017df6": {
+      "document_id": "1090052",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090052",
+      "reference_date": "2026-01-06",
+      "version": "1",
+      "page": 105,
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos  Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos  Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
+      "verification": "primary_passage"
+    },
+    "9e4732a4b8006071008ae8d41c4bb657d874dbd77705d7bb9ac7f9841f961108": {
+      "document_id": "1078323",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078323",
+      "reference_date": "2025-01-06",
+      "version": "1",
+      "page": 105,
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos  Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelos  Endossantes e pelo Originador e atestadas via declaração, na Data de Oferta:",
+      "sha256": "a5729a60babf3082b2222af4d8a4747686bef811ca26bd3e530a435a7662f32f",
+      "verification": "primary_passage"
+    },
+    "91f13102032aa40d6efe7ce7649b6ba3521b6401e02b4ec3d6fdab496510f3bb": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 75,
+      "clause": "",
+      "excerpt": "que o resgate e a amortização das Cotas ocorrerão integralmente conforme estabelecido  neste Regulamento. Nessas hipóteses, não será devido pelo Fundo, pela Administradora,  pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de  Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se  houver) ou pelo Endossante, qualquer multa ou penalidade, de qualquer natureza.",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+      "verification": "primary_passage"
+    },
+    "63ffe5c32187fda72ebaaaa96d616563f307339f3e3473cb909085581b1b06d0": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 120,
+      "clause": "",
+      "excerpt": "(iii) “Endossante” significa cada Credor Original ou Instituição Financeira  Parceira, ou Fundo de Investimento em Direitos Creditórios destinado a aquisição de  Direitos Creditórios, que tenha Solfácil como originadora, sendo certo que o Contrato",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+      "verification": "primary_passage"
+    },
+    "20b3180067e5c4148ef059c5413a7a16115429d716ea819cb3d1a2c8e75908b1": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 115,
+      "clause": "6.2",
+      "excerpt": "6.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora  na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n(ii) os pagamentos das parcelas dos Direitos Creditórios devem ser realizados  em Reais (moeda brasileira);\n(iii) os Direitos Creditórios devem ter sido formalizados por meio da emissão,  pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(iv) o respectivo Devedor não deve estar em atraso ou inadimplente com o  Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de  Aquisição e Pagamento;\n(v) considerada pro forma o endosso pretendido, a média ponderada dos  prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de  no máximo 2.400 (dois mil e quatrocentos) dias;\n(vi) a taxa de Transferência aplicável aos Direitos Creditórios ofertados,  determinada como a taxa interna de retorno, expressa na forma percentual e  calculada diariamente sob forma de capitalização composta, com base em um ano  de 252 (duzentos e cinquenta e dois) Dias Úteis, considerando os fluxos de caixa de  todos os Direitos Creditórios ofertados, de forma agregada, considerando os Direitos  Creditórios Transferidos existentes, deverá ser igual ou superior à Taxa Mínima de  Transferência;\n(vii) o Direito Creditório seja um financiamento que prevê o pagamento do  principal e dos juros em parcelas mensais, sem a existência de parcela final em  montante superior às demais parcelas;\n(viii) o prazo máximo de vencimento original de cada Direito Creditório deverá ser  de, no máximo, 126 (cento e vinte e seis) meses;\n(ix) as CCBs que não estejam inadimplidas;\n(x) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;\n(xi) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos  e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos  mil reais) se o Devedor for pessoa jurídica; e\n(xii) considerada pro forma o endosso pretendido, o valor agregado dos Direitos  Creditórios devidos por qualquer Devedor (a) pessoa física não poderá representar",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+      "verification": "primary_passage"
+    },
+    "39ccc848cea8ab8c0a7116b65eae9d3e57276f33be038e17f8288d5e499e6a60": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 113,
+      "clause": "5.5",
+      "excerpt": "5.5. Os documentos que compõem o “checklist” jurídico e cadastral relativos às  operações de crédito originadoras dos Direitos Creditórios (“Documentos  Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta  e ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva\n(ii) CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(iii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa  física ou cópia do contrato/estatuto social, documentos que comprovem os poderes  de representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil,  por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de  Programação de Aplicação (“API”);\n(iv) comprovante de residência para os Devedores pessoa física; e\n(v) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito,  enviada pela Solfácil à Gestora, evidenciando que no momento da concessão do  crédito foi realizada consulta, individualmente, sobre possível existência de fraude  nos documentos do Devedor.",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+      "verification": "primary_passage"
+    },
+    "94fdf39a556b6daf7380fde95c386ca189d9aae2aa55a839bd06d4a5a4ebb37a": {
+      "document_id": "1199536",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": 114,
+      "clause": "",
+      "excerpt": "(xvi) a idade dos Devedores pessoas físicas, na data de emissão da respectiva  CCB, deve ser de, no máximo, 71 (setenta e um) anos; e",
+      "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
       "verification": "primary_passage"
     }
   }

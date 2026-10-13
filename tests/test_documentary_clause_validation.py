@@ -28,6 +28,82 @@ class DocumentaryClauseValidationTests(unittest.TestCase):
         self.check("receivables", "O Fundo destina seus recursos preponderantemente à aquisição de Direitos Creditórios Elegíveis conforme Anexo Descritivo.", False)
         self.check("receivables", "Os Direitos Creditórios são representados por CCBs decorrentes de empréstimos consignados em folha de empregados de empresas privadas.", True)
 
+    def test_eligibility_requires_conditions_after_3rd_regulation_introduction(self):
+        intro = "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição."
+        list_intro = "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:"
+        self.check("eligibility", intro, False)
+        self.check("eligibility", list_intro, False)
+        self.check("eligibility", intro + "\n\n" + list_intro, False)
+        self.check("eligibility", list_intro + " (i) prazo de vencimento inferior a 360 dias; (ii) Direitos Creditórios adimplentes, sem parcelas vencidas.", True)
+        self.check("eligibility", "Os Direitos Creditórios elegíveis deverão ser representados por CCBs regularmente emitidas por pessoas físicas e não poderão estar inadimplentes.", True)
+        self.check("eligibility", list_intro + " (i) os Direitos Creditórios deverão estar formalizados por documentos comprobatórios; (ii) os devedores devem ser pessoas jurídicas.", True)
+        self.check("eligibility", list_intro + " (i) ser emitidas por pessoa jurídica de qualquer natureza, inclusive sociedades por ações e limitadas.", True)
+        self.check("eligibility", "O Custodiante verificará em até 2 dias úteis se os Direitos Creditórios atendem aos Critérios de Elegibilidade na respectiva Data de Aquisição.", False)
+
+    def test_provider_conflict_does_not_identify_originator_or_debtor(self):
+        conflict = "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas."
+        self.check("originator", conflict, False)
+        self.check("debtor", "Os prestadores subcontratados pelo Custodiante não poderão ser devedores ou empresas relacionadas aos sacados.", False)
+        self.check("originator", conflict + " Os Cedentes serão pessoas jurídicas com operações de venda mercantil.", True)
+        self.check("originator", '"Cedente" significa Empresa Mercantil S.A., CNPJ 12.345.678/0001-99.', True)
+        self.check("originator", "Os Cedentes deverão ser instituições financeiras autorizadas a conceder empréstimos consignados.", True)
+        self.check("debtor", "Os Devedores serão pessoas físicas aposentadas e pensionistas do INSS, titulares dos empréstimos consignados.", True)
+        self.check("originator", "É vedada a subcontratação pela Administradora de Cedentes relacionados ao Gestor. Os direitos creditórios serão originados pelo Banco Exemplo S.A., CNPJ 12.345.678/0001-99.", True)
+        self.check("debtor", "Os prestadores subcontratados pelo Custodiante não poderão ser devedores. Os direitos creditórios serão originados pelo Banco Exemplo S.A., CNPJ 12.345.678/0001-99.", False)
+
+    def test_debtor_rejects_actual_incidental_v7_answers(self):
+        # Current primary documents: 1218996/1219005/1239751/982232/
+        # 1002580/1199536/1222863/1322406. A person type nearby is not identity.
+        rejected = [
+            "Monitoramento de Grupos Econômicos – Os desempenhos econômico e financeiro de empresas são potencialmente afetados por eventos referentes a outras empresas pertencentes a seus Grupos Econômicos. A Gestora busca informações que permitam identificar se os Cedentes e/ou os Devedores pertencem aos mesmos Grupos Econômicos e gerenciar os Direitos Creditórios detidos pelo Fundo.",
+            "XX. Movimentação das contas dos Devedores junto ao FGTS: quando da Cessão Fiduciária em garantia dos Direitos Creditórios Saque-Aniversário, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueada. Caso o Devedor tenha idade igual ou superior a 70 anos, se aposente ou faleça, o saque poderá ser realizado antecipadamente.",
+            "Significa o Banco Central do Brasil. ‘BACEN’. Significam, quando mencionadas em conjunto, a CPX e a ITR. ‘Cedentes’. Significa o Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. ‘CNPJ’. A Conta da Classe receberá os créditos pagos pelos Devedores.",
+            "15.1.4 Riscos específicos (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador se torne insolvente e suspenda a remuneração, o Devedor poderá ficar inadimplente.",
+            "Necessidade de cobrança extrajudicial e judicial dos Direitos Creditórios Adquiridos. Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos Devedores, causando prejuízo ao Fundo.",
+            "5.5 Os documentos do checklist jurídico e cadastral são os seguintes: (iii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social para os Devedores pessoa jurídica, podendo ser obtidos pela Solfácil via API; (iv) comprovante de residência do Devedor pessoa física.",
+            "(iii) manter e operar um serviço de atendimento ao consumidor - SAC e uma ouvidoria, monitorar e resolver reclamações e solicitações de Devedores com relação às operações de empréstimo consignado que dão origem aos Direitos Creditórios, em conformidade com o Acordo de Parceria.",
+            "O valor dos Direitos Creditórios devidos por Devedores pessoas jurídicas não poderá ser superior a 25% do PL; a concentração em cada Devedor pessoa física fica limitada a 2% do PL.",
+            "(xvi) a idade dos Devedores pessoas físicas, na emissão da respectiva CCB, deve ser de no máximo 71 anos.",
+            "Os Direitos Creditórios devem ter sido formalizados por emissão, pelos Devedores, de CCBs em favor da Instituição Financeira Parceira; o Devedor não deve estar inadimplente.",
+        ]
+        for text in rejected:
+            with self.subTest(text=text[:80]):
+                self.check("debtor", text, False)
+
+    def test_debtor_preserves_positive_glossaries_and_loan_population(self):
+        accepted = [
+            '“Devedores” Pessoas que celebraram Contratos de Empréstimo com consignação em folha de pagamento/benefício.',
+            'Significam os devedores (sacados), pessoas físicas “Devedores” ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.',
+            '“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.',
+            '“Devedores”: cada pessoa física que possua vínculo empregatício registrado na CTPS digital, verificado e validado pela Dataprev na categoria101 do eSocial, que tenha tomado um empréstimo consignado mediante emissão eletrônica de CCB.',
+            '“Devedores” Em conjunto, Devedores – Empréstimo Consignado e os Devedores – Cartão INSS. “Devedor – Cartão INSS” Cada pessoa física titular de Benefícios que assinou a Proposta de Adesão e tomou crédito com a Facta mediante saque com utilização de Cartão INSS, com Consignação na respectiva folha de Benefícios.',
+            'Devedores (sacados): pessoas físicas ou jurídicas com sede no país, de créditos nos segmentos industrial, comercial, agronegócio, financeiro e prestação de serviços.',
+            'A Classe adquire títulos de crédito podendo serem devidos por pessoas físicas ou jurídicas com sede no país.',
+            '4.4 Os Direitos Creditórios Consignado Privado são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB eletrônica. O pagamento regular dos créditos é feito por Consignação.',
+            'Devedores de consignado privado: tomadores de empréstimos concedidos pelo Endossante, processados pela Plataforma MT, representados por CCB eletrônica e pagos por desconto em folha.',
+            'A Solfácil avalia o risco financeiro do Devedor para instruir a Instituição Financeira Parceira a liberar um Financiamento Solar. II. Análise de Crédito do Tomador (i) para Devedores pessoa física: ausência de irregularidades financeiras; (ii) Para Devedores pessoa jurídica: análise de endividamento.',
+            'Devedores tomadores de Financiamento Solar: pessoas físicas e pessoas jurídicas, avaliadas separadamente na política de concessão de crédito.',
+            'Os contratos de crédito são firmados entre os estudantes (Devedores) e as Instituições de Ensino Superior.',
+            'Os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas no CPF ou CNPJ.',
+            '“Devedor(es)” significam as pessoas jurídicas, clientes dos Cedentes, que tenham realizado locação de Equipamentos.',
+            'Os Devedores são Empresa Comercial S.A., CNPJ 12.345.678/0001-99.',
+            '“Devedores” Significa qualquer pessoa jurídica com sede no Brasil, integrante do Grupo Saga, que tenha emitido as Notas Comerciais subscritas.',
+            '“Devedores” Significam, (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas e cooperativas de produtores rurais, indicados pelo Originador.',
+            'Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas; (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que emitiram Letras Financeiras.',
+            'Os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas.',
+            'O Direito Creditório deve ser devido por pessoas físicas titulares de contas vinculadas do FGTS que tenham a opção Saque Aniversário vigente na contratação.',
+            '“Devedores” significam os emissores, devedores e/ou garantidores dos Direitos Creditórios, conforme o caso. Para fins da Classe, serão, exclusivamente, as seguintes Credenciadoras: (i) Cielo S.A., inscrita no CNPJ nº01.027.058/0001-91.',
+        ]
+        for text in accepted:
+            with self.subTest(text=text[:80]):
+                self.check("debtor", text, True)
+
+    def test_debtor_keeps_positive_rule_separate_from_incidental_context(self):
+        self.check("debtor", '“Devedores” Pessoas que contrataram empréstimos consignados. O risco do Empregador pode afetar a remuneração e os pagamentos dos Devedores.', True)
+        self.check("debtor", 'Os Devedores serão atendidos pela Empresa Serviços S.A., CNPJ12.345.678/0001-99, em um SAC para reclamações e ouvidoria.', False)
+        self.check("debtor", 'Os direitos creditórios serão originados pelo Banco Exemplo S.A., CNPJ12.345.678/0001-99. Os pagamentos pelos Devedores podem atrasar e impactar as cotas.', False)
+        self.check("debtor", 'A política de cadastro coleta documentos para Devedores pessoas físicas ou jurídicas; a análise de crédito do tomador coleta cópia do RG para liberar um financiamento solar.', False)
+
     def test_allocation_does_not_promote_mt_inss_vi_retention_salary(self):
         # Regulamento 1153514, physical page 34, recovered by Apple Vision OCR.
         salary = """Remuneração do Agente de Retenção/Cobrança

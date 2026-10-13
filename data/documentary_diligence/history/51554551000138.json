@@ -3,19 +3,6 @@
   "cnpj": "51554551000138",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "fcdb511bc0fd65426f3e49795c146cf8f3148e45d83afd0fc7be4b2abc592d4f",
-      "28b1728204411926567e00837fd7bc6a2e175578a2439367a6534dbe11888b12",
-      "d80a8512177eb2a695429bbbb1795572bd7f7a7a86d4bb08e47bb4fcfcbded6c",
-      "5f0b7f25b64a3a206b90904e0b3bbd6159f1a3815744d3b85527b17958be0fae",
-      "900fd430caebb69a356a46910487971b1047119f9dc27b8689a8c92045afa75d",
-      "18f74c99a174fd91a3768049363e5db8f68fb40b6bd3a818c66c591c5fb4f82b",
-      "a343e7fc26ea51c1a02b6e823168c9aecba01dd1d5196ce11d53dd9d84818996",
-      "e612288b446547a7ea28c04af88ffc4175fd98b3ec4b3c1ed6cdf426480b3746",
-      "dcb5f8fbd79454abace8a0bff2bcbb1efe2cf62edfd8f9f0a0c00114f15f5ac1",
-      "9f47bb19e1209e33d3321b781af06e027b485fcfb9b6d7ad659e37a1d7d19b30",
-      "feac36a8075a859a3a35b1f302caeae2ac669b71e76cb3edc07c8ea4ccf6ba16"
-    ],
     "term": [
       "3a8ae6ed314395edfee277a77f0d8b736af08f82de69504b889ccf98f4ab8e2c",
       "b824c08cc22f5b6e79d45a261f6cf06e2dc05ed031f0afed78cd349dca242532",
@@ -510,29 +497,6 @@
       "dbece5b3df42f1d1c2c5559ce8657c4158ba41203380bfc421923f5a34fd4c4a",
       "7d0238b2271f076df99a2e8c5d0c4e760cea3da871621a001e349df8b29b19e2"
     ],
-    "originator": [
-      "65c843190cff3c48f8fbbab77668e923d80ecad6cc335d0923bf4a203c41567b",
-      "929dfd420daa8580cbc34e5324fb10db78cdf87711f5b2021ef47ba4f6801f44",
-      "f670e0fb8b507924a4b879fba1aff1a9ee47dbdc06ab7af5105b5486934c9719",
-      "b3f50947f04248dadd84e645b99370bfd21e0cc29d891acb83516271b77af581",
-      "eb8be656536d2769be5fb6f71dd2fb406c7bd1002d847f7c9bed30841cd88e0d",
-      "bd5a9dffe30ade3ae57bc603976a6034e411be567f087efb2aecf2fb4f8d1747",
-      "82bde047ad00b2371e9d19b956bc1554f3ccc25821adfff0abf59e54eaf5d72f",
-      "b6d1d8011dba909ae6e6ff94c9c2a21f70698285683138d759c2708ebe45f064",
-      "63203eaf4481d519a3139d57d829bd7e5fe45a82d174e08091639239e3b62a30",
-      "a4f947a1a4606749e2668d57d5b0c5df5822489c334c00b56aca7ffa277f6664",
-      "6560b24bafe4ed8b20b979c45f76736ac3a01633aa343957d1f53001b3dc5cff",
-      "9b5d36768907d69b44702b22583766634702ac6af1887893ac33655ab0a38386"
-    ],
-    "debtor": [
-      "a919aab6be8e5b281cf8cc997a41ec9885d47e1290c349571f99cef03c812d25",
-      "fd14136566f0e7b9aac74584d2229ad8a79bcb01506136c5e3ff295e5ab15e73",
-      "10665d38a59b82c723a07fcb02772f3e3472bb5698792415ba797cbb925a4072",
-      "a5a1d92e8e3d0cfeaa02bc4f9a633843cda8bbc9c61ca3426867712a34580c82",
-      "44c1ea6caf2378a1e68dd0fa423fd125bb6a91e3e3352ed0f5bd28bc5351e276",
-      "026cbbce2613c1bb15ff8d807274b06038ee4c9936714aafc34b91240460ce80",
-      "17e2acb67546a8d6befa15897c111b821e70362627bd70e55d97f2c8c18b7228"
-    ],
     "guarantee": [
       "3db237ed06d04b419b0e46eed1a29fbdd8d77b15b98f5b03427c9a6a83724170",
       "26c3db6af61a764b8a3c45661ed63a82c1a9a40fbbde4116a010de36025b11ed",
@@ -599,6 +563,42 @@
       "2f5656a98c274b1e7f3bb601209776fed537491facdf81d28ae8632c284aeab1",
       "f59bac30c9032615c7e93ff441559ec80b195c03e2caf9040a13da4ca47d557f",
       "e55ac08a9944cfe57710f7e567f1f1d7beed4f185672a0bdd9438ac63b7bfd61"
+    ],
+    "originator": [
+      "587ce3b8bc2b27edab4b2259b635ceec0b29cc8ad2f68e7f788f5633f3a4b8ab",
+      "d91ef228565be6fb16ec450dd410415166d9af8855616787c9e5a6ba6c5ca137",
+      "87830a0e9706b390800138172518ef5bcb94c68ae9b37e8db8f16e80ab614587",
+      "1b79e7b80875b747c44f6cec198b8af1378bdbd5c679c5b0919381a27c157205",
+      "412ef5da9fe508a7288cc26ffdeedcd0fdd779162c3a7e6d9dc6e20304f4f001",
+      "69cda5ab69882b139e2472dc39de45a3e406f6666fafdb12898a4bded33810ac",
+      "afec10be34aa352ec69624e4b413a175b7d116e52d1eb858cd68f308f97f49be",
+      "90967fd1bcb821fd174e4aa8e805c2108a004051906dfbec38e946685ef583b6",
+      "bd5a9dffe30ade3ae57bc603976a6034e411be567f087efb2aecf2fb4f8d1747",
+      "f56eaca601b49a043794b20b28611a741542949a013de1c25d83dead0606f6b6"
+    ],
+    "eligibility": [
+      "fcdb511bc0fd65426f3e49795c146cf8f3148e45d83afd0fc7be4b2abc592d4f",
+      "28b1728204411926567e00837fd7bc6a2e175578a2439367a6534dbe11888b12",
+      "d80a8512177eb2a695429bbbb1795572bd7f7a7a86d4bb08e47bb4fcfcbded6c",
+      "5f0b7f25b64a3a206b90904e0b3bbd6159f1a3815744d3b85527b17958be0fae",
+      "39cca0079a93f9c4909d6a3510560c7ffcb0dea9f5097b126b5a53ede3f9e627",
+      "18f74c99a174fd91a3768049363e5db8f68fb40b6bd3a818c66c591c5fb4f82b",
+      "0dcdec2c6dff31ebcf8b6877f52b7063ca4eb780cecbc96d3a3bc38255de74c7",
+      "c93cf3efef0c9aaafd9621b22a86b6b236b216d4250feafac912a4417ddf07e0"
+    ],
+    "debtor": [
+      "75821ff0219bf7fd8e767917e62c73623d69f5527c99a434d4e77af41d68acaa",
+      "b5c89eabcf198b80fe5dfc71472089421542575d68b2b1a32be6c1cdf3dea10e",
+      "482e0f00bf4565be4eaf1cb9c06886fa1d8abf22955de4504cf694c35389be64",
+      "e587135f650091d9d48934e8e881bc2df97c8fb10046f10405939d9e6f62954a",
+      "9b65410a77f5708b6495ccbd1210587aa6a4ffcc258a730df3e1531572ed6004",
+      "1eb3036e5fe0ec247db100229e84536f1b6011d58cb89eade17e6e853c3839bc",
+      "d402b9e6da395e22bb3ccb2f1f7b366b8b35515f2a4bcb74c0c285a426670d03",
+      "569ff8e74cf0a26a2fa9b5f2fab3075d69a513119ee3b098b0b59cb6a0053123",
+      "f0980616fe2da15e5d0212678ee7957c53919306e3aea070b49d0e0cf2d1cab0",
+      "290bc2e7cc276a58e48eae9fe2f6128336ed347c429e647c66692c0120974e6d",
+      "3b9fa9b9611ea0073f43a025c2dc9f820ce55b951fceccdb1b9e13033f1a453d",
+      "e17ff9854c26d9f41a0da63a4c2595589b4623b5c599b8fc34a9b719384a2658"
     ]
   },
   "entries": {
@@ -711,51 +711,6 @@
         "701eddadc2cae4f2bb34d2ebc922a3ea5c7bf4baf1361806cf855dd6d3418f18"
       ]
     },
-    "65c843190cff3c48f8fbbab77668e923d80ecad6cc335d0923bf4a203c41567b": {
-      "reference_date": "2026-06-15",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a5e4259cb863b5d84706aa3b0dea116c74ea0f25bc8f7f36574936a43e83425a"
-      ]
-    },
-    "929dfd420daa8580cbc34e5324fb10db78cdf87711f5b2021ef47ba4f6801f44": {
-      "reference_date": "2025-10-13",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f11e2664a124ff49122b2b55fbb516717047e1249235bf8d29fa72f09ee1ea31"
-      ]
-    },
-    "f670e0fb8b507924a4b879fba1aff1a9ee47dbdc06ab7af5105b5486934c9719": {
-      "reference_date": "2024-12-17",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "aae25cf79a6b20050379907f71577f04cbd8108dd21eda32f1d401c1403e7eca"
-      ]
-    },
-    "b3f50947f04248dadd84e645b99370bfd21e0cc29d891acb83516271b77af581": {
-      "reference_date": "2024-10-04",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8bc4c87f75b287426272f4bc7164072dd9ca43daf8e99936a0e3dda63957a0d6"
-      ]
-    },
-    "eb8be656536d2769be5fb6f71dd2fb406c7bd1002d847f7c9bed30841cd88e0d": {
-      "reference_date": "2024-08-12",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5072a3d3efc1d5ba2cf0411788105474c7abbd13a8bf1411e55b61976c0774a2"
-      ]
-    },
     "bd5a9dffe30ade3ae57bc603976a6034e411be567f087efb2aecf2fb4f8d1747": {
       "reference_date": "2023-09-25",
       "value": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo Fundo ao emissor da Letra Financeira e/ou detentor da Letra Financeira, correspondente preço de aquisição negociado entre o Gestor e as respectivas Instituições Financeiras Autorizadas e/ou o detentor das Letras Financeiras, conforme o caso; e (ii) com relação aos Direitos Creditórios Cedente, a ser pago pelo Fundo, mediante crédito na conta corrente de titularidade do Cedente, desde que (a) haja o recebimento dos Documentos Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos Creditórios Cedente a serem adquiridos atendam às Condições Precedentes descritas no Contrato de Cessão; e (c) haja a conclusão de todos os procedimentos operacionais previstos na legislação vigente e necessários para efetivar a transferência dos Direitos Creditórios ao Fundo.",
@@ -763,60 +718,6 @@
       "provenance": "primary_passage",
       "sources": [
         "60720ff64cfe0e7a5be0bcb170b5948957bb33a5178c502d83f5ebea42e78647"
-      ]
-    },
-    "82bde047ad00b2371e9d19b956bc1554f3ccc25821adfff0abf59e54eaf5d72f": {
-      "reference_date": "2023-07-25",
-      "value": "(vii) vender Cotas a instituições financeiras e sociedades de arrendamento mercantil cedentes de Direitos Creditórios ao Fundo, exceto quando se tratar de Cotas cuja classe se subordine às demais para efeito de Resgate;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "20254bc2eb6ad9c0433eb04312279f3e87b1a395c94a6a1fe6eebc5946555bd1"
-      ]
-    },
-    "b6d1d8011dba909ae6e6ff94c9c2a21f70698285683138d759c2708ebe45f064": {
-      "reference_date": "2024-12-17",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a82a25e4de5ce0ca811d8fcdbfd51f63d3b7f8fe60b5322174bac042537abace"
-      ]
-    },
-    "63203eaf4481d519a3139d57d829bd7e5fe45a82d174e08091639239e3b62a30": {
-      "reference_date": "2024-10-04",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b8c2b28d707aa8325dbc3b5d49a6379fcfd0237b5890eae8ce0e87f2392c305f"
-      ]
-    },
-    "a4f947a1a4606749e2668d57d5b0c5df5822489c334c00b56aca7ffa277f6664": {
-      "reference_date": "2024-08-12",
-      "value": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "49105e55110f663ddbe19e8e4b166292454f168cc299e4c0cdddcab42457584c"
-      ]
-    },
-    "6560b24bafe4ed8b20b979c45f76736ac3a01633aa343957d1f53001b3dc5cff": {
-      "reference_date": "2024-03-04",
-      "value": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo Fundo ao emissor da Letra Financeira e/ou detentor da Letra Financeira, correspondente preço de aquisição negociado entre o Gestor e as respectivas Instituições Financeiras Autorizadas e/ou o detentor das Letras Financeiras, conforme o caso; e (ii) com relação aos Direitos Creditórios Cedente, a ser pago pelo Fundo, mediante crédito na conta corrente de titularidade do Cedente, desde que (a) haja o recebimento dos Documentos Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos Creditórios Cedente a serem adquiridos atendam às Condições Precedentes descritas no Contrato de Cessão; e (c) haja a conclusão de todos os procedimentos operacionais previstos na legislação vigente e necessários para efetivar a transferência dos Direitos Creditórios ao Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "628ea87fb0934b98c20423949356a5e9c28c2070a69550b0a2ade6d8444b84b4"
-      ]
-    },
-    "9b5d36768907d69b44702b22583766634702ac6af1887893ac33655ab0a38386": {
-      "reference_date": "2023-12-27",
-      "value": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo Fundo ao emissor da Letra Financeira e/ou detentor da Letra Financeira, correspondente preço de aquisição negociado entre o Gestor e as respectivas Instituições Financeiras Autorizadas e/ou o detentor das Letras Financeiras, conforme o caso; e (ii) com relação aos Direitos Creditórios Cedente, a ser pago pelo Fundo, mediante crédito na conta corrente de titularidade do Cedente, desde que (a) haja o recebimento dos Documentos Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos Creditórios Cedente a serem adquiridos atendam às Condições Precedentes descritas no Contrato de Cessão; e (c) haja a conclusão de todos os procedimentos operacionais previstos na legislação vigente e necessários para efetivar a transferência dos Direitos Creditórios ao Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a499f74a192d683b9ff23ea877817b7c11a21f854940a07cb917d64fbf65d694"
       ]
     },
     "fcdb511bc0fd65426f3e49795c146cf8f3148e45d83afd0fc7be4b2abc592d4f": {
@@ -871,51 +772,6 @@
       "provenance": "primary_passage",
       "sources": [
         "8a77b12a5c23c857445c2b9d18815fcd419d2655354d12de6321a0524c521b51"
-      ]
-    },
-    "a343e7fc26ea51c1a02b6e823168c9aecba01dd1d5196ce11d53dd9d84818996": {
-      "reference_date": "2023-11-30",
-      "value": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "340c7963efdd1f3760c6f7ff40ff1b95e5f5b235c9c07e0f78c9cec5aec9a1be"
-      ]
-    },
-    "e612288b446547a7ea28c04af88ffc4175fd98b3ec4b3c1ed6cdf426480b3746": {
-      "reference_date": "2023-11-29",
-      "value": "Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ecffef362c42403b1c79f5be66c82c6663f568cb74731f285bc62bc40180029f"
-      ]
-    },
-    "dcb5f8fbd79454abace8a0bff2bcbb1efe2cf62edfd8f9f0a0c00114f15f5ac1": {
-      "reference_date": "2023-09-30",
-      "value": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "84b2d53dcf14a8850e32994409685ee3ac02a3861e163acee9179cabb7ca7f9a"
-      ]
-    },
-    "9f47bb19e1209e33d3321b781af06e027b485fcfb9b6d7ad659e37a1d7d19b30": {
-      "reference_date": "2023-09-30",
-      "value": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b861516e353b7a24423e5ecaa3583d0ac5832ee5164e4d0ca878f51b151e31bb"
-      ]
-    },
-    "feac36a8075a859a3a35b1f302caeae2ac669b71e76cb3edc07c8ea4ccf6ba16": {
-      "reference_date": "2023-09-25",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8274911036a291efef6a49ee58be9da698f57a0ef4d6ac09e631fb459f280dd8"
       ]
     },
     "3a8ae6ed314395edfee277a77f0d8b736af08f82de69504b889ccf98f4ab8e2c": {
@@ -4550,69 +4406,6 @@
         "386accb354a592e765bffe1ff98e7ebdb74cb596cb912b23eb3fbdf5a448bb70"
       ]
     },
-    "a919aab6be8e5b281cf8cc997a41ec9885d47e1290c349571f99cef03c812d25": {
-      "reference_date": "2026-06-15",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4fac51dc7e00931a0e335247cc64930eebbf4eaaaa08f7dfb6c3fdbc936a7d6a"
-      ]
-    },
-    "fd14136566f0e7b9aac74584d2229ad8a79bcb01506136c5e3ff295e5ab15e73": {
-      "reference_date": "2025-10-13",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8d628ee70b9b3b76d666e4cfcae608fb9cb72f6a53295456bbc865b46268e410"
-      ]
-    },
-    "10665d38a59b82c723a07fcb02772f3e3472bb5698792415ba797cbb925a4072": {
-      "reference_date": "2024-12-17",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "17d9d4792295d4d303ac1355a0a042eef54d84100e8547b5fdced252e645d027"
-      ]
-    },
-    "a5a1d92e8e3d0cfeaa02bc4f9a633843cda8bbc9c61ca3426867712a34580c82": {
-      "reference_date": "2024-10-04",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "73854074c148a7b7e53dea05dfd6e9423d5ce297150329e62cc05ee69c730b61"
-      ]
-    },
-    "44c1ea6caf2378a1e68dd0fa423fd125bb6a91e3e3352ed0f5bd28bc5351e276": {
-      "reference_date": "2024-08-12",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cb35b37fa3b396dba93de1d34c28936dd1dacb92a9dbbd17c93620831b14911e"
-      ]
-    },
-    "026cbbce2613c1bb15ff8d807274b06038ee4c9936714aafc34b91240460ce80": {
-      "reference_date": "2023-09-25",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "abc32a05f357d999ef920485fedaef929661023a474b8d637541478ed23737c0"
-      ]
-    },
-    "17e2acb67546a8d6befa15897c111b821e70362627bd70e55d97f2c8c18b7228": {
-      "reference_date": "2023-07-25",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c7000e30e2cc71d3e2b14ba729e900625ccb36ef75882242143ff752255f7bae"
-      ]
-    },
     "3513cc8d1b93a688a6231dfdff5609610bfed66c28ad4c9ee9e1278d8def6744": {
       "reference_date": "2024-12-17",
       "value": "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 1º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestor da Carteira.",
@@ -4620,6 +4413,222 @@
       "provenance": "primary_passage",
       "sources": [
         "45a9823d202f48ce683c35e00eb4ff2b4b6bb41a4bc1c01e7781a1888c9bd5ca"
+      ]
+    },
+    "f56eaca601b49a043794b20b28611a741542949a013de1c25d83dead0606f6b6": {
+      "reference_date": "2023-07-25",
+      "value": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo Fundo ao emissor da Letra Financeira e/ou detentor da Letra Financeira, correspondente preço de aquisição negociado entre o Gestor e as respectivas Instituições Financeiras Autorizadas e/ou o detentor das Letras Financeiras, conforme o caso; e (ii) com relação aos Direitos Creditórios Cedente, a ser pago pelo Fundo, mediante crédito na conta corrente de titularidade do Cedente, desde que (a) haja o recebimento dos Documentos Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos Creditórios Cedente a serem adquiridos atendam às Condições Precedentes descritas no Contrato de Cessão; e (c) haja a conclusão de todos os procedimentos operacionais previstos na legislação vigente e necessários para efetivar a transferência dos Direitos Creditórios ao Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "17872b6568d9d1649b8f61b630bf54aa9390b590405abab83090c47b5cef56b9"
+      ]
+    },
+    "39cca0079a93f9c4909d6a3510560c7ffcb0dea9f5097b126b5a53ede3f9e627": {
+      "reference_date": "2024-09-30",
+      "value": "A Assembleia realizada em 12 de agosto de 2024, aprovou os seguintes temas: I) Deliberar sobre a alteração do regulamento do Fundo (“Regulamento”), para fins de: (a) adaptação do Regulamento à Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme em vigor (“Resolução CVM 175”); e (b) alteração de determinados termos e condições constantes do Regulamento, incluindo: (1) a possibilidade de o Fundo renegociar junto aos Devedores, o pagamento referente a Direitos Creditórios Inadimplidos, com a condição de tais renegociações serem consideradas 100% (cem por cento) provisionadas para entrada de novos cotistas sêniores; (2) alterar o processo de notificação de Devedores de Direitos Creditórios Cedidos; (3) prever a possibilidade de resolução de cessão em virtude de eventual concessão de desconto aos Devedores (“Resolução em Razão de Desconto”); e (4) autorizar que o FIDC realize o repasse, para a Cedente, de todo e qualquer valor pago erroneamente por quaisquer Devedores ao Fundo, mediante autorização do respectivo Devedor (“Repasse para o Cedente”); (5) autorizar que, exclusivamente para fins de verificação das Condições de Cessão e dos Critérios de Elegibilidade, até 31 de outubro de 2024, o Patrimônio Líquido do Fundo seja considerado (i) R$150.000 (cento e cinquenta milhões de reais) ou (ii) Patrimônio Líquido atual do Fundo, dos dois o maior; (6) Alterar o cálculo do Índice de Repasse, Índice de Resolução e Índice de Renegociação, de forma que o Patrimônio Líquido de referência seja a média dos últimos 6 (seis) meses; e (7) Alterar a Data de Aniversário para pagamento de amortização e remuneração das Cotas (em conjunto, as “Alterações ao Regulamento”); II) Retificar o suplemento das cotas da 1ª (primeira) série da 1ª (primeira) emissão de cotas seniores de emissão do Fundo (“Apêndice de Cotas Seniores”), de forma a ajustar as “Datas de Pagamento” da remuneração das referidas cotas; III) Deliberar sobre a autorização para celebração de aditamento ao Contrato de Cessão tendo em vista a inclusão de hipótese de Resolução em Razão de Desconto e a possibilidade de Repasse para o Cedente (em conjunto, as “Alterações ao Contrato de Cessão”); 24",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "df10fc0a7f439ee89b8185db84982f8a11496e0c32c100fb7c4544ffa291ae91"
+      ]
+    },
+    "0dcdec2c6dff31ebcf8b6877f52b7063ca4eb780cecbc96d3a3bc38255de74c7": {
+      "reference_date": "2023-09-25",
+      "value": "2/3 (dois terços) das Cotas em circulação em primeira convocação e por, no mínimo, a maioria alterar este Regulamento, incluindo seus absoluta dos Cotistas presentes, desde que tais Anexos, exceto por erros materiais cuja Cotistas presentes representem, no mínimo, 1/3 correção é necessária para a realização (um terço) da totalidade das Cotas emitidas da Oferta Restrita; pelo Fundo, em segunda convocação, desde que haja o voto afirmativo de 100% (cem por cento) dos Cotistas titulares de Cotas Subordinadas Mezanino; 2/3 (dois terços) das Cotas em circulação em primeira convocação e por, no mínimo, a maioria absoluta dos Cotistas presentes, desde que tais alterar as Condições de Cessão, os Cotistas presentes representem, no mínimo, 1/3 Critérios de Elegibilidade e a Política (um terço) da totalidade das Cotas emitidas de Investimento; pelo Fundo, em segunda convocação, desde que haja o voto afirmativo de 100% (cem por cento) dos Cotistas titulares de Cotas Subordinadas Mezanino; 2/3 (dois terços) das Cotas em circulação em deliberar a substituição e/ou destituição primeira convocação e por, no mínimo, a maioria sem Justa Causa do Administrador, absoluta dos Cotistas presentes, desde que tais Custodiante ou Gestor; Cotistas presentes representem, no mínimo, 1/3 (um terço) da totalidade das Cotas emitidas pelo Fundo, em segunda convocação; deliberar a contratação e/ou a substituição da Agência de Classificação de Risco, do Agente de Formalização, do Agente de Cobrança 2/3 (dois terços) das Cotas em circulação em Extrajudicial, do Agente de Cobrança primeira convocação e por, no mínimo, a maioria Judicial e/ou de qualquer outro absoluta dos Cotistas presentes, desde que tais prestador de serviços do Fundo, com Cotistas presentes representem, no mínimo, 1/3 exceção do Auditor Independente, o (um terço) da totalidade das Cotas emitidas qual poderá ser substituído em pelo Fundo, em segunda convocação conformidade com as políticas internas do Administrador;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8274911036a291efef6a49ee58be9da698f57a0ef4d6ac09e631fb459f280dd8"
+      ]
+    },
+    "c93cf3efef0c9aaafd9621b22a86b6b236b216d4250feafac912a4417ddf07e0": {
+      "reference_date": "2023-07-25",
+      "value": "5.2. A verificação e validação do enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão, por meio do envio ao Agente de Formalização e ao Cedente do Arquivo Remessa, contendo a relação de Direitos Creditórios Cedente que atenderam à totalidade das Condições de Cessão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8eecbd868f778da4c7434af6f5dd0a9ab4408bd306d661a61c60c2849d1dd91a"
+      ]
+    },
+    "587ce3b8bc2b27edab4b2259b635ceec0b29cc8ad2f68e7f788f5633f3a4b8ab": {
+      "reference_date": "2026-06-15",
+      "value": "Considerando-se pro forma a aquisição pretendida, a somatória do valor presente dos Direitos GESTOR COM BASE NAS Creditórios devidos de um mesmo INFORMAÇÕES DO Devedor (considerado em conjunto CUSTODIANTE e CEDENTE. com as demais integrantes do seu Grupo Econômico), deve estar limitada a 3% (três por cento) do Patrimônio Líquido da Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8b5e604fa53cb351cbfeb127321431970eef766ef5938bfe0172890532c64ec5"
+      ]
+    },
+    "d91ef228565be6fb16ec450dd410415166d9af8855616787c9e5a6ba6c5ca137": {
+      "reference_date": "2025-10-13",
+      "value": "Considerando-se pro forma a aquisição pretendida, a somatória do valor presente dos Direitos GESTOR COM BASE NAS Creditórios devidos de um mesmo INFORMAÇÕES DO Devedor (considerado em conjunto CUSTODIANTE e CEDENTE. com as demais integrantes do seu Grupo Econômico), deve estar limitada a 3% (três por cento) do Patrimônio Líquido da Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "be9c318e9ab9fdf04f8a156dd6f0011a8204e612847719cd75eafc52d4feb3c0"
+      ]
+    },
+    "87830a0e9706b390800138172518ef5bcb94c68ae9b37e8db8f16e80ab614587": {
+      "reference_date": "2025-09-30",
+      "value": "Os Direitos Creditórios são ativos gerados no âmbito do agronegócio com um único cedente sendo a Helm do Brasil Mercantil Ltda, gerando recebíveis com base nas suas operações realizadas com uma base ampla de sacados.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f1ec7e4e1890e8127cb4f96d9c61762fef8f8171972513d4f8292c3835a8279e"
+      ]
+    },
+    "1b79e7b80875b747c44f6cec198b8af1378bdbd5c679c5b0919381a27c157205": {
+      "reference_date": "2024-12-17",
+      "value": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d496bec201c4d21595effa455fca81d5171cb35fa7f5c37fc63b816799727ef7"
+      ]
+    },
+    "412ef5da9fe508a7288cc26ffdeedcd0fdd779162c3a7e6d9dc6e20304f4f001": {
+      "reference_date": "2024-10-04",
+      "value": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5a562ff7416cc5c497ba1599595ed31d96caa28d1bd26e395a1759f715db9859"
+      ]
+    },
+    "69cda5ab69882b139e2472dc39de45a3e406f6666fafdb12898a4bded33810ac": {
+      "reference_date": "2024-08-12",
+      "value": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8071f3e34f0bb29bc36364adcc2061cde8f05d039dc1465612247c6776fc9b91"
+      ]
+    },
+    "afec10be34aa352ec69624e4b413a175b7d116e52d1eb858cd68f308f97f49be": {
+      "reference_date": "2024-03-04",
+      "value": "2. CONVOCAÇÃO E PRESENÇA: Dispensada a convocação em razão da presença dos debenturistas titulares de 100% (cem por cento) das cotas em circulação do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO NITRO AGRO, inscrito no CNPJ sob o nº 51.554.551/0001-38 (“Fundo”, “Cotas” e “Cotistas”, respectivamente). Presentes também (i) o representante da COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50 (“Cedente”) e (ii) o representante da Administradora.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "32b759d12793688435c6af578de95a8fb62d5c4f12d18453d01f6e8abdb2b63d"
+      ]
+    },
+    "90967fd1bcb821fd174e4aa8e805c2108a004051906dfbec38e946685ef583b6": {
+      "reference_date": "2023-12-27",
+      "value": "2. CONVOCAÇÃO E PRESENÇA: Dispensada a convocação em razão da presença dos debenturistas titulares de 100% (cem por cento) das cotas em circulação do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO NITRO AGRO, inscrito no CNPJ sob o nº 51.554.551/0001-38 (“Fundo”, “Cotas” e “Cotistas”, respectivamente). Presentes também (i) o representante da COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50 (“Cedente”) e (ii) o representante da Administradora.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "26265baaff4c5e68d4dab03983aa0f195f385fbdee717d6abad8080429aaece1"
+      ]
+    },
+    "75821ff0219bf7fd8e767917e62c73623d69f5527c99a434d4e77af41d68acaa": {
+      "reference_date": "2026-06-15",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "41a7afac43c0bacbe1b1b127c4b84c0575ef2422ab5fe4a795a15a90ca39f7fd"
+      ]
+    },
+    "b5c89eabcf198b80fe5dfc71472089421542575d68b2b1a32be6c1cdf3dea10e": {
+      "reference_date": "2025-10-13",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ed3b08563f1208e01c58b9be96aca41bee16bfdf452a9c1ec6705c30e7dc202b"
+      ]
+    },
+    "482e0f00bf4565be4eaf1cb9c06886fa1d8abf22955de4504cf694c35389be64": {
+      "reference_date": "2024-12-17",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "09c2f4623fd9ab7158cb67e8426e31cafd0158f8a3efc0ae777adca752e548a4"
+      ]
+    },
+    "e587135f650091d9d48934e8e881bc2df97c8fb10046f10405939d9e6f62954a": {
+      "reference_date": "2024-10-04",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ae24e71688d20954e97b1d6695f3374ad7b73b43d69c823855aba0e4730337a8"
+      ]
+    },
+    "9b65410a77f5708b6495ccbd1210587aa6a4ffcc258a730df3e1531572ed6004": {
+      "reference_date": "2024-08-12",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "62c3b5295580ee6bf834baa2291e3fdd3148a502e8da1a40e9fd4c6938eee99a"
+      ]
+    },
+    "1eb3036e5fe0ec247db100229e84536f1b6011d58cb89eade17e6e853c3839bc": {
+      "reference_date": "2023-09-25",
+      "value": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5a51e04afad42f2b7fada57a149b2881605414d7e8ecbff025d863ee67e3daea"
+      ]
+    },
+    "d402b9e6da395e22bb3ccb2f1f7b366b8b35515f2a4bcb74c0c285a426670d03": {
+      "reference_date": "2023-07-25",
+      "value": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9f5c41738ee81c9a3f7ad43758e9caf02b6968fe37e3ee54413bcfb200a14d6c"
+      ]
+    },
+    "569ff8e74cf0a26a2fa9b5f2fab3075d69a513119ee3b098b0b59cb6a0053123": {
+      "reference_date": "2024-12-17",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "62d9fefb3801d38f1f0094b360e1c47bb6cfcea1dbec005db2c9fdf2affb2721"
+      ]
+    },
+    "f0980616fe2da15e5d0212678ee7957c53919306e3aea070b49d0e0cf2d1cab0": {
+      "reference_date": "2024-10-04",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b13c0548682e0b3dce1983774aa07173f22c238d61a4d8f5c4793d96b05a3dd2"
+      ]
+    },
+    "290bc2e7cc276a58e48eae9fe2f6128336ed347c429e647c66692c0120974e6d": {
+      "reference_date": "2024-08-12",
+      "value": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "38777a843e3ffc44c95706aaa0a8ff3aee39d21514d6fcf6a18eb0ae7362df86"
+      ]
+    },
+    "3b9fa9b9611ea0073f43a025c2dc9f820ce55b951fceccdb1b9e13033f1a453d": {
+      "reference_date": "2024-03-04",
+      "value": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "37cf21d6ffdc63642110dc019f6c1669d36a07ba694f8d3914069ca3099686c7"
+      ]
+    },
+    "e17ff9854c26d9f41a0da63a4c2595589b4623b5c599b8fc34a9b719384a2658": {
+      "reference_date": "2023-12-27",
+      "value": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8bc07df89a3f01935f1a7db11d88b0d36e82e55224b502799f0c480c3abaa433"
       ]
     }
   },
@@ -4769,66 +4778,6 @@
       "sha256": "f1ba82bbeb3161613b1ec3617fca11d8a7f9b2c93f55254c51af3bac75c0e9bb",
       "verification": "primary_passage"
     },
-    "a5e4259cb863b5d84706aa3b0dea116c74ea0f25bc8f7f36574936a43e83425a": {
-      "document_id": "1261909",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261909",
-      "reference_date": "2026-06-15",
-      "version": "1",
-      "page": 41,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no",
-      "sha256": "c712bd69c9b2988c426e6280c95796cf6c84bc8e6bc9a268b4118c4a84399a94",
-      "verification": "primary_passage"
-    },
-    "f11e2664a124ff49122b2b55fbb516717047e1249235bf8d29fa72f09ee1ea31": {
-      "document_id": "1013477",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013477",
-      "reference_date": "2025-10-13",
-      "version": "1",
-      "page": 42,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no",
-      "sha256": "a96d956f25260de5d3cedb9b3b1adb30c7b5062b07c4902ed9e96ae9b0c4ced3",
-      "verification": "primary_passage"
-    },
-    "aae25cf79a6b20050379907f71577f04cbd8108dd21eda32f1d401c1403e7eca": {
-      "document_id": "806372",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806372",
-      "reference_date": "2024-12-17",
-      "version": "1",
-      "page": 45,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "8a821099462952f488c5d3df651351a3b267e7b5bf68c285bdf2e49adaf59a17",
-      "verification": "primary_passage"
-    },
-    "8bc4c87f75b287426272f4bc7164072dd9ca43daf8e99936a0e3dda63957a0d6": {
-      "document_id": "756241",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756241",
-      "reference_date": "2024-10-04",
-      "version": "1",
-      "page": 45,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por  cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios  para a concessão de crédito adotados pelos originadores, caso tais critérios  não tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais; e (2) eventuais alterações nos critérios para a concessão de  crédito adotados por tais originadores, caso os critérios adotados já tenham  sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "sha256": "f26604484660d67aa829395fe0b37dcd57726c09e6871749aea7a99269610836",
-      "verification": "primary_passage"
-    },
-    "5072a3d3efc1d5ba2cf0411788105474c7abbd13a8bf1411e55b61976c0774a2": {
-      "document_id": "723192",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723192",
-      "reference_date": "2024-08-12",
-      "version": "1",
-      "page": 47,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "cbb324bafd40a7d2a4b49f886b0edf1bc1c8048ecc2f0e552509b46f418d315a",
-      "verification": "primary_passage"
-    },
     "60720ff64cfe0e7a5be0bcb170b5948957bb33a5178c502d83f5ebea42e78647": {
       "document_id": "526756",
       "title": "Instrumento Particular de Emissão de Cotas",
@@ -4839,78 +4788,6 @@
       "clause": "",
       "excerpt": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios  Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo  Fundo ao emissor da Letra Financeira e/ou detentor da Letra  Financeira, correspondente preço de aquisição negociado entre  o Gestor e as respectivas Instituições Financeiras Autorizadas  e/ou o detentor das Letras Financeiras, conforme o caso; e (ii)  com relação aos Direitos Creditórios Cedente, a ser pago pelo  Fundo, mediante crédito na conta corrente de titularidade do  Cedente, desde que (a) haja o recebimento dos Documentos  Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos  Creditórios Cedente a serem adquiridos atendam às Condições  Precedentes descritas no Contrato de Cessão; e (c) haja a  conclusão de todos os procedimentos operacionais previstos na  legislação vigente e necessários para efetivar a transferência  dos Direitos Creditórios ao Fundo. O Preço de Aquisição será  calculado pelo Gestor e validado pelo Administrador, sendo o  Preço de Aquisição dos Direitos Creditórios Cedente calculado  de acordo com a seguinte fórmula:",
       "sha256": "1a780bef8285bf31eeea0aa5c3a17329319522c101e39a5e0de9aad77c6d428e",
-      "verification": "primary_passage"
-    },
-    "20254bc2eb6ad9c0433eb04312279f3e87b1a395c94a6a1fe6eebc5946555bd1": {
-      "document_id": "526755",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526755",
-      "reference_date": "2023-07-25",
-      "version": "1",
-      "page": 80,
-      "clause": "14.4",
-      "excerpt": "14.4. É vedado ao Administrador, em nome do Fundo:\n(i) prestar garantia por meio de contrato ou outro instrumento, aceite ou coobrigar-se  sob qualquer outra forma nas operações praticadas pelo Fundo;\n(ii) realizar operações e negociar com ativos financeiros ou modalidades de investimento  não previstos neste Regulamento e/ou na regulamentação em vigor;\n(iii) aplicar recursos diretamente no exterior;\n(v) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas  previstas no Regulamento e na regulamentação em vigor;\n(vii) vender Cotas a instituições financeiras e sociedades de arrendamento mercantil  cedentes de Direitos Creditórios ao Fundo, exceto quando se tratar de Cotas cuja  classe se subordine às demais para efeito de Resgate;\n(viii) prometer remuneração predeterminada aos Cotistas;\n(ix) fazer com que sua propaganda ou outros documentos apresentados aos investidores  contenham promessas de distribuições ou de remunerações, com base em seu próprio  desempenho, no desempenho alheio ou no de ativos financeiros ou modalidades de  investimento disponíveis no mercado financeiro;\n(x) delegar poderes de gestão da Carteira, ressalvado o disposto no artigo 39, inciso II,  da Instrução CVM 356/01;\n(xi) obter ou conceder empréstimos, admitindo-se a constituição de créditos e a assunção  de responsabilidade por débitos em decorrência de operações realizadas em  mercados de derivativos; e\n(xii) efetuar locação, empréstimo, penhor ou caução dos Direitos Creditórios e/ou Ativos  Financeiros integrantes da Carteira, exceto quando se tratar de sua utilização como  margem de garantia nas operações realizadas em mercados de derivativos.",
-      "sha256": "4d1de918e9d5889accc5e160cf85b09c35707b74b12ff3b0a0558d7dc774aaec",
-      "verification": "primary_passage"
-    },
-    "a82a25e4de5ce0ca811d8fcdbfd51f63d3b7f8fe60b5322174bac042537abace": {
-      "document_id": "806373",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
-      "reference_date": "2024-12-17",
-      "version": "1",
-      "page": 40,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "dc9b305826b95634fbaeb397fd98f9057389de7a6c40350cd3375c6cc881a2b3",
-      "verification": "primary_passage"
-    },
-    "b8c2b28d707aa8325dbc3b5d49a6379fcfd0237b5890eae8ce0e87f2392c305f": {
-      "document_id": "756242",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756242",
-      "reference_date": "2024-10-04",
-      "version": "1",
-      "page": 38,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por  cento) ou mais da carteira de Direitos Creditórios no trimestre: (1) critérios  para a concessão de crédito adotados pelos originadores, caso tais critérios  não tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais; e (2) eventuais alterações nos critérios para a concessão de  crédito adotados por tais originadores, caso os critérios adotados já tenham  sido descritos no Regulamento ou em outros demonstrativos trimestrais;",
-      "sha256": "0e2cdd803e8f6d9b6792efa9d799574029c01fca37504bae3b2d22b89437ea44",
-      "verification": "primary_passage"
-    },
-    "49105e55110f663ddbe19e8e4b166292454f168cc299e4c0cdddcab42457584c": {
-      "document_id": "723193",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723193",
-      "reference_date": "2024-08-12",
-      "version": "1",
-      "page": 40,
-      "clause": "",
-      "excerpt": "(b) em relação aos originadores que representem individualmente 10% (dez por cento) ou  mais da carteira de Direitos Creditórios no trimestre: (1) critérios para a concessão de  crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no  Regulamento ou em outros demonstrativos trimestrais; e (2) eventuais alterações nos  critérios para a concessão de crédito adotados por tais originadores, caso os critérios  adotados já tenham sido descritos no Regulamento ou em outros demonstrativos  trimestrais;",
-      "sha256": "09f1a55f62e903a86403a2d4d6ee16a5641b40ffc26ef71b95cb6fe9fb0823f5",
-      "verification": "primary_passage"
-    },
-    "628ea87fb0934b98c20423949356a5e9c28c2070a69550b0a2ade6d8444b84b4": {
-      "document_id": "616573",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616573",
-      "reference_date": "2024-03-04",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos  Creditórios Elegíveis: (i) no caso dos Direitos Creditórios  LF, a ser pago pelo Fundo ao emissor da Letra Financeira  e/ou detentor da Letra Financeira, correspondente preço  de aquisição negociado entre o Gestor e as respectivas  Instituições Financeiras Autorizadas e/ou o detentor das  Letras Financeiras, conforme o caso; e (ii) com relação aos  Direitos Creditórios Cedente, a ser pago pelo Fundo,  mediante crédito na conta corrente de titularidade do  Cedente, desde que (a) haja o recebimento dos  Documentos Comprobatórios dos Direitos Creditórios  Cedente; (b) os Direitos Creditórios Cedente a serem  adquiridos atendam às Condições Precedentes descritas no  Contrato de Cessão; e (c) haja a conclusão de todos os  procedimentos operacionais previstos na legislação vigente  e necessários para efetivar a transferência dos Direitos  Creditórios ao Fundo. O Preço de Aquisição será calculado",
-      "sha256": "f1ba82bbeb3161613b1ec3617fca11d8a7f9b2c93f55254c51af3bac75c0e9bb",
-      "verification": "primary_passage"
-    },
-    "a499f74a192d683b9ff23ea877817b7c11a21f854940a07cb917d64fbf65d694": {
-      "document_id": "596024",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
-      "reference_date": "2023-12-27",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios  Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo  Fundo ao emissor da Letra Financeira e/ou detentor da Letra  Financeira, correspondente preço de aquisição negociado entre  o Gestor e as respectivas Instituições Financeiras Autorizadas  e/ou o detentor das Letras Financeiras, conforme o caso; e (ii)  com relação aos Direitos Creditórios Cedente, a ser pago pelo  Fundo, mediante crédito na conta corrente de titularidade do  Cedente, desde que (a) haja o recebimento dos Documentos  Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos  Creditórios Cedente a serem adquiridos atendam às Condições  Precedentes descritas no Contrato de Cessão; e (c) haja a  conclusão de todos os procedimentos operacionais previstos na  legislação vigente e necessários para efetivar a transferência  dos Direitos Creditórios ao Fundo. O Preço de Aquisição será  calculado pelo Gestor e validado pelo Administrador, sendo o  Preço de Aquisição dos Direitos Creditórios Cedente calculado  de acordo com a seguinte fórmula:",
-      "sha256": "4820054653851c4744f5d77a0a6eb1b8d48a8d7a098aa8c3c455d4824b05bc98",
       "verification": "primary_passage"
     },
     "06f5ee0e69396aeb9e0273e720ae8388a5955ef9b88c851c68141e9a8dffe7f9": {
@@ -4983,54 +4860,6 @@
       "clause": "4.7",
       "excerpt": "4.7. Exclusivamente para fins de apuração de Critérios de Elegibilidade e Condições de Cessão, até dia 31 de outubro de 2024, será considerado como Patrimônio Líquido o valor de (i) R$\n150.000.000,00 (cento e cinquenta milhões de reais) ou (ii) o Patrimônio Líquido atual do fundo, dos dois o maior.",
       "sha256": "cbb324bafd40a7d2a4b49f886b0edf1bc1c8048ecc2f0e552509b46f418d315a",
-      "verification": "primary_passage"
-    },
-    "340c7963efdd1f3760c6f7ff40ff1b95e5f5b235c9c07e0f78c9cec5aec9a1be": {
-      "document_id": "567926",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=567926",
-      "reference_date": "2023-11-30",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer  reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas  constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de  assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro  de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os  Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente  ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a  Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e  Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao  Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "sha256": "ac4a890430274b00d718452ba0c4d25cb42d996e3e07590c74d873056ee3c3e1",
-      "verification": "primary_passage"
-    },
-    "ecffef362c42403b1c79f5be66c82c6663f568cb74731f285bc62bc40180029f": {
-      "document_id": "564506",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=564506",
-      "reference_date": "2023-11-29",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "sha256": "40883110173c6aec903bf16e8210290ae8eb5c8a9af946533592ffd8526f2f45",
-      "verification": "primary_passage"
-    },
-    "84b2d53dcf14a8850e32994409685ee3ac02a3861e163acee9179cabb7ca7f9a": {
-      "document_id": "567896",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=567896",
-      "reference_date": "2023-09-30",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer  reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas  constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de  assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro  de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os  Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente  ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a  Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e  Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao  Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "sha256": "f45f358790b727e5f4ab56286d4ef33fbe0bb2e6e91d1b17c8bea68728e1b77b",
-      "verification": "primary_passage"
-    },
-    "b861516e353b7a24423e5ecaa3583d0ac5832ee5164e4d0ca878f51b151e31bb": {
-      "document_id": "567928",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=567928",
-      "reference_date": "2023-09-30",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "Em 29 de novembro de 2023, os Cotistas do Fundo aprovaram, por unanimidade e sem quaisquer  reservas ou ressalvas: (i) a realização das Alterações ao Contrato de Cessão, conforme minutas  constantes no Anexos II à presente ata, passando a redação à vigorar a partir desta ata de  assembleia; e (ii) a realização das Cessões Extraordinárias, a serem formalizadas até 31 de dezembro  de 2023, sendo que: (a) para a 1ª (primeira) Cessão Extraordinária, serão cedidos ao Fundo os  Direitos Creditórios devidos por Devedores indicados na relação descrita no Anexo III à presente  ata, sendo que referidos Direitos Creditórios poderão não cumprir única e exclusivamente a  Condição de Cessão Dispensada, devendo ser observadas todas as demais Condições de Cessão e  Critérios de Elegibilidade aplicáveis; e (b) para as demais Cessões Extraordinárias, serão cedidos ao  Fundo os Direitos Creditórios indicados pelos Cotistas titulares de Cotas Seniores.",
-      "sha256": "ac4a890430274b00d718452ba0c4d25cb42d996e3e07590c74d873056ee3c3e1",
       "verification": "primary_passage"
     },
     "8274911036a291efef6a49ee58be9da698f57a0ef4d6ac09e631fb459f280dd8": {
@@ -9578,90 +9407,6 @@
       "sha256": "c712bd69c9b2988c426e6280c95796cf6c84bc8e6bc9a268b4118c4a84399a94",
       "verification": "primary_passage"
     },
-    "4fac51dc7e00931a0e335247cc64930eebbf4eaaaa08f7dfb6c3fdbc936a7d6a": {
-      "document_id": "1261909",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261909",
-      "reference_date": "2026-06-15",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no mínimo, 2 (dois)  Dias Úteis de antecedência.",
-      "sha256": "c712bd69c9b2988c426e6280c95796cf6c84bc8e6bc9a268b4118c4a84399a94",
-      "verification": "primary_passage"
-    },
-    "8d628ee70b9b3b76d666e4cfcae608fb9cb72f6a53295456bbc865b46268e410": {
-      "document_id": "1013477",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013477",
-      "reference_date": "2025-10-13",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no mínimo, 2 (dois)  Dias Úteis de antecedência.",
-      "sha256": "a96d956f25260de5d3cedb9b3b1adb30c7b5062b07c4902ed9e96ae9b0c4ced3",
-      "verification": "primary_passage"
-    },
-    "17d9d4792295d4d303ac1355a0a042eef54d84100e8547b5fdced252e645d027": {
-      "document_id": "806372",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806372",
-      "reference_date": "2024-12-17",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no mínimo, 2 (dois)  Dias Úteis de antecedência.",
-      "sha256": "8a821099462952f488c5d3df651351a3b267e7b5bf68c285bdf2e49adaf59a17",
-      "verification": "primary_passage"
-    },
-    "73854074c148a7b7e53dea05dfd6e9423d5ce297150329e62cc05ee69c730b61": {
-      "document_id": "756241",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756241",
-      "reference_date": "2024-10-04",
-      "version": "1",
-      "page": 23,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o  controle das mesmas pessoas físicas. Os Grupos  Econômicos de Devedores serão os registrados na base  de dados do Cedente e serão informados ao Custodiante  e ao Gestor, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos de  Devedores de conhecimento do Cedente, conforme o  caso, nesta hipótese sempre antes da realização de nova  aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos  Econômicos deverá ser informada ao Custodiante com,  no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "sha256": "f26604484660d67aa829395fe0b37dcd57726c09e6871749aea7a99269610836",
-      "verification": "primary_passage"
-    },
-    "cb35b37fa3b396dba93de1d34c28936dd1dacb92a9dbbd17c93620831b14911e": {
-      "document_id": "723192",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723192",
-      "reference_date": "2024-08-12",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no mínimo, 2 (dois)  Dias Úteis de antecedência.",
-      "sha256": "cbb324bafd40a7d2a4b49f886b0edf1bc1c8048ecc2f0e552509b46f418d315a",
-      "verification": "primary_passage"
-    },
-    "abc32a05f357d999ef920485fedaef929661023a474b8d637541478ed23737c0": {
-      "document_id": "526756",
-      "title": "Instrumento Particular de Emissão de Cotas",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526756",
-      "reference_date": "2023-09-25",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos",
-      "sha256": "1a780bef8285bf31eeea0aa5c3a17329319522c101e39a5e0de9aad77c6d428e",
-      "verification": "primary_passage"
-    },
-    "c7000e30e2cc71d3e2b14ba729e900625ccb36ef75882242143ff752255f7bae": {
-      "document_id": "526755",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526755",
-      "reference_date": "2023-07-25",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o controle  das mesmas pessoas físicas. Os Grupos Econômicos de  Devedores serão os registrados na base de dados do Cedente e  serão informados ao Custodiante e ao Gestor, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos de Devedores de conhecimento do Cedente,  conforme o caso, nesta hipótese sempre antes da realização de  nova aquisição de Direitos Creditórios Elegíveis pelo Fundo,  sendo que qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no mínimo, 2 (dois)  Dias Úteis de antecedência.",
-      "sha256": "4d1de918e9d5889accc5e160cf85b09c35707b74b12ff3b0a0558d7dc774aaec",
-      "verification": "primary_passage"
-    },
     "45a9823d202f48ce683c35e00eb4ff2b4b6bb41a4bc1c01e7781a1888c9bd5ca": {
       "document_id": "806372",
       "title": "AGE",
@@ -9672,6 +9417,284 @@
       "clause": "",
       "excerpt": "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., com  sede na cidade de São Paulo, Estado de São Paulo, na Rua  Hungria, nº 1.240, 1º andar, conjunto 62, Jardim Europa, CEP  01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01,  devidamente credenciada como administradora de carteira de  valores mobiliários pela CVM pelo Ato Declaratório nº 19.365,  de 7 de dezembro de 2021, na qualidade de gestor da Carteira.",
       "sha256": "8a821099462952f488c5d3df651351a3b267e7b5bf68c285bdf2e49adaf59a17",
+      "verification": "primary_passage"
+    },
+    "17872b6568d9d1649b8f61b630bf54aa9390b590405abab83090c47b5cef56b9": {
+      "document_id": "526755",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526755",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 20,
+      "clause": "",
+      "excerpt": "“Preço de Aquisição” Significa o valor referente à aquisição de Direitos Creditórios  Elegíveis: (i) no caso dos Direitos Creditórios LF, a ser pago pelo  Fundo ao emissor da Letra Financeira e/ou detentor da Letra  Financeira, correspondente preço de aquisição negociado entre  o Gestor e as respectivas Instituições Financeiras Autorizadas  e/ou o detentor das Letras Financeiras, conforme o caso; e (ii)  com relação aos Direitos Creditórios Cedente, a ser pago pelo  Fundo, mediante crédito na conta corrente de titularidade do  Cedente, desde que (a) haja o recebimento dos Documentos  Comprobatórios dos Direitos Creditórios Cedente; (b) os Direitos  Creditórios Cedente a serem adquiridos atendam às Condições  Precedentes descritas no Contrato de Cessão; e (c) haja a  conclusão de todos os procedimentos operacionais previstos na  legislação vigente e necessários para efetivar a transferência  dos Direitos Creditórios ao Fundo. O Preço de Aquisição será  calculado pelo Gestor e validado pelo Administrador, sendo o  Preço de Aquisição dos Direitos Creditórios Cedente calculado  de acordo com a seguinte fórmula:",
+      "sha256": "4d1de918e9d5889accc5e160cf85b09c35707b74b12ff3b0a0558d7dc774aaec",
+      "verification": "primary_passage"
+    },
+    "df10fc0a7f439ee89b8185db84982f8a11496e0c32c100fb7c4544ffa291ae91": {
+      "document_id": "811566",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811566",
+      "reference_date": "2024-09-30",
+      "version": "1",
+      "page": 30,
+      "clause": "",
+      "excerpt": "A Assembleia realizada em 12 de agosto de 2024, aprovou os seguintes temas:\nI) Deliberar sobre a alteração do regulamento do Fundo (“Regulamento”), para fins de: (a)  adaptação do Regulamento à Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme em  vigor (“Resolução CVM 175”); e (b) alteração de determinados termos e condições constantes do  Regulamento, incluindo: (1) a possibilidade de o Fundo renegociar junto aos Devedores, o  pagamento referente a Direitos Creditórios Inadimplidos, com a condição de tais renegociações  serem consideradas 100% (cem por cento) provisionadas para entrada de novos cotistas sêniores;\n (2) alterar o processo de notificação de Devedores de Direitos Creditórios Cedidos; (3) prever a  possibilidade de resolução de cessão em virtude de eventual concessão de desconto aos Devedores  (“Resolução em Razão de Desconto”); e (4) autorizar que o FIDC realize o repasse, para a Cedente,  de todo e qualquer valor pago erroneamente por quaisquer Devedores ao Fundo, mediante  autorização do respectivo Devedor (“Repasse para o Cedente”); (5) autorizar que, exclusivamente  para fins de verificação das Condições de Cessão e dos Critérios de Elegibilidade, até 31 de outubro  de 2024, o Patrimônio Líquido do Fundo seja considerado (i) R$150.000 (cento e cinquenta milhões  de reais) ou (ii) Patrimônio Líquido atual do Fundo, dos dois o maior; (6) Alterar o cálculo do Índice  de Repasse, Índice de Resolução e Índice de Renegociação, de forma que o Patrimônio Líquido de  referência seja a média dos últimos 6 (seis) meses; e (7) Alterar a Data de Aniversário para  pagamento de amortização e remuneração das Cotas (em conjunto, as “Alterações ao  Regulamento”);\nII) Retificar o suplemento das cotas da 1ª (primeira) série da 1ª (primeira) emissão de cotas seniores  de emissão do Fundo (“Apêndice de Cotas Seniores”), de forma a ajustar as “Datas de Pagamento”  da remuneração das referidas cotas;\nIII) Deliberar sobre a autorização para celebração de aditamento ao Contrato de Cessão tendo em  vista a inclusão de hipótese de Resolução em Razão de Desconto e a possibilidade de Repasse para  o Cedente (em conjunto, as “Alterações ao Contrato de Cessão”);\n 24",
+      "sha256": "fdbfd15d5bf664774d9ddb32fae2deb5f587e799215181906ec6facee810a8a1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8eecbd868f778da4c7434af6f5dd0a9ab4408bd306d661a61c60c2849d1dd91a": {
+      "document_id": "526755",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526755",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 31,
+      "clause": "5.2",
+      "excerpt": "5.2. A verificação e validação do enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão, por meio do envio ao Agente de Formalização e ao Cedente do Arquivo Remessa, contendo a relação de Direitos Creditórios Cedente que atenderam à totalidade das Condições de Cessão.",
+      "sha256": "4d1de918e9d5889accc5e160cf85b09c35707b74b12ff3b0a0558d7dc774aaec",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8b5e604fa53cb351cbfeb127321431970eef766ef5938bfe0172890532c64ec5": {
+      "document_id": "1261909",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261909",
+      "reference_date": "2026-06-15",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "Considerando-se pro forma a  aquisição pretendida, a somatória  do valor presente dos Direitos GESTOR COM BASE NAS  Creditórios devidos de um mesmo INFORMAÇÕES DO  Devedor (considerado em conjunto CUSTODIANTE e CEDENTE.\n com as demais integrantes do seu  Grupo Econômico), deve estar  limitada a 3% (três por cento) do  Patrimônio Líquido da Classe.",
+      "sha256": "c712bd69c9b2988c426e6280c95796cf6c84bc8e6bc9a268b4118c4a84399a94",
+      "verification": "primary_passage"
+    },
+    "be9c318e9ab9fdf04f8a156dd6f0011a8204e612847719cd75eafc52d4feb3c0": {
+      "document_id": "1013477",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013477",
+      "reference_date": "2025-10-13",
+      "version": "1",
+      "page": 90,
+      "clause": "",
+      "excerpt": "Considerando-se pro forma a  aquisição pretendida, a somatória  do valor presente dos Direitos GESTOR COM BASE NAS  Creditórios devidos de um mesmo INFORMAÇÕES DO  Devedor (considerado em conjunto CUSTODIANTE e CEDENTE.\n com as demais integrantes do seu  Grupo Econômico), deve estar  limitada a 3% (três por cento) do  Patrimônio Líquido da Classe.",
+      "sha256": "a96d956f25260de5d3cedb9b3b1adb30c7b5062b07c4902ed9e96ae9b0c4ced3",
+      "verification": "primary_passage"
+    },
+    "f1ec7e4e1890e8127cb4f96d9c61762fef8f8171972513d4f8292c3835a8279e": {
+      "document_id": "1072466",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072466",
+      "reference_date": "2025-09-30",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os Direitos Creditórios são ativos gerados no âmbito do agronegócio com um único cedente sendo  a Helm do Brasil Mercantil Ltda, gerando recebíveis com base nas suas operações realizadas com  uma base ampla de sacados.",
+      "sha256": "8c3ac46e259470d38b896f862ed7fb0ba8440898d76d043e3b585693c1db5033",
+      "verification": "primary_passage"
+    },
+    "d496bec201c4d21595effa455fca81d5171cb35fa7f5c37fc63b816799727ef7": {
+      "document_id": "806372",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806372",
+      "reference_date": "2024-12-17",
+      "version": "1",
+      "page": 92,
+      "clause": "3.14",
+      "excerpt": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "sha256": "8a821099462952f488c5d3df651351a3b267e7b5bf68c285bdf2e49adaf59a17",
+      "verification": "primary_passage"
+    },
+    "5a562ff7416cc5c497ba1599595ed31d96caa28d1bd26e395a1759f715db9859": {
+      "document_id": "756241",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756241",
+      "reference_date": "2024-10-04",
+      "version": "1",
+      "page": 92,
+      "clause": "3.14",
+      "excerpt": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "sha256": "f26604484660d67aa829395fe0b37dcd57726c09e6871749aea7a99269610836",
+      "verification": "primary_passage"
+    },
+    "8071f3e34f0bb29bc36364adcc2061cde8f05d039dc1465612247c6776fc9b91": {
+      "document_id": "723192",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723192",
+      "reference_date": "2024-08-12",
+      "version": "1",
+      "page": 99,
+      "clause": "3.14",
+      "excerpt": "3.14. Nos termos do Contrato de Distribuição, o Cedente, por si e/ou pessoas físicas ou jurídicas relacionadas ao Cedente, obrigou-se a adquirir e integralizar Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior seguindo os requisitos deste Anexo Descritivo.",
+      "sha256": "cbb324bafd40a7d2a4b49f886b0edf1bc1c8048ecc2f0e552509b46f418d315a",
+      "verification": "primary_passage"
+    },
+    "32b759d12793688435c6af578de95a8fb62d5c4f12d18453d01f6e8abdb2b63d": {
+      "document_id": "616572",
+      "title": "AGO",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616572",
+      "reference_date": "2024-03-04",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "2. CONVOCAÇÃO E PRESENÇA: Dispensada a convocação em razão da presença dos debenturistas titulares de 100% (cem por cento) das cotas em circulação do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO NITRO AGRO, inscrito no CNPJ sob o nº 51.554.551/0001-38 (“Fundo”, “Cotas” e “Cotistas”, respectivamente). Presentes também (i) o representante da COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50 (“Cedente”) e (ii) o representante da Administradora.",
+      "sha256": "b76d03386b518b0de69e6d79dd205583c2964be3ed91ef582feed57355c4111f",
+      "verification": "primary_passage"
+    },
+    "26265baaff4c5e68d4dab03983aa0f195f385fbdee717d6abad8080429aaece1": {
+      "document_id": "596022",
+      "title": "AGO",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596022",
+      "reference_date": "2023-12-27",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "2. CONVOCAÇÃO E PRESENÇA: Dispensada a convocação em razão da presença dos debenturistas titulares de 100% (cem por cento) das cotas em circulação do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO NITRO AGRO, inscrito no CNPJ sob o nº 51.554.551/0001-38 (“Fundo”, “Cotas” e “Cotistas”, respectivamente). Presentes também (i) o representante da COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50 (“Cedente”) e (ii) o representante da Administradora.",
+      "sha256": "98289efbdda9d7cefbb434fc25be3cea5347618577deadd0265d6663788f8008",
+      "verification": "primary_passage"
+    },
+    "41a7afac43c0bacbe1b1b127c4b84c0575ef2422ab5fe4a795a15a90ca39f7fd": {
+      "document_id": "1261909",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261909",
+      "reference_date": "2026-06-15",
+      "version": "1",
+      "page": 68,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "c712bd69c9b2988c426e6280c95796cf6c84bc8e6bc9a268b4118c4a84399a94",
+      "verification": "primary_passage"
+    },
+    "ed3b08563f1208e01c58b9be96aca41bee16bfdf452a9c1ec6705c30e7dc202b": {
+      "document_id": "1013477",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013477",
+      "reference_date": "2025-10-13",
+      "version": "1",
+      "page": 69,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "a96d956f25260de5d3cedb9b3b1adb30c7b5062b07c4902ed9e96ae9b0c4ced3",
+      "verification": "primary_passage"
+    },
+    "09c2f4623fd9ab7158cb67e8426e31cafd0158f8a3efc0ae777adca752e548a4": {
+      "document_id": "806372",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806372",
+      "reference_date": "2024-12-17",
+      "version": "1",
+      "page": 75,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "8a821099462952f488c5d3df651351a3b267e7b5bf68c285bdf2e49adaf59a17",
+      "verification": "primary_passage"
+    },
+    "ae24e71688d20954e97b1d6695f3374ad7b73b43d69c823855aba0e4730337a8": {
+      "document_id": "756241",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756241",
+      "reference_date": "2024-10-04",
+      "version": "1",
+      "page": 77,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "f26604484660d67aa829395fe0b37dcd57726c09e6871749aea7a99269610836",
+      "verification": "primary_passage"
+    },
+    "62c3b5295580ee6bf834baa2291e3fdd3148a502e8da1a40e9fd4c6938eee99a": {
+      "document_id": "723192",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723192",
+      "reference_date": "2024-08-12",
+      "version": "1",
+      "page": 82,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "cbb324bafd40a7d2a4b49f886b0edf1bc1c8048ecc2f0e552509b46f418d315a",
+      "verification": "primary_passage"
+    },
+    "5a51e04afad42f2b7fada57a149b2881605414d7e8ecbff025d863ee67e3daea": {
+      "document_id": "526756",
+      "title": "Instrumento Particular de Emissão de Cotas",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526756",
+      "reference_date": "2023-09-25",
+      "version": "1",
+      "page": 32,
+      "clause": "",
+      "excerpt": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos  Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores  rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos  Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido  Letras Financeiras.",
+      "sha256": "1a780bef8285bf31eeea0aa5c3a17329319522c101e39a5e0de9aad77c6d428e",
+      "verification": "primary_passage"
+    },
+    "9f5c41738ee81c9a3f7ad43758e9caf02b6968fe37e3ee54413bcfb200a14d6c": {
+      "document_id": "526755",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526755",
+      "reference_date": "2023-07-25",
+      "version": "1",
+      "page": 26,
+      "clause": "",
+      "excerpt": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores:\n(i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "sha256": "4d1de918e9d5889accc5e160cf85b09c35707b74b12ff3b0a0558d7dc774aaec",
+      "verification": "primary_passage"
+    },
+    "62d9fefb3801d38f1f0094b360e1c47bb6cfcea1dbec005db2c9fdf2affb2721": {
+      "document_id": "806373",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806373",
+      "reference_date": "2024-12-17",
+      "version": "1",
+      "page": 70,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "dc9b305826b95634fbaeb397fd98f9057389de7a6c40350cd3375c6cc881a2b3",
+      "verification": "primary_passage"
+    },
+    "b13c0548682e0b3dce1983774aa07173f22c238d61a4d8f5c4793d96b05a3dd2": {
+      "document_id": "756242",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756242",
+      "reference_date": "2024-10-04",
+      "version": "1",
+      "page": 70,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "0e2cdd803e8f6d9b6792efa9d799574029c01fca37504bae3b2d22b89437ea44",
+      "verification": "primary_passage"
+    },
+    "38777a843e3ffc44c95706aaa0a8ff3aee39d21514d6fcf6a18eb0ae7362df86": {
+      "document_id": "723193",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=723193",
+      "reference_date": "2024-08-12",
+      "version": "1",
+      "page": 75,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais, bem como outras pessoas  jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, na qualidade de devedores dos Direitos Creditórios  originados pelo Cedente e previamente aprovados pelo Gestor.",
+      "sha256": "09f1a55f62e903a86403a2d4d6ee16a5641b40ffc26ef71b95cb6fe9fb0823f5",
+      "verification": "primary_passage"
+    },
+    "37cf21d6ffdc63642110dc019f6c1669d36a07ba694f8d3914069ca3099686c7": {
+      "document_id": "616573",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616573",
+      "reference_date": "2024-03-04",
+      "version": "1",
+      "page": 32,
+      "clause": "",
+      "excerpt": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "sha256": "f1ba82bbeb3161613b1ec3617fca11d8a7f9b2c93f55254c51af3bac75c0e9bb",
+      "verification": "primary_passage"
+    },
+    "8bc07df89a3f01935f1a7db11d88b0d36e82e55224b502799f0c480c3abaa433": {
+      "document_id": "596024",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=596024",
+      "reference_date": "2023-12-27",
+      "version": "1",
+      "page": 29,
+      "clause": "",
+      "excerpt": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores:\n(i) dos Direitos Creditórios Cedente, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos; e (ii) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "sha256": "4820054653851c4744f5d77a0a6eb1b8d48a8d7a098aa8c3c455d4824b05bc98",
       "verification": "primary_passage"
     }
   }

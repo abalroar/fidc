@@ -3,17 +3,6 @@
   "cnpj": "41970012000126",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "a27d61f941535af9a80af8dffcb84635d4ef918c72ccfa290f2767208a3fd0eb",
-      "1a994eac170df7b8d6a00eb5e7929953e8a03c7e2ff6e0dbd4dab6fbe187afcc",
-      "22f2e7bb05d0c9d2d9dd6eec1cda8759c579f5f9bcf36ccbd87e9cbd2d5b9a02",
-      "2ee9f4b678befccabb695df920c53335c02cafa22898725938bb2690bcb6334c",
-      "8b4f1ee1db15570ed05e6a3ef7857daca62ce6f092fff15b763a72dd942d30cb",
-      "afcbb11e45a74156e9ca917d8b502b74efc1d67de620196c94dd964f66d91d73",
-      "8763aca4b0d5e50132154bf5cdda5217cdf51e7e391ccf6d16f92ba235c48f9d",
-      "e53a6a2d32972f00ca462398adc96acce554b78b8b6bbbab8f498dfd965fbc45",
-      "b5917226abcfab00f9c013cb722e38bb8fc72f963a9c26ae994280cfeb5abea4"
-    ],
     "ticket": [
       "aacc5e0b4fdd21d00d31794b452892707c1aca49a804460b50058928c28eeef5",
       "33bd1e2117f39d181e89417985a50e6c2cd0ca9435427fcef96b3e2349bce6e1",
@@ -510,33 +499,6 @@
     "quota_maturity": [
       "723b3ae6233802b286f31084943d03070a8537c336d6acb26909959c82e195b3"
     ],
-    "originator": [
-      "df27417d28aa8707d769295a7557ea66517c4bbb8a296040ad9aa12410e0a69c",
-      "e51c4f3459ab52fdbed048bc7ad2615a37c98f81c5c8e280d17fca7985999dc6",
-      "76780caf41a80175d57318bf0e52d8ed0d51633ab38754f8acae82de5b6fba2c",
-      "4791271b8a4b8b8b0a09a884c3cd8f46a93d23457ac49ef67f2cfab13e671e94",
-      "218c606183231e6b7197f64033ed8cc19b61b43e1d3c3bdd1707652f294766a1",
-      "c15df533f04173f7557ac4c006bd3bac74b95d0cf345a1ea07d273497babae5b",
-      "84921523605b95052c99847670094f6865b976ff5fb17cf3e87503ba39a4464f",
-      "4069a8468b17fdf1f7010921e87156a9da8ad10d87c10b14892a981765f13d5c",
-      "683a9d407b1a4a4dc8c9578b792e20cd98dbd4aed2d4ca499e004ff742e0d162",
-      "f666029c6b4b7ec34bcedb7d3cf22dc0115320841811273bfef3a6e5a36926d8",
-      "0d68dd3ddbdccc3328491636fda75540eb1b4776c19106023a1731a678015149"
-    ],
-    "debtor": [
-      "e51c4f3459ab52fdbed048bc7ad2615a37c98f81c5c8e280d17fca7985999dc6",
-      "492fab150fd4c8912a7a501c97e9fa45b10e36bb074e6fcb272787b4a4b7c539",
-      "4791271b8a4b8b8b0a09a884c3cd8f46a93d23457ac49ef67f2cfab13e671e94",
-      "c59ce556be0e066ef316f050de18d6360987a3b88678ac4d88ad0e26904a71b7",
-      "2e4b614489f9551ddbedf2a664333d4fbddf46170f15be2b88cf9331e12a048f",
-      "6c6d95b308d4401d6841034b7c485a8c8e2655ddbf2489464d8319b83745d011",
-      "76af163013b223b654d5e60f4f2a4faf0dcb5538cb4b0dc86b01686ce93a33dc",
-      "134ed630e33bb130db20b47910cb2915ec8b2b938c05c01d76fbd91dec860cdb",
-      "2bf5d1d2d2069ff1ef6735d84793ba3e24954d04751e719d5365ca85d94f96a3",
-      "50238416ec636a92addb8ed5b6c99a84934f8d0d445746e27989e8e64b35f6db",
-      "25114de9cbbe8115b9e95f353152c5ebc1f7125f45c576437873c6cf5ae126dc",
-      "c5a998de2f70da92b1453dc9d669a97eeaa8d6c0b5a94da40540df71e759a96c"
-    ],
     "investee": [
       "322e752a83f99a920db9ee8dad42a7d43a635c864f232a743bfb175cc53be52d",
       "c1b447b4b5fffcda62b864a8ace6b4ca0790cff415f16941de1bcadc3364dcc1"
@@ -597,6 +559,34 @@
       "3cde7b87b00700502caad2634ca2dc5c0d6fc42c31926eaf162c4bb293c13086",
       "28760570ac234d902d49a6cda53c8f6247a19c628f2c806d441fa1e951dfb82d",
       "73a65683192532dd6b03eaec857c8076898110dc7d0ffd8a0c1d1a238ef14f9d"
+    ],
+    "originator": [
+      "df27417d28aa8707d769295a7557ea66517c4bbb8a296040ad9aa12410e0a69c",
+      "e51c4f3459ab52fdbed048bc7ad2615a37c98f81c5c8e280d17fca7985999dc6",
+      "76780caf41a80175d57318bf0e52d8ed0d51633ab38754f8acae82de5b6fba2c",
+      "4791271b8a4b8b8b0a09a884c3cd8f46a93d23457ac49ef67f2cfab13e671e94",
+      "218c606183231e6b7197f64033ed8cc19b61b43e1d3c3bdd1707652f294766a1",
+      "c15df533f04173f7557ac4c006bd3bac74b95d0cf345a1ea07d273497babae5b",
+      "84921523605b95052c99847670094f6865b976ff5fb17cf3e87503ba39a4464f",
+      "fc5a7b1c971ca5fe35465894607daf7c5e9ac3d7f9523fc09347e908d23a8a8f",
+      "4069a8468b17fdf1f7010921e87156a9da8ad10d87c10b14892a981765f13d5c",
+      "83a6272c07dc74ec3149438a3e38a9503a0f83dd6bf664f68fe884beb6c007c7",
+      "683a9d407b1a4a4dc8c9578b792e20cd98dbd4aed2d4ca499e004ff742e0d162"
+    ],
+    "eligibility": [
+      "dc0ed26edaa68bdc4e81f26d3e7dc1197c7572791ee2a818acdee5fc07dad472",
+      "bc7fc622a2ac4977d124459ff9e36eb338e28ff118f43243e33e966b429f1bf3",
+      "d02e6f544bcc30c872b53eda65e6015b6670786843bff9e21663ac982ef7f214",
+      "4cc72537bef64283b30baff6318af2c0ed7fbfde3454bfa8e102523bbdbb76e8",
+      "c9554eca72edd2acc2778a5f423ab816eecc722e7aeb03588f1f7742c3751ea0",
+      "44343bf2231e4b68dc965501532aeadb0ac7db7908dcb4b00061384359d6bcb6",
+      "2390869fdbc88a2071cc8655e6717854b78b78703fe9860a4a59aded70d02cad",
+      "5a3dbdf748cc216d85debaa0c7403647daa860b5380150d58d19524034e92cbd",
+      "a0fae3b2b81bf9b2134bc78bbf2a4c59c3313f7911bef4ab69557099afc99502"
+    ],
+    "debtor": [
+      "3bcdbd16e94e1c052352266315fa6cf9390f1e50f112815bf81cc12a529ebf73",
+      "e42921338c23b0e7d1d7d3c7d1ac3ea0a429a48278969ffa375a1e4a6218d7f5"
     ]
   },
   "entries": {
@@ -791,96 +781,6 @@
         "1de188147ecbd0285ee5d8cf04f1f4e6e3a76dd0a79b20477fa9fe017d88c8ca"
       ]
     },
-    "492fab150fd4c8912a7a501c97e9fa45b10e36bb074e6fcb272787b4a4b7c539": {
-      "reference_date": "2025-12-19",
-      "value": "5.4.1.1. Os Direitos Creditórios CCB serão individualmente representados por CCBs originadas da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi, conforme o caso, aos Devedores CCB.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9e276927d038b99077ae18fdc7cb9c669c141cad18de34691cc2bd7819dff039"
-      ]
-    },
-    "c59ce556be0e066ef316f050de18d6360987a3b88678ac4d88ad0e26904a71b7": {
-      "reference_date": "2024-07-04",
-      "value": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a4859c977c9bdae48eac78f3d7b1759cda04b9fdb89dec39f72e3786cc5850ef"
-      ]
-    },
-    "2e4b614489f9551ddbedf2a664333d4fbddf46170f15be2b88cf9331e12a048f": {
-      "reference_date": "2024-07-03",
-      "value": "5.3. Os Direitos Creditórios serão originados (i) com relação aos Direitos Creditórios CCB, por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi aos Devedores CCB; e (ii) com relação aos Direitos Creditórios PPV, no contexto da comercialização de produtos e/ou serviços pelos Cedentes PPV, de acordo com os Termos e Condições e os Contratos de Cessão PPV; sendo que em ambos os casos previstos os Direitos Creditórios deverão ser representados pelos Documentos Comprobatórios.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a76030af06cbd5bbe9e9cebdbf752a1a2dd69bbdcaefa34b7d3dac010eb4e909"
-      ]
-    },
-    "6c6d95b308d4401d6841034b7c485a8c8e2655ddbf2489464d8319b83745d011": {
-      "reference_date": "2023-12-31",
-      "value": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0f32c0d1b0fe2be78f86eb727953fbc23c015bd4882b9a438135bc4b20eae7c4"
-      ]
-    },
-    "76af163013b223b654d5e60f4f2a4faf0dcb5538cb4b0dc86b01686ce93a33dc": {
-      "reference_date": "2022-12-31",
-      "value": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7f04d8f527fb48e2c28291e3b50f829bb0fd0e21b2808f3fc75671833528ab64"
-      ]
-    },
-    "134ed630e33bb130db20b47910cb2915ec8b2b938c05c01d76fbd91dec860cdb": {
-      "reference_date": "2021-12-31",
-      "value": "Os Direitos Creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas Instituições Financeiras Parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores, com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c411497bff597091ef4dd1dd5f329ecf0641d98936ae594b99eb2e468cdb177c"
-      ]
-    },
-    "2bf5d1d2d2069ff1ef6735d84793ba3e24954d04751e719d5365ca85d94f96a3": {
-      "reference_date": "2025-12-19",
-      "value": "5.4.1.1. Os Direitos Creditórios CCB serão individualmente representados por CCBs originadas da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi, conforme o caso, aos Devedores CCB.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b5c46609d70e7fcd20e366f699b228f1d3fa07834b0f44644f68f57412c61207"
-      ]
-    },
-    "c5a998de2f70da92b1453dc9d669a97eeaa8d6c0b5a94da40540df71e759a96c": {
-      "reference_date": "2023-11-28",
-      "value": "5.3. Os Direitos Creditórios serão originados (i) com relação aos Direitos Creditórios CCB, por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi aos Devedores CCB; e (ii) com relação aos Direitos Creditórios PPV, no contexto da comercialização de produtos e/ou serviços pelos Cedentes PPV, de acordo com os Termos e Condições e os Contratos de Cessão PPV; sendo que em ambos os casos previstos os Direitos Creditórios deverão ser representados pelos Documentos Comprobatórios.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6d53c50ba140ff7dc8b86a0f712dae3e880f6127c898d5394734fe702c0ca451"
-      ]
-    },
-    "a27d61f941535af9a80af8dffcb84635d4ef918c72ccfa290f2767208a3fd0eb": {
-      "reference_date": "2025-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c47a004f7890c79cf3524f7c35cf17910faefef08b90f9ba2111dad1ba9228ab"
-      ]
-    },
-    "1a994eac170df7b8d6a00eb5e7929953e8a03c7e2ff6e0dbd4dab6fbe187afcc": {
-      "reference_date": "2025-12-19",
-      "value": "5.4.3.1. Em observância ao item 5.3 acima, no âmbito da transferência de Direitos Creditórios ao Fundo, o Mercado Pago será responsável pela verificação das Condições de Cessão e o Gestor será responsável por verificar e validar o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade, observado que o Gestor poderá utilizar sistemas de processos do Administrador, do Custodiante ou de entidades do mesmo grupo de tais prestadores de serviço, conforme contratado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "254f4c4ff5b3e2968b5e173731a135281889c30b3d9adfc27242c44537903297"
-      ]
-    },
     "22f2e7bb05d0c9d2d9dd6eec1cda8759c579f5f9bcf36ccbd87e9cbd2d5b9a02": {
       "reference_date": "2025-05-19",
       "value": "(d) incluir os conceitos de (e) alterar certos (1) Critérios de Elegibilidade; (2) Condições de Cessão; (3) Eventos de Avaliação; (4) Eventos de Amortização Acelerada; (f) incluir o percentual máximo a ser pago ao Agente de Recebimento; (g) alterar a ordem de alocação de recursos; (h) alterar (1) a Política de Cobrança; e (2) os Índices de Gerenciamento; e (i) alterar (1) a Data Limite de Chamada de Capital; (2) a Data Limite de Investimento em Direitos Creditórios; (3) a Data de Resgate; e (3) a Meta de Rentabilidade dos Apêndices das Cotas Seniores da Primeira e da Segunda Emissões; e.",
@@ -888,60 +788,6 @@
       "provenance": "primary_passage",
       "sources": [
         "2cd428514fc91e5750f638b979cb95e92746241e11c51e05fbdcd4c68f8b0890"
-      ]
-    },
-    "2ee9f4b678befccabb695df920c53335c02cafa22898725938bb2690bcb6334c": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "09243a97be8a10700eb6c7a5874a4885106bb0204f979631233b881dca37cd16"
-      ]
-    },
-    "8b4f1ee1db15570ed05e6a3ef7857daca62ce6f092fff15b763a72dd942d30cb": {
-      "reference_date": "2024-07-03",
-      "value": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”):",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1ec570504d0fb277876dc61f4e3a696415013dd333e357378b8abbd9ff34299a"
-      ]
-    },
-    "afcbb11e45a74156e9ca917d8b502b74efc1d67de620196c94dd964f66d91d73": {
-      "reference_date": "2025-12-19",
-      "value": "5.4.3.1. Em observância ao item 5.3 acima, no âmbito da transferência de Direitos Creditórios ao Fundo, o Mercado Pago será responsável pela verificação das Condições de Cessão e o Gestor será responsável por verificar e validar o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade, observado que o Gestor poderá utilizar sistemas de processos do Administrador, do Custodiante ou de entidades do mesmo grupo de tais prestadores de serviço, conforme contratado pelo Gestor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c8b9cf4e94edfeabcfd8e374b163569a718fc9216a8d2ea869bf167d9adae3f6"
-      ]
-    },
-    "8763aca4b0d5e50132154bf5cdda5217cdf51e7e391ccf6d16f92ba235c48f9d": {
-      "reference_date": "2025-05-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d28ddf0332f1d1e6a377d3565cdcc798fc6840f9d49e20bf9027d11eadb68d15"
-      ]
-    },
-    "e53a6a2d32972f00ca462398adc96acce554b78b8b6bbbab8f498dfd965fbc45": {
-      "reference_date": "2024-11-29",
-      "value": "que se enquadrem em qualquer das seguintes hipóteses, por seu respectivo Valor Principal acrescido dos respectivos juros, multas e demais encargos aplicáveis, no caso dos Direitos Creditórios CCB, ou pelo valor total dos Direitos Creditórios PPV cedidos nos termos dos respectivos Contratos de Cessão PPV, descontados eventuais valores já recebidos pelo Fundo até referida data, no caso dos Direitos Creditórios PPV, observado o disposto no item 5.1.5.2 abaixo: (i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6c4dbde44a85de58a0827098cfb48b3ceb1a0248993e15e8dbfe6027800920f2"
-      ]
-    },
-    "b5917226abcfab00f9c013cb722e38bb8fc72f963a9c26ae994280cfeb5abea4": {
-      "reference_date": "2023-11-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dae4905400956cb636b8d4b74335bdbe6fadaf8bf0b8778eca96dfe33509f5bf"
       ]
     },
     "aacc5e0b4fdd21d00d31794b452892707c1aca49a804460b50058928c28eeef5": {
@@ -4749,42 +4595,6 @@
         "f674168e879704b86e0d68a40c497bfc1e85a1b7b6be92752370d063838534de"
       ]
     },
-    "f666029c6b4b7ec34bcedb7d3cf22dc0115320841811273bfef3a6e5a36926d8": {
-      "reference_date": "2025-12-19",
-      "value": "(vii) obrigações diretas ou contingentes de tal Pessoa decorrentes de qualquer transação com derivativos, em cada caso, exceto caso tenham sido efetuadas para fins de hedging, ou seja, celebradas no curso normal dos negócios para fins não especulativos; e (viii) quaisquer outras obrigações ou contingências que sejam consideradas como endividamento no balanço da Pessoa, nos termos das normas financeiras aplicáveis, observado que as operações de securitização nas quais tal Pessoa participe como originadora ou cedente de ativos serão consideradas como “endividamento” de uma Pessoa.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5ac41340ec80bdbe66ba6ec5ee8c062b1e6b0882ac699de343cc6b5ee2206275"
-      ]
-    },
-    "0d68dd3ddbdccc3328491636fda75540eb1b4776c19106023a1731a678015149": {
-      "reference_date": "2025-05-19",
-      "value": "(vii) obrigações diretas ou contingentes de tal Pessoa decorrentes de qualquer transação com derivativos, em cada caso, exceto caso tenham sido efetuadas para fins de hedging, ou seja, celebradas no curso normal dos negócios para fins não especulativos; e (viii) quaisquer outras obrigações ou contingências que sejam consideradas como endividamento no balanço da Pessoa, nos termos das normas financeiras aplicáveis, observado que as operações de securitização nas quais tal Pessoa participe como originadora ou cedente de ativos serão consideradas como “endividamento” de uma Pessoa.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c377fe03a343dd0d7cd9eb2f9e14d508ab816b7c7d0c2e528c7cae35afa22440"
-      ]
-    },
-    "50238416ec636a92addb8ed5b6c99a84934f8d0d445746e27989e8e64b35f6db": {
-      "reference_date": "2025-05-19",
-      "value": "\"Direitos Creditórios CCB significam os direitos creditórios representados por CCBs Consumidor\" decorrentes da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi, conforme o caso, aos Devedores CCB Consumidor, com intermediação do Mercado Pago na qualidade de correspondente bancário.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "342e1725e6c59857011ce767d8167644d98797d593fb8623c90ecd2c6b030ef6"
-      ]
-    },
-    "25114de9cbbe8115b9e95f353152c5ebc1f7125f45c576437873c6cf5ae126dc": {
-      "reference_date": "2024-11-29",
-      "value": "\"Instituições Financeiras significam as instituições financeiras que contrataram o Parceiras\" Mercado Pago como correspondente bancário e que realizam, com a atuação do mesmo, a concessão de um Crédito Parcelado ou Empréstimo Pessoal aos Devedores CCB mediante a emissão de CCBs assinadas eletronicamente pelos Devedores CCB em seu favor, observado que nesta data estão aprovadas, como instituições financeiras parceiras, Topázio e a Money Plus, sendo que novas instituições financeiras estarão sujeitas a aprovação dos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d46f0edcaf1d0684a6d05267c92df1874ad47c28ed13c35cc4f9c0a18fa4e81b"
-      ]
-    },
     "c9b60979f4e4c76925217427420f9f08e8adf0e78e017e9f1aaa4fcb6484d6b8": {
       "reference_date": "2025-12-19",
       "value": "“Administrador” significa o BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, instituição com sede no Município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no CNPJ/MF sob o nº 59.281.253/0001-23, autorizada a funcionar pelo Banco Central do Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, ou seu sucessor a qualquer título.",
@@ -4801,6 +4611,105 @@
       "provenance": "primary_passage",
       "sources": [
         "8ce99d8cc32daf09978999e6013f6ed69245a283fc6c2bd4cb45fd01ff424897"
+      ]
+    },
+    "dc0ed26edaa68bdc4e81f26d3e7dc1197c7572791ee2a818acdee5fc07dad472": {
+      "reference_date": "2025-12-31",
+      "value": "Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, aos seguintes Critérios de Elegibilidade, cumulativamente (em conjunto, os “Critérios de Elegibilidade”): (i) Para os Direitos Creditórios CCB: a. os Direitos Creditórios CCB tenham sido originados de operações de Crédito Parcelado ou Empréstimo Pessoal e representados por CCBs; b. os Direitos Creditórios CCB não estejam inadimplidos; c. os Direitos Creditórios CCB sejam compostos por, no mínimo, 1 (uma) parcela e, no máximo, de 24 (vinte e quatro) parcelas mensais de pagamento futuro; d. os Direitos Creditórios CCB possuam valor original de principal igual ou inferior a (1) R$30 (trinta mil reais) na data de sua emissão para os Direitos Creditórios CCB Consumidor, e (2) R$1.000 (um milhão de reais) na data de sua emissão para os Direitos Creditórios CCB Comerciante; e e. os Direitos Creditórios CCB prevejam pagamentos mensais para fins de amortização de principal. (ii) Para os Direitos Creditórios PPV: a. o prazo de vencimento de quaisquer Direitos Creditórios PPV seja de, no máximo, 48 (quarenta e oito) meses; e b. o Valor Principal original do Direito Creditório PPV seja de, no máximo, R$1.000 (um milhão de reais) na data de sua aquisição pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c47a004f7890c79cf3524f7c35cf17910faefef08b90f9ba2111dad1ba9228ab"
+      ]
+    },
+    "bc7fc622a2ac4977d124459ff9e36eb338e28ff118f43243e33e966b429f1bf3": {
+      "reference_date": "2025-12-19",
+      "value": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”): (i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em observância à política de concessão de crédito do Mercado Pago vigente à época;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "418079b98949427bdf255758ed0ce7eb4bd672081972c44912435594320aaed1"
+      ]
+    },
+    "d02e6f544bcc30c872b53eda65e6015b6670786843bff9e21663ac982ef7f214": {
+      "reference_date": "2025-05-19",
+      "value": "(i) a alteração e a reformulação do inteiro teor do regulamento do Fundo, o qual passará a viger, a partir de 19 de maio de 2025 (inclusive), na forma do Anexo I da presente ata Regulamento ajustes comerciais e operacionais, incluindo, sem limitação, os seguintes: (a) Advance Rate Ponderado (b) alterar o prazo máximo de pagamento dos Direitos Creditórios CCB DE; (c) alterar o percentual da Razão de Subordinação Júnior; (d) incluir os conceitos de (e) alterar certos (1) Critérios de Elegibilidade; (2) Condições de Cessão; (3) Eventos de Avaliação; (4) Eventos de Amortização Acelerada; (f) incluir o percentual máximo a ser pago ao Agente de Recebimento; (g) alterar a ordem de alocação de recursos; (h) alterar (1) a Política de Cobrança; e (2) os Índices de Gerenciamento; e (i) alterar (1) a Data Limite de Chamada de Capital; (2) a Data Limite de Investimento em Direitos Creditórios; (3) a Data de Resgate; e (3) a Meta de Rentabilidade dos Apêndices das Cotas Seniores da Primeira e da Segunda Emissões; e",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2cd428514fc91e5750f638b979cb95e92746241e11c51e05fbdcd4c68f8b0890"
+      ]
+    },
+    "4cc72537bef64283b30baff6318af2c0ed7fbfde3454bfa8e102523bbdbb76e8": {
+      "reference_date": "2024-12-31",
+      "value": "xiv) Risco de originação. Os Direitos Creditórios CCB a serem adquiridos pelo Fundo são decorrentes de CCBs representativas de empréstimos contratados por meio da Plataforma Mercado Pago, as quais são emitidas por Devedores CCB em favor das Instituições Financeiras Parceiras ou da Instituição Financeira MeLi. Os Direitos Creditórios PPV a serem adquiridos pelo Fundo, por sua vez, representam direitos creditórios futuros a serem originados pelos Cedentes PPV na medida em que comercializem produtos e/ou serviços com as Contrapartes. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Fundo, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos Cedentes, de Direitos Creditórios que satisfaçam os Critérios de Elegibilidade, as Condições de Cessão e a Política de Investimento do Fundo descrita no Regulamento, o Fundo poderá ser incapaz de alocar a totalidade de seus recursos, o que poderá inviabilizar a realização das Chamadas de Capital pelo Administrador, afetando negativamente a continuidade do Fundo, a expectativa dos Cotistas com",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9d7377ef6c8908a0027facfc4aeefdafcb522e6c7ac2a558977be130d0b84e6d"
+      ]
+    },
+    "c9554eca72edd2acc2778a5f423ab816eecc722e7aeb03588f1f7742c3751ea0": {
+      "reference_date": "2024-07-03",
+      "value": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”): (a) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em observância à política de concessão de crédito do Mercado Pago vigente à época; (b) os Direitos Creditórios sejam devidamente transferidos ao Fundo, inclusive mediante endosso, no caso dos Direitos Creditórios CCBs, livres e desembaraçados de quaisquer ônus ou gravames; (c) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao Fundo de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor conhecimento do respectivo Cedente e/ou do Mercado Pago; (d) os Direitos Creditórios CCB representem obrigações legais e válidas de cada Devedor, exequíveis contra o respectivo Devedor de acordo com seus termos, ressalvadas regras gerais de insolvência, conforme aplicáveis; (e) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos Cedentes CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou Devedores CCB que sejam funcionários do respectivo Cedente, da MeLi e/ou de suas Partes Relacionadas; (f) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma entidade governamental, sendo permitido, no entanto, Devedores que sejam funcionários de tal entidade; (g) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem cedidos pelos Cedentes não sejam objeto de questionamentos ou procedimentos em curso, administrativos, arbitrais e/ou judiciais, sendo certo que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou Plataforma Mercado Libre não serão considerados para fins da verificação do atendimento a este item;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8012d8e2b08dba3259b9781d01099c74bc6e3110cf0523b048bff931b988a8fc"
+      ]
+    },
+    "44343bf2231e4b68dc965501532aeadb0ac7db7908dcb4b00061384359d6bcb6": {
+      "reference_date": "2025-12-19",
+      "value": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”): (i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em observância à política de concessão de crédito do Mercado Pago vigente à época;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c8ae3e48e9f194184385be70c8530db817168dd96138112db58db5b51ca888a1"
+      ]
+    },
+    "2390869fdbc88a2071cc8655e6717854b78b78703fe9860a4a59aded70d02cad": {
+      "reference_date": "2025-05-19",
+      "value": "5.1.5.1.Sem prejuízo do disposto acima, nos termos do Contrato de Agente de Recebimento, o Mercado Pago se obrigou a, diretamente ou, a seu critério, por meio de qualquer entidade e/ou veículo de investimento do grupo econômico da MeLi (incluindo veículos de investimento como fundos de investimento), adquirir os Direitos Creditórios objeto de cessão ou endosso ao Fundo que se enquadrem em qualquer das seguintes hipóteses, por seu respectivo Valor Principal acrescido dos respectivos juros, multas e demais encargos aplicáveis, no caso dos Direitos Creditórios CCB, ou pelo valor total dos Direitos Creditórios PPV cedidos nos termos dos respectivos Contratos de Cessão PPV, descontados eventuais valores já recebidos pelo Fundo até referida data, no caso dos Direitos Creditórios PPV, observado o disposto no item 5.1.5.2 abaixo: (i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo; (ii) existência de decisão judicial exigível determinando a existência de vício não sanável na constituição e/ou formalização do Direito Creditório, não revertida ou suspensa em até 10 (dez) Dias Úteis a contar da data de ciência de tal decisão pelo Mercado Pago; (iii) caso se verifique a impossibilidade de cobrança dos valores devidos no âmbito do(s) Direito(s) Creditório(s) Adquirido(s), em decorrência de ato imputável ao Mercado Pago, incluindo, mas não se limitando à verificação de que as declarações por ele prestadas eram falsas ou materialmente incorretas na data em que foram prestadas.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cb541cc1d83ae57323edd8cbf95b03789519fdcc3c1002e90f7edfd35ad0a53d"
+      ]
+    },
+    "5a3dbdf748cc216d85debaa0c7403647daa860b5380150d58d19524034e92cbd": {
+      "reference_date": "2024-11-29",
+      "value": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”): (i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em observância à política de concessão de crédito do Mercado Pago vigente à época;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "06127f9dc67cafdf89218f84ca0befffda4b9276ece9f068ed6b17f7040ff5c4"
+      ]
+    },
+    "a0fae3b2b81bf9b2134bc78bbf2a4c59c3313f7911bef4ab69557099afc99502": {
+      "reference_date": "2023-11-28",
+      "value": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”): (a) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em observância à política de concessão de crédito do Mercado Pago vigente à época; (b) os Direitos Creditórios sejam devidamente transferidos ao Fundo, inclusive mediante endosso, no caso dos Direitos Creditórios CCBs, livres e desembaraçados de quaisquer ônus ou gravames;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cb26aa7e178c7eaa568931985dddd866643438142641e6e01208328565059118"
+      ]
+    },
+    "3bcdbd16e94e1c052352266315fa6cf9390f1e50f112815bf81cc12a529ebf73": {
+      "reference_date": "2025-12-19",
+      "value": "\"Empréstimo Pessoal\" significa o crédito pessoal, sem finalidade específica, concedido aos Devedores CCB Consumidor pelas",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c82cf5dfc37bafff104ff5975b7dd156c5f8fe12a80e184c5d2f7ffddeaff7dc"
+      ]
+    },
+    "e42921338c23b0e7d1d7d3c7d1ac3ea0a429a48278969ffa375a1e4a6218d7f5": {
+      "reference_date": "2024-11-29",
+      "value": "\"Empréstimo Pessoal\" significa o crédito pessoal, sem finalidade específica, concedido aos Devedores CCB Consumidor pelas",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f8681d1db52b94c4f735f0d646cd7199b9bd7b2914a02edf8439f3900b47144b"
       ]
     }
   },
@@ -5046,102 +4955,6 @@
       "sha256": "75ea5dba7142606080c9cb28b75efa1c221732d8333b172b8a2259e33d718543",
       "verification": "primary_passage"
     },
-    "9e276927d038b99077ae18fdc7cb9c669c141cad18de34691cc2bd7819dff039": {
-      "document_id": "1077333",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077333",
-      "reference_date": "2025-12-19",
-      "version": "1",
-      "page": 53,
-      "clause": "5.4.1.1",
-      "excerpt": "5.4.1.1. Os Direitos Creditórios CCB serão individualmente representados por CCBs  originadas da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições  Financeiras Parceiras ou pela Instituição Financeira MeLi, conforme o caso, aos Devedores CCB.",
-      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
-      "verification": "primary_passage"
-    },
-    "a4859c977c9bdae48eac78f3d7b1759cda04b9fdb89dec39f72e3786cc5850ef": {
-      "document_id": "733598",
-      "title": "Demonstrações Financeiras - Substituição de administrador",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=733598",
-      "reference_date": "2024-07-04",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "sha256": "9d1c96f1b14c61fe4495f8fe1b3673eae3db53b342339f2d6ff6f3ed5ec25550",
-      "verification": "primary_passage"
-    },
-    "a76030af06cbd5bbe9e9cebdbf752a1a2dd69bbdcaefa34b7d3dac010eb4e909": {
-      "document_id": "691625",
-      "title": "AGO/E",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691625",
-      "reference_date": "2024-07-03",
-      "version": "1",
-      "page": 62,
-      "clause": "5.3",
-      "excerpt": "5.3. Os Direitos Creditórios serão originados (i) com relação aos Direitos Creditórios  CCB, por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo  Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi aos  Devedores CCB; e (ii) com relação aos Direitos Creditórios PPV, no contexto da  comercialização de produtos e/ou serviços pelos Cedentes PPV, de acordo com os  Termos e Condições e os Contratos de Cessão PPV; sendo que em ambos os casos  previstos os Direitos Creditórios deverão ser representados pelos Documentos  Comprobatórios.",
-      "sha256": "3c1bb95054b4d4b8716ab42304099b42cf495e8532d8800bd03468e81cfbe94b",
-      "verification": "primary_passage"
-    },
-    "0f32c0d1b0fe2be78f86eb727953fbc23c015bd4882b9a438135bc4b20eae7c4": {
-      "document_id": "659662",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=659662",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 14,
-      "clause": "",
-      "excerpt": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou  empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito  Financiamento e Investimento S.A. (“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e",
-      "sha256": "b8b0aa7cef25ed43fc2d549b4e0e77c3bb32e3774227a4ad83f88955761c6494",
-      "verification": "primary_passage"
-    },
-    "7f04d8f527fb48e2c28291e3b50f829bb0fd0e21b2808f3fc75671833528ab64": {
-      "document_id": "513763",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513763",
-      "reference_date": "2022-12-31",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "Os direitos creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas instituições financeiras parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A.\n(“Instituição Financeira MeLi”), conforme o caso, aos devedores CCB e com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "sha256": "d64a16e961c2cf8b17596f7606d11bd16f7207e219eda1d608063e0a88fc1490",
-      "verification": "primary_passage"
-    },
-    "c411497bff597091ef4dd1dd5f329ecf0641d98936ae594b99eb2e468cdb177c": {
-      "document_id": "451283",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=451283",
-      "reference_date": "2021-12-31",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Os Direitos Creditórios são representados por CCBs originadas da concessão de crédito parcelado ou empréstimo pessoal pelas Instituições Financeiras Parceiras ou pelo Mercado Crédito Sociedade de Crédito Financiamento e Investimento S.A.\n(“Instituição Financeira MeLi”), conforme o caso, aos devedores, com intermediação do Mercado Pago na qualidade de correspondente bancário de tal instituição financeira parceira.",
-      "sha256": "75ea5dba7142606080c9cb28b75efa1c221732d8333b172b8a2259e33d718543",
-      "verification": "primary_passage"
-    },
-    "b5c46609d70e7fcd20e366f699b228f1d3fa07834b0f44644f68f57412c61207": {
-      "document_id": "1077334",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
-      "reference_date": "2025-12-19",
-      "version": "1",
-      "page": 53,
-      "clause": "5.4.1.1",
-      "excerpt": "5.4.1.1. Os Direitos Creditórios CCB serão individualmente representados por CCBs  originadas da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições  Financeiras Parceiras ou pela Instituição Financeira MeLi, conforme o caso, aos Devedores CCB.",
-      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
-      "verification": "primary_passage"
-    },
-    "6d53c50ba140ff7dc8b86a0f712dae3e880f6127c898d5394734fe702c0ca451": {
-      "document_id": "559878",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559878",
-      "reference_date": "2023-11-28",
-      "version": "1",
-      "page": 41,
-      "clause": "5.3",
-      "excerpt": "5.3. Os Direitos Creditórios serão originados (i) com relação aos Direitos Creditórios CCB, por CCBs emitidas no âmbito da concessão de Crédito Parcelado ou Empréstimo Pessoal pelas Instituições Financeiras Parceiras ou pela Instituição Financeira MeLi aos Devedores CCB; e\n(ii) com relação aos Direitos Creditórios PPV, no contexto da comercialização de produtos e/ou serviços pelos Cedentes PPV, de acordo com os Termos e Condições e os Contratos de Cessão PPV; sendo que em ambos os casos previstos os Direitos Creditórios deverão ser representados pelos Documentos Comprobatórios.",
-      "sha256": "ae3b1bf95db29e948e7db0299d0bb6a10efb82173a1a6c7524cca9407f8ebc5e",
-      "verification": "primary_passage"
-    },
     "c47a004f7890c79cf3524f7c35cf17910faefef08b90f9ba2111dad1ba9228ab": {
       "document_id": "1151156",
       "title": "Demonstrações Financeiras",
@@ -5154,18 +4967,6 @@
       "sha256": "04099e318871fbf25478d1ed88b19c4c6c6af84d9811507e8df48f7d824c6ec8",
       "verification": "primary_passage"
     },
-    "254f4c4ff5b3e2968b5e173731a135281889c30b3d9adfc27242c44537903297": {
-      "document_id": "1077333",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077333",
-      "reference_date": "2025-12-19",
-      "version": "1",
-      "page": 54,
-      "clause": "5.4.3.1",
-      "excerpt": "5.4.3.1. Em observância ao item 5.3 acima, no âmbito da transferência de Direitos  Creditórios ao Fundo, o Mercado Pago será responsável pela verificação das Condições de Cessão  e o Gestor será responsável por verificar e validar o atendimento dos Direitos Creditórios aos  Critérios de Elegibilidade, observado que o Gestor poderá utilizar sistemas de processos do  Administrador, do Custodiante ou de entidades do mesmo grupo de tais prestadores de serviço,  conforme contratado pelo Gestor.",
-      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
-      "verification": "primary_passage"
-    },
     "2cd428514fc91e5750f638b979cb95e92746241e11c51e05fbdcd4c68f8b0890": {
       "document_id": "909705",
       "title": "AGE",
@@ -5176,78 +4977,6 @@
       "clause": "",
       "excerpt": "(i) a alteração e a reformulação do inteiro teor do regulamento do Fundo, o qual passará  a viger, a partir de 19 de maio de 2025 (inclusive), na forma do Anexo I da presente ata  Regulamento ajustes comerciais e operacionais,  incluindo, sem limitação, os seguintes: (a) Advance Rate  Ponderado (b) alterar o prazo máximo de pagamento dos Direitos Creditórios CCB DE;\n (c) alterar o percentual da Razão de Subordinação Júnior; (d) incluir os conceitos de\n (e) alterar  certos (1) Critérios de Elegibilidade; (2) Condições de Cessão; (3) Eventos de Avaliação;\n (4) Eventos de Amortização Acelerada; (f) incluir o percentual máximo a ser pago ao  Agente de Recebimento; (g) alterar a ordem de alocação de recursos; (h) alterar (1) a  Política de Cobrança; e (2) os Índices de Gerenciamento; e (i) alterar (1) a Data Limite  de Chamada de Capital; (2) a Data Limite de Investimento em Direitos Creditórios; (3) a  Data de Resgate; e (3) a Meta de Rentabilidade dos Apêndices das Cotas Seniores da  Primeira e da Segunda Emissões; e",
       "sha256": "df2d11536980e792e2d163e3c5626c8522cad30889865c268c49d851af4b7970",
-      "verification": "primary_passage"
-    },
-    "09243a97be8a10700eb6c7a5874a4885106bb0204f979631233b881dca37cd16": {
-      "document_id": "870176",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=870176",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 31,
-      "clause": "",
-      "excerpt": "iii) Risco de não manutenção das Condições de Cessão e/ou dos Critérios de Elegibilidade  após a Data de Oferta de Direitos Creditórios. Todas as Condições de Cessão e os  Critérios de Elegibilidade previstos no Capítulo 5 do Regulamento serão verificados uma  única vez, pelo Mercado Pago ou Custodiante, conforme o caso, na respectiva Data de  Oferta de Direitos Creditórios, nos termos do Regulamento e dos respectivos  Documentos de Aquisição. Dessa forma, após a respectiva Data de Oferta de Direitos  Creditórios e durante todo o prazo de duração do Fundo, poderão ocorrer alterações na  Carteira do Fundo, nos Direitos Creditórios Adquiridos, na composição e diversificação  da Carteira do Fundo, e do próprio Patrimônio Líquido do Fundo, seja em função de pré-  pagamento, valorização dos Direitos Creditórios Adquiridos ou qualquer outro motivo,  alheio à vontade do Gestor, dos Cedentes, do Mercado Pago, do Custodiante ou do  Administrador, não havendo garantias de que os Direitos Creditórios Adquiridos  permanecerão observando as Condições de Cessão e os Critérios de Elegibilidade.",
-      "sha256": "41d9dd55a027da84aa26df78d361630f2f37ce0bf444f27d6d716d9a3d52e1a4",
-      "verification": "primary_passage"
-    },
-    "1ec570504d0fb277876dc61f4e3a696415013dd333e357378b8abbd9ff34299a": {
-      "document_id": "691625",
-      "title": "AGO/E",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691625",
-      "reference_date": "2024-07-03",
-      "version": "1",
-      "page": 69,
-      "clause": "7.4",
-      "excerpt": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos  Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta  de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em  conjunto, as “Condições de Cessão”):",
-      "sha256": "3c1bb95054b4d4b8716ab42304099b42cf495e8532d8800bd03468e81cfbe94b",
-      "verification": "primary_passage"
-    },
-    "c8b9cf4e94edfeabcfd8e374b163569a718fc9216a8d2ea869bf167d9adae3f6": {
-      "document_id": "1077334",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
-      "reference_date": "2025-12-19",
-      "version": "1",
-      "page": 54,
-      "clause": "5.4.3.1",
-      "excerpt": "5.4.3.1. Em observância ao item 5.3 acima, no âmbito da transferência de Direitos  Creditórios ao Fundo, o Mercado Pago será responsável pela verificação das Condições de Cessão  e o Gestor será responsável por verificar e validar o atendimento dos Direitos Creditórios aos  Critérios de Elegibilidade, observado que o Gestor poderá utilizar sistemas de processos do  Administrador, do Custodiante ou de entidades do mesmo grupo de tais prestadores de serviço,  conforme contratado pelo Gestor.",
-      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
-      "verification": "primary_passage"
-    },
-    "d28ddf0332f1d1e6a377d3565cdcc798fc6840f9d49e20bf9027d11eadb68d15": {
-      "document_id": "909707",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 41,
-      "clause": "5.1.5.1",
-      "excerpt": "5.1.5.1.Sem prejuízo do disposto acima, nos termos do Contrato de Agente de Recebimento, o  Mercado Pago se obrigou a, diretamente ou, a seu critério, por meio de qualquer entidade e/ou  veículo de investimento do grupo econômico da MeLi (incluindo veículos de investimento como  fundos de investimento), adquirir os Direitos Creditórios objeto de cessão ou endosso ao Fundo  que se enquadrem em qualquer das seguintes hipóteses, por seu respectivo Valor Principal  acrescido dos respectivos juros, multas e demais encargos aplicáveis, no caso dos Direitos  Creditórios CCB, ou pelo valor total dos Direitos Creditórios PPV cedidos nos termos dos  respectivos Contratos de Cessão PPV, descontados eventuais valores já recebidos pelo Fundo até  referida data, no caso dos Direitos Creditórios PPV, observado o disposto no item 5.1.5.2 abaixo:\n(i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com  quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no  Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo;",
-      "sha256": "cfa949e3b02c8900c5d0e5f82225a19dc627218a4e4f2e969681a09335c55224",
-      "verification": "primary_passage"
-    },
-    "6c4dbde44a85de58a0827098cfb48b3ceb1a0248993e15e8dbfe6027800920f2": {
-      "document_id": "792579",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 42,
-      "clause": "",
-      "excerpt": "que se enquadrem em qualquer das seguintes hipóteses, por seu respectivo Valor Principal  acrescido dos respectivos juros, multas e demais encargos aplicáveis, no caso dos Direitos  Creditórios CCB, ou pelo valor total dos Direitos Creditórios PPV cedidos nos termos dos  respectivos Contratos de Cessão PPV, descontados eventuais valores já recebidos pelo Fundo até  referida data, no caso dos Direitos Creditórios PPV, observado o disposto no item 5.1.5.2 abaixo:\n(i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com  quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no  Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo;\n(ii) existência de decisão judicial exigível determinando a existência de vício não sanável  na constituição e/ou formalização do Direito Creditório, não revertida ou suspensa em  até 10 (dez) Dias Úteis a contar da data de ciência de tal decisão pelo Mercado Pago;\n(iii) caso se verifique a impossibilidade de cobrança dos valores devidos no âmbito do(s)  Direito(s) Creditório(s) Adquirido(s), em decorrência de ato imputável ao Mercado Pago,  incluindo, mas não se limitando à verificação de que as declarações por ele prestadas  eram falsas ou materialmente incorretas na data em que foram prestadas.",
-      "sha256": "ba4de91f352fa6aba907dccb9a88925d2d266997731d9926561c9f562923cd59",
-      "verification": "primary_passage"
-    },
-    "dae4905400956cb636b8d4b74335bdbe6fadaf8bf0b8778eca96dfe33509f5bf": {
-      "document_id": "559878",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559878",
-      "reference_date": "2023-11-28",
-      "version": "1",
-      "page": 41,
-      "clause": "5.4.1",
-      "excerpt": "5.4.1. Sem prejuízo do disposto acima, nos termos do Contrato de Agente de  Recebimento, o Mercado Pago se obrigou a, diretamente ou, a seu critério, por meio de  qualquer entidade e/ou veículo de investimento do grupo econômico da MeLi (incluindo  veículos de investimento como fundos de investimento), adquirir os Direitos Creditórios  objeto de cessão ou endosso ao Fundo que se enquadrem em qualquer das seguintes  hipóteses, por seu respectivo Valor Principal acrescido dos respectivos juros, multas e demais  encargos aplicáveis, no caso dos Direitos Creditórios CCB, ou pelo valor total dos Direitos  Creditórios PPV cedidos nos termos dos respectivos Contratos de Cessão PPV, descontados  eventuais valores já recebidos pelo Fundo até referida data, no caso dos Direitos Creditórios  PPV, observado o disposto no item 5.4.2 abaixo:\n(i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com  quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no  Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo;",
-      "sha256": "ae3b1bf95db29e948e7db0299d0bb6a10efb82173a1a6c7524cca9407f8ebc5e",
       "verification": "primary_passage"
     },
     "8c09232c553ff69b84ce7a7656bc19fc9cf46fee03874efc0cbdce99c655d8f8": {
@@ -10017,54 +9746,6 @@
       "sha256": "d64a16e961c2cf8b17596f7606d11bd16f7207e219eda1d608063e0a88fc1490",
       "verification": "primary_passage"
     },
-    "5ac41340ec80bdbe66ba6ec5ee8c062b1e6b0882ac699de343cc6b5ee2206275": {
-      "document_id": "1077334",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
-      "reference_date": "2025-12-19",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "“Endividamento” significa, com relação a qualquer Pessoa, significa, sem  duplicação: (i) todo o endividamento decorrente da  captação de empréstimos; (ii) todas as obrigações  evidenciadas por títulos, debêntures, notas ou  instrumentos similares; (iii) qualquer parte do preço de  compra devido pela respectiva Pessoa em razão de  aquisição de bens ou serviços, exceto por contas a pagar  decorrentes do curso normal de seus negócios; (iv) todas  as obrigações de tal Pessoa na sua qualidade de  arrendatária sob arrendamento financeiro; (v) todo  endividamento de terceiros em relação ao qual tal Pessoa  fornece uma garantia, fiança, aval ou responsabilidade  solidária, ou que é garantido por um ônus ou gravame  sobre qualquer ativo de tal Pessoa, até o valor de tal  ativo, conforme registrado no balanço mais recente de tal  Pessoa; (vi) emissão de títulos de crédito por conta de  tal Pessoa; (vii) obrigações diretas ou contingentes de  tal Pessoa decorrentes de qualquer transação com  derivativos, em cada caso, exceto caso tenham sido  efetuadas para fins de hedging, ou seja, celebradas no  curso normal dos negócios para fins não especulativos; e\n (viii) quaisquer outras obrigações ou contingências que  sejam consideradas como endividamento no balanço da  Pessoa, nos termos das normas financeiras aplicáveis,  observado que as operações de securitização nas quais  tal Pessoa participe como originadora ou cedente de  ativos serão consideradas como “endividamento” de uma  Pessoa.",
-      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
-      "verification": "primary_passage"
-    },
-    "c377fe03a343dd0d7cd9eb2f9e14d508ab816b7c7d0c2e528c7cae35afa22440": {
-      "document_id": "909707",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "“Endividamento” significa, com relação a qualquer Pessoa, significa, sem  duplicação: (i) todo o endividamento decorrente da  captação de empréstimos; (ii) todas as obrigações  evidenciadas por títulos, debêntures, notas ou  instrumentos similares; (iii) qualquer parte do preço de  compra devido pela respectiva Pessoa em razão de  aquisição de bens ou serviços, exceto por contas a pagar  decorrentes do curso normal de seus negócios; (iv) todas  as obrigações de tal Pessoa na sua qualidade de  arrendatária sob arrendamento financeiro; (v) todo  endividamento de terceiros em relação ao qual tal Pessoa  fornece uma garantia, fiança, aval ou responsabilidade  solidária, ou que é garantido por um ônus ou gravame  sobre qualquer ativo de tal Pessoa, até o valor de tal  ativo, conforme registrado no balanço mais recente de tal  Pessoa; (vi) emissão de títulos de crédito por conta de  tal Pessoa; (vii) obrigações diretas ou contingentes de  tal Pessoa decorrentes de qualquer transação com  derivativos, em cada caso, exceto caso tenham sido  efetuadas para fins de hedging, ou seja, celebradas no  curso normal dos negócios para fins não especulativos; e\n (viii) quaisquer outras obrigações ou contingências que  sejam consideradas como endividamento no balanço da  Pessoa, nos termos das normas financeiras aplicáveis,  observado que as operações de securitização nas quais  tal Pessoa participe como originadora ou cedente de  ativos serão consideradas como “endividamento” de uma  Pessoa.",
-      "sha256": "cfa949e3b02c8900c5d0e5f82225a19dc627218a4e4f2e969681a09335c55224",
-      "verification": "primary_passage"
-    },
-    "342e1725e6c59857011ce767d8167644d98797d593fb8623c90ecd2c6b030ef6": {
-      "document_id": "909707",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "\"Direitos Creditórios CCB significam os direitos creditórios representados por CCBs  Consumidor\" decorrentes da concessão de Crédito Parcelado ou  Empréstimo Pessoal pelas Instituições Financeiras  Parceiras ou pela Instituição Financeira MeLi, conforme o  caso, aos Devedores CCB Consumidor, com  intermediação do Mercado Pago na qualidade de  correspondente bancário.",
-      "sha256": "cfa949e3b02c8900c5d0e5f82225a19dc627218a4e4f2e969681a09335c55224",
-      "verification": "primary_passage"
-    },
-    "d46f0edcaf1d0684a6d05267c92df1874ad47c28ed13c35cc4f9c0a18fa4e81b": {
-      "document_id": "792579",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 27,
-      "clause": "",
-      "excerpt": "\"Instituições Financeiras significam as instituições financeiras que contrataram o  Parceiras\" Mercado Pago como correspondente bancário e que  realizam, com a atuação do mesmo, a concessão de um  Crédito Parcelado ou Empréstimo Pessoal aos Devedores  CCB mediante a emissão de CCBs assinadas  eletronicamente pelos Devedores CCB em seu favor,  observado que nesta data estão aprovadas, como  instituições financeiras parceiras, Topázio e a Money Plus,  sendo que novas instituições financeiras estarão sujeitas  a aprovação dos Cotistas.",
-      "sha256": "ba4de91f352fa6aba907dccb9a88925d2d266997731d9926561c9f562923cd59",
-      "verification": "primary_passage"
-    },
     "01e5c13489b8a5e92ce3dc3b004e7298eeeba3c753c40c919b91d029cc2dd6f1": {
       "document_id": "1077333",
       "title": "AGE",
@@ -10087,6 +9768,108 @@
       "clause": "",
       "excerpt": "Na qualidade de atual instituição administradora do Fundo, a BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS , com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ”) sob o nº 59.281.253/0001- 23, devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, neste ato representada na forma do seu estatuto social (“Administradora”), por meio deste instrumento, apura, na forma de sumário, o resultado dos votos dos titulares de cotas de emissão do Fundo (“Cotas” e “Cotistas”, respectivamente), no âmbito da Assembleia Geral Ordinária de Cotistas do Fundo realizada por meio de consulta formal enviada aos Cotistas pela Administradora em 23 de julho de 2025 e encerrada 04 de agosto de 2025 , vem, por meio do presente termo de apuração, apresentar o quórum de deliberação da matéria colocada para aprovação dos Cotistas do Fundo:\n(i) Aprovar as contas e demonstrações contábeis do Fundo, devidamente auditadas, relativas ao exercício social findo em 31 de dezembro de 2024.",
       "sha256": "f6d02e267352916043be18574931323525df850f81cab67846b7f1c720f6281c",
+      "verification": "primary_passage"
+    },
+    "418079b98949427bdf255758ed0ce7eb4bd672081972c44912435594320aaed1": {
+      "document_id": "1077333",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077333",
+      "reference_date": "2025-12-19",
+      "version": "1",
+      "page": "49–51",
+      "clause": "5.2.4",
+      "excerpt": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a  serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos  Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições  de Cessão”):\n(i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros  estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo  Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em  observância à política de concessão de crédito do Mercado Pago vigente à época;\n(ii) os Direitos Creditórios estejam livres e desembaraçados de quaisquer ônus ou  gravames;\n(iii) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao Fundo  de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor conhecimento  do respectivo Cedente e/ou do Mercado Pago;\n(iv) os Direitos Creditórios CCB representem obrigações legais e válidas de cada Devedor,  exequíveis contra o respectivo Devedor de acordo com seus termos, ressalvadas  regras gerais de insolvência, conforme aplicáveis;\n(v) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos Cedentes  CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou Devedores CCB  que sejam funcionários do respectivo Cedente, da MeLi e/ou de suas Partes  Relacionadas;\n(vi) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma  entidade governamental, sendo permitido, no entanto, Devedores que sejam  funcionários de tal entidade;\n(vii) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem  cedidos pelos Cedentes não sejam objeto de questionamentos ou procedimentos em  curso, administrativos, arbitrais e/ou judiciais, sendo certo que questionamentos  realizados no âmbito da Plataforma Mercado Pago e/ou Plataforma Mercado Libre  não serão considerados para fins da verificação do atendimento a este item;\n(viii) no melhor conhecimento do Mercado Pago, o respectivo Devedor CCB não tenha  questionado a existência, validade ou exequibilidade da CCB ou dos instrumentos de  garantia, e não tenha oposto nenhuma exceção ao respectivo Cedente CCB, sendo  certo que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou  Plataforma Mercado Libre não serão considerados para fins da verificação do  atendimento a este item;\n(ix) os Direitos Creditórios e respectivos Documentos Comprobatórios não tenham sido  novados, aditados ou modificados de qualquer forma, exceto por quaisquer  alterações acordadas de boa-fé entre o Mercado Pago e o Gestor e aprovadas pelos  Cotistas Seniores reunidos em Assembleia Geral de Cotistas anteriormente à  aquisição do respectivo Direito Creditório pelo Fundo;\n(x) os Direitos Creditórios endossados ou cedidos ao Fundo não tenham sido  selecionados pelos respectivos Cedentes de uma maneira que poderia razoavelmente  fazer com que o desempenho de tais Direitos Creditórios fosse materialmente  diferente do desempenho da carteira de recebíveis mantida pelos respectivos  Cedentes;\n(xi) os Direitos Creditórios tenham sido totalmente constituídos, inclusive tendo havido  desembolso integral de seus respectivos valores de principal, conforme aplicável;\n(xii) os Documentos Comprobatórios sejam regidos por lei brasileira;\n(xiii) os Devedores que forem pessoas físicas sejam maiores de 18 (dezoito) anos;\n(xiv) as CCBs e os respectivos instrumentos de garantia, quando aplicável, ou os Contratos  de Cessão PPV, conforme o caso, tenham sido devidamente celebradas pelos  respectivos Cedentes PPV ou Devedores CCB em observância aos procedimentos  aplicáveis às assinaturas eletrônicas;\n(xv) os Devedores dos Direitos Creditórios sejam residentes no Brasil e estejam  devidamente inscritos no CPF/MF ou no CNPJ/MF, conforme o caso;\n(xvi) os Direitos Creditórios sejam representados em Reais e sejam pagos somente em tal  moeda;\n(xvii) o Valor Principal dos Direitos Creditórios CCB Consumidor devidos por um mesmo  Devedor, considerada pro forma a aquisição de Direitos Creditórios pretendida, não  exceda R$45.000,00 (quarenta e cinco mil reais);\n(xviii) a soma do Valor Principal dos Direitos Creditórios CCB Comerciante e dos Direitos  Creditórios PPV devidos por um mesmo Devedor, considerada pro forma a aquisição  de Direitos Creditórios pretendida, não exceda R$2.000.000,00 (dois milhões de  reais);\n(xix) os Contratos de Cessão PPV prevejam um Valor Mínimo de Apuração PPV com  recorrência no mínimo mensal para fins de monitoramento do fluxo de pagamento  dos respectivos Direitos Creditórios PPV e tenham uma taxa interna de retorno sem  referência a uma taxa de juros explícita;\n(xx) os Cedentes PPV não estejam inadimplentes em obrigações decorrentes de Direitos  Creditórios Adquiridos ou dos Contratos de Cessão PPV celebrados com o Fundo; e\n(xxi) a Senioridade Máxima não se encontre desenquadrada, considerada pro forma a  aquisição de Direitos Creditórios pretendida.",
+      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8012d8e2b08dba3259b9781d01099c74bc6e3110cf0523b048bff931b988a8fc": {
+      "document_id": "691625",
+      "title": "AGO/E",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691625",
+      "reference_date": "2024-07-03",
+      "version": "1",
+      "page": 69,
+      "clause": "7.4",
+      "excerpt": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos  Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta  de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em  conjunto, as “Condições de Cessão”):\n(a) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de  juros estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo  respectivo Cedente no curso ordinário de seus negócios e dos negócios do  Mercado Pago, em observância à política de concessão de crédito do Mercado  Pago vigente à época;\n(b) os Direitos Creditórios sejam devidamente transferidos ao Fundo, inclusive  mediante endosso, no caso dos Direitos Creditórios CCBs, livres e  desembaraçados de quaisquer ônus ou gravames;\n(c) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao  Fundo de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor  conhecimento do respectivo Cedente e/ou do Mercado Pago;\n(d) os Direitos Creditórios CCB representem obrigações legais e válidas de cada  Devedor, exequíveis contra o respectivo Devedor de acordo com seus termos,  ressalvadas regras gerais de insolvência, conforme aplicáveis;\n(e) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos  Cedentes CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou  Devedores CCB que sejam funcionários do respectivo Cedente, da MeLi e/ou de  suas Partes Relacionadas;\n(f) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma  entidade governamental, sendo permitido, no entanto, Devedores que sejam  funcionários de tal entidade;\n(g) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem  cedidos pelos Cedentes não sejam objeto de questionamentos ou  procedimentos em curso, administrativos, arbitrais e/ou judiciais, sendo certo  que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou  Plataforma Mercado Libre não serão considerados para fins da verificação do  atendimento a este item;",
+      "sha256": "3c1bb95054b4d4b8716ab42304099b42cf495e8532d8800bd03468e81cfbe94b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c8ae3e48e9f194184385be70c8530db817168dd96138112db58db5b51ca888a1": {
+      "document_id": "1077334",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+      "reference_date": "2025-12-19",
+      "version": "1",
+      "page": "49–51",
+      "clause": "5.2.4",
+      "excerpt": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a  serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos  Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições  de Cessão”):\n(i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros  estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo  Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em  observância à política de concessão de crédito do Mercado Pago vigente à época;\n(ii) os Direitos Creditórios estejam livres e desembaraçados de quaisquer ônus ou  gravames;\n(iii) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao Fundo  de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor conhecimento  do respectivo Cedente e/ou do Mercado Pago;\n(iv) os Direitos Creditórios CCB representem obrigações legais e válidas de cada Devedor,  exequíveis contra o respectivo Devedor de acordo com seus termos, ressalvadas  regras gerais de insolvência, conforme aplicáveis;\n(v) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos Cedentes  CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou Devedores CCB  que sejam funcionários do respectivo Cedente, da MeLi e/ou de suas Partes  Relacionadas;\n(vi) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma  entidade governamental, sendo permitido, no entanto, Devedores que sejam  funcionários de tal entidade;\n(vii) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem  cedidos pelos Cedentes não sejam objeto de questionamentos ou procedimentos em  curso, administrativos, arbitrais e/ou judiciais, sendo certo que questionamentos  realizados no âmbito da Plataforma Mercado Pago e/ou Plataforma Mercado Libre  não serão considerados para fins da verificação do atendimento a este item;\n(viii) no melhor conhecimento do Mercado Pago, o respectivo Devedor CCB não tenha  questionado a existência, validade ou exequibilidade da CCB ou dos instrumentos de  garantia, e não tenha oposto nenhuma exceção ao respectivo Cedente CCB, sendo  certo que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou  Plataforma Mercado Libre não serão considerados para fins da verificação do  atendimento a este item;\n(ix) os Direitos Creditórios e respectivos Documentos Comprobatórios não tenham sido  novados, aditados ou modificados de qualquer forma, exceto por quaisquer  alterações acordadas de boa-fé entre o Mercado Pago e o Gestor e aprovadas pelos  Cotistas Seniores reunidos em Assembleia Geral de Cotistas anteriormente à  aquisição do respectivo Direito Creditório pelo Fundo;\n(x) os Direitos Creditórios endossados ou cedidos ao Fundo não tenham sido  selecionados pelos respectivos Cedentes de uma maneira que poderia razoavelmente  fazer com que o desempenho de tais Direitos Creditórios fosse materialmente  diferente do desempenho da carteira de recebíveis mantida pelos respectivos  Cedentes;\n(xi) os Direitos Creditórios tenham sido totalmente constituídos, inclusive tendo havido  desembolso integral de seus respectivos valores de principal, conforme aplicável;\n(xii) os Documentos Comprobatórios sejam regidos por lei brasileira;\n(xiii) os Devedores que forem pessoas físicas sejam maiores de 18 (dezoito) anos;\n(xiv) as CCBs e os respectivos instrumentos de garantia, quando aplicável, ou os Contratos  de Cessão PPV, conforme o caso, tenham sido devidamente celebradas pelos  respectivos Cedentes PPV ou Devedores CCB em observância aos procedimentos  aplicáveis às assinaturas eletrônicas;\n(xv) os Devedores dos Direitos Creditórios sejam residentes no Brasil e estejam  devidamente inscritos no CPF/MF ou no CNPJ/MF, conforme o caso;\n(xvi) os Direitos Creditórios sejam representados em Reais e sejam pagos somente em tal  moeda;\n(xvii) o Valor Principal dos Direitos Creditórios CCB Consumidor devidos por um mesmo  Devedor, considerada pro forma a aquisição de Direitos Creditórios pretendida, não  exceda R$45.000,00 (quarenta e cinco mil reais);\n(xviii) a soma do Valor Principal dos Direitos Creditórios CCB Comerciante e dos Direitos  Creditórios PPV devidos por um mesmo Devedor, considerada pro forma a aquisição  de Direitos Creditórios pretendida, não exceda R$2.000.000,00 (dois milhões de  reais);\n(xix) os Contratos de Cessão PPV prevejam um Valor Mínimo de Apuração PPV com  recorrência no mínimo mensal para fins de monitoramento do fluxo de pagamento  dos respectivos Direitos Creditórios PPV e tenham uma taxa interna de retorno sem  referência a uma taxa de juros explícita;\n(xx) os Cedentes PPV não estejam inadimplentes em obrigações decorrentes de Direitos  Creditórios Adquiridos ou dos Contratos de Cessão PPV celebrados com o Fundo; e\n(xxi) a Senioridade Máxima não se encontre desenquadrada, considerada pro forma a  aquisição de Direitos Creditórios pretendida.",
+      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cb541cc1d83ae57323edd8cbf95b03789519fdcc3c1002e90f7edfd35ad0a53d": {
+      "document_id": "909707",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909707",
+      "reference_date": "2025-05-19",
+      "version": "1",
+      "page": "41–42",
+      "clause": "5.1.5.1",
+      "excerpt": "5.1.5.1.Sem prejuízo do disposto acima, nos termos do Contrato de Agente de Recebimento, o  Mercado Pago se obrigou a, diretamente ou, a seu critério, por meio de qualquer entidade e/ou  veículo de investimento do grupo econômico da MeLi (incluindo veículos de investimento como  fundos de investimento), adquirir os Direitos Creditórios objeto de cessão ou endosso ao Fundo  que se enquadrem em qualquer das seguintes hipóteses, por seu respectivo Valor Principal  acrescido dos respectivos juros, multas e demais encargos aplicáveis, no caso dos Direitos  Creditórios CCB, ou pelo valor total dos Direitos Creditórios PPV cedidos nos termos dos  respectivos Contratos de Cessão PPV, descontados eventuais valores já recebidos pelo Fundo até  referida data, no caso dos Direitos Creditórios PPV, observado o disposto no item 5.1.5.2 abaixo:\n(i) verificação de que o(s) Direito(s) Creditório(s) Adquiridos não cumpria(m) com  quaisquer dos Critérios de Elegibilidade e/ou Condições de Cessão previstos no  Regulamento, à época da cessão ou do endosso, conforme o caso, ao Fundo;\n(ii) existência de decisão judicial exigível determinando a existência de vício não sanável  na constituição e/ou formalização do Direito Creditório, não revertida ou suspensa em  até 10 (dez) Dias Úteis a contar da data de ciência de tal decisão pelo Mercado Pago;\n(iii) caso se verifique a impossibilidade de cobrança dos valores devidos no âmbito do(s)  Direito(s) Creditório(s) Adquirido(s), em decorrência de ato imputável ao Mercado Pago,  incluindo, mas não se limitando à verificação de que as declarações por ele prestadas  eram falsas ou materialmente incorretas na data em que foram prestadas.",
+      "sha256": "cfa949e3b02c8900c5d0e5f82225a19dc627218a4e4f2e969681a09335c55224",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "06127f9dc67cafdf89218f84ca0befffda4b9276ece9f068ed6b17f7040ff5c4": {
+      "document_id": "792579",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": "45–46",
+      "clause": "5.2.4",
+      "excerpt": "5.2.4.Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a  serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos  Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de  Cessão”):\n(i) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros  estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo  Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em  observância à política de concessão de crédito do Mercado Pago vigente à época;\n(ii) os Direitos Creditórios estejam livres e desembaraçados de quaisquer ônus ou  gravames;\n(iii) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao Fundo  de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor conhecimento  do respectivo Cedente e/ou do Mercado Pago;\n(iv) os Direitos Creditórios CCB representem obrigações legais e válidas de cada Devedor,  exequíveis contra o respectivo Devedor de acordo com seus termos, ressalvadas  regras gerais de insolvência, conforme aplicáveis;\n(v) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos Cedentes  CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou Devedores CCB  que sejam funcionários do respectivo Cedente, da MeLi e/ou de suas Partes  Relacionadas;\n(vi) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma  entidade governamental, sendo permitido, no entanto, Devedores que sejam  funcionários de tal entidade;\n(vii) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem  cedidos pelos Cedentes não sejam objeto de questionamentos ou procedimentos em  curso, administrativos, arbitrais e/ou judiciais, sendo certo que questionamentos  realizados no âmbito da Plataforma Mercado Pago e/ou Plataforma Mercado Libre  não serão considerados para fins da verificação do atendimento a este item;\n(viii) no melhor conhecimento do Mercado Pago, o respectivo Devedor CCB não tenha  questionado a existência, validade ou exequibilidade da CCB ou dos instrumentos de  garantia, e não tenha oposto nenhuma exceção ao respectivo Cedente CCB, sendo  certo que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou  Plataforma Mercado Libre não serão considerados para fins da verificação do  atendimento a este item;\n(ix) os Direitos Creditórios e respectivos Documentos Comprobatórios não tenham sido  novados, aditados ou modificados de qualquer forma, exceto por quaisquer  alterações acordadas de boa-fé entre o Mercado Pago e o Gestor e aprovadas pelos  Cotistas Seniores reunidos em Assembleia Geral de Cotistas anteriormente à  aquisição do respectivo Direito Creditório pelo Fundo;\n(x) os Direitos Creditórios endossados ou cedidos ao Fundo não tenham sido  selecionados pelos respectivos Cedentes de uma maneira que poderia razoavelmente  fazer com que o desempenho de tais Direitos Creditórios fosse materialmente",
+      "sha256": "ba4de91f352fa6aba907dccb9a88925d2d266997731d9926561c9f562923cd59",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cb26aa7e178c7eaa568931985dddd866643438142641e6e01208328565059118": {
+      "document_id": "559878",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559878",
+      "reference_date": "2023-11-28",
+      "version": "1",
+      "page": "47–49",
+      "clause": "7.4",
+      "excerpt": "7.4. Além de atender aos Critérios de Elegibilidade, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, na respectiva Data de Oferta de Direitos Creditórios, às seguintes Condições de Cessão, cumulativamente (em conjunto, as “Condições de Cessão”):\n(a) os Direitos Creditórios tenham sido originados, incluindo em relação à taxa de juros  estabelecida (apenas em relação aos Direitos Creditórios CCB), pelo respectivo  Cedente no curso ordinário de seus negócios e dos negócios do Mercado Pago, em  observância à política de concessão de crédito do Mercado Pago vigente à época;\n(b) os Direitos Creditórios sejam devidamente transferidos ao Fundo, inclusive mediante  endosso, no caso dos Direitos Creditórios CCBs, livres e desembaraçados de quaisquer  ônus ou gravames;\n(c) os Direitos Creditórios ofertados não tenham sido selecionados para venda ao Fundo  de maneira prejudicial ao Fundo e/ou aos Cotistas Seniores, no melhor conhecimento  do respectivo Cedente e/ou do Mercado Pago;\n(d) os Direitos Creditórios CCB representem obrigações legais e válidas de cada Devedor,  exequíveis contra o respectivo Devedor de acordo com seus termos, ressalvadas  regras gerais de insolvência, conforme aplicáveis;\n(e) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas dos Cedentes  CCB e/ou da MeLi, sendo permitido, no entanto, Cedentes PPV e/ou Devedores CCB  que sejam funcionários do respectivo Cedente, da MeLi e/ou de suas Partes  Relacionadas;\n(f) os Cedentes PPV e os Devedores CCB não sejam Partes Relacionadas de uma entidade  governamental, sendo permitido, no entanto, Devedores que sejam funcionários de  tal entidade;\n(g) no melhor conhecimento do Mercado Pago, os Direitos Creditórios PPV a serem  cedidos pelos Cedentes não sejam objeto de questionamentos ou procedimentos em  curso, administrativos, arbitrais e/ou judiciais, sendo certo que questionamentos  realizados no âmbito da Plataforma Mercado Pago e/ou Plataforma Mercado Libre não  serão considerados para fins da verificação do atendimento a este item;\n(h) no melhor conhecimento do Mercado Pago, o respectivo Devedor CCB não tenha  questionado a existência, validade ou exequibilidade da CCB ou dos instrumentos de  garantia, e não tenha oposto nenhuma exceção ao respectivo Cedente CCB, sendo  certo que questionamentos realizados no âmbito da Plataforma Mercado Pago e/ou  Plataforma Mercado Libre não serão considerados para fins da verificação do  atendimento a este item;\n(i) os Direitos Creditórios e respectivos Documentos Comprobatórios não tenham sido  novados, aditados ou modificados de qualquer forma, exceto por quaisquer alterações  acordadas de boa-fé entre o Mercado Pago e o Gestor e aprovadas pelos Cotistas  Seniores reunidos em Assembleia Geral de Cotistas anteriormente à aquisição do  respectivo Direito Creditório pelo Fundo;\n(j) os Direitos Creditórios endossados ou cedidos ao Fundo não tenham sido selecionados  pelos respectivos Cedentes de uma maneira que poderia razoavelmente fazer com  que o desempenho de tais Direitos Creditórios fosse materialmente diferente do  desempenho da carteira de recebíveis mantida pelos respectivos Cedentes;\n(k) os Direitos Creditórios tenham sido totalmente constituídos, inclusive tendo havido  desembolso integral de seus respectivos valores de principal, conforme aplicável;\n(l) os Documentos Comprobatórios sejam regidos por lei brasileira;\n(m) os Devedores pessoas físicas sejam maiores de 18 (dezoito) anos;\n(n) as CCBs e os respectivos instrumentos de garantia, quando aplicável, ou os Contratos  de Cessão PPV, conforme o caso, tenham sido devidamente celebradas pelos  respectivos Cedentes PPV ou Devedores CCB em observância aos procedimentos  aplicáveis às assinaturas eletrônicas;\n(o) os Devedores dos Direitos Creditórios sejam residentes no Brasil e estejam  devidamente inscritos no CPF/MF ou no CNPJ/MF, conforme o caso;\n(p) os Direitos Creditórios sejam representados em Reais e sejam pagos somente em tal  moeda;\n(q) o Devedor CCB Comerciante utilize, conforme declaração da Mercado Pago, a  Plataforma Mercado Pago para viabilizar suas transações de pagamento há, pelo  menos, 2 (dois) meses;\n(r) o Valor Principal dos Direitos Creditórios CCB Consumidor devidos por um mesmo  Devedor, considerada pro forma a aquisição de Direitos Creditórios pretendida, não  exceda R$45.000,00 (quarenta e cinco mil reais);\n(s) a soma do Valor Principal dos Direitos Creditórios CCB Comerciante e dos Direitos  Creditórios PPV devidos por um mesmo Devedor, considerada pro forma a aquisição  de Direitos Creditórios pretendida, não exceda R$2.000.000,00 (dois milhões de  reais);\n(t) o Cedente PPV utilize, conforme declaração da Mercado Pago, a Plataforma Mercado  Pago para viabilizar suas transações de pagamento há, pelo menos, 2 (dois) meses;\n(u) os Contratos de Cessão PPV prevejam um Valor Mínimo de Apuração PPV com  recorrência no mínimo mensal para fins de monitoramento do fluxo de pagamento  dos respectivos Direitos Creditórios PPV e tenham uma taxa interna de retorno sem  referência a uma taxa de juros explícita;\n(v) os Cedentes PPV não estejam inadimplentes em obrigações decorrentes de Direitos  Creditórios Adquiridos ou dos Contratos de Cessão PPV celebrados com o Fundo;",
+      "sha256": "ae3b1bf95db29e948e7db0299d0bb6a10efb82173a1a6c7524cca9407f8ebc5e",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "c82cf5dfc37bafff104ff5975b7dd156c5f8fe12a80e184c5d2f7ffddeaff7dc": {
+      "document_id": "1077334",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1077334",
+      "reference_date": "2025-12-19",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "\"Empréstimo Pessoal\" significa o crédito pessoal, sem finalidade específica,  concedido aos Devedores CCB Consumidor pelas",
+      "sha256": "a9a25c5f8a0c493373a2157221109466cbc86e5f44f623997bba18ca14892751",
+      "verification": "primary_passage"
+    },
+    "f8681d1db52b94c4f735f0d646cd7199b9bd7b2914a02edf8439f3900b47144b": {
+      "document_id": "792579",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792579",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": 21,
+      "clause": "",
+      "excerpt": "\"Empréstimo Pessoal\" significa o crédito pessoal, sem finalidade específica,  concedido aos Devedores CCB Consumidor pelas",
+      "sha256": "ba4de91f352fa6aba907dccb9a88925d2d266997731d9926561c9f562923cd59",
       "verification": "primary_passage"
     }
   }

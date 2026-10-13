@@ -3,17 +3,6 @@
   "cnpj": "42133756000159",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "5cfc6f646536c9d51fffdbc95c818aae4caa16cce2f9293ac3fd73a9263a0dec",
-      "51a167b172aad5ae61f65ececa70d3048bdfe82662d3dd8dec569980ede797ba",
-      "03136f618659aa26d6c8a06a8392982810212fd525c42be4c9de118f1386a97b",
-      "e3beea9a033c17def5ff9c85f4827352b43a918d4fb1fd3729f23d0ac4648281",
-      "a74c946e724e82c3cf6921a62d11fbacf5547e0771fc4f6fe589c35a159ac78d",
-      "db10ea66f4e651e3c8de0164b1efc2d839664629c6929d980b33fd0b95cccfb4",
-      "e7a3213eb6f358df42ce974321d7ea787cd904663fc8cb475812d422cda0eaa0",
-      "bac554afecd489c7791556592fc8db416bb548f19c042c28fa6bb4e8d3412d74",
-      "fc35002bd495a9404d5edd066cd4b049ebb0cb1d4445a2813334e71b2296bb66"
-    ],
     "ticket": [
       "596d49a69de214dd5f683151cda840c3bdff3e2f3d9370d3797691568ac14af4",
       "2faab84c57137ba0016a33960e33ac9948650cd655804bdca0e3464a02f6224b",
@@ -676,36 +665,6 @@
       "4e7c8a4f2de9cef40a9509d32eec1285e63ac42ee84bd53030c0b119f2b0e530",
       "d7fe5419cebe1ad3bcde88f7d4e60b1351574da3e034d3a916bd4433b3e1fa62"
     ],
-    "originator": [
-      "926d30c8d04a30252a633379aa64205dd70e7cd4675927ef1c03abffe115e10c",
-      "7ca6cd3291f50fd1fce9e46933de7ec57bebf59a8f7d31a6e10dd949544c71cf",
-      "4a8f397a98b2d90cc483ddaaf31f61fe220654a94474bfb9ed8fca43eaaba50d",
-      "6b4c0a14d82bdb5e1b9d17432ef334d6ac07c9c110fe515a7f0b19335c6acdf5",
-      "1afb71fe97d088854a6b747a9730bb710ff6d2d05239aff58b667b61473c1c3e",
-      "68cd0c788159842038d8945e37fcf747dd36aa1ecc745e6fe87f683f2921d80d",
-      "4fee351da6db68e8ae66b145c2efc39066214f964d352635305596ed8d8634a0",
-      "952737d486ad7bd2aa6258254cc4b1c5aabc44d351d50c6154e07cbf6c082f03",
-      "bcd1d5f92f4e69007bd0e834b04c255aacf3fb31618c2bba7f30922a147e7b37",
-      "60e6b9d41864d8607162d2afb3a8ef29e2ff1a0f24bb9031045c698dec5377ee",
-      "4c8eabce442ee1723fd191436e4bfdcb7f20f9f04ffd77d8a615c9b17e89e2e3",
-      "f5e01d1894b0e565a78c4822e859a6e41c6b6b152c480c73d529e8d077558a3e",
-      "a607668d42b9fc64c940b30e5ff49875da39b60e490a6ed6e7b86d3248feed6c",
-      "7ae8d9e550c70b70b5df0d905458d4cb18c82beb68ded633fc032272efccf235",
-      "8711ac7923037b64938feeb1ce0c65dcc671c8cd9f554eca1b2b7dba86b2770c",
-      "5bbd1828082642929c945d2328273fb74916e0644654a04a191c630010fcb9d2"
-    ],
-    "debtor": [
-      "5ed6f97b730b5178f9db3796110dbb7d2537bd37de8219b6edaabd2215da49c2",
-      "bcefed74d49a570574bcb8c3b19b48cac2990c0e1fbe36980a60d1db98f36560",
-      "f97ae7edf00b8732f8189e9bab9203381d661f3e14767cc174c4d4fd4555b91c",
-      "e3efa9475444e06340b2f1b5da074a413952ff7a3ea51719890ddf8fc9183ad7",
-      "fc7e1d1eb23f584b4a3c481322d1a367ef0c05955f150faf5a1fcf047a692b40",
-      "1668f324d94edce925c2140fb3e9ec4867263018baf904b2018d54a6ac81bde4",
-      "bac0fedd7dee7de5c4b40e94338f4ec9b6840e4eabe47c4e87b083e2e2afe6c5",
-      "b53565ddab9e2b4127ea927bea8d05445cca033d30c821b5909948c2aea3412e",
-      "1cc98a7605523befb401bcadf5e25ca1d27272d10c0e3e7118ebd442a5f70cd5",
-      "eed6b8ec2d223e8168c123acffd69b224a4f579549044f80aa949496dd0af18e"
-    ],
     "investee": [
       "37691320f4d3d5588c5338f2fb27de1a2ff304576f65f65aad38afbd2517b61b",
       "2925ac9882708d646a22ffac1bb2a570ced3c953cdb846c50002f754588a65f6",
@@ -803,6 +762,54 @@
       "9efca5ddbb8e4ab97e8c525bf9ffc1b84d1091eaca6c49f4ce8acad97edd4e79",
       "deb99240062928936f7d81f89adb280c9489b8e73cf2217fafdf3edabdb2a5ec",
       "718ebc2f1f8aefa6b879209168f3e1e115fbdb691cc9a4bd47ef23d1eba867c9"
+    ],
+    "originator": [
+      "926d30c8d04a30252a633379aa64205dd70e7cd4675927ef1c03abffe115e10c",
+      "f97ae7edf00b8732f8189e9bab9203381d661f3e14767cc174c4d4fd4555b91c",
+      "e3efa9475444e06340b2f1b5da074a413952ff7a3ea51719890ddf8fc9183ad7",
+      "fc7e1d1eb23f584b4a3c481322d1a367ef0c05955f150faf5a1fcf047a692b40",
+      "6b4c0a14d82bdb5e1b9d17432ef334d6ac07c9c110fe515a7f0b19335c6acdf5",
+      "1afb71fe97d088854a6b747a9730bb710ff6d2d05239aff58b667b61473c1c3e",
+      "68cd0c788159842038d8945e37fcf747dd36aa1ecc745e6fe87f683f2921d80d",
+      "4fee351da6db68e8ae66b145c2efc39066214f964d352635305596ed8d8634a0",
+      "952737d486ad7bd2aa6258254cc4b1c5aabc44d351d50c6154e07cbf6c082f03",
+      "f70f8a14c3a1872c366780bd950f0e0a97ae4f586c40406d38cb9acf264a6073",
+      "60e6b9d41864d8607162d2afb3a8ef29e2ff1a0f24bb9031045c698dec5377ee",
+      "4c8eabce442ee1723fd191436e4bfdcb7f20f9f04ffd77d8a615c9b17e89e2e3",
+      "f5e01d1894b0e565a78c4822e859a6e41c6b6b152c480c73d529e8d077558a3e",
+      "34a797d955651bbb303ca8aa995a536a0b54f363151daa108ccf8146cc1ecf1e",
+      "7ae8d9e550c70b70b5df0d905458d4cb18c82beb68ded633fc032272efccf235"
+    ],
+    "eligibility": [
+      "5cfc6f646536c9d51fffdbc95c818aae4caa16cce2f9293ac3fd73a9263a0dec",
+      "2c1885ae12e99d0679954508a10f854239dd1a9b5122cf16824e49cbbc9b5939",
+      "80b57487a5c325c6e6e146abc5e4c10fd1505e9765180e5859e2944d0224080a",
+      "7f0639114069f3051e97b55f52ba180306ec163a4925234ce26e76bc1eb1166d",
+      "6f00b67b4b65b9769a59ebbb4ea45f8f8a9f37c1b9e53bff05f783326f4ac325",
+      "7bb1356479a0944dcca7224639050b57ccc04e851cbd448587c86aa0906f4f93",
+      "e7a3213eb6f358df42ce974321d7ea787cd904663fc8cb475812d422cda0eaa0",
+      "eaf31607c94420ef2e679562e5f8e6d23486ac9f51d179d6303a28a0ac883eac",
+      "826e71bdc4c09696fdf7d51dbe20c7e83ad86a060d5cd9589c5da2da6e9ec1e4"
+    ],
+    "debtor": [
+      "b5d8fa29c68da712e0ff2faae26bb696d6b4119b00de58e3b4034f51b9bef192",
+      "d3e3d4285f61fd090f664ebb9bf8432d2b02d6b3f9be6872d512e727e0ff92ec",
+      "e006d4ac88baaeef2e251a5b77d8fa6e9f8f09507d025f31c05c1db34894126b",
+      "fc7e1d1eb23f584b4a3c481322d1a367ef0c05955f150faf5a1fcf047a692b40",
+      "bd3a4b4a5b96b59b1a3b7dda22c233049194481ab1149fcc8aae7bcf96346783",
+      "0a9a3141b5707c289d65d0802fa58f29741ef5a726f730f62d5188b10f3a8e4e",
+      "03594e4add822eccf47aab89730f31dc978129a23224ac38777c19515380436d",
+      "054b7bb6fcfa1fe3135b2bd798c352f3a28011e65045d3cfe559e380b137214b",
+      "65c1268fb2895ed8a7a53b0e3a7d1e4e29de00f026171683481396bcd387eeea",
+      "a7f31f6f13759c7b81b275d374b4545792b1ff385a9cd3078217925751d11490",
+      "b6965224e0c2d428bd9f6589260e87b7889b446d36a787c308c7a050deef74b6",
+      "1486959efe1b7afd6019a860b5e61cea2c0c59816f6e3ca2fbe9d7e312738464",
+      "e5d932862c779e686d5cecf4b5a95a0330d49d64dc30ff1e8835ee17f3d1ddef",
+      "6974b518f0b8657a21770ee5d2e7070d6ce03f49a402e615f84b05c6274ab9db",
+      "232aca2e378b822ee6fcbec447f73a94b4e9e545425ac8f53e088c0a1c7d624c",
+      "0c8337f3fb355338e2074258574f14763e1f64fa429111ac73d7ac7352588c86",
+      "87b9d6ed418dfa2ecaf2ab22fdfae3d4ab1f1f62c0ca2ae3d8ba95707789ff04",
+      "a6d2c49663af02b36acba3cbdf5d3c4502f9ebd9354d036a0e177ae742d1a4a8"
     ]
   },
   "entries": {
@@ -1032,15 +1039,6 @@
         "ae98a8b2960c22d1883c253adff7bdc6343fe5a077aa91b143685b5b9419200c"
       ]
     },
-    "a607668d42b9fc64c940b30e5ff49875da39b60e490a6ed6e7b86d3248feed6c": {
-      "reference_date": "2024-05-20",
-      "value": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pelos originadores/Cedentes a seus clientes, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e de devedores no momento da aquisição dos Direitos Creditórios pelo Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "88c1a05c1b9a03b71d0768c8701c02e164d9c4fe007a8e1f40f0304920987280"
-      ]
-    },
     "7ae8d9e550c70b70b5df0d905458d4cb18c82beb68ded633fc032272efccf235": {
       "reference_date": "2024-05-19",
       "value": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o risco decorrente de falhas,",
@@ -1048,24 +1046,6 @@
       "provenance": "primary_passage",
       "sources": [
         "ce66437a3ac8a868e3aa9010e08f93fa78df959c015808fb7e80b327b834c15b"
-      ]
-    },
-    "8711ac7923037b64938feeb1ce0c65dcc671c8cd9f554eca1b2b7dba86b2770c": {
-      "reference_date": "2024-04-14",
-      "value": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5e7167d7c9db19198077be0d33b41f731d2ef8f642a48f0ade2efa2f9ca05ab9"
-      ]
-    },
-    "5bbd1828082642929c945d2328273fb74916e0644654a04a191c630010fcb9d2": {
-      "reference_date": "2024-03-29",
-      "value": "Concentração nos Maiores Cedentes (% do PL) Descrição 28/4/23 31/5/23 30/6/23 31/7/23 31/8/23 29/9/23 31/10/23 30/11/23 29/12/23 31/1/24 29/2/24 28/3/24 Maior 44,5% 30,7% 37,6% 39,6% 48,5% 45,8% 58,0% 62,4% 68,0% 70,3% 78,9% 77,6% 5 maiores 90,5% 80,1% 85,1% 83,4% 92,3% 88,8% 104,2% 106,5% 112,6% 115,9% 132,5% 130,5% 10 maiores 93,5% 81,6% 86,4% 84,4% 185,5% 178,4% 208,8% 106,5% 112,6% 115,9% 132,5% 130,5% 20 maiores 94,2% 81,8% 172,8% 168,8% 185,5% 178,4% 208,8% 106,5% 112,6% 115,9% 132,5% 130,5% Fonte: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. e Ghia Gestão de Recursos Ltda.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "91e3d106a521c708756d35cc7d75f561c0c65fd2b6a0cb7dd6f0a6f5644fc3fe"
       ]
     },
     "5ed6f97b730b5178f9db3796110dbb7d2537bd37de8219b6edaabd2215da49c2": {
@@ -1104,51 +1084,6 @@
         "dac42a96c28650b071b305eca1e4e22b205490a696870c6344d4ed3e11fb8824"
       ]
     },
-    "1668f324d94edce925c2140fb3e9ec4867263018baf904b2018d54a6ac81bde4": {
-      "reference_date": "2025-07-30",
-      "value": "(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "618f2cdb8717856f095be7deb96aeaf3c13f7d3a3fa53c1c9f0bdb0d37e0dcf7"
-      ]
-    },
-    "bac0fedd7dee7de5c4b40e94338f4ec9b6840e4eabe47c4e87b083e2e2afe6c5": {
-      "reference_date": "2025-04-30",
-      "value": "(ix) Caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7a3b979736c874a4c8b0c0d5adc7fb4a6fadbbba52a14b951ba02ea2403a0bd7"
-      ]
-    },
-    "b53565ddab9e2b4127ea927bea8d05445cca033d30c821b5909948c2aea3412e": {
-      "reference_date": "2025-01-25",
-      "value": "(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5a797c2fd2767565b7bb382593e5c6b2940318c356ca94a3fa6c57809d45b10a"
-      ]
-    },
-    "1cc98a7605523befb401bcadf5e25ca1d27272d10c0e3e7118ebd442a5f70cd5": {
-      "reference_date": "2025-01-25",
-      "value": "(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d606fe2eff5d2b35c93481b345b95d5e691a0c599c19ec773c097874c756e798"
-      ]
-    },
-    "eed6b8ec2d223e8168c123acffd69b224a4f579549044f80aa949496dd0af18e": {
-      "reference_date": "2024-11-14",
-      "value": "(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicialou falência;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "803c2a37aa7f15b3d78f49c5de73b62a3eeaa7ad0d25d5fda0f00b3a94fa547d"
-      ]
-    },
     "5cfc6f646536c9d51fffdbc95c818aae4caa16cce2f9293ac3fd73a9263a0dec": {
       "reference_date": "2025-09-25",
       "value": "Devedor sem atraso na carteira; prazo mínimo>3 meses; lastro e parecer de crédito; condições específicas por operação",
@@ -1157,51 +1092,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "2247bd18c9c7f5d001b8529921d30061fd8851c8515966144b6c532627a232c7"
-      ]
-    },
-    "51a167b172aad5ae61f65ececa70d3048bdfe82662d3dd8dec569980ede797ba": {
-      "reference_date": "2026-07-24",
-      "value": "9. A Classe somente poderá adquirir Direitos Creditórios que atendam aos respectivos Critérios de Elegibilidade e Condições de Cessão, conforme o caso, verificados em cada Data de Aquisição e Pagamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c579d7b4dcb3e32df4a3f2da5953b83d194038ee3d9f8ce5a08df1416a46d7be"
-      ]
-    },
-    "03136f618659aa26d6c8a06a8392982810212fd525c42be4c9de118f1386a97b": {
-      "reference_date": "2025-11-24",
-      "value": "(14) Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6195fc0d30325750b1b5828a9e614e015da10a1b85fbbcbd166fbe058e9094bc"
-      ]
-    },
-    "e3beea9a033c17def5ff9c85f4827352b43a918d4fb1fd3729f23d0ac4648281": {
-      "reference_date": "2025-11-13",
-      "value": "(3) Alteração Política de Investimento – AGE. Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3dfac9cb0e5f2936c115c637bc3393917573e389f22726ceafad5953c5c51ff9"
-      ]
-    },
-    "a74c946e724e82c3cf6921a62d11fbacf5547e0771fc4f6fe589c35a159ac78d": {
-      "reference_date": "2025-10-21",
-      "value": "(14) Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3f9b93fb15aba9ad821a953398233621b617f5941ae41782cc15a5535d5b5ddc"
-      ]
-    },
-    "db10ea66f4e651e3c8de0164b1efc2d839664629c6929d980b33fd0b95cccfb4": {
-      "reference_date": "2025-07-30",
-      "value": "6.1.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, bem como aos respectivos Critérios de Elegibilidade e Condições de Cessão, conforme o caso, veriﬁcados em cada Data de Aquisição e Pagamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6953c531741cf2d3e26eb5aed37c01c65450188129099e963e2db39fdbabe2b9"
       ]
     },
     "e7a3213eb6f358df42ce974321d7ea787cd904663fc8cb475812d422cda0eaa0": {
@@ -6093,24 +5983,6 @@
         "4694808fe16b4ab8700b3078a4c8b94ace156481b4b9c7692ca841ad8909696e"
       ]
     },
-    "7ca6cd3291f50fd1fce9e46933de7ec57bebf59a8f7d31a6e10dd949544c71cf": {
-      "reference_date": "2025-11-24",
-      "value": "A Classe não possui limite de concentração por devedor ou originador dos Direitos Creditórios, exceto por aqueles previstos na Resolução CVM 175, razão pela qual a Classe poderá estar exposto a significativa concentração por devedor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2576c60c7d2255dbbcc2eef79f1ef0ac47c827fd2b12a2ea87eae3f0a1f04b77"
-      ]
-    },
-    "4a8f397a98b2d90cc483ddaaf31f61fe220654a94474bfb9ed8fca43eaaba50d": {
-      "reference_date": "2025-11-13",
-      "value": "A Classe não possui limite de concentração por devedor ou originador dos Direitos Creditórios, exceto por aqueles previstos na Resolução CVM 175, razão pela qual a Classe poderá estar exposto a significativa concentração por devedor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "52795d0c341d2a6ce80b390b57697ece961e6693f8fa8e20ed659eda8858a7b3"
-      ]
-    },
     "952737d486ad7bd2aa6258254cc4b1c5aabc44d351d50c6154e07cbf6c082f03": {
       "reference_date": "2025-01-25",
       "value": "XLV. Riscos Operacionais e Financeiros das Originadoras.",
@@ -6118,15 +5990,6 @@
       "provenance": "primary_passage",
       "sources": [
         "933d0992792f9ffad8b5b230b6caec50a26fd853ec5430d23a35262edcbb9ba1"
-      ]
-    },
-    "bcd1d5f92f4e69007bd0e834b04c255aacf3fb31618c2bba7f30922a147e7b37": {
-      "reference_date": "2024-11-14",
-      "value": "XLV. Riscos Operacionais e Financeiros das Originadoras e de Alteração da Margem Consignada.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "307df250be0d3f244ee996f2756a28a58a3e2acdeeb0a941ca4a4dd9e9ca89f7"
       ]
     },
     "fc7e1d1eb23f584b4a3c481322d1a367ef0c05955f150faf5a1fcf047a692b40": {
@@ -6235,6 +6098,231 @@
       "provenance": "primary_passage",
       "sources": [
         "7546100f6fddbad5dd7ec69f3fe85d6e564444100b75189dbb1794dd48070ee4"
+      ]
+    },
+    "2c1885ae12e99d0679954508a10f854239dd1a9b5122cf16824e49cbbc9b5939": {
+      "reference_date": "2026-07-24",
+      "value": "27. A Gestora do Fundo adota política de exercício de direito de voto em assembleias, que disciplina os princípios gerais, o processo decisório e quais as matérias relevantes obrigatórias para o exercício do direito de voto. Tal política orienta as decisões da Gestora em assembleias de detentores de títulos e valores mobiliários que confiram aos seus titulares o direito de voto. A versão integral da política de voto da Gestora encontra-se disposta na sua página na rede mundial de computadores. I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0340cb8dd6c3a79f14b9ef4b73868276b1dad71b6a8155c7ae1973dcdcfbe1fb"
+      ]
+    },
+    "80b57487a5c325c6e6e146abc5e4c10fd1505e9765180e5859e2944d0224080a": {
+      "reference_date": "2025-11-24",
+      "value": "(14) Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração. Em decorrência dessa alteração, serão também ajustados o fator de risco e as definições previstas no Regulamento, de modo a refletir a nova metodologia e terminologia adotadas para a cessão dos Direitos Creditórios, que vigorará nos termos do Regulamento consolidado ao Anexo IV à presente Consulta Formal;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6195fc0d30325750b1b5828a9e614e015da10a1b85fbbcbd166fbe058e9094bc"
+      ]
+    },
+    "7f0639114069f3051e97b55f52ba180306ec163a4925234ce26e76bc1eb1166d": {
+      "reference_date": "2025-11-13",
+      "value": "(3) Alteração Política de Investimento – AGE. Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração. Em decorrência dessa alteração, serão também ajustados o fator de risco e as definições previstas no Regulamento, de modo a refletir a nova metodologia e terminologia adotadas para a cessão dos Direitos Creditórios, que vigorará nos termos do Regulamento consolidado ao Anexo IV à presente Consulta Formal;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3dfac9cb0e5f2936c115c637bc3393917573e389f22726ceafad5953c5c51ff9"
+      ]
+    },
+    "6f00b67b4b65b9769a59ebbb4ea45f8f8a9f37c1b9e53bff05f783326f4ac325": {
+      "reference_date": "2025-10-21",
+      "value": "(14) Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração. Em decorrência dessa alteração, serão também ajustados o fator de risco e as definições previstas no Regulamento, de modo a refletir a nova metodologia e terminologia adotadas para a cessão dos Direitos Creditórios, que vigorará nos termos do Regulamento consolidado ao Anexo IV à presente Consulta Formal;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3f9b93fb15aba9ad821a953398233621b617f5941ae41782cc15a5535d5b5ddc"
+      ]
+    },
+    "7bb1356479a0944dcca7224639050b57ccc04e851cbd448587c86aa0906f4f93": {
+      "reference_date": "2025-07-30",
+      "value": "9.1.3 O Custodiante, diretamente ou por meio de terceiros, nos termos da regulamentação aplicável, é responsável pelas seguintes atividades: i. Durante o funcionamento do Fundo, realizar, em periodicidade trimestral, a veriﬁcação de lastro dos direitos creditórios que ingressaram na carteira no período a título de substituição, assim como o lastro dos direitos creditórios vencidos e não pagos no mesmo período; ii. Realizar a liquidação física e ﬁnanceira dos Direitos Creditórios que atenderem às Condições de Cessão e aos Critérios de Elegibilidade, evidenciados pelo Contrato de Cessão e pelos Documentos Comprobatórios; iii. Fazer a custódia, a cobrança ordinária e a guarda dos Documentos Comprobatórios e demais Ativos Financeiros da carteira do Fundo; iv. Custodiar e guardar os Documentos de Formalização ou contratar terceiros para a realização de tais serviços; v. Manter atualizada e em perfeita ordem, às suas expensas, a documentação dos Direitos Creditórios, com metodologia preestabelecida e de livre acesso para o auditor independente e órgãos reguladores; vi. Cobrar e receber, por conta e ordem do Fundo, (i) pagamentos, resgate de títulos ou qualquer outra renda relativa aos títulos custodiados, depositando os valores recebidos diretamente em conta de titularidade do Fundo, ou (ii) recursos decorrentes da liquidação dos Direitos Creditórios na Conta de Cobrança do Fundo, em instituição ﬁnanceira selecionada pelo Fundo, por meio de contrato, para acolher os depósitos a serem feitos pelos devedores e mantidos em custódia, nos termos do contrato de prestação de serviços de depositário; vii. Transferir os recursos provenientes da liquidação dos Direitos Creditórios na Conta de Cobrança para a Conta do Fundo, onde será realizada a conciliação dos pagamentos dos Direitos Creditórios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5219aefe8682a0b3fac393a4b8fc66f04bf6b72db399281120644d2692b28c82"
+      ]
+    },
+    "eaf31607c94420ef2e679562e5f8e6d23486ac9f51d179d6303a28a0ac883eac": {
+      "reference_date": "2025-03-31",
+      "value": "Índice de Perda 4,23% 10,00% Política de Investimento: O Fundo aplicará em Direitos Creditórios, os quais poderão, inclusive, ser decorrentes das Operações de Crédito Índice de Recompra 0,00% 20,00% Produtor Rural, Operações de Giro e Operações para Antecipação de Recebíveis no setor do agronegócio e originados pela Nagro Crédito Índice de Renegociação 12,92% 20,00% Agro Ltda. A aquisição será realizada com base nos critérios de Índice de Cobertura Sênior >1,00 elegibilidade e condições de cessão estabelecidos no Regulamento. 1,93 A alocação por linha está aderente ao mínimo estabelecido em Índice de Cobertura Mezanino 2,19 >1,00 Regulamento (50% para Crédito Produtor). Todos os Direitos Índice de Cobertura 1,93 >1,00 Creditórios Adquiridos estão em conformidade com a Política de Investimentos do Fundo. Não foram identificados Eventos de Desalavancagem, Realavancagem, Evento de Avaliação Liquidação Antecipada ou Venda de Direitos Creditórios no período.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f9c9e456502d9731a126535a31dfcf52e42429f796b075e8b3a4986209ffc678"
+      ]
+    },
+    "826e71bdc4c09696fdf7d51dbe20c7e83ad86a060d5cd9589c5da2da6e9ec1e4": {
+      "reference_date": "2025-02-28",
+      "value": "Índice de Perda 3,63% 10,00% Política de Investimento: O Fundo aplicará em Direitos Creditórios, os quais poderão, inclusive, ser decorrentes das Operações de Crédito Índice de Recompra 0,00% 20,00% Produtor Rural, Operações de Giro e Operações para Antecipação de Recebíveis no setor do agronegócio e originados pela Nagro Crédito Índice de Renegociação 12,90% 20,00% Agro Ltda. A aquisição será realizada com base nos critérios de Índice de Cobertura Sênior >1,00 elegibilidade e condições de cessão estabelecidos no Regulamento. 1,92 A alocação por linha está aderente ao mínimo estabelecido em Índice de Cobertura Mezanino 2,20 >1,00 Regulamento (50% para Crédito Produtor). Todos os Direitos Índice de Cobertura 1,92 >1,00 Creditórios Adquiridos estão em conformidade com a Política de Investimentos do Fundo. Não foram identificados Eventos de Desalavancagem, Realavancagem, Evento de Avaliação Liquidação Antecipada ou Venda de Direitos Creditórios no período.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a382413c4bceb6379298cc2bf2f121ecd097ac3ea765addf734976d2fcd0e0d7"
+      ]
+    },
+    "f70f8a14c3a1872c366780bd950f0e0a97ae4f586c40406d38cb9acf264a6073": {
+      "reference_date": "2024-11-14",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "803c2a37aa7f15b3d78f49c5de73b62a3eeaa7ad0d25d5fda0f00b3a94fa547d"
+      ]
+    },
+    "34a797d955651bbb303ca8aa995a536a0b54f363151daa108ccf8146cc1ecf1e": {
+      "reference_date": "2024-05-20",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "858ba8c8a15bfd2cfd1b17a3c5767d7ac1d708c11a4b65c001a19aa721b94cbf"
+      ]
+    },
+    "b5d8fa29c68da712e0ff2faae26bb696d6b4119b00de58e3b4034f51b9bef192": {
+      "reference_date": "2026-07-24",
+      "value": "LXIII. “Devedores”: significa os produtores rurais, pessoas físicas e/ou jurídicas;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "834599930eb065a9c1db722c6ab934bb1aac3b8a6ec8dbd1ee3f2ec6afcf4737"
+      ]
+    },
+    "d3e3d4285f61fd090f664ebb9bf8432d2b02d6b3f9be6872d512e727e0ff92ec": {
+      "reference_date": "2025-11-24",
+      "value": "LXIII. “Devedores”: significa os produtores rurais, pessoas físicas e/ou jurídicas;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3c4b1359437d711da156eb091d37748ef9581c6f669cf309cd98f6016aa5b238"
+      ]
+    },
+    "bd3a4b4a5b96b59b1a3b7dda22c233049194481ab1149fcc8aae7bcf96346783": {
+      "reference_date": "2024-08-02",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b8f24b41fc233f50986fb8c1e20f5ccbd7180bc87429ada7805bb08f70590915"
+      ]
+    },
+    "0a9a3141b5707c289d65d0802fa58f29741ef5a726f730f62d5188b10f3a8e4e": {
+      "reference_date": "2024-05-20",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME, respectivamente, que sejam emissoras dos Ativos Financeiros e, portanto, devedoras dos Direitos Creditórios que venham a ser adquiridos pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3db903f2bdcec1fd507cd984fe108c4d2a84a1c7143a2849167d80e8eb11ce58"
+      ]
+    },
+    "03594e4add822eccf47aab89730f31dc978129a23224ac38777c19515380436d": {
+      "reference_date": "2024-05-19",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "31581136eade6ac216b042ef589cf55d9e07ab29649f7eb19b814cddb516e6cf"
+      ]
+    },
+    "054b7bb6fcfa1fe3135b2bd798c352f3a28011e65045d3cfe559e380b137214b": {
+      "reference_date": "2024-04-14",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4c3540ae3ec46d4bb3ca7a03ae69f2c07d4a9e7912804113af05819421890fa0"
+      ]
+    },
+    "65c1268fb2895ed8a7a53b0e3a7d1e4e29de00f026171683481396bcd387eeea": {
+      "reference_date": "2023-10-17",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "20b6b55ebcf426d111ae28edfd43ccebd0111e8a15bf65cf22e768172bddc0d1"
+      ]
+    },
+    "a7f31f6f13759c7b81b275d374b4545792b1ff385a9cd3078217925751d11490": {
+      "reference_date": "2023-10-16",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6e42822e826a8e90f3904a830cc70a782edd01845198b568e6bd03becbd9ce9f"
+      ]
+    },
+    "b6965224e0c2d428bd9f6589260e87b7889b446d36a787c308c7a050deef74b6": {
+      "reference_date": "2023-08-01",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "49b56b32d7fbc2771fa69518e1070b64b0d9ff4577dcce97679e55e2ed011642"
+      ]
+    },
+    "1486959efe1b7afd6019a860b5e61cea2c0c59816f6e3ca2fbe9d7e312738464": {
+      "reference_date": "2023-07-31",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "89e7c98d823cfa3321140ebeb36f1cabb58835a141d3ba9c79fb6f1994156310"
+      ]
+    },
+    "e5d932862c779e686d5cecf4b5a95a0330d49d64dc30ff1e8835ee17f3d1ddef": {
+      "reference_date": "2023-07-31",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b28c48e7dff80b052b738d0b7d90793b3f6911eb8438577ededad3c51e0043ad"
+      ]
+    },
+    "6974b518f0b8657a21770ee5d2e7070d6ce03f49a402e615f84b05c6274ab9db": {
+      "reference_date": "2023-07-30",
+      "value": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5d66eac32722cbeb6cb59be0c5d110d0b972f9a5369e83df7601b05235c95940"
+      ]
+    },
+    "232aca2e378b822ee6fcbec447f73a94b4e9e545425ac8f53e088c0a1c7d624c": {
+      "reference_date": "2023-03-31",
+      "value": "O Fundo foi registrado na Comissão de Valores Mobiliários – CVM em 08 de setembro de 2021 e tem por objetivo proporcionar aos seus cotistas a valorização de suas cotas no longo prazo por meio da aplicação preponderante – no mínimo 50,0% de seu PL - em Direitos Creditórios devidos por produtores rurais (Devedores), buscando aumentar o direcionamento de recursos financeiros para o setor agropecuário e prover liquidez ao longo da cadeia.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a1352e77aba82e50ebe9f43e8359107deef10b8c0a256f6bc6d6973a6b2f185f"
+      ]
+    },
+    "0c8337f3fb355338e2074258574f14763e1f64fa429111ac73d7ac7352588c86": {
+      "reference_date": "2022-11-07",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME, respectivamente, que sejam emissoras dos Ativos Financeiros e, portanto, devedoras dos Direitos Creditórios que venham a ser adquiridos pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "201c0fab0a45b9aa7cb5c2a54dd060b5ba3dc7cda27c7ffaefa75299d20b306c"
+      ]
+    },
+    "87b9d6ed418dfa2ecaf2ab22fdfae3d4ab1f1f62c0ca2ae3d8ba95707789ff04": {
+      "reference_date": "2022-11-07",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME, respectivamente, que sejam emissoras dos Ativos Financeiros e, portanto, devedoras dos Direitos Creditórios que venham a ser adquiridos pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "935f611ba4e78f0c857e88d1a5648b101851ab4a39b8cf9b8c829db54e1399cd"
+      ]
+    },
+    "a6d2c49663af02b36acba3cbdf5d3c4502f9ebd9354d036a0e177ae742d1a4a8": {
+      "reference_date": "2022-11-07",
+      "value": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME, respectivamente, que sejam emissoras dos Ativos Financeiros e, portanto, devedoras dos Direitos Creditórios que venham a ser adquiridos pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a8227fc2315200e7727404fc8d6793232b875d0ba060edba74d82b8d33e07c52"
       ]
     }
   },
@@ -6588,18 +6676,6 @@
       "sha256": "768a38b5c7c72e85b5cbcd3b8091f3db37dbda7c60216dfc25da21062d398b14",
       "verification": "primary_passage"
     },
-    "88c1a05c1b9a03b71d0768c8701c02e164d9c4fe007a8e1f40f0304920987280": {
-      "document_id": "666027",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666027",
-      "reference_date": "2024-05-20",
-      "version": "1",
-      "page": 42,
-      "clause": "",
-      "excerpt": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o risco decorrente de falhas, falta de rigor ou liberalidade na concessão de crédito pelos originadores/Cedentes a seus clientes, já que é impossível controlar ou impor regras para concessão desses créditos em razão do grande número de originadores e de devedores no momento da aquisição dos Direitos Creditórios pelo Fundo.",
-      "sha256": "3bc9d5c3e5deab07d0c8e8260ef77702d3e75f14291a402ad0d690df1d710703",
-      "verification": "primary_passage"
-    },
     "ce66437a3ac8a868e3aa9010e08f93fa78df959c015808fb7e80b327b834c15b": {
       "document_id": "655865",
       "title": "AGE",
@@ -6610,30 +6686,6 @@
       "clause": "",
       "excerpt": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o risco decorrente de falhas,",
       "sha256": "28c1e50673b96cc4e9b1ec38bb2eddda6a229d8bfd1045e5d47a37f76361f068",
-      "verification": "primary_passage"
-    },
-    "5e7167d7c9db19198077be0d33b41f731d2ef8f642a48f0ade2efa2f9ca05ab9": {
-      "document_id": "634074",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634074",
-      "reference_date": "2024-04-14",
-      "version": "1",
-      "page": 76,
-      "clause": "",
-      "excerpt": "XVIII – Risco decorrente dos critérios adotados pelos originadores/Cedentes. É o",
-      "sha256": "1bf6262a50bdde6ce1e1f1fbc1ab5b3e9bb670ebe6e1ee9c58dc2a598436f58e",
-      "verification": "primary_passage"
-    },
-    "91e3d106a521c708756d35cc7d75f561c0c65fd2b6a0cb7dd6f0a6f5644fc3fe": {
-      "document_id": "694888",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=694888",
-      "reference_date": "2024-03-29",
-      "version": "1",
-      "page": 4,
-      "clause": "",
-      "excerpt": "Concentração nos Maiores Cedentes (% do PL)  Descrição 28/4/23 31/5/23 30/6/23 31/7/23 31/8/23 29/9/23 31/10/23 30/11/23 29/12/23 31/1/24 29/2/24 28/3/24  Maior 44,5% 30,7% 37,6% 39,6% 48,5% 45,8% 58,0% 62,4% 68,0% 70,3% 78,9% 77,6%  5 maiores 90,5% 80,1% 85,1% 83,4% 92,3% 88,8% 104,2% 106,5% 112,6% 115,9% 132,5% 130,5%  10 maiores 93,5% 81,6% 86,4% 84,4% 185,5% 178,4% 208,8% 106,5% 112,6% 115,9% 132,5% 130,5%  20 maiores 94,2% 81,8% 172,8% 168,8% 185,5% 178,4% 208,8% 106,5% 112,6% 115,9% 132,5% 130,5% Fonte: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. e Ghia Gestão de Recursos Ltda.",
-      "sha256": "e81ecd75cc076457e8079b33029c2dbc8c7c568292df262bda6d4d919bd193d5",
       "verification": "primary_passage"
     },
     "7720858059b74b55072d2c9861cc67695fa74698ecfe8587db10b28f165a4f22": {
@@ -6684,18 +6736,6 @@
       "sha256": "fb01fef756499aa1d0159acfcf5c5c957c4078566fe00b23354fd8b5d57a6232",
       "verification": "primary_passage"
     },
-    "618f2cdb8717856f095be7deb96aeaf3c13f7d3a3fa53c1c9f0bdb0d37e0dcf7": {
-      "document_id": "956401",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956401",
-      "reference_date": "2025-07-30",
-      "version": "1",
-      "page": 54,
-      "clause": "",
-      "excerpt": "de Crédito;\n(vi) as vias originais e/ou as cópias digitalizadas, conforme o caso, dos Documentos Comprobatórios estão ou estarão, na data de pagamento do valor da cessão, sob a guarda e custódia da Custodiante;\n(vii) os Direitos Creditórios não foram objeto de contestação judicial, extrajudicial e administrativa;\n(viii) os Direitos Creditórios e os respectivos Ativos Financeiros devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza no momento da emissão do título;\n(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;\n(x) os Devedores e/ou avalistas, conforme o caso, não poderão ter pendências em órgãos de proteção de crédito superior a 5% (cinco por cento) do valor do crédito do agronegócio objeto do respectivo Ativo Financeiro, sendo que este não poderá ultrapassar o montante global de R$ 5.000,00 (cinco mil reais), salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;\n(xi) os Devedores não poderão ter nenhuma operação de crédito em atraso em montante superior a R$ 5.000,00 (cinco mil reais) e/ou prejuízo no sistema ﬁnanceiro nacional, o que será atestado por meio de consulta ao SCR, salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;",
-      "sha256": "afff80d110a09fb00be5fcd5933ae170340229747caf6a375e8d761c347b26a8",
-      "verification": "primary_passage"
-    },
     "7a3b979736c874a4c8b0c0d5adc7fb4a6fadbbba52a14b951ba02ea2403a0bd7": {
       "document_id": "955505",
       "title": "Demonstrações Financeiras",
@@ -6706,30 +6746,6 @@
       "clause": "",
       "excerpt": "(vii) Os Direitos Creditórios não foram objeto de contestação judicial, extrajudicial e  administrativa;\n(viii) Os Direitos Creditórios e os respectivos Ativos Financeiros devem estar livres e  desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza no  momento da emissão do título;\n(ix) Caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial,  extrajudicial ou falência; (x) os Devedores e/ou avalistas, conforme o caso, não poderão ter  pendências em órgãos de proteção de crédito superior a 5% (cinco por cento) do valor do  crédito do agronegócio objeto do respectivo Ativo Financeiro, sendo que este não poderá  ultrapassar o montante global de R$ 5.000,00 (cinco mil reais), salvo se previamente  aprovado por escrito pela Gestora, com base no Parecer de Crédito;\n(x) Os Devedores não poderão ter nenhuma operação de crédito em atraso em montante  superior a R$ 5.000,00 (cinco mil reais) e/ou prejuízo no sistema financeiro nacional, o que  será atestado por meio de consulta ao SCR, salvo se previamente aprovado por escrito pela  Gestora, com base no Parecer de Crédito;\n(xi) Os Direitos Creditórios deverão ter sido originados no mercado local e ter o seu valor  expresso em moeda corrente nacional;\n(xii) Deverão observar o máximo de concentração de 20% (vinte por cento) do Patrimônio Líquido  por Estado, com exceção dos Estados de Minas Gerais, Goiás e Mato Grosso, os quais podem  chegar, individualmente, a 30% (trinta por cento).\n(xiii) As taxas e prazos de cada direito creditório refletem o risco do devedor;\n(xiv) Pelo menos 50% (cinquenta por cento) dos Direitos Creditórios cedidos ao Fundo deverão  decorrer de Devedores ou respectivos Grupos Econômicos que, previamente à cessão,  possuam histórico de endividamento rural; e\n(xv) Quando oriundos das Operações Financeiras, deverão observar a Taxa Média Mínima de  Cessão de 2,15% (dois inteiros e quinze centésimos por cento) ao mês, apurada nas Datas de  Verificação;\n(xvi) Deverão observar o período mínimo de desempenho da atividade por produtor rural de 4\n (quatro) anos; e\n(xvii) Os Devedores deverão apresentar a idade mínima de 25 (vinte e cinco) anos na data de  emissão do respectivo Direito Creditório.",
       "sha256": "ca6a6cf6a6cae02180d54ec8cf865c6e2624736ecb3885881a4236257292a5e5",
-      "verification": "primary_passage"
-    },
-    "5a797c2fd2767565b7bb382593e5c6b2940318c356ca94a3fa6c57809d45b10a": {
-      "document_id": "820973",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=820973",
-      "reference_date": "2025-01-25",
-      "version": "1",
-      "page": 39,
-      "clause": "",
-      "excerpt": "de Crédito;\n(vi) as vias originais e/ou as cópias digitalizadas, conforme o caso, dos Documentos Comprobatórios estão ou estarão, na data de pagamento do valor da cessão, sob a guarda e custódia da Custodiante;\n(vii) os Direitos Creditórios não foram objeto de contestação judicial, extrajudicial e administrativa;\n(viii) os Direitos Creditórios e os respectivos Ativos Financeiros devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza no momento da emissão do título;\n(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;\n(x) os Devedores e/ou avalistas, conforme o caso, não poderão ter pendências em órgãos de proteção de crédito superior a 5% (cinco por cento) do valor do crédito do agronegócio objeto do respectivo Ativo Financeiro, sendo que este não poderá ultrapassar o montante global de R$ 5.000,00 (cinco mil reais), salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;\n(xi) os Devedores não poderão ter nenhuma operação de crédito em atraso em montante superior a R$ 5.000,00 (cinco mil reais) e/ou prejuízo no sistema financeiro nacional, o que será atestado por meio de consulta ao SCR, salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;",
-      "sha256": "33f57e089b6add43b97d479d3a4c660b7aa140b4734e5ff43aef0ea3c6e0a58c",
-      "verification": "primary_passage"
-    },
-    "d606fe2eff5d2b35c93481b345b95d5e691a0c599c19ec773c097874c756e798": {
-      "document_id": "824883",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=824883",
-      "reference_date": "2025-01-25",
-      "version": "1",
-      "page": 36,
-      "clause": "",
-      "excerpt": "de Crédito;\n(vi) as vias originais e/ou as cópias digitalizadas, conforme o caso, dos Documentos Comprobatórios estão ou estarão, na data de pagamento do valor da cessão, sob a guarda e custódia da Custodiante;\n(vii) os Direitos Creditórios não foram objeto de contestação judicial, extrajudicial e administrativa;\n(viii) os Direitos Creditórios e os respectivos Ativos Financeiros devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza no momento da emissão do título;\n(ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial ou falência;\n(x) os Devedores e/ou avalistas, conforme o caso, não poderão ter pendências em órgãos de proteção de crédito superior a 5% (cinco por cento) do valor do crédito do agronegócio objeto do respectivo Ativo Financeiro, sendo que este não poderá ultrapassar o montante global de R$ 5.000,00 (cinco mil reais), salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;\n(xi) os Devedores não poderão ter nenhuma operação de crédito em atraso em montante superior a R$ 5.000,00 (cinco mil reais) e/ou prejuízo no sistema financeiro nacional, o que será atestado por meio de consulta ao SCR, salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;",
-      "sha256": "52b7913f7fef39579fa25a2115c088540f914d18a374a451e54c8298e4f92fb4",
       "verification": "primary_passage"
     },
     "803c2a37aa7f15b3d78f49c5de73b62a3eeaa7ad0d25d5fda0f00b3a94fa547d": {
@@ -6756,18 +6772,6 @@
       "sha256": "8afa1b5b788823a4f4c0de1702d1f1bfeb77b0363d0383f74f3334169e97a019",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 37–41; 7.1–7.2 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165"
-    },
-    "c579d7b4dcb3e32df4a3f2da5953b83d194038ee3d9f8ce5a08df1416a46d7be": {
-      "document_id": "1263472",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263472",
-      "reference_date": "2026-07-24",
-      "version": "1",
-      "page": 23,
-      "clause": "",
-      "excerpt": "9. A Classe somente poderá adquirir Direitos Creditórios que atendam aos respectivos Critérios de Elegibilidade e Condições de Cessão, conforme o caso, verificados em cada Data de Aquisição e Pagamento.",
-      "sha256": "0f38522aabf84ca3143e4c637fc66855a996b359da993468103ad4c65781826e",
-      "verification": "primary_passage"
     },
     "6195fc0d30325750b1b5828a9e614e015da10a1b85fbbcbd166fbe058e9094bc": {
       "document_id": "1047352",
@@ -6803,18 +6807,6 @@
       "clause": "",
       "excerpt": "(14) Unificação das condições de cessão de Direitos Creditórios previstas no item 7.2 da Política de Investimentos e Composição da Carteira, que passarão a integrar o item 5 do Capítulo I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência, com a supressão de referências a linhas específicas de crédito (tais como Operações de Giro, Antecipação de Recebíveis e Crédito Produtor Rural), passando a adoção de critérios objetivos e uniformes de elegibilidade, aplicáveis a todas as operações, independentemente de sua rotulagem comercial, contemplando requisitos quanto à documentação mínima, características dos devedores e garantias, prazos e remuneração. Em decorrência dessa alteração, serão também ajustados o fator de risco e as definições previstas no Regulamento, de modo a refletir a nova metodologia e terminologia adotadas para a cessão dos Direitos Creditórios, que vigorará nos termos do Regulamento consolidado ao Anexo IV à presente Consulta Formal;",
       "sha256": "77d19b502a655c682c976afc745232d8d463ab81bfd5a6efa7b4f73ce1bbc033",
-      "verification": "primary_passage"
-    },
-    "6953c531741cf2d3e26eb5aed37c01c65450188129099e963e2db39fdbabe2b9": {
-      "document_id": "956401",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956401",
-      "reference_date": "2025-07-30",
-      "version": "1",
-      "page": 49,
-      "clause": "6.1.4",
-      "excerpt": "6.1.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, bem como aos respectivos Critérios de Elegibilidade e Condições de Cessão, conforme o caso, veriﬁcados em cada Data de Aquisição e Pagamento.",
-      "sha256": "afff80d110a09fb00be5fcd5933ae170340229747caf6a375e8d761c347b26a8",
       "verification": "primary_passage"
     },
     "926d6024f9cabeb115e92ddabdf6d73c2236f832677b955c7a3720d5d724ae8a": {
@@ -12802,30 +12794,6 @@
       "sha256": "0f38522aabf84ca3143e4c637fc66855a996b359da993468103ad4c65781826e",
       "verification": "primary_passage"
     },
-    "2576c60c7d2255dbbcc2eef79f1ef0ac47c827fd2b12a2ea87eae3f0a1f04b77": {
-      "document_id": "1047352",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1047352",
-      "reference_date": "2025-11-24",
-      "version": "1",
-      "page": 57,
-      "clause": "",
-      "excerpt": "(iii) Risco de concentração. O risco da aplicação na Classe possui forte correlação com a concentração da carteira da Classe, sendo que, quanto maior for a concentração da carteira da Classe, maior será a chance de a Classe sofrer perda patrimonial significativa que afete negativamente a rentabilidade das Cotas. A Classe não possui limite de concentração por devedor ou originador dos Direitos Creditórios, exceto por aqueles previstos na Resolução CVM 175, razão pela qual a Classe poderá estar exposto a significativa concentração por devedor. Não é possível garantir que os limites de concentração contidos na Política de Investimentos, ainda que atendidos, serão suficientes que o Patrimônio Líquido não sofra perdas que possam afetar a rentabilidade das Cotas.",
-      "sha256": "ef3bb63435fe3a228e1adf23824c010723330e8d17ad880cacf0c6842a2fdeb9",
-      "verification": "primary_passage"
-    },
-    "52795d0c341d2a6ce80b390b57697ece961e6693f8fa8e20ed659eda8858a7b3": {
-      "document_id": "1036533",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1036533",
-      "reference_date": "2025-11-13",
-      "version": "1",
-      "page": 61,
-      "clause": "",
-      "excerpt": "(iii) Risco de concentração. O risco da aplicação na Classe possui forte correlação com a  concentração da carteira da Classe, sendo que, quanto maior for a concentração da carteira da Classe,  maior será a chance de a Classe sofrer perda patrimonial significativa que afete negativamente a  rentabilidade das Cotas. A Classe não possui limite de concentração por devedor ou originador  dos Direitos Creditórios, exceto por aqueles previstos na Resolução CVM 175, razão pela qual a  Classe poderá estar exposto a significativa concentração por devedor. Não é possível garantir que  os limites de concentração contidos na Política de Investimentos, ainda que atendidos, serão suficientes  que o Patrimônio Líquido não sofra perdas que possam afetar a rentabilidade das Cotas.",
-      "sha256": "fb01fef756499aa1d0159acfcf5c5c957c4078566fe00b23354fd8b5d57a6232",
-      "verification": "primary_passage"
-    },
     "933d0992792f9ffad8b5b230b6caec50a26fd853ec5430d23a35262edcbb9ba1": {
       "document_id": "824883",
       "title": "AGE",
@@ -12836,18 +12804,6 @@
       "clause": "",
       "excerpt": "XLV. Riscos Operacionais e Financeiros das Originadoras. As empresas que originam os Direitos Creditórios estão sujeitas a riscos operacionais que podem impactar em suas operações diárias e, consequentemente, a cessão dos Direitos Creditórios ao Fundo, o que pode ocasionar perda patrimonial significativa que afete negativamente a rentabilidade das Cotas. Adicionalmente, as originadoras podem sofrer prejuízos financeiros que podem afetar a prestação de seus serviços e a cessão dos Direitos Creditórios ao Fundo. Embora, as originadoras sejam responsáveis por acompanhar e diligenciar para que a formalização e transferência dos Direitos Creditórios ao Fundo seja realizada de forma adequada, bem como o Fundo possua: (i) opção de cessão dos Direitos Creditórios para as originadoras em razão de determinados índices de inadimplência; e (ii) opção de indenização em caso de refinanciamento, pré-pagamento e/ou portabilidade da operação em face das originadoras, não há como garantir que as originadoras cumprirão suas obrigações e realizarão o pagamento da opção de cessão e/ou indenização ao Fundo, o que pode causar prejuízo ao Fundo e aos seus Cotistas.",
       "sha256": "52b7913f7fef39579fa25a2115c088540f914d18a374a451e54c8298e4f92fb4",
-      "verification": "primary_passage"
-    },
-    "307df250be0d3f244ee996f2756a28a58a3e2acdeeb0a941ca4a4dd9e9ca89f7": {
-      "document_id": "771153",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=771153",
-      "reference_date": "2024-11-14",
-      "version": "1",
-      "page": 69,
-      "clause": "",
-      "excerpt": "XLV. Riscos Operacionais e Financeiros das Originadoras e de Alteração da Margem Consignada. As empresas que originam os Direitos Creditórios estão sujeitas a riscos operacionais que podem impactar em suas operações diárias e, consequentemente, a cessão dos Direitos Creditórios ao Fundo, o que pode ocasionar perda patrimonial significativa que afete negativamente a rentabilidade das Cotas. Adicionalmente, as originadoras podem sofrer prejuízos financeiros que podem afetar a prestação de seus serviços e a cessão dos Direitos Creditórios ao Fundo. Embora, as originadoras sejam responsáveis por acompanhar e diligenciar para que a formalização e transferência dos Direitos Creditórios ao Fundo seja realizada de forma adequada, bem como o Fundo possua: (i) opção de cessão dos Direitos Creditórios para as originadoras em razão de determinados índicesde inadimplência; e (ii) opção de indenização em caso de refinanciamento, pré-pagamento, portabilidade da operação e/ou redução da margem consignada em face das originadoras, não há como garantir que as originadoras cumprirão suas obrigações e realizarão o pagamento da opção de cessão e/ou indenização ao Fundo,o que pode causar prejuízo ao Fundo e aos seus Cotistas.",
-      "sha256": "144363318645bd4b76dbaebc9f1e0e364927cbb9e4abb3fa5d5a92273ee4a654",
       "verification": "primary_passage"
     },
     "59f18bce14b02481c401054966290a618c98bb314a3356be85f8f79f2582869d": {
@@ -12992,6 +12948,212 @@
       "clause": "",
       "excerpt": "CNPJ nº 42.133.756/0001-59 XXXVIII. “Contrato de Cobrança”: significa o contrato de prestação de serviços celebrado entre a Classe, representado  pela Administradora, o Agente de Cobrança Extrajudicial e com a interveniência anuência da Gestora, o qual  estabelece os termos e condições sob os quais o Agente de Cobrança Extrajudicial prestará os serviços de  cobrança judicial dos Direitos Creditórios Inadimplidos;\nXXXIX. “Contrato de Formalização” ou “Contrato de Formalização e Cobrança”: significa o contrato de prestação  de serviços celebrado entre a Classe, representado pela Administradora, o Agente de Formalização e com a  interveniência anuência da Gestora, o qual estabelece os termos e condições sob os quais o Agente de  Formalização prestará os serviços de formalização dos Direitos Creditórios;\nXL. “Cotas”: Significa as Cotas representativas do patrimônio da Classe, considerando-se as Cotas Seniores, as  Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior, quando referidas em conjunto.\nXLI. “Cotas Seniores”: significa as cotas de subclasse sênior emitidas pela Classe;\nXLII. “Cotas Subordinadas Júnior”: significa as cotas de subclasse subordinadas júnior emitidas pela Classe, que  se subordinam às Cotas Seniores e às Cotas Subordinadas Mezanino para fins de pagamento de amortização  e resgate, conforme descrito neste Anexo;\nXLIII. “Cotas Subordinadas Mezanino”: significa as cotas de subclasse subordinada mezanino de emissão da  Classe, subordinadas às Cotas Seniores para fins de amortização, resgate e distribuição de rendimentos, mas  que não estão subordinadas às Cotas Subordinadas Júnior para tais fins;\nXLIV. “Cotas Subordinadas”: significa as Cotas Subordinadas Mezanino e as Cotas Subordinadas Júnior, quando  referidas em conjunto;\nXLV. “Cotas”: significa as Cotas Seniores e as Cotas Subordinadas, quando referidas em conjunto e indistintamente;\nXLVI. “Cotistas Dissidentes”: significa os Cotistas dissidentes da decisão assemblear pela interrupção dos  procedimentos de liquidação antecipada da Classe, que solicitem o resgate de suas respectivas Cotas, nos  termos do item 9 do Capítulo N do Anexo I;\nXLVII. “Cotista Inadimplente” Investidor que não honrou com o pagamento de cotas ou de despesas do fundo.\nXLVIII. “Cotistas”: significa os titulares das Cotas, sendo que a condição de Cotista caracteriza-se pela abertura, pela  Administradora, de conta de depósito em nome do Cotista;\nXLIX. “CPR-F” Significa cada Cédula de Produto Rural com Liquidação Financeira, emitida por Devedor,  nos termos da Lei das CPR.\nL. “CRA”: significa os certificados de recebíveis do agronegócio.\nLI. “Critérios de Elegibilidade”: significa os Critérios de Elegibilidade descritos no Capítulo I do Anexo;\nLII. “Crédito ao Produtor Rural” significa crédito concedido aos Devedores.\nLIII. “Custodiante”: significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, inscrita  no CNPJ sob n.º 22.610.500/0001-88;\nLIV. “CVM”: significa a Comissão de Valores Mobiliários;\nLV. “Data da 1ª Integralização”: significa a data da 1ª integralização das Cotas, em que os recursos são  efetivamente colocados à disposição da Classe pelos Cotistas;\nLVI. “Data de Aquisição” Significa cada data de aquisição dos Direitos Creditórios pelo Fundo.\nLVII. “Data de Amortização”: significa cada data em que houver pagamento de Amortização Programada,  conforme o disposto neste Anexo e nos cronogramas de amortização programada previstos em cada um dos  Apêndices, conforme aplicável;\nLVIII. “Data de Aniversário”: Todo 15º (décimo quinto) dia de cada mês, a contar do mês em que ocorrer a Data  da 1ª Integralização da respectiva série ou subclasse de Cotas.\nLIX. “Data de Aquisição e Pagamento”: significa cada uma das datas em que a Classe efetivamente adquirir  Direitos Creditórios e efetuar o pagamento do respectivo Preço de Aquisição ao respectivo Devedor;\nLX. “Data de Verificação”: O 5º (quinto) Dia Útil imediatamente anterior a cada Data de Aniversário, iniciando-se  no mês subsequente ao 1º (primeiro) Mês Completo de Alocação.\nLXI. “Data de Resgate”: significa a data de resgate de cada Série ou Subclasse de Cotas, conforme especificada  no respectivo Apêndice, ou, na hipótese de resgate antecipado, a data em que as Cotas sejam integralmente  amortizadas e, consequentemente, resgatadas;\nLXII. “Depositário”: significa empresa especializada a ser eventualmente contratada pelo Custodiante para prestar  os serviços de guarda dos Documentos Comprobatórios, a qual não poderá ser a Gestora, tampouco o  Devedor;\nLXIII. “Devedores”: significa os produtores rurais, pessoas físicas e/ou jurídicas;\nLXIV. “Dia Útil”: significa qualquer dia da semana, exceto sábados, domingos, feriados ou dias em que, por  qualquer motivo, não houver expediente comercial ou bancário no Estado ou na Cidade em que se situam as  sedes sociais da Administradora;\nLXV. “Direitos Creditórios Inadimplido(s)”: significa os Direitos Creditórios, de titularidade da Classe, vencidos e  não pagos;",
       "sha256": "fb01fef756499aa1d0159acfcf5c5c957c4078566fe00b23354fd8b5d57a6232",
+      "verification": "primary_passage"
+    },
+    "0340cb8dd6c3a79f14b9ef4b73868276b1dad71b6a8155c7ae1973dcdcfbe1fb": {
+      "document_id": "1263472",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263472",
+      "reference_date": "2026-07-24",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "27. A Gestora do Fundo adota política de exercício de direito de voto em assembleias, que disciplina os princípios gerais, o processo decisório e quais as matérias relevantes obrigatórias para o exercício do direito de voto. Tal política orienta as decisões da Gestora em assembleias de detentores de títulos e valores mobiliários que confiram aos seus titulares o direito de voto. A versão integral da política de voto da Gestora encontra-se disposta na sua página na rede mundial de computadores.\n I. Critérios de Elegibilidade, Condições de Cessão ou Aquisição e Condições de Revolvência.",
+      "sha256": "0f38522aabf84ca3143e4c637fc66855a996b359da993468103ad4c65781826e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5219aefe8682a0b3fac393a4b8fc66f04bf6b72db399281120644d2692b28c82": {
+      "document_id": "956401",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=956401",
+      "reference_date": "2025-07-30",
+      "version": "1",
+      "page": "34–35",
+      "clause": "9.1.3",
+      "excerpt": "9.1.3 O Custodiante, diretamente ou por meio de terceiros, nos termos da regulamentação  aplicável, é responsável pelas seguintes atividades:\ni. Durante o funcionamento do Fundo, realizar, em periodicidade trimestral, a  veriﬁcação de lastro dos direitos creditórios que ingressaram na carteira no  período a título de substituição, assim como o lastro dos direitos creditórios  vencidos e não pagos no mesmo período;\nii. Realizar a liquidação física e ﬁnanceira dos Direitos Creditórios que atenderem  às Condições de Cessão e aos Critérios de Elegibilidade, evidenciados pelo  Contrato de Cessão e pelos Documentos Comprobatórios;\niii. Fazer a custódia, a cobrança ordinária e a guarda dos Documentos  Comprobatórios e demais Ativos Financeiros da carteira do Fundo;\niv. Custodiar e guardar os Documentos de Formalização ou contratar terceiros para  a realização de tais serviços;\nv. Manter atualizada e em perfeita ordem, às suas expensas, a documentação dos  Direitos Creditórios, com metodologia preestabelecida e de livre acesso para o  auditor independente e órgãos reguladores;\nvi. Cobrar e receber, por conta e ordem do Fundo, (i) pagamentos, resgate de títulos  ou qualquer outra renda relativa aos títulos custodiados, depositando os valores  recebidos diretamente em conta de titularidade do Fundo, ou (ii) recursos  decorrentes da liquidação dos Direitos Creditórios na Conta de Cobrança do  Fundo, em instituição ﬁnanceira selecionada pelo Fundo, por meio de contrato,  para acolher os depósitos a serem feitos pelos devedores e mantidos em custódia,  nos termos do contrato de prestação de serviços de depositário;\nvii. Transferir os recursos provenientes da liquidação dos Direitos Creditórios na  Conta de Cobrança para a Conta do Fundo, onde será realizada a conciliação  dos pagamentos dos Direitos Creditórios.",
+      "sha256": "afff80d110a09fb00be5fcd5933ae170340229747caf6a375e8d761c347b26a8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "858ba8c8a15bfd2cfd1b17a3c5767d7ac1d708c11a4b65c001a19aa721b94cbf": {
+      "document_id": "666027",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666027",
+      "reference_date": "2024-05-20",
+      "version": "1",
+      "page": 32,
+      "clause": "",
+      "excerpt": "I. Em relação a todos os Direitos Creditórios:\n (i) todos os Direitos Creditórios estão amparados pelos Documentos Comprobatórios;\n (ii) todos os Direitos Creditórios foram devidas e legalmente constituídos, são certos, válidos, e eficazes, e são  ou serão exigíveis e líquidos quando de seus respectivos vencimentos, contando, quando aplicável, com os  documentos de formalização descritos no Anexo VI do Regulamento, necessários para a verificação de  referidas características (“Documentos de Formalização”);\n (iii) todos os Direitos Creditórios são de legítima e única titularidade de seu respectivo Cedente;\n (iv) conforme aplicável, o(s) Cedente(s) tem(têm) autorização societária para ceder os Direitos Creditórios ao  Fundo na forma do Contrato de Cessão;\n (v) deverão contar com aprovação e Parecer de Crédito, após efetiva análise de crédito, e tenha sua  capacidade de pagamento atestada nos termos do referido Parecer de Crédito;\n (vi) as vias originais e/ou as cópias digitalizadas, conforme o caso, dos Documentos Comprobatórios estão ou  estarão, na data de pagamento do valor da cessão, sob a guarda e custódia da Custodiante;\n (vii) os Direitos Creditórios não foram objeto de contestação judicial, extrajudicial e administrativa;\n (viii) os Direitos Creditórios e os respectivos Ativos Financeiros devem estar livres e desembaraçados de  quaisquer ônus, gravames ou restrições de qualquer natureza no momento da emissão do título;\n (ix) caso os Devedores sejam pessoas jurídicas, estes não poderão estar em recuperação judicial, extrajudicial  ou falência;\n (x) os Devedores e/ou avalistas, conforme o caso, não poderão ter pendências em órgãos de proteção de  crédito superior a 5% (cinco por cento) do valor do crédito do agronegócio objeto do respectivo Ativo  Financeiro, sendo que este não poderá ultrapassar o montante global de R$ 5.000,00 (cinco mil reais),  salvo se previamente aprovado por escrito pela Gestora, com base no Parecer de Crédito;\n (xi) os Devedores não poderão ter nenhuma operação de crédito em atraso em montante superior a R$",
+      "sha256": "3bc9d5c3e5deab07d0c8e8260ef77702d3e75f14291a402ad0d690df1d710703",
+      "verification": "primary_passage"
+    },
+    "b8f24b41fc233f50986fb8c1e20f5ccbd7180bc87429ada7805bb08f70590915": {
+      "document_id": "710250",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=710250",
+      "reference_date": "2024-08-02",
+      "version": "1",
+      "page": 41,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas,",
+      "sha256": "768a38b5c7c72e85b5cbcd3b8091f3db37dbda7c60216dfc25da21062d398b14",
+      "verification": "primary_passage"
+    },
+    "3db903f2bdcec1fd507cd984fe108c4d2a84a1c7143a2849167d80e8eb11ce58": {
+      "document_id": "666027",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=666027",
+      "reference_date": "2024-05-20",
+      "version": "1",
+      "page": 30,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas, identificadas pelo seu respectivo número de CPF/ME ou CNPJ/ME, respectivamente, que sejam emissoras dos Ativos Financeiros e, portanto, devedoras dos Direitos Creditórios que venham a ser adquiridos pelo Fundo.",
+      "sha256": "3bc9d5c3e5deab07d0c8e8260ef77702d3e75f14291a402ad0d690df1d710703",
+      "verification": "primary_passage"
+    },
+    "31581136eade6ac216b042ef589cf55d9e07ab29649f7eb19b814cddb516e6cf": {
+      "document_id": "655865",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=655865",
+      "reference_date": "2024-05-19",
+      "version": "1",
+      "page": 36,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou jurídicas,",
+      "sha256": "28c1e50673b96cc4e9b1ec38bb2eddda6a229d8bfd1045e5d47a37f76361f068",
+      "verification": "primary_passage"
+    },
+    "4c3540ae3ec46d4bb3ca7a03ae69f2c07d4a9e7912804113af05819421890fa0": {
+      "document_id": "634074",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634074",
+      "reference_date": "2024-04-14",
+      "version": "1",
+      "page": 131,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu  respectivo número de CPF/ME ou CNPJ/ME,",
+      "sha256": "1bf6262a50bdde6ce1e1f1fbc1ab5b3e9bb670ebe6e1ee9c58dc2a598436f58e",
+      "verification": "primary_passage"
+    },
+    "20b6b55ebcf426d111ae28edfd43ccebd0111e8a15bf65cf22e768172bddc0d1": {
+      "document_id": "537950",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537950",
+      "reference_date": "2023-10-17",
+      "version": "1",
+      "page": 112,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu  respectivo número de CPF/ME ou CNPJ/ME,",
+      "sha256": "5ad1cae63b43df95d596ac9a5eb1657b05e7f6a5ae82fa3a7230d9d98fdaf4dc",
+      "verification": "primary_passage"
+    },
+    "6e42822e826a8e90f3904a830cc70a782edd01845198b568e6bd03becbd9ce9f": {
+      "document_id": "531524",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=531524",
+      "reference_date": "2023-10-16",
+      "version": "1",
+      "page": 119,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas pelo seu  respectivo número de CPF/ME ou CNPJ/ME,",
+      "sha256": "b0efb345c42a1b2d23a11d042b8c3303897d7abc973c62f299352dabc02696c8",
+      "verification": "primary_passage"
+    },
+    "49b56b32d7fbc2771fa69518e1070b64b0d9ff4577dcce97679e55e2ed011642": {
+      "document_id": "499862",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=499862",
+      "reference_date": "2023-08-01",
+      "version": "1",
+      "page": 45,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "sha256": "c8dc010a04f825c07685887cb9ce6fecee7bdc1ee29e31778b602b8895b1a898",
+      "verification": "primary_passage"
+    },
+    "89e7c98d823cfa3321140ebeb36f1cabb58835a141d3ba9c79fb6f1994156310": {
+      "document_id": "495256",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=495256",
+      "reference_date": "2023-07-31",
+      "version": "1",
+      "page": 63,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "sha256": "92b839fd9bbda00754601a66b43c36afc1390d2ce12a3b77035f4b24aecbecb0",
+      "verification": "primary_passage"
+    },
+    "b28c48e7dff80b052b738d0b7d90793b3f6911eb8438577ededad3c51e0043ad": {
+      "document_id": "495487",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=495487",
+      "reference_date": "2023-07-31",
+      "version": "2",
+      "page": 63,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "sha256": "1e860a8577e73712753b06a29c751a7037150cea8fb9982b1b5de4abfbcf66da",
+      "verification": "primary_passage"
+    },
+    "5d66eac32722cbeb6cb59be0c5d110d0b972f9a5369e83df7601b05235c95940": {
+      "document_id": "495250",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=495250",
+      "reference_date": "2023-07-30",
+      "version": "1",
+      "page": 63,
+      "clause": "",
+      "excerpt": "Parágrafo Primeiro – Para os fins deste Regulamento, entende-se por “Devedores” as pessoas físicas e/ou",
+      "sha256": "dc4dd064ba06d37a8a025938b79ee103511d578dafad37504d5cb1a7b31eff3a",
+      "verification": "primary_passage"
+    },
+    "a1352e77aba82e50ebe9f43e8359107deef10b8c0a256f6bc6d6973a6b2f185f": {
+      "document_id": "512256",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=512256",
+      "reference_date": "2023-03-31",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "O Fundo foi registrado na Comissão de Valores Mobiliários – CVM em 08 de setembro de 2021 e tem por objetivo proporcionar aos seus cotistas a valorização de suas cotas no longo prazo por meio da aplicação preponderante – no mínimo 50,0% de seu PL - em Direitos Creditórios devidos por produtores rurais (Devedores), buscando aumentar o direcionamento de recursos financeiros para o setor agropecuário e prover liquidez ao longo da cadeia. Nesse sentido, atua com foco principal na aquisição de Cédulas de Crédito Bancário (CCBs) e outros títulos cedidos sem coobrigação por instituições financeiras (Cedentes), os quais representativos de empréstimos concedidos aos Devedores em três diferentes linhas oferecidas, via plataforma digital da Nagro, a saber: “Crédito Produtor”, “Antecipação de Recebíveis” e “Giro Agro”.",
+      "sha256": "c07d6f76c3ca2dc5df6aa12278ed12a25aae8a0f8ba8ba4123cc777867ca906b",
+      "verification": "primary_passage"
+    },
+    "201c0fab0a45b9aa7cb5c2a54dd060b5ba3dc7cda27c7ffaefa75299d20b306c": {
+      "document_id": "367937",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=367937",
+      "reference_date": "2022-11-07",
+      "version": "1",
+      "page": 83,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas  pelo seu respectivo número de CPF/ME ou CNPJ/ME,  respectivamente, que sejam emissoras dos Ativos  Financeiros e, portanto, devedoras dos Direitos  Creditórios que venham a ser adquiridos pelo Fundo.\n“Dia Útil” Qualquer dia que não seja (a) sábado, domingo ou  feriado nacional; ou (b) dia em que, por qualquer  motivo, não houver expediente bancário ou não  funcionar o mercado financeiro na cidade de São  Paulo, Estado de São Paulo.\n“Direitos Creditórios” São todos os direitos creditórios de operações de  natureza diversa, inclusive, mas não se limitando,  aqueles decorrentes de: (a) Operações de Crédito;\n (b) Operações de Giro; e (c) Operações para  Antecipação de Recebíveis. Os Direitos Creditórios  para as Operação Financeiras serão formalizados  por meio dos Ativos Financeiros.\n“Direitos Creditórios Significa os Direitos Creditórios Elegíveis adquiridos Adquiridos” pelo Fundo.\n“Direitos Creditórios Os Direitos Creditórios Adquiridos que possuam ao Adquiridos Inadimplidos” menos uma parcela vencida e não paga pelos  Devedores na sua respectiva data de vencimento,  observados os termos e condições a serem  estabelecidos nos Contratos de Cobrança.\n“Disponibilidades” São, em conjunto, (a) recursos em caixa; (b) depósitos  bancários à vista em Instituições Autorizadas; e (c)  Investimentos Permitidos.\n“Documentos São os documentos ou títulos representativos do Comprobatórios” respectivo direito creditório que lastreiam a cessão,  representados por duplicatas, cheques, cédulas de  crédito bancário ou todo e qualquer outro título  representativo de crédito, contratos de compra e  venda, e/ou de prestação de serviços, de titularidade  de empresas atuantes nos segmentos financeiro,  comercial, industrial, de arrendamento mercantil e de  prestação de serviços.",
+      "sha256": "f10c22cb5962a8010e15c45f3191bbb84cc821ce19ad5a1e6c9db1bc8882cfdf",
+      "verification": "primary_passage"
+    },
+    "935f611ba4e78f0c857e88d1a5648b101851ab4a39b8cf9b8c829db54e1399cd": {
+      "document_id": "368812",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=368812",
+      "reference_date": "2022-11-07",
+      "version": "1",
+      "page": 83,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas  pelo seu respectivo número de CPF/ME ou CNPJ/ME,  respectivamente, que sejam emissoras dos Ativos  Financeiros e, portanto, devedoras dos Direitos  Creditórios que venham a ser adquiridos pelo Fundo.\n“Dia Útil” Qualquer dia que não seja (a) sábado, domingo ou  feriado nacional; ou (b) dia em que, por qualquer  motivo, não houver expediente bancário ou não  funcionar o mercado financeiro na cidade de São  Paulo, Estado de São Paulo.\n“Direitos Creditórios” São todos os direitos creditórios de operações de  natureza diversa, inclusive, mas não se limitando,  aqueles decorrentes de: (a) Operações de Crédito;\n (b) Operações de Giro; e (c) Operações para  Antecipação de Recebíveis. Os Direitos Creditórios  para as Operação Financeiras serão formalizados  por meio dos Ativos Financeiros.\n“Direitos Creditórios Significa os Direitos Creditórios Elegíveis adquiridos Adquiridos” pelo Fundo.\n“Direitos Creditórios Os Direitos Creditórios Adquiridos que possuam ao Adquiridos Inadimplidos” menos uma parcela vencida e não paga pelos  Devedores na sua respectiva data de vencimento,  observados os termos e condições a serem  estabelecidos nos Contratos de Cobrança.\n“Disponibilidades” São, em conjunto, (a) recursos em caixa; (b) depósitos  bancários à vista em Instituições Autorizadas; e (c)  Investimentos Permitidos.\n“Documentos São os documentos ou títulos representativos do Comprobatórios” respectivo direito creditório que lastreiam a cessão,  representados por duplicatas, cheques, cédulas de  crédito bancário ou todo e qualquer outro título  representativo de crédito, contratos de compra e  venda, e/ou de prestação de serviços, de titularidade  de empresas atuantes nos segmentos financeiro,  comercial, industrial, de arrendamento mercantil e de  prestação de serviços.",
+      "sha256": "a6fd49a3c63601d8c30b972efb71040a9a86bf84c40c837bfec483974aea9784",
+      "verification": "primary_passage"
+    },
+    "a8227fc2315200e7727404fc8d6793232b875d0ba060edba74d82b8d33e07c52": {
+      "document_id": "381995",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=381995",
+      "reference_date": "2022-11-07",
+      "version": "1",
+      "page": 76,
+      "clause": "",
+      "excerpt": "“Devedores” São as pessoas físicas e/ou jurídicas, identificadas  pelo seu respectivo número de CPF/ME ou CNPJ/ME,  respectivamente, que sejam emissoras dos Ativos  Financeiros e, portanto, devedoras dos Direitos  Creditórios que venham a ser adquiridos pelo Fundo.\n“Dia Útil” Qualquer dia que não seja (a) sábado, domingo ou  feriado nacional; ou (b) dia em que, por qualquer  motivo, não houver expediente bancário ou não  funcionar o mercado financeiro na cidade de São  Paulo, Estado de São Paulo.\n“Direitos Creditórios” São todos os direitos creditórios de operações de  natureza diversa, inclusive, mas não se limitando,  aqueles decorrentes de: (a) Operações de Crédito;\n (b) Operações de Giro; e (c) Operações para  Antecipação de Recebíveis. Os Direitos Creditórios  para as Operação Financeiras serão formalizados  por meio dos Ativos Financeiros.\n“Direitos Creditórios Significa os Direitos Creditórios Elegíveis adquiridos Adquiridos” pelo Fundo.\n“Direitos Creditórios Os Direitos Creditórios Adquiridos que possuam ao Adquiridos Inadimplidos” menos uma parcela vencida e não paga pelos  Devedores na sua respectiva data de vencimento,  observados os termos e condições a serem  estabelecidos nos Contratos de Cobrança.\n“Disponibilidades” São, em conjunto, (a) recursos em caixa; (b) depósitos  bancários à vista em Instituições Autorizadas; e (c)  Investimentos Permitidos.\n“Documentos São os documentos ou títulos representativos do Comprobatórios” respectivo direito creditório que lastreiam a cessão,  representados por duplicatas, cheques, cédulas de  crédito bancário ou todo e qualquer outro título  representativo de crédito, contratos de compra e  venda, e/ou de prestação de serviços, de titularidade  de empresas atuantes nos segmentos financeiro,  comercial, industrial, de arrendamento mercantil e de  prestação de serviços.",
+      "sha256": "4154ffd4e895c3dc08cbfd0b2b6d04b78f9b47afcf20b4ad5c0431d6d0308d33",
       "verification": "primary_passage"
     }
   }

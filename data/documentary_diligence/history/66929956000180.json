@@ -3,10 +3,6 @@
   "cnpj": "66929956000180",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "f904e793cfea86fd80bd6f4234da903940649b5972558411a77cf04dd7f42619",
-      "6b162d441f53d5a55774b706b01d6d5093207d17445294855bf6f7fd4b81b20b"
-    ],
     "term": [
       "fc506e9bd3a848be8335159d3643e51bcadca165c2066909fb4927ffb6eef5f7",
       "8c911d4f4e435ac349bf45d3ea6a382ff377f119ca677e5b5366463214645057"
@@ -162,10 +158,6 @@
       "9841bc36b1417498613b8fff528f5151615213d47a7b08376ec96796e596e5a0",
       "e27543e5884abe2cda783660be3ff730838115ce98007ab6ed1395ca566c5ef6"
     ],
-    "debtor": [
-      "83173a5535b6b4be743853565a29ef984e9b3541e55cce7aa76cebe66955b20b",
-      "6a38ac2fe04a8caeae1008b6381cd3df3a091b23f50a564c3aabf49f73d20a9a"
-    ],
     "guarantee": [
       "f24eaa93ea7b44dead816a2e6d60e61e4d98aed7ded39b2e47e50a2cfde2ef19",
       "725dbda7782c87c9a2abac1e4a663b2648ef053e644e48913e344bae87e4aaae"
@@ -181,6 +173,14 @@
     "allocation": [
       "7c366c551c2b6a5712fc1d0141f31fd0fead2b7074c98afce8519a7018c18e98",
       "459159ba8efe9044c1a4242945671189dfa705e8dddfc31a8f80e419145a9308"
+    ],
+    "eligibility": [
+      "72578d372a89497998de876a8cbd8dd10235bfc0f6ff6981ed6a60208d182fce",
+      "6965f86b891cf76a0c880400dc8d15acb2123f90947de727a6866b22d1751a9b"
+    ],
+    "debtor": [
+      "83173a5535b6b4be743853565a29ef984e9b3541e55cce7aa76cebe66955b20b",
+      "6a38ac2fe04a8caeae1008b6381cd3df3a091b23f50a564c3aabf49f73d20a9a"
     ]
   },
   "entries": {
@@ -200,24 +200,6 @@
       "provenance": "primary_passage",
       "sources": [
         "82532d5d12648fbd78ccd9285b99d87e734c977fdf213ede68dbacc6fd6f3537"
-      ]
-    },
-    "f904e793cfea86fd80bd6f4234da903940649b5972558411a77cf04dd7f42619": {
-      "reference_date": "2026-06-17",
-      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "96d160c15289fcbb515b885dafbe9424e82ed030aba9dfd5732670f75c435ee0"
-      ]
-    },
-    "6b162d441f53d5a55774b706b01d6d5093207d17445294855bf6f7fd4b81b20b": {
-      "reference_date": "2026-06-01",
-      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "44071fc4ae439382a5705caa8af5493eb72f3d66a7afd297dbb9057f4f2e8061"
       ]
     },
     "fc506e9bd3a848be8335159d3643e51bcadca165c2066909fb4927ffb6eef5f7": {
@@ -992,6 +974,24 @@
       "provenance": "primary_passage",
       "sources": [
         "af0bb1f1042d3fd05753fd555a37d845f5fffe724dec0f5ab3d25a0d6f789361"
+      ]
+    },
+    "72578d372a89497998de876a8cbd8dd10235bfc0f6ff6981ed6a60208d182fce": {
+      "reference_date": "2026-06-17",
+      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "96d160c15289fcbb515b885dafbe9424e82ed030aba9dfd5732670f75c435ee0"
+      ]
+    },
+    "6965f86b891cf76a0c880400dc8d15acb2123f90947de727a6866b22d1751a9b": {
+      "reference_date": "2026-06-01",
+      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "44071fc4ae439382a5705caa8af5493eb72f3d66a7afd297dbb9057f4f2e8061"
       ]
     }
   },

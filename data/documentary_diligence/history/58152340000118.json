@@ -3,14 +3,6 @@
   "cnpj": "58152340000118",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "a285e4c6338d386dc76e274b673988facfd04945370c16b9685a63ac0b4b7b05",
-      "6dcdf9c809255c9731f7e63c0abbaa0e319d5a69a72ab1016789bd4f94458119",
-      "61797954af4a2ec893c7afea547a0ebc04ce324b9677551909771b07560a26b9",
-      "652c857a7881131ad2820184d8a2db1fb88304b66ca110571a3d3f42a9a10dd1",
-      "ce40b762b757148fc7c39daffd1aeb4f5d60126565cd02ad6c53a00ae87afc5f",
-      "95ff3499a0871f67e2d11a1b6f9f295ee89936f4f3b89cb68dc6eff1445664aa"
-    ],
     "ticket": [
       "9ac89f664c9e65d736cbbed45fa9c3796eacf7da0c064fb53f128a074b59316a",
       "4c1047766a1595259da5d6292091424f59304531e6369acc1aca0c64452f25a1"
@@ -297,25 +289,6 @@
       "6c933de4b4d6b3c057ad5b80819f5be6cd2c1a449848c61896e4bc0c4376c408",
       "199b675484ab184eb078404df6e6febe86664183cb26c6652751dd36648f4091"
     ],
-    "originator": [
-      "ca5b330a376cf7b0ae0d16088c71bd66848b70b2af49ba9e447a794ab643e61f",
-      "d764dca9da68a3a8e976e110f2a7cb72c5bb646332420684c8a4b3ec7e7792b1",
-      "add29da2d5e6311463f938fa5ac9e31f6eec481282f93522bd79e0b12557a62a",
-      "60bb10dc37e5d1c51fd988d25fe7a8cf59434e1979bd4bf28f604f346079e470",
-      "83742ae9df1419636b254d5fa4ebdba1894aabd4e3c9d2dec720efb0a2cf4cc8",
-      "a0736582adf3f2bb23de8175bb49dcbcae8f447daf0b2915bc1b73ad20fc616e",
-      "89e14c930eb1f2229444849e88a9979a8c20b46e9f8c70a7163c5cdc20cb24e1",
-      "45281604023a7d68eeb3347cb890c8cdb7fb05492e9a1ea1d605bb2ecb102bdf"
-    ],
-    "debtor": [
-      "f2029d671421925f3aa2f820f97a5d116cfdd6593af9d6169d4d8b60f6e05d02",
-      "40ab70fd68ca644856db2acd487072c19b8891f46ed2a77067276079d3f59535",
-      "78d12b1e786b35a4d1470b817d15918a0785da05bf2ee14ba6d54fe0fddc4a1d",
-      "ece10dc4163be17804d5e31fbd8929e039dcf2cfa41fd2a730249f2f36c7b990",
-      "1b53fba35f3d6a9b8e5f5fa6aa554cb5d2600fc6486cb9dbeda57b42b4f1a223",
-      "2e30d4ed56445eedb4ce57ae3c7db8230a75e4ea4f6a9e67c32bf8e4523ffa34",
-      "94499819fc6f26a583e3630f80e0670a6074e33d20fbe00a01b971b86c68125c"
-    ],
     "investee": [
       "68038e645beec8f56607622007a8a62d0a582a1bfd0502abec55153c01f425cb",
       "21d6928277993e95fb946214e646f263453aaf8d748ac952c1de6fe666b06d98",
@@ -350,6 +323,30 @@
       "7831db96d58a91f09d040c52a43e2900662f1b36e66035844ae9cc76d1f1cec6",
       "7c197eeccff73734180f80aa139a753e1e875061bf5d0030b4ea93f055fcc6fc",
       "aed66fa7c8a091af2f639f44173a2fbffd0c7238f5b1980da2f9eb4927bfb9eb"
+    ],
+    "originator": [
+      "ca5b330a376cf7b0ae0d16088c71bd66848b70b2af49ba9e447a794ab643e61f",
+      "d764dca9da68a3a8e976e110f2a7cb72c5bb646332420684c8a4b3ec7e7792b1",
+      "22b29e780551699fff5246c2ce09718c14d76dd8353006017d428fc1d4cf3291",
+      "60bb10dc37e5d1c51fd988d25fe7a8cf59434e1979bd4bf28f604f346079e470",
+      "83742ae9df1419636b254d5fa4ebdba1894aabd4e3c9d2dec720efb0a2cf4cc8",
+      "a0736582adf3f2bb23de8175bb49dcbcae8f447daf0b2915bc1b73ad20fc616e",
+      "89e14c930eb1f2229444849e88a9979a8c20b46e9f8c70a7163c5cdc20cb24e1",
+      "45281604023a7d68eeb3347cb890c8cdb7fb05492e9a1ea1d605bb2ecb102bdf"
+    ],
+    "eligibility": [
+      "a285e4c6338d386dc76e274b673988facfd04945370c16b9685a63ac0b4b7b05",
+      "f5f45554422fe0cc9c36273f626cc1e4cc827aac4349bb80f69d614dd7dc230f",
+      "1f97ec8b08093b9957ec60071e488c197ecbdc2425fc5f7d82642eee2627118f",
+      "c5ad353becafb90a05a24130c5214302d2c7d409c590867f377058aba454b4f9",
+      "1f0c025da5e6e603fef9964037438d1ceffaa18cdccccaba8637fe6cfbabf1b7",
+      "f1af203bf2abeed87df8e655e1d6bdce64272e5300b56b4d35215a7e69e8d9ca"
+    ],
+    "debtor": [
+      "f2029d671421925f3aa2f820f97a5d116cfdd6593af9d6169d4d8b60f6e05d02",
+      "63e85949bb528052028e1949f3b0387c184daf4adf5c3600bd9315bb632b7d5f",
+      "2134a64908bb1e408d57fe2bd10443a2b3215c612d9463e8e4515918798ddc96",
+      "78b9a7baeafa96c44bddafd849fd5dda96f8f7c0c149c4b0aeb43aa36d1d7849"
     ]
   },
   "entries": {
@@ -380,15 +377,6 @@
       "provenance": "primary_passage",
       "sources": [
         "036261c91e337a19a20dbcdaa0b0e7469b1a4f65f53e05f8217331fa4de219f2"
-      ]
-    },
-    "add29da2d5e6311463f938fa5ac9e31f6eec481282f93522bd79e0b12557a62a": {
-      "reference_date": "2025-12-31",
-      "value": "(ii) As CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo Originador;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "95fa39a7134fe9f4b36ce6f7ae184670631039896428c83effddd8d77d3ec35a"
       ]
     },
     "60bb10dc37e5d1c51fd988d25fe7a8cf59434e1979bd4bf28f604f346079e470": {
@@ -446,15 +434,6 @@
         "1054260225f4ed37e1eb4a6c0edc7b127d531d890386c11cfcf410e62eba9e48"
       ]
     },
-    "40ab70fd68ca644856db2acd487072c19b8891f46ed2a77067276079d3f59535": {
-      "reference_date": "2025-12-31",
-      "value": "(i) Devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos junto ao Endossante, representados por CCBs;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d29d0172c98240c6f91b12f8130c8eb084a697bc704ce34051c3e637ae939681"
-      ]
-    },
     "78d12b1e786b35a4d1470b817d15918a0785da05bf2ee14ba6d54fe0fddc4a1d": {
       "reference_date": "2026-05-14",
       "value": "",
@@ -473,33 +452,6 @@
         "d0b9a13fd5b18f2dc34475cfd2405e4bfb8a1c3a43479e0bf4ed21c16afe8c71"
       ]
     },
-    "1b53fba35f3d6a9b8e5f5fa6aa554cb5d2600fc6486cb9dbeda57b42b4f1a223": {
-      "reference_date": "2025-12-31",
-      "value": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos junto ao Endossante, representados por CCBs; ii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo Originador; iii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; iv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "98ab3e18708f374d58666537bb8a1c4e1438daeba7a290058908f9afa2438990"
-      ]
-    },
-    "2e30d4ed56445eedb4ce57ae3c7db8230a75e4ea4f6a9e67c32bf8e4523ffa34": {
-      "reference_date": "2025-05-07",
-      "value": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos junto ao Endossante, representados por CCBs; ii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo Originador; iii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; iv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2b8fc4a02b5fd9d070a058632053e80fce3192c7c86ba3482363a429f3513db8"
-      ]
-    },
-    "94499819fc6f26a583e3630f80e0670a6074e33d20fbe00a01b971b86c68125c": {
-      "reference_date": "2025-05-07",
-      "value": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos junto ao Endossante, representados por CCBs; ii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo Originador; iii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; iv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2b52cefe9e26c493f229d88dfa996f32919421bf6965a81f29ed65ce54e48c01"
-      ]
-    },
     "a285e4c6338d386dc76e274b673988facfd04945370c16b9685a63ac0b4b7b05": {
       "reference_date": "2025-12-31",
       "value": "A validação pela Gestora dos Critérios de Elegibilidade ocorrerá, exclusivamente, através das informações disponibilizadas pelo Endossante, pelo Consultor Especializado e/ou pela Administradora, conforme aplicável, nos termos do respectivo Contrato de Endosso. Verificação do Lastro dos Direitos Creditórios. A verificação dos Documentos Comprobatórios será realizada nos termos da regulamentação vigente e dos Artigos 0 e 0 deste Anexo Descritivo.",
@@ -507,51 +459,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7394e1b3f32ab99653cc4d3de8cac99f336cea631a119fe2970caf5d58acd89b"
-      ]
-    },
-    "6dcdf9c809255c9731f7e63c0abbaa0e319d5a69a72ab1016789bd4f94458119": {
-      "reference_date": "2026-05-14",
-      "value": "VI. aquisição, pela Classe, de Direitos Creditórios em desacordo com os Critérios de Elegibilidade e/ou com as Condições de Endosso, salvo em razão de erros operacionais que: (i) não afetem adversamente a Classe, (ii) que sejam remediados no período de 5 (cinco) Dias Úteis, a contar de sua identificação e (iii) correspondentes a montante não superior a 5% (cinco por cento) do Patrimônio Líquido da Classe ou a R$25.000.000,00 (vinte e cinco milhões de reais), o que for maior;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "680020e920e5ca7e5facebb47ab4c23a4e14bab1155c22182551664a082ce447"
-      ]
-    },
-    "61797954af4a2ec893c7afea547a0ebc04ce324b9677551909771b07560a26b9": {
-      "reference_date": "2026-01-26",
-      "value": "VI. aquisição, pela Classe, de Direitos Creditórios em desacordo com os Critérios de Elegibilidade e/ou com as Condições de Endosso, salvo em razão de erros operacionais que: (i) não afetem adversamente a Classe, (ii) que sejam remediados no período de 5 (cinco) Dias Úteis, a contar de sua identificação e (iii) correspondentes a montante não superior a 5% (cinco por cento) do Patrimônio Líquido da Classe ou a R$25.000.000,00 (vinte e cinco milhões de reais), o que for maior;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a911d3db66d2d4d15d329a5ef947c10ffe99e56648b038e46e7a61d230289f7a"
-      ]
-    },
-    "652c857a7881131ad2820184d8a2db1fb88304b66ca110571a3d3f42a9a10dd1": {
-      "reference_date": "2025-12-31",
-      "value": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ac248afbe700bb710c7333b116cf9468f08c8b32475befb5164f0a8b8d3642ac"
-      ]
-    },
-    "ce40b762b757148fc7c39daffd1aeb4f5d60126565cd02ad6c53a00ae87afc5f": {
-      "reference_date": "2025-05-07",
-      "value": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "892efa50d5fa691bfc6a372a97a530082dfdf81ccbbfcb4fed721632a2a5c536"
-      ]
-    },
-    "95ff3499a0871f67e2d11a1b6f9f295ee89936f4f3b89cb68dc6eff1445664aa": {
-      "reference_date": "2025-05-07",
-      "value": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2c8b9d1d35f9be8376b6ce348aac07e3601ea89d3d63da0519e98c5478afc5b2"
       ]
     },
     "9ac89f664c9e65d736cbbed45fa9c3796eacf7da0c064fb53f128a074b59316a": {
@@ -2362,6 +2269,87 @@
       "sources": [
         "946524b1e99ff029a967ddf84354e29d7b35e4fbe762a3df8fc33080fbc70b24"
       ]
+    },
+    "f5f45554422fe0cc9c36273f626cc1e4cc827aac4349bb80f69d614dd7dc230f": {
+      "reference_date": "2026-05-14",
+      "value": "6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade: I. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB inadimplente;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d1d350aadc425cd73f5d26044848763b82d6632bb1d0cdb28dfa86f944dc0027"
+      ]
+    },
+    "1f97ec8b08093b9957ec60071e488c197ecbdc2425fc5f7d82642eee2627118f": {
+      "reference_date": "2026-01-26",
+      "value": "6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade: I. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB inadimplente; II. o Devedor deve ser pessoa física e possuir CPF; III. a aquisição da CCB poderá contar com ágio até o limite estabelecido no Contrato de Endosso; IV. o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70 (setenta) anos de idade na data de emissão da CCB; V. o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”); VI. o prazo máximo da CCB deve ser de 12 (doze) meses; VII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais); VIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira; IX. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação; X. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo; XI. o Direito Creditório deve ser expresso em moeda corrente nacional; XII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2ef5b1085fdc91ef77577dfffd41415ec2d7885a77aaab33a3709bd6bcc31ed5"
+      ]
+    },
+    "c5ad353becafb90a05a24130c5214302d2c7d409c590867f377058aba454b4f9": {
+      "reference_date": "2025-12-31",
+      "value": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5c4ba0a6e90148794555787fcfccc295e81f2adc19fe7149a009a715b6381f54"
+      ]
+    },
+    "1f0c025da5e6e603fef9964037438d1ceffaa18cdccccaba8637fe6cfbabf1b7": {
+      "reference_date": "2025-05-07",
+      "value": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1c46cbe62b05f749d318471c319f8d12e700accaf4e296414a92a7806d1f596e"
+      ]
+    },
+    "f1af203bf2abeed87df8e655e1d6bdce64272e5300b56b4d35215a7e69e8d9ca": {
+      "reference_date": "2025-05-07",
+      "value": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "144441c63453bb6effda1577cf663b715830ef1a40c641a661014df58a8f1634"
+      ]
+    },
+    "22b29e780551699fff5246c2ce09718c14d76dd8353006017d428fc1d4cf3291": {
+      "reference_date": "2025-12-31",
+      "value": "Os Direitos Creditórios a serem adquiridos pela Classe Única são representados por CCBs realizadas no segmento financeiro, originadas pelo Originador e emitidas pelos Devedores em favor do Endossante, nos termos da regulamentação e da legislação aplicável.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c58a3c66b316ab9fab4e1a53dea58f81ddfeca7dbd69687f62e46c4ccf3937ec"
+      ]
+    },
+    "63e85949bb528052028e1949f3b0387c184daf4adf5c3600bd9315bb632b7d5f": {
+      "reference_date": "2025-12-31",
+      "value": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB e devedora dos Direitos Creditórios por ela representados.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "934f7dde45faa66b9d6e271c155fbbb43c7b13a3e57e706b63f4ac1b721bfa8d"
+      ]
+    },
+    "2134a64908bb1e408d57fe2bd10443a2b3215c612d9463e8e4515918798ddc96": {
+      "reference_date": "2025-05-07",
+      "value": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB e devedora dos Direitos Creditórios por ela representados.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "aa78ba6d1e4dbec16d3ea075042fecf075ce70208f5a78aaeae8bd62e555fb99"
+      ]
+    },
+    "78b9a7baeafa96c44bddafd849fd5dda96f8f7c0c149c4b0aeb43aa36d1d7849": {
+      "reference_date": "2025-05-07",
+      "value": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB e devedora dos Direitos Creditórios por ela representados.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2ffe0b0310ee5d37782be39db9e85af1fe2613b1404160f5c993af2bc37e7e0c"
+      ]
     }
   },
   "passages": {
@@ -2401,18 +2389,6 @@
       "clause": "5.3",
       "excerpt": "5.3. A alteração da denominação da “Monee SCD” para MAREE SOCIEDADE DE CRÉDITO DIRETO S.A. e da “ORIGINADORA” para MAREE INSTITUIÇÃO DE PAGAMENTO LTDA.",
       "sha256": "463578cef9fd1b02064fd38595bac200aae6c47f6f84f83b4a4040dcdaf555b4",
-      "verification": "primary_passage"
-    },
-    "95fa39a7134fe9f4b36ce6f7ae184670631039896428c83effddd8d77d3ec35a": {
-      "document_id": "1148488",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148488",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(ii) As CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo  Originador;",
-      "sha256": "fbc207378bc7784d1fed80588bb9e417bb110fabf95fd3b465a82aa1fff6f912",
       "verification": "primary_passage"
     },
     "ac2cbd079db782974830410ab0c4067a8c8a01aa12958d7f445e072a4ef0abcf": {
@@ -2475,18 +2451,6 @@
       "sha256": "91e6662f6cffbae26659e3e9c9121bf111a2f81fa56f0224e72e81be50609c58",
       "verification": "primary_passage"
     },
-    "d29d0172c98240c6f91b12f8130c8eb084a697bc704ce34051c3e637ae939681": {
-      "document_id": "1148488",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148488",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(i) Devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos  junto ao Endossante, representados por CCBs;",
-      "sha256": "fbc207378bc7784d1fed80588bb9e417bb110fabf95fd3b465a82aa1fff6f912",
-      "verification": "primary_passage"
-    },
     "b9348d852c1746ba111f78a0149f476d547e2345729de2658c9c4606f8d21aab": {
       "document_id": "1191019",
       "title": "Regulamento",
@@ -2511,42 +2475,6 @@
       "sha256": "548e61324824c53716842c59782059c4c8062ac1a8010bed93a1cddeaf87ec46",
       "verification": "primary_passage"
     },
-    "98ab3e18708f374d58666537bb8a1c4e1438daeba7a290058908f9afa2438990": {
-      "document_id": "1074008",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074008",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 43,
-      "clause": "",
-      "excerpt": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos  junto ao Endossante, representados por CCBs;\nii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo  Originador;\niii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\niv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante,  bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza.",
-      "sha256": "f839969d1c32bb72e983fb44f7afd61d1d870b52465cd13797025618c419eb30",
-      "verification": "primary_passage"
-    },
-    "2b8fc4a02b5fd9d070a058632053e80fce3192c7c86ba3482363a429f3513db8": {
-      "document_id": "898514",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898514",
-      "reference_date": "2025-05-07",
-      "version": "1",
-      "page": 59,
-      "clause": "",
-      "excerpt": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos  junto ao Endossante, representados por CCBs;\nii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo  Originador;\niii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\niv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante,  bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza.",
-      "sha256": "3850bbea4bde6722a3aa3324dbe5dd358d1142ab1639267f18e2551509cc0ee5",
-      "verification": "primary_passage"
-    },
-    "2b52cefe9e26c493f229d88dfa996f32919421bf6965a81f29ed65ce54e48c01": {
-      "document_id": "898516",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898516",
-      "reference_date": "2025-05-07",
-      "version": "1",
-      "page": 43,
-      "clause": "",
-      "excerpt": "i.devem ser emitidos pelos Devedores, contratantes de empréstimos e financiamentos  junto ao Endossante, representados por CCBs;\nii.as CCBs deverão ser emitidas por meio de plataforma desenvolvida e mantida pelo  Originador;\niii.os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\niv.os Direitos Creditórios deverão ser representados por CCBs; e v.os Direitos Creditórios devem ser de legítima e exclusiva titularidade do Endossante,  bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza.",
-      "sha256": "91e6662f6cffbae26659e3e9c9121bf111a2f81fa56f0224e72e81be50609c58",
-      "verification": "primary_passage"
-    },
     "7394e1b3f32ab99653cc4d3de8cac99f336cea631a119fe2970caf5d58acd89b": {
       "document_id": "1148488",
       "title": "Demonstrações Financeiras",
@@ -2557,66 +2485,6 @@
       "clause": "",
       "excerpt": "A validação pela Gestora dos Critérios de Elegibilidade ocorrerá, exclusivamente, através  das informações disponibilizadas pelo Endossante, pelo Consultor Especializado e/ou pela  Administradora, conforme aplicável, nos termos do respectivo Contrato de Endosso.\n Verificação do Lastro dos Direitos Creditórios. A verificação dos Documentos  Comprobatórios será realizada nos termos da regulamentação vigente e dos Artigos 0 e 0  deste Anexo Descritivo.",
       "sha256": "fbc207378bc7784d1fed80588bb9e417bb110fabf95fd3b465a82aa1fff6f912",
-      "verification": "primary_passage"
-    },
-    "680020e920e5ca7e5facebb47ab4c23a4e14bab1155c22182551664a082ce447": {
-      "document_id": "1191019",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1191019",
-      "reference_date": "2026-05-14",
-      "version": "1",
-      "page": 90,
-      "clause": "",
-      "excerpt": "VI. aquisição, pela Classe, de Direitos Creditórios em desacordo com os Critérios de Elegibilidade e/ou com as Condições de Endosso, salvo em razão de erros operacionais que: (i) não afetem adversamente a Classe, (ii) que sejam remediados no período de 5\n(cinco) Dias Úteis, a contar de sua identificação e (iii) correspondentes a montante não superior a 5% (cinco por cento) do Patrimônio Líquido da Classe ou a R$25.000.000,00 (vinte e cinco milhões de reais), o que for maior;",
-      "sha256": "ad53fd3b38d10421772c3f86420d7eae08dedf3689fb0d34dffaa3efb777b1a1",
-      "verification": "primary_passage"
-    },
-    "a911d3db66d2d4d15d329a5ef947c10ffe99e56648b038e46e7a61d230289f7a": {
-      "document_id": "1093019",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093019",
-      "reference_date": "2026-01-26",
-      "version": "1",
-      "page": 90,
-      "clause": "",
-      "excerpt": "VI. aquisição, pela Classe, de Direitos Creditórios em desacordo com os Critérios de  Elegibilidade e/ou com as Condições de Endosso, salvo em razão de erros operacionais  que: (i) não afetem adversamente a Classe, (ii) que sejam remediados no período de 5\n (cinco) Dias Úteis, a contar de sua identificação e (iii) correspondentes a montante não  superior a 5% (cinco por cento) do Patrimônio Líquido da Classe ou a R$25.000.000,00  (vinte e cinco milhões de reais), o que for maior;",
-      "sha256": "548e61324824c53716842c59782059c4c8062ac1a8010bed93a1cddeaf87ec46",
-      "verification": "primary_passage"
-    },
-    "ac248afbe700bb710c7333b116cf9468f08c8b32475befb5164f0a8b8d3642ac": {
-      "document_id": "1074008",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074008",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 43,
-      "clause": "4.1.1",
-      "excerpt": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "sha256": "f839969d1c32bb72e983fb44f7afd61d1d870b52465cd13797025618c419eb30",
-      "verification": "primary_passage"
-    },
-    "892efa50d5fa691bfc6a372a97a530082dfdf81ccbbfcb4fed721632a2a5c536": {
-      "document_id": "898514",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898514",
-      "reference_date": "2025-05-07",
-      "version": "1",
-      "page": 59,
-      "clause": "4.1.1",
-      "excerpt": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "sha256": "3850bbea4bde6722a3aa3324dbe5dd358d1142ab1639267f18e2551509cc0ee5",
-      "verification": "primary_passage"
-    },
-    "2c8b9d1d35f9be8376b6ce348aac07e3601ea89d3d63da0519e98c5478afc5b2": {
-      "document_id": "898516",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898516",
-      "reference_date": "2025-05-07",
-      "version": "1",
-      "page": 43,
-      "clause": "4.1.1",
-      "excerpt": "4.1.1 O enquadramento dos Direitos Creditórios que a Classe Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado exclusivamente pela Gestora previamente a cada endosso.",
-      "sha256": "91e6662f6cffbae26659e3e9c9121bf111a2f81fa56f0224e72e81be50609c58",
       "verification": "primary_passage"
     },
     "799d9437f2dfbadaa92051f4dc497d39ef294076769c668091f551c732eccb54": {
@@ -4880,6 +4748,119 @@
       "clause": "",
       "excerpt": "“ADMINISTRADORA”: significa a SINGULARE CORRETORA DE TITULOS E  VALORES MOBILIARIOS S.A., instituição autorizada  pela CVM para o exercício profissional de administração  de carteiras de valores mobiliários, na categoria de  administrador fiduciário, por meio do Ato Declaratório nº\n 1.498, de 28 de agosto de 1990, com sede na Cidade de  São Paulo, Estado de São Paulo, Cidade de São Paulo,  Estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º  ao 12º andar, Parte I, Pinheiros, CEP 05402-500, inscrita  no CNPJ/MF sob o nº 62.285.390/0001-40, ou quem lhe  vier a suceder;",
       "sha256": "548e61324824c53716842c59782059c4c8062ac1a8010bed93a1cddeaf87ec46",
+      "verification": "primary_passage"
+    },
+    "d1d350aadc425cd73f5d26044848763b82d6632bb1d0cdb28dfa86f944dc0027": {
+      "document_id": "1191019",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1191019",
+      "reference_date": "2026-05-14",
+      "version": "1",
+      "page": "47–48",
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade:\nI. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB inadimplente;\nII. o Devedor deve ser pessoa física e possuir CPF;\nIII. a aquisição da CCB poderá contar com ágio até o limite estabelecido no Contrato de Endosso;\nIV. o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70\n(setenta) anos de idade na data de emissão da CCB;\nV. o valor presente dos Direitos Creditórios originados com relação ao Devedor, identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o maior (“Limite de Concentração por Devedor”);\nVI. o prazo máximo da CCB deve ser de 12 (doze) meses;\nVII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais);\nVIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos Devedores em favor da Instituição Financeira Parceira;\nIX. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação;\nX. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados data da primeira integralização de Cotas Seniores do Fundo;\nXI. o Direito Creditório deve ser expresso em moeda corrente nacional;\nXII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente à Classe;\nXIII. o Devedor não pode estar inadimplente com quaisquer obrigações não financeiras frente à Classe;\nXIV. a taxa de juros de tal Direito Creditório deverá ser uma taxa fixa ao mês e constante durante o prazo do Direito Creditório, bem como ter sido acordada desde a originação de tal Direito Creditório, sujeita a uma taxa de juros padrão aplicável, sem necessidade de observar um mínimo para a taxa de juros;\nXV. a aquisição do Direito Creditório não pode resultar em Índice de Cobertura com valor inferior a 1,00 (um inteiro) em um determinado mês;\nXVI. a aquisição do Direito Creditório não pode resultar em Prazo Médio dos Direitos Creditórios superior a 6 (seis) meses, observada a possibilidade de reenquadramento em um prazo de 5 (cinco) Dias Úteis; e\nXVII. a aquisição do Direito Creditório não pode resultar em Taxa Média de Endosso inferior a 7% (sete por cento) ao mês, observada a possibilidade de reenquadramento em um prazo de 5 (cinco) Dias Úteis.",
+      "sha256": "ad53fd3b38d10421772c3f86420d7eae08dedf3689fb0d34dffaa3efb777b1a1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2ef5b1085fdc91ef77577dfffd41415ec2d7885a77aaab33a3709bd6bcc31ed5": {
+      "document_id": "1093019",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093019",
+      "reference_date": "2026-01-26",
+      "version": "1",
+      "page": 47,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada Data de Aquisição, a GESTORA deverá verificar, previamente ao  endosso, se os Direitos Creditórios oferecidos à Classe atendem, na respectiva Data de  Aquisição, cumulativamente aos seguintes Critérios de Elegibilidade:\nI. o Devedor não pode estar inadimplente com quaisquer obrigações financeiras  frente à Classe, ressalvados os casos em que haja renegociação de Direitos Creditórios  previamente endossados à Classe, situação na qual o Devedor poderá ter a emissão de  uma nova CCB com as condições renegociadas e realizar o pré-pagamento da CCB  inadimplente;\nII. o Devedor deve ser pessoa física e possuir CPF;\nIII. a aquisição da CCB poderá contar com ágio até o limite estabelecido no Contrato  de Endosso;\nIV. o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade e, no máximo, 70\n (setenta) anos de idade na data de emissão da CCB;\nV. o valor presente dos Direitos Creditórios originados com relação ao Devedor,  identificado por seu CPF, não poderá exceder 0,001% (um milésimo por cento) do  Patrimônio Líquido da Classe, ou R$ 3.500,00 (três mil e quinhentos reais), dos dois o  maior (“Limite de Concentração por Devedor”);\nVI. o prazo máximo da CCB deve ser de 12 (doze) meses;\nVII. o valor presente mínimo da CCB deve ser de R$10,00 (dez reais);\nVIII. o Direito Creditório deve ter sido formalizado por meio da emissão de CCBs pelos  Devedores em favor da Instituição Financeira Parceira;\nIX. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser  endossado à Classe até, no máximo, 30 (trinta) dias da data de sua originação;\nX. o Direito Creditório, caso o endossante seja o FIDC MONEE I, somente poderá ser  endossado à Classe dentro de um período de, no máximo, 4 (quatro) meses contados  data da primeira integralização de Cotas Seniores do Fundo;\nXI. o Direito Creditório deve ser expresso em moeda corrente nacional;\nXII. todas as parcelas a vencer do Direito Creditório devem ser oferecidas integralmente  à Classe;",
+      "sha256": "548e61324824c53716842c59782059c4c8062ac1a8010bed93a1cddeaf87ec46",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5c4ba0a6e90148794555787fcfccc295e81f2adc19fe7149a009a715b6381f54": {
+      "document_id": "1074008",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074008",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 43,
+      "clause": "4.1.2",
+      "excerpt": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "sha256": "f839969d1c32bb72e983fb44f7afd61d1d870b52465cd13797025618c419eb30",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1c46cbe62b05f749d318471c319f8d12e700accaf4e296414a92a7806d1f596e": {
+      "document_id": "898514",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898514",
+      "reference_date": "2025-05-07",
+      "version": "1",
+      "page": 59,
+      "clause": "4.1.2",
+      "excerpt": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "sha256": "3850bbea4bde6722a3aa3324dbe5dd358d1142ab1639267f18e2551509cc0ee5",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "144441c63453bb6effda1577cf663b715830ef1a40c641a661014df58a8f1634": {
+      "document_id": "898516",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898516",
+      "reference_date": "2025-05-07",
+      "version": "1",
+      "page": 43,
+      "clause": "4.1.2",
+      "excerpt": "4.1.2 Observados os termos e as condições deste Anexo Descritivo e do Regulamento, a verificação pela Gestora do atendimento aos Critérios de Elegibilidade será considerada como definitiva para cada um dos Direitos Creditórios cedidos, analisados de forma individual.",
+      "sha256": "91e6662f6cffbae26659e3e9c9121bf111a2f81fa56f0224e72e81be50609c58",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c58a3c66b316ab9fab4e1a53dea58f81ddfeca7dbd69687f62e46c4ccf3937ec": {
+      "document_id": "1148488",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148488",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 19,
+      "clause": "",
+      "excerpt": "Os Direitos Creditórios a serem adquiridos pela Classe Única são representados por CCBs  realizadas no segmento financeiro, originadas pelo Originador e emitidas pelos Devedores  em favor do Endossante, nos termos da regulamentação e da legislação aplicável.",
+      "sha256": "fbc207378bc7784d1fed80588bb9e417bb110fabf95fd3b465a82aa1fff6f912",
+      "verification": "primary_passage"
+    },
+    "934f7dde45faa66b9d6e271c155fbbb43c7b13a3e57e706b63f4ac1b721bfa8d": {
+      "document_id": "1074008",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074008",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB  e devedora dos Direitos Creditórios por ela representados.",
+      "sha256": "f839969d1c32bb72e983fb44f7afd61d1d870b52465cd13797025618c419eb30",
+      "verification": "primary_passage"
+    },
+    "aa78ba6d1e4dbec16d3ea075042fecf075ce70208f5a78aaeae8bd62e555fb99": {
+      "document_id": "898514",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898514",
+      "reference_date": "2025-05-07",
+      "version": "1",
+      "page": 47,
+      "clause": "",
+      "excerpt": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB  e devedora dos Direitos Creditórios por ela representados.",
+      "sha256": "3850bbea4bde6722a3aa3324dbe5dd358d1142ab1639267f18e2551509cc0ee5",
+      "verification": "primary_passage"
+    },
+    "2ffe0b0310ee5d37782be39db9e85af1fe2613b1404160f5c993af2bc37e7e0c": {
+      "document_id": "898516",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=898516",
+      "reference_date": "2025-05-07",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "“Devedores” significa as pessoas físicas ou jurídicas emissoras de uma CCB  e devedora dos Direitos Creditórios por ela representados.",
+      "sha256": "91e6662f6cffbae26659e3e9c9121bf111a2f81fa56f0224e72e81be50609c58",
       "verification": "primary_passage"
     }
   }

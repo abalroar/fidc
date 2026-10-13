@@ -3,11 +3,6 @@
   "cnpj": "47669476000183",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "3d066c0a6475ff4cb638561bf74a80fe6bb852ae3cf66f5b7f27040a513f9ca1",
-      "efd1c3d2f69f168c24c07ddfb4c554dd852fd9bc5903e4481e18cbd2003251ae",
-      "2287d768fd337d38361e5c03e303159d094d99e38c7297049a4d8f5f19ed8985"
-    ],
     "term": [
       "8b1a08e3b27225d085caa949f2de747a49d9b01ad009be15abfee53b8bb5d4e6",
       "5f066024c988375ffba71ec3a7d3d72f1cb0e1611aaff4e2a4af305f5520a79b"
@@ -105,14 +100,6 @@
       "f56459a26275af8f47635e3ddeefff539042783dd6575f355fb81582432ed5b8",
       "9f9361065a27488aeee97d14773f26a1ea269f857ca133a0ad11a2c5d3c808b6"
     ],
-    "originator": [
-      "c34f62600ee59f552c2035d6105513507badff1cd28a55388b50be6f0b33a76d",
-      "514874bad1ef4de9077bd57144d9fdc60862af0573c601b1d7b61f34b07bf3e6"
-    ],
-    "debtor": [
-      "2eb353082f1d31d7694f58ec4ec7bc90cdb96d90917acad936dac0f044dce089",
-      "2e473bcd6eb01851c71320ed950bd3ba15a5bd05bd16cfa889b0c7427427d702"
-    ],
     "guarantee": [
       "1906485edd7e1d57933ccb7291ad3f8bffe4e5a00dc50dc5f23eaee4d2c21053",
       "5cd93d74ede52d95f794e40a47c5f0f1ecc499310bdf16999bc8cae698f16b8c"
@@ -130,6 +117,15 @@
     "allocation": [
       "2e217ad6fe664c9af55c66b5496a03916aac59b27fa10652a78db0ac9c22d93c",
       "7a586ba2cbb5635dea2a51a824c9929f7311515ab80e328f68a02773b400601c"
+    ],
+    "originator": [
+      "c34f62600ee59f552c2035d6105513507badff1cd28a55388b50be6f0b33a76d",
+      "dcdf2b04cee85f3a2a486830583bc35cced3f2c2fd980fa40a95c0a4b4e8df5b"
+    ],
+    "eligibility": [
+      "3d066c0a6475ff4cb638561bf74a80fe6bb852ae3cf66f5b7f27040a513f9ca1",
+      "ea9d647e93af145f2853f8e17d8ac9b2b57cf95db6094325da7dfa536d097159",
+      "a634b4d64dec3f7ca82cc5946c19eb6e34fadfbbcdadda25daa41532be330f9c"
     ]
   },
   "entries": {
@@ -161,24 +157,6 @@
         "a5d1390f356c2c3c60b25bc8a41258b430c4ce750ff7de277183f49dfb3f31e6"
       ]
     },
-    "2eb353082f1d31d7694f58ec4ec7bc90cdb96d90917acad936dac0f044dce089": {
-      "reference_date": "2022-12-23",
-      "value": "19.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas do Fundo e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos, serão de inteira responsabilidade do Fundo, não estando a Administradora, a Gestora, os Cedentes, os Devedores, o Custodiante e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f0c997100cfb5eed6eb48b84d591774f1d3a0cd2e5dcb4e3d070db3094dca9ac"
-      ]
-    },
-    "2e473bcd6eb01851c71320ed950bd3ba15a5bd05bd16cfa889b0c7427427d702": {
-      "reference_date": "2022-08-16",
-      "value": "18.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas do Fundo e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos, serão de inteira responsabilidade do Fundo, não estando a Administradora, a Gestora, os Cedentes, os Devedores, o Custodiante e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d11321e207cca7d55b2389363962549772033037b3db954fb4a9eab73877ee20"
-      ]
-    },
     "3d066c0a6475ff4cb638561bf74a80fe6bb852ae3cf66f5b7f27040a513f9ca1": {
       "reference_date": "2023-01-12",
       "value": "Vincendos; devedor sem atraso>60 dias; prazo médio≤180 e individual≤365 dias; cessão≥100% DI.",
@@ -187,24 +165,6 @@
       "risk_note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
       "sources": [
         "602792c96c0dd9a57d9973edd2f6f367d187aff6bab2ae588d9cb44721e4e2ee"
-      ]
-    },
-    "efd1c3d2f69f168c24c07ddfb4c554dd852fd9bc5903e4481e18cbd2003251ae": {
-      "reference_date": "2022-12-23",
-      "value": "6.1. O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "91e4a55b1b3b4f8f48380a7d2a4649d51f6ac30cb9b000ac67e61ab7fcacfffe"
-      ]
-    },
-    "2287d768fd337d38361e5c03e303159d094d99e38c7297049a4d8f5f19ed8985": {
-      "reference_date": "2022-08-16",
-      "value": "4.1. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimento, os Critérios de Elegibilidade e com os critérios de composição de Carteira estabelecidos na legislação e na regulamentação vigente.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b40a82a607db69476ccb946291e9b7df995dee4db411a69d71b0e6b8463bd091"
       ]
     },
     "8b1a08e3b27225d085caa949f2de747a49d9b01ad009be15abfee53b8bb5d4e6": {
@@ -671,6 +631,33 @@
       "sources": [
         "209827c7f24cb0df42d265357f049385cfe397703898133fc51f7108b6c4a9b1"
       ]
+    },
+    "ea9d647e93af145f2853f8e17d8ac9b2b57cf95db6094325da7dfa536d097159": {
+      "reference_date": "2022-12-23",
+      "value": "6.2. O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas e validadas pelo Custodiante, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) Limite de até a 3,0% (três por cento) do Patrimônio Líquido do Fundo por Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por sacado, respeitado o Grupo Econômico;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0263929f54a627c3ffe2d5277c02a70c56722310be6e24bb4aa5c0cedfe48ca1"
+      ]
+    },
+    "a634b4d64dec3f7ca82cc5946c19eb6e34fadfbbcdadda25daa41532be330f9c": {
+      "reference_date": "2022-08-16",
+      "value": "7.1.3. As Cotas Subordinadas Júnior têm as seguintes características, vantagens, direitos e obrigações comuns: (a) subordinam-se às Cotas Seniores e às Cotas Subordinadas Mezanino para efeito de amortização e/ou resgate, observado o disposto neste Regulamento; (b) valor unitário inicial de emissão de R$ 1.000,00 (mil reais); (c) valor unitário calculado todo Dia Útil, para efeito de definição de seu valor de integralização, amortização e resgate, observados os critérios definidos neste Regulamento; (d) direito de votar todas e quaisquer matérias objeto de deliberação nas Assembleias Gerais, sendo que a cada Cota Subordinada Júnior corresponderá 1 (um) voto; e (e) podem ser integralizadas com Direitos Creditórios, desde que observada a Política de Investimento e os Critérios de Elegibilidade previstos neste Regulamento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "14fe3bbb2db18955fa8831013cbb3f69efae771b68cb14ea8b6b8fd572fa717a"
+      ]
+    },
+    "dcdf2b04cee85f3a2a486830583bc35cced3f2c2fd980fa40a95c0a4b4e8df5b": {
+      "reference_date": "2022-08-16",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ae36767185581b73fe31da845c0fa81370f200d3bba655c5e61a96dc5266a984"
+      ]
     }
   },
   "passages": {
@@ -711,30 +698,6 @@
       "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
       "verification": "primary_passage"
     },
-    "f0c997100cfb5eed6eb48b84d591774f1d3a0cd2e5dcb4e3d070db3094dca9ac": {
-      "document_id": "393442",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=393442",
-      "reference_date": "2022-12-23",
-      "version": "1",
-      "page": 31,
-      "clause": "19.2",
-      "excerpt": "19.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas do Fundo e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos, serão de inteira responsabilidade do Fundo, não estando a Administradora, a Gestora, os Cedentes, os Devedores, o Custodiante e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "sha256": "3efeab8e461dd48764c8e172bbd1d869e70a2ed79ca646a524d38e8eec9a50f1",
-      "verification": "primary_passage"
-    },
-    "d11321e207cca7d55b2389363962549772033037b3db954fb4a9eab73877ee20": {
-      "document_id": "387777",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387777",
-      "reference_date": "2022-08-16",
-      "version": "1",
-      "page": 30,
-      "clause": "18.2",
-      "excerpt": "18.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas do Fundo e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios Inadimplidos, serão de inteira responsabilidade do Fundo, não estando a Administradora, a Gestora, os Cedentes, os Devedores, o Custodiante e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
-      "verification": "primary_passage"
-    },
     "602792c96c0dd9a57d9973edd2f6f367d187aff6bab2ae588d9cb44721e4e2ee": {
       "document_id": "400722",
       "title": "Regulamento",
@@ -747,30 +710,6 @@
       "sha256": "42579a3ad0f67e8da3f8de1ebdd9e5d79ae628b490672036dacd475ff8da0abe",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.6, 6.1"
-    },
-    "91e4a55b1b3b4f8f48380a7d2a4649d51f6ac30cb9b000ac67e61ab7fcacfffe": {
-      "document_id": "393442",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=393442",
-      "reference_date": "2022-12-23",
-      "version": "1",
-      "page": 5,
-      "clause": "6.1",
-      "excerpt": "6.1. O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento:",
-      "sha256": "3efeab8e461dd48764c8e172bbd1d869e70a2ed79ca646a524d38e8eec9a50f1",
-      "verification": "primary_passage"
-    },
-    "b40a82a607db69476ccb946291e9b7df995dee4db411a69d71b0e6b8463bd091": {
-      "document_id": "387777",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387777",
-      "reference_date": "2022-08-16",
-      "version": "1",
-      "page": 3,
-      "clause": "4.1",
-      "excerpt": "4.1. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimento, os Critérios de Elegibilidade e com os critérios de composição de Carteira estabelecidos na legislação e na regulamentação vigente.",
-      "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
-      "verification": "primary_passage"
     },
     "295c001b9c0190ea7a6fcf2100409f70b33bc0871e42c8f3db733dda43cf0b02": {
       "document_id": "393442",
@@ -1361,6 +1300,44 @@
       "page": 45,
       "clause": "",
       "excerpt": "“Administradora”: a FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, nos termos do Ato Declaratório nº 6.547, de 18 de outubro de 2001, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, conjunto 17, Bela Vista, CEP 01310- 923, inscrita no CNPJ/MF sob o nº 03.317.692/0001.94;",
+      "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
+      "verification": "primary_passage"
+    },
+    "0263929f54a627c3ffe2d5277c02a70c56722310be6e24bb4aa5c0cedfe48ca1": {
+      "document_id": "393442",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=393442",
+      "reference_date": "2022-12-23",
+      "version": "1",
+      "page": 6,
+      "clause": "6.2",
+      "excerpt": "6.2. O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas e validadas pelo Custodiante, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento:\n(a) Limite de até a 3,0% (três por cento) do Patrimônio Líquido do Fundo por  Cedente, respeitado o Grupo Econômico e excetuado o disposto na alínea (c)  abaixo;\n(b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do Fundo por  sacado, respeitado o Grupo Econômico;",
+      "sha256": "3efeab8e461dd48764c8e172bbd1d869e70a2ed79ca646a524d38e8eec9a50f1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "14fe3bbb2db18955fa8831013cbb3f69efae771b68cb14ea8b6b8fd572fa717a": {
+      "document_id": "387777",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387777",
+      "reference_date": "2022-08-16",
+      "version": "1",
+      "page": 8,
+      "clause": "7.1.3",
+      "excerpt": "7.1.3. As Cotas Subordinadas Júnior têm as seguintes características, vantagens, direitos e obrigações comuns:\n(a) subordinam-se às Cotas Seniores e às Cotas Subordinadas Mezanino para efeito  de amortização e/ou resgate, observado o disposto neste Regulamento;\n(b) valor unitário inicial de emissão de R$ 1.000,00 (mil reais);\n(c) valor unitário calculado todo Dia Útil, para efeito de definição de seu valor de  integralização, amortização e resgate, observados os critérios definidos neste  Regulamento;\n(d) direito de votar todas e quaisquer matérias objeto de deliberação nas  Assembleias Gerais, sendo que a cada Cota Subordinada Júnior corresponderá  1 (um) voto; e\n(e) podem ser integralizadas com Direitos Creditórios, desde que observada a  Política de Investimento e os Critérios de Elegibilidade previstos neste  Regulamento.",
+      "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ae36767185581b73fe31da845c0fa81370f200d3bba655c5e61a96dc5266a984": {
+      "document_id": "387777",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387777",
+      "reference_date": "2022-08-16",
+      "version": "1",
+      "page": 3,
+      "clause": "4.3",
+      "excerpt": "4.3. Os pagamentos relativos aos Direitos Creditórios de titularidade do Fundo serão realizados pelos Devedores e /ou pelas Cedentes, conforme o caso, por meio de: (i) Transferência Eletrônica Disponível (TED), ou por outra forma de transferência de recursos autorizada pelo Banco Central que permita a identificação da conta bancária de origem dos recursos, direcionado para a Conta do Fundo; (ii) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária, sendo que os recursos serão direcionados para a conta corrente de titularidade do Fundo ou para as respectivas Contas Escrow, conforme o caso; ou (iii) procedimentos adotados pela B3, conforme o caso.",
       "sha256": "c862b0eb054928fbbe70523f4cbe240dfa4076ae90652fdbb284b7cb39d846a6",
       "verification": "primary_passage"
     }

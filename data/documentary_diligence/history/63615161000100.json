@@ -3,14 +3,6 @@
   "cnpj": "63615161000100",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "c6c2074b04a65052a713c30a3c4d792618fc2e821ae7baed49ad009652ad6887",
-      "ff36535ea5a9d3b49c5d1afe2b45fd6ddf861ff3eeea5bd1504da5141d5878fe",
-      "33f470aca74ae3fcc9a475cdc217847dbf58e95c7749f1a871e5236bf14034b5",
-      "7424eaa481b91098e6b3be14810d3110c60aa61b3a37de5f1e2249ab7953fc92",
-      "a5ed4a2a0ecdb3da24605d64b013d33de9ef45ac05e0aec865eb36d1b3ac2888",
-      "bc785f6d17190f4d2f03332f98286b08986d012ba83e0d29042e7a70779fc574"
-    ],
     "term": [
       "33f470aca74ae3fcc9a475cdc217847dbf58e95c7749f1a871e5236bf14034b5",
       "075b65481cea1cb02af230ab16f7162b3180a2c8ed74b7097a343a601ee3991d",
@@ -237,17 +229,6 @@
       "0b17299146c8e62a8c9d274a3b88d1424dc7939e4c5dde1cc0f6fd2c2e193177",
       "be4ba4f59609de39e631a0129e5403e6dc30ac6033ea3a2583e384f5276fa00a"
     ],
-    "originator": [
-      "ed939617b225e1ee17f093862ebe22600840e52706bea15ced5f77ed42663670",
-      "7c4446433ac3e774d37144f025964b3dabbbafeb3bd8deb5ac02b118c10ede59",
-      "b48f4984522368b96a4b5b8cd8502e4fa69af5d406461212519df3d24c1879a0",
-      "3ade51d906638a37d9428f24d060a9000caeb72fd698575c8a2dc8039c427c09"
-    ],
-    "debtor": [
-      "af1e570d06a78ed17d2261e5074a6a7ff744fa3a889dfb18b4e7f76ce5bd2de3",
-      "ba0d64e3fa0c9eac6755f909654800fe69196826767d5bbedd9c62cacf964790",
-      "c34628effd26d5ab98b7f36e64f76c2ba41da17342bdcd5094bbdcfb311e2729"
-    ],
     "investee": [
       "ab0aa00e92527f4acdbeb4930f1aa7b9fb0a562c45c776b27fc4807014acee81",
       "670ed50c086681278e8061ae0dcf5e00652ba50c832ca97d0b806f64dec9575d",
@@ -283,6 +264,25 @@
       "27650379b0acb4ddeec93d4ad1ded897c9783a16277896bcbe5fccefa348017a",
       "ad2bd45521a062d248e52fd1272e93a4be8292784d3499f0cc908892dfb28e1a",
       "6f6733a1f6c152a2fbfd10e618ebd45e66f8f08c1a815b88a499497388ca496d"
+    ],
+    "originator": [
+      "94ffd89a1e97d155cd8401a4d12039e72bb3318649cce976f731a4b76cf83910",
+      "3be2ddb99c17ce834d35c2211e0859b821813247b3041cf8781bed50adb8b854",
+      "431525a1d04627986894f983afd3e560284575581181673d04a3df0e9218be7a",
+      "ca6c916a72f0dcf4fec2708b4489ed03b926731333b0c25e4fbf7684e9680d9f"
+    ],
+    "eligibility": [
+      "c6c2074b04a65052a713c30a3c4d792618fc2e821ae7baed49ad009652ad6887",
+      "b81c0fc0534f45753d61b226182237c0804eab412f91df8bf536a9be9b571c41",
+      "5c78f391315adcfca89cc15494516a968ac3e3206e51592e10e79d9c988280c4",
+      "795cdef828c7f9d3dd1404f7d49d417b925a5e8ad612aa6f418270af5723b5c7",
+      "1fea09f798fe36b9c4d5839360b6244352294cf1721f88cc92eae1a09b79f602",
+      "c2136e5705d6d8f094593d06fc0f00eae886c1036eb45fa4762d38aea828baa1"
+    ],
+    "debtor": [
+      "af1e570d06a78ed17d2261e5074a6a7ff744fa3a889dfb18b4e7f76ce5bd2de3",
+      "ba0d64e3fa0c9eac6755f909654800fe69196826767d5bbedd9c62cacf964790",
+      "c34628effd26d5ab98b7f36e64f76c2ba41da17342bdcd5094bbdcfb311e2729"
     ]
   },
   "entries": {
@@ -294,42 +294,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "3c8d450b31ec849837fa71260767639298dd306d6fb24d81f5e2cd28cc90d4cd"
-      ]
-    },
-    "ed939617b225e1ee17f093862ebe22600840e52706bea15ced5f77ed42663670": {
-      "reference_date": "2025-12-31",
-      "value": "Sem prejuízo dos critérios de elegibilidade previstos acima, a Classe pode somente adquirir direitos creditórios que estejam dentro dos parâmetros da política de crédito da Originadora prevista no regulamento e que atendam às condições de endosso indicadas abaixo, a serem verificadas pela Originadora e declaradas no âmbito do termo de endosso a ser formalizado: (a) os direitos creditórios objeto do respectivo endosso foram originados de acordo com a política de crédito; (b) confirmação da regularidade do comprovante de situação cadastral no Cadastro Nacional de Pessoa Jurídica e no Cadastro de Pessoa Física, para devedor e, quando aplicável, para o fiador/avalista, respectivamente;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1acf75279a4312352fa927b4984c2c5c2b7fed6d56072ef1bbbe3c3ca24681df"
-      ]
-    },
-    "7c4446433ac3e774d37144f025964b3dabbbafeb3bd8deb5ac02b118c10ede59": {
-      "reference_date": "2026-05-11",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8b995f9fb0f5b1b469109b3e52b41e8e7d8680ac1485b1ae3f6954936d6bbe4b"
-      ]
-    },
-    "b48f4984522368b96a4b5b8cd8502e4fa69af5d406461212519df3d24c1879a0": {
-      "reference_date": "2026-02-13",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "de845ee12e5e187ea55e9ea09bf3e312ee820f8a5f3c77f38a988ac04172d7e1"
-      ]
-    },
-    "3ade51d906638a37d9428f24d060a9000caeb72fd698575c8a2dc8039c427c09": {
-      "reference_date": "2025-11-24",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "94ca63be8dec1bc8648e30ec8a74b99af0daac94fc254818e3c5ee607493282e"
       ]
     },
     "af1e570d06a78ed17d2261e5074a6a7ff744fa3a889dfb18b4e7f76ce5bd2de3": {
@@ -369,15 +333,6 @@
         "bed2c7a356fdee43bfe123bae85b1789562f05c10faf497ee7a07ca10eb4a198"
       ]
     },
-    "ff36535ea5a9d3b49c5d1afe2b45fd6ddf861ff3eeea5bd1504da5141d5878fe": {
-      "reference_date": "2026-02-13",
-      "value": "(iii) A alteração dos Critérios de Elegibilidade e Condições de Endosso descritos no Anexo do Regulamento, em específico (iii.a) no item: (f) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar taxa média mínima de endosso de 2,30% a.m.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f61384a365de01078fe474788dfd284ea7d0608d711a2f24dbcbfa271e28f019"
-      ]
-    },
     "33f470aca74ae3fcc9a475cdc217847dbf58e95c7749f1a871e5236bf14034b5": {
       "reference_date": "2025-12-31",
       "value": "",
@@ -385,33 +340,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e637fe3c1c25d8d33d7dd32d28700520fc4de593264dd25cb98dca45d7a36fcb"
-      ]
-    },
-    "7424eaa481b91098e6b3be14810d3110c60aa61b3a37de5f1e2249ab7953fc92": {
-      "reference_date": "2026-05-11",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cf9b9a6524c5a682b3f5b597a1dda6d039ab25832613f29cd993e769a19de6e9"
-      ]
-    },
-    "a5ed4a2a0ecdb3da24605d64b013d33de9ef45ac05e0aec865eb36d1b3ac2888": {
-      "reference_date": "2026-02-13",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "22bee26ec16ee8c484169dcd3e0b360f0b379be8d4af800ec894078c2a03b216"
-      ]
-    },
-    "bc785f6d17190f4d2f03332f98286b08986d012ba83e0d29042e7a70779fc574": {
-      "reference_date": "2025-11-24",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7b46b75a8d6951f9555748e330108f38ae6a2faae36497b2e8ae1d873f6f01c2"
       ]
     },
     "075b65481cea1cb02af230ab16f7162b3180a2c8ed74b7097a343a601ee3991d": {
@@ -1815,6 +1743,87 @@
       "sources": [
         "ef18415ad0e021087724b5b7f2714c7162b1e6e677f8490da4ae69899d942324"
       ]
+    },
+    "b81c0fc0534f45753d61b226182237c0804eab412f91df8bf536a9be9b571c41": {
+      "reference_date": "2026-02-13",
+      "value": "5) ORDEM DO DIA: Deliberar sobre: (i) Se a ocorrência do Evento de Avaliação descrito na Cláusula 19.2, inciso (w) do Anexo do Regulamento, enseja a Liquidação Antecipada da Classe (“Evento de Liquidação”); (ii) Em caso de configuração de um Evento de Liquidação, deliberar sobre a Liquidação Antecipada da Classe; (iii) A alteração dos Critérios de Elegibilidade e Condições de Endosso descritos no Anexo do Regulamento, em específico (iii.a) no item: (f) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar taxa média mínima de endosso de 2,30% a.m. (dois inteiros e trinta centésimos por cento ao mês), enquanto a subordinação em favor das Cotas Subordinadas Mezanino A for igual ou superior a 50% (cinquenta por cento); caso a subordinação em favor das Cotas Subordinadas Mezanino A seja inferior a 50% (cinquenta por cento), permanecerá aplicável a taxa média mínima de endosso de 2,49% a.m. (dois inteiros e quarenta e nove centésimos por cento ao mês); e (iii.b) no item H, inciso I e inciso II, respectivamente, conforme segue: (i) o maior Grupo Econômico não poderá representar, direta ou indiretamente, mais do que 20% (vinte por cento) do Patrimônio Líquido da Classe enquanto houver subordinação igual ou superior a 50% (cinquenta por cento) em favor das Cotas Subordinadas Mezanino A, observado que, na ausência ou redução dessa subordinação abaixo do referido patamar, passará a ser aplicável o limite de 10% (dez por cento) do Patrimônio Líquido da Classe ou R$ 2.500.000,00 (dois",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f61384a365de01078fe474788dfd284ea7d0608d711a2f24dbcbfa271e28f019"
+      ]
+    },
+    "5c78f391315adcfca89cc15494516a968ac3e3206e51592e10e79d9c988280c4": {
+      "reference_date": "2025-12-31",
+      "value": "A Classe pode somente adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora: (a) os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (b) o endosso dos direitos creditórios deverá ser feito respeitando a fórmula do preço de aquisição definida no contrato de endosso; (c) os direitos creditórios não poderão possuir parcela vencida e não paga na data de aquisição; (d) os devedores dos direitos creditórios não poderão ter, na data de aquisição, outros direitos creditórios vencidos e não pagos à Classe; (e) o devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da emissão da respectiva CCB; (f) considerada pro forma a aquisição pretendida, os direitos creditórios endossados deverão observar a taxa média mínima de endosso de 2,49% (dois inteiros e quarenta e nove centésimos por cento) ao mês; (g) os direitos creditórios deverão ter prazo máximo de 12 (doze) meses; (h) considerada pro forma a aquisição pretendida, os direitos creditórios endossados deverão observar, cumulativamente, os seguintes limites de concentração por grupo econômico: (i) o maior grupo econômico não poderá representar, direta ou indiretamente, mais do que 10,00% (dez por cento) do patrimônio líquido da Classe ou R$ 2.500,00 (dois milhões e quinhentos mil reais) em valor nominal, prevalecendo o maior dos dois limites; e (ii) os 20 (vinte) maiores grupos econômicos não poderão, em conjunto, representar mais do que 65,00% (sessenta e cinco por cento) do saldo devedor agregado das cotas subordinadas juniores e das cotas subordinadas mezanino B; (i) o preço de aquisição deverá corresponder a, no máximo, 101,00% (cento e um por cento) do valor presente de cada CCB, na respectiva data de aquisição.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e637fe3c1c25d8d33d7dd32d28700520fc4de593264dd25cb98dca45d7a36fcb"
+      ]
+    },
+    "795cdef828c7f9d3dd1404f7d49d417b925a5e8ad612aa6f418270af5723b5c7": {
+      "reference_date": "2026-05-11",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a940296d0d419643f94da0e3dc96a727d06681c6d9a24895b13ab8ea88645aeb"
+      ]
+    },
+    "1fea09f798fe36b9c4d5839360b6244352294cf1721f88cc92eae1a09b79f602": {
+      "reference_date": "2026-02-13",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a242dc750e6f0f5eb0a25a922c8c59ae3855b5a4bbb0ff27b1afef1868629bc9"
+      ]
+    },
+    "c2136e5705d6d8f094593d06fc0f00eae886c1036eb45fa4762d38aea828baa1": {
+      "reference_date": "2025-11-24",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora (“Critérios de Elegibilidade”): (a) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (b) o endosso dos Direitos Creditórios deverá ser feito respeitando a fórmula do Preço de Aquisição definida no Contrato de Endosso; (c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na Data de Aquisição; (d) os Devedores dos Direitos Creditórios não poderão ter, na Data de Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe; (e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da emissão da respectiva CCB; (f) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar a taxa média mínima de endosso de 2,49% a.m. (dois inteiros e quarenta e nove centésimos por cento ao mês); (g) os Direitos Creditórios deverão ter prazo máximo de 12 (doze) meses; (h) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar, cumulativamente, os seguintes limites de concentração por Grupo Econômico: (i) o maior Grupo Econômico não poderá representar, direta ou indiretamente, mais do que 10% (dez por cento) do Patrimônio Líquido da Classe ou R$ 2.500.000,00 (dois milhões e quinhentos mil reais) em valor nominal, prevalecendo o maior dos dois limites; e (ii) os 20 (vinte) maiores Grupos Econômicos não poderão, em conjunto, representar mais do que 65% (sessenta e cinco por cento) do saldo devedor agregado das Cotas Subordinadas Juniores e das Cotas Subordinadas Mezanino B. (i) o Preço de Aquisição deverá corresponder a, no máximo, 101% (cento e um por cento) do valor presente de cada CCB, na respectiva Data de Aquisição. 8.1.1 O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será verificado pela Gestora na respectiva Data de Aquisição. 8.1.2 Observados os termos e condições do presente Anexo, a verificação pela Gestora do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva, observadas as hipóteses de Recompra Obrigatória (conforme previstas no Contrato de Endosso).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "84ae836c25c33accc17347866c4a6eb0c5ff061e2fe89411afa851ca20881e4d"
+      ]
+    },
+    "94ffd89a1e97d155cd8401a4d12039e72bb3318649cce976f731a4b76cf83910": {
+      "reference_date": "2025-12-31",
+      "value": "do rotativo do cartão de crédito da Originadora; (e) cada CCB deverá conter autorização específica de cada devedor, passível de comprovação, para que o Fundo efetue consultas no Sistema de Informações de Crédito (SCR) do BACEN, nos termos da Resolução CMN nº 5.037, de 29 de setembro de 2022; (f) os direitos creditórios deverão ter sido originados por meio da atuação da Originadora como correspondente bancário do endossante; (g) os direitos creditórios não podem ter sido originados mediante fraude, erro, ou qualquer outro tipo de vício de originação ou formalização; (h) os direitos creditórios devem ser ofertados em sua integralidade;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8c6daf84450595814effe1927f15d52fe9d0596ed3dbdb7ab649d2215a5b334e"
+      ]
+    },
+    "3be2ddb99c17ce834d35c2211e0859b821813247b3041cf8781bed50adb8b854": {
+      "reference_date": "2026-05-11",
+      "value": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6e698ce3b16e3ae5b1ea8bf2f17cbe6197eae7cad5d6e3c2b315984ae6d9772b"
+      ]
+    },
+    "431525a1d04627986894f983afd3e560284575581181673d04a3df0e9218be7a": {
+      "reference_date": "2026-02-13",
+      "value": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "816e199b6035d474a0d6d31eb4e3dc9e67b2b7b31453c6fcb4221987d4e1a1d8"
+      ]
+    },
+    "ca6c916a72f0dcf4fec2708b4489ed03b926731333b0c25e4fbf7684e9680d9f": {
+      "reference_date": "2025-11-24",
+      "value": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a0e7021706e529ba107fca613afe8c4cb86a93e6aad728e795e1b8665a17af71"
+      ]
     }
   },
   "passages": {
@@ -1830,54 +1839,6 @@
       "sha256": "975247374b7b1b0323c6c2aa9e20e8a42e23ea327cf07f115d2047397012aafc",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1333831 | 24/09/2026 | regulamento | p. 5,53–55; Direitos Creditórios; cláusula9 | data/raw/63615161000100/1333831_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831"
-    },
-    "1acf75279a4312352fa927b4984c2c5c2b7fed6d56072ef1bbbe3c3ca24681df": {
-      "document_id": "1151769",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151769",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 11,
-      "clause": "",
-      "excerpt": "Sem prejuízo dos critérios de elegibilidade previstos acima, a Classe pode somente adquirir direitos creditórios que estejam dentro dos parâmetros da política de crédito da Originadora prevista no regulamento e que atendam às condições de endosso indicadas abaixo, a serem verificadas pela Originadora e declaradas no âmbito do termo de endosso a ser formalizado: (a) os direitos creditórios objeto do respectivo endosso foram originados de acordo com a política de crédito;\n(b) confirmação da regularidade do comprovante de situação cadastral no Cadastro Nacional de Pessoa Jurídica e no Cadastro de Pessoa Física, para devedor e, quando aplicável, para o fiador/avalista, respectivamente; (c) no momento da aprovação do crédito, o devedor não poderá ter apresentado pedido ou estar sob procedimento de recuperação judicial ou extrajudicial, autofalência, planos de recuperação extrajudicial ou outro procedimento de natureza similar, ou ter tido sua falência decretada, conforme aplicável; (d) as CCBs não são provenientes de financiamento",
-      "sha256": "e46ef896d92be4965010af694231622a4b5b5277c7e1345b7384d26079e5137a",
-      "verification": "primary_passage"
-    },
-    "8b995f9fb0f5b1b469109b3e52b41e8e7d8680ac1485b1ae3f6954936d6bbe4b": {
-      "document_id": "1235899",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1235899",
-      "reference_date": "2026-05-11",
-      "version": "1",
-      "page": 35,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou  as suas respectivas partes relacionadas, tais como definidas pelas regras  contábeis que tratam desse assunto.",
-      "sha256": "65c2783af96a841a180b6a8316c40a671b676137d728ca89c53fdc2ad740ffe3",
-      "verification": "primary_passage"
-    },
-    "de845ee12e5e187ea55e9ea09bf3e312ee820f8a5f3c77f38a988ac04172d7e1": {
-      "document_id": "1120498",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1120498",
-      "reference_date": "2026-02-13",
-      "version": "1",
-      "page": 35,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou  as suas respectivas partes relacionadas, tais como definidas pelas regras  contábeis que tratam desse assunto.",
-      "sha256": "72cb1423ce46520bd5f7ff50477d649496b9ccdac6eaa68af364f6aec34e83b2",
-      "verification": "primary_passage"
-    },
-    "94ca63be8dec1bc8648e30ec8a74b99af0daac94fc254818e3c5ee607493282e": {
-      "document_id": "1046125",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046125",
-      "reference_date": "2025-11-24",
-      "version": "1",
-      "page": 35,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser a Originadora dos Direitos Creditórios, os Endossantes, a Gestora ou  as suas respectivas partes relacionadas, tais como definidas pelas regras  contábeis que tratam desse assunto.",
-      "sha256": "3f8f350c55a5474882d85e7b6eb7dc034350f029df660585928e15a7fa8e948e",
-      "verification": "primary_passage"
     },
     "aa9b66ec8cacca3386c0c5ee6766665001086c30cc834dc8e83f8c15b46a3b76": {
       "document_id": "1235899",
@@ -1950,42 +1911,6 @@
       "clause": "",
       "excerpt": "A Classe pode somente adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora: (a) os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (b) o endosso dos direitos creditórios deverá ser feito respeitando a fórmula do preço de aquisição definida no contrato de endosso;\n(c) os direitos creditórios não poderão possuir parcela vencida e não paga na data de aquisição;\n(d) os devedores dos direitos creditórios não poderão ter, na data de aquisição, outros direitos creditórios vencidos e não pagos à Classe; (e) o devedor deverá ter sido constituído pelo menos 6\n(seis) meses antes da emissão da respectiva CCB; (f) considerada pro forma a aquisição pretendida, os direitos creditórios endossados deverão observar a taxa média mínima de endosso de 2,49% (dois inteiros e quarenta e nove centésimos por cento) ao mês; (g) os direitos creditórios deverão ter prazo máximo de 12 (doze) meses; (h) considerada pro forma a aquisição pretendida, os direitos creditórios endossados deverão observar, cumulativamente, os seguintes limites de concentração por grupo econômico: (i) o maior grupo econômico não poderá representar, direta ou indiretamente, mais do que 10,00% (dez por cento) do patrimônio líquido da Classe ou R$ 2.500,00 (dois milhões e quinhentos mil reais) em valor nominal, prevalecendo o maior dos dois limites; e (ii) os 20 (vinte) maiores grupos econômicos não poderão, em conjunto, representar mais do que 65,00% (sessenta e cinco por cento) do saldo devedor agregado das cotas subordinadas juniores e das cotas subordinadas mezanino B; (i) o preço de aquisição deverá corresponder a, no máximo, 101,00% (cento e um por cento) do valor presente de cada CCB, na respectiva data de aquisição.",
       "sha256": "e46ef896d92be4965010af694231622a4b5b5277c7e1345b7384d26079e5137a",
-      "verification": "primary_passage"
-    },
-    "cf9b9a6524c5a682b3f5b597a1dda6d039ab25832613f29cd993e769a19de6e9": {
-      "document_id": "1235899",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1235899",
-      "reference_date": "2026-05-11",
-      "version": "1",
-      "page": 39,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de  Aquisição.",
-      "sha256": "65c2783af96a841a180b6a8316c40a671b676137d728ca89c53fdc2ad740ffe3",
-      "verification": "primary_passage"
-    },
-    "22bee26ec16ee8c484169dcd3e0b360f0b379be8d4af800ec894078c2a03b216": {
-      "document_id": "1120498",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1120498",
-      "reference_date": "2026-02-13",
-      "version": "1",
-      "page": 39,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de  Aquisição.",
-      "sha256": "72cb1423ce46520bd5f7ff50477d649496b9ccdac6eaa68af364f6aec34e83b2",
-      "verification": "primary_passage"
-    },
-    "7b46b75a8d6951f9555748e330108f38ae6a2faae36497b2e8ae1d873f6f01c2": {
-      "document_id": "1046125",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046125",
-      "reference_date": "2025-11-24",
-      "version": "1",
-      "page": 39,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade e às Condições de Endosso na respectiva Data de  Aquisição.",
-      "sha256": "3f8f350c55a5474882d85e7b6eb7dc034350f029df660585928e15a7fa8e948e",
       "verification": "primary_passage"
     },
     "1d2cc4e0db5d991acb108ab2d57fa2330e95913264687ce5e39d9f8439e340ec": {
@@ -3702,6 +3627,93 @@
       "page": 11,
       "clause": "4.1",
       "excerpt": "4.1 A administração fiduciária do Fundo será realizada pelo BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90.",
+      "sha256": "3f8f350c55a5474882d85e7b6eb7dc034350f029df660585928e15a7fa8e948e",
+      "verification": "primary_passage"
+    },
+    "a940296d0d419643f94da0e3dc96a727d06681c6d9a24895b13ab8ea88645aeb": {
+      "document_id": "1235899",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1235899",
+      "reference_date": "2026-05-11",
+      "version": "1",
+      "page": "44–45",
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora (“Critérios de Elegibilidade”):\n(a) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(b) o endosso dos Direitos Creditórios deverá ser feito respeitando a fórmula  do Preço de Aquisição definida no Contrato de Endosso;\n(c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na  Data de Aquisição;\n(d) os Devedores dos Direitos Creditórios não poderão ter, na Data de  Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe;\n(e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da  emissão da respectiva CCB;\n(f) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar taxa média mínima de endosso de 2,30% a.m. (dois  inteiros e trinta centésimos por cento ao mês), enquanto a subordinação em  favor das Cotas Subordinadas Mezanino A for igual ou superior a 50% (cinquenta  por cento); caso a subordinação em favor das Cotas Subordinadas Mezanino A  seja inferior a 50% (cinquenta por cento), permanecerá aplicável a taxa média  mínima de endosso de 2,49% a.m. (dois inteiros e quarenta e nove centésimos  por cento ao mês).\n(g) os Direitos Creditórios deverão ter prazo máximo de 12 (doze) meses;\n(h) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar, cumulativamente, os seguintes limites de  concentração por Grupo Econômico:\n(i) o maior Grupo Econômico não poderá representar, direta ou indiretamente, mais  do que 20% (vinte por cento) do Patrimônio Líquido da Classe enquanto houver  subordinação igual ou superior a 50% (cinquenta por cento) em favor das Cotas  Subordinadas Mezanino A, observado que, na ausência ou redução dessa  subordinação abaixo do referido patamar, passará a ser aplicável o limite de 10%  (dez por cento) do Patrimônio Líquido da Classe ou R$ 2.500.000,00 (dois milhões  e quinhentos mil reais) em valor nominal, prevalecendo o maior dos dois limites.;\n e\n(ii) os 20 (vinte) maiores Grupos Econômicos não poderão, em conjunto,  representar mais do que 100% (cem por cento) do saldo devedor agregado das  Cotas Subordinadas Juniores e das Cotas Subordinadas Mezanino B, enquanto a  subordinação em favor das Cotas Subordinadas Mezanino A for igual ou superior  a 50% (cinquenta por cento); caso a subordinação em favor das Cotas  Subordinadas Mezanino A seja inferior a 50% (cinquenta por cento), os 20 (vinte)  maiores Grupos Econômicos não poderão, em conjunto, representar mais do que  65% (sessenta e cinco por cento) do referido saldo devedor agregado.\n(j) o Preço de Aquisição deverá corresponder a, no máximo, 103% (cento e  três por centro) do valor presente de cada CCB, na respectiva Data de Aquisição.\n8.1.1 O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora na respectiva Data de  Aquisição.\n8.1.2 Observados os termos e condições do presente Anexo, a verificação pela  Gestora do enquadramento dos Direitos Creditórios aos Critérios de  Elegibilidade será considerada como definitiva, observadas as hipóteses de  Recompra Obrigatória (conforme previstas no Contrato de Endosso).",
+      "sha256": "65c2783af96a841a180b6a8316c40a671b676137d728ca89c53fdc2ad740ffe3",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a242dc750e6f0f5eb0a25a922c8c59ae3855b5a4bbb0ff27b1afef1868629bc9": {
+      "document_id": "1120498",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1120498",
+      "reference_date": "2026-02-13",
+      "version": "1",
+      "page": "44–45",
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora (“Critérios de Elegibilidade”):\n(a) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(b) o endosso dos Direitos Creditórios deverá ser feito respeitando a fórmula  do Preço de Aquisição definida no Contrato de Endosso;\n(c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na  Data de Aquisição;\n(d) os Devedores dos Direitos Creditórios não poderão ter, na Data de  Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe;\n(e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da  emissão da respectiva CCB;\n(f) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar taxa média mínima de endosso de 2,30% a.m. (dois  inteiros e trinta centésimos por cento ao mês), enquanto a subordinação em  favor das Cotas Subordinadas Mezanino A for igual ou superior a 50% (cinquenta  por cento); caso a subordinação em favor das Cotas Subordinadas Mezanino A  seja inferior a 50% (cinquenta por cento), permanecerá aplicável a taxa média  mínima de endosso de 2,49% a.m. (dois inteiros e quarenta e nove centésimos  por cento ao mês).\n(g) os Direitos Creditórios deverão ter prazo máximo de 12 (doze) meses;\n(h) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar, cumulativamente, os seguintes limites de  concentração por Grupo Econômico:\n(i) o maior Grupo Econômico não poderá representar, direta ou indiretamente, mais  do que 20% (vinte por cento) do Patrimônio Líquido da Classe enquanto houver  subordinação igual ou superior a 50% (cinquenta por cento) em favor das Cotas  Subordinadas Mezanino A, observado que, na ausência ou redução dessa  subordinação abaixo do referido patamar, passará a ser aplicável o limite de 10%  (dez por cento) do Patrimônio Líquido da Classe ou R$ 2.500.000,00 (dois milhões  e quinhentos mil reais) em valor nominal, prevalecendo o maior dos dois limites.;\n e\n(ii) os 20 (vinte) maiores Grupos Econômicos não poderão, em conjunto,  representar mais do que 100% (cem por cento) do saldo devedor agregado das  Cotas Subordinadas Juniores e das Cotas Subordinadas Mezanino B, enquanto a  subordinação em favor das Cotas Subordinadas Mezanino A for igual ou superior  a 50% (cinquenta por cento); caso a subordinação em favor das Cotas  Subordinadas Mezanino A seja inferior a 50% (cinquenta por cento), os 20 (vinte)  maiores Grupos Econômicos não poderão, em conjunto, representar mais do que  65% (sessenta e cinco por cento) do referido saldo devedor agregado.\n(j) o Preço de Aquisição deverá corresponder a, no máximo, 101% (cento e  um por cento) do valor presente de cada CCB, na respectiva Data de Aquisição.\n8.1.1 O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora na respectiva Data de  Aquisição.\n8.1.2 Observados os termos e condições do presente Anexo, a verificação pela  Gestora do enquadramento dos Direitos Creditórios aos Critérios de  Elegibilidade será considerada como definitiva, observadas as hipóteses de  Recompra Obrigatória (conforme previstas no Contrato de Endosso).",
+      "sha256": "72cb1423ce46520bd5f7ff50477d649496b9ccdac6eaa68af364f6aec34e83b2",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "84ae836c25c33accc17347866c4a6eb0c5ff061e2fe89411afa851ca20881e4d": {
+      "document_id": "1046125",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046125",
+      "reference_date": "2025-11-24",
+      "version": "1",
+      "page": "44–45",
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes critérios de elegibilidade, a serem verificados pela Gestora (“Critérios de Elegibilidade”):\n(a) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(b) o endosso dos Direitos Creditórios deverá ser feito respeitando a fórmula  do Preço de Aquisição definida no Contrato de Endosso;\n(c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na  Data de Aquisição;\n(d) os Devedores dos Direitos Creditórios não poderão ter, na Data de  Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe;\n(e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da  emissão da respectiva CCB;\n(f) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar a taxa média mínima de endosso de 2,49% a.m.\n (dois inteiros e quarenta e nove centésimos por cento ao mês);\n(g) os Direitos Creditórios deverão ter prazo máximo de 12 (doze) meses;\n(h) considerada pro forma a aquisição pretendida, os Direitos Creditórios  Endossados deverão observar, cumulativamente, os seguintes limites de  concentração por Grupo Econômico:\n(i) o maior Grupo Econômico não poderá representar, direta ou  indiretamente, mais do que 10% (dez por cento) do Patrimônio Líquido da  Classe ou R$ 2.500.000,00 (dois milhões e quinhentos mil reais) em valor  nominal, prevalecendo o maior dos dois limites; e\n(ii) os 20 (vinte) maiores Grupos Econômicos não poderão, em conjunto,  representar mais do que 65% (sessenta e cinco por cento) do saldo  devedor agregado das Cotas Subordinadas Juniores e das Cotas  Subordinadas Mezanino B.\n(i) o Preço de Aquisição deverá corresponder a, no máximo, 101% (cento e  um por cento) do valor presente de cada CCB, na respectiva Data de Aquisição.\n8.1.1 O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora na respectiva Data de  Aquisição.\n8.1.2 Observados os termos e condições do presente Anexo, a verificação pela  Gestora do enquadramento dos Direitos Creditórios aos Critérios de  Elegibilidade será considerada como definitiva, observadas as hipóteses de  Recompra Obrigatória (conforme previstas no Contrato de Endosso).",
+      "sha256": "3f8f350c55a5474882d85e7b6eb7dc034350f029df660585928e15a7fa8e948e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8c6daf84450595814effe1927f15d52fe9d0596ed3dbdb7ab649d2215a5b334e": {
+      "document_id": "1151769",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151769",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 12,
+      "clause": "",
+      "excerpt": "do rotativo do cartão de crédito da Originadora; (e) cada CCB deverá conter autorização específica de cada devedor, passível de comprovação, para que o Fundo efetue consultas no Sistema de Informações de Crédito (SCR) do BACEN, nos termos da Resolução CMN nº 5.037, de 29 de setembro de 2022; (f) os direitos creditórios deverão ter sido originados por meio da atuação da Originadora como correspondente bancário do endossante; (g) os direitos creditórios não podem ter sido originados mediante fraude, erro, ou qualquer outro tipo de vício de originação ou formalização;\n(h) os direitos creditórios devem ser ofertados em sua integralidade; (i) os direitos creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (j) os direitos creditórios devem ser existentes, líquidos e certos; (k) o endossante deve ser o exclusivo e legítimo proprietário dos respectivos direitos creditórios na data de aquisição; (l) as CCB devem prever que os pagamentos das parcelas sejam realizados em moeda corrente nacional; e (m) os poderes societários dos representantes legais dos devedores devem ter sido devidamente verificados.",
+      "sha256": "e46ef896d92be4965010af694231622a4b5b5277c7e1345b7384d26079e5137a",
+      "verification": "primary_passage"
+    },
+    "6e698ce3b16e3ae5b1ea8bf2f17cbe6197eae7cad5d6e3c2b315984ae6d9772b": {
+      "document_id": "1235899",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1235899",
+      "reference_date": "2026-05-11",
+      "version": "1",
+      "page": 75,
+      "clause": "20.2",
+      "excerpt": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
+      "sha256": "65c2783af96a841a180b6a8316c40a671b676137d728ca89c53fdc2ad740ffe3",
+      "verification": "primary_passage"
+    },
+    "816e199b6035d474a0d6d31eb4e3dc9e67b2b7b31453c6fcb4221987d4e1a1d8": {
+      "document_id": "1120498",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1120498",
+      "reference_date": "2026-02-13",
+      "version": "1",
+      "page": 75,
+      "clause": "20.2",
+      "excerpt": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
+      "sha256": "72cb1423ce46520bd5f7ff50477d649496b9ccdac6eaa68af364f6aec34e83b2",
+      "verification": "primary_passage"
+    },
+    "a0e7021706e529ba107fca613afe8c4cb86a93e6aad728e795e1b8665a17af71": {
+      "document_id": "1046125",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1046125",
+      "reference_date": "2025-11-24",
+      "version": "1",
+      "page": 75,
+      "clause": "20.2",
+      "excerpt": "20.2 Todos os custos e despesas referidos neste Capítulo serão de inteira responsabilidade da Classe e dos Cotistas, não estando a Administradora, a Gestora, o Custodiante, o Agente de Cobrança, o Originador ou as Endossantes, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
       "sha256": "3f8f350c55a5474882d85e7b6eb7dc034350f029df660585928e15a7fa8e948e",
       "verification": "primary_passage"
     }

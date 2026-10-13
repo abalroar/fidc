@@ -1,0 +1,77 @@
+{
+  "cnpj": "62588266000154",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores: pessoas físicas titulares de Benefícios. Empréstimo consignado: emitiram CCB em favor da Facta. Cartão INSS: assinaram Proposta de Adesão e tomaram crédito com a Facta mediante saque com Cartão INSS, com consignação na folha de Benefícios e representação por CCB.",
+      "sources": [
+        {
+          "document_id": "1002580",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+          "reference_date": "29/09/2025",
+          "version": 1,
+          "page": "107–108",
+          "clause": "Glossário — Devedores, Devedor–Cartão INSS e Devedor–Empréstimo Consignado",
+          "excerpt": "“Devedores” Em conjunto, Devedores – Empréstimo Consignado e os Devedores – Cartão INSS. “Devedor – Cartão INSS” Cada pessoa física titular de Benefícios, (a) que assinou a Proposta de Adesão; e (b) que tenha tomado crédito com a Facta mediante: saque com a utilização de Cartão INSS, com Consignação na respectiva folha de Benefícios, sendo tal crédito representado, em qualquer caso, por CCB. \"Devedor – Empréstimo Cada pessoa física titular de Benefícios que tenha emitido CCB em Consignado\" favor da Facta para fins da contratação de Empréstimo Consignado.",
+          "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2025-09-29",
+          "value": "Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos Devedores.\n\nOs Direitos Creditórios Adquiridos terão seus pagamentos realizados, via de regra, mediante repasses do INSS. A capacidade de o INSS a Dataprev efetuarem as Consignações devidas poderá ser afetada se, por força de decisão judicial ou administrativa, a margem de consignação dos respectivos Devedores para repagamento de CCBs for reduzida, inclusive em decorrência de obrigação de pagamento de pensão alimentícia ou outras obrigações que têm preferência em relação ao pagamento das CCBs.\n\nConvênio da Facta com INSS. A Consignação de valores em folha de benefícios para pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no instrumento de prestação de serviços firmado entre a Facta e a Dataprev.",
+          "sources": [
+            {
+              "document_id": "1002580",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+              "reference_date": "2025-09-29",
+              "version": "1",
+              "page": 92,
+              "clause": "",
+              "excerpt": "Necessidade de cobrança extrajudicial e judicial dos Direitos Creditórios Adquiridos.\n Caso a Consignação não seja realizada pelo INSS, é possível que seja necessário cobrar  judicial ou extrajudicialmente os Direitos Creditórios Inadimplidos diretamente dos  Devedores. Nada garante, contudo, que referida cobrança atingirá os resultados  almejados, recuperando o total dos Direitos Creditórios Inadimplidos, o que poderá  implicar perdas patrimoniais às Cotas e aos Cotistas. Além disso, considerando que o  Fundo poderá adquirir Direitos Creditórios de baixo valor individual, é possível haver  Direitos Creditórios Inadimplidos cuja cobrança extrajudicial não tenha sucesso e que  não se justifique, do ponto de vista econômico, a sua cobrança judicial, importando em  perdas para os Cotistas. Ainda, os custos incorridos com os procedimentos extrajudiciais  ou judiciais necessários à cobrança dos Direitos Creditórios Adquiridos e à salvaguarda  dos direitos, das garantias e das prerrogativas dos Cotistas são de inteira e exclusiva  responsabilidade do Fundo e, consequentemente, dos Cotistas. A Administradora, a  Gestora, os Agentes de Cobrança e o Custodiante não serão responsáveis, em conjunto  ou isoladamente, por qualquer dano ou prejuízo sofrido pelo Fundo ou por qualquer  dos Cotistas em decorrência da não propositura (ou do não prosseguimento), pelo  Fundo ou pelos Cotistas, na hipótese acima descrita, de medidas judiciais ou  extrajudiciais necessárias à preservação de seus direitos e prerrogativas. Caso o Fundo",
+              "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1002580",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+              "reference_date": "2025-09-29",
+              "version": "1",
+              "page": 93,
+              "clause": "",
+              "excerpt": "Desconto em folha de benefício. Os Direitos Creditórios Adquiridos terão seus  pagamentos realizados, via de regra, mediante repasses do INSS. A capacidade de o  INSS a Dataprev efetuarem as Consignações devidas poderá ser afetada se, por força  de decisão judicial ou administrativa, a margem de consignação dos respectivos  Devedores para repagamento de CCBs for reduzida, inclusive em decorrência de  obrigação de pagamento de pensão alimentícia ou outras obrigações que têm  preferência em relação ao pagamento das CCBs. Na superveniência de outros descontos  prioritários, é possível que a margem consignável do Devedor se torne insuficiente para  pagamento das respectivas parcelas das CCBs, resultando em inadimplemento dos  Direitos Creditórios e possíveis perdas para o Fundo e os Cotistas. Adicionalmente,  eventuais alterações da regulamentação do INSS relativas a créditos consignados  poderão ter impactos negativos para as Cotas e impactar a rentabilidade dos Cotistas.\n O benefício pago pelo INSS ao devedor poderá ser reduzido, alterado ou cancelado,  incluindo, sem limitação, a verificação de fraude ou revisão do benefício. Caso um  Direito Creditório Adquirido venha a ser afetado por qualquer dos eventos descritos",
+              "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1002580",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+              "reference_date": "2025-09-29",
+              "version": "1",
+              "page": 80,
+              "clause": "",
+              "excerpt": "Convênio da Facta com INSS. A Consignação de valores em folha de benefícios para  pagamento dos Direitos Creditórios Adquiridos oriundos das CCBs contratadas pelos  Devedores é viabilizado pelo Convênio celebrado entre a Facta e o INSS, bem como no  instrumento de prestação de serviços firmado entre a Facta e a Dataprev. Certas regras  devem ser observadas para a manutenção do convênio, cujo descumprimento poderá  levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev  e da Facta, também podem afetar e/ou inviabilizar a manutenção do convênio. Além  disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo  INSS, pela Dataprev e pela Facta, sem que haja qualquer obrigação de renovação do  convênio nos termos outrora vigentes. Havendo o rompimento ou a não renovação do",
+              "sha256": "3f5f01a936ccd77eb1497e559a28ca9e02cff9a5d45a7ada0933730f0afb0320",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:58:42-03:00"
+}

@@ -3,19 +3,6 @@
   "cnpj": "35868110000154",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ccf510af2c3450f1f88166da785c412234af88d464e7bf7fe2d400218b554578",
-      "ddc6f71d65cd8980e94d5ccc4a4cf399a30fe6dc7018c2b2abfcd073dc83c722",
-      "92ecd8ee024c4c7452e39482028a0e2119f277dee35ea119f17db0915637a27c",
-      "e5dcc060b5824c670cbd201e2364ad0e8cdd5efc22f0174fc89d105758676c3b",
-      "3d0b9d195ed5a284ba44498ff593d685d77d3513fdea127d8f2c77297e26e23b",
-      "696ce994a42c7473c71a2db695c9ec9acb88214c6e2748d3818aebfc04a3824f",
-      "040763f52ef8939960ecbe785a30a32fb1640f41d65a8ade7eae2939ea267ce7",
-      "be0e742ed14952e94296f7dbab7ed19735c6e8183b62d3ef139a472f43f0a9a9",
-      "451e2ba5185db087a28040cffb07fe4ecfdb61456bfc799376284b42f9b7a9df",
-      "6e396594b6ed3875cd7138382acd6b023690e7dc8e8d5757a0dbbc0d42e28a78",
-      "61b14da163cfa995f6a6a87d3d3d85bb007288749e4637dbdb29f795b2db40a9"
-    ],
     "term": [
       "6c2ddc0d8251e8aed8f08d59a0b7c85f9b8e2821790921d86057e3ed01ec6653",
       "28be5988e632537ba67688ef5ba03873c96d4c7945ad0b0d8b61545f4fd2c7bf",
@@ -357,22 +344,6 @@
       "a397c1b79247ba1aef4ec11533bce021e41ce7f554101ddc0a29a253c118639f",
       "f3b3b6bfdc815703511afb4ecc4bcca0c3799d9b3c35a98a10e25bbf8e1e0c1c"
     ],
-    "originator": [
-      "55efd86d5a1ac9ba77cbe43aff43a58c446bab3b8e64a6054091236e416dbe8a"
-    ],
-    "debtor": [
-      "92a3d7104d8fbcd0502cff2ec9422c220a8eedd48952aa0c104c8d1991192999",
-      "f22da8cf2a4678e0494c44985561c072f78ff8cf5e56ad082c58124a7fed0d0e",
-      "711f36cbe0562d53859066dbf60ac983e191bdbea4f5c2224bf0b196ebf3249b",
-      "d1abcc00f1930db2bf2c1cd9f3743879975fcda1e414724ae3c78ef3865d2cab",
-      "f821f925765d5ea4ed437af532a34f50fe3718f06828cda137d1c682a7a55be5",
-      "02ac644845a71eccd9c3a4ad4723c24d163ab0274c726d44a5113db1afdb094a",
-      "1c3196ca1843aac9addddb2418f566185be6493b5cd4a57cef211f21c9a0cb3d",
-      "b56451cf6db05d8a1d3b7b8c346d9df50cab2928312fccdf2cf64acfa8fa70a7",
-      "c531edc259d6467efc5eeda786b6ed17cbdb1165100fb97af07e53fe5abecb1d",
-      "cc9e5f6ac8ad5c7c83944fd8f73a379cdb290e423043feefb9ad1e9a4558a1ce",
-      "e4b57a2ac5aa8411e19d91526ae90291837bf569f459c08bdcd695a2040f1ed6"
-    ],
     "investee": [
       "7dab6254238499117e68932c0b1795be7cb65207b2e16832f1a3d8e22d060ef8",
       "42f7e4428b9ca743184e366697ae1e672c9d8ce6261fa9f1447e2c988b8658f8",
@@ -424,6 +395,33 @@
       "d37cb31b3111e6af0cb4e6dbba364d0434e08acfc7a969ec058f451c98a01cce",
       "d699076ae683c7ca563c0f39b91f3351121672ea6f1c2ebbcb42f8780698e6e3",
       "cd1bfc6534e9fdc352a749024a145e3c963b9c2cc2b2e7a35afb5aba8b9816f5"
+    ],
+    "originator": [
+      "55efd86d5a1ac9ba77cbe43aff43a58c446bab3b8e64a6054091236e416dbe8a",
+      "05452e2a1e596cb21cc5b23542467ccc1099b4961dcd0d0d29f6f407f6e0b8d8",
+      "4acfe7f77487052fa38ace8dfe370aedb6ef588f06034aafa73bd86753df03d8",
+      "6fe3ccfb74930bc8ba0571a39d308842d7416e31686835910d6f1510b591c9d8",
+      "313283272455edd04827d01ce8f9cf8a9579a298ade1f554370fa4de171ff92d",
+      "0ca19b546f58afbfda87e42d85d3b8f6644cb3a7a244e7bc0e652ed10e2fa2aa",
+      "02b565fe118f34296430ab85ab44c488e8b3e46d6f0f3a628be0ca3978be2f86",
+      "5b85d7b6dd5a3fcc940abbf52e58639201c5b70d7be1bf8d62af4a8d7c7656cf",
+      "c83bec3bb6ae1d4684680f3351e680b011a3b7a7bf37f06af13413378b51ceb9"
+    ],
+    "eligibility": [
+      "ccf510af2c3450f1f88166da785c412234af88d464e7bf7fe2d400218b554578",
+      "470b7738629b8159f55ab9a5398872bb9718d4136b0efd417569192b3a3b654b",
+      "7f4c7dd1c84124396872d874ae4bc01652b8cbe7c3b7043767957673fbdc5b7b",
+      "8d15589862a29e4a45734e2101c9241481212b9d06dea4897a97629bb7cd7e87",
+      "9fcb7b692bdaef379a3ad058533202b454536811ed0c30acda4f56fb1690503d",
+      "ceae89c17d5d9ff25e0525a8e662fedf4ce3f7fe18db6b7f5ed4e10ddbfd930e",
+      "210cb89e60ee961ae102e5c52684044d331a00dbf166f5a11d7df46b15556b32",
+      "69fe3f191f2eba3ac7a6541c25a8b7b14e8703841c1bda18af0519880f840c42",
+      "13872972b45a9dcf5551305566b81803cb27f0b150916e94802d906b47ed8d2c",
+      "2adc1af718d61a42909629e45811c20f607622460e6755b918f17e73e94c9205",
+      "0fa904b9d78c6c8cc1c440b1941995116a04d86152973c0712f25f67800ed897"
+    ],
+    "debtor": [
+      "92a3d7104d8fbcd0502cff2ec9422c220a8eedd48952aa0c104c8d1991192999"
     ]
   },
   "entries": {
@@ -520,96 +518,6 @@
         "a556dc9458da66794eb12d9062eb4bd27be93faaad0a2da098e435c182b0b00b"
       ]
     },
-    "f22da8cf2a4678e0494c44985561c072f78ff8cf5e56ad082c58124a7fed0d0e": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "797c7723ce03a40cf5671507fd2aff17298916877a384a447500a3a9bdc2de61"
-      ]
-    },
-    "711f36cbe0562d53859066dbf60ac983e191bdbea4f5c2224bf0b196ebf3249b": {
-      "reference_date": "2022-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7f73beb69903eadd322091b4b8ce09876c3bff35eaebaf5d09024a29ca606295"
-      ]
-    },
-    "d1abcc00f1930db2bf2c1cd9f3743879975fcda1e414724ae3c78ef3865d2cab": {
-      "reference_date": "2022-04-12",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0417a728547196427f219b0982341cc80be992e2b6128dabcbf0d4b465f827e9"
-      ]
-    },
-    "f821f925765d5ea4ed437af532a34f50fe3718f06828cda137d1c682a7a55be5": {
-      "reference_date": "2021-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4638b95f20752c24010c88a9a41052789268fb426a81c5ea9b7430d4e0bc179b"
-      ]
-    },
-    "02ac644845a71eccd9c3a4ad4723c24d163ab0274c726d44a5113db1afdb094a": {
-      "reference_date": "2021-05-27",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4e96d17ca36f962bb4940e91b9072357d9f7ece39bf6887adaa29675db6f5763"
-      ]
-    },
-    "1c3196ca1843aac9addddb2418f566185be6493b5cd4a57cef211f21c9a0cb3d": {
-      "reference_date": "2023-10-09",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "725fe264768b55f34e3029a3d7ede5382775f7385d47f34181ecca5cadf8c611"
-      ]
-    },
-    "b56451cf6db05d8a1d3b7b8c346d9df50cab2928312fccdf2cf64acfa8fa70a7": {
-      "reference_date": "2023-08-31",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a5a4b8811fe8d34d19f8841175700dde9e015f8f4a6c5597133a5201ec6da438"
-      ]
-    },
-    "c531edc259d6467efc5eeda786b6ed17cbdb1165100fb97af07e53fe5abecb1d": {
-      "reference_date": "2022-06-09",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f4b26f778885060a3d066ea489837ac4ea5c842af831d8f59a52a9ab1e0c5f5c"
-      ]
-    },
-    "cc9e5f6ac8ad5c7c83944fd8f73a379cdb290e423043feefb9ad1e9a4558a1ce": {
-      "reference_date": "2022-04-12",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "894d2558f7cbd8b64d270c04fc8aaa0828182b598d763962a9173e342ee0ee72"
-      ]
-    },
-    "e4b57a2ac5aa8411e19d91526ae90291837bf569f459c08bdcd695a2040f1ed6": {
-      "reference_date": "2021-04-30",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7595a351fcd7d0b9ec270993c0735317a58ba8e1c50749bd14fbaecf6158977f"
-      ]
-    },
     "ccf510af2c3450f1f88166da785c412234af88d464e7bf7fe2d400218b554578": {
       "reference_date": "2024-11-27",
       "value": "LTV < 70%; ≥2 parcelas pagas; veículo ≤10 anos; sem atraso; taxa Price ≥1,10% a.m.",
@@ -618,96 +526,6 @@
       "risk_note": "LTV = VP/saldo da CCB dividido pelo valor Molicar do veículo; 1,10% é taxa do crédito, não remuneração de cotas. CCB integral, sem carência.",
       "sources": [
         "a556dc9458da66794eb12d9062eb4bd27be93faaad0a2da098e435c182b0b00b"
-      ]
-    },
-    "ddc6f71d65cd8980e94d5ccc4a4cf399a30fe6dc7018c2b2abfcd073dc83c722": {
-      "reference_date": "2023-12-31",
-      "value": "n: número de dias úteis entre a data de cálculo e data de vencimento d) Critérios de elegibilidade Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "797c7723ce03a40cf5671507fd2aff17298916877a384a447500a3a9bdc2de61"
-      ]
-    },
-    "92ecd8ee024c4c7452e39482028a0e2119f277dee35ea119f17db0915637a27c": {
-      "reference_date": "2022-12-31",
-      "value": "d) Critérios de elegibilidade Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7f73beb69903eadd322091b4b8ce09876c3bff35eaebaf5d09024a29ca606295"
-      ]
-    },
-    "e5dcc060b5824c670cbd201e2364ad0e8cdd5efc22f0174fc89d105758676c3b": {
-      "reference_date": "2022-04-12",
-      "value": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0417a728547196427f219b0982341cc80be992e2b6128dabcbf0d4b465f827e9"
-      ]
-    },
-    "3d0b9d195ed5a284ba44498ff593d685d77d3513fdea127d8f2c77297e26e23b": {
-      "reference_date": "2021-12-31",
-      "value": "Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4638b95f20752c24010c88a9a41052789268fb426a81c5ea9b7430d4e0bc179b"
-      ]
-    },
-    "696ce994a42c7473c71a2db695c9ec9acb88214c6e2748d3818aebfc04a3824f": {
-      "reference_date": "2021-05-27",
-      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a22ee44fb4ae5dacec8044ce657046e54690c945fff5e82c2536db23afe2138a"
-      ]
-    },
-    "040763f52ef8939960ecbe785a30a32fb1640f41d65a8ade7eae2939ea267ce7": {
-      "reference_date": "2023-10-09",
-      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3fca852ce983887c484ef6c2c372c97fc3980fe2dce0e1c80e908e8ae92c879b"
-      ]
-    },
-    "be0e742ed14952e94296f7dbab7ed19735c6e8183b62d3ef139a472f43f0a9a9": {
-      "reference_date": "2023-08-31",
-      "value": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a5a4b8811fe8d34d19f8841175700dde9e015f8f4a6c5597133a5201ec6da438"
-      ]
-    },
-    "451e2ba5185db087a28040cffb07fe4ecfdb61456bfc799376284b42f9b7a9df": {
-      "reference_date": "2022-06-09",
-      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1cd1f7698e94071ba5501599edf0d2fedd2a7cd24e6d18e1f20faeac0cce80e3"
-      ]
-    },
-    "6e396594b6ed3875cd7138382acd6b023690e7dc8e8d5757a0dbbc0d42e28a78": {
-      "reference_date": "2022-04-12",
-      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c17ac8f007d47a79a9ff816c0681da0dccb8351c4d9824a936369faf596739d9"
-      ]
-    },
-    "61b14da163cfa995f6a6a87d3d3d85bb007288749e4637dbdb29f795b2db40a9": {
-      "reference_date": "2021-04-30",
-      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "296b8a5b380752b3e35b48e944484f1aa025e3d3d58cf27108b11ef51d8b706d"
       ]
     },
     "6c2ddc0d8251e8aed8f08d59a0b7c85f9b8e2821790921d86057e3ed01ec6653": {
@@ -3185,6 +3003,150 @@
       "sources": [
         "4109c61bb6ed2e5bc659de38da95622b88cd0498423f427b674506e6b94d086e"
       ]
+    },
+    "470b7738629b8159f55ab9a5398872bb9718d4136b0efd417569192b3a3b654b": {
+      "reference_date": "2023-12-31",
+      "value": "n: número de dias úteis entre a data de cálculo e data de vencimento d) Critérios de elegibilidade Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas; (ii) sejam devidos por devedores que não estejam inadimplentes com suas obrigações perante o Fundo na data de aquisição e pagamento; (iii) tenham como devedores pessoas físicas; (iv) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os direitos creditórios elegíveis cedidos, (a) para direitos creditórios decorrentes do financiamento de veículos automotores do tipo veículos pesados (vans e caminhões), não superior a 10% (dez por cento) do patrimônio líquido; e (b) para direitos creditórios decorrentes de financiamento de veículos automotores do tipo automóveis, até 100% (cem por cento) do patrimônio líquido; (v) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$ 150 por cédula de crédito bancário; e (vi) tenham o somatório das parcelas vincendas a valor de face por CPF/ME limitado a, no máximo, R$ 200.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "797c7723ce03a40cf5671507fd2aff17298916877a384a447500a3a9bdc2de61"
+      ]
+    },
+    "7f4c7dd1c84124396872d874ae4bc01652b8cbe7c3b7043767957673fbdc5b7b": {
+      "reference_date": "2022-12-31",
+      "value": "d) Critérios de elegibilidade Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas; (ii) sejam devidos por devedores que não estejam inadimplentes com suas obrigações perante o Fundo na data de aquisição e pagamento; (iii) tenham como devedores pessoas físicas; (iv) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os direitos creditórios elegíveis cedidos, (a) para direitos creditórios decorrentes do financiamento de veículos automotores do tipo veículos pesados (vans e caminhões), não superior a 10% (dez por cento) do patrimônio líquido; e (b) para direitos creditórios decorrentes de financiamento de veículos automotores do tipo automóveis, até 100% (cem por cento) do patrimônio líquido; (v) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$ 150 por cédula de crédito bancário; e",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7f73beb69903eadd322091b4b8ce09876c3bff35eaebaf5d09024a29ca606295"
+      ]
+    },
+    "8d15589862a29e4a45734e2101c9241481212b9d06dea4897a97629bb7cd7e87": {
+      "reference_date": "2022-04-12",
+      "value": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento; (ii) tenham como devedores pessoas físicas; (iii) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para Direitos Creditórios decorrentes do Financiamento de Veículos Automotores do tipo veículos pesados (vans e caminhões), não superior a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos Creditórios decorrentes de Financiamento de Veículos Automotores do tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido; (iv) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$150.000,00 (cento e cinquenta mil reais) por Cédula de Crédito Bancário; e (v) tenham o somatório das parcelas vincendas a valor de face por CPF/ME limitado a, no máximo, R$200.000,00 (duzentos mil reais).” (II) Em relação ao item (b) da Ordem do Dia, os Cotistas aprovaram a inclusão do Índice de Cobertura, que deverá ser calculado pelo Administrador no âmbito dos Índices de Monitoramento. Dessa forma, a definição de “Índice de Cobertura” será incluída na lista de definições constante do Anexo III ao Regulamento, que passará a viger com a seguinte nova redação:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0417a728547196427f219b0982341cc80be992e2b6128dabcbf0d4b465f827e9"
+      ]
+    },
+    "9fcb7b692bdaef379a3ad058533202b454536811ed0c30acda4f56fb1690503d": {
+      "reference_date": "2021-12-31",
+      "value": "Todo e qualquer direito creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo custodiante, de acordo com os seguintes critérios de elegibilidade, que deverão ser atendidos cumulativamente na data de aquisição e pagamento: (i) tenham prazo de vencimento anterior à última data de pagamento das cotas emitidas; (ii) sejam devidos por devedores que não estejam inadimplentes com suas obrigações perante o Fundo na data de aquisição e pagamento; (iii) tenham como devedores pessoas físicas; (iv) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os direitos creditórios elegíveis cedidos, (a) para direitos creditórios decorrentes do financiamento de veículos automotores do tipo veículos pesados (vans e caminhões), não superior a 10% (dez por cento) do patrimônio líquido; e (b) para direitos creditórios decorrentes de financiamento de veículos automotores do tipo automóveis, até 100% (cem por cento) do patrimônio líquido; (v) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$ 150 por cédula de crédito bancário; e (vi) tenham o somatório das parcelas vincendas a valor de face por CPF/ME limitado a, no máximo, R$ 200.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4638b95f20752c24010c88a9a41052789268fb426a81c5ea9b7430d4e0bc179b"
+      ]
+    },
+    "ceae89c17d5d9ff25e0525a8e662fedf4ce3f7fe18db6b7f5ed4e10ddbfd930e": {
+      "reference_date": "2021-05-27",
+      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios; (ii) a relação entre (a) o saldo atualizado de cada Cédula de Crédito Bancário (somatório dos valores das parcelas vincendas a valor presente) e (b) o valor de avaliação do veículo automotor alienado fiduciariamente no âmbito do respectivo Financiamento de Veículo Automotor, medido por meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento); (iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo integralmente, de forma que não será admitida a cessão parcial de Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a22ee44fb4ae5dacec8044ce657046e54690c945fff5e82c2536db23afe2138a"
+      ]
+    },
+    "210cb89e60ee961ae102e5c52684044d331a00dbf166f5a11d7df46b15556b32": {
+      "reference_date": "2023-10-09",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dbad798898b9a3276d10b2ae7b95186aa28f8b9793687d892e728d21e61d441c"
+      ]
+    },
+    "69fe3f191f2eba3ac7a6541c25a8b7b14e8703841c1bda18af0519880f840c42": {
+      "reference_date": "2023-08-31",
+      "value": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento: (i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Fundo na Data de Aquisição e Pagamento; (ii) tenham como devedores pessoas físicas; (iii) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para Direitos Creditórios decorrentes do Financiamento de Veículos Automotores do tipo veículos pesados (vans e caminhões), não superior a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos Creditórios decorrentes de Financiamento de Veículos Automotores do tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido; (iv) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de R$150.000,00 (cento e cinquenta mil reais) por Cédula de Crédito Bancário; e (v) tenham o somatório das parcelas vincendas a valor de face por CPF/ME limitado a, no máximo, R$200.000,00 (duzentos mil reais). 9.1.1. Todas as informações relacionadas aos Direitos Creditórios ofertados ao Fundo pelo Cedente devem ser enviadas exclusivamente por meio de arquivoeletrônico, em formato acordado entre o Cedente e o Custodiante, conforme os termos do Contrato de Cessão, para que o Custodiante possa verificar, em caráter definitivo para cada cessão, o atendimento aos Critérios de Elegibilidade descritos neste item 9.1.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ecff9d5fdc70717d63a0c1a52e64dff9423db4b61ee55a696236e15400b569b5"
+      ]
+    },
+    "13872972b45a9dcf5551305566b81803cb27f0b150916e94802d906b47ed8d2c": {
+      "reference_date": "2022-06-09",
+      "value": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”): (i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos Direitos Creditórios; (ii) a relação entre (a) o saldo atualizado de cada Cédula de Crédito Bancário (somatório dos valores das parcelas vincendas a valor presente) e (b) o valor de avaliação do veículo automotor alienado fiduciariamente no âmbito do respectivo Financiamento de Veículo Automotor, medido por meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento); (iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo integralmente, de forma que não será admitida a cessão parcial de Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário; (iv) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza na data de sua cessão ao Fundo, exceto pela alienação fiduciária de Veículos Automotores que deve ter sido constituída em favor do Cedente, de acordo com os procedimentos definidos no Sistema Nacional de Gravames; (v) os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio dos Documentos Comprobatórios, não sendo admitidos Direitos Creditórios formalizados exclusivamente via telefone; (vi) os Direitos Creditórios não podem ser ou ter sido objeto de qualquer contestação judicial ou extrajudicial, por meio de um Cartório de Registro de Títulos e Documentos, contra o Cedente, por parte dos respectivos Devedores; (vii) os Direitos Creditórios devem ter pelo menos 2 (duas) parcelas pagas pelos Devedores antes da cessão ao Fundo; (viii) os Direitos Creditórios sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante o Cedente na Data de Oferta; (ix) o Devedor não poderá ter mais do que 65 anos de vida; (x) a idade do Veículo Automotor do tipo automóveis e veículos pesados (vans e caminhões) no âmbito do respectivo Financiamento de Veículo Automotor, não pode ultrapassar 10 (dez) anos;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1cd1f7698e94071ba5501599edf0d2fedd2a7cd24e6d18e1f20faeac0cce80e3"
+      ]
+    },
+    "2adc1af718d61a42909629e45811c20f607622460e6755b918f17e73e94c9205": {
+      "reference_date": "2022-04-12",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a05f190fa7fd755eb581bff904251aeea634a8df33f448db9f056b6e48fb45c5"
+      ]
+    },
+    "0fa904b9d78c6c8cc1c440b1941995116a04d86152973c0712f25f67800ed897": {
+      "reference_date": "2021-04-30",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4f9fabc7d228a861cb2afbdd25431a63d6398a65bc77cc184aeb2b201751561c"
+      ]
+    },
+    "05452e2a1e596cb21cc5b23542467ccc1099b4961dcd0d0d29f6f407f6e0b8d8": {
+      "reference_date": "2023-12-31",
+      "value": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente nacional, títulos públicos de emissão do tesouro nacional pós-fixados, cotas de fundos de investimento indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós- fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do tesouro nacional pós-fixados.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb515578d5e058e0f963db524d6e3f044cbabd43e57d10fb50328298f7d1d5bd"
+      ]
+    },
+    "4acfe7f77487052fa38ace8dfe370aedb6ef588f06034aafa73bd86753df03d8": {
+      "reference_date": "2022-12-31",
+      "value": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente nacional, títulos públicos de emissão do tesouro nacional pós-fixados, cotas de fundos de investimento indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós- fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do tesouro nacional pós-fixados.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0e19c23c40c2b4de000aed0f17fce60d33240ae31825da56d901c8daf27b5770"
+      ]
+    },
+    "6fe3ccfb74930bc8ba0571a39d308842d7416e31686835910d6f1510b591c9d8": {
+      "reference_date": "2021-12-31",
+      "value": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente nacional, títulos públicos de emissão do tesouro nacional pós‐fixados, cotas de fundos de investimento indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós‐fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do tesouro nacional pós‐fixados.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b35f9f438fda0b6c04f47cbba4aac1b35722af0ae6f92f025e9ba718f9710e83"
+      ]
+    },
+    "0ca19b546f58afbfda87e42d85d3b8f6644cb3a7a244e7bc0e652ed10e2fa2aa": {
+      "reference_date": "2023-10-09",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29fa94324f7dcf2b162d49fabf524b6c0c7a9f7b1e738fa7dc21677baadfa1ec"
+      ]
+    },
+    "5b85d7b6dd5a3fcc940abbf52e58639201c5b70d7be1bf8d62af4a8d7c7656cf": {
+      "reference_date": "2022-06-09",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cd7943b1b7d176be07f2d83757d1a471e098484addd96385613a339ec9afa79c"
+      ]
+    },
+    "c83bec3bb6ae1d4684680f3351e680b011a3b7a7bf37f06af13413378b51ceb9": {
+      "reference_date": "2022-04-12",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a30111fb5fc59c6aeca82daa409f5c766988e925376000f184acaf416ea6fd87"
+      ]
     }
   },
   "passages": {
@@ -3311,30 +3273,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021"
     },
-    "4e96d17ca36f962bb4940e91b9072357d9f7ece39bf6887adaa29675db6f5763": {
-      "document_id": "179879",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=179879",
-      "reference_date": "2021-05-27",
-      "version": "1",
-      "page": 27,
-      "clause": "9.1",
-      "excerpt": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser  verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de  Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e  Pagamento:\n(i) tenham prazo de vencimento anterior à última Data de Pagamento  das Cotas emitidas;\n(ii) sejam devidos por Devedores que não estejam inadimplentes com  suas obrigações perante o Fundo na Data de Aquisição e  Pagamento;\n(iii) tenham como devedores pessoas físicas;\n(iv) tenham grau de concentração, após a cessão a ser celebrada e  considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a)  para Direitos Creditórios decorrentes do Financiamento de Veículos  Automotores do tipo veículos pesados (vans e caminhões), não  superior a 10% (dez por cento) do Patrimônio Líquido; e (b) para  Direitos Creditórios decorrentes de Financiamento de Veículos  Automotores do tipo automóveis, até 100% (cem por cento) do  Patrimônio Líquido;\n(v) tenham o somatório das parcelas vincendas a valor de face limitado  ao máximo de R$150.000,00 (cento e cinquenta mil reais) por  Cédula de Crédito Bancário; e\n(vi) tenham o somatório das parcelas vincendas a valor de face por  CPF/ME limitado a, no máximo, R$200.000,00 (duzentos mil reais).",
-      "sha256": "fa2e45f00e57179bc79d74b01197e802abd2a63d5e814c3e7c59ab751c0a0861",
-      "verification": "primary_passage"
-    },
-    "f4b26f778885060a3d066ea489837ac4ea5c842af831d8f59a52a9ab1e0c5f5c": {
-      "document_id": "313669",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313669",
-      "reference_date": "2022-06-09",
-      "version": "1",
-      "page": 16,
-      "clause": "9.1",
-      "excerpt": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser  verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de  Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e  Pagamento:\n(i) sejam devidos por Devedores que não estejam inadimplentes com suas  obrigações perante o Fundo na Data de Aquisição e Pagamento;\n(ii) tenham como devedores pessoas físicas;\n(iii) tenham grau de concentração, após a cessão a ser celebrada e  considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para  Direitos Creditórios decorrentes do Financiamento de Veículos  Automotores do tipo veículos pesados (vans e caminhões), não superior  a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos  Creditórios decorrentes de Financiamento de Veículos Automotores do  tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido;",
-      "sha256": "5b389ee087016e4466b3c82c5c1714dac995ea172c6388aad8d6b189c1a87e3f",
-      "verification": "primary_passage"
-    },
     "894d2558f7cbd8b64d270c04fc8aaa0828182b598d763962a9173e342ee0ee72": {
       "document_id": "289716",
       "title": "Regulamento",
@@ -3345,18 +3283,6 @@
       "clause": "9.1",
       "excerpt": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e  validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão  ser atendidos cumulativamente na Data de Aquisição e Pagamento:\n(i) sejam devidos por Devedores que não estejam inadimplentes com suas obrigações perante  o Fundo na Data de Aquisição e Pagamento;\n(ii) tenham como devedores pessoas físicas;\n(iii) tenham grau de concentração, após a cessão a ser celebrada e considerando apenas os  Direitos Creditórios Elegíveis Cedidos, (a) para Direitos Creditórios decorrentes do  Financiamento de Veículos Automotores do tipo veículos pesados (vans e caminhões), não  superior a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos Creditórios  decorrentes de Financiamento de Veículos Automotores do tipo automóveis, até 100%  (cem por cento) do Patrimônio Líquido;\n(iv) tenham o somatório das parcelas vincendas a valor de face limitado ao máximo de  R$150.000,00 (cento e cinquenta mil reais) por Cédula de Crédito Bancário; e\n(v) tenham o somatório das parcelas vincendas a valor de face por CPF/ME limitado a, no  máximo, R$200.000,00 (duzentos mil reais).”\n(II) Em relação ao item (b) da Ordem do Dia, os Cotistas aprovaram a inclusão do Índice de Cobertura, que deverá ser calculado pelo Administrador no âmbito dos Índices de Monitoramento. Dessa forma, a definição de “Índice de Cobertura” será incluída na lista de definições constante do Anexo III ao Regulamento, que passará a viger com a seguinte nova redação:",
       "sha256": "de4bf0dcb6a0694d6925d35f79f56c7a69598dfa806c91c0729d8ded9f3819ae",
-      "verification": "primary_passage"
-    },
-    "7595a351fcd7d0b9ec270993c0735317a58ba8e1c50749bd14fbaecf6158977f": {
-      "document_id": "174945",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=174945",
-      "reference_date": "2021-04-30",
-      "version": "1",
-      "page": 16,
-      "clause": "9.1",
-      "excerpt": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento:\n(i) tenham prazo de vencimento anterior à última Data de Pagamento das  Cotas emitidas;\n(ii) sejam devidos por Devedores que não estejam inadimplentes com suas  obrigações perante o Fundo na Data de Aquisição e Pagamento;\n(iii) tenham como devedores pessoas físicas;\n(iv) tenham grau de concentração, após a cessão a ser celebrada e  considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para  Direitos Creditórios decorrentes do Financiamento de Veículos  Automotores do tipo veículos pesados (vans e caminhões), não superior  a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos  Creditórios decorrentes de Financiamento de Veículos Automotores do  tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido;",
-      "sha256": "50ba768ccd8f9a4c9e2d710d3d7b7416442869e061cf169a9af4718769141f35",
       "verification": "primary_passage"
     },
     "a22ee44fb4ae5dacec8044ce657046e54690c945fff5e82c2536db23afe2138a": {
@@ -6433,6 +6359,130 @@
       "clause": "",
       "excerpt": "Aos Cotistas e à Administradora  Fundo de Investimento em Direitos Creditórios  BV - Crédito de Veículos  (Administrado pela Oliveira Trust Distribuidora  de Títulos e Valores Mobiliários S.A.)",
       "sha256": "8ae197787db842dbc3ab6fac045d16c3b7ad112bf0f71e83cf48cd5c4d762e6d",
+      "verification": "primary_passage"
+    },
+    "dbad798898b9a3276d10b2ae7b95186aa28f8b9793687d892e728d21e61d441c": {
+      "document_id": "537768",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537768",
+      "reference_date": "2023-10-09",
+      "version": "1",
+      "page": "19–20",
+      "clause": "10.6",
+      "excerpt": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”):\n(i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos  Direitos Creditórios;\n(ii) a relação entre (a) o saldo atualizado de cada Cédula de Crédito Bancário  (somatório dos valores das parcelas vincendas a valor presente) e (b) o  valor de avaliação do veículo automotor alienado fiduciariamente no  âmbito do respectivo Financiamento de Veículo Automotor, medido por  meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento);\n(iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo  integralmente, de forma que não será admitida a cessão parcial de  Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário;\n(iv) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza na data de sua cessão  ao Fundo, exceto pela alienação fiduciária de Veículos Automotores que  deve ter sido constituída em favor do Cedente, de acordo com os  procedimentos definidos no Sistema Nacional de Gravames;\n(v) os Direitos Creditórios devem ser líquidos, certos e estar corretamente  formalizados por meio dos Documentos Comprobatórios, não sendo  admitidos Direitos Creditórios formalizados exclusivamente via telefone;\n(vi) os Direitos Creditórios não podem ser ou ter sido objeto de qualquer  contestação judicial ou extrajudicial, por meio de um Cartório de Registro de  Títulos e Documentos, contra o Cedente, por parte dos respectivos  Devedores;\n(vii) os Direitos Creditórios devem ter pelo menos 2 (duas) parcelas pagas  pelos Devedores antes da cessão ao Fundo;\n(viii) os Direitos Creditórios sejam devidos por Devedores que não estejam  inadimplentes com suas obrigações perante o Cedente na Data de  Oferta;\n(ix) o Devedor não poderá ter mais do que 65 anos de vida;\n(x) a idade do Veículo Automotor do tipo automóveis e veículos pesados  (vans e caminhões) no âmbito do respectivo Financiamento de Veículo  Automotor, não pode ultrapassar 10 (dez) anos;\n(xi) os Direitos Creditórios devem ser representados por Cédulas de Crédito  Bancário com parcelas iguais e consecutivas com periodicidade mensal  (tabela price), sem carência;\n(xii) os Direitos Creditórios devem ter taxas prefixadas de, no mínimo, 1,10%  (um inteiro e dez centésimos por cento) ao mês (“Taxa Mínima dos  Contratos”);\n(xiii) cada cessão deve propiciar ao Fundo o maior entre (i) retorno  correspondente a, no mínimo, 100% (cem por cento) da taxa prefixada  pactuada no âmbito do Financiamento do Veículo, e (ii) o Benchmark  Sênior, considerando a Taxa DI com vencimento mais próximo ao  respectivo prazo médio do Direito Creditório a ser cedido, apurado na  Data da Oferta, acrescido das Despesas do fundo (“Taxa Mínima da  Cessão”); e\n(xiv) seja mantida a Relação Mínima, considerando-se pro forma a aquisição  dos Direitos Creditórios em questão pelo Fundo.\n10.6.1. Nos termos do Contrato de Cessão, o Cedente obrigou-se a verificar e validar  o atendimento dos Direitos Creditórios em relação às Condições de Cessão em cada  Data de Oferta.\n10.6.2. O Fundo poderá adquirir somente os Direitos Creditórios que na respectiva  Data de Aquisição e Pagamento, cumulativamente: (a) atendam aos Critérios de  Elegibilidade e às Condições de Cessão; e (b) estejam de acordo com as  disponibilidades financeiras do Fundo em tal data.\n10.6.3. O desenquadramento de qualquer Direito Creditório com relação a qualquer  Critério de Elegibilidade ou Condição de Cessão, por qualquer motivo, após a sua  Cessão para o Fundo, não obrigará sua alienação pelo Fundo, nem dará ao Fundo  qualquer pretensão, recurso ou direito de regresso contra o Cedente, o Administrador,  seus controladores, sociedades por eles direta ou indiretamente controladas,  coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada  culpa ou dolo.",
+      "sha256": "710db58bc20a765f643e5a14d206299b03dc960eee392cf5f44406ddc663b9c6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ecff9d5fdc70717d63a0c1a52e64dff9423db4b61ee55a696236e15400b569b5": {
+      "document_id": "516121",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=516121",
+      "reference_date": "2023-08-31",
+      "version": "1",
+      "page": "17–18",
+      "clause": "9.1",
+      "excerpt": "9.1. Todo e qualquer Direito Creditório a ser adquirido pelo Fundo deverá ser verificado e validado pelo Custodiante, de acordo com os seguintes Critérios de Elegibilidade, que deverão ser atendidos cumulativamente na Data de Aquisição e Pagamento:\n(i) sejam devidos por Devedores que não estejam inadimplentes com suas  obrigações perante o Fundo na Data de Aquisição e Pagamento;\n(ii) tenham como devedores pessoas físicas;\n(iii) tenham grau de concentração, após a cessão a ser celebrada e  considerando apenas os Direitos Creditórios Elegíveis Cedidos, (a) para  Direitos Creditórios decorrentes do Financiamento de Veículos  Automotores do tipo veículos pesados (vans e caminhões), não superior  a 10% (dez por cento) do Patrimônio Líquido; e (b) para Direitos  Creditórios decorrentes de Financiamento de Veículos Automotores do  tipo automóveis, até 100% (cem por cento) do Patrimônio Líquido;\n(iv) tenham o somatório das parcelas vincendas a valor de face limitado ao  máximo de R$150.000,00 (cento e cinquenta mil reais) por Cédula de  Crédito Bancário; e\n(v) tenham o somatório das parcelas vincendas a valor de face por CPF/ME  limitado a, no máximo, R$200.000,00 (duzentos mil reais).\n9.1.1. Todas as informações relacionadas aos Direitos Creditórios ofertados ao Fundo  pelo Cedente devem ser enviadas exclusivamente por meio de arquivoeletrônico, em  formato acordado entre o Cedente e o Custodiante, conforme os termos do Contrato  de Cessão, para que o Custodiante possa verificar, em caráter definitivo para cada  cessão, o atendimento aos Critérios de Elegibilidade descritos neste item 9.1.",
+      "sha256": "1dee799c37aeb6dd76021fa716df2d992e56a129755ceccf0179e5b6381bfe67",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a05f190fa7fd755eb581bff904251aeea634a8df33f448db9f056b6e48fb45c5": {
+      "document_id": "289716",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=289716",
+      "reference_date": "2022-04-12",
+      "version": "1",
+      "page": "23–24",
+      "clause": "10.6",
+      "excerpt": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”):\n(i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos  Direitos Creditórios;\n(ii) a relação entre (a) o saldo atualizado de cada Cédula de Crédito Bancário  (somatório dos valores das parcelas vincendas a valor presente) e (b) o  valor de avaliação do veículo automotor alienado fiduciariamente no  âmbito do respectivo Financiamento de Veículo Automotor, medido por  meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento);\n(iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo  integralmente, de forma que não será admitida a cessão parcial de  Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário;\n(iv) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza na data de sua cessão  ao Fundo, exceto pela alienação fiduciária de Veículos Automotores que  deve ter sido constituída em favor do Cedente, de acordo com os  procedimentos definidos no Sistema Nacional de Gravames;\n(v) os Direitos Creditórios devem ser líquidos, certos e estar corretamente  formalizados por meio dos Documentos Comprobatórios, não sendo  admitidos Direitos Creditórios formalizados exclusivamente via telefone;\n(vi) os Direitos Creditórios não podem ser ou ter sido objeto de qualquer  contestação judicial ou extrajudicial, por meio de um Cartório de Registro  de Títulos e Documentos, contra o Cedente, por parte dos respectivos  Devedores;\n(vii) os Direitos Creditórios devem ter pelo menos 2 (duas) parcelas pagas  pelos Devedores antes da cessão ao Fundo;\n(viii) os Direitos Creditórios sejam devidos por Devedores que não estejam  inadimplentes com suas obrigações perante o Cedente na Data de  Oferta;\n(ix) o Devedor não poderá ter mais do que 65 anos de vida;\n(x) a idade do Veículo Automotor do tipo automóveis e veículos pesados  (vans e caminhões) no âmbito do respectivo Financiamento de Veículo  Automotor, não pode ultrapassar 10 (dez) anos;\n(xi) os Direitos Creditórios devem ser representados por Cédulas de Crédito  Bancário com parcelas iguais e consecutivas com periodicidade mensal  (tabela price), sem carência;\n(xii) os Direitos Creditórios devem ter taxas prefixadas de, no mínimo, 1,10%  (um inteiro e dez centésimos por cento) ao mês (“Taxa Mínima dos  Contratos”);\n(xiii) cada cessão deve propiciar ao Fundo o maior entre (i) retorno  correspondente a, no mínimo, 100% (cem por cento) da taxa prefixada  pactuada no âmbito do Financiamento do Veículo, e (ii) o Benchmark  Sênior, considerando a Taxa DI com vencimento mais próximo ao  respectivo prazo médio do Direito Creditório a ser cedido, apurado na  Data da Oferta, acrescido das Despesas do fundo (“Taxa Mínima da  Cessão”); e\n(xiv) seja mantida a Relação Mínima, considerando-se pro forma a aquisição  dos Direitos Creditórios em questão pelo Fundo.\n10.6.1. Nos termos do Contrato de Cessão, o Cedente obrigou-se a verificar e validar  o atendimento dos Direitos Creditórios em relação às Condições de Cessão em cada  Data de Oferta.\n10.6.2. O Fundo poderá adquirir somente os Direitos Creditórios que na respectiva  Data de Aquisição e Pagamento, cumulativamente: (a) atendam aos Critérios de  Elegibilidade e às Condições de Cessão; e (b) estejam de acordo com as  disponibilidades financeiras do Fundo em tal data.\n10.6.3. O desenquadramento de qualquer Direito Creditório com relação a qualquer  Critério de Elegibilidade ou Condição de Cessão, por qualquer motivo, após a sua  Cessão para o Fundo, não obrigará sua alienação pelo Fundo, nem dará ao Fundo  qualquer pretensão, recurso ou direito de regresso contra o Cedente, o Administrador,  seus controladores, sociedades por eles direta ou indiretamente controladas,  coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada  culpa ou dolo.",
+      "sha256": "de4bf0dcb6a0694d6925d35f79f56c7a69598dfa806c91c0729d8ded9f3819ae",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4f9fabc7d228a861cb2afbdd25431a63d6398a65bc77cc184aeb2b201751561c": {
+      "document_id": "174945",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=174945",
+      "reference_date": "2021-04-30",
+      "version": "1",
+      "page": "18–19",
+      "clause": "10.6",
+      "excerpt": "10.6. Adicionalmente aos Critérios de Elegibilidade descritos no item 9 acima, as seguintes condições de cessão deverão ser verificadas e validadas pelo Cedente em relação a cada Direito Creditório, na Data de Oferta (“Condições de Cessão”):\n(i) o Cedente deve ser o exclusivo e legítimo proprietário dos respectivos  Direitos Creditórios;\n(ii) a relação entre (a) o saldo atualizado de cada Cédula de Crédito Bancário  (somatório dos valores das parcelas vincendas a valor presente) e (b) o  valor de avaliação do veículo automotor alienado fiduciariamente no  âmbito do respectivo Financiamento de Veículo Automotor, medido por  meio da Tabela Molicar, será sempre inferior a 70% (setenta por cento);\n(iii) cada Cédula de Crédito Bancário somente será cedida ao Fundo  integralmente, de forma que não será admitida a cessão parcial de  Direitos Creditórios decorrentes de uma Cédula de Crédito Bancário;\n(iv) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza na data de sua cessão  ao Fundo, exceto pela alienação fiduciária de Veículos Automotores que  deve ter sido constituída em favor do Cedente, de acordo com os  procedimentos definidos no Sistema Nacional de Gravames;\n(v) os Direitos Creditórios devem ser líquidos, certos e estar corretamente  formalizados por meio dos Documentos Comprobatórios, não sendo  admitidos Direitos Creditórios formalizados exclusivamente via telefone;\n(vi) os Direitos Creditórios não podem ser ou ter sido objeto de qualquer  contestação judicial ou extrajudicial, por meio de um Cartório de Registro  de Títulos e Documentos, contra o Cedente, por parte dos respectivos  Devedores;\n(vii) os Direitos Creditórios devem ter pelo menos 2 (duas) parcelas pagas  pelos Devedores antes da cessão ao Fundo;\n(viii) os Direitos Creditórios sejam devidos por Devedores que não estejam  inadimplentes com suas obrigações perante o Cedente na Data de  Oferta;\n(ix) o Devedor não poderá ter mais do que 65 anos de vida;\n(x) a idade do Veículo Automotor do tipo automóveis e veículos pesados  (vans e caminhões) no âmbito do respectivo Financiamento de Veículo  Automotor, não pode ultrapassar 10 (dez) anos;\n(xi) os Direitos Creditórios devem ser representados por Cédulas de Crédito  Bancário com parcelas iguais e consecutivas com periodicidade mensal  (tabela price), sem carência;\n(xii) os Direitos Creditórios devem ter taxas prefixadas de, no mínimo, 1,10%  (um inteiro e dez centésimos por cento) ao mês (“Taxa Mínima dos  Contratos”);\n(xiii) cada cessão deve propiciar ao Fundo o maior entre (i) retorno  correspondente a, no mínimo, 100% (cem por cento) da taxa prefixada  pactuada no âmbito do Financiamento do Veículo, e (ii) o Benchmark  Sênior, considerando a Taxa DI com vencimento mais próximo ao  respectivo prazo médio do Direito Creditório a ser cedido, apurado na  Data da Oferta, acrescido das Despesas do fundo (“Taxa Mínima da  Cessão”); e\n(xiv) seja mantida a Relação Mínima, considerando-se pro forma a aquisição  dos Direitos Creditórios em questão pelo Fundo.\n10.6.1. Nos termos do Contrato de Cessão, o Cedente obrigou-se a verificar e validar  o atendimento dos Direitos Creditórios em relação às Condições de Cessão em cada  Data de Oferta.\n10.6.2. O Fundo poderá adquirir somente os Direitos Creditórios que na respectiva  Data de Aquisição e Pagamento, cumulativamente: (a) atendam aos Critérios de  Elegibilidade e às Condições de Cessão; e (b) estejam de acordo com as  disponibilidades financeiras do Fundo em tal data.\n10.6.3. O desenquadramento de qualquer Direito Creditório com relação a qualquer  Critério de Elegibilidade ou Condição de Cessão, por qualquer motivo, após a sua  Cessão para o Fundo, não obrigará sua alienação pelo Fundo, nem dará ao Fundo  qualquer pretensão, recurso ou direito de regresso contra o Cedente, o Administrador,  seus controladores, sociedades por eles direta ou indiretamente controladas,  coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada  culpa ou dolo.",
+      "sha256": "50ba768ccd8f9a4c9e2d710d3d7b7416442869e061cf169a9af4718769141f35",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "bb515578d5e058e0f963db524d6e3f044cbabd43e57d10fb50328298f7d1d5bd": {
+      "document_id": "620263",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=620263",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas,  a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo  na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente  nacional, títulos públicos de emissão do tesouro nacional pós-fixados, cotas de fundos de investimento  indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós-  fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do  administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do  tesouro nacional pós-fixados.",
+      "sha256": "d8aa2f20092be0a47cdb48210dde6ab59a6b98b2c0911380cb8e7bc5fdcba5ba",
+      "verification": "primary_passage"
+    },
+    "0e19c23c40c2b4de000aed0f17fce60d33240ae31825da56d901c8daf27b5770": {
+      "document_id": "439203",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=439203",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas,  a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo  na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente  nacional, títulos públicos de emissão do tesouro nacional pós-fixados, cotas de fundos de investimento  indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós-  fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do  administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do  tesouro nacional pós-fixados.",
+      "sha256": "8ae197787db842dbc3ab6fac045d16c3b7ad112bf0f71e83cf48cd5c4d762e6d",
+      "verification": "primary_passage"
+    },
+    "b35f9f438fda0b6c04f47cbba4aac1b35722af0ae6f92f025e9ba718f9710e83": {
+      "document_id": "285892",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285892",
+      "reference_date": "2021-12-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "O objetivo do Fundo é proporcionar aos seus cotistas, ao longo das amortizações de suas respectivas cotas, a valorização dos recursos aplicados inicialmente no Fundo, por meio do investimento dos recursos do Fundo na aquisição final dos direitos creditórios elegíveis originados pelo cedente, aplicação em moeda corrente nacional, títulos públicos de emissão do tesouro nacional pós‐fixados, cotas de fundos de investimento indexados à taxa DI que apliquem seu patrimônio em títulos públicos de emissão do tesouro nacional pós‐fixados, com liquidez diária e de baixo risco, inclusive fundos de investimento sob administração do administrador ou do gestor e operações compromissadas com lastro nos títulos públicos de emissão do tesouro nacional pós‐fixados.",
+      "sha256": "3763902ea5fbd1dddf4922a6b432b335effd6832f3d62f2f28edbf4b8de63002",
+      "verification": "primary_passage"
+    },
+    "29fa94324f7dcf2b162d49fabf524b6c0c7a9f7b1e738fa7dc21677baadfa1ec": {
+      "document_id": "537768",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537768",
+      "reference_date": "2023-10-09",
+      "version": "1",
+      "page": 32,
+      "clause": "13.26",
+      "excerpt": "13.26 Risco do registo da alienação fiduciária dos Veículos Automotores unicamente no SNG. O Sistema Nacional de Gravames (SNG) é um sistema que gerencia as restrições financeiras incluídas sobre os veículos – carros, motos ou caminhões – dados como garantia em operações de crédito em todo Brasil. Tal sistema foi desenvolvido como uma solução para trazer agilidade e segurança ao processo de constituição de garantias no sistema financeiro. O SNG permite que bancos, financeiras, empresas de leasing e administradoras de consórcios façam consultas sobre eventuais restrições ao veículo oferecido como garantia antes de fechar a operação de crédito. Os Direitos Creditórios Elegíveis Cedidos adquiridos pelo Fundo são oriundos de financiamentos cujos Veículos Automotores dados como garantia têm a reserva do gravame devidamente registrada no SNG em favor do Cedente. O registro do gravame dos Veículos Automotores alienados será somente realizado no SNG em nome do Cedente, sendo que, após a cessão dos Direitos Creditórios, o grave sobre os Veículos Automotores não será transferido ao Fundo. Com relação a tal assunto, primeiro destaca-se o disposto no parágrafo 1º do art. 1.361 do Código Civil, que determina que constitui-se a alienação fiduciária sobre veículos com o registro do gravame na repartição competente para o licenciamento (ou seja, no Departamento Estatual de Trânsito – Detran competente), fazendo-se a anotação no certificado de registro do veículo.\nEm razão de tal disposição, há divergência jurisprudencial sobre se o registro do gravame no SNG seria suficiente para cumprimento do disposto no parágrafo 1º do art. 1.361 do Código Civil. Como não haverá esse registro das respectivas alienações fiduciárias nos DETRANS competentes e as respectivas anotações nos respectivos certificados de registro, a alienação fiduciária sobre os Veículos Automotores poderá ser questionada judicialmente.\nA discussão jurisdicional nesse sentido, somado ao fato de que a alienação fiduciária sobre os Veículos Automotivos não será transferida ao Fundo após a cessão dos Direitos Creditórios, poderá dificultar, ou mesmo impossibilitar, a excussão da garantia do Direito Creditório Elegível Cedido diretamente pelo Fundo, caso a caracterização da alienação fiduciária seja eventualmente questionada judicialmente. Além disso, o registro apenas no SNG não impede que eventual Devedor aliene o veículo para terceiro, uma vez que o gravame não estará anotado no certificado de registro do Veículo Automotor dado em garantia, prejudicando a excussão desta em caso de inadimplemento do Direito Creditório cedido ao Fundo.",
+      "sha256": "710db58bc20a765f643e5a14d206299b03dc960eee392cf5f44406ddc663b9c6",
+      "verification": "primary_passage"
+    },
+    "cd7943b1b7d176be07f2d83757d1a471e098484addd96385613a339ec9afa79c": {
+      "document_id": "313669",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313669",
+      "reference_date": "2022-06-09",
+      "version": "1",
+      "page": 31,
+      "clause": "13.26",
+      "excerpt": "13.26 Risco do registo da alienação fiduciária dos Veículos Automotores unicamente  no SNG. O Sistema Nacional de Gravames (SNG) é um sistema que gerencia as restrições  financeiras incluídas sobre os veículos – carros, motos ou caminhões – dados como garantia  em operações de crédito em todo Brasil. Tal sistema foi desenvolvido como uma solução  para trazer agilidade e segurança ao processo de constituição de garantias no sistema  financeiro. O SNG permite que bancos, financeiras, empresas de leasing e administradoras  de consórcios façam consultas sobre eventuais restrições ao veículo oferecido como  garantia antes de fechar a operação de crédito. Os Direitos Creditórios Elegíveis Cedidos  adquiridos pelo Fundo são oriundos de financiamentos cujos Veículos Automotores dados  como garantia têm a reserva do gravame devidamente registrada no SNG em favor do  Cedente. O registro do gravame dos Veículos Automotores alienados será somente  realizado no SNG em nome do Cedente, sendo que, após a cessão dos Direitos Creditórios,  o grave sobre os Veículos Automotores não será transferido ao Fundo. Com relação a tal  assunto, primeiro destaca-se o disposto no parágrafo 1º do art. 1.361 do Código Civil, que  determina que constitui-se a alienação fiduciária sobre veículos com o registro do gravame  na repartição competente para o licenciamento (ou seja, no Departamento Estatual de  Trânsito – Detran competente), fazendo-se a anotação no certificado de registro do veículo.\n Em razão de tal disposição, há divergência jurisprudencial sobre se o registro do gravame  no SNG seria suficiente para cumprimento do disposto no parágrafo 1º do art. 1.361 do  Código Civil. Como não haverá esse registro das respectivas alienações fiduciárias nos  DETRANS competentes e as respectivas anotações nos respectivos certificados de registro,  a alienação fiduciária sobre os Veículos Automotores poderá ser questionada judicialmente.\n A discussão jurisdicional nesse sentido, somado ao fato de que a alienação fiduciária sobre  os Veículos Automotivos não será transferida ao Fundo após a cessão dos Direitos  Creditórios, poderá dificultar, ou mesmo impossibilitar, a excussão da garantia do Direito  Creditório Elegível Cedido diretamente pelo Fundo, caso a caracterização da alienação  fiduciária seja eventualmente questionada judicialmente. Além disso, o registro apenas no  SNG não impede que eventual Devedor aliene o veículo para terceiro, uma vez que o  gravame não estará anotado no certificado de registro do Veículo Automotor dado em  garantia, prejudicando a excussão desta em caso de inadimplemento do Direito Creditório  cedido ao Fundo.",
+      "sha256": "5b389ee087016e4466b3c82c5c1714dac995ea172c6388aad8d6b189c1a87e3f",
+      "verification": "primary_passage"
+    },
+    "a30111fb5fc59c6aeca82daa409f5c766988e925376000f184acaf416ea6fd87": {
+      "document_id": "289716",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=289716",
+      "reference_date": "2022-04-12",
+      "version": "1",
+      "page": 36,
+      "clause": "13.26",
+      "excerpt": "13.26 Risco do registo da alienação fiduciária dos Veículos Automotores unicamente no SNG. O Sistema Nacional de Gravames (SNG) é um sistema que gerencia as restrições financeiras incluídas sobre os veículos – carros, motos ou caminhões – dados como garantia em operações de crédito em todo Brasil. Tal sistema foi desenvolvido como uma solução para trazer agilidade e segurança ao processo de constituição de garantias no sistema financeiro. O SNG permite que bancos, financeiras, empresas de leasing e administradoras de consórcios façam consultas sobre eventuais restrições ao veículo oferecido como garantia antes de fechar a operação de crédito. Os Direitos Creditórios Elegíveis Cedidos adquiridos pelo Fundo são oriundos de financiamentos cujos Veículos Automotores dados como garantia têm a reserva do gravame devidamente registrada no SNG em favor do Cedente. O registro do gravame dos Veículos Automotores alienados será somente realizado no SNG em nome do Cedente, sendo que, após a cessão dos Direitos Creditórios, o grave sobre os Veículos Automotores não será transferido ao Fundo. Com relação a tal assunto, primeiro destaca-se o disposto no parágrafo 1º do art. 1.361 do Código Civil, que determina que constitui-se a alienação fiduciária sobre veículos com o registro do gravame na repartição competente para o licenciamento (ou seja, no Departamento Estatual de Trânsito – Detran competente), fazendo-se a anotação no certificado de registro do veículo.\nEm razão de tal disposição, há divergência jurisprudencial sobre se o registro do gravame no SNG seria suficiente para cumprimento do disposto no parágrafo 1º do art. 1.361 do Código Civil. Como não haverá esse registro das respectivas alienações fiduciárias nos DETRANS competentes e as respectivas anotações nos respectivos certificados de registro, a alienação fiduciária sobre os Veículos Automotores poderá ser questionada judicialmente.\nA discussão jurisdicional nesse sentido, somado ao fato de que a alienação fiduciária sobre os Veículos Automotivos não será transferida ao Fundo após a cessão dos Direitos Creditórios, poderá dificultar, ou mesmo impossibilitar, a excussão da garantia do Direito Creditório Elegível Cedido diretamente pelo Fundo, caso a caracterização da alienação fiduciária seja eventualmente questionada judicialmente. Além disso, o registro apenas no SNG não impede que eventual Devedor aliene o veículo para terceiro, uma vez que o gravame não estará anotado no certificado de registro do Veículo Automotor dado em garantia, prejudicando a excussão desta em caso de inadimplemento do Direito Creditório cedido ao Fundo.",
+      "sha256": "de4bf0dcb6a0694d6925d35f79f56c7a69598dfa806c91c0729d8ded9f3819ae",
       "verification": "primary_passage"
     }
   }

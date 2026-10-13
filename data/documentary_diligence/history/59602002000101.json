@@ -3,19 +3,6 @@
   "cnpj": "59602002000101",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "160d14d54afdf1cb38f9b0d0574bcd39925b576f6ef3102d4d300711ff1dd878",
-      "db8a6bcf8d46abc3a5b7e85aa52d922a304e6ae7bce65544d7454738f3ea3930",
-      "9bbc5dd98e5585b88dffa54683318154a9135301ebb4171e040ef5d62959717e",
-      "f4104fc74318cc2238a5b7d431f67bf90e6ca289528a205935630e6f65157185",
-      "fd65fd85858024e8508557b0e773c25dacd8a0a39b8b7d5d8d329a5a6b54a756",
-      "2165c9afdc9679f6ef33ba642565a715294c7572c59adf07c0a7f31033387ebe",
-      "629c3fd6adfe83484460d14e1b22d62ca92428c2f3f4e8e1bb8c16511b634966",
-      "af675fc5ad9ec3b067d98e8aceee277d1cf45c8e47eb0741537bc416fd3f9647",
-      "bd342a1608ee6221338e6f29e8c24f254d2932774978756a327479470437625c",
-      "6f6a33c894e0a0a006a8fa42a0e1877e4850f720eab3931ac69e076edfd06729",
-      "5a911f43863e500618619807b375e1b170049e1c4809a08f60aebf5d47c2d0f1"
-    ],
     "term": [
       "68e59cd8f1632a51a927254392d30b56d4dbb31de96816c6aab79af6972a2f29",
       "5bb627d5ad1b61ef13701d02bddce78d4ec08ea6526efb32fbc0a6fd2bc66b59",
@@ -361,29 +348,6 @@
       "012bc5513b7026363883752e86d23399f4cdfa17708e6182802e9821e4abd28c",
       "b8e75ea202f0eda01b77c1e6290bc5fd87fe2082eb11890c497683649f73633d"
     ],
-    "originator": [
-      "89b2c4d0f9879068ed56f0f1a3d74b444bd4b33bed2a8372402b016d63697fd5",
-      "4eb934665377174ee214a31821582bf783f189cddcfd489bdaf7dbac2f2e792a",
-      "724a795ec6156bf831c34cb9bc980f4f4086bdec456d72f4fd3dfe4829898a08",
-      "80902292dcaeae63f91bd788c4b36f0111542e0a46f51e1abdb4cf0fb8d8eed9",
-      "ff4aca171be58750d0505785f60b9e5eaee7af57e82b62468dd1582ef1d28aa5",
-      "652d37db0c7f31560c53d82268f4ab34f6052a6c47044e882f7ad353d63d3804",
-      "dc7a87b5adf32bd37b5973779574eb74f23514ebd4e45c7764e8ce5ce4b82147",
-      "d03a0ab890c152f2b2cc80bdee78766c43c86af11a530561f1fe11e591d040ba",
-      "c0fed7a8e9d47447168b416e9b1012335535e753a04cc8e9f6fa705b0eab32a5"
-    ],
-    "debtor": [
-      "1c54e78ba7c86d6bcfcb2e5b2dd55add2ba106c3b8e36791fa00e0da1e491b67",
-      "4daa415bcf0767c9b11c1699abd5b0de13fb5c46d60bd67697a11c3a45a27571",
-      "84f97dfded87e9ae0ba7c0843578f1c278c07be56d8ca1ba6cc7c6158c917c26",
-      "fcea06e2750eebcf85db24fc2fc013b20e81094527ce82169c0cd72840aa88b9",
-      "bf7cbb7a18e6e6e2ee22cfc678632d14ec72a4cdd506f3bb06306a692adac27f",
-      "0592c589d148077f847140697fda51b6283f48d308330bebf53bc96917ae25e7",
-      "9327990a7634da5857a4b670f0650b900e4cd5e80b4277b2d770e898bcdae5d6",
-      "7d853eb0cf5653597ffeed5db240013907bb181b3755b4a61c2f19d8071627b4",
-      "a8f0aef0b7911fe834812a9f599f4c8180730543b4910d77530cd78a9020164e",
-      "f7da2ffbcee79333583ee9866e05c46acd48d2ef6b1df63f16fcc38f213d597f"
-    ],
     "investee": [
       "ce3e9bdd55dc04766cdf91fde3a80cb210bdb09782f072c1c7a1eded019ccb51",
       "92c11ed47c0704ab953b89778cd673cb41f0ceca7e1774029feb439f47fd9090",
@@ -426,6 +390,43 @@
       "4ff0c5e261a8490f7692b36400ecc8a5076d9e2c209f1155da73df979f568395",
       "9a39ee1c65d5880a418e3e9e9a691f91176dbb9aa361ce20dbbeadc6b5fd2022",
       "2344489f957a5127b5dcfa57d72c5bb3339972a706e52a391437188bed699e5d"
+    ],
+    "originator": [
+      "89b2c4d0f9879068ed56f0f1a3d74b444bd4b33bed2a8372402b016d63697fd5",
+      "4eb934665377174ee214a31821582bf783f189cddcfd489bdaf7dbac2f2e792a",
+      "35c2eead09f8715a5321bac34607ad88b9ab58ec8e3143b2368db1a6004ea8db",
+      "724a795ec6156bf831c34cb9bc980f4f4086bdec456d72f4fd3dfe4829898a08",
+      "2d684ee7b7a03b91e86d3a2cacef06717a45a57deaa9baee304c78249023d16d",
+      "80902292dcaeae63f91bd788c4b36f0111542e0a46f51e1abdb4cf0fb8d8eed9",
+      "ff4aca171be58750d0505785f60b9e5eaee7af57e82b62468dd1582ef1d28aa5",
+      "4cd62ffd6e5dc546b02c3e0600cf52928ac21312f0035b038c329d00e505aedb",
+      "263fdf126eb4ecb76ade473ab864d835ae19140b56274c65ac1ed96c3b65fba6",
+      "11e25530912d27f0599c3e5b3f111b44acff718382c71eb4334b07b0b5d47615"
+    ],
+    "eligibility": [
+      "160d14d54afdf1cb38f9b0d0574bcd39925b576f6ef3102d4d300711ff1dd878",
+      "3cda53fc4d64915f0f5004165644380a17647cebf7685f1d13954310f8959338",
+      "9bbc5dd98e5585b88dffa54683318154a9135301ebb4171e040ef5d62959717e",
+      "2ffc05831ac4b71a3406cbb8eb20043857bb40679db67e26c041fe107d50f4e3",
+      "fd65fd85858024e8508557b0e773c25dacd8a0a39b8b7d5d8d329a5a6b54a756",
+      "cd102addc58fbb911eb3fcf639876d31a25e24e4cc212be9ace86880f56149f7",
+      "629c3fd6adfe83484460d14e1b22d62ca92428c2f3f4e8e1bb8c16511b634966",
+      "246aa49194e31a56cb19b4c9869b5c1940a6dc06173d2b5a147b125061464978",
+      "3b1f2718552c5e0031d9a5e345031595fc9634fd452ff4c13a0139d4006ff569",
+      "a7c76c87d44da34c7e92439c58ed164a3c501aa1e3949871fb30416e90273982",
+      "4fdf801056e5b10d5b36654b08da2c4b1cb5ebd3ec7bc712a72c8f592283d92f"
+    ],
+    "debtor": [
+      "8da1c52720a6af9942f872a00b5a94ea1b205a60a7eee3727d27f0ab0f04610e",
+      "1a34df8d41408c5f0b45f38957c48b41177fbf27d037e95240a9a8889f02fd8b",
+      "bfe0551987cd0667697daef0d2ba5db02cc844543fa4dba199faf66d5c30c010",
+      "acd05c7d0fea2aa63e17e99952fac03569c8907dda3ebb0892a106926813b0e7",
+      "7f1c09e85bd87fde310a1af74d918fcc7dacd9ca875f7981e5fab1f6670b5021",
+      "d8f297e80a9702d5e996909a435076ce294f95050382bc3daec10def44a3e1db",
+      "250fc68154b9365fc4af66fe3a280dea5bd35712e5880062336c253a55cf53e9",
+      "274e07674491e273e2bd76f2b643051e191cc4f355ec4d5bcb685703b912371d",
+      "d56a142e3e9f943201c068a4437c25d73fce6b0e7af8cd9b876f90bfaa1616b6",
+      "154f9ff713bb16a70e80e0a8570f5cb2e03bc265bc98d17c5bd7c7529e87677f"
     ]
   },
   "entries": {
@@ -493,132 +494,6 @@
         "24f199589f4b47ce5842d54eda311b2d04a67676acc81338f28aef2325f93d1d"
       ]
     },
-    "652d37db0c7f31560c53d82268f4ab34f6052a6c47044e882f7ad353d63d3804": {
-      "reference_date": "2025-07-21",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a89ae8421aa7eb34c0b2c9266e1145c4abb95311d42b851140bf0ff17b430ba9"
-      ]
-    },
-    "dc7a87b5adf32bd37b5973779574eb74f23514ebd4e45c7764e8ce5ce4b82147": {
-      "reference_date": "2025-07-21",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e67369bf637fd2b3af41f285e2c8f3bdf5d667ff7d13da2cdd9ff938a75f5f98"
-      ]
-    },
-    "d03a0ab890c152f2b2cc80bdee78766c43c86af11a530561f1fe11e591d040ba": {
-      "reference_date": "2025-05-27",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f39afa1094d7a9aa59f7e188bb5c4787b0e225b44c31f77f382d235e12850641"
-      ]
-    },
-    "c0fed7a8e9d47447168b416e9b1012335535e753a04cc8e9f6fa705b0eab32a5": {
-      "reference_date": "2025-03-14",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "27c1121ae00894917c3242adfdb05ebe0e7b5c3b373794ca10904a5a71f66cb8"
-      ]
-    },
-    "1c54e78ba7c86d6bcfcb2e5b2dd55add2ba106c3b8e36791fa00e0da1e491b67": {
-      "reference_date": "2026-03-24",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "93abb2f36ee333b802a36a966991b85307acce7d95eb25acf1e70db2ea80d5c6"
-      ]
-    },
-    "4daa415bcf0767c9b11c1699abd5b0de13fb5c46d60bd67697a11c3a45a27571": {
-      "reference_date": "2025-11-07",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ed4f19583e7f3cc38180de7b84c2c6750191c20578b08c84d3437adcdbcabf0b"
-      ]
-    },
-    "84f97dfded87e9ae0ba7c0843578f1c278c07be56d8ca1ba6cc7c6158c917c26": {
-      "reference_date": "2025-07-31",
-      "value": "(ii) devem ter como devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "253f1e66f9a56299d6632f90714e6c6485e58e9a5ad26742a340dbf62f3aa718"
-      ]
-    },
-    "fcea06e2750eebcf85db24fc2fc013b20e81094527ce82169c0cd72840aa88b9": {
-      "reference_date": "2025-05-29",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "98b6d84bb1267f2b3ea22e738393a973e726e29d70cf3c0db92b7ee0f5c48cb7"
-      ]
-    },
-    "bf7cbb7a18e6e6e2ee22cfc678632d14ec72a4cdd506f3bb06306a692adac27f": {
-      "reference_date": "2025-05-13",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7c80fef9005805c2eaf8d1f5858b0700bf9236e50dfecbca142e998e951f31c6"
-      ]
-    },
-    "0592c589d148077f847140697fda51b6283f48d308330bebf53bc96917ae25e7": {
-      "reference_date": "2025-11-17",
-      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: (i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na respectiva data de aquisição; (ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b1fc7b954dfedffc2248c7c86d999bab45206f69c89f672aa676de1cd2eba60c"
-      ]
-    },
-    "9327990a7634da5857a4b670f0650b900e4cd5e80b4277b2d770e898bcdae5d6": {
-      "reference_date": "2025-09-10",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "99198de160d303269ad6fdb30a24a3a026f5b6372cb119013380024fcaa0ee0d"
-      ]
-    },
-    "7d853eb0cf5653597ffeed5db240013907bb181b3755b4a61c2f19d8071627b4": {
-      "reference_date": "2025-07-21",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b42e571b9c8ee7ade1f0a528f808e6b17cb5cbdcde661f5c7fd795393495e460"
-      ]
-    },
-    "a8f0aef0b7911fe834812a9f599f4c8180730543b4910d77530cd78a9020164e": {
-      "reference_date": "2025-07-21",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ccc42dd6d38d61deb410dc9b696a02ded109a4a59d0c9fe0231dd3f8f38d7d05"
-      ]
-    },
-    "f7da2ffbcee79333583ee9866e05c46acd48d2ef6b1df63f16fcc38f213d597f": {
-      "reference_date": "2025-05-27",
-      "value": "(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "92b9adc3ad5a00bf5c5f38a8ae9be190a082d2f00b47d4cad0daa1158f25742b"
-      ]
-    },
     "160d14d54afdf1cb38f9b0d0574bcd39925b576f6ef3102d4d300711ff1dd878": {
       "reference_date": "2026-04-27",
       "value": "Até 96 parcelas; devedor 21–70 anos; saldo presente por devedor ≤R$ 220 mil; título ≥R$ 100; primeira parcela ≤70 dias; sem vencidos",
@@ -627,15 +502,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "d20cd4bc76a48d45909c492f01e76ce852e29fadfd328c53906a914964892e47"
-      ]
-    },
-    "db8a6bcf8d46abc3a5b7e85aa52d922a304e6ae7bce65544d7454738f3ea3930": {
-      "reference_date": "2026-03-24",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "93abb2f36ee333b802a36a966991b85307acce7d95eb25acf1e70db2ea80d5c6"
       ]
     },
     "9bbc5dd98e5585b88dffa54683318154a9135301ebb4171e040ef5d62959717e": {
@@ -647,15 +513,6 @@
         "a6cb1e7e4fec6f655aade7faafa0e83bb0b706c7bf1807984364b786b58fd8b0"
       ]
     },
-    "f4104fc74318cc2238a5b7d431f67bf90e6ca289528a205935630e6f65157185": {
-      "reference_date": "2025-07-31",
-      "value": "d) Critérios de elegibilidade A classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de legibilidade, a serem verificados pelo Gestor: (i) devem possuir, individualmente, no máximo, 96 parcelas na respectiva data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "253f1e66f9a56299d6632f90714e6c6485e58e9a5ad26742a340dbf62f3aa718"
-      ]
-    },
     "fd65fd85858024e8508557b0e773c25dacd8a0a39b8b7d5d8d329a5a6b54a756": {
       "reference_date": "2025-05-29",
       "value": "O rating da cota Sênior do LARCA CONSIG III FIDC RL está fundamentado preponderantemente no perfil de risco e nos critérios de elegibilidade dos ativos potencialmente securitizáveis pelo Fundo, além de ponderar a subordinação mínima de 20% do patrimônio líquido para as cotas avaliadas em relação a eventuais problemas e possíveis variações nos valores dos direitos creditórios ocasionados por inadimplência, provisões e pré-pagamentos.",
@@ -665,15 +522,6 @@
         "cf58605395ec29d46b582e42ce1e8fb94ca06b7f2486c67f6eedff6705d3453a"
       ]
     },
-    "2165c9afdc9679f6ef33ba642565a715294c7572c59adf07c0a7f31033387ebe": {
-      "reference_date": "2025-05-27",
-      "value": "5. DELIBERAÇÕES: Instalada a Assembleia e após a discussão das matérias constantes da Ordem do Dia, os Cotistas decidiram, por unanimidade, sem quaisquer restrições ou ressalvas, deliberar sobre e aprovar as seguintes matérias: (i) APROVAR a alteração das condições de cessão dispostas no item 8.3. do Anexo Descritivo, especificamente do subitem (v), para considerar que a média da taxa efetiva de aquisição deve ser de, no mínimo, 1.62% (um inteiro e sessenta e dois centésimos por cento) ao mês;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5f59a936b4f387d694e45a97e1b39d2e8b03db474b94b9e6ea03fd6723cbd35c"
-      ]
-    },
     "629c3fd6adfe83484460d14e1b22d62ca92428c2f3f4e8e1bb8c16511b634966": {
       "reference_date": "2025-05-13",
       "value": "Os ratings das cotas Sênior 1 e sênior 2 do LARCA CONSIG II FIDC RL estão fundamentados preponderantemente no perfil de risco e nos critérios de elegibilidade dos ativos potencialmente securitizáveis pelo Fundo, além de ponderar a subordinação mínima de 20% do patrimônio líquido para as cotas avaliadas em relação a eventuais problemas e possíveis variações nos valores dos direitos creditórios ocasionados por inadimplência, provisões e pré-pagamentos.",
@@ -681,42 +529,6 @@
       "provenance": "primary_passage",
       "sources": [
         "9585463a0adae201b4b48d92d33120517c819876d186d8f572a94a58ad676e9a"
-      ]
-    },
-    "af675fc5ad9ec3b067d98e8aceee277d1cf45c8e47eb0741537bc416fd3f9647": {
-      "reference_date": "2025-11-17",
-      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente/Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4e8eb03b6121810429da69d829c5f96f1fa7bc5acd4ab7627d31f63eec2ad2cb"
-      ]
-    },
-    "bd342a1608ee6221338e6f29e8c24f254d2932774978756a327479470437625c": {
-      "reference_date": "2025-09-10",
-      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente/Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d346bd478dec8e41d87de38729d5e452f9556083d5ffb26f575537f7b39fc086"
-      ]
-    },
-    "6f6a33c894e0a0a006a8fa42a0e1877e4850f720eab3931ac69e076edfd06729": {
-      "reference_date": "2025-07-21",
-      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d330ab4eeeca24dac9d0996b2c22a83e30820c149db6f9cf104e0c8ad77c5d25"
-      ]
-    },
-    "5a911f43863e500618619807b375e1b170049e1c4809a08f60aebf5d47c2d0f1": {
-      "reference_date": "2025-07-21",
-      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f9f77995e73d12e07b709a282eb03b0f5bec77a0bf47ef531749ff184ab3464e"
       ]
     },
     "68e59cd8f1632a51a927254392d30b56d4dbb31de96816c6aab79af6972a2f29": {
@@ -3272,6 +3084,204 @@
       "sources": [
         "856fe54087d2da0371d6c80b7d57128c8cb35174c4320e137125efbd3684faa3"
       ]
+    },
+    "4cd62ffd6e5dc546b02c3e0600cf52928ac21312f0035b038c329d00e505aedb": {
+      "reference_date": "2025-07-21",
+      "value": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na originação Direitos Creditórios Elegíveis.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f0e0304c1e472a8c887b953b5e13147659b5d861086467883a67a301cd94b07e"
+      ]
+    },
+    "263fdf126eb4ecb76ade473ab864d835ae19140b56274c65ac1ed96c3b65fba6": {
+      "reference_date": "2025-07-21",
+      "value": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na originação Direitos Creditórios Elegíveis.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b68d09a346162f0e68a3b41fdf92cf0321fc2265192d8dfaa9850c56b3eda016"
+      ]
+    },
+    "11e25530912d27f0599c3e5b3f111b44acff718382c71eb4334b07b0b5d47615": {
+      "reference_date": "2025-05-27",
+      "value": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na originação Direitos Creditórios Elegíveis.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a444d13d1844c0e790241cb509605ad79653a40af2e39335dc504076b4761da3"
+      ]
+    },
+    "3cda53fc4d64915f0f5004165644380a17647cebf7685f1d13954310f8959338": {
+      "reference_date": "2026-03-24",
+      "value": "Critérios de Elegibilidade definidos. Quanto aos direitos creditórios: (i) devem possuir, individualmente, no máximo, 96 parcelas na respectiva data de aquisição; (ii) devem ter como Devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00, considerada pro forma a cessão pretendida; (iv) devem ter o valor mínimo, de cada Direito Creditório descrito no Contrato de Cessão, de R$ 100,00; (v) devem ter a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não superior a 70 dias contados da data de cessão ao Fundo; (vi) não poderão ter parcela vencida e não paga perante o Fundo da CCB e/ou do Contrato de Assistência Financeira na data da cessão pretendida; (vii) ao menos 30% dos Direitos Creditórios integrantes da carteira, considerada pro forma a cessão pretendida na Data de Aquisição e Pagamento, deverão ter vencimento máximo de 72 meses, calculados a valor presente pela respectiva Taxa de Cessão; (viii) As taxas de desconto praticadas pela Gestora na aquisição de Direitos Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33% (um virgula sessenta e dois por cento) ao mês, exceto nos casos de renegociação de dívida; (ix) não poderão estar vencidos e os Contratos de Empréstimos não poderão estar em atraso ou inadimplidos na respectiva Data de Aquisição; (x)A média da taxa efetiva de aquisição deve ser, no mínimo, equivalente a 1,62%a.m; e (xi) o desembolso máximo, quando do processo de aquisição de determinado Direito Creditório, incluindo os custos de aquisição e as despesas relacionadas à aquisição e monitoramento dos Direitos Creditórios, não poderá exceder 10% (dez por cento) do valor da respectiva emissão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "93abb2f36ee333b802a36a966991b85307acce7d95eb25acf1e70db2ea80d5c6"
+      ]
+    },
+    "2ffc05831ac4b71a3406cbb8eb20043857bb40679db67e26c041fe107d50f4e3": {
+      "reference_date": "2025-07-31",
+      "value": "d) Critérios de elegibilidade A classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de legibilidade, a serem verificados pelo Gestor: (i) devem possuir, individualmente, no máximo, 96 parcelas na respectiva data de aquisição; (ii) devem ter como devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive; (iii) o devedor não deve ter, na data de aquisição e pagamento, saldo devedor junto ao Fundo, representado por um ou mais direitos creditórios em valor total presente superior a R$ 220, considerada proforma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou contrato de assistência financeira deve ser R$ 0,10; (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do contrato de assistência financeira, conforme aplicável, não poderá ser superior a 70 dias contados da data de cessão a Classe; (vi) a CCB e/ou do contrato de assistência financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida; e (vii) na data de aquisição e pagamento, e considerada proforma a cessão pretendida, o limite máximo de concentração por ente público.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "253f1e66f9a56299d6632f90714e6c6485e58e9a5ad26742a340dbf62f3aa718"
+      ]
+    },
+    "cd102addc58fbb911eb3fcf639876d31a25e24e4cc212be9ace86880f56149f7": {
+      "reference_date": "2025-05-27",
+      "value": "5. DELIBERAÇÕES: Instalada a Assembleia e após a discussão das matérias constantes da Ordem do Dia, os Cotistas decidiram, por unanimidade, sem quaisquer restrições ou ressalvas, deliberar sobre e aprovar as seguintes matérias: (i) APROVAR a alteração das condições de cessão dispostas no item 8.3. do Anexo Descritivo, especificamente do subitem (v), para considerar que a média da taxa efetiva de aquisição deve ser de, no mínimo, 1.62% (um inteiro e sessenta e dois centésimos por cento) ao mês; (ii) APROVAR a alteração do suplemento da 1ª Emissão de Cotas Subordinadas Mezanino e do suplemento da 1ª Emissão de Cotas Subordinadas Júnior para estabelecer que as Cotas Subordinadas Mezanino e Subordinadas Júnior somente poderão ser amortizadas, observadas outras condições ali descritas, caso o Índice de Subordinação esteja, no mínimo, em 25% (vinte e cinco por cento); (iii) AUTORIZAR o Administrador e à Gestora para que estes efetivem todos e quaisquer procedimentos e documentos necessários para a implementação do quanto deliberado nesta Assembleia Geral, inclusive, mas não se limitando, à consolidação do Regulamento e Anexo Descritivo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5f59a936b4f387d694e45a97e1b39d2e8b03db474b94b9e6ea03fd6723cbd35c"
+      ]
+    },
+    "246aa49194e31a56cb19b4c9869b5c1940a6dc06173d2b5a147b125061464978": {
+      "reference_date": "2025-11-17",
+      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente/Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "880564c4786564ca2576b2342229044af025a3944440df0fa732dfade8335c53"
+      ]
+    },
+    "3b1f2718552c5e0031d9a5e345031595fc9634fd452ff4c13a0139d4006ff569": {
+      "reference_date": "2025-09-10",
+      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente/Endossante, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ii) os Direitos Creditórios devem ser necessariamente originados por meio dos Contratos de Empréstimo, formalizadas nos termos da legislação vigente e regulamentação aplicável; (iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos Direitos Creditórios a serem adquiridos por este, de forma completa e regular; (iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33% (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação de dívida; (v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro e sessenta e dois centésimos por cento) ao mês; (vi) o desembolso máximo, quando do processo de aquisição de determinado Direito Creditório, incluindo os custos de aquisição e as despesas relacionadas à aquisição e monitoramento dos Direitos Creditórios, não poderá exceder 10% (dez por cento) do valor da respectiva emissão; (vii) devem ser performados, de montante conhecido à época da cessão ao Fundo e com parcelas em valor nominal pré-fixado e amortizações mensais; (viii) cuja autorização para consignação em folha de pagamento somente possa ser cancelada pelo Devedor mediante aquiescência prévia da respectiva Cedente/Endossante; (ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou totalmente, de que sejam partes qualquer da Cedente/Endossante; (x) quando aplicável, as Cedente/Endossante deverão ter realizado o registro dos Contratos de Empréstimo no Portal de Consignação, para fins de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d346bd478dec8e41d87de38729d5e452f9556083d5ffb26f575537f7b39fc086"
+      ]
+    },
+    "a7c76c87d44da34c7e92439c58ed164a3c501aa1e3949871fb30416e90273982": {
+      "reference_date": "2025-07-21",
+      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b64888ff65b403e3e833fc253bb35ea37cf396a50e07c949647cb0613bfa27fe"
+      ]
+    },
+    "4fdf801056e5b10d5b36654b08da2c4b1cb5ebd3ec7bc712a72c8f592283d92f": {
+      "reference_date": "2025-07-21",
+      "value": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s) Especializada(s): (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1c6ee817d02d23b3c05fb1c433057e994b0837ced98d9f7d54ac11b1d7112297"
+      ]
+    },
+    "35c2eead09f8715a5321bac34607ad88b9ab58ec8e3143b2368db1a6004ea8db": {
+      "reference_date": "2025-09-10",
+      "value": "“Cedente/Endossante” UY3 SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Economia (“CNPJ/ME”) sob o nº 39.587.424/0001-30, com sede na Cidade de Porto Alegre, Estado de São Paulo, na Av Nilo Peçanha nº1221, 13º andar, (“UY3”), e/ou Pessoas jurídicas que venham a ceder Direitos Creditórios ao Fundo. endossar Direitos Creditórios ao Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0285a137eb5ca37ddf28c0b123fe552188350d0640cc72af0113405c3feed068"
+      ]
+    },
+    "2d684ee7b7a03b91e86d3a2cacef06717a45a57deaa9baee304c78249023d16d": {
+      "reference_date": "2025-05-13",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0b77ec0c692b249fc2c83361c5994a833fe96f1e731969763c66db921d912a7b"
+      ]
+    },
+    "8da1c52720a6af9942f872a00b5a94ea1b205a60a7eee3727d27f0ab0f04610e": {
+      "reference_date": "2026-03-24",
+      "value": "Direitos creditórios oriundos de cada uma das parcelas das CCBs e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas Cedentes aos Devedores, operacionalizados por meio de consignação nas respectivas folhas de pagamento/benefícios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "56d7d473d4831557d8640c0ecee3a41778cd48bef987d5ab3d84b4dc98765966"
+      ]
+    },
+    "1a34df8d41408c5f0b45f38957c48b41177fbf27d037e95240a9a8889f02fd8b": {
+      "reference_date": "2025-11-07",
+      "value": "Direitos creditórios oriundos de cada uma das parcelas das CCBs e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas Cedentes aos Devedores, operacionalizados por meio de consignação nas respectivas folhas de pagamento/benefícios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b40a90cf4656337d2bb60d3a0c678553180aac62256d0d2dadfdf6abc31ad883"
+      ]
+    },
+    "bfe0551987cd0667697daef0d2ba5db02cc844543fa4dba199faf66d5c30c010": {
+      "reference_date": "2025-05-29",
+      "value": "Direitos creditórios oriundos de cada uma das parcelas das CCBs e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas Cedentes aos Devedores, operacionalizados por meio de consignação nas respectivas folhas de pagamento/benefícios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "655bca42c9326e8cd432a39a9ffeb2833b5c60222201a09bc9eae26e697e1b79"
+      ]
+    },
+    "acd05c7d0fea2aa63e17e99952fac03569c8907dda3ebb0892a106926813b0e7": {
+      "reference_date": "2025-05-13",
+      "value": "Direitos creditórios oriundos de cada uma das parcelas das CCBs e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas Cedentes aos Devedores, operacionalizados por meio de consignação nas respectivas folhas de pagamento/benefícios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7b47609c6a9556484efaad0aca93cfa5faf7ddc5f720aed31a0bc73bebc87294"
+      ]
+    },
+    "7f1c09e85bd87fde310a1af74d918fcc7dacd9ca875f7981e5fab1f6670b5021": {
+      "reference_date": "2025-11-17",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente/Endossante e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente/Endossante aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "355b7fe4448d0a15a8c72b7cd19a920d7043629a10115168b667129b818c9fa7"
+      ]
+    },
+    "d8f297e80a9702d5e996909a435076ce294f95050382bc3daec10def44a3e1db": {
+      "reference_date": "2025-09-10",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente/Endossante e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente/Endossante aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "72ca68d1e5bb4729503e06f399720389465405752e11edf4cc31cc366c023e46"
+      ]
+    },
+    "250fc68154b9365fc4af66fe3a280dea5bd35712e5880062336c253a55cf53e9": {
+      "reference_date": "2025-07-21",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5e3f172d0823fbfdc48a3722c10448a401ccd61de247164aacdf7bf22e6943cd"
+      ]
+    },
+    "274e07674491e273e2bd76f2b643051e191cc4f355ec4d5bcb685703b912371d": {
+      "reference_date": "2025-07-21",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d2cde6fff69ac7369e7694d64a81cc1f8ee325d24ea7fa282d312c36238ffdf8"
+      ]
+    },
+    "d56a142e3e9f943201c068a4437c25d73fce6b0e7af8cd9b876f90bfaa1616b6": {
+      "reference_date": "2025-05-27",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e3c48e9d744437722e823dc312892dd2abaa788bbebe1cb118b3d57694d9b02b"
+      ]
+    },
+    "154f9ff713bb16a70e80e0a8570f5cb2e03bc265bc98d17c5bd7c7529e87677f": {
+      "reference_date": "2025-03-14",
+      "value": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência de Assistência Financeira”, celebrado digital ou fisicamente entre a Financeira” Cedente e os Devedores, por meio do qual são constituídos Direitos de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cc60e4abcd7fa83c0817e71f45e0876e2b650e6c11f8568bf9f515d6c57a43b4"
+      ]
     }
   },
   "passages": {
@@ -3360,54 +3370,6 @@
       "sha256": "4051367f48cdd4f4da875088b7865aaf3bf78530ae7b48f460e8deff5aaff40d",
       "verification": "primary_passage"
     },
-    "a89ae8421aa7eb34c0b2c9266e1145c4abb95311d42b851140bf0ff17b430ba9": {
-      "document_id": "952485",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 38,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as  Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como  definidas pelas regras contábeis que tratam desse assunto.",
-      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
-      "verification": "primary_passage"
-    },
-    "e67369bf637fd2b3af41f285e2c8f3bdf5d667ff7d13da2cdd9ff938a75f5f98": {
-      "document_id": "952487",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 35,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as  Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como  definidas pelas regras contábeis que tratam desse assunto.",
-      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
-      "verification": "primary_passage"
-    },
-    "f39afa1094d7a9aa59f7e188bb5c4787b0e225b44c31f77f382d235e12850641": {
-      "document_id": "913144",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913144",
-      "reference_date": "2025-05-27",
-      "version": "1",
-      "page": 35,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as  Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como  definidas pelas regras contábeis que tratam desse assunto.",
-      "sha256": "133fc9d7b00b05f74f2d5d073fc2d0ce7d21c232a36b98f8cec78ccc70efdf64",
-      "verification": "primary_passage"
-    },
-    "27c1121ae00894917c3242adfdb05ebe0e7b5c3b373794ca10904a5a71f66cb8": {
-      "document_id": "864138",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864138",
-      "reference_date": "2025-03-14",
-      "version": "1",
-      "page": 41,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não  poderão ser os originadores dos Direitos Creditórios, as Cedentes, a Gestora, as  Consultorias Especializadas ou as suas respectivas partes relacionadas, tais como  definidas pelas regras contábeis que tratam desse assunto.",
-      "sha256": "3c0d7901abc506b8914c0ac7219b410ed3b05972806a97ffd91a2f8e95adb3cd",
-      "verification": "primary_passage"
-    },
     "93abb2f36ee333b802a36a966991b85307acce7d95eb25acf1e70db2ea80d5c6": {
       "document_id": "1186616",
       "title": "Relatório de Agência de Rating",
@@ -3420,18 +3382,6 @@
       "sha256": "690baaf0fe0f914bdd76773251ccf5c1b018f463a345f53c92abdfa252827679",
       "verification": "primary_passage"
     },
-    "ed4f19583e7f3cc38180de7b84c2c6750191c20578b08c84d3437adcdbcabf0b": {
-      "document_id": "1037286",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1037286",
-      "reference_date": "2025-11-07",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Critérios de Elegibilidade definidos. Quanto aos direitos creditórios: (i)  devem possuir, individualmente, no máximo, 96 parcelas na respectiva data  de aquisição; (ii) devem ter como Devedores pessoas com idade entre 21  anos e 70 anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na  Data de Aquisição e Pagamento, saldo devedor junto ao Fundo,  representado por um ou mais Direitos Creditórios em valor total presente  superior a R$ 220.000,00, considerada pro forma a cessão pretendida; (iv)  devem ter o valor mínimo, de cada Direito Creditório descrito no Contrato de  Cessão, de R$ 100,00; (v) devem ter a data do vencimento da primeira  parcela vincenda da CCB e/ou do Contrato de Assistência Financeira,  conforme aplicável, não superior a 70 dias contados da data de cessão ao  Fundo; (vi) não poderão ter parcela vencida e não paga perante o Fundo da  CCB e/ou do Contrato de Assistência Financeira na data da cessão  pretendida; (vii) ao menos 30% dos Direitos Creditórios integrantes da  carteira, considerada pro forma a cessão pretendida na Data de Aquisição e  Pagamento, deverão ter vencimento máximo de 72 meses, calculados a  valor presente pela respectiva Taxa de Cessão; (viii) As taxas de desconto  praticadas pela Gestora na aquisição de Direitos Creditórios serão  realizadas, no mínimo, a uma taxa correspondente a 1,33% (um virgula  sessenta e dois por cento) ao mês, exceto nos casos de renegociação de  dívida; (ix) não poderão estar vencidos e os Contratos de Empréstimos não  poderão estar em atraso ou inadimplidos na respectiva Data de Aquisição;\n (x)A média da taxa efetiva de aquisição deve ser, no mínimo, equivalente a  1,62%a.m; e (xi) o desembolso máximo, quando do processo de aquisição  de determinado Direito Creditório, incluindo os custos de aquisição e as  despesas relacionadas à aquisição e monitoramento dos Direitos Creditórios,  não poderá exceder 10% (dez por cento) do valor da respectiva emissão.",
-      "sha256": "af33d40c02feea89d1f2eb3c299cec55879cd998bb125a35b3108a686a260bc7",
-      "verification": "primary_passage"
-    },
     "253f1e66f9a56299d6632f90714e6c6485e58e9a5ad26742a340dbf62f3aa718": {
       "document_id": "994904",
       "title": "Demonstrações Financeiras",
@@ -3442,90 +3392,6 @@
       "clause": "",
       "excerpt": "d) Critérios de elegibilidade  A classe somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de  legibilidade, a serem verificados pelo Gestor:\n (i) devem possuir, individualmente, no máximo, 96 parcelas na respectiva data de aquisição;\n (ii) devem ter como devedores pessoas com idade entre 21 anos e 70 anos na data da cessão, inclusive;\n (iii) o devedor não deve ter, na data de aquisição e pagamento, saldo devedor junto ao Fundo,  representado por um ou mais direitos creditórios em valor total presente superior a R$ 220,  considerada proforma a cessão pretendida;\n (iv) o valor mínimo de cada CCB e/ou contrato de assistência financeira deve ser R$ 0,10;\n (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do contrato de assistência  financeira, conforme aplicável, não poderá ser superior a 70 dias contados da data de cessão a  Classe;\n (vi) a CCB e/ou do contrato de assistência financeira não poderão ter parcela vencida e não paga  perante o Fundo na data da cessão pretendida; e\n (vii) na data de aquisição e pagamento, e considerada proforma a cessão pretendida, o limite máximo  de concentração por ente público.",
       "sha256": "cf5d56dccea3a0c54f6a4840e92064f75ab0791044b1c99b44745013394ee25f",
-      "verification": "primary_passage"
-    },
-    "98b6d84bb1267f2b3ea22e738393a973e726e29d70cf3c0db92b7ee0f5c48cb7": {
-      "document_id": "917114",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917114",
-      "reference_date": "2025-05-29",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Critérios de Elegibilidade definidos. Quanto aos direitos creditórios: (i)  devem possuir, individualmente, no máximo, 96 parcelas na respectiva  data de aquisição; (ii) devem ter como Devedores pessoas com idade  entre 21 anos e 70 anos na data da cessão, inclusive; (iii) o Devedor não  deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao  Fundo, representado por um ou mais Direitos Creditórios em valor total  presente superior a R$ 220.000,00, considerada pro forma a cessão  pretendida; (iv) devem ter o valor mínimo, de cada Direito Creditório  descrito no Contrato de Cessão, de R$ 100,00; (v) devem ter a data do  vencimento da primeira parcela vincenda da CCB e/ou do Contrato de  Assistência Financeira, conforme aplicável, não superior a 70 dias  contados da data de cessão ao Fundo; (vi) não poderão ter parcela vencida  e não paga perante o Fundo da CCB e/ou do Contrato de Assistência  Financeira na data da cessão pretendida; (vii) ao menos 30% dos Direitos  Creditórios integrantes da carteira, considerada pro forma a cessão  pretendida na Data de Aquisição e Pagamento, deverão ter vencimento  máximo de 72 meses, calculados a valor presente pela respectiva Taxa de  Cessão; (viii) As taxas de desconto praticadas pela Gestora na aquisição  de Direitos Creditórios serão realizadas, no mínimo, a uma taxa  correspondente a 1,33% (um virgula sessenta e dois por cento) ao mês,  exceto nos casos de renegociação de dívida; (ix) não poderão estar  vencidos e os Contratos de Empréstimos não poderão estar em atraso ou  inadimplidos na respectiva Data de Aquisição; (x)A média da taxa efetiva  de aquisição deve ser, no mínimo, equivalente a 1,62%a.m; e (xi) o  desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão.",
-      "sha256": "f78a986a03f97de690ffb1293068745acdf9fe4656c70628c4a92f62f7940cfa",
-      "verification": "primary_passage"
-    },
-    "7c80fef9005805c2eaf8d1f5858b0700bf9236e50dfecbca142e998e951f31c6": {
-      "document_id": "916960",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
-      "reference_date": "2025-05-13",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Critérios de Elegibilidade definidos. Quanto aos direitos creditórios: (i)  devem possuir, individualmente, no máximo, 96 parcelas na respectiva data  de aquisição (não se aplica para os casos de antecipação do saque  aniversário - FGTS); (ii) devem ter como Devedores pessoas com idade entre  21 anos e 70 anos na data da cessão, inclusive; (iii) o Devedor não deve ter,  na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo,  representado por um ou mais Direitos Creditórios em valor total presente  superior a R$ 220.000,00, considerada pro forma a cessão pretendida; (iv)  devem ter o valor mínimo, de cada Direito Creditório descrito no Contrato de  Cessão, de R$ 100,00; (v) devem ter a data do vencimento da primeira  parcela vincenda da CCB e/ou do Contrato de Assistência Financeira,  conforme aplicável, não superior a 70 dias contados da data de cessão ao  Fundo (não se aplica aos casos de antecipação do saque aniversário - FGTS);\n (vi) não poderão ter parcela vencida e não paga perante o Fundo da CCB  e/ou do Contrato de Assistência Financeira na data da cessão pretendida;\n (vii) ao menos 30% dos Direitos Creditórios integrantes da carteira,  considerada pro forma a cessão pretendida na Data de Aquisição e  Pagamento, deverão ter vencimento máximo de 72 meses, calculados a  valor presente pela respectiva Taxa de Cessão; (viii) não poderão estar  vencidos e os Contratos de Empréstimos não poderão estar em atraso ou  inadimplidos na respectiva Data de Aquisição.",
-      "sha256": "93cdf84cc0452043ceb9739e21b543408f68962349b35d9232431f78e2771847",
-      "verification": "primary_passage"
-    },
-    "b1fc7b954dfedffc2248c7c86d999bab45206f69c89f672aa676de1cd2eba60c": {
-      "document_id": "1044672",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044672",
-      "reference_date": "2025-11-17",
-      "version": "1",
-      "page": 43,
-      "clause": "8.1",
-      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos  seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\n(i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na  respectiva data de aquisição;\n(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e  70 (setenta) anos na data da cessão, inclusive;\n(iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor  junto ao Fundo, representado por um ou mais Direitos Creditórios em valor  total presente superior a R$ 220.000,00 (duzentos e vinte mil reais),  considerada pro forma a cessão pretendida;",
-      "sha256": "e8f8c31827943766593ce11eaa333c0dd84133a95b9f0ec567575268d3c9e783",
-      "verification": "primary_passage"
-    },
-    "99198de160d303269ad6fdb30a24a3a026f5b6372cb119013380024fcaa0ee0d": {
-      "document_id": "991815",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=991815",
-      "reference_date": "2025-09-10",
-      "version": "1",
-      "page": 43,
-      "clause": "8.1",
-      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos  seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\n(i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na  respectiva data de aquisição;\n(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e  70 (setenta) anos na data da cessão, inclusive;\n(iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor  junto ao Fundo, representado por um ou mais Direitos Creditórios em valor  total presente superior a R$ 220.000,00 (duzentos e vinte mil reais),  considerada pro forma a cessão pretendida;\n(iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve  ser R$ 100 (cem reais);\n(v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato  de Assistência Financeira, conforme aplicável, não poderá ser superior a 70\n (setenta) dias contados da data de cessão a Classe;\n 43",
-      "sha256": "4051367f48cdd4f4da875088b7865aaf3bf78530ae7b48f460e8deff5aaff40d",
-      "verification": "primary_passage"
-    },
-    "b42e571b9c8ee7ade1f0a528f808e6b17cb5cbdcde661f5c7fd795393495e460": {
-      "document_id": "952485",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 46,
-      "clause": "8.1",
-      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos  seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\n(i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na  respectiva data de aquisição;\n(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e  70 (setenta) anos na data da cessão, inclusive;\n(iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor  junto ao Fundo, representado por um ou mais Direitos Creditórios em valor  total presente superior a R$ 220.000,00 (duzentos e vinte mil reais),  considerada pro forma a cessão pretendida;\n(iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve  ser R$ 100 (cem reais);\n(v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato  de Assistência Financeira, conforme aplicável, não poderá ser superior a 70\n (setenta) dias contados da data de cessão a Classe;\n 46",
-      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
-      "verification": "primary_passage"
-    },
-    "ccc42dd6d38d61deb410dc9b696a02ded109a4a59d0c9fe0231dd3f8f38d7d05": {
-      "document_id": "952487",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 43,
-      "clause": "8.1",
-      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos  seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\n(i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na  respectiva data de aquisição;\n(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e  70 (setenta) anos na data da cessão, inclusive;\n(iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor  junto ao Fundo, representado por um ou mais Direitos Creditórios em valor  total presente superior a R$ 220.000,00 (duzentos e vinte mil reais),  considerada pro forma a cessão pretendida;\n(iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve  ser R$ 100 (cem reais);\n(v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato  de Assistência Financeira, conforme aplicável, não poderá ser superior a 70\n (setenta) dias contados da data de cessão a Classe;\n 46",
-      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
-      "verification": "primary_passage"
-    },
-    "92b9adc3ad5a00bf5c5f38a8ae9be190a082d2f00b47d4cad0daa1158f25742b": {
-      "document_id": "913144",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913144",
-      "reference_date": "2025-05-27",
-      "version": "1",
-      "page": 44,
-      "clause": "8.1",
-      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos  seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\n(i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na  respectiva data de aquisição;\n(ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e  70 (setenta) anos na data da cessão, inclusive;\n(iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor  junto ao Fundo, representado por um ou mais Direitos Creditórios em valor  total presente superior a R$ 220.000,00 (duzentos e vinte mil reais),  considerada pro forma a cessão pretendida;\n(iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve  ser R$ 100 (cem reais);\n(v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato  de Assistência Financeira, conforme aplicável, não poderá ser superior a 70\n (setenta) dias contados da data de cessão a Classe;\n(vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela  vencida e não paga perante o Fundo na data da cessão pretendida; e\n(vii) na Data de Aquisição e Pagamento, e considerada pro forma a cessão  pretendida, o limite máximo de concentração por Ente Público, indicado no  Apenso A ao presente Anexo.",
-      "sha256": "133fc9d7b00b05f74f2d5d073fc2d0ce7d21c232a36b98f8cec78ccc70efdf64",
       "verification": "primary_passage"
     },
     "d20cd4bc76a48d45909c492f01e76ce852e29fadfd328c53906a914964892e47": {
@@ -3589,18 +3455,6 @@
       "sha256": "93cdf84cc0452043ceb9739e21b543408f68962349b35d9232431f78e2771847",
       "verification": "primary_passage"
     },
-    "4e8eb03b6121810429da69d829c5f96f1fa7bc5acd4ab7627d31f63eec2ad2cb": {
-      "document_id": "1044672",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044672",
-      "reference_date": "2025-11-17",
-      "version": "1",
-      "page": 45,
-      "clause": "8.3",
-      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente/Endossante, bem como devem estar livres e desembaraçados de  quaisquer ônus, gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva  Cedente/Endossante;",
-      "sha256": "e8f8c31827943766593ce11eaa333c0dd84133a95b9f0ec567575268d3c9e783",
-      "verification": "primary_passage"
-    },
     "d346bd478dec8e41d87de38729d5e452f9556083d5ffb26f575537f7b39fc086": {
       "document_id": "991815",
       "title": "Regulamento",
@@ -3611,30 +3465,6 @@
       "clause": "8.3",
       "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente/Endossante, bem como devem estar livres e desembaraçados de  quaisquer ônus, gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva  Cedente/Endossante;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente/Endossante;\n(x) quando aplicável, as Cedente/Endossante deverão ter realizado o registro  dos Contratos de Empréstimo no Portal de Consignação, para fins de",
       "sha256": "4051367f48cdd4f4da875088b7865aaf3bf78530ae7b48f460e8deff5aaff40d",
-      "verification": "primary_passage"
-    },
-    "d330ab4eeeca24dac9d0996b2c22a83e30820c149db6f9cf104e0c8ad77c5d25": {
-      "document_id": "952485",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 48,
-      "clause": "8.3",
-      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva Cedente;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente;\n(x) quando aplicável, as Cedentes deverão ter realizado o registro dos Contratos  de Empréstimo no Portal de Consignação, para fins de operacionalização da  consignação em folha de pagamento do respectivo Devedor, o qual deverá ter  previamente autorizado;",
-      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
-      "verification": "primary_passage"
-    },
-    "f9f77995e73d12e07b709a282eb03b0f5bec77a0bf47ef531749ff184ab3464e": {
-      "document_id": "952487",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
-      "reference_date": "2025-07-21",
-      "version": "1",
-      "page": 45,
-      "clause": "8.3",
-      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva Cedente;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente;\n(x) quando aplicável, as Cedentes deverão ter realizado o registro dos Contratos  de Empréstimo no Portal de Consignação, para fins de operacionalização da  consignação em folha de pagamento do respectivo Devedor, o qual deverá ter  previamente autorizado;",
-      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
       "verification": "primary_passage"
     },
     "fa39ee3f6e5a9ab6b875b6f9e71aa1ea2675272d5d7eae2d2811142ac0b16844": {
@@ -6911,6 +6741,213 @@
       "clause": "",
       "excerpt": "“Administradora” OLIVEIRA TRUST DISTRIBUIDORA DE  TÍTULOS E VALORES MOBILIÁRIOS S.A.,  instituição com sede na Cidade do Rio de Janeiro,  Estado do Rio de Janeiro, na Avenida das Américas, nº\n 3.434, Bloco 07, Sala 201, Centro Empresarial Mario  Henrique Simonsen, CEP 22640-102, inscrita no CNPJ  sob o nº 36.113.876/0001-91, devidamente autorizada  pela CVM para o exercício profissional de  administração de carteiras de valores mobiliários por  meio do Ato Declaratório nº 6.696, expedido em 21 de  fevereiro de 2002.",
       "sha256": "e8f8c31827943766593ce11eaa333c0dd84133a95b9f0ec567575268d3c9e783",
+      "verification": "primary_passage"
+    },
+    "f0e0304c1e472a8c887b953b5e13147659b5d861086467883a67a301cd94b07e": {
+      "document_id": "952485",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": 55,
+      "clause": "",
+      "excerpt": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá  rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos  Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até  mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na  originação Direitos Creditórios Elegíveis.",
+      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
+      "verification": "primary_passage"
+    },
+    "b68d09a346162f0e68a3b41fdf92cf0321fc2265192d8dfaa9850c56b3eda016": {
+      "document_id": "952487",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": 52,
+      "clause": "",
+      "excerpt": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá  rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos  Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até  mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na  originação Direitos Creditórios Elegíveis.",
+      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
+      "verification": "primary_passage"
+    },
+    "a444d13d1844c0e790241cb509605ad79653a40af2e39335dc504076b4761da3": {
+      "document_id": "913144",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913144",
+      "reference_date": "2025-05-27",
+      "version": "1",
+      "page": 52,
+      "clause": "",
+      "excerpt": "(xxii) Riscos do Originador e de originação: Não há como assegurar que não haverá  rescisão de contratos que originam os Direitos Creditórios, vício ou escassez de Direitos  Creditórios Elegíveis, de forma que poderá haver diminuição e descontinuidade ou até  mesmo incapacidade, total ou parcial, da(s) Cedente(s) e seus correspondentes na  originação Direitos Creditórios Elegíveis.",
+      "sha256": "133fc9d7b00b05f74f2d5d073fc2d0ce7d21c232a36b98f8cec78ccc70efdf64",
+      "verification": "primary_passage"
+    },
+    "880564c4786564ca2576b2342229044af025a3944440df0fa732dfade8335c53": {
+      "document_id": "1044672",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044672",
+      "reference_date": "2025-11-17",
+      "version": "1",
+      "page": "45–46",
+      "clause": "8.3",
+      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente/Endossante, bem como devem estar livres e desembaraçados de  quaisquer ônus, gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva  Cedente/Endossante;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente/Endossante;\n(x) quando aplicável, as Cedente/Endossante deverão ter realizado o registro  dos Contratos de Empréstimo no Portal de Consignação, para fins de  operacionalização da consignação em folha de pagamento do respectivo  Devedor, o qual deverá ter previamente autorizado;\n(xi) o Devedor não poderá estar inadimplente em nenhuma outra operação  realizada com as Cedente/Endossante;\n(xi) não poderão estar vencidos e os Contratos de Empréstimos não poderão  estar em atraso ou inadimplidos na respectiva Data de Aquisição;\n(xii) deverão ter como objeto a totalidade das parcelas vincendas de um mesmo  Contrato de Empréstimo;\n(xiii) não ter sido verificada ou, em caso de verificação, ter sido sanada situações  relativas à suspensão de aquisição de Direitos Creditórios s, nos termos que  venham a ser acordados entre as partes.\n8.3.1 O enquadramento dos Direitos Creditórios que a Classe pretender  adquirir às Condições de Cessão será verificado pela Gestora e pela(s)  Consultoria(s) Especializada(s) na respectiva Data de Aquisição.\n8.3.2 As Condições de Cessão serão avaliadas pela Gestora mediante  recebimento de declaração firmada por uma das Consultoras Especializadas de  que os Direitos Creditórios oferecidos à cessão atendem integralmente às  condições descritas acima.\n8.3.3 Observados os termos e condições do presente Anexo, a verificação  pela Gestora e pela(s) Consultoria(s) Especializada(s) do enquadramento dos  Direitos Creditórios às Condições de Cessão será considerada como definitiva.",
+      "sha256": "e8f8c31827943766593ce11eaa333c0dd84133a95b9f0ec567575268d3c9e783",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b64888ff65b403e3e833fc253bb35ea37cf396a50e07c949647cb0613bfa27fe": {
+      "document_id": "952485",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": "48–49",
+      "clause": "8.3",
+      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva Cedente;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente;\n(x) quando aplicável, as Cedentes deverão ter realizado o registro dos Contratos  de Empréstimo no Portal de Consignação, para fins de operacionalização da  consignação em folha de pagamento do respectivo Devedor, o qual deverá ter  previamente autorizado;\n(xi) o Devedor não poderá estar inadimplente em nenhuma outra operação  realizada com as Cedentes;\n(xi) não poderão estar vencidos e os Contratos de Empréstimos não poderão  estar em atraso ou inadimplidos na respectiva Data de Aquisição;\n(xii) deverão ter como objeto a totalidade das parcelas vincendas de um mesmo  Contrato de Empréstimo;\n(xiii) não ter sido verificada ou, em caso de verificação, ter sido sanada situações  relativas à suspensão de aquisição de Direitos Creditórios s, nos termos que  venham a ser acordados entre as partes; e\n(xiv) ao menos 30% (trinta por cento) dos Direitos Creditórios integrantes da  carteira da Classe, considerada pro forma a cessão pretendida na Data de  Aquisição e Pagamento, deverão ter vencimento máximo de 72 (setenta e  dois) meses, calculados a valor presente pela respectiva Taxa de Cessão.\n8.3.1 O enquadramento dos Direitos Creditórios que a Classe pretender  adquirir às Condições de Cessão será verificado pela Gestora e pela(s)  Consultoria(s) Especializada(s) na respectiva Data de Aquisição.\n8.3.2 As Condições de Cessão serão avaliadas pela Gestora mediante  recebimento de declaração firmada por uma das Consultoras Especializadas de  que os Direitos Creditórios oferecidos à cessão atendem integralmente às  condições descritas acima.\n8.3.3 Observados os termos e condições do presente Anexo, a verificação  pela Gestora e pela(s) Consultoria(s) Especializada(s) do enquadramento dos  Direitos Creditórios às Condições de Cessão será considerada como definitiva.",
+      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1c6ee817d02d23b3c05fb1c433057e994b0837ced98d9f7d54ac11b1d7112297": {
+      "document_id": "952487",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": "45–46",
+      "clause": "8.3",
+      "excerpt": "8.3 Adicionalmente aos Critérios de Elegibilidade acima, a Classe somente  poderá adquirir Direitos Creditórios que, na respectiva Data de Aquisição, atendam às  seguintes Condições de Cessão, a serem verificadas pela Gestora e pela(s) Consultoria(s)  Especializada(s):\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios devem ser necessariamente originados por meio dos  Contratos de Empréstimo, formalizadas nos termos da legislação vigente e  regulamentação aplicável;\n(iii) devem ser apresentados ao Fundo todos os Documentos Comprobatórios dos  Direitos Creditórios a serem adquiridos por este, de forma completa e  regular;\n(iv) as taxas de desconto praticadas pela Gestora na aquisição de Direitos  Creditórios serão realizadas, no mínimo, a uma taxa correspondente a 1,33%  (um virgula trinta e três por cento) ao mês, exceto nos casos de renegociação  de dívida;\n(v) a média da taxa efetiva de aquisição deve ser, no mínimo 1.62% (um inteiro  e sessenta e dois centésimos por cento) ao mês;\n(vi) o desembolso máximo, quando do processo de aquisição de determinado  Direito Creditório, incluindo os custos de aquisição e as despesas  relacionadas à aquisição e monitoramento dos Direitos Creditórios, não  poderá exceder 10% (dez por cento) do valor da respectiva emissão;\n(vii) devem ser performados, de montante conhecido à época da cessão ao Fundo  e com parcelas em valor nominal pré-fixado e amortizações mensais;\n(viii) cuja autorização para consignação em folha de pagamento somente possa ser  cancelada pelo Devedor mediante aquiescência prévia da respectiva Cedente;\n(ix) não devem ser objeto de questionamentos ou discussões judiciais, parcial ou  totalmente, de que sejam partes qualquer da Cedente;\n(x) quando aplicável, as Cedentes deverão ter realizado o registro dos Contratos  de Empréstimo no Portal de Consignação, para fins de operacionalização da  consignação em folha de pagamento do respectivo Devedor, o qual deverá ter  previamente autorizado;\n(xi) o Devedor não poderá estar inadimplente em nenhuma outra operação  realizada com as Cedentes;\n(xi) não poderão estar vencidos e os Contratos de Empréstimos não poderão  estar em atraso ou inadimplidos na respectiva Data de Aquisição;\n(xii) deverão ter como objeto a totalidade das parcelas vincendas de um mesmo  Contrato de Empréstimo;\n(xiii) não ter sido verificada ou, em caso de verificação, ter sido sanada situações  relativas à suspensão de aquisição de Direitos Creditórios s, nos termos que  venham a ser acordados entre as partes; e\n(xiv) ao menos 30% (trinta por cento) dos Direitos Creditórios integrantes da  carteira da Classe, considerada pro forma a cessão pretendida na Data de  Aquisição e Pagamento, deverão ter vencimento máximo de 72 (setenta e  dois) meses, calculados a valor presente pela respectiva Taxa de Cessão.\n8.3.1 O enquadramento dos Direitos Creditórios que a Classe pretender  adquirir às Condições de Cessão será verificado pela Gestora e pela(s)  Consultoria(s) Especializada(s) na respectiva Data de Aquisição.\n8.3.2 As Condições de Cessão serão avaliadas pela Gestora mediante  recebimento de declaração firmada por uma das Consultoras Especializadas de  que os Direitos Creditórios oferecidos à cessão atendem integralmente às  condições descritas acima.\n8.3.3 Observados os termos e condições do presente Anexo, a verificação  pela Gestora e pela(s) Consultoria(s) Especializada(s) do enquadramento dos  Direitos Creditórios às Condições de Cessão será considerada como definitiva.",
+      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0285a137eb5ca37ddf28c0b123fe552188350d0640cc72af0113405c3feed068": {
+      "document_id": "991804",
+      "title": "AGO/E",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=991804",
+      "reference_date": "2025-09-10",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente/Endossante” UY3 SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira inscrita no Cadastro  Nacional da Pessoa Jurídica do Ministério da  Economia (“CNPJ/ME”) sob o nº\n 39.587.424/0001-30, com sede na Cidade de  Porto Alegre, Estado de São Paulo, na Av Nilo  Peçanha nº1221, 13º andar, (“UY3”), e/ou  Pessoas jurídicas que venham a ceder Direitos  Creditórios ao Fundo. endossar Direitos  Creditórios ao Fundo.",
+      "sha256": "a20a79493b05a6772e72a050d2b58553f8e397e2112044546dc7e504a41890dc",
+      "verification": "primary_passage"
+    },
+    "56d7d473d4831557d8640c0ecee3a41778cd48bef987d5ab3d84b4dc98765966": {
+      "document_id": "1186616",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186616",
+      "reference_date": "2026-03-24",
+      "version": "1",
+      "page": 4,
+      "clause": "",
+      "excerpt": "Direitos creditórios oriundos de cada uma das parcelas das CCBs  e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas  Cedentes aos Devedores, operacionalizados por meio de  consignação nas respectivas folhas de pagamento/benefícios.",
+      "sha256": "690baaf0fe0f914bdd76773251ccf5c1b018f463a345f53c92abdfa252827679",
+      "verification": "primary_passage"
+    },
+    "b40a90cf4656337d2bb60d3a0c678553180aac62256d0d2dadfdf6abc31ad883": {
+      "document_id": "1037286",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1037286",
+      "reference_date": "2025-11-07",
+      "version": "1",
+      "page": 4,
+      "clause": "",
+      "excerpt": "Direitos creditórios oriundos de cada uma das parcelas das CCBs  e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas  Cedentes aos Devedores, operacionalizados por meio de  consignação nas respectivas folhas de pagamento/benefícios.",
+      "sha256": "af33d40c02feea89d1f2eb3c299cec55879cd998bb125a35b3108a686a260bc7",
+      "verification": "primary_passage"
+    },
+    "655bca42c9326e8cd432a39a9ffeb2833b5c60222201a09bc9eae26e697e1b79": {
+      "document_id": "917114",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917114",
+      "reference_date": "2025-05-29",
+      "version": "1",
+      "page": 4,
+      "clause": "",
+      "excerpt": "Direitos creditórios oriundos de cada uma das parcelas das CCBs  e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas  Cedentes aos Devedores, operacionalizados por meio de  consignação nas respectivas folhas de pagamento/benefícios.",
+      "sha256": "f78a986a03f97de690ffb1293068745acdf9fe4656c70628c4a92f62f7940cfa",
+      "verification": "primary_passage"
+    },
+    "7b47609c6a9556484efaad0aca93cfa5faf7ddc5f720aed31a0bc73bebc87294": {
+      "document_id": "916960",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+      "reference_date": "2025-05-13",
+      "version": "1",
+      "page": 4,
+      "clause": "",
+      "excerpt": "Direitos creditórios oriundos de cada uma das parcelas das CCBs  e/ou dos Contratos de Assistência Financeira, conforme aplicável, Principais Ativos representativas de empréstimos consignados concedidos pelas  Cedentes aos Devedores, operacionalizados por meio de  consignação nas respectivas folhas de pagamento/benefícios.",
+      "sha256": "93cdf84cc0452043ceb9739e21b543408f68962349b35d9232431f78e2771847",
+      "verification": "primary_passage"
+    },
+    "355b7fe4448d0a15a8c72b7cd19a920d7043629a10115168b667129b818c9fa7": {
+      "document_id": "1044672",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044672",
+      "reference_date": "2025-11-17",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente/Endossante e os Devedores, por meio do qual  são constituídos Direitos de Crédito, conforme  autorizado pela Circular SUSEP, consistentes de  empréstimos conferidos pela Cedente/Endossante aos  Devedores e pagos por meio de consignação nas  respectivas folhas de pagamento/benefício.",
+      "sha256": "e8f8c31827943766593ce11eaa333c0dd84133a95b9f0ec567575268d3c9e783",
+      "verification": "primary_passage"
+    },
+    "72ca68d1e5bb4729503e06f399720389465405752e11edf4cc31cc366c023e46": {
+      "document_id": "991815",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=991815",
+      "reference_date": "2025-09-10",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente/Endossante e os Devedores, por meio do qual  são constituídos Direitos de Crédito, conforme  autorizado pela Circular SUSEP, consistentes de  empréstimos conferidos pela Cedente/Endossante aos  Devedores e pagos por meio de consignação nas  respectivas folhas de pagamento/benefício.",
+      "sha256": "4051367f48cdd4f4da875088b7865aaf3bf78530ae7b48f460e8deff5aaff40d",
+      "verification": "primary_passage"
+    },
+    "5e3f172d0823fbfdc48a3722c10448a401ccd61de247164aacdf7bf22e6943cd": {
+      "document_id": "952485",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": 8,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente e os Devedores, por meio do qual são  constituídos Direitos de Crédito, conforme autorizado  pela Circular SUSEP, consistentes de empréstimos  conferidos pela Cedente aos Devedores e pagos por  meio de consignação nas respectivas folhas de  pagamento/benefício.",
+      "sha256": "cac49ef381132dd05fb1d5c1a4168bc55e0fcdf6eb9ec09db2c2e3990faebd21",
+      "verification": "primary_passage"
+    },
+    "d2cde6fff69ac7369e7694d64a81cc1f8ee325d24ea7fa282d312c36238ffdf8": {
+      "document_id": "952487",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952487",
+      "reference_date": "2025-07-21",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente e os Devedores, por meio do qual são  constituídos Direitos de Crédito, conforme autorizado  pela Circular SUSEP, consistentes de empréstimos  conferidos pela Cedente aos Devedores e pagos por  meio de consignação nas respectivas folhas de  pagamento/benefício.",
+      "sha256": "578052c390783c03ff6c62093183fa68efbf108f38fac8c0614591463aaf9d54",
+      "verification": "primary_passage"
+    },
+    "e3c48e9d744437722e823dc312892dd2abaa788bbebe1cb118b3d57694d9b02b": {
+      "document_id": "913144",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913144",
+      "reference_date": "2025-05-27",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente e os Devedores, por meio do qual são  constituídos Direitos de Crédito, conforme autorizado  pela Circular SUSEP, consistentes de empréstimos  conferidos pela Cedente aos Devedores e pagos por  meio de consignação nas respectivas folhas de  pagamento/benefício.",
+      "sha256": "133fc9d7b00b05f74f2d5d073fc2d0ce7d21c232a36b98f8cec78ccc70efdf64",
+      "verification": "primary_passage"
+    },
+    "cc60e4abcd7fa83c0817e71f45e0876e2b650e6c11f8568bf9f515d6c57a43b4": {
+      "document_id": "864138",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864138",
+      "reference_date": "2025-03-14",
+      "version": "1",
+      "page": 8,
+      "clause": "",
+      "excerpt": "“Contrato de Concessão Cada “Contrato de Concessão de Assistência  de Assistência Financeira”, celebrado digital ou fisicamente entre a  Financeira” Cedente e os Devedores, por meio do qual são  constituídos Direitos de Crédito, conforme autorizado  pela Circular SUSEP, consistentes de empréstimos  conferidos pela Cedente aos Devedores e pagos por  meio de consignação nas respectivas folhas de  pagamento/benefício.",
+      "sha256": "3c0d7901abc506b8914c0ac7219b410ed3b05972806a97ffd91a2f8e95adb3cd",
       "verification": "primary_passage"
     }
   }

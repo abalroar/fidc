@@ -3,15 +3,6 @@
   "cnpj": "28472333000132",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "c69a1bd62e28b96347d8eda120bcd5cd34b583cbce8fcc8d937fa4de61139c05",
-      "f639868e594ea668a1274d2a25332e2399f0b76d9c28f37c8eb5fc40077dc051",
-      "1975ec0011c8d951f43665d081991e69f0fd66ef47d3c3e1eb921521a482c0d9",
-      "51a376b5693c4e8897e7f0ccbf335cab89408697ca97a7af5bd26b6da187fdf3",
-      "40cf2a5d750e57e57c74248284f8eba1aa42ad6fa124d94a88b1058ce50ce29b",
-      "c8b06b6ffdfd7a2a97dd89cb02817e08032175ab190c8237260ccd48a67cb761",
-      "bb636878bbffe9f044fba91a4c85f1a387a563b5faed8de8d8393d1b4390cdcc"
-    ],
     "term": [
       "eb4a6ca431e64f2c56a112e93979f821f15523382fa447983284823a027209f9",
       "40ad1879453aeeb182d88e5ab956048db07c9b346877fbe72c6962ed78bf36b2",
@@ -224,23 +215,6 @@
       "34718ec280ba9d7636267033fcd1d270427d7ce0db14e81cf2243e1b9092f098",
       "bb636878bbffe9f044fba91a4c85f1a387a563b5faed8de8d8393d1b4390cdcc"
     ],
-    "originator": [
-      "8c3e67e3c65fd5c44e5df493884e1c7857318d5f3b8926ec3992498dbbc4d10b",
-      "2ec8f71ba6178997a1dd6122aa3945f308a532f54caa6b72dd7401fcdf501430",
-      "debae4a7800f379eff717b14ef98cf57e7998511feab6767021ceb98e5fd0428",
-      "ed3a14822ae177e398892b943c2b26dd5fbe0cdb0febf4099ff8ed9f8d3ae836",
-      "d08e200728a65322347a4bb40916175b0cfea9f23f6b634dc89152ccf39116bb",
-      "b78b9cac45be3376b1997665a772351b53e35553c4fffec51750abb850ce3b0e",
-      "2e591cc1a208b76417c64153f13e573599076c509f3b52ac2771d4fa1cbf954b"
-    ],
-    "debtor": [
-      "69ece6097fce00a8a7970b6ba9a33e34d9a08240c8c63ca90a11676da42c9b9e",
-      "4137323f6a37a6e7f81d5509f780f440bdc0622f0d9fedae809b5bb864c03d09",
-      "41f6fd159e77b21ced3ba2357896c7cb03de7888d04b2d15a44fdd3f6cd0d906",
-      "796209571f5c4a015edcf455e24e3652d5c18dd05d8c3b6bd11847209f81a42a",
-      "0d61e62a2f6586a83a6e40f326aa9e03b6a90dc500201209f02a012b49432d63",
-      "1fa68f1507ae8f22450a53cf88875726f73aa216adb7954e15eab14654b9333a"
-    ],
     "investee": [
       "ca2a058406d22104cdc913df950f6055f01835157871f0a99c9e62f7a6d7feb5",
       "2b88cb5460212a8b325026e4269391925df189858b8a4348579b8bc52d473a43"
@@ -275,6 +249,30 @@
       "f345b40bb9d7faee06081b3106d18f123e1001baca56778eca331c3f1599a7b2",
       "81aa7081fe2da0f331d3ffa16a6c67dea4e5a844cb77c02721fdb02cb84abb32",
       "b3e6223d11d27dd5c250535fdba0ab8f64b83cca03f39f867536fb14656be472"
+    ],
+    "originator": [
+      "8c3e67e3c65fd5c44e5df493884e1c7857318d5f3b8926ec3992498dbbc4d10b",
+      "7f83c4be5bc2a865c8b098d92b6418f959c911df4f248b77eee59bb1b40f6878",
+      "25749f3a0182528fd8626e4e32aa08b581e093011a75f1647572d525e7da0e86",
+      "094ea3e17d1b58725de87674c98c234e6b24b487336dcbbd12f15c7fa774d272",
+      "5de7713122b0d6f9e307a40e43baabfd5eb3d13306ce341df2c3cc59c1b8a83e",
+      "4a00d8f329af0aa8792d07a8d7d76301222e5dd983721b07ef75ff0ad2764d4e",
+      "ed3a14822ae177e398892b943c2b26dd5fbe0cdb0febf4099ff8ed9f8d3ae836",
+      "6bd52b108fc08b57e5aa0d91a98a6883590e4deb13387b085747d2bec66e9b83",
+      "d08e200728a65322347a4bb40916175b0cfea9f23f6b634dc89152ccf39116bb",
+      "5e2826252a7ee192a9318c7ffbde8df14116d960244f702d85577d1293282a32",
+      "9ac739d0ff673bbaac5a1d993794328b12241e2646faaad7d2e0a22df466eef0"
+    ],
+    "eligibility": [
+      "84c2c7b57725f64567d508af240fa31e97d7efe11d147856b1064808a1e86802",
+      "198646bd86a83aa3ec3cf9cd59f9f2095a95fe469e4c09246bebdaef01cc465f",
+      "282d898c62426b12c245b4da28943f791d53786e182371c70cb96f32feb0db27",
+      "3ced0015a597310ae015e553994ded44662f2fa586feb79e6b862b69837f1f2c",
+      "1975ec0011c8d951f43665d081991e69f0fd66ef47d3c3e1eb921521a482c0d9",
+      "5acb400d3375e17fff376f87514f85a6131630a0e75f3920eb67cd37941c60fb",
+      "40cf2a5d750e57e57c74248284f8eba1aa42ad6fa124d94a88b1058ce50ce29b",
+      "6acf29b4ea35ad0c154d7c4251f81277c569650525ac54464640a8eef179d3df",
+      "f8b5fff5fdffb3da36f07146988643f3bbdc3d7002425bece2fdd3d25f6bfd74"
     ]
   },
   "entries": {
@@ -307,24 +305,6 @@
         "927b05615426e5f6f8d9524a212250197b2d8ffdf22074461961b9b96d6b3af1"
       ]
     },
-    "2ec8f71ba6178997a1dd6122aa3945f308a532f54caa6b72dd7401fcdf501430": {
-      "reference_date": "2023-04-13",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9ef0db1c3eb59111d0d5e00a710aa740c062e5534af7d0ebec40c27af1a608e0"
-      ]
-    },
-    "debae4a7800f379eff717b14ef98cf57e7998511feab6767021ceb98e5fd0428": {
-      "reference_date": "2021-02-15",
-      "value": "Foi ponderado para a avaliação do rating a estrutura do fluxo de recebimento dos direitos creditórios através de um arranjo de pagamento fechado e a expertise dos gestores do Mercado Pago, o que potencialmente poderá ser refletido na qualidade dos direitos creditórios e ativos financeiros selecionados. Por outro lado, as classificações foram limitadas, principalmente, pelo risco de concentração em um único originador dos direitos creditórios.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e884736ebf18ca6ce5e40248af5aa9aabdb05fe57f10e32b1f4380935857a77f"
-      ]
-    },
     "ed3a14822ae177e398892b943c2b26dd5fbe0cdb0febf4099ff8ed9f8d3ae836": {
       "reference_date": "2020-12-31",
       "value": "Por outro lado, as classificações foram limitadas, principalmente, pelo risco de concentração em um único originador dos direitos creditórios.",
@@ -343,42 +323,6 @@
         "027f8f98a2b17e8b7b5b8fa8e23bb193ba28f2223536b930f68664ee4963e69e"
       ]
     },
-    "b78b9cac45be3376b1997665a772351b53e35553c4fffec51750abb850ce3b0e": {
-      "reference_date": "2023-04-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "74d654aee1e93367bc7999ea09578aeed5608ab7a3db422729bbe18de4c01657"
-      ]
-    },
-    "2e591cc1a208b76417c64153f13e573599076c509f3b52ac2771d4fa1cbf954b": {
-      "reference_date": "2020-11-16",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6bee68fe906f4200363181bfbb7fd71d9045db62b6db3c77653e8338556a761a"
-      ]
-    },
-    "69ece6097fce00a8a7970b6ba9a33e34d9a08240c8c63ca90a11676da42c9b9e": {
-      "reference_date": "2023-04-13",
-      "value": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim entendidos aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro e/ou pequenos comerciantes que utilizam a plataforma de pagamentos eletrônicos do Mercado Pago e que fazem ao menos 90% (noventa por cento) das vendas utilizando máquina de mPOS (mobile point of sale) do Mercado Pago, chamada “Point”;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "058b4ab899734367c1e2bbf038b96b9e81abc78ab2ef0bbf7ec503cf258929fd"
-      ]
-    },
-    "4137323f6a37a6e7f81d5509f780f440bdc0622f0d9fedae809b5bb864c03d09": {
-      "reference_date": "2021-02-15",
-      "value": "CARACTERÍSTICAS E PARTES ENVOLVIDAS Emitente: Mercado Credito Merchant Fundo de Investimento em Direitos Creditorios CNPJ: 28.472.333/0001-32 Data de Registro: 15/12/2017 Condomínio: Fechado Fundo Exclusivo: Não Prazo de Funcionamento: Indeterminado Principal Ativo: CCBs originadas da concessão de crédito parcelado pelas Instituições Financeiras credenciadas aos Devedores, que serão pessoas físicas ou jurídicas, micro ou pequenos comerciantes que utilizam a plataforma eletrônica de pagamentos do Mercado Pago para viabilizar as suas respectivas transações de pagamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c2436eda8820a6fd3c9e0953e5a329c211bd98d975448c214073b89f58df4131"
-      ]
-    },
     "41f6fd159e77b21ced3ba2357896c7cb03de7888d04b2d15a44fdd3f6cd0d906": {
       "reference_date": "2020-12-31",
       "value": "",
@@ -386,51 +330,6 @@
       "provenance": "primary_passage",
       "sources": [
         "d98ec41eb727a9066881ba31bf990f76dd6ef8939d22d5dae2d0f186b81dd8dc"
-      ]
-    },
-    "796209571f5c4a015edcf455e24e3652d5c18dd05d8c3b6bd11847209f81a42a": {
-      "reference_date": "2020-10-23",
-      "value": "CARACTERÍSTICAS E PARTES ENVOLVIDAS Emitente: Mercado Credito Merchant Fundo de Investimento em Direitos Creditorios CNPJ: 28.472.333/0001-32 Data de Registro: 15/12/2017 Condomínio: Fechado Fundo Exclusivo: Não Prazo de Funcionamento: Indeterminado Principal Ativo: CCBs originadas da concessão de crédito parcelado pelas Instituições Financeiras credenciadas aos Devedores, que serão pessoas físicas ou jurídicas, micro ou pequenos comerciantes que utilizam a plataforma eletrônica de pagamentos do Mercado Pago para viabilizar as suas respectivas transações de pagamento. Taxa Mínima de Cessão: N/A Concentração Máx. Cedente: N/A",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "28bd383d31807d61fa612697ec42208fd1255c27841c0b5c367f4a4e427e1575"
-      ]
-    },
-    "0d61e62a2f6586a83a6e40f326aa9e03b6a90dc500201209f02a012b49432d63": {
-      "reference_date": "2023-04-19",
-      "value": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim entendidos aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro e/ou pequenos comerciantes que utilizam a plataforma de pagamentos eletrônicos do Mercado Pago e que fazem ao menos 90% (noventa por cento) das vendas utilizando máquina de mPOS (mobile point of sale) do Mercado Pago, chamada “Point”;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b954def518b1d65b7053814bf85fa50538a53b7a7d35b9288b4492c07be33494"
-      ]
-    },
-    "1fa68f1507ae8f22450a53cf88875726f73aa216adb7954e15eab14654b9333a": {
-      "reference_date": "2020-11-16",
-      "value": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim entendidos aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro e/ou pequenos comerciantes que utilizam a plataforma de pagamentos eletrônicos do Mercado Pago e que fazem ao menos 90% (noventa por cento) das vendas utilizando máquina de mPOS (mobile point of sale) do Mercado Pago, chamada “Point”;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5ade526d9964d26d62d407bbaa0dd5b1f813fa792e84175d6752d7f38d140156"
-      ]
-    },
-    "c69a1bd62e28b96347d8eda120bcd5cd34b583cbce8fcc8d937fa4de61139c05": {
-      "reference_date": "2023-12-31",
-      "value": "Risco de não manutenção dos critérios de elegibilidade ou condições de cessão após a data de aquisição e pagamento Todos os criterios de elegibilidade, previstos no capítulo 3 no regulamento, serao verificados pelo custodiante uma unica vez, exclusivamente em cada data de aquisiçao e pagamento, nos termos deste regulamento e dos respectivos documentos de aquisiçao. Similarmente, as 24",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "38bc8696130cc9c06c58f800f6880bb6570236910d27cf2a47472108c3178053"
-      ]
-    },
-    "f639868e594ea668a1274d2a25332e2399f0b76d9c28f37c8eb5fc40077dc051": {
-      "reference_date": "2023-04-13",
-      "value": "2.11.1 Sem prejuízo do disposto acima e observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios às Condições de Cessão em cada operação de aquisição de Direitos Creditórios pelo Fundo, observada a divisão das atribuições entre o Mercado Pago e a Gestora prevista na cláusula 3.4 abaixo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6f5f8ef230a6d78183f8573cbcec615d5aa9c60d3a55cc8c8810ba7abc77ef81"
       ]
     },
     "1975ec0011c8d951f43665d081991e69f0fd66ef47d3c3e1eb921521a482c0d9": {
@@ -442,15 +341,6 @@
         "36652adaaddc11ed64b264ca07f3c4685893f7eaf90dee759e3afa256b8dc981"
       ]
     },
-    "51a376b5693c4e8897e7f0ccbf335cab89408697ca97a7af5bd26b6da187fdf3": {
-      "reference_date": "2020-12-31",
-      "value": "A classificação por agência classificadora de risco foi realizada pela Liberum Ratings na cota Sênior 2 que foi classificada como AA(fe) de Crédito - Longo Prazo e CP1(fe) de Crédito - Curto Prazo em 23 de outubro de 2020. As classificações estão fundamentadas no perfil de risco dos direitos creditórios que serão cedidos ao Fundo, bem como sua estrutura de reforço de crédito em relação a subordinação mínima e critérios de elegibilidade estipulados dos títulos recebíveis passíveis de aquisição.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d98ec41eb727a9066881ba31bf990f76dd6ef8939d22d5dae2d0f186b81dd8dc"
-      ]
-    },
     "40cf2a5d750e57e57c74248284f8eba1aa42ad6fa124d94a88b1058ce50ce29b": {
       "reference_date": "2020-10-23",
       "value": "FUNDAMENTOS DA CLASSIFICAÇÃO DE RISCO As classificações estão fundamentadas no perfil de risco dos direitos creditórios que serão cedidos ao Mercado Crédito Merchant FIDC, bem como sua estrutura de reforço de crédito em relação a subordinação mínima e critérios de elegibilidade estipulados dos títulos recebíveis passíveis de aquisição. O Fundo foi estruturado para adquirir títulos representados por Cédulas de Crédito Bancário (CCBs) que possuam como devedores os usuários comerciantes da plataforma de comércio eletrônico Mercado Livre.",
@@ -458,15 +348,6 @@
       "provenance": "primary_passage",
       "sources": [
         "124a95101002dc12167e64711f0633f784b8e980e5ea5248ded33aa23c3db2d8"
-      ]
-    },
-    "c8b06b6ffdfd7a2a97dd89cb02817e08032175ab190c8237260ccd48a67cb761": {
-      "reference_date": "2023-04-19",
-      "value": "3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios às Condições de Cessão em cada operação de aquisição de Direitos Creditórios pelo Fundo, observada a divisão das atribuições entre o Mercado Pago e a Gestora prevista na cláusula 3.4 abaixo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6e7e2358e805f52bab1ba395b7a25364a7f72722f976468332ac9fa69f038972"
       ]
     },
     "bb636878bbffe9f044fba91a4c85f1a387a563b5faed8de8d8393d1b4390cdcc": {
@@ -1855,6 +1736,141 @@
       "sources": [
         "9cd211e7ff4d9692aa0a1bc0cb394c2291cd2e5a001dd7c5b4a746a0bb4dcca6"
       ]
+    },
+    "84c2c7b57725f64567d508af240fa31e97d7efe11d147856b1064808a1e86802": {
+      "reference_date": "2023-12-31",
+      "value": "O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade: a) Os créditos elegíveis devem ser originados de operações de crédito parcelado e representados por CCBs validamente formalizadas; b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a 18",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "421bd4a34955328f832296c4bf1f68fb620cf133329749cfb0e3f73be7d251d6"
+      ]
+    },
+    "198646bd86a83aa3ec3cf9cd59f9f2095a95fe469e4c09246bebdaef01cc465f": {
+      "reference_date": "2023-04-13",
+      "value": "15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário nos termos do Contrato de Promessa de Aquisição de Recebíveis dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido; (d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada da respectiva classificação de risco inicialmente conferida às Cotas Seniores pela Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais; (e) ocorrência de eventos que (i) afetem substancialmente ou impossibilitem (x) a originação direta ou indireta de Direitos Creditórios pelo Mercado Pago e/ou pelas Instituições Financeiras Parceiras, (y) o Endosso Eletrônico ou (z) a aquisição pelo Fundo de Direitos Creditórios em montante suficiente para assegurar os níveis mínimos de composição e diversificação da carteira do Fundo por 30 (trinta) dias consecutivos; e/ou (ii) limitem a remuneração dos Direitos Creditórios Adquiridos conforme prevista nos Documentos Comprobatórios;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dc23ed94aee3a3690245289cb159f41a06ba4163824a65b3b0b2fba076b0e259"
+      ]
+    },
+    "282d898c62426b12c245b4da28943f791d53786e182371c70cb96f32feb0db27": {
+      "reference_date": "2022-12-31",
+      "value": "O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade: a) Os créditos elegíveis devem ser originados de operações de crédito parcelado e representados por CCBs validamente formalizadas; b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a quaisquer parcelas dos direitos creditórios adquiridos; e c) Os direitos creditórios devem ser cedidos por instituições financeiras parceiras.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "337439eda8e836fe1bbcccf0ac1bc61f6d2131e1cee5579d02a4fa5845fb5d1b"
+      ]
+    },
+    "3ced0015a597310ae015e553994ded44662f2fa586feb79e6b862b69837f1f2c": {
+      "reference_date": "2021-12-31",
+      "value": "ii. Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade: a) Os créditos elegíveis devem ser originados de operações de crédito parcelado e representados por Cédulas de Crédito Bancário - CCBs validamente formalizadas; b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a quaisquer parcelas dos direitos creditórios adquiridos; e c) Os direitos creditórios devem ser cedidos por instituições financeiras parceiras.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d8b5e18c5065c5b34b99fed666f65d2ab5c4e7e1acb40e7f1fb9961927550478"
+      ]
+    },
+    "5acb400d3375e17fff376f87514f85a6131630a0e75f3920eb67cd37941c60fb": {
+      "reference_date": "2020-12-31",
+      "value": "A classificação por agência classificadora de risco foi realizada pela Liberum Ratings na cota Sênior 2 que foi classificada como AA(fe) de Crédito - Longo Prazo e CP1(fe) de Crédito - Curto Prazo em 23 de outubro de 2020. As classificações estão fundamentadas no perfil de risco dos direitos creditórios que serão cedidos ao Fundo, bem como sua estrutura de reforço de crédito em relação a subordinação mínima e critérios de elegibilidade estipulados dos títulos recebíveis passíveis de aquisição. O Fundo foi estruturado para adquirir títulos representados por Cédulas de Crédito Bancário (CCBs) que possuam como devedores os usuários comerciantes da plataforma de comércio eletrônico Mercado Livre. As demais classes de cotas do Fundo não serão objeto de classificação de risco e por consequência não foi contratada empresa para efetuar tal serviço uma vez que se enquadram no artigo 23-A da Instrução CVM 356. Foi ponderado para a avaliação do rating a estrutura do fluxo de recebimento dos direitos creditórios através de um arranjo de pagamento fechado e a expertise dos gestores do Mercado Pago, o que potencialmente poderá ser refletido na qualidade dos direitos creditórios e ativos financeiros selecionados. Por outro lado, as classificações foram limitadas, principalmente, pelo risco de concentração em um único originador dos direitos creditórios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d98ec41eb727a9066881ba31bf990f76dd6ef8939d22d5dae2d0f186b81dd8dc"
+      ]
+    },
+    "6acf29b4ea35ad0c154d7c4251f81277c569650525ac54464640a8eef179d3df": {
+      "reference_date": "2023-04-19",
+      "value": "15.1 São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário nos termos do Contrato de Promessa de Aquisição de Recebíveis dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido; (d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada da respectiva classificação de risco inicialmente conferida às Cotas Seniores pela Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5e6fe2517710fea61ca58af406eebd0e8b2574acfd3f804c198923ea0a0f2327"
+      ]
+    },
+    "f8b5fff5fdffb3da36f07146988643f3bbdc3d7002425bece2fdd3d25f6bfd74": {
+      "reference_date": "2020-11-16",
+      "value": "São considerados Eventos de Avaliação: (a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no prazo de 30 (trinta) dias; (c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados no mercado secundário nos termos do Contrato de Promessa de Aquisição de Recebíveis dentro de, no máximo, 10 (dez) dias contados do recebimento pelo Mercado Pago de notificação da Administradora, do Custodiante e/ou da Gestora neste sentido; (d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada da respectiva classificação de risco inicialmente conferida às Cotas Seniores pela Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais; (e) ocorrência de eventos que (i) afetem substancialmente ou impossibilitem (x) a originação direta ou indireta de Direitos Creditórios pelo Mercado Pago e/ou pelas Instituições Financeiras Parceiras, (y) o Endosso Eletrônico ou (z) a aquisição pelo Fundo de Direitos Creditórios em montante suficiente para assegurar os níveis mínimos de composição e diversificação da carteira do Fundo por 30 (trinta) dias consecutivos; e/ou (ii) limitem a remuneração",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c25c9f479a1ba880de177548594a10e0751acfd204d63d4947afb5496470e5c6"
+      ]
+    },
+    "7f83c4be5bc2a865c8b098d92b6418f959c911df4f248b77eee59bb1b40f6878": {
+      "reference_date": "2023-12-31",
+      "value": "Os direitos creditórios podem ser classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente (ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não 15",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ec060a1e7522ea22bfbec5afdb1b54cac84ec741858c481d3f1f514b8afc31d8"
+      ]
+    },
+    "25749f3a0182528fd8626e4e32aa08b581e093011a75f1647572d525e7da0e86": {
+      "reference_date": "2023-04-13",
+      "value": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "35dd49eed97fe2d8663c678bbd51de3761b79ac92f34266c96feac6ff25e1663"
+      ]
+    },
+    "094ea3e17d1b58725de87674c98c234e6b24b487336dcbbd12f15c7fa774d272": {
+      "reference_date": "2022-12-31",
+      "value": "Os direitos creditórios podem ser classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente (ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d0e58f4a13904b572e28a1142dd5a35f10a8f58a79762209bf6d4760c7939c20"
+      ]
+    },
+    "5de7713122b0d6f9e307a40e43baabfd5eb3d13306ce341df2c3cc59c1b8a83e": {
+      "reference_date": "2021-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e86bc6012132baa638aed7d20a6246dfcf53bcc87ef605933789e6b6eee9169c"
+      ]
+    },
+    "4a00d8f329af0aa8792d07a8d7d76301222e5dd983721b07ef75ff0ad2764d4e": {
+      "reference_date": "2021-02-15",
+      "value": "Mercado Crédito Merchant FIDC - 4T20 Taxa Mínima de Cessão: N/A Concentração Máx. Cedente: N/A Concentração Máx. Sacado: N/A Concentração Máx. 10 Maiores Sacados: 5% do PL Administrador: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. Gestor: Captalys Gestão Ltda. Custodiante: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a0053dccd04f580d41f8d998f65f7648beb384ef5859c0d452d720fae93856fe"
+      ]
+    },
+    "6bd52b108fc08b57e5aa0d91a98a6883590e4deb13387b085747d2bec66e9b83": {
+      "reference_date": "2020-11-06",
+      "value": "Minuta de contrato de aquisição e endosso de direitos e obrigações e outras avenças a ser firmado entre MERCADOPAGO.COM REPRESENTAÇÕES LTDA., na qualidade de Endossatário e Correspondente Bancário, MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, na qualidade de Endossante, representado por VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORS MOBILIÁRIOS LTDA., na qualidade de Administradora, e, como interveniente anuente, CAPTALYS GESTÃO LTDA., na qualidade de Gestora.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6c6212df293ab202224e31bd60d4ced0c2872a066198f9bf12e30cf484683802"
+      ]
+    },
+    "5e2826252a7ee192a9318c7ffbde8df14116d960244f702d85577d1293282a32": {
+      "reference_date": "2023-04-19",
+      "value": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a122235316abbf77652f027b1dc08d372bc45396185eea914aae1d9d367f305"
+      ]
+    },
+    "9ac739d0ff673bbaac5a1d993794328b12241e2646faaad7d2e0a22df466eef0": {
+      "reference_date": "2020-11-16",
+      "value": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4e736cba72bcd337de3febe842e98674f19b280bac09ffc56c292450db64de9f"
+      ]
     }
   },
   "passages": {
@@ -1908,18 +1924,6 @@
       "sha256": "c4e765ab94a8ff04cf3fefa6153d8ed9c4ba841cba982a0f9e0f6dfbfe804424",
       "verification": "primary_passage"
     },
-    "e884736ebf18ca6ce5e40248af5aa9aabdb05fe57f10e32b1f4380935857a77f": {
-      "document_id": "157110",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=157110",
-      "reference_date": "2021-02-15",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "Foi ponderado para a avaliação do rating a estrutura do fluxo de recebimento dos direitos creditórios através de um arranjo  de pagamento fechado e a expertise dos gestores do Mercado Pago, o que potencialmente poderá ser refletido na qualidade  dos direitos creditórios e ativos financeiros selecionados. Por outro lado, as classificações foram limitadas, principalmente,  pelo risco de concentração em um único originador dos direitos creditórios.",
-      "sha256": "92465ca2802a917c79101632f9d30e76d26ce0542f647854c38f33e1a9f0a6d7",
-      "verification": "primary_passage"
-    },
     "d98ec41eb727a9066881ba31bf990f76dd6ef8939d22d5dae2d0f186b81dd8dc": {
       "document_id": "166929",
       "title": "Demonstrações Financeiras",
@@ -1968,90 +1972,6 @@
       "sha256": "b891ac874af9b2617aecafc4b5f2ab5381e7c1a6221a787ff4cb81191e7f13ae",
       "verification": "primary_passage"
     },
-    "058b4ab899734367c1e2bbf038b96b9e81abc78ab2ef0bbf7ec503cf258929fd": {
-      "document_id": "444985",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=444985",
-      "reference_date": "2023-04-13",
-      "version": "1",
-      "page": 13,
-      "clause": "",
-      "excerpt": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim entendidos  aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro e/ou pequenos  comerciantes que utilizam a plataforma de pagamentos eletrônicos do Mercado  Pago e que fazem ao menos 90% (noventa por cento) das vendas utilizando máquina  de mPOS (mobile point of sale) do Mercado Pago, chamada “Point”;",
-      "sha256": "c4e765ab94a8ff04cf3fefa6153d8ed9c4ba841cba982a0f9e0f6dfbfe804424",
-      "verification": "primary_passage"
-    },
-    "c2436eda8820a6fd3c9e0953e5a329c211bd98d975448c214073b89f58df4131": {
-      "document_id": "157110",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=157110",
-      "reference_date": "2021-02-15",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "CARACTERÍSTICAS E PARTES ENVOLVIDAS  Emitente: Mercado Credito Merchant Fundo de Investimento em Direitos Creditorios  CNPJ: 28.472.333/0001-32  Data de Registro: 15/12/2017  Condomínio: Fechado  Fundo Exclusivo: Não  Prazo de Funcionamento: Indeterminado  Principal Ativo: CCBs originadas da concessão de crédito parcelado pelas Instituições  Financeiras credenciadas aos Devedores, que serão pessoas físicas ou  jurídicas, micro ou pequenos comerciantes que utilizam a plataforma  eletrônica de pagamentos do Mercado Pago para viabilizar as suas respectivas  transações de pagamento.",
-      "sha256": "92465ca2802a917c79101632f9d30e76d26ce0542f647854c38f33e1a9f0a6d7",
-      "verification": "primary_passage"
-    },
-    "28bd383d31807d61fa612697ec42208fd1255c27841c0b5c367f4a4e427e1575": {
-      "document_id": "157108",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=157108",
-      "reference_date": "2020-10-23",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "CARACTERÍSTICAS E PARTES ENVOLVIDAS  Emitente: Mercado Credito Merchant Fundo de Investimento em Direitos Creditorios  CNPJ: 28.472.333/0001-32  Data de Registro: 15/12/2017  Condomínio: Fechado  Fundo Exclusivo: Não  Prazo de Funcionamento: Indeterminado  Principal Ativo: CCBs originadas da concessão de crédito parcelado pelas Instituições  Financeiras credenciadas aos Devedores, que serão pessoas físicas ou  jurídicas, micro ou pequenos comerciantes que utilizam a plataforma  eletrônica de pagamentos do Mercado Pago para viabilizar as suas respectivas  transações de pagamento.\n Taxa Mínima de Cessão: N/A  Concentração Máx. Cedente: N/A",
-      "sha256": "790529c777a5946ab5b895a88962cba790277c68ec87ebf5ee8cb47e565672c9",
-      "verification": "primary_passage"
-    },
-    "b954def518b1d65b7053814bf85fa50538a53b7a7d35b9288b4492c07be33494": {
-      "document_id": "448299",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448299",
-      "reference_date": "2023-04-19",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim entendidos  aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro e/ou pequenos  comerciantes que utilizam a plataforma de pagamentos eletrônicos do Mercado  Pago e que fazem ao menos 90% (noventa por cento) das vendas utilizando máquina  de mPOS (mobile point of sale) do Mercado Pago, chamada “Point”;",
-      "sha256": "d4df2dbd598ee4fea7d5e673b2c932c25e24e615d898603ccdc459417adf1893",
-      "verification": "primary_passage"
-    },
-    "5ade526d9964d26d62d407bbaa0dd5b1f813fa792e84175d6752d7f38d140156": {
-      "document_id": "135821",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=135821",
-      "reference_date": "2020-11-16",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "(h) O respectivo Devedor não deverá ser classificado como “Points”, assim  entendidos aqueles devedores pessoas físicas e/ou pessoas jurídicas, micro  e/ou pequenos comerciantes que utilizam a plataforma de pagamentos  eletrônicos do Mercado Pago e que fazem ao menos 90% (noventa por  cento) das vendas utilizando máquina de mPOS (mobile point of sale) do  Mercado Pago, chamada “Point”;",
-      "sha256": "b891ac874af9b2617aecafc4b5f2ab5381e7c1a6221a787ff4cb81191e7f13ae",
-      "verification": "primary_passage"
-    },
-    "38bc8696130cc9c06c58f800f6880bb6570236910d27cf2a47472108c3178053": {
-      "document_id": "643226",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=643226",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "Risco de não manutenção dos critérios de elegibilidade ou condições de cessão após a  data de aquisição e pagamento  Todos os criterios de elegibilidade, previstos no capítulo 3 no regulamento, serao verificados  pelo custodiante uma unica vez, exclusivamente em cada data de aquisiçao e pagamento, nos  termos deste regulamento e dos respectivos documentos de aquisiçao. Similarmente, as  24",
-      "sha256": "0d96c02b342600fe463b871fa9edd547fc9356a0758f1cedf4b9a0fbab3ba224",
-      "verification": "primary_passage"
-    },
-    "6f5f8ef230a6d78183f8573cbcec615d5aa9c60d3a55cc8c8810ba7abc77ef81": {
-      "document_id": "444985",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=444985",
-      "reference_date": "2023-04-13",
-      "version": "1",
-      "page": 11,
-      "clause": "2.11.1",
-      "excerpt": "2.11.1 Sem prejuízo do disposto acima e observada a cláusula 3.2 e  cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em  cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos  Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios  pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e  validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos  Creditórios às Condições de Cessão em cada operação de aquisição de Direitos  Creditórios pelo Fundo, observada a divisão das atribuições entre o Mercado  Pago e a Gestora prevista na cláusula 3.4 abaixo.",
-      "sha256": "c4e765ab94a8ff04cf3fefa6153d8ed9c4ba841cba982a0f9e0f6dfbfe804424",
-      "verification": "primary_passage"
-    },
     "36652adaaddc11ed64b264ca07f3c4685893f7eaf90dee759e3afa256b8dc981": {
       "document_id": "157110",
       "title": "Relatório de Agência de Rating",
@@ -2074,18 +1994,6 @@
       "clause": "",
       "excerpt": "FUNDAMENTOS DA CLASSIFICAÇÃO DE RISCO  As classificações estão fundamentadas no perfil de risco dos direitos creditórios que serão cedidos ao Mercado Crédito  Merchant FIDC, bem como sua estrutura de reforço de crédito em relação a subordinação mínima e critérios de  elegibilidade estipulados dos títulos recebíveis passíveis de aquisição. O Fundo foi estruturado para adquirir títulos  representados por Cédulas de Crédito Bancário (CCBs) que possuam como devedores os usuários comerciantes da  plataforma de comércio eletrônico Mercado Livre.",
       "sha256": "790529c777a5946ab5b895a88962cba790277c68ec87ebf5ee8cb47e565672c9",
-      "verification": "primary_passage"
-    },
-    "6e7e2358e805f52bab1ba395b7a25364a7f72722f976468332ac9fa69f038972": {
-      "document_id": "448299",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448299",
-      "reference_date": "2023-04-19",
-      "version": "1",
-      "page": 7,
-      "clause": "3.4",
-      "excerpt": "3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada  Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos  Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios  pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e  validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos  Creditórios às Condições de Cessão em cada operação de aquisição de Direitos  Creditórios pelo Fundo, observada a divisão das atribuições entre o Mercado  Pago e a Gestora prevista na cláusula 3.4 abaixo.",
-      "sha256": "d4df2dbd598ee4fea7d5e673b2c932c25e24e615d898603ccdc459417adf1893",
       "verification": "primary_passage"
     },
     "2c8fc5e8ccf564a8bbfc34d3d458b88ef7b6fd567699d4941f04811666fbc3b7": {
@@ -3836,6 +3744,180 @@
       "clause": "",
       "excerpt": "Aos Cotistas e ao Administrador do Mercado Crédito Merchant Fundo de Investimento em Direitos Creditórios Administrado pela Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. (“Administradora do Fundo”) São Paulo - SP",
       "sha256": "b363a89c5ed610ce240a2eb54b1b1f6ff7e2ca64f5bf3ed938540c51f77acad0",
+      "verification": "primary_passage"
+    },
+    "421bd4a34955328f832296c4bf1f68fb620cf133329749cfb0e3f73be7d251d6": {
+      "document_id": "643226",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=643226",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 19,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade:\na) Os créditos elegíveis devem ser originados de operações de crédito parcelado e  representados por CCBs validamente formalizadas;\n b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a 18",
+      "sha256": "0d96c02b342600fe463b871fa9edd547fc9356a0758f1cedf4b9a0fbab3ba224",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dc23ed94aee3a3690245289cb159f41a06ba4163824a65b3b0b2fba076b0e259": {
+      "document_id": "444985",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=444985",
+      "reference_date": "2023-04-13",
+      "version": "1",
+      "page": 44,
+      "clause": "15.1",
+      "excerpt": "15.1 São considerados Eventos de Avaliação:\n(a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo  mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50%  (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos  Creditórios;\n(b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no  prazo de 30 (trinta) dias;\n(c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o  Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições  de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem  limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido  adquiridos pelo Mercado Pago ou negociados no mercado secundário nos termos do  Contrato de Promessa de Aquisição de Recebíveis dentro de, no máximo, 10 (dez)  dias contados do recebimento pelo Mercado Pago de notificação da Administradora,  do Custodiante e/ou da Gestora neste sentido;\n(d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada da  respectiva classificação de risco inicialmente conferida às Cotas Seniores pela  Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais;\n(e) ocorrência de eventos que (i) afetem substancialmente ou impossibilitem (x) a  originação direta ou indireta de Direitos Creditórios pelo Mercado Pago e/ou pelas  Instituições Financeiras Parceiras, (y) o Endosso Eletrônico ou (z) a aquisição pelo  Fundo de Direitos Creditórios em montante suficiente para assegurar os níveis  mínimos de composição e diversificação da carteira do Fundo por 30 (trinta) dias  consecutivos; e/ou (ii) limitem a remuneração dos Direitos Creditórios Adquiridos  conforme prevista nos Documentos Comprobatórios;",
+      "sha256": "c4e765ab94a8ff04cf3fefa6153d8ed9c4ba841cba982a0f9e0f6dfbfe804424",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "337439eda8e836fe1bbcccf0ac1bc61f6d2131e1cee5579d02a4fa5845fb5d1b": {
+      "document_id": "565264",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=565264",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade:\na) Os créditos elegíveis devem ser originados de operações de crédito parcelado e  representados por CCBs validamente formalizadas;\n b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a  quaisquer parcelas dos direitos creditórios adquiridos; e\n c) Os direitos creditórios devem ser cedidos por instituições financeiras parceiras.",
+      "sha256": "b363a89c5ed610ce240a2eb54b1b1f6ff7e2ca64f5bf3ed938540c51f77acad0",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d8b5e18c5065c5b34b99fed666f65d2ab5c4e7e1acb40e7f1fb9961927550478": {
+      "document_id": "510926",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510926",
+      "reference_date": "2021-12-31",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "ii. Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade:\na) Os créditos elegíveis devem ser originados de operações de crédito parcelado e  representados por Cédulas de Crédito Bancário - CCBs validamente formalizadas;\n b) O respectivo devedor não deve estar inadimplente perante o Fundo com relação a  quaisquer parcelas dos direitos creditórios adquiridos; e\n c) Os direitos creditórios devem ser cedidos por instituições financeiras parceiras.",
+      "sha256": "875694126a256e60044af7f01961718d1301a0f10b04691aeea528977f61934a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5e6fe2517710fea61ca58af406eebd0e8b2574acfd3f804c198923ea0a0f2327": {
+      "document_id": "448299",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448299",
+      "reference_date": "2023-04-19",
+      "version": "1",
+      "page": 39,
+      "clause": "15.1",
+      "excerpt": "15.1 São considerados Eventos de Avaliação:\n(a) caso, após 90 (noventa) dias contados do início das suas atividades, o Fundo  mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50%  (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos  Creditórios;\n(b) o desenquadramento da Relação Mínima, sem que haja o seu restabelecimento no  prazo de 30 (trinta) dias;\n(c) a verificação de que os Direitos Creditórios Adquiridos foram endossados para o  Fundo em desacordo com qualquer dos Critérios de Elegibilidade e das Condições  de Cessão previstas neste Regulamento no momento de sua aquisição, incluindo, sem  limitação, a Lista de Exclusão, e que tais Direitos Creditórios não tenham sido  adquiridos pelo Mercado Pago ou negociados no mercado secundário nos termos do  Contrato de Promessa de Aquisição de Recebíveis dentro de, no máximo, 10 (dez)  dias contados do recebimento pelo Mercado Pago de notificação da Administradora,  do Custodiante e/ou da Gestora neste sentido;\n(d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada da  respectiva classificação de risco inicialmente conferida às Cotas Seniores pela  Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais;",
+      "sha256": "d4df2dbd598ee4fea7d5e673b2c932c25e24e615d898603ccdc459417adf1893",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c25c9f479a1ba880de177548594a10e0751acfd204d63d4947afb5496470e5c6": {
+      "document_id": "135821",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=135821",
+      "reference_date": "2020-11-16",
+      "version": "1",
+      "page": 45,
+      "clause": "",
+      "excerpt": "São considerados Eventos de Avaliação:\n(a) caso, após 90 (noventa) dias contados do início das suas atividades, o  Fundo mantiver, por período superior a 30 (trinta) dias consecutivos, menos  de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por  Direitos Creditórios;\n(b) o desenquadramento da Relação Mínima, sem que haja o seu  restabelecimento no prazo de 30 (trinta) dias;\n(c) a verificação de que os Direitos Creditórios Adquiridos foram endossados  para o Fundo em desacordo com qualquer dos Critérios de Elegibilidade e  das Condições de Cessão previstas neste Regulamento no momento de sua  aquisição, incluindo, sem limitação, a Lista de Exclusão, e que tais Direitos  Creditórios não tenham sido adquiridos pelo Mercado Pago ou negociados  no mercado secundário nos termos do Contrato de Promessa de Aquisição  de Recebíveis dentro de, no máximo, 10 (dez) dias contados do  recebimento pelo Mercado Pago de notificação da Administradora, do  Custodiante e/ou da Gestora neste sentido;\n(d) se aplicável, rebaixamento por Agência Classificadora de Risco Qualificada  da respectiva classificação de risco inicialmente conferida às Cotas Seniores  pela Agência Classificadora de Risco Qualificada, em 2 (dois) níveis ou mais;\n(e) ocorrência de eventos que (i) afetem substancialmente ou impossibilitem\n (x) a originação direta ou indireta de Direitos Creditórios pelo Mercado Pago  e/ou pelas Instituições Financeiras Parceiras, (y) o Endosso Eletrônico ou\n (z) a aquisição pelo Fundo de Direitos Creditórios em montante suficiente  para assegurar os níveis mínimos de composição e diversificação da carteira  do Fundo por 30 (trinta) dias consecutivos; e/ou (ii) limitem a remuneração",
+      "sha256": "b891ac874af9b2617aecafc4b5f2ab5381e7c1a6221a787ff4cb81191e7f13ae",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ec060a1e7522ea22bfbec5afdb1b54cac84ec741858c481d3f1f514b8afc31d8": {
+      "document_id": "643226",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=643226",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os direitos creditórios podem ser classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire  substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto  da operação, ensejando na baixa do direito creditório no registro contábil do cedente\n(ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não 15",
+      "sha256": "0d96c02b342600fe463b871fa9edd547fc9356a0758f1cedf4b9a0fbab3ba224",
+      "verification": "primary_passage"
+    },
+    "35dd49eed97fe2d8663c678bbd51de3761b79ac92f34266c96feac6ff25e1663": {
+      "document_id": "444985",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=444985",
+      "reference_date": "2023-04-13",
+      "version": "1",
+      "page": 98,
+      "clause": "",
+      "excerpt": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "sha256": "c4e765ab94a8ff04cf3fefa6153d8ed9c4ba841cba982a0f9e0f6dfbfe804424",
+      "verification": "primary_passage"
+    },
+    "d0e58f4a13904b572e28a1142dd5a35f10a8f58a79762209bf6d4760c7939c20": {
+      "document_id": "565264",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=565264",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "Os direitos creditórios podem ser classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire  substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto  da operação, ensejando na baixa do direito creditório no registro contábil do cedente\n(ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não  adquire substancialmente todos os riscos e benefícios de propriedade do direito  creditório objeto da operação, não ensejando na baixa do direito creditório no registro  contábil do cedente.",
+      "sha256": "b363a89c5ed610ce240a2eb54b1b1f6ff7e2ca64f5bf3ed938540c51f77acad0",
+      "verification": "primary_passage"
+    },
+    "e86bc6012132baa638aed7d20a6246dfcf53bcc87ef605933789e6b6eee9169c": {
+      "document_id": "510926",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=510926",
+      "reference_date": "2021-12-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "(ii) Vencido - Os direitos creditórios vencidos encontram-se registrados pelos valores  atualizados até a data dos respectivos vencimentos.\nOs direitos creditórios podem ser classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios – quando o Fundo adquire  substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto  da operação, ensejando na baixa do direito creditório no registro contábil do cedente\n(ii) Operação sem aquisição substancial de riscos e benefícios – quando o Fundo não  adquire substancialmente todos os riscos e benefícios de propriedade do direito  creditório objeto da operação, não ensejando na baixa do direito creditório no registro  contábil do cedente.",
+      "sha256": "875694126a256e60044af7f01961718d1301a0f10b04691aeea528977f61934a",
+      "verification": "primary_passage"
+    },
+    "a0053dccd04f580d41f8d998f65f7648beb384ef5859c0d452d720fae93856fe": {
+      "document_id": "157110",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=157110",
+      "reference_date": "2021-02-15",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "Mercado Crédito Merchant FIDC - 4T20  Taxa Mínima de Cessão: N/A  Concentração Máx. Cedente: N/A  Concentração Máx. Sacado: N/A  Concentração Máx. 10 Maiores Sacados: 5% do PL  Administrador: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda.\n Gestor: Captalys Gestão Ltda.\n Custodiante: Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda.",
+      "sha256": "92465ca2802a917c79101632f9d30e76d26ce0542f647854c38f33e1a9f0a6d7",
+      "verification": "primary_passage"
+    },
+    "6c6212df293ab202224e31bd60d4ced0c2872a066198f9bf12e30cf484683802": {
+      "document_id": "135822",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=135822",
+      "reference_date": "2020-11-06",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "Minuta de contrato de aquisição e endosso de direitos e obrigações e outras avenças a ser  firmado entre MERCADOPAGO.COM REPRESENTAÇÕES LTDA., na qualidade de Endossatário e Correspondente Bancário, MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, na qualidade de Endossante, representado por VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORS MOBILIÁRIOS LTDA., na qualidade  de Administradora, e, como interveniente anuente, CAPTALYS GESTÃO LTDA., na  qualidade de Gestora.",
+      "sha256": "f524d08bbd114757d2fce0368f928ba3ea33b6b25502b9b0ab85fd9abfa57510",
+      "verification": "primary_passage"
+    },
+    "2a122235316abbf77652f027b1dc08d372bc45396185eea914aae1d9d367f305": {
+      "document_id": "448299",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448299",
+      "reference_date": "2023-04-19",
+      "version": "1",
+      "page": 92,
+      "clause": "",
+      "excerpt": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "sha256": "d4df2dbd598ee4fea7d5e673b2c932c25e24e615d898603ccdc459417adf1893",
+      "verification": "primary_passage"
+    },
+    "4e736cba72bcd337de3febe842e98674f19b280bac09ffc56c292450db64de9f": {
+      "document_id": "135821",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=135821",
+      "reference_date": "2020-11-16",
+      "version": "1",
+      "page": 108,
+      "clause": "",
+      "excerpt": "- Janela de Análise: Enquanto não existir tal histórico no Fundo, será considerado o histórico existente e apresentado pelo Cedente e/ou Agente de Cobrança com relação aos Direitos Creditórios, cedidos ou não ao Fundo, originados pelo Cedente e cobrados pelo Agente de Cobrança no respectivo período de análise.",
+      "sha256": "b891ac874af9b2617aecafc4b5f2ab5381e7c1a6221a787ff4cb81191e7f13ae",
       "verification": "primary_passage"
     }
   }

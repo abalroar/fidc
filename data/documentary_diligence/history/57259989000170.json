@@ -3,17 +3,6 @@
   "cnpj": "57259989000170",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "faa35b5cb380f9d4a51a2ed2e67f796191c53bd83fd767bbdd8492dda0e6251b",
-      "6f5680c1f7743e1c6422894b7222b1e46b7d11bf1e92d12cd157325ffd5056ff",
-      "11c5cb553308b4bc40c3b37d2392533f25bcefaaf54ec43ac78c6bbd8c5120ed",
-      "e893fb1bc793625ddae45ae47ad7a75aa64e3031f64e36919f59e6d59618c84a",
-      "ccb21d8f8b145e95b426cb896e5a646b81d7f680332eac36a7ef1aaa056dfc28",
-      "7c4dc31ed4035110d0f7bb61b0df1e507cd26afff7c01334fda047305a6b0cda",
-      "d1db837f20de0c24e3d6d9f64013bda8c026826e75008ca4659c4e73b230e64a",
-      "dd5e1fcaef421eda9a0e46011c88f824d5d784e62fb32be3bc1d35d9383cd818",
-      "ad3412cf1c34c8fcecd4430801655b653e4781ae8d8d2d8235d971e782ff5302"
-    ],
     "term": [
       "dd3a270a8285c7a92ee60e2eb03fb8b4291e8eb90d693ecf11cd4fff968085a4",
       "185ed3e0989518c461b18def275716a891ac918b1cbe1c69c1a8d80b20b39220",
@@ -437,25 +426,6 @@
       "c2847eae3b34d509cfdfbc29983e069bb7dd18c59d618d79c18c831a2855fafa",
       "f168cbdac25b0f92eb578a03f02fcb8915ce2bfd0909bd2eec0f7ea41645303d"
     ],
-    "originator": [
-      "83707e13a52527458c42e095c75de156390c85ee09d85bc7f827ab20d49f50c5",
-      "8f93e4af3b625f82798ea5d0c0ee1c2788b741f5e7a4224a369f220ad446e360",
-      "a533ed352488118aed6d8981ec14f1bf631456f3c52f019cad1c309cf3e9acad",
-      "c2aa4e5d8e65105e79e50b25a66a66fd6bd47cf42cb0133ff7f0a14b15494752",
-      "ee260f14ec27284fd141b00e42824d19c7da3c80da309015a04a23506b0351d4",
-      "0d8983e5b51fdc576a94de3ad10d49442a6a92dc3e2efe2f882bf6d348504a1f",
-      "cfc6353b4663c1ef48816c42e8cbe9353e2f98a039a829768c2d8819645c4c03",
-      "9e68402257523e4acf88891fb66a6e5990bd640787f8a8b09cbe55c11aa32efa"
-    ],
-    "debtor": [
-      "6ebdd2dc1600f79ee3eb78d61dd435ec43160228fec7613734d167b0a2c83021",
-      "17c98b1e8fd9f8871ae02d2294d5433577f50de671e8c9453f3a60a1a16e75e8",
-      "3b23e046675f5b2bb451bd3aac987358532dce35464cc6b852c87005092a28eb",
-      "c2de7768331c6d9ec9490b60d0080950c21a8a378600dee61361afcaec1fd401",
-      "07d60448ea58183bc5345e4cc0aacb8c75ed7f779479edb467f55053c0ed6fe7",
-      "ac5a6d887e0b5429fa018ba1ca0e2ffadd359e87d5841c8c43dd56ffa1f3c79c",
-      "cc8aa174b51dfaf5ab81ebbd9aaf992e839d9e546685d93aee09a84c890a3756"
-    ],
     "investee": [
       "8091316d761d44dcf8618468bf38b6e4e4abcfd375117e4e2d3bd4aae56ad1c2"
     ],
@@ -506,6 +476,28 @@
       "6bc35dc7da1c38056c8b1ea7572947d9b8f4b7145a229e40e1fea4dc07f464d6",
       "8d7d5544c0d8ada0d27a3abbffba0b44310c2a7c55f6aa9786712c7a4036f7f5",
       "5b8d37b5c86e4fae640335c92274e9d27cf7af0efd02e9e6f78518fe02aa1a19"
+    ],
+    "originator": [
+      "83707e13a52527458c42e095c75de156390c85ee09d85bc7f827ab20d49f50c5",
+      "8f93e4af3b625f82798ea5d0c0ee1c2788b741f5e7a4224a369f220ad446e360",
+      "a533ed352488118aed6d8981ec14f1bf631456f3c52f019cad1c309cf3e9acad",
+      "c2aa4e5d8e65105e79e50b25a66a66fd6bd47cf42cb0133ff7f0a14b15494752",
+      "ee260f14ec27284fd141b00e42824d19c7da3c80da309015a04a23506b0351d4",
+      "0d8983e5b51fdc576a94de3ad10d49442a6a92dc3e2efe2f882bf6d348504a1f",
+      "cfc6353b4663c1ef48816c42e8cbe9353e2f98a039a829768c2d8819645c4c03",
+      "9e68402257523e4acf88891fb66a6e5990bd640787f8a8b09cbe55c11aa32efa"
+    ],
+    "eligibility": [
+      "4b7889c6299ece24e2f63f670700a43fa435072374d68f337743cf66c048ac47",
+      "ff54a51b33babbe2df01273d5bada59c1d3ad42f4cdd93b5c97777611ab90a1c",
+      "de6448fb382f3e76f5b9d9023abe83e802f283071da054629f8a2b4fb6a236a5",
+      "e5d657c18dd8024b28713d2146ece6c02b8958c0f45cafdddf9f984679efa225",
+      "9ec2e7ad1c835d88175ebf375ac407c220ad92267c3b09f61bfaa21688443a4e",
+      "b3ec27fd63b34e7455534e71a533454a9c0d555ce5d0f8bb46dc60c30fedbe3d",
+      "118a9b8777590d225b60ba1adce6c22b2f61e5506c05f0000d3a337e3beaaef5",
+      "d09b080cb9af283c3362b0b6bd94db7592259714a98acbf3e8688895df8da199",
+      "5b8e459960a4cffa1ac6ee143d1d523043f2ef8243cb6ddc75fd0022ba0cd549",
+      "c4e923ea5195b8e1fc6716f599781d3b791760d1ea22b5f46e3fbd7e5772dc87"
     ]
   },
   "entries": {
@@ -671,69 +663,6 @@
         "a9d4d4888bbec25feacb3e2d89a667e17134dabc0553d8fe6b913198b34a7320"
       ]
     },
-    "6ebdd2dc1600f79ee3eb78d61dd435ec43160228fec7613734d167b0a2c83021": {
-      "reference_date": "2026-06-10",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas, ou em relação a pessoas físicas, parentes de primeiro e segundo grau. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "82632463cf76567022f5b470c530d2c30f6f008a7224258b7093376d09c03c32"
-      ]
-    },
-    "17c98b1e8fd9f8871ae02d2294d5433577f50de671e8c9453f3a60a1a16e75e8": {
-      "reference_date": "2025-10-16",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas, ou em relação a pessoas físicas, parentes de primeiro e segundo grau. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7c725de11cab33feab2ba6b11b48784d2e81275c69427e32bc4cdfcca3852992"
-      ]
-    },
-    "3b23e046675f5b2bb451bd3aac987358532dce35464cc6b852c87005092a28eb": {
-      "reference_date": "2025-06-26",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas, ou em relação a pessoas físicas, parentes de primeiro e segundo grau. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fd3aedbd2b3b360cd2c0bec8c64943e04e7fc7ce42bd8c3f76494cd9a51371e9"
-      ]
-    },
-    "c2de7768331c6d9ec9490b60d0080950c21a8a378600dee61361afcaec1fd401": {
-      "reference_date": "2025-01-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7a2f463ad840a5ce54c6d80e8f5eb400e5d6f73d3ca2a21a541674ed24c31517"
-      ]
-    },
-    "07d60448ea58183bc5345e4cc0aacb8c75ed7f779479edb467f55053c0ed6fe7": {
-      "reference_date": "2024-10-29",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas, ou em relação a pessoas físicas, parentes de primeiro e segundo grau. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "269bf12416f470e268f3d9aab3cdec78da569e9be90c5a84e4b8927123c8d03e"
-      ]
-    },
-    "ac5a6d887e0b5429fa018ba1ca0e2ffadd359e87d5841c8c43dd56ffa1f3c79c": {
-      "reference_date": "2024-10-29",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas, ou em relação a pessoas físicas, parentes de primeiro e segundo grau. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a6f748325465901481c4b33b6f9fe7a2f4975e980d0a348a7dab8bce655e326d"
-      ]
-    },
-    "cc8aa174b51dfaf5ab81ebbd9aaf992e839d9e546685d93aee09a84c890a3756": {
-      "reference_date": "2024-10-22",
-      "value": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por Controladores e Controladas. Os Grupos Econômicos serão informados pelas Cedentes ao Agente de Formalização, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer alteração na lista de Grupos Econômicos deverá ser informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2d404cc61d3bb1f94aa7be70218bed339937de70f571d03654b68e33f2c8aa28"
-      ]
-    },
     "faa35b5cb380f9d4a51a2ed2e67f796191c53bd83fd767bbdd8492dda0e6251b": {
       "reference_date": "2025-10-15",
       "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo Gestor, até a data de aquisição: (i) Os direitos creditórios deverão ter data de vencimento de, pelo menos, 30 dias anteriores à última data de resgate das cotas de subclasse sênior em circulação;.",
@@ -750,69 +679,6 @@
       "provenance": "primary_passage",
       "sources": [
         "824b6b61f6a52cd043189c8250c76ea204290131776d95894521deba90f35e77"
-      ]
-    },
-    "11c5cb553308b4bc40c3b37d2392533f25bcefaaf54ec43ac78c6bbd8c5120ed": {
-      "reference_date": "2026-06-10",
-      "value": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a201b15b2e80e24e25daad3423ed6c6ec82691b7b295b4cfe85233c876891052"
-      ]
-    },
-    "e893fb1bc793625ddae45ae47ad7a75aa64e3031f64e36919f59e6d59618c84a": {
-      "reference_date": "2025-10-16",
-      "value": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ac3d0b7c5a12f56c16669e4e4783b4e361e1a2b948817de0ebd8ff3e32bd365b"
-      ]
-    },
-    "ccb21d8f8b145e95b426cb896e5a646b81d7f680332eac36a7ef1aaa056dfc28": {
-      "reference_date": "2025-06-26",
-      "value": "(x) aprovar a emissão de uma ou mais séries de Cotas Seniores, de novas classes 80% (oitenta por de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em hipóteses expressamente previstas no circulação presente Anexo Descritivo); 80% (oitenta por cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade, 2/3 das Cotas em 2/3 das Cotas em das Cotas as Condições de Cessão e a Política de circulação circulação Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b3f9ccb56f6ed7796d125464d206fea2d3444c8da3122dc01232c13a0ded76af"
-      ]
-    },
-    "7c4dc31ed4035110d0f7bb61b0df1e507cd26afff7c01334fda047305a6b0cda": {
-      "reference_date": "2025-01-28",
-      "value": "6.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "05e425818ca3a2377178b923e7499f2a93bbb8a3d3d01e8284cbb0f0cfb0f49f"
-      ]
-    },
-    "d1db837f20de0c24e3d6d9f64013bda8c026826e75008ca4659c4e73b230e64a": {
-      "reference_date": "2024-10-29",
-      "value": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "312bc04f091f0aecc1c161cbb46b38fe342ad2117ce763faa5e013767cf0205d"
-      ]
-    },
-    "dd5e1fcaef421eda9a0e46011c88f824d5d784e62fb32be3bc1d35d9383cd818": {
-      "reference_date": "2024-10-29",
-      "value": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7b86e695620c0bd1d14f86d8ecbf2b5f3ccd1a3015575b37687612d299d76d76"
-      ]
-    },
-    "ad3412cf1c34c8fcecd4430801655b653e4781ae8d8d2d8235d971e782ff5302": {
-      "reference_date": "2024-10-22",
-      "value": "(x) aprovar a emissão de uma ou mais séries de Cotas Seniores, de novas classes 80% (oitenta por de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em hipóteses expressamente previstas no circulação presente Anexo Descritivo); 80% (oitenta por cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade, 2/3 das Cotas em 2/3 das Cotas em das Cotas as Condições de Cessão e a Política de circulação circulação Subordinadas Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6905366440585197d84524d3607af5c180a1f0fdd7d6304fae86ada217bd98e5"
       ]
     },
     "dd3a270a8285c7a92ee60e2eb03fb8b4291e8eb90d693ecf11cd4fff968085a4": {
@@ -3906,6 +3772,96 @@
       "sources": [
         "dbcf9cd24fcbeb94efcd63e6233eeb06ce0fa1010593933821c39de34b0b3d18"
       ]
+    },
+    "4b7889c6299ece24e2f63f670700a43fa435072374d68f337743cf66c048ac47": {
+      "reference_date": "2025-10-15",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo Gestor, até a data de aquisição: (i) Os direitos creditórios deverão ter data de vencimento de, pelo menos, 30 dias anteriores à última data de resgate das cotas de subclasse sênior em circulação; (ii) Os direitos creditórios deverão ter prazo máximo de vencimento de até 365 dias com base na data de aquisição; (iii) Os direitos creditórios deverão ter prazo mínimo de vencimento de 10 dias; (iv) Considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos de um mesmo devedor (considerado em conjunto com as demais integrantes do seu grupo econômico), devem estar limitados a 3% do patrimônio líquido do Fundo, sendo certo que, até o dia 30 de novembro de 2024, será considerado como patrimônio líquido, o maior entre: (i) R$200.000; ou (ii) o patrimônio líquido do Fundo; (v) Os devedores (considerando individualmente ou em conjunto com as demais integrantes do seu grupo econômico) não poderão estar inadimplentes em relação ao Fundo na data de aquisição; (vi) A aquisição de direito creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual a, ou inferior a 20%; (vii) Considerando-se proforma a aquisição pretendida, os direitos creditórios devidos por devedores do Estado do Mato Grosso deverão representar até 50% do patrimônio líquido; (viii) Considerando-se proforma a aquisição pretendida, os direitos creditórios originados pela TentosCap deverão representar até 30% do patrimônio líquido. e) Composição da carteira Os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte forma:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "af3738a4c7c79023811c375e504487cad3177a0ff297996f1ddf2029231977e7"
+      ]
+    },
+    "ff54a51b33babbe2df01273d5bada59c1d3ad42f4cdd93b5c97777611ab90a1c": {
+      "reference_date": "2025-09-30",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo Gestor, até a data de aquisição: (i) Os direitos creditórios deverão ter data de vencimento de, pelo menos, 30 dias anteriores à última data de resgate das cotas de subclasse sênior em circulação; (ii) Os direitos creditórios deverão ter prazo máximo de vencimento de até 365 dias com base na data de aquisição; (iii) Os direitos creditórios deverão ter prazo mínimo de vencimento de 10 dias; (iv) Considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos de um mesmo devedor (considerado em conjunto com as demais integrantes do seu grupo econômico), devem estar limitados a 3% do patrimônio líquido do Fundo, sendo certo que, até o dia 30 de novembro de 2024, será considerado como patrimônio líquido, o maior entre: (i) R$200.000; ou (ii) o patrimônio líquido do Fundo; (v) Os devedores (considerando individualmente ou em conjunto com as demais integrantes do seu grupo econômico) não poderão estar inadimplentes em relação ao Fundo na data de aquisição; (vi) A aquisição de direito creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual a, ou inferior a 20%; (vii) Considerando-se proforma a aquisição pretendida, os direitos creditórios devidos por devedores do Estado do Mato Grosso deverão representar até 50% do patrimônio líquido; (viii) Considerando-se proforma a aquisição pretendida, os direitos creditórios originados pela TentosCap deverão representar até 30% do patrimônio líquido. e) Composição da carteira Os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte forma:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "60c56f40258c753c74b1c169c1d43ccadad38437a65c61870c80056f2e5725e5"
+      ]
+    },
+    "de6448fb382f3e76f5b9d9023abe83e802f283071da054629f8a2b4fb6a236a5": {
+      "reference_date": "2026-06-10",
+      "value": "Critérios de Elegibilidade Validação (i) DIREITOS CREDITÓRIOS (PRAZO) Os Direitos Creditórios deverão GESTOR COM BASE NAS ter data de vencimento de, pelo INFORMAÇÕES DO AGENTE menos, 30 (trinta) dias anteriores DE FORMALIZAÇÃO à última Data de Resgate das Cotas Seniores em circulação; (ii) DIREITOS CREDITÓRIOS (PRAZO) Os Direitos Creditórios deverão GESTOR COM BASE NAS ter prazo máximo de vencimento INFORMAÇÕES DO AGENTE de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição; (iii) DIREITOS CREDITÓRIOS (PRAZO MÍNIMO) GESTOR COM BASE NAS Os Direitos Creditórios deverão INFORMAÇÕES DO AGENTE ter prazo mínimo de vencimento DE FORMALIZAÇÃO de 10 (dez) dias; (iv) DEVEDORES (CONCENTRAÇÃO) Considerando-se pro forma a aquisição pretendida, o valor de GESTOR COM BASE NAS face dos Direitos Creditórios INFORMAÇÕES DO AGENTE devidos de um mesmo Devedor DE FORMALIZAÇÃO, (considerado em conjunto com as CUSTODIANTE e CEDENTE demais integrantes do seu Grupo Econômico), devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "16f78078fac45244e82b020de2ca6b256167e5f44e3a57bf6d9505452267a805"
+      ]
+    },
+    "e5d657c18dd8024b28713d2146ece6c02b8958c0f45cafdddf9f984679efa225": {
+      "reference_date": "2025-10-16",
+      "value": "4.12. Exclusivamente para fins de apuração de Critérios de Elegibilidade e Condições de Cessão, até dia 30 de novembro de 2025, será considerado como Patrimônio Líquido o valor de (i) $345.000.000,00 (trezentos e quarenta e cinco milhões de reais); ou (ii) o Patrimônio Líquido atual do Fundo, dos dois o maior.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "468f5474b25a605b22ca050052e640f27af5a2de51247b739f4ccc1dc0e1b18b"
+      ]
+    },
+    "9ec2e7ad1c835d88175ebf375ac407c220ad92267c3b09f61bfaa21688443a4e": {
+      "reference_date": "2025-06-26",
+      "value": "(vi) deliberar sobre a emissão de novas Cotas da Classe, exceto até o limite do 80% (oitenta por Capital Autorizado, hipótese na qual deve 2/3 das Cotas em 2/3 das Cotas em cento) mais um das definir se os Cotistas possuirão direito de circulação circulação Cotas Seniores em preferência na subscrição das novas circulação cotas, sem prejuízo do disposto no art. 48, § 2º, inciso VII da Resolução 175/22; 80% (oitenta por (vii) deliberar sobre o pedido de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das declaração judicial de insolvência da circulação circulação Cotas Seniores em Classe; circulação 80% (oitenta por (viii) deliberar sobre o plano de resolução 2/3 das Cotas em 2/3 das Cotas em cento) mais um das de Patrimônio Líquido negativo; circulação circulação Cotas Seniores em circulação (ix) aprovar os procedimentos a serem 80% (oitenta por adotados para o resgate das Cotas 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Seniores mediante dação em pagamento circulação circulação Cotas Seniores em de Direitos Creditórios Cedidos e Ativos circulação Financeiros; (x) aprovar a emissão de uma ou mais séries de Cotas Seniores, de novas classes 80% (oitenta por de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em hipóteses expressamente previstas no circulação presente Anexo Descritivo); 80% (oitenta por cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade, 2/3 das Cotas em 2/3 das Cotas em das Cotas as Condições de Cessão e a Política de circulação circulação Subordinadas Investimento; Mezanino e maioria das Cotas Subordinadas Júnior maioria das Cotas maioria das Cotas (xii) deliberar sobre a substituição do Seniores em Seniores em não aplicável Agente de Cobrança; Circulação Circulação",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b3f9ccb56f6ed7796d125464d206fea2d3444c8da3122dc01232c13a0ded76af"
+      ]
+    },
+    "b3ec27fd63b34e7455534e71a533454a9c0d555ce5d0f8bb46dc60c30fedbe3d": {
+      "reference_date": "2025-01-28",
+      "value": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE LIMITADA _________________________________________________________________ 4 1.DEFINIÇÕES ______________________________________________________________ 4 2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO, COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22 3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24 4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO ___________________________________________________________________________ 27 5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA ________________________________________________________________ 33 6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35 7.ASSEMBLEIAS ESPECIAIS ___________________________________________________________________________ 41 8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO EXTRAORDINÁRIA ________________________________________________________ 48 10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS _____________________________________________________________ 55 11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA ___________________________________________________________________________ 56 12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA ___________________________________________________________________________ 65 13.FATORES DE RISCO",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "62adf6a1978b3da891a47268876c1a4edc19bed9c6c1ff7d7f1773b0f7452805"
+      ]
+    },
+    "118a9b8777590d225b60ba1adce6c22b2f61e5506c05f0000d3a337e3beaaef5": {
+      "reference_date": "2024-10-29",
+      "value": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE LIMITADA _________________________________________________________________ 4 1.DEFINIÇÕES ______________________________________________________________ 4 2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO, COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22 3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24 4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO ___________________________________________________________________________ 27 5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA ________________________________________________________________ 33 6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35 7.ASSEMBLEIAS ESPECIAIS ___________________________________________________________________________ 41 8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO EXTRAORDINÁRIA ________________________________________________________ 48 10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS _____________________________________________________________ 55 11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA ___________________________________________________________________________ 56 12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA ___________________________________________________________________________ 65 13.FATORES DE RISCO",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f60e47e8c470ae7c9f5fcf42d748bec137f257b8164a43cdb023aac5f9faeccc"
+      ]
+    },
+    "d09b080cb9af283c3362b0b6bd94db7592259714a98acbf3e8688895df8da199": {
+      "reference_date": "2024-10-29",
+      "value": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE LIMITADA _________________________________________________________________ 4 1.DEFINIÇÕES ______________________________________________________________ 4 2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO, COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22 3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24 4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO ___________________________________________________________________________ 27 5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA ________________________________________________________________ 33 6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35 7.ASSEMBLEIAS ESPECIAIS ___________________________________________________________________________ 41 8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO EXTRAORDINÁRIA ________________________________________________________ 48 10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS _____________________________________________________________ 55 11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA ___________________________________________________________________________ 56 12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA ___________________________________________________________________________ 65 13.FATORES DE RISCO",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4ab9eedc12dc63395d17532de98fe0236d3b26e5d32aa5c7348f339a22d705dc"
+      ]
+    },
+    "5b8e459960a4cffa1ac6ee143d1d523043f2ef8243cb6ddc75fd0022ba0cd549": {
+      "reference_date": "2024-10-22",
+      "value": "(vii) deliberar sobre o pedido de Cotas Seniores em declaração judicial de insolvência da circulação Classe; 80% (oitenta por (viii) deliberar sobre o plano de resolução 2/3 das Cotas em 2/3 das Cotas em cento) mais um das de Patrimônio Líquido negativo; circulação circulação Cotas Seniores em circulação (ix) aprovar os procedimentos a serem 80% (oitenta por adotados para o resgate das Cotas 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Seniores mediante dação em pagamento circulação circulação Cotas Seniores em de Direitos Creditórios Cedidos e Ativos circulação Financeiros; (x) aprovar a emissão de uma ou mais séries de Cotas Seniores, de novas classes 80% (oitenta por de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em hipóteses expressamente previstas no circulação presente Anexo Descritivo); 80% (oitenta por cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade, 2/3 das Cotas em 2/3 das Cotas em das Cotas as Condições de Cessão e a Política de circulação circulação Subordinadas Investimento; Mezanino e maioria das Cotas Subordinadas Júnior maioria das Cotas maioria das Cotas (xii) deliberar sobre a substituição do Seniores em Seniores em não aplicável Agente de Cobrança; Circulação Circulação (xiii) deliberar sobre a substituição de 80% (oitenta por qualquer outro prestador de serviços da cento) mais um das Classe, com exceção do Agente de Cotas Seniores em Cobrança, cuja substituição será 2/3 das Cotas em 2/3 das Cotas em circulação, maioria deliberada nos termos do item (xii) circulação circulação das Cotas acima, e do Auditor Independente, o qual Subordinadas poderá ser substituído em conformidade Mezanino e com as políticas internas do maioria das Cotas Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6905366440585197d84524d3607af5c180a1f0fdd7d6304fae86ada217bd98e5"
+      ]
+    },
+    "c4e923ea5195b8e1fc6716f599781d3b791760d1ea22b5f46e3fbd7e5772dc87": {
+      "reference_date": "2024-10-22",
+      "value": "(vii) deliberar sobre o pedido de Cotas Seniores em declaração judicial de insolvência da circulação Classe; 80% (oitenta por (viii) deliberar sobre o plano de resolução 2/3 das Cotas em 2/3 das Cotas em cento) mais um das de Patrimônio Líquido negativo; circulação circulação Cotas Seniores em circulação (ix) aprovar os procedimentos a serem 80% (oitenta por adotados para o resgate das Cotas 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Seniores mediante dação em pagamento circulação circulação Cotas Seniores em de Direitos Creditórios Cedidos e Ativos circulação Financeiros; (x) aprovar a emissão de uma ou mais séries de Cotas Seniores, de novas classes 80% (oitenta por de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em hipóteses expressamente previstas no circulação presente Anexo Descritivo); 80% (oitenta por cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade, 2/3 das Cotas em 2/3 das Cotas em das Cotas as Condições de Cessão e a Política de circulação circulação Subordinadas Investimento; Mezanino e maioria das Cotas Subordinadas Júnior maioria das Cotas maioria das Cotas (xii) deliberar sobre a substituição do Seniores em Seniores em não aplicável Agente de Cobrança; Circulação Circulação (xiii) deliberar sobre a substituição de 80% (oitenta por qualquer outro prestador de serviços da cento) mais um das Classe, com exceção do Agente de Cotas Seniores em Cobrança, cuja substituição será 2/3 das Cotas em 2/3 das Cotas em circulação, maioria deliberada nos termos do item (xii) circulação circulação das Cotas acima, e do Auditor Independente, o qual Subordinadas poderá ser substituído em conformidade Mezanino e com as políticas internas do maioria das Cotas Administrador;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "52adac27ba28f9c385e0c7064d4e3bc5f0cc8ab1d342646b07ff2b7e1cea21d7"
+      ]
     }
   },
   "passages": {
@@ -4137,90 +4093,6 @@
       "sha256": "607d8e3aa3cb98e31433580781b8546442e053b5f1fb02d4f503e4bdf331507e",
       "verification": "primary_passage"
     },
-    "82632463cf76567022f5b470c530d2c30f6f008a7224258b7093376d09c03c32": {
-      "document_id": "1239756",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239756",
-      "reference_date": "2026-06-10",
-      "version": "1",
-      "page": 58,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que  qualquer alteração na lista de Grupos Econômicos deverá ser  informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis  de antecedência.",
-      "sha256": "cf2c2d8cf1bf0bf6e24fc7adc889120096c194b45515c6cb68f93ca4881e9070",
-      "verification": "primary_passage"
-    },
-    "7c725de11cab33feab2ba6b11b48784d2e81275c69427e32bc4cdfcca3852992": {
-      "document_id": "1016583",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
-      "reference_date": "2025-10-16",
-      "version": "1",
-      "page": 58,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que  qualquer alteração na lista de Grupos Econômicos deverá ser  informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis  de antecedência.",
-      "sha256": "ee49bb50f7565b11c22ce8864285afb42835d2ac7b21590174ccbad961f9a7b9",
-      "verification": "primary_passage"
-    },
-    "fd3aedbd2b3b360cd2c0bec8c64943e04e7fc7ce42bd8c3f76494cd9a51371e9": {
-      "document_id": "941458",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=941458",
-      "reference_date": "2025-06-26",
-      "version": "1",
-      "page": 61,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que  qualquer alteração na lista de Grupos Econômicos deverá ser  informada ao Custodiante com, no mínimo, 2 (dois) Dias Úteis  de antecedência.",
-      "sha256": "6bb3ac0c4df61a29098e1bb1160614b751b48c2de2f069b44953aeccd3a8c36b",
-      "verification": "primary_passage"
-    },
-    "7a2f463ad840a5ce54c6d80e8f5eb400e5d6f73d3ca2a21a541674ed24c31517": {
-      "document_id": "830200",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
-      "reference_date": "2025-01-28",
-      "version": "1",
-      "page": 61,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser informada ao  Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.\n [NOTA VBSO: AJUSTE CONFORME DISCUSSÃO NO ÂMBITO DO  CONTRATO DE COBRANÇA.]",
-      "sha256": "60553912737409ca47e04326c10deb7f30d2a6e198b19335cd3b9fe53674cd23",
-      "verification": "primary_passage"
-    },
-    "269bf12416f470e268f3d9aab3cdec78da569e9be90c5a84e4b8927123c8d03e": {
-      "document_id": "767377",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
-      "reference_date": "2024-10-29",
-      "version": "1",
-      "page": 70,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser informada ao  Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
-      "verification": "primary_passage"
-    },
-    "a6f748325465901481c4b33b6f9fe7a2f4975e980d0a348a7dab8bce655e326d": {
-      "document_id": "767378",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767378",
-      "reference_date": "2024-10-29",
-      "version": "1",
-      "page": 70,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas, ou em relação a pessoas físicas,  parentes de primeiro e segundo grau. Os Grupos Econômicos  serão informados pelas Cedentes ao Agente de Formalização,  sendo atualizados esporadicamente caso haja qualquer alteração  dos Grupos Econômicos das Cedentes e/ou dos Devedores,  conforme o caso, nesta hipótese sempre antes da realização de  nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser informada ao  Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
-      "verification": "primary_passage"
-    },
-    "2d404cc61d3bb1f94aa7be70218bed339937de70f571d03654b68e33f2c8aa28": {
-      "document_id": "762901",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762901",
-      "reference_date": "2024-10-22",
-      "version": "1",
-      "page": 71,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por  Controladores e Controladas. Os Grupos Econômicos serão  informados pelas Cedentes ao Agente de Formalização, sendo  atualizados esporadicamente caso haja qualquer alteração dos  Grupos Econômicos das Cedentes e/ou dos Devedores, conforme  o caso, nesta hipótese sempre antes da realização de nova oferta  de Direitos Creditórios ao Fundo, sendo que qualquer alteração  na lista de Grupos Econômicos deverá ser informada ao  Custodiante com, no mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "sha256": "607d8e3aa3cb98e31433580781b8546442e053b5f1fb02d4f503e4bdf331507e",
-      "verification": "primary_passage"
-    },
     "0e63390d57040199126278efb7a940dbfc1484c3c939440847aa3ba5391fbf85": {
       "document_id": "1070945",
       "title": "Outros Comunicados Não Considerados Fatos Relevantes",
@@ -4245,30 +4117,6 @@
       "sha256": "55386a7ff4e20bb6a8efbfa691e8d33934073995272380f9ff474eb1ac90bd32",
       "verification": "primary_passage"
     },
-    "a201b15b2e80e24e25daad3423ed6c6ec82691b7b295b4cfe85233c876891052": {
-      "document_id": "1239756",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239756",
-      "reference_date": "2026-06-10",
-      "version": "1",
-      "page": 67,
-      "clause": "3.4",
-      "excerpt": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política  de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão,  verificados em cada respectiva Data de Aquisição.",
-      "sha256": "cf2c2d8cf1bf0bf6e24fc7adc889120096c194b45515c6cb68f93ca4881e9070",
-      "verification": "primary_passage"
-    },
-    "ac3d0b7c5a12f56c16669e4e4783b4e361e1a2b948817de0ebd8ff3e32bd365b": {
-      "document_id": "1016583",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
-      "reference_date": "2025-10-16",
-      "version": "1",
-      "page": 67,
-      "clause": "3.4",
-      "excerpt": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política  de Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão,  verificados em cada respectiva Data de Aquisição.",
-      "sha256": "ee49bb50f7565b11c22ce8864285afb42835d2ac7b21590174ccbad961f9a7b9",
-      "verification": "primary_passage"
-    },
     "b3f9ccb56f6ed7796d125464d206fea2d3444c8da3122dc01232c13a0ded76af": {
       "document_id": "941458",
       "title": "Regulamento",
@@ -4279,42 +4127,6 @@
       "clause": "",
       "excerpt": "(vi) deliberar sobre a emissão de novas  Cotas da Classe, exceto até o limite do  80% (oitenta por  Capital Autorizado, hipótese na qual deve  2/3 das Cotas em 2/3 das Cotas em cento) mais um das  definir se os Cotistas possuirão direito de  circulação circulação Cotas Seniores em  preferência na subscrição das novas  circulação  cotas, sem prejuízo do disposto no art. 48,  § 2º, inciso VII da Resolução 175/22;\n 80% (oitenta por\n (vii) deliberar sobre o pedido de  2/3 das Cotas em 2/3 das Cotas em cento) mais um das  declaração judicial de insolvência da  circulação circulação Cotas Seniores em  Classe;\n circulação  80% (oitenta por\n (viii) deliberar sobre o plano de resolução 2/3 das Cotas em 2/3 das Cotas em cento) mais um das  de Patrimônio Líquido negativo; circulação circulação Cotas Seniores em  circulação\n (ix) aprovar os procedimentos a serem  80% (oitenta por  adotados para o resgate das Cotas  2/3 das Cotas em 2/3 das Cotas em cento) mais um das  Seniores mediante dação em pagamento  circulação circulação Cotas Seniores em  de Direitos Creditórios Cedidos e Ativos  circulação  Financeiros;\n (x) aprovar a emissão de uma ou mais  séries de Cotas Seniores, de novas classes 80% (oitenta por  de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das  Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em  hipóteses expressamente previstas no circulação  presente Anexo Descritivo);\n 80% (oitenta por  cento) mais um das  Cotas Seniores em  circulação, maioria\n (xi) alterar os Critérios de Elegibilidade,  2/3 das Cotas em 2/3 das Cotas em das Cotas  as Condições de Cessão e a Política de  circulação circulação Subordinadas  Investimento;\n Mezanino e  maioria das Cotas  Subordinadas  Júnior  maioria das Cotas maioria das Cotas\n (xii) deliberar sobre a substituição do  Seniores em Seniores em não aplicável  Agente de Cobrança;\n Circulação Circulação",
       "sha256": "6bb3ac0c4df61a29098e1bb1160614b751b48c2de2f069b44953aeccd3a8c36b",
-      "verification": "primary_passage"
-    },
-    "05e425818ca3a2377178b923e7499f2a93bbb8a3d3d01e8284cbb0f0cfb0f49f": {
-      "document_id": "830200",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
-      "reference_date": "2025-01-28",
-      "version": "1",
-      "page": 70,
-      "clause": "6.4",
-      "excerpt": "6.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em  cada respectiva Data de Aquisição.",
-      "sha256": "60553912737409ca47e04326c10deb7f30d2a6e198b19335cd3b9fe53674cd23",
-      "verification": "primary_passage"
-    },
-    "312bc04f091f0aecc1c161cbb46b38fe342ad2117ce763faa5e013767cf0205d": {
-      "document_id": "767377",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
-      "reference_date": "2024-10-29",
-      "version": "1",
-      "page": 79,
-      "clause": "3.4",
-      "excerpt": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em  cada respectiva Data de Aquisição.",
-      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
-      "verification": "primary_passage"
-    },
-    "7b86e695620c0bd1d14f86d8ecbf2b5f3ccd1a3015575b37687612d299d76d76": {
-      "document_id": "767378",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767378",
-      "reference_date": "2024-10-29",
-      "version": "1",
-      "page": 79,
-      "clause": "3.4",
-      "excerpt": "3.4. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento, aos respectivos Critérios de Elegibilidade e Condições de Cessão, verificados em  cada respectiva Data de Aquisição.",
-      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
       "verification": "primary_passage"
     },
     "6905366440585197d84524d3607af5c180a1f0fdd7d6304fae86ada217bd98e5": {
@@ -7621,6 +7433,97 @@
       "excerpt": "a) Descrição  Significam os direitos creditórios originados pela Três Tentos Agroindustrial S.A. (“Três Tentos”) e pela  Tentos S.A. Crédito, Financiamento e Investimento (“TentosCap”), em conjunto denominadas  “Cedentes”, representados por notas fiscais, Cédulas do Produto Rural (“CPR”) e Cédulas do Produto  Rural com liquidação financeira (“CPR-F”), detidos pelas Cedentes contra seus clientes, pessoas físicas  ou jurídicas.",
       "sha256": "55386a7ff4e20bb6a8efbfa691e8d33934073995272380f9ff474eb1ac90bd32",
       "verification": "primary_passage"
+    },
+    "af3738a4c7c79023811c375e504487cad3177a0ff297996f1ddf2029231977e7": {
+      "document_id": "1070945",
+      "title": "Outros Comunicados Não Considerados Fatos Relevantes",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1070945",
+      "reference_date": "2025-10-15",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva  data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a  serem verificados pelo Gestor, até a data de aquisição:\n(i) Os direitos creditórios deverão ter data de vencimento de, pelo menos, 30 dias anteriores à última  data de resgate das cotas de subclasse sênior em circulação;\n(ii) Os direitos creditórios deverão ter prazo máximo de vencimento de até 365 dias com base na data  de aquisição;\n(iii) Os direitos creditórios deverão ter prazo mínimo de vencimento de 10 dias;\n(iv) Considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos  de um mesmo devedor (considerado em conjunto com as demais integrantes do seu grupo  econômico), devem estar limitados a 3% do patrimônio líquido do Fundo, sendo certo que, até o  dia 30 de novembro de 2024, será considerado como patrimônio líquido, o maior entre: (i)  R$200.000; ou (ii) o patrimônio líquido do Fundo;\n(v) Os devedores (considerando individualmente ou em conjunto com as demais integrantes do seu  grupo econômico) não poderão estar inadimplentes em relação ao Fundo na data de aquisição;\n(vi) A aquisição de direito creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual  a, ou inferior a 20%;\n(vii) Considerando-se proforma a aquisição pretendida, os direitos creditórios devidos por devedores  do Estado do Mato Grosso deverão representar até 50% do patrimônio líquido;\n(viii) Considerando-se proforma a aquisição pretendida, os direitos creditórios originados pela  TentosCap deverão representar até 30% do patrimônio líquido.\ne) Composição da carteira  Os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte forma:",
+      "sha256": "a7ff291314546c867e71cf67129c4ef40a80f96206a19af4bcc25dfa9c685a84",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "60c56f40258c753c74b1c169c1d43ccadad38437a65c61870c80056f2e5725e5": {
+      "document_id": "1059887",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1059887",
+      "reference_date": "2025-09-30",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva  data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a  serem verificados pelo Gestor, até a data de aquisição:\n(i) Os direitos creditórios deverão ter data de vencimento de, pelo menos, 30 dias anteriores à última  data de resgate das cotas de subclasse sênior em circulação;\n(ii) Os direitos creditórios deverão ter prazo máximo de vencimento de até 365 dias com base na data  de aquisição;\n(iii) Os direitos creditórios deverão ter prazo mínimo de vencimento de 10 dias;\n(iv) Considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos  de um mesmo devedor (considerado em conjunto com as demais integrantes do seu grupo  econômico), devem estar limitados a 3% do patrimônio líquido do Fundo, sendo certo que, até o  dia 30 de novembro de 2024, será considerado como patrimônio líquido, o maior entre: (i)  R$200.000; ou (ii) o patrimônio líquido do Fundo;\n(v) Os devedores (considerando individualmente ou em conjunto com as demais integrantes do seu  grupo econômico) não poderão estar inadimplentes em relação ao Fundo na data de aquisição;\n(vi) A aquisição de direito creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual  a, ou inferior a 20%;\n(vii) Considerando-se proforma a aquisição pretendida, os direitos creditórios devidos por devedores  do Estado do Mato Grosso deverão representar até 50% do patrimônio líquido;\n(viii) Considerando-se proforma a aquisição pretendida, os direitos creditórios originados pela  TentosCap deverão representar até 30% do patrimônio líquido.\ne) Composição da carteira  Os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte forma:",
+      "sha256": "55386a7ff4e20bb6a8efbfa691e8d33934073995272380f9ff474eb1ac90bd32",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "468f5474b25a605b22ca050052e640f27af5a2de51247b739f4ccc1dc0e1b18b": {
+      "document_id": "1016583",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+      "reference_date": "2025-10-16",
+      "version": "1",
+      "page": 76,
+      "clause": "4.12",
+      "excerpt": "4.12. Exclusivamente para fins de apuração de Critérios de Elegibilidade e  Condições de Cessão, até dia 30 de novembro de 2025, será considerado como Patrimônio  Líquido o valor de (i) $345.000.000,00 (trezentos e quarenta e cinco milhões de reais); ou\n (ii) o Patrimônio Líquido atual do Fundo, dos dois o maior.",
+      "sha256": "ee49bb50f7565b11c22ce8864285afb42835d2ac7b21590174ccbad961f9a7b9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "62adf6a1978b3da891a47268876c1a4edc19bed9c6c1ff7d7f1773b0f7452805": {
+      "document_id": "830200",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830200",
+      "reference_date": "2025-01-28",
+      "version": "1",
+      "page": 48,
+      "clause": "",
+      "excerpt": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO  EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE  LIMITADA _________________________________________________________________ 4  1.DEFINIÇÕES ______________________________________________________________ 4  2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO,  COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22  3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO  E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS  CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24  4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO  ___________________________________________________________________________ 27  5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA  CARTEIRA ________________________________________________________________ 33  6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E  INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35  7.ASSEMBLEIAS ESPECIAIS  ___________________________________________________________________________ 41  8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E  PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS  CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO  EXTRAORDINÁRIA ________________________________________________________ 48  10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS  FINANCEIROS _____________________________________________________________ 55  11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA  ___________________________________________________________________________ 56  12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA  ___________________________________________________________________________ 65  13.FATORES DE RISCO",
+      "sha256": "60553912737409ca47e04326c10deb7f30d2a6e198b19335cd3b9fe53674cd23",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f60e47e8c470ae7c9f5fcf42d748bec137f257b8164a43cdb023aac5f9faeccc": {
+      "document_id": "767377",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767377",
+      "reference_date": "2024-10-29",
+      "version": "1",
+      "page": 57,
+      "clause": "",
+      "excerpt": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO  EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE  LIMITADA _________________________________________________________________ 4  1.DEFINIÇÕES ______________________________________________________________ 4  2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO,  COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22  3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO  E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS  CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24  4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO  ___________________________________________________________________________ 27  5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA  CARTEIRA ________________________________________________________________ 33  6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E  INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35  7.ASSEMBLEIAS ESPECIAIS  ___________________________________________________________________________ 41  8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E  PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS  CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO  EXTRAORDINÁRIA ________________________________________________________ 48  10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS  FINANCEIROS _____________________________________________________________ 55  11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA  ___________________________________________________________________________ 56  12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA  ___________________________________________________________________________ 65  13.FATORES DE RISCO",
+      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4ab9eedc12dc63395d17532de98fe0236d3b26e5d32aa5c7348f339a22d705dc": {
+      "document_id": "767378",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767378",
+      "reference_date": "2024-10-29",
+      "version": "1",
+      "page": 57,
+      "clause": "",
+      "excerpt": "ANEXO DESCRITIVO DA CLASSE ÚNICA DO 3TENTOS FUNDO DE INVESTIMENTO  EM DIREITOS CREDITÓRIOSDO AGRONEGÓCIO RESPONSABILIDADE  LIMITADA _________________________________________________________________ 4  1.DEFINIÇÕES ______________________________________________________________ 4  2.FORMA DE CONSTITUIÇÃO, RESPONSABILIDADE, PRAZO DE DURAÇÃO,  COMPOSIÇÃO DO PATRIMÔNIO E PÚBLICO-ALVO DA CLASSE ______________ 22  3.ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS, FORMALIZAÇÃO DA AQUISIÇÃO  E CESSÃO DOS DIREITOS CREDITÓRIOS, COBRANÇA DOS DIREITOS  CREDITÓRIOS E DIREITOS CREDITÓRIOS INADIMPLIDOS __________________ 24  4.CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO  ___________________________________________________________________________ 27  5.POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA  CARTEIRA ________________________________________________________________ 33  6.CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO E  INTEGRALIZAÇÃO DAS COTAS E PATRIMÔNIO LÍQUIDO ___________________ 35  7.ASSEMBLEIAS ESPECIAIS  ___________________________________________________________________________ 41  8.VALORAÇÃO DAS COTAS, AMORTIZAÇÃO E RESGATE DE COTAS, EVENTOS E  PROCEDIMENTOS DE RESGATE DE COTAS MEDIANTE ENTREGA DE DIREITOS  CREDITÓRIOS E ATIVOS FINANCEIROS EM PAGAMENTO E AMORTIZAÇÃO  EXTRAORDINÁRIA ________________________________________________________ 48  10.RESERVA DE LIQUIDEZ VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS  FINANCEIROS _____________________________________________________________ 55  11.EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA  ___________________________________________________________________________ 56  12.PATRIMÔNIO LÍQUIDO NEGATIVO E INSOLVÊNCIA  ___________________________________________________________________________ 65  13.FATORES DE RISCO",
+      "sha256": "5033ba386b1f9f723ea8a2c5d6180be39d9b35d8f7d433402904725579d0db17",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "52adac27ba28f9c385e0c7064d4e3bc5f0cc8ab1d342646b07ff2b7e1cea21d7": {
+      "document_id": "762902",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=762902",
+      "reference_date": "2024-10-22",
+      "version": "1",
+      "page": 98,
+      "clause": "",
+      "excerpt": "(vii) deliberar sobre o pedido de Cotas Seniores em  declaração judicial de insolvência da circulação  Classe;\n 80% (oitenta por\n (viii) deliberar sobre o plano de resolução 2/3 das Cotas em 2/3 das Cotas em cento) mais um das  de Patrimônio Líquido negativo; circulação circulação Cotas Seniores em  circulação\n (ix) aprovar os procedimentos a serem  80% (oitenta por  adotados para o resgate das Cotas  2/3 das Cotas em 2/3 das Cotas em cento) mais um das  Seniores mediante dação em pagamento  circulação circulação Cotas Seniores em  de Direitos Creditórios Cedidos e Ativos  circulação  Financeiros;\n (x) aprovar a emissão de uma ou mais  séries de Cotas Seniores, de novas classes 80% (oitenta por  de Cotas Subordinadas Mezanino e/ou de 2/3 das Cotas em 2/3 das Cotas em cento) mais um das  Cotas Subordinadas Júnior (exceto nas circulação circulação Cotas Seniores em  hipóteses expressamente previstas no circulação  presente Anexo Descritivo);\n 80% (oitenta por  cento) mais um das  Cotas Seniores em  circulação, maioria\n (xi) alterar os Critérios de Elegibilidade,  2/3 das Cotas em 2/3 das Cotas em das Cotas  as Condições de Cessão e a Política de  circulação circulação Subordinadas  Investimento;\n Mezanino e  maioria das Cotas  Subordinadas  Júnior  maioria das Cotas maioria das Cotas\n (xii) deliberar sobre a substituição do  Seniores em Seniores em não aplicável  Agente de Cobrança;\n Circulação Circulação\n (xiii) deliberar sobre a substituição de  80% (oitenta por  qualquer outro prestador de serviços da  cento) mais um das  Classe, com exceção do Agente de  Cotas Seniores em  Cobrança, cuja substituição será  2/3 das Cotas em 2/3 das Cotas em circulação, maioria  deliberada nos termos do item (xii)  circulação circulação das Cotas  acima, e do Auditor Independente, o qual  Subordinadas  poderá ser substituído em conformidade  Mezanino e  com as políticas internas do  maioria das Cotas  Administrador;",
+      "sha256": "607d8e3aa3cb98e31433580781b8546442e053b5f1fb02d4f503e4bdf331507e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

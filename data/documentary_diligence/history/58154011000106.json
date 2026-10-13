@@ -3,11 +3,6 @@
   "cnpj": "58154011000106",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "4d481bae711529e5d83425dcc2b3ba5b02e50e4fad99771a9bf069edf9a78850",
-      "147cbbf76c53aac1a566d219cb64e260662ed5d150f2a10dbed4578f1d4375ba",
-      "873e1f45662bccc1594ae1a1928c212160af9303c2b59a995135f5122e814d04"
-    ],
     "ticket": [
       "5ec4441a90bbe8cd8dc4b4d070b162fac58807b969fea0c585b399718b851979",
       "a8d3b85b2bf837be9ab766b3b93d6f8020addf839660de368a8d8a54f33e03a6"
@@ -219,14 +214,6 @@
       "20bdc3ec608617ad349e748d2f75748c648c2aa5a02d34bacb2582fe29641bb6",
       "588bd6c1ede5de40f8f04bd038403e8c8f03cd826e956d8db0caaea39773e8ca"
     ],
-    "originator": [
-      "abf80c40bf40c3734ac29e9013c2d055543f8cc60cba258f584831b09f68e07a",
-      "d162ee595159b7991dbd36cd9ce74d98e80bd27803e606fd47fa2c291697b543"
-    ],
-    "debtor": [
-      "2e28709afaad7937684c1ca787c1ab4155a6577ec1b0e01f10edf702c7e2d1c0",
-      "b46673ba0f6197cfe163dea1a9ee14050be36bf7f4f6d0ede10daca88f493c7a"
-    ],
     "investee": [
       "0ffd46d6d0c65e9a551512ccf76251b26ca046c4b3f91945cabcfeb5f1638c15"
     ],
@@ -246,6 +233,18 @@
       "f320c2e68820eac908b6df787260a80840d52da1ac7271706fd4fe6dd5225ac4",
       "504f92437003a714a6cf8b07770b8d28086e384e5be94893eb056640d6f724d7",
       "322df3ef245f73e28d71511061b5d6ab24b4402b3588a01aa96e9f3bcfed9016"
+    ],
+    "originator": [
+      "abf80c40bf40c3734ac29e9013c2d055543f8cc60cba258f584831b09f68e07a",
+      "d162ee595159b7991dbd36cd9ce74d98e80bd27803e606fd47fa2c291697b543"
+    ],
+    "eligibility": [
+      "4d481bae711529e5d83425dcc2b3ba5b02e50e4fad99771a9bf069edf9a78850",
+      "1259deb65cec4e48b480ac28af088b1621917b7bd8b7364c36b42c0dcd3b709a",
+      "873e1f45662bccc1594ae1a1928c212160af9303c2b59a995135f5122e814d04"
+    ],
+    "debtor": [
+      "366941ee4e6f3f4b276208dedfb6e696d89d7f005d5462a7b82e3b7ccbad4ee5"
     ]
   },
   "entries": {
@@ -277,15 +276,6 @@
         "def164c76214d410ebedf8852cd9f1bed806c7c4feb5a0a9d42179447c3b651d"
       ]
     },
-    "2e28709afaad7937684c1ca787c1ab4155a6577ec1b0e01f10edf702c7e2d1c0": {
-      "reference_date": "2024-11-29",
-      "value": "(i) considerando-se pro forma a cessão pretendida, o somatório do valor de face dos Direitos Creditórios devidos por Devedores produtores ruais (pessoa física), com relação ao Patrimônio Líquido, não seja superior a 10% (dez por cento);",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0405b8c9f5bdde36775bc4aa2d866746ae951d2595fcc4139efbaa431c2b939f"
-      ]
-    },
     "4d481bae711529e5d83425dcc2b3ba5b02e50e4fad99771a9bf069edf9a78850": {
       "reference_date": "2024-12-13",
       "value": "Vincendos; BRL; 30–360 dias; até 20% do PL pode vencer em 540 dias; antes do resgate sênior",
@@ -294,15 +284,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "d8bcf389c16696fd79b72dc0166772c1b8e3e3e149a94c07f835069856171667"
-      ]
-    },
-    "147cbbf76c53aac1a566d219cb64e260662ed5d150f2a10dbed4578f1d4375ba": {
-      "reference_date": "2024-11-29",
-      "value": "4.13. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data de Oferta, aos seguintes Critérios de Elegibilidade:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4a564f296f21437e7ea7de1701288616e84398a313deb5104f576d74ec5e8143"
       ]
     },
     "873e1f45662bccc1594ae1a1928c212160af9303c2b59a995135f5122e814d04": {
@@ -1502,13 +1483,22 @@
         "fe5063db97e94194250927f52a83b4e6a0edd281e29333f04e217dcef45762a5"
       ]
     },
-    "b46673ba0f6197cfe163dea1a9ee14050be36bf7f4f6d0ede10daca88f493c7a": {
-      "reference_date": "2024-11-13",
-      "value": "",
+    "1259deb65cec4e48b480ac28af088b1621917b7bd8b7364c36b42c0dcd3b709a": {
+      "reference_date": "2024-11-29",
+      "value": "4.13. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data de Oferta, aos seguintes Critérios de Elegibilidade: (a) os Direitos Creditórios não poderão estar vencidos e devem possuir valor fixo e determinado; (b) os Direitos Creditórios ofertados deverão ser expressos em moeda corrente nacional; (c) os Direitos Creditórios ofertados deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Oferta; (d) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante o Fundo; (e) os Direitos Creditórios deverão ter data de vencimento anterior à última Data de Amortização Total das Cotas Seniores em circulação; (f) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas datas de aquisição; (g) considerando-se pro forma a aquisição pretendida, o somatório do valor de face dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 4% (quatro por cento) do Patrimônio Líquido, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 4% (quatro por cento) do Patrimônio Líquido, conforme previamente aprovados pelo Gestor conforme o disposto no Acordo Operacional; (h) considerando-se pro forma a aquisição pretendida, o somatório do valor de face dos Direitos Creditórios devidos em conjunto pelos 5 (cinco) maiores Devedores, excetuados Devedores Especiais, não seja superior a 20% (vinte por cento) do Patrimônio Líquido;",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "94a99b929d52ae63c11642756ea3456ca8565699491155bae30ebf65cbb4fe68"
+        "0a29efd98cbc2ec90e381389aa4b947bc311b4c843263a9380a3f2ea2df37c6e"
+      ]
+    },
+    "366941ee4e6f3f4b276208dedfb6e696d89d7f005d5462a7b82e3b7ccbad4ee5": {
+      "reference_date": "2024-11-13",
+      "value": "“Devedores” Significam os Clientes que sejam (i) pessoas jurídicas, e cooperativas de produtores rurais que se qualificam como produtores rurais, que realizam junto aos Indicadores, operações de compra de insumos agropecuários, máquinas, implementos, peças e serviços de manutenção relacionados à maquinário agrícola e/ou quaisquer outros produtos e serviços relativos à atividade agrícola; e/ou (ii) pessoas jurídicas que atuem: (a) na distribuição de insumos, máquinas e peças voltadas ao agronegócio; (b) no beneficiamento de produtos agropecuários; (c) na",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b715b8dc27fbcb6cbb120678aec09605d840330024bd493167418ace20f7f16f"
       ]
     }
   },
@@ -1550,18 +1540,6 @@
       "sha256": "49a217180b5d7625ff67b7d4546490579620a342d80215e0b1a9531f11af90e0",
       "verification": "primary_passage"
     },
-    "0405b8c9f5bdde36775bc4aa2d866746ae951d2595fcc4139efbaa431c2b939f": {
-      "document_id": "803103",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 60,
-      "clause": "",
-      "excerpt": "(i) considerando-se pro forma a cessão pretendida, o somatório do valor de face  dos Direitos Creditórios devidos por Devedores produtores ruais (pessoa física), com  relação ao Patrimônio Líquido, não seja superior a 10% (dez por cento);",
-      "sha256": "674539358e098c5ab5854acd646c66bda0b0ee59cee71188d7e4b400733c903a",
-      "verification": "primary_passage"
-    },
     "d8bcf389c16696fd79b72dc0166772c1b8e3e3e149a94c07f835069856171667": {
       "document_id": "803107",
       "title": "Regulamento",
@@ -1574,18 +1552,6 @@
       "sha256": "6a8361e9e0280f4aa2b9ecb44d95942aee62cd06949c3ba31a8af24869f0484b",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 803107 | 13/12/2024 | regulamento | p. 57; 4.13 | data/raw/58154011000106/803107_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803107"
-    },
-    "4a564f296f21437e7ea7de1701288616e84398a313deb5104f576d74ec5e8143": {
-      "document_id": "803103",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 59,
-      "clause": "4.13",
-      "excerpt": "4.13. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios  que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data  de Oferta, aos seguintes Critérios de Elegibilidade:",
-      "sha256": "674539358e098c5ab5854acd646c66bda0b0ee59cee71188d7e4b400733c903a",
-      "verification": "primary_passage"
     },
     "1ca1adfa3b46b2cd413b84d94d14d04c2bae74c7c097a32c1d50870777b41bc4": {
       "document_id": "803100",
@@ -3042,15 +3008,28 @@
       "sha256": "49a217180b5d7625ff67b7d4546490579620a342d80215e0b1a9531f11af90e0",
       "verification": "primary_passage"
     },
-    "94a99b929d52ae63c11642756ea3456ca8565699491155bae30ebf65cbb4fe68": {
+    "0a29efd98cbc2ec90e381389aa4b947bc311b4c843263a9380a3f2ea2df37c6e": {
+      "document_id": "803103",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803103",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": 59,
+      "clause": "4.13",
+      "excerpt": "4.13. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios  que atendam, cumulativamente, além das Condições de Aquisição, na respectiva Data  de Oferta, aos seguintes Critérios de Elegibilidade:\n(a) os Direitos Creditórios não poderão estar vencidos e devem possuir valor fixo e  determinado;\n(b) os Direitos Creditórios ofertados deverão ser expressos em moeda corrente  nacional;\n(c) os Direitos Creditórios ofertados deverão ter prazo de vencimento de, no mínimo,  30 (trinta) dias corridos após a respectiva Data de Oferta;\n(d) os Direitos Creditórios não poderão ser devidos por Devedor que esteja  inadimplente perante o Fundo;\n(e) os Direitos Creditórios deverão ter data de vencimento anterior à última Data de  Amortização Total das Cotas Seniores em circulação;\n(f) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e  sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido  que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até  540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados  das respectivas datas de aquisição;\n(g) considerando-se pro forma a aquisição pretendida, o somatório do valor de face  dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar  concentração superior a 4% (quatro por cento) do Patrimônio Líquido, com exceção de  determinados Devedores Especiais que poderão representar concentração superior a  4% (quatro por cento) do Patrimônio Líquido, conforme previamente aprovados pelo  Gestor conforme o disposto no Acordo Operacional;\n(h) considerando-se pro forma a aquisição pretendida, o somatório do valor de face  dos Direitos Creditórios devidos em conjunto pelos 5 (cinco) maiores Devedores,  excetuados Devedores Especiais, não seja superior a 20% (vinte por cento) do  Patrimônio Líquido;",
+      "sha256": "674539358e098c5ab5854acd646c66bda0b0ee59cee71188d7e4b400733c903a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b715b8dc27fbcb6cbb120678aec09605d840330024bd493167418ace20f7f16f": {
       "document_id": "803100",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803100",
       "reference_date": "2024-11-13",
       "version": "1",
-      "page": 114,
+      "page": 15,
       "clause": "",
-      "excerpt": "58. O setor agrícola está sujeito a características específicas, inclusive, mas não se  limitando a: (i) natureza predominantemente sazonal, com o que as operações são  afetadas pelo ciclo das lavouras; (ii) condições meteorológicas adversas, inclusive  secas, inundações, granizo ou temperaturas extremamente altas, que são fatores  imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária; (iii)  incêndios e demais sinistros; (iv) pragas e doenças, que podem atingir de maneira  imprevisível as safras; (v) preços praticados mundialmente, que têm sua cotação em  dólar, além de estarem sujeitos a flutuações significativas, dependendo (v.1) da oferta  e demanda globais, (v.2) de alterações dos níveis de subsídios agrícolas de certos  produtores importantes (principalmente Estados Unidos e Comunidade Europeia), (v.3)  de mudanças de barreiras comerciais de certos mercados consumidores importantes e  (v.4) da adoção de outras políticas públicas que afetem as condições de mercado e os  preços dos produtos agrícolas; (vi) concorrência de commodities similares e/ou  substitutivas; e (vii) acesso limitado ou excessivamente oneroso à captação de  recursos, além de alterações em políticas de concessão de crédito, tanto por parte de  órgãos governamentais como de instituições privadas, para determinados participantes,  inclusive os Devedores e/ou os Cedentes. A verificação de um ou mais desses fatores  poderá impactar negativamente o setor, afetando o pagamento dos Direitos Creditórios  e, consequentemente, a rentabilidade dos Cotistas.",
+      "excerpt": "“Devedores” Significam os Clientes que sejam (i) pessoas jurídicas, e  cooperativas de produtores rurais que se qualificam como  produtores rurais, que realizam junto aos Indicadores,  operações de compra de insumos agropecuários, máquinas,  implementos, peças e serviços de manutenção relacionados  à maquinário agrícola e/ou quaisquer outros produtos e  serviços relativos à atividade agrícola; e/ou (ii) pessoas  jurídicas que atuem: (a) na distribuição de insumos,  máquinas e peças voltadas ao agronegócio; (b) no  beneficiamento de produtos agropecuários; (c) na",
       "sha256": "49a217180b5d7625ff67b7d4546490579620a342d80215e0b1a9531f11af90e0",
       "verification": "primary_passage"
     }

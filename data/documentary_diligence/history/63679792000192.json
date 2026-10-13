@@ -3,16 +3,6 @@
   "cnpj": "63679792000192",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "9adba767ab3ff024f4bc358b76f2fa26e2e8a7703d102c2d6787f0dbb322d023",
-      "93000282205ce4cf2dccda2e6d62198a24b06afeb73daf83e4beacd55627380d",
-      "70efeb837c8885eb95caea88bd0cd86a265cb06dc99f5bf844a1da897dc1ef6d",
-      "bfdd46c97038eddecb405bd2191704fab56d61570c267fa3d418b9a45d6f0f6e",
-      "4b7a5aecdcc3c53803f4ec6195dac7533a82f5fe8323c95a846d1c7e5ec43378",
-      "34749cdc2a5cabcc7585d0a1b575be775f76b613b70642df81a8158e48605de8",
-      "146329611ad4508c95792397d677e714378a54b4e0a01028bbbfac18b941a3b6",
-      "7dbada906399f898c94a4b458c62eb202428b035398f38c10bc0cbc87470e47b"
-    ],
     "term": [
       "3312e483cbcbc82986c836f2f0dff370064fbb949cc40e0e421c0e4b9a8e586b",
       "957ca326bb7f00b0cc66a06f7578ab34c9d5d21a1b307dae520a435ed87370fc",
@@ -399,28 +389,6 @@
       "10afd3332c3ff1ec2dca8c6aa732467ce3d39ebe14a09aa3aaefb7cf54500cad",
       "fe90979290c77fc8e17b6591a16ae98abd2342b36a4fa0e24236c40134d0ed0c"
     ],
-    "originator": [
-      "5a945e5e5c82c8ef6bb395e2d333dddd75106fe247355d0030af08956a52f081",
-      "737f8fecba4b9f619d85f67414b62191dba88e5e6626e12426307cf3b46ddaee",
-      "8d33c8c02f27229cda080155ec750892ec1dda1bfbea25f615454682662fdae3",
-      "5ff9733323a0efe4280e2557629815ac7af9d30b303a863ddb4441fd94473738",
-      "999cb7efd99fdcc5e8bd3ece9b5ed0aa82b60136396e568686db5264f5a7ffbc",
-      "c66b9f4dc71cac89b3e84a7a5c57622255380c81a64832a3e3bba4546e1f1325",
-      "b51d80b8d17df9a2e273ba02b8afa77adc3b67e8d5fb7a19c56b20bc680286e0",
-      "4ed9453c3cd58071dacc7497c1d84c421d554b936950a469643eec8decfec5ba",
-      "2814e5c346c3701f6f65dbf0a9be1f33c91717eaebccbcb4159d48efeb993912"
-    ],
-    "debtor": [
-      "090d7173a26f38de66cb3fbfb09b0e74241fed56436a3b5eaba0263d7ac27d5a",
-      "737f8fecba4b9f619d85f67414b62191dba88e5e6626e12426307cf3b46ddaee",
-      "be43904d81ad994034a6107be4cecc9a99d31d2318ca64fa5db644be33561d85",
-      "529989913c3cb082208a8068f5b5f0f686f1f3c7efdc641d2d916b8b132c2220",
-      "66bef832861272f2b2f874f40bf8733eccc43718791b19c09b3008959627cc27",
-      "424ee38b0b4f8a288d0ba45e2da3b99c4e97899d711147e8edee8946ca28f097",
-      "fdf875373773ab5fdfe0c8dd73ad188316bd12abb0d410b96e56b9891e4cfc41",
-      "b080363be2ab6b2d7724758e58b67cbe123b0375fe2834765761b58d7e1a2707",
-      "f2829da952479f8c6892c737679b4d2da3c9ff65491e8063e6a6b1692644686c"
-    ],
     "investee": [
       "19ee06ca2ac6bfe4a7a60bc7b43c806cf7bb69e48cf2b855ca5575d211f1ce62",
       "e09f82e09da5fc33893681f1d934c320d7e559961f337c7790cc4fac950f3692",
@@ -471,6 +439,39 @@
       "a321f1aa627090168d483485c708aac0436fe97f6ebec0fb5e59b1f8f31a0f91",
       "9a193f15780b0125ba3ba693c12d5eba7707d6d0c02ccd33ca3a37c8ec3efcad",
       "2183d1086a4731333815e009ba12fe8e304a29ff3d6f82185cd759470322b47c"
+    ],
+    "originator": [
+      "5a945e5e5c82c8ef6bb395e2d333dddd75106fe247355d0030af08956a52f081",
+      "737f8fecba4b9f619d85f67414b62191dba88e5e6626e12426307cf3b46ddaee",
+      "af4561370ea321e37ed5fc8e947ad723ced12c1beda6b8ee9ad2f7b94be8fe84",
+      "5ff9733323a0efe4280e2557629815ac7af9d30b303a863ddb4441fd94473738",
+      "999cb7efd99fdcc5e8bd3ece9b5ed0aa82b60136396e568686db5264f5a7ffbc",
+      "c66b9f4dc71cac89b3e84a7a5c57622255380c81a64832a3e3bba4546e1f1325",
+      "b51d80b8d17df9a2e273ba02b8afa77adc3b67e8d5fb7a19c56b20bc680286e0",
+      "4ed9453c3cd58071dacc7497c1d84c421d554b936950a469643eec8decfec5ba",
+      "e50dc504b5cb5e4aec10c93cd85b6b6bee4b8eb51ceb1c86ba6af5b1b62bbb26"
+    ],
+    "eligibility": [
+      "9adba767ab3ff024f4bc358b76f2fa26e2e8a7703d102c2d6787f0dbb322d023",
+      "61a77d9c7ab9372d906cdce993178db118c817b70b2c9c1f5b0181c28500471c",
+      "de6b725128736e1dfd69ab6adee08cb1e4e63da1bef920196bdc184a565ed86c",
+      "62d65cd5efc41f0c775e4a3127bfbbd66f90f5d9c1797ebe4ced7924ec24c80b",
+      "4293010523be7595b158e365cab55d857e1cc8afb4b155893dc3c5010abda24d",
+      "0a26c357d5581649b80ededa11fe546813b8327b173108ef6c320ce6c232eaf7",
+      "6c585f45483b2faac80f912631b6ce317f3302b65ec12112d58f76176ad65e0d",
+      "e1d11547c77182e5612ea234df506ce88b2ac8a5980ca4566f59aedd5a2e55ec",
+      "11349fba37946152b78d5a072267d3e7f4315c6ad40ebc472b5529076e5fee42"
+    ],
+    "debtor": [
+      "090d7173a26f38de66cb3fbfb09b0e74241fed56436a3b5eaba0263d7ac27d5a",
+      "737f8fecba4b9f619d85f67414b62191dba88e5e6626e12426307cf3b46ddaee",
+      "be43904d81ad994034a6107be4cecc9a99d31d2318ca64fa5db644be33561d85",
+      "529989913c3cb082208a8068f5b5f0f686f1f3c7efdc641d2d916b8b132c2220",
+      "66bef832861272f2b2f874f40bf8733eccc43718791b19c09b3008959627cc27",
+      "424ee38b0b4f8a288d0ba45e2da3b99c4e97899d711147e8edee8946ca28f097",
+      "fdf875373773ab5fdfe0c8dd73ad188316bd12abb0d410b96e56b9891e4cfc41",
+      "b080363be2ab6b2d7724758e58b67cbe123b0375fe2834765761b58d7e1a2707",
+      "f2829da952479f8c6892c737679b4d2da3c9ff65491e8063e6a6b1692644686c"
     ]
   },
   "entries": {
@@ -566,15 +567,6 @@
         "48906260dc6a41eaa2604485daac39e77679edacfd260ce7e5138ceb2fe7c50a"
       ]
     },
-    "8d33c8c02f27229cda080155ec750892ec1dda1bfbea25f615454682662fdae3": {
-      "reference_date": "2025-11-14",
-      "value": "17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e20db9b02b89df87efcd2da4ae2557093966cb4063f574c15d7c6e510a13134c"
-      ]
-    },
     "5ff9733323a0efe4280e2557629815ac7af9d30b303a863ddb4441fd94473738": {
       "reference_date": "2026-01-26",
       "value": "17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15 (quinze) Dias Úteis;.",
@@ -620,15 +612,6 @@
         "ac8bd55a9b60045efc7f1e721077f1bc986e78ce01763e04e2c4b6ea885a591e"
       ]
     },
-    "2814e5c346c3701f6f65dbf0a9be1f33c91717eaebccbcb4159d48efeb993912": {
-      "reference_date": "2025-11-14",
-      "value": "17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos: (i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "068ed4327b349aed44b81294c7e0bbef98a5a64f76cf894a6b582e3f20694901"
-      ]
-    },
     "090d7173a26f38de66cb3fbfb09b0e74241fed56436a3b5eaba0263d7ac27d5a": {
       "reference_date": "2026-07-27",
       "value": "Pessoas jurídicas adimplentes perante o fundo",
@@ -665,15 +648,6 @@
       "risk_note": "Percentual 1,8% tem extenso divergente no itemxiii; preservar numeral e confirmar.",
       "sources": [
         "ad77917e60271e576c9c40f2e8db38705624e7f56bd5bdb4f8365250940c9d18"
-      ]
-    },
-    "93000282205ce4cf2dccda2e6d62198a24b06afeb73daf83e4beacd55627380d": {
-      "reference_date": "2025-11-14",
-      "value": "seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias expressadas pelo respectivo Cedente em cumprimento aos Critérios de Elegibilidade e as Condições de Cessão; e (ii) não serão responsáveis pela solvência dos Devedores ou dos coobrigados, nem pela suficiência das garantias outorgadas pelos Devedores em relação aos Direitos Creditórios.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "939c6201115367cc8f3c412f0dc064652619353e906e3f158586780d143c79bf"
       ]
     },
     "70efeb837c8885eb95caea88bd0cd86a265cb06dc99f5bf844a1da897dc1ef6d": {
@@ -719,15 +693,6 @@
       "provenance": "primary_passage",
       "sources": [
         "4af36e1d70ba4f32c1a72102a52ec96a04bec31090e606c9a90c7d34f8e53487"
-      ]
-    },
-    "7dbada906399f898c94a4b458c62eb202428b035398f38c10bc0cbc87470e47b": {
-      "reference_date": "2025-11-14",
-      "value": "seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias expressadas pelo respectivo Cedente em cumprimento aos Critérios de Elegibilidade e as Condições de Cessão; e (ii) não serão responsáveis pela solvência dos Devedores ou dos coobrigados, nem pela suficiência das garantias outorgadas pelos Devedores em relação aos Direitos Creditórios.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c20816fe4af6ea9e280faf600b4cd69d3e42bf41febf01bd791d106bd2ba73a4"
       ]
     },
     "3312e483cbcbc82986c836f2f0dff370064fbb949cc40e0e421c0e4b9a8e586b": {
@@ -3357,6 +3322,96 @@
       "sources": [
         "f764d04f0ffae8cd08df69d02d0db3a0af062c83f5a6d9897f1302bcbd84c465"
       ]
+    },
+    "61a77d9c7ab9372d906cdce993178db118c817b70b2c9c1f5b0181c28500471c": {
+      "reference_date": "2025-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bc8f01a50c9c3aa0b59940bfee4e9989950a57881d37443742e1a78077214d4c"
+      ]
+    },
+    "de6b725128736e1dfd69ab6adee08cb1e4e63da1bef920196bdc184a565ed86c": {
+      "reference_date": "2025-11-14",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b517226f9bfa53de8158ae7f85136ed160d2f1b737fed7b8c4678f11b7852b9b"
+      ]
+    },
+    "62d65cd5efc41f0c775e4a3127bfbbd66f90f5d9c1797ebe4ced7924ec24c80b": {
+      "reference_date": "2026-01-26",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "df8d43af5c0d6f805660ebf490bb02d0f40aa45ec345496e0e443bfca60152fb"
+      ]
+    },
+    "4293010523be7595b158e365cab55d857e1cc8afb4b155893dc3c5010abda24d": {
+      "reference_date": "2025-12-19",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "823143afe7337571bede644d856f45a41967e3dc77bb07d774113aa44ead2bbd"
+      ]
+    },
+    "0a26c357d5581649b80ededa11fe546813b8327b173108ef6c320ce6c232eaf7": {
+      "reference_date": "2025-12-19",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e699a4c68ea7db363b76458c5361646e29e1ccc021b568328166043629c04df4"
+      ]
+    },
+    "6c585f45483b2faac80f912631b6ce317f3302b65ec12112d58f76176ad65e0d": {
+      "reference_date": "2025-12-18",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "558f07fdea374359598ecc10697eb62c57d225208b06cac3bf7680c6ffbc6d3a"
+      ]
+    },
+    "e1d11547c77182e5612ea234df506ce88b2ac8a5980ca4566f59aedd5a2e55ec": {
+      "reference_date": "2025-12-18",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "74f62a069aa4990b18b1f8376c0694f59943525b7919a7f51fb04025d6cae350"
+      ]
+    },
+    "11349fba37946152b78d5a072267d3e7f4315c6ad40ebc472b5529076e5fee42": {
+      "reference_date": "2025-11-14",
+      "value": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de Direitos Creditórios ao Fundo (“Condições de Cessão”): (i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "70d227bd4e5851bfe22ba6573c8a4a904e7451ab77ed65ceacb42bedbff30bea"
+      ]
+    },
+    "af4561370ea321e37ed5fc8e947ad723ced12c1beda6b8ee9ad2f7b94be8fe84": {
+      "reference_date": "2025-11-14",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5ccf82cd7664c327868b7b1d2acf88d82e2762e9f2ea02759e167179c8b2907a"
+      ]
+    },
+    "e50dc504b5cb5e4aec10c93cd85b6b6bee4b8eb51ceb1c86ba6af5b1b62bbb26": {
+      "reference_date": "2025-11-14",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4141d45d8480278ef96e22a4483705330315e622962ca63a5ace188636db7426"
+      ]
     }
   },
   "passages": {
@@ -3482,18 +3537,6 @@
       "sha256": "511471264b4c9c04adfb8dfc608bbd7bbf992ca0fc05e3c8cbe2c5475c3823f1",
       "verification": "primary_passage"
     },
-    "e20db9b02b89df87efcd2da4ae2557093966cb4063f574c15d7c6e510a13134c": {
-      "document_id": "1060919",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060919",
-      "reference_date": "2025-11-14",
-      "version": "1",
-      "page": 53,
-      "clause": "17.1",
-      "excerpt": "17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos:\n(i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório  de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15",
-      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
-      "verification": "primary_passage"
-    },
     "ed45396304e2c0f0b9cdf02573712dff55db61433c3b17ae539745eb7ce6e013": {
       "document_id": "1101558",
       "title": "Regulamento",
@@ -3554,18 +3597,6 @@
       "sha256": "701c6a0013afd13b2252fb4fe7687f0879c978043dff4ca91da9073585551426",
       "verification": "primary_passage"
     },
-    "068ed4327b349aed44b81294c7e0bbef98a5a64f76cf894a6b582e3f20694901": {
-      "document_id": "1060920",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
-      "reference_date": "2025-11-14",
-      "version": "1",
-      "page": 53,
-      "clause": "17.1",
-      "excerpt": "17.1. São considerados Eventos de Avaliação quaisquer dos seguintes eventos:\n(i) não envio pela originadora das informações indispensáveis para a elaboração do Relatório  de Monitoramento, nas datas previstas, sem que haja correspondente regularização no prazo de 15",
-      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
-      "verification": "primary_passage"
-    },
     "a8ffae22e90d8186b8c9719fcb5203a0535c47a6aca8bcfcad2158958df50777": {
       "document_id": "1278972",
       "title": "Regulamento",
@@ -3615,18 +3646,6 @@
       "sha256": "236eb6e1679fde05e5f471093422a939e5c1e19c306dc9c6e1b5123d1a8cda16",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1278972 | 27/07/2026 | regulamento | p. 7–8; 3.12.1 | data/raw/63679792000192/1278972_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972"
-    },
-    "939c6201115367cc8f3c412f0dc064652619353e906e3f158586780d143c79bf": {
-      "document_id": "1060919",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060919",
-      "reference_date": "2025-11-14",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias  expressadas pelo respectivo Cedente em cumprimento aos Critérios de Elegibilidade e as Condições  de Cessão; e (ii) não serão responsáveis pela solvência dos Devedores ou dos coobrigados, nem  pela suficiência das garantias outorgadas pelos Devedores em relação aos Direitos Creditórios. Não  haverá por parte da Administradora, do Custodiante, do Agente de Cobrança (enquanto tal), da  Gestora e/ou do Coordenador Líder qualquer responsabilidade a esse respeito, observadas e  mantidas, contudo, as responsabilidades da Administradora, da Gestora e do Custodiante previstas  na Resolução CVM nº 175 e nas demais normas aplicáveis, no “Código ANBIMA de Regulação e  Melhores Práticas para Administração de Recursos de Terceiros” e no Contrato de Cessão, conforme  aplicável.",
-      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
-      "verification": "primary_passage"
     },
     "6f1f3aa2d9c2b6f615851e6df954355f6a68e6f7fdd2cc5e49147b795c438474": {
       "document_id": "1101558",
@@ -3686,18 +3705,6 @@
       "clause": "3.14.6",
       "excerpt": "3.14.6. Os Cedentes: (i) serão responsáveis pela existência, certeza, exigibilidade e correta  formalização dos Direitos Creditórios que tenham cedido ao Fundo, bem como da legitimidade e dos  poderes dos signatários dos respectivos Documentos Comprobatórios, nos termos dos artigos 286 e  seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias  expressadas pelo respectivo Cedente em cumprimento aos Critérios de Elegibilidade e as Condições  de Cessão; e (ii) não serão responsáveis pela solvência dos Devedores ou dos coobrigados, nem  pela suficiência das garantias outorgadas pelos Devedores em relação aos Direitos Creditórios. Não  haverá por parte da Administradora, do Custodiante, do Agente de Cobrança (enquanto tal), da  Gestora e/ou do Coordenador Líder qualquer responsabilidade a esse respeito, observadas e  mantidas, contudo, as responsabilidades da Administradora, da Gestora e do Custodiante previstas  na Resolução CVM nº 175 e nas demais normas aplicáveis, no “Código ANBIMA de Regulação e  Melhores Práticas para Administração de Recursos de Terceiros” e no Contrato de Cessão, conforme  aplicável.",
       "sha256": "701c6a0013afd13b2252fb4fe7687f0879c978043dff4ca91da9073585551426",
-      "verification": "primary_passage"
-    },
-    "c20816fe4af6ea9e280faf600b4cd69d3e42bf41febf01bd791d106bd2ba73a4": {
-      "document_id": "1060920",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
-      "reference_date": "2025-11-14",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "seguintes do Código Civil Brasileiro, bem como pela validade das declarações e garantias  expressadas pelo respectivo Cedente em cumprimento aos Critérios de Elegibilidade e as Condições  de Cessão; e (ii) não serão responsáveis pela solvência dos Devedores ou dos coobrigados, nem  pela suficiência das garantias outorgadas pelos Devedores em relação aos Direitos Creditórios. Não  haverá por parte da Administradora, do Custodiante, do Agente de Cobrança (enquanto tal), da  Gestora e/ou do Coordenador Líder qualquer responsabilidade a esse respeito, observadas e  mantidas, contudo, as responsabilidades da Administradora, da Gestora e do Custodiante previstas  na Resolução CVM nº 175 e nas demais normas aplicáveis, no “Código ANBIMA de Regulação e  Melhores Práticas para Administração de Recursos de Terceiros” e no Contrato de Cessão, conforme  aplicável.",
-      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
       "verification": "primary_passage"
     },
     "0b38676e2339f73f232d6b57ecc4abe7b2b84a8624df99cf07ef7ea489939876": {
@@ -6785,6 +6792,134 @@
       "clause": "",
       "excerpt": "“Data de Amortização significa a data esperada de amortização final de cada Série de Cotas  Final” Seniores ou de cada Série ou Subclasse de Cotas Subordinadas,  especificada no respectivo Apêndice, ou a data em que as Cotas sejam  integralmente amortizadas, o que ocorrer primeiro, observada a  subordinação entre as Cotas.\n “Data de Verificação” significa o 5º (quinto) Dia Útil de cada mês, iniciando-se no 5º (quinto)  Dia Útil do mês imediatamente posterior à data da primeira Data de  Aquisição de Direitos Creditórios.\n “Devedor(es)” significam as pessoas jurídicas, clientes dos Cedentes, que tenham  realizado locação de Equipamentos, resultando na obrigação dos  respectivos Devedores de realizar o pagamento dos Direitos  Creditórios, sendo certo que todos os devedores de um mesmo Grupo  Econômico (conforme indicados na Lista de Devedores por Grupo)  serão considerados como um único Devedor para fins dos limites de  concentração da carteira e validação dos Critérios de Elegibilidade e  das Condições de Cessão.\n “Dia Útil” ou “Dias significa qualquer dia, exceto; (i) um dia que não seja um sábado,  Úteis” um domingo ou um feriado no âmbito nacional na República  Federativa do Brasil; ou (ii) caso as Cotas estejam custodiadas  eletronicamente na B3, não serão considerados como dias úteis, os  dias que impliquem no fechamento da B3, sendo processados no  primeiro dia útil subsequente as movimentações.\n “Direito de Recompra” tem o significado atribuído no Artigo 3.15 deste Regulamento.\n “Direitos Creditórios” significam os direitos creditórios, de titularidade dos Cedentes,  originados por meio da locação de Equipamentos aos Devedores, nos  termos dos respectivos Contratos de Locação de Equipamentos,  expressos em reais, juntamente com todos os direitos (inclusive  direitos reais de garantia), privilégios, preferências, prerrogativas,  seguros e ações a estes relacionadas, bem como reajustes  monetários, juros, multa contratual e encargos, representados pelos  Documentos Comprobatórios e pelos Documentos Adicionais, que  atendam aos Critérios de Elegibilidade e as Condições de Cessão  previstos neste Regulamento.\n “Direitos Creditórios significam os Direitos Creditórios cedidos ao Fundo, vencidos e não  Inadimplidos” pagos na respectiva data de vencimento.\n “Dívida Líquida” tem o significado atribuído no Artigo 17.1.2 deste Regulamento.\n “Documentos significam (i) nota fiscal ou fatura de aluguel, conforme aplicável; (ii)  Adicionais” nota fiscal de aquisição dos Equipamentos; (iiii) arquivo eletrônico  com detalhamento das faturas emitidas; (iv) documentos societários  comprovando a legitimidade e poderes dos signatários dos  Documentos Comprobatórios; e (v) quaisquer documentos que  possam ser necessários em discussões acerca da origem, existência,  conteúdo e/ou exequibilidade dos Direitos Creditórios.",
       "sha256": "701c6a0013afd13b2252fb4fe7687f0879c978043dff4ca91da9073585551426",
+      "verification": "primary_passage"
+    },
+    "bc8f01a50c9c3aa0b59940bfee4e9989950a57881d37443742e1a78077214d4c": {
+      "document_id": "1150603",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1150603",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos  seguintes critérios de elegibilidade, serem verificados e validados pelo Gestor ou por prestador de  serviço por ela subcontratado, previamente a cada cessão na respectiva data de oferta de direitos  creditórios:\ni) Os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional;\n ii) Os devedores e os cedentes dos respectivos direitos creditórios não poderão estar inadimplentes  no cumprimento de quaisquer obrigações pecuniárias assumidas perante o Fundo;\n iii) Os devedores deverão ser pessoas jurídicas;\n iv) A carteira do Fundo, considerando proforma a aquisição dos direitos creditórios em questão,  deverá manter prazo médio máximo de quarenta e oito meses, devendo tal cálculo levar em  consideração a quantidade de dias entre a data de cálculo aplicável e as datas de vencimentos,  e os respectivos valores ponderados de cada parcela dos direitos creditórios, conforme aplicável;\n v) Os contratos de locação de equipamentos deverão, na respectiva data de aquisição, ter um prazo  remanescente anterior à data de amortização final de cotas seniores, exceto quando proforma  o saldo do somatório das parcelas de direitos creditórios cedidos com vencimento anterior à data  de amortização final de cotas seniores, somado com o saldo disponível em caixa do Fundo, atinja  montante superior ao saldo devedor das cotas seniores e cotas subordinadas mezanino;\n vi) O valor presente dos direitos creditórios devidos por devedor do mesmo grupo econômico, será  limitado a 15% do patrimônio líquido do Fundo, a ser verificado considerando-se proforma cada  cessão de direitos creditórios ao Fundo;\n vii) O valor presente dos direitos creditórios devidos pelos cinco maiores devedores, considerando-  se em tal conceito devedores do mesmo grupo econômico, será limitado a 40% do patrimônio  líquido do Fundo, a ser verificado considerando-se proforma cada cessão de direitos creditórios  ao Fundo;\n viii) O valor presente dos direitos creditórios devidos pelos dez maiores devedores, considerando-se  em tal conceito devedores do mesmo grupo econômico, será limitado a 62% do patrimônio  líquido do Fundo, a ser verificado considerando-se proforma cada cessão de direitos creditórios  ao Fundo;\n ix) Após o Fundo atingir uma concentração nos dez maiores devedores, considerando-se em tal  conceito devedores do mesmo grupo econômico, os demais devedores deverão observar um  limite de concentração individual do valor presente dos direitos creditórios de até 3,5% do  patrimônio líquido do Fundo, a ser verificado considerando-se proforma cada cessão de direitos  creditórios ao Fundo;\n x) Cada direito creditório deverá ser cedido ao Fundo a uma taxa de retorno, convertida para  spread sobre a taxa DI, utilizando a curva “DI x pré” das taxas referenciais BM&F Bovespa  divulgada pela B3 S.A. - Brasil Bolsa Balcão (“B3 S.A.”) no dia útil anterior à data de aquisição e  pagamento, igual ou superior à média ponderada da remuneração de todas as séries de cotas  seniores e séries ou subclasses de cotas subordinadas mezanino em circulação pelos seus  respectivos volumes, acrescido do somatório das taxas de Gestão, Administração e custódia, e  acrescido de spread de 6% ao ano;\n xi) A cessão deverá contemplar a totalidade dos direitos creditórios objeto dos contratos de locação  de equipamentos, não sendo permitida a cessão parcial desses;\n xii) A média do valor do aluguel mensal da carteira de direitos creditórios deve representar, ao  menos 2,5% da soma do valor dos equipamentos no momento da cessão. Para fins desse item e",
+      "sha256": "511471264b4c9c04adfb8dfc608bbd7bbf992ca0fc05e3c8cbe2c5475c3823f1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b517226f9bfa53de8158ae7f85136ed160d2f1b737fed7b8c4678f11b7852b9b": {
+      "document_id": "1060919",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060919",
+      "reference_date": "2025-11-14",
+      "version": "1",
+      "page": "14–15",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável; e\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos.",
+      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "df8d43af5c0d6f805660ebf490bb02d0f40aa45ec345496e0e443bfca60152fb": {
+      "document_id": "1101558",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1101558",
+      "reference_date": "2026-01-26",
+      "version": "1",
+      "page": "9–10",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável;\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos; e\n(xiv) os Direitos Creditórios devem ser originados de contratos de locação, que tenham como  objeto Equipamentos cuja instalação tenha sido concluída e estejam em pleno funcionamento no  momento da Cessão, exceto por aqueles Equipamentos que estejam em manutenção ou em vias de  manutenção, de acordo com o respectivo Contrato de Locação de Equipamentos.",
+      "sha256": "87902b551e4e38a48e6b4726d4fac54dac71eab8e5b8a5f975b015a3fc4d10a8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "823143afe7337571bede644d856f45a41967e3dc77bb07d774113aa44ead2bbd": {
+      "document_id": "1069086",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069086",
+      "reference_date": "2025-12-19",
+      "version": "1",
+      "page": "12–13",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável;\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos; e\n(xiv) os Direitos Creditórios devem ser originados de contratos de locação, que tenham como  objeto Equipamentos cuja instalação tenha sido concluída e estejam em pleno funcionamento no  momento da Cessão, exceto por aqueles Equipamentos que estejam em manutenção ou em vias de  manutenção, de acordo com o respectivo Contrato de Locação de Equipamentos.",
+      "sha256": "11f3b5aa1b0f756e2f9564cc9455ec938a97290ea4a03c92325315aa820c6b89",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e699a4c68ea7db363b76458c5361646e29e1ccc021b568328166043629c04df4": {
+      "document_id": "1069087",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069087",
+      "reference_date": "2025-12-19",
+      "version": "1",
+      "page": "12–13",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável;\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos; e\n(xiv) os Direitos Creditórios devem ser originados de contratos de locação, que tenham como  objeto Equipamentos cuja instalação tenha sido concluída e estejam em pleno funcionamento no  momento da Cessão, exceto por aqueles Equipamentos que estejam em manutenção ou em vias de  manutenção, de acordo com o respectivo Contrato de Locação de Equipamentos.",
+      "sha256": "11f3b5aa1b0f756e2f9564cc9455ec938a97290ea4a03c92325315aa820c6b89",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "558f07fdea374359598ecc10697eb62c57d225208b06cac3bf7680c6ffbc6d3a": {
+      "document_id": "1069084",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069084",
+      "reference_date": "2025-12-18",
+      "version": "1",
+      "page": "14–15",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável;\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos; e\n(xiv) os Direitos Creditórios devem ser originados de contratos de locação, que tenham como  objeto Equipamentos cuja instalação tenha sido concluída e estejam em pleno funcionamento no  momento da Cessão, exceto por aqueles Equipamentos que estejam em manutenção ou em vias de  manutenção, de acordo com o respectivo Contrato de Locação de Equipamentos.",
+      "sha256": "701c6a0013afd13b2252fb4fe7687f0879c978043dff4ca91da9073585551426",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "74f62a069aa4990b18b1f8376c0694f59943525b7919a7f51fb04025d6cae350": {
+      "document_id": "1069085",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069085",
+      "reference_date": "2025-12-18",
+      "version": "1",
+      "page": "14–15",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável;\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos; e\n(xiv) os Direitos Creditórios devem ser originados de contratos de locação, que tenham como  objeto Equipamentos cuja instalação tenha sido concluída e estejam em pleno funcionamento no  momento da Cessão, exceto por aqueles Equipamentos que estejam em manutenção ou em vias de  manutenção, de acordo com o respectivo Contrato de Locação de Equipamentos.",
+      "sha256": "701c6a0013afd13b2252fb4fe7687f0879c978043dff4ca91da9073585551426",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "70d227bd4e5851bfe22ba6573c8a4a904e7451ab77ed65ceacb42bedbff30bea": {
+      "document_id": "1060920",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
+      "reference_date": "2025-11-14",
+      "version": "1",
+      "page": "14–15",
+      "clause": "3.13.1",
+      "excerpt": "3.13.1. Sem prejuízo de serem observados os Critérios de Elegibilidade, as Condições de Cessão  listadas abaixo deverão ser verificadas e validadas pelos Cedentes, na respectiva data de cessão de  Direitos Creditórios ao Fundo (“Condições de Cessão”):\n(i) os Direitos Creditórios devem ser originados pelos Cedentes, conforme Política de  Concessão de Crédito;\n(ii) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da  sua cessão;\n(iii) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(iv) os Direitos Creditórios deverão ser provenientes de Contratos de Locação de Equipamentos  cujos Equipamentos tenham sido entregues, estejam devidamente instalados e cujas eventuais  condições precedentes previstas nos Contratos de Locação de Equipamentos para fins de início do  pagamento das parcelas dos Direitos Creditórios já tenham sido cumpridas;\n(v) os Contratos de Locação de Equipamentos deverão especificar, de forma expressa e clara,  o valor, forma e prazo de pagamento, descontos e demais informações referentes aos Direitos  Creditórios em questão;\n(vi) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão ter  inadimplência de quaisquer obrigações pecuniárias igual ou superior a 15 (quinze) dias de atraso  perante os Cedentes, sejam decorrentes das operações que lastreiam os Direitos Creditórios  ofertados ao Fundo ou de outras operações contratadas com os Cedentes;\n(vii) os Direitos Creditórios e os Equipamentos a eles relacionados deverão estar livres e  desembaraçados de quaisquer ônus ou gravames no momento de sua aquisição pelo Fundo;\n(viii) os Cedentes não poderão estar sujeitos a um Evento de Insolvência;\n(ix) os Devedores não poderão estar sujeitos a um Evento de Insolvência, conforme verificado  em órgãos de proteção de crédito;\n(x) os Direitos Creditórios não poderão ter sido objeto de renegociações, operações de  reestruturação e/ou rolagem de obrigações entre os Cedente e os Devedores nos últimos 12 (doze)  meses, exceto (a) revisões contratuais realizadas por livre vontade dos Cedentes e dos Devedores,  que não caracterizem reestruturação de dívida, e (b) atrasos pontuais já regularizados antes da  cessão ao Fundo;\n(xi) não poderá haver qualquer tipo de subordinação entre os Direitos Creditórios e os demais  direitos creditórios devidos pelos Devedores às Cedentes, seja com relação a prazos, datas de  vencimento, garantias, formas de pagamento, política de crédito e cobrança, dentre outros, de forma  que não se sobreponha benefício às Cedentes em relação ao Fundo;\n(xii) considerando pro forma a aquisição ao menos 80% (oitenta por cento) da carteira deve  ser composta por Direitos Creditórios atrelados a Contratos de Locação de Equipamentos com  cláusula de reajuste anual pelo IPCA ou pelo IGP-M e/ou pela combinação dos dois, conforme  aplicável; e\n(xiii) o Devedor já deverá ter pago pelo menos 2 (duas) parcelas mensais do Contrato de  Locação de Equipamentos.",
+      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5ccf82cd7664c327868b7b1d2acf88d82e2762e9f2ea02759e167179c8b2907a": {
+      "document_id": "1060919",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060919",
+      "reference_date": "2025-11-14",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "anterior, conforme informações recebidas pela Administradora, pelo Custodiante e/ou pelos  Cedentes, conforme aplicável:\n(i) a carteira do Fundo, considerando pro forma a aquisição dos Direitos Creditórios em  questão, deverá manter prazo médio máximo de 48 (quarenta e oito) meses, devendo tal cálculo  levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de  vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme  aplicável;\n(ii) os Contratos de Locação de Equipamentos deverão, na respectiva Data de Aquisição, ter  um prazo remanescente anterior à Data de Amortização Final de Cotas Seniores, exceto quando pro  forma o saldo do somatório das parcelas de Direitos Creditórios cedidos com vencimento anterior à  Data de Amortização Final de Cotas Seniores, somado com o saldo disponível em caixa do Fundo,  atinja montante superior ao saldo devedor das Cotas Seniores e Cotas Subordinadas Mezanino;\n(iii) o Valor Presente dos Direitos Creditórios devidos por Devedor do mesmo Grupo Econômico,  será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo, a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo;\n(iv) o Valor Presente dos Direitos Creditórios devidos pelos 5 (cinco) maiores Devedores,  considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 40%  (quarenta por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma  cada cessão de Direitos Creditórios ao Fundo;\n(v) o Valor Presente dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores,  considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 62%  (sessenta e dois por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro  forma cada cessão de Direitos Creditórios ao Fundo;\n(vi) após o Fundo atingir uma concentração nos 10 (dez) maiores Devedores, considerando-se  em tal conceito Devedores do mesmo Grupo Econômico, os demais Devedores deverão observar um  limite de concentração individual do Valor Presente dos Direitos creditórios de até 3,5% (três inteiros  e cinco décimos por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro  forma cada cessão de Direitos Creditórios ao Fundo; e;\n(vii) o Fundo deverá cumprir com a Alocação Mínima e a Alocação Mínima – Entidade de  Investimento.",
+      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
+      "verification": "primary_passage"
+    },
+    "4141d45d8480278ef96e22a4483705330315e622962ca63a5ace188636db7426": {
+      "document_id": "1060920",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
+      "reference_date": "2025-11-14",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "anterior, conforme informações recebidas pela Administradora, pelo Custodiante e/ou pelos  Cedentes, conforme aplicável:\n(i) a carteira do Fundo, considerando pro forma a aquisição dos Direitos Creditórios em  questão, deverá manter prazo médio máximo de 48 (quarenta e oito) meses, devendo tal cálculo  levar em consideração a quantidade de dias entre a data de cálculo aplicável e as datas de  vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos Creditórios, conforme  aplicável;\n(ii) os Contratos de Locação de Equipamentos deverão, na respectiva Data de Aquisição, ter  um prazo remanescente anterior à Data de Amortização Final de Cotas Seniores, exceto quando pro  forma o saldo do somatório das parcelas de Direitos Creditórios cedidos com vencimento anterior à  Data de Amortização Final de Cotas Seniores, somado com o saldo disponível em caixa do Fundo,  atinja montante superior ao saldo devedor das Cotas Seniores e Cotas Subordinadas Mezanino;\n(iii) o Valor Presente dos Direitos Creditórios devidos por Devedor do mesmo Grupo Econômico,  será limitado a 15% (quinze por cento) do patrimônio líquido do Fundo, a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios ao Fundo;\n(iv) o Valor Presente dos Direitos Creditórios devidos pelos 5 (cinco) maiores Devedores,  considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 40%  (quarenta por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma  cada cessão de Direitos Creditórios ao Fundo;\n(v) o Valor Presente dos Direitos Creditórios devidos pelos 10 (dez) maiores Devedores,  considerando-se em tal conceito Devedores do mesmo Grupo Econômico, será limitado a 62%  (sessenta e dois por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro  forma cada cessão de Direitos Creditórios ao Fundo;\n(vi) após o Fundo atingir uma concentração nos 10 (dez) maiores Devedores, considerando-se  em tal conceito Devedores do mesmo Grupo Econômico, os demais Devedores deverão observar um  limite de concentração individual do Valor Presente dos Direitos creditórios de até 3,5% (três inteiros  e cinco décimos por cento) do patrimônio líquido do Fundo, a ser verificado considerando-se pro  forma cada cessão de Direitos Creditórios ao Fundo; e;\n(vii) o Fundo deverá cumprir com a Alocação Mínima e a Alocação Mínima – Entidade de  Investimento.",
+      "sha256": "2fa6ab4e88b1f026bb2c9de583661a2e625dc9565a27bed244a40804f9781d8e",
       "verification": "primary_passage"
     }
   }

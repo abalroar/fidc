@@ -3,16 +3,6 @@
   "cnpj": "42154687000160",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "54c1f8b57ad0a4fab9e1e3d4891cd8116413b362b480d65fd71dedfe7f1f0653",
-      "f2f7cd133677c3824913e743046d9c66c6a1ae1d20e8727e153dfccd70beea85",
-      "4a3a5a39e34aa5eedaccab5eb8d37be2a9308ba1ce36f0e7cc7f07270713485a",
-      "c39eaa863f7c5197e07c7eaa533c05c619b3d5809cb69b6633eb56425a5d872f",
-      "b02f7bbe9cb082b3feb0e401161f944e90304597f0ac3418ed554757ebfd79fd",
-      "65a15a2620c2fa70f79124356abf94da352e1eed119458526e94b511ff4bc274",
-      "1e00948371e0e55242bbb1305b6bad8b7a4b0d138a58eb994ef5a0596add385b",
-      "4af649e10d4b5db56ab957918c6a504888193e80dbc3ee858cb8e9930e200831"
-    ],
     "term": [
       "b55eccddb57440051a03a48d982d359865bf71305dd1b85ac2bb15afc51df0f8",
       "40273d59ffe39689273470f689fdc295a5d3b735282f101b23161ff6b69e19ae",
@@ -642,37 +632,6 @@
       "1f75e2b28ede1ed4c61746ea2bca52b68c8d68376fad383875682812f2ac9ae2",
       "2f9ae4882ea928b5e3e576f1807397c811a837da6af0cce88c956a58743e7076"
     ],
-    "originator": [
-      "10e5de4250a59d7a26ce892afb189f397fa136092d363a6e60d62b9e3e85e2c3",
-      "5d5f26427cdbfdcaf77e0e0234949840732a2f9656d601d309f210415592fe85",
-      "5f069d0359473bd63f24c86b3919a7e352dfd6a22a91510e6aed318a92462db0",
-      "a4b68bdb49e57f8549b0ca41b506d1efbb5c5497acc2e9e4abc5fb93dcab3f7e",
-      "6a76b46bbc1594836506951692e94cf19414f8e898531686143baea9ffe6755c",
-      "4d066a2147303c6b8ce500c061edc3628db11294502f0e77acbee031bf6353d2",
-      "12aa7453a48305a261d2d0a07bd306a726b7002123c6cbe56ece00440ecea07a",
-      "0dacb2d43e24a3069763ec808366cc78d1fb98aefc5486cc0b35ed0b22cd2f67",
-      "cb0de3622acbbbe5a2f1164bdc0286521c42e8033c30068d7a27e1c34c597ab8",
-      "f48f3568bdf7b05dd490591667feefa4b33a100ca1ca0d3ff551f2bf92fe6aff",
-      "593bf11146b128196efd0c755565726d78c5be8ef0189ad9369c9cbdc40217db",
-      "8ea1ea21a95165a0799a8732a33c3e879a6cdb90cafa955c9507f5f44c08d3ee",
-      "f4b7794c8be29b430d9934a4f04c2ad519be0230555ee4486e0c80c38b26a63f",
-      "4ad57a7ae085d4dbb37e27d88183298fd78c520b8c038fc65464dc0bf67d7b3d",
-      "8d20fd67a536637fb2c5ff863525f648e55d2ebabf5b5c4a6ec56182ecd33f95",
-      "df8f7ee87fc523df986d89223b746899364002410bc026c64574b9096f6a162e",
-      "27ce16cc699f4364ef2eb4e1e115a1f969047528f901b7829114c684a4d7bb6f"
-    ],
-    "debtor": [
-      "ed82dfb5fa86b2e6c2cbc2baafcd237b592d3af41e65dda3474ac7f98fa25e6c",
-      "8b51f682cf215885d1f83335954eb0226021d526b9538aa0577f584d05279bb0",
-      "3c303f8ebd48cbfe1ba4b62bde699e25fe502cef786e56b380c4c32771d08622",
-      "4395cb293673f3ddd104bb0135126fb3272deb5a853e843c54e36218c2ed3c40",
-      "e49b7be341117004d15655041472d48936f26f0e01018ae8516573e47bf10f50",
-      "52ae19ee7da857fd791b057f7286f61e4330dda64465d3fe4f16a0e37e01053c",
-      "36baa09067218ef7084ac4e99befe4c4b4a0168db6f769e365c3afc0a5992488",
-      "88448bfa6e13e85001858ac482b200ba237a4e63faec19f56e3bcf2f1f64b31c",
-      "db7d1d87cae0dcbe8714818f261b193549b8c8ee17a5eded438347b8084606bf",
-      "917c4c0b70a07fa39750b4b9a7ccaf1ebf2a2ed4721df4b4459efb3a342e8861"
-    ],
     "investee": [
       "e5d73d7139f225db899b2fcd5fb57ba1185e4a6695acc622d84d9ea36a4d80d1",
       "899031585c5ba975a6fc4cb3069bfd9e54e7c5dc7ac12fe4d2aec677bf71a824",
@@ -739,6 +698,36 @@
       "64e79d789646c455d3cc509ed67e80a91b28badf2930c1ceea75d3a89a212041",
       "4611fbfd9cc1e9af82625dcda250bf5c1baa57424fd6db427dbf782093778a41",
       "de8e3e67063b27cedb37f5e3d0edb6478b4983be46834782fc3d7ff8f7804e4f"
+    ],
+    "originator": [
+      "5f8f51faf7afec0674f445a6ff012e836c4548c52f92f9501da9bb3b63ff7967",
+      "5d5f26427cdbfdcaf77e0e0234949840732a2f9656d601d309f210415592fe85",
+      "5f069d0359473bd63f24c86b3919a7e352dfd6a22a91510e6aed318a92462db0",
+      "a4b68bdb49e57f8549b0ca41b506d1efbb5c5497acc2e9e4abc5fb93dcab3f7e",
+      "6a76b46bbc1594836506951692e94cf19414f8e898531686143baea9ffe6755c",
+      "62c3da701a6724cdc980670c133c92f3106f2f342bd4da815b00c403e79661ab",
+      "7043e5d83f74399e9c3182651e4556a15373e7bb4f89c55757a72870a72c287d",
+      "4d066a2147303c6b8ce500c061edc3628db11294502f0e77acbee031bf6353d2",
+      "12aa7453a48305a261d2d0a07bd306a726b7002123c6cbe56ece00440ecea07a",
+      "0dacb2d43e24a3069763ec808366cc78d1fb98aefc5486cc0b35ed0b22cd2f67",
+      "cb0de3622acbbbe5a2f1164bdc0286521c42e8033c30068d7a27e1c34c597ab8",
+      "f48f3568bdf7b05dd490591667feefa4b33a100ca1ca0d3ff551f2bf92fe6aff",
+      "593bf11146b128196efd0c755565726d78c5be8ef0189ad9369c9cbdc40217db",
+      "8ea1ea21a95165a0799a8732a33c3e879a6cdb90cafa955c9507f5f44c08d3ee",
+      "93961b89dbcfae6e6d622ef5a392c7681a9e58e4afca1ea9f6fb6ffc6d8e64d2",
+      "4ad57a7ae085d4dbb37e27d88183298fd78c520b8c038fc65464dc0bf67d7b3d",
+      "8d20fd67a536637fb2c5ff863525f648e55d2ebabf5b5c4a6ec56182ecd33f95",
+      "df8f7ee87fc523df986d89223b746899364002410bc026c64574b9096f6a162e"
+    ],
+    "eligibility": [
+      "bdc3ded9802fcdf5581255d1a9529e4c418c41b511ae226172d2b2ad310402b1",
+      "12bb72c1a01c35fe14f01298a7c1167d542b8e0201ad085d693e8a818126855d",
+      "38f807f992441e53d7c2f9b9c8e11d4edaf61f4802bb06e0b2f7b296b673bd9a",
+      "748250d80cf87de80d9c9f8d8a43b32831bd7d6b4efc6ec6ca9789ee1746de25",
+      "056e8e0ae848e06d5d6df066a4b927ca233cb8bd70e5482f80eddd0fd68eec75",
+      "8fe49d2c269afb42146ce0dc97f668ffba564773a3e406d49b52d3522a7c7973",
+      "08e913d1c4eded3927352421f165f951846dd11f670c4eed9378b38e8a8ce97c",
+      "1f0aae03769d1f927ccc167aa39f5b8bc5173ca737c861acf9165799761cf08c"
     ]
   },
   "entries": {
@@ -821,15 +810,6 @@
       "provenance": "primary_passage",
       "sources": [
         "41b067e1aa0993fa98adf58fbb3b3b68131c69771bcfbaa6f740d0c11691a193"
-      ]
-    },
-    "10e5de4250a59d7a26ce892afb189f397fa136092d363a6e60d62b9e3e85e2c3": {
-      "reference_date": "2026-04-13",
-      "value": "10. INFORMAÇÕES SOBRE ORIGINADORES .......................................................................................",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "29d6ebd6831f8279aefe86ad010fbeecd072b1f63cd49676bef3bf51052646f0"
       ]
     },
     "5d5f26427cdbfdcaf77e0e0234949840732a2f9656d601d309f210415592fe85": {
@@ -931,15 +911,6 @@
         "a1222d61e25b3a59b889e9745b4ab95977d7c35f40fcb4d30ed20acd8fe08b34"
       ]
     },
-    "f4b7794c8be29b430d9934a4f04c2ad519be0230555ee4486e0c80c38b26a63f": {
-      "reference_date": "2023-11-30",
-      "value": "a) Alteração do item 10.1, (a), (5), previsto como Critérios de Elegibilidade no Regulamento do Fundo, a fim de alterar a quantidade mínima de originadores para Direitos Creditórios representados por contratos de compra e venda e/ou prestação de serviços, CCB e NCC b) Alteração do item 20.1, alínea “f”, previsto como Eventos de Avaliação, Critérios de Elegibilidade no Regulamento do Fundo, a fim de alterar uma das hipóteses consideradas Eventos de Avaliação",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "54ec16647a96ce88e881af844314b315b29a7a57b6d92f00df7ca5109f6bfe3c"
-      ]
-    },
     "4ad57a7ae085d4dbb37e27d88183298fd78c520b8c038fc65464dc0bf67d7b3d": {
       "reference_date": "2023-09-08",
       "value": "a) Alteração do item 10.1, (a), (5), previsto como Critérios de Elegibilidade no Regulamento do Fundo, a fim de alterar a quantidade mínima de originadores para Direitos Creditórios representados por contratos de compra e venda e/ou prestação de serviços, CCB e NCC, de modo que passará a vigorar da seguinte maneira:",
@@ -965,177 +936,6 @@
       "provenance": "primary_passage",
       "sources": [
         "6821e322e72db12b77fb26efea6dd0d702ba747d53bc638ea211d6e0ca15a6c5"
-      ]
-    },
-    "27ce16cc699f4364ef2eb4e1e115a1f969047528f901b7829114c684a4d7bb6f": {
-      "reference_date": "2023-07-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bd8335fd81b9e22dd46a73ddbbedd0bb4335c4b1986ba9cf9d6442f3e1fce6f2"
-      ]
-    },
-    "ed82dfb5fa86b2e6c2cbc2baafcd237b592d3af41e65dda3474ac7f98fa25e6c": {
-      "reference_date": "2026-03-18",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "97f777b9b2a5bb817526bcb96211dd6db80d9d4a7eec49fccf270f3f196fe0d0"
-      ]
-    },
-    "8b51f682cf215885d1f83335954eb0226021d526b9538aa0577f584d05279bb0": {
-      "reference_date": "2025-09-16",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "96f5ed6634985e726873d15460b9b94e1f1de0231ba73e4cdb4e32b921f5592e"
-      ]
-    },
-    "3c303f8ebd48cbfe1ba4b62bde699e25fe502cef786e56b380c4c32771d08622": {
-      "reference_date": "2025-09-03",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9a28e040a5ca6a3822562081acb9268b02b5a0785a4c2a0212b6e83dcbe3aa24"
-      ]
-    },
-    "4395cb293673f3ddd104bb0135126fb3272deb5a853e843c54e36218c2ed3c40": {
-      "reference_date": "2025-07-01",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a42727bce056b5418b3f18361f6e53cfcc8ca79948fbd7eacf777b1aa146bc24"
-      ]
-    },
-    "e49b7be341117004d15655041472d48936f26f0e01018ae8516573e47bf10f50": {
-      "reference_date": "2025-04-30",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "55357a757fafbfc4e512b24d7163d3479918c06c50a7d05675d2a9fb74413d12"
-      ]
-    },
-    "52ae19ee7da857fd791b057f7286f61e4330dda64465d3fe4f16a0e37e01053c": {
-      "reference_date": "2025-03-24",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3f4e05ef3f1f28f9417f60d49e5721b017ddbb7e433fc5b91bc3297b1cf7d721"
-      ]
-    },
-    "36baa09067218ef7084ac4e99befe4c4b4a0168db6f769e365c3afc0a5992488": {
-      "reference_date": "2024-09-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4da639312fe8ac1a04573b65206442c35c579fd4f37bb8464aad726dc49d4b35"
-      ]
-    },
-    "88448bfa6e13e85001858ac482b200ba237a4e63faec19f56e3bcf2f1f64b31c": {
-      "reference_date": "2024-06-14",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0bf2bedc72120219ce51e8f0dd109cc6ca718e743af7385550d06ff57c4284c3"
-      ]
-    },
-    "db7d1d87cae0dcbe8714818f261b193549b8c8ee17a5eded438347b8084606bf": {
-      "reference_date": "2023-06-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "72c3b74cbcdb2913653a92868657618d76673427a779d2ea78752f7d8a818caa"
-      ]
-    },
-    "917c4c0b70a07fa39750b4b9a7ccaf1ebf2a2ed4721df4b4459efb3a342e8861": {
-      "reference_date": "2022-06-03",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4f1e5cf26142194f52aad4e8e8779d895c9c87975540757430011f85564e74af"
-      ]
-    },
-    "54c1f8b57ad0a4fab9e1e3d4891cd8116413b362b480d65fd71dedfe7f1f0653": {
-      "reference_date": "2026-04-13",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d1565cb61c098c015981d62eb0fa2df559c8bb1fef188400d11a7a111e49b09c"
-      ]
-    },
-    "f2f7cd133677c3824913e743046d9c66c6a1ae1d20e8727e153dfccd70beea85": {
-      "reference_date": "2026-03-20",
-      "value": "Os recursos captados no âmbito da 1ª emissão da 20ª série de Cotas Seniores do Fundo têm como objetivo a aquisição preponderante de Direitos Creditórios, nos termos da política de investimento estabelecida no Regulamento, observados os critérios de elegibilidade, condições de cessão, limites de concentração, composição e diversificação da carteira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6c3ba637ff4f1012735eb798146334b95c53118e1ba2922d0a5ef044f3af38a1"
-      ]
-    },
-    "4a3a5a39e34aa5eedaccab5eb8d37be2a9308ba1ce36f0e7cc7f07270713485a": {
-      "reference_date": "2026-03-20",
-      "value": "Os recursos captados no âmbito da 1ª emissão da 20ª série de Cotas Seniores do Fundo têm como objetivo a aquisição preponderante de Direitos Creditórios, nos termos da política de investimento estabelecida no Regulamento, observados os critérios de elegibilidade, condições de cessão, limites de concentração, composição e diversificação da carteira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9207d075c6025b205df54320dd1929c6434a5428ff3cf14010fc350ebd604da0"
-      ]
-    },
-    "c39eaa863f7c5197e07c7eaa533c05c619b3d5809cb69b6633eb56425a5d872f": {
-      "reference_date": "2026-03-20",
-      "value": "Os recursos captados no âmbito da 1ª emissão da 20ª série de Cotas Seniores do Fundo têm como objetivo a aquisição Formatado: Cor da fonte: Texto 1 preponderante de Direitos Creditórios, nos termos da política de investimento estabelecida no Regulamento, observados os critérios de elegibilidade, condições de cessão, limites de concentração, composição e diversificação da carteira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6a25409f080f2501c49ebb820402d8ea946129fd71deb241caaad331eb3ab243"
-      ]
-    },
-    "b02f7bbe9cb082b3feb0e401161f944e90304597f0ac3418ed554757ebfd79fd": {
-      "reference_date": "2026-03-20",
-      "value": "Os recursos captados no âmbito da 1ª emissão da 20ª série de Cotas Seniores do Fundo têm como objetivo a aquisição preponderante de Direitos Creditórios, nos termos da política de investimento estabelecida no Regulamento, observados os critérios de elegibilidade, condições de cessão, limites de concentração, composição e diversificação da carteira.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7270ad0bebd739ca7dcfec2ea3d1f4f6bc2f024cd6467761651c6cb5765f0906"
-      ]
-    },
-    "65a15a2620c2fa70f79124356abf94da352e1eed119458526e94b511ff4bc274": {
-      "reference_date": "2026-03-09",
-      "value": "2. A inclusão da alínea (c) ao item 5.2. do regulamento que dispõe sobre as condições de aquisição, com o objetivo de prever que os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2001db111a70f771fb9702da41b7ee107ce177cd87e03e1a3f2ebb77766dc5d1"
-      ]
-    },
-    "1e00948371e0e55242bbb1305b6bad8b7a4b0d138a58eb994ef5a0596add385b": {
-      "reference_date": "2025-11-30",
-      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "74c8845b7d402d37224aa5597aa177e55841d6330f1cc15937b6fb924c10f8f4"
-      ]
-    },
-    "4af649e10d4b5db56ab957918c6a504888193e80dbc3ee858cb8e9930e200831": {
-      "reference_date": "2025-11-30",
-      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e4125c530a041e5221f91b3f34274dee8df4a74d189da33a905625ca168089ec"
       ]
     },
     "b55eccddb57440051a03a48d982d359865bf71305dd1b85ac2bb15afc51df0f8": {
@@ -6261,6 +6061,96 @@
       "sources": [
         "80626825ae0961c1f31a2defb5740836db85d6950dfd4a47e8fe0a0a862814a7"
       ]
+    },
+    "bdc3ded9802fcdf5581255d1a9529e4c418c41b511ae226172d2b2ad310402b1": {
+      "reference_date": "2026-04-13",
+      "value": "8.4. Política de investimento, discriminando inclusive os métodos e critérios utilizados para seleção dos ativos; A Classe terá como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe, preponderantemente na aquisição de direitos creditórios nos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito bancário, cédulas de crédito imobiliário, cédulas de produtor rural, debentures, cheques (b) todo e qualquer instrumento representativo de crédito, desde que aprovado pela Administradora e Gestora no que diz respeito às suas respectivas esferas de análise; e (c) cotas de emissão de FIDCs. Adicionalmente, caracterizam-se como passíveis de cessão ao Fundo (a) Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Cessão; e (b) todos e quaisquer direitos, garantias, privilégios, preferências e prerrogativas relacionados aos referidos Direitos Creditórios. Para fins tributários, em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 67% (sessenta e sete por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. Caso a composição mínima do Patrimônio Líquido do Fundo não seja mantida, ocorrerá o desenquadramento tributário da Classe. Adicionalmente, os Direitos Creditórios não poderão: a) estar vencidos e pendentes de pagamento quando de sua cessão para o Fundo; b) ser resultantes de ações judiciais em curso, constituam seu objeto de litígio, tenham sido judicialmente penhorados ou dados em garantia; c) ser constituídos ou ter validade jurídica da cessão para a classe de cotas seja considerada um fator preponderante de risco; d) o devedor ou coobrigado serem sociedade empresária em recuperação judicial ou extrajudicial; e) ser de existência futura e montante desconhecido, desde que emergentes de relações já constituídas; e f) ser cotas de FIDC que invistam nos direitos creditórios referidos nas alíneas “a” a “e”.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d1565cb61c098c015981d62eb0fa2df559c8bb1fef188400d11a7a111e49b09c"
+      ]
+    },
+    "12bb72c1a01c35fe14f01298a7c1167d542b8e0201ad085d693e8a818126855d": {
+      "reference_date": "2026-03-20",
+      "value": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "42af04592dc480b54e6f190462442e1a53c7d1323cf759fc37d92080744b6ae0"
+      ]
+    },
+    "38f807f992441e53d7c2f9b9c8e11d4edaf61f4802bb06e0b2f7b296b673bd9a": {
+      "reference_date": "2026-03-20",
+      "value": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c3e4875f9bb7e9bc2cc1c85e1d85d6f43a24d9c27cc69baadb71105b3e5bd03b"
+      ]
+    },
+    "748250d80cf87de80d9c9f8d8a43b32831bd7d6b4efc6ec6ca9789ee1746de25": {
+      "reference_date": "2026-03-20",
+      "value": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; Formatado: Recuo: Primeira linha: 1,13 cm (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis; Formatado: Recuo: Primeira linha: 1,13 cm (c) Os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações Formatado: Recuo: Primeira linha: 1,13 cm de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues, (d) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 Formatado: Recuo: Primeira linha: 1,13 cm",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "abc64c9f36e1b8abedf4f934f7dfbadd6944b430710655861573cd79de802348"
+      ]
+    },
+    "056e8e0ae848e06d5d6df066a4b927ca233cb8bd70e5482f80eddd0fd68eec75": {
+      "reference_date": "2026-03-20",
+      "value": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9a3555b14a55b6782b29bb14a85e8cdb10202e8c7aef47459dfa334cb842ecc4"
+      ]
+    },
+    "8fe49d2c269afb42146ce0dc97f668ffba564773a3e406d49b52d3522a7c7973": {
+      "reference_date": "2026-03-09",
+      "value": "6. A inclusão das alíneas (m), (n) e (o) ao item 5.2, com o objetivo de inserir novas condições de cessão a serem cumpridas pela Gestora, passando a contar com a seguinte redação: m) Os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 2,00% (dois por cento) do Patrimônio Líquido do fundo, quando não cobertos pelas garantias, sendo considerada garantia: (i) cessão fiduciária de duplicatas performadas; e/ou (ii) cessão fiduciária de recebíveis oriundos de operações de pagamento com cartões realizadas pelos usuários para a aquisição de bens e/ou serviços; e/ou (iii) garantias de investimentos de uma forma geral, entre elas cotas de fundos e/ou debêntures; e/ou alienação fiduciária de bens móveis, compreendendo automóveis, caminhões, aeronaves e ônibus; e/ou (iv) alienação fiduciária de bens imóveis; e n) A Carteira de Direitos Creditórios global, representados por CCB´s ou NCC´s deve contar com garantia que servem como colateral de no mínimo 60% (sessenta por cento), sempre auferidos pela gestora com data de verificação no último dia útil de cada mês, sendo considerada garantia: (i) cessão fiduciária de direitos duplicatas performadas no mínimo 30% (trinta por cento) da carteira de CCB’s e NCC’s; e/ou (ii) cessão fiduciária de recebíveis oriundos de operações de pagamento com cartões realizadas pelos usuários para a aquisição de bens e/ou serviços (limitado a 5% da carteira de CCBs e NCCs); e/ou (iii) garantias de investimentos de uma forma geral, entre elas cotas de fundos e/ou debêntures; e/ou (iv) alienação fiduciária de bens móveis, compreendendo automóveis, caminhões, aeronaves e ônibus (limitado a 10% da carteira de CCBs e NCCs); e/ou (v) Alienação fiduciária de bens imóveis; o) 100% (cem por cento) da Carteira de Direitos Creditórios global, representados por CCB´s ou NCC´s deve contar com",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9ef70ef6acae976715bbcf4dceafe1d8701e16925c5f64e7e8e929244ac6f1f1"
+      ]
+    },
+    "08e913d1c4eded3927352421f165f951846dd11f670c4eed9378b38e8a8ce97c": {
+      "reference_date": "2025-11-30",
+      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis; (c) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 (mil e oitenta) Dias Úteis a 1444 (mil quatrocentos e quarenta e quatro) Dias Úteis; (d) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis; (e) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos exceto representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 70 (setenta) Dias Úteis; (f) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s de um mesmo Devedor poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido; e (g) A soma dos Direitos Creditórios Cedidos representados por CCB´s e NCC´s dos 10 (dez) maiores Devedores poderão representar no máximo 20% (vinte por cento) do Patrimônio Líquido;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "74c8845b7d402d37224aa5597aa177e55841d6330f1cc15937b6fb924c10f8f4"
+      ]
+    },
+    "1f0aae03769d1f927ccc167aa39f5b8bc5173ca737c861acf9165799761cf08c": {
+      "reference_date": "2025-11-30",
+      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento: (a) os Direitos Creditórios não poderão estar vencidos e não pagos; (b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis; (c) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 (mil e oitenta) Dias Úteis a 1444 (mil quatrocentos e quarenta e quatro) Dias Úteis; (d) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis; (e) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos exceto representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 70 (setenta) Dias Úteis; (f) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s de um mesmo Devedor poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido; e (g) A soma dos Direitos Creditórios Cedidos representados por CCB´s e NCC´s dos 10 (dez) maiores Devedores poderão representar no máximo 20% (vinte por cento) do Patrimônio Líquido;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e4125c530a041e5221f91b3f34274dee8df4a74d189da33a905625ca168089ec"
+      ]
+    },
+    "5f8f51faf7afec0674f445a6ff012e836c4548c52f92f9501da9bb3b63ff7967": {
+      "reference_date": "2026-04-13",
+      "value": "m) lastro; Os investimentos do Fundo terão como lastro Direitos Creditórios originados no âmbito das atividades das Cedentes, conforme política de investimento e critérios de elegibilidade previstos no Regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "817f382c4a24ab0a42f3627f9e96be77e022fa177508150894e207fa6390b76d"
+      ]
+    },
+    "93961b89dbcfae6e6d622ef5a392c7681a9e58e4afca1ea9f6fb6ffc6d8e64d2": {
+      "reference_date": "2023-11-30",
+      "value": "A Empresa de consultoria especializada é responsável por todos os serviços relativos à (i) análise e seleção de potenciais Cedentes e dos respectivos direitos de crédito para aquisição pelo Fundo, observados os critérios de elegibilidade;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a8e901b3b7e951e42b10b1db0ad80da743fabc3ee60e29e05745c477428f6c2c"
+      ]
     }
   },
   "passages": {
@@ -6370,18 +6260,6 @@
       "clause": "",
       "excerpt": "A CVM e o Poder Judiciário ainda não se manifestaram sobre a  interpretação da responsabilidade limitada dos Cotistas na pendência da  referida regulamentação, e não há jurisprudência administrativa ou  judicial a respeito da extensão da limitação da responsabilidade dos  Cotistas, tampouco do procedimento de insolvência aplicável a fundos de  investimentos. O Código Civil também passou a estabelecer que os fundos  de investimento cujo regulamento estabeleça a responsabilidade limitada  de seus cotistas ao valor de suas cotas estarão sujeitos ao regime da  insolvência previsto no Código Civil. Nessa hipótese, em caso de  insuficiência do Patrimônio Líquido, a insolvência do Fundo poderá ser  requerida (a) por qualquer dos credores; (b) por decisão da assembleia  geral; e (c) conforme determinado pela CVM.\n (p) Ausência de Classificação de Risco das Cotas e Política de Investimentos  Genérica: A ausência de requisitos rígidos relacionados aos Direitos  Creditórios passíveis de aquisição pelo Fundo poderá dificultar a definição  do perfil de risco da carteira do Fundo, afetando a capacidade de o Cotista  avaliar o risco de seu investimento. As Cotas de determinadas classes  podem não possuir classificação de risco emitida por Agência de  Classificação de Risco. Esses fatores podem dificultar a avaliação, por  parte dos investidores, da qualidade do crédito representado por tais  Cotas e com a capacidade do Fundo em honrar com os pagamentos das  respectivas Cotas.\n (q) Interrupção dos Serviços pelos Prestadores Contratados pelo Fundo:\n Eventual interrupção da prestação de serviços pelos prestadores de  serviços contratados pelo Fundo, inclusive no caso de sua substituição, por  qualquer motivo, poderá afetar o regular funcionamento do Fundo. Isso  poderá levar a prejuízos ao Fundo ou, até mesmo, à sua liquidação  antecipada.\n (r) Risco de Procedimentos de Cobrança: O Fundo adotará para cada um dos  Direitos Creditórios diferentes estratégias e procedimentos para cobrança  de Direitos Creditórios vencidos e não adimplidos. Dessa forma, o  procedimento de cobrança será analisado caso a caso pelo Fundo, de  acordo com a natureza específica e das condições de pagamento dos  Direitos Creditórios que serão adquiridos pelo Fundo. Não é possível  assegurar que tais procedimentos de cobrança garantirão o recebimento  de parte ou da totalidade dos pagamentos referentes aos Direitos  Creditórios vencidos e inadimplidos nas respectivas datas de vencimento.\n (s) Deterioração dos Direitos Creditórios: Os Direitos Creditórios estão  sujeitos aos mais variados processos de deterioração dos Devedores e/ou  Coobrigados e/ou das Garantias Reais, conforme o caso, por diversos  motivos, não havendo no âmbito do Fundo qualquer obrigação de  substituição dos Direitos Creditórios e/ou reforço das Garantias Reais  relacionadas aos Direitos Creditórios, quando aplicável, situação em que o  Fundo e os Cotistas poderão sofrer perdas.",
       "sha256": "0821c9f9cdc972fc9de6ed21c455acbb5fba62043a967c7cd0c1443e637a2661",
-      "verification": "primary_passage"
-    },
-    "29d6ebd6831f8279aefe86ad010fbeecd072b1f63cd49676bef3bf51052646f0": {
-      "document_id": "1160029",
-      "title": "Prospecto",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1160029",
-      "reference_date": "2026-04-13",
-      "version": "1",
-      "page": 3,
-      "clause": "",
-      "excerpt": "10. INFORMAÇÕES SOBRE ORIGINADORES .......................................................................................",
-      "sha256": "1a8ff47566b24c69226c4c04f5f3958c2a5ec1949bf4054afcfa6b61a7661b6b",
       "verification": "primary_passage"
     },
     "ef01e69786defe8639d99e7ed4973fa62a5ec22d2993fc1bbc8909e29cb784c9": {
@@ -6516,18 +6394,6 @@
       "sha256": "a559ffe3a4fbf6381e83ce2b5bd1cffd98bc4f617c1f842a4d7bd2f417fd1dd3",
       "verification": "primary_passage"
     },
-    "54ec16647a96ce88e881af844314b315b29a7a57b6d92f00df7ca5109f6bfe3c": {
-      "document_id": "610704",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=610704",
-      "reference_date": "2023-11-30",
-      "version": "1",
-      "page": 59,
-      "clause": "",
-      "excerpt": "a) Alteração do item 10.1, (a), (5), previsto como Critérios de Elegibilidade no  Regulamento do Fundo, a fim de alterar a quantidade mínima de originadores  para Direitos Creditórios representados por contratos de compra e venda e/ou  prestação de serviços, CCB e NCC\n b) Alteração do item 20.1, alínea “f”, previsto como Eventos de Avaliação,  Critérios de Elegibilidade no Regulamento do Fundo, a fim de alterar uma das  hipóteses consideradas Eventos de Avaliação",
-      "sha256": "7d4edd5bd67169784cf495e0a347a250acce036a1d7d423d07f591d6414dab3d",
-      "verification": "primary_passage"
-    },
     "e50f8c4f7172f533c77615633d5739d94cdbac67041f0eab5e82ce026cf8d1f5": {
       "document_id": "523474",
       "title": "AGE",
@@ -6562,138 +6428,6 @@
       "clause": "",
       "excerpt": "Creditórios (Multiplike Plus FIDC ou FIDC) é composta por recebíveis comerciais Cidade do México  52 (55) 5081-4490  performados, contratos a performar, além de Cédulas de Crédito Bancárias (CCBs)  filix.gomez  originados por múltiplos cedentes e devidos por múltiplos sacados, originados pela @spglobal.com  Multiplike Securitizadora S.A. (Multiplike).\n − Atribuímos os ratings ‘brA (sf)’ à 6ª série de cotas seniores e ‘brBBB (sf) às cotas CONTATO ANALÍTICO ADICIONAL",
       "sha256": "31822aedcd04583a882ff114818def54eb7898f94c61002a77727f3ed8a66c3a",
-      "verification": "primary_passage"
-    },
-    "bd8335fd81b9e22dd46a73ddbbedd0bb4335c4b1986ba9cf9d6442f3e1fce6f2": {
-      "document_id": "500519",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=500519",
-      "reference_date": "2023-07-28",
-      "version": "1",
-      "page": 58,
-      "clause": "",
-      "excerpt": "PROCEDIMENTOS PARA VERIFICAÇÃO DO LASTRO POR AMOSTRAGEM Conforme dispõe o Regulamento do Fundo: a obrigação de verificação de lastro dos Direitos Creditórios será realizada por amostragem nos termos do § 1º do Artigo 38 da Instrução CVM nº 356, podendo o Custodiante realizá-la mediante a contratação de Empresa de Auditoria.\nPara a verificação do lastro dos Direitos Creditórios, o Custodiante poderá contratar uma empresa de auditoria que deverá utilizar os seguintes procedimentos e parâmetros em relação à quantidade de créditos cedidos:\nProcedimentos realizados A) Obtenção de base de dados analítica por recebível junto ao Custodiante, para seleção de uma amostra de itens para fins de verificação da documentação comprobatória dos recebíveis.\nB) Seleção de uma amostra aleatória de itens a serem verificados. A seleção dos direitos creditórios será obtida de forma aleatória: (i) dividindo-se o tamanho da população (N) pelo tamanho da amostra (n), obtendo um intervalo de retirada (K); (ii) sorteia-se o ponto de partida; e (iii) a cada K elementos, será retirada uma amostra.\nSerá selecionada uma amostra utilizando as bases de dados (i) e (ii) unificadas, obedecendo os seguintes critérios:\n Tamanho da amostra:\n O tamanho da amostra será definido por meio da aplicação da seguinte  fórmula matemática e seguintes parâmetros estatísticos:\n n = _____N * z² * p * (1 – p)________  ME² * (N – 1) + z² * p * (1-p)  Onde:\n n = tamanho da amostra  N = totalidade de direitos creditórios adquiridos  z = Critical score = 1,96  p = proporção a ser estimada = 50%  ME = erro médio = 5,8% Base de seleção e Critério de seleção C) A população base para a seleção da amostra compreenderá os direitos creditórios em aberto (vencidos e a vencer) e direitos creditórios recomprados/substituídos no trimestre de referência.\nD) A seleção dos direitos creditórios será obtida da seguinte forma: (i) Para os 5 (cinco) cedentes mais representativos em aberto na carteira e para os 5 (cinco) cedentes mais representativos que tiveram títulos recomprados serão selecionados os 3 (três) direitos creditórios de maior valor; (ii) adicionalmente serão selecionados os demais itens para completar a quantidade total de itens da amostra.",
-      "sha256": "ae7da128e48eb5c91d10f0d64a56636172ac4a64e0b3f31cc1fd39523dec9f95",
-      "verification": "primary_passage"
-    },
-    "97f777b9b2a5bb817526bcb96211dd6db80d9d4a7eec49fccf270f3f196fe0d0": {
-      "document_id": "1140137",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1140137",
-      "reference_date": "2026-03-18",
-      "version": "1",
-      "page": 48,
-      "clause": "",
-      "excerpt": "a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem  resultar em quarentena dos empregados dos Credores Originais, ou na  incapacidade de acessar suas instalações, o que prejudicaria as suas respectivas  atividades e resultados operacionais. Adicionalmente, qualquer surto de tais  doenças no Brasil pode afetar negativamente de forma direta as operações dos  Credores Originais, da Gestora, da Consultora Especializada, seus negócios e o  resultado de suas operações, implicando em redução do volume de seus  negócios, dispensas temporárias de colaboradores, além de interrupções nos  seus negócios, o que pode afetar adversamente a originação de novos Direitos  Creditórios. Tais eventos que impactem negativamente a originação de novos  Direitos Creditórios podem prejudicar a continuidade da Classe. No que diz  respeito aos Devedores e/ou Coobrigados, o efeito adverso na economia global  e brasileira ocasionado pelo surto de doenças transmissíveis, pode afetar sua  capacidade financeira e solvência. Como consequência, é possível que haja o  aumento da inadimplência dos Direitos Creditórios Transferidos, podendo gerar  perdas à Classe e consequentemente aos seus Cotistas. Por fim, como objetivo  de combater os efeitos negativos na economia trazidos pelo surto de doenças  transmissíveis, é possível que o Governo Brasileiro e o mercado implementem  medidas de estímulo, tais como prorrogação no pagamento dos Direitos  Creditórios Transferidos, podendo ocasionar adversamente o pagamento de tais  Direitos Creditórios Transferidos e, portanto, a rentabilidade da Classe.",
-      "sha256": "7d5b35f939da61d61912d9ca2ba2bba02fa5b444b0367bd2c3c51c5d45ee71fd",
-      "verification": "primary_passage"
-    },
-    "96f5ed6634985e726873d15460b9b94e1f1de0231ba73e4cdb4e32b921f5592e": {
-      "document_id": "993012",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993012",
-      "reference_date": "2025-09-16",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças – O surto de  doenças transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19),  o Zika, o Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome  Respiratória no Oriente Médio ou MERS e a Síndrome Respiratória Aguda Grave  ou SARS, pode ocasionar maior volatilidade no mercado de capitais global e  resultar em efeito recessivo sobre a economia brasileira, podendo inclusive afetar  a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem resultar  em quarentena dos empregados dos Credores Originais, ou na incapacidade de  acessar suas instalações, o que prejudicaria as suas respectivas atividades e  resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil  pode afetar negativamente de forma direta as operações dos Credores Originais,  da Gestora, da Consultora Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas  temporárias de colaboradores, além de interrupções nos seus negócios, o que pode  afetar adversamente a originação de novos Direitos Creditórios. Tais eventos que  impactem negativamente a originação de novos Direitos Creditórios podem  prejudicar a continuidade da Classe. No que diz respeito aos Devedores e/ou  Coobrigados, o efeito adverso na economia global e brasileira ocasionado pelo  surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas à Classe e consequentemente aos  seus Cotistas. Por fim, como objetivo de combater os efeitos negativos na  economia trazidos pelo surto de doenças transmissíveis, é possível que o Governo  Brasileiro e o mercado implementem medidas de estímulo, tais como prorrogação  no pagamento dos Direitos Creditórios Transferidos, podendo ocasionar  adversamente o pagamento de tais Direitos Creditórios Transferidos e, portanto, a  rentabilidade da Classe.",
-      "sha256": "d64a4d47250b7fe1f24434a81b4a0cad81a8d53162f576762bda96fd7f5661de",
-      "verification": "primary_passage"
-    },
-    "9a28e040a5ca6a3822562081acb9268b02b5a0785a4c2a0212b6e83dcbe3aa24": {
-      "document_id": "983204",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=983204",
-      "reference_date": "2025-09-03",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças – O surto de  doenças transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19),  o Zika, o Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome  Respiratória no Oriente Médio ou MERS e a Síndrome Respiratória Aguda Grave  ou SARS, pode ocasionar maior volatilidade no mercado de capitais global e  resultar em efeito recessivo sobre a economia brasileira, podendo inclusive afetar  a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem resultar  em quarentena dos empregados dos Credores Originais, ou na incapacidade de  acessar suas instalações, o que prejudicaria as suas respectivas atividades e  resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil  pode afetar negativamente de forma direta as operações dos Credores Originais,  da Gestora, da Consultora Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas  temporárias de colaboradores, além de interrupções nos seus negócios, o que pode  afetar adversamente a originação de novos Direitos Creditórios. Tais eventos que  impactem negativamente a originação de novos Direitos Creditórios podem  prejudicar a continuidade da Classe. No que diz respeito aos Devedores e/ou  Coobrigados, o efeito adverso na economia global e brasileira ocasionado pelo  surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas à Classe e consequentemente aos  seus Cotistas. Por fim, como objetivo de combater os efeitos negativos na  economia trazidos pelo surto de doenças transmissíveis, é possível que o Governo  Brasileiro e o mercado implementem medidas de estímulo, tais como prorrogação  no pagamento dos Direitos Creditórios Transferidos, podendo ocasionar  adversamente o pagamento de tais Direitos Creditórios Transferidos e, portanto, a  rentabilidade da Classe.",
-      "sha256": "a80540044632106a12dac70972a3926a74df56d5703d4c620aab144a82f59f07",
-      "verification": "primary_passage"
-    },
-    "a42727bce056b5418b3f18361f6e53cfcc8ca79948fbd7eacf777b1aa146bc24": {
-      "document_id": "937853",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=937853",
-      "reference_date": "2025-07-01",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças – O surto de  doenças transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19),  o Zika, o Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome  Respiratória no Oriente Médio ou MERS e a Síndrome Respiratória Aguda Grave  ou SARS, pode ocasionar maior volatilidade no mercado de capitais global e  resultar em efeito recessivo sobre a economia brasileira, podendo inclusive afetar  a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem resultar  em quarentena dos empregados dos Credores Originais, ou na incapacidade de  acessar suas instalações, o que prejudicaria as suas respectivas atividades e  resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil  pode afetar negativamente de forma direta as operações dos Credores Originais,  da Gestora, da Consultora Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas  temporárias de colaboradores, além de interrupções nos seus negócios, o que pode  afetar adversamente a originação de novos Direitos Creditórios. Tais eventos que  impactem negativamente a originação de novos Direitos Creditórios podem  prejudicar a continuidade da Classe. No que diz respeito aos Devedores e/ou  Coobrigados, o efeito adverso na economia global e brasileira ocasionado pelo  surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas à Classe e consequentemente aos  seus Cotistas. Por fim, como objetivo de combater os efeitos negativos na  economia trazidos pelo surto de doenças transmissíveis, é possível que o Governo  Brasileiro e o mercado implementem medidas de estímulo, tais como prorrogação  no pagamento dos Direitos Creditórios Transferidos, podendo ocasionar  adversamente o pagamento de tais Direitos Creditórios Transferidos e, portanto, a  rentabilidade da Classe.",
-      "sha256": "1888b1bcde783c6faa8f1e44492d16505ee893c35b20ad1405d2285d7f068cc2",
-      "verification": "primary_passage"
-    },
-    "55357a757fafbfc4e512b24d7163d3479918c06c50a7d05675d2a9fb74413d12": {
-      "document_id": "893456",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=893456",
-      "reference_date": "2025-04-30",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças – O surto de  doenças transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19),  o Zika, o Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome  Respiratória no Oriente Médio ou MERS e a Síndrome Respiratória Aguda Grave  ou SARS, pode ocasionar maior volatilidade no mercado de capitais global e  resultar em efeito recessivo sobre a economia brasileira, podendo inclusive afetar  a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem resultar  em quarentena dos empregados dos Credores Originais, ou na incapacidade de  acessar suas instalações, o que prejudicaria as suas respectivas atividades e  resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil  pode afetar negativamente de forma direta as operações dos Credores Originais,  da Gestora, da Consultora Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas  temporárias de colaboradores, além de interrupções nos seus negócios, o que pode  afetar adversamente a originação de novos Direitos Creditórios. Tais eventos que  impactem negativamente a originação de novos Direitos Creditórios podem  prejudicar a continuidade da Classe. No que diz respeito aos Devedores e/ou  Coobrigados, o efeito adverso na economia global e brasileira ocasionado pelo  surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas à Classe e consequentemente aos  seus Cotistas. Por fim, como objetivo de combater os efeitos negativos na  economia trazidos pelo surto de doenças transmissíveis, é possível que o Governo  Brasileiro e o mercado implementem medidas de estímulo, tais como prorrogação  no pagamento dos Direitos Creditórios Transferidos, podendo ocasionar  adversamente o pagamento de tais Direitos Creditórios Transferidos e, portanto, a  rentabilidade da Classe.",
-      "sha256": "ded59e6bf2c0a4bec34c11d23fd214dfed25955314e8a94d15ae4ca5274efd9a",
-      "verification": "primary_passage"
-    },
-    "3f4e05ef3f1f28f9417f60d49e5721b017ddbb7e433fc5b91bc3297b1cf7d721": {
-      "document_id": "864333",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864333",
-      "reference_date": "2025-03-24",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "resultar em efeito recessivo sobre a economia brasileira, podendo inclusive afetar  a confiança do investidor e afetar adversamente o interesse de investidores na  aquisição ou manutenção de Cotas. Tais surtos de doenças também podem resultar  em quarentena dos empregados dos Credores Originais, ou na incapacidade de  acessar suas instalações, o que prejudicaria as suas respectivas atividades e  resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil  pode afetar negativamente de forma direta as operações dos Credores Originais,  da Gestora, da Consultora Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas  temporárias de colaboradores, além de interrupções nos seus negócios, o que pode  afetar adversamente a originação de novos Direitos Creditórios. Tais eventos que  impactem negativamente a originação de novos Direitos Creditórios podem  prejudicar a continuidade da Classe. No que diz respeito aos Devedores e/ou  Coobrigados, o efeito adverso na economia global e brasileira ocasionado pelo  surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas à Classe e consequentemente aos  seus Cotistas. Por fim, como objetivo de combater os efeitos negativos na  economia trazidos pelo surto de doenças transmissíveis, é possível que o Governo  Brasileiro e o mercado implementem medidas de estímulo, tais como prorrogação  no pagamento dos Direitos Creditórios Transferidos, podendo ocasionar  adversamente o pagamento de tais Direitos Creditórios Transferidos e, portanto, a  rentabilidade da Classe.",
-      "sha256": "9bf6e691d420d6fe1a7a29b6e5851b5ff9d54fd2aec6d32c30a665a2374150f5",
-      "verification": "primary_passage"
-    },
-    "4da639312fe8ac1a04573b65206442c35c579fd4f37bb8464aad726dc49d4b35": {
-      "document_id": "747683",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=747683",
-      "reference_date": "2024-09-27",
-      "version": "1",
-      "page": 39,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças O surto de doenças  transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19), o Zika, o Ebola,  a gripe aviária, a febre aftosa, a gripe suína, a Síndrome Respiratória no Oriente Médio  ou MERS e a Síndrome Respiratória Aguda Grave ou SARS, pode ocasionar maior  volatilidade no mercado de capitais global e resultar em efeito recessivo sobre a economia  brasileira, podendo inclusive afetar a confiança do investidor e afetar adversamente o  interesse de investidores na aquisição ou manutenção de Cotas. Tais surtos de doenças  também podem resultar em quarentena dos empregados dos Credores Originais, ou na  incapacidade de acessar suas instalações, o que prejudicaria as suas respectivas atividades  e resultados operacionais. Adicionalmente, qualquer surto de tais doenças no Brasil pode  afetar negativamente de forma direta as operações dos Credores Originais, da Gestora, da  Consultoria Especializada, seus negócios e o resultado de suas operações, implicando em  redução do volume de seus negócios, dispensas temporárias de colaboradores, além de  interrupções nos seus negócios, o que pode afetar adversamente a originação de novos  Direitos Creditórios. Tais eventos que impactem negativamente a originação de novos  Direitos Creditórios podem prejudicar a continuidade do Fundo. No que diz respeito aos  Devedores e/ou Coobrigados, o efeito adverso na economia global e brasileira ocasionado  pelo surto de doenças transmissíveis, pode afetar sua capacidade financeira e solvência.\n Como consequência, é possível que haja o aumento da inadimplência dos Direitos  Creditórios Transferidos, podendo gerar perdas ao Fundo e consequentemente aos seus  Cotistas. Por fim, como objetivo de combater os efeitos negativos na economia trazidos  pelo surto de doenças transmissíveis, é possível que o Governo Brasileiro e o mercado  implementem medidas de estímulo, tais como prorrogação no pagamento dos Direitos  Creditórios Transferidos, podendo ocasionar adversamente o pagamento de tais Direitos  Creditórios Transferidos e, portanto, a rentabilidade do Fundo.",
-      "sha256": "e79acd53afe31fbc7bd1c8da82b791d058f9f42ebb030bc234ed1ef9dfc63ed1",
-      "verification": "primary_passage"
-    },
-    "0bf2bedc72120219ce51e8f0dd109cc6ca718e743af7385550d06ff57c4284c3": {
-      "document_id": "682939",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=682939",
-      "reference_date": "2024-06-14",
-      "version": "1",
-      "page": 42,
-      "clause": "",
-      "excerpt": "economia brasileira, podendo inclusive afetar a confiança do investidor e afetar  adversamente o interesse de investidores na aquisição ou manutenção de Cotas. Tais  surtos de doenças também podem resultar em quarentena dos empregados dos Credores  Originais, ou na incapacidade de acessar suas instalações, o que prejudicaria as suas  respectivas atividades e resultados operacionais. Adicionalmente, qualquer surto de tais  doenças no Brasil pode afetar negativamente de forma direta as operações dos Credores  Originais, da Gestora, da Consultoria Especializada, seus negócios e o resultado de suas  operações, implicando em redução do volume de seus negócios, dispensas temporárias  de colaboradores, além de interrupções nos seus negócios, o que pode afetar  adversamente a originação de novos Direitos Creditórios. Tais eventos que impactem  negativamente a originação de novos Direitos Creditórios podem prejudicar a  continuidade do Fundo. No que diz respeito aos Devedores e/ou Coobrigados, o efeito  adverso na economia global e brasileira ocasionado pelo surto de doenças  transmissíveis, pode afetar sua capacidade financeira e solvência. Como consequência, é  possível que haja o aumento da inadimplência dos Direitos Creditórios Transferidos,  podendo gerar perdas ao Fundo e consequentemente aos seus Cotistas. Por fim, como  objetivo de combater os efeitos negativos na economia trazidos pelo surto de doenças  transmissíveis, é possível que o Governo Brasileiro e o mercado implementem medidas  de estímulo, tais como prorrogação no pagamento dos Direitos Creditórios Transferidos,  podendo ocasionar adversamente o pagamento de tais Direitos Creditórios Transferidos  e, portanto, a rentabilidade do Fundo.",
-      "sha256": "d8c87c115a03304da5edee15588484fcd82a805140fd2c7d423ce808180828ef",
-      "verification": "primary_passage"
-    },
-    "72c3b74cbcdb2913653a92868657618d76673427a779d2ea78752f7d8a818caa": {
-      "document_id": "481459",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481459",
-      "reference_date": "2023-06-13",
-      "version": "1",
-      "page": 42,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças O surto de doenças  transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19), o Zika, o  Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome Respiratória no Oriente  Médio ou MERS e a Síndrome Respiratória Aguda Grave ou SARS, pode ocasionar  maior volatilidade no mercado de capitais global e resultar em efeito recessivo sobre a  economia brasileira, podendo inclusive afetar a confiança do investidor e afetar  adversamente o interesse de investidores na aquisição ou manutenção de Cotas. Tais  surtos de doenças também podem resultar em quarentena dos empregados dos Credores  Originais, ou na incapacidade de acessar suas instalações, o que prejudicaria as suas  respectivas atividades e resultados operacionais. Adicionalmente, qualquer surto de tais  doenças no Brasil pode afetar negativamente de forma direta as operações dos Credores  Originais, da Gestora, da Cogestora, seus negócios e o resultado de suas operações,  implicando em redução do volume de seus negócios, dispensas temporárias de  colaboradores, além de interrupções nos seus negócios, o que pode afetar adversamente  a originação de novos Direitos Creditórios. Tais eventos que impactem negativamente a  originação de novos Direitos Creditórios podem prejudicar a continuidade do Fundo.\n No que diz respeito aos Devedores e/ou Coobrigados, o efeito adverso na economia  global e brasileira ocasionado pelo surto de doenças transmissíveis, pode afetar sua  capacidade financeira e solvência. Como consequência, é possível que haja o aumento  da inadimplência dos Direitos Creditórios Transferidos, podendo gerar perdas ao Fundo  e consequentemente aos seus Cotistas. Por fim, como objetivo de combater os efeitos  Página 49 de 99",
-      "sha256": "97cc008a816ee9487c42f02b90ae5f68f60b28f942b6f79e80e65a56e8726c4a",
-      "verification": "primary_passage"
-    },
-    "4f1e5cf26142194f52aad4e8e8779d895c9c87975540757430011f85564e74af": {
-      "document_id": "313543",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=313543",
-      "reference_date": "2022-06-03",
-      "version": "1",
-      "page": 43,
-      "clause": "",
-      "excerpt": "(ee) Risco Decorrente da Pandemia da COVID-19 e Demais Doenças O surto de  doenças transmissíveis em todo o mundo, tais como o Coronavírus (COVID-19),  o Zika, o Ebola, a gripe aviária, a febre aftosa, a gripe suína, a Síndrome  Respiratória no Oriente Médio ou MERS e a Síndrome Respiratória Aguda  Grave ou SARS, pode ocasionar maior volatilidade no mercado de capitais  global e resultar em efeito recessivo sobre a economia brasileira, podendo  inclusive afetar a confiança do investidor e afetar adversamente o interesse de  investidores na aquisição ou manutenção de Cotas. Tais surtos de doenças  também podem resultar em quarentena dos empregados dos Credores Originais,  ou na incapacidade de acessar suas instalações, o que prejudicaria as suas  respectivas atividades e resultados operacionais. Adicionalmente, qualquer surto  de tais doenças no Brasil pode afetar negativamente de forma direta as operações  dos Credores Originais, da Gestora, da Consultora Especializada, seus negócios  e o resultado de suas operações, implicando em redução do volume de seus  negócios, dispensas temporárias de colaboradores, além de interrupções nos seus  negócios, o que pode afetar adversamente a originação de novos Direitos  Creditórios. Tais eventos que impactem negativamente a originação de novos  Direitos Creditórios podem prejudicar a continuidade do Fundo. No que diz  respeito aos Devedores e/ou Coobrigados, o efeito adverso na economia global e  brasileira ocasionado pelo surto de doenças transmissíveis, pode afetar sua",
-      "sha256": "cbcc800b6a43a5a25919d350bef3255da77fe31e2adf088e1d9786f968bd211e",
       "verification": "primary_passage"
     },
     "d1565cb61c098c015981d62eb0fa2df559c8bb1fef188400d11a7a111e49b09c": {
@@ -6754,18 +6488,6 @@
       "clause": "",
       "excerpt": "Os recursos captados no âmbito da 1ª emissão da 20ª série de Cotas Seniores do Fundo têm como objetivo a aquisição preponderante de Direitos Creditórios, nos termos da política de investimento estabelecida no Regulamento, observados os critérios de elegibilidade, condições de cessão, limites de concentração, composição e diversificação da carteira.\nOs Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, às características e requisitos definidos no Regulamento, incluindo, mas não se limitando, à sua validade, exigibilidade, correta formalização e enquadramento nos critérios de elegibilidade estabelecidos pela Gestora, bem como às condições de cessão aplicáveis, conforme verificação realizada no momento de cada aquisição.\nAdicionalmente, a alocação dos recursos observará os limites de concentração por Cedente, Devedor, tipo de ativo e modalidade de Direito Creditório, bem como os parâmetros mínimos de diversificação da carteira, conforme previstos no Regulamento, de forma a mitigar riscos de concentração e assegurar a adequada pulverização dos ativos integrantes da carteira do Fundo.\nEnquanto não forem integralmente alocados na aquisição de Direitos Creditórios, os recursos poderão ser mantidos em caixa ou aplicados em Ativos Financeiros de alta liquidez e baixo risco, nos termos do Regulamento, incluindo, mas não se limitando, a títulos públicos federais, operações compromissadas ou cotas de fundos de investimento com liquidez diária, observadas as disposições regulamentares aplicáveis.\nOs recursos captados também poderão ser utilizados para o pagamento de despesas e encargos do Fundo, incluindo, sem limitação, taxas de administração, gestão, custódia, controladoria, escrituração, consultoria especializada, distribuição, bem como demais despesas operacionais e custos relacionados à estruturação e manutenção da Oferta, conforme previstos no Regulamento e nos documentos da Oferta.\nA aquisição dos Direitos Creditórios será realizada de forma ativa pela Gestora, que será responsável pela análise, seleção e precificação dos ativos, observando as políticas internas de crédito, governança e gestão de riscos do Fundo, bem como as condições de mercado vigentes à época de cada aquisição.\nPor fim, a destinação dos recursos seguirá estritamente os termos do Regulamento e da regulamentação aplicável, em especial a Resolução CVM nº 175 e a Resolução CVM nº 160, podendo sofrer ajustes em função de condições de mercado, disponibilidade de ativos elegíveis e estratégia de alocação definida pela Gestora, sempre no melhor interesse dos Cotistas.",
       "sha256": "0f65131d26245121c9c294d85f28529112ef8782f434c94ac4cf7cd7ce69ba18",
-      "verification": "primary_passage"
-    },
-    "2001db111a70f771fb9702da41b7ee107ce177cd87e03e1a3f2ebb77766dc5d1": {
-      "document_id": "1140134",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1140134",
-      "reference_date": "2026-03-09",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "2. A inclusão da alínea (c) ao item 5.2. do regulamento que dispõe sobre as condições  de aquisição, com o objetivo de prever que os Direitos Creditórios representados por  duplicatas, sejam estas cedidas ao fundo por meio de operações de antecipação ou  como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”,  ou seja, recebíveis originados de vendas já realizadas e entregues;",
-      "sha256": "f14343c6f740e9a973c5b88230addf93421ce7ab0d863821917421fa5721abf9",
       "verification": "primary_passage"
     },
     "74c8845b7d402d37224aa5597aa177e55841d6330f1cc15937b6fb924c10f8f4": {
@@ -13064,6 +12786,95 @@
       "clause": "",
       "excerpt": "MULTIPLIKE GESTAO DE RECURSOS LTDA  CNPJ nº 29.000.207/0001-48  Rua Rui Barbosa , 1805, Costa e Silva, Joinville, Estado de Santa Catarina  (“Gestora” e, em conjunto com o Fundo e a Administradora, “Ofertantes”)",
       "sha256": "1a8ff47566b24c69226c4c04f5f3958c2a5ec1949bf4054afcfa6b61a7661b6b",
+      "verification": "primary_passage"
+    },
+    "42af04592dc480b54e6f190462442e1a53c7d1323cf759fc37d92080744b6ae0": {
+      "document_id": "1141410",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1141410",
+      "reference_date": "2026-03-20",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento:\n(a) os Direitos Creditórios não poderão estar vencidos e não pagos;\n(b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;\n(c) Os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues,\n(d) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 (mil e oitenta) Dias Úteis a 1530 (mil quinhentos e trinta) Dias Úteis;\n(e) Os Direitos Créditórios representados por CCBs e NCCs não podem ter carência principal nem juros, com exceção daqueles que possuírem garantia de alienação fiduciária de bens móveis e imóveis, que podem ter carência apenas de principal de até 12 meses, sempre de acordo com a política de crédito vigente na respectiva Data de Aquisição e Pagamento;\n(f) Os Direitos Creditórios representados por CCBs e NCCs que possuírem garantia de alienação fiduciária de bens móveis e imóveis, só poderão ser desembolsados após a devida formalização e registro da AF em cartório competente.\n(g) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis;\n(h) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos exceto representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 70 (setenta) Úteis;\n(i) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s de um mesmo Devedor poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do Fundo;\n(j) A soma dos Direitos Creditórios Cedidos representados por CCB´s e NCC´s dos 10 (dez) maiores Devedores poderão representar no máximo 20% (vinte por cento) do Patrimônio Líquido do fundo;\n(k) A Gestora é responsável pelo controle e apresentação de relatório com as garantias que servem de colateral para a carteira de Direitos Creditórios representados por CCB´s e NCC´s, sendo o relatório elaborado mensalmente, sempre ao último dia útil de cada mês;\n(l) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do fundo; e\n(m) Os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 2,00% (dois por cento) do Patrimônio Líquido do fundo, quando não cobertos pelas garantias, sendo considerada garantia:\n (i) cessão fiduciária de duplicatas performadas; e/ou\n(ii) cessão fiduciária de recebíveis oriundos de operações de pagamento com cartões realizadas pelos  usuários para a aquisição de bens e/ou serviços; e/ou\n(iii) garantias de investimentos de uma forma geral, entre elas cotas de fundos e/ou debêntures;\n e/oualienação fiduciária de bens móveis, compreendendo automóveis, caminhões, aeronaves e ônibus; e/ou",
+      "sha256": "9d4e3e17fdf55a11db208d731f98a517a2ac3b6174a403e8dc0f7f81da30019b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c3e4875f9bb7e9bc2cc1c85e1d85d6f43a24d9c27cc69baadb71105b3e5bd03b": {
+      "document_id": "1141441",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1141441",
+      "reference_date": "2026-03-20",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento:\n(a) os Direitos Creditórios não poderão estar vencidos e não pagos;\n(b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;\n(c) Os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues,\n(d) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 (mil e oitenta) Dias Úteis a 1530 (mil quinhentos e trinta) Dias Úteis;\n(e) Os Direitos Créditórios representados por CCBs e NCCs não podem ter carência principal nem juros, com exceção daqueles que possuírem garantia de alienação fiduciária de bens móveis e imóveis, que podem ter carência apenas de principal de até 12 meses, sempre de acordo com a política de crédito vigente na respectiva Data de Aquisição e Pagamento;\n(f) Os Direitos Creditórios representados por CCBs e NCCs que possuírem garantia de alienação fiduciária de bens móveis e imóveis, só poderão ser desembolsados após a devida formalização e registro da AF em cartório competente.\n(g) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis;\n(h) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos exceto representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 70 (setenta) Úteis;\n(i) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s de um mesmo Devedor poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do Fundo;\n(j) A soma dos Direitos Creditórios Cedidos representados por CCB´s e NCC´s dos 10 (dez) maiores Devedores poderão representar no máximo 20% (vinte por cento) do Patrimônio Líquido do fundo;\n(k) A Gestora é responsável pelo controle e apresentação de relatório com as garantias que servem de colateral para a carteira de Direitos Creditórios representados por CCB´s e NCC´s, sendo o relatório elaborado mensalmente, sempre ao último dia útil de cada mês;\n(l) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do fundo; e\n(m) Os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 2,00% (dois por cento) do Patrimônio Líquido do fundo, quando não cobertos pelas garantias, sendo considerada garantia:\n (i) cessão fiduciária de duplicatas performadas; e/ou\n(ii) cessão fiduciária de recebíveis oriundos de operações de pagamento com cartões realizadas pelos  usuários para a aquisição de bens e/ou serviços; e/ou\n(iii) garantias de investimentos de uma forma geral, entre elas cotas de fundos e/ou debêntures;\n e/oualienação fiduciária de bens móveis, compreendendo automóveis, caminhões, aeronaves e ônibus; e/ou",
+      "sha256": "ccb9ece3bd1fbb397c14c7d3f96998d1481eae26f13afe2fb926d39fdcc36baf",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "abc64c9f36e1b8abedf4f934f7dfbadd6944b430710655861573cd79de802348": {
+      "document_id": "1141577",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1141577",
+      "reference_date": "2026-03-20",
+      "version": "1",
+      "page": 26,
+      "clause": "",
+      "excerpt": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento:\n(a) os Direitos Creditórios não poderão estar vencidos e não pagos; Formatado: Recuo: Primeira linha: 1,13 cm\n(b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis; Formatado: Recuo: Primeira linha: 1,13 cm\n(c) Os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações Formatado: Recuo: Primeira linha: 1,13 cm de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues,\n(d) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 Formatado: Recuo: Primeira linha: 1,13 cm",
+      "sha256": "52fdcb1c999360010fd220475d5193c9f5a44a85624d74237f64a1de11649544",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9a3555b14a55b6782b29bb14a85e8cdb10202e8c7aef47459dfa334cb842ecc4": {
+      "document_id": "1141598",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1141598",
+      "reference_date": "2026-03-20",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "(4) Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe deverão atender às seguintes Condições de Aquisição, a serem verificadas pela Gestora na respectiva Data de Aquisição e Pagamento:\n(a) os Direitos Creditórios não poderão estar vencidos e não pagos;\n(b) Os Direitos Creditórios poderão ter prazo de vencimento máximo de 1080 (mil e oitenta) Dias Úteis;\n(c) Os Direitos Creditórios representados por duplicatas, sejam estas cedidas ao fundo por meio de operações de antecipação ou como garantia nas operações de CCBs, NCs ou outras, deverão ser “performados”, ou seja, recebíveis originados de vendas já realizadas e entregues,\n(d) Até 5% (cinco por cento) da carteira de Direitos Creditórios poderão ter prazo de vencimento entre 1080 (mil e oitenta) Dias Úteis a 1530 (mil quinhentos e trinta) Dias Úteis;\n(e) Os Direitos Créditórios representados por CCBs e NCCs não podem ter carência principal nem juros, com exceção daqueles que possuírem garantia de alienação fiduciária de bens móveis e imóveis, que podem ter carência apenas de principal de até 12 meses, sempre de acordo com a política de crédito vigente na respectiva Data de Aquisição e Pagamento;\n(f) Os Direitos Creditórios representados por CCBs e NCCs que possuírem garantia de alienação fiduciária de bens móveis e imóveis, só poderão ser desembolsados após a devida formalização e registro da AF em cartório competente.\n(g) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 540 (quinhentos e quarenta) Dias Úteis;\n(h) considerada pro forma a (como se já ocorrida) aquisição pretendida, a carteira de Direitos Creditórios Transferidos exceto representados por CCBs e NCCs deverá observar um prazo médio ponderado máximo de 70 (setenta) Úteis;\n(i) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s de um mesmo Devedor poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do Fundo;\n(j) A soma dos Direitos Creditórios Cedidos representados por CCB´s e NCC´s dos 10 (dez) maiores Devedores poderão representar no máximo 20% (vinte por cento) do Patrimônio Líquido do fundo;\n(k) A Gestora é responsável pelo controle e apresentação de relatório com as garantias que servem de colateral para a carteira de Direitos Creditórios representados por CCB´s e NCC´s, sendo o relatório elaborado mensalmente, sempre ao último dia útil de cada mês;\n(l) os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 3,5% (três virgula cinco por cento) do Patrimônio Líquido do fundo; e\n(m) Os Direitos Creditórios Cedidos representados por CCB´s e NCC´s adquiridos de um mesmo Cedente poderão representar no máximo 2,00% (dois por cento) do Patrimônio Líquido do fundo, quando não cobertos pelas garantias, sendo considerada garantia:\n (i) cessão fiduciária de duplicatas performadas; e/ou\n(ii) cessão fiduciária de recebíveis oriundos de operações de pagamento com cartões realizadas pelos  usuários para a aquisição de bens e/ou serviços; e/ou\n(iii) garantias de investimentos de uma forma geral, entre elas cotas de fundos e/ou debêntures;\n e/oualienação fiduciária de bens móveis, compreendendo automóveis, caminhões, aeronaves e ônibus; e/ou",
+      "sha256": "0f65131d26245121c9c294d85f28529112ef8782f434c94ac4cf7cd7ce69ba18",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9ef70ef6acae976715bbcf4dceafe1d8701e16925c5f64e7e8e929244ac6f1f1": {
+      "document_id": "1140134",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1140134",
+      "reference_date": "2026-03-09",
+      "version": "1",
+      "page": 3,
+      "clause": "",
+      "excerpt": "6. A inclusão das alíneas (m), (n) e (o) ao item 5.2, com o objetivo de inserir novas  condições de cessão a serem cumpridas pela Gestora, passando a contar com a  seguinte redação:\nm) Os Direitos Creditórios Cedidos representados por CCB´s e  NCC´s adquiridos de um mesmo Cedente poderão  representar no máximo 2,00% (dois por cento) do Patrimônio  Líquido do fundo, quando não cobertos pelas garantias,  sendo considerada garantia:\n(i) cessão fiduciária de duplicatas performadas; e/ou\n (ii) cessão fiduciária de recebíveis oriundos de  operações de pagamento com cartões realizadas  pelos usuários para a aquisição de bens e/ou  serviços; e/ou\n (iii) garantias de investimentos de uma forma geral,  entre elas cotas de fundos e/ou debêntures; e/ou  alienação fiduciária de bens móveis,  compreendendo automóveis, caminhões,  aeronaves e ônibus; e/ou\n (iv) alienação fiduciária de bens imóveis; e\nn) A Carteira de Direitos Creditórios global, representados por  CCB´s ou NCC´s deve contar com garantia que servem como  colateral de no mínimo 60% (sessenta por cento), sempre  auferidos pela gestora com data de verificação no último dia  útil de cada mês, sendo considerada garantia:\n(i) cessão fiduciária de direitos duplicatas  performadas no mínimo 30% (trinta por cento) da  carteira de CCB’s e NCC’s; e/ou\n(ii) cessão fiduciária de recebíveis oriundos de  operações de pagamento com cartões realizadas  pelos usuários para a aquisição de bens e/ou  serviços (limitado a 5% da carteira de CCBs e  NCCs); e/ou\n (iii) garantias de investimentos de uma forma geral,  entre elas cotas de fundos e/ou debêntures; e/ou\n(iv) alienação fiduciária de bens móveis,  compreendendo automóveis, caminhões,  aeronaves e ônibus (limitado a 10% da carteira  de CCBs e NCCs); e/ou\n (v) Alienação fiduciária de bens imóveis;\no) 100% (cem por cento) da Carteira de Direitos Creditórios  global, representados por CCB´s ou NCC´s deve contar com",
+      "sha256": "f14343c6f740e9a973c5b88230addf93421ce7ab0d863821917421fa5721abf9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "817f382c4a24ab0a42f3627f9e96be77e022fa177508150894e207fa6390b76d": {
+      "document_id": "1160029",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1160029",
+      "reference_date": "2026-04-13",
+      "version": "1",
+      "page": 8,
+      "clause": "",
+      "excerpt": "m) lastro;\n Os investimentos do Fundo terão como lastro Direitos Creditórios originados no âmbito das atividades das Cedentes,  conforme política de investimento e critérios de elegibilidade previstos no Regulamento.",
+      "sha256": "1a8ff47566b24c69226c4c04f5f3958c2a5ec1949bf4054afcfa6b61a7661b6b",
+      "verification": "primary_passage"
+    },
+    "a8e901b3b7e951e42b10b1db0ad80da743fabc3ee60e29e05745c477428f6c2c": {
+      "document_id": "610704",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=610704",
+      "reference_date": "2023-11-30",
+      "version": "1",
+      "page": 54,
+      "clause": "",
+      "excerpt": "A Empresa de consultoria especializada é responsável por todos os serviços  relativos à (i) análise e seleção de potenciais Cedentes e dos respectivos  direitos de crédito para aquisição pelo Fundo, observados os critérios de  elegibilidade; (ii) negociação dos valores de cessão com as respectivas  cedentes; (iii) cobrança judicial e extrajudicial de todos os direitos de crédito  integrantes da carteira do Fundo que não tenham sido pagos nas respectivas  datas de vencimento, de acordo com a política de cobrança do Fundo e as  demais condições estabelecidas no respectivo contrato de consultoria.\n O Fundo está autorizado a realizar operações nas quais a Administradora, a  Gestora, o Custodiante, seus controladores, sociedades por eles direta ou  indiretamente controladas, coligadas ou outras sociedades sob controle comum  atuem na condição de contraparte, desde que com a finalidade de realizar a  gestão de caixa e liquidez do Fundo.",
+      "sha256": "7d4edd5bd67169784cf495e0a347a250acce036a1d7d423d07f591d6414dab3d",
       "verification": "primary_passage"
     }
   }

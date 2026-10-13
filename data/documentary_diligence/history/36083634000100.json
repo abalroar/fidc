@@ -3,21 +3,6 @@
   "cnpj": "36083634000100",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "7f69f2d0a7495b50c1863c3ad7ad31bac6b2275d63f4309872a688b22e209455",
-      "ea620ee5f34a6d923bc3011a0d755a22656d3148b335556185433c0f9617da30",
-      "ad11f6a5435af6bb369a20e097b1a3138c77b1b247b85ab7df196f8e2848f794",
-      "2aa7518f93cad0375532e381a513d3ba786d7dae2283085bb481b31ba5c09d73",
-      "b4117a906c4bc492e4d260ead6f55b62ab3d67e9e6732749e6b8c5c0b8cef63a",
-      "1e1e77226b035c60ae93c29ccad065b76f6f4b77bbbcb574aad8767063fede62",
-      "a1547add76d791c09ea999251a96aee0541ee68739ed5dacde54314b7a4fab89",
-      "6bee2e9b8d3c4af2c2bef4437bf1aee5f437c3e2b7afa32005803a70212359a0",
-      "09d502576141b16a1d13bc36f74096215add753fd00c3d541baed00d00cd5afb",
-      "9000b990abd57e7b7fb6e9f37b827f53b36e8661d5a22d2427517edea3366a44",
-      "dc2853f14039e35fa825e620b19361bb6ea94c78cc425bd667b8dd4532016d67",
-      "0a8afde0b1d29f68c558faf346e55c06ef814822280766c45789006ad8f106f0",
-      "0614753a7cbae8a83636e46fff3a86a4b03471821a8a0136ea75d51f8d59a96c"
-    ],
     "term": [
       "049342712d33ac89e6fb4ce453227317424aca066996f1fecdfff13bd649c542",
       "96f31176a4f9a70168c2f22a6f22057dbc512871453bfcab8669db240aec3cd4",
@@ -509,28 +494,6 @@
       "6956b6274141794941cc5048c377a5eb7129f05df3763379c6a724fd560bc009",
       "ecf8630fb98053915c0b8b412d3168d52e7e33fba36cf58a56f8eb92ff0a0391"
     ],
-    "originator": [
-      "b97337d54b7f51dbfc68f7c2e6a469357fbdd4c466a77aa8bef554eb1ac87865",
-      "eedc9575bbebb6772d0080eddb28dc94b4dda365bea18d122174ee56dbc44967",
-      "5d2d7051c8ca299c6ba7efcdfe4f87db864039b0cac9e50866c044ddf6a4e125",
-      "e02ef0b777fc992717b716937da85c43ca99d95a8abf14b7b16be6b7951e2072",
-      "42f0ce74cb906f7f8350279e5a06c81745768a8b8ed95c3ff059e75cc62073d2",
-      "e6b32138fe041dc7b1629448f74de40a4b9dd443c22972ae4016bca792648470",
-      "b00c92efeda061b7e5661524d1196f0b76e20d60ac35148ea21d483a77d3b759",
-      "0eb7c8ffd4fd5a54be57e2e513abca19e8aabf8e53597d50061d738c13250988",
-      "565a3b8fceb39d395d389ab3bf8a75e19ec7336fb4378a9a7f665884f11a01c7"
-    ],
-    "debtor": [
-      "7f69f2d0a7495b50c1863c3ad7ad31bac6b2275d63f4309872a688b22e209455",
-      "ea620ee5f34a6d923bc3011a0d755a22656d3148b335556185433c0f9617da30",
-      "85e4cabab77092520156b4e67758217030d16fcfe0d5773b82b3029099c4576e",
-      "61d5dbc7d2f8386539afbd848f4589455ccc69dba4e6b67d2a832aabca113bc3",
-      "1e1712aa0563cdb68a34979ef317d9387b77d9a8cb225eb026608683e6c282bd",
-      "3a9bc27675d4068d19c27178707cf3842f7da033cc7b91ff0c29d212a66a64a1",
-      "52c4cd480ea403689838a2205fe283c141829679252bdc9fcba0e852efb24df5",
-      "44010448ad91b7fada34879210c0f853baa615621a08fcfc89c31427f39301ae",
-      "60e5795630928f0fc47480dfb1dc8287c204d6f48e5ce1d9e8260516feda4697"
-    ],
     "investee": [
       "3c4e19c519eabfda4547fb3862c76aa7da6293461d2cc2e432e7cb38b0269dde",
       "3710e1a869fc0fda210c82f377d017ed54dff3d789f4dd53c66630e2b7a98157",
@@ -608,6 +571,36 @@
       "1611002b993e81398a75df2c70d2e842e2bb18031f4bf5254211cc9d90d9d018",
       "1818760353dcce5aacf6ac228996c0e849a429285f44677e4661b8f5a1ee932d",
       "1350a4b3efe2ca52d14d8b234a5beab0410782f5a4e5c04150269e62fbf3141b"
+    ],
+    "originator": [
+      "b97337d54b7f51dbfc68f7c2e6a469357fbdd4c466a77aa8bef554eb1ac87865",
+      "eedc9575bbebb6772d0080eddb28dc94b4dda365bea18d122174ee56dbc44967",
+      "5d2d7051c8ca299c6ba7efcdfe4f87db864039b0cac9e50866c044ddf6a4e125",
+      "e02ef0b777fc992717b716937da85c43ca99d95a8abf14b7b16be6b7951e2072",
+      "42f0ce74cb906f7f8350279e5a06c81745768a8b8ed95c3ff059e75cc62073d2",
+      "e6b32138fe041dc7b1629448f74de40a4b9dd443c22972ae4016bca792648470",
+      "0eb7c8ffd4fd5a54be57e2e513abca19e8aabf8e53597d50061d738c13250988",
+      "565a3b8fceb39d395d389ab3bf8a75e19ec7336fb4378a9a7f665884f11a01c7"
+    ],
+    "eligibility": [
+      "024f8fb3be7d055b45afff889003ce0d39d4c98060b5259625391c4d533b04ef",
+      "0ab878b99216c61e3f452bf684bd0fd9829a86e6390ae874387c09dd1dc83b0e",
+      "1ede48e6051dfac56ea10932de0cd15b46f6a95d28be98a0d03dcd94a3034ad7",
+      "6c1af83319f9c0ab72d5ee2cb2a6e0aa434dcc9d389fc045bde32a5888aa2ac1",
+      "4fe4bd10b07e65390eec21749e18e9655dcea69792936a60902d7ae16af330b2",
+      "09319e2bf2a927d93139e8786857af3268bfe794a3ad4307354c95e698752126",
+      "142185d6cd66b228835adcce8753e813aa7035d8595e29db9d260dd28de8259f",
+      "6bee2e9b8d3c4af2c2bef4437bf1aee5f437c3e2b7afa32005803a70212359a0",
+      "037fffe7459f0fca932ac7e0b2da4af49b916d195b91bb8db56cf3989d0db8a3",
+      "dd02f97e77e83aa0b843826e746103965b18a71107a200bc9256f1dc56f38b0c",
+      "e8ba6e2a52fdb78d707fdcc1df6659e04c08efcf1ed243fb8137d38758eb473c",
+      "3ad1982000240f62fac9afd8d433f5fa1da967637c3694a5a0d70859a852a851",
+      "6ab3ef6fb1f3d642eb82245ec8b75f571380da851c1eb792f460b011edd7cd33"
+    ],
+    "debtor": [
+      "f693868fb849417f4a40bf370295c4bc228458a5248fec4bcdb6e7f0ad9c9a71",
+      "66c8a844876143e9c093bfc89381ee70d1bdc8afbcaff00321928b39884a2ab5",
+      "513c08096e93aac6ae37bfe6a66e95160d497b92cb26a47b9a903eb4185e780a"
     ]
   },
   "entries": {
@@ -825,87 +818,6 @@
       "provenance": "primary_passage",
       "sources": [
         "3f12f7c4ce989338bc711d6938ca1fd2e02212a21e2ba8ae2b83b3c8c4b3301a"
-      ]
-    },
-    "7f69f2d0a7495b50c1863c3ad7ad31bac6b2275d63f4309872a688b22e209455": {
-      "reference_date": "2025-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dd88341f7b0ee80f41b2f32711e41b90b034e5c49e5dbaad3b1d3474e90e151a"
-      ]
-    },
-    "ea620ee5f34a6d923bc3011a0d755a22656d3148b335556185433c0f9617da30": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c63e0fe1b622bde651f6841eb6930765597a70a258b7edc842e4533d48eac52b"
-      ]
-    },
-    "85e4cabab77092520156b4e67758217030d16fcfe0d5773b82b3029099c4576e": {
-      "reference_date": "2024-06-28",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0f5b52e0ba20d5e785085bc60890814e605c6626a3479b1ec183c86a331614a3"
-      ]
-    },
-    "61d5dbc7d2f8386539afbd848f4589455ccc69dba4e6b67d2a832aabca113bc3": {
-      "reference_date": "2024-05-14",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4f0c0d5e3c1bdf7451040f18c4c965ba166a0bb133a73561c4c678216c66f277"
-      ]
-    },
-    "1e1712aa0563cdb68a34979ef317d9387b77d9a8cb225eb026608683e6c282bd": {
-      "reference_date": "2024-03-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "26375f26198220b2809fec7c8a98b734624bdcfdf42b07fde05cb1e5601acc7e"
-      ]
-    },
-    "3a9bc27675d4068d19c27178707cf3842f7da033cc7b91ff0c29d212a66a64a1": {
-      "reference_date": "2024-03-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "25773a88e7b83647dd3672ce55aab61c3b8981fe05a618d3559a900772e7f6af"
-      ]
-    },
-    "52c4cd480ea403689838a2205fe283c141829679252bdc9fcba0e852efb24df5": {
-      "reference_date": "2024-02-27",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "23d2de67548c5605e519dec5e708f07181d932b10da0016ebfa1c768f60e50a0"
-      ]
-    },
-    "44010448ad91b7fada34879210c0f853baa615621a08fcfc89c31427f39301ae": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "520871af1e1ac609a2cd0cc3c1053adda16419a7f62177d07c522371d789229e"
-      ]
-    },
-    "60e5795630928f0fc47480dfb1dc8287c204d6f48e5ce1d9e8260516feda4697": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fe0026e6cfe8cbd9f400b2040f9669ad26abd50c7a459cc363c51e01105667c0"
       ]
     },
     "ad11f6a5435af6bb369a20e097b1a3138c77b1b247b85ab7df196f8e2848f794": {
@@ -4596,6 +4508,141 @@
       "provenance": "primary_passage",
       "sources": [
         "df2d34b3026086be3fbcff56b3114780ac76dcced57dc15bd66faa198ea9deed"
+      ]
+    },
+    "024f8fb3be7d055b45afff889003ce0d39d4c98060b5259625391c4d533b04ef": {
+      "reference_date": "2025-12-31",
+      "value": "O Fundo somente pode adquirir direitos creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (i) sejam representados em moeda corrente nacional e não estejam vencidos; (ii) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (iii) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (iv) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200 (duzentos mil reais); (v) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (vi) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4% (quatro por cento) ao mês; (vii) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (viii) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (ix) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dd88341f7b0ee80f41b2f32711e41b90b034e5c49e5dbaad3b1d3474e90e151a"
+      ]
+    },
+    "0ab878b99216c61e3f452bf684bd0fd9829a86e6390ae874387c09dd1dc83b0e": {
+      "reference_date": "2024-12-31",
+      "value": "O Fundo somente pode adquirir direitos creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (i) sejam representados em moeda corrente nacional e não estejam vencidos; (ii) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (iii) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (iv) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200 (duzentos mil reais); (v) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (vi) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4% (quatro por cento) ao mês; (vii) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (viii) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (ix) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c63e0fe1b622bde651f6841eb6930765597a70a258b7edc842e4533d48eac52b"
+      ]
+    },
+    "1ede48e6051dfac56ea10932de0cd15b46f6a95d28be98a0d03dcd94a3034ad7": {
+      "reference_date": "2024-06-28",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "83cc7f045838fdc8bfc8e7b75fb4e1851329ea92e6fd93f808ff16f4b58a6db6"
+      ]
+    },
+    "6c1af83319f9c0ab72d5ee2cb2a6e0aa434dcc9d389fc045bde32a5888aa2ac1": {
+      "reference_date": "2024-05-14",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "04591172a45c68f32611eead9e2f1b80ce2f89c40ac5ac77d2c8f123ecbd9ae7"
+      ]
+    },
+    "4fe4bd10b07e65390eec21749e18e9655dcea69792936a60902d7ae16af330b2": {
+      "reference_date": "2024-03-31",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5d67b812c17b4916cd7898b8eeb4e1cca8c3116498d5d1bc8d89f0184fd8f6fc"
+      ]
+    },
+    "09319e2bf2a927d93139e8786857af3268bfe794a3ad4307354c95e698752126": {
+      "reference_date": "2024-03-31",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "de69a18bba33e9e2890f0bc654aa402986d79b5c964717c4d51117a808509ccb"
+      ]
+    },
+    "142185d6cd66b228835adcce8753e813aa7035d8595e29db9d260dd28de8259f": {
+      "reference_date": "2024-02-27",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0245b4c0a774dd4f84826ac2cc2749ec18e6d8fb1ee8dd7c317cde7037207379"
+      ]
+    },
+    "037fffe7459f0fca932ac7e0b2da4af49b916d195b91bb8db56cf3989d0db8a3": {
+      "reference_date": "2023-12-31",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento da aquisição e por seu valor de face, observem o limite de Critérios de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o Elegibilidade: caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 4,0% (quatro inteiros por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a100030f1bbaebe51c012dfa0c1c8c23885312692ab0475b4dc3cba15b035051"
+      ]
+    },
+    "dd02f97e77e83aa0b843826e746103965b18a71107a200bc9256f1dc56f38b0c": {
+      "reference_date": "2023-09-29",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Critérios de Fundo no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) Elegibilidade: tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 3,5% (três inteiros e cinco décimos por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4d4620579e6a95141ef91b2040881b836d9c146d3841c8433c187d0583cbf1d1"
+      ]
+    },
+    "e8ba6e2a52fdb78d707fdcc1df6659e04c08efcf1ed243fb8137d38758eb473c": {
+      "reference_date": "2023-08-03",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Critérios de Fundo no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) Elegibilidade: tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 3,5% (três inteiros e cinco décimos por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "527e76ccaca3e0f783b04ed6f86fd71f85978aac770772cc519886dc1e79d42e"
+      ]
+    },
+    "3ad1982000240f62fac9afd8d433f5fa1da967637c3694a5a0d70859a852a851": {
+      "reference_date": "2023-06-30",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Fundo no momento Critérios de da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) tenham por Elegibilidade: Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 3,5% (três inteiros e cinco décimos por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0a8ef74a6748bfc9e36fa4d1ab5a8d201cc14ba51ff46b098c699c07c3ccb1af"
+      ]
+    },
+    "6ab3ef6fb1f3d642eb82245ec8b75f571380da851c1eb792f460b011edd7cd33": {
+      "reference_date": "2023-06-30",
+      "value": "O Fundo somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Custodiante previamente à cessão ou aquisição direta e na respectiva Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional e não estejam vencidos; (b) sejam representados por CCBs, que terão como garantia a cessão fiduciária dos recebíveis futuros decorrentes de transações comerciais entre os Devedores e seus respectivos clientes, sem prejuízo de eventualmente serem constituídas outras garantias; (c) permitam, por sua natureza ou característica essencial, o seu registro contábil e a sua custódia, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante; (d) considerando os Direitos Creditórios a serem adquiridos como se já integrantes da Carteira do Critérios de Fundo no momento da aquisição e por seu valor de face, observem o limite de exposição máxima por Devedor de R$ 200.000,00 (duzentos mil reais); (e) Elegibilidade: tenham por Originadores e/ou Cedentes pessoas jurídicas, se for o caso, que sejam sociedades constituídas sob as leis brasileiras e/ou que tenham sede e administração no Brasil; (f) incorporem Custo Efetivo Total para o tomador final de recursos inferior a 3,5% (três inteiros e cinco décimos por cento) ao mês; (g) não sejam emitidos por Devedores inadimplentes com o Fundo na Data de Pagamento do Preço de Aquisição; (h) não sejam devidos ou originados por sociedades que sejam integrantes do Grupo Econômico da Administradora, da Gestora, do Custodiante, do Escriturador ou do Cedente ou por partes a qualquer um deles relacionadas, sendo que, cada um dos prestadores de serviço encaminhará, trimestralmente, lista atualizada à Administradora, informando as sociedades integrantes de seu grupo econômico; e (i) não sejam de emissão de prestadores de serviços contratados pelo Fundo, e pelas partes a eles relacionados, tal como definidas pelas regras contábeis pertinentes;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3c725e60d6bb3609b5edb997b00f411fb3787ffe30def36c7c8272db5ea610e7"
+      ]
+    },
+    "f693868fb849417f4a40bf370295c4bc228458a5248fec4bcdb6e7f0ad9c9a71": {
+      "reference_date": "2024-12-31",
+      "value": "Os “Devedores” são pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a R$ 4.800 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito, conforme Metodologia de Apuração de Receita Operacional Bruta pelo Originador.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8a8f7045c9287e043dc2a70df71f954bb13f0c613d6df366e8cc18e839ef5819"
+      ]
+    },
+    "66c8a844876143e9c093bfc89381ee70d1bdc8afbcaff00321928b39884a2ab5": {
+      "reference_date": "2023-12-31",
+      "value": "Os “Devedores” são pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ef056cfcbc7174ef41c3f31944df0f78cc659ef8411273f09187421473870143"
+      ]
+    },
+    "513c08096e93aac6ae37bfe6a66e95160d497b92cb26a47b9a903eb4185e780a": {
+      "reference_date": "2022-12-31",
+      "value": "Os “Devedores” São Pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a R$ 4.800 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito, conforme Metodologia de Apuração de Receita Operacional Bruta pelo Originador",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e825bb54190050db5e63fc5ec88f71543a4320549579674c56949feb8c31b916"
       ]
     }
   },
@@ -9458,6 +9505,42 @@
       "clause": "",
       "excerpt": "CAPÍTULO I – DENOMINAÇÃO, FORMA E PRAZO DE DURAÇÃO DO FUNDO 3  CAPÍTULO II – ORIGEM DOS DIREITOS CREDITÓRIOS 3  CAPÍTULO III – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 3  CAPÍTULO IV – CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO E AQUISIÇÃO 8  CAPÍTULO V – GESTÃO 14  CAPÍTULO VI – ADMINISTRAÇÃO 15  CAPÍTULO VII – OBRIGAÇÕES, VEDAÇÕES E RESPONSABILIDADE DA ADMINISTRADORA 15  CAPÍTULO VIII – REMUNERAÇÃO DA ADMINISTRADORA 20  CAPÍTULO IX – SUBSTITUIÇÃO E RENÚNCIA DA ADMINISTRADORA, GESTORA E DOS DEMAIS  PRESTADORES DE SERVIÇO 21  CAPÍTULO X – GESTORA, CUSTODIANTE E AGENTE DE COBRANÇA 23  CAPÍTULO XI – COTAS 27  CAPÍTULO XII – SUBSCRIÇÃO, INTEGRALIZAÇÃO E VALOR DAS COTAS 29  CAPÍTULO XIII – REMUNERAÇÃO, AMORTIZAÇÃO E RESGATE DAS COTAS 32  CAPÍTULO XIV – ORDEM DE ALOCAÇÃO DOS RECURSOS 33  CAPÍTULO XV – METODOLOGIA DE AVALIAÇÃO 34  CAPÍTULO XVI – ASSEMBLEIA GERAL 34  CAPÍTULO XVII – CONFLITO DE INTERESSE 38  CAPÍTULO XVIII – EVENTOS DE AVALIAÇÃO, EVENTOS DE LIQUIDAÇÃO ANTECIPADA E  PROCEDIMENTOS DE LIQUIDAÇÃO ANTECIPADA 39  CAPÍTULO XIX – DESPESAS E ENCARGOS DO FUNDO 45  CAPÍTULO XX – FATORES DE RISCO 47  CAPÍTULO XXI – PUBLICIDADE E REMESSA DE DOCUMENTOS 59  ANEXO I - DEFINIÇÕES 63  ANEXO II – ESTRATÉGIA DE ORIGINAÇÃO DE CRÉDITO 76  ANEXO III – ESTRATÉGIA DE RECUPERAÇÃO DE CRÉDITO 79  ANEXO IV – METODOLOGIA DE AVALIAÇÃO DA CARTEIRA DO FUNDO 80  ANEXO V – POLÍTICA DE PROVISIONAMENTO DE DEVEDORES DUVIDOSOS 81  ANEXO VI – MODELO DE SUPLEMENTO DAS COTAS SENIORES 82  ANEXO VII – MODELO DE TERMO DE ADESÃO E CIÊNCIA DE RISCO 85  ANEXO VIII – FÓRMULA PARA CÁLCULO DO PREÇO DE AQUISIÇÃO 88  ANEXO IX – POLÍTICA DE KYC DA ORIGINADORA 89  ANEXO X – METODOLOGIA DE VERIFICAÇÃO POR AMOSTRAGEM 104",
       "sha256": "d6ac05b80911ef88ca21e009d3a6843a74ae1d46e46dbc6914a1a719dabdc9b7",
+      "verification": "primary_passage"
+    },
+    "8a8f7045c9287e043dc2a70df71f954bb13f0c613d6df366e8cc18e839ef5819": {
+      "document_id": "859244",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=859244",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os “Devedores” são pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou  média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar  as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com  o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a  R$ 4.800 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito,  conforme Metodologia de Apuração de Receita Operacional Bruta pelo Originador.",
+      "sha256": "872e7a3cd71e9eafacac88f8d8f36210b590d01b1f38a8cfdda1058cb01615ca",
+      "verification": "primary_passage"
+    },
+    "ef056cfcbc7174ef41c3f31944df0f78cc659ef8411273f09187421473870143": {
+      "document_id": "634945",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634945",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os “Devedores” são pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou",
+      "sha256": "4d8ed3c3f1be84afc2642c5aab4cfcf4e61572bc5bcb3e469385debbbab64739",
+      "verification": "primary_passage"
+    },
+    "e825bb54190050db5e63fc5ec88f71543a4320549579674c56949feb8c31b916": {
+      "document_id": "438771",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=438771",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "Os “Devedores” São Pessoa física que exerça atividade econômica e/ou pessoa jurídica, micro, pequena ou  média empresa que utiliza a plataforma eletrônica de pagamentos da SumUp Pagamentos Ltda. para viabilizar  as suas respectivas transações de pagamento, que emite a CCB em favor da Instituição Financeira Parceira com  o objetivo de realizar uma operação de Crédito Parcelado e que apresenta Receita Operacional Bruta inferior a  R$ 4.800 (quatro milhões e oitocentos mil reais) no ano imediatamente anterior à contratação do crédito,  conforme Metodologia de Apuração de Receita Operacional Bruta pelo Originador",
+      "sha256": "d3de4c1262b9deb96bbbcb286fdabfb07dbf849092ee8b44ddb6ffed4f352de3",
       "verification": "primary_passage"
     }
   }

@@ -3,11 +3,6 @@
   "cnpj": "65873297000145",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "34b90976801380d8477a591376ecceca7f381129c67a4cb97beea0437e21f639",
-      "58b571000f1afec20f1c94c1f54ad2322e7b09c812c57694157df722888985d7",
-      "323ff6485ed8b47cc1dbaf11cc9b99c1c312883770c11b0302a4acffb8694c6d"
-    ],
     "ticket": [
       "161c25cacad4d60aa8267b4c57b62f17dbb179048f40a157154b68782c44a16e",
       "69ed4a56daa3ce64cba28cf048a7eb6dc9000e807ffeb00802b074eb3ae61abb"
@@ -172,14 +167,6 @@
       "76655c59d7422039e64d578a58cf54ee3b84b81f735b6537fdba13d0ff80a40d",
       "fd3d55b90ae42f06e685264287bef41bf297f6dba305deef959a657241130efa"
     ],
-    "originator": [
-      "2db3ff84b310971ee89c0606263f8da382c22a07335c1d25ce5b837e4b2d5788",
-      "ddb359058b2dc4ce1527b28cfa2584ec88ea09764ce8b1c2301fe16b360507f4",
-      "47219945d1bcda20e54ece2a902bfe3e2b640fd37a8cd30553d525d1d7630663"
-    ],
-    "debtor": [
-      "7efccce4176a847a3e41dcb9b66b0778c412240d697ba6290f27d9d5d0ce7b4c"
-    ],
     "investee": [
       "b09bad1971afc2787fa551434228999ab7ae591318c984f2acab76890edee517",
       "b5738bc31205ba28493d5c5e3b2944a419d24d213d8ab0eeb9d1cabf9383c08e"
@@ -201,6 +188,19 @@
       "6df2fd4c9e1b27a1b33701b8bd80ef6d349d77d9f392be0ad02a64424041f680",
       "503e571f5f3b0ec30fc67d6142f3d4d678ee6db989aab62cd6c631535bd841a1",
       "1f50ef7bb1d048a92c4ce7e94924932ce0e0316f29aea2268c01d00a67bc8de3"
+    ],
+    "originator": [
+      "2db3ff84b310971ee89c0606263f8da382c22a07335c1d25ce5b837e4b2d5788",
+      "ddb359058b2dc4ce1527b28cfa2584ec88ea09764ce8b1c2301fe16b360507f4",
+      "47219945d1bcda20e54ece2a902bfe3e2b640fd37a8cd30553d525d1d7630663"
+    ],
+    "eligibility": [
+      "34b90976801380d8477a591376ecceca7f381129c67a4cb97beea0437e21f639",
+      "2d5d851ef0489371eb682bdf76227620699ad7a97979175c55b54ad098126888",
+      "323ff6485ed8b47cc1dbaf11cc9b99c1c312883770c11b0302a4acffb8694c6d"
+    ],
+    "debtor": [
+      "7efccce4176a847a3e41dcb9b66b0778c412240d697ba6290f27d9d5d0ce7b4c"
     ]
   },
   "entries": {
@@ -260,15 +260,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "1ffa93dacd6756aa0953aae339e90820650f0580acf82fab1b355003b93e84d8"
-      ]
-    },
-    "58b571000f1afec20f1c94c1f54ad2322e7b09c812c57694157df722888985d7": {
-      "reference_date": "2026-03-23",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ed7538ac9c138d5c3f4adab7d57a7881333fd41212f458643ea99d67f5d6b0bf"
       ]
     },
     "323ff6485ed8b47cc1dbaf11cc9b99c1c312883770c11b0302a4acffb8694c6d": {
@@ -1009,6 +1000,15 @@
       "sources": [
         "6393683714d5df04b2879f089205ba8bfc64141da8d1addd605137a9de0441e8"
       ]
+    },
+    "2d5d851ef0489371eb682bdf76227620699ad7a97979175c55b54ad098126888": {
+      "reference_date": "2026-03-23",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "414068f068e563a8acf691383a940e51a386a551d18cd945a8c1058a1dae81e7"
+      ]
     }
   },
   "passages": {
@@ -1074,18 +1074,6 @@
       "sha256": "68896c21a14c1efeec8bcd0642710a09a447394224cb39cce05f06ad406331d5",
       "verification": "previous_review",
       "citation_original": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 41-42"
-    },
-    "ed7538ac9c138d5c3f4adab7d57a7881333fd41212f458643ea99d67f5d6b0bf": {
-      "document_id": "1154381",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1154381",
-      "reference_date": "2026-03-23",
-      "version": "1",
-      "page": 15,
-      "clause": "1.6",
-      "excerpt": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução  CVM 175:\n(i) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de Liquidez  para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela Classe, em  estrita observância (a) às políticas de crédito e (b) à Política de Investimento,  bem como à composição e à diversificação da carteira;\n(ii) efetuar a devida formalização dos Termos e Condições e respectivos Termos  de Cessão;\n(iii) verificar, previamente a cada cessão, o enquadramento dos Direitos Creditórios  à Política de Investimento, compreendendo, no mínimo, a validação dos  Direitos Creditórios quanto aos Critérios de Elegibilidade, às Condições de  Cessão e a observância aos requisitos de composição e diversificação, de forma  individualizada;\n(iv) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver,  à Política de Investimento;\n(v) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los ao  Custodiante, conforme o caso;\n(vi) na hipótese de substituição de Direitos Creditórios, diligenciar para que a  relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada,  nos termos da Política de Investimento;\n(vii) controlar e cumprir o enquadramento dos limites de composição e  concentração de carteira, fiscal, de exposição ao Risco de Capital e de  concentração em fatores de risco, com base no Patrimônio Líquido, cabendo,  quando for o caso, diligenciar pelo seu reenquadramento no melhor interesse  dos Cotistas;\n(viii) monitorar os Eventos de Avaliação e Liquidação Antecipada;\n(ix) disponibilizar aos Cotistas, na sua sede ou no seu site, em cada Data de Envio  do Relatório de Monitoramento, com base nas informações da última Data de  Verificação, Relatório de Monitoramento contendo as seguintes informações:",
-      "sha256": "095e1adc7fd61c44dcc476152b34a5bba37e3abd614ba0d3c72889fbb6d3aa3a",
-      "verification": "primary_passage"
     },
     "157f87f6ea159a14c701317e21bc02a5174f211d4350faf217f3ddea95aef480": {
       "document_id": "1155170",
@@ -2018,6 +2006,19 @@
       "excerpt": "“Administradora” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS S.A., instituição financeira  devidamente autorizada pela CVM para o exercício  profissional de administração de carteiras de valores  mobiliários, na categoria de administrador fiduciário, nos  termos do Ato Declaratório CVM nº 6.696, de 21 de  fevereiro de 2002, com sede na cidade do Rio de Janeiro,  Estado do Rio de Janeiro, na Avenida das Américas, nº\n 3.434, bloco 7, sala 201, Barra da Tijuca, CEP 22640-102,  inscrita no CNPJ sob o nº 36.113.876/0001-91, ou sua  sucessora a qualquer título.",
       "sha256": "770141e384baee012345cea3ca745559090b1c75f9c83b91805996029ec2498b",
       "verification": "primary_passage"
+    },
+    "414068f068e563a8acf691383a940e51a386a551d18cd945a8c1058a1dae81e7": {
+      "document_id": "1154381",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1154381",
+      "reference_date": "2026-03-23",
+      "version": "1",
+      "page": "15–16",
+      "clause": "1.6",
+      "excerpt": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução  CVM 175:\n(i) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de Liquidez  para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela Classe, em  estrita observância (a) às políticas de crédito e (b) à Política de Investimento,  bem como à composição e à diversificação da carteira;\n(ii) efetuar a devida formalização dos Termos e Condições e respectivos Termos  de Cessão;\n(iii) verificar, previamente a cada cessão, o enquadramento dos Direitos Creditórios  à Política de Investimento, compreendendo, no mínimo, a validação dos  Direitos Creditórios quanto aos Critérios de Elegibilidade, às Condições de  Cessão e a observância aos requisitos de composição e diversificação, de forma  individualizada;\n(iv) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver,  à Política de Investimento;\n(v) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los ao  Custodiante, conforme o caso;\n(vi) na hipótese de substituição de Direitos Creditórios, diligenciar para que a  relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada,  nos termos da Política de Investimento;\n(vii) controlar e cumprir o enquadramento dos limites de composição e  concentração de carteira, fiscal, de exposição ao Risco de Capital e de  concentração em fatores de risco, com base no Patrimônio Líquido, cabendo,  quando for o caso, diligenciar pelo seu reenquadramento no melhor interesse  dos Cotistas;\n(viii) monitorar os Eventos de Avaliação e Liquidação Antecipada;\n(ix) disponibilizar aos Cotistas, na sua sede ou no seu site, em cada Data de Envio  do Relatório de Monitoramento, com base nas informações da última Data de  Verificação, Relatório de Monitoramento contendo as seguintes informações:\n(a) evolução e valor atual do Patrimônio Líquido, com sua respectiva  divisão pelas Subclasses de Cotas;\n(b) valor das disponibilidades;\n(c) última classificação de risco (rating) aplicável às Cotas, conforme  aplicável;\n(d) evolução da rentabilidade mensal de cada Subclasse de Cota;\n(e) evolução mensal e valor atual do Índice de Subordinação;\n(f) evolução mensal do estoque de Direitos Creditórios integrantes da  carteira da Classe;\n(g) abertura dos Direitos Creditórios integrantes da carteira da Classe por  faixa de vencimento\n(h) evolução mensal do horizonte de pagamentos de Direitos Creditórios  esperado;\n(i) evolução mensal da taxa média de desconto das aquisições realizadas  no referido mês;\n(j) evolução mensal da taxa de retorno da carteira de Direitos Creditórios;\n(k) quantidades e valores agregados das Cotas Seniores e Cotas  Subordinadas, segregados por Séries e Subclasses, conforme  aplicável;\n(l) prazo médio da carteira;\n(x) estruturar o Fundo e a Classe, considerando, no mínimo, o conjunto das  seguintes atividades:\n(a) definir a Política de Investimento;\n(b) estimar a inadimplência da carteira de Direitos Creditórios e, se for o  caso, estabelecer o Índice de Subordinação;\n(c) estimar o prazo médio ponderado da carteira de Direitos  Creditórios; e\n(d) estabelecer como se darão os fluxos financeiros derivados dos  Direitos Creditórios.",
+      "sha256": "095e1adc7fd61c44dcc476152b34a5bba37e3abd614ba0d3c72889fbb6d3aa3a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

@@ -3,15 +3,6 @@
   "cnpj": "57107628000108",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "d8f09d58adbebc2974498ebb3b43ed1132478f296db721930b38f5fb701f7c10",
-      "7b0c6be6bf79be10bf5207da5a146b2e6f98b720d9957e263e1d111a536d6b9e",
-      "507443b4e40f853ddd42b2d9d179232611b36095edfdb08f766c3bf621b5b917",
-      "079aad3df6cbbd1f81c39beba6dc4644ec6eadee46bd66900b155ed21500e771",
-      "289d409ef9a2bc18e865bece0eab5c948832268fa3d7596408e8a210dc593e1d",
-      "969b3a3a1ef279ab22ceae76ece6df4a39de0df0e39afd2aaa69d43e7400f88e",
-      "2205755c33529fc065817a16250376541090dd226749d5d7e427bccf6272dab0"
-    ],
     "perimeter": [
       "e7750a2e4fddd1cf5482dadbe810a3cf3ef69b9a53f2c3171057dabe89d14089",
       "29318933de7eeb9e55facfbb24c21fa32d23f29c8beb1f875db28bb6e8492285",
@@ -204,21 +195,6 @@
     "quota_grace": [
       "004ed3a7b30b0a980a4e665072a87c92a43461564508b253631cb653150bb308"
     ],
-    "originator": [
-      "27ac576914e146970663c8b69ddcce9393f17d3e705305e3711903f58e1f38fb",
-      "4765e020e803bd1d71cf751f78f6d19526051861f6ecb892106c1337811d61ce",
-      "88112f8c0a209d6ac7b6eb9813d29d2842b1fb4e8603079c0850ee9ff776041d",
-      "fe09cb1c7b60ba5bfee5859ee7c212222a455558467b62d21627513d1b1c783b",
-      "dea8db146af51df839a5cbaf4205dd7e30a67abe70011e2599f2912a611683e2"
-    ],
-    "debtor": [
-      "757650f8b7e35075afb94d00967b0e04c18dd87dd3443f1028972d04844a2402",
-      "278de317d157561ea1b9cd7a1141c95386be5902455f8ebb58a111e5b2bb1e65",
-      "ebe2a056de5eda3638c4111d192aef60ea2add2cd14fea9f7dcdfe7e7c38c2ce",
-      "c75fbfdcb0becd057cf509e1eb440d132743ab2021ade4cd80b60ab74a801ec4",
-      "c5d61ef4a5c449a32e3ab8a0fdba56b87491b5c0e4252319851b6e51c5ee5049",
-      "c55c586d63a995b2a33ec029efbb136f1d365919cb87fac3393f09fa2b47cdbe"
-    ],
     "investee": [
       "e7750a2e4fddd1cf5482dadbe810a3cf3ef69b9a53f2c3171057dabe89d14089",
       "e4ae071cd5c30bbd70faf467dce436ddf12efe69444166dda308f49a7394de45",
@@ -252,6 +228,28 @@
       "09afab9fa8074cd8af15d4ad6636bdc2d0dcb878c18e4d04fa14dcae13383e19",
       "1d92a9938c38e4b1f968a0fb72b24ac366fd64a865014381d2de4281931ab8e2",
       "0c5142a352f6ba3b7da1e64acf4038ddfdad9293c22af57192da79d818fb73f2"
+    ],
+    "originator": [
+      "203ecca8ee975258b002824bdbec190c28d56feb10e83c747041502126daf43f",
+      "4765e020e803bd1d71cf751f78f6d19526051861f6ecb892106c1337811d61ce",
+      "88112f8c0a209d6ac7b6eb9813d29d2842b1fb4e8603079c0850ee9ff776041d",
+      "fe09cb1c7b60ba5bfee5859ee7c212222a455558467b62d21627513d1b1c783b",
+      "dea8db146af51df839a5cbaf4205dd7e30a67abe70011e2599f2912a611683e2"
+    ],
+    "eligibility": [
+      "d8f09d58adbebc2974498ebb3b43ed1132478f296db721930b38f5fb701f7c10",
+      "bbec1c32038108bd55522d2595f07ecf9bda7d4c603c1f0f05d2800f52041003",
+      "507443b4e40f853ddd42b2d9d179232611b36095edfdb08f766c3bf621b5b917",
+      "a785ac7b87948cd69328d7ed2359f4bb672fcc829fa8d4300e507766de834b85",
+      "96b15dd8c3615ac9472cfb666c264d730e8628beab3808ca84ab9bda266c9036",
+      "cb1807730bdbeb77cf2119f311a60925735d43cc1c5d556a1838c97828feb838",
+      "614f3586bad39186a2da8ea376ba1f67696fbb913f5688c9fc860fec95f4e665"
+    ],
+    "debtor": [
+      "6144c39a23884a3902fd178cb76d649c44668700e7f3aabb1898de040adfb023",
+      "c38214e6c1b94bdf39f5e9a8c274e451321e5af876d4bc3fa1ad5a2c3bea4893",
+      "29d1826086cfd00e83506be8e8ac845f70a7b8b77d9a6b0234889cd9aff8f10b",
+      "a92e3d7f2734ae06bc8eee344cab9f314371ca48e72c71323f62adc3d118329b"
     ]
   },
   "entries": {
@@ -319,15 +317,6 @@
         "ff29e4864759b54829f15a21910c66d9bf556c664918cd07a720fe0924ccb1ad"
       ]
     },
-    "27ac576914e146970663c8b69ddcce9393f17d3e705305e3711903f58e1f38fb": {
-      "reference_date": "2024-12-31",
-      "value": "Ainda, poderão ocorrer interferências de autoridades governamentais e órgãos reguladores nos mercados relacionados à Classe Única, em especial com relação aos originadores e Devedores dos Direitos Creditórios Elegíveis e Transferidos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "de43058b6b32fe45a99d9d4023ec9d27224e778435b99b8d720657eb48086b81"
-      ]
-    },
     "4765e020e803bd1d71cf751f78f6d19526051861f6ecb892106c1337811d61ce": {
       "reference_date": "2024-12-30",
       "value": "14.8.1. Para efeitos do inciso (iv) acima, a Gestora deverá elaborar e encaminhar à Administradora, em até 40 (quarenta) dias após o encerramento do trimestre civil a que se referir, relatório contendo: (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de ativos; (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios da Classe Única no trimestre:",
@@ -364,51 +353,6 @@
         "cf1f1a78fd88e7f99153980c72b2bc48bf2db7759f11f10e4e357c0ff3713997"
       ]
     },
-    "757650f8b7e35075afb94d00967b0e04c18dd87dd3443f1028972d04844a2402": {
-      "reference_date": "2025-05-12",
-      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) com relação aos Direitos Creditórios CCB, operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6498d4cd37e1d21cd776fd23b732eec8c6f71eb05d21b76774ee798d78453562"
-      ]
-    },
-    "ebe2a056de5eda3638c4111d192aef60ea2add2cd14fea9f7dcdfe7e7c38c2ce": {
-      "reference_date": "2024-12-30",
-      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "effb7f25cfae57db1fde0083fe94c9df992a0cbdb4ac70762cb6d15c05181fa7"
-      ]
-    },
-    "c75fbfdcb0becd057cf509e1eb440d132743ab2021ade4cd80b60ab74a801ec4": {
-      "reference_date": "2024-11-29",
-      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a951d705c7d7f4fd2ce2710d9b3b2f21f69ca1a8ce1ade3d63d2aeffb7bb03fc"
-      ]
-    },
-    "c5d61ef4a5c449a32e3ab8a0fdba56b87491b5c0e4252319851b6e51c5ee5049": {
-      "reference_date": "2024-10-07",
-      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e25e086db1a37b64320597b0133e4a8ca2a4804eaa8cd1523181c6d2c0da970f"
-      ]
-    },
-    "c55c586d63a995b2a33ec029efbb136f1d365919cb87fac3393f09fa2b47cdbe": {
-      "reference_date": "2024-09-02",
-      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f53cacd097a433c5f5558254dfdd1a712e4af18d68f59a651c4dac25f3ed7e01"
-      ]
-    },
     "d8f09d58adbebc2974498ebb3b43ed1132478f296db721930b38f5fb701f7c10": {
       "reference_date": "2025-05-16",
       "value": "Prazo máximo de 24 meses; créditos denominados em reais",
@@ -419,15 +363,6 @@
         "b3d152864861853c8e8b07a4763f7bcacaf52fb3c480d181153490d1ec466679"
       ]
     },
-    "7b0c6be6bf79be10bf5207da5a146b2e6f98b720d9957e263e1d111a536d6b9e": {
-      "reference_date": "2025-05-12",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6498d4cd37e1d21cd776fd23b732eec8c6f71eb05d21b76774ee798d78453562"
-      ]
-    },
     "507443b4e40f853ddd42b2d9d179232611b36095edfdb08f766c3bf621b5b917": {
       "reference_date": "2024-12-31",
       "value": "A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e",
@@ -435,42 +370,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cde47900e2c350a4a1599d89287ff58869db0db7ceb40e41d863c488fb38ade1"
-      ]
-    },
-    "079aad3df6cbbd1f81c39beba6dc4644ec6eadee46bd66900b155ed21500e771": {
-      "reference_date": "2024-12-30",
-      "value": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b1c39371911926ca7ed23da66502622072ddceb91a6ca2c9df4be54286b7f0ce"
-      ]
-    },
-    "289d409ef9a2bc18e865bece0eab5c948832268fa3d7596408e8a210dc593e1d": {
-      "reference_date": "2024-11-29",
-      "value": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ba63738e57ef8753b4f032f4d2fd41a33960730bae7f8bafd4becd46d4eacc53"
-      ]
-    },
-    "969b3a3a1ef279ab22ceae76ece6df4a39de0df0e39afd2aaa69d43e7400f88e": {
-      "reference_date": "2024-10-07",
-      "value": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4d6be77ba09e74fee0137c50ac690cfa8987a8dfd02e1fbc6e56f4fb97faaec8"
-      ]
-    },
-    "2205755c33529fc065817a16250376541090dd226749d5d7e427bccf6272dab0": {
-      "reference_date": "2024-09-02",
-      "value": "(vi) aquisição, pela Classe Única, de Direitos Creditórios em desacordo com os Critérios de Elegibilidade e/ou com as Condições de Endosso, salvo em razão de erros operacionais que não afetem adversamente a Classe Única e que sejam remediados no período de 5 (cinco) Dias Úteis, a contar de sua identificação;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "aa031a695a69a5a6d9d50627c355d8042d0a07fc4b645fae3e9472f556fc1770"
       ]
     },
     "cf026286a35bdc53c4960efe8e129ba718172cf0a4ed695c1ff769009d77eb70": {
@@ -1678,6 +1577,96 @@
       "sources": [
         "aa031a695a69a5a6d9d50627c355d8042d0a07fc4b645fae3e9472f556fc1770"
       ]
+    },
+    "bbec1c32038108bd55522d2595f07ecf9bda7d4c603c1f0f05d2800f52041003": {
+      "reference_date": "2025-05-12",
+      "value": "3.1.1. Os Direitos Creditórios são oriundos de (i) com relação aos Direitos Creditórios CCB, operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; (ii) com relação aos Direitos Creditórios Acordos, transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso; e (iii) com relação aos Direitos Creditórios NC, Notas Comerciais emitidas por Devedores, nos termos da Lei nº 14.195, de 26 de agosto de 2021, conforme alterada, que poderão ser subscritas diretamente pelo Fundo. A Classe Única adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição.”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6498d4cd37e1d21cd776fd23b732eec8c6f71eb05d21b76774ee798d78453562"
+      ]
+    },
+    "a785ac7b87948cd69328d7ed2359f4bb672fcc829fa8d4300e507766de834b85": {
+      "reference_date": "2024-12-30",
+      "value": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e (iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e4026e7ce1214abf7e9185c0ed48d96a869f711c005644980487824f56698c12"
+      ]
+    },
+    "96b15dd8c3615ac9472cfb666c264d730e8628beab3808ca84ab9bda266c9036": {
+      "reference_date": "2024-11-29",
+      "value": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e (iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3d23742c226890e2277aa670827882b0570bd2b397c77aff3ae1bbe103fcb220"
+      ]
+    },
+    "cb1807730bdbeb77cf2119f311a60925735d43cc1c5d556a1838c97828feb838": {
+      "reference_date": "2024-10-07",
+      "value": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses; (iii) sejam representados em moeda corrente nacional; e (iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "39780db323578022fd410e60be5d678377dac1fdf4612aff9a426b8b38fa55fa"
+      ]
+    },
+    "614f3586bad39186a2da8ea376ba1f67696fbb913f5688c9fc860fec95f4e665": {
+      "reference_date": "2024-09-02",
+      "value": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso; (ii) sejam representados em moeda corrente nacional; e (iii) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora. 4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso e respectivos Termos de Endosso.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bbce2be9569a1adb060812b376e62114edc9966d1ffade777b0e2741203b063a"
+      ]
+    },
+    "203ecca8ee975258b002824bdbec190c28d56feb10e83c747041502126daf43f": {
+      "reference_date": "2024-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29cecef9d59284a04aebc4d070c831ce0efbe05137e0e9fb2ef9bac45a1ce336"
+      ]
+    },
+    "6144c39a23884a3902fd178cb76d649c44668700e7f3aabb1898de040adfb023": {
+      "reference_date": "2024-12-30",
+      "value": "Devedores são os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8bed5fe6c49f99fe909ee20f01ab4524acc8f3ef2f993e8d97fc21a159290134"
+      ]
+    },
+    "c38214e6c1b94bdf39f5e9a8c274e451321e5af876d4bc3fa1ad5a2c3bea4893": {
+      "reference_date": "2024-11-29",
+      "value": "Devedores são os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "24c9efc54ae3c3bf539255aaaa5d708b8e35a00a27352cebbd2b70c524ea043b"
+      ]
+    },
+    "29d1826086cfd00e83506be8e8ac845f70a7b8b77d9a6b0234889cd9aff8f10b": {
+      "reference_date": "2024-10-07",
+      "value": "Devedores são os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bfcde6d80e53c37ca66935728f27e5fb66c2a804dc115509b93974499ad5f1c5"
+      ]
+    },
+    "a92e3d7f2734ae06bc8eee344cab9f314371ca48e72c71323f62adc3d118329b": {
+      "reference_date": "2024-09-02",
+      "value": "Devedores são os clientes pessoa física da Amel Administradora que tenham contratado um empréstimo pessoal.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cd1902a68a3f23c8eef3b00f43e139a26465995cfa6ac7f43647573b675cb5af"
+      ]
     }
   },
   "passages": {
@@ -1766,18 +1755,6 @@
       "sha256": "d76287d5ed566f984af6a25397d5d7e83b6eb34e9d7b707cc82458115c659130",
       "verification": "primary_passage"
     },
-    "de43058b6b32fe45a99d9d4023ec9d27224e778435b99b8d720657eb48086b81": {
-      "document_id": "852887",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852887",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 28,
-      "clause": "",
-      "excerpt": "(xxiv) Risco Regulatório e Judicial. A legislação e regulação aplicável ao Fundo, à  Classe Única, aos investimentos efetuados por ela e aos Cotistas, incluindo, sem  limitação, leis tributárias e normas que regulamentem investimentos em direitos  creditórios no Brasil estão sujeitas a alterações. Ainda, poderão ocorrer  interferências de autoridades governamentais e órgãos reguladores nos mercados  relacionados à Classe Única, em especial com relação aos originadores e  Devedores dos Direitos Creditórios Elegíveis e Transferidos. Ademais, a aplicação  de leis e regulações existentes no âmbito do Fundo, da Classe Única, de seus ativos  e/ou dos Cotistas, assim como a interpretação de novas leis e regulações que  venham a existir nesse âmbito poderão ocorrer de forma adversa daquela esperada  pelos prestadores de serviço do Fundo. Tais eventos poderão impactar de maneira  negativa o valor das cotas da Classe Única, bem como as condições para  distribuição de rendimentos, conforme aplicável. Mais especificamente sobre as  regras tributárias atualmente vigentes, há perspectivas de mudanças na legislação  tributária aplicáveis aos fundos de investimento constituídos sob a forma de  condomínio fechado, no contexto de uma eventual reforma tributária. Assim, o risco  de alteração na legislação tributária engloba o risco de perdas decorrente da criação  de novos tributos, interpretação diversa da atual sobre a incidência de quaisquer  tributos ou a revogação de isenções vigentes, sujeitando a Classe Única, ou seus",
-      "sha256": "ca1279f2c1882391607d6c10b037271c9cec2a8737cc49c1588b740477424a88",
-      "verification": "primary_passage"
-    },
     "a932d321d9c8a63e456d82e26113c568983688b13f0442616e1e486a0595c3f3": {
       "document_id": "811082",
       "title": "Regulamento",
@@ -1838,54 +1815,6 @@
       "sha256": "4254e6006b2b94afe3279539adda49de13aec36a0e5b6ff06683c15f0ff6a24b",
       "verification": "primary_passage"
     },
-    "effb7f25cfae57db1fde0083fe94c9df992a0cbdb4ac70762cb6d15c05181fa7": {
-      "document_id": "811082",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
-      "reference_date": "2024-12-30",
-      "version": "1",
-      "page": 34,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal  realizadas pelos Devedores, representados pela Amel Administradora, sendo  formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores  nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de  suas obrigações de pagamento, que tenham sido objeto de acordos de novação e  confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe,  conforme o caso. A Classe Única adquirirá apenas Direitos Creditórios que atendam aos  Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas  respectivas datas de aquisição.",
-      "sha256": "59bb69897293a2255077d7aaa5105992403bdc9171a15c65eab847f8560b98b8",
-      "verification": "primary_passage"
-    },
-    "a951d705c7d7f4fd2ce2710d9b3b2f21f69ca1a8ce1ade3d63d2aeffb7bb03fc": {
-      "document_id": "791802",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791802",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 34,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso. A Classe Única adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição.",
-      "sha256": "1db10b034eaea13895e18c33156f2786882934b472f4c1476cbb180444f1a231",
-      "verification": "primary_passage"
-    },
-    "e25e086db1a37b64320597b0133e4a8ca2a4804eaa8cd1523181c6d2c0da970f": {
-      "document_id": "752871",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752871",
-      "reference_date": "2024-10-07",
-      "version": "1",
-      "page": 34,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso. A Classe Única adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição.",
-      "sha256": "c81bb92c5ac6b81045c7a44a8dab15d9f086d68cebf0013c591abd0459e05759",
-      "verification": "primary_passage"
-    },
-    "f53cacd097a433c5f5558254dfdd1a712e4af18d68f59a651c4dac25f3ed7e01": {
-      "document_id": "732918",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732918",
-      "reference_date": "2024-09-02",
-      "version": "1",
-      "page": 34,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Os Direitos Creditórios são oriundos de (i) operações de empréstimo pessoal realizadas pelos Devedores, representados pela Amel Administradora, sendo formalizados por CCBs; e (ii) transações de pagamentos realizadas pelos Devedores nos Estabelecimentos Comerciais, cujos Devedores tenham atrasado o cumprimento de suas obrigações de pagamento, que tenham sido objeto de acordos de novação e confissão de dívida ou pela Amel Administradora, pela Edmil ou pelo Fundo e/ou Classe, conforme o caso. A Classe Única adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição.",
-      "sha256": "d76287d5ed566f984af6a25397d5d7e83b6eb34e9d7b707cc82458115c659130",
-      "verification": "primary_passage"
-    },
     "cde47900e2c350a4a1599d89287ff58869db0db7ceb40e41d863c488fb38ade1": {
       "document_id": "852887",
       "title": "Demonstrações Financeiras",
@@ -1896,42 +1825,6 @@
       "clause": "",
       "excerpt": "A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas  respectivas datas de aquisição, individualmente e de forma cumulativa, aos  seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n (i) os Direitos Creditórios deverão ser representados por Documentos  Comprobatórios colocadas à disposição pelas Endossantes para o endosso;\n (ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e  quatro) meses;\n (iii) sejam representados em moeda corrente nacional; e",
       "sha256": "ca1279f2c1882391607d6c10b037271c9cec2a8737cc49c1588b740477424a88",
-      "verification": "primary_passage"
-    },
-    "b1c39371911926ca7ed23da66502622072ddceb91a6ca2c9df4be54286b7f0ce": {
-      "document_id": "811082",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
-      "reference_date": "2024-12-30",
-      "version": "1",
-      "page": 21,
-      "clause": "9.4",
-      "excerpt": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM  175/22, o Custodiante, diretamente ou por meio de seus representantes, será  responsável pelas seguintes atividades:\n(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios  de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela  Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;\n(ii) receber e verificar, por amostragem estatística, a documentação que evidencia  o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras,  comerciais e de serviços, caso seja contratado pela Gestora para tanto, sem prejuízo",
-      "sha256": "59bb69897293a2255077d7aaa5105992403bdc9171a15c65eab847f8560b98b8",
-      "verification": "primary_passage"
-    },
-    "ba63738e57ef8753b4f032f4d2fd41a33960730bae7f8bafd4becd46d4eacc53": {
-      "document_id": "791802",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791802",
-      "reference_date": "2024-11-29",
-      "version": "1",
-      "page": 21,
-      "clause": "9.4",
-      "excerpt": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:\n(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;\n(ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, caso seja contratado pela Gestora para tanto, sem prejuízo",
-      "sha256": "1db10b034eaea13895e18c33156f2786882934b472f4c1476cbb180444f1a231",
-      "verification": "primary_passage"
-    },
-    "4d6be77ba09e74fee0137c50ac690cfa8987a8dfd02e1fbc6e56f4fb97faaec8": {
-      "document_id": "752871",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752871",
-      "reference_date": "2024-10-07",
-      "version": "1",
-      "page": 21,
-      "clause": "9.4",
-      "excerpt": "9.4. Sem prejuízo dos demais deveres e obrigações definidos na Resolução CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:\n(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;\n(ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, caso seja contratado pela Gestora para tanto, sem prejuízo",
-      "sha256": "c81bb92c5ac6b81045c7a44a8dab15d9f086d68cebf0013c591abd0459e05759",
       "verification": "primary_passage"
     },
     "aa031a695a69a5a6d9d50627c355d8042d0a07fc4b645fae3e9472f556fc1770": {
@@ -3438,6 +3331,118 @@
       "clause": "",
       "excerpt": "Demonstrações Financeiras GTCS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CNPJ: 57.107.628/0001-08 (Administrado pela Singulare Corretora de Títulos e Valores Mobiliários S.A.. – CNPJ 62.285.390/0001-40)",
       "sha256": "ca1279f2c1882391607d6c10b037271c9cec2a8737cc49c1588b740477424a88",
+      "verification": "primary_passage"
+    },
+    "e4026e7ce1214abf7e9185c0ed48d96a869f711c005644980487824f56698c12": {
+      "document_id": "811082",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
+      "reference_date": "2024-12-30",
+      "version": "1",
+      "page": 37,
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas  respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes  critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por Documentos  Comprobatórios colocadas à disposição pelas Endossantes para o endosso;\n(ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro)  meses;\n(iii) sejam representados em moeda corrente nacional; e\n(iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o  seu registro contábil, de acordo com os procedimentos operacionais e contábeis  praticados pela Administradora.\n4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer  dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela  Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a  Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de  comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "sha256": "59bb69897293a2255077d7aaa5105992403bdc9171a15c65eab847f8560b98b8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "3d23742c226890e2277aa670827882b0570bd2b397c77aff3ae1bbe103fcb220": {
+      "document_id": "791802",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791802",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": 37,
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso;\n(ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses;\n(iii) sejam representados em moeda corrente nacional; e\n(iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora.\n4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "sha256": "1db10b034eaea13895e18c33156f2786882934b472f4c1476cbb180444f1a231",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "39780db323578022fd410e60be5d678377dac1fdf4612aff9a426b8b38fa55fa": {
+      "document_id": "752871",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752871",
+      "reference_date": "2024-10-07",
+      "version": "1",
+      "page": 37,
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso;\n(ii) os Direitos Creditórios terão prazo de vencimento máximo de 24 (vinte e quatro) meses;\n(iii) sejam representados em moeda corrente nacional; e\n(iv) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora.\n4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso",
+      "sha256": "c81bb92c5ac6b81045c7a44a8dab15d9f086d68cebf0013c591abd0459e05759",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "bbce2be9569a1adb060812b376e62114edc9966d1ffade777b0e2741203b063a": {
+      "document_id": "732918",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732918",
+      "reference_date": "2024-09-02",
+      "version": "1",
+      "page": 37,
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por Documentos Comprobatórios colocadas à disposição pelas Endossantes para o endosso;\n(ii) sejam representados em moeda corrente nacional; e\n(iii) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil, de acordo com os procedimentos operacionais e contábeis praticados pela Administradora.\n4.1.1. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar quaisquer dos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pela Classe Única, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou o Endossante, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto no Contrato de Endosso e respectivos Termos de Endosso.",
+      "sha256": "d76287d5ed566f984af6a25397d5d7e83b6eb34e9d7b707cc82458115c659130",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "29cecef9d59284a04aebc4d070c831ce0efbe05137e0e9fb2ef9bac45a1ce336": {
+      "document_id": "852887",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852887",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "Notas explicativas da Administração às demonstrações financeiras No período de 05 de dezembro de 2024 (data de início das atividades) a 31 de dezembro de 2024 (Valores expressos em milhares de reais, exceto quando indicado de outra forma)  Endossante fosse sujeito passivo de demanda judicial capaz de reduzi-la à  insolvência; ou (2) sobre os Direitos Creditórios pendesse demanda judicial fundada  em direito real; e (c) fraude à execução fiscal, se o respectivo Endossante, quando  da transferência de Direitos Creditórios, sendo sujeito passivo por débito para com  a Fazenda Pública, por crédito tributário regularmente inscrito como dívida ativa, não  dispusesse de bens para total pagamento da dívida fiscal. O endosso dos Direitos  Creditórios também poderia ser afetado pela existência de ônus sobre os Direitos  Creditórios Transferidos, que tivessem sido constituídos previamente ao seu  endosso e sem conhecimento da Classe Única (o que ocorreria em caso de  descumprimento, pelo Endossante, da declaração a respeito da inexistência de ônus  ou gravames sobre os Direitos Creditórios Transferidos); (xi) Alterações e Restrições  de Natureza Legal ou Regulatória. Eventuais alterações e/ou restrições de natureza  legal ou regulatória podem afetar adversamente a validade e/ou a eficácia da  constituição e da transferência dos Direitos Creditórios à Classe Única, o  comportamento dos Direitos Creditórios Transferidos e os respectivos fluxos de  caixa a serem gerados;\n (xii) Risco de Originação e de Formalização – Vícios Questionáveis. Os Direitos  Creditórios Transferidos são oriundos das operações de empréstimo pessoal  contratadas pelos Devedores. Os documentos relativos aos Direitos Creditórios  Transferidos podem apresentar vícios questionáveis juridicamente, podendo,  inclusive, apresentar irregularidades de forma ou conteúdo. Além disso, os  documentos relativos aos Direitos Creditórios Transferidos podem também  apresentar vícios de formalização, por exemplo, vícios de verificação, pelo  Endossante, da capacidade das pessoas físicas que contraíram empréstimo  pessoal, bem como da veracidade de assinaturas. Pode ser necessária decisão  judicial para efetivação do pagamento relativo a tais Direitos Creditórios Transferidos  ou, ainda, pode ser proferida decisão judicial desfavorável. Em qualquer caso, a  Classe Única poderia sofrer prejuízos, seja pela demora, seja pela ausência de  recebimento dos recursos;",
+      "sha256": "ca1279f2c1882391607d6c10b037271c9cec2a8737cc49c1588b740477424a88",
+      "verification": "primary_passage"
+    },
+    "8bed5fe6c49f99fe909ee20f01ab4524acc8f3ef2f993e8d97fc21a159290134": {
+      "document_id": "811082",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
+      "reference_date": "2024-12-30",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Devedores são os clientes pessoa física da Amel Administradora  que tenham contratado um empréstimo pessoal.",
+      "sha256": "59bb69897293a2255077d7aaa5105992403bdc9171a15c65eab847f8560b98b8",
+      "verification": "primary_passage"
+    },
+    "24c9efc54ae3c3bf539255aaaa5d708b8e35a00a27352cebbd2b70c524ea043b": {
+      "document_id": "791802",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791802",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Devedores são os clientes pessoa física da Amel Administradora  que tenham contratado um empréstimo pessoal.",
+      "sha256": "1db10b034eaea13895e18c33156f2786882934b472f4c1476cbb180444f1a231",
+      "verification": "primary_passage"
+    },
+    "bfcde6d80e53c37ca66935728f27e5fb66c2a804dc115509b93974499ad5f1c5": {
+      "document_id": "752871",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=752871",
+      "reference_date": "2024-10-07",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Devedores são os clientes pessoa física da Amel Administradora  que tenham contratado um empréstimo pessoal.",
+      "sha256": "c81bb92c5ac6b81045c7a44a8dab15d9f086d68cebf0013c591abd0459e05759",
+      "verification": "primary_passage"
+    },
+    "cd1902a68a3f23c8eef3b00f43e139a26465995cfa6ac7f43647573b675cb5af": {
+      "document_id": "732918",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732918",
+      "reference_date": "2024-09-02",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Devedores são os clientes pessoa física da Amel Administradora  que tenham contratado um empréstimo pessoal.",
+      "sha256": "d76287d5ed566f984af6a25397d5d7e83b6eb34e9d7b707cc82458115c659130",
       "verification": "primary_passage"
     }
   }

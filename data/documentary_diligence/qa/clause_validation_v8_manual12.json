@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "validator_revision": 8,
+  "validator_fingerprint": "746b9dd73f83c6f1b21c2c7b5c00e9dc34d1c1f00a12859b65860dd36ef1330c",
+  "scope": "Exact12materialmanualcorrections:8debtor and4eligibility/originator. Each visible value and all proof sources passV8; context_sources are excluded from evidence and coverage.",
+  "cell_count": 12,
+  "checks": [
+    {
+      "cnpj": "23956882000169",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "a35b508171241107d0a49a26af7e2df7707ca070d8f3f4c32c0819b4c57b9143",
+      "fund_sha256": "423cda263ee66ef6bb63259110b760ca081555c08e36270ddafbebd23d5f2806",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "23956882000169",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1218996",
+      "page": "6,57",
+      "clause": "Glossário — Devedores; Anexo I–A, item14.1",
+      "excerpt_sha256": "63a382dea708f3914a2233e5f7ad62d232a013e0eae0dd59119ff4fccee29a6d",
+      "fund_sha256": "423cda263ee66ef6bb63259110b760ca081555c08e36270ddafbebd23d5f2806",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "51326028000154",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "37a61c1fb88090532199017b8cf24abe279a7816378450d1ef7454e76de3097c",
+      "fund_sha256": "ace8aad385af719d4f2208348a663096995fd581bcf7bfd98f18041c02b63121",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "51326028000154",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1219005",
+      "page": "10",
+      "clause": "Glossário — Devedores",
+      "excerpt_sha256": "e98d186d8326cbeca71ffcd44ef2842a3fdb39495e28a1f6d1b56438fed113c9",
+      "fund_sha256": "ace8aad385af719d4f2208348a663096995fd581bcf7bfd98f18041c02b63121",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "53662209000187",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "c9d80ccc99923db1da709b7ad40ceccb54cfb62a6366e9e108b17d80d813aea5",
+      "fund_sha256": "7afcedb52f283cd5ec77381c043364f656e3e3295b27f4eaaf2e762905eac0d6",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "53662209000187",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1239751",
+      "page": "7",
+      "clause": "Glossário — Devedores",
+      "excerpt_sha256": "5d33cc3696665e2095dfe15436eac9dc83f2be4180c6c989ed9c17f96c3252bc",
+      "fund_sha256": "7afcedb52f283cd5ec77381c043364f656e3e3295b27f4eaaf2e762905eac0d6",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "58458416000138",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "b3d05579b8174e57eacd47a2e1d2ce1ebe1a655ca4c871174c970f99e624e17f",
+      "fund_sha256": "63ab9cafe9e00b4b600db174efcf3ae983cb0c5672f6d939188ae1f291f17d51",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "58458416000138",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "982232",
+      "page": "37",
+      "clause": "Glossário — Devedores",
+      "excerpt_sha256": "189d400a76a094259af3b1e7da8a245ffe5b23c35de0673547f10794bf77be54",
+      "fund_sha256": "63ab9cafe9e00b4b600db174efcf3ae983cb0c5672f6d939188ae1f291f17d51",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "62588266000154",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "fd9d1f4ff38bc6fa5823053bfb3f93f5aa5721a68a8232532da553e79de057a6",
+      "fund_sha256": "36cb29832b13b5b397dbe83044ff1757b3994dd5fc66d1bd075c71eb5c8412d8",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "62588266000154",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1002580",
+      "page": "107–108",
+      "clause": "Glossário — Devedores, Devedor–Cartão INSS e Devedor–Empréstimo Consignado",
+      "excerpt_sha256": "c8041df4f7aa80a884123fb57f9949649e0de75eb117b4006b61b50e78c457ff",
+      "fund_sha256": "36cb29832b13b5b397dbe83044ff1757b3994dd5fc66d1bd075c71eb5c8412d8",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "63505455000189",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "f03a71962bdc338818aa965d3d9eabd9fd763509fdb343075a2237508060fe82",
+      "fund_sha256": "ccc678fccbe9fa7d280d1dd668eeb86ecb0f5a91a21e03bbb6ddac66c87473f0",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "63505455000189",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1199536",
+      "page": "100",
+      "clause": "Anexo III — Política de originação e concessão de crédito, itemII",
+      "excerpt_sha256": "60fbf11870d922136eb60cfc0a5c6268d87ce41c1064d6cd4a715c6e6c4fb758",
+      "fund_sha256": "ccc678fccbe9fa7d280d1dd668eeb86ecb0f5a91a21e03bbb6ddac66c87473f0",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "23c2ea0f0e77299d890a907c18a11cb3c8ef88104864cf2d320b673b297d1eec",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1222863",
+      "page": "5",
+      "clause": "Anexo I, item4.4",
+      "excerpt_sha256": "12d5791cb50460f4cc226330721ee7ef0fa56e133fccd4c7cbfefa00db206f26",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "65836995000170",
+      "criterion_id": "debtor",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "c9d80ccc99923db1da709b7ad40ceccb54cfb62a6366e9e108b17d80d813aea5",
+      "fund_sha256": "66805a8d0453c646b216a0e1c4c8a8e760cc2b6946b1d5133bdbb4f38f42dbcd",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "65836995000170",
+      "criterion_id": "debtor",
+      "kind": "source",
+      "document_id": "1322406",
+      "page": "7",
+      "clause": "Glossário — Devedores",
+      "excerpt_sha256": "78695d60e9086c1b36da147424ae8ca4a4c3df45da90f7c970adc0ca16affe31",
+      "fund_sha256": "66805a8d0453c646b216a0e1c4c8a8e760cc2b6946b1d5133bdbb4f38f42dbcd",
+      "result": {
+        "valid": true,
+        "reason": "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro."
+      }
+    },
+    {
+      "cnpj": "62552447000120",
+      "criterion_id": "eligibility",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "cce521d12e5681f457e4ddd077242528b5f5d2f8fef21c0585b5e4869092dc2d",
+      "fund_sha256": "df8b70f5de2dbbd4d5255e0ccaeb309a92e18bb8a0ea2881b1d62bbcd46c94f5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "62552447000120",
+      "criterion_id": "eligibility",
+      "kind": "source",
+      "document_id": 1200623,
+      "page": "6–7",
+      "clause": "Anexo I, item1.2 — Critérios de Elegibilidade (i)–(v)",
+      "excerpt_sha256": "87820d55627f66a852f7b9daf15faf00f41d6816f2e5effa64d3b78aa81851e8",
+      "fund_sha256": "df8b70f5de2dbbd4d5255e0ccaeb309a92e18bb8a0ea2881b1d62bbcd46c94f5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "eligibility",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "358c8caa78b3bb865621390aabbd838646a8fd8d1cca10399baadd8cdd363286",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "eligibility",
+      "kind": "source",
+      "document_id": 1222863,
+      "page": "2",
+      "clause": "Anexo I, item 1.1 — Critérios de Elegibilidade (a)(i)–(iv) e (b)(i)–(iv)",
+      "excerpt_sha256": "24138455b83a11f0dc4699c97ba50b5189b62924cbe7175f8feeb9aab7f6b050",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "originator",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "2e9d7884f412e8efac01dd9de7220d27b9616ee5102eb2e2905141e4f9e12138",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "63953620000165",
+      "criterion_id": "originator",
+      "kind": "source",
+      "document_id": 1222863,
+      "page": "5",
+      "clause": "Anexo I, itens 4.3–4.4",
+      "excerpt_sha256": "6c008898d6a58e88ea217717ffd52c5947495f681e1b94b7b8471bd7f138bca2",
+      "fund_sha256": "7d987c4913725236bab513c7952ab0f624c3709b406d431ddeac27fb7f0e55c5",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "60010416000112",
+      "criterion_id": "originator",
+      "kind": "value",
+      "document_id": null,
+      "page": null,
+      "clause": null,
+      "excerpt_sha256": "0ffc63c5fe58576a2706700c06594a02d41a6cf5b2570ce76789f36b70a87d01",
+      "fund_sha256": "b0ebeb6b15ca0bc2ec1330cbaa11842fe42e8ceba4f83c0f6153794529bdcd91",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "60010416000112",
+      "criterion_id": "originator",
+      "kind": "source",
+      "document_id": 1051393,
+      "page": "44",
+      "clause": "Anexo I, glossário — Endossante",
+      "excerpt_sha256": "319dc228878233ebdc6c78bc20ee2f3b48124b324ff321e377a6d37909c41e37",
+      "fund_sha256": "b0ebeb6b15ca0bc2ec1330cbaa11842fe42e8ceba4f83c0f6153794529bdcd91",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    },
+    {
+      "cnpj": "60010416000112",
+      "criterion_id": "originator",
+      "kind": "source",
+      "document_id": 1051393,
+      "page": "9",
+      "clause": "Anexo I, item 4.2",
+      "excerpt_sha256": "7c8a0ae1d341cf4e47994a3ef6df65c7206f6fcc3236c99549108362ec992a10",
+      "fund_sha256": "b0ebeb6b15ca0bc2ec1330cbaa11842fe42e8ceba4f83c0f6153794529bdcd91",
+      "result": {
+        "valid": true,
+        "reason": "A cláusula contém objeto e condição específicos do critério; números e vigência exigem validação própria."
+      }
+    }
+  ]
+}

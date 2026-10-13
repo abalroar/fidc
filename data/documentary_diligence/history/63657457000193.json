@@ -3,16 +3,6 @@
   "cnpj": "63657457000193",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "b350e0bd16adf54b015deb9bdb97e97f122f7b0d4ffc801179f535908cee67e1",
-      "59fb4e12bda63dfba94ea45365f7f9ac49a80f3bd3ba825f515b5180bbb24e03",
-      "ca1aa6bf97904a23988beaa8d99f6162eefb2dafa2d3ed0b7eb233757e3fb90c",
-      "ab176bbf710723c14609260e2c4f3c36ca51c32a9235a8b6535c1de48895260f",
-      "7a8d6a7da0704afe6cbb3b28f38f936758d9b6c5338f09b2270c932b40f5185e",
-      "124a189524bf2dcb9bd19c8fea3279399f72e19b85623fd0b0a1a084f2334f6a",
-      "ab174c6f128771e9e65d74b3adae6cf5b34a6f4dac4cf56f8ec9770985982775",
-      "69076c2d7c5fc63f7be981af2455eb441f88607dc37724a176a040aff6b19415"
-    ],
     "ticket": [
       "cab7618d0e8c02705180818c869055e9edbc41e99e8f4b69331ed2034470a78c",
       "3e9ee5936f62245e66e5a06466753361d995ba07adba1544cb875c41543ebec9",
@@ -316,18 +306,6 @@
       "71489178a78646bc972907e40d28ba44e4356623ad3247e2e43660454f2862d1",
       "a1f43bbc13ffec44addbffc2ae223bb9dbaecaedebf94071b920e46b5f51cae2"
     ],
-    "originator": [
-      "c87c3157e749f305442f833290e5fb76fc16cb1f19eb69ec51e9720e7ffa1c94",
-      "d9388a5eed0309497bbaefa90df531a1b17224b89bd3ab05d7c6a4a896b23346",
-      "80ef7c13353e7b6ace230ccf2ac8bd4ecd7c230876ef7520ba49553f0355e09e",
-      "b05a3bdce5923125110143ccb3185f2b88c3a2f783a2021d4d322ea024124b64",
-      "295ff31af979df8b37a431e1d01e00d7f3fb63a26232e51c1dcfdae4ba1defb2",
-      "3a7f75c3d41410f9a7e8e8e2880d8ba2ffeff47174fcb1579b6207207cd8291e"
-    ],
-    "debtor": [
-      "156febbfbf2ec6580d71e0fec0cdf9d090e6e9001d58dfa763a795c79c163c7a",
-      "f3a655eeabebd0214867c6735ac16c688111b8641abd08a3be7d9bd301bbce04"
-    ],
     "guarantee": [
       "16df70549d7288eac1e182920a05618d8f9997d571b656ae584bb52d12055749"
     ],
@@ -358,6 +336,24 @@
       "db9499087c47137d7f388b71a40083312ed3a7a3e9dfafbb1fcaf900db9ef4a5",
       "826c7d810d3b902736100a2b7a67cc05f60ed51ec449474c913a4fadcb9c3db1",
       "fbfa4097cf8267def1d9e91152820f3700901afbd45b9bd5262f26781bf6f780"
+    ],
+    "originator": [
+      "c87c3157e749f305442f833290e5fb76fc16cb1f19eb69ec51e9720e7ffa1c94",
+      "d9388a5eed0309497bbaefa90df531a1b17224b89bd3ab05d7c6a4a896b23346",
+      "80ef7c13353e7b6ace230ccf2ac8bd4ecd7c230876ef7520ba49553f0355e09e",
+      "b05a3bdce5923125110143ccb3185f2b88c3a2f783a2021d4d322ea024124b64",
+      "295ff31af979df8b37a431e1d01e00d7f3fb63a26232e51c1dcfdae4ba1defb2",
+      "3a7f75c3d41410f9a7e8e8e2880d8ba2ffeff47174fcb1579b6207207cd8291e"
+    ],
+    "eligibility": [
+      "b350e0bd16adf54b015deb9bdb97e97f122f7b0d4ffc801179f535908cee67e1",
+      "59fb4e12bda63dfba94ea45365f7f9ac49a80f3bd3ba825f515b5180bbb24e03",
+      "ca1aa6bf97904a23988beaa8d99f6162eefb2dafa2d3ed0b7eb233757e3fb90c",
+      "ab176bbf710723c14609260e2c4f3c36ca51c32a9235a8b6535c1de48895260f",
+      "ed67ab6e89734b5cabed0f1f4ac32b69f9a994a200211fd314947aee6307c26c",
+      "b4c6e3f2867302008bb500d63795466e7b24b68f5296effb1fed9014925d4367",
+      "75c4327b92859d4f641bf512efff03ddc6fe11a33687788e1b11832c27b51418",
+      "72a1b1ca12c83a5f19b11832a7dadb315178bfbc249792dc2428fc10f44fffa2"
     ]
   },
   "entries": {
@@ -443,24 +439,6 @@
         "a56e322d3044812b8b93a107c65b6a26c4b817a5d53f0f1b4cca782c858fd112"
       ]
     },
-    "156febbfbf2ec6580d71e0fec0cdf9d090e6e9001d58dfa763a795c79c163c7a": {
-      "reference_date": "2025-12-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1bcd5ec4ed31ab88fc687be6aaf9f037d89fc0f3f3a5ecfffc70d8ff4b464d86"
-      ]
-    },
-    "f3a655eeabebd0214867c6735ac16c688111b8641abd08a3be7d9bd301bbce04": {
-      "reference_date": "2025-12-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "15c15e661d127d414466e00583bab05b628025b59b2d0af924817397c5ccf001"
-      ]
-    },
     "b350e0bd16adf54b015deb9bdb97e97f122f7b0d4ffc801179f535908cee67e1": {
       "reference_date": "2026-05-27",
       "value": "Reais, vincendos, prazo ≤120 dias; vencimento antes de resgate; devedor adimplente",
@@ -496,42 +474,6 @@
       "provenance": "primary_passage",
       "sources": [
         "ab25e96da3a856946c0b8c6a266e23ad3e8418088ce151645f859c6b2554f43c"
-      ]
-    },
-    "7a8d6a7da0704afe6cbb3b28f38f936758d9b6c5338f09b2270c932b40f5185e": {
-      "reference_date": "2025-12-17",
-      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "52254e1ba1d221ceb8d8b08401e83b27a929071d82af7151e1400854f9a4af9b"
-      ]
-    },
-    "124a189524bf2dcb9bd19c8fea3279399f72e19b85623fd0b0a1a084f2334f6a": {
-      "reference_date": "2025-12-17",
-      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c9c57edc51ed9a8e3cc0eae655a7a1c76dcb0dcbfe7a748a1946d32368a2cba4"
-      ]
-    },
-    "ab174c6f128771e9e65d74b3adae6cf5b34a6f4dac4cf56f8ec9770985982775": {
-      "reference_date": "2025-12-09",
-      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d9ab790e99d4c617043210dd69384f0ac09fe49531c6bcd6fbe5e13c467c337f"
-      ]
-    },
-    "69076c2d7c5fc63f7be981af2455eb441f88607dc37724a176a040aff6b19415": {
-      "reference_date": "2025-11-13",
-      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1098d43807d286e3e75eee91755e01df980fcb924b4f33839562448be84da4f3"
       ]
     },
     "cab7618d0e8c02705180818c869055e9edbc41e99e8f4b69331ed2034470a78c": {
@@ -2351,6 +2293,42 @@
       "sources": [
         "130424a7433ee52d4ab490bd540acc5967300f391e333fdfd828121da7ed0c72"
       ]
+    },
+    "ed67ab6e89734b5cabed0f1f4ac32b69f9a994a200211fd314947aee6307c26c": {
+      "reference_date": "2025-12-17",
+      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6e65cda68471bb4705417371e8c8e7f11aabf0c67a62980c1d371acd811de71e"
+      ]
+    },
+    "b4c6e3f2867302008bb500d63795466e7b24b68f5296effb1fed9014925d4367": {
+      "reference_date": "2025-12-17",
+      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "90722dc1c95c2d6ec7abf7a7ed61f329dbea62619c0d41b5ae054da6dbd85892"
+      ]
+    },
+    "75c4327b92859d4f641bf512efff03ddc6fe11a33687788e1b11832c27b51418": {
+      "reference_date": "2025-12-09",
+      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d9ec1c61dc46ca49e5349f798b3bff3f2cdaf8944b620a3af736ef81abe5d18d"
+      ]
+    },
+    "72a1b1ca12c83a5f19b11832a7dadb315178bfbc249792dc2428fc10f44fffa2": {
+      "reference_date": "2025-11-13",
+      "value": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e representados por Documentos Comprobatórios; (ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento e vinte) dias a contar da Data de Aquisição e Pagamento; (iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for 15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas Subordinadas Mezanino mais distante, o que ocorrer primeiro; (iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e Pagamento; (v) os Direitos Creditórios deverão ser performados; (vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor, conforme declaração da respectiva Cedente no Termo de Cessão; (vii) os Devedores deverão estar adimplentes perante os Cedentes em todas suas obrigações, conforme declaração da respectiva Cedente no Termo de Cessão; (viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude de Direitos Creditórios Cedidos; (ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou qualquer espécie de fumo, conforme informado pela respectiva Cedente à Gestora no Termo de Cessão; (x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores aprovados no Anexo V mas que tenham sido incluídos na revisão [trimestral] nos termos do item 7.4 abaixo, considerada pro forma a cessão pretendida, não representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo. (xi) [os Devedores [e/ou seus Representantes] não estejam envolvidos em quaisquer processos envolvendo infrações a leis que versam sobre qualquer tipo de discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1098d43807d286e3e75eee91755e01df980fcb924b4f33839562448be84da4f3"
+      ]
     }
   },
   "passages": {
@@ -2463,30 +2441,6 @@
       "sha256": "7eacc1ac7367ac80916a45c0f56bc8eae8ae84cbbe9e2cf6fa6e2fbc6aededbc",
       "verification": "primary_passage"
     },
-    "1bcd5ec4ed31ab88fc687be6aaf9f037d89fc0f3f3a5ecfffc70d8ff4b464d86": {
-      "document_id": "1118673",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118673",
-      "reference_date": "2025-12-30",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "A ausência de coobrigação por parte da Cedente (Manserv) nas cessões realizadas ao Fundo é considerada um aspecto positivo da estrutura, especialmente por se tratar de duplicatas performadas e formalmente anuídas pelos Devedores. Esse modelo elimina o risco de dependência direta da saúde financeira da Cedente para a efetivação dos pagamentos, pois o adimplemento se dá diretamente pelos sacados, grandes empresas com robusto perfil de crédito. Ademais, considerando que os potenciais Sacados do Fundo previamente definidos nos Anexos V (A e B) do Regulamento, não possuem qualquer relação societária com a Originadora, a Austin entende que não serão cedidas operações de caráter intercompany ao MSV3 FIDC, mitigando riscos associados a transações intra-grupo e reforçando a qualidade e a independência econômica da carteira elegível.",
-      "sha256": "3430789a79d0b42df3762630000205b7f3fac0cbc9a6af1be5c53744520c3a4e",
-      "verification": "primary_passage"
-    },
-    "15c15e661d127d414466e00583bab05b628025b59b2d0af924817397c5ccf001": {
-      "document_id": "1118693",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118693",
-      "reference_date": "2025-12-30",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "A ausência de coobrigação por parte da Cedente (Manserv) nas cessões realizadas ao Fundo é considerada um aspecto positivo da estrutura, especialmente por se tratar de duplicatas performadas e formalmente anuídas pelos Devedores. Esse modelo elimina o risco de dependência direta da saúde financeira da Cedente para a efetivação dos pagamentos, pois o adimplemento se dá diretamente pelos sacados, grandes empresas com robusto perfil de crédito. Ademais, considerando que os potenciais Sacados do Fundo previamente definidos nos Anexos V (A e B) do Regulamento, não possuem qualquer relação societária com a Originadora, a Austin entende que não serão cedidas operações de caráter intercompany ao MSV3 FIDC, mitigando riscos associados a transações intra-grupo e reforçando a qualidade e a independência econômica da carteira elegível.",
-      "sha256": "3430789a79d0b42df3762630000205b7f3fac0cbc9a6af1be5c53744520c3a4e",
-      "verification": "primary_passage"
-    },
     "9816b13e29fdcf83a6a4d9bba4ca377369fa44694bef756e932ce8950fca332e": {
       "document_id": "1205333",
       "title": "Regulamento",
@@ -2534,42 +2488,6 @@
       "clause": "",
       "excerpt": "Critérios de Elegibilidade: O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados  pela Gestora na respectiva Data de Aquisição e Pagamento: i) os Direitos  Creditórios deverão ser exclusivamente expressos em moeda corrente nacional e  representados por Documentos Comprobatórios, ii) o prazo de vencimento dos  Direitos Creditórios não poderá ser superior a 120 dias a contar da Data de  Aquisição e Pagamento, iii) o prazo de vencimento dos Direitos Creditórios não  poderá ser superior à data que for 15 dias antes da Data de Resgate das Cotas  Seniores ou das Cotas Subordinadas Mezanino mais distante, o que ocorrer  primeiro, iv) os Direitos Creditórios não estejam vencidos na respectiva Data de  Aquisição e Pagamento, v) os Direitos Creditórios deverão ser performados, vi)  nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor, vii) os  Devedores deverão estar adimplentes perante as Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão,  viii) os Devedores deverão estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude de Direitos Creditórios Cedidos, ix) os  Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse  último caso, se forem companhias abertas), conforme informado pela respectiva  Cedente à Gestora no Termo de Cessão, x) os Direitos Creditórios devidos por  Devedores que não constem da lista de Devedores aprovados no Anexo V-A mas  que tenham sido incluídos na lista de novos Devedores no âmbito da revisão  trimestral nos termos do item 7.4 abaixo e consolidada anualmente no Anexo V-B,  considerada pro forma a cessão pretendida, não representem mais que 10,0% do  Patrimônio Líquido do Fundo, xi) os Devedores e/ou seus Representantes não  estejam envolvidos em quaisquer processos envolvendo infrações a leis que  versam sobre qualquer tipo de discriminação, trabalho infantil, trabalho escravo  ou análogo, raça e gênero, direitos dos silvícolas, incentivo à prostituição e  direitos da população indígena e/ou à Legislação Anticorrupção, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão, xii) os  Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo  infrações, à Legislação Socioambiental que não nos aspectos mencionados no  inciso (xi) acima, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão, xiii) não tenha ocorrido um Evento de Insolvência em relação  aos Devedores, conforme informado pela respectiva Cedente à Gestora no Termo  de Cessão, xiv) considerada pro forma a aquisição dos Direitos Creditórios  ofertados, o Valor dos Direitos Creditórios devidos por Devedores do mesmo  Grupo Econômico que não sejam Devedores Especiais não poderá ser superior a  3,5% do Patrimônio Líquido do Fundo, xv) considerada pro forma a aquisição dos  Direitos Creditórios ofertados, o Valor dos Direitos Creditórios devidos por  Devedores Especiais do mesmo Grupo Econômico, não poderá ser superior a  20% (vinte por cento) do Patrimônio Líquido do Fundo, xvi) a taxa de desconto  aplicável a cada Direito Creditório Cedido deverá garantir que a Taxa Mínima de  Cessão seja observada, e xvii) os Direitos Creditórios devem ter prazo mínimo de  vencimento de 10 dias após a Data de Aquisição e Pagamento;",
       "sha256": "3430789a79d0b42df3762630000205b7f3fac0cbc9a6af1be5c53744520c3a4e",
-      "verification": "primary_passage"
-    },
-    "52254e1ba1d221ceb8d8b08401e83b27a929071d82af7151e1400854f9a4af9b": {
-      "document_id": "1069421",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069421",
-      "reference_date": "2025-12-17",
-      "version": "1",
-      "page": 27,
-      "clause": "7.1",
-      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante as Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;",
-      "sha256": "0c7ea1b5e274ae107acdd0a66950ceeb53d3e7ba274c6076513af098628cd3cb",
-      "verification": "primary_passage"
-    },
-    "c9c57edc51ed9a8e3cc0eae655a7a1c76dcb0dcbfe7a748a1946d32368a2cba4": {
-      "document_id": "1066272",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066272",
-      "reference_date": "2025-12-17",
-      "version": "1",
-      "page": 28,
-      "clause": "7.1",
-      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante as Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;",
-      "sha256": "eef1c9c6d24e302da0583c390d5cb1b2d63301866e0e8131d855d27cee9164a0",
-      "verification": "primary_passage"
-    },
-    "d9ab790e99d4c617043210dd69384f0ac09fe49531c6bcd6fbe5e13c467c337f": {
-      "document_id": "1066271",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066271",
-      "reference_date": "2025-12-09",
-      "version": "1",
-      "page": 28,
-      "clause": "7.1",
-      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante os Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;",
-      "sha256": "7eacc1ac7367ac80916a45c0f56bc8eae8ae84cbbe9e2cf6fa6e2fbc6aededbc",
       "verification": "primary_passage"
     },
     "1098d43807d286e3e75eee91755e01df980fcb924b4f33839562448be84da4f3": {
@@ -4760,6 +4678,45 @@
       "excerpt": "(xvi) alteração do controle de qualquer Cedente, sendo que, para esse fim, \"controle\"  significa (i) a posse indireta do poder para conduzir ou determinar a condução da  administração ou das políticas da respectiva Cedente, por meio da titularidade de  ações e/ou cotas com direito a voto, por contrato ou de outro modo, ou (ii) a  titularidade de ações e/ou quotas que assegurem, de modo permanente, a maioria  dos votos nas deliberações das assembleias gerais ou outros órgãos de governança  da respectiva Cedente, exceto se os atuais acionistas indiretos pessoas físicas  mantiverem o controle direto ou indireto das Cedentes ou integrem o respectivo  bloco de controle;",
       "sha256": "85594a580b36509bc8ec33e99e2b6d71ee4d8b2b4870b90b6f0e2e24021c701f",
       "verification": "primary_passage"
+    },
+    "6e65cda68471bb4705417371e8c8e7f11aabf0c67a62980c1d371acd811de71e": {
+      "document_id": "1069421",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069421",
+      "reference_date": "2025-12-17",
+      "version": "1",
+      "page": "27–28",
+      "clause": "7.1",
+      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante as Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores do mesmo Grupo Econômico que não  sejam Devedores Especiais não poderá ser superior a 3,5% (três inteiros e cinquenta  centésimos por cento) do Patrimônio Líquido do Fundo;\n(xv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores Especiais do mesmo Grupo Econômico,  não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo;\n(xvi) a taxa de desconto aplicável a cada Direito Creditório Cedido deverá garantir que a  Taxa Mínima de Cessão seja observada; e\n(xvii) os Direitos Creditórios devem ter prazo mínimo de vencimento de 10 (dez) dias após  a Data de Aquisição e Pagamento.",
+      "sha256": "0c7ea1b5e274ae107acdd0a66950ceeb53d3e7ba274c6076513af098628cd3cb",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "90722dc1c95c2d6ec7abf7a7ed61f329dbea62619c0d41b5ae054da6dbd85892": {
+      "document_id": "1066272",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066272",
+      "reference_date": "2025-12-17",
+      "version": "1",
+      "page": "28–29",
+      "clause": "7.1",
+      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante as Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores do mesmo Grupo Econômico que não  sejam Devedores Especiais não poderá ser superior a 3,5% (três inteiros e cinquenta  centésimos por cento) do Patrimônio Líquido do Fundo;\n(xv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores Especiais do mesmo Grupo Econômico,  não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo;\n(xvi) a taxa de desconto aplicável a cada Direito Creditório Cedido deverá garantir que a  Taxa Mínima de Cessão seja observada; e\n(xvii) os Direitos Creditórios devem ter prazo mínimo de vencimento de 10 (dez) dias após  a Data de Aquisição e Pagamento.",
+      "sha256": "eef1c9c6d24e302da0583c390d5cb1b2d63301866e0e8131d855d27cee9164a0",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d9ec1c61dc46ca49e5349f798b3bff3f2cdaf8944b620a3af736ef81abe5d18d": {
+      "document_id": "1066271",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066271",
+      "reference_date": "2025-12-09",
+      "version": "1",
+      "page": "28–29",
+      "clause": "7.1",
+      "excerpt": "7.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade (\"Critérios de Elegibilidade\"), a  serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional e representados por Documentos Comprobatórios;\n(ii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior a 120 (cento  e vinte) dias a contar da Data de Aquisição e Pagamento;\n(iii) o prazo de vencimento dos Direitos Creditórios não poderá ser superior à data que for  15 (quinze) dias antes da Data de Resgate das Cotas Seniores ou das Cotas  Subordinadas Mezanino mais distante, o que ocorrer primeiro;\n(iv) os Direitos Creditórios não estejam vencidos na respectiva Data de Aquisição e  Pagamento;\n(v) os Direitos Creditórios deverão ser performados;\n(vi) nenhuma parcela do Direito Creditório esteja inadimplida pelo Devedor,;\n(vii) os Devedores deverão estar adimplentes perante os Cedentes em todas suas  obrigações, conforme declaração da respectiva Cedente no Termo de Cessão;\n(viii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude de Direitos Creditórios Cedidos;\n(ix) os Devedores não tenham relação com qualquer comercialização de tabaco ou  qualquer espécie de fumo ou com distribuição de combustíveis (exceto, nesse último  caso, se forem companhias abertas), conforme informado pela respectiva Cedente à  Gestora no Termo de Cessão;\n(x) os Direitos Creditórios devidos por Devedores que não constem da lista de Devedores  aprovados no Anexo V-A mas que tenham sido incluídos na lista de novos Devedores  no âmbito da revisão trimestral nos termos do item 7.4 abaixo e consolidada  anualmente no Anexo V-B, considerada pro forma a cessão pretendida, não  representem mais que 10% (dez por cento) do Patrimônio Líquido do Fundo.\n(xi) os Devedores e/ou seus Representantes não estejam envolvidos em quaisquer  processos envolvendo infrações a leis que versam sobre qualquer tipo de  discriminação, trabalho infantil, trabalho escravo ou análogo, raça e gênero, direitos  dos silvícolas, incentivo à prostituição e direitos da população indígena e/ou à  Legislação Anticorrupção, conforme informado pela respectiva Cedente à Gestora no  Termo de Cessão;\n(xii) os Devedores e/ou seus Representantes não tenham sido condenados, por meio de  sentença judicial com efeitos imediatos em quaisquer processos envolvendo infrações  à Legislação Socioambiental que não nos aspectos mencionados no inciso (xi) acima,  conforme informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiii) não tenha ocorrido um Evento de Insolvência em relação aos Devedores, conforme  informado pela respectiva Cedente à Gestora no Termo de Cessão;\n(xiv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores do mesmo Grupo Econômico que não  sejam Devedores Especiais não poderá ser superior a 3,5% (três inteiros e cinquenta  centésimos por cento) do Patrimônio Líquido do Fundo;\n(xv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o Valor dos  Direitos Creditórios devidos por Devedores Especiais do mesmo Grupo Econômico,  não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo;\n(xvi) a taxa de desconto aplicável a cada Direito Creditório Cedido deverá garantir que a  Taxa Mínima de Cessão seja observada; e\n(xvii) os Direitos Creditórios devem ter prazo mínimo de vencimento de 10 (dez) dias após  a Data de Aquisição e Pagamento.",
+      "sha256": "7eacc1ac7367ac80916a45c0f56bc8eae8ae84cbbe9e2cf6fa6e2fbc6aededbc",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

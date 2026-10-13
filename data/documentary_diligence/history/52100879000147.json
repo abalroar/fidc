@@ -3,16 +3,6 @@
   "cnpj": "52100879000147",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ea640a2878aad22d8a1bb74f9d56905c96da49f69026ef5fb7e599e42eafd5b9",
-      "3357e5270fdf2f23db2bded85bb39e8877bed7bfea3fe0a372cc9a85055cd7b7",
-      "8f3d1cfd81db864a3e1e7944c2deee5dc2bb41b4f4c88b0b117104308896e3a2",
-      "f83e17b5d28c5c14ce26f07b34b7e7ee47a14971e265bef458a30dac4dd2d703",
-      "0410c1bab1c1098d7b944955338d6394ee2eb702d3004d1aa8562cc135bf3823",
-      "bd545d369e2d5212f8abf0ccc99fa41c3bfebb06ff044a8dc1b00e74566ce160",
-      "10e4d97dd13e59813e688e15b2e39816756ce3026a49e1a28cb2de429270eb50",
-      "55008d4508dfc1350a8d2c996cb7b2413423e834afe25d00648ab38db1e348b2"
-    ],
     "term": [
       "3a2dabc8ca0c7785812184fad42c3c964157a2b6e8e480704318d9c5ecd1846b",
       "803d3a5105c883483b4f47c1986100bd3d4819187219a29579ba31ade155a414",
@@ -414,25 +404,6 @@
       "fffbe45852d4f0210f3671885e9a83e038b59aaf775deedecadb5c5230aadd57",
       "944b4ad24aac81bca7cd530cb13e1df813b6920733e18a28dd438132a5b42566"
     ],
-    "originator": [
-      "4e73d6b1f1730722573d49d65b6de1e9c7624babb52094cd9fdf6d11a1956329",
-      "497d0ce887e8c8190a4fe9b6e72294c504d272c712840398082529d2e8727eff",
-      "087a63966417079349cd44185b52724ac861ce78a61afde30aaf297c39e1ae81",
-      "52e6406217b4d538beea9137d2a39050a9b15cd907423f244f847920328e9a0f",
-      "49308da692f8bcacd1f4bcaaaa8eaa20575bec1d6de867e2db51f9248e660512",
-      "ee027d5d1d93ceb88b0e3b93bf2e0ccfd5f815dff8b90754786291d7eb239ed8",
-      "423620940c099dd9066ae381986921ce40ba49fdd6fdb621831bd7dc84831b0c"
-    ],
-    "debtor": [
-      "6795e47924d1b7766625e74f3f12e3545bbc7d18c6ac7fea71c966932f3c78d3",
-      "1dc8a92555d0fc68328549148fe1d4b706c50200a64c6f799af4a7319f021730",
-      "e73a9e77fd6e5147206303ea6402883bb062247574dcbd5b87fc58422cf9cd04",
-      "04b3d23c42a96eebc8d79063fc291e40033cd8f49e551ad15d725f0923b29173",
-      "910b6a10834f34b105239119b58884a805bd59b563e498c15ba108367b5c9a1b",
-      "9ad0a354f53e097b9e3ff612d297d83f0db8101d096bf990650904e9602c5fb8",
-      "4cf433ebc710791ffe62d276e4eee07929e8346926af2ae99f560e065133881d",
-      "e8bbfe40ba652c7fbc7218fbeb8c6028cd4d497b4996ee4cbe8632839257d80a"
-    ],
     "investee": [
       "4dc230ed657c1d0770c8f74961e468bcfc2b553954e6d9863af103d1d4c826e9",
       "b4e7bdef96676c99d9149337a191e7819812223605149016b72ef65ba324d0e2"
@@ -473,6 +444,32 @@
       "63fc6a65a34c50f87618e1bb62773c893d16ce073a420b96d58c134fe95666b0",
       "a9dcaf07b7c839be7e145158489dcaf3e1872492128b4407eb2bbe559d845ee9",
       "c93865b88250832b36144a17d9695cc2294000812426b9ad1fd0f89248ded928"
+    ],
+    "originator": [
+      "72fe1d40a0a6d90e6cfdd4bef993ccf4e01653c01af69bc1a4bad2dd499cfb58",
+      "497d0ce887e8c8190a4fe9b6e72294c504d272c712840398082529d2e8727eff",
+      "087a63966417079349cd44185b52724ac861ce78a61afde30aaf297c39e1ae81",
+      "0029e372617570047fc4683a9fcb72a0338db471d82f9b1795e11c6ef78ab560",
+      "52e6406217b4d538beea9137d2a39050a9b15cd907423f244f847920328e9a0f",
+      "49308da692f8bcacd1f4bcaaaa8eaa20575bec1d6de867e2db51f9248e660512",
+      "ee027d5d1d93ceb88b0e3b93bf2e0ccfd5f815dff8b90754786291d7eb239ed8",
+      "423620940c099dd9066ae381986921ce40ba49fdd6fdb621831bd7dc84831b0c"
+    ],
+    "eligibility": [
+      "164186f028e48400f2f58d427688ca0eb0d8d6ec3fcada52480069a3a126301f",
+      "f0d3eb99c196002bdebf60dc9cfd3f6c0d237af030830195908c38f3ea29f739",
+      "d9ec9f4cf9cdbbaf3505ce4ccd6d9939b401589c7b32079e5ab669ca0a25552f",
+      "fa5ec4baaa313a8fd84703c6a86983b8759675febf5100096385a2916c706a41",
+      "bbee1a2222a323018e5f0453d26cbc745f9150e11c8116d37635d681da2e8618",
+      "bd545d369e2d5212f8abf0ccc99fa41c3bfebb06ff044a8dc1b00e74566ce160",
+      "5ade5062fa459b421b9835358cd197abe7a204300e91b1dcd8bafe48c0bf9208",
+      "9cfdff52d3dd037c2efb11b32db5ec9fdbf76b82d433e614cf7a6e603a167ad7"
+    ],
+    "debtor": [
+      "6795e47924d1b7766625e74f3f12e3545bbc7d18c6ac7fea71c966932f3c78d3",
+      "384fbbd2465cfe5baaa548dba38201b99da49a7cb8cd707994eb4369cd7c2ae0",
+      "f5b787caef3192118f946e3e39f8f2a02a2d66eae6c1299fed433b8e2c196a56",
+      "2a196508ecfd6648568eb58751264d82de83819c2ddf16c734e430158b141f3e"
     ]
   },
   "entries": {
@@ -519,15 +516,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a766c5cf1690be28d9c4d139f6387985976789cccaebe3cb1b5d9a10ba170343"
-      ]
-    },
-    "4e73d6b1f1730722573d49d65b6de1e9c7624babb52094cd9fdf6d11a1956329": {
-      "reference_date": "2025-05-31",
-      "value": "Não poderão ser devidos por devedor que seja parte do, ou pertença ao, grupo econômico das cedentes, do administrador e/ou do gestor;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "01e27bd77e61a8058d8b509e3e34c8ae6989f3cbeb17f5aef02b7a2dce2a60ec"
       ]
     },
     "497d0ce887e8c8190a4fe9b6e72294c504d272c712840398082529d2e8727eff": {
@@ -585,78 +573,6 @@
         "9f23f92599be263e9ad421b1cf554f53ff03ef02f3c1598b49883c4718723727"
       ]
     },
-    "1dc8a92555d0fc68328549148fe1d4b706c50200a64c6f799af4a7319f021730": {
-      "reference_date": "2024-09-17",
-      "value": "8.7 LOCALIZAÇÃO DE DEVEDORES Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo: Solicitar à área comercial que informe se possui algum contato atualizado do cliente;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e449f7db9ac24c4f35a06600563d9e992f5dbe715800e42df91307c79f5b1236"
-      ]
-    },
-    "e73a9e77fd6e5147206303ea6402883bb062247574dcbd5b87fc58422cf9cd04": {
-      "reference_date": "2024-03-04",
-      "value": "8.7 LOCALIZAÇÃO DE DEVEDORES Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo: • Solicitar à área comercial que informe se possui algum contato atualizado do cliente;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "94313217c7876cf1cf6aff8754d992d4943bd7a06a576ef036399fa83b2d9ccc"
-      ]
-    },
-    "04b3d23c42a96eebc8d79063fc291e40033cd8f49e551ad15d725f0923b29173": {
-      "reference_date": "2024-03-04",
-      "value": "8.7 LOCALIZAÇÃO DE DEVEDORES Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo: • Solicitar à área comercial que informe se possui algum contato atualizado do cliente;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "07d2113074eb8ba859377adfa344e9170b7e63b95c6768df20d774372342d836"
-      ]
-    },
-    "ea640a2878aad22d8a1bb74f9d56905c96da49f69026ef5fb7e599e42eafd5b9": {
-      "reference_date": "2025-12-22",
-      "value": "5.4. APROVAR a manutenção da flexibilização do Índice de Subordinação Sênior e da Relação Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido anteriormente em Assembleia Geral de Cotistas realizada em 29 de agosto de 2025, prorrogado novamente até 27 de fevereiro de 2026 (inclusive), na forma prevista no item (iv) da Ordem do Dia.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fd58eb3cb92680fb25a298987f10bc51706d0a955ddb1af0a942c4879e5cb5e6"
-      ]
-    },
-    "3357e5270fdf2f23db2bded85bb39e8877bed7bfea3fe0a372cc9a85055cd7b7": {
-      "reference_date": "2025-08-29",
-      "value": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as referências ao Índice de Subordinação Sênior no Regulamento sejam substituídas provisoriamente por referências ao Índice de Subordinação Sênior Provisório, dentro do prazo estabelecido na deliberação do item (a) acima, inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi) (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do Regulamento; e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "82c3fe1802f7802d1002a935d2417ddbdf023ae837c18d34c0ef50497d53b7a8"
-      ]
-    },
-    "8f3d1cfd81db864a3e1e7944c2deee5dc2bb41b4f4c88b0b117104308896e3a2": {
-      "reference_date": "2025-05-31",
-      "value": "(iii) manutenção da flexibilização do Índice de Subordinação Sênior e da relação mínima, inclusive, mas não se limitando, para fins do disposto nos critérios de elegibilidade, índices de monitoramento, eventos de avaliação, características, direitos, condições de emissão, subscrição e integralização das cotas ao patrimônio líquido, conforme definido anteriormente em assembleia geral de cotistas realizada em 05 de fevereiro de 2024, 02 de agosto de 2024 e 19 de dezembro de 2024, prorrogado novamente a partir de 02 de junho de 2025 até 29 de agosto de 2025.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b41a7cd8de84e9316663191b4d535ca12b072d2d9478885b1e367adad57b4992"
-      ]
-    },
-    "f83e17b5d28c5c14ce26f07b34b7e7ee47a14971e265bef458a30dac4dd2d703": {
-      "reference_date": "2025-05-30",
-      "value": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as referências ao Índice de Subordinação Sênior no Regulamento sejam substituídas provisoriamente por referências ao Índice de Subordinação Sênior Provisório, dentro do prazo estabelecido na deliberação do item (a) acima, inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi) (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do Regulamento; e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2021247afcd6d695488e9309341b053a931156b794183ff9d9ecdeb222d1a75d"
-      ]
-    },
-    "0410c1bab1c1098d7b944955338d6394ee2eb702d3004d1aa8562cc135bf3823": {
-      "reference_date": "2024-12-19",
-      "value": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as referências ao Índice de Subordinação Sênior no Regulamento sejam substituídas provisoriamente por referências ao Índice de Subordinação Sênior Provisório, dentro do prazo estabelecido na deliberação do item (a) acima, inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi) (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do Regulamento; e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "af622c30d0ee73a391078531c3a27d2876964afa6b6843aa0f7602cf7d2d9432"
-      ]
-    },
     "bd545d369e2d5212f8abf0ccc99fa41c3bfebb06ff044a8dc1b00e74566ce160": {
       "reference_date": "2024-08-01",
       "value": "(viii) APROVAR a postergação da flexibilização do Índice de Subordinação Senior e da Relação Mínima, inclusive, mas não se limitando, para fins do disposto nas Condições de Cessão, Índices de Monitoramento e condições para Subscrição e Integralização, conforme definido em Assembleia Geral de Cotistas do dia 05 de fevereiro de 2024, de 02 de agosto de 2024 para 31 de outubro de 2024",
@@ -673,15 +589,6 @@
       "provenance": "primary_passage",
       "sources": [
         "67b915dc2f44bf5fc107f6fca76a7136e3474620080b3181142b0a2981950f4b"
-      ]
-    },
-    "55008d4508dfc1350a8d2c996cb7b2413423e834afe25d00648ab38db1e348b2": {
-      "reference_date": "2024-09-17",
-      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b2cf80a2051d74f5aaece3ca86ad6ece6bff30474138a08bd854289f98ca7df4"
       ]
     },
     "3a2dabc8ca0c7785812184fad42c3c964157a2b6e8e480704318d9c5ecd1846b": {
@@ -3546,40 +3453,103 @@
         "e68a2be36942501530269a4c122f8cd67261e4266e8b524140f3a7a3f0e42f0d"
       ]
     },
-    "910b6a10834f34b105239119b58884a805bd59b563e498c15ba108367b5c9a1b": {
-      "reference_date": "2024-02-05",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+    "164186f028e48400f2f58d427688ca0eb0d8d6ec3fcada52480069a3a126301f": {
+      "reference_date": "2025-12-22",
+      "value": "(iv) a postergação da flexibilização dos Índice de Subordinação Sênior e Relação Mínima, conforme definido na Assembleia Geral de Cotistas realizada em 29 de agosto de 2025 e conforme abaixo detalhada, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido: a. do Índice de Subordinação Sênior, de modo que, a despeito do quanto previsto no Regulamento e no Anexo Descritivo da Classe Única (“Anexo Descritivo”), possa ser inferior a 1,00 (um inteiro), até 27 de fevereiro de 2026 (inclusive), sendo que durante referido período deverá ser equivalente a, no mínimo, 0,975 (novecentos e setenta e cinco milésimos) (“Índice de Subordinação Sênior Provisório”); b. da Relação Mínima (conforme definido no Regulamento), de modo que, a despeito do quanto previsto no Regulamento e no Anexo Descritivo, possa ser inferior a 133,3% (cento e trinta e três inteiros e três milésimos por conto), até 27 de fevereiro de 2026 (inclusive), sendo que durante referido período deverá ser equivalente a, no mínimo, 130% (cento e trinta por cento) (“Relação Mínima Provisória”); (v) aprovar que os Direitos Creditórios devidos pela Vale S.A (CNPJ nº 33.592.510/0001- 54) não sejam considerados para fins do cálculo do Índice de Inadimplemento (1-30 dias) até 27 de fevereiro de 2026 (inclusive). (vi) a autorização à Administradora e à Gestora para que pratiquem todos os atos necessários à implementação das matérias, se aprovadas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "299a500df31627d71d0f4a19af6a3c09c083e2c50b1af550a4c2ae059cf6d524"
+        "3cc8e2f517cdfb46b2409ac0574051ae59a53625e99dd5ff3f8ed94ae5c5cbe2"
       ]
     },
-    "9ad0a354f53e097b9e3ff612d297d83f0db8101d096bf990650904e9602c5fb8": {
-      "reference_date": "2023-11-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+    "f0d3eb99c196002bdebf60dc9cfd3f6c0d237af030830195908c38f3ea29f739": {
+      "reference_date": "2025-08-29",
+      "value": "(ii) APROVAR a alteração do percentual máximo do Índice de Pagamentos às Cedentes, previsto no Regulamento, para 20% (vinte por cento), conforme abaixo: (a) “9.5.1.(a) em qualquer mês, no último Dia Útil de cada mês, o Índice de Pagamentos às Cedentes for superior a 20% (vinte por cento) do Patrimônio Líquido da Classe Única, a partir de 01 de setembro de 2025 até 31 de outubro de 2025, e após o prazo em questão, o Índice de Pagamentos às Cedentes for superior à 5% (cinco por cento) do Patrimônio Líquido da Classe Única;” (iii) APROVAR a manutenção da flexibilização do Índice de Subordinação Senior e da Relação Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido anteriormente em Assembleia Geral de Cotistas realizada em 05 de fevereiro de 2024, 02 de agosto de 2024, 19 de dezembro de 2024 e 30 de maio de 2025, prorrogado novamente a partir de 01 de setembro de 2025 até 31 de outubro de 2025. (iv) a autorização para a Administradora e a Gestora a tomarem todas as medidas necessárias para implementação das deliberações aprovadas, incluindo, mas, não se limitando, as alterações necessárias no Regulamento, Acordo Operacional e Contrato de Cessão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "e1a084266efcada69a82e43f48e386b7bdc8519a80c6f6184bff6b7ef3523287"
+        "2170837fbd65979c3f01c0b115bb771ac8c613c21d8da6809a059319aeb7dbbb"
       ]
     },
-    "4cf433ebc710791ffe62d276e4eee07929e8346926af2ae99f560e065133881d": {
-      "reference_date": "2023-09-29",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+    "d9ec9f4cf9cdbbaf3505ce4ccd6d9939b401589c7b32079e5ab669ca0a25552f": {
+      "reference_date": "2025-05-31",
+      "value": "d) Critérios de elegibilidade A classe somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data da oferta, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade: i. Não poderão estar vencidos e devem possuir valor fixo e determinado; ii. Deverão ser representados em moeda corrente nacional; iii. Deverão ter data de vencimento anterior a 60 dias da data de resgate esperada das cotas seniores em circulação; iv. Deverão ter prazo de vencimento de, no mínimo, 20 dias, contados a partir da respectiva data de aquisição e pagamento; v. Deverão ter prazo de vencimento de até 240 dias, contados da respectiva data de aquisição e pagamento, com exceção de: (a) até 25% do patrimônio líquido do Fundo, sendo que, neste caso, será permitido que os direitos creditórios tenham prazo de vencimento de até 365 dias, contados da respectiva data de aquisição e pagamento; e (b) até 10% do patrimônio líquido do Fundo, sendo que, neste caso, será permitido que os direitos creditórios produtos decorrentes de compra e venda de máquinas tenham prazo de vencimento de até 547 dias, contados da respectiva data de aquisição e pagamento; vi. Não poderão ser devidos por devedor que esteja inadimplente com o Fundo; vii. Não poderão ser devidos por devedores que tenham firmado renegociações com a classe com relação aos respectivos direitos creditórios e as quais ainda não tenham sido devidamente quitadas pelos correspondentes devedores; viii. Não poderão ser devidos por devedor que seja parte do, ou pertença ao, grupo econômico das cedentes, do administrador e/ou do gestor;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "f38b5c7b4c0aceaf412ea3bfdd77a23c95d6aebcbb6d086764d7791d1af30519"
+        "9888401637e027b8778b9226d7728bf4a35f4007531403a2dc65b3bab6de8e2e"
       ]
     },
-    "e8bbfe40ba652c7fbc7218fbeb8c6028cd4d497b4996ee4cbe8632839257d80a": {
-      "reference_date": "2023-09-20",
-      "value": "",
+    "fa5ec4baaa313a8fd84703c6a86983b8759675febf5100096385a2916c706a41": {
+      "reference_date": "2025-05-30",
+      "value": "(ii) APROVAR a alteração do percentual máximo do Índice de Pagamentos às Cedentes, previsto no Regulamento, para 20% (vinte por cento), conforme abaixo: (a) “9.5.1.(a) em qualquer mês, no último Dia Útil de cada mês, o Índice de Pagamentos às Cedentes for superior a 20% (vinte por cento) do Patrimônio Líquido da Classe Única, a partir de 02 de junho de 2025 até 29 de agosto de 2025, e após o prazo em questão, o Índice de Pagamentos às Cedentes for superior à 5% (cinco por cento) do Patrimônio Líquido da Classe Única;” (iii) APROVAR a manutenção da flexibilização do Índice de Subordinação Senior e da Relação Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido anteriormente em Assembleia Geral de Cotistas realizada em 05 de fevereiro de 2024, 02 de agosto de 2024 e 19 de dezembro de 2024, prorrogado novamente a partir de 02 de junho de 2025 até 29 de agosto de 2025. (iv) a autorização para a Administradora e a Gestora a tomarem todas as medidas necessárias para implementação das deliberações aprovadas, incluindo, mas, não se limitando, as alterações necessárias no Regulamento, Acordo Operacional e Contrato de Cessão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "71bb64a744d82707e4c16b7b1ab809af05f3f91177c0dabb56a4d113bb72ee3c"
+      ]
+    },
+    "bbee1a2222a323018e5f0453d26cbc745f9150e11c8116d37635d681da2e8618": {
+      "reference_date": "2024-12-19",
+      "value": "Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido em Assembleia Geral de Cotistas realizada em 05 de fevereiro de 2024 e 02 de agosto de 2024: a. do Índice de Subordinação Sênior, de modo que, a despeito do quanto previsto no Regulamento, possa ser inferior a 1,00 (um inteiro), a partir de 01 de novembro de 2024 até 30 de maio de 2025, sendo que durante referido período deverá ser equivalente a, no mínimo, 0,975 (novecentos e setenta e cinco milésimos) (“Índice de Subordinação Sênior Provisório”); b. da Relação Mínima (conforme definido no Regulamento), de modo que, a despeito do quanto previsto no Regulamento, possa ser inferior a 133,3% (cento e trinta e três inteiros e três milésimos por conto), a partir de 01 de novembro de 2024 até 30 de maio de 2025, sendo que durante referido período deverá ser equivalente a, no mínimo, 130% (cento e trinta por cento) (“Relação Mínima Provisória”); c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as referências ao Índice de Subordinação Sênior no Regulamento sejam substituídas provisoriamente por referências ao Índice de Subordinação Sênior Provisório, dentro do prazo estabelecido na deliberação do item (a) acima, inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi) (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do Regulamento; e d. Em razão da deliberação tomada no item (iii.b) acima, a autorização para que as referências à Relação Mínima no Regulamento sejam substituídas provisoriamente por referências à Relação Mínima Provisória, dentro do prazo estabelecido na deliberação (b) acima, inclusive, mas não se limitando a, para fins do disposto nos itens 6.24 (Características, Direitos, Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido), 9.5(I) (Índices de Monitoramento) e 9.5.1 (e) (Eventos de Avaliação) do Regulamento. (iv) a autorização à Administradora e à Gestora para que pratiquem todos os atos necessários à implementação das matérias, se aprovadas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "02ef114caae69b16af65c794ec0afa79baf192774ddc3545a6c4466cb84a2939"
+      ]
+    },
+    "5ade5062fa459b421b9835358cd197abe7a204300e91b1dcd8bafe48c0bf9208": {
+      "reference_date": "2024-05-31",
+      "value": "d) Critérios de elegibilidade A classe somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data da oferta, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) deverão ter data de vencimento anterior a 60 dias da data de resgate esperada das cotas seniores em circulação; (iv) deverão ter prazo de vencimento de, no mínimo, 20 dias, contados a partir da respectiva data de aquisição e pagamento; (v) deverão ter prazo de vencimento de até 240 dias, contados da respectiva data de aquisição e pagamento, com exceção de: (a) até 25% do patrimônio líquido do Fundo, sendo que, neste caso, será permitido que os direitos creditórios tenham prazo de vencimento de até 365 dias, contados da respectiva data de aquisição e pagamento; e (b) até 10% do patrimônio líquido do Fundo, sendo que, neste caso, será permitido que os direitos creditórios produtos decorrentes de compra e venda de máquinas tenham prazo de vencimento de até 547 dias, contados da respectiva data de aquisição e pagamento; (vi) não poderão ser devidos por devedor que esteja inadimplente com o Fundo;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "67b915dc2f44bf5fc107f6fca76a7136e3474620080b3181142b0a2981950f4b"
+      ]
+    },
+    "9cfdff52d3dd037c2efb11b32db5ec9fdbf76b82d433e614cf7a6e603a167ad7": {
+      "reference_date": "2024-09-17",
+      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) deverão ter data de vencimento anterior a 60 (sessenta) dias da Data de Resgate Esperada das Cotas Seniores em circulação; (iv) deverão ter prazo de vencimento de, no mínimo, 20 (vinte) dias, contados a partir da respectiva Data de Aquisição e Pagamento; (v) deverão ter prazo de vencimento de até 240 (duzentos e quarenta) dias, contados da respectiva Data de Aquisição e Pagamento, com exceção de: (a) até 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios tenham prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (b) até 10% (dez por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios Produtos decorrentes de compra e venda de máquinas tenham prazo de vencimento de até 547 (quinhentos e quarenta e sete) dias, contados da respectiva Data de Aquisição e Pagamento;",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "b00ef8e7d94b6c7c719122661a6cd8e290a94d1ac2160fe21c832db78c601e3d"
+        "b2cf80a2051d74f5aaece3ca86ad6ece6bff30474138a08bd854289f98ca7df4"
+      ]
+    },
+    "0029e372617570047fc4683a9fcb72a0338db471d82f9b1795e11c6ef78ab560": {
+      "reference_date": "2024-05-09",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "401f4437162f7f13fb6a243b6d945753a7d5a2019e245c1a6fc7235c13d5759a"
+      ]
+    },
+    "384fbbd2465cfe5baaa548dba38201b99da49a7cb8cd707994eb4369cd7c2ae0": {
+      "reference_date": "2024-09-17",
+      "value": "“Devedores” Significam, para os Direitos Creditórios, determinadas pessoas físicas e/ou jurídicas com atuação nos segmentos de mineração, construção geral, agricultura, energia, petróleo, marítimo e outros assemelhados, que tenham celebrado ou venham a celebrar Operações a Prazo junto às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "71518a34bf64c36cb852b4b5526b1c2c0af8f50cb23a2e730938cdf52fc7a110"
+      ]
+    },
+    "f5b787caef3192118f946e3e39f8f2a02a2d66eae6c1299fed433b8e2c196a56": {
+      "reference_date": "2024-03-04",
+      "value": "“Devedores” Significam, para os Direitos Creditórios, determinadas pessoas físicas e/ou jurídicas com atuação nos segmentos de mineração, construção geral, agricultura, energia, petróleo, marítimo e outros assemelhados, que tenham celebrado ou venham a celebrar Operações a Prazo junto às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a33aad53d8a29685d34d6492be3d05743ec253a5b92aee0f643b3399833a4b56"
+      ]
+    },
+    "2a196508ecfd6648568eb58751264d82de83819c2ddf16c734e430158b141f3e": {
+      "reference_date": "2024-03-04",
+      "value": "“Devedores” Significam, para os Direitos Creditórios, determinadas pessoas físicas e/ou jurídicas com atuação nos segmentos de mineração, construção geral, agricultura, energia, petróleo, marítimo e outros assemelhados, que tenham celebrado ou venham a celebrar Operações a Prazo junto às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "84759fc5d0173b3f3d74c057f495113357dd6d1ef9883e5b0a6aee0f9577f59e"
       ]
     }
   },
@@ -3728,102 +3698,6 @@
       "sha256": "a732414ef6c7b63ccc70f832b5f3603d9e448248ace8cc53b76ebd59ca1a9baa",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1117315; referência 06/02/2026; data/raw/52100879000147/1117315_documentary_review.txt; p.59, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1117315&cvm=true"
-    },
-    "e449f7db9ac24c4f35a06600563d9e992f5dbe715800e42df91307c79f5b1236": {
-      "document_id": "740367",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740367",
-      "reference_date": "2024-09-17",
-      "version": "1",
-      "page": 188,
-      "clause": "8.7",
-      "excerpt": "8.7 LOCALIZAÇÃO DE DEVEDORES  Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A  empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste  caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo:\n Solicitar à área comercial que informe se possui algum contato atualizado do  cliente;",
-      "sha256": "818e606a04c7a6ae56734627174b598e9698b554f6b341dda8ed2517aa96e7a6",
-      "verification": "primary_passage"
-    },
-    "94313217c7876cf1cf6aff8754d992d4943bd7a06a576ef036399fa83b2d9ccc": {
-      "document_id": "618275",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618275",
-      "reference_date": "2024-03-04",
-      "version": "1",
-      "page": 188,
-      "clause": "8.7",
-      "excerpt": "8.7 LOCALIZAÇÃO DE DEVEDORES  Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A  empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste  caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo:\n • Solicitar à área comercial que informe se possui algum contato atualizado do  cliente;",
-      "sha256": "93c3f507ad1aa08900e830f8742ec9adba32d35d43eb5c2c661a7e701d9ff522",
-      "verification": "primary_passage"
-    },
-    "07d2113074eb8ba859377adfa344e9170b7e63b95c6768df20d774372342d836": {
-      "document_id": "618514",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618514",
-      "reference_date": "2024-03-04",
-      "version": "2",
-      "page": 188,
-      "clause": "8.7",
-      "excerpt": "8.7 LOCALIZAÇÃO DE DEVEDORES  Pode ocorrer que mesmo tendo tomado todos os cuidados, o cliente não seja localizado. A  empresa pode ter mudado de endereço, trocado de telefones, dentre outras causas. Neste  caso, poderão ser tomadas as seguintes medidas para tentar encontrá-lo:\n • Solicitar à área comercial que informe se possui algum contato atualizado do  cliente;",
-      "sha256": "e9233fc3279c9b6cfd326f98fb5ce0953fc7ed8aadeace5ba36e105045680bd8",
-      "verification": "primary_passage"
-    },
-    "fd58eb3cb92680fb25a298987f10bc51706d0a955ddb1af0a942c4879e5cb5e6": {
-      "document_id": "1069300",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069300",
-      "reference_date": "2025-12-22",
-      "version": "1",
-      "page": 3,
-      "clause": "5.4",
-      "excerpt": "5.4. APROVAR a manutenção da flexibilização do Índice de Subordinação Sênior e da  Relação Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de  Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos,  Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme  definido anteriormente em Assembleia Geral de Cotistas realizada em 29 de agosto de 2025,  prorrogado novamente até 27 de fevereiro de 2026 (inclusive), na forma prevista no item (iv)  da Ordem do Dia.",
-      "sha256": "d82409ed2917c636519b5e035d1ad0b27a18cb3e6f2464e321dac4c979a8191e",
-      "verification": "primary_passage"
-    },
-    "82c3fe1802f7802d1002a935d2417ddbdf023ae837c18d34c0ef50497d53b7a8": {
-      "document_id": "984208",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984208",
-      "reference_date": "2025-08-29",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as  referências ao Índice de Subordinação Sênior no Regulamento sejam  substituídas provisoriamente por referências ao Índice de Subordinação Sênior  Provisório, dentro do prazo estabelecido na deliberação do item (a) acima,  inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi)  (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do  Regulamento; e",
-      "sha256": "681715bbde964503bd149a45624e1d50209a7c8281364f4996970e22f4b20ca6",
-      "verification": "primary_passage"
-    },
-    "b41a7cd8de84e9316663191b4d535ca12b072d2d9478885b1e367adad57b4992": {
-      "document_id": "968614",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968614",
-      "reference_date": "2025-05-31",
-      "version": "1",
-      "page": 37,
-      "clause": "",
-      "excerpt": "No dia 30 de maio de 2025, em assembleia geral de cotista, foi aprovado, por unanimidade, sem quaisquer  restrições ou ressalvas, os seguintes pontos: (i) a alteração do Acordo Operacional firmado entre a  Administradora e o Gestor; (ii) alteração do percentual máximo do Índice de Pagamentos às Cedentes,  previsto no Regulamento, para 20%; (iii) manutenção da flexibilização do Índice de Subordinação Sênior e da  relação mínima, inclusive, mas não se limitando, para fins do disposto nos critérios de elegibilidade, índices  de monitoramento, eventos de avaliação, características, direitos, condições de emissão, subscrição e  integralização das cotas ao patrimônio líquido, conforme definido anteriormente em assembleia geral de  cotistas realizada em 05 de fevereiro de 2024, 02 de agosto de 2024 e 19 de dezembro de 2024, prorrogado  novamente a partir de 02 de junho de 2025 até 29 de agosto de 2025.",
-      "sha256": "aa0b90a8c436bc38a790f64f3e14c2accd4c5a082d3500df53501b47e14b7646",
-      "verification": "primary_passage"
-    },
-    "2021247afcd6d695488e9309341b053a931156b794183ff9d9ecdeb222d1a75d": {
-      "document_id": "932211",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=932211",
-      "reference_date": "2025-05-30",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as  referências ao Índice de Subordinação Sênior no Regulamento sejam  substituídas provisoriamente por referências ao Índice de Subordinação Sênior  Provisório, dentro do prazo estabelecido na deliberação do item (a) acima,  inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi)  (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do  Regulamento; e",
-      "sha256": "bbd35265d8b202547038ed606aca9f4e7bfa1b03df6a7d2bca6bd7f1af08d282",
-      "verification": "primary_passage"
-    },
-    "af622c30d0ee73a391078531c3a27d2876964afa6b6843aa0f7602cf7d2d9432": {
-      "document_id": "808313",
-      "title": "AGO/E",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=808313",
-      "reference_date": "2024-12-19",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "c. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as  referências ao Índice de Subordinação Sênior no Regulamento sejam  substituídas provisoriamente por referências ao Índice de Subordinação Sênior  Provisório, dentro do prazo estabelecido na deliberação do item (a) acima,  inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi)  (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do  Regulamento; e",
-      "sha256": "ea8a27b13b68add840f09a1e87cc228f9cfcc089b45ab76609aa1bba04ca8a17",
-      "verification": "primary_passage"
     },
     "4bd33acf6f2a8c0982720f6259b035866d63272fc2ee9583637b14ced5e2d16f": {
       "document_id": "710194",
@@ -7289,52 +7163,105 @@
       "sha256": "95ac4139cfceee6e2dd7f5726894f6c323cf9be565465ae793c93d622aa63f48",
       "verification": "primary_passage"
     },
-    "299a500df31627d71d0f4a19af6a3c09c083e2c50b1af550a4c2ae059cf6d524": {
-      "document_id": "608488",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=608488",
-      "reference_date": "2024-02-05",
+    "3cc8e2f517cdfb46b2409ac0574051ae59a53625e99dd5ff3f8ed94ae5c5cbe2": {
+      "document_id": "1069300",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069300",
+      "reference_date": "2025-12-22",
       "version": "1",
-      "page": 22,
+      "page": 2,
       "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o  controle de empresas que possuam a mesma constituição  societária ou um mesmo sócio majoritário, seja em caso de  pessoas físicas ou jurídicas. Os Grupos Econômicos dos  Devedores serão informados pelas Cedentes ao Gestor, ao  Administrador e ao Custodiante, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos dos Devedores, conforme o caso, nesta hipótese  sempre antes da realização de nova oferta de Direitos  Creditórios pelo Fundo, sendo que qualquer alteração na lista  de Grupos Econômicos deverá ser informada ao Custodiante  com, no mínimo, 5 (cinco) Dias Úteis de antecedência.",
-      "sha256": "630a34122b98e13f4e101c13ef9b8372d7faabfd690d116dc20ed8db6477c480",
+      "excerpt": "(iv) a postergação da flexibilização dos Índice de Subordinação Sênior e Relação Mínima,  conforme definido na Assembleia Geral de Cotistas realizada em 29 de agosto de 2025 e  conforme abaixo detalhada, inclusive, mas não se limitando, para fins do disposto nos Critérios  de Elegibilidade, Índices de Monitoramento, Eventos de Avaliação, Características, Direitos,  Condições de Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido:\na. do Índice de Subordinação Sênior, de modo que, a despeito do quanto  previsto no Regulamento e no Anexo Descritivo da Classe Única (“Anexo  Descritivo”), possa ser inferior a 1,00 (um inteiro), até 27 de fevereiro de 2026\n (inclusive), sendo que durante referido período deverá ser equivalente a, no  mínimo, 0,975 (novecentos e setenta e cinco milésimos) (“Índice de  Subordinação Sênior Provisório”);\nb. da Relação Mínima (conforme definido no Regulamento), de modo que, a  despeito do quanto previsto no Regulamento e no Anexo Descritivo, possa ser  inferior a 133,3% (cento e trinta e três inteiros e três milésimos por conto), até  27 de fevereiro de 2026 (inclusive), sendo que durante referido período  deverá ser equivalente a, no mínimo, 130% (cento e trinta por cento)  (“Relação Mínima Provisória”);\n(v) aprovar que os Direitos Creditórios devidos pela Vale S.A (CNPJ nº 33.592.510/0001-  54) não sejam considerados para fins do cálculo do Índice de Inadimplemento (1-30 dias) até  27 de fevereiro de 2026 (inclusive).\n(vi) a autorização à Administradora e à Gestora para que pratiquem todos os atos  necessários à implementação das matérias, se aprovadas.",
+      "sha256": "d82409ed2917c636519b5e035d1ad0b27a18cb3e6f2464e321dac4c979a8191e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2170837fbd65979c3f01c0b115bb771ac8c613c21d8da6809a059319aeb7dbbb": {
+      "document_id": "984208",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=984208",
+      "reference_date": "2025-08-29",
+      "version": "1",
+      "page": 3,
+      "clause": "",
+      "excerpt": "(ii) APROVAR a alteração do percentual máximo do Índice de Pagamentos às Cedentes,  previsto no Regulamento, para 20% (vinte por cento), conforme abaixo:\n(a) “9.5.1.(a) em qualquer mês, no último Dia Útil de cada mês, o Índice de Pagamentos  às Cedentes for superior a 20% (vinte por cento) do Patrimônio Líquido da Classe Única,  a partir de 01 de setembro de 2025 até 31 de outubro de 2025, e após o prazo em  questão, o Índice de Pagamentos às Cedentes for superior à 5% (cinco por cento) do  Patrimônio Líquido da Classe Única;”\n(iii) APROVAR a manutenção da flexibilização do Índice de Subordinação Senior e da Relação  Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade,  Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido  anteriormente em Assembleia Geral de Cotistas realizada em 05 de fevereiro de 2024, 02 de  agosto de 2024, 19 de dezembro de 2024 e 30 de maio de 2025, prorrogado novamente a partir  de 01 de setembro de 2025 até 31 de outubro de 2025.\n(iv) a autorização para a Administradora e a Gestora a tomarem todas as medidas necessárias  para implementação das deliberações aprovadas, incluindo, mas, não se limitando, as alterações  necessárias no Regulamento, Acordo Operacional e Contrato de Cessão.",
+      "sha256": "681715bbde964503bd149a45624e1d50209a7c8281364f4996970e22f4b20ca6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9888401637e027b8778b9226d7728bf4a35f4007531403a2dc65b3bab6de8e2e": {
+      "document_id": "968614",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968614",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  A classe somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva  data da oferta, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade:\ni. Não poderão estar vencidos e devem possuir valor fixo e determinado;\n ii. Deverão ser representados em moeda corrente nacional;\n iii. Deverão ter data de vencimento anterior a 60 dias da data de resgate esperada das cotas seniores em  circulação;\n iv. Deverão ter prazo de vencimento de, no mínimo, 20 dias, contados a partir da respectiva data de  aquisição e pagamento;\n v. Deverão ter prazo de vencimento de até 240 dias, contados da respectiva data de aquisição e  pagamento, com exceção de: (a) até 25% do patrimônio líquido do Fundo, sendo que, neste caso, será  permitido que os direitos creditórios tenham prazo de vencimento de até 365 dias, contados da  respectiva data de aquisição e pagamento; e (b) até 10% do patrimônio líquido do Fundo, sendo que,  neste caso, será permitido que os direitos creditórios produtos decorrentes de compra e venda de  máquinas tenham prazo de vencimento de até 547 dias, contados da respectiva data de aquisição e  pagamento;\n vi. Não poderão ser devidos por devedor que esteja inadimplente com o Fundo;\n vii. Não poderão ser devidos por devedores que tenham firmado renegociações com a classe com relação  aos respectivos direitos creditórios e as quais ainda não tenham sido devidamente quitadas pelos  correspondentes devedores;\n viii. Não poderão ser devidos por devedor que seja parte do, ou pertença ao, grupo econômico das cedentes,  do administrador e/ou do gestor;",
+      "sha256": "aa0b90a8c436bc38a790f64f3e14c2accd4c5a082d3500df53501b47e14b7646",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "71bb64a744d82707e4c16b7b1ab809af05f3f91177c0dabb56a4d113bb72ee3c": {
+      "document_id": "932211",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=932211",
+      "reference_date": "2025-05-30",
+      "version": "1",
+      "page": 3,
+      "clause": "",
+      "excerpt": "(ii) APROVAR a alteração do percentual máximo do Índice de Pagamentos às Cedentes,  previsto no Regulamento, para 20% (vinte por cento), conforme abaixo:\n(a) “9.5.1.(a) em qualquer mês, no último Dia Útil de cada mês, o Índice de Pagamentos  às Cedentes for superior a 20% (vinte por cento) do Patrimônio Líquido da Classe Única,  a partir de 02 de junho de 2025 até 29 de agosto de 2025, e após o prazo em questão, o  Índice de Pagamentos às Cedentes for superior à 5% (cinco por cento) do Patrimônio  Líquido da Classe Única;”\n(iii) APROVAR a manutenção da flexibilização do Índice de Subordinação Senior e da Relação  Mínima, inclusive, mas não se limitando, para fins do disposto nos Critérios de Elegibilidade,  Índices de Monitoramento, Eventos de Avaliação, Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido  anteriormente em Assembleia Geral de Cotistas realizada em 05 de fevereiro de 2024, 02 de  agosto de 2024 e 19 de dezembro de 2024, prorrogado novamente a partir de 02 de junho de  2025 até 29 de agosto de 2025.\n(iv) a autorização para a Administradora e a Gestora a tomarem todas as medidas necessárias  para implementação das deliberações aprovadas, incluindo, mas, não se limitando, as alterações  necessárias no Regulamento, Acordo Operacional e Contrato de Cessão.",
+      "sha256": "bbd35265d8b202547038ed606aca9f4e7bfa1b03df6a7d2bca6bd7f1af08d282",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "02ef114caae69b16af65c794ec0afa79baf192774ddc3545a6c4466cb84a2939": {
+      "document_id": "808313",
+      "title": "AGO/E",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=808313",
+      "reference_date": "2024-12-19",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "Subscrição e Integralização das Cotas ao Patrimônio Líquido, conforme definido em Assembleia  Geral de Cotistas realizada em 05 de fevereiro de 2024 e 02 de agosto de 2024:\na. do Índice de Subordinação Sênior, de modo que, a despeito do quanto previsto  no Regulamento, possa ser inferior a 1,00 (um inteiro), a partir de 01 de  novembro de 2024 até 30 de maio de 2025, sendo que durante referido período  deverá ser equivalente a, no mínimo, 0,975 (novecentos e setenta e cinco  milésimos) (“Índice de Subordinação Sênior Provisório”);\nb. da Relação Mínima (conforme definido no Regulamento), de modo que, a  despeito do quanto previsto no Regulamento, possa ser inferior a 133,3% (cento  e trinta e três inteiros e três milésimos por conto), a partir de 01 de novembro  de 2024 até 30 de maio de 2025, sendo que durante referido período deverá  ser equivalente a, no mínimo, 130% (cento e trinta por cento) (“Relação Mínima  Provisória”);\nc. Em razão da deliberação tomada no item (iii.a) acima, a autorização para que as  referências ao Índice de Subordinação Sênior no Regulamento sejam  substituídas provisoriamente por referências ao Índice de Subordinação Sênior  Provisório, dentro do prazo estabelecido na deliberação do item (a) acima,  inclusive, mas não se limitando a, para fins do disposto nos itens 4.1 (xi)  (Critérios de Elegibilidade) e 6.26 (Características, Direitos, Condições de  Emissão, Subscrição e Integralização das Cotas ao Patrimônio Líquido) do  Regulamento; e\nd. Em razão da deliberação tomada no item (iii.b) acima, a autorização para que as  referências à Relação Mínima no Regulamento sejam substituídas  provisoriamente por referências à Relação Mínima Provisória, dentro do prazo  estabelecido na deliberação (b) acima, inclusive, mas não se limitando a, para  fins do disposto nos itens 6.24 (Características, Direitos, Condições de Emissão,  Subscrição e Integralização das Cotas ao Patrimônio Líquido), 9.5(I) (Índices de  Monitoramento) e 9.5.1 (e) (Eventos de Avaliação) do Regulamento.\n(iv) a autorização à Administradora e à Gestora para que pratiquem todos os atos  necessários à implementação das matérias, se aprovadas.",
+      "sha256": "ea8a27b13b68add840f09a1e87cc228f9cfcc089b45ab76609aa1bba04ca8a17",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "71518a34bf64c36cb852b4b5526b1c2c0af8f50cb23a2e730938cdf52fc7a110": {
+      "document_id": "740367",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740367",
+      "reference_date": "2024-09-17",
+      "version": "1",
+      "page": 58,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios, determinadas  pessoas físicas e/ou jurídicas com atuação nos segmentos  de mineração, construção geral, agricultura, energia,  petróleo, marítimo e outros assemelhados, que tenham  celebrado ou venham a celebrar Operações a Prazo junto  às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "sha256": "818e606a04c7a6ae56734627174b598e9698b554f6b341dda8ed2517aa96e7a6",
       "verification": "primary_passage"
     },
-    "e1a084266efcada69a82e43f48e386b7bdc8519a80c6f6184bff6b7ef3523287": {
-      "document_id": "548322",
+    "a33aad53d8a29685d34d6492be3d05743ec253a5b92aee0f643b3399833a4b56": {
+      "document_id": "618275",
       "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
-      "reference_date": "2023-11-06",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618275",
+      "reference_date": "2024-03-04",
       "version": "1",
-      "page": 22,
+      "page": 58,
       "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o  controle de empresas que possuam a mesma constituição  societária ou um mesmo sócio majoritário, seja em caso de  pessoas físicas ou jurídicas. Os Grupos Econômicos dos  Devedores serão informados pelas Cedentes ao Gestor, ao  Administrador e ao Custodiante, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos dos Devedores, conforme o caso, nesta hipótese  sempre antes da realização de nova oferta de Direitos  Creditórios pelo Fundo, sendo que qualquer alteração na lista  de Grupos Econômicos deverá ser informada ao Custodiante  com, no mínimo, 5 (cinco) Dias Úteis de antecedência.",
-      "sha256": "6e1bc4c5dbaf04a58aa12c7539a6c6709f431f0b50a93c1ce382e3445b5fa855",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios, determinadas  pessoas físicas e/ou jurídicas com atuação nos segmentos  de mineração, construção geral, agricultura, energia,  petróleo, marítimo e outros assemelhados, que tenham  celebrado ou venham a celebrar Operações a Prazo junto  às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "sha256": "93c3f507ad1aa08900e830f8742ec9adba32d35d43eb5c2c661a7e701d9ff522",
       "verification": "primary_passage"
     },
-    "f38b5c7b4c0aceaf412ea3bfdd77a23c95d6aebcbb6d086764d7791d1af30519": {
-      "document_id": "529167",
+    "84759fc5d0173b3f3d74c057f495113357dd6d1ef9883e5b0a6aee0f9577f59e": {
+      "document_id": "618514",
       "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
-      "reference_date": "2023-09-29",
-      "version": "1",
-      "page": 22,
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618514",
+      "reference_date": "2024-03-04",
+      "version": "2",
+      "page": 58,
       "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o  controle de empresas que possuam a mesma constituição  societária ou um mesmo sócio majoritário, seja em caso de  pessoas físicas ou jurídicas. Os Grupos Econômicos dos  Devedores serão informados pelas Cedentes ao Gestor, ao  Administrador e ao Custodiante, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos dos Devedores, conforme o caso, nesta hipótese  sempre antes da realização de nova oferta de Direitos  Creditórios pelo Fundo, sendo que qualquer alteração na lista  de Grupos Econômicos deverá ser informada ao Custodiante  com, no mínimo, 5 (cinco) Dias Úteis de antecedência.",
-      "sha256": "7ade6938d17294aa5e7c3c4b908079cd032a231fc13628331f8b76bb1178868e",
-      "verification": "primary_passage"
-    },
-    "b00ef8e7d94b6c7c719122661a6cd8e290a94d1ac2160fe21c832db78c601e3d": {
-      "document_id": "526936",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
-      "reference_date": "2023-09-20",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Significa cada conglomerado econômico de pessoas que  controlem, sejam controladas por, ou estejam sob controle  comum de determinada entidade ou que estejam sob o  controle de empresas que possuam a mesma constituição  societária ou um mesmo sócio majoritário, seja em caso de  pessoas físicas ou jurídicas. Os Grupos Econômicos dos  Devedores serão informados pelas Cedentes ao Gestor, ao  Administrador e ao Custodiante, sendo atualizados  esporadicamente caso haja qualquer alteração dos Grupos  Econômicos dos Devedores, conforme o caso, nesta hipótese  sempre antes da realização de nova oferta de Direitos  Creditórios pelo Fundo, sendo que qualquer alteração na lista  de Grupos Econômicos deverá ser informada ao Custodiante  com, no mínimo, 5 (cinco) Dias Úteis de antecedência.",
-      "sha256": "850a72764ae7ea4d005e43cb4c6587290f8a6336455a1770ee11060ba56e6ced",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios, determinadas  pessoas físicas e/ou jurídicas com atuação nos segmentos  de mineração, construção geral, agricultura, energia,  petróleo, marítimo e outros assemelhados, que tenham  celebrado ou venham a celebrar Operações a Prazo junto  às Cedentes para a aquisição de Produtos ou de Serviços.",
+      "sha256": "e9233fc3279c9b6cfd326f98fb5ce0953fc7ed8aadeace5ba36e105045680bd8",
       "verification": "primary_passage"
     }
   }

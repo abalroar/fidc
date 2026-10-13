@@ -3,10 +3,6 @@
   "cnpj": "65327006000113",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "735a3f983ef870117a889f3bc4baadfcd0f60d51a5da6b492d938387f7646687",
-      "328edd3b8447d50ffc5480e8ec6e0a0b295e2cca3b5dbd9fe5fc0e588d19e5f5"
-    ],
     "term": [
       "efcf16e3da343b6da8300a9367f9ab841559bb0f93cf46c78a1c3d5dc46df82b",
       "46a576bfdc8d1dd81ec13a0389ece6f2051c313a05f016bcfb2288b81eddb725"
@@ -180,14 +176,6 @@
     "legacy_events": [
       "d1431d6febb5f8bac5af83fd74ebc98ef542e65e55ab5e5a1aa92de946ce9643"
     ],
-    "originator": [
-      "e342a7c3129a434562fac2982ddbb5800e504a441321ae05af234c7b7cd7f4bc",
-      "60b6aff74e3802c24c535a71c4c53ccb3de7ae7346ecb3e007753b9001548ef7"
-    ],
-    "debtor": [
-      "7988f81cac439ff850a9618a22b82179aee48b35043c6505e63c959eb4367e7f",
-      "91736cd21a839f532c2ad517f0c582b1149c38cbefa509836d548fc35c84569c"
-    ],
     "investee": [
       "63b38fe7b0a353c9f639f0bc6b3bed3d6a4e65f5da742b41a8ff975695339652"
     ],
@@ -207,6 +195,18 @@
       "f435132b027f7a47710766ae0b20bd4e623c086d8b65099810126caaaf664735",
       "b0604d5b5eddc882b6d42522fcecb83f2497f1b6b05a0bd7d5dc08ccdf96a701",
       "b078aad9104127b1d9f755e093b97e7c4ed10b3beabbcaf33c48773322642315"
+    ],
+    "originator": [
+      "e342a7c3129a434562fac2982ddbb5800e504a441321ae05af234c7b7cd7f4bc",
+      "60b6aff74e3802c24c535a71c4c53ccb3de7ae7346ecb3e007753b9001548ef7"
+    ],
+    "eligibility": [
+      "f4686f8b345a7ca2a9b09891afa073434bea0e1d04537553e049090a6fbc1c81",
+      "34145eb254fc92a20edad9df80df9c83d022e9ba044259fa60750353f8a03eca"
+    ],
+    "debtor": [
+      "7988f81cac439ff850a9618a22b82179aee48b35043c6505e63c959eb4367e7f",
+      "1d42da015739e5625c5c9a355a01b032d2c15785f58c4a4400533e6bb27e4eba"
     ]
   },
   "entries": {
@@ -255,33 +255,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "c74b9b6ad52e32ebc451bf777f6a018e8cc926a480ab8b1530d473a4a6e56417"
-      ]
-    },
-    "91736cd21a839f532c2ad517f0c582b1149c38cbefa509836d548fc35c84569c": {
-      "reference_date": "2026-08-25",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5a701e9555e28249e996f9c2054b254cb760442809b3f7d8f09ed4be882a6d7a"
-      ]
-    },
-    "735a3f983ef870117a889f3bc4baadfcd0f60d51a5da6b492d938387f7646687": {
-      "reference_date": "2026-08-25",
-      "value": "5.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e92fb02db43c1578abf05584f07010dcb62b753ab4b4c54e22af5adcc6a4b8b5"
-      ]
-    },
-    "328edd3b8447d50ffc5480e8ec6e0a0b295e2cca3b5dbd9fe5fc0e588d19e5f5": {
-      "reference_date": "2026-02-24",
-      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7bee7b12728a86e70f548bfd8b2c78d403d112647bfd39146d239605bc9a1829"
       ]
     },
     "efcf16e3da343b6da8300a9367f9ab841559bb0f93cf46c78a1c3d5dc46df82b": {
@@ -1103,6 +1076,33 @@
       "sources": [
         "5baf86ebbf63f8d1a600071903bb6f1a892dc508449bb4b638042202773517f4"
       ]
+    },
+    "f4686f8b345a7ca2a9b09891afa073434bea0e1d04537553e049090a6fbc1c81": {
+      "reference_date": "2026-08-25",
+      "value": "5.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios não poderão estar vencidos, na respectiva Data de Aquisição e Pagamento; (ii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos; (iii) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do que 20% (vinte por cento) do Patrimônio Líquido; (iv) considerando pro forma a aquisição dos Direitos Creditórios pelo Fundo, a alocação máxima do Patrimônio Líquido representada por Direitos Creditórios Transferidos vinculados à Marinha, à Aeronáutica e à União (SIAPE), conforme Valor Presente Ajustado dos Direitos Creditórios atrelados a cada Ente Consignante, não poderá ultrapassar os percentuais abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e92fb02db43c1578abf05584f07010dcb62b753ab4b4c54e22af5adcc6a4b8b5"
+      ]
+    },
+    "34145eb254fc92a20edad9df80df9c83d022e9ba044259fa60750353f8a03eca": {
+      "reference_date": "2026-02-24",
+      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em moeda corrente nacional; (ii) o prazo máximo de vencimento dos Direitos Creditórios deverá ser de 10 (dez) meses a contar de sua formalização; (iii) o Direito Creditórios não poderá estar vencido na Data de Aquisição; (iv) não poderão ser devidos por Devedor ou entidade de seu Grupo Econômico que esteja inadimplente em relação a quaisquer outros Direitos Creditórios pertencentes à Classe; (v) o Cedente e o respectivo Devedor não poderão ter ingressado em regime de intervenção, liquidação, falência, administração especial, recuperação judicial ou extrajudicial ou outros eventos similares; (vi) a cessão dos Direitos Creditórios ao Fundo deve estar limitada aos direitos e garantias previstos no Contrato de Cessão; (vii) o valor total de Direitos Creditórios devidos por um mesmo Grupo Econômico de um Devedor, depois de computada, pro forma, a aquisição dos Direitos Creditórios pretendida pela Classe, não poderá corresponder a percentual superior a 20% (vinte por cento) do saldo do valor presente dos Direitos Creditórios detidos pela Classe; (viii) o valor total de Direitos Creditórios devidos por um mesmo Devedor Especial depois de computada, pro forma, a aquisição de Direitos Creditórios pretendida pela Classe, não poderá corresponder a percentual superior a 50% (cinquenta por cento) do saldo do valor presente dos Direitos Creditórios detidos pela Classe; (ix) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (x) os Direitos de Crédito devem ter sido originados e formalizados de acordo com a Política de Concessão de Crédito; (xi) devem ser oriundos de operações celebradas entre o Cedente e os respectivos Devedores. 3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da cessão dos Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "51eafd3abc3538afc6a5146d8a3debed574890e3ebdabcc59bd4685033c9e9fb"
+      ]
+    },
+    "1d42da015739e5625c5c9a355a01b032d2c15785f58c4a4400533e6bb27e4eba": {
+      "reference_date": "2026-08-25",
+      "value": "alterada, emitidas pelos Devedores em favor do Credor Original, representativas dos empréstimos Consignados concedidos pelo Credor Original aos Devedores.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7a4e7adb711fa5449062da5dd5059b7695c5db48857b1bbb6b648fb4c72e5256"
+      ]
     }
   },
   "passages": {
@@ -1153,18 +1153,6 @@
       "clause": "3.3",
       "excerpt": "3.3. Processos de Originação e Política de Concessão dos Créditos:\n Em razão da natureza variada dos Direitos Creditórios passíveis de aquisição pela Classe, não é possível  fornecer uma descrição detalhada dos processos de originação e/ou das políticas de concessão de crédito  que poderão ser adotados pelos respectivos Originadores e Cedentes quando da concessão de crédito  aos Devedores ou verificados pelo Gestor quando da seleção de Direitos Creditórios para a carteira da  Classe. Sem prejuízo do disposto acima, para fins de atendimento ao art. 21, inciso II, do Anexo Normativo  II da RCVM 175, o Gestor somente selecionará para aquisição pela Classe Direitos Creditórios caso o  respectivo Cedente e/ou Originador (conforme aplicável) adote e mantenha processos de originação e  políticas de concessão de crédito que observem, no mínimo: (i) identificação e cadastro do Devedor, com  regras de atualização cadastral e mecanismos de validação; (ii) avaliação de risco de crédito e de  capacidade de pagamento dos Devedores, mediante critérios quantitativos e/ou qualitativos, conforme",
       "sha256": "bc781b29ca6f67d577236eccdba0d3772600f8e4cfdb0b1f338079b2b0c0f559",
-      "verification": "primary_passage"
-    },
-    "5a701e9555e28249e996f9c2054b254cb760442809b3f7d8f09ed4be882a6d7a": {
-      "document_id": "1300098",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1300098",
-      "reference_date": "2026-08-25",
-      "version": "1",
-      "page": 173,
-      "clause": "",
-      "excerpt": "Risco decorrente de Inconformidade das Informações Constantes das CCB. As CCB das  quais decorrem os Direitos Creditórios podem conter informações que não correspondem ao  valor do principal e juros efetivamente desembolsados para o Devedor, ou ao prazo da  operação. Tais divergências decorrem do fato de que, nos casos que envolvem  Portabilidade, a assinatura da CCB ocorre antes de o respectivo Originador ter acesso às  informações precisas da operação a ser portada (Pré-Paga) e não serão consideradas  inconsistências, inclusive para cômputo de Inconsistência Relevante. Adicionalmente, as  informações finais das operações contratadas por meio das CCB apesar de informadas aos  Devedores, na forma da regulamentação aplicável, não há aditamento formal das CCB  nestes casos. As circunstâncias acima podem gerar divergências de lastro e  questionamentos, pelos Devedores, sobre o valor correto dos Direitos Creditórios, fatos  estes que podem acarretar dificuldades para a Classe receber o pagamento ordinário dos  Direitos Creditórios Transferidos ou para alienar os Direitos Creditórios Transferidos a  terceiros. Além disso, tais circunstâncias podem acarretar dificuldades no recebimento  extraordinário dos Direitos Creditórios Transferidos e provocar questionamentos  administrativos perante órgãos de defesa do consumidor e/ou ações judiciais por parte dos  Devedores. Tais questionamentos podem envolver, por exemplo, a validade e exigibilidade  do crédito e das comunicações enviadas ao Devedor, mesmo diante da existência de  cláusulas contratuais, nas CCB, que preveem a eventual modificação dos valores expressos  nesses títulos de crédito. Nessas circunstâncias, podem ocorrer dificuldades na cobrança  judicial do crédito relativo aos Direitos Creditórios Transferidos, bem como eventual  condenação do Fundo, incluindo ao pagamento de sucumbência, e, por conseguinte,  acarretar prejuízos à Classe Única.",
-      "sha256": "a61e685254419f65d86b59b2e0a27aa018a8656a4831c09409c96bc524a1872d",
       "verification": "primary_passage"
     },
     "e92fb02db43c1578abf05584f07010dcb62b753ab4b4c54e22af5adcc6a4b8b5": {
@@ -2230,6 +2218,31 @@
       "clause": "2.1",
       "excerpt": "2.1. Administração Fiduciária: O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Rua  Cardeal Arcoverde, nº 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº\n 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração  fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023.",
       "sha256": "bc781b29ca6f67d577236eccdba0d3772600f8e4cfdb0b1f338079b2b0c0f559",
+      "verification": "primary_passage"
+    },
+    "51eafd3abc3538afc6a5146d8a3debed574890e3ebdabcc59bd4685033c9e9fb": {
+      "document_id": "1129530",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1129530",
+      "reference_date": "2026-02-24",
+      "version": "1",
+      "page": "17–18",
+      "clause": "3.5",
+      "excerpt": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe  deverão atender aos seguintes critérios de elegibilidade:\n(i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em moeda corrente  nacional;\n(ii) o prazo máximo de vencimento dos Direitos Creditórios deverá ser de 10 (dez) meses a contar de  sua formalização;\n(iii) o Direito Creditórios não poderá estar vencido na Data de Aquisição;\n(iv) não poderão ser devidos por Devedor ou entidade de seu Grupo Econômico que esteja  inadimplente em relação a quaisquer outros Direitos Creditórios pertencentes à Classe;\n(v) o Cedente e o respectivo Devedor não poderão ter ingressado em regime de intervenção,  liquidação, falência, administração especial, recuperação judicial ou extrajudicial ou outros eventos  similares;\n(vi) a cessão dos Direitos Creditórios ao Fundo deve estar limitada aos direitos e garantias previstos no  Contrato de Cessão;\n(vii) o valor total de Direitos Creditórios devidos por um mesmo Grupo Econômico de um Devedor,  depois de computada, pro forma, a aquisição dos Direitos Creditórios pretendida pela Classe, não poderá  corresponder a percentual superior a 20% (vinte por cento) do saldo do valor presente dos Direitos  Creditórios detidos pela Classe;\n(viii) o valor total de Direitos Creditórios devidos por um mesmo Devedor Especial depois de  computada, pro forma, a aquisição de Direitos Creditórios pretendida pela Classe, não poderá  corresponder a percentual superior a 50% (cinquenta por cento) do saldo do valor presente dos Direitos  Creditórios detidos pela Classe;\n(ix) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de  qualquer natureza;\n(x) os Direitos de Crédito devem ter sido originados e formalizados de acordo com a Política de  Concessão de Crédito;\n(xi) devem ser oriundos de operações celebradas entre o Cedente e os respectivos Devedores.\n3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da cessão dos  Direitos Creditórios ao Fundo.",
+      "sha256": "bc781b29ca6f67d577236eccdba0d3772600f8e4cfdb0b1f338079b2b0c0f559",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "7a4e7adb711fa5449062da5dd5059b7695c5db48857b1bbb6b648fb4c72e5256": {
+      "document_id": "1300098",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1300098",
+      "reference_date": "2026-08-25",
+      "version": "1",
+      "page": 79,
+      "clause": "",
+      "excerpt": "alterada, emitidas pelos Devedores em favor do  Credor Original, representativas dos empréstimos  Consignados concedidos pelo Credor Original aos  Devedores.",
+      "sha256": "a61e685254419f65d86b59b2e0a27aa018a8656a4831c09409c96bc524a1872d",
       "verification": "primary_passage"
     }
   }

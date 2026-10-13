@@ -3,20 +3,6 @@
   "cnpj": "40752367000186",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "e497d4efad248b160bccddcc5503ae81643b7c73123593aacec8a4775e406d79",
-      "51616f8041573c5be067f9241975c74815ebe0db5909316c28dfe897c2bf7e18",
-      "605c24442031aeda297a6966609caea96ced15087c8cc7087c538409ded4aa2e",
-      "d25ed29ab48dec30bac294be978286d88a4064e22d294bda1c47287344a512c0",
-      "3f924eee4030687c6eb0524005a5e39fb23af9a89a77d96cade7a6ab2fc6373d",
-      "3a91fc974bb59710d87b5db5efbad845faea068543e499076b6d141a5f121390",
-      "4989eada33bca6ab44d6b2eac7e112a5c713f6d80a65af4cb3eae1c8e50284e3",
-      "e4a211219984756775f1767d26f26850e421a4a99df91256758839b7b13a5e4e",
-      "5ef80e13eb5414cc54dfb9b84dc5983974f7e6ffd3e0e91e3a7b893d1042a512",
-      "b525a46beac9cfe4b740cdda5ce6c01d6c5cd803d97b54b1d7966ec21c79c868",
-      "958b96dc2045149be617bb5e2a44d04ad929a0926e176831cc818d8d51d9247e",
-      "b6807877c48e6b324caa0277122210d151ea30ea8bc444ab76360432d71750af"
-    ],
     "term": [
       "f382902733426b736a0629495054c146a13ac7c16a7fafb2a0311792729f012f",
       "990988948c73949945b1435e101f27f8774d0d1cfd79f0d30200126323ebea44",
@@ -273,26 +259,6 @@
       "34fb20593b482f8fd24951da302541be37c2e594f63fe2cd86f49db42a149bdc",
       "f4f1f2e81cd864f118e0a1e9e18dc9ff454f40eae55b142e19631d25caae84bc"
     ],
-    "originator": [
-      "104b9a8118d48cbe1cb4eb4964904cd2c97ba1ecf61d1b499785582708ea747c",
-      "ee7a9d3c6772ba3b49b52920dc731a243277c2850e59884bbb7b5ef5e8235d51",
-      "d48d911f90ac69e361f0b29049ae2c3b20b5f3344adcb22dc2e81511d8a35098",
-      "7c1ea632e623fd5f63beba8e17870e35c5315ea7b0a1bd6a783589c75439d7cd",
-      "67f8fa20ed3ec08201f94037d8bf9ba109365996ab1ffea99e6a32a1c7d9fa5b",
-      "7efc2892487f9d7fa878be80e0eec107c7cfeb76585449ef11134905d95dcfb5",
-      "d749fa98d6074aa1beb8b16a689972181440f9843c493429d8b3aa7347578e04",
-      "d8f029bb624ef4b97123d0d44131467212efbe0c00080d391d5932ca6a0a063b"
-    ],
-    "debtor": [
-      "6ee34cc63bc9b967f0eb6f6ac403539ea69c38194961200cf3feaa9fee1caa80",
-      "e8fee823cc57f7b7d2793a57e9e12dedee098585c5a29d05c6b835456219b17a",
-      "0decec82bce123816d7e347743fb45b3ccca443d0fcc4493a082d28e30fc7b33",
-      "3f924eee4030687c6eb0524005a5e39fb23af9a89a77d96cade7a6ab2fc6373d",
-      "f500ccd24707437d1ded7f930a0549df29ca473b73b0ab3908bb41074144e3e4",
-      "e4a211219984756775f1767d26f26850e421a4a99df91256758839b7b13a5e4e",
-      "125d033aa79683e6c09d80c1dacb1f8ef384eb6b3bf2002e5b3573106e6d59e9",
-      "d144371aa9a5677c2ef11e23ed76d9dfa9efd38f251bb8ee8d3bb7a651fae58d"
-    ],
     "investee": [
       "8bf3c63066315dcc9facce555291076030a5d63a5e71fee20ed7f776a36a6f26",
       "6ae70dc95bebc8530d7b4546e83202ae4a7228ad77b7fcc870f01b4ac5b3f911"
@@ -326,6 +292,35 @@
     "allocation": [
       "62ae15b5d9dfd0530b4db670c497203fd5245e4c2f8d505da747155eae364baa",
       "5e0dd6c2f79f3aa73e26291227f4ca342f2771c15b36eeea2800cdbae3e7f5de"
+    ],
+    "originator": [
+      "104b9a8118d48cbe1cb4eb4964904cd2c97ba1ecf61d1b499785582708ea747c",
+      "ee7a9d3c6772ba3b49b52920dc731a243277c2850e59884bbb7b5ef5e8235d51",
+      "d48d911f90ac69e361f0b29049ae2c3b20b5f3344adcb22dc2e81511d8a35098",
+      "7c1ea632e623fd5f63beba8e17870e35c5315ea7b0a1bd6a783589c75439d7cd",
+      "67f8fa20ed3ec08201f94037d8bf9ba109365996ab1ffea99e6a32a1c7d9fa5b"
+    ],
+    "eligibility": [
+      "e497d4efad248b160bccddcc5503ae81643b7c73123593aacec8a4775e406d79",
+      "3e51ff0fe4b51a0d4c03c6726d73cc0115523d8983c246f5a042a61c331e7220",
+      "c8b57c3e646d550caef08a8b2551fd4f456b09b0f32b9072e821fc46465b57e1",
+      "83be2f640360d15487b3396c207182e163fec7ea5601ec361835df684ff6da27",
+      "22d681cbf4104e4a2c5cdd321f4830c5125d8f418ca9aaefbac138bae343b2a0",
+      "e0fc213b2aee723836571f3cd0720fd63da90e89f539d0ed45b0864f7861d9d6",
+      "4989eada33bca6ab44d6b2eac7e112a5c713f6d80a65af4cb3eae1c8e50284e3",
+      "32d7a0a4894573e455e32928f07f32b196dd05022bbeb2e0b93ef3badbfa090f",
+      "b7646235a1b94f21eca910165a0c8b7b833ee338f3e521ac29b96ce35ce22672",
+      "bbf6b44129ab8a02bf3652e94ea74f679706d1697cc5df0d855938dbc0682e05",
+      "7d17ec8a23a8dc41bcdcfa8e1b86e1fe8e218ed8cfd300ca5c7580d5a69d503f",
+      "3d69cdc257c99614f365c0aa7f46f45ca80285299a1bad8b9a2e6f00881abe66",
+      "6d8e4b394f3aa8dfd0ee1de784920a6944b5a2519cb81b527e35fc2ffdff7759"
+    ],
+    "debtor": [
+      "6ee34cc63bc9b967f0eb6f6ac403539ea69c38194961200cf3feaa9fee1caa80",
+      "75035d1e6cfdcb801cfab6c6ddf1bb2b53f38d416b981d3daf0804b82040577d",
+      "0b0a542c2f340634fd32cf780df17e655c3a008d24d68b2becf3b3773cdc964a",
+      "b961e813567d31ad0008568ecc7963c3042da8a0a2dfbdef160a49f7d6d03ff7",
+      "a93f43194060034864ebe12848d2c798b3f6d7091b78aa7c200de2e6efbb1ada"
     ]
   },
   "entries": {
@@ -438,33 +433,6 @@
         "b31c6c5ce5b25ad7e130acf9c448e9fd8b22d42eef741a7de506c7138b149e30"
       ]
     },
-    "7efc2892487f9d7fa878be80e0eec107c7cfeb76585449ef11134905d95dcfb5": {
-      "reference_date": "2022-08-31",
-      "value": "Paragraph Two The service provider Parágrafo Segundo O prestador de engaged for the purposes of this Article 28 serviços contratado para os fins deste Artigo may not be the originator of the Credit Rights, 28 não poderá ser o originador dos Direitos the Assignor, the Manager, the Creditórios, o Cedente, o Gestor, o Agente de Retention/Collection Agent, or any parties Retenção/Cobrança ou quaisquer partes related to them, such as defined by the relacionadas a eles, conforme definido pelas applicable accounting rules. regras contábeis aplicáveis.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "355628b51c9878c403de76b807e2dc83d841e71031d21f7bc9052afbfaf8bc82"
-      ]
-    },
-    "d749fa98d6074aa1beb8b16a689972181440f9843c493429d8b3aa7347578e04": {
-      "reference_date": "2022-03-30",
-      "value": "Paragraph Two The service provider Parágrafo Segundo O prestador de engaged for the purposes of this Article 28 serviços contratado para os fins deste Artigo may not be the originator of the Credit Rights, 28 não poderá ser o originador dos Direitos the Assignor, the Manager, the Creditórios, o Cedente, o Gestor, o Agente de Retention/Collection Agent, or any parties Retenção/Cobrança ou quaisquer partes related to them, such as defined by the relacionadas a eles, conforme definido pelas applicable accounting rules. regras contábeis aplicáveis.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "15caf16377fb9b24749c99b29cea1be8dd6c4ad2e75fb3622529c199565f35e1"
-      ]
-    },
-    "d8f029bb624ef4b97123d0d44131467212efbe0c00080d391d5932ca6a0a063b": {
-      "reference_date": "2021-10-29",
-      "value": "Paragraph Four Pursuant to paragraph 6 Parágrafo Quarto De acordo com o of article 38 of CVM Instruction No. 356, the parágrafo 6º do artigo 38 da Instrução CVM nº Custodian, without prejudice to its 356, o Custodiante, sem prejuízo de sua responsibility, may engage a third party to responsabilidade, poderá contratar um carry out the verification of the Underlying terceiro para realizar a verificação dos Documents related to Credit Rights assigned Documentos Comprobatórios referentes aos to the Fund, provided that such third party is Direitos Creditórios cedidos ao Fundo, desde not the originator or the Assignor of the Credit que esse terceiro não seja o originador ou o Rights, the Manager, the Retention/Collection Cessionário dos Direitos Creditórios, o Gestor, Agent, or any parties related to them, such as o Agente de Retenção/Cobrança, ou partes defined by the applicable accounting rules. relacionadas a eles, conforme definido pelas regras contábeis aplicáveis.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6716dd93bdb62844b70fd4858995455f44e7d00cfb9a84681fa54270b9877033"
-      ]
-    },
     "6ee34cc63bc9b967f0eb6f6ac403539ea69c38194961200cf3feaa9fee1caa80": {
       "reference_date": "2025-02-21",
       "value": "Beneficiários/pensionistas INSS; devedor do TVM conforme instrumento",
@@ -473,24 +441,6 @@
       "risk_note": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
       "sources": [
         "b896f012de6476258611d893bf943be82fa35168a5902fe1bb55d8285fd64681"
-      ]
-    },
-    "e8fee823cc57f7b7d2793a57e9e12dedee098585c5a29d05c6b835456219b17a": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4fdaadb4952a6745669f730dbd5ca9319f3694a99b5a82722af5cfb58dcdf308"
-      ]
-    },
-    "0decec82bce123816d7e347743fb45b3ccca443d0fcc4493a082d28e30fc7b33": {
-      "reference_date": "2023-12-31",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos ao Fundo serão descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do Devedor poderá ser afetada se, por exemplo, em virtude de decisão judicial, o Devedor for obrigado a pagar alimentos, que têm prioridade sobre o empréstimo para fins de desconto na folha de benefícios. Além disso, a morte do Devedor, a extrapolação de sua margem consignável (inclusive em razão de qualquer diminuição da margem consignável permitida) ou a suspensão ou extinção do pagamento",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1bb3f1df24792b979ef86c53eebadd28669524bd6273bdf9fdffe0798fdd8a8c"
       ]
     },
     "3f924eee4030687c6eb0524005a5e39fb23af9a89a77d96cade7a6ab2fc6373d": {
@@ -502,15 +452,6 @@
         "29787b437d666104ba4a78e89a283956663888c54cc69ad28b4b8b29b2eb6bb4"
       ]
     },
-    "f500ccd24707437d1ded7f930a0549df29ca473b73b0ab3908bb41074144e3e4": {
-      "reference_date": "2022-12-31",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos ao Fundo serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8c4e8ec4e731f27995e5d33680fb3e1b0379d5a11eace3e62d23156e684f140c"
-      ]
-    },
     "e4a211219984756775f1767d26f26850e421a4a99df91256758839b7b13a5e4e": {
       "reference_date": "2021-12-31",
       "value": "",
@@ -518,24 +459,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a1737dec35969515c7b9048f0d1d5d4b0503729d166565f372ca7a7acd2d389c"
-      ]
-    },
-    "125d033aa79683e6c09d80c1dacb1f8ef384eb6b3bf2002e5b3573106e6d59e9": {
-      "reference_date": "2025-02-21",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "db111746a2d3605b200ea129660a6d99d8e0dde28ba32eefe5c8a555ebe0b7c4"
-      ]
-    },
-    "d144371aa9a5677c2ef11e23ed76d9dfa9efd38f251bb8ee8d3bb7a651fae58d": {
-      "reference_date": "2024-11-29",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "04807e5e871e0648a38fcd4dfe784b453726a9120e03770f66f4dbfbce59d8b3"
       ]
     },
     "e497d4efad248b160bccddcc5503ae81643b7c73123593aacec8a4775e406d79": {
@@ -548,15 +471,6 @@
         "d4645d61dbd16d7d8b6dbdff246cb0ea1cd8a98893572f49cde5d68d71a5d0e7"
       ]
     },
-    "51616f8041573c5be067f9241975c74815ebe0db5909316c28dfe897c2bf7e18": {
-      "reference_date": "2024-12-31",
-      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os direitos creditórios devem decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final do Fundo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8afd8e60770b14be6b12d9eab5e3df383a408a5f400fd51ddc87bdd4de359e15"
-      ]
-    },
     "605c24442031aeda297a6966609caea96ced15087c8cc7087c538409ded4aa2e": {
       "reference_date": "2024-11-28",
       "value": "(a) A alteração do capítulo que da Política de Investimentos; (b) Alteração do capítulo que trata da responsabilidade dos cotistas; (c) A alteração do capítulo que trata dos critérios de elegibilidade; (d) A alteração do capítulo que trata do limite de concentração e composição da carteira; (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios; (f) Alteração do capítulo que trata dos eventos de avaliação; BTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
@@ -564,15 +478,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cad7a75dc55e8de04d9bbbb66d78676ba34a882266166254df89a27bc87ba132"
-      ]
-    },
-    "d25ed29ab48dec30bac294be978286d88a4064e22d294bda1c47287344a512c0": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "04011540fccfafb14e0396d90ac94c98a92c116d3db78aa5d835a9448a49856d"
       ]
     },
     "4989eada33bca6ab44d6b2eac7e112a5c713f6d80a65af4cb3eae1c8e50284e3": {
@@ -591,33 +496,6 @@
       "provenance": "primary_passage",
       "sources": [
         "1f95300b4b2d7eb3f4b5c3b98bf812e520db814ec7ddd80142dec9ba379094f9"
-      ]
-    },
-    "b525a46beac9cfe4b740cdda5ce6c01d6c5cd803d97b54b1d7966ec21c79c868": {
-      "reference_date": "2024-11-29",
-      "value": "4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6482b284a4a6bc49deca9fb71d987f48a213d8f949c35cc11b7287f8aa1a8c17"
-      ]
-    },
-    "958b96dc2045149be617bb5e2a44d04ad929a0926e176831cc818d8d51d9247e": {
-      "reference_date": "2022-08-31",
-      "value": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao Fund.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "428fca979e8cde40605f70fa8815c732dfaba48dc22b7613bbab32f9a54b9c5e"
-      ]
-    },
-    "b6807877c48e6b324caa0277122210d151ea30ea8bc444ab76360432d71750af": {
-      "reference_date": "2022-03-30",
-      "value": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao Fund.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "68bf2ee3faa4b377f5b8ba1b1b3f3d803f52774a0094e2ba6abfae498d0b286d"
       ]
     },
     "f382902733426b736a0629495054c146a13ac7c16a7fafb2a0311792729f012f": {
@@ -2289,6 +2167,141 @@
       "sources": [
         "99c75557ab49b454438b8cb675b40686f4fcda8e98cb946964f175b93db4aadc"
       ]
+    },
+    "3e51ff0fe4b51a0d4c03c6726d73cc0115523d8983c246f5a042a61c331e7220": {
+      "reference_date": "2024-12-31",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os direitos creditórios devem decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final do Fundo; (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser inferior a R$200,00 (duzentos reais); (iii) o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deve exceder: (i) R$60 (sessenta mil reais), ressalvado o disposto no item (ii) abaixo; (ii) R$120 (cento e vinte mil reais), desde",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8afd8e60770b14be6b12d9eab5e3df383a408a5f400fd51ddc87bdd4de359e15"
+      ]
+    },
+    "c8b57c3e646d550caef08a8b2551fd4f456b09b0f32b9072e821fc46465b57e1": {
+      "reference_date": "2024-11-28",
+      "value": "4.3. Além dos ajustes necessários para a adaptação do Fundo à Resolução 175, aprovar as seguintes alterações nas características do Fundo: (a) A alteração do capítulo que da Política de Investimentos; (b) Alteração do capítulo que trata da responsabilidade dos cotistas; (c) A alteração do capítulo que trata dos critérios de elegibilidade; (d) A alteração do capítulo que trata do limite de concentração e composição da carteira; (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios; (f) Alteração do capítulo que trata dos eventos de avaliação; BTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7a06f81147b48da71a141458b2b388d436512127e100f0e1e7005136f93e8025"
+      ]
+    },
+    "83be2f640360d15487b3396c207182e163fec7ea5601ec361835df684ff6da27": {
+      "reference_date": "2023-12-31",
+      "value": "Os Critérios de Elegibilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final do Fundo; (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item (i) acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios; e (b) o Devedor possua, na data de cessão do Direito Creditório, até 60 anos, 11 meses e 29 dias de idade; (iv) o prazo de vencimento das CCBs representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido que tal Critério de Elegibilidade somente será verificado com relação a outros Fundos PDL que também contratem o Custodiante como responsável pelos serviços de custódia aqui descritos. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 anos na data de emissão da respectiva CCB (iv) Alteração do Anexo I – Modelo de Relatório de Verificação de Elegibilidade, a fim de refletir o disposto acima.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "04011540fccfafb14e0396d90ac94c98a92c116d3db78aa5d835a9448a49856d"
+      ]
+    },
+    "22d681cbf4104e4a2c5cdd321f4830c5125d8f418ca9aaefbac138bae343b2a0": {
+      "reference_date": "2022-12-31",
+      "value": "Objeto do Fundo Os Critérios de Elegibilidade listados abaixo serão validados pelo Custodiante na De modo a atingir o objetivo data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis pretendido, o Fundo aplicará seus aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os recursos na aquisição de Direitos Creditórios Elegíveis, Ativos seguintes: Financeiros e/ou outras operações (a) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos disponíveis no mercado financeiro, consignados representados por uma CCB, com taxa de juros prefixada e observados os limites e restrições vencimento final anterior ao vencimento final do Fundo; estabelecidos na Instrução CVM nº (b) o valor principal pendente de cada CCB a ser adquirida pelo Fundo 356 e neste Regulamento. (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); CNPJ 40.752.367/0001-86 (c) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deverá exceder (i) Data de Registro R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) 29/10/2021 R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis Administrador devidos exceda o limite previsto no item (i) acima não supere 5% (cinco por BTG PACTUAL SERVIÇOS cento) do valor contábil dos Direitos Creditórios; e (b) o Devedor possua, na FINANCEIROS S/A DTVM data de cessão do Direito Creditório, até 60 anos, 11 meses e 29 dias de idade; Gestor (d) o prazo de vencimento das CCBs representativas dos Direitos BTG PACTUAL ASSET Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo MANAGEMENT S/A DTVM permitido pelas leis e regulamentações aplicáveis (e) o somatório dos Preços de Compra de todos os Direitos Creditórios Última atualização do Elegíveis decorrentes das CCBs emitidas por Devedores que sejam domiciliados regulamento 31/08/2022 nos Estados do Piauí e do Maranhão (conforme informado por tais Devedores nas respectivas CCBs), considerada pro forma a aquisição dos Direitos Prazo de Duração Creditórios em verificação de elegibilidade, não poderá representar mais do que Indeterminado 5% (cinco por cento) do somatório dos Preços de Compra de todos os Direitos Creditórios integrantes da carteira do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29787b437d666104ba4a78e89a283956663888c54cc69ad28b4b8b29b2eb6bb4"
+      ]
+    },
+    "e0fc213b2aee723836571f3cd0720fd63da90e89f539d0ed45b0864f7861d9d6": {
+      "reference_date": "2022-12-31",
+      "value": "Os critérios de elegibilidade listados abaixo são validados pelo custodiante a partir da data de cessão de cada direito creditório ao Fundo. Para os fins das leis aplicáveis e do seu regulamento, são considerados critérios de elegibilidade os seguintes: (i) os direitos creditórios devem decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final do Fundo; (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser inferior a R$200,00 (duzentos reais); (iii) o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deve exceder: (i) R$60 (sessenta mil reais), ressalvado o disposto no item (ii) abaixo; (ii) R$120 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de devedores cujo saldo individual de direitos creditórios elegíveis devidos exceda o limite previsto no item (i) acima não supere 5% (cinco por cento) do valor contábil dos direitos creditórios; e (b) o devedor possua, na data de cessão do direito creditório, menos de 61 (sessenta e um anos) completos; (iv) o prazo de vencimento das CCBs representativas dos direitos creditórios elegíveis deve ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) os direitos creditórios elegíveis não podem ser devidos por um devedor inadimplente em relação a outros direitos creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b98a1082629e1b400d50d2a467a7cdfe7db81152c829d564588adfcf76abd702"
+      ]
+    },
+    "32d7a0a4894573e455e32928f07f32b196dd05022bbeb2e0b93ef3badbfa090f": {
+      "reference_date": "2021-12-31",
+      "value": "Objeto do Fundo Os Critérios de Elegibilidade listados abaixo serão validados pelo Custodiante na De modo a atingir o objetivo data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis pretendido, o Fundo aplicará seus aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os recursos na aquisição de Direitos Creditórios Elegíveis, Ativos seguintes: Financeiros e/ou outras operações (a) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos disponíveis no mercado financeiro, consignados representados por uma CCB, com taxa de juros prefixada e observados os limites e restrições vencimento final anterior ao vencimento final do Fundo; estabelecidos na Instrução CVM nº (b) o valor principal pendente de cada CCB a ser adquirida pelo Fundo 356 e neste Regulamento. (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); CNPJ 40.752.367/0001-86 (c) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deverá exceder (i) Data de Registro R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) 29/10/2021 R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis Administrador devidos exceda o limite previsto no item (i) acima não supere 5% (cinco por BTG PACTUAL SERVIÇOS cento) do valor contábil dos Direitos Creditórios; e (b) o Devedor possua, na FINANCEIROS S/A DTVM data de cessão do Direito Creditório, até 60 anos, 11 meses e 29 dias de idade; Gestor (d) o prazo de vencimento das CCBs representativas dos Direitos BTG PACTUAL ASSET Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo MANAGEMENT S/A DTVM permitido pelas leis e regulamentações aplicáveis (e) o somatório dos Preços de Compra de todos os Direitos Creditórios Última atualização do Elegíveis decorrentes das CCBs emitidas por Devedores que sejam domiciliados regulamento 29/10/2021 nos Estados do Piauí e do Maranhão (conforme informado por tais Devedores nas respectivas CCBs), considerada pro forma a aquisição dos Direitos Prazo de Duração Creditórios em verificação de elegibilidade, não poderá representar mais do que Indeterminado 5% (cinco por cento) do somatório dos Preços de Compra de todos os Direitos Creditórios integrantes da carteira do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a1737dec35969515c7b9048f0d1d5d4b0503729d166565f372ca7a7acd2d389c"
+      ]
+    },
+    "b7646235a1b94f21eca910165a0c8b7b833ee338f3e521ac29b96ce35ce22672": {
+      "reference_date": "2025-02-21",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cb1e9c831cf55c51acf0e90fc366b93610ae52bc47b516bb7bf0a338cd557a3e"
+      ]
+    },
+    "bbf6b44129ab8a02bf3652e94ea74f679706d1697cc5df0d855938dbc0682e05": {
+      "reference_date": "2024-11-29",
+      "value": "4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando estabelecido que tal Critério de Elegibilidade somente será verificado com relação a outra Classe PDL que também contratem o CUSTODIANTE como responsável pelos serviços de custódia aqui descritos; (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 (setenta e seis) anos na data de emissão da respectiva CCB.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6482b284a4a6bc49deca9fb71d987f48a213d8f949c35cc11b7287f8aa1a8c17"
+      ]
+    },
+    "7d17ec8a23a8dc41bcdcfa8e1b86e1fe8e218ed8cfd300ca5c7580d5a69d503f": {
+      "reference_date": "2022-08-31",
+      "value": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao Fund. For the purposes of applicable laws and Fundo. Para os fins das leis aplicáveis e deste these Bylaws, the following are considered Regulamento, são considerados Critérios de Eligibility Criteria: Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise (i) os Direitos Creditórios Elegíveis from payroll-deductible loans deverão decorrer de empréstimos represented by a CCB providing for consignados representados por uma prefixed interest rate and whose final CCB, com taxa de juros prefixada e maturity is earlier than the final vencimento final anterior ao maturity of the Fund; vencimento final do Fundo; (ii) the outstanding principal amount of (ii) o valor principal pendente de cada CCB each CCB to be acquired by the Fund a ser adquirida pelo Fundo (considering the assignment of all the (considerando a cessão de todas as falling due installments) shall not be parcelas vincendas) não deverá ser lower than two hundred Brazilian reais inferior a R$200,00 (duzentos reais); (R$200.00); (iii) the balance of the Eligible Credit Rights (iii) o saldo dos Direitos Creditórios owed by the same Debtor to the Fund, Elegíveis devidos pelo mesmo Devedor considering pro forma the intended ao Fundo, considerando, pro forma, a assignment, should not exceed (i) cessão pretendida, não deverá exceder eighty five thousand Brazilian reais (i) R$85.000,00 (oitenta e cinco mil (R$85,000.00), except in case of item reais) ressalvado o disposto no item (ii) below; (ii) one hundred and fifty (ii) abaixo; (ii) R$150.000,00 (cento e thousand Brazilian reais cinquenta mil reais), desde que: (a) o",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "428fca979e8cde40605f70fa8815c732dfaba48dc22b7613bbab32f9a54b9c5e"
+      ]
+    },
+    "3d69cdc257c99614f365c0aa7f46f45ca80285299a1bad8b9a2e6f00881abe66": {
+      "reference_date": "2022-03-30",
+      "value": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao Fund. For the purposes of applicable laws and Fundo. Para os fins das leis aplicáveis e deste these Bylaws, the following are considered Regulamento, são considerados Critérios de Eligibility Criteria: Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise (i) os Direitos Creditórios Elegíveis from payroll-deductible loans deverão decorrer de empréstimos represented by a CCB providing for consignados representados por uma prefixed interest rate and whose final CCB, com taxa de juros prefixada e maturity is earlier than the final vencimento final anterior ao maturity of the Fund; vencimento final do Fundo; (ii) the outstanding principal amount of (ii) o valor principal pendente de cada CCB each CCB to be acquired by the Fund a ser adquirida pelo Fundo (considering the assignment of all the (considerando a cessão de todas as falling due installments) shall not be parcelas vincendas) não deverá ser lower than two hundred Brazilian reais inferior a R$200,00 (duzentos reais); (R$200.00);",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "68bf2ee3faa4b377f5b8ba1b1b3f3d803f52774a0094e2ba6abfae498d0b286d"
+      ]
+    },
+    "6d8e4b394f3aa8dfd0ee1de784920a6944b5a2519cb81b527e35fc2ffdff7759": {
+      "reference_date": "2021-10-29",
+      "value": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao Fund. For the purposes of applicable laws and Fundo. Para os fins das leis aplicáveis e deste these Bylaws, the following are considered Regulamento, são considerados Critérios de Eligibility Criteria: Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise (i) os Direitos Creditórios Elegíveis from payroll-deductible loans deverão decorrer de empréstimos represented by a CCB providing for consignados representados por uma prefixed interest rate and whose final CCB, com taxa de juros prefixada e maturity is earlier than the final vencimento final anterior ao maturity of the Fund; vencimento final do Fundo; (ii) the outstanding principal amount of (ii) o valor principal pendente de cada CCB each CCB to be acquired by the Fund a ser adquirida pelo Fundo (considering the assignment of all the (considerando a cessão de todas as falling due installments) shall not be parcelas vincendas) não deverá ser lower than two hundred Brazilian reais inferior a R$200,00 (duzentos reais); (R$200.00);",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "03d0df2665ebfca994015552ce3dc528a9df457eb7b13d51ea317d1bc5b7ad0d"
+      ]
+    },
+    "75035d1e6cfdcb801cfab6c6ddf1bb2b53f38d416b981d3daf0804b82040577d": {
+      "reference_date": "2025-12-31",
+      "value": "Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5e8996d024948b76975930958530f8a77917f012c2509e9364267efe2b0fc6f1"
+      ]
+    },
+    "0b0a542c2f340634fd32cf780df17e655c3a008d24d68b2becf3b3773cdc964a": {
+      "reference_date": "2024-12-31",
+      "value": "Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4fdaadb4952a6745669f730dbd5ca9319f3694a99b5a82722af5cfb58dcdf308"
+      ]
+    },
+    "b961e813567d31ad0008568ecc7963c3042da8a0a2dfbdef160a49f7d6d03ff7": {
+      "reference_date": "2025-02-21",
+      "value": "“Devedores”: cada beneficiário ou pensionista do INSS que tenha tomado um empréstimo consignado com qualquer Cedente MT mediante a emissão eletrônica de uma CCB;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "17d27b5639274798058aa22d79eb469daf65a97fce2f1eff59fb8c9b7322fca1"
+      ]
+    },
+    "a93f43194060034864ebe12848d2c798b3f6d7091b78aa7c200de2e6efbb1ada": {
+      "reference_date": "2024-11-29",
+      "value": "4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB possa ser feito por Consignação.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "38ee8652028b5f6f4c95dff7c81513a8be2166e93fe9d5279c79cf1fea9e0005"
+      ]
     }
   },
   "passages": {
@@ -2437,42 +2450,6 @@
       "sha256": "bf4213784333c3c51b1e46c30fab1884a7f5660808540f18c96673edb232c5bd",
       "verification": "primary_passage"
     },
-    "355628b51c9878c403de76b807e2dc83d841e71031d21f7bc9052afbfaf8bc82": {
-      "document_id": "346549",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=346549",
-      "reference_date": "2022-08-31",
-      "version": "1",
-      "page": 44,
-      "clause": "",
-      "excerpt": "Paragraph Two The service provider Parágrafo Segundo O prestador de  engaged for the purposes of this Article 28 serviços contratado para os fins deste Artigo  may not be the originator of the Credit Rights, 28 não poderá ser o originador dos Direitos  the Assignor, the Manager, the Creditórios, o Cedente, o Gestor, o Agente de  Retention/Collection Agent, or any parties Retenção/Cobrança ou quaisquer partes  related to them, such as defined by the relacionadas a eles, conforme definido pelas  applicable accounting rules. regras contábeis aplicáveis.",
-      "sha256": "6f3dd8314617194187cc93fcd1abe73fd1b1350d92bb0849e96946c90a47fe34",
-      "verification": "primary_passage"
-    },
-    "15caf16377fb9b24749c99b29cea1be8dd6c4ad2e75fb3622529c199565f35e1": {
-      "document_id": "287069",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=287069",
-      "reference_date": "2022-03-30",
-      "version": "1",
-      "page": 41,
-      "clause": "",
-      "excerpt": "Paragraph Two The service provider Parágrafo Segundo O prestador de  engaged for the purposes of this Article 28 serviços contratado para os fins deste Artigo  may not be the originator of the Credit Rights, 28 não poderá ser o originador dos Direitos  the Assignor, the Manager, the Creditórios, o Cedente, o Gestor, o Agente de  Retention/Collection Agent, or any parties Retenção/Cobrança ou quaisquer partes  related to them, such as defined by the relacionadas a eles, conforme definido pelas  applicable accounting rules. regras contábeis aplicáveis.",
-      "sha256": "31e400043876c4f373956229166a34216e73c93b46e558985b5aa3b72e0eb456",
-      "verification": "primary_passage"
-    },
-    "6716dd93bdb62844b70fd4858995455f44e7d00cfb9a84681fa54270b9877033": {
-      "document_id": "230753",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=230753",
-      "reference_date": "2021-10-29",
-      "version": "1",
-      "page": 41,
-      "clause": "",
-      "excerpt": "Paragraph Four Pursuant to paragraph 6 Parágrafo Quarto De acordo com o  of article 38 of CVM Instruction No. 356, the parágrafo 6º do artigo 38 da Instrução CVM nº  Custodian, without prejudice to its 356, o Custodiante, sem prejuízo de sua  responsibility, may engage a third party to responsabilidade, poderá contratar um  carry out the verification of the Underlying terceiro para realizar a verificação dos  Documents related to Credit Rights assigned Documentos Comprobatórios referentes aos  to the Fund, provided that such third party is Direitos Creditórios cedidos ao Fundo, desde  not the originator or the Assignor of the Credit que esse terceiro não seja o originador ou o  Rights, the Manager, the Retention/Collection Cessionário dos Direitos Creditórios, o Gestor,  Agent, or any parties related to them, such as o Agente de Retenção/Cobrança, ou partes  defined by the applicable accounting rules. relacionadas a eles, conforme definido pelas  regras contábeis aplicáveis.",
-      "sha256": "58fc98ba982c1efce495050c7cc44e979c7e3b130af5bf41271aed1637753ded",
-      "verification": "primary_passage"
-    },
     "b896f012de6476258611d893bf943be82fa35168a5902fe1bb55d8285fd64681": {
       "document_id": "846588",
       "title": "Regulamento",
@@ -2498,18 +2475,6 @@
       "sha256": "527eddbd9c7738b7319732c92a0ba3d2ffbd2b6777cc0811dd3ea703634c695f",
       "verification": "primary_passage"
     },
-    "1bb3f1df24792b979ef86c53eebadd28669524bd6273bdf9fdffe0798fdd8a8c": {
-      "document_id": "628951",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628951",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos ao Fundo serão  descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do Devedor  poderá ser afetada se, por exemplo, em virtude de decisão judicial, o Devedor for obrigado a pagar  alimentos, que têm prioridade sobre o empréstimo para fins de desconto na folha de benefícios.\n Além disso, a morte do Devedor, a extrapolação de sua margem consignável (inclusive em razão de  qualquer diminuição da margem consignável permitida) ou a suspensão ou extinção do pagamento",
-      "sha256": "12ab50e9c7491e57d70dd0b66be0bbce44e856757a1b6ddc5dbe5883e51de6e5",
-      "verification": "primary_passage"
-    },
     "8c4e8ec4e731f27995e5d33680fb3e1b0379d5a11eace3e62d23156e684f140c": {
       "document_id": "437594",
       "title": "Demonstrações Financeiras",
@@ -2520,18 +2485,6 @@
       "clause": "",
       "excerpt": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos ao Fundo serão  descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do Devedor  poderá ser afetada se, por exemplo, em virtude de decisão judicial, o Devedor for obrigado a pagar  alimentos, que têm prioridade sobre o empréstimo para fins de desconto na folha de benefícios.\n Além disso, a morte do Devedor, a extrapolação de sua margem consignável (inclusive em razão de  qualquer diminuição da margem consignável permitida) ou a suspensão ou extinção do pagamento  do benefício pago pelo INSS ao respectivo Devedor podem interromper o desconto automático na  folha de pagamento das prestações vincendas da CCB, e não há seguro ou mecanismo que garanta  uma indenização ao Fundo nesses casos, o que poderá afetar a rentabilidade do Fundo.",
       "sha256": "ee3404f281b4c39e046ab93bfb0dfceb350d0d1dd280105f6fa0413e40104655",
-      "verification": "primary_passage"
-    },
-    "db111746a2d3605b200ea129660a6d99d8e0dde28ba32eefe5c8a555ebe0b7c4": {
-      "document_id": "846588",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846588",
-      "reference_date": "2025-02-21",
-      "version": "1",
-      "page": 9,
-      "clause": "4.2",
-      "excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados  concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB  devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política  de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter  celebrado o Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que,  após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos  Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).; e (ii)  Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de operações  de sociedades integrantes do conglomerado econômico de instituições financeiras classificadas como  S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação de instituições  financeiras, bem como cotas de fundos de investimento que invistam preponderantemente nestes  direitos, títulos e/ou valores mobiliários. (“Direitos Creditórios TVM”).\nBTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com  2",
-      "sha256": "69618ba03327e144cb80c566ac90890aafff9cd52f932b7acbdba9c05ea5555d",
       "verification": "primary_passage"
     },
     "04807e5e871e0648a38fcd4dfe784b453726a9120e03770f66f4dbfbce59d8b3": {
@@ -4520,6 +4473,68 @@
       "clause": "",
       "excerpt": "58. The Fund shall be liquidated solely and 58. O Fundo deverá ser liquidado única e  exclusively in the following cases (each a exclusivamente nos seguintes casos (cada um  Liquidation Event): deles um Evento de Liquidação):\n(i) by resolution of the Quotaholders’ (i) por resolução da Assembleia de  Meeting, in the event described in Cotistas, no caso descrito no item  item (vi) of Article 48 of these (vi) do Artigo 48 deste  Bylaws; Regulamento;\n(ii) if the Fund keeps an average equity (ii) se o Fundo mantiver um patrimônio  lower than R$ 500,000.00 (five líquido médio inferior a R$  hundred thousand Brazilian reais), 500.000,00 (quinhentos mil reais),  for the period of three (3) pelo período de 03 (três) meses  consecutive months and is not consecutivos e não for incorporado  incorporated into another a outro fundo de investimento em  receivables investment fund; direitos creditórios;\n(iii) if the Quotaholders' Meeting resolve (iii) se a Assembleia de Cotistas decidir  that a given Assessment Event is a que um determinado Evento de  Liquidation Event; Avaliação é um Evento de  Liquidação;\n(iv) assignment or waiver by the (iv) cessão ou renúncia pelo  Administrator, by the Custodian or Administrador, pelo Custodiante ou  by the Manager, at any time and for pelo Gestor, a qualquer momento e  any reason, of the provision of the por qualquer razão, da prestação  respective services provided for in dos respectivos serviços previstos  these Bylaws, provided that it was neste Regulamento, desde que não  not replaced by another institution, tenha sido substituída por outra  within the maximum term of sixty instituição, dentro do prazo máximo  (60) days, according to the de 60 (sessenta) dias, de acordo  procedures established in these com os procedimentos  Bylaws; estabelecidos neste Regulamento;\n(v) impossibility of the Fund to acquire (v) impossibilidade de o Fundo adquirir  Credit Rights admitted by its Direitos Creditórios admitidos por  investment policy. sua política de investimento.",
       "sha256": "58fc98ba982c1efce495050c7cc44e979c7e3b130af5bf41271aed1637753ded",
+      "verification": "primary_passage"
+    },
+    "7a06f81147b48da71a141458b2b388d436512127e100f0e1e7005136f93e8025": {
+      "document_id": "791097",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791097",
+      "reference_date": "2024-11-28",
+      "version": "1",
+      "page": 1,
+      "clause": "4.3",
+      "excerpt": "4.3. Além dos ajustes necessários para a adaptação do Fundo à Resolução 175, aprovar as seguintes alterações nas características do Fundo:\n(a) A alteração do capítulo que da Política de Investimentos;\n (b) Alteração do capítulo que trata da responsabilidade dos cotistas;\n (c) A alteração do capítulo que trata dos critérios de elegibilidade;\n (d) A alteração do capítulo que trata do limite de concentração e composição da  carteira;\n (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios;\n (f) Alteração do capítulo que trata dos eventos de avaliação;\nBTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
+      "sha256": "ef228b8aafc7af79339c74cf49e2984aa44f70b3f15074173e6a91d689dce7b6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "03d0df2665ebfca994015552ce3dc528a9df457eb7b13d51ea317d1bc5b7ad0d": {
+      "document_id": "230753",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=230753",
+      "reference_date": "2021-10-29",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "12. The Eligibility Criteria listed below shall 12. Os Critérios de Elegibilidade listados  be validated by the Custodian as of the date abaixo serão validados pelo Custodiante na  of assignment of each Credit Right to the data de cessão de cada Direito Creditório ao  Fund. For the purposes of applicable laws and Fundo. Para os fins das leis aplicáveis e deste  these Bylaws, the following are considered Regulamento, são considerados Critérios de  Eligibility Criteria: Elegibilidade os seguintes:\n(i) each Eligible Credit Right shall arise (i) os Direitos Creditórios Elegíveis  from payroll-deductible loans deverão decorrer de empréstimos  represented by a CCB providing for consignados representados por uma  prefixed interest rate and whose final CCB, com taxa de juros prefixada e  maturity is earlier than the final vencimento final anterior ao  maturity of the Fund; vencimento final do Fundo;\n(ii) the outstanding principal amount of (ii) o valor principal pendente de cada CCB  each CCB to be acquired by the Fund a ser adquirida pelo Fundo  (considering the assignment of all the (considerando a cessão de todas as  falling due installments) shall not be parcelas vincendas) não deverá ser  lower than two hundred Brazilian reais inferior a R$200,00 (duzentos reais);\n (R$200.00);",
+      "sha256": "58fc98ba982c1efce495050c7cc44e979c7e3b130af5bf41271aed1637753ded",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5e8996d024948b76975930958530f8a77917f012c2509e9364267efe2b0fc6f1": {
+      "document_id": "1151650",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151650",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos  consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e  representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação  aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente  Anexo. Cada Cedente MT deve ter celebrado o Convênio INSS previamente à cessão de Direitos  Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios MT na  Dataprev, o pagamento regular dos Direitos Creditórios MT decorrentes das CCB possa ser feito  por Consignação (“Direitos Creditórios MT”).; e (ii) (ii.A) Direitos, títulos e/ou valores mobiliários  representativos de créditos originados no âmbito de operações de sociedades integrantes do  conglomerado econômico de instituições financeiras classificadas como S1 pelo BACEN, desde  que não representem títulos de emissão ou coobrigação de instituições financeiras, bem como  cotas de fundos de investimento que invistam preponderantemente nestes direitos, títulos e/ou  valores mobiliários; e (ii.B) cotas de fundos de índice cuja cesta de ativos seja composta por, no  mínimo, 95% de direitos creditórios conforme definidos no art. 2º do Anexo Normativo da  Resolução CVM 175 (“Direitos Creditórios TVM”).",
+      "sha256": "fed984ac46277128fffeeef6ba37f54de2793488e4fca43893bffbec69bae927",
+      "verification": "primary_passage"
+    },
+    "17d27b5639274798058aa22d79eb469daf65a97fce2f1eff59fb8c9b7322fca1": {
+      "document_id": "846588",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=846588",
+      "reference_date": "2025-02-21",
+      "version": "1",
+      "page": 43,
+      "clause": "",
+      "excerpt": "“Devedores”: cada beneficiário ou pensionista do INSS que tenha tomado um empréstimo consignado com qualquer Cedente MT mediante a emissão eletrônica de uma CCB;",
+      "sha256": "69618ba03327e144cb80c566ac90890aafff9cd52f932b7acbdba9c05ea5555d",
+      "verification": "primary_passage"
+    },
+    "38ee8652028b5f6f4c95dff7c81513a8be2166e93fe9d5279c79cf1fea9e0005": {
+      "document_id": "791098",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791098",
+      "reference_date": "2024-11-29",
+      "version": "1",
+      "page": 9,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos  por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente  formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão  de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o  Convênio INSS previamente à cessão de Direitos Creditórios Elegíveis à Classe, para que, após a  averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios  decorrentes das CCB possa ser feito por Consignação.",
+      "sha256": "bf4213784333c3c51b1e46c30fab1884a7f5660808540f18c96673edb232c5bd",
       "verification": "primary_passage"
     }
   }

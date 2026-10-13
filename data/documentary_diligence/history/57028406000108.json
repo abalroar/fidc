@@ -3,19 +3,6 @@
   "cnpj": "57028406000108",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "6f6daeffc7dea26b739133a98de9fa72f12b5a3bb56147ed3b72d0920fd6e712",
-      "447a5b1571cdbf4cfccd8a6519ff46cf10be75e70a7df9bc7e2df003a92cbe0f",
-      "3d6a4643576bceb2a3517396f864dbe8cfa9d268bf947939258002f45094e145",
-      "85bf55bf83d0f811e79bce7c1996f7bce1996f5e11137b6aa5312e6035ea20af",
-      "0569d9589d2e639605faf34e5fbdbc8545aa1312b7f181793abe7b8a23361d57",
-      "bf57c1d62c19a0459b3c46a0911b01735728a5d2dc90a0cec27ba532bfeb8814",
-      "46c3db304e06cb57ee7f98cc20891756b2e5337b3e160d74e979547a34a791e9",
-      "f44494a847b2edd8fba259a1e191ba9bc2fc0d8074186f62c3558cd9206bf385",
-      "f996b19349ff3f91121ae236cea9d275767136b2f03342f6f334ff755154e6a0",
-      "b944517475f9c07d4ded9a0329a8476ad39c748e4acabf95d5d87081f0da392a",
-      "a909c4180ebe069f8dbf9ab270c6e037baa19582a8da88edecb982e15a601971"
-    ],
     "ticket": [
       "e9dff429c774408e337107f8f309cb20f91947ba36626b0287135b257ff58704",
       "af0e5f929bf6d596977600c7424061cb143917977df2118db01fd3ee4cb6d67c",
@@ -483,29 +470,6 @@
       "82aebc5832dfd4ab7cb77d7984eff8de6cb514f88077e6643df30e029258edd7",
       "9bec7c3444b2135deeccc044b7ef75c37edbfe7bff0e263792d12ff6ad2c954a"
     ],
-    "originator": [
-      "444b497a6bf1198ad5389cad14633edb43431a7e5e621fcd2f6de575947f9ff4",
-      "9869e50c163086ff1c66a43a6ecd4baa814c9b6a89c9ff555f71fb8582c0a9d8",
-      "503b1a4081d7d2b89554b80d2e6d07ee804993052b99f51d7e9acd4ca5f303b1",
-      "d81b70f87f0aff25351e07e593d4acb4436619548ad7e12817c9cdb54d45912f",
-      "78f9102979e9c9423906c64e1642a961e56d0dd4a92109689007c0cae637a824",
-      "fb9a9ec0bec0e43cf3172c451e6335a96155728f03286ce779cd4d8129d5125f",
-      "50908229be43768b432407a1c0f6b58b869c3f797b9a4fd9a7aed4a2454d6e8e",
-      "449441dc15e2842b28931cba131f5afa43d42e6febfd3fd9de33d7ad59cdc5e6"
-    ],
-    "debtor": [
-      "a92d0a252d6c8f26717d13b74421b845657852ad5cbe0644cc17f5b6ac7109c1",
-      "22ebd12e4ef307e5ee765dde0350bcda583f296273dbc080e33dc19a957b67b2",
-      "83684a2cc7a07870f6779d6c4027ba4de88d293ca23f354ac17154fb0b4a9d6f",
-      "ba3d6b3a06f1ced0fbcd5bd072acdfc0f4936b7c625e80f53e37a5ebe4c6ffa2",
-      "68e961a417a5153841ad069067eed66c7f3879ef655eee72e974ca57173ed918",
-      "39b57662ee033c18f699be91262bd9f94368d29ba33a523f6b66c027d3780fe0",
-      "d8ca972ec609160df1db1f2f7c2771142200bbfed646ece08fe1dcb7715d7a9a",
-      "af2e5c7b8e53cf95d5be4fca992a7c27c09bc8a8a108e67af628d39123edd7e3",
-      "af55132217d068a455c408c7ed28f1bf335f062ba1002453079e9a9ed0c30d92",
-      "8f7241d68e123385ca02ce2ad80064904a472dff774bd01fb51e6b32edccb918",
-      "2804ef8dc0224a1bd9458f2540449b77365b1c0c3f7c7ecbc2d86f2f2c937224"
-    ],
     "investee": [
       "3f258536d053c1a930691fdb086644382eac33ae5c403a440fdad5bf4365f5b1",
       "7c24c8803825646f997966603c1d081e6d6b66b60b1927d6fe6ed1c7d6a4bd9c",
@@ -557,6 +521,28 @@
       "9f654a1a20a7d4bfba0da8c527b19ffa713f49141220f9f7544645f38bf1e864",
       "3f2430e8afd89d1fa39454108ec212126ad78e9283de998d4ae75914310e895a",
       "80aa49c306d50c521d4457d08037b69f1d43cfa747c8b0b55cdcedd3d3051881"
+    ],
+    "originator": [
+      "444b497a6bf1198ad5389cad14633edb43431a7e5e621fcd2f6de575947f9ff4",
+      "e7994199557c94918a1792f6baa3e3b432c8ee3dfe831e3e2c008e36c9ffb503",
+      "2dcc07859c19aab90e6fcb30bddc40fed2034a6b3aeb2d8fdefa5cdd507e874f",
+      "3d3853ee1eb81d4ee09a86f946f67b36bad1b87f6c253e4d8a55cfcfddfe715d",
+      "32ba83b7ca995db38286018e0d36451ab137d77f5a4d2f7635b71a50c7d753ae",
+      "fb9a9ec0bec0e43cf3172c451e6335a96155728f03286ce779cd4d8129d5125f",
+      "9011e28ca29cedc8be01b94fd937ea9bfc38f60ec5ac18f7a1410deab8cf6c2c",
+      "cf55f50dc6a2568f6d2fcf361227aa9197e1f1c6e66bca648e7c5dc12d1eeb8b"
+    ],
+    "eligibility": [
+      "6f6daeffc7dea26b739133a98de9fa72f12b5a3bb56147ed3b72d0920fd6e712",
+      "447a5b1571cdbf4cfccd8a6519ff46cf10be75e70a7df9bc7e2df003a92cbe0f",
+      "3d6a4643576bceb2a3517396f864dbe8cfa9d268bf947939258002f45094e145",
+      "85bf55bf83d0f811e79bce7c1996f7bce1996f5e11137b6aa5312e6035ea20af",
+      "0569d9589d2e639605faf34e5fbdbc8545aa1312b7f181793abe7b8a23361d57",
+      "595b57a289e840071c8294bb0575f668853f7a2855e68505ac6bc07181aa0eb9",
+      "46c3db304e06cb57ee7f98cc20891756b2e5337b3e160d74e979547a34a791e9",
+      "8d8556c63c05ebe277e39eaab869dd7087cb2f372356a9d50b9e908da3ecc393",
+      "c8cfb174c17e1ae7a4c3f51cb6bdafbf9039727919d7f9f38f3e3077b3ab4488",
+      "3234d7b003690af8e34a18b43b7f7f322775f190f7322b5eab6643900ad175d9"
     ]
   },
   "entries": {
@@ -587,33 +573,6 @@
         "94d1b2d3d3c16277653240679bc3d12a6ff814f4da6cabc2e0ac4b0fd7de6ade"
       ]
     },
-    "9869e50c163086ff1c66a43a6ecd4baa814c9b6a89c9ff555f71fb8582c0a9d8": {
-      "reference_date": "2025-11-25",
-      "value": "Os analistas utilizaram informações provenientes da(s) seguinte(s) fonte(s): Solfácil Energia (Originadora). 7. As informações obtidas pela Austin Rating foram consideradas suficientes para a presente ação de rating.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "09d6c3aef347fbc8bd55570aed4a288b72450d50dcf8fd4f052121cef6713547"
-      ]
-    },
-    "503b1a4081d7d2b89554b80d2e6d07ee804993052b99f51d7e9acd4ca5f303b1": {
-      "reference_date": "2025-08-29",
-      "value": "Os analistas utilizaram informações provenientes da(s) seguinte(s) fonte(s): Solfácil Energia (Originadora). 7. As informações obtidas pela Austin Rating foram consideradas suficientes para a presente ação de rating.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0d1c1bb8cf16a61c59794a7e28162f5085d5ae657de98b3bcd9b0d554e9cf68b"
-      ]
-    },
-    "d81b70f87f0aff25351e07e593d4acb4436619548ad7e12817c9cdb54d45912f": {
-      "reference_date": "2025-06-06",
-      "value": "Os analistas utilizaram informações provenientes da(s) seguinte(s) fonte(s): Solfácil Energia (Originadora). 7. As informações obtidas pela Austin Rating foram consideradas suficientes para a presente ação de rating.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d7afe54520f60df7284e2fb42c3ce821a76bd857b3fe31f809d664ca042e2563"
-      ]
-    },
     "fb9a9ec0bec0e43cf3172c451e6335a96155728f03286ce779cd4d8129d5125f": {
       "reference_date": "2024-12-31",
       "value": "I. Risco de crédito dos Devedores – O Fundo, a Administradora, a Gestora, o Custodiante, o Cedente, o Consultor Especializado, o Originador (se houver), o Credor Original (se houver) e o Agente de Cobrança Extraordinária (se houver), e suas respectivas partes relacionadas não são responsáveis pela solvência dos Devedores. Se os Devedores não puderem honrar com seus compromissos perante o Fundo, poderá ser necessária a adoção de medidas extrajudiciais e judiciais para recuperação dos Direitos Creditórios Transferidos nos termos da Política de Cobrança.",
@@ -621,24 +580,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e43909437c53433d9b3277b1965988fffe047857c6e4f70de5f788add5857754"
-      ]
-    },
-    "50908229be43768b432407a1c0f6b58b869c3f797b9a4fd9a7aed4a2454d6e8e": {
-      "reference_date": "2024-11-06",
-      "value": "Os analistas utilizaram informações provenientes d a(s) seguinte(s) fonte(s): Solfácil Energia (Originadora). 7. As informações obtidas pela Austin Rating foram consideradas suficientes para a presente ação de rating.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1eb568c5aa013cedebdbf19eb0bf0532b944d7b8b962153775ea70e9cb270083"
-      ]
-    },
-    "a92d0a252d6c8f26717d13b74421b845657852ad5cbe0644cc17f5b6ac7109c1": {
-      "reference_date": "2025-12-31",
-      "value": "(viii) A idade dos Devedores pessoas físicas, na data de emissão da respectiva CCB, deve ser de, no máximo, 71 (setenta e um) anos;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f8506bd0ae40713512e3713722c93b41490a09173aee73866bbb125f520ebdbf"
       ]
     },
     "22ebd12e4ef307e5ee765dde0350bcda583f296273dbc080e33dc19a957b67b2": {
@@ -668,15 +609,6 @@
         "7eb9d5ba895941dee8d44081f08ab9e056bf284a70c5619602b35fb30a8a6e3e"
       ]
     },
-    "68e961a417a5153841ad069067eed66c7f3879ef655eee72e974ca57173ed918": {
-      "reference_date": "2025-01-06",
-      "value": "(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "38c161c281937012c9f94b534b299583ddf2afc1576f741c084ff4f2421cbe5a"
-      ]
-    },
     "39b57662ee033c18f699be91262bd9f94368d29ba33a523f6b66c027d3780fe0": {
       "reference_date": "2024-12-31",
       "value": "",
@@ -693,42 +625,6 @@
       "provenance": "primary_passage",
       "sources": [
         "6b23899b638d8f9506ab2ca795cbfbbf1b22d51d8ba0f43ef8e0d44f56fbd9a5"
-      ]
-    },
-    "af2e5c7b8e53cf95d5be4fca992a7c27c09bc8a8a108e67af628d39123edd7e3": {
-      "reference_date": "2024-01-06",
-      "value": "(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "df082d3c493130720e46238f05695f0c92ca36c1a7108025e275e71c0723fb11"
-      ]
-    },
-    "af55132217d068a455c408c7ed28f1bf335f062ba1002453079e9a9ed0c30d92": {
-      "reference_date": "2025-08-06",
-      "value": "(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "18d2f4df89726cfd1fb73bcd73014358b730b6157d5e0f848fae1ac72ed176b7"
-      ]
-    },
-    "8f7241d68e123385ca02ce2ad80064904a472dff774bd01fb51e6b32edccb918": {
-      "reference_date": "2025-01-06",
-      "value": "(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "11fe8a0b71ef240e45982f42b38570da0dd8c8e2d694e7b679cf025d26ee9d36"
-      ]
-    },
-    "2804ef8dc0224a1bd9458f2540449b77365b1c0c3f7c7ecbc2d86f2f2c937224": {
-      "reference_date": "2025-01-06",
-      "value": "(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bd2d638fc7ee581130a73ff70584d0d42c364bcb5bf03b6de651c1f48ba729c8"
       ]
     },
     "6f6daeffc7dea26b739133a98de9fa72f12b5a3bb56147ed3b72d0920fd6e712": {
@@ -792,15 +688,6 @@
       "provenance": "primary_passage",
       "sources": [
         "82c182f6c09e4bac03e82b7f52f05f87bb14af49c3380f36f0eb73d307075e48"
-      ]
-    },
-    "f44494a847b2edd8fba259a1e191ba9bc2fc0d8074186f62c3558cd9206bf385": {
-      "reference_date": "2024-11-06",
-      "value": "Critérios de Elegibilidade: O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos a serem verificados pela Gestora na respectiva Data de Oferta: (i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante durante o prazo do Direito Creditório; 7",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "36974e4e7389d7d67ce6a5473d02b549274d3c27a243a61e14148b51a24f58d4"
       ]
     },
     "f996b19349ff3f91121ae236cea9d275767136b2f03342f6f334ff755154e6a0": {
@@ -4191,22 +4078,85 @@
         "856574a22342d59514dc6636fa00e88eb736233a3a26203a136080493df90c62"
       ]
     },
-    "78f9102979e9c9423906c64e1642a961e56d0dd4a92109689007c0cae637a824": {
+    "595b57a289e840071c8294bb0575f668853f7a2855e68505ac6bc07181aa0eb9": {
       "reference_date": "2025-01-06",
-      "value": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Cessão de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCD”) e a Originadora, com interveniência anuência da Gestora e da Administradora;.",
+      "value": "3.6. A aplicação de recursos da Classe Única em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico. O limite aqui referido poderá ser aumentado quando se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais; (iii) cotas de fundos que possuam como política de investimento a alocação exclusivo nos títulos que se referem os itens (i) e (ii); ou (iv) o Devedor ou coobrigado seja instituição financeira ou equiparada.",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "232e29a587ba2fa5920a197f9a573425c2bb71dc3acbfaa0f1edfef74fc3c2bd"
+        "de40784ee31868ec7dd8f321891b08bd2696088e477978670780e4d49c98e4dd"
       ]
     },
-    "449441dc15e2842b28931cba131f5afa43d42e6febfd3fd9de33d7ad59cdc5e6": {
+    "8d8556c63c05ebe277e39eaab869dd7087cb2f372356a9d50b9e908da3ecc393": {
       "reference_date": "2024-01-06",
-      "value": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de Cessão de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP 01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP 05.408-003 (“Solfácil SCD”) e a Originadora, com interveniência anuência da Gestora e da Administradora;.",
+      "value": "3.6. A aplicação de recursos da Classe Única em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico. O limite aqui referido poderá ser aumentado quando se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais; (iii) cotas de fundos que possuam como política de investimento a alocação exclusivo nos títulos que se referem os itens (i) e (ii); ou (iv) o Devedor ou coobrigado seja instituição financeira ou equiparada.",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "af39e938e582a9cff96becf4ae90ab620d5d98a0e9a0ef216fb3b80011ef01d6"
+        "5e83259d8eed74abd26955a51dd7ae75deeaa3af4029889248f1151a229f6c23"
+      ]
+    },
+    "c8cfb174c17e1ae7a4c3f51cb6bdafbf9039727919d7f9f38f3e3077b3ab4488": {
+      "reference_date": "2025-08-06",
+      "value": "3.6. A aplicação de recursos da Classe Única em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico. O limite aqui referido poderá ser aumentado quando se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais; (iii) cotas de fundos que possuam como política de investimento a alocação exclusivo nos títulos que se referem os itens (i) e (ii); ou (iv) o Devedor ou coobrigado seja instituição financeira ou equiparada.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d480a32116960bc531c15c29585008fe235bbaff23cc07c44e33a0675524ce22"
+      ]
+    },
+    "3234d7b003690af8e34a18b43b7f7f322775f190f7322b5eab6643900ad175d9": {
+      "reference_date": "2025-01-06",
+      "value": "3.6. A aplicação de recursos da Classe Única em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo Devedor (incluindo integrantes de seu respectivo Grupo Econômico), conforme aplicável, está limitada a 20% (vinte por cento) (ou a percentual maior, caso assim indicado no Anexo Definições Específicas da Classe) do Patrimônio Líquido da Classe Única, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Transferência (se houver) relacionados à concentração por Devedor de Direitos Creditórios do mesmo Grupo Econômico. O limite aqui referido poderá ser aumentado quando se tratar de aplicações em: (i) títulos públicos federais; (ii) operações compromissadas lastreadas em títulos públicos federais; (iii) cotas de fundos que possuam como política de investimento a alocação exclusivo nos títulos que se referem os itens (i) e (ii); ou (iv) o Devedor ou coobrigado seja instituição financeira ou equiparada.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7df4c4cff38291f5ebe78ccb7a8bcc508b6f10c7479a52e75ab174aaf0faeb56"
+      ]
+    },
+    "e7994199557c94918a1792f6baa3e3b432c8ee3dfe831e3e2c008e36c9ffb503": {
+      "reference_date": "2025-11-25",
+      "value": "O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços aprovadas para operar por meio da Plataforma Solfácil (“Integradores Solares”) que estão bloqueados definitivamente de operar por meio da Plataforma Solfácil na Data de Aquisição e Pagamento;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0a3288d0a751105fb9ba6c82431c0ddf0053789da55b74e22f22b95aee887ffd"
+      ]
+    },
+    "2dcc07859c19aab90e6fcb30bddc40fed2034a6b3aeb2d8fdefa5cdd507e874f": {
+      "reference_date": "2025-08-29",
+      "value": "O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços aprovadas para operar por meio da Plataforma Solfácil (“Integradores Solares”) que estão bloqueados definitivamente de operar por meio da Plataforma Solfácil na Data de Aquisição e Pagamento;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "725be525a908ec75665df91ba29a755b837e27275e0e86f2827856b3076a06d4"
+      ]
+    },
+    "3d3853ee1eb81d4ee09a86f946f67b36bad1b87f6c253e4d8a55cfcfddfe715d": {
+      "reference_date": "2025-06-06",
+      "value": "O Fundo somente poderá utilizar os recursos da Classe Única para adquirir Direitos Creditórios que atendam às seguintes Condições de Transferência, a serem verificadas pelo Originador e atestadas via declaração, na Data de Oferta: (i) os Direitos Creditórios não podem estar relacionados às empresas prestadoras de serviços aprovadas para operar por meio da Plataforma Solfácil (“Integradores Solares”) que estão bloqueados definitivamente de operar por meio da Plataforma Solfácil na Data de Aquisição e Pagamento;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "132144bf53106a2c55bec3b7eb8431a1fee9fc2ab6a37f8656206c085617a91b"
+      ]
+    },
+    "32ba83b7ca995db38286018e0d36451ab137d77f5a4d2f7635b71a50c7d753ae": {
+      "reference_date": "2025-01-06",
+      "value": "Nessas hipóteses, não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se houver) ou pelo Cedente, qualquer multa ou penalidade, de qualquer natureza.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4a4c968ffa31fbae663e20f3490f8508c3ac31050b7f6308dd1d125b83673c5f"
+      ]
+    },
+    "cf55f50dc6a2568f6d2fcf361227aa9197e1f1c6e66bca648e7c5dc12d1eeb8b": {
+      "reference_date": "2024-01-06",
+      "value": "Nessas hipóteses, não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se houver) ou pelo Cedente, qualquer multa ou penalidade, de qualquer natureza.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8ff59b0fb4dbcc106820d604ae6dfece1d311b5b10cf8e2b0d5b6c17e912d276"
       ]
     }
   },
@@ -4283,18 +4233,6 @@
       "sha256": "3909542ec68d32dd1cbf23efcfb151bfd8c1004a78ac5feb255837f69fc2cd40",
       "verification": "primary_passage"
     },
-    "38c161c281937012c9f94b534b299583ddf2afc1576f741c084ff4f2421cbe5a": {
-      "document_id": "815171",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815171",
-      "reference_date": "2025-01-06",
-      "version": "1",
-      "page": 118,
-      "clause": "5.5",
-      "excerpt": "5.5 Os documentos que compõem o “checklist” jurídico e cadastral relativos às operações de crédito originadoras dos Direitos Creditórios (“Documentos Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta e  ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva  CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física  ou cópia do contrato/estatuto social, documentos que comprovem os poderes de  representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela  Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via  Interface de Programação de Aplicação (“API”);\n(iii) comprovante de residência para os Devedores pessoa física; e\n(iv) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito, enviada  pela Solfácil à Gestora, evidenciando que no momento da concessão do crédito  foi realizada consulta, individualmente, sobre possível existência de fraude nos  documentos do Devedor.",
-      "sha256": "875379d8ae697fde6610ff95557a13d11b04e69ab01b187df3a6637753b32912",
-      "verification": "primary_passage"
-    },
     "e43909437c53433d9b3277b1965988fffe047857c6e4f70de5f788add5857754": {
       "document_id": "870871",
       "title": "Demonstrações Financeiras",
@@ -4317,30 +4255,6 @@
       "clause": "",
       "excerpt": "5. As classificações de risco de crédito atribuídas pela Austin Rating estão sujeitas a diversas limitações, conforme descrito no final deste  documento (Disclaimers).\n6. As fontes de informações foram consideradas confiáveis pela Austin Rating. Os analistas utilizaram informações provenientes d a(s)  seguinte(s) fonte(s): Solfácil Energia (Originadora).\n7. As informações obtidas pela Austin Rating foram consideradas suficientes para a presente ação de rating. Dentre as informaçõe s  utilizadas para esta análise, destacam-se: i) Regulamento datado de 30 de outubro de 2024.\n8. As estimativas de inadimplência e níveis de perda do Fundo baseiam-se em metodologia própria, a qual considera as características de  sua carteira atual e potencial e seu desempenho histórico e o desempenho de carteiras semelhantes disponíveis na base de dados da  Austin Rating.\n9. O nível de diligência da análise para o produto financeiro estruturado foi adequado ao padrão estabelecido pela Austin Rating. Foi  realizada análise sobre as informações recebidas acerca dos ativos subjacentes às Cotas classificadas do Fundo.\n10. A classificação das Cotas será revisada e atualizada trimestralmente. A Austin Rating salienta que poderão ser realizadas ações de rating  a qualquer tempo, inclusive no intervalo entre os monitoramentos trimestrais previstos.\n11. A Austin Rating adota políticas e procedimentos que visam mitigar potenciais situações de conflitos de interesse que possam a fetar o  desempenho da atividade de classificação de risco e seus resultados. O presente processo de classificação de risco está isent o de  situações de potencial conflito de interesses, incluindo aquelas previstas na Instrução Resolução CVM Nº 9, de 27 de outubro de 2020.\n12. Na data do presente relatório, a Austin Rating não presta qualquer serviço direto para a JGP Gestão de Crédito Ltda., porém, atribui  ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n http://www.austin.com.br/Ratings-FIDCs.html. Essa agência presta serviços para a Solfácil Energia Solar e Serviços Financeiros Ltda  (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, como por exemplo, outros FDCs, tendo,  todos, a Solfácil como Originadora. Por fim, essa agência informa que não presta qualquer serviço de rating direto para a Limine Trust  Distribuidora de Títulos e Valores Mobiliários Ltda S/A, Administrador e Custodiante, e tampouco para partes a estas relacionadas.\n13. Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serv iços  adicionais ao serviço de classificação de risco para o Fundo, nem sequer para qualquer outra parte relacionada a este Fundo n os últimos  12 meses.\n14. O serviço de classificação de risco das Cotas foi solicitado em nome do Fundo por partes a ele relacionadas. Desse modo, houv e  compensação financeira pela prestação do serviço.\n15. A classificação foi comunicada ao Contratante e a outras partes ligadas ao Fundo, via e-mail, em 20 de setembro de 2024.\n Posteriormente, em 06 de novembro de 2024 foi realizado novo comitê, no qual o comitê de classificação de risco da Austin Rating,  atribuiu uma classificação diferente da que havia sido indicada no relatório preliminar.\n16. Este documento é um relatório de classificação de risco de crédito, para fins de atendimento ao que dispõe o artigo 16 da Resolução  CVM Nº 9, de 27 de outubro de 2020.",
       "sha256": "08563ee4ecd460ff5b934a72c846ca41ea5ef1d5bc1d4853633eb4040267d24a",
-      "verification": "primary_passage"
-    },
-    "df082d3c493130720e46238f05695f0c92ca36c1a7108025e275e71c0723fb11": {
-      "document_id": "815156",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815156",
-      "reference_date": "2024-01-06",
-      "version": "1",
-      "page": 118,
-      "clause": "5.5",
-      "excerpt": "5.5 Os documentos que compõem o “checklist” jurídico e cadastral relativos às operações de crédito originadoras dos Direitos Creditórios (“Documentos Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta e  ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva  CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física  ou cópia do contrato/estatuto social, documentos que comprovem os poderes de  representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela  Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via  Interface de Programação de Aplicação (“API”);\n(iii) comprovante de residência para os Devedores pessoa física; e\n(iv) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito, enviada  pela Solfácil à Gestora, evidenciando que no momento da concessão do crédito  foi realizada consulta, individualmente, sobre possível existência de fraude nos  documentos do Devedor.",
-      "sha256": "875379d8ae697fde6610ff95557a13d11b04e69ab01b187df3a6637753b32912",
-      "verification": "primary_passage"
-    },
-    "f8506bd0ae40713512e3713722c93b41490a09173aee73866bbb125f520ebdbf": {
-      "document_id": "1152318",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152318",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "(viii) A idade dos Devedores pessoas físicas, na data de emissão da respectiva CCB,  deve ser de, no máximo, 71 (setenta e um) anos;",
-      "sha256": "4964900002b1f61ca6be8238bd0deb10960ac0c079fc6e94791b64adc4247d31",
       "verification": "primary_passage"
     },
     "ed21033df74336053ed661e9e557157eea028255b23d96513ae7d92cd5652c11": {
@@ -4401,42 +4315,6 @@
       "clause": "",
       "excerpt": "A despeito da ausência de um limite mais conservador para concentração em Devedores, tendo em vista o limite de 20,0% do PL, permitido no Regulamento do Fundo, para alocação de recursos na aquisição de Direitos Creditórios de um mesmo Devedor, a presente análise considerou, positivamente, sobre as classificações, os limites nominais para os valores de cada CCB, a ser adquirida pelo Fundo, com limite de R$ 700,0 mil para pessoas jurídicas e de R$ 350,0 mil para pessoas físicas, estando limitado, aos mesmos valores, o Saldo Devedor de cada tomador de recursos.",
       "sha256": "08563ee4ecd460ff5b934a72c846ca41ea5ef1d5bc1d4853633eb4040267d24a",
-      "verification": "primary_passage"
-    },
-    "18d2f4df89726cfd1fb73bcd73014358b730b6157d5e0f848fae1ac72ed176b7": {
-      "document_id": "1013867",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013867",
-      "reference_date": "2025-08-06",
-      "version": "1",
-      "page": 107,
-      "clause": "5.5",
-      "excerpt": "5.5 Os documentos que compõem o “checklist” jurídico e cadastral relativos às operações de crédito originadoras dos Direitos Creditórios (“Documentos Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta e  ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva  CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física  ou cópia do contrato/estatuto social, documentos que comprovem os poderes de  representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela  Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via  Interface de Programação de Aplicação (“API”);\n(iii) comprovante de residência para os Devedores pessoa física; e\n(iv) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito, enviada  pela Solfácil à Gestora, evidenciando que no momento da concessão do crédito  foi realizada consulta, individualmente, sobre possível existência de fraude nos  documentos do Devedor.",
-      "sha256": "c117dc043f0c70150eb233ff4b4267f130fc0e59ba3227ca01b4259027564c51",
-      "verification": "primary_passage"
-    },
-    "11fe8a0b71ef240e45982f42b38570da0dd8c8e2d694e7b679cf025d26ee9d36": {
-      "document_id": "847372",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=847372",
-      "reference_date": "2025-01-06",
-      "version": "1",
-      "page": 107,
-      "clause": "5.5",
-      "excerpt": "5.5 Os documentos que compõem o “checklist” jurídico e cadastral relativos às operações de crédito originadoras dos Direitos Creditórios (“Documentos Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta e  ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva  CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física  ou cópia do contrato/estatuto social, documentos que comprovem os poderes de  representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela  Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via  Interface de Programação de Aplicação (“API”);\n(iii) comprovante de residência para os Devedores pessoa física; e\n(iv) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito, enviada  pela Solfácil à Gestora, evidenciando que no momento da concessão do crédito  foi realizada consulta, individualmente, sobre possível existência de fraude nos  documentos do Devedor.",
-      "sha256": "75d772642e7da2a9c351ab69e98cfb7dd63c128977cc6b47406b39148baef279",
-      "verification": "primary_passage"
-    },
-    "bd2d638fc7ee581130a73ff70584d0d42c364bcb5bf03b6de651c1f48ba729c8": {
-      "document_id": "814754",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=814754",
-      "reference_date": "2025-01-06",
-      "version": "1",
-      "page": 118,
-      "clause": "5.5",
-      "excerpt": "5.5 Os documentos que compõem o “checklist” jurídico e cadastral relativos às operações de crédito originadoras dos Direitos Creditórios (“Documentos Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta e  ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva  CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(ii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física  ou cópia do contrato/estatuto social, documentos que comprovem os poderes de  representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela  Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via  Interface de Programação de Aplicação (“API”);\n(iii) comprovante de residência para os Devedores pessoa física; e\n(iv) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito, enviada  pela Solfácil à Gestora, evidenciando que no momento da concessão do crédito  foi realizada consulta, individualmente, sobre possível existência de fraude nos  documentos do Devedor.",
-      "sha256": "875379d8ae697fde6610ff95557a13d11b04e69ab01b187df3a6637753b32912",
       "verification": "primary_passage"
     },
     "c57734437d5aecc15688cf9059803fc4d9c417a3f389d3d8e9888f0e6144260f": {
@@ -4521,18 +4399,6 @@
       "clause": "",
       "excerpt": "O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade e/ou  Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não obrigará  a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito  de regresso contra as Cedentes, a Administradora, a Gestora, o Custodiante, seus  controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou  outras sociedades sob controle comum.",
       "sha256": "1f9bb2dc0a4504ae74bb7f9a539402bb6bc5e953507504f4bf9e3ca087eb06a7",
-      "verification": "primary_passage"
-    },
-    "36974e4e7389d7d67ce6a5473d02b549274d3c27a243a61e14148b51a24f58d4": {
-      "document_id": "1048520",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048520",
-      "reference_date": "2024-11-06",
-      "version": "1",
-      "page": 7,
-      "clause": "",
-      "excerpt": "Critérios de Elegibilidade: O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos a serem verificados pela Gestora na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n 7",
-      "sha256": "08563ee4ecd460ff5b934a72c846ca41ea5ef1d5bc1d4853633eb4040267d24a",
       "verification": "primary_passage"
     },
     "5e83259d8eed74abd26955a51dd7ae75deeaa3af4029889248f1151a229f6c23": {
@@ -8391,27 +8257,27 @@
       "sha256": "f4c3d93fcab1afd5523b42c858a94a8ba4bfcdf8e702e55f75d804a406a59c60",
       "verification": "primary_passage"
     },
-    "232e29a587ba2fa5920a197f9a573425c2bb71dc3acbfaa0f1edfef74fc3c2bd": {
+    "4a4c968ffa31fbae663e20f3490f8508c3ac31050b7f6308dd1d125b83673c5f": {
       "document_id": "815171",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815171",
       "reference_date": "2025-01-06",
       "version": "1",
-      "page": 125,
+      "page": 73,
       "clause": "",
-      "excerpt": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de  Cessão de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado  entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO  S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº\n 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo,  na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP  01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº\n 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo,  na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP\n 05.408-003 (“Solfácil SCD”) e a Originadora, com interveniência anuência da  Gestora e da Administradora;",
+      "excerpt": "judiciais serão bem-sucedidos, podendo haver perdas patrimoniais ao Fundo e aos Cotistas.\nO Fundo somente procederá ao resgate e à amortização das Cotas em moeda corrente nacional na medida em que os Direitos Creditórios Transferidos sejam pagos pelos Devedores e os respectivos valores sejam recebidos pelo Fundo, não havendo garantia de que o resgate e a amortização das Cotas ocorrerão integralmente conforme estabelecido neste Regulamento. Nessas hipóteses, não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se houver) ou pelo Cedente, qualquer multa ou penalidade, de qualquer natureza.",
       "sha256": "875379d8ae697fde6610ff95557a13d11b04e69ab01b187df3a6637753b32912",
       "verification": "primary_passage"
     },
-    "af39e938e582a9cff96becf4ae90ab620d5d98a0e9a0ef216fb3b80011ef01d6": {
+    "8ff59b0fb4dbcc106820d604ae6dfece1d311b5b10cf8e2b0d5b6c17e912d276": {
       "document_id": "815156",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=815156",
       "reference_date": "2024-01-06",
       "version": "1",
-      "page": 125,
+      "page": 73,
       "clause": "",
-      "excerpt": "(iv) “Contrato de Transferência” significa “Instrumento Particular de Promessa de  Cessão de Direitos Creditórios Sem Coobrigação e Outras Avenças”, celebrado  entre o Fundo, a BMP MONEY PLUS SOCIEDADE DE CRÉDITO DIRETO  S.A., instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº\n 34.337.707/0001-00, com sede na Cidade de São Paulo, Estado de São Paulo,  na Avenida Paulista, nº 1765, 1º andar, conjunto 11, Bairro da Bela Vista, CEP  01311- 930 (“BMP”), a SOLFÁCIL SOCIEDADE DE CRÉDITO DIRETO S.A.,  instituição financeira autorizada pelo BACEN, inscrita no CNPJ sob o nº\n 48.755.901/0001-10, com sede na Cidade de São Paulo, Estado de São Paulo,  na Rua Cardeal Arcoverde, nº 2.450, 2º andar, cj.201, Bairro Pinheiros, CEP\n 05.408-003 (“Solfácil SCD”) e a Originadora, com interveniência anuência da  Gestora e da Administradora;",
+      "excerpt": "judiciais serão bem-sucedidos, podendo haver perdas patrimoniais ao Fundo e aos Cotistas.\nO Fundo somente procederá ao resgate e à amortização das Cotas em moeda corrente nacional na medida em que os Direitos Creditórios Transferidos sejam pagos pelos Devedores e os respectivos valores sejam recebidos pelo Fundo, não havendo garantia de que o resgate e a amortização das Cotas ocorrerão integralmente conforme estabelecido neste Regulamento. Nessas hipóteses, não será devido pelo Fundo, pela Administradora, pela Gestora, pelo Custodiante, pelo Consultor Especializado (se houver), pelo Agente de Cobrança Extraordinária (se houver), pelo Originador (se houver), pelo Credor Original (se houver) ou pelo Cedente, qualquer multa ou penalidade, de qualquer natureza.",
       "sha256": "875379d8ae697fde6610ff95557a13d11b04e69ab01b187df3a6637753b32912",
       "verification": "primary_passage"
     }

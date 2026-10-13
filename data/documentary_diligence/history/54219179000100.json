@@ -3,16 +3,6 @@
   "cnpj": "54219179000100",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "1792ca75165bc599677e84bb27946558e3c871a007f605d2fb76da7a48822f57",
-      "f88e0f2f87d7ac72f1b04e096892f54d3586bcadf6e85dd0b69f4c8cb3126ba7",
-      "aa44ee56e624d4efe28e98826173b1d88ddff481d7bcbbc39e60d37dd33b0644",
-      "8f6fe57070660a9ea6980891a621e1c15728cad3343d2b592e543f80056b361e",
-      "09c84b08defbd56d0580d2264fc748016639c991a7e593cd3d140fb2de6b02ed",
-      "8ff9b9eb4e40d406e4ebd7fba92101320458cdc99147a07f431653269253755c",
-      "f68cfe37567c4339e510223892ef4c22bc0d76e5f3c8d1a0ed64ec17f433aacf",
-      "0a876e67a19992419df45ddaa37ab6fafcbc24225d7ef895702705c0680da0c9"
-    ],
     "concentration": [
       "808861d6ec5e70bcd4396e3c610ce40ddf53d95062731dc741753b2cb466aacf",
       "f2841206afec46e2c5a76bf08e29ce40277824443ad96d546644bfd1465c7b1b",
@@ -370,23 +360,6 @@
       "3f8bc8818b3b6af9bc9a5483ac8fdd3179f80c3e1961247e78386ea68f18673d",
       "1c8647b200f2b0968bd927b500cf9db721a59b64aafa6ad0c8bf71f4df732054"
     ],
-    "originator": [
-      "876d9f1dcfa1729fe4b916158837c9bdf41259e00092dcf952311072beb4e941",
-      "a576697c9144ff2fc8200778f96439236a1ece13d0219ba796c0a880b17e36fb",
-      "8ebed4968e965b6447de34840de2e3dd54210ff1e6e14c5b5f5c38501e6ec90a",
-      "722f4a9048ab86855f18cf62ca727fb9741a3c5c8c820df167eb3be37fd5cd8c",
-      "ad09f5dd8382a41372223a2efc9dab7caebab755524578ab530126a120246c0b"
-    ],
-    "debtor": [
-      "e1543c38ecc20cf814a817a6c01c291c1af48a8a0abd9f4416f223e92e3121af",
-      "f7b686e2aa9c3d0478f9fba36b3ca3d24378ba589c72dc38444f46c9a5d5807c",
-      "2aee7c1201388d826f3a9a0b42f004bbf0e15556e9b63178539fba5a8f5b806a",
-      "cd92816230772e107df856b740c744c5386fb93064326bf17c56e170ba16fc20",
-      "f1e88e539234312fb3cfe11c9a68e9eb98fb76c59e7a319eeabc5cd344127045",
-      "5f2aa729b3acfb1267bd8da700889bbe192f62954bd0485d70bf6bc5236b381d",
-      "6213cca12ce33b69782cf7d47b9d9b22469dd9e5148cd218dc98423ca53db26f",
-      "f52622af3ba8a7d8070f08b7b7d45129c60ded0cc86824b35b3653b520d921c2"
-    ],
     "investee": [
       "2849944ffcf1546d5f0e8c9d68daf1be016a2c6002311767c438a80587c6079d",
       "b156b46422cd9516c8658f7a8265338ae9117c26a453559e04c35c703103a5ef",
@@ -434,6 +407,38 @@
       "6572ecdaf70a475b422919c45ab75c32398f694a082b34ddd0027c15cb2c59a6",
       "d2eee12a532f3704b9b22976073cce59a10ef2b62a7e60570dadacc6b9bdacc8",
       "15de8d6e5f8ffa8ee60e8bb49e0066d9574d0abb8a2d568c489d78db6cd2a517"
+    ],
+    "originator": [
+      "876d9f1dcfa1729fe4b916158837c9bdf41259e00092dcf952311072beb4e941",
+      "a576697c9144ff2fc8200778f96439236a1ece13d0219ba796c0a880b17e36fb",
+      "8ebed4968e965b6447de34840de2e3dd54210ff1e6e14c5b5f5c38501e6ec90a",
+      "722f4a9048ab86855f18cf62ca727fb9741a3c5c8c820df167eb3be37fd5cd8c",
+      "ad09f5dd8382a41372223a2efc9dab7caebab755524578ab530126a120246c0b",
+      "fa7328d675e997bda4654fa9c5c643b3b32753efbabe137d06542100b7f23526",
+      "d091b38c2084b0fae80b996d0a78c4e9564044e161b195e5cd99d620e7feef12",
+      "c6279988408c36d20db00f44b5c9986168887204ea722765c029157832dc9ffc",
+      "b85fdca451309fd443224da7ccb9d49fb0253c1324b1497c51708969fed4ae11",
+      "79fc3c5fa81ef610011c86b7f5a5a798344af5289e631e2f9e67bd6dc0fbd959"
+    ],
+    "eligibility": [
+      "1792ca75165bc599677e84bb27946558e3c871a007f605d2fb76da7a48822f57",
+      "f88e0f2f87d7ac72f1b04e096892f54d3586bcadf6e85dd0b69f4c8cb3126ba7",
+      "aa44ee56e624d4efe28e98826173b1d88ddff481d7bcbbc39e60d37dd33b0644",
+      "8f6fe57070660a9ea6980891a621e1c15728cad3343d2b592e543f80056b361e",
+      "09c84b08defbd56d0580d2264fc748016639c991a7e593cd3d140fb2de6b02ed",
+      "8ff9b9eb4e40d406e4ebd7fba92101320458cdc99147a07f431653269253755c",
+      "f68cfe37567c4339e510223892ef4c22bc0d76e5f3c8d1a0ed64ec17f433aacf",
+      "0a876e67a19992419df45ddaa37ab6fafcbc24225d7ef895702705c0680da0c9"
+    ],
+    "debtor": [
+      "e1543c38ecc20cf814a817a6c01c291c1af48a8a0abd9f4416f223e92e3121af",
+      "a21b11814b1ab5c68293162831f3e90169c9254d824f5252866fc2fadb496d77",
+      "1d040c223bd891f34001afe47ff9bbfd3afabd5645e95a8edf85fd04a020fb6a",
+      "2d23501e210e2232254abe1ee37002432f0b71f66cf6e78ce15e4d8a7b759e11",
+      "743c96dd669f832e15587e6a70e5a8a601920cac528b51d7616541015f6dab90",
+      "51c91e6bea9d63d2aa6bcabb55353f770661ca8e90ad720dcac6d872c530a0c8",
+      "1c002e669d754470ab2c25e591ec7c3aee7a5b99e2a287c2458ad0a209e8cd88",
+      "981fb4cf44235489fbc38ec879864aa984fca167bfad148e0b60643ac2ee932d"
     ]
   },
   "entries": {
@@ -564,24 +569,6 @@
       "risk_note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
       "sources": [
         "ae4543ebb4b52b40847341e5535ab78adbcc28283825d9b0065f827f937c6e31"
-      ]
-    },
-    "f7b686e2aa9c3d0478f9fba36b3ca3d24378ba589c72dc38444f46c9a5d5807c": {
-      "reference_date": "2025-12-31",
-      "value": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá adquirir direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou coobrigação de uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "593beabea2a0e10ee069dab191853d84951a070e72f6a72651f30a2bd0b2cddc"
-      ]
-    },
-    "2aee7c1201388d826f3a9a0b42f004bbf0e15556e9b63178539fba5a8f5b806a": {
-      "reference_date": "2024-12-31",
-      "value": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá adquirir direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou coobrigação de uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "29f88c7b9b5ff8bfa92605cc089d46789fff3aac7f9a717366a28bfd7cf5e216"
       ]
     },
     "cd92816230772e107df856b740c744c5386fb93064326bf17c56e170ba16fc20": {
@@ -3177,6 +3164,114 @@
       "sources": [
         "d2fe343e8ece7754c23152693d11c393f877125f3ce49cd249e1578001dd3e36"
       ]
+    },
+    "fa7328d675e997bda4654fa9c5c643b3b32753efbabe137d06542100b7f23526": {
+      "reference_date": "2025-12-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ee5c52b948e687bd3b06659b79abc6bcfe4e4c874e6cc7d7dc1c133dab8daaa3"
+      ]
+    },
+    "d091b38c2084b0fae80b996d0a78c4e9564044e161b195e5cd99d620e7feef12": {
+      "reference_date": "2024-04-11",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "68df2fb3ae6c405255bf31ddc884d0bb904ae213e935124b26d05efc1600669f"
+      ]
+    },
+    "c6279988408c36d20db00f44b5c9986168887204ea722765c029157832dc9ffc": {
+      "reference_date": "2024-04-11",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f3b5f0fc7787edc748f62bc54546e45f6213b2177fa2b59950f3552b2f426ae5"
+      ]
+    },
+    "b85fdca451309fd443224da7ccb9d49fb0253c1324b1497c51708969fed4ae11": {
+      "reference_date": "2024-03-14",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a013d1ae22d8bb69713d5060dd009c3c8f5a206d0dbd530a6dc42f166182b924"
+      ]
+    },
+    "79fc3c5fa81ef610011c86b7f5a5a798344af5289e631e2f9e67bd6dc0fbd959": {
+      "reference_date": "2024-03-05",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "04c41a9cee964b45769c003485f764070174fdc7de56060087d8db8f1fa1a35c"
+      ]
+    },
+    "a21b11814b1ab5c68293162831f3e90169c9254d824f5252866fc2fadb496d77": {
+      "reference_date": "2025-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29e0983cdb747deb60086a19316734ed0c2406f8c2770453ee82689f69499f66"
+      ]
+    },
+    "1d040c223bd891f34001afe47ff9bbfd3afabd5645e95a8edf85fd04a020fb6a": {
+      "reference_date": "2024-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0bdd72f7843cf650485b0f9f360b7b7367e17071bfddf192b851a89b6d09b1d5"
+      ]
+    },
+    "2d23501e210e2232254abe1ee37002432f0b71f66cf6e78ce15e4d8a7b759e11": {
+      "reference_date": "2025-12-22",
+      "value": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d6d4571ce4aaa4068464957a1ddfccb790d546ab0f77a016dc3c287ae46c9bb9"
+      ]
+    },
+    "743c96dd669f832e15587e6a70e5a8a601920cac528b51d7616541015f6dab90": {
+      "reference_date": "2024-04-11",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ec0dce378402a35bb211328e11cc9c5fd97d39fe1d3306b2c7fe65aebae0c731"
+      ]
+    },
+    "51c91e6bea9d63d2aa6bcabb55353f770661ca8e90ad720dcac6d872c530a0c8": {
+      "reference_date": "2024-04-11",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2d030befec8dd1527c88a4f7cfef235330bbd0898c7f72f43e372e69ae9f09bb"
+      ]
+    },
+    "1c002e669d754470ab2c25e591ec7c3aee7a5b99e2a287c2458ad0a209e8cd88": {
+      "reference_date": "2024-03-14",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8c83f2227d673ee6c6ba30cfb5ce2dde8960caccd68fb327d54262d01be70f0c"
+      ]
+    },
+    "981fb4cf44235489fbc38ec879864aa984fca167bfad148e0b60643ac2ee932d": {
+      "reference_date": "2024-03-05",
+      "value": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5072d8804ee3e7034a3acd7fbc580dc497d69bea13f5f8e67965800763e695db"
+      ]
     }
   },
   "passages": {
@@ -3323,30 +3418,6 @@
       "clause": "",
       "excerpt": "estável), Banco do Brasil S.A. (AAA.br estável), Nu Pagamentos S.A., Banco Cooperativo Sicredi S.A. (AAA.br estável), Banco Pan S.A. (AAA.br estável), Banco Safra S.A. (AAA.br estável), Banco BTG Pactual S.A. (BTG, AAA.br estável), Banco Inter S.A., Banco Cooperativo do Brasil S.A, Portoseg S/A - Crédito, Financiamento e Investimento, Banco Votorantim S.A. (AA.br estável), Banco Daycoval S.A. (AA.br estável), Banco Sofisa S.A.\n(AA-.br estável), Banco do Nordeste do Brasil S.A. (AA.br estável), Banco Modal S.A.\n(AA+.br estável), Banco XP S.A. e Banco CSF S.A.. Também serão permitidos recebíveis do Banco do Estado do Pará S.A. (AA-.br negativa) até o limte de subordinação das Cotas Seniores. Levando em consideração o prazo curto dos recebíveis, a avaliação dos devedores limita o rating da operação em AA.br.\nReforço de crédito de 5,0% na forma de subordinação cobre risco de diluições. As Cotas Seniores contam com proteção das Cotas Subordinadas, que corresponderão a 5,0% do valor total da emissão. Caso as subordinação caia abaixo desse nível ao longo do prazo da operação, acontecerá um evento de avaliação. Em um cenário de default do cedente, o reforço de crédito é suficiente para cobrir perdas resultantes de diluições considerando estresses condizentes com o rating das Cotas Seniores. Conforme relatório de consultoria externa obtido pela Moody´s Local para o período de janeiro de 2021 a outubro de 2023, a média de diluições foi de 0,26%, com desvio padrão de também 0,26%, considerando recebíveis com prazo decorrido de, no mínimo, um dia. A subordinação também cobre o risco de descasamento de taxas de juros entre ativos e Cotas Seniores.\nRisco de descasamento de taxa de juros mitigado pelo prazo curto dos recebíveis: Os direitos creditórios serão adquiridos a uma taxa pré-fixada indexada à taxa DI, enquanto as Cotas Seniores terão remuneração pós-fixada. A taxa de desconto aplicada aos novos recebíveis irá considerar a taxa DI vigente na cessão. Assim, existe um risco de descasamento de taxas de juros durante o prazo dos recebíveis. Esse risco é mitigado pelo prazo curto dos recebíveis.\nVínculo de crédito com a CloudWalk na qualidade de originador dos recebíveis: Os direitos creditórios são originados pela CloudWalk a partir de transações feitas por usuários finais, utilizando-se de cartões de crédito em estabelecimentos que usam o Sistema CloudWalk. Os recebíveis originados pela CloudWalk têm um prazo médio de vencimento de seis meses e prazo médio de recebimento de três meses, o que resulta em elevada revolvência. No entanto, pela natureza dos recebíveis, a qualidade da carteira não seria diretamente impactada por uma deterioração nos negócios da CloudWalk. Mesmo assim, avaliamos que existe algum vínculo de crédito com o cedente, considerando a obrigação de resolução da cessão de recebíveis diluidos.\nBaixo risco de fungibilidade: Todos os recebíveis pertencentes à operação são depositados nas contas reservas dos bancos liquidantes, que são o Bradesco, para as operações provenientes da bandeira Hiper; e o BTG, para as transações com outras bandeiras. Os recursos serão transferidos no mesmo dia útil para as contas centralizadoras de movimentação restrita do cedente, domiciliadas nas mesmas instituições liquidantes de cada bandeira (bancos depositários). No mesmo dia útil, os bancos depositários creditarão os valores referentes aos recebíveis cedidos na conta do fundo, domiciliada no Genial. Em caso de default do Genial, poderá haver bloqueio de recursos do fundo, além de interrupção operacional. Existe, entretanto, um limite de R$ 100 mil em recursos que podem ser mantidos em tal conta. Além disso, o fluxo diário de recebíveis representa um valor pequeno em relação ao patrimônio líquido do fundo. Portanto, o risco de fungibilidade não limita o rating das Cotas Seniores.",
       "sha256": "978178e0b665013592622532ef618e8f438dfd2b3c35cd77ec7030b1ae952fef",
-      "verification": "primary_passage"
-    },
-    "593beabea2a0e10ee069dab191853d84951a070e72f6a72651f30a2bd0b2cddc": {
-      "document_id": "1151744",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151744",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá adquirir  direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou coobrigação de  uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio.",
-      "sha256": "4e1fa8eb8c4381863ebaa7fff7dd4449f81f93a81be72424c53b4175ce939222",
-      "verification": "primary_passage"
-    },
-    "29f88c7b9b5ff8bfa92605cc089d46789fff3aac7f9a717366a28bfd7cf5e216": {
-      "document_id": "864475",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864475",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "Adicionalmente, conforme estabelecido no item 2.10 do Regulamento, a Classe A poderá  adquirir direitos creditórios elegíveis e ativos financeiros provenientes de devedores ou  coobrigação de uma mesma pessoa, sem a observância do limite de 20% do seu patrimônio.",
-      "sha256": "3fb61a0d625eeca3dc085cea861be9ae87147918229af42df5da7d09079927ce",
       "verification": "primary_passage"
     },
     "e094cd93c7e13b681914fd336a8deca422bf919547bc72e8dd67f7674fb597f6": {
@@ -6433,6 +6504,114 @@
       "clause": "18.1",
       "excerpt": "18.1 acima, os procedimentos de aquisição de Direitos Creditórios devidos pelo Devedor  que gerou o Evento de Avaliação em questão. Concomitantemente, será convocada  Assembleia Especial, nos termos do Capítulo XVII, para avaliar o grau de  comprometimento das atividades da Classe A em razão do Evento de Avaliação, podendo  a Assembleia Especial deliberar que o Evento de Avaliação que deu causa à Assembleia  Geral constitui um Evento de Liquidação, estipulando os procedimentos para a liquidação  da Classe A, situação em que não será necessária da convocação de nova Assembleia  Especial nos termos do Capítulo XVII acima para avaliar a interrupção dos procedimentos  de liquidação da Classe A em decorrência de caracterização de um Evento de Liquidação.",
       "sha256": "5860a3d62c894a7535a92fc662d1761c36a2bd8a2fa991da591a3974a3982ac1",
+      "verification": "primary_passage"
+    },
+    "f3b5f0fc7787edc748f62bc54546e45f6213b2177fa2b59950f3552b2f426ae5": {
+      "document_id": "638458",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638458",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 53,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de  Credenciamento, possibilita que estabelecimentos comerciais ou  profissionais autônomos aceitem os Instrumentos de Pagamento emitidos  por Emissores (incluindo os Devedores), no âmbito dos Arranjos de  Pagamento estabelecidos pelas Bandeiras, como meio de pagamento;\n(vi) no curso normal de seus negócios, os Estabelecimentos Credenciados  celebram diversas operações de venda de bens, produtos e/ou serviços  juntos aos Usuários-Finais, os quais podem utilizar Instrumentos de",
+      "sha256": "feafa1c2b203f80b054be728daee945b73b5bc0dd8a6e6db0dc0f0fde656f5e2",
+      "verification": "primary_passage"
+    },
+    "a013d1ae22d8bb69713d5060dd009c3c8f5a206d0dbd530a6dc42f166182b924": {
+      "document_id": "622664",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622664",
+      "reference_date": "2024-03-14",
+      "version": "1",
+      "page": 52,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto  de regras e procedimentos que disciplina a prestação de determinado  serviço de pagamento ao público, denominado de Arranjo de Pagamento,  detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas  e logotipos que identificam os Instrumentos de Pagamento, sendo também  responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de  Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, os  Emissores são instituições financeiras e/ou instituições de pagamento  devidamente autorizadas a emitir moeda eletrônica e/ou Instrumentos de  Pagamento (inclusive Cartões), com validade no Brasil, nos termos da  legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas,  a aceitação de Instrumentos de Pagamento, emitidos por Emissores, no  âmbito dos Arranjos de Pagamento estabelecidos pelas Bandeiras, como  meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou  profissionais autônomos contra as entidades credenciadoras, que, por outro  lado, têm um equivalente crédito contra os Emissores;\n(v) a CloudWalk é a Credenciadora que, por meio da adesão de  estabelecimentos comerciais ou profissionais autônomos ao Contrato de",
+      "sha256": "5860a3d62c894a7535a92fc662d1761c36a2bd8a2fa991da591a3974a3982ac1",
+      "verification": "primary_passage"
+    },
+    "29e0983cdb747deb60086a19316734ed0c2406f8c2770453ee82689f69499f66": {
+      "document_id": "1151744",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151744",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente",
+      "sha256": "4e1fa8eb8c4381863ebaa7fff7dd4449f81f93a81be72424c53b4175ce939222",
+      "verification": "primary_passage"
+    },
+    "0bdd72f7843cf650485b0f9f360b7b7367e17071bfddf192b851a89b6d09b1d5": {
+      "document_id": "864475",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864475",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 23,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente instituições financeiras, inclusive para implementação de política econômica específica ou em decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento, nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "3fb61a0d625eeca3dc085cea861be9ae87147918229af42df5da7d09079927ce",
+      "verification": "primary_passage"
+    },
+    "d6d4571ce4aaa4068464957a1ddfccb790d546ab0f77a016dc3c287ae46c9bb9": {
+      "document_id": "1072799",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072799",
+      "reference_date": "2025-12-22",
+      "version": "1",
+      "page": 73,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura",
+      "sha256": "628cb603db224f8712e6afbbef4ac79222a5aeda008c718c1b8d86a8199a4537",
+      "verification": "primary_passage"
+    },
+    "ec0dce378402a35bb211328e11cc9c5fd97d39fe1d3306b2c7fe65aebae0c731": {
+      "document_id": "638457",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638457",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 77,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "3b9076bf8430b447df6579d1f6c106c056e3d6fe893d7bb19882fc7cb6d78a72",
+      "verification": "primary_passage"
+    },
+    "2d030befec8dd1527c88a4f7cfef235330bbd0898c7f72f43e372e69ae9f09bb": {
+      "document_id": "638458",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638458",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 73,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "feafa1c2b203f80b054be728daee945b73b5bc0dd8a6e6db0dc0f0fde656f5e2",
+      "verification": "primary_passage"
+    },
+    "8c83f2227d673ee6c6ba30cfb5ce2dde8960caccd68fb327d54262d01be70f0c": {
+      "document_id": "622664",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622664",
+      "reference_date": "2024-03-14",
+      "version": "1",
+      "page": 72,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e",
+      "sha256": "5860a3d62c894a7535a92fc662d1761c36a2bd8a2fa991da591a3974a3982ac1",
+      "verification": "primary_passage"
+    },
+    "5072d8804ee3e7034a3acd7fbc580dc497d69bea13f5f8e67965800763e695db": {
+      "document_id": "615968",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=615968",
+      "reference_date": "2024-03-05",
+      "version": "1",
+      "page": 70,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram",
+      "sha256": "a180e1bd65b68cf1fd85d0b52f845c623212b31cd84475c2a25f6982dfc82c79",
       "verification": "primary_passage"
     }
   }

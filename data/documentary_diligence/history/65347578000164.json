@@ -3,15 +3,6 @@
   "cnpj": "65347578000164",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "d836960d46a83389e72fe949d37c42bf68ac42f9d18fa021e7f15e891bf43917",
-      "f9adc088cbae563df62a37fe918b880bd41a2b483ed301553211689bd26f81f0",
-      "93e1cd0d938a6566fa88fa1ebecfc3e5136f73a0ffc229f36c071a2eb4b2d09a",
-      "26e9f867833e791721c4e074260a72e2cb634b4491a6c5ba8ae2c22ab30bb567",
-      "fdc3007788f8d66a559cb02e87b21502de775b1def800bb516526d90af424004",
-      "7b97b35f9a2c2cb0a248e6a54060b9e3f9d2b0cc934030c4e4e211e8556643fd",
-      "0d5653e3f892c02f8354f2908f6ee628da34f861ddfa4351b531911eb3c7eef7"
-    ],
     "ticket": [
       "e78171640b0280dcd8feab09349ed59d5b5ac8044f5d90cbe5a649197f828842"
     ],
@@ -330,25 +321,6 @@
       "c5514379cf8e1808de0ed61ca3019fea1c5a6cd1473e8f031aa0ae52a5db602e",
       "f9aecf1e8d1f8e8983b3e22799287160d14af7937d3afa03e36fc30612fdf0d6"
     ],
-    "originator": [
-      "c5ad57a7be0b8a3d19c832fa50456fe158c21d4b810259ab88c90a6f01ddb38a",
-      "a4df87ae354557a555b09faa6f733a7fbcf4af60adadbb45f78efebaf2a0c99d",
-      "1dfd781177b3cf188e059110d7e4125878b540d17c7d0ceea7baf02a02db81ed",
-      "f1dd651f1081c8bcf2d6cab96b14ca5d4eeb719e50aff0699ca89c40e00fc7bc",
-      "ffaeb5f9b7ff140841c048eb027b1fff190fdf1251e2f24809fbfcc59e0ae230",
-      "30ff22409a835715fb644d8c3f4f78e7565a122aba9053915d9855a9a758754d",
-      "7cca482a8f57aa3f29482956e28b4db3c0f426a47077d684e583cf299e189328",
-      "8813557d0a343ba8f0b4fa5608c7c694d0c39ecc507c72f9d09a7a2d517b3fa5",
-      "ecce055a84e2cc4d42d8c7944511846ae8993089eaf953ccd29a1078385fd77e"
-    ],
-    "debtor": [
-      "ca060f95bfea754deb54397c21600af356a68dde6194eff4133c8ba4ed089c85",
-      "7c084bad34ef8ecf586ca0b675e57062c5cc3fda1404bf45b97d4b694400300f",
-      "13d96323121e653c7db49a67d9779c4e0d079ae9e253307b00393b9aaad158e7",
-      "09affcf85af42a98b201c1a3a456d1ae47e4d5d751d303f6ed8c6899cd382479",
-      "a82f53733d20e55c72d254c3bc4e9dd2f9e6b7a768359988128fba3aca15b24b",
-      "2bb43567bf71c1782935b19d04b481af4518e88526fc00b2c1c7f0733129a13d"
-    ],
     "investee": [
       "8ca54eb6d294d281104841121202ac988108f9c96ec0b04934bf6978a89404e9",
       "ca86443da6446704045fd40bc5c8948d84b15831852c11f85b5dce91fdd55735",
@@ -382,6 +354,34 @@
       "cafecf9c460d729c68e2a9fc52cc4e9138713c860b2a40a81c404bc557ea2a9d",
       "222b9bae64ea8dff6eef74d430ecbdbf238827a892306a6af4aba3d0d61a99b2",
       "f889b68cd356f8b26fe337f1acd50ef52119b1f8c65af617d9cfef80c70625b8"
+    ],
+    "originator": [
+      "c5ad57a7be0b8a3d19c832fa50456fe158c21d4b810259ab88c90a6f01ddb38a",
+      "a4df87ae354557a555b09faa6f733a7fbcf4af60adadbb45f78efebaf2a0c99d",
+      "1dfd781177b3cf188e059110d7e4125878b540d17c7d0ceea7baf02a02db81ed",
+      "f1dd651f1081c8bcf2d6cab96b14ca5d4eeb719e50aff0699ca89c40e00fc7bc",
+      "ffaeb5f9b7ff140841c048eb027b1fff190fdf1251e2f24809fbfcc59e0ae230",
+      "30ff22409a835715fb644d8c3f4f78e7565a122aba9053915d9855a9a758754d",
+      "7cca482a8f57aa3f29482956e28b4db3c0f426a47077d684e583cf299e189328",
+      "8813557d0a343ba8f0b4fa5608c7c694d0c39ecc507c72f9d09a7a2d517b3fa5",
+      "ecce055a84e2cc4d42d8c7944511846ae8993089eaf953ccd29a1078385fd77e"
+    ],
+    "eligibility": [
+      "d836960d46a83389e72fe949d37c42bf68ac42f9d18fa021e7f15e891bf43917",
+      "501e9e7c7e1aee01b01995ef896097842f1ed822d50c42a2478ba2e3dfddab58",
+      "363e51b34f4143405f56ba7a4fdc7eeee91418bcd539c5beb7b5c87c495dae0b",
+      "0f16ef071b10c38ed66c9945d559ffd8e6b338ba7b9ad7ec15512799155250d0",
+      "8e709de306012e0ad6251e262f589028afdcc496c353179f70c3fcfeb5ef88c3",
+      "7429bee52b32839e88ff653ad056e7bea8fb18a8898a9aa0009800bfd2cda46f",
+      "15fcb34b0808c9b0ec9fa33b39489ea2056f92e9c91a9c6b954b04db9f18fcb5"
+    ],
+    "debtor": [
+      "ca060f95bfea754deb54397c21600af356a68dde6194eff4133c8ba4ed089c85",
+      "7c084bad34ef8ecf586ca0b675e57062c5cc3fda1404bf45b97d4b694400300f",
+      "13d96323121e653c7db49a67d9779c4e0d079ae9e253307b00393b9aaad158e7",
+      "56f289555d61c82b7cf033c083dea949816a949f7e5f3c20148cb5798c1f036b",
+      "a82f53733d20e55c72d254c3bc4e9dd2f9e6b7a768359988128fba3aca15b24b",
+      "9b931a38da25c708159926aeb0ff555cb81b6c7b5736954d08cc394bdac6f0f3"
     ]
   },
   "entries": {
@@ -532,15 +532,6 @@
         "d9653cc94c5db5b4333ff1aa840734229e637deadf187a99b74b66ae4f46f8a9"
       ]
     },
-    "09affcf85af42a98b201c1a3a456d1ae47e4d5d751d303f6ed8c6899cd382479": {
-      "reference_date": "2026-08-20",
-      "value": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ff590fbf425fb24c69a2ed88ef363ef03edba9a214b4cb688247a0e2811fab78"
-      ]
-    },
     "a82f53733d20e55c72d254c3bc4e9dd2f9e6b7a768359988128fba3aca15b24b": {
       "reference_date": "2026-05-25",
       "value": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores.",
@@ -548,15 +539,6 @@
       "provenance": "primary_passage",
       "sources": [
         "dcba5c5ea58d7bf75a48d7bcaa1ad87312fe35d774ef37984a8ef3a094eb6344"
-      ]
-    },
-    "2bb43567bf71c1782935b19d04b481af4518e88526fc00b2c1c7f0733129a13d": {
-      "reference_date": "2026-03-12",
-      "value": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados conferidos pelo Credor Original aos Devedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9014423b70099a7131c804f39abea315def751550dd4d36c5915a1040d884ac9"
       ]
     },
     "d836960d46a83389e72fe949d37c42bf68ac42f9d18fa021e7f15e891bf43917": {
@@ -567,60 +549,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "d9805072531f350b71c70e4556e81abdcb21dc2033fe4d560c0ef7cab0f5a544"
-      ]
-    },
-    "f9adc088cbae563df62a37fe918b880bd41a2b483ed301553211689bd26f81f0": {
-      "reference_date": "2026-03-31",
-      "value": "Notas explicativas da Administração às Demonstrações Financeiras do período de 20 de março de 2026 (início das atividades) a 31 de março de 2026 (Valores expressos em milhares de reais, exceto quando indicado de outra forma) O Fundo somente pode adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva data de aquisição e pagamento (“Critérios de elegibilidade”): (i) os direitos creditórios a serem transferidos não podem estar vencidos na data de aquisição e pagamento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "70e313ae3a6c684a15d2f9d9d0019bd5fa20460119cda83e4790ed6003f354d2"
-      ]
-    },
-    "93e1cd0d938a6566fa88fa1ebecfc3e5136f73a0ffc229f36c071a2eb4b2d09a": {
-      "reference_date": "2026-03-31",
-      "value": "Notas explicativas da Administração às Demonstrações Financeiras do período de 20 de março de 2026 (início das atividades) a 31 de março de 2026 (Valores expressos em milhares de reais, exceto quando indicado de outra forma) cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva data de aquisição e pagamento (“Critérios de elegibilidade”): (i) os direitos creditórios a serem transferidos não podem estar vencidos na data de aquisição e pagamento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1f76b53bf8571e807a5bb2b46279110f27ca645413dff1eed1196f63d832dde5"
-      ]
-    },
-    "26e9f867833e791721c4e074260a72e2cb634b4491a6c5ba8ae2c22ab30bb567": {
-      "reference_date": "2026-08-20",
-      "value": "4.2 As despesas não previstas neste Regulamento ou na regulamentação aplicável como Encargos deverão correr por conta do Prestador de Serviço Essencial responsável por sua contratação, observado que a Gestora, sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, poderá, às expensas da Classe Única, subcontratar terceiros para dar suporte e auxiliá-lo: (i) na verificação e validação dos Critérios de Elegibilidade; e (ii) na verificação do lastro dos Direitos Creditórios Transferidos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5da51762eaa3e9ad347308186805753d0efffbfbc11ac4c011a5b8ad4aa058d6"
-      ]
-    },
-    "fdc3007788f8d66a559cb02e87b21502de775b1def800bb516526d90af424004": {
-      "reference_date": "2026-05-25",
-      "value": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios a serem transferidos não poderão estar vencidos na Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0145cdf8daa0f1f0129fabf6c392ef62fbf6a98b56c063f064548ed5cef89d50"
-      ]
-    },
-    "7b97b35f9a2c2cb0a248e6a54060b9e3f9d2b0cc934030c4e4e211e8556643fd": {
-      "reference_date": "2026-03-12",
-      "value": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”): (i) os Direitos Creditórios a serem transferidos não poderão estar vencidos na Data de Aquisição e Pagamento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ebee382779f396366185df473f23a94f2967a3f9f4251a54d0c17c5b7643025e"
-      ]
-    },
-    "0d5653e3f892c02f8354f2908f6ee628da34f861ddfa4351b531911eb3c7eef7": {
-      "reference_date": "2026-02-23",
-      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "92e87cdfc83d64b04566f92106cd98421b0f31fad51d3bf6396cfe8d5867ac07"
       ]
     },
     "e78171640b0280dcd8feab09349ed59d5b5ac8044f5d90cbe5a649197f828842": {
@@ -2618,6 +2546,78 @@
       "sources": [
         "5a43e51a0e740508efa5072fcb6159431a9665b7820b22c7af573945d159f23e"
       ]
+    },
+    "501e9e7c7e1aee01b01995ef896097842f1ed822d50c42a2478ba2e3dfddab58": {
+      "reference_date": "2026-03-31",
+      "value": "Notas explicativas da Administração às Demonstrações Financeiras do período de 20 de março de 2026 (início das atividades) a 31 de março de 2026 (Valores expressos em milhares de reais, exceto quando indicado de outra forma) O Fundo somente pode adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva data de aquisição e pagamento (“Critérios de elegibilidade”): (i) os direitos creditórios a serem transferidos não podem estar vencidos na data de aquisição e pagamento; (ii) os direitos creditórios devem ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores devem estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos direitos creditórios transferidos; (iv) considerada pro forma a aquisição dos direitos creditórios ofertados, os direitos creditórios emitidos ou devidos por qualquer Devedor não podem representar mais do que 0,50% (cinquenta centésimos por cento) do patrimônio líquido; (v) o somatório do valor de face dos direitos creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser inferior a R$ 0,5 (quinhentos reais); (vi) o somatório do valor de face dos direitos creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser superior a R$ 250 (duzentos e cinquenta mil reais);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "70e313ae3a6c684a15d2f9d9d0019bd5fa20460119cda83e4790ed6003f354d2"
+      ]
+    },
+    "363e51b34f4143405f56ba7a4fdc7eeee91418bcd539c5beb7b5c87c495dae0b": {
+      "reference_date": "2026-03-31",
+      "value": "Notas explicativas da Administração às Demonstrações Financeiras do período de 20 de março de 2026 (início das atividades) a 31 de março de 2026 (Valores expressos em milhares de reais, exceto quando indicado de outra forma) cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva data de aquisição e pagamento (“Critérios de elegibilidade”): (i) os direitos creditórios a serem transferidos não podem estar vencidos na data de aquisição e pagamento; (ii) os direitos creditórios devem ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores devem estar adimplentes perante o Fundo com relação a todos os pagamentos devidos em virtude dos direitos creditórios transferidos; (iv) considerada pro forma a aquisição dos direitos creditórios ofertados, os direitos creditórios emitidos ou devidos por qualquer Devedor não podem representar mais do que 0,50% (cinquenta centésimos por cento) do patrimônio líquido; (v) o somatório do valor de face dos direitos creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser inferior a R$ 0,5 (quinhentos reais); (vi) o somatório do valor de face dos direitos creditórios integrantes de uma mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deve ser superior a R$ 250 (duzentos e cinquenta mil reais);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1f76b53bf8571e807a5bb2b46279110f27ca645413dff1eed1196f63d832dde5"
+      ]
+    },
+    "0f16ef071b10c38ed66c9945d559ffd8e6b338ba7b9ad7ec15512799155250d0": {
+      "reference_date": "2026-08-20",
+      "value": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de CCB inadimplentes. Neste caso, as seguintes condições deverão ser observadas: (i) a renegociação não afete o valor nominal da CCB; e (ii) as condições de renegociação respeitem os Critérios de Elegibilidade. 3.4.1. O Agente de Cobrança Extraordinária poderá, excepcionalmente, renegociar a CCB abaixo do valor nominal e com juros remuneratórios inferior à taxa de juros original desde que o Índice de Renegociação seja inferior a 1% (um por cento). 3.4.2. Para fins de esclarecimento, considera-se “Índice de Renegociação” o índice calculado periodicamente pelo Consultor Especializado do Fundo, com relação a Data de Início do Fundo e a respectiva data de apuração, resultante da razão",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4f8ac7d9c7d851e8b72d364f64b351b8b7a2fa01eefd92f97a900c6149313a60"
+      ]
+    },
+    "8e709de306012e0ad6251e262f589028afdcc496c353179f70c3fcfeb5ef88c3": {
+      "reference_date": "2026-05-25",
+      "value": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de CCB inadimplentes. Neste caso, as seguintes condições deverão ser observadas: (i) a renegociação não afete o valor nominal da CCB; e (ii) as condições de renegociação respeitem os Critérios de Elegibilidade. 3.4.1. O Agente de Cobrança Extraordinária poderá, excepcionalmente, renegociar a CCB abaixo do valor nominal e com juros remuneratórios inferior à taxa de juros original desde que o Índice de Renegociação seja inferior a 1% (um por cento). 3.4.2. Para fins de esclarecimento, considera-se “Índice de Renegociação” o índice calculado periodicamente pelo Consultor Especializado do Fundo, com relação a Data de Início do Fundo e a respectiva data de apuração, resultante da razão entre (i) o somatório do Saldo Atualizado dos Direitos Creditórios Transferidos, bruto de provisão para devedores duvidosos, conforme calculado na respectiva Data Base de Índices, referente a todos os Direitos Creditórios Transferidos que tenham sido originados por meio de Renegociação, que tenham (a) o somatório do valor de face dos Direitos Creditórios Transferidos integrantes da CCB renegociada inferior ao somatório do valor de face dos Direitos Creditórios Transferidos da CCB original; e (b) nova taxa de juros inferior à Taxa de Transferência ao Fundo; e (ii) o Patrimônio Líquido na respectiva Data Base de Índices.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "221097cfa002ef4e7e2f6bb271cd88821a506b338c9bd2bb4f96b169e9825480"
+      ]
+    },
+    "7429bee52b32839e88ff653ad056e7bea8fb18a8898a9aa0009800bfd2cda46f": {
+      "reference_date": "2026-03-12",
+      "value": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de CCB inadimplentes. Neste caso, as seguintes condições deverão ser observadas: (i) a renegociação não afete o valor nominal da CCB; e (ii) as condições de renegociação respeitem os Critérios de Elegibilidade. 3.4.1. O Agente de Cobrança Extraordinária poderá, excepcionalmente, renegociar a CCB abaixo do valor nominal e com juros remuneratórios inferior à taxa de juros original desde que o Índice de Renegociação seja inferior a 1% (um por cento). 3.4.2. Para fins de esclarecimento, considera-se “Índice de Renegociação” o índice calculado periodicamente pelo Consultor Especializado do Fundo, com relação a Data de Início do Fundo e a respectiva data de apuração, resultante da razão entre (i) o somatório do Saldo Atualizado dos Direitos Creditórios Transferidos, bruto de provisão para devedores duvidosos, conforme calculado na respectiva Data Base de Índices, referente a todos os Direitos Creditórios Transferidos que tenham sido originados por meio de Renegociação, que tenham (a) o somatório do valor de face dos Direitos Creditórios Transferidos integrantes da CCB renegociada inferior ao somatório do valor de face dos Direitos Creditórios Transferidos da CCB original; e (b) nova taxa de juros inferior à Taxa de Transferência ao Fundo; e (ii) o Patrimônio Líquido na respectiva Data Base de Índices.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9eb1992fc575416dd470ee1ce8af9cbcb1b486685568925246082ba46da2d3e4"
+      ]
+    },
+    "15fcb34b0808c9b0ec9fa33b39489ea2056f92e9c91a9c6b954b04db9f18fcb5": {
+      "reference_date": "2026-02-23",
+      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em moeda corrente nacional; (ii) o prazo máximo de vencimento dos Direitos Creditórios deverá ser de 10 (dez) meses a contar de sua formalização; (iii) o Direito Creditórios não poderá estar vencido na Data de Aquisição; (iv) não poderão ser devidos por Devedor ou entidade de seu Grupo Econômico que esteja inadimplente em relação a quaisquer outros Direitos Creditórios pertencentes à Classe; (v) o Cedente e o respectivo Devedor não poderão ter ingressado em regime de intervenção, liquidação, falência, administração especial, recuperação judicial ou extrajudicial ou outros eventos similares; (vi) a cessão dos Direitos Creditórios ao Fundo deve estar limitada aos direitos e garantias previstos no Contrato de Cessão; (vii) o valor total de Direitos Creditórios devidos por um mesmo Grupo Econômico de um Devedor, depois de computada, pro forma, a aquisição dos Direitos Creditórios pretendida pela Classe, não poderá corresponder a percentual superior a 20% (vinte por cento) do saldo do valor presente dos Direitos Creditórios detidos pela Classe; (viii) o valor total de Direitos Creditórios devidos por um mesmo Devedor Especial depois de computada, pro forma, a aquisição de Direitos Creditórios pretendida pela Classe, não poderá corresponder a percentual superior a 50% (cinquenta por cento) do saldo do valor presente dos Direitos Creditórios detidos pela Classe; (ix) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (x) os Direitos de Crédito devem ter sido originados e formalizados de acordo com a Política de Concessão de Crédito; (xi) devem ser oriundos de operações celebradas entre o Cedente e os respectivos Devedores. 3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da cessão dos Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d4ae1b82bb33a365781c22e6680777a438615380157301558bebf79dbc0fc4a4"
+      ]
+    },
+    "56f289555d61c82b7cf033c083dea949816a949f7e5f3c20148cb5798c1f036b": {
+      "reference_date": "2026-08-20",
+      "value": "Suplementos, as Despesas de Manutenção do Fundo corresponderão a um percentual fixo equivalente a 0,20% (vinte centésimos por cento) ao ano, calculado sobre o Patrimônio Líquido do Fundo. A definição acima não implica teto, previsão, estimativa ou garantia quanto ao montante efetivo das despesas do Fundo. “Devedores” Os Beneficiários que tenham tomado crédito com o Credor Original, com Consignação na respectiva folha de benefícios, representado por CCB, cujos Direitos Creditórios tenham sido transferidos ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d2d89ff2d39b6aa60e41b5952f41d82c52f53811aec16855b8fd5b72adc563c0"
+      ]
+    },
+    "9b931a38da25c708159926aeb0ff555cb81b6c7b5736954d08cc394bdac6f0f3": {
+      "reference_date": "2026-03-12",
+      "value": "“Despesas de Manutenção do Fundo” Para fins exclusivos de cálculo dos parâmetros previstos neste Regulamento e nos respectivos Suplementos, as Despesas de Manutenção do Fundo corresponderão a um percentual fixo equivalente a 0,20% (vinte centésimos por cento) ao ano, calculado sobre o Patrimônio Líquido do Fundo. A definição acima não implica teto, previsão, estimativa ou garantia quanto ao montante efetivo das despesas do Fundo. “Devedores” Os Beneficiários que tenham tomado crédito com o Credor Original, com Consignação na respectiva folha de benefícios, representado por CCB, cujos Direitos Creditórios tenham sido transferidos ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bedd49c00feccc106895f7ee2a712e29c82ec9d5964e56e014cf49b03df33dce"
+      ]
     }
   },
   "passages": {
@@ -2816,18 +2816,6 @@
       "sha256": "2f13cc8c723c757cded46a3262a545c0789ce71eb49ff9439cb934b047cbe1b3",
       "verification": "primary_passage"
     },
-    "ff590fbf425fb24c69a2ed88ef363ef03edba9a214b4cb688247a0e2811fab78": {
-      "document_id": "1302835",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302835",
-      "reference_date": "2026-08-20",
-      "version": "1",
-      "page": 180,
-      "clause": "5.1",
-      "excerpt": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são  recebíveis vincendos, representados por CCB, emitidas pelos Devedores em  favor do Credor Original e cujo pagamento ordinário é realizado por meio de  Consignação realizada pelo INSS, devidamente formalizados nos termos da  legislação e regulamentação aplicável, oriundos de empréstimos Consignados  conferidos pelo Credor Original aos Devedores.",
-      "sha256": "8f07679c4a2587effe2a0874d582e8c43225622bac153bc8f4b6c39297dc9f19",
-      "verification": "primary_passage"
-    },
     "dcba5c5ea58d7bf75a48d7bcaa1ad87312fe35d774ef37984a8ef3a094eb6344": {
       "document_id": "1211821",
       "title": "Regulamento",
@@ -2838,18 +2826,6 @@
       "clause": "5.1",
       "excerpt": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis vincendos,  representados por CCB, emitidas pelos Devedores em favor do Credor Original e cujo pagamento  ordinário é realizado por meio de Consignação realizada pelo INSS, devidamente formalizados  nos termos da legislação e regulamentação aplicável, oriundos de empréstimos Consignados  conferidos pelo Credor Original aos Devedores.",
       "sha256": "e7a9e15f22bc2996c0fc06312a49b35740d25abb01b7c38926db2dfbfabbc06f",
-      "verification": "primary_passage"
-    },
-    "9014423b70099a7131c804f39abea315def751550dd4d36c5915a1040d884ac9": {
-      "document_id": "1135444",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135444",
-      "reference_date": "2026-03-12",
-      "version": "1",
-      "page": 150,
-      "clause": "5.1",
-      "excerpt": "5.1. Os Direitos Creditórios a serem adquiridos pela Classe Única são recebíveis  vincendos, representados por CCB, emitidas pelos Devedores em favor do Credor Original  e cujo pagamento ordinário é realizado por meio de Consignação realizada pelo INSS,  devidamente formalizados nos termos da legislação e regulamentação aplicável, oriundos  de empréstimos Consignados conferidos pelo Credor Original aos Devedores.",
-      "sha256": "a0efa43a17da4cb19979a1be5eb8a42bc9366debdd86b23db03027524d217710",
       "verification": "primary_passage"
     },
     "d9805072531f350b71c70e4556e81abdcb21dc2033fe4d560c0ef7cab0f5a544": {
@@ -2887,42 +2863,6 @@
       "clause": "",
       "excerpt": "Notas explicativas da Administração às Demonstrações Financeiras do período de 20 de março de 2026 (início das atividades) a 31 de março de 2026 (Valores expressos em milhares de reais, exceto quando indicado de outra forma) cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na respectiva data de aquisição e pagamento (“Critérios de elegibilidade”):\n(i) os direitos creditórios a serem transferidos não podem estar vencidos na  data de aquisição e pagamento;\n(ii) os direitos creditórios devem ser exclusivamente expressos em moeda  corrente nacional;\n(iii) os Devedores devem estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude dos direitos creditórios  transferidos;\n(iv) considerada pro forma a aquisição dos direitos creditórios ofertados, os  direitos creditórios emitidos ou devidos por qualquer Devedor não podem  representar mais do que 0,50% (cinquenta centésimos por cento) do  patrimônio líquido;\n(v) o somatório do valor de face dos direitos creditórios integrantes de uma  mesma CCB ofertada ao Fundo (considerando a cessão de todas as  parcelas vincendas) não deve ser inferior a R$ 0,5 (quinhentos reais);\n(vi) o somatório do valor de face dos direitos creditórios integrantes de uma  mesma CCB ofertada ao Fundo (considerando a cessão de todas as  parcelas vincendas) não deve ser superior a R$ 250 (duzentos e cinquenta  mil reais);",
       "sha256": "2f13cc8c723c757cded46a3262a545c0789ce71eb49ff9439cb934b047cbe1b3",
-      "verification": "primary_passage"
-    },
-    "5da51762eaa3e9ad347308186805753d0efffbfbc11ac4c011a5b8ad4aa058d6": {
-      "document_id": "1302835",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302835",
-      "reference_date": "2026-08-20",
-      "version": "1",
-      "page": 19,
-      "clause": "4.2",
-      "excerpt": "4.2 As despesas não previstas neste Regulamento ou na regulamentação aplicável como Encargos deverão correr por conta do Prestador de Serviço Essencial responsável por sua contratação, observado que a Gestora, sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, poderá, às expensas da Classe Única, subcontratar terceiros para dar suporte e auxiliá-lo: (i) na verificação e validação dos Critérios de Elegibilidade; e (ii) na verificação do lastro dos Direitos Creditórios Transferidos.",
-      "sha256": "8f07679c4a2587effe2a0874d582e8c43225622bac153bc8f4b6c39297dc9f19",
-      "verification": "primary_passage"
-    },
-    "0145cdf8daa0f1f0129fabf6c392ef62fbf6a98b56c063f064548ed5cef89d50": {
-      "document_id": "1211821",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1211821",
-      "reference_date": "2026-05-25",
-      "version": "1",
-      "page": 181,
-      "clause": "6.1",
-      "excerpt": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora na  respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios a serem transferidos não poderão estar vencidos na Data de  Aquisição e Pagamento;\n(ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\n(iii) os Devedores deverão estar adimplentes perante o Fundo com relação a todos os  pagamentos devidos em virtude dos Direitos Creditórios Transferidos;\n(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os Direitos  Creditórios emitidos ou devidos por qualquer Devedor não poderão representar mais do  que 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido;\n(v) o somatório do valor de face dos Direitos Creditórios integrantes de uma mesma  CCB ofertada ao Fundo (considerando a cessão de todas as parcelas vincendas) não deverá  ser inferior a R$500,00 (quinhentos reais);",
-      "sha256": "e7a9e15f22bc2996c0fc06312a49b35740d25abb01b7c38926db2dfbfabbc06f",
-      "verification": "primary_passage"
-    },
-    "ebee382779f396366185df473f23a94f2967a3f9f4251a54d0c17c5b7643025e": {
-      "document_id": "1135444",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135444",
-      "reference_date": "2026-03-12",
-      "version": "1",
-      "page": 154,
-      "clause": "6.1",
-      "excerpt": "6.1. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados pela  Gestora na respectiva Data de Aquisição e Pagamento (“Critérios de Elegibilidade”):\n(i) os Direitos Creditórios a serem transferidos não poderão estar vencidos na  Data de Aquisição e Pagamento;\n(ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(iii) os Devedores deverão estar adimplentes perante o Fundo com relação a  todos os pagamentos devidos em virtude dos Direitos Creditórios Transferidos;\n(iv) considerada pro forma a aquisição dos Direitos Creditórios ofertados, os  Direitos Creditórios emitidos ou devidos por qualquer Devedor não poderão  representar mais do que 0,50% (cinquenta centésimos por cento) do Patrimônio  Líquido;\n(v) o somatório do valor de face dos Direitos Creditórios integrantes de uma  mesma CCB ofertada ao Fundo (considerando a cessão de todas as parcelas  vincendas) não deverá ser inferior a R$500,00 (quinhentos reais);",
-      "sha256": "a0efa43a17da4cb19979a1be5eb8a42bc9366debdd86b23db03027524d217710",
       "verification": "primary_passage"
     },
     "92e87cdfc83d64b04566f92106cd98421b0f31fad51d3bf6396cfe8d5867ac07": {
@@ -5361,6 +5301,82 @@
       "clause": "",
       "excerpt": "Em 17 de março de 2026, foi divulgado anúncio de início de distribuição pública de cotas da 1ª (primeira) emissão da classe única do ICRED INSS  III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA, inscrito no Cadastro Nacional da Pessoa Jurídica  (“CNPJ”) sob o nº 65.347.578/0001-64, regido pelo seu regulamento (“Regulamento”) (respectivamente, “Oferta” e “Fundo”), coordenada pelo  ITAÚ BBA ASSESSORIA FINANCEIRA S.A., integrante do sistema de distribuição de valores mobiliários, constituída sob a forma de sociedade  anônima, com escritório na cidade de São Paulo, estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 1º, 2º e 3º (parte), 4º e 5º  andares, Itaim Bibi, 04538-132, inscrita no CNPJ sob o nº 04.845.753/0001-59 (“Coordenador Líder”).\n Em 27 de março de 2026, foi publicada no sítio eletrônico “Valor Investe”, matéria intitulada “iCred capta R$ 750 milhões em novo FIDC para linha  de crédito consignado INSS” e, em 31 de março de 2026, foi veiculada no sítio eletrônico “Finsiders Brasil”, matéria intitulada \"iCred capta R$ 750  milhões e quer dobrar fatia em portabilidade\", nas quais a Oferta foi mencionada, ocorrências que, no entendimento do Coordenador Líder,  podem caracterizar inobservância das regras aplicáveis ao período de silêncio previstas no artigo 11, I, da Resolução CVM 160.\n Em razão dos fatos acima descritos e em atendimento aos artigos 71, caput, e 83, XII, da Resolução da Comissão de Valores Mobiliários (“CVM”)  nº 160, de 13 de julho de 2022, conforme alterada (“Resolução CVM 160”), o Coordenador Líder vem a público, por meio do presente comunicado  (“Segundo Comunicado ao Mercado”), informar que a Oferta está SUSPENSA.\n A suspensão vigorará pelo prazo de 10 (dez) dias corridos, contados desta data, ou seja, até 11 de abril de 2026, que poderá ser prorrogado  mediante publicação de um novo comunicado ao mercado, observado o prazo máximo regulatório de 30 (trinta) dias, conforme parágrafo 2º, do  art. 70, da Resolução CVM 160. O Coordenador Líder informa que comunicou a ocorrência à Superintendência de Registro de Valores Mobiliários  – SRE, nos termos do artigo 83, XIV, da Resolução CVM 160.\n O Coordenador Líder esclarece que, em 1º de abril de 2026, data em que tomou conhecimento da veiculação das notícias acima mencionadas,  requisitou ao Originador que entrasse em contato com os respectivos responsáveis pelas publicações, solicitando a remoção imediata dos  conteúdos relativos à Oferta dos respectivos sítios eletrônicos, sem prejuízo de poder adotar outras medidas necessárias para garantir o estrito  cumprimento das regras de publicidade aplicáveis à Oferta.\n Nos termos do artigo 71, caput, da Resolução CVM 160, os investidores que já tenham aceitado a Oferta serão comunicados, pelo Coordenador  Líder, diretamente por correio eletrônico (ou outro meio de comunicação passível de comprovação), para que informem, no prazo de 5 (cinco)  dias úteis contados do recebimento da referida comunicação, eventual decisão de desistir da Oferta.\n Os termos iniciados em letra maiúscula e utilizados neste Comunicado ao Mercado, que não estejam aqui definidos, terão o significado a eles  atribuído no Regulamento.",
       "sha256": "b4572631861797d14985a47b1412ff2ecc868625763e533d790fe7f4253bc1fe",
+      "verification": "primary_passage"
+    },
+    "4f8ac7d9c7d851e8b72d364f64b351b8b7a2fa01eefd92f97a900c6149313a60": {
+      "document_id": "1302835",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302835",
+      "reference_date": "2026-08-20",
+      "version": "1",
+      "page": 161,
+      "clause": "3.4",
+      "excerpt": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de  CCB inadimplentes. Neste caso, as seguintes condições deverão ser  observadas:\n(i) a renegociação não afete o valor nominal da CCB; e\n(ii) as condições de renegociação respeitem os Critérios de  Elegibilidade.\n3.4.1. O Agente de Cobrança Extraordinária poderá,  excepcionalmente, renegociar a CCB abaixo do valor nominal  e com juros remuneratórios inferior à taxa de juros original  desde que o Índice de Renegociação seja inferior a 1% (um  por cento).\n3.4.2. Para fins de esclarecimento, considera-se “Índice de  Renegociação” o índice calculado periodicamente pelo  Consultor Especializado do Fundo, com relação a Data de Início  do Fundo e a respectiva data de apuração, resultante da razão",
+      "sha256": "8f07679c4a2587effe2a0874d582e8c43225622bac153bc8f4b6c39297dc9f19",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "221097cfa002ef4e7e2f6bb271cd88821a506b338c9bd2bb4f96b169e9825480": {
+      "document_id": "1211821",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1211821",
+      "reference_date": "2026-05-25",
+      "version": "1",
+      "page": 161,
+      "clause": "3.4",
+      "excerpt": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de CCB  inadimplentes. Neste caso, as seguintes condições deverão ser observadas:\n(i) a renegociação não afete o valor nominal da CCB; e\n(ii) as condições de renegociação respeitem os Critérios de Elegibilidade.\n3.4.1. O Agente de Cobrança Extraordinária poderá, excepcionalmente, renegociar a  CCB abaixo do valor nominal e com juros remuneratórios inferior à taxa de juros  original desde que o Índice de Renegociação seja inferior a 1% (um por cento).\n3.4.2. Para fins de esclarecimento, considera-se “Índice de Renegociação” o índice  calculado periodicamente pelo Consultor Especializado do Fundo, com relação a  Data de Início do Fundo e a respectiva data de apuração, resultante da razão  entre (i) o somatório do Saldo Atualizado dos Direitos Creditórios Transferidos,  bruto de provisão para devedores duvidosos, conforme calculado na respectiva  Data Base de Índices, referente a todos os Direitos Creditórios Transferidos que  tenham sido originados por meio de Renegociação, que tenham (a) o somatório  do valor de face dos Direitos Creditórios Transferidos integrantes da CCB  renegociada inferior ao somatório do valor de face dos Direitos Creditórios  Transferidos da CCB original; e (b) nova taxa de juros inferior à Taxa de  Transferência ao Fundo; e (ii) o Patrimônio Líquido na respectiva Data Base de  Índices.",
+      "sha256": "e7a9e15f22bc2996c0fc06312a49b35740d25abb01b7c38926db2dfbfabbc06f",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9eb1992fc575416dd470ee1ce8af9cbcb1b486685568925246082ba46da2d3e4": {
+      "document_id": "1135444",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135444",
+      "reference_date": "2026-03-12",
+      "version": "1",
+      "page": 135,
+      "clause": "3.4",
+      "excerpt": "3.4. O Agente de Cobrança Extraordinária poderá conduzir a renegociação de CCB  inadimplentes. Neste caso, as seguintes condições deverão ser observadas:\n(i) a renegociação não afete o valor nominal da CCB; e\n(ii) as condições de renegociação respeitem os Critérios de Elegibilidade.\n3.4.1. O Agente de Cobrança Extraordinária poderá, excepcionalmente,  renegociar a CCB abaixo do valor nominal e com juros remuneratórios  inferior à taxa de juros original desde que o Índice de Renegociação seja  inferior a 1% (um por cento).\n3.4.2. Para fins de esclarecimento, considera-se “Índice de Renegociação” o  índice calculado periodicamente pelo Consultor Especializado do Fundo,  com relação a Data de Início do Fundo e a respectiva data de apuração,  resultante da razão entre (i) o somatório do Saldo Atualizado dos Direitos  Creditórios Transferidos, bruto de provisão para devedores duvidosos,  conforme calculado na respectiva Data Base de Índices, referente a  todos os Direitos Creditórios Transferidos que tenham sido originados por  meio de Renegociação, que tenham (a) o somatório do valor de face dos  Direitos Creditórios Transferidos integrantes da CCB renegociada inferior  ao somatório do valor de face dos Direitos Creditórios Transferidos da  CCB original; e (b) nova taxa de juros inferior à Taxa de Transferência  ao Fundo; e (ii) o Patrimônio Líquido na respectiva Data Base de Índices.",
+      "sha256": "a0efa43a17da4cb19979a1be5eb8a42bc9366debdd86b23db03027524d217710",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d4ae1b82bb33a365781c22e6680777a438615380157301558bebf79dbc0fc4a4": {
+      "document_id": "1129641",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1129641",
+      "reference_date": "2026-02-23",
+      "version": "1",
+      "page": "19–20",
+      "clause": "3.5",
+      "excerpt": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos  pela Classe deverão atender aos seguintes critérios de elegibilidade:\n(i) os pagamentos dos Direitos Creditórios deverão ser realizados exclusivamente em  moeda corrente nacional;\n(ii) o prazo máximo de vencimento dos Direitos Creditórios deverá ser de 10 (dez) meses  a contar de sua formalização;\n(iii) o Direito Creditórios não poderá estar vencido na Data de Aquisição;\n(iv) não poderão ser devidos por Devedor ou entidade de seu Grupo Econômico que  esteja inadimplente em relação a quaisquer outros Direitos Creditórios pertencentes à  Classe;\n(v) o Cedente e o respectivo Devedor não poderão ter ingressado em regime de  intervenção, liquidação, falência, administração especial, recuperação judicial ou  extrajudicial ou outros eventos similares;\n(vi) a cessão dos Direitos Creditórios ao Fundo deve estar limitada aos direitos e  garantias previstos no Contrato de Cessão;\n(vii) o valor total de Direitos Creditórios devidos por um mesmo Grupo Econômico de um  Devedor, depois de computada, pro forma, a aquisição dos Direitos Creditórios pretendida  pela Classe, não poderá corresponder a percentual superior a 20% (vinte por cento) do  saldo do valor presente dos Direitos Creditórios detidos pela Classe;\n(viii) o valor total de Direitos Creditórios devidos por um mesmo Devedor Especial depois  de computada, pro forma, a aquisição de Direitos Creditórios pretendida pela Classe, não  poderá corresponder a percentual superior a 50% (cinquenta por cento) do saldo do valor  presente dos Direitos Creditórios detidos pela Classe;\n(ix) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou  gravames de qualquer natureza;\n(x) os Direitos de Crédito devem ter sido originados e formalizados de acordo com a  Política de Concessão de Crédito;\n(xi) devem ser oriundos de operações celebradas entre o Cedente e os respectivos  Devedores.\n3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da  cessão dos Direitos Creditórios ao Fundo.",
+      "sha256": "d4fe7f0a0998780c4ca326ec7aafc18c53af79b87fa594532bc27ac0b500a40e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d2d89ff2d39b6aa60e41b5952f41d82c52f53811aec16855b8fd5b72adc563c0": {
+      "document_id": "1302835",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302835",
+      "reference_date": "2026-08-20",
+      "version": "1",
+      "page": 124,
+      "clause": "",
+      "excerpt": "Suplementos, as Despesas de Manutenção do  Fundo corresponderão a um percentual fixo  equivalente a 0,20% (vinte centésimos por  cento) ao ano, calculado sobre o Patrimônio  Líquido do Fundo.\n A definição acima não implica teto, previsão,  estimativa ou garantia quanto ao montante  efetivo das despesas do Fundo.\n“Devedores” Os Beneficiários que tenham tomado crédito com  o Credor Original, com Consignação na  respectiva folha de benefícios, representado por  CCB, cujos Direitos Creditórios tenham sido  transferidos ao Fundo.",
+      "sha256": "8f07679c4a2587effe2a0874d582e8c43225622bac153bc8f4b6c39297dc9f19",
+      "verification": "primary_passage"
+    },
+    "bedd49c00feccc106895f7ee2a712e29c82ec9d5964e56e014cf49b03df33dce": {
+      "document_id": "1135444",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135444",
+      "reference_date": "2026-03-12",
+      "version": "1",
+      "page": 103,
+      "clause": "",
+      "excerpt": "“Despesas de Manutenção do Fundo” Para fins exclusivos de cálculo dos parâmetros  previstos neste Regulamento e nos respectivos  Suplementos, as Despesas de Manutenção do Fundo  corresponderão a um percentual fixo equivalente a  0,20% (vinte centésimos por cento) ao ano, calculado  sobre o Patrimônio Líquido do Fundo.\n A definição acima não implica teto, previsão,  estimativa ou garantia quanto ao montante efetivo das  despesas do Fundo.\n “Devedores” Os Beneficiários que tenham tomado crédito com o  Credor Original, com Consignação na respectiva folha  de benefícios, representado por CCB, cujos Direitos  Creditórios tenham sido transferidos ao Fundo.",
+      "sha256": "a0efa43a17da4cb19979a1be5eb8a42bc9366debdd86b23db03027524d217710",
       "verification": "primary_passage"
     }
   }

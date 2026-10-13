@@ -3,10 +3,6 @@
   "cnpj": "63546406000194",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "9ac023dddfd13dc9a4d049e57dd4f9ee9323af111dd92267654c27f00ff55a5c",
-      "2f1617282ee27d16eb1b849e2c38d35f8ded36c5802ee068ce25921a740de786"
-    ],
     "concentration": [
       "e19d3cf8e6478ecec49e73cbb1f726574afc0c0a53bf20372011a0577c06d4e2"
     ],
@@ -115,14 +111,6 @@
     "legacy_events": [
       "764bb2eac8513e07b471ef71cc7a9dad44530fbff25917284d52bdc7ede7a6ee"
     ],
-    "originator": [
-      "9ff4423354354966f8ef3244cf261416e43dc9b5eee1c459c6679ae9e94012ab",
-      "58992cf51142d9bf5729fc446f332f16b0b0d48941d59a476ef6c8c86f0edd0a"
-    ],
-    "debtor": [
-      "fad41a4b5376aec82d41388eff03d248762d32a6f05fffa59c810390e0338c86",
-      "c5440a635b894b05e79f251558f1723b9943d3f1dbe6af8dfeddc13499bd3f7a"
-    ],
     "investee": [
       "b5dc112f548d319a340b5536f31928f1a8de1fb28e47e295836c0efe315fb4ff",
       "8a2517a54cd272a80230e64e4a737cae87be28a4f1b356b58e0894dd8482dd83",
@@ -145,6 +133,17 @@
     "allocation": [
       "0f8746e7be6a9619965de0ea66bb4db275fb8430a915dfed57a2c4c7990f7076",
       "6edf9252364ac49925b6ecea3f2c8aae3b21a38e7cd6ef65731d4bcf0148e998"
+    ],
+    "originator": [
+      "9ff4423354354966f8ef3244cf261416e43dc9b5eee1c459c6679ae9e94012ab",
+      "58992cf51142d9bf5729fc446f332f16b0b0d48941d59a476ef6c8c86f0edd0a"
+    ],
+    "eligibility": [
+      "9ac023dddfd13dc9a4d049e57dd4f9ee9323af111dd92267654c27f00ff55a5c",
+      "906189f15a13687f09d50f53a6637e11509ea78653d3611eff1cc7cbb282cea1"
+    ],
+    "debtor": [
+      "fad41a4b5376aec82d41388eff03d248762d32a6f05fffa59c810390e0338c86"
     ]
   },
   "entries": {
@@ -204,15 +203,6 @@
       "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
       "sources": [
         "090d65e77188a64f4a5c4ed6a585581c828818901beea05bd400fc6e089e53b0"
-      ]
-    },
-    "2f1617282ee27d16eb1b849e2c38d35f8ded36c5802ee068ce25921a740de786": {
-      "reference_date": "2025-11-05",
-      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (I) na Data da Oferta, nenhuma das parcelas do Direito Creditório poderá estar inadimplida no momento da cessão;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8ec0875c5a29b2a00215460e99f652c9988f8d0b819e86d7eb52f5cd2ffa2d5f"
       ]
     },
     "e19d3cf8e6478ecec49e73cbb1f726574afc0c0a53bf20372011a0577c06d4e2": {
@@ -746,6 +736,15 @@
       "sources": [
         "b2421fdf88350d6484e3606c8a082d14b96a166678442b6ae228201cf1128863"
       ]
+    },
+    "906189f15a13687f09d50f53a6637e11509ea78653d3611eff1cc7cbb282cea1": {
+      "reference_date": "2025-11-05",
+      "value": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe deverão atender aos seguintes critérios de elegibilidade: (I) na Data da Oferta, nenhuma das parcelas do Direito Creditório poderá estar inadimplida no momento da cessão; (II) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (III) o preço de aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertado pelo Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 400,00 (quatrocentos reais); (IV) a somatória dos preços de aquisição dos Direitos Creditórios de um mesmo Devedor ofertado pelo Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser superior a R$ 200.000,00 (duzentos mil reais); (V) na Data de Oferta, o respectivo Devedor deverá ter até 76 (setenta e seis) anos de idade, inclusive; e (VI) a idade média dos Devedores dos Direitos Creditórios, considerando pro forma a cessão para a Classe, não poderá ser superior a 65 (sessenta e cinco) anos, sendo certo que para efeitos deste cálculo as idades dos Devedores serão consideradas em cada data de aquisição dos respectivos Direitos Creditórios a Classe. 3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da cessão dos Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fd9ee9890d7ddc252054c5013479bd2b6b3016cdaf8fe3124ea61aa7af9365d6"
+      ]
     }
   },
   "passages": {
@@ -824,18 +823,6 @@
       "sha256": "94bc629a01dc0285a5e14e2d6fc631b26db8285a4e7b6caf8847fc7f6ef63398",
       "verification": "previous_review",
       "citation_original": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 133 e 139–140 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481"
-    },
-    "8ec0875c5a29b2a00215460e99f652c9988f8d0b819e86d7eb52f5cd2ffa2d5f": {
-      "document_id": "1031501",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1031501",
-      "reference_date": "2025-11-05",
-      "version": "1",
-      "page": 16,
-      "clause": "3.5",
-      "excerpt": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe  deverão atender aos seguintes critérios de elegibilidade:\n(I) na Data da Oferta, nenhuma das parcelas do Direito Creditório poderá estar inadimplida no  momento da cessão;\n (II) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;\n (III) o preço de aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertado pelo  Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$  400,00 (quatrocentos reais);\n (IV) a somatória dos preços de aquisição dos Direitos Creditórios de um mesmo Devedor ofertado  pelo Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser superior a  R$ 200.000,00 (duzentos mil reais);\n (V) na Data de Oferta, o respectivo Devedor deverá ter até 76 (setenta e seis) anos de idade,  inclusive; e  (VI) a idade média dos Devedores dos Direitos Creditórios, considerando pro forma a cessão para a  Classe, não poderá ser superior a 65 (sessenta e cinco) anos, sendo certo que para efeitos deste cálculo  as idades dos Devedores serão consideradas em cada data de aquisição dos respectivos Direitos  Creditórios a Classe.",
-      "sha256": "5a71293e87f0d3a237ccc61dfdc2bc39d1b7a88d783e8766e54c19c79fd62b96",
-      "verification": "primary_passage"
     },
     "dd55112ce1f80513e7b77d8a23ec44e143e5c3b3ca317257964650f6e869cefb": {
       "document_id": "1130481",
@@ -1476,6 +1463,19 @@
       "excerpt": "2.1. Administração Fiduciária: O Fundo é administrado pela VERT DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Rua  Cardeal Arcoverde, nº 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº\n 48.967.968/0001-18, devidamente credenciada pela CVM para o exercício profissional de administração  fiduciária de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023.",
       "sha256": "5a71293e87f0d3a237ccc61dfdc2bc39d1b7a88d783e8766e54c19c79fd62b96",
       "verification": "primary_passage"
+    },
+    "fd9ee9890d7ddc252054c5013479bd2b6b3016cdaf8fe3124ea61aa7af9365d6": {
+      "document_id": "1031501",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1031501",
+      "reference_date": "2025-11-05",
+      "version": "1",
+      "page": 16,
+      "clause": "3.5",
+      "excerpt": "3.5. Critérios de Elegibilidade: Todos e quaisquer Direitos Creditórios a serem adquiridos pela Classe  deverão atender aos seguintes critérios de elegibilidade:\n(I) na Data da Oferta, nenhuma das parcelas do Direito Creditório poderá estar inadimplida no  momento da cessão;\n (II) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;\n (III) o preço de aquisição dos Direitos Creditórios integrantes de uma mesma CCB ofertado pelo  Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$  400,00 (quatrocentos reais);\n (IV) a somatória dos preços de aquisição dos Direitos Creditórios de um mesmo Devedor ofertado  pelo Cedente à Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser superior a  R$ 200.000,00 (duzentos mil reais);\n (V) na Data de Oferta, o respectivo Devedor deverá ter até 76 (setenta e seis) anos de idade,  inclusive; e  (VI) a idade média dos Devedores dos Direitos Creditórios, considerando pro forma a cessão para a  Classe, não poderá ser superior a 65 (sessenta e cinco) anos, sendo certo que para efeitos deste cálculo  as idades dos Devedores serão consideradas em cada data de aquisição dos respectivos Direitos  Creditórios a Classe.\n3.5.1. A aferição dos critérios acima previstos é de responsabilidade do Gestor quando da cessão dos  Direitos Creditórios ao Fundo.",
+      "sha256": "5a71293e87f0d3a237ccc61dfdc2bc39d1b7a88d783e8766e54c19c79fd62b96",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

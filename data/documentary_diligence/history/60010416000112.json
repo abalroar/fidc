@@ -3,10 +3,6 @@
   "cnpj": "60010416000112",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "e25d220594c1cd71750ad437f7ea7f44782323026b60c5740a6bb06f35ff8aca",
-      "1c7ac7ee065f54cb2a88f505431ef18a1586e2394a3ab00d68af301860dc5b5a"
-    ],
     "term": [
       "b78100b92d98c82df59cd70e91d2f831a9b6fe4d46f62aea1d928f424654bc51"
     ],
@@ -180,14 +176,6 @@
     "quota_grace": [
       "4409816f59ace59795f5d4bb94a3f70a1ece8ff6277a4bf5dc1f010a1a256a52"
     ],
-    "originator": [
-      "de88d73eb4dd864d2ddc45aec75c9bdf30a69554764c29a766ee61b6f434a0d4",
-      "b2ff296ad835ac9e7875a136da54fd26ee4fe01a61ab4e1b3847200d9f7ad175"
-    ],
-    "debtor": [
-      "bcfc119ffc7bfdab7e0c166bb27c4457eaf26d97a3257bc94e4cdd405fec50e0",
-      "df6e698b9c0e2eb409ee6694a094466df5adc92b5877ca13fdd9f8364ebf6114"
-    ],
     "guarantee": [
       "946460277f56132cdecb79d197634effe66178e2cba11d76dd73e38d56bf53c0",
       "f3a7c549ac10d0a9fb8309473ab3fee98a5d2fd1a15593cf3fda5b3764e4789e",
@@ -204,6 +192,22 @@
     "allocation": [
       "60cca0f1e788d711e7cde8b4433476406bb52b2ce13c21ef6cc2a2e6560bb29f",
       "b176116c4d7c48976e2f8aa72857a85babddd46ea0b63777e56f1eaa619820f5"
+    ],
+    "eligibility": [
+      "e25d220594c1cd71750ad437f7ea7f44782323026b60c5740a6bb06f35ff8aca",
+      "9e4f43e29bddeffbb8087853de0de0f61d35aab9afe273f865ffd9b7cd1f93ae"
+    ],
+    "originator": [
+      "de88d73eb4dd864d2ddc45aec75c9bdf30a69554764c29a766ee61b6f434a0d4",
+      "385f01596f74c8774b9780e41dc94e5ed8d9483210f2c0bd687231867c270f74",
+      "6f9ed01d51e8611b3c5ee982ffce146b7bbef2102f32baaec15e6f15202ec16a",
+      "75e67d3e5dfc05d4edcfd23b0acb948fb49ef1435d59024cfd02e496e0efaa49",
+      "b2ff296ad835ac9e7875a136da54fd26ee4fe01a61ab4e1b3847200d9f7ad175",
+      "9f5cc7f4af27e4e42617892b434a151b12ec3c29b79c825c930d75a534a7fa38"
+    ],
+    "debtor": [
+      "bcfc119ffc7bfdab7e0c166bb27c4457eaf26d97a3257bc94e4cdd405fec50e0",
+      "1478e5107e2fce99db79430f3bf4a048b7363287a690999e9bd9762725467907"
     ]
   },
   "entries": {
@@ -253,15 +257,6 @@
       "risk_note": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
       "sources": [
         "9d71208df78792495ecc1de72b66d080b4aede021b4f76c376208fd2d4389e80"
-      ]
-    },
-    "df6e698b9c0e2eb409ee6694a094466df5adc92b5877ca13fdd9f8364ebf6114": {
-      "reference_date": "2025-03-20",
-      "value": "15.1.4 Riscos específicos (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "077d94273e27049382ecaef776a46982950f84089aaead5767d59366a9004e7a"
       ]
     },
     "e25d220594c1cd71750ad437f7ea7f44782323026b60c5740a6bb06f35ff8aca": {
@@ -1158,6 +1153,44 @@
       "sources": [
         "51a7aa7a5a0cd477df8a4c712e5da1c7c8a6793de45a8e4b5ad7f5a36110b636"
       ]
+    },
+    "9e4f43e29bddeffbb8087853de0de0f61d35aab9afe273f865ffd9b7cd1f93ae": {
+      "reference_date": "2025-03-20",
+      "value": "Anexo I ao Regulamento CLASSE ÚNICA DO MT I CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos, não é possível afirmar que essas condições de endosso, declarações e garantias e os Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "241d05b2ba299c639550ca6e2f8190b966bbc132509a09ac8db66ba63258eb00"
+      ]
+    },
+    "75e67d3e5dfc05d4edcfd23b0acb948fb49ef1435d59024cfd02e496e0efaa49": {
+      "reference_date": "2025-03-20",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e898de17238d23d15dace47f080869fb0a75bd6c6f95f9ec9fadf0706442224e"
+      ]
+    },
+    "9f5cc7f4af27e4e42617892b434a151b12ec3c29b79c825c930d75a534a7fa38": {
+      "reference_date": "09/10/2025",
+      "value": "Parati CFI (03.311.443/0001-91): endossante. Tudo Serviços S.A. (27.852.506/0001-85): retenção/cobrança; originação processada pela Plataforma MT.",
+      "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "26011c367aa47e24489ed2b33e7971b1fef3e70e33e98950759b2b410df8ec89",
+        "3b3eaf28e0430e79da7f5e8e28fc148150e6d9f2fe85fbe1b033da885c5f796b",
+        "53d9d0af09cb5cd9423d5a580c516e36d5493c881a986d5d197b12c988dfa3d0"
+      ]
+    },
+    "1478e5107e2fce99db79430f3bf4a048b7363287a690999e9bd9762725467907": {
+      "reference_date": "2025-03-20",
+      "value": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação e/ou Direitos Creditórios TVM.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "edea2bacae5d4b2784455012565fc9a3f1dbf9b9384c6c7a0d2ea5f9325c4a8f"
+      ]
     }
   },
   "passages": {
@@ -1223,18 +1256,6 @@
       "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1051393 · 09/10/2025 · Regulamento · p. 9-10, 42 · data/raw/60010416000112/1051393_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051393"
-    },
-    "077d94273e27049382ecaef776a46982950f84089aaead5767d59366a9004e7a": {
-      "document_id": "993786",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993786",
-      "reference_date": "2025-03-20",
-      "version": "1",
-      "page": 35,
-      "clause": "15.1.4",
-      "excerpt": "15.1.4 Riscos específicos\n (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos  Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de  um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do  pagamento da remuneração do Devedor, o referido Devedor poderá ficar inadimplente e,  consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que  poderá resultar em perdas financeiras à Classe e aos Cotistas.\n (ii) Risco do Empregador não efetuar o desconto em folha: o repasse dos recursos oriundos  dos Direitos Creditórios à Classe depende da realização, pelo Empregador, da Escrituração e  do desconto na respectiva folha de pagamento do Devedor. Na hipótese do Empregador  deixar de realizar a Escrituração ou os descontos na folha de pagamento, não haverá repasse  de recursos à Classe, podendo causar prejuízos à Classe e aos Cotistas.\n (iii) Risco de perda do vínculo empregatício com o Empregador: caso o Devedor perca o  vínculo empregatício com o Empregador, não haverá remuneração e folha de pagamento para  realização dos descontos para pagamento dos Direitos Creditórios. Neste caso, não obstante  a possibilidade do Agente de Retenção/Cobrança realizar a cobrança ativa dos Direitos  Creditórios diretamente do Devedor, a ausência de remuneração poderá deixar o Devedor  inadimplente perante a Classe até que o seu vínculo empregatício seja retomado e seja  efetuado o procedimento operacional para que a CCB seja aditada e/ou seja realizado o  Processo de Reinicialização. Tais situações poderão resultar em prejuízos à Classe e aos  Cotistas.",
-      "sha256": "fd0fdd369a195510d81f81f505195a0b09e5f43522a990afa7d58c4f872921c8",
-      "verification": "primary_passage"
     },
     "d14cf468d49d69fac63f586ff0d505fafcb377192bf9d3d51c5b40fcd55b4001": {
       "document_id": "1051393",
@@ -2321,6 +2342,66 @@
       "page": 17,
       "clause": "8.1",
       "excerpt": "8.1 Os ativos da Carteira serão avaliados todos os Dias Úteis de acordo com critérios consistentes e  verificáveis, apoiados por informações externas e internas que levem em consideração aspectos  relacionados aos Devedores e às características da transação correspondente, de acordo com a seguinte  metodologia de avaliação.\n (i) os Ativos Financeiros de Liquidez deverão ser registrados e ter seus valores ajustados a mercado,  sujeitos às regras e procedimentos definidos no manual de marcação a mercado do CUSTODIANTE  e de acordo com as regras do Banco Central e da CVM, aplicáveis aos fundos de investimento em  direitos creditórios;\n (ii) os ajustes nos valores dos Ativos Financeiros de Liquidez decorrentes da aplicação dos critérios  estabelecidos neste Anexo I deverão ser registrados contra a conta de receita ou despesa  apropriada na demonstração de resultados do período, em observância aos procedimentos definidos  no plano contábil;\n (iii) as perdas e provisões com Ativos Financeiros de Liquidez serão reconhecidas no resultado do  período, sujeito às regras e procedimentos definidos na regulamentação aplicável em vigor,  admitindo-se a reversão dessas perdas e provisões, nos termos da regulamentação aplicável\n (iv) enquanto não houver mercado ativo para os Direitos Creditórios na Carteira, eles terão seu valor  calculado a cada Dia Útil, de acordo com a Instrução CVM nº 489; e\n (v) o ADMINISTRADOR registrará provisão para créditos de liquidação duvidosa sempre que houver  evidência de redução no valor recuperável dos ativos da Classe, de acordo com as regras e  procedimentos definidos na Instrução CVM nº 489",
+      "sha256": "fd0fdd369a195510d81f81f505195a0b09e5f43522a990afa7d58c4f872921c8",
+      "verification": "primary_passage"
+    },
+    "e898de17238d23d15dace47f080869fb0a75bd6c6f95f9ec9fadf0706442224e": {
+      "document_id": "993785",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993785",
+      "reference_date": "2025-03-20",
+      "version": "1",
+      "page": 6,
+      "clause": "",
+      "excerpt": "correspondente ao valor dos recursos disponíveis na Conta de  Movimentação da Classe (conforme definido no Anexo da Classe),  somados aos Ativos Financeiros de Liquidez (conforme definido no  Anexo da Classe), respeitando a ordem de alocação dos recursos,  sempre que solicitado pelo Gestor.\n As Amortizações serão realizadas tomando-se por base o Valor Unitário  calculado no segundo Dia Útil antecedente à data de efetivo pagamento  da respectiva Amortização.\n Os pagamentos das parcelas de Amortização e/ou de resgate das Cotas  Seniores serão efetuados, como regra geral, em moeda corrente  nacional, pelo valor apurado da Cota do dia na data de conversão, por  meio do Sistema de Pagamentos Brasileiro – SPB, observados os  procedimentos do Agente Escriturador e/ou do mercado organizado em  que as Cotas Seniores estejam admitidas à negociação, conforme  aplicável.\n Este Suplemento não constitui promessa de rendimentos,  estabelecendo meramente critérios para distribuição de  rendimentos entre as cotas das diferentes emissões de Cotas  Seniores. As Cotas Seniores auferirão rendimentos somente se os  resultados da carteira da Classe assim o permitirem.\nPúblico-Alvo e Restrições As Cotas Seniores destinam-se à subscrição exclusivamente por um à Negociação único cotista ou grupo de cotistas vinculados por interesse único e  indissociável, classificados como Investidores Profissionais.",
+      "sha256": "0826e0eae2c51afabf59bbc49fc7647598d03da5ca6de0f9725850a8bd6af457",
+      "verification": "primary_passage"
+    },
+    "26011c367aa47e24489ed2b33e7971b1fef3e70e33e98950759b2b410df8ec89": {
+      "document_id": 1051393,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+      "reference_date": "09/10/2025",
+      "version": "Regulamento09/10/2025",
+      "page": "44",
+      "clause": "Glossário, Endossante",
+      "excerpt": "“Endossante”: a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Entidade Registradora\": instituição autorizada pelo BACEN para realizar as atividades de registro e constituição, alteração e desconstituição de ônus e gravames sobre ativos f inanceiros registrados; “Escrituração”: significa a escrituração da Consignação a ser realizada pelo Empregador, junto ao eSocial, após recebimento de notif icação comunicando-o da contratação, pelo Devedor, do empréstimo a ser pago por Consignação; “Eventos de Avaliação”: os eventos de avaliação descritos no item 10.1 deste Anexo; “Eventos de Liquidação”: os eventos de liquidação descritos no item 10.3 deste Anexo; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 44",
+      "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+      "identity_verified": true
+    },
+    "3b3eaf28e0430e79da7f5e8e28fc148150e6d9f2fe85fbe1b033da885c5f796b": {
+      "document_id": 1051393,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+      "reference_date": "09/10/2025",
+      "version": "Regulamento09/10/2025",
+      "page": "41",
+      "clause": "Glossário, Agente de Retenção/Cobrança",
+      "excerpt": "“Agente de Retenção/Cobrança”: significa a Tudo Serviços S.A., sociedade por ações com sede na Cidade de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob nº 27.852.506/0001-85; “Agente Escriturador”: O Administrador, o qual se encontra devidamente habilitado pela CVM para prestar os serviços de escrituração das Cotas, ou seu sucessor a qualquer título; “Amortização”: signif ica cada uma das amortizações ordinárias de Cotas; “Amortização Extraordinária”: amortização extraordinária das Cotas Seniores, conforme deliberado pela Assembleia Especial de Cotistas, para reestabelecer o Índice de Subordinação, nos termos do item 5.5.1 do Anexo I; \"ANBIMA\": Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; \"Código ANBIMA\": Código ANBIMA de Regulação e Melhores Práticas para Administração de Recursos de Terceiros “Anexos”: tem o signif icado atribuído no Art. 3, inciso IV, da Resolução CVM 175, Parte Geral; “Apêndice”: cada um dos apêndices que integram este Anexo, descritivos de cada Subclasse de Cotas ou de aspectos aplicáveis à Classe; \"Arquivos Dataprev\": Arquivo de Consignações fornecido mensalmente pela Dataprev ao Endossante, contendo a totalidade das operações pend",
+      "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+      "identity_verified": true
+    },
+    "53d9d0af09cb5cd9423d5a580c516e36d5493c881a986d5d197b12c988dfa3d0": {
+      "document_id": 1051393,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051393",
+      "reference_date": "09/10/2025",
+      "version": "Regulamento09/10/2025",
+      "page": "28",
+      "clause": "AnexoI11.23",
+      "excerpt": "Tudo Serviços S.A., sociedade anônima, com sede no município de Eusébio, Estado do Ceará, na Comendador Ari Freitas, 577, CEP 61.760-000, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no Contrato de Serviços MT e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na regulamentação aplicável: (i) caso aplicável, atuar na retenção (defesa) de operações de empréstimo consignado cujos Direitos Creditórios sejam de titularidade da Classe, em caso d",
+      "sha256": "8469d613078ffd5a6c1d217885d8a397a16342c0b937ae4aa24b106505f233ae",
+      "identity_verified": true
+    },
+    "edea2bacae5d4b2784455012565fc9a3f1dbf9b9384c6c7a0d2ea5f9325c4a8f": {
+      "document_id": "993786",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993786",
+      "reference_date": "2025-03-20",
+      "version": "1",
+      "page": 9,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios são originados no âmbito de operações de empréstimo consignado concedido pelo  Endossante a um Devedor por meio da Plataforma MT e representado por CCB, devidamente formalizada  por via eletrônica, de acordo com a legislação aplicável, observada a Política de Crédito constante do  Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso  de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na  Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação  e/ou Direitos Creditórios TVM.",
       "sha256": "fd0fdd369a195510d81f81f505195a0b09e5f43522a990afa7d58c4f872921c8",
       "verification": "primary_passage"
     }

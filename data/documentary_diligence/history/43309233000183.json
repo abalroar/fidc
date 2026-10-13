@@ -3,13 +3,6 @@
   "cnpj": "43309233000183",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "e4188d9983a991ae165c3d7e1f49c578c9e679dee21bb1e8980bd32fee6e2248",
-      "5d881bedcf6b28b8764839d96a35e7b8edbfa23b69e57b0bc30a5eda0610da4b",
-      "41def85d090a0469686da6d5754ab1e9e9ef161a4964baf1e79226eec232d76f",
-      "2d0bd5c7ac83fa163696ce677383ed633f99d0d1b26ce3920ef3d209e67775c4",
-      "0606c62f5727c671c7bb6d28fded0164c33f079e62eddac5a1a070ff0a6320b5"
-    ],
     "ticket": [
       "0221fabb97e695d2536d6319e927d0142292d71257dc92239e10cfea5dec06e2",
       "be9202ce62c59f743d6938dcc7707f147955091645c7ab6b5376848149dbcd81",
@@ -353,22 +346,6 @@
       "c9bd1dc32ef1afcf72c6cb68202101e4e101087c858e9ecd7a41ba2506e9145b",
       "ca171c80c7a7a1f55ad13b1c6e774c2fa0c28369df974704aa1f807b8577ebbb"
     ],
-    "originator": [
-      "f80bc625fc1f26c93ff2132693e9388fc8f39d69d42c64cd37f6646b09161e47",
-      "c3ed550d59c076e547fcc7f4c903ed79929d4532d2f23b8be281c0ea4b91ecc2",
-      "0f9def367ecb77d3e079e0d4847badfcdabae1ea8f909a67450a2a494bf55e95",
-      "79a2df8caf399520793f6ab4ef102c02c3f7e4f465bf286651c3ec8d0d9606a2",
-      "1ecff45244bab393925ba84d21eaeb3ff0fbaf6651c97c8cc505047ebf63bfd0",
-      "7f173df4c42c780b93eee2aff509f0a2517ea3d4d211924147f5e235c164765c"
-    ],
-    "debtor": [
-      "605b1e4a5d73d80a43861b65b1d29914c07a1d1417f7678beb74c9a2de8af89c",
-      "47d313759d2e0a1f9587fd5ffead9864ac613dcd18b5e36d9ca6d7dcc847292f",
-      "20faf5b78757c19064f7cb93fe91b3d199ec67a772315bd6a49648cbef88b0fe",
-      "8ca1b982ad4f6ee5dd09c2812fc8990b20765ee09044430d289350f384d96700",
-      "2788f2f77cb278b362481ec2e77c7961861ca8c26bd9488f8647ce281f3af52d",
-      "028adf67122803fbe48139f50bb22e3f60c14d0f314c8d2d6b8ebd552cc1ebd1"
-    ],
     "investee": [
       "c04e5eabbb47d0ff86a14fe99676f41b6cc881e63f7949cf60b20aa6ad68228b",
       "3def331b6882bae9f0595e933698bd8b459a097aa036b6424702d68cdb003533",
@@ -410,6 +387,25 @@
       "a92a9a0bfe2883f5a31d2daa9a510f028314eb9cc13e8f63a947651764665bcd",
       "b8992732329a890839c8aa3a021c1f355b4e4ef587b9765cafbc1b85f09bfb7e",
       "e378d35a9b704767942a097bda163cc4f9a6cec05b70111221b607fc381b982a"
+    ],
+    "originator": [
+      "53d35618e9d52b36dcdba253555dc562e5c7091b9378542073c134cb81bb16ad",
+      "cb773f276f4a4b02192c4375c05edb07a4dbb04a9c93d27fdbf12b13d8730e6a",
+      "f7b0f76eef8468ec9e4f9ec5c91ec4994958a50f5810165b00cdc54dc48fc8a2",
+      "79a2df8caf399520793f6ab4ef102c02c3f7e4f465bf286651c3ec8d0d9606a2",
+      "182debe7a8bfc5624054c08020fd38a7d977ceaac616b09b950492febc231d9a",
+      "7f173df4c42c780b93eee2aff509f0a2517ea3d4d211924147f5e235c164765c"
+    ],
+    "eligibility": [
+      "24e762ad9f519719f60f05b61b7b188f9786bce6f459e575cc663e73fb311da1",
+      "6c9445fa508a64a7503a9b43783286f2b3ad768704cb46532956b6309d3c8ac6",
+      "5d881bedcf6b28b8764839d96a35e7b8edbfa23b69e57b0bc30a5eda0610da4b",
+      "41def85d090a0469686da6d5754ab1e9e9ef161a4964baf1e79226eec232d76f",
+      "9dfe4e117f68d5db54b717c36258f19c5bfae8188775b144975b0fe78a0c9c69",
+      "55902ac2a3e9ad1f4d9c1158eb7aa1c8d06e6da5a9d594e024e7624c7c753e6a"
+    ],
+    "debtor": [
+      "605b1e4a5d73d80a43861b65b1d29914c07a1d1417f7678beb74c9a2de8af89c"
     ]
   },
   "entries": {
@@ -432,42 +428,6 @@
         "55c73eb0e3591bd0d4a081817f876c3a79a1779e732192728f7eb570b67ca6c8"
       ]
     },
-    "f80bc625fc1f26c93ff2132693e9388fc8f39d69d42c64cd37f6646b09161e47": {
-      "reference_date": "2024-12-31",
-      "value": "(k) considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "71de11da67e344bdd41087fdc5fcd8735793c5b5628906fa128a548b9188ce6c"
-      ]
-    },
-    "c3ed550d59c076e547fcc7f4c903ed79929d4532d2f23b8be281c0ea4b91ecc2": {
-      "reference_date": "2023-12-31",
-      "value": "(k) considerando-se pro forma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa; 16",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a39dbf2faf0e0a60875cf29b4f6461dce973d5f8c8fa7ec31e1ca2e01bc7c67d"
-      ]
-    },
-    "0f9def367ecb77d3e079e0d4847badfcdabae1ea8f909a67450a2a494bf55e95": {
-      "reference_date": "2022-12-31",
-      "value": "(k) considerando‐se pro forma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a0349f5bf7419bfc7ee17aa885ed44aa52045ca9ceca9376a65a86da821dd617"
-      ]
-    },
-    "1ecff45244bab393925ba84d21eaeb3ff0fbaf6651c97c8cc505047ebf63bfd0": {
-      "reference_date": "2021-12-31",
-      "value": "(k) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos por Devedores dos Direitos Creditórios Agro cuja classificação atribuída pelo Originador seja “C” deverão representar, no máximo, 15% do Patrimônio Líquido do Fundo, conforme informado no Arquivo Remessa;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "98b995b6088c6a79d6b72d3ceaabc1cb85c38b28716db3990f9ade4a79286cac"
-      ]
-    },
     "7f173df4c42c780b93eee2aff509f0a2517ea3d4d211924147f5e235c164765c": {
       "reference_date": "2024-11-27",
       "value": "4.4. O Originador celebrará com o Fundo o Acordo Operacional Originador, que regulará os termos e condições da indicação dos Devedores que irão originar os Direitos Creditórios, bem como os procedimentos operacionais de sua aquisição pelo Fundo. Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e o Fundo, regulando os termos e condições da cessão de Direitos Creditórios ao Fundo.",
@@ -487,24 +447,6 @@
         "6e009800c379659479406bd5be9bc046e5ab7495434c2b2964095fb5708dfffc"
       ]
     },
-    "47d313759d2e0a1f9587fd5ffead9864ac613dcd18b5e36d9ca6d7dcc847292f": {
-      "reference_date": "2024-11-27",
-      "value": "caso dos Direitos Creditórios Adama, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, originados pela Adama e previamente aprovados pelo Gestor, devedores dos Direitos Creditórios Adama; e (iv) no caso dos Direitos Creditórios Distribuidores, (a) os Distribuidores de Produtos Cedentes, indicados pelo Originador e previamente aprovados pelo Gestor, na qualidade de coobrigadas dos Direitos Creditórios Distribuidores, de acordo com as disposições dos respectivos Contratos de Cessão; e (b) os devedores originais dos Direitos Creditórios Distribuidores, representados por produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, originados pelo Distribuidor de Produtos Cedente e previamente aprovados pelo Gestor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "afc69b9388ef1a6de6f6d1581dc14c9e2a9ae6c67e9ffb57c752b96583780443"
-      ]
-    },
-    "e4188d9983a991ae165c3d7e1f49c578c9e679dee21bb1e8980bd32fee6e2248": {
-      "reference_date": "2024-11-27",
-      "value": "4.19. Não obstante a verificação dos Critérios de Elegibilidade, o Fundo somente poderá adquirir Direitos Creditórios que cumpram, cumulativamente, às seguintes Condições de Cessão na sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo Administrador ou pelo Gestor, conforme o caso:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d3868bfc7f435b0d3755b3b87c350b1884275cb76700e62e2f8ce1df06239b2e"
-      ]
-    },
     "5d881bedcf6b28b8764839d96a35e7b8edbfa23b69e57b0bc30a5eda0610da4b": {
       "reference_date": "2024-08-28",
       "value": "1.1. Observada a disponibilidade de caixa do Fundo, o Cedente promete ceder ao Cessionário, de forma definitiva, irrevogável e irretratável, sem coobrigação ou qualquer forma de garantia, direta ou indireta, do Cedente, os Direitos Creditórios Cedente, livres e desembaraçados de quaisquer ônus, cuja cessão será formalizada por meio da celebração de um ou mais termos de cessão, conforme modelo constante no Anexo I Termo de Cessão Cedente, do Preço de Aquisição (conforme abaixo definido) e celebração de um recibo do Preço de Aquisição, conforme modelo constante do Anexo I, respeitadas as Condições Precedentes, Critérios de Elegibilidade, Condições de Cessão (conforme abaixo definido) e os demais termos e condições previstos neste Contrato.",
@@ -521,24 +463,6 @@
       "provenance": "primary_passage",
       "sources": [
         "43bf7d0c4f1de1ff3b374060a0d4590a370ca8806c9d80f866e9566221757e21"
-      ]
-    },
-    "2d0bd5c7ac83fa163696ce677383ed633f99d0d1b26ce3920ef3d209e67775c4": {
-      "reference_date": "2021-10-28",
-      "value": "4.4. O Fundo somente poderá adquirir Direitos Creditórios durante o Período de Investimento, desde que os Direitos Creditórios atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e às Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6b0200025aff7e82e7b7e70979f69302452be11efc6cb8d64c5b2d6ee6bd4b94"
-      ]
-    },
-    "0606c62f5727c671c7bb6d28fded0164c33f079e62eddac5a1a070ff0a6320b5": {
-      "reference_date": "2021-10-28",
-      "value": "4.4. O Fundo somente poderá adquirir Direitos Creditórios durante o Período de Investimento, desde que os Direitos Creditórios atendam à Política de Investimento, aos respectivos Critérios de Elegibilidade e às Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "85eaf8ba0861b9931fe74ef2751365eca58f60c3b48b52b5c479b60b58a5878c"
       ]
     },
     "0221fabb97e695d2536d6319e927d0142292d71257dc92239e10cfea5dec06e2": {
@@ -3000,42 +2924,6 @@
         "519e2861517014ecb48d66ed38fb9e4b7c29097931e09536b78e552a1bf3989e"
       ]
     },
-    "20faf5b78757c19064f7cb93fe91b3d199ec67a772315bd6a49648cbef88b0fe": {
-      "reference_date": "2024-08-28",
-      "value": "Devedores Significam: (1) para os Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais e a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais, indicadas pelo Originador ou por uma Revenda Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f7baa48bc3584faaa41b23d8e0c6d93b61d75bc2c0118df9b9a5e3e62a6082fd"
-      ]
-    },
-    "8ca1b982ad4f6ee5dd09c2812fc8990b20765ee09044430d289350f384d96700": {
-      "reference_date": "2022-12-13",
-      "value": "Devedores Significam: (1) para os Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais e a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais, indicadas pelo Originador ou por uma Revenda Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "32998f7b5ccec2386101fcad07ef589ea5b99778e8b71162f79902599b1d343a"
-      ]
-    },
-    "2788f2f77cb278b362481ec2e77c7961861ca8c26bd9488f8647ce281f3af52d": {
-      "reference_date": "2021-10-28",
-      "value": "“Devedores” Significam: (1) para os Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais e a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais, indicadas pelo Originador ou por uma Revenda Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bca8240336bdbad8efaff6d30236bda53200f10418677c89b89c68d8c52c7a8a"
-      ]
-    },
-    "028adf67122803fbe48139f50bb22e3f60c14d0f314c8d2d6b8ebd552cc1ebd1": {
-      "reference_date": "2021-10-28",
-      "value": "“Devedores” Significam: (1) para os Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais e a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais, indicadas pelo Originador ou por uma Revenda Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d50148ca8ef8521c09394342f6c7e7b0748d6924d181af3c7f6e7fd2ea7f2264"
-      ]
-    },
     "b1d96e15fbfbf3435cfab1cd6f7dd8fc6d7030c82d41bdd43331b2f4f0f90e01": {
       "reference_date": "2022-12-31",
       "value": "Examinamos as demonstrações financeiras do Fundo de Investimento em Direitos Creditórios Liverpool (“Fundo”), administrado pela Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., que compreendem a demonstração da posição financeira em 31 de dezembro de 2022 e as respectivas demonstrações do resultado, das mutações do patrimônio líquido e dos fluxos de caixa para o exercício findo nessa data, bem como as correspondentes notas explicativas, compreendendo as políticas contábeis significativas e outras informações elucidativas.",
@@ -3043,6 +2931,42 @@
       "provenance": "primary_passage",
       "sources": [
         "0a4e5fce534d75d1c3e45dcd234eef96b5f876a8576c41b94106dfcd4b9b5b9d"
+      ]
+    },
+    "24e762ad9f519719f60f05b61b7b188f9786bce6f459e575cc663e73fb311da1": {
+      "reference_date": "2024-12-31",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável; (b) não poderão ser devidos por Devedor que esteja inadimplente com o Fundo; (c) deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição pelo Fundo; (d) deverão ter data de vencimento anterior à última Data de Resgate Esperada das Cotas Seniores em circulação; (e) deverão ter prazo máximo de vencimento em até 18 meses, sendo que os direitos creditórios agro cujos valores estiverem sujeitos à variação cambial do dólar norte-americano, desde que a respectiva aquisição pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis, deverão ter prazo de vencimento inferior a 12 meses, contados, em ambos os casos, a partir da respectiva data de aquisição; (f) considerando-se proforma a cessão pretendida, o valor de face dos direitos creditórios cujas datas de pagamento dos direitos creditórios elegíveis agro ocorram em prazo superior a 1 ano a contar da respectiva data de aquisição pelo Fundo, deverão ser limitados a 5% patrimônio líquido; (g) considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos de um mesmo devedor, considerado individualmente, não poderá representar concentração superior a 3% do patrimônio líquido;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ab251d3b710c928e34e27dd8ea58be2b3e2a2eac2992f93be7b1a94117acd78c"
+      ]
+    },
+    "6c9445fa508a64a7503a9b43783286f2b3ad768704cb46532956b6309d3c8ac6": {
+      "reference_date": "2024-11-27",
+      "value": "10.1. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações, obrigações e garantias do Originador no âmbito do respectivo Acordo Operacional Originador ou demais documentos integrantes do Fundo e que não sejam sanadas pelo Originador em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Originador, de notificação enviada pelo Administrador nesse sentido; (ii) caso ocorra a aquisição de Direitos Creditórios representando, pelo menos, 2% (dois por cento) do Patrimônio Líquido, em desconformidade com os Critérios de Elegibilidade estabelecidos neste Anexo Descritivo e referido evento não seja sanado em até 10 (dez) Dias Úteis a contar da data em que o índice de 2% (dois por cento) seja atingido; (iii) o não envio pelo Agente de Formalização e Cobrança Extrajudicial ao Administrador e ao Custodiante das informações necessárias para os cálculos dos Índices de Monitoramento, desde que não seja sanado dentro de 10 (dez) Dias Úteis; (iv) a não recomposição da Reserva de Liquidez, observadas as disposições do Capítulo Décimo e item 10.1 acima, que não seja sanada em até 10 (dez) Dias Úteis contados da caracterização do referido evento; (v) se houver violação a quaisquer dos Índices de Monitoramento ou da Quantidade Mínima de Devedores, observado que, (a) com relação ao Índice de Subordinação Sênior, a violação só ensejará um Evento de Avaliação quando atingir valores inferiores a 0,98 (noventa e oito centésimos); (b) com relação à Relação Mínima, a violação só ensejará um Evento de Avaliação ou qualquer ação do Administrador quando atingir valores inferiores a 115,3% (cento e quinze inteiros e três décimos por cento); e (c) com relação a Quantidade Mínima de Devedores, a violação só ensejará um Evento de Avaliação caso ocorra por 30 (trinta) ou mais dias corridos, excluindo-se para este fim as verificações da Quantidade Mínima de Devedores realizadas entre os meses de maio e agosto de cada ano;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5f67ae66d9879043e6aab5246ae8e54ee0ec75de69d61572a8a9457d6c88416c"
+      ]
+    },
+    "9dfe4e117f68d5db54b717c36258f19c5bfae8188775b144975b0fe78a0c9c69": {
+      "reference_date": "2021-10-28",
+      "value": "5.3. Não obstante o disposto no item 5.1 deste Regulamento, o Fundo somente poderá adquirir Direitos Creditórios Agro que cumpram, cumulativamente, às seguintes Condições de Cessão na sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo Administrador ou pelo Gestor, conforme o caso: (a) a aquisição do Direito Creditório Agro deverá ter sido previamente aprovada pelo Gestor, evidenciada mediante comunicação por escrito encaminhada ao Administrador; (b) a aquisição do Direito Creditório Agro somente ocorrerá caso o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino estejam iguais a, ou acima de 1,00 (um inteiro), observada, em todo caso, a necessidade de aprovação prévia do Direito Creditório Agro pelo Gestor; (c) o Direito Creditório Agro, emitido diretamente ao Fundo pelos respectivos Devedores, deverá ter sido objeto de formalização pelo Agente de Formalização e Cobrança Extrajudicial, conforme aplicável, conforme minutas padrão pré-definidas no Acordo Operacional, inclusive suas respectivas Garantias, seguindo o disposto na Política de Crédito e Originação, mediante confirmação escrita endereçada ao Administrador; (d) a contratação de Derivativo pelo Fundo até a Data de Aquisição de Direitos Creditórios Agro cujos valores estão sujeitos à variação cambial do dólar norte-americano, desde que a respectiva aquisição pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis, ou aquisição de Derivativo pelo Fundo, para Direitos Creditórios Agro cujos valores sejam pré-fixados em reais, em ambos os casos sempre mediante a utilização de um ou mais instrumentos previstos na Política de Investimento em Derivativos; (e) os Devedores devem ter no mínimo 2 (dois) anos de relacionamento com o Originador, sendo admitidos Direitos Creditórios Agro devidos por Devedores com prazo de relacionamento inferior a 2 (dois) anos, limitados a 15% (quinze por cento) do Patrimônio Líquido, conforme verificação a ser realizada pelo Gestor nos termos do item 5.2.2 abaixo, exclusivamente com base na informação relativa ao tempo de relacionamento de cada Devedor previamente fornecida pelo Originador; e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7eaf2bddeb6eeeeac05e7d4cc06a005e48b8eadcd38f75319eac7d6b3d1e4391"
+      ]
+    },
+    "55902ac2a3e9ad1f4d9c1158eb7aa1c8d06e6da5a9d594e024e7624c7c753e6a": {
+      "reference_date": "2021-10-28",
+      "value": "5.3. Não obstante o disposto no item 5.1 deste Regulamento, o Fundo somente poderá adquirir Direitos Creditórios Agro que cumpram, cumulativamente, às seguintes Condições de Cessão na sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo Administrador ou pelo Gestor, conforme o caso: (a) a aquisição do Direito Creditório Agro deverá ter sido previamente aprovada pelo Gestor, evidenciada mediante comunicação por escrito encaminhada ao Administrador; (b) a aquisição do Direito Creditório Agro somente ocorrerá caso o Índice de Subordinação Sênior e o Índice de Subordinação Mezanino estejam iguais a, ou acima de 1,00 (um inteiro), observada, em todo caso, a necessidade de aprovação prévia do Direito Creditório Agro pelo Gestor; (c) o Direito Creditório Agro, emitido diretamente ao Fundo pelos respectivos Devedores, deverá ter sido objeto de formalização pelo Agente de Formalização e Cobrança Extrajudicial, conforme aplicável, conforme minutas padrão pré-definidas no Acordo Operacional, inclusive suas respectivas Garantias, seguindo o disposto na Política de Crédito e Originação, mediante confirmação escrita endereçada ao Administrador; (d) a contratação de Derivativo pelo Fundo até a Data de Aquisição de Direitos Creditórios Agro cujos valores estão sujeitos à variação cambial do dólar norte-americano, desde que a respectiva aquisição pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis, ou aquisição de Derivativo pelo Fundo, para Direitos Creditórios Agro cujos valores sejam pré-fixados em reais, em ambos os casos sempre mediante a utilização de um ou mais instrumentos previstos na Política de Investimento em Derivativos; (e) os Devedores devem ter no mínimo 2 (dois) anos de relacionamento com o Originador, sendo admitidos Direitos Creditórios Agro devidos por Devedores com prazo de relacionamento inferior a 2 (dois) anos, limitados a 15% (quinze por cento) do Patrimônio Líquido, conforme verificação a ser realizada pelo Gestor nos termos do item 5.2.2 abaixo, exclusivamente com base na informação relativa ao tempo de relacionamento de cada Devedor previamente fornecida pelo Originador; e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "21e97118591cefb8b427cb839fbc7f700bdd0579e6975bf6487ba630e8dd19f3"
       ]
     }
   },
@@ -3072,54 +2996,6 @@
       "sha256": "594c75b8396c34f5d12db144e8154a99238d4f6a77106e3774275d87940c4582",
       "verification": "primary_passage"
     },
-    "71de11da67e344bdd41087fdc5fcd8735793c5b5628906fa128a548b9188ce6c": {
-      "document_id": "853284",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=853284",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "(k) considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa;",
-      "sha256": "594c75b8396c34f5d12db144e8154a99238d4f6a77106e3774275d87940c4582",
-      "verification": "primary_passage"
-    },
-    "a39dbf2faf0e0a60875cf29b4f6461dce973d5f8c8fa7ec31e1ca2e01bc7c67d": {
-      "document_id": "625568",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=625568",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "(k) considerando-se pro forma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa;\n 16",
-      "sha256": "3e61c750629b549c526f679d4a2578b1219ef35ec2d930f2f9a7620305d8a179",
-      "verification": "primary_passage"
-    },
-    "a0349f5bf7419bfc7ee17aa885ed44aa52045ca9ceca9376a65a86da821dd617": {
-      "document_id": "452855",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=452855",
-      "reference_date": "2022-12-31",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "(k) considerando‐se pro forma a aquisição pretendida, o valor de face dos direitos creditórios devidos por devedores dos direitos creditórios agro cuja classificação atribuída pelo originador seja “C” deverão representar, no máximo, 15% do patrimônio líquido do fundo, conforme informado no arquivo remessa;",
-      "sha256": "163e1951ee59ecd0b12cc0a6a78b951f5d07f34e3bd2d8de2d2635fb531fa5af",
-      "verification": "primary_passage"
-    },
-    "98b995b6088c6a79d6b72d3ceaabc1cb85c38b28716db3990f9ade4a79286cac": {
-      "document_id": "291220",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=291220",
-      "reference_date": "2021-12-31",
-      "version": "1",
-      "page": 12,
-      "clause": "",
-      "excerpt": "(k) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos por Devedores dos Direitos Creditórios Agro cuja classificação atribuída pelo Originador seja “C” deverão representar, no máximo, 15% do Patrimônio Líquido do Fundo, conforme informado no Arquivo Remessa;",
-      "sha256": "c8d2001b6cb8a42b49b00d1a82914ca7a812b3f35e013d1a50406a7770b442cf",
-      "verification": "primary_passage"
-    },
     "234a9bb0e7b5465d78f638e931dfab519d554f8f4770b2679bb0978b5ab42c1f": {
       "document_id": "791922",
       "title": "Regulamento",
@@ -3129,30 +3005,6 @@
       "page": 57,
       "clause": "4.4",
       "excerpt": "4.4. O Originador celebrará com o Fundo o Acordo Operacional Originador, que  regulará os termos e condições da indicação dos Devedores que irão originar os Direitos  Creditórios, bem como os procedimentos operacionais de sua aquisição pelo Fundo.\n Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e o  Fundo, regulando os termos e condições da cessão de Direitos Creditórios ao Fundo.",
-      "sha256": "61197fd2852a2b069b4821363e178ebc36bdb59883149aae1b1b8df073b7bbd5",
-      "verification": "primary_passage"
-    },
-    "afc69b9388ef1a6de6f6d1581dc14c9e2a9ae6c67e9ffb57c752b96583780443": {
-      "document_id": "791922",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791922",
-      "reference_date": "2024-11-27",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "caso dos Direitos Creditórios Adama, os produtores rurais,  pessoas físicas e/ou jurídicas, cooperativas de produtores  rurais, bem como outras pessoas jurídicas que exerçam a  atividade de distribuição dos referidos Insumos, originados  pela Adama e previamente aprovados pelo Gestor,  devedores dos Direitos Creditórios Adama; e (iv) no caso  dos Direitos Creditórios Distribuidores, (a) os Distribuidores  de Produtos Cedentes, indicados pelo Originador e  previamente aprovados pelo Gestor, na qualidade de  coobrigadas dos Direitos Creditórios Distribuidores, de  acordo com as disposições dos respectivos Contratos de  Cessão; e (b) os devedores originais dos Direitos Creditórios  Distribuidores, representados por produtores rurais, pessoas  físicas e/ou jurídicas, cooperativas de produtores rurais,  originados pelo Distribuidor de Produtos Cedente e  previamente aprovados pelo Gestor.",
-      "sha256": "61197fd2852a2b069b4821363e178ebc36bdb59883149aae1b1b8df073b7bbd5",
-      "verification": "primary_passage"
-    },
-    "d3868bfc7f435b0d3755b3b87c350b1884275cb76700e62e2f8ce1df06239b2e": {
-      "document_id": "791922",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791922",
-      "reference_date": "2024-11-27",
-      "version": "1",
-      "page": 64,
-      "clause": "4.19",
-      "excerpt": "4.19. Não obstante a verificação dos Critérios de Elegibilidade, o Fundo somente poderá  adquirir Direitos Creditórios que cumpram, cumulativamente, às seguintes Condições de  Cessão na sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo  Administrador ou pelo Gestor, conforme o caso:",
       "sha256": "61197fd2852a2b069b4821363e178ebc36bdb59883149aae1b1b8df073b7bbd5",
       "verification": "primary_passage"
     },
@@ -3178,30 +3030,6 @@
       "clause": "1.1",
       "excerpt": "1.1. Observada a disponibilidade de caixa do Fundo, o Cedente promete ceder ao Cessionário, de forma definitiva, irrevogável e irretratável, sem coobrigação ou qualquer forma de garantia, direta ou indireta, do Cedente, os Direitos Creditórios Cedente, livres e desembaraçados de quaisquer ônus, cuja cessão será formalizada por meio da celebração de um ou mais termos de cessão, conforme modelo constante no Anexo I  Termo de Cessão Cedente, do Preço de Aquisição (conforme abaixo definido) e celebração de um recibo do Preço de Aquisição, conforme modelo constante do Anexo I, respeitadas as Condições Precedentes, Critérios de Elegibilidade, Condições de Cessão (conforme abaixo definido) e os demais termos e condições previstos neste Contrato.",
       "sha256": "aebbc8c7cc9e530cd8ec74480a716cc2379815ca702bb99fb7f0c379909f2945",
-      "verification": "primary_passage"
-    },
-    "6b0200025aff7e82e7b7e70979f69302452be11efc6cb8d64c5b2d6ee6bd4b94": {
-      "document_id": "250447",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
-      "reference_date": "2021-10-28",
-      "version": "1",
-      "page": 39,
-      "clause": "4.4",
-      "excerpt": "4.4. O Fundo somente poderá adquirir Direitos Creditórios durante o Período de Investimento,  desde que os Direitos Creditórios atendam à Política de Investimento, aos respectivos Critérios  de Elegibilidade e às Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "sha256": "5d105db1a6d9ce897a0a8644f536cbd3e85f5e2c28e129f31553ed0eb6bbe6ac",
-      "verification": "primary_passage"
-    },
-    "85eaf8ba0861b9931fe74ef2751365eca58f60c3b48b52b5c479b60b58a5878c": {
-      "document_id": "250448",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
-      "reference_date": "2021-10-28",
-      "version": "1",
-      "page": 36,
-      "clause": "4.4",
-      "excerpt": "4.4. O Fundo somente poderá adquirir Direitos Creditórios durante o Período de Investimento,  desde que os Direitos Creditórios atendam à Política de Investimento, aos respectivos Critérios  de Elegibilidade e às Condições de Cessão, verificados em cada respectiva Data de Aquisição.",
-      "sha256": "f6ea81efe4b91edbe465a669d501af6054c7506a114a26ec7312eb3221146691",
       "verification": "primary_passage"
     },
     "b8a61f35b6a2f1a9edf8c3d14a1d17b6d10f34d3a4fd5a704090a4a177943b9f": {
@@ -6166,54 +5994,6 @@
       "sha256": "203f0868962096f412e28bbfa42b2a555b20fdb491a2a34c63a091b937a58eac",
       "verification": "primary_passage"
     },
-    "f7baa48bc3584faaa41b23d8e0c6d93b61d75bc2c0118df9b9a5e3e62a6082fd": {
-      "document_id": "731565",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731565",
-      "reference_date": "2024-08-28",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "Devedores Significam: (1) para os Direitos Creditórios Agro: (i) no caso das  CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais e a associação de produtores  rurais que tenha por objeto a produção, comercialização e a  industrialização dos produtos rurais, indicadas pelo Originador ou  por uma Revenda Cedente, nos termos dos Contratos de Cessão  e do Acordo Operacional, e que sejam, em ambos os casos,  previamente aprovadas pelo Gestor; (ii) no caso de CDCA, os  Emissores que são as Revendas, indicados pelo Originador e  previamente aprovados pelo Gestor (iii) no caso dos Direitos  Creditórios Adama, os produtores rurais, pessoas físicas e/ou  jurídicas, cooperativas de produtores rurais, bem como outras  pessoas jurídicas que exerçam a atividade de distribuição dos  referidos Insumos, originados pela Adama e previamente  aprovados pelo Gestor, devedores dos Direitos Creditórios Adama;\n e (iii) no caso dos Direitos Creditórios Revendas, (a) as Revendas  Cedentes, indicadas pelo Originador e previamente aprovadas  pelo Gestor, na qualidade de coobrigadas dos Direitos Creditórios  Revendas, de acordo com as disposições dos respectivos  Contratos de Cessão; e (b) os devedores originais dos Direitos  Creditórios Revenda, representados por produtores",
-      "sha256": "60b578ce9e59f0456b1e42a36eb5bf641be755aca945ad77bc2ee62544d19016",
-      "verification": "primary_passage"
-    },
-    "32998f7b5ccec2386101fcad07ef589ea5b99778e8b71162f79902599b1d343a": {
-      "document_id": "389244",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389244",
-      "reference_date": "2022-12-13",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "Devedores Significam: (1) para os Direitos Creditórios Agro: (i) no caso das  CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais e a associação de produtores  rurais que tenha por objeto a produção, comercialização e a  industrialização dos produtos rurais, indicadas pelo Originador ou  por uma Revenda Cedente, nos termos dos Contratos de Cessão  e do Acordo Operacional, e que sejam, em ambos os casos,  previamente aprovadas pelo Gestor; (ii) no caso de CDCA, os  Emissores que são as Revendas, indicados pelo Originador e  previamente aprovados pelo Gestor (iii) no caso dos Direitos  Creditórios Adama, os produtores rurais, pessoas físicas e/ou  jurídicas, cooperativas de produtores rurais, bem como outras  pessoas jurídicas que exerçam a atividade de distribuição dos  referidos Insumos, originados pela Adama e previamente  aprovados pelo Gestor, devedores dos Direitos Creditórios  Adama; e (iii) no caso dos Direitos Creditórios Revendas, (a) as  Revendas Cedentes, indicadas pelo Originador e previamente  aprovadas pelo Gestor, na qualidade de coobrigadas dos Direitos  Creditórios Revendas, de acordo com as disposições dos  respectivos Contratos de Cessão; e (b) os devedores originais  dos Direitos Creditórios Revenda, representados por produtores",
-      "sha256": "aebbc8c7cc9e530cd8ec74480a716cc2379815ca702bb99fb7f0c379909f2945",
-      "verification": "primary_passage"
-    },
-    "bca8240336bdbad8efaff6d30236bda53200f10418677c89b89c68d8c52c7a8a": {
-      "document_id": "250447",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
-      "reference_date": "2021-10-28",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "“Devedores” Significam: (1) para os Direitos Creditórios Agro: (i) no caso das  CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais e a associação de produtores  rurais que tenha por objeto a produção, comercialização e a  industrialização dos produtos rurais, indicadas pelo Originador ou  por uma Revenda Cedente, nos termos dos Contratos de Cessão  e do Acordo Operacional, e que sejam, em ambos os casos,  previamente aprovadas pelo Gestor; (ii) no caso de CDCA, os  Emissores que são as Revendas, indicados pelo Originador e  previamente aprovados pelo Gestor (iii) no caso dos Direitos  Creditórios Adama, os produtores rurais, pessoas físicas e/ou  jurídicas, cooperativas de produtores rurais, bem como outras  pessoas jurídicas que exerçam a atividade de distribuição dos  referidos Insumos, originados pela Adama e previamente  aprovados pelo Gestor, devedores dos Direitos Creditórios  Adama; e (iii) no caso dos Direitos Creditórios Revendas, (a) as  Revendas Cedentes, indicadas pelo Originador e previamente  aprovadas pelo Gestor, na qualidade de coobrigadas dos Direitos  Creditórios Revendas, de acordo com as disposições dos  respectivos Contratos de Cessão; e (b) os devedores originais",
-      "sha256": "5d105db1a6d9ce897a0a8644f536cbd3e85f5e2c28e129f31553ed0eb6bbe6ac",
-      "verification": "primary_passage"
-    },
-    "d50148ca8ef8521c09394342f6c7e7b0748d6924d181af3c7f6e7fd2ea7f2264": {
-      "document_id": "250448",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
-      "reference_date": "2021-10-28",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "“Devedores” Significam: (1) para os Direitos Creditórios Agro: (i) no caso das  CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas,  cooperativas de produtores rurais e a associação de produtores  rurais que tenha por objeto a produção, comercialização e a  industrialização dos produtos rurais, indicadas pelo Originador ou  por uma Revenda Cedente, nos termos dos Contratos de Cessão  e do Acordo Operacional, e que sejam, em ambos os casos,  previamente aprovadas pelo Gestor; (ii) no caso de CDCA, os  Emissores que são as Revendas, indicados pelo Originador e  previamente aprovados pelo Gestor (iii) no caso dos Direitos  Creditórios Adama, os produtores rurais, pessoas físicas e/ou  jurídicas, cooperativas de produtores rurais, bem como outras  pessoas jurídicas que exerçam a atividade de distribuição dos  referidos Insumos, originados pela Adama e previamente  aprovados pelo Gestor, devedores dos Direitos Creditórios  Adama; e (iii) no caso dos Direitos Creditórios Revendas, (a) as  Revendas Cedentes, indicadas pelo Originador e previamente  aprovadas pelo Gestor, na qualidade de coobrigadas dos Direitos  Creditórios Revendas, de acordo com as disposições dos  respectivos Contratos de Cessão; e (b) os devedores originais",
-      "sha256": "f6ea81efe4b91edbe465a669d501af6054c7506a114a26ec7312eb3221146691",
-      "verification": "primary_passage"
-    },
     "0a4e5fce534d75d1c3e45dcd234eef96b5f876a8576c41b94106dfcd4b9b5b9d": {
       "document_id": "452855",
       "title": "Demonstrações Financeiras",
@@ -6225,6 +6005,45 @@
       "excerpt": "Examinamos as demonstrações financeiras do Fundo de Investimento em Direitos Creditórios Liverpool  (“Fundo”), administrado pela Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., que  compreendem a demonstração da posição financeira em 31 de dezembro de 2022 e as respectivas  demonstrações do resultado, das mutações do patrimônio líquido e dos fluxos de caixa para o exercício  findo nessa data, bem como as correspondentes notas explicativas, compreendendo as políticas contábeis  significativas e outras informações elucidativas.\n Em nossa opinião as demonstrações financeiras acima referidas apresentam adequadamente, em todos  os aspectos relevantes, a posição patrimonial e financeira do Fundo de Investimento em Direitos  Creditórios Liverpool em 31 de dezembro de 2022 e o desempenho de suas operações e os seus fluxos  de caixa para o exercício findo nessa data, de acordo com as práticas contábeis adotadas no Brasil  aplicáveis aos fundos de investimento em direitos creditórios.",
       "sha256": "163e1951ee59ecd0b12cc0a6a78b951f5d07f34e3bd2d8de2d2635fb531fa5af",
       "verification": "primary_passage"
+    },
+    "ab251d3b710c928e34e27dd8ea58be2b3e2a2eac2992f93be7b1a94117acd78c": {
+      "document_id": "853284",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=853284",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios que atendam aos seguintes critérios de elegibilidade:\n(a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável;\n(b) não poderão ser devidos por Devedor que esteja inadimplente com o Fundo;\n(c) deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição pelo  Fundo;\n(d) deverão ter data de vencimento anterior à última Data de Resgate Esperada das Cotas Seniores em  circulação;\n(e) deverão ter prazo máximo de vencimento em até 18 meses, sendo que os direitos creditórios agro cujos  valores estiverem sujeitos à variação cambial do dólar norte-americano, desde que a respectiva aquisição  pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis, deverão ter prazo de  vencimento inferior a 12 meses, contados, em ambos os casos, a partir da respectiva data de aquisição;\n(f) considerando-se proforma a cessão pretendida, o valor de face dos direitos creditórios cujas datas de  pagamento dos direitos creditórios elegíveis agro ocorram em prazo superior a 1 ano a contar da respectiva  data de aquisição pelo Fundo, deverão ser limitados a 5% patrimônio líquido;\n(g) considerando-se proforma a aquisição pretendida, o valor de face dos direitos creditórios devidos de um  mesmo devedor, considerado individualmente, não poderá representar concentração superior a 3% do  patrimônio líquido;",
+      "sha256": "594c75b8396c34f5d12db144e8154a99238d4f6a77106e3774275d87940c4582",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "7eaf2bddeb6eeeeac05e7d4cc06a005e48b8eadcd38f75319eac7d6b3d1e4391": {
+      "document_id": "250447",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250447",
+      "reference_date": "2021-10-28",
+      "version": "1",
+      "page": 47,
+      "clause": "5.3",
+      "excerpt": "5.3. Não obstante o disposto no item 5.1 deste Regulamento, o Fundo somente poderá adquirir  Direitos Creditórios Agro que cumpram, cumulativamente, às seguintes Condições de Cessão na  sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo Administrador ou pelo  Gestor, conforme o caso:\n(a) a aquisição do Direito Creditório Agro deverá ter sido previamente aprovada pelo Gestor,  evidenciada mediante comunicação por escrito encaminhada ao Administrador;\n(b) a aquisição do Direito Creditório Agro somente ocorrerá caso o Índice de Subordinação  Sênior e o Índice de Subordinação Mezanino estejam iguais a, ou acima de 1,00 (um inteiro),  observada, em todo caso, a necessidade de aprovação prévia do Direito Creditório Agro pelo  Gestor;\n(c) o Direito Creditório Agro, emitido diretamente ao Fundo pelos respectivos Devedores,  deverá ter sido objeto de formalização pelo Agente de Formalização e Cobrança Extrajudicial,  conforme aplicável, conforme minutas padrão pré-definidas no Acordo Operacional, inclusive  suas respectivas Garantias, seguindo o disposto na Política de Crédito e Originação, mediante  confirmação escrita endereçada ao Administrador;\n(d) a contratação de Derivativo pelo Fundo até a Data de Aquisição de Direitos Creditórios  Agro cujos valores estão sujeitos à variação cambial do dólar norte-americano, desde que a  respectiva aquisição pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis,  ou aquisição de Derivativo pelo Fundo, para Direitos Creditórios Agro cujos valores sejam  pré-fixados em reais, em ambos os casos sempre mediante a utilização de um ou mais  instrumentos previstos na Política de Investimento em Derivativos;\n(e) os Devedores devem ter no mínimo 2 (dois) anos de relacionamento com o Originador,  sendo admitidos Direitos Creditórios Agro devidos por Devedores com prazo de relacionamento  inferior a 2 (dois) anos, limitados a 15% (quinze por cento) do Patrimônio Líquido, conforme  verificação a ser realizada pelo Gestor nos termos do item 5.2.2 abaixo, exclusivamente com  base na informação relativa ao tempo de relacionamento de cada Devedor previamente fornecida  pelo Originador; e",
+      "sha256": "5d105db1a6d9ce897a0a8644f536cbd3e85f5e2c28e129f31553ed0eb6bbe6ac",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "21e97118591cefb8b427cb839fbc7f700bdd0579e6975bf6487ba630e8dd19f3": {
+      "document_id": "250448",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250448",
+      "reference_date": "2021-10-28",
+      "version": "1",
+      "page": 44,
+      "clause": "5.3",
+      "excerpt": "5.3. Não obstante o disposto no item 5.1 deste Regulamento, o Fundo somente poderá adquirir  Direitos Creditórios Agro que cumpram, cumulativamente, às seguintes Condições de Cessão na  sua respectiva Data de Aquisição, as quais deverão ser verificadas pelo Administrador ou pelo  Gestor, conforme o caso:\n(a) a aquisição do Direito Creditório Agro deverá ter sido previamente aprovada pelo Gestor,  evidenciada mediante comunicação por escrito encaminhada ao Administrador;\n(b) a aquisição do Direito Creditório Agro somente ocorrerá caso o Índice de Subordinação  Sênior e o Índice de Subordinação Mezanino estejam iguais a, ou acima de 1,00 (um inteiro),  observada, em todo caso, a necessidade de aprovação prévia do Direito Creditório Agro pelo  Gestor;\n(c) o Direito Creditório Agro, emitido diretamente ao Fundo pelos respectivos Devedores,  deverá ter sido objeto de formalização pelo Agente de Formalização e Cobrança Extrajudicial,  conforme aplicável, conforme minutas padrão pré-definidas no Acordo Operacional, inclusive  suas respectivas Garantias, seguindo o disposto na Política de Crédito e Originação, mediante  confirmação escrita endereçada ao Administrador;\n(d) a contratação de Derivativo pelo Fundo até a Data de Aquisição de Direitos Creditórios  Agro cujos valores estão sujeitos à variação cambial do dólar norte-americano, desde que a  respectiva aquisição pelo Fundo não seja restringida pela legislação e regulamentação aplicáveis,  ou aquisição de Derivativo pelo Fundo, para Direitos Creditórios Agro cujos valores sejam  pré-fixados em reais, em ambos os casos sempre mediante a utilização de um ou mais  instrumentos previstos na Política de Investimento em Derivativos;\n(e) os Devedores devem ter no mínimo 2 (dois) anos de relacionamento com o Originador,  sendo admitidos Direitos Creditórios Agro devidos por Devedores com prazo de relacionamento  inferior a 2 (dois) anos, limitados a 15% (quinze por cento) do Patrimônio Líquido, conforme  verificação a ser realizada pelo Gestor nos termos do item 5.2.2 abaixo, exclusivamente com  base na informação relativa ao tempo de relacionamento de cada Devedor previamente fornecida  pelo Originador; e",
+      "sha256": "f6ea81efe4b91edbe465a669d501af6054c7506a114a26ec7312eb3221146691",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

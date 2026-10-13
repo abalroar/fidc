@@ -3,10 +3,6 @@
   "cnpj": "64330030000149",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "84d68e48023f81de8a3d111ab1467659473fce88afca3f51898b9dd34e9c969f",
-      "1569d6bae6641aa9a707ef3f754f4c3fe6cc31c8674c3fcfc50eadb8795f8b9a"
-    ],
     "term": [
       "776545b999a316b5d2f35f9495b74f410d164b14a4c1354c00aa0b2dc9c226ec",
       "11b7d8585315f9b37c01e9bbaa71555542efc7e1b96a0409c0afc30bd2614c55"
@@ -185,14 +181,6 @@
       "559a0e1bf1de7bfc7085e705ef76f99b4acef695dcf67d3936e505d8eef3dc92",
       "aa2095e6c8e9d04d632170a2420f787160da482eace9b8e3f22c4435afa386ca"
     ],
-    "originator": [
-      "b59f18388c7103f9d961f8a9b09706bd7fa931e6a3fcfde118c342a38431153d",
-      "93e87e4dcecb8b216ea14e5ea4b465e01f18f637122b30f2e31917bb72a4fe43"
-    ],
-    "debtor": [
-      "dc5b980c9b09a9230e2204c75e74a5954d797625b43ba1e6f2c96ee5e875e225",
-      "7c5e7aed5ef1d099d0cfd726bfe88b55000f03177cb189b7d87c17fcd5512bb0"
-    ],
     "investee": [
       "b51e4295d39a3f0377ac9f6f0b531d8fb641a1e5f0756441287558fde1159753"
     ],
@@ -213,6 +201,14 @@
     "allocation": [
       "c45afcb65478a43be6fbea4157380eeb854267eb497b131e15a46493b8b0500b",
       "ece99258a2e698c8af61a8bce7c0e08e72ae7477db228cf23ea421de4d519806"
+    ],
+    "originator": [
+      "b59f18388c7103f9d961f8a9b09706bd7fa931e6a3fcfde118c342a38431153d",
+      "93e87e4dcecb8b216ea14e5ea4b465e01f18f637122b30f2e31917bb72a4fe43"
+    ],
+    "eligibility": [
+      "b4cf16645b186f6fa4f4fbd2d3070d3cee7547e5d6892cf8546a2d1abd027096",
+      "657786a6578231decd77a3684adaeceb93effc308e295ac6e10a05b6f29fdd23"
     ]
   },
   "entries": {
@@ -250,33 +246,6 @@
       "provenance": "primary_passage",
       "sources": [
         "4e6181b54f33c785f3f6cab2f9a24a40324b6186bf96b6725f694e8c5a3bd605"
-      ]
-    },
-    "7c5e7aed5ef1d099d0cfd726bfe88b55000f03177cb189b7d87c17fcd5512bb0": {
-      "reference_date": "2026-01-06",
-      "value": "Pessoas físicas ou jurídicas, denominadas como sacados, “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos Creditórios.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "91d672ec5989d450697339149b21ac997a71785326c291a197686ddde629bc16"
-      ]
-    },
-    "84d68e48023f81de8a3d111ab1467659473fce88afca3f51898b9dd34e9c969f": {
-      "reference_date": "2026-02-20",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "45bc3e85e4e2444f6f3b116c985c569866678888311d806d9398bf709f2d11ef"
-      ]
-    },
-    "1569d6bae6641aa9a707ef3f754f4c3fe6cc31c8674c3fcfc50eadb8795f8b9a": {
-      "reference_date": "2026-01-06",
-      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ec28a92b926a501ff06eb52dc23e7aa8419c5fee5ee21769a7b14fa96ec1305c"
       ]
     },
     "776545b999a316b5d2f35f9495b74f410d164b14a4c1354c00aa0b2dc9c226ec": {
@@ -993,6 +962,24 @@
       "sources": [
         "b02c2cdc4f4518b3bd8e1119ec91dc11b87353255204b45ff8375fddcd307674"
       ]
+    },
+    "b4cf16645b186f6fa4f4fbd2d3070d3cee7547e5d6892cf8546a2d1abd027096": {
+      "reference_date": "2026-02-20",
+      "value": "10.3.18. Risco de originador dos Direitos Creditórios CCB. As atividades da Sol Agora e das Instituições Financeiras Parceiras que resultam na originação dos Direitos Creditórios CCB para atendimento à política de investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de problemas relacionados às atividades da Sol Agora e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios CCB que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a Sol Agora e as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios CCB suficientes para que o Fundo se enquadre às Alocações Mínimas e continue em existência. Além disso, a ausência e/ou redução na quantidade de Direitos Creditórios CCB elegíveis para aquisição pelo Fundo poderá impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios CCB.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "193163ed13d3ab42018977a73346d6bea08a3a298000e49e677280af84acf2fa"
+      ]
+    },
+    "657786a6578231decd77a3684adaeceb93effc308e295ac6e10a05b6f29fdd23": {
+      "reference_date": "2026-01-06",
+      "value": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas normas em vigor; (b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país; (c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; e (d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de acordo com a Política de Crédito. 4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva. 4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6f1eb1019443b964302a5150371315da8d303d0b14fd4e08a659977cf8f7fcb0"
+      ]
     }
   },
   "passages": {
@@ -1042,42 +1029,6 @@
       "clause": "10.3.5",
       "excerpt": "10.3.5. Risco de não constituição da Alienação Fiduciária de Equipamentos. Nos termos do artigo 1.361, §  1º, do Código Civil, a Alienação Fiduciária de Equipamentos somente é constituída mediante o registro do  instrumento do qual consta a Alienação Fiduciária de Equipamentos no competente Cartório de Títulos e  Documentos. A comprovação da devida constituição da Alienação Fiduciária de Equipamentos não é um  Critério de Elegibilidade ou Condição de Aquisição, sendo que a CCB que contempla a Alienação Fiduciária  de Equipamentos somente poderá ser registrada no competente Cartório de Títulos e Documentos em caso  de inadimplemento pelo Devedor CCB. Nesse sentido, é possível que o Fundo não tenha sucesso em  executar a Alienação Fiduciária de Equipamentos em caso de inadimplemento pelo Devedor CCB. O  eventual início de qualquer procedimento de falência, insolvência, renegociação ampla de dívidas,  dissolução, liquidação ou recuperação judicial ou extrajudicial, ou benefício legal similar, em qualquer  jurisdição, a qualquer tempo, poderão eventualmente atingir os Equipamentos caso o instrumento de  Alienação Fiduciária de Equipamentos não tenha sido devidamente registrado no competente Cartório de  Títulos e Documentos. Adicionalmente, por terceiros que, antes do registro da respectiva CCB, tenham  formalizado qualquer aquisição, transferência ou oneração dos Equipamentos, poderão ter preferência  sobre os respectivos Equipamentos em caso de questionamentos. Nessas situações, o Fundo estará  subordinado aos demais credores dos Devedores CCB e somente preferirão aos titulares de créditos  subordinados aos demais credores, se houver, e acionistas Devedores CCB em relação à ordem de  recebimento de seus créditos. Ainda, os Equipamentos não serão objetos de avaliação, por empresa  independente.",
       "sha256": "afde3535f727c0e80008a9705b3bf79b74fa3fd43dab9531470ca8f1e8bb5350",
-      "verification": "primary_passage"
-    },
-    "91d672ec5989d450697339149b21ac997a71785326c291a197686ddde629bc16": {
-      "document_id": "1083475",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1083475",
-      "reference_date": "2026-01-06",
-      "version": "1",
-      "page": 52,
-      "clause": "",
-      "excerpt": "Pessoas físicas ou jurídicas, denominadas como sacados,  “Devedores” obrigadas ou coobrigadas pela liquidação dos Direitos  Creditórios.",
-      "sha256": "0c0aa8a641040b42ad573c1878aafa1b4ba159edaa107a85bccd4c16c2adada2",
-      "verification": "primary_passage"
-    },
-    "45bc3e85e4e2444f6f3b116c985c569866678888311d806d9398bf709f2d11ef": {
-      "document_id": "1132984",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1132984",
-      "reference_date": "2026-02-20",
-      "version": "1",
-      "page": 25,
-      "clause": "10.3.17",
-      "excerpt": "10.3.17. Risco de originação – diminuição da quantidade de Direitos Creditórios elegíveis. A política  de investimento do Fundo descrita neste Regulamento estabelece que o Fundo deve destinar- se,  primordialmente, à aplicação em Direitos Creditórios. Na hipótese de, por qualquer motivo, não existirem  Direitos Creditórios disponíveis para transferência ao Fundo que satisfaçam, cumulativamente, às Condições  de Aquisição, aos Critérios de Elegibilidade e à política de investimento, composição e diversificação da  carteira do Fundo descrita neste Regulamento, poderá haver um desenquadramento do Fundo com relação  a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo, nos termos  deste Regulamento.",
-      "sha256": "afde3535f727c0e80008a9705b3bf79b74fa3fd43dab9531470ca8f1e8bb5350",
-      "verification": "primary_passage"
-    },
-    "ec28a92b926a501ff06eb52dc23e7aa8419c5fee5ee21769a7b14fa96ec1305c": {
-      "document_id": "1083475",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1083475",
-      "reference_date": "2026-01-06",
-      "version": "1",
-      "page": 24,
-      "clause": "4.25",
-      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:",
-      "sha256": "0c0aa8a641040b42ad573c1878aafa1b4ba159edaa107a85bccd4c16c2adada2",
       "verification": "primary_passage"
     },
     "2692c589737e583c10c17052129cca8f38a8320b69d121e6f097f76220f13d36": {
@@ -1980,6 +1931,19 @@
       "excerpt": "2.1. A administração fiduciária do Fundo será realizada pela GENIAL INVESTIMENTOS CORRETORA  DE VALORES MOBILIARIOS S.A., instituição financeira autorizada pela CVM para o exercício  profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório CVM  nº 6.819, expedido em 17 de maio de 2002, com sede na Cidade e Estado do Rio de Janeiro, na Praia  de Botafogo, 228, sala 913, inscrito no CNPJ/MF sob nº 27.652.684/0001-62 (\"Administradora\").",
       "sha256": "0c0aa8a641040b42ad573c1878aafa1b4ba159edaa107a85bccd4c16c2adada2",
       "verification": "primary_passage"
+    },
+    "6f1eb1019443b964302a5150371315da8d303d0b14fd4e08a659977cf8f7fcb0": {
+      "document_id": "1083475",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1083475",
+      "reference_date": "2026-01-06",
+      "version": "1",
+      "page": "24–25",
+      "clause": "4.25",
+      "excerpt": "4.25. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade:\n(a) os Direitos Creditórios devem ser constituídos de acordo com as formalidades exigidas pelas  normas em vigor;\n(b) os Direitos Creditórios devem ser oriundos de operações realizadas entre Cedentes e  Devedores, podendo ser pessoas física ou jurídica, e este último que tenham sede ou filial no país;\n(c) os Direitos Creditórios devem se encontrar livres e desembaraçados de quaisquer ônus ou  gravames de qualquer natureza; e\n(d) os Direitos Creditórios e seus respectivos Cedentes e Devedores devem ser selecionados de  acordo com a Política de Crédito.\n4.25.1. Observados os termos e as condições do presente Regulamento, a verificação do  atendimento aos Critérios de Elegibilidade pela Gestora será considerada definitiva.\n4.25.2. O desenquadramento de qualquer Direito Creditório a quaisquer Critérios de  Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela  Classe, nem dará à Classe qualquer pretensão, recurso ou direito de regresso em face das  Cedentes, da Administradora, da Gestora, de seus respectivos controladores, das sociedades por  elas direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
+      "sha256": "0c0aa8a641040b42ad573c1878aafa1b4ba159edaa107a85bccd4c16c2adada2",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

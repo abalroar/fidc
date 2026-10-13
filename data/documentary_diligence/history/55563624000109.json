@@ -3,11 +3,6 @@
   "cnpj": "55563624000109",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "8686f0daf6a3121f4eb1f449459cfaedfe33fa6481262fc4d34ebfed85087bb4",
-      "878449f15b902cde96f5dfa9d3744801640003bebb9e4bd33b43656635e5540e",
-      "ca57c3bda95001ce621618ef0d6d4a1f21a1d853fc08bc3158bfecdf8199890b"
-    ],
     "concentration": [
       "ac95d71de3c05fa8987a7ccdd96dae8043fcfb332b547c8dc76c9eb0eb44cda8"
     ],
@@ -102,14 +97,6 @@
       "0ca661febd73ab08ea9c8725416f719cfb757a718793c4b832bd3555d10095fe",
       "d12d639e8c32f0a4cf6df5b8b26c22af953e69fd283f92b9c8d903ccff22f71b"
     ],
-    "originator": [
-      "c699326a68a9ca6202857de4cecf7147cf9d2236dcdb55aabb5d06ae9e00c3b2",
-      "dc4fd3932418140ab49e1fd88dee48c4c74738f0d771c69a82adf898d26cd535",
-      "5611e024280e566b718834e56588208c3e4fa1a09f1d3a132f5910df62b4f6f4"
-    ],
-    "debtor": [
-      "ef32e4365b78519a1d963888de6a025313ee22303e2cd9b84a6b2a3cdb96a84e"
-    ],
     "investee": [
       "29f68b4fcf961fdea77cc3e0932a93544ab1be6887a7e9f67a76ef32e5442935",
       "7b315719c9749c6e70663b5b1f8a274611981d1dd6afd12d16238d24aafc2530"
@@ -133,6 +120,19 @@
     ],
     "allocation": [
       "9a093749d1e314c6f6001d8e9db575fb772b3dfed872456fea1e97635f5f16d2"
+    ],
+    "originator": [
+      "c699326a68a9ca6202857de4cecf7147cf9d2236dcdb55aabb5d06ae9e00c3b2",
+      "dc4fd3932418140ab49e1fd88dee48c4c74738f0d771c69a82adf898d26cd535",
+      "5611e024280e566b718834e56588208c3e4fa1a09f1d3a132f5910df62b4f6f4"
+    ],
+    "eligibility": [
+      "8686f0daf6a3121f4eb1f449459cfaedfe33fa6481262fc4d34ebfed85087bb4",
+      "b7368f5328f6246d599f20892e52f5827a59b6bef08cdffe3d7b6b7c2c0a41f0",
+      "356930454a4d64b76fa31080e1f476f97bb6151033b0cfc5028f9fbee0cdf1e6"
+    ],
+    "debtor": [
+      "ef32e4365b78519a1d963888de6a025313ee22303e2cd9b84a6b2a3cdb96a84e"
     ]
   },
   "entries": {
@@ -719,6 +719,24 @@
       "provenance": "primary_passage",
       "sources": [
         "22635de4fb0f490a5e661267824a66b3f6e02c44cbc1c50541fe75bef30b7612"
+      ]
+    },
+    "b7368f5328f6246d599f20892e52f5827a59b6bef08cdffe3d7b6b7c2c0a41f0": {
+      "reference_date": "2026-01-31",
+      "value": "c) Risco de originação de direitos creditórios. Os direitos creditórios a serem adquiridos pela Classe Investida são decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os critérios de elegibilidade, as condições de cessão e a política de investimento, composição e diversificação da carteira da Classe Investida descrita em seu regulamento, a Classe Investida poderá ser incapaz de alocar a totalidade de seus recursos, o que poderá inviabilizar a realização das chamadas de capital por seu administrador, afetando negativamente a continuidade da Classe Investida, a expectativa de seus cotistas, incluindo a Classe, com relação ao seu horizonte de investimento, a rentabilidade da Classe Investida e, consequentemente, o valor das Cotas da Classe Investida, impactando assim a Classe e os investimentos dos Cotistas em Cotas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "59fbe3a51e30592b51a40ec7df6913ef28883d36d1e86a4278d6f1ed1dd1a044"
+      ]
+    },
+    "356930454a4d64b76fa31080e1f476f97bb6151033b0cfc5028f9fbee0cdf1e6": {
+      "reference_date": "2025-01-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "43951f5e0418a6c973d78c9015ecf28a9ad8e7316f73ae6c144c23da7ae37f3f"
       ]
     }
   },
@@ -1419,6 +1437,19 @@
       "excerpt": "v) Risco de crédito relativo às Cotas da Classe Investida. Decorre da capacidade dos  Fundos-Alvo e da própria Classe Investida de realizar o pagamento da amortização e do  resgate das Cotas dos Fundos-Alvo e da própria Classe Investida. A Classe sofrerá o  impacto do não pagamento da amortização ou do resgate das (a) Cotas dos Fundos  Alvo, de forma indireta; e (b) das Cotas da Classe Investida integrantes da Carteira. A  Classe somente procederá à amortização e ao resgate das Cotas em moeda corrente  nacional na medida em que a amortização e o resgate das Cotas dos Fundos-Alvo e das  Cotas da Classe Investida sejam pagos, respectivamente, pelos Fundos-Alvo e pela  Classe Investida, e desde que os respectivos valores sejam transferidos (direta ou  indiretamente) à Classe, não havendo garantia de que, na hipótese de não recebimento  desses valores, a amortização e o resgate das Cotas ocorrerão integralmente conforme  estabelecido no Anexo do Regulamento e demais documentos que os integrem,  conforme aplicável. Nessas hipóteses, não será devido pela Classe, pelo  ADMINISTRADOR, pelo GESTOR, e/ou pelo CUSTODIANTE, qualquer multa ou  penalidade, de qualquer natureza. Ainda, em caso de declaração judicial de insolvência  de qualquer dos Fundos-Alvo ou da Classe Investida, a Classe poderá não receber os  pagamentos das (i) Cotas dos Fundos-Alvo, de forma indireta; e (b) das Cotas da Classe  Investida que compõem sua Carteira, o que poderá afetar adversamente os resultados  da Classe.",
       "sha256": "e9cb9e6ddbe505fe068cfcac33605165a98313489de0d3ce6d4d238263c3f3e7",
       "verification": "primary_passage"
+    },
+    "43951f5e0418a6c973d78c9015ecf28a9ad8e7316f73ae6c144c23da7ae37f3f": {
+      "document_id": "891861",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=891861",
+      "reference_date": "2025-01-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "iv) Riscos referentes às carteiras da Classe Investida. Na forma do Anexo II da Resolução  CVM 175, os Fundos-Alvo investidos pela Classe Investida investem, direta ou  indiretamente, no mínimo, 50% (cinquenta por cento) do seu patrimônio em direitos  creditórios originados a partir de operações realizadas nas mais diversas indústrias. O  investimento em tais direitos creditórios está sujeito a fatores de risco específicos,  incluindo, mas não se limitando a:\na) Risco de liquidez dos direitos creditórios. O investimento da Classe Investida em  direitos creditórios apresenta peculiaridades em relação às aplicações usuais da  maioria dos fundos de investimento brasileiros, haja vista que não existe, no Brasil,  mercado secundário com liquidez para tais direitos creditórios. Caso a Classe  Investida precise vender os direitos creditórios adquiridos, poderá não haver  mercado comprador para tais créditos, bem como o preço de alienação de tais  direitos creditórios poderá refletir essa falta de liquidez, causando perda ao  patrimônio da Classe Investida e, consequentemente, à Classe.\nb) Questionamento judicial. Os devedores podem questionar judicialmente (1) a  validade dos direitos creditórios, inclusive em razão da legalidade dos limites de  crédito concedidos pelo originador ou cedente e das taxas de juros praticadas, antes  e/ou após a sua transferência para os Fundos-Alvo; e/ou (2) os termos e condições  da transferência dos direitos creditórios aos Fundos-Alvo. Em qualquer caso, é  possível que os Fundos-Alvo não recebam parte ou a totalidade dos valores relativos  aos direitos creditórios de sua titularidade objeto de questionamento judicial.\nc) Risco de originação de direitos creditórios. Os direitos creditórios a serem adquiridos  pela Classe Investida são decorrentes de operações de empréstimo específicas  envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento  da Classe Investida. Na hipótese de não originação, originação insuficiente ou  indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo,  inclusive em caso de redução ou descontinuidade das operações regulares dos  cedentes, de direitos creditórios que satisfaçam os critérios de elegibilidade, as  condições de cessão e a política de investimento, composição e diversificação da  carteira da Classe Investida descrita em seu regulamento, a Classe Investida poderá  ser incapaz de alocar a totalidade de seus recursos, o que poderá inviabilizar a  realização das chamadas de capital por seu administrador, afetando negativamente  a continuidade da Classe Investida, a expectativa de seus cotistas, incluindo a  Classe, com relação ao seu horizonte de investimento, a rentabilidade da Classe  Investida e, consequentemente, o valor das Cotas da Classe Investida, impactando  assim a Classe e os investimentos dos Cotistas em Cotas.\nd) Originação por meio fraudulento. Os Fundos-Alvo podem adquirir direitos creditórios  que tenham sido originados por meio fraudulento. Nesse caso, os Fundos-Alvo não  poderão exigir o pagamento dos respectivos valores por parte dos devedores  lesados, restando-lhe somente exigir do cedente o pagamento do valor",
+      "sha256": "e9cb9e6ddbe505fe068cfcac33605165a98313489de0d3ce6d4d238263c3f3e7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

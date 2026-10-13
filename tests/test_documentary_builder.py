@@ -4,6 +4,106 @@ from pathlib import Path
 from scripts import build_documentary_diligence as builder
 
 
+def test_eligibility_retrieval_keeps_the_actual_lettered_conditions_and_short_items(tmp_path):
+    text='''10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, verificados na Data de Aquisição:
+
+(a) em moeda nacional;
+
+(b) legalmente constituídos, certos, válidos, exigíveis e líquidos;
+
+(c) não estejam vencidos na respectiva Data de Aquisição;
+
+(d) devedores não inadimplentes perante o Fundo;
+
+(e) amparados pelos respectivos Documentos Comprobatórios; e
+
+(f) prazo mínimo de vencimento de 5 (cinco) dias úteis contados do ingresso no Fundo.
+
+10.2 O desenquadramento posterior não obriga a alienação dos créditos.'''
+    path=tmp_path/'current.txt';path.write_text(text)
+    doc={'id':1188990,'classification':'regulamento','reference_date':'2026-05-13','parse_status':'complete','text_path':str(path)}
+    records=extract_primary_candidates([doc],[tmp_path],{'eligibility'})['eligibility']
+    material=next(record for record in records if record['source']['clause']=='10.1')
+    assert '(a) em moeda nacional;' in material['text']
+    assert '(f)' in material['text'] and '5 (cinco) dias úteis' in material['text']
+    assert '10.2' not in material['text']
+    assert material['source']['list_recovery_complete'] is True
+    summary=builder.brief_clause('eligibility',material['text'])
+    assert all(f'({letter})' in summary for letter in 'abcdef')
+    # Existing retrieval for every other criterion keeps its old boundaries.
+    assert not any('(a)' in part and '(f)' in part for part in builder.paragraphs(text))
+
+
+def test_eligibility_recovery_stops_at_next_parent_clause_after_nested_conditions():
+    text='''8.1 A Classe adquirirá créditos que atendam aos seguintes Critérios de Elegibilidade:
+
+8.1.1 Os créditos deverão ser denominados em moeda nacional.
+
+8.1.2 Os devedores deverão ser adimplentes no Fundo.
+
+8.2 A taxa de administração será cobrada mensalmente.'''
+    rows=list(builder.eligibility_passages([text],0))
+    source=next(row[0] for row in rows if row[0].startswith('8.1 '))
+    assert '8.1.1' in source and '8.1.2' in source
+    assert '8.2' not in source
+
+
+def test_eligibility_adjacent_page_has_real_range_and_excluded_ocr_never_supplies_conditions(tmp_path):
+    pages=['10.1 Critérios de Elegibilidade a serem verificados na aquisição:\n\n(a) Os créditos deverão estar denominados em moeda nacional;',
+           'Anexo\nFIDC DE TESTE\n\n(b) Os devedores não poderão estar inadimplentes perante o Fundo.\n\n10.2 A Classe pagará sua taxa de administração.']
+    recovered=next(row for row in builder.eligibility_passages(pages,0) if row[0].startswith('10.1'))
+    assert recovered[1:]==(1,2,True)
+    assert '(b)' in recovered[0] and '10.2' not in recovered[0]
+    excluded=next(row for row in builder.eligibility_passages(pages,0,{2}) if row[0].startswith('10.1'))
+    assert excluded[1:]==(1,1,False)
+    assert '(b)' not in excluded[0]
+    path=tmp_path/'ocr.txt';path.write_text('\f'.join(pages))
+    doc={'id':123456,'classification':'regulamento','reference_date':'2026-01-01','parse_status':'partial','parse_method':'vision_ocr','text_path':str(path),'ocr_excluded_pages':[2]}
+    fund=build_fund('11111111000111','Teste',{'documents':[doc]}, {},[tmp_path],quarterly_inventory={},criterion_ids={'eligibility'})
+    criterion=fund['criteria'][0]
+    assert criterion['status']=='extraction_pending'
+    assert criterion['value']==''
+    assert 'continuação em página excluída' in criterion['reason']
+
+
+def test_originator_custodian_ban_and_bare_eligibility_intro_are_not_answers(tmp_path):
+    text='''4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.
+
+8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.'''
+    path=tmp_path/'current.txt';path.write_text(text)
+    doc={'id':1188990,'classification':'regulamento','reference_date':'2026-05-13','parse_status':'complete','text_path':str(path)}
+    records=extract_primary_candidates([doc],[tmp_path],{'originator','eligibility'})
+    assert not records['originator'] and not records['eligibility']
+
+
+def test_target_only_override_can_preserve_unrelated_rows_but_graph_or_other_changes_cannot(tmp_path, monkeypatch):
+    monkeypatch.setattr(builder,'ROOT',tmp_path)
+    path=tmp_path/'data/documentary_diligence/verified_overrides/11111111000111.json'
+    path.parent.mkdir(parents=True)
+    cached={'criteria':[{'criterion_id':'allocation','provenance':'primary_passage'}]}
+    targets={'eligibility','originator'}
+    path.write_text(json.dumps({'criteria':[{'criterion_id':'eligibility','value':'Atual'}]}))
+    assert builder.partial_override_change_safe(cached,targets,'11111111000111')
+    path.write_text(json.dumps({'criteria':[{'criterion_id':'allocation','value':'Alteração fora da rodada'}]}))
+    assert not builder.partial_override_change_safe(cached,targets,'11111111000111')
+    path.write_text(json.dumps({'criteria':[],'lookthrough':[]}))
+    assert not builder.partial_override_change_safe(cached,targets,'11111111000111')
+    path.write_text(json.dumps({'criteria':[]}))
+    cached['criteria'][0]['provenance']='verified_override'
+    assert not builder.partial_override_change_safe(cached,targets,'11111111000111')
+
+
+def test_singular_cedente_and_endossante_retrieve_positive_nominal_definitions(tmp_path):
+    text='''“Cedente”: Banco Alfa S.A., inscrito no CNPJ00.000.000/0001-00, que cede os Direitos Creditórios à Classe.
+
+“Endossante”: Banco Beta S.A., inscrito no CNPJ11.111.111/0001-11, responsável pelo endosso das CCBs à Classe.'''
+    path=tmp_path/'current.txt';path.write_text(text)
+    doc={'id':123456,'classification':'regulamento','reference_date':'2026-05-13','parse_status':'complete','text_path':str(path)}
+    records=extract_primary_candidates([doc],[tmp_path],{'originator'})['originator']
+    assert any('Banco Alfa' in row['text'] for row in records)
+    assert any('Banco Beta' in row['text'] for row in records)
+
+
 def test_generic_absence_and_instructions_are_never_values():
     assert not material_answer('Não localizado no corpus acessível')
     assert not material_answer('Elegibilidade e concentração exigem documentos')
