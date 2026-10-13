@@ -66,10 +66,10 @@ def test_compact_snapshot_keeps_zero_and_all_six_indicators_available(ui):
     assert "R$ 0,00" in html  # A reported DC zero cannot become the fallback denominator.
     assert "R$ 99,0 mm" not in html
     assert "14,36%" in html
-    support = ui["caption"].call_args.args[0]
-    assert r"Ativo R\$ 100,1 mm" in support
-    assert r"Vencidos R\$ 0,00" in support
-    assert "Cobertura não calculável (vencidos zero)" in support
+    assert "Ativo R$ 100,1 mm" in html
+    assert "Vencidos R$ 0,00" in html
+    assert "Cobertura não calculável (vencidos zero)" in html
+    ui["caption"].assert_not_called()
     assert summary == before
 
 
@@ -93,7 +93,7 @@ def test_default_snapshot_retains_six_cards_and_legacy_fallback(ui):
     ui["popover"].assert_not_called()
 
 
-def test_support_help_is_a_native_popover_and_reuses_canonical_help(ui, monkeypatch):
+def test_support_help_is_inline_disclosure_and_reuses_canonical_help(ui, monkeypatch):
     from services import portfolio_structure_ui
 
     helper = Mock(side_effect=lambda label, dashboard: (
@@ -106,14 +106,16 @@ def test_support_help_is_a_native_popover_and_reuses_canonical_help(ui, monkeypa
     ime._render_financial_snapshot_cards(
         dashboard, portfolio_mode=True, interactive_help=True, slot_key="fundo123",
     )
-    assert ui["popover"].call_args.kwargs["key"] == "portfolio_snapshot_support::fundo123"
-    assert ui["popover"].call_args.kwargs["type"] == "tertiary"
+    ui["popover"].assert_not_called()
     assert [call.args[0] for call in helper.call_args_list] == [
         "PL total", "DCs totais", "Subordinação reportada",
         "Ativo total", "Vencidos", "Cobertura de provisão",
     ]
-    html = ui["html"].call_args.args[0]
-    assert html.count("Fonte canônica") == 3
+    html = ui["markdown"].call_args.args[0]
+    assert html.count("Fonte canônica") == 6
+    assert 'class="portfolio-snapshot-support"' in html
+    assert 'aria-label="Sobre ativo, vencidos e cobertura"' in html
+    assert html.count('<span aria-hidden="true">i</span>') == 4
     assert "<script" not in html
 
 
@@ -203,7 +205,7 @@ def test_quota_presentation_handles_missing_identification_without_filling_it():
 
 
 @pytest.mark.parametrize("view", ["Valores absolutos (R$)", "% do total por competência"])
-def test_pl_keeps_one_chart_and_uses_supplied_history_for_subordination(ui, monkeypatch, view):
+def test_pl_keeps_one_chart_and_source_values_without_repeating_snapshot(ui, monkeypatch, view):
     monkeypatch.setattr(ime.st, "radio", lambda *args, **kwargs: view)
     quota = pd.DataFrame({
         "competencia": ["02/2026"] * 3, "competencia_dt": [pd.Timestamp("2026-02-01")] * 3,
@@ -225,8 +227,11 @@ def test_pl_keeps_one_chart_and_uses_supplied_history_for_subordination(ui, monk
     assert bars["color"]["scale"]["domain"] == ["Sênior", "Mezzanino", "Subordinada"]
     assert bars["order"]["field"] == "ordem"
     assert all(layer["mark"]["type"] != "text" or "detail" not in layer.get("encoding", {}) for layer in chart["layer"])
-    note = ui["caption"].call_args.args[0]
-    assert "1 competência" in note and "12,00%" in note and "99,00%" not in note
+    ui["caption"].assert_not_called()
+    assert not any('class="fidc-section"' in call.args[0] for call in ui["markdown"].call_args_list)
+    data = chart["datasets"][chart["layer"][0]["data"]["name"]]
+    value_field = "percentual" if view == "% do total por competência" else "valor"
+    assert sorted(row[value_field] for row in data) == [2.0, 10.0, 88.0]
     pd.testing.assert_frame_equal(quota, before)
 
 

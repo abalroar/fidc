@@ -263,7 +263,59 @@ def test_one_scope_detail_keeps_the_complete_cockpit_basket(monkeypatch):
     monkeypatch.setattr(portfolio_page.monitoring_tab, "render_portfolio_cockpit_snapshot", cockpit)
     analysis = SimpleNamespace(scopes=scopes, outputs=SimpleNamespace(metadata={}), dashboard_errors={})
     portfolio_page._render_structure_tab(
-        analysis=analysis, selected_scopes=(scopes[1],), selected_portfolio=SimpleNamespace(id="A"),
+        analysis=analysis, selected_scopes=(scopes[1],), selected_portfolio=SimpleNamespace(id="A", funds=(FUND_A, FUND_B)),
         period=SimpleNamespace(label="12M"), comparison_scopes=scopes,
     )
     assert cockpit.call_args.kwargs["selected_cnpjs"] is None
+
+
+def test_returns_fallback_identifies_the_actual_cnpj_when_active_fund_has_no_monthly_data(monkeypatch):
+    active = portfolio_page.PortfolioAnalysisScope('fund::active', 'Fundo selecionado', 'fund', 'active', None)
+    available = portfolio_page.PortfolioAnalysisScope('fund::other', 'Outro fundo', 'fund', 'other', SimpleNamespace())
+    analysis = SimpleNamespace(
+        scopes=(active, available), outputs=SimpleNamespace(fund_monthly={'other': pd.DataFrame({'fund_name': ['Outro fundo']})}),
+        monitor_outputs=None,
+    )
+    monkeypatch.setattr(portfolio_page.st, 'session_state', {})
+    monkeypatch.setattr(portfolio_page.st, 'caption', Mock())
+    header = Mock(); monkeypatch.setattr(portfolio_page, '_render_scope_header', header)
+    table = Mock(); monkeypatch.setattr(portfolio_page.credit_tab, '_render_fund_return_table', table)
+    monkeypatch.setattr(portfolio_page.ime_tab, '_render_quota_return_section', Mock())
+    portfolio_page._render_returns_tab(
+        analysis=analysis, selected_scopes=(active,), selected_portfolio=SimpleNamespace(id='A'),
+    )
+    assert table.call_args.kwargs['cnpj'] == 'other'
+    header.assert_called_once_with(available, show_label=True)
+    assert 'fundo selecionado' in portfolio_page.st.caption.call_args.args[0]
+
+
+def test_document_tab_label_migration_keeps_the_current_view(monkeypatch):
+    key = 'portfolio_analysis_view::A'
+    state = {key: portfolio_page.SECTION_DEEP_DIVE, key+'::selection': portfolio_page.SECTION_DEEP_DIVE}
+    monkeypatch.setattr(portfolio_page.st, 'session_state', state)
+    tabs = Mock(); monkeypatch.setattr(portfolio_page, '_render_stateful_tabs', tabs)
+    portfolio_page._render_portfolio_view_tabs(SimpleNamespace(id='A'))
+    assert state == {key: 'Documentos', key+'::selection': 'Documentos'}
+    tabs.assert_called_once_with(portfolio_page.PORTFOLIO_VIEW_TABS, key=key)
+
+
+def test_closed_fund_comparison_does_not_reload_monitoring_but_open_comparison_keeps_the_basket(monkeypatch):
+    scopes = (
+        portfolio_page.PortfolioAnalysisScope('fund::a', 'A', 'fund', FUND_A, None),
+        portfolio_page.PortfolioAnalysisScope('fund::b', 'B', 'fund', FUND_B, None),
+    )
+    comparison = nullcontext()
+    comparison.open = False
+    monkeypatch.setattr(portfolio_page.st, 'container', lambda **kwargs: nullcontext())
+    monkeypatch.setattr(portfolio_page.st, 'expander', lambda *args, **kwargs: comparison)
+    monkeypatch.setattr(portfolio_page, '_render_scoped_views', Mock())
+    monkeypatch.setattr(portfolio_page, '_base_scope_lookup', lambda **kwargs: {})
+    cockpit = Mock(); monkeypatch.setattr(portfolio_page.monitoring_tab, 'render_portfolio_cockpit_snapshot', cockpit)
+    analysis = SimpleNamespace(scopes=scopes, outputs=SimpleNamespace(), dashboard_errors={})
+    portfolio = SimpleNamespace(id='A', funds=(FUND_A,FUND_B))
+    period = SimpleNamespace(label='12M')
+    portfolio_page._render_structure_tab(analysis=analysis, selected_scopes=(scopes[0],), selected_portfolio=portfolio, period=period, comparison_scopes=scopes)
+    cockpit.assert_not_called()
+    comparison.open = True
+    portfolio_page._render_structure_tab(analysis=analysis, selected_scopes=(scopes[0],), selected_portfolio=portfolio, period=period, comparison_scopes=scopes)
+    cockpit.assert_called_once_with(period=period, selected_portfolio=portfolio, selected_cnpjs={FUND_A,FUND_B}, context_items=(), portfolio_mode=True)

@@ -1,6 +1,6 @@
 from contextlib import nullcontext
 from types import SimpleNamespace
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 import pandas as pd
 
@@ -42,7 +42,7 @@ def test_standalone_documentary_table_keeps_its_original_presentation():
     assert "background:#ff6200" in original
 
 
-def test_portfolio_curation_keeps_two_material_points_and_all_fifteen_reading_caveats():
+def test_portfolio_curation_keeps_all_fifteen_reading_caveats_in_one_audit():
     warnings = tuple(f"Lacuna RESSALVA_{index:02}: condição documental {index}." for index in range(14)) + (
         "Pacote gerado exclusivamente da cesta. Referência /Users/analista/Documentos/consulta.pdf. "
         + "Texto integral preservado. " * 40 + "FINAL_DA_RESSALVA.",
@@ -50,15 +50,18 @@ def test_portfolio_curation_keeps_two_material_points_and_all_fifteen_reading_ca
     manifest = SimpleNamespace(generated_at="2026-10-07T11:08:04-03:00", warnings=warnings)
     with (
         patch.object(tab_deep_dive, "_render_fund_reading"),
+        patch.object(tab_deep_dive, "build_document_comparison_pages", return_value=[]),
+        patch.object(tab_deep_dive, "_render_update_prompt"),
         patch.object(tab_deep_dive.st, "expander", return_value=nullcontext()) as expander,
         patch.object(tab_deep_dive.st, "markdown") as markup,
         patch.object(tab_deep_dive.st, "caption"),
     ):
         tab_deep_dive._render_document_curation(manifest, portfolio_mode=True)
-    expander.assert_called_once_with("Ressalvas da leitura", expanded=False)
-    highlights = markup.call_args_list[-2].args[0]
-    assert "RESSALVA_00" in highlights and "RESSALVA_01" in highlights
-    assert "RESSALVA_02" not in highlights
+    expander.assert_has_calls([
+        call("Auditoria documental", expanded=False),
+        call("Ferramentas documentais", expanded=False),
+    ])
+    assert expander.call_count == 2
     all_caveats = markup.call_args_list[-1].args[0]
     assert all(f"RESSALVA_{index:02}" in all_caveats for index in range(14))
     assert "Pacote gerado exclusivamente da cesta." in all_caveats

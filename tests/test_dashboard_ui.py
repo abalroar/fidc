@@ -285,7 +285,9 @@ def test_routes_and_exports_remain_available() -> None:
         "tabs/tab_estimativas_modelagem.py": ("Custo Financeiro do Cedente", "Vencimentário e Premissas"),
         "tabs/tab_deep_dive.py": (
             "Curadoria de Leitura (Documentos)",
-            "Prompt usado para atualizar este artefato",
+            "Atualizar leitura documental",
+            "Auditoria documental",
+            "Ferramentas documentais",
         ),
         "tabs/tab_modelo_fidc.py": ("Exportar deck de comitê (PPTX)", "Baixar timeline CSV", "Baixar dashboard Excel"),
         "tabs/tab_mercado_livre.py": ("Resumo (Excel)", "Base completa (Excel)", "Base completa (CSV)"),

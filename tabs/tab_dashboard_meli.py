@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 from datetime import date
 from html import escape
+import re
 from typing import Any, Iterable, Mapping
 
 import pandas as pd
@@ -539,19 +541,30 @@ def _render_consolidated_research_charts(research_outputs, *, key_prefix: str = 
 
 def _render_research_roll_charts(
     roll_df: pd.DataFrame, *, key: str, interactive_help: bool = False,
+    portfolio_mode: bool = False,
 ) -> None:
     specs = available_roll_seasonality_specs(roll_df)
     if not specs:
         return
     metric_ids = [spec["metric_id"] for spec in specs]
     labels = {spec["metric_id"]: spec["title"].removesuffix(" por mês do ano") for spec in specs}
+    if portfolio_mode:
+        _chart_title(
+            "Sazonalidade",
+            (
+                "Eixo X: mês do ano. Cada linha compara anos diferentes dentro do mesmo bucket.",
+                "O percentual é recalculado por numerador e denominador do escopo selecionado.",
+            ),
+            interactive_help=True,
+        )
     selected_metric_ids = st.multiselect(
-        "Rolls por mês do ano",
+        "Faixas de atraso" if portfolio_mode else "Rolls por mês do ano",
         options=metric_ids,
         default=default_roll_seasonality_metric_ids(specs),
         key=key,
         format_func=lambda value: labels.get(value, str(value)),
         help="Escolha quais buckets sazonais quer ver. O gráfico principal de Roll rates permanece sempre exibido acima.",
+        **({"label_visibility": "collapsed"} if portfolio_mode else {}),
     )
     if not selected_metric_ids:
         st.caption("Selecione ao menos um bucket de roll para exibir a sazonalidade.")
@@ -561,15 +574,21 @@ def _render_research_roll_charts(
         if spec["metric_id"] not in selected:
             continue
         _chart_title(
-            spec["title"],
+            labels[spec["metric_id"]] if portfolio_mode else spec["title"],
             (
                 spec["note"],
                 "Eixo X: mês do ano. Cada linha compara anos diferentes dentro do mesmo bucket.",
                 "O percentual é recalculado por numerador e denominador do escopo selecionado.",
             ),
-            **({"interactive_help": True} if interactive_help else {}),
+            **({"interactive_help": True} if interactive_help or portfolio_mode else {}),
         )
-        st.altair_chart(research_roll_seasonality_chart(roll_df, metric_id=spec["metric_id"]), use_container_width=True)
+        st.altair_chart(
+            research_roll_seasonality_chart(
+                roll_df, metric_id=spec["metric_id"],
+                **({"portfolio_mode": True} if portfolio_mode else {}),
+            ),
+            use_container_width=True,
+        )
 
 
 def _render_stacked_funds_view(
@@ -687,7 +706,26 @@ def _build_fund_return_table(
     )
 
 
-def _render_fund_return_table(*, outputs, cnpj: str, compact: bool = False) -> None:  # noqa: ANN001
+def _fund_return_period_caption(table: pd.DataFrame, summary: pd.DataFrame) -> str:
+    month_columns = [
+        str(column).lower().replace("-", "/") for column in table.columns
+        if re.fullmatch(r"(?:jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)[-/]\d{2}", str(column), flags=re.IGNORECASE)
+    ]
+    if month_columns:
+        period = month_columns[0] if len(month_columns) == 1 else f"{month_columns[0]}–{month_columns[-1]}"
+        return f"Janela de 12 meses · {period} · retornos em %; spreads em % a.a.; gaps em bps."
+    if not summary.empty and "latest_competencia" in summary:
+        dates = pd.to_datetime(summary["latest_competencia"], format="%m/%Y", errors="coerce").dropna()
+        if not dates.empty:
+            latest = dates.max()
+            period = _format_month_label(latest.date())
+            return f"Janela de 12 meses até {period} · retornos em %; spreads em % a.a.; gaps em bps."
+    return "Janela própria de 12 meses · retornos em %; spreads em % a.a.; gaps em bps."
+
+
+def _render_fund_return_table(
+    *, outputs, cnpj: str, compact: bool = False, portfolio_mode: bool = False,
+) -> None:  # noqa: ANN001
     monthly_cdi_rates, cdi_error = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj=cnpj)
     benchmark_resolution = _resolve_fund_return_benchmark(outputs=outputs, cnpj=cnpj)
     table_df = _build_fund_return_table(
@@ -713,16 +751,19 @@ def _render_fund_return_table(*, outputs, cnpj: str, compact: bool = False) -> N
         "CDI realizado B3/Cetip composto nos mesmos meses efetivamente usados pela rentabilidade de cada série.",
         "Spread CDI implícito anualizado em 252 dias úteis e comparado ao CDI+ fixo da emissão quando a associação documental é inequívoca.",
     )
-    if compact:
+    concise = compact or portfolio_mode
+    if concise:
         _chart_title(
-            "Rentabilidade por série",
+            "Rentabilidade" if portfolio_mode else "Rentabilidade por série",
             (*chart_notes, cdi_note, CVM_RETURN_REINVESTMENT_NOTE),
             interactive_help=True,
         )
     else:
         _chart_title("Rentabilidade por série", chart_notes)
+    if portfolio_mode:
+        st.caption(_fund_return_period_caption(table_df, summary_df))
     st.dataframe(table_df, width="stretch", hide_index=True)
-    if compact:
+    if concise:
         _render_fund_return_benchmark_diagnostics(benchmark_resolution, compact=True)
     else:
         st.caption(cdi_note)
@@ -1261,8 +1302,9 @@ def _format_research_value(value: object, *, unit: str) -> str:
     return _format_decimal(float(numeric), 1)
 
 
-def _render_methodology(research_outputs=None) -> None:  # noqa: ANN001
-    with st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False):
+def _render_methodology(research_outputs=None, *, embedded: bool = False) -> None:  # noqa: ANN001
+    container = nullcontext() if embedded else st.expander("Metodologia, fórmulas e fontes dos indicadores", expanded=False)
+    with container:
         st.markdown(
             """
 O consolidado soma valores absolutos por competência e recalcula percentuais; não há média simples de percentuais.

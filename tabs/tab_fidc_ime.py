@@ -760,12 +760,13 @@ def _update_progress_bar(progress_bar, value: float, message: str) -> None:
             progress_bar.progress(int(round(normalized * 100)))
 
 
-def render_period_selector(*, state_prefix: str, title: str = "Período da análise") -> ImePeriodSelection:
+def render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
     """Public period selector — reused by app.py as a global control shared across tabs."""
-    return _render_period_selector(state_prefix=state_prefix, title=title)
+    return _render_period_selector(state_prefix=state_prefix, title=title, context_label=context_label)
 
 
-def _render_period_selector(*, state_prefix: str, title: str = "Período da análise") -> ImePeriodSelection:
+def _render_period_selector(*, state_prefix: str, title: str = "Período da análise", context_label: str | None = None) -> ImePeriodSelection:
+    caption_prefix = f"{context_label}: " if context_label else ""
     end_month = current_default_end_month()
     max_options = _period_month_options(end_month, months_back=59)
     default_period = build_preset_period(end_month=end_month, months=DEFAULT_PRESET_MONTHS)
@@ -812,7 +813,7 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
             f"{_format_month_option_label(period.start_month)} "
             f"→ {_format_month_option_label(period.end_month)}"
         )
-        st.caption(period_str)
+        st.caption(caption_prefix + period_str)
     else:
         start_default = default_period.start_month
         start_index = max_options.index(start_default) if start_default in max_options else 0
@@ -846,7 +847,7 @@ def _render_period_selector(*, state_prefix: str, title: str = "Período da aná
                 st.rerun()
         period = build_custom_period(start_month=start_month, end_month=end_month_selected)
         st.caption(
-            f"{_format_month_option_label(period.start_month)} "
+            caption_prefix + f"{_format_month_option_label(period.start_month)} "
             f"→ {_format_month_option_label(period.end_month)}"
         )
 
@@ -1464,7 +1465,8 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
 def _render_credit_risk_section(
     dashboard: FundonetDashboardData, *, portfolio_mode: bool = False,
 ) -> None:
-    _render_fidc_section("Crédito")
+    if not portfolio_mode:
+        _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
     default_pct_chart_df = _latest_competencia_window(default_pct_chart_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
@@ -1514,7 +1516,8 @@ def _render_credit_risk_section(
                     label_font_size=10,
                     color_range=[FIDC_CHART_COLORS[0], FIDC_CHART_COLORS[1]],
                     label_policy="latest_and_peak",
-                    x_label_angle=-45,
+                    x_label_angle=0 if portfolio_mode else -45,
+                    portfolio_mode=portfolio_mode,
                 ),
                 width="stretch",
             )
@@ -1540,7 +1543,8 @@ def _render_credit_risk_section(
                     point_size=64,
                     reference_value=100.0,
                     reference_label="100% (paridade)",
-                    x_label_angle=-45,
+                    x_label_angle=0 if portfolio_mode else -45,
+                    portfolio_mode=portfolio_mode,
                 ),
                 width="stretch",
             )
@@ -1605,7 +1609,8 @@ def _render_structural_risk_section(
     responsive_labels: bool = False,
     portfolio_mode: bool = False,
 ) -> None:
-    _render_fidc_section("Estrutura")
+    if not portfolio_mode:
+        _render_fidc_section("Estrutura")
     latest_subordination_match = (
         dashboard.subordination_history_df[
             dashboard.subordination_history_df["competencia"].astype(str) == str(dashboard.latest_competencia)
@@ -1641,7 +1646,8 @@ def _render_structural_risk_section(
         portfolio_chart_options = {
             "legend_series_order": series_order,
             "color_range": colors,
-            "x_label_angle": 0 if pl_periods <= 6 else -45,
+            "x_label_angle": 0,
+            "portfolio_mode": True,
         }
     plot_frame = (
         _quota_pl_share_chart_frame(dashboard.quota_pl_history_df)
@@ -1692,15 +1698,6 @@ def _render_structural_risk_section(
             width="stretch",
         )
 
-    if portfolio_mode:
-        position = _format_competencia_label(dashboard.latest_competencia)
-        shown = _portfolio_observed_window(dashboard.quota_pl_history_df)
-        subordination = _format_percent(
-            latest_subordination_row.get("subordinacao_pct")
-            if latest_subordination_row is not None else None
-        )
-        st.caption(f"{shown} · Subordinação reportada {subordination} em {position}.")
-
     if not show_return_section:
         return
 
@@ -1718,6 +1715,7 @@ def _render_quota_return_section(
     return_months: int = 12,
     show_table: bool = True,
     selector_label: str = "Classes na rentabilidade",
+    portfolio_mode: bool = False,
 ) -> None:
     """Render the existing quota return controls/table and cumulative history."""
 
@@ -1769,6 +1767,7 @@ def _render_quota_return_section(
                         show_point_labels=False,
                         show_end_labels=True,
                         point_size=76,
+                        portfolio_mode=portfolio_mode,
                     ),
                     width="stretch",
                 )
@@ -1778,18 +1777,21 @@ def _render_liquidity_risk_section(
     dashboard: FundonetDashboardData,
     *,
     show_duration_history_chart: bool = True,
+    portfolio_mode: bool = False,
 ) -> None:
-    _render_fidc_section("Prazo e eventos")
+    if not portfolio_mode:
+        _render_fidc_section("Prazo e eventos")
     _render_chart_heading(
         st,
-        f"Prazo de vencimento dos DCs a vencer em {_format_competencia_label(dashboard.latest_competencia)}",
+        (f"Vencimentos · {_format_competencia_label(dashboard.latest_competencia).replace('-', '/')}"
+         if portfolio_mode else f"Prazo de vencimento dos DCs a vencer em {_format_competencia_label(dashboard.latest_competencia)}"),
     )
     st.altair_chart(
-        _maturity_waterfall_chart(dashboard.maturity_latest_df, title=None),
+        _maturity_waterfall_chart(dashboard.maturity_latest_df, title=None, portfolio_mode=portfolio_mode),
         width="stretch",
     )
 
-    _render_duration_section(dashboard, show_history_chart=show_duration_history_chart)
+    _render_duration_section(dashboard, show_history_chart=show_duration_history_chart, portfolio_mode=portfolio_mode)
 
 
 
@@ -1809,8 +1811,9 @@ def _render_glossary_section(dashboard: FundonetDashboardData) -> None:
             col.markdown("")
 
 
-def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0") -> None:
-    _render_fidc_section("Memória de cálculo da aba")
+def _render_calculation_memory_section(dashboard: FundonetDashboardData, *, slot_key: str = "slot0", show_heading: bool = True) -> None:
+    if show_heading:
+        _render_fidc_section("Memória de cálculo da aba")
     memory_df = _normalise_executive_memory_frame(dashboard.executive_memory_df)
     if memory_df.empty:
         st.caption("Memória de cálculo indisponível nesta execução.")
@@ -2150,42 +2153,39 @@ def _render_financial_snapshot_cards(
 
     cards_html = "\n".join(cards)
     row_class = "fidc-snapshot-row fidc-snapshot-row--portfolio" if portfolio_mode else "fidc-snapshot-row"
+    support_html = ""
     if portfolio_mode:
         st.html(
             '<style>@media(max-width:640px){'
             '.fidc-snapshot-row--portfolio>.fidc-snapshot-card:last-child{grid-column:1/-1;}'
             '}</style>'
         )
-    st.markdown(
-        f'<div class="{row_class}">{cards_html}</div>',
-        unsafe_allow_html=True,
-    )
-    if portfolio_mode:
-        st.caption(" · ".join(
+        support_values = " · ".join(
             f"{label} {value}" for label, value in _portfolio_snapshot_support_values(summary)
-        ).replace("$", r"\$"))
+        )
+        help_html = ""
         if interactive_help:
             from services.portfolio_structure_ui import structural_snapshot_help_html
 
-            with st.popover(
-                "Ativo, vencidos e cobertura", type="tertiary",
-                key=f"portfolio_snapshot_support::{slot_key}",
-                help="Definições, fórmulas e fontes dos indicadores da linha acima.",
-            ):
-                help_blocks = []
-                for label in ("Ativo total", "Vencidos", "Cobertura de provisão"):
-                    block = structural_snapshot_help_html(label, dashboard)
-                    block = block.replace('<details class="dashboard-indicator-help">', '<details open class="portfolio-snapshot-help">')
-                    block = block.replace('<span aria-hidden="true">i</span>', escape(label))
-                    block = block.replace('class="dashboard-indicator-help-body"', 'class="portfolio-snapshot-help-body"')
-                    help_blocks.append(block)
-                st.html(
-                    '<style>.portfolio-snapshot-help{margin:.4rem 0 1rem;}'
-                    '.portfolio-snapshot-help summary{font-size:.86rem;font-weight:600;cursor:pointer;}'
-                    '.portfolio-snapshot-help-body p{font-size:.8rem;line-height:1.45;margin:.35rem 0;}'
-                    '.portfolio-snapshot-help-body a{color:#a94100;font-size:.8rem;}</style>'
-                    + "".join(help_blocks)
-                )
+            help_blocks = []
+            for label in ("Ativo total", "Vencidos", "Cobertura de provisão"):
+                block = structural_snapshot_help_html(label, dashboard)
+                body = re.sub(r"^<details[^>]*>.*?</summary>|</details>$", "", block, flags=re.S)
+                help_blocks.append(f"<section><strong>{escape(label)}</strong>{body}</section>")
+            help_html = (
+                '<details class="dashboard-indicator-help">'
+                '<summary aria-label="Sobre ativo, vencidos e cobertura"><span aria-hidden="true">i</span></summary>'
+                '<div class="dashboard-indicator-help-body">' + "".join(help_blocks) + '</div></details>'
+            )
+        support_html = (
+            '<div class="portfolio-snapshot-support">'
+            f'<span class="portfolio-snapshot-support-values">{escape(support_values)}</span>'
+            f'{help_html}</div>'
+        )
+    st.markdown(
+        f'<div class="{row_class}">{cards_html}</div>{support_html}',
+        unsafe_allow_html=True,
+    )
 
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
@@ -2555,6 +2555,7 @@ def _render_duration_section(
     dashboard: FundonetDashboardData,
     *,
     show_history_chart: bool = True,
+    portfolio_mode: bool = False,
 ) -> None:
     """Renders the estimated duration KPI card + monthly evolution chart.
 
@@ -2586,6 +2587,9 @@ def _render_duration_section(
         else "N/D"
     )
     saldo_display = _format_brl_compact(total_saldo)
+    position_display = _format_competencia_label(str(latest_duration.get("competencia", "")))
+    if portfolio_mode:
+        position_display = position_display.replace("-", "/")
 
     tooltip_text = (
         "Prazo médio proxy = prazo médio ponderado da carteira de recebíveis.\n"
@@ -2596,12 +2600,24 @@ def _render_duration_section(
         "Se >1080d concentrar a carteira, o dado fica N/D porque a faixa é aberta e não tem limite superior.\n"
         "Fonte: quadro de vencimento dos direitos creditórios (COMPMT_DICRED_AQUIS / SEM_AQUIS)."
     )
+    help_html = ""
+    if portfolio_mode:
+        from services.dashboard_ui import indicator_help_html
+        help_html = indicator_help_html("Prazo médio estimado", (
+            ("Definição", "Prazo médio proxy dos recebíveis, ponderado pelo saldo de cada faixa."),
+            ("Fórmula e proxies", tooltip_text),
+            ("Unidade", "dias"),
+            ("Competência", position_display),
+        ))
     st.markdown(
-        f'<div class="fidc-chart-caption">'
-        f'Prazo médio proxy dos recebíveis: <strong>{escape(duration_display)}</strong>'
-        f' em {escape(_format_competencia_label(str(latest_duration.get("competencia", ""))))}'
+        f'<div class="{"portfolio-snapshot-support" if portfolio_mode else "fidc-chart-caption"}">'
+        + ('<span class="portfolio-snapshot-support-values">' if portfolio_mode else '')
+        +
+        f'{"Prazo médio (proxy)" if portfolio_mode else "Prazo médio proxy dos recebíveis"}: <strong>{escape(duration_display)}</strong>'
+        f' em {escape(position_display)}'
         f', base de {escape(saldo_display)} em recebíveis.'
-        f'</div>',
+        + ('</span>' if portfolio_mode else '') +
+        f'{help_html}</div>',
         unsafe_allow_html=True,
     )
     if latest_quality == "nao_calculavel_bucket_aberto_dominante":
@@ -2622,12 +2638,10 @@ def _render_duration_section(
         st.caption("Dados insuficientes para série histórica de duration (mínimo 2 competências).")
         return
 
-    _render_chart_heading(
-        st,
-        "Prazo médio proxy dos recebíveis",
-    )
+    if not portfolio_mode:
+        _render_chart_heading(st, "Prazo médio proxy dos recebíveis")
     st.altair_chart(
-        _duration_line_chart(duration_df),
+        _duration_line_chart(duration_df, portfolio_mode=portfolio_mode),
         width="stretch",
     )
 
@@ -4142,6 +4156,7 @@ def _line_history_chart(
     reference_value: float | None = None,
     reference_label: str | None = None,
     x_label_angle: int | None = None,
+    portfolio_mode: bool = False,
 ) -> alt.Chart:
     if limit_value is None and reference_value is not None:
         limit_value = reference_value
@@ -4155,6 +4170,12 @@ def _line_history_chart(
     chart_df["valor_fmt"] = chart_df["valor"].map(lambda value: _format_brl_compact(value) if y_title == "R$" else _format_percent(value) if "%" in y_title else _format_decimal(value))
     chart_df["label_fmt"] = chart_df["valor"].map(lambda value: _format_value_label(value, y_title))
     series_order = chart_df["serie"].drop_duplicates().tolist()
+    if portfolio_mode:
+        show_point_labels = False
+        show_end_labels = show_end_labels and len(series_order) <= 6
+        chart_df["competencia"] = chart_df["competencia"].str.replace("-", "/", regex=False)
+        x_sort = chart_df["competencia"].drop_duplicates().tolist()
+        chart_df["_path_segment"] = chart_df.groupby("serie", sort=False)["valor"].transform(lambda values: values.isna().cumsum())
     end_labels_df = (
         _build_line_series_end_labels_df(
             chart_df,
@@ -4189,6 +4210,8 @@ def _line_history_chart(
     x_axis_kwargs: dict[str, object] = {"labelOverlap": "greedy"}
     if x_label_angle is not None:
         x_axis_kwargs["labelAngle"] = x_label_angle
+    if portfolio_mode:
+        x_axis_kwargs["labelAngle"] = 0
     x_encoding = alt.X(
         "competencia:N",
         title="Competência",
@@ -4222,6 +4245,8 @@ def _line_history_chart(
             tooltip=["competencia:N", "serie:N", alt.Tooltip("valor_fmt:N", title="Valor")],
         )
     )
+    if portfolio_mode:
+        base = base.encode(detail=alt.Detail("_path_segment:N"))
     base = _chart_with_optional_title(base, height=320, title=title)
     labels = (
         _line_point_label_layer(
@@ -4608,7 +4633,75 @@ def _maturity_waterfall_chart_frame(maturity_latest_df: pd.DataFrame) -> pd.Data
     return pd.DataFrame(rows)
 
 
-def _maturity_waterfall_chart(maturity_latest_df: pd.DataFrame, *, title: str | None) -> alt.Chart:
+def _portfolio_millions_label(value: object) -> str:
+    """One common chart unit; small reported amounts never become a zero label."""
+    numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(numeric) or not math.isfinite(float(numeric)):
+        return "N/D"
+    millions = float(numeric) / 1_000_000.0
+    decimals = 2 if 0 < abs(millions) < 0.1 else 1
+    if millions != 0 and round(millions, decimals) == 0:
+        return "<0,01" if millions > 0 else "−<0,01"
+    return f"{millions:,.{decimals}f}".replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _maturity_horizontal_chart_frame(maturity_latest_df: pd.DataFrame) -> pd.DataFrame:
+    """Keep the same a-vencer buckets and total, with missing observations explicit."""
+    if maturity_latest_df.empty or not {"faixa", "valor"}.issubset(maturity_latest_df.columns):
+        return pd.DataFrame(columns=["faixa", "valor", "valor_mm", "valor_fmt", "label_mm", "tipo"])
+    frame = maturity_latest_df.loc[maturity_latest_df["faixa"].ne("Vencidos")].copy()
+    if "ordem" in frame:
+        frame = frame.sort_values("ordem", kind="stable")
+    frame = frame.reset_index(drop=True)
+    if frame.empty:
+        return pd.DataFrame(columns=["faixa", "valor", "valor_mm", "valor_fmt", "label_mm", "tipo"])
+    frame["valor"] = pd.to_numeric(frame["valor"], errors="coerce")
+    frame["tipo"] = "Faixa"
+    # The previous waterfall summed these supplied bucket balances. Preserve
+    # that total, while making its partial/all-missing status visible.
+    partial = frame["valor"].isna().any()
+    legacy_total = _maturity_waterfall_chart_frame(maturity_latest_df)
+    total = legacy_total.iloc[-1]["valor_etapa"] if frame["valor"].notna().any() else float("nan")
+    total_row = {"faixa": "Total informado (parcial)" if partial else "Total a vencer", "valor": total, "tipo": "Total"}
+    frame = pd.concat([frame, pd.DataFrame([total_row])], ignore_index=True)
+    frame["valor_mm"] = frame["valor"] / 1_000_000.0
+    frame["valor_fmt"] = frame["valor"].map(_portfolio_millions_label)
+    # Text for missing values is anchored at zero; the bar's value remains null.
+    frame["label_mm"] = frame["valor_mm"].fillna(0.0)
+    frame["valor_reais_fmt"] = frame["valor"].map(
+        lambda value: "N/D" if pd.isna(value) else "R$ " + f"{value:,.2f}".replace(",", "_").replace(".", ",").replace("_", ".")
+    )
+    return frame
+
+
+def _maturity_horizontal_chart(maturity_latest_df: pd.DataFrame, *, title: str | None) -> alt.Chart:
+    frame = _maturity_horizontal_chart_frame(maturity_latest_df)
+    if frame.empty:
+        chart = alt.Chart(pd.DataFrame({"text": ["Vencimentos N/D — sem saldos por faixa."]})).mark_text(color="#66717d").encode(text="text:N")
+        return _style_altair_chart(_chart_with_optional_title(chart, height=120, title=title))
+    order = frame["faixa"].tolist()
+    values = frame["valor_mm"].dropna()
+    extent = float(values.abs().max()) if not values.empty else 0.0
+    axis = alt.Axis(labelExpr=f"replace(format(datum.value, '.{2 if extent < 0.1 else 1}f'), '.', ',')", tickCount=3 if extent < 0.1 else 5)
+    minimum = min(0.0, float(values.min())) if not values.empty else 0.0
+    maximum = max(0.0, float(values.max())) if not values.empty else 0.0
+    pad = max(extent * 0.18, 0.01)
+    x_scale = alt.Scale(domain=[minimum - pad if minimum < 0 else 0, maximum + pad], zero=True, nice=False)
+    y = alt.Y("faixa:N", title=None, sort=order, axis=alt.Axis(labelLimit=240, ticks=False, domain=False))
+    bars = alt.Chart(frame).mark_bar(size=17).encode(
+        x=alt.X("valor_mm:Q", title="R$ mm", axis=axis, scale=x_scale), y=y,
+        color=alt.Color("tipo:N", scale=alt.Scale(domain=["Faixa", "Total"], range=["#9a9a9a", "#ff5a00"]), legend=None),
+        tooltip=[alt.Tooltip("faixa:N", title="Faixa"), alt.Tooltip("valor_fmt:N", title="R$ mm"), alt.Tooltip("valor_reais_fmt:N", title="Saldo informado")],
+    )
+    labels = alt.Chart(frame).mark_text(align="left", dx=6, fontSize=11, color="#202832").encode(
+        x=alt.X("label_mm:Q", title="R$ mm", axis=axis, scale=x_scale), y=y, text="valor_fmt:N",
+    )
+    return _style_altair_chart(_chart_with_optional_title(bars + labels, height=max(300, len(frame) * 29), title=title))
+
+
+def _maturity_waterfall_chart(maturity_latest_df: pd.DataFrame, *, title: str | None, portfolio_mode: bool = False) -> alt.Chart:
+    if portfolio_mode:
+        return _maturity_horizontal_chart(maturity_latest_df, title=title)
     chart_df = _maturity_waterfall_chart_frame(maturity_latest_df)
     if chart_df.empty:
         empty_chart = (
@@ -4806,6 +4899,7 @@ def _stacked_history_bar_chart(
     legend_series_order: list[str] | None = None,
     show_segment_labels: bool = True,
     max_segment_labels_per_competencia: int | None = None,
+    portfolio_mode: bool = False,
     responsive_labels: bool = False,
     x_label_angle: int | None = None,
 ) -> alt.Chart:
@@ -4813,6 +4907,8 @@ def _stacked_history_bar_chart(
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["ordem", "serie"])
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
+        if portfolio_mode:
+            chart_df["competencia"] = chart_df["competencia"].str.replace("-", "/", regex=False)
     if chart_df.empty:
         empty_chart = (
             alt.Chart(pd.DataFrame(columns=["competencia", value_column]))
@@ -4862,7 +4958,7 @@ def _stacked_history_bar_chart(
         title="Classe",
         scale=alt.Scale(domain=series_order, range=_colors[: len(series_order)]),
         sort=series_order,
-        legend=_series_legend("Faixas / séries", len(series_order)),
+        legend=None if portfolio_mode and len(series_order) <= 1 else _series_legend("Faixas / séries", len(series_order)),
     )
     color_map = _category_color_map(series_order, _colors)
     chart_df["label_color"] = chart_df["serie"].map(lambda value: _contrast_text_color(color_map.get(str(value), "#ff5a00")))
@@ -5101,12 +5197,13 @@ def _stacked_history_bar_chart(
             visible = (
                 f"(width >= 520 || datum.competencia === {latest_competencia})"
                 if show_total_labels
-                else f"(width < 520 && datum.competencia === {latest_competencia})"
+                else (f"datum.competencia === {latest_competencia}" if portfolio_mode
+                      else f"(width < 520 && datum.competencia === {latest_competencia})")
             )
             total_mark_kwargs["opacity"] = alt.ExprRef(expr=f"datum._total_has_value && {visible} ? 1 : 0")
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-4, fontSize=max(14, label_font_size + 4), fontWeight=800, color="#111111", clip=False, **total_mark_kwargs)
+            .mark_text(dy=-4, fontSize=max(11 if portfolio_mode else 14, label_font_size + (1 if portfolio_mode else 4)), fontWeight=500 if portfolio_mode else 800, color="#111111", clip=False, **total_mark_kwargs)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=x_sort),
                 y=alt.Y("label_y:Q", title=y_title),
@@ -5401,11 +5498,14 @@ def _grouped_bar_chart(
     color_range: list[str] | None = None,
     label_policy: str = "all",
     x_label_angle: int | None = None,
+    portfolio_mode: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df)
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["serie"])
     if "competencia" in chart_df.columns:
         chart_df["competencia"] = chart_df["competencia"].map(_format_competencia_display)
+        if portfolio_mode:
+            chart_df["competencia"] = chart_df["competencia"].str.replace("-", "/", regex=False)
     resolved_value_field = value_field or ("valor_total" if "valor_total" in chart_df.columns else "valor")
     chart_df = chart_df.copy()
     x_sort = _competencia_axis_sort(chart_df)
@@ -5434,6 +5534,7 @@ def _grouped_bar_chart(
         title="Série",
         scale=alt.Scale(domain=series_order, range=(color_range or FIDC_CHART_COLORS)[: len(series_order)]),
         sort=series_order,
+        **({"legend": None} if portfolio_mode and len(series_order) <= 1 else {}),
     )
     resolved_bar_size = bar_size or _grouped_series_bar_size(
         chart_df["competencia"].nunique(),
@@ -5740,20 +5841,27 @@ def _stacked_area_chart(
     return _style_altair_chart(chart + labels)
 
 
-def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
+def _duration_line_chart(duration_history_df: pd.DataFrame, *, portfolio_mode: bool = False) -> alt.Chart:
     """Altair line chart for the estimated receivables duration (days) time series.
 
     Tooltip explains the calculation formula and bucket-proxy assumptions.
     """
     df = _altair_compatible_df(duration_history_df.copy())
-    df = df[df["data_quality"] == "ok"].copy()
+    if not portfolio_mode:
+        df = df[df["data_quality"] == "ok"].copy()
     df = _sort_competencia_display_frame(df)
     if df.empty or "competencia" not in df.columns:
         return alt.Chart(pd.DataFrame({"competencia": [], "duration_days": []})).mark_line()
     df["competencia"] = df["competencia"].map(_format_competencia_display)
+    value_field = "duration_days"
+    if portfolio_mode:
+        df["competencia"] = df["competencia"].str.replace("-", "/", regex=False)
+        df["_plot_duration_days"] = df["duration_days"].where(df["data_quality"].eq("ok"))
+        df["_path_segment"] = df["_plot_duration_days"].isna().cumsum()
+        value_field = "_plot_duration_days"
     df["serie"] = "Duration"
-    df["duration_fmt"] = df["duration_days"].map(lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D")
-    df["duration_label"] = df["duration_days"].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
+    df["duration_fmt"] = df[value_field].map(lambda v: f"{v:.0f} dias" if not pd.isna(v) else "N/D")
+    df["duration_label"] = df[value_field].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
     df["end_label_text"] = df["duration_days"].map(lambda v: f"{float(v):.0f}" if not pd.isna(v) else "N/D")
     # Tooltip rows — formula + proxy assumptions
     tooltip_nota = (
@@ -5767,7 +5875,7 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
     # are rendered with enough vertical resolution to make deltas visible,
     # while wide-range series (e.g. 0–800 days) still start at zero.
     _ZOOM_THRESHOLD = 0.25  # zoom in when range < 25 % of the max value
-    _vals = df["duration_days"].dropna()
+    _vals = df[value_field].dropna()
     if len(_vals) >= 1:
         _data_min = float(_vals.min())
         _data_max = float(_vals.max())
@@ -5784,10 +5892,11 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         alt.Chart(df)
         .mark_line(color="#ff5a00", strokeWidth=2.4)
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=x_sort),
+            x=alt.X("competencia:N", title="Competência", sort=x_sort,
+                    **({"axis": alt.Axis(labelAngle=0, labelOverlap="greedy")} if portfolio_mode else {})),
             y=alt.Y(
-                "duration_days:Q",
-                title="Prazo médio proxy (dias)",
+                f"{value_field}:Q",
+                title="Dias" if portfolio_mode else "Prazo médio proxy (dias)",
                 scale=y_scale,
                 axis=alt.Axis(labelColor="#5f6b7a", titleColor="#5f6b7a"),
             ),
@@ -5799,32 +5908,34 @@ def _duration_line_chart(duration_history_df: pd.DataFrame) -> alt.Chart:
         )
         .properties(height=240)
     )
+    if portfolio_mode:
+        line_chart = line_chart.encode(detail=alt.Detail("_path_segment:N"))
     points = (
         alt.Chart(df)
         .mark_point(
             filled=True,
-            size=130,
+            size=40 if portfolio_mode else 130,
             color="#ff5a00",
             stroke="#ff5a00",
             strokeWidth=1.2,
         )
         .encode(
             x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q", scale=y_scale),
+            y=alt.Y(f"{value_field}:Q", scale=y_scale),
         )
     )
     all_point_labels = (
-        alt.Chart(df)
+        alt.Chart(df[df[value_field].notna()].tail(1) if portfolio_mode else df)
         .mark_text(
             dy=-12,
             fontSize=11,
-            fontWeight=700,
+            fontWeight=500 if portfolio_mode else 700,
             color="#ff5a00",
             clip=False,
         )
         .encode(
             x=alt.X("competencia:N", sort=x_sort),
-            y=alt.Y("duration_days:Q", title="Prazo médio proxy (dias)", scale=y_scale),
+            y=alt.Y(f"{value_field}:Q", title="Dias" if portfolio_mode else "Prazo médio proxy (dias)", scale=y_scale),
             text=alt.Text("duration_label:N"),
         )
     )

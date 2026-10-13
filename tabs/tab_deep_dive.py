@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 from datetime import datetime
 from html import escape
 from pathlib import Path
@@ -319,7 +320,7 @@ def render_tab_deep_dive(
 
     if not manifests:
         st.info("Ainda não há curadoria documental disponível.")
-        _render_update_prompt(selected_portfolio=selected_portfolio)
+        _render_update_prompt(selected_portfolio=selected_portfolio, portfolio_mode=portfolio_mode)
         return
 
     if show_portfolio_selector:
@@ -351,7 +352,7 @@ def render_tab_deep_dive(
     )
     if not available:
         st.info("Ainda não há curadoria documental para esta carteira.")
-        _render_update_prompt(selected_portfolio=selected_portfolio)
+        _render_update_prompt(selected_portfolio=selected_portfolio, portfolio_mode=portfolio_mode)
         return
 
     manifest = available[0]
@@ -363,30 +364,40 @@ def render_tab_deep_dive(
             key="deep_dive_manifest",
         )
 
-    _render_document_curation(manifest, portfolio_mode=portfolio_mode)
-    _render_update_prompt(selected_portfolio=selected_portfolio, manifest=manifest)
+    if portfolio_mode:
+        _render_document_curation(manifest, portfolio_mode=True, selected_portfolio=selected_portfolio)
+    else:
+        _render_document_curation(manifest)
+        _render_update_prompt(selected_portfolio=selected_portfolio, manifest=manifest)
 
 
-def _render_document_curation(manifest: Any, *, portfolio_mode: bool = False) -> None:
+def _render_document_curation(
+    manifest: Any, *, portfolio_mode: bool = False,
+    selected_portfolio: PortfolioRecord | None = None,
+) -> None:
     reading_date = _format_reading_date(getattr(manifest, "generated_at", ""))
-    st.markdown("### Comparativos documentais")
+    st.markdown("### Documentos" if portfolio_mode else "### Comparativos documentais")
     st.markdown(
         f"<div class='deepdive-curation-date'>Data da leitura: <strong>{escape(reading_date)}</strong></div>",
         unsafe_allow_html=True,
     )
+    if portfolio_mode:
+        pages = build_document_comparison_pages(manifest)
+        _render_fund_reading(manifest, portfolio_mode=True, pages=pages, show_export=False, show_audit=False)
+        _render_document_audit(manifest, pages)
+        with st.expander("Ferramentas documentais", expanded=False):
+            if pages:
+                _render_document_export(manifest, pages, portfolio_mode=True)
+            _render_update_prompt(selected_portfolio=selected_portfolio, manifest=manifest, embedded=True)
+        return
+
     st.caption("CVM e Fundos.NET. Regras documentais por fundo.")
-    _render_fund_reading(manifest, portfolio_mode=portfolio_mode)
+    _render_fund_reading(manifest)
 
     warnings = _useful_manifest_warnings(manifest)
     if warnings:
         st.markdown("#### Pontos de atenção")
         st.markdown("\n".join(f"- {escape(item)}" for item in warnings))
-    if portfolio_mode:
-        from services.portfolio_document_display import portfolio_document_warnings
-        all_warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
-        if all_warnings:
-            with st.expander("Ressalvas da leitura", expanded=False):
-                st.markdown("\n\n".join(f"- {escape(item)}" for item in all_warnings))
 
 
 def _curation_base_bullets(manifest: Any) -> tuple[str, ...]:
@@ -417,11 +428,19 @@ def _render_update_prompt(
     *,
     selected_portfolio: PortfolioRecord | None = None,
     manifest: Any = None,
+    portfolio_mode: bool = False,
+    embedded: bool = False,
 ) -> None:
     prompt = _prompt_for_portfolio(selected_portfolio, manifest)
     portfolio_id = selected_portfolio.id if selected_portfolio else str(getattr(manifest, "portfolio_id", "") or "")
     suffix = f"_{re.sub(r'[^A-Za-z0-9_-]', '', portfolio_id)[:32]}" if portfolio_id else ""
-    with st.expander("Prompt para gerar ou atualizar esta análise", expanded=False):
+    container = nullcontext() if embedded else st.expander(
+        "Ferramentas documentais" if portfolio_mode else "Prompt para gerar ou atualizar esta análise",
+        expanded=False,
+    )
+    with container:
+        if embedded:
+            st.markdown("**Atualizar leitura documental**")
         st.caption("Execute este prompt no Codex para atualizar a carteira, os quadros comparativos e o PPTX.")
         st.download_button(
             "Baixar prompt desta análise (.md)",
@@ -470,16 +489,11 @@ def _curated_key_findings(manifest: Any, *, limit: int = 4) -> tuple[tuple[str, 
     return tuple(output)
 
 
-def _render_fund_reading(manifest: Any, *, portfolio_mode: bool = False) -> None:
-    pages = build_document_comparison_pages(manifest)
-    if not pages:
-        st.info("Comparativo documental não localizado neste pacote.")
-        return
+def _render_document_export(manifest: Any, pages: Any, *, portfolio_mode: bool = False) -> None:
     from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 
     if portfolio_mode:
         from services.on_demand_download import current_download_store, download_context_signature, render_native_deferred_download
-        from services.portfolio_document_display import compact_document_frame
         source_root = Path(__file__).resolve().parents[1]
         namespace = f"portfolio_documents::{manifest.deep_dive_id}"
         signature = download_context_signature(manifest, pages, source_paths=(
@@ -504,20 +518,88 @@ def _render_fund_reading(manifest: Any, *, portfolio_mode: bool = False) -> None
             help="Tabelas comparativas editáveis, com as mesmas informações da tela e fontes completas nas notas dos slides.",
             on_click="ignore",
         )
+
+
+def _portfolio_document_frame(frame: pd.DataFrame, *, funds: Any = ()) -> tuple[pd.DataFrame, tuple[str, ...], tuple[str, ...]]:
+    """Prepare presentation only; keep every populated criterion and valid zero."""
+    from services.portfolio_document_display import compact_document_frame
+    funds = tuple(funds)
+    shown, groups = compact_document_frame(frame, funds=funds)
+    if shown.empty or len(shown.columns) <= 1:
+        return shown, groups, ()
+    if len(funds) == 1 and len(shown.columns) == 2:
+        missing = shown.iloc[:, 1].eq("-")
+        missing_criteria = tuple(public_document_text(value) for value in shown.loc[missing].iloc[:, 0])
+        shown = shown.loc[~missing].copy()
+        shown.columns = [shown.columns[0], "Informação"]
+        return shown, groups, missing_criteria
+    shown = shown.copy()
+    for index in range(1, len(shown.columns)):
+        shown.isetitem(index, shown.iloc[:, index].replace("-", "N/D"))
+    return shown, groups, ()
+
+
+def _render_document_audit(manifest: Any, pages: Any) -> None:
+    from services.portfolio_document_display import portfolio_document_warnings
+    with st.expander("Auditoria documental", expanded=False):
+        for bullet in _curation_base_bullets(manifest):
+            st.markdown(bullet)
+        for fund in getattr(manifest, "funds", ()):
+            name = public_document_text(fund.get("name") or fund.get("short_name") or "Fundo")
+            st.caption(f"{name} · CNPJ {_format_cnpj(fund.get('cnpj'))}")
+        for page in pages:
+            _shown, groups, _missing = _portfolio_document_frame(page.frame, funds=getattr(manifest, "funds", ()))
+            if groups or page.notes:
+                st.markdown(f"**{escape(page.title)}**")
+                for note in (*groups, *page.notes):
+                    st.caption(public_document_text(note))
+        warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
+        if warnings:
+            st.markdown("**Ressalvas da leitura**")
+            st.markdown("\n\n".join(f"- {escape(item)}" for item in warnings))
+        sources = tuple(dict.fromkeys(source for page in pages for source in page.sources))
+        if sources:
+            st.markdown("**Fontes documentais e bases de cálculo**")
+            for source in sources:
+                st.markdown(escape(public_document_text(source)))
+
+
+def _render_fund_reading(
+    manifest: Any, *, portfolio_mode: bool = False, pages: Any = None,
+    show_export: bool = True, show_audit: bool = True,
+) -> None:
+    pages = build_document_comparison_pages(manifest) if pages is None else pages
+    if not pages:
+        st.info("Comparativo documental não localizado neste pacote.")
+        return
+    if show_export:
+        container = st.expander("Exportação documental", expanded=False) if portfolio_mode else nullcontext()
+        with container:
+            _render_document_export(manifest, pages, portfolio_mode=portfolio_mode)
+    funds = tuple(getattr(manifest, "funds", ()) or ())
+    if portfolio_mode and len(funds) == 1:
+        fund = funds[0]
+        name = public_document_text(fund.get("name") or fund.get("short_name") or "Fundo")
+        st.caption(f"{name} · CNPJ {_format_cnpj(fund.get('cnpj'))}")
     for page_number, page in enumerate(pages, start=1):
         shown = page.frame
-        groups = ()
+        missing = ()
         if portfolio_mode:
-            shown, groups = compact_document_frame(page.frame, funds=manifest.funds)
+            shown, _groups, missing = _portfolio_document_frame(page.frame, funds=funds)
         for frame in comparison_column_chunks(shown):
-            st.markdown(_comparison_table_html(page.title, frame, page_number, portfolio_mode=portfolio_mode), unsafe_allow_html=True)
-        if portfolio_mode and (groups or page.notes):
-            with st.expander(f"Fundos e ressalvas · {page.title}", expanded=False):
-                for note in (*groups, *page.notes):
-                    st.caption(note)
-        else:
+            if not frame.empty:
+                st.markdown(_comparison_table_html(page.title, frame, page_number, portfolio_mode=portfolio_mode), unsafe_allow_html=True)
+        if missing:
+            if shown.empty:
+                st.markdown(f"**{escape(page.title)}**")
+            st.caption("Sem informação documental para: " + "; ".join(missing) + ".")
+        if not portfolio_mode:
             for note in page.notes:
                 st.caption(note)
+    if portfolio_mode:
+        if show_audit:
+            _render_document_audit(manifest, pages)
+        return
     sources = tuple(dict.fromkeys(source for page in pages for source in page.sources))
     if sources:
         with st.expander("Fontes documentais e bases de cálculo", expanded=False):
@@ -529,6 +611,8 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *,
     """Semantic HTML table with the same short comparison cells as the deck."""
     def cell(value: object, *, fact: bool = True) -> str:
         text = document_comparison_value(value) if fact else public_document_text(value)
+        if fact and portfolio_mode and text == "-":
+            text = "N/D"
         return escape(text).replace("\n", "<br>")
 
     header = "".join(f"<th scope='col'>{cell(c, fact=False)}</th>" for c in frame.columns)
@@ -538,13 +622,19 @@ def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int, *,
         values = [cell(row[c]) for c in frame.columns[1:]]
         rows.append(f"<tr><th scope='row'>{first}</th>" + "".join(f"<td>{v}</td>" for v in values) + "</tr>")
     portfolio_css = (
+        ".document-comparison--portfolio{margin:1rem 0 0.35rem;}"
         ".document-comparison--portfolio h4{color:#202020;font-size:1.05rem;}"
         ".document-comparison--portfolio thead th{background:#f7f7f7;color:#202020;font-weight:600;text-align:left;}"
         ".document-comparison--portfolio td{text-align:left;}"
+        ".document-comparison--portfolio tbody th,.document-comparison--portfolio td{padding:0.45rem 0.6rem;}"
+        ".document-comparison--portfolio.document-comparison--two-column table{min-width:0;}"
+        ".document-comparison--portfolio.document-comparison--two-column th:first-child{width:32%;}"
         ".document-comparison--portfolio .document-comparison-scroll:focus-visible{outline:2px solid #ff5a00;}"
         if portfolio_mode else ""
     )
     extra_class = " document-comparison--portfolio" if portfolio_mode else ""
+    if portfolio_mode and len(frame.columns) == 2:
+        extra_class += " document-comparison--two-column"
     return (
         "<style>.document-comparison{margin:1.6rem 0 0.5rem;color:#202020;}"
         ".document-comparison h4{color:#b95000;font-size:1.25rem;margin:0 0 0.8rem;}"

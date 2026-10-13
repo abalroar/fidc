@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass, replace
 from html import escape
+import re
 from typing import Any, Callable
 
 import pandas as pd
@@ -50,7 +51,7 @@ PORTFOLIO_VIEW_TABS = (
     "Crédito e prazo",
     "Inadimplência",
     "Rentabilidade",
-    SECTION_DEEP_DIVE,
+    "Documentos",
 )
 
 
@@ -296,6 +297,7 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         load_button_label="Carregar IME",
         load_button_key="portfolio_center_load_ime",
         show_load_button=False,
+        compact=True,
     )
     if selected_portfolio is None:
         return
@@ -372,6 +374,8 @@ def _portfolio_choice_prefixes(portfolio_id: str) -> tuple[str, ...]:
         f"portfolio_analysis_scopes::{portfolio_id}",
         f"portfolio_analysis_show_all::{portfolio_id}",
         f"portfolio_active_scope::{portfolio_id}",
+        f"portfolio_audit::{portfolio_id}",
+        f"portfolio_compare::{portfolio_id}",
     )
 
 
@@ -420,6 +424,20 @@ def _render_portfolio_analysis_surface(
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
 ) -> bool:
+    with st.container(key="portfolio_analysis"):
+        st.html(analytical_components_css("portfolio_analysis"))
+        return _render_portfolio_analysis_content(
+            selected_portfolio=selected_portfolio, period=period,
+            selected_sections=selected_sections,
+        )
+
+
+def _render_portfolio_analysis_content(
+    *,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+    selected_sections: tuple[str, ...],
+) -> bool:
     try:
         _preload_portfolio_data(
             selected_portfolio=selected_portfolio,
@@ -455,7 +473,8 @@ def _render_portfolio_analysis_surface(
     calculation_outputs = analysis.outputs
     context_column, history_column = st.columns([4, 1])
     with history_column:
-        with st.popover("Histórico", help="Ajuste a janela visual sem recarregar os informes."):
+        display_settings = st.popover("Exibição", help="Meses e fundos exibidos; o período solicitado permanece selecionado.")
+        with display_settings:
             display_outputs = somatorio_tab._render_loaded_period_window(
                 calculation_outputs, show_caption=False,
                 control_label="Histórico exibido", state_namespace=selected_portfolio.id,
@@ -492,13 +511,14 @@ def _render_portfolio_analysis_surface(
     with context_column:
         with st.container(key="portfolio_structure_context"):
             st.html(analysis_context_html((
-                ("Histórico", context.historical_window),
+                ("Exibido", re.sub(r"\b(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)-(\d{2})\b", r"\1/\2", context.historical_window, flags=re.IGNORECASE)),
                 ("Posição comum da cesta", context.common_position),
             )))
     _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
 
     if len(analysis.scopes) > 1:
-        with st.expander("Fundos da comparação", expanded=False):
+        with display_settings:
+            st.caption("Fundos da comparação")
             selected_scopes = _render_scope_selector(scopes=analysis.scopes, portfolio_id=selected_portfolio.id)
     else:
         selected_scopes = analysis.scopes
@@ -514,6 +534,8 @@ def _render_portfolio_analysis_surface(
         return False
 
     active_scope = _render_active_portfolio_scope(selected_scopes, selected_portfolio.id)
+    if st.session_state.get(f"portfolio_analysis_view::{selected_portfolio.id}") not in {"Documentos", SECTION_DEEP_DIVE}:
+        _render_scope_header(active_scope, common_position=context.common_position, show_label=len(analysis.scopes) == 1)
     visible_scopes = (active_scope,)
     structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = _render_portfolio_view_tabs(selected_portfolio)
     if curation_tab.open:
@@ -556,19 +578,43 @@ def _render_portfolio_analysis_surface(
                 selected_scopes=visible_scopes,
                 selected_portfolio=selected_portfolio,
             )
-    with st.expander("Exportar carteira", expanded=False, key=f"portfolio_exports::{selected_portfolio.id}"):
+    with st.expander("Downloads", expanded=False, key=f"portfolio_exports::{selected_portfolio.id}"):
         _render_unified_portfolio_download(
             analysis=analysis, selected_portfolio=selected_portfolio,
             period=period, compact=True,
         )
-    with st.expander("Metodologia e referências", expanded=False):
-        st.caption(" · ".join(context.reference_lines()[1:7]))
-        st.caption(
-            "Históricos anuais podem incluir a competência anterior como âncora. "
-            "A posição individual e os documentos conservam seus próprios cortes. "
-            "Zero é valor observado; N/D indica ausência. Razões com denominador zero são explicadas junto ao indicador."
-        )
+    _render_portfolio_audit(analysis=analysis, scope=active_scope, portfolio_id=selected_portfolio.id)
     return True
+
+
+def _render_portfolio_audit(*, analysis: PortfolioAnalysisData, scope: PortfolioAnalysisScope, portfolio_id: str) -> None:
+    with st.expander("Auditoria e fontes", expanded=False):
+        selected = st.selectbox(
+            "Conteúdo da auditoria",
+            ("Referências", "Memória da estrutura", "Auditoria de crédito", "Metodologia de crédito"),
+            key=f"portfolio_audit::{portfolio_id}", label_visibility="collapsed",
+        )
+        if selected == "Memória da estrutura":
+            ime_tab._render_calculation_memory_section(
+                scope.dashboard, slot_key=f"portfolio_structure_memory::{portfolio_id}::{scope.value}",
+                show_heading=False,
+            )
+        elif selected == "Auditoria de crédito":
+            credit_tab._render_audit(
+                analysis.outputs, analysis.monitor_outputs, analysis.research_outputs,
+                analysis.verification_report, compact=True,
+            )
+        elif selected == "Metodologia de crédito":
+            credit_tab._render_methodology(analysis.research_outputs, embedded=True)
+        else:
+            if analysis.reference_context is not None:
+                for line in analysis.reference_context.reference_lines()[1:]:
+                    st.caption(line)
+            st.caption(
+                "Históricos anuais podem incluir a competência anterior como âncora. "
+                "Zero é valor observado; N/D indica ausência. "
+                "Razões com denominador zero mantêm a ressalva do indicador."
+            )
 
 
 def _render_unavailable_portfolio_views(
@@ -873,11 +919,12 @@ def _render_unified_portfolio_download(
     signature = _portfolio_download_context_signature(
         analysis=analysis, selected_portfolio=selected_portfolio, period=period,
     )
-    include_conclusions = st.checkbox(
-        "Incluir sumário de conclusões no PowerPoint",
-        value=False, key=f"portfolio_ppt_conclusions::{selected_portfolio.id}",
-        help="Inclui a síntese já calculada pelo app antes dos slides temáticos.",
-    )
+    with st.popover("Opções do PowerPoint", type="tertiary"):
+        include_conclusions = st.checkbox(
+            "Adicionar síntese",
+            value=False, key=f"portfolio_ppt_conclusions::{selected_portfolio.id}",
+            help="Acrescenta um slide com destaques e pontos de atenção calculados pelas regras do app.",
+        )
     signature = download_context_signature(signature, include_conclusions)
     namespace = f"portfolio::{selected_portfolio.id}"
     store = current_download_store(st.session_state, namespace=namespace, signature=signature)
@@ -899,7 +946,7 @@ def _render_unified_portfolio_download(
     file_token = _safe_file_token(selected_portfolio.name)
 
     st.caption(
-        "Cesta completa. Dados mensais seguem o histórico; estrutura, emissões e documentos conservam seus cortes."
+        "Carteira completa · dados mensais no histórico exibido. Estrutura, emissões e documentos mantêm seus cortes."
         if compact else
         f"Downloads da carteira completa · {len(selected_portfolio.funds)} fundos. "
         "A janela visual da análise é aplicada aos dados mensais. A escolha de escopos "
@@ -1382,7 +1429,7 @@ def _render_active_portfolio_scope(scopes: tuple[PortfolioAnalysisScope, ...], p
     selected = st.selectbox(
         "Escopo", options=options, key=key,
         format_func=lambda value: labels[value],
-        help="Seleciona o detalhe. O comparativo e os downloads mantêm os fundos escolhidos na cesta.",
+        help="Escopo dos indicadores. Documentos e downloads conservam a carteira completa.",
     )
     return next(scope for scope in scopes if scope.value == selected)
 
@@ -1403,9 +1450,13 @@ def _render_stateful_tabs(labels: tuple[str, ...], *, key: str):
 
 
 def _render_portfolio_view_tabs(selected_portfolio: PortfolioRecord):
+    key = f"portfolio_analysis_view::{selected_portfolio.id}"
+    for state_key in (key, f"{key}::selection"):
+        if st.session_state.get(state_key) == SECTION_DEEP_DIVE:
+            st.session_state[state_key] = "Documentos"
     return _render_stateful_tabs(
         PORTFOLIO_VIEW_TABS,
-        key=f"portfolio_analysis_view::{selected_portfolio.id}",
+        key=key,
     )
 
 
@@ -1444,22 +1495,30 @@ def _render_scoped_views(
             renderer(scope)
 
 
-def _render_scope_header(scope: PortfolioAnalysisScope, *, structure_pilot: bool = False) -> None:
+def _render_scope_header(
+    scope: PortfolioAnalysisScope, *, structure_pilot: bool = False,
+    common_position: str | None = None, show_label: bool = True,
+) -> None:
     position = scope.position_competence or getattr(scope.dashboard, "latest_competencia", "N/D")
-    detail = f"Posição {'comum ' if scope.kind == 'consolidated' else ''}{position}"
+    detail = (
+        f"Posição {'comum ' if scope.kind == 'consolidated' else ''}{position}"
+        if common_position is None or position != common_position else ""
+    )
     identity = ""
     if scope.kind == "fund":
         info = getattr(scope.dashboard, "fund_info", {}) or {}
         legal_name = next((value for value in (info.get("nome_fundo"), info.get("nome_classe"), info.get("denominacao"), scope.label) if value and str(value).strip() not in {"N/D", "-"}), scope.label)
         identity = (
-            "<details class='portfolio-scope-identity'><summary>Identificação</summary>"
-            f"{escape(str(legal_name))}<br>CNPJ {escape(scope.cnpj)}</details>"
+            "<details class='portfolio-scope-identity'><summary aria-label='Identificação do fundo'><span aria-hidden='true'>i</span></summary>"
+            f"<div>{escape(str(legal_name))}<br>CNPJ {escape(scope.cnpj)}</div></details>"
         )
+    if not (identity or detail or show_label):
+        return
     st.markdown(
         f"""
 <div class="portfolio-scope-current">
   <span>{escape(detail)}</span>
-  <strong>{escape(scope.label)}</strong>{identity}
+  {f'<strong>{escape(short_fund_name(scope.label))}</strong>' if show_label else ''}{identity}
 </div>
 """,
         unsafe_allow_html=True,
@@ -1504,30 +1563,31 @@ def _render_structure_tab(
     period: ImePeriodSelection,
     comparison_scopes: tuple[PortfolioAnalysisScope, ...] | None = None,
 ) -> None:
-    # Keep the existing component key so the approved Cloudwalk styling and
-    # widget identities remain stable as the same UI reaches other baskets.
+    # Retain the component key and widget identities across existing sessions.
     with st.container(key="portfolio_structure_pilot"):
-        st.html(analytical_components_css("portfolio_structure_pilot"))
-        st.markdown("### Estrutura da carteira")
         cockpit_cnpjs = None
         compared = selected_scopes if comparison_scopes is None else comparison_scopes
         if not any(scope.kind == "consolidated" for scope in compared):
             cockpit_cnpjs = {scope.cnpj for scope in compared if scope.kind == "fund"}
-        metadata = getattr(analysis.outputs, "metadata", {})
         context_items = ()
-        with st.expander("Comparar fundos · PL, atraso, PDD e cotas", expanded=False):
-            monitoring_tab.render_portfolio_cockpit_snapshot(
-                period=period, selected_portfolio=selected_portfolio,
-                selected_cnpjs=cockpit_cnpjs, context_items=context_items,
-                portfolio_mode=True,
+        if len(getattr(selected_portfolio, "funds", ())) > 1:
+            comparison = st.expander(
+                "Comparar fundos", expanded=False, key=f"portfolio_compare::{selected_portfolio.id}",
+                on_change="rerun",
             )
+            with comparison:
+                if getattr(comparison, "open", True):
+                    monitoring_tab.render_portfolio_cockpit_snapshot(
+                        period=period, selected_portfolio=selected_portfolio,
+                        selected_cnpjs=cockpit_cnpjs, context_items=context_items,
+                        portfolio_mode=True,
+                    )
         base_scope_by_value = _base_scope_lookup(
             analysis=analysis,
             selected_portfolio=selected_portfolio,
         )
 
         def render_scope(scope: PortfolioAnalysisScope) -> None:
-            _render_scope_header(scope, structure_pilot=True)
             ime_tab._render_financial_snapshot_cards(
                 scope.snapshot_dashboard or scope.dashboard, interactive_help=True, portfolio_mode=True,
                 slot_key=scope.value,
@@ -1540,21 +1600,16 @@ def _render_structure_tab(
                 portfolio_mode=True,
             )
             base_scope = base_scope_by_value.get(scope.value)
-            st.markdown("#### Base analítica")
+            st.markdown("#### Séries mensais")
             if base_scope is None:
-                st.caption("Base analítica não disponível para este escopo.")
+                st.caption("Séries mensais N/D para este escopo.")
             else:
                 st.markdown(
                     somatorio_tab._render_wide_table_html(
                         somatorio_tab._display_wide_table(base_scope.wide_df, compact=True),
-                        accessible=True,
+                        accessible=True, portfolio_mode=True,
                     ),
                     unsafe_allow_html=True,
-                )
-            with st.expander("Memória de cálculo e auditoria da estrutura", expanded=False):
-                ime_tab._render_calculation_memory_section(
-                    scope.dashboard,
-                    slot_key=f"portfolio_structure_memory::{selected_portfolio.id}::{scope.value}",
                 )
 
         _render_scoped_views(
@@ -1575,20 +1630,17 @@ def _render_credit_term_tab(
     selected_portfolio: PortfolioRecord,
     comparison_scopes: tuple[PortfolioAnalysisScope, ...] | None = None,
 ) -> None:
-    st.markdown("### Crédito e prazo")
-
     def render_scope(scope: PortfolioAnalysisScope) -> None:
-        _render_scope_header(scope)
         ime_tab._render_liquidity_risk_section(
             scope.dashboard,
-            show_duration_history_chart=True,
+            show_duration_history_chart=True, portfolio_mode=True,
         )
         monitor = _scope_monitor(analysis, scope)
         if monitor.empty:
             st.caption("Histórico de carteira bruta ex-360 indisponível para este escopo.")
             return
         credit_tab._chart_title(
-            "Carteira Bruta ex-360 e crescimento YoY",
+            "Carteira ex-360",
             credit_tab.PORTFOLIO_GROWTH_NOTES,
             interactive_help=True,
         )
@@ -1596,10 +1648,13 @@ def _render_credit_term_tab(
         from services.portfolio_chart_display import render_portfolio_series
         render_portfolio_series(
             monitor, columns=("carteira_ex360", "carteira_ex360_yoy_pct"),
-            title="Carteira ex-360 e YoY", chart_factory=portfolio_growth_chart,
+            title="Carteira ex-360 e YoY", chart_factory=lambda frame: portfolio_growth_chart(frame, portfolio_mode=True),
             comparable_frame=_chart_base(monitor),
             absence_reason="Nenhuma observação na base comparável exigida; cortes e lacunas estão na auditoria.",
         )
+        from services.portfolio_presentation_state import classify_component
+        if classify_component(_chart_base(monitor), ("carteira_ex360_yoy_pct",)).status == "absent":
+            st.caption("YoY N/D · sem base anual comparável no período.")
 
     _render_scoped_views(selected_scopes, render_scope)
 
@@ -1611,7 +1666,7 @@ def _render_credit_term_tab(
         if cnpj in selected_fund_cnpjs
     }
     if len(comparison_funds) > 1:
-        st.markdown("#### Comparação de duration")
+        st.markdown("#### Prazo médio por fundo")
         include_consolidated = any(scope.kind == "consolidated" for scope in compared)
         st.caption(
             "Uma linha por fundo selecionado"
@@ -1621,6 +1676,7 @@ def _render_credit_term_tab(
             duration_chart(
                 analysis.monitor_outputs.consolidated_monitor if include_consolidated else pd.DataFrame(),
                 comparison_funds,
+                portfolio_mode=True,
             ),
             use_container_width=True,
         )
@@ -1632,10 +1688,7 @@ def _render_delinquency_tab(
     selected_scopes: tuple[PortfolioAnalysisScope, ...],
     selected_portfolio: PortfolioRecord,
 ) -> None:
-    st.markdown("### Inadimplência")
-
     def render_scope(scope: PortfolioAnalysisScope) -> None:
-        _render_scope_header(scope)
         ime_tab._render_credit_risk_section(scope.dashboard, portfolio_mode=True)
         monitor = _scope_monitor(analysis, scope)
         if monitor.empty:
@@ -1648,13 +1701,13 @@ def _render_delinquency_tab(
         comparable = _chart_base(monitor)
         render_portfolio_series(
             monitor, columns=("npl_1_90_pct", "npl_91_360_pct"), title="NPL por severidade",
-            chart_factory=npl_severity_chart, comparable_frame=comparable,
+            chart_factory=lambda frame: npl_severity_chart(frame, portfolio_mode=True), comparable_frame=comparable,
             absence_reason="Nenhuma observação na base comparável exigida; consulte a auditoria.",
         )
-        credit_tab._chart_title("Roll rates", credit_tab.ROLL_RATES_NOTES, interactive_help=True)
+        credit_tab._chart_title("Migração", credit_tab.ROLL_RATES_NOTES, interactive_help=True)
         render_portfolio_series(
             monitor, columns=("roll_61_90_m3_pct", "roll_91_120_m4_pct", "roll_121_150_m5_pct", "roll_151_180_m6_pct"),
-            title="Roll rates", chart_factory=roll_rates_chart, comparable_frame=comparable,
+            title="Migração", chart_factory=lambda frame: roll_rates_chart(frame, portfolio_mode=True), comparable_frame=comparable,
             absence_reason="Bases defasadas ou competências comparáveis indisponíveis nesta janela.",
         )
 
@@ -1672,9 +1725,10 @@ def _render_delinquency_tab(
                 roll_df,
                 key=f"portfolio_delinquency_roll::{selected_portfolio.id}::{scope.value}",
                 interactive_help=True,
+                portfolio_mode=True,
             )
 
-        credit_tab._chart_title("Cohorts recentes", credit_tab._cohort_notes(), interactive_help=True)
+        credit_tab._chart_title("Safras", credit_tab._cohort_notes(), interactive_help=True)
         cohorts = _scope_cohorts(analysis, scope)
         comparable_cohorts = cohorts
         if not cohorts.empty:
@@ -1683,21 +1737,12 @@ def _render_delinquency_tab(
             recent = dated[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(8)["cohort"]
             comparable_cohorts = cohorts[cohorts["cohort"].isin(recent)]
         render_portfolio_series(
-            cohorts, columns=("valor_pct",), title="Cohorts recentes",
-            chart_factory=cohort_chart, comparable_frame=comparable_cohorts,
+            cohorts, columns=("valor_pct",), title="Safras",
+            chart_factory=lambda frame: cohort_chart(frame, portfolio_mode=True), comparable_frame=comparable_cohorts,
             absence_reason="Safras sem observação nesta janela.",
         )
 
     _render_scoped_views(selected_scopes, render_scope)
-    with st.expander("Auditoria e conciliações de inadimplência", expanded=False):
-        credit_tab._render_audit(
-            analysis.outputs,
-            analysis.monitor_outputs,
-            analysis.research_outputs,
-            analysis.verification_report,
-            compact=True,
-        )
-    credit_tab._render_methodology(analysis.research_outputs)
 
 
 def _render_returns_tab(
@@ -1706,7 +1751,6 @@ def _render_returns_tab(
     selected_scopes: tuple[PortfolioAnalysisScope, ...],
     selected_portfolio: PortfolioRecord,
 ) -> None:
-    st.markdown("### Rentabilidade")
     fund_monthly = getattr(analysis.outputs, "fund_monthly", {}) or {}
     available_cnpjs = list(fund_monthly)
     selected_cnpjs = [
@@ -1742,12 +1786,15 @@ def _render_returns_tab(
         if analysis.monitor_outputs is not None
         else pd.DataFrame()
     )
-    if selected_scope is not None:
-        _render_scope_header(selected_scope)
-    else:
+    active_scope = selected_scopes[0]
+    if selected_scope is not None and selected_scope.value != active_scope.value:
+        _render_scope_header(selected_scope, show_label=len(fund_options) == 1)
+        if active_scope.kind == "fund":
+            st.caption("Sem rentabilidade por série para o fundo selecionado. Exibindo o fundo identificado acima.")
+    elif selected_scope is None:
         st.markdown(f"**{escape(labels[selected_cnpj])}**")
 
-    credit_tab._render_fund_return_table(outputs=analysis.outputs, cnpj=selected_cnpj, compact=True)
+    credit_tab._render_fund_return_table(outputs=analysis.outputs, cnpj=selected_cnpj, compact=True, portfolio_mode=True)
     if selected_scope is not None:
         class_key = f"return_labels_portfolio_returns::{selected_portfolio.id}::{selected_cnpj}"
         if class_key in st.session_state:
@@ -1759,6 +1806,7 @@ def _render_returns_tab(
             return_months=12,
             show_table=False,
             selector_label="Classes no histórico acumulado base 100",
+            portfolio_mode=True,
         )
 
 def _render_section(
