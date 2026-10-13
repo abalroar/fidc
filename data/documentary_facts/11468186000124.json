@@ -1,0 +1,811 @@
+{
+ "schema_version": 1,
+ "cnpj": "11468186000124",
+ "name": "ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:23:16Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1130308",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308"
+  },
+  "D2": {
+   "document_id": "1130307",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "06/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130307"
+  },
+  "D3": {
+   "document_id": "1299529",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "24/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1299529"
+  },
+  "D4": {
+   "document_id": "1120717",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "20/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1120717"
+  },
+  "D5": {
+   "document_id": "1119715",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "23/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1119715"
+  },
+  "D6": {
+   "document_id": "1044181",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044181"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Multissetorial: créditos industriais, comerciais, agro, financeiros e de serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 7.1. A Classe terá como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe, preponderantemente na aquisição de direitos creditórios nos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito ban"
+    }
+   ],
+   "legacy": {
+    "value": "Multissetorial: créditos industriais, comerciais, agro, financeiros e serviços; admite FIDCs e não padronizados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, pessoas físicas ou jurídicas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Cedentes” Pessoas físicas ou jurídicas que cedem Direitos Creditórios à Classe e/ou ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes diversos com sede ou filial no Brasil; Alcance presta consultoria/cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes e endossantes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Cedentes” Pessoas físicas ou jurídicas que cedem Direitos Creditórios à Classe e/ou ao Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Endossante” Titulares de créditos ou emissores que transferem por endosso Direitos Creditórios originados de títulos de crédito à Classe e/ou ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes diversos com sede ou filial no Brasil; Alcance presta consultoria/cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos títulos cedidos (pessoas físicas ou jurídicas)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Devedores” Devedores dos Direitos Creditórios."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Cedentes” Pessoas físicas ou jurídicas que cedem Direitos Creditórios à Classe e/ou ao Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas ou jurídicas inscritas em CPF/CNPJ",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "CCBs com ou sem coobrigação da instituição financeira",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 53,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "(i) podem ou não contar com a coobrigação de instituição financeira; (ii) ter valor mínimo de R$ 50.000,00 (cinquenta mil reais); (iii) ter prazo de vencimento de, no máximo, 48 (quarenta e oito) meses; (iv) não poderão ser distribuídas publicamente, não necessitando, portanto, de registro prévio na CVM. e) Os boletos de cartão de crédito devem: (i) ser emitidos por pessoa jurídica; (ii) ter valor mínimo de R$ 10,00 (dez reais); e (iii) ter prazo de vencimento de, no máximo, 730 (setecentos e trinta) dias."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão irrevogável/irretratável; desenquadramento posterior não gera recompra automática",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Duplicatas de 3 a 1.440 dias; cheques e CCBs com regras próprias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "(iii) ter prazo de vencimento de, no mínimo, 03 (três) dias, no máximo, 1440 (Um mil quatrocentos e quarenta) dias. b) Os cheques devem: (i) ser emitidos por pessoa física ou pessoa jurídica de qualquer natureza, inclusive as sociedades simples e empresas em nome individual; (ii) ter valor mínimo de R$ 10,00 (dez reais); e (iii) na hipótese de serem antedatados, ter prazo de vencimento de, no mínimo, 05 (cinco) dias, no máximo, 1.095 (um mil e noventa e cinco) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Limites por título: duplicatas 3–1.440 dias; CCB até 48 meses; admite vencidos e não padronizados sob condições",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 8.2"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite por devedor (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5. As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6."
+    }
+   ],
+   "legacy": {
+    "value": "Classe profissional: sem limites por devedor, emissor ou tipo, preservada alocação mínima",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Sem limite por cedente (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5. As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6."
+    }
+   ],
+   "legacy": {
+    "value": "Classe profissional: sem limites por devedor, emissor ou tipo, preservada alocação mínima",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Duplicatas até 1.440 dias; cheques antedatados até 1.095 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "(iii) ter prazo de vencimento de, no mínimo, 03 (três) dias, no máximo, 1440 (Um mil quatrocentos e quarenta) dias. b) Os cheques devem: (i) ser emitidos por pessoa física ou pessoa jurídica de qualquer natureza, inclusive as sociedades simples e empresas em nome individual; (ii) ter valor mínimo de R$ 10,00 (dez reais); e (iii) na hipótese de serem antedatados, ter prazo de vencimento de, no mínimo, 05 (cinco) dias, no máximo, 1.095 (um mil e noventa e cinco) dias;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "(iii) na hipótese de serem antedatados, ter prazo de vencimento de, no mínimo, 05 (cinco) dias, no máximo, 1.095 (um mil e noventa e cinco) dias; 52 (iv) os Cedentes enviarão os cheques para o Banco Cobrador, até d+5 da cessão dos Direitos de Crédito; observado, ainda, o atendimento aos Critérios de Elegibilidade, conforme descrito no presente Regulamento; na hipótese de inadimplemento dos Direitos de Crédito, os cheques serão retirados do Banco Cobrador pelo Agente de Cobrança, que dará início aos procedimentos de cobrança judicial e extrajudicial, nos"
+    }
+   ],
+   "legacy": {
+    "value": "Limites por título: duplicatas 3–1.440 dias; CCB até 48 meses; admite vencidos e não padronizados sob condições",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 8.2"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.4. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios >50% do PL em até 180 dias do início",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 7.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 21,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "Cotistas e regime da Classe, estão definidas neste Regulamento e nos Anexos. 4.2. A Classe poderá ser dividida em Subclasses de Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Junior, conforme disposto no Anexo da Classe Única e nos respectivos Suplementos, se for o caso. 4.3. Caso haja divisão em Subclasses, as Cotas Seniores e Cotas Subordinadas Junior somente poderão ser emitidas em uma única subclasse para cada tipo, sem prejuízo da possibilidade de emissão de diferentes subclasses Subordinadas Mezanino. 4.4. Cotas Subordinadas Júnior suportarão as despesas de constituição do Fundo. 4.5. As Cotas Seniores e Subordinadas Mezanino poderão ser emitidas em séries com Índices de Referência diferentes e prazos diferenciados para amortização, permanecendo inalterados os demais direitos e obrigações. 4.6. As Cotas correspondem a frações ideais do patrimônio do Fundo e/ou da Classe e somente serão resgatadas em virtude do término dos respectivos prazos de duração do Fundo e/ou da Classe ou em virtude da liquidação do Fundo e/ou da Classe, conforme o caso. 4.7. As Cotas serão escriturais e mantidas em contas de depósito em nome dos respectivos Cotistas. A qualidade de Cotista caracteriza-se pela abertura da conta de depósito em seu nome. 5."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL da classe ≥50%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, cl. 4.2"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 47,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "gulamento. 5. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 5.1. O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido da Classe, a qual deverá diariamente representar o percentual mínimo, de 50% (cinquenta inteiros por cento) do Patrimônio Líquido da Classe. 5.2. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, a Administradora deverá comunicar os respectivos Cotistas titulares das Cotas Subordinadas, para que decidam se realizarão aporte adicional de recursos para o reenquadramento do Fundo ao Índice de Subordinação, mediante emissão e subscrição de novas Quotas Subordinadas., 5.4."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Júnior / PL da classe ≥50%, apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "50% · jr/PL (mesmo índice júnior)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 47,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "gulamento. 5. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 5.1. O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Júnior e o Patrimônio Líquido da Classe, a qual deverá diariamente representar o percentual mínimo, de 50% (cinquenta inteiros por cento) do Patrimônio Líquido da Classe. 5.2. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, a Administradora deverá comunicar os respectivos Cotistas titulares das Cotas Subordinadas, para que decidam se realizarão aporte adicional de recursos para o reenquadramento do Fundo ao Índice de Subordinação, mediante emissão e subscrição de novas Quotas Subordinadas., 5.4."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela administradora; cotistas informados mensalmente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 47,
+     "clause": "Anexo, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "mente representar o percentual mínimo, de 50% (cinquenta inteiros por cento) do Patrimônio Líquido da Classe. 5.2. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.3 abaixo. 5.3. Na hipótese de desenquadramento do Índice de Subordinação, a Administradora deverá comunicar os respectivos Cotistas titulares das Cotas Subordinadas, para que decidam se realizarão aporte adicional de recursos para o reenquadramento do Fundo ao Índice de Subordinação, mediante emissão e subscrição de novas Quotas Subordinadas., 5.4. Os respectivos Cotistas deverão responder à Administradora, com cópia para a Gestora, impreterivelmente até o 15º (décimo quinto) dia subsequente à data do recebimento da comunicação referida na Cláusula 5.3 acima, informando por escrito se desejam integralizar, ou não, novas Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Junior, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Júnior / PL da classe ≥50%, apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 5.2"
+   }
+  },
+  "reserve": {
+   "display": "Despesas de 90 dias ou 0,1% do PL; 1% do pagamento para amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 56,
+     "clause": "Anexo, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "equivalente ao maior valor entre (a) o total de despesas e encargos de responsabilidade do Fundo e/ou da Classe a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 0,1% (um centésimo por cento) do Patrimônio Líquido da Classe na data de apuração. 10.4. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no patrimônio da Classe e/ou do Fundo, em moeda corrente nacional, ou em Ativos Financeiros de liquidez imediata. 10.5. Na hipótese de a Reserva de Caixa deixar de atender ao limite de enquadramento descrito na Cláusula 10.3 acima, a Administradora, por conta e ordem, deverá destinar todos os recursos da Classe e/ou do Fundo, conforme o caso, em moeda corrente nacional, para a recomposição da Reserva de Caixa, observada a ordem de alocação de recursos prevista na Cláusula 9 acima. 11. ASSEMBLEIA GERAL DE COTISTAS 11.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 55,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "Financeiros com liquidez diária o equivalente a, no mínimo, 1% (um por cento) do valor futuro do pagamento da respectiva amortização ou resgate de Cotas Seniores e, conforme o caso, das Cotas Subordinadas Mezanino em questão; e (b) a partir de 15 (quinze) dias antes de cada data de pagamento de amortização ou resgate (quando aplicável), a Classe do Fundo sempre mantenha aplicado em Ativos Financeiros com liquidez diária o equivalente a 1% (um por cento) do valor futuro do pagamento da respectiva amortização ou resgate de Cotas Sen"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas e 0,1% do PL; amortização:1% do pagamento desde D-30 e D-15",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 10.3"
+   }
+  },
+  "pdd": {
+   "display": "PDD = carteira × % de inadimplência esperada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 26,
+     "clause": "cl. 12.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "- PDD = Valor Total da Carteira de Crédito x % de Inadimplência Esperada. 12.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 12.9. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira da Classe, caso aplicável, (ii) o mercado dos Ativos, segregados por tipo de Ativo, e (iii) os parâmetros utilizados na determinação desses valores. 13. DAS DESPESAS E ENCARGOS DO FUNDO 13.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Subordinação não recomposta; desenquadramento por mais de 30 DU",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 58,
+     "clause": "Anexo, cl. 13.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "zada, sem que tenha havido sua substituição por outra instituição, nos termos do referido contrato. 13.2. É considerado evento de avaliação do Fundo (“Evento de Avaliação”) o seguinte evento: (i) não atendimento do Indice de Subordinação sem que tenha havido subscrição adicional de Quotas Subordinadas para o reenquadramento do Fundo dentro do prazo estabelecido, nos termos do Capítulo 5 deste Regulamento; (ii) desenquadramento da carteira de Ativos por mais de 30 (trinta) Dias Úteis consecutivos, consoante os limites aplicáveis à Classe, nos termos deste Regulamento e das disposições legais e regulatórias em vigor; (iii) verificação de Patrimônio Líquido Negativo; ou (iv) desenquadramento de Índice de Subordinação por um período superior ao previsto na Cláusula 5.6 acima. 13.3. Na ocorrência de qualquer Evento de Avaliação, a Administradora, imediatamente, (a) suspenderá o pagamento de amortizações ou resgate das Cotas, se houver, e (b) convocará a Assembleia Geral de Cotistas para deliberar se tal Evento de Avaliação deve ser considerado, ou não, um Evento de Liquidação Antecipada. 13.4."
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: subordinação sem cura, desenquadramento >30 DU e PL negativo; prestadores sem substituição podem liquidar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Saída de administradora ou custodiante sem substituição, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 57,
+     "clause": "Anexo, cl. 13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "SE, EVENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO ANTECIPADA E PROCEDIMENTOS A SEREM OBSERVADOS NA LIQUIDAÇÃO DA CLASSE 13.1. São considerados eventos de liquidação antecipada da Classe, qualquer dos seguintes eventos: a) cessação ou renúncia pela Administradora, a qualquer tempo e por qualquer motivo, da prestação dos serviços de administração do Fundo previstos neste Regulamento, sem que tenha havido sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento, observadas as condições pactuadas no art. 7º, §§ 1º e 2º; b) cessação pelo Custodiante, a qualquer tempo e por qualquer motivo, da prestação dos serviços objeto do Contrato de Custódia, sem que tenha havido sua substituição por outra instituição, nos termos do referido contrato; e 57 c) cessação da Consultora Especializada, a qualquer tempo e por qualquer motivo, da prestação dos serviços objeto do Contrato de Prestação de Serviços de Consultoria Especializada, sem que tenha havido sua substituição por outra instituição, nos termos do referido contrato. 13.2."
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: subordinação sem cura, desenquadramento >30 DU e PL negativo; prestadores sem substituição podem liquidar",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/03/2026, Anexo, cl. 13"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalha recompra com recursos da carteira no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições posteriores a despesas, reservas e amortizações; suspensas em eventos de liquidação",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "Conforme suplementos; júnior só se mantido o índice júnior",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 4.11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "ser amortizadas, desde que, considerada pro forma a amortização das Cotas Subordinadas Júnior, o Índice de Subordinação Junior, a Reserva de Pagamento de Amortização ou Resgate e o Índice de Liquidez não fiquem desenquadrados. 4.12. Não será realizada a amortização das Cotas Subordinadas Junior, em nenhuma hipótese, inclusive aquelas indicadas na Cláusula 4.11.1 acima, caso: (a) tenha sido identificado qualquer Evento de Avaliação ou Evento de Liquidação Antecipada, em relação ao qual a Assembleia Geral de Cotistas ainda não tenha se manifestado de forma definitiva; e/ou (b) esteja em curso a liquidação do Fundo e/ou da Classe. 45 4.13."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas; reservas; sênior; mezanino; júnior; novas aquisições",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL, incluindo custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 48,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "0,18% a.a (dezoito centésimos por cento ao ano) sobre o Patrimônio Líquido. 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.2. A Taxa de Gestão da Classe corresponderá ao percentual de 0,06% a.a. (seis centésimos por cento ao ano) sobre o Patrimônio Líquido. 6.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,18% a.a. sobre PL, incluindo custódia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,06% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 48,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "6.2. A Taxa de Gestão da Classe corresponderá ao percentual de 0,06% a.a. (seis centésimos por cento ao ano) sobre o Patrimônio Líquido. 6.2.1. A Taxa de Gestão será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.3."
+    }
+   ],
+   "legacy": {
+    "value": "0,06% a.a. sobre PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "6.5. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 7.1. A Classe terá como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe, preponderantemente na aquisição de direitos creditórios nos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito bancário, cédulas de crédito imobiliário, cédulas de prod"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração sênior definida em cada suplemento, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração da mezanino definida em suplemento, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "to; e (v) todas as referências a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na cidade de São Paulo, Estado de São Paulo, Avenida Rebouças, nº 2.942, 7º ao 12º andar – Parte I, inscrita no CNPJ sob o nº 62.285.390/0001-40, ou sua sucessora a qualquer título. “Agência de Classificação de Risco” Agência de classificação de risco que pode ser contratada pela Gestora, em nome do Fundo, mediante aprovação em Assembleia Geral para realizar a avaliação de risco das"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Tercon Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Gestora” A TERCON INVESTIMENTOS S.A., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Américo Brasiliense, nº 1765, 5º andar, Chácara"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Não nomeado; custódia incluída na taxa da administradora",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": []
+  },
+  "servicer": {
+   "display": "Alcance Consultoria (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "“Agente de Cobrança” ALCANCE CONSULTORIA, SERVIÇOS E AGENCIAMENTO DE NEGÓCIOS LTDA., com sede na Rua Casa do Ator nº927, 1º andar, Condomínio Casa Olímpia Business, 2 Vila Olímpia, São Paulo/SP, CEP 04546-003, inscrita no CNPJ/ME sob nº 07.099.330/0001-25, contratada em nome do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.4. Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5. As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6. Na aquisição dos Direitos Creditórios, a Gestora deverá verificar se todos os Documentos Comprobatórios compreendem todos os documentos necessários para protesto, cobrança ou execução judicial dos Direitos Creditórios cedidos, nos termos da regulamentação aplicável, sem prejuízo da análise conjunta com a Administradora, em razão de suas obrigações acessórias à aquisição dos Direitos Creditórios. 49 7.7. Os processos de originação dos Direitos Creditórios cedidos encontram-se descritos no Capítulo 7 do Regulamento. 7.8."
+    }
+   ],
+   "legacy": {
+    "value": "Somente investidores profissionais; classe fechada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Determinado, até 06/09/2032",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 21,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "ome. 5. DO PRAZO DE DURAÇÃO 5.1. O funcionamento do Fundo terá início na primeira Data de Subscrição Inicial. O Fundo terá prazo de duração determinado estabelecido para 06/09/2032, podendo ser liquidado ou prorrogado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. 21 CONDIÇÕES GERAIS APLICÁVEIS AO ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA 5.2. O prazo de duração da Classe deve ser compatível com o prazo de duração do Fundo. 6. DA POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 6.1. A Classe do Fundo terá como objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da aplicação dos recursos da Classe do Fundo preponderantemente na aquisição de Direitos Creditórios. 6.2. A descrição dos Direitos Creditórios passíveis de aquisição pela Classe, bem como as regras de enquadramento e concentração encontram-se descritos no respectivo Anexo da Classe Única. 7. DA ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E VERIFICAÇÃO DO LASTRO 7.1."
+    }
+   ],
+   "legacy": {
+    "value": "Somente investidores profissionais; classe fechada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Sem limite por sacado (classe para profissionais)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1130308",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/03/2026",
+     "page": 49,
+     "clause": "Anexo, cl. 7.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130308",
+     "excerpt": "estará sujeita limites de concentração de sua carteira por devedor, emissor ou tipo de Direito Creditório, nos termos das disposições legais e regulatórias aplicáveis, sem prejuízo do disposto na Cláusula 7.3 acima. 7.5. As cessões de Direitos Creditórios à Classe serão realizadas em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 7.6."
+    }
+   ],
+   "legacy": {
+    "value": "Classe profissional: sem limites por devedor, emissor ou tipo, preservada alocação mínima",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Multissetorial de cedentes diversos com júnior mínima de 50% do PL; classe para profissionais, sem limites de concentração.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

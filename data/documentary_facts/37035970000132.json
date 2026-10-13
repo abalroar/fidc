@@ -1,0 +1,780 @@
+{
+ "schema_version": 1,
+ "cnpj": "37035970000132",
+ "name": "CD CASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-13T20:27:00Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1187379",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379"
+  },
+  "D2": {
+   "document_id": "1203784",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "26/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203784"
+  },
+  "D3": {
+   "document_id": "915855",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "29/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=915855"
+  },
+  "D4": {
+   "document_id": "903733",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "08/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=903733"
+  },
+  "D5": {
+   "document_id": "896509",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "05/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=896509"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Títulos e contratos de venda de insumos agrícolas, inclusive a performar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 7.1. O Fundo poderá adquirir direitos creditórios, representados por títulos de crédito e instrumentos de crédito, em especial, mas não apenas, duplicatas, notas promissórias (“NP”), letras de câmbio comercial (“LCC”), cédulas de crédito bancário (“CCB”), cédulas de produtor rural financeira (“CPR-F”), notas fiscais eletrônicas, contratos em geral desde que relacionados à compra e venda de insumos agrícolas, respeitados, ainda, os limites de concentração, di"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos e contratos ligados a compra e venda de insumos agrícolas; inclui operações a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "CHDS do Brasil (insumos agrícolas) e filiais",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "Classe, conforme aplicável. “BACEN” O Banco Central do Brasil. “Cedentes” É a CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA., inscrita no CNPJ sob o nº 18.858.234/0001-30, suas filiais e seu grupo econômico. “Classe” Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo Anexo da Classe Única. “CNPJ” Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Condições de Cessão” Condições de cessão prevista no Capítulo 7 do Regulamento e detalhada no Anexo da Classe Única, a serem verificadas pela Gestora previamente a cada cessão de Direitos Creditórios ao Fundo e/ou à Classe. “Conta da Classe” Conta corrente de titularidade da Classe mantida junto à Administradora,"
+    }
+   ],
+   "legacy": {
+    "value": "CHDS do Brasil e demais cedentes sob limites da classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "CHDS do Brasil e demais cedentes, nos limites da classe",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "Classe, conforme aplicável. “BACEN” O Banco Central do Brasil. “Cedentes” É a CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA., inscrita no CNPJ sob o nº 18.858.234/0001-30, suas filiais e seu grupo econômico. “Classe” Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo Anexo da Classe Única. “CNPJ” Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Condições de Cessão” Condições de cessão prevista no Capítulo 7 do Regulamento e detalhada no Anexo da Classe Única, a serem verificadas pela Gestora previamente a cada cessão de Direitos Creditórios ao Fundo e/ou à Classe. “Conta da Classe” Conta corrente de titularidade da Classe mantida junto à Administradora,"
+    }
+   ],
+   "legacy": {
+    "value": "CHDS do Brasil e demais cedentes sob limites da classe",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Produtores e compradores de insumos agrícolas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 7.1. O Fundo poderá adquirir direitos creditórios, representados por títulos de crédito e instrumentos de crédito, em especial, mas não apenas, duplicatas, notas promissórias (“NP”), letras de câmbio comercial (“LCC”), cédulas de crédito bancário (“CCB”), cédulas de produtor rural financeira (“CPR-F”), notas fiscais eletrônicas, contratos em geral desde que relacionados à compra e venda de insumos agrícolas, respeitados, ainda, os limites de concentração, di"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Recompras por resolução até 10% do PL ao mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 46,
+     "clause": "Anexo, cl. 7.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "10% (dez por cento) do Patrimônio Líquido ao mês; (ii) o Índice Semestral de Recompra por Resolução deverá ser menor ou igual a 25% (vinte e cinco por cento) do Patrimônio Líquido ao semestre (iii) o Índice Mensal de Repasse do Fundo deverá ser menor ou igual a 10% (dez por cento) do Patrimônio Líquido ao mês; (iv) o Índice de Repasse Semestral do Fundo deverá ser menor ou igual a 25% (vinte e cinco por cento) do Patrimônio Líquido ao semestre;"
+    }
+   ],
+   "legacy": {
+    "value": "Recompras por resolução≤10% do PL/mês; desenquadramento posterior não gera regresso automático",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; fora de litígio; em geral ≥ R$ 100 e de 10 a 360 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 47,
+     "clause": "Anexo, cl. 7.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "(vi) a quantidade mínima de devedores do Fundo deverá ser sempre superior a 100 (cem) devedores. 7.7. Adicionalmente, os Direitos Creditórios não poderão: (i) estar vencidos e/ou pendentes de pagamento quando da sua cessão para a Classe; (ii) ser resultantes de ações judiciais ou procedimentos arbitrais em curso, constituam seu objeto de litígio ou tenham sido judicialmente penhorados ou dados em garantia;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 50,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": ", considerando, inclusive, o seu grupo econômico, deverá ser de até 5% (cinco por cento) do Patrimônio Líquido; (ii) valor mínimo de R$ 100,00 (cem reais); (iii) prazo mínimo de vencimento de 10 (dez) dias; (iv) prazo máximo de vencimento de 360 (trezentos e sessenta) dias; (v) prazo médio da carteira de Direitos Creditórios não será superior a 270 (duzentos e setenta) dias; (vi) poderão ser corrigidos pela variação do dólar, desde que a soma do valor dos títulos que utilizem essa correção cambial não ultrapasse 50% (cinquenta por cento) do Patrimônio Líquido (“Índice de Variação Cambial”); (vii) a taxa média da carteira de Direitos Creditórios a vencer do Fundo, deverá ser igual ou superior a taxa DI, acrescida de uma sobretaxa equivalente a 0,5% (cinco décimos por cento) ao mês. (2) Para os Direitos Creditórios a Performar, CCB e LCC que contarão com a CHDS como devedora e/ou coobrigada: (i) a concentração deverá ser de até 30% (trinta por cento) do Patrimônio Líquido, observado os requisitos de composição e diversificação estabelecidos na Cláusula 7.5 acima. 8.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos não vencidos; fora de litígio/recuperação; em geral≥R$ 100 e 10–360 dias",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 5% do PL, salvo exceções do anexo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 46,
+     "clause": "Anexo, cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "sitos de composição e de diversificação estabelecidos neste Regulamento e na RCVM 175: (i) o Fundo poderá adquirir Direitos Creditórios de um mesmo Devedor, considerando, inclusive, o seu grupo econômico, até o limite de 5% (cinco por cento) de seu Patrimônio Líquido, ressalvada as hipóteses de exceção previstas na Cláusula 8.1 abaixo; (ii) o Fundo poderá adquirir Direitos Creditórios cujos Devedores sejam pessoas físicas, observado os demais limites deste Regulamento, até o limite de 20% (vinte por cento) de seu Patrimônio Líquido; (iii) o Fundo poderá adquirir Direitos Creditórios cedidos ou de coobrigação da CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA., inscrita no CNPJ sob o nº 18.858.234/0001-30, de suas filiais e do seu grupo econômico (“CHDS”), até o limite de 100% (cem por cento) do Patrimônio Líquido, tendo em vista que, nos termos da alínea “c” do inciso I, § 3º do Art. 45 do Anexo Normativo II da RCVM 175, a CDHS possui demonstrações contábeis auditadas por auditor independente registrado na CVM;"
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Devedor/grupo≤5% do PL; top 10≤30%; CHDS/coobrigação até 100% sob condições; PF≤20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 7.5"
+   }
+  },
+  "assignor_limit": {
+   "display": "Sem limite para a CHDS; demais nos limites da classe",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 46,
+     "clause": "Anexo, cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "inclusive, o seu grupo econômico, até o limite de 5% (cinco por cento) de seu Patrimônio Líquido, ressalvada as hipóteses de exceção previstas na Cláusula 8.1 abaixo; (ii) o Fundo poderá adquirir Direitos Creditórios cujos Devedores sejam pessoas físicas, observado os demais limites deste Regulamento, até o limite de 20% (vinte por cento) de seu Patrimônio Líquido;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 46,
+     "clause": "Anexo, cl. 7.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "sitos de composição e de diversificação estabelecidos neste Regulamento e na RCVM 175: (i) o Fundo poderá adquirir Direitos Creditórios de um mesmo Devedor, considerando, inclusive, o seu grupo econômico, até o limite de 5% (cinco por cento) de seu Patrimônio Líquido, ressalvada as hipóteses de exceção previstas na Cláusula 8.1 abaixo; (ii) o Fundo poderá adquirir Direitos Creditórios cujos Devedores sejam pessoas físicas, observado os demais limites deste Regulamento, até o limite de 20% (vinte por cento) de seu Patrimônio Líquido; (iii) o Fundo poderá adquirir Direitos Creditórios cedidos ou de coobrigação da CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA., inscrita no CNPJ sob o nº 18.858.234/0001-30, de suas filiais e do seu grupo econômico (“CHDS”), até o limite de 100% (cem por cento) do Patrimônio Líquido, tendo em vista que, nos termos da alínea “c” do inciso I, § 3º do Art. 45 do Anexo Normativo II da RCVM 175, a CDHS possui demonstrações contábeis auditadas por auditor independente registrado na CVM;"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor/grupo≤5% do PL; top 10≤30%; CHDS/coobrigação até 100% sob condições; PF≤20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 7.5"
+   }
+  },
+  "term_max": {
+   "display": "Em geral de 10 a 360 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 50,
+     "clause": "Anexo, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": ", considerando, inclusive, o seu grupo econômico, deverá ser de até 5% (cinco por cento) do Patrimônio Líquido; (ii) valor mínimo de R$ 100,00 (cem reais); (iii) prazo mínimo de vencimento de 10 (dez) dias; (iv) prazo máximo de vencimento de 360 (trezentos e sessenta) dias; (v) prazo médio da carteira de Direitos Creditórios não será superior a 270 (duzentos e setenta) dias; (vi) poderão ser corrigidos pela variação do dólar, desde que a soma do valor dos títulos que utilizem essa correção cambial não ultrapasse 50% (cinquenta por cento) do Patrimônio Líquido (“Índice de Variação Cambial”); (vii) a taxa média da carteira de Direitos Creditórios a vencer do Fundo, deverá ser igual ou superior a taxa DI, acrescida de uma sobretaxa equivalente a 0,5% (cinco décimos por cento) ao mês. (2) Para os Direitos Creditórios a Performar, CCB e LCC que contarão com a CHDS como devedora e/ou coobrigada: (i) a concentração deverá ser de até 30% (trinta por cento) do Patrimônio Líquido, observado os requisitos de composição e diversificação estabelecidos na Cláusula 7.5 acima. 8.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos não vencidos; fora de litígio/recuperação; em geral≥R$ 100 e 10–360 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 8.2"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "lacionados aos referidos Direitos Creditórios. 7.3. Em até 180 (cento e oitenta) dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios. 7.4. Não obstante o item 7.3 acima, para fins de cumprimento ao disposto na Lei nº 14.754 e na Resolução CMN nº 5.111, o Fundo deverá aplicar, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios. 7.5. Os investimentos do Fundo e da Classe subordinar-se-ão aos requisitos de composição e de diversificação estabelecidos neste Regulamento e na RCVM 175: (i) o Fundo poderá adquirir Direitos Creditórios de um mesmo Devedor, considerando, inclusive, o seu grupo econômico, até o limite de 5% (cinco por cento) de seu Patrimônio Líquido, ressalvada as hipóteses de exceção previstas na Cláusula 8.1 abaixo; (ii) o Fundo poderá adquirir Direitos Creditórios cujos Devedores sejam pessoas físicas, observado os demais limites deste Regulamento, até o limite de 20% (vinte por cento) de seu Patrimônio Líquido;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios >50% em 180 dias; piso fiscal contratual≥67% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 7.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 18,
+     "clause": "cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "lico-alvo, responsabilidades dos Cotistas e regime da Classe, estão definidas neste Regulamento e nos Anexos. 4.2. A Classe será dividida em Subclasses de Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Júnior, conforme disposto no Anexo da Classe Única e nos respectivos Apêndices, se for o caso. 4.3. As Cotas Seniores e Cotas Subordinadas Júnior somente poderão ser emitidas em uma única subclasse para cada tipo, sem prejuízo da possibilidade de emissão de diferentes subclasses Subordinadas Mezanino. 4.4. Cotas Subordinadas Júnior suportarão as despesas de constituição do Fundo. 4.5. As Cotas Seniores e Subordinadas Mezanino poderão ser emitidas em séries com Índices de Referência diferentes e prazos diferenciados para amortização, permanecendo inalterados os demais direitos e obrigações. 4.6. As Cotas correspondem a frações ideais do patrimônio do Fundo e/ou da Classe e somente serão resgatadas em virtude do término dos respectivos prazos de duração do Fundo e/ou da Classe ou em virtude da liquidação do Fundo e/ou da Classe, conforme o caso. 4.7. As Cotas serão escriturais e mantidas em contas de depósito em nome dos respectivos Cotistas. A qualidade de Cotista caracteriza-se pela abertura da conta de depósito em seu nome. 5. DO PRAZO DE DURAÇÃO 5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥40%; júnior / PL das subclasses subordinadas ≥75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, cl. 4.2"
+   }
+  },
+  "sub_senior": {
+   "display": "40% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 43,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "ulamento. 5. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 5.1. O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 40% (quarenta por cento). Isso significa que, no mínimo, 40% (quarenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 75% (setenta e cinco por cento). Isso significa que, no mínimo, 75% (setenta e cinco por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 40.0,
+   "legacy": {
+    "value": "Subordinadas / PL ≥40%; júnior / PL das subclasses subordinadas ≥75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 75% das subordinadas",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 43,
+     "clause": "Anexo, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "uarenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 75% (setenta e cinco por cento). Isso significa que, no mínimo, 75% (setenta e cinco por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4. Na hipótese de desenquadramento de qualquer Índice de Subordinação, os respectivos Cotistas titulares das Cotas Subordinadas, das Cotas Subordinada Mezanino e/ou das Cotas Subordinadas Junior, conforme o caso, serão imediatamente informados pela Administradora, juntamente com a informação a ser transmitida à Gestora em observância ao prazo disposto na Cláusula 5.3 acima. 5.5."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 43,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "ulamento. 5. DO ÍNDICE DE SUBORDINAÇÃO E PROCEDIMENTOS APLICÁVEIS NA HIPÓTESE DE INOBSERVÂNCIA DESSE ÍNDICE 5.1. O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 40% (quarenta por cento). Isso significa que, no mínimo, 40% (quarenta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas em circulação. 5.2. O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido das Subclasses Subordinadas, a qual deverá, diariamente, representar o percentual mínimo de 75% (setenta e cinco por cento). Isso significa que, no mínimo, 75% (setenta e cinco por cento) do Patrimônio Líquido das Subclasses Subordinadas deve ser representado por Cotas Subordinadas Júnior em circulação. 5.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora, devendo a apuração do cálculo ser informada à Gestora imediatamente e aos Cotistas mensalmente, ressalvada a hipótese de desenquadramento indicada na Cláusula 5.5 abaixo. 5.4."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL ≥40%; júnior / PL das subclasses subordinadas ≥75%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 5.1"
+   }
+  },
+  "reserve": {
+   "display": "Caixa: maior entre 90 dias de despesas e 1% do PL; reserva de amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 52,
+     "clause": "Anexo, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "Classe a serem incorridos no período de 90 (noventa) dias contados da data de apuração ou (b) 1% (um por cento) do Patrimônio Líquido da Classe na data de apuração. 10.4. O montante referente à Reserva de Caixa deverá ser mantido pela Administradora de forma devidamente segregada no patrimônio da Classe e/ou do Fundo, em moeda corrente nacional, ou em Ativos Financeiros de liquidez imediata. 10.5."
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas e 1% do PL; amortização:30% D-30 e 100% D-15",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 10.3"
+   }
+  },
+  "pdd": {
+   "display": "Perda por redução ao valor recuperável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 22,
+     "clause": "cl. 12.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "re que houver evidência de redução no valor recuperável dos Ativos da Classe, avaliados pelo custo ou custo amortizado, deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação será mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado, calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. 12.8. Os Direitos Creditórios cedidos que venham a ser inadimplidos pelos respectivos Devedores permanecerão registrados em conta de compensação pelo prazo mínimo de 5 (cinco) anos e enquanto não esgotados os procedimentos de cobrança. 12.9. É obrigatória a divulgação, em notas explicativas às demonstrações contábeis anuais do Fundo e/ou da Classe, de informações que abranjam, no mínimo, (i) o montante, a natureza e as faixas de vencimento dos Ativos integrantes da carteira da Classe, caso aplicável, (ii) o mercado dos Ativos, segregados por tipo de Ativo, e (iii) os parâmetros utilizados na determinação desses valores. 13. DAS DESPESAS E ENCARGOS DO FUNDO 13.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating, desenquadramento > 15 DU, PL negativo, cedente e prestadores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 54,
+     "clause": "Anexo, cl. 12.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "(ii) desenquadramento da carteira de Ativos por mais de 15 (quinze) Dias Úteis consecutivos, consoante os limites aplicáveis à Classe, nos termos deste Regulamento e das disposições legais e regulatórias em vigor; (iii) verificação de Patrimônio Líquido Negativo; (iv) desenquadramento de Índice de Subordinação por um período superior ao previsto na Cláusula 5 acima; (v) violação das declarações, obrigações e garantias do Cedente no âmbito do Contrato de Cessão ou demais documentos integrantes do Fundo e da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: rating, desenquadramento>15 DU, PL negativo, cedente, prestadores e índices de monitoramento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no anexo extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Avaliação: rating, desenquadramento>15 DU, PL negativo, cedente, prestadores e índices de monitoramento",
+    "decision": "regression",
+    "why": "Resposta anterior descreve eventos de avaliação, registrados na linha própria"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalhada no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas; reservas; dissidentes; sênior; mezanino; júnior; aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,30% a.a. do PL; mín. R$ 16 mil/mês; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "escrituração e custódia, é equivalente ao percentual de 0,30% (trinta centésimos por cento) ao ano, apurada sobre o valor do Patrimônio Líquido do Fundo, com mínimo mensal garantido de R$ 16.000,00 (dezesseis mil reais). 6.1.1. A Taxa de Administração será calculada linearmente, provisionada à base de 1/252 (um duzentos e cinquenta e dois avos) e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada em todo Dia Útil. 6.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. sobre PL; mínimoR$ 16 mil/mês; inclui escrituração/custódia",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "1% a.a. até R$ 200 mi; 0,9% até 300 mi; 0,8% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 44,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "1% (um por cento) ao ano reais); Entre R$ 200.000.000,01 (duzentos milhões 0,9% (nove décimos por de reais e um centavo) e R$ 300.000.000,00 cento) ao ano (trezentos milhões de reais); Acima de R$ 300.000.000,0, (trezentos 0,8% (oito décimos por milhões de reais e um centavo)."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas PL:1% atéR$ 200 mi;0,9% entre 200–300 mi;0,8% acima 300 mi",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/05/2026, Anexo, cl. 6.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo da classe não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração alvo em branco ([-]) nos suplementos do regulamento",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 69,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "g) Data de Amortização: [-]; h) Data de Resgate: [-]; i) Remuneração alvo: [-]; j) Distribuidor: Será a Administradora do Fundo; k) Custos da Distribuição: (i) Remuneração do Distribuidor, equivalente ao percentual de 0,01% (um centésimo por cento) sobre o aporte; e (ii) Taxa exigível pela CVM conforme legislação vigente;"
+    }
+   ]
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Remuneração alvo em branco ([-]) nos suplementos do regulamento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "“Acordo Operacional” É o acordo feito entre Administradora e Gestora. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Orram Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "itórios constituídos na forma prevista na RCVM 175. “Gestora” A ORRAM GESTÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, Rua dos Pinheiros, nº 870, conj. 201 e 202, Ed. Torre 2000, Pinheiros, CEP 05422-001, inscrita no CNPJ sob o nº 33.459.864/0001-25, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 17.722, de 05 de março de 2020. “IGP-M” Índice Geral de Preços do Mercado, divulgado pela Fundação Getúlio Vargas, ou outro índice que venha a substituí-lo. “Índices de Monitoramento” São as métricas especificadas na Cláusula 7.6 do Anexo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM (a própria administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "o de Direitos Creditórios ao Fundo e/ou à Classe. “Custodiante” É a Administradora do Fundo. “CVM” A Comissão de Valores Mobiliários. “Data de Aquisição e Data em que ocorrer a assinatura de cada Contrato de Pagamento” Cessão ou Termo de Cessão, conforme aplicável, e o pagamento do preço de aquisição do respectivo Direito Creditório pela Administradora, em nome do Fundo, 5 Corporativo | Interno conforme procedimentos de originação e verificação de lastro dispostos no Capítulo 7 deste Regulamento. “Data de Subscrição Inicial” A data da primeira subscrição e integralização de Cotas. “Devedores” Devedores (sacados) dos Direitos Creditórios cedidos pela Cede"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "“Acordo Operacional” É o acordo feito entre Administradora e Gestora. “Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº 1.498, de 28 de agosto de 1990, com sede na Av."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 39,
+     "clause": "Anexo, cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "2. DO PÚBLICO-ALVO 2.1. A Classe é exclusivamente destinada a Investidores Qualificados. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral em conformidade com o disposto no Regulamento e neste Anexo da Classe Única. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 39,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "2.1. A Classe é exclusivamente destinada a Investidores Qualificados. 3. DO PRAZO DE DURAÇÃO DA CLASSE 3.1. A Classe terá prazo de duração indeterminado, podendo ser liquidada por deliberação da Assembleia Geral em conformidade com o disposto no Regulamento e neste Anexo da Classe Única. 4. DAS SUBCLASSES, EMISSÃO, SUBSCRIÇÃO, INTEGRALIZAÇÃO, DISTRIBUIÇÃO DE RESULTADOS, AMORTIZAÇÃO, RESGATE E TRANSFERÊNCIA DAS COTAS 4.1. A Classe se divide nas seguintes em Subclasses: (i) Cotas Seniores; (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Junior. 4.1.1. As Cotas Seniores são aquelas que não se subordinam às Cotas Subordinadas para efeito de amortização, resgate e distribuição dos rendimentos da carteira da Classe, nos termos do presente Regulamento e conforme particularidades descritas nos Apêndices. 4.1.2. As Cotas Subordinadas Mezanino são aquelas que se subordinam às Cotas Seniores para efeito de amortização, resgate e distribuição de rendimentos da carteira do Fundo, mas que, para os mesmos efeitos, não se subordinam às Cotas Subordinadas Júnior, nos termos do presente Regulamento e conforme particularidades descritas nos Apêndices. 4.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores qualificados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Vendas de insumos agrícolas da CHDS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "Classe, conforme aplicável. “BACEN” O Banco Central do Brasil. “Cedentes” É a CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA., inscrita no CNPJ sob o nº 18.858.234/0001-30, suas filiais e seu grupo econômico. “Classe” Classe única de Cotas, constituída sob a forma de condomínio fechado, conforme regras específicas dispostas no respectivo Anexo da Classe Única. “CNPJ” Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda. “Condições de Cessão” Condições de cessão prevista no Capítulo 7 do Regulamento e detalhada no Anexo da Classe Única, a serem verificadas pela Gestora previamente a cada cessão de Direitos Creditórios ao Fundo e/ou à Classe. “Conta da Classe” Conta corrente de titularidade da Classe mantida junto à Administradora,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1187379",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/05/2026",
+     "page": 45,
+     "clause": "Anexo, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1187379",
+     "excerpt": "7. POLÍTICA DE INVESTIMENTO, ENQUADRAMENTO E CONCENTRAÇÃO 7.1. O Fundo poderá adquirir direitos creditórios, representados por títulos de crédito e instrumentos de crédito, em especial, mas não apenas, duplicatas, notas promissórias (“NP”), letras de câmbio comercial (“LCC”), cédulas de crédito bancário (“CCB”), cédulas de produtor rural financeira (“CPR-F”), notas fiscais eletrônicas, contratos em geral desde que relacionados à compra e venda de insumos agrícolas, respeitados, ainda, os limites de concentração, di"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos e contratos ligados a compra e venda de insumos agrícolas; inclui operações a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não descreve garantias dos recebíveis",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis de insumos agrícolas da CHDS com subordinação de 40% do PL e devedor ≤ 5%; gestão cobra 1% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

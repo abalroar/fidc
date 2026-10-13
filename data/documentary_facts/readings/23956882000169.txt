@@ -1,0 +1,51 @@
+# SB Crédito FIDC Multissetorial (QI CTVM; Carmel)
+type: Duplicatas/multicedente
+q1: * "QUADRO A – LIMITE DE DIREITOS CREDITÓRIOS PELO PATRIMÔNIO LÍQUIDO DA CLASSE/ CONCENTRAÇÃO POR CEDENTE E SACADO"
+q2: * "e) Concentração por Sacados Até 3%"
+q3: * "11.1.1. Para o cálculo do Índice de Subordinação Mezanino"
+q4: * "11.1.2. Para o cálculo do Índice de Subordinação Sênior"
+q6: * "21.6. São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses"
+q7: * "O maior valor entre o percentual de 0,15%"
+q8: * "13.2. A Taxa de Gestão da Classe corresponderá"
+q9: * "“Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestora” A CARMEL GESTORA DE ATIVOS LTDA"
+q11: * "“Custodiante” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "4.1. A Classe terá prazo de duração indeterminado"
+q13: * "correspondente a 100% (cem por cento) da taxa média referencial dos depósitos interfinanceiros"
+q14: * "(duzentos e setenta) dias, a contar da respectiva Data de Cessão"
+q15: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q16: * "(viii) aquisição de Direitos Creditórios e Ativos Financeiros, conforme disposto"
+q17: * "a Administradora deverá constituir a Reserva de Pagamento de Amortização, e a Reserva de Caixa"
+receivables: Duplicatas, notas promissórias, NC, CCB, CCI, CPR e cotas de FIDC | o1
+originator: Cedentes diversos (multicedente) | q1
+assignor: Cedentes diversos; até 5% do PL por cedente | q1
+debtor: Sacados diversos; até 3% do PL por sacado | q2
+recourse: n/d | Coobrigação definida em cada contrato de cessão, sem regra única no anexo
+eligibility: Prazo até 270 dias da cessão; limites de concentração do quadro A | q14,q1
+debtor_limit: Sacado ≤ 3%; 3 maiores ≤ 8%; 20 maiores ≤ 26% do PL | q2
+assignor_limit: Cedente ≤ 5%; 3 maiores ≤ 13%; 10 maiores ≤ 27% do PL | q1
+term_max: Até 270 dias da data de cessão | q14
+allocation: ≥ 67% do PL em direitos creditórios | q1 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q3,q4
+sub_senior: 30% · (mez.+jr.)/PL | q4 | basis=mez+jr/PL
+sub_mezz: 13% · jr/PL | q3 | basis=jr/PL
+sub_check: Diária pela administradora; cotistas informados mensalmente | q3
+reserve: Reservas de caixa (despesas) e de pagamento de amortização | q17
+pdd: Perda por redução ao valor recuperável | q15
+eval_triggers: Rating rebaixado; reservas ou subordinação desenquadradas; lastro irregular | q5,o49
+liquidation: Saída da administradora sem substituição, entre outras hipóteses | q6
+revolving: Novas aquisições ao fim da ordem de alocação | q16
+amortization: n/d | Cronograma definido em apêndice da série, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: Maior entre 0,15% a.a. do PL e R$ 15 mil/mês | q7
+mgmt_fee: Maior entre 0,10% a.a. do PL e R$ 10 mil/mês | q8
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: 100% do CDI (1ª emissão sênior) | q13
+target_mezz: n/d | Meta da mezanino definida em apêndice fora do acervo
+administrator: QI CTVM | q9
+manager: Carmel Gestora de Ativos | q10
+custodian: QI CTVM | q11
+servicer: n/d | Agente de cobrança não nomeado no regulamento extraído
+investors: n/d | Público-alvo não explicitado no anexo extraído
+duration: Indeterminado | q12
+sacado_limit: Sacado ≤ 3%; 3 maiores ≤ 8%; 20 maiores ≤ 26% do PL | q2
+leitura: Multicedente com sênior protegida por 30% de mez.+jr. e júnior ≥ 13%; cedente ≤ 5% e sacado ≤ 3% do PL.

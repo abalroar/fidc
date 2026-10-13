@@ -1,0 +1,53 @@
+# portado de 12167116000107 (62627243000101)
+type: Duplicatas/multicedente
+q1: * "A Classe terá como razão de garantia o percentual mínimo de 150%"
+q2: * "Os devedores dos Direitos de Crédito deverão ser pessoas físicas ou jurídicas inscritas"
+q3: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q4: * "outros Ativos de responsabilidade ou coobrigação de um mesmo devedor está limitada a 20%"
+q5: * "crescimento do percentual de recompra acima de 25%"
+q6: * "13.1. A Classe poderá ser liquidada por deliberação da Assembleia Geral de Cotistas"
+q18: * "Reserva de Caixa Reserva para pagamento de despesas e encargos da Classe"
+q7: * "A Taxa de Administração da Classe corresponderá ao valor de 0,30%"
+q8: * "A Taxa de Gestão da Classe corresponderá ao valor de 0,50%"
+q9: * "Administradora A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "Gestora A VIA INVEST GESTORA DE RECURSOS LTDA."
+q11: * "Consultora Especializada A VIA INVEST CONSULTORIA E COBRA"
+q12: * "A Classe terá prazo de duração indeterminado"
+q13: * "Remuneração alvo: CDI + 0,60% a.a."
+q14: * "A Classe não poderá adquirir Direitos Creditórios de qualquer Cedente que tenha recomprado mais de 20%"
+q15: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q16: * "Classe poderá ser dividida em Subclasses de Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinad"
+q17: * "Caso a Razão de Garantia das Cotas Seniores seja inferior a150%"
+receivables: Multissetorial: direitos creditórios de cedentes diversos | q2,q14
+originator: Cedentes diversos, conforme política de crédito de cada um | q14
+assignor: Cedentes diversos | q14
+debtor: PF, PJ ou entes despersonalizados com CPF/CNPJ | q2
+recourse: n/d | Regime de coobrigação depende de cada contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Não vencidos; 3 a 1.060 dias úteis; taxa de cessão ≥ 120% do CDI | q2
+debtor_limit: 20% do PL por devedor (até 100% nas exceções da norma) | q4
+assignor_limit: Sem limite; veda cedente que recomprou > 20% em 30 dias | q14
+term_max: Até 1.060 dias úteis | q2
+allocation: > 50% do PL em direitos creditórios | q3 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q16
+sub_senior: Razão de garantia sênior ≥ 150% (subordinadas ≈ um terço do PL) | q1 | basis=mez+jr/PL | value=33.33
+sub_mezz: Júnior ≥ 20% do patrimônio subordinado | q1 | value=none
+sub_check: Razão sênior abaixo de 150% por 5 DU exige recomposição | q17,q1
+reserve: Reservas de caixa (despesas) e de pagamento de amortização | q18
+pdd: Perda por redução ao valor recuperável | q15
+eval_triggers: Recompras acima de 25% da carteira; saída da consultora, entre outros | q5
+liquidation: Por deliberação da assembleia, inclusive após evento de avaliação | q6
+revolving: n/d | Regulamento não detalha revolvência no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,30% a.a. do PL; mín. R$ 32.393,27/mês | q7
+mgmt_fee: 0,50% a.a. do PL; mínimo escalonado a partir de R$ 3 mil/mês | q8
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: CDI + 0,60% a.a. (série sênior de 2026) | q13
+target_mezz: n/d | Remuneração da mezanino fica em suplemento fora do acervo | why=Resposta anterior trata da série sênior, registrada na linha própria
+administrator: Singulare CTVM | q9
+manager: Via Invest Gestora de Recursos | q10
+custodian: Não nomeado no regulamento
+servicer: Via Invest Consultoria e Cobrança (consultora) | q11
+investors: n/d | Público-alvo não explicitado no anexo extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+duration: Indeterminado | q12
+sacado_limit: 20% do PL por devedor (até 100% nas exceções da norma) | q4
+leitura: Multissetorial com razão de garantia sênior de 150% (subordinadas ≈ um terço do PL) e limite de 20% do PL por devedor.

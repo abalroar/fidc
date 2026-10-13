@@ -1,0 +1,49 @@
+# CD Cash FIDC (QI CTVM; Orram; insumos agrícolas CHDS)
+type: Agro/FIAGRO
+q1: * "“Cedentes” É a CHDS DO BRASIL COMÉRCIO DE INSUMOS AGRÍCOLAS LTDA."
+q2: * "O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe"
+q3: * "O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior"
+q4: * "“Administradora” A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q5: * "“Gestora” A ORRAM GESTÃO DE RECURSOS LTDA."
+q6: * "“Custodiante” É a Administradora do Fundo"
+q7: * "A Classe terá prazo de duração indeterminado"
+q8: * "a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q9: * "Classe será dividida em Subclasses de Cotas Seniores, Cotas Subordinadas Mezanino e/ou Cotas Subordinadas Jún"
+q10: * "Remuneração alvo: [-]"
+q11: * "deverá ser registrada uma provisão para perdas. A perda por redução no valor de recuperação"
+q12: * "(ii) valor mínimo de R$ 100,00 (cem reais); (iii) prazo mínimo de vencimento de 10 (dez) dias"
+q13: * "Direitos Creditórios de um mesmo Devedor, considerando, inclusive, o seu grupo econômico, até o limite de 5%"
+receivables: Títulos e contratos de venda de insumos agrícolas, inclusive a performar | o1
+originator: CHDS do Brasil (insumos agrícolas) e filiais | q1
+assignor: CHDS do Brasil e demais cedentes, nos limites da classe | q1
+debtor: Produtores e compradores de insumos agrícolas | o1
+recourse: Recompras por resolução até 10% do PL ao mês | o11
+eligibility: Não vencidos; fora de litígio; em geral ≥ R$ 100 e de 10 a 360 dias | o14,q12
+debtor_limit: Devedor/grupo ≤ 5% do PL, salvo exceções do anexo | q13
+assignor_limit: Sem limite para a CHDS; demais nos limites da classe | o17,q13
+term_max: Em geral de 10 a 360 dias | q12
+allocation: > 50% do PL em direitos creditórios | q8 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q9
+sub_senior: 40% · (mez.+jr.)/PL | q2 | basis=mez+jr/PL
+sub_mezz: Júnior ≥ 75% das subordinadas | q3 | value=none
+sub_check: Diária | q2
+reserve: Caixa: maior entre 90 dias de despesas e 1% do PL; reserva de amortização | o38
+pdd: Perda por redução ao valor recuperável | q11
+eval_triggers: Rating, desenquadramento > 15 DU, PL negativo, cedente e prestadores | o43
+liquidation: n/d | Lista de eventos de liquidação não localizada no anexo extraído | why=Resposta anterior descreve eventos de avaliação, registrados na linha própria
+revolving: n/d | Ordem de alocação não detalhada no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,30% a.a. do PL; mín. R$ 16 mil/mês; inclui custódia | o53
+mgmt_fee: 1% a.a. até R$ 200 mi; 0,9% até 300 mi; 0,8% acima | o56
+perf_fee: Não prevista | Anexo da classe não prevê taxa de performance
+target_senior: n/d | Remuneração alvo em branco ([-]) nos suplementos do regulamento | q10 | why=Resposta anterior cita só a série ofertada, sem taxa
+target_mezz: n/d | Remuneração alvo em branco ([-]) nos suplementos do regulamento
+administrator: QI CTVM | q4
+manager: Orram Gestão de Recursos | q5
+custodian: QI CTVM (a própria administradora) | q6,q4
+servicer: n/d | Agente de cobrança não nomeado no regulamento extraído
+investors: Investidores qualificados | o69
+duration: Indeterminado | q7
+agro_backing: Vendas de insumos agrícolas da CHDS | q1,o1
+collateral: n/d | Regulamento não descreve garantias dos recebíveis
+leitura: Recebíveis de insumos agrícolas da CHDS com subordinação de 40% do PL e devedor ≤ 5%; gestão cobra 1% a.a.
