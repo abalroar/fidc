@@ -1,0 +1,769 @@
+{
+ "schema_version": 1,
+ "cnpj": "51554551000138",
+ "name": "CLASSE ÚNICA DO FIDC CRÉDITO NITRO AGRO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-13T20:35:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1261911",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "18/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911"
+  },
+  "D2": {
+   "document_id": "1126481",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "23/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126481"
+  },
+  "D3": {
+   "document_id": "1020986",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "24/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1020986"
+  },
+  "D4": {
+   "document_id": "1013442",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "06/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013442"
+  },
+  "D5": {
+   "document_id": "886683",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "15/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=886683"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos performados de venda de insumos agro, com NF-e em XML",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 15,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios do agronegócio performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de compra e venda mercantil a prazo de Insumos representados por notas fiscais eletrônicas (consubstanciados em arquivos XML certificados digitalmente das notas fiscais de"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados de insumos agro, comprovados por XML de NF-e",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Companhia Nitro Química Brasileira (insumos agrícolas)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "stas no âmbito do Capital Autorizado. #10912671v5 -3- “Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50, cujas cessões não contarão com coobrigação. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino e de Cotas Subordinadas Júnior, as quais serão destinadas para colocação exclusivamente ao Cedente e ao Gestor, respectivamente, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Companhia Nitro Química Brasileira (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "stas no âmbito do Capital Autorizado. #10912671v5 -3- “Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50, cujas cessões não contarão com coobrigação. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino e de Cotas Subordinadas Júnior, as quais serão destinadas para colocação exclusivamente ao Cedente e ao Gestor, respectivamente, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais, cooperativas e empresas do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 68,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "as exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente. “Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, na qualidade de devedores dos Direitos Creditórios originados pelo Cedente e previamente aprovados pelo Gestor. “Direitos Creditórios” Significam os direitos creditórios do agronegócio performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de compra e venda mercantil a prazo de Insumos representados por notas fiscais eletrônicas (consubstanciados em arquivos XML certificados digitalmente das notas fiscais de remessa dos Insumos, que se encontrem registradas eletronicamente em sistema próprio da Secretaria da Fazenda Estadual e Receita Federal, nos termos da legislação vigente, e títulos a elas re"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Devedor sem atraso > 1 dia; lista de autorizados; vedados e Serasa",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 87,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "Grupo Econômico) não poderão DE FORMALIZAÇÃO estar inadimplentes em relação ao Fundo por mais de 1 (um) dia na Data de Aquisição. DEVEDORES (“LISTA - AUTORIZADOS”) Considerando-se pro forma a aquisição pretendida, a somatória do valor de face (valor nominal) dos Direitos Creditórios devidos pelos Devedores deve estar limitada aos seguintes percentuais de concentração em relação ao GESTOR COM BASE NAS Patrimônio Líquido da Classe: INFORMAÇÕES DO CUSTODIANTE. (i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100% (cem por cento); (ii) Devedores não incluídos na Lista de Clientes Elegíveis KPMG: até 20% (vinte por cento);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 87,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "nio Líquido da Classe: INFORMAÇÕES DO CUSTODIANTE. (i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100% (cem por cento); (ii) Devedores não incluídos na Lista de Clientes Elegíveis KPMG: até 20% (vinte por cento); #10912671v5 - 28 - DEVEDORES (“LISTA - VEDADOS”) Os Devedores (considerado GESTOR COM BASE NAS individualmente ou em conjunto INFORMAÇÕES DO AGENTE com as demais integrantes do seu DE FORMALIZAÇÃO E Grupo Econômico) não poderão CEDENTE. constar na “Lista de Clientes Não Elegíveis”;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Lista KPMG até 100% do PL; demais devedores até 20%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 87,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "nio Líquido da Classe: INFORMAÇÕES DO CUSTODIANTE. (i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100% (cem por cento); (ii) Devedores não incluídos na Lista de Clientes Elegíveis KPMG: até 20% (vinte por cento); #10912671v5 - 28 - DEVEDORES (“LISTA - VEDADOS”) Os Devedores (considerado GESTOR COM BASE NAS individualmente ou em conjunto INFORMAÇÕES DO AGENTE com as demais integrantes do seu DE FORMALIZAÇÃO E Grupo Econômico) não poderão CEDENTE. constar na “Lista de Clientes Não Elegíveis”;"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (Nitro Química)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "stas no âmbito do Capital Autorizado. #10912671v5 -3- “Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50, cujas cessões não contarão com coobrigação. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino e de Cotas Subordinadas Júnior, as quais serão destinadas para colocação exclusivamente ao Cedente e ao Gestor, respectivamente, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos créditos não localizado no anexo extraído",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 61,
+     "clause": "Anexo, cl. 3.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Principal” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável, acrescida de eventual Amortização Extraordinária de Pr"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC ≥50% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 78,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "Meta de Remuneração, conforme definição do respectivo Apêndice das Cotas Subordinadas Júnior. “Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Subordinadas Mezanino. #10912671v5 - 19 - “Sobretaxa Sênior” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Seniores. “Subclasses” Significam, em conjunto ou isoladamente, conforme o caso, a Subclasse Sênior, a Subclasse Subordinada Mezanino e/ou a Subclasse Subordinada Júnior. “Subclasse Sênior” Significa a subclasse de Cotas Seniores, cujas principais características e os direitos, estarão descritos no respectivo Apêndice. “Subclasse Subordinada Significa a subclasse de Cotas Subordinadas Júnior, cujas Júnior” principais características e os direitos, e"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 114,
+     "clause": "Anexo, cl. 8.23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "do Índice de Subordinação, em caso de desenquadramento do referido índice, caso aplicável; (iv) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação; (v) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Junior em circulação; (vi) caso possível, pagamento da totalidade do Prêmio de Excesso de Spread aos titulares de Cotas Subordinadas Junior em circulação. 8.24. A Ordem de Alocação de Recursos em datas que sejam Datas de Pagamento, durante o Período de Desinvestimento, ocorrerá da seguinte forma: (i). pagamento das taxas, despesas e encargos de responsabilidade da Classe devidos nos termos do Regulamento, deste Anexo Descritivo e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos, caso existam; (ii). pagamento da Meta de Amortização com referência às Cotas Seniores em circulação, até o resgate das Cotas Seniores; (iii). pagamento da Meta de Amortização com referência às Cotas Subordinadas Mezanino em circulação, até o resgate das Cotas Subordinadas Mezanino; (iv)."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥25%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "25% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "ação pelo Gestor, conforme o caso, nos termos dos itens 9.3 e 9.3.1 deste Anexo Descritivo. “Índice de Subordinação” Significa a relação equivalente a, no mínimo, 25% (vinte e cinco por cento) entre o valor das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, em conjunto, em circulação, e o Patrimônio Líquido da Classe Única, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175/22."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥25%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no anexo extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Mensal (último DU); abaixo de 25% é evento do anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 122,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "mês, com base no último Dia Útil de cada mês, a partir da primeira integralização de Cotas Seniores (inclusive), o Índice de Subordinação for menor que 25% (vinte e cinco por cento). 10.1. Qualquer parte poderá e o Cedente deverá, conforme o caso, notificar por escrito o Administrador, o Gestor e o Custodiante sobre a ocorrência de qualquer dos Eventos de Avaliação indicados no item 10 acima, que lhe chegar ao conhecimento, devendo o Cedente realizar a notificação no prazo máximo de 2 (dois) Dias Úteis contados do conhecimento de tal Evento de Avaliação. O Administrador e o Gestor são isentos de responsabilidade sobre eventos que não lhe tenham sido notificados nos termos deste item. 10.2. Qualquer parte poderá e o Gestor deverá notificar por escrito o Administrador, o Cedente e o Custodiante sobre a ocorrência de qualquer dos Eventos de Avaliação indicados no item 10 acima que lhe chegar ao conhecimento, no prazo máximo de 2 (dois) Dias Úteis contados do conhecimento de tal Evento de Avaliação. 10.3."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino+júnior/PL ≥25%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "reserve": {
+   "display": "Fundo de despesas para cerca de 10 meses de despesas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 78,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "10 (dez) meses. “Prêmio de Excesso de Significa o montante em disponibilidades representado pelo Spread” Excesso de Spread Apropriado a Acumular, que deverá ser pago aos Cotistas titulares de Cotas Subordinadas Júnior a título de Prêmio, após o pagamento da Remuneração da totalidade das Cotas Seniores e Cotas Subordinadas Mezanino, observada a Ordem de Alocação de Recursos."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas previstas dos próximos 10 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de PDD da administradora (perda esperada; efeito vagão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 26,
+     "clause": "Anexo IV, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "isão para créditos de liquidação duvidosa para Direitos Creditórios Adquiridos de acordo com os termos estabelecidos no manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos, disponível em https://vortx.com.br/static/assets/manuais/Z4%20- %20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf. 4.1.1. Sem prejuízo do quanto disposto na Cláusula 4.1 acima, para a provisão dos valores referentes aos Direitos Creditórios Adquiridos vencidos e não pagos será observada a seguinte regra: (i). até 60 (sessenta) dias de atraso, o valor contabilizado da parcela do Direito Creditório Adquirido inadimplido corresponderá ao valor corrente, não sendo realizada qualquer provisão; (ii). para cada dia decorrido a partir de 61 (sessenta e um) dias de atraso, será provisionado o valor correspondente a 1/120 do valor presente da parcela do Direito Creditório Adquirido Inadimplido, até o 180º (centésimo octogésimo) dia (inclusive); e (iii)."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Violação do cedente não sanada em 5 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 119,
+     "clause": "Anexo, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "DA CLASSE ÚNICA #10912671v5 - 59 - 10. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações, obrigações e garantias do Cedente no âmbito dos Termos e Condições Gerais de Cessão e Aquisição, no Contrato de Cessão ou demais documentos integrantes do Fundo e da Classe e que não sejam sanadas pelo Cedente em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Cedente de notificação enviada pelo Administrador nesse sentido; (ii) em caso de declaração e/ou prestação de garantias falsas, incorretas e/ou incompletas realizada pelo Cedente em relação aos Direitos Creditórios e/ou às declarações da respectiva Cedente nos Contratos de Cessão e/ou Termos de Cessão; (iii) (a) decretação de falência, pedido de falência formulado por terceiros e não elidido no prazo legal (inclusive mediante depósito elisivo nos termos do parágrafo único do art. 98 da Lei nº 11.101, de 9 de fevereiro de 2005, conforme alterada) ou pedido de autofalência, independentemente de sua concessão pelo juiz competente, formulado pelo ou em face do Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida; sênior sem remuneração após 2 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 123,
+     "clause": "Anexo, cl. 10.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "pela não liquidação da Classe. 10.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, os Termos e Condições Gerais de Cessão e Aquisição, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pelo Cedente ou qualquer autoridade governamental, e desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento; (iv) caso o Contrato Cessão seja resolvido, resilido e/ou encerrado, de acordo com seus próprios termos e condições;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalha recompra no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Ordem de alocação: sênior, mezanino e júnior pelas metas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 114,
+     "clause": "Anexo, cl. 8.23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "do Índice de Subordinação, em caso de desenquadramento do referido índice, caso aplicável; (iv) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação; (v) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Junior em circulação; (vi) caso possível, pagamento da totalidade do Prêmio de Excesso de Spread aos titulares de Cotas Subordinadas Junior em circulação. 8.24. A Ordem de Alocação de Recursos em datas que sejam Datas de Pagamento, durante o Período de Desinvestimento, ocorrerá da seguinte forma: (i). pagamento das taxas, despesas e encargos de responsabilidade da Classe devidos nos termos do Regulamento, deste Anexo Descritivo e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos, caso existam; (ii). pagamento da Meta de Amortização com referência às Cotas Seniores em circulação, até o resgate das Cotas Seniores; (iii). pagamento da Meta de Amortização com referência às Cotas Subordinadas Mezanino em circulação, até o resgate das Cotas Subordinadas Mezanino; (iv)."
+    }
+   ],
+   "legacy": {
+    "value": "Dia 10 mensal, maio–nov/2026, ajustado para próximo DU; principal no desinvestimento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, Anexo, cl. 8.23"
+   }
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL; mín. R$ 18 mil/mês; implantação R$ 10 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 154,
+     "clause": "Anexo, cl. 13.6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "correspondente a 0,18% (dezoito centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$18.000,00 (dezoito mil reais) (“Taxa de Administração Específica”): (ii). parcela única de R$10.000,00 (dez mil reais) será devida ao Administrador na 1ª Data de Integralização de Cotas, pelos serviços de implantação do Fundo; (iii)."
+    }
+   ],
+   "legacy": {
+    "value": "0,18% a.a. PL; mínimo R$ 18 mil/mês; implantação R$ 10 mil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,135% a.a. do PL; mín. R$ 15 mil/mês, mais flat fee",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 154,
+     "clause": "Anexo, cl. 13.6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "e (ii) anual equivalente a 0,135% (cento e trinta e cinco décimos por cento), pagos mensalmente, sendo a primeira parcela devida em até o 5º (quinto) Dia Útil da data da 1ª Data de Integralização de Cotas, aplicado sobre o Patrimônio Líquido e líquidos de impostos e as demais parcelas serão devidas no mesmo dia dos meses subsequentes, observado o valor mínimo de R$ 15.000,00 (quinze mil reais) #10912671v5 - 95 - (iv)."
+    }
+   ],
+   "legacy": {
+    "value": "0,135% a.a. PL; mínimo R$ 15 mil/mês; flat fee R$ 40 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 18/06/2026, Anexo, cl. 13.6.1"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 157,
+     "clause": "Anexo, cl. 13.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "ue porventura venham a incidir) nas alíquotas vigentes nas respectivas datas de pagamento. 13.12. Taxa de Performance. Não será cobrada dos Cotistas qualquer taxa de performance. 13.13. Inexistência de Taxas Adicionais. Não serão cobradas taxas de ingresso, performance ou de saída pelo Administrador. CAPÍTULO DÉCIMO QUARTO – ENCARGOS DA CLASSE 14.1. São os encargos previstos no Capítulo Nono da parte geral do Regulamento, bem como as seguintes despesas: (i) despesas com o registro de Direitos Creditórios em Entidades Registradoras; e (ii) despesas com os Agentes de Formalização e Cobrança. CAPÍTULO DÉCIMO QUINTO – DIVULGAÇÃO DE INFORMAÇÕES 15.1. Divulgação de Fatos Relevantes. O Administrador é obrigada a divulgar, ampla e imediatamente, qualquer ato ou fato relevante relativo à Classe, por meio de comunicado enviado aos Cotistas da Classe Única, de modo a garantir aos Cotistas acesso às informações que possam, direta ou indiretamente, influir em suas decisões de adquirir, alienar ou manter suas Cotas, se for o caso, observado que é responsabilidade dos demais prestadores de serviços, especialmente do Gestor, informar imediatamente ao Administrador sobre os fatos relevantes que venham a ter conhecimento."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "DI + 1,85% a.a. (série sênior vigente)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1126481",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "23/02/2026",
+     "page": 6,
+     "clause": "Apêndice, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126481",
+     "excerpt": "perada: 10 de agosto de 2026. Docusign Envelope ID: 86D25355-404A-462D-A06F-2C3CD060D3F4 Sobretaxa Sênior: 1,85% (um inteiro e oitenta e cinco centésimos por cento). Meta de Remuneração: as Cotas Seniores serão valoradas diariamente, a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas Seniores até a Data de Resgate das Cotas Seniores, nos termos do Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "3ª série sênior: DI + 1,85%; base composta de 252 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Instrumento de emissão 23/02/2026, Apêndice, cl. 2.2"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa da mezanino definida em apêndice fora do acervo",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 78,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "Meta de Remuneração, conforme definição do respectivo Apêndice das Cotas Subordinadas Júnior. “Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Subordinadas Mezanino. #10912671v5 - 19 - “Sobretaxa Sênior” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Seniores. “Subclasses” Significam, em conjunto ou isoladamente, conforme o caso, a Subclasse Sênior, a Subclasse Subordinada Mezanino e/ou a Subclasse Subordinada Júnior. “Subclasse Sênior” Significa a subclasse de Cotas Seniores, cujas principais características e os direitos, estarão descritos no respectivo Apêndice. “Subclasse Subordinada Significa a subclasse de Cotas Subordinadas Júnior, cujas Júnior” principais características e os direitos, e"
+    }
+   ],
+   "legacy": {
+    "value": "3ª série sênior: DI + 1,85%; base composta de 252 DU",
+    "decision": "regression",
+    "why": "Resposta anterior trata da série sênior, registrada na linha própria"
+   }
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 6,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "ca o “Acordo Operacional” celebrado entre o Administrador e o Gestor. “Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016. “Agência de Classificação de Significa a agência classificadora de risco contratada pela Classe Risco” Única para a classificação de risco das Cotas da Subclasse sênior da Classe Única, caso aplicável. “Anexo” Significa qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente Regulamento. “Amortização de Principal” Significa, com relação a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 19,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "e de negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 1º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021, na qualidade de gestor da Carteira. “Grupo Econômico” Significa cada conglomerado econômico de pessoas que controlem, sejam controladas por, ou estejam sob controle comum de determinada entidade ou que estejam sob o controle das mesmas pessoas físicas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 13,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "MOBILIÁRIOS LTDA., prestadora dos serviços de controladoria de ativos e passivos do Fundo. “Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição” Significa qualquer data na qual o Fundo (em benefício da Classe Única) formalize a aquisição de direitos creditórios elegíveis, que ocorrerá com o consequente pagamento do Preço de Aquisição pela Classe Única, por intermédio do Fundo, ao cedente dos direitos creditórios adquiridos. “Data de Emissão” Significa a data em que ocorrer a subscrição e a primeira integralização das Cotas da respectiva Emissão, conforme definida no respectivo Apêndice, caso aplicável. “Data de Pa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 22,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "zada durante o prazo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro. “Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Descritivo. Recursos” “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 24,
+     "clause": "Anexo IV, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "CVM 175/22, pela Resolução CMN nº 2.907 e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas, conforme o caso, terá seu prazo de duração definido no respectivo Apêndice. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. CAPÍTULO TERCEIRO – PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3. Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados, respeitado que, no âmbito de uma Oferta Pública, as Cotas serão subscritas e integralizadas exclusivamente por Investidores Profissionais, nos termos da Resolução CVM 160/22. 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Resgate 10/11/2026; esperado 10/08/2026 no apêndice",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Venda de insumos agrícolas da Nitro Química a produtores",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "stas no âmbito do Capital Autorizado. #10912671v5 -3- “Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Doutor José Artur Nova, nº 951, São Miguel Paulista, CEP 08090-000, inscrita no CNPJ sob o nº 61.150.348/0001-50, cujas cessões não contarão com coobrigação. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino e de Cotas Subordinadas Júnior, as quais serão destinadas para colocação exclusivamente ao Cedente e ao Gestor, respectivamente, sem a intermediação de instituições financeiras integrantes do sistema brasileiro de distribuição de valores mobiliários. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1261911",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "18/06/2026",
+     "page": 15,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1261911",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios do agronegócio performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de compra e venda mercantil a prazo de Insumos representados por notas fiscais eletrônicas (consubstanciados em arquivos XML certificados digitalmente das notas fiscais de"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados de insumos agro, comprovados por XML de NF-e",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos recebíveis não descritas no anexo extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Insumos agrícolas da Nitro Química com 25% de subordinação; devedor fora da lista KPMG limitado a 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

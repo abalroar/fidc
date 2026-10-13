@@ -1,0 +1,49 @@
+# Sotreq FIDC (Oliveira Trust; Angá; cedentes Sotreq e Somov)
+type: Duplicatas/multicedente
+q14: * "rculação deve ser, no mínimo, 133,33%"
+q13: * "deverão se enquadrar no limite de concentração de até 3% (três por cento) do Patrimônio Líquido por Grupo Econômico"
+q12: * "deverão ter prazo de vencimento de até 240 (duzentos e quarenta) dias"
+q1: * "“Cedentes” Significa a Sotreq e a Somov, na qualidade de cedentes de Direitos Creditórios"
+q2: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q3: * "“Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA."
+q4: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q5: * "A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta"
+q6: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q7: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q8: * "será destinada exclusivamente a Investidores Profissionais"
+q9: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q10: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior"
+q11: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,1875%"
+receivables: Vendas a prazo de máquinas, motores, equipamentos, peças e serviços | o1
+originator: Sotreq e Somov (distribuição de máquinas e serviços) | q1
+assignor: Sotreq e Somov, por matriz ou filiais | q1
+debtor: PF/PJ de mineração, construção, agro, energia, petróleo e marítimo | o10
+recourse: n/d | Coobrigação definida no contrato de cessão, fora do texto lido
+eligibility: Vincendos até 240 dias (até 25% do PL em 365 dias); devedor adimplente | q12,q5
+debtor_limit: Grupo econômico ≤ 3% do PL, salvo grupos especiais | q13
+assignor_limit: Cedentes do grupo (Sotreq e Somov) | q1
+term_max: Até 240 dias; até 25% do PL pode chegar a 365 dias | q12
+allocation: ≥ 50% do PL em direitos creditórios | o24 | value=50
+quota_structure: Sênior / Mezanino / Júnior | q10
+sub_senior: PL/sênior ≥ 133,33% | q14 | basis=PL/sr | value=133.33
+sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
+sub_check: Apuração conforme o anexo; regime provisório de 130% até 30/10/2026 | o27
+reserve: Reservas de liquidez e de caixa para despesas e remuneração | o35
+pdd: Manual de provisão para perdas da administradora, com pisos por faixa | q7
+eval_triggers: n/d | Lista de eventos de avaliação não localizada no texto extraído
+liquidation: Lista do item 10.7 do anexo, além das hipóteses legais | q6
+revolving: Aquisições durante o período de investimento | o47
+amortization: Encargos e hedge, depois sênior, mezanino e júnior; pro rata ou sequencial | o50
+admin_fee: 0,1875% a.a. até R$ 150 mi; 0,1125% acima; inclui custódia | o54,q11
+mgmt_fee: 0,14% a.a. até R$ 200 mi; 0,13% até 300 mi; 0,12% acima | o57
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Meta de remuneração definida nos apêndices, em branco no regulamento
+target_mezz: n/d | Meta de remuneração definida nos apêndices, em branco no regulamento
+administrator: Oliveira Trust DTVM | q2
+manager: Angá Administração de Recursos | q3
+custodian: Oliveira Trust DTVM | q4
+servicer: n/d | Cobrança coordenada com as cedentes; agente não nomeado no trecho lido
+investors: Investidores profissionais | q8
+duration: Indeterminado; prazo próprio por subclasse | q9
+sacado_limit: Grupo econômico ≤ 3% do PL, salvo grupos especiais | q13
+leitura: Vendas a prazo da Sotreq/Somov com PL/sênior ≥ 133,33% e grupo devedor ≤ 3% do PL; prazos até 240 dias.

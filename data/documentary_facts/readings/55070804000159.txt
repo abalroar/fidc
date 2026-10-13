@@ -1,0 +1,49 @@
+# portado de 54559035000194 (55070804000159)
+type: Outros
+q12: * "não seja reconstituída dentro do prazo de 12 (doze) Dias Úteis contados de seu desenquadramento"
+q11: * "Reserva de Despesas com o intuito de cobrir as despesas do Fundo, cujo valor será equivalente às Despesas da Classe Única a R$ 9.893.130,23"
+q102: * "50% (cinquenta por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios"
+q103: * "“Relação Mínima” Significa a relação mínima admitida entre o valor total das Cotas Subordinadas e o Patrimônio Líquido do Fundo"
+q106: * "Amortização Sequencial, conforme definidas no Capítulo 1 do presente Anexo Descritivo."
+q107: * "0,175% (cento e setenta e cinco milésimos por cento) ao ano,"
+q10: * "Data de Resgate: 24/06/2026 Sobretaxa Sênior: 1,10%"
+q1: * "deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato de Cessão"
+q2: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q3: * "“Gestor” Significa a OLIVEIRA TRUST SERVICER S.A."
+q4: * "“Custodiante” Significa o Administrador, na qualidade de custodiante"
+q6: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q7: * "com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador"
+q8: * "será destinada exclusivamente a Investidores Profissionais"
+q9: * "O Fundo terá prazo de duração de 27 (vinte e sete) meses"
+receivables: CDBs vinculados do Banco IBM, lastreados em contratos de leasing | q1
+originator: Banco IBM (contratos de arrendamento mercantil) | q1
+assignor: Banco IBM, emissor dos CDBs vinculados | q1
+debtor: Banco IBM; pagamento condicionado ao fluxo dos leasings vinculados | q1
+recourse: n/d | Dação de créditos de leasing regida pelo Contrato CDB, fora do acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: CDB vinculado do Banco IBM; em reais; formalizado; sem ônus | q1
+debtor_limit: Devedor único (Banco IBM), sem limite de concentração | q1
+assignor_limit: Emissor único (Banco IBM) | q1
+term_max: Prazo do fundo de 27 meses | q9
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q102 | value=50
+quota_structure: Sênior / Subordinada júnior | q103
+sub_senior: 10% · subord./PL; PL/sênior ≥ 111,11% | q103 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Recomposição em 12 DU; depois é evento de avaliação | q12
+reserve: Reserva de despesas de R$ 9.893.130,23 | q11
+pdd: Manual de provisão para perdas da administradora | q7
+eval_triggers: Relação mínima sem cura em 12 DU; alocação mínima; reserva | q12
+liquidation: Avaliação convertida em liquidação, entre outros do item 10.6 | q6
+revolving: Não prevista | Carteira de CDBs vinculados até o vencimento
+amortization: Pro rata; regime sequencial após evento de liquidação | q106
+admin_fee: 0,175% a.a. do PL, conjunta com a gestão | q107
+mgmt_fee: Incluída na taxa conjunta de 0,175% a.a. | q107
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: DI + 1,10% a.a. (resgate em 24/06/2026) | q10
+target_mezz: — | Sem cota mezanino
+administrator: Oliveira Trust DTVM | q2
+manager: Oliveira Trust Servicer | q3
+custodian: Oliveira Trust DTVM (o próprio administrador) | q4,q2
+servicer: n/d | Agente de cobrança não nomeado no texto lido
+investors: Investidores profissionais | q8
+duration: 27 meses; resgate das cotas em 24/06/2026 | q9,q10
+leitura: Risco Banco IBM via CDBs vinculados a leasing, com 10% de subordinação e sênior a DI + 1,10%; resgate em 24/06/2026.

@@ -1,0 +1,722 @@
+{
+ "schema_version": 1,
+ "cnpj": "52100879000147",
+ "name": "SOTREQ FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:36:53Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1117315",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315"
+  },
+  "D2": {
+   "document_id": "529559",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "28/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529559"
+  },
+  "D3": {
+   "document_id": "529168",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "01/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529168"
+  },
+  "D4": {
+   "document_id": "1271365",
+   "kind": "Ata",
+   "title": "AGE",
+   "date": "30/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1271365"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de máquinas, motores, equipamentos, peças e serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 59,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "nos termos da Política de Investimento em Derivativos. “Despesas da Classe” Significa o somatório em reais de todos os custos, encargos e despesas exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente, considerando os custos referentes às despesas fixas da"
+    }
+   ],
+   "legacy": {
+    "value": "Venda a prazo de máquinas, motores, equipamentos, peças e serviços.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Sotreq e Somov (distribuição de máquinas e serviços)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 51,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "classificação de risco mínima “AAA(bra)” ou equivalente. “Cedentes” Significa a Sotreq e a Somov, na qualidade de cedentes de Direitos Creditórios, por meio de sua matriz ou de suas filiais. -9- D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Sotreq e Somov, por matriz ou filiais",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 51,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "classificação de risco mínima “AAA(bra)” ou equivalente. “Cedentes” Significa a Sotreq e a Somov, na qualidade de cedentes de Direitos Creditórios, por meio de sua matriz ou de suas filiais. -9- D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "PF/PJ de mineração, construção, agro, energia, petróleo e marítimo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 59,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "“Devedores” Significam, para os Direitos Creditórios, determinadas pessoas físicas e/ou jurídicas com atuação nos segmentos de mineração, construção geral, agricultura, energia, petróleo, marítimo e outros assemelhados, que tenham celebrado ou venham a celebrar Operações a Prazo j"
+    }
+   ],
+   "legacy": {
+    "value": "PF/PJ de mineração, construção, agro, energia, petróleo e marítimo.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida no contrato de cessão, fora do texto lido",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Vincendos até 240 dias (até 25% do PL em 365 dias); devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 84,
+     "clause": "Anexo V, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "s, contados a partir da respectiva Data de Aquisição e Pagamento; (v) deverão ter prazo de vencimento de até 240 (duzentos e quarenta) dias, contados da respectiva Data de Aquisição e Pagamento, com exceção de: (a) até 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios tenham prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (b) até 10% (dez por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios Produtos decorrentes de compra e venda de máquinas tenham prazo de vencimento de até 547 (quinhentos e quarenta e sete) dias, contados da respectiva Data de Aquisição e Pagamento; - 42 - D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 84,
+     "clause": "Anexo V, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "da pela Classe para tanto. 4. CRITÉRIOS DE ELEGIBILIDADE 4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) não poderão estar vencidos e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) deverão ter data de vencimento anterior a 60 (sessenta) dias da Data de Resgate Esperada das Cotas Seniores em circulação; (iv) deverão ter prazo de vencimento de, no mínimo, 20 (vinte) dias, contados a partir da respectiva Data de Aquisição e Pagamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Permanente: vincendos 20–240 dias; exceções 365/547 dias. Até 30/10/2026: atraso até 5 dias autorizado.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 4.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico ≤ 3% do PL, salvo grupos especiais",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 85,
+     "clause": "Anexo V, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "25% (vinte e cinco por cento) dos Direitos Creditórios detidos pelo Fundo; (x) deverão se enquadrar no limite de concentração de até 3% (três por cento) do Patrimônio Líquido por Grupo Econômico, salvo os Grupos Econômicos Especiais; e (xi) a aquisição do Direito Creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual a, ou acima de, 1,00 (um inteiro). 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na Data de Oferta, para os Direitos Creditórios. Sem prejuízo do disposto neste item, a verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada aquisição, com base no Arquivo Remessa enviado ao Custodiante, conforme previsto no Contrato de Cessão, o qual deverá conter as informações necessárias dos Direitos Creditórios objeto de oferta à Classe para verificação dos Critérios de Elegibilidade. 4.2.2."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Grupo: 3%/PL; grupos especiais por acordo. Vale 20% até 30/10/2026, retorna 15% em 02/11/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 4.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedentes do grupo (Sotreq e Somov)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 51,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "classificação de risco mínima “AAA(bra)” ou equivalente. “Cedentes” Significa a Sotreq e a Somov, na qualidade de cedentes de Direitos Creditórios, por meio de sua matriz ou de suas filiais. -9- D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "Grupo: 3%/PL; grupos especiais por acordo. Vale 20% até 30/10/2026, retorna 15% em 02/11/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V"
+   }
+  },
+  "term_max": {
+   "display": "Até 240 dias; até 25% do PL pode chegar a 365 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 84,
+     "clause": "Anexo V, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "s, contados a partir da respectiva Data de Aquisição e Pagamento; (v) deverão ter prazo de vencimento de até 240 (duzentos e quarenta) dias, contados da respectiva Data de Aquisição e Pagamento, com exceção de: (a) até 25% (vinte e cinco por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios tenham prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (b) até 10% (dez por cento) do Patrimônio Líquido do Fundo, sendo que, neste caso, será permitido que os Direitos Creditórios Produtos decorrentes de compra e venda de máquinas tenham prazo de vencimento de até 547 (quinhentos e quarenta e sete) dias, contados da respectiva Data de Aquisição e Pagamento; - 42 - D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "legacy": {
+    "value": "Permanente: vincendos 20–240 dias; exceções 365/547 dias. Até 30/10/2026: atraso até 5 dias autorizado.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 4.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 48,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL; tributária numérica 67%, com extenso 50% divergente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 87,
+     "clause": "Anexo V, cl. 5.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "critérios de seleção, composição e diversificação previstos neste Capítulo. 5.4. A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. 5.5. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor, do Custodiante e/ou das Cedentes. 5.6. A Classe deverá, nos termos do artigo 44, do Anexo Normativo II da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo. 5.7. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Permanente: subordinadas 25%/PL (PL/sênior 133,33%); provisório PL/sênior 130% até 30/10/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 5.4"
+   }
+  },
+  "sub_senior": {
+   "display": "PL/sênior ≥ 133,33%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 71,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "trimônio Líquido dividido pelo valor total das Cotas Seniores em circulação deve ser, no mínimo, 133,33% (cento e trinta e três inteiros e trinta e três centésimos por cento). “Relatório dos Índices de Significa o relatório mensal que será preparado pelo Gestor Monitoramento” e pela Administradora, conforme aplicável, contendo a apuração dos Índices de Monitoramento. - 29 - D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2."
+    }
+   ],
+   "basis": "PL/sr",
+   "value": 133.33,
+   "legacy": {
+    "value": "Permanente: subordinadas 25%/PL (PL/sênior 133,33%); provisório PL/sênior 130% até 30/10/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no anexo extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apuração conforme o anexo; regime provisório de 130% até 30/10/2026",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "1271365",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "30/07/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1271365",
+     "excerpt": "referido período deverá ser equivalente a, no mínimo, 130% (cento e trinta por cento) (“Relação Mínima Provisória”); (iv) aprovar que os Direitos Creditórios devidos pela Vale S.A (CNPJ nº 33.592.510/0001-54) não sejam considerados para fins do cálculo do Índice de Inadimplemento (1-30 dias) até 30 de outubro de 2026 (inclusive)."
+    }
+   ],
+   "legacy": {
+    "value": "Permanente: subordinadas 25%/PL (PL/sênior 133,33%); provisório PL/sênior 130% até 30/10/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Ata 30/07/2026, p. 2"
+   }
+  },
+  "reserve": {
+   "display": "Reservas de liquidez e de caixa para despesas e remuneração",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 118,
+     "clause": "Anexo V, cl. 9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "9. RESERVA DE LIQUIDEZ, RESERVA DE CAIXA E VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS 9.1. Reserva de Remuneração. Nos períodos que antecedem qualquer Data de Pagamento que ocorra durante o Período de Carência, com antecedência mínima de 12 - 76 - D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado ele"
+    }
+   ],
+   "legacy": {
+    "value": "Despesas por 3 períodos de liquidez; reservas ≥1%/PL no início do período; remuneração com fórmula própria.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 9"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora, com pisos por faixa",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 179,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "calculadas e ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos do Fundo com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489. pdf, observado o disposto acima., observado o disposto acima. Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um comportamento de atrasos substancialmente diferente ao estimado pela política de D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Lista do item 10.7 do anexo, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 130,
+     "clause": "Anexo V, cl. 10.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "10.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: - 88 - D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de (a) Remuneração às Cotas Seniores na respectiva Data de Pagamento; (b) da totalidade da Meta de Amortização referente à respectiva série e/ou classe de Cotas que não tenha sido integralmente paga até a Data de Resgate; e (c) de quaisquer outras obrigações pecuniárias, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura (observado o disposto no item (vii), abaixo);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Aquisições durante o período de investimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 110,
+     "clause": "Anexo V, cl. 8.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "Pagamento, caso a Amortização Sequencial esteja em curso durante o Período de Investimento, ou durante o Período de Desinvestimento, ocorrerá da seguinte forma: (i) pagamento das taxas, despesas e encargos de responsabilidade do Fundo devidos nos termos deste Anexo Descritivo, do Regulamento e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos;"
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições durante investimento; amortização pro rata ou sequencial conforme gatilhos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Encargos e hedge, depois sênior, mezanino e júnior; pro rata ou sequencial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 110,
+     "clause": "Anexo V, cl. 8.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "Pagamento, caso a Amortização Sequencial esteja em curso durante o Período de Investimento, ou durante o Período de Desinvestimento, ocorrerá da seguinte forma: (i) pagamento das taxas, despesas e encargos de responsabilidade do Fundo devidos nos termos deste Anexo Descritivo, do Regulamento e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos;"
+    }
+   ],
+   "legacy": {
+    "value": "Encargos e hedge → remuneração sênior → mezanino → júnior; principal segue regime vigente.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,1875% a.a. até R$ 150 mi; 0,1125% acima; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 166,
+     "clause": "Anexo V, cl. 13.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "equivalente a 0,1875% (um mil, oitocentos e setenta e cinco décimos de milésimo por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, até o valor de até R$ 150.000.000,00 (cento e cinquenta milhões de reais), acrescidos de 0,1125% (um mil, cento e vinte e cinco décimos de milésimo por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo que exceder R$ 150.000.000,00 (cento e cinquenta milhões de reais) e o teto mensal de R$21.750,00 (vinte e um mil, setecen"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 166,
+     "clause": "Anexo V, cl. 13.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "eta ou indiretamente, Direitos Creditórios à Classe. 13.6. Taxa de Administração. A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,1875% (um mil, oitocentos e setenta e cinco décimos de milésimo por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, até o valor de até R$ 150.000.000,00 (cento e cinquenta milhões de reais), acrescidos de 0,1125% (um mil, cento e vinte e cinco décimos de milésimo por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo que exceder R$ 150.000.000,00 (cento e cinquenta milhões de reais) e o teto mensal de R$21.750,00 (vinte e um mil, setecentos e cinquenta reais) (“Taxa de Administração”). A Taxa de Administração será paga de maneira proporcional ao patrimônio líquido de cada Classe. 13.7. Taxa de Custódia."
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,1875%/0,1125% a.a.; corte PL R$ 150 mi; teto mensal R$ 21,75 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 13.6"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,14% a.a. até R$ 200 mi; 0,13% até 300 mi; 0,12% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 167,
+     "clause": "Anexo V, cl. 13.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "Até R$200.000.000,00 (duzentos milhões 0,14% a.a. de reais) De R$200.000.000,01 (duzentos milhõesde 0,13% a.a. reais e um centavo) a R$300.000.000,00 (trezentos milhões de reais) Acima de R$300.000.000,01 (trezentos 0,12% a.a. milhões de reais e um centavo) 13.9.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,14%/0,13%/0,12% a.a.; faixas PL até R$ 200 mi / R$ 300 mi / acima.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, em branco no regulamento",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de remuneração definida nos apêndices, em branco no regulamento",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 3,
+     "clause": "Anexo II, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "ação de Cotas de de Cotas” determinada Classe ou Subclasse de Cotas. “Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ sobo nº 36.113.876/0001-91, devidamente autorizada pela CVMpara o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. “Agência de Classificação Significa a agência classificadora de risco, autorizada a prestar de Risco” tais serviços junto à CVM, que poderá ser contratada pelo Fundo para a classificação de risco das Cotas Seniores, s"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 8,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "ociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade limitada, com sede na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Cidade Jardim, CEP 05676- 120, na Cidade de São Paulo, Estado de São Paulo, inscrito no CNPJ sob nº 09.452.272/0001-05, devidamente autorizada à prestação dos serviços de administração de carteira de valores mobiliários, nos termos da regulamentação aplicável, conforme Ato Declaratório nº 9.837, expedido em 14 de maio de 2008. “Índices de Monitoramento” Significam os índices de monitoramento a serem calculados e verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. D4Sign a8769ed2-e606"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 7,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "Útil imediatamente anterior à respectiva data do pagamento. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Emissão” Significa a data em que ocorrer a subscrição e a primeira integralização das Cotas da respectiva Emissão, conforme definida no respectivo Apêndice, caso aplicável. “Datas de Verificação” Significa cada data de verificação dos Índices de Monitoramento da Classe Única, conforme venham a ser previstos no respectivo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Cobrança coordenada com as cedentes; agente não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 10,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "zo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; e (iii) poderá, caso previsto no documentoque deliberar pela realização da oferta, ser cancelada caso não haja a colocação do montante mínimo das respectivas subclasses, em sua respectiva proporção, conforme assim definidos no respectivo Anexo Descritivo da Classe Única. “Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Descritivo. Recursos” “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada, prazo indeterminado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 12,
+     "clause": "Anexo II, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "07 e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, D4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/veriﬁcar Documento assinado eletronicamente, conforme MP 2.200-2/01, Art. 10º, §2. Brasil amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada, prazo indeterminado.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo econômico ≤ 3% do PL, salvo grupos especiais",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1117315",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "06/02/2026",
+     "page": 85,
+     "clause": "Anexo V, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+     "excerpt": "25% (vinte e cinco por cento) dos Direitos Creditórios detidos pelo Fundo; (x) deverão se enquadrar no limite de concentração de até 3% (três por cento) do Patrimônio Líquido por Grupo Econômico, salvo os Grupos Econômicos Especiais; e (xi) a aquisição do Direito Creditório somente ocorrerá caso o Índice de Subordinação Sênior esteja igual a, ou acima de, 1,00 (um inteiro). 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na Data de Oferta, para os Direitos Creditórios. Sem prejuízo do disposto neste item, a verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada aquisição, com base no Arquivo Remessa enviado ao Custodiante, conforme previsto no Contrato de Cessão, o qual deverá conter as informações necessárias dos Direitos Creditórios objeto de oferta à Classe para verificação dos Critérios de Elegibilidade. 4.2.2."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Grupo: 3%/PL; grupos especiais por acordo. Vale 20% até 30/10/2026, retorna 15% em 02/11/2026.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 06/02/2026, Anexo V, cl. 4.1"
+   }
+  }
+ },
+ "leitura": "Vendas a prazo da Sotreq/Somov com PL/sênior ≥ 133,33% e grupo devedor ≤ 3% do PL; prazos até 240 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

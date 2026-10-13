@@ -1,0 +1,714 @@
+{
+ "schema_version": 1,
+ "cnpj": "52968533000165",
+ "name": "MCPO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:37:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1049185",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "14/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185"
+  },
+  "D2": {
+   "document_id": "674475",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "05/06/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674475"
+  },
+  "D3": {
+   "document_id": "586257",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "16/01/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586257"
+  },
+  "D4": {
+   "document_id": "575866",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/12/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=575866"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de máquinas, peças, implementos e serviços agrícolas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 63,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios performados originados da venda a prazo de Bens, assim como da prestação dos Serviços pela Cedente, representados pelos Documentos Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Comprobatórios, conforme o caso, detidas pela Cedente contra"
+    }
+   ],
+   "legacy": {
+    "value": "Venda a prazo de bens, peças, implementos e serviços; créditos performados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Maqcampo Soluções Agrícolas (revenda de máquinas)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "nça, e que tenham como beneficiária a Conta de Cobrança. “Cedente” Significa a MAQCAMPO SOLUÇÕES AGRÍCOLAS S.A., sociedade por ações, com sede na cidade de Brasília, Distrito Federal, no Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Setor S.I.A Trecho 17, Rua 12, Lote 80, térreo, S/N, CEP 71.200- 234, inscrita no CNPJ sob o nº 00.970.771/0001-01. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Maqcampo Soluções Agrícolas (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "nça, e que tenham como beneficiária a Conta de Cobrança. “Cedente” Significa a MAQCAMPO SOLUÇÕES AGRÍCOLAS S.A., sociedade por ações, com sede na cidade de Brasília, Distrito Federal, no Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Setor S.I.A Trecho 17, Rua 12, Lote 80, térreo, S/N, CEP 71.200- 234, inscrita no CNPJ sob o nº 00.970.771/0001-01. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais com score AgRisk mínimo, entre outros filtros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 86,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "tanto. 4. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Gestor, até a Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) os Direitos Creditórios não poderão ter vencimento superior a 30 (trinta) dias de antecedência ao vencimento da série mais longa das Cotas Seniores em circulação; (iii) considerando-se pro forma a cessão pretendida, os Direitos Creditórios devidos por Grupo Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do estoque de Direitos Creditórios do Fundo, não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pela Cedente junto ao Gestor."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida no contrato de cessão, fora do texto lido",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Vincendos; peças e serviços ≤ 150 dias; usados ≤ 10% do PL e ≤ 5 anos",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 87,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ama para que o Gestor possa controlar nas próximas cessões; (ix) os Direitos Creditórios decorrentes de Peças e Implementos e/ou Serviços deverão ter prazo máximo de vencimento de 150 (cento e cinquenta) dias; (x) considerada pro forma a aquisição dos Direitos Creditórios, o Índice de Prazo Médio por Devedor não poderá ser superior a 36 (trinta e seis) meses; (xi) na Data de Aquisição, o Índice de Subordinação Ex-Derivativo deve estar atendido; (xii) os Devedores não poderão estar inadimplentes, em montante superior a R$300.000,00 (trezentos mil reais) perante outras instituições financeiras conforme consulta no Sistema Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 de Informações de Crédito do BACEN; (xiii) os Direitos Creditórios não poderão ser passíveis de compensação pelos Devedores;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 88,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "(xvi) considerada pro forma a aquisição, os Direitos Creditórios decorrentes da comercialização de Maquinário usado deverão representar até 10% (dez por cento) do Patrimônio Líquido, sendo certo que não poderão ser adquiridos Direitos Creditórios decorrentes da comercialização de Maquinário com mais de 5 (cinco) anos de fabricação. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar, previamente à Data de Aquisição, os Critérios de Elegibilidade descritos nos itens (i), (iv), (v), (viii), (xii), (xiii) e (xiv) da Cláusula 4.1 acima. 4.2.2. O Gestor será responsável por validar e verificar, com base em informações enviadas pela Cedente, previamente à Data de Aquisição, os Critérios de Elegibilidade descritos nos itens (ii), (iii), (vii), (ix), (x), (xv) e (xvi) da Cláusula 4.1 acima. Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 4.2.3. Ainda, o Gestor será responsável por validar, com base em informações enviadas pelo Custodiante, os itens (vi) e (xi) da Cláusula 4.1 acima. 4.2.4."
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; peças/serviços≤150 dias e≤30% PL; usados≤10% PL e fabricação≤5 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 4.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico ≤ 3% do PL; 10 maiores ≤ 30%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 68,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "devidos pelos 10 (dez) maiores Devedores, em conjunto, que não poderá superar 30% (trinta por cento) do Patrimônio Líquido. “Índice de Diversificação de Significa que o Fundo deverá manter, no mínimo, Direitos Devedores” Creditórios Cedidos que sejam devidos por, no mínimo, 100 (cem) Devedores, sendo que o presente índice somente passará a ser"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 86,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ais longa das Cotas Seniores em circulação; (iii) considerando-se pro forma a cessão pretendida, os Direitos Creditórios devidos por Grupo Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do estoque de Direitos Creditórios do Fundo, não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pela Cedente junto ao Gestor. Até 01 de março de 2024, deverá ser utilizado como Patrimônio Líquido, para fins deste cálculo, o maior entre o Patrimônio Líquido e R$ 400.000.000 (quatrocentos milhões de reais); (iv) os Direitos Creditórios deverão ter sido originados de acordo com a Política de Crédito e Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Originação; (v) a data de vencimento de quaisquer parcelas deve ser posterior à Data de Aquisição do respectivo Direito Creditório; (vi) os Devedores não poderão estar inadimplentes em relação ao Fundo na data da respectiva cessão;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor/grupo≤3% PL; top 10≤30% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (Maqcampo)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "nça, e que tenham como beneficiária a Conta de Cobrança. “Cedente” Significa a MAQCAMPO SOLUÇÕES AGRÍCOLAS S.A., sociedade por ações, com sede na cidade de Brasília, Distrito Federal, no Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Setor S.I.A Trecho 17, Rua 12, Lote 80, térreo, S/N, CEP 71.200- 234, inscrita no CNPJ sob o nº 00.970.771/0001-01. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor/grupo≤3% PL; top 10≤30% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo"
+   }
+  },
+  "term_max": {
+   "display": "Peças e serviços até 150 dias; prazo médio por devedor ≤ 36 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 87,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ama para que o Gestor possa controlar nas próximas cessões; (ix) os Direitos Creditórios decorrentes de Peças e Implementos e/ou Serviços deverão ter prazo máximo de vencimento de 150 (cento e cinquenta) dias; (x) considerada pro forma a aquisição dos Direitos Creditórios, o Índice de Prazo Médio por Devedor não poderá ser superior a 36 (trinta e seis) meses; (xi) na Data de Aquisição, o Índice de Subordinação Ex-Derivativo deve estar atendido; (xii) os Devedores não poderão estar inadimplentes, em montante superior a R$300.000,00 (trezentos mil reais) perante outras instituições financeiras conforme consulta no Sistema Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 de Informações de Crédito do BACEN; (xiii) os Direitos Creditórios não poderão ser passíveis de compensação pelos Devedores;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos; peças/serviços≤150 dias e≤30% PL; usados≤10% PL e fabricação≤5 anos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 4.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 55,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por cento) Investimento” do Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Principal” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios≥50% PL até 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 1.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 91,
+     "clause": "Anexo, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "s Critérios de Elegibilidade descritos no Capítulo 4 deste Anexo Descritivo. 5.3. A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. 5.4. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor e/ou do Custodiante. 5.5. A Classe deverá, nos termos do artigo 44, do Anexo Normativo II da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo. 5.6. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "1 – sênior/PL≥20%; controle separado exclui derivativos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 5.3"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL (1 − sênior/PL)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "dice de Seniores e o Patrimônio Líquido, e deverá corresponder a, no Subordinação” mínimo, 20% (vinte por cento). Índice de Subordinação Ex- Significa 1 (um) menos a razão entre o valor total das Cotas Derivativo Seniores e o Patrimônio Líquido, e desconsiderando-se a diferença entre o valor de curva de eventuais derivativos contratados para a proteção da Classe e a marcação a mercado do mesmo, que deverá ser apurada pelo Gestor e deverá corresponder a, no mínimo, 20% (vinte por cento). “Instituições Financeiras Qualquer instituição financeira à qual tenha sido atribuído Autorizadas” classificação de risco (rating) igual a AAA(bra) em escala nacional, por alguma das seguintes agências classificadoras de risco: Standard & Poor’s Ratings do Brasil Ltda., Moody’s Local BR"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "1 – sênior/PL≥20%; controle separado exclui derivativos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no anexo extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Abaixo de 20% em 2 verificações seguidas dispara desalavancagem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 119,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ase nas hipóteses abaixo previstas: Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 (i) a redução do Índice de Subordinação Ex-Derivativo a nível inferior a 20% (vinte por cento) em 2 (duas) Datas de Verificação consecutivas ou em 4 (quatro) Datas de Verificação alternadas nos últimos 12 (doze) meses; (ii) o não pagamento integral da Meta de Amortização das Cotas Seniores em até 5 (cinco) Dias Úteis após uma Data de Pagamento em que a Amortização Pro Rata esteja em curso; e (iii) caso não haja recursos para formar a Reserva de Caixa ou a Reserva de Liquidez. 9.2. Configura um Evento de Realavancagem, a ser verificado pelo Gestor em cada Data de Verificação, e informado imediatamente à Administradora, a ocorrência dos eventos abaixo: (i) a verificação de que Índice de Subordinação Ex-Derivativo está em níveis iguais ou superiores a 20% (vinte por cento) em 2 (duas) Datas de Verificação consecutivas, caso o Evento de Desalavancagem tenha sido disparado em decorrência do item (i) do item 9.1 acima;"
+    }
+   ],
+   "legacy": {
+    "value": "1 – sênior/PL≥20%; controle separado exclui derivativos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 9.1"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de pagamento formada a partir de D-30",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 120,
+     "clause": "Anexo, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "mínimo, 30 (trinta) dias de antecedência em relação à próxima Data de Pagamento prevista nos respectivos Apêndices. 10.3. Cálculo do Valor dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de pagamento iniciada desdeD-30; dimensionamento depende dos apêndices",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "Lista do item 11.7, começando pela extinção do contrato de cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 130,
+     "clause": "Anexo, cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "11.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) caso o Contrato de Cessão seja, por qualquer motivo, resilido; (ii) caso o índice ou parâmetro de apuração do valor das Cotas Seniores seja extinto ou, por outro motivo, haja a impossibilidade legal de aplicação do índice ou parâmetro de apuração do valor das Cotas Seniores e os Cotistas não consigam, em Assembleia Especial, determinar um novo índice ou parâmetro de apuração do valor das Cotas Seniores ou caso não haja aprovação do índice ou parâmetro apresentado pelos titulares de Cotas Subordinadas; (iii) caso a Cedente deixe de comunicar à Administradora, ao Gestor e/ou ao Custodiante a ocorrência de um Evento de Avaliação, que seja de conhecimento da Cedente; (iv) se for deliberado que um Evento de Avaliação constitui Evento de Liquidação;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência com créditos de vencimento ≥ 45 dias antes do pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 88,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "pelos Devedores; (xiv) caso a Reserva de Caixa ainda não esteja totalmente composta, somente poderão ser adquiridos, com recursos decorrentes de revolvência, Direitos Creditórios com prazo de vencimento de, no mínimo, 45 (quarenta e cinco) dias de antecedência da próxima Data de Pagamento; (xv) os Direitos Creditórios decorrentes de Peças e Implementos e/ou Serviços, considerados pro forma a cessão pretendida, deverão representar no máximo 30% (trinta por cento) do Patrimônio Líquido; e (xvi) considerada pro forma a aquisição, os Direitos Creditórios decorrentes da comercialização de Maquinário usado deverão representar até 10% (dez por cento) do Patrimônio Líquido, sendo certo que não poderão ser adquiridos Direitos Creditórios decorrentes da comercialização de Maquinário com mais de 5 (cinco) anos de fabricação. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 250 mi, regressiva; mín. R$ 33,5 mil e teto R$ 75 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 161,
+     "clause": "Anexo, cl. 14.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,20% (vinte centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, até o valor de R$250.000.000,00 (duzentos e cinquenta milhões de reais), acrescidos de (i) 0,15% (quinze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo que exceder R$250.000.000,00 (duzentos e cinquenta milhões de reais) até R$500.000.000,00 (quinhentos milhões de reais); (ii) 0,12% (doze centésimos por certo) ao ano incidente sobre o Patrim"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 161,
+     "clause": "Anexo, cl. 14.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "reta ou indiretamente, Direitos Creditórios à Classe. 14.7. Taxa de Administração. A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,20% (vinte centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, até o valor de R$250.000.000,00 (duzentos e cinquenta milhões de reais), acrescidos de (i) 0,15% (quinze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido do Fundo que exceder R$250.000.000,00 (duzentos e cinquenta milhões de reais) até R$500.000.000,00 (quinhentos milhões de reais); (ii) 0,12% (doze centésimos por certo) ao ano incidente sobre o Patrimônio Líquido do Fundo que exceder R$500.000.000,00 (quinhentos milhões de reais), observado o mínimo mensal de R$33.500,00 (trinta e três mil e quinhentos mil reais) e o teto mensal de R$75.000,00 (setenta e cinco mil reais) (“Taxa de Administração”). A Taxa de Administração será paga de maneira proporcional ao patrimônio líquido de cada Classe. Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 14.7.1."
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,20%/0,15%/0,12% a.a. PL (250/500 mi); mínimo R$ 33,5 mil e teto R$ 75 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/10/2025, Anexo, cl. 14.7"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 50 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 162,
+     "clause": "Anexo, cl. 14.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "a 0,20% (vinte centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o mínimo de R$50.000,00 (cinquenta mil reais) por mês. 14.9.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 162,
+     "clause": "Anexo, cl. 14.9",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "prestação dos serviços do Gestor (“Taxa de Gestão”), que terá a seguinte composição: (i) o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,20% (vinte centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o mínimo de R$50.000,00 (cinquenta mil reais) por mês. 14.9.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil. Os valores expressos em reais dispostos no item 14.8 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pela variação positiva do Índice Geral de Preços – Mercado (IGP-M) divulgado pela Fundação Getúlio Vargas (FGV) ou, na sua falta, pelo índice que vier a substituí-lo. Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 14.10."
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 50 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa sênior em branco ([•]) no modelo de apêndice",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 170,
+     "clause": "Anexo, cl. 18.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "[•] ([•]) Data de Resgate Esperado: [•] ([•]) Sobretaxa Sênior: [•]% ([•] por cento). Meta de Remuneração: as Cotas Seniores serão valoradas diariamente, a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas até a Data de Resgate das Cotas Seniores. A Meta de Remuneração será determinada por meio da apropriação diária, sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI, acrescida de Sobretaxa Sênior. Meta de Amortização e Datas de [•] Pagamento: Registro e Negociação das Cotas [•]. Seniores: Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 ANEXO II MODELO DE APÊNDICE DAS COTAS SUBORDINADA"
+    }
+   ]
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa da mezanino definida em apêndice fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 4,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ação de Cotas de de Cotas” determinada subclasse ou série de Cotas. “Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. “Agência de Classificação de Significa a agência classificadora de risco, autorizada a prestar Risco” tais serviços junto à CVM, que poderá ser contratada pelo Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Fundo para a cla"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Angá Administração de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 10,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade limitada, com sede na Avenida Magalhães de Castro, nº 4.800, 17º andar, conjunto 174, Cidade Jardim, CEP 05676- 120, na Cidade de São Paulo, Estado de São Paulo, inscrito no CNPJ sob nº 09.452.272/0001-05, devidamente autorizada à prestação dos serviços de administração de carteira de valores mobiliários, nos termos da regulamentação aplicável, conforme Ato Declaratório nº 9.837, expedido em 14 de maio de 2008. “Índices de Significam os índices de monitoramento a serem calculados e Monitoramento” verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. “Instituições Financeiras"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 8,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "serviços de controladoria de ativos e passivos do Fundo. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição” Significa qualquer data na qual o Fundo (em benefício da Classe Única) formalize a aquisição de direitos creditórios elegíveis, que ocorrerá com o consequente pagamento do Preço de Aquisição pela Classe Única, por intermédio do Fundo, ao cedente dos direitos creditórios adquiridos. “Data de Emissão” Significa"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança citados, sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 15,
+     "clause": "Anexo IV, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "que lhe forem aplicáveis. Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 2.2. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo econômico ≤ 3% do PL; 10 maiores ≤ 30%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 68,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "devidos pelos 10 (dez) maiores Devedores, em conjunto, que não poderá superar 30% (trinta por cento) do Patrimônio Líquido. “Índice de Diversificação de Significa que o Fundo deverá manter, no mínimo, Direitos Devedores” Creditórios Cedidos que sejam devidos por, no mínimo, 100 (cem) Devedores, sendo que o presente índice somente passará a ser"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1049185",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/10/2025",
+     "page": 86,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185",
+     "excerpt": "ais longa das Cotas Seniores em circulação; (iii) considerando-se pro forma a cessão pretendida, os Direitos Creditórios devidos por Grupo Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do estoque de Direitos Creditórios do Fundo, não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pela Cedente junto ao Gestor. Até 01 de março de 2024, deverá ser utilizado como Patrimônio Líquido, para fins deste cálculo, o maior entre o Patrimônio Líquido e R$ 400.000.000 (quatrocentos milhões de reais); (iv) os Direitos Creditórios deverão ter sido originados de acordo com a Política de Crédito e Docusign Envelope ID: 5A498997-5E9C-4FDB-AAA6-D7EDA05D2564 Originação; (v) a data de vencimento de quaisquer parcelas deve ser posterior à Data de Aquisição do respectivo Direito Creditório; (vi) os Devedores não poderão estar inadimplentes em relação ao Fundo na data da respectiva cessão;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor/grupo≤3% PL; top 10≤30% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Vendas a prazo de máquinas agrícolas da Maqcampo com 20% de subordinação e grupo devedor ≤ 3% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,730 @@
+{
+ "schema_version": 1,
+ "cnpj": "54559035000194",
+ "name": "ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Outros",
+ "reviewed_at": "2026-10-13T20:37:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "634463",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463"
+  },
+  "D2": {
+   "document_id": "634437",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "05/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437"
+  },
+  "D3": {
+   "document_id": "664160",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "23/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664160"
+  },
+  "D4": {
+   "document_id": "634469",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634469"
+  },
+  "D5": {
+   "document_id": "634435",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "01/04/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Outros",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CDBs vinculados do Banco IBM, lastreados em contratos de leasing",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "CDBs vinculados do Banco IBM a contratos de arrendamento mercantil",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Banco IBM (contratos de arrendamento mercantil)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Banco IBM; arrendamentos vinculados no contrato de CDB",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Banco IBM, emissor dos CDBs vinculados",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Banco IBM; arrendamentos vinculados no contrato de CDB",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Banco IBM; pagamento condicionado ao fluxo dos leasings vinculados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Banco IBM; pagamento dos CDB-V condicionado aos fluxos de leasing vinculados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Dação de créditos de leasing regida pelo Contrato CDB, fora do acervo",
+   "sources": [],
+   "legacy": {
+    "value": "CDB-V e dação em pagamento de créditos de leasing conforme Contrato CDB",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "CDB vinculado do Banco IBM; em reais; formalizado; sem ônus",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 60,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "4. CRITÉRIOS DE ELEGIBILIDADE 4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Emissão Banco IBM; reais; formalização integral; sem ônus, atraso prévio ou repactuação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor único (Banco IBM), sem limite de concentração",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Emissor único (Banco IBM)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 56,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional; JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA (iv) deverão estar livres de quaisquer ônus ou gravames, conforme declaração do Banco IBM no Contrato CDB; (v) não ocorrência de inadimplemento ou repactuação dos Direitos Creditórios previamente à aquisição pelo Fundo. 4.2. Verificação dos Critérios de Elegibilidade. 4.2.1. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade para os Direitos Creditórios. 4.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "Prazo da classe de 37 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 12,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "las demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração de 37 (trinta e sete) meses, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Emissão Banco IBM; reais; formalização integral; sem ônus, atraso prévio ou repactuação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 44,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "≥ 50% do PL após 180 dias; percentual tributário com divergência numérico/extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 54,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "a, no mínimo, 10% (dez por cento). Isso significa que a razão do Patrimônio Líquido dividido pelo valor total das Cotas Seniores em circulação deve ser, no mínimo, 111,11% (cento e onze inteiros e onze centésimos por cento)."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "sub_senior": {
+   "display": "10% · subord./PL; PL/sênior ≥ 111,11%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 54,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "a, no mínimo, 10% (dez por cento). Isso significa que a razão do Patrimônio Líquido dividido pelo valor total das Cotas Seniores em circulação deve ser, no mínimo, 111,11% (cento e onze inteiros e onze centésimos por cento)."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Recomposição em 12 DU; depois é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 85,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "reconstituída dentro do prazo de 12 (doze) Dias Úteis contados de seu desenquadramento; (b) em qualquer Dia Útil, a Alocação Mínima de Investimento não seja observada, caso não seja reconstituída dentro do prazo de 20 (vinte) Dias Úteis; 9.4. Cálculo do Valor dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas de R$ 4.000.031",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 84,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "9. RESERVA DE LIQUIDEZ, RESERVA DE CAIXA E VALORAÇÃO DOS DIREITOS CREDITÓRIOS E ATIVOS FINANCEIROS 9.1. Reserva de Despesas. A Classe estabelecerá Reserva de Despesas com o intuito de cobrir as despesas do Fundo, cujo valor será equivalente às Despesas da Classe Única a R$ 4.000.031,00 (quatro milhões e trinta e um reais)."
+    }
+   ],
+   "legacy": {
+    "value": "R$ 4.000.031 para custos e despesas estimadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 118,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "uladas e ajustadas mensalmente e abrangerão toda a carteira de Direitos Creditórios Adquiridos do Fundo com base no Manual de Provisão para perdas em Ativos de Crédito do Administrador disponível em http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489. pdf, observado o disposto acima., observado o disposto acima. Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um comportamento de atrasos substancialmente diferente ao estimado pela política de provisão, esta poderá ser revista por ambas as partes em conjunto, observado os percentuais mínimos de provisionamento constantes na tabela acima."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 85,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "reconstituída dentro do prazo de 12 (doze) Dias Úteis contados de seu desenquadramento; (b) em qualquer Dia Útil, a Alocação Mínima de Investimento não seja observada, caso não seja reconstituída dentro do prazo de 20 (vinte) Dias Úteis; 9.4. Cálculo do Valor dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva em 10 DU; falha de pagamentos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida em liquidação, entre outros do item 10.6",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 85,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "10.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) se ocorrer o resgate dos Direitos Creditórios mediante dação em pagamento dos Contratos de Leasing, nos termos da Cláusula 6.5 do Contrato CDB; e (iii) não substituição dos prestadores de serviço do Fundo, no caso de renúncia e/ou destituição do respectivo prestador de serviço, nos termos estipulados neste Anexo Descritivo, no Regulamento e nos respectivos contratos de prestação de serviço. 10.6.1. A ocorrência de qualquer Evento de Liquidação Antecipada enseja a mudança do regime de amortização para a Amortização Sequencial. Nesta hipótese, o Administrador e o Gestor, na medida de suas atribuições: (i) suspenderão a aquisição de Direitos Creditórios, até a realização da Assembleia Especial mencionada que deliberará a respeito do Evento de Liquidação Antecipada;"
+    }
+   ],
+   "legacy": {
+    "value": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva em 10 DU; falha de pagamentos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "revolving": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Carteira de CDBs vinculados até o vencimento",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Pro rata; regime sequencial após evento de liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 82,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "Amortização Pro Rata, ou Amortização Sequencial, conforme definidas no Capítulo 1 do presente Anexo Descritivo. 8.25. A partir da 1ª Data de Integralização de Cotas referente à 1ª série de Cotas Seniores, o regime de amortização será a Amortização Pro Rata. Tal regime permanecerá em curso até que ocorra um Evento de Liquidação Antecipada. 8.26."
+    }
+   ],
+   "legacy": {
+    "value": "Amortização pro rata ordinária; evento de liquidação aciona regime sequencial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,175% a.a. do PL, conjunta com a gestão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 112,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "equivalentes a 0,175% (cento e setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo (“Taxa de Administração” e “Taxa de Gestão”, respectivamente). A Taxa de Administração e a Taxa de Gestão serão pagas de maneira proporcional ao patrimônio líquido de cada Classe. 13.8."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa conjunta de 0,175% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "634437",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "05/04/2024",
+     "page": 112,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+     "excerpt": "equivalentes a 0,175% (cento e setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo (“Taxa de Administração” e “Taxa de Gestão”, respectivamente). A Taxa de Administração e a Taxa de Gestão serão pagas de maneira proporcional ao patrimônio líquido de cada Classe. 13.8."
+    }
+   ],
+   "legacy": {
+    "value": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; adicional único R$ 40 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 1,10% a.a. (1ª série; resgate em 23/04/2027)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 122,
+     "clause": "Suplemento",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "o automático de registro na CVM Regime de Distribuição Melhores Esforços Data de Resgate: 23/04/2027 Sobretaxa Sênior: 1,10% (um inteiro e dez centésimos por cento). As Cotas Seniores serão valoradas diariamente, a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas até a Data de Resgate das Cotas Seniores, nos termos do Capítulo 8 do Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: DI + 1,10% a.a.; júnior: DI + 2,80% a.a. + prêmio residual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Suplemento"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior: DI + 1,10% a.a.; júnior: DI + 2,80% a.a. + prêmio residual",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 3,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "o de Cotas de de Cotas determinada Classe ou Subclasse de Cotas. Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ/MF sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. Agente de Controladoria Significa o Gestor. JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA Anexo Significa qualquer anexo a este Regulamento, os quais"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 8,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "ão secundária, administrado e operacionalizado pela B3. Gestor Significa a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de fundos de investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ/MF sob o nº 02.150.453/0001-20. Índices de Monitoramento Significam os índices de monitoramento a serem calculados e verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. Instrução CVM 489/11"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM (o próprio administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 6,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "imediatamente anterior à respectiva data do pagamento. Custodiante Significa o Administrador, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. CVM Significa a Comissão de Valores Mobiliários. Data de Amortização Total Significa a data de amortização total de cada série de Cotas, conforme especificada, ou não, no respectivo Apêndice. JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA Data de Emissão Significa a data em que ocorrer a subscrição e a primeira integralização das Cotas da respectiva Emissão, conforme definida no respectivo Apêndice, caso aplicável. Datas de Verificação"
+    },
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 3,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "o de Cotas de de Cotas determinada Classe ou Subclasse de Cotas. Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ/MF sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. Agente de Controladoria Significa o Gestor. JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA Anexo Significa qualquer anexo a este Regulamento, os quais"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 9,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "azo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; e (iii) poderá, caso previsto no documento que deliberar pela realização da oferta, ser cancelada caso não haja a colocação do montante mínimo das respectivas subclasses, em sua respectiva proporção, conforme assim definidos no respectivo Anexo Descritivo da Classe Única. Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Descritivo. Recursos JUR_SP - 51210590v2 - 1040068.529761 DocuSign Envelope ID: C949A6B1-3356-4709-8E70-CFFB77A64DDA Patrimônio Líquido Significa o patrimônio líquido da Classe Única, correspondente à d"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; profissionais; prazo de 37 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/04/2024, Anexo V"
+   }
+  },
+  "duration": {
+   "display": "37 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "634463",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/04/2024",
+     "page": 12,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+     "excerpt": "las demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração de 37 (trinta e sete) meses, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; profissionais; prazo de 37 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Risco Banco IBM via CDBs vinculados a leasing, com 10% de subordinação e sênior a DI + 1,10%; prazo de 37 meses.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
