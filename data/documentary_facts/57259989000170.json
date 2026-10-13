@@ -1,0 +1,773 @@
+{
+ "schema_version": 1,
+ "cnpj": "57259989000170",
+ "name": "TRÊS TENTOS FIAGRO RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-13T20:39:32Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1247697",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "09/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697"
+  },
+  "D2": {
+   "document_id": "1338479",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1338479"
+  },
+  "D3": {
+   "document_id": "1024476",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "29/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1024476"
+  },
+  "D4": {
+   "document_id": "1021246",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "27/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1021246"
+  },
+  "D5": {
+   "document_id": "1018828",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "21/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1018828"
+  },
+  "D6": {
+   "document_id": "1016583",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "16/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos das cedentes, incluindo CPR e notas fiscais do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 56,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios originados pelas Cedentes, representados pelos Documentos Comprobatórios, detidos pelas Cedentes contra os Devedores, os quais incluem os Direitos Creditórios CPR. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Cedidos” Classe."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos originados pelas cedentes, incluindo CPR e notas fiscais; política agro.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Três Tentos e TentosCap",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "a ser captado com a primeira oferta de Cotas. “Cedentes” Significam, quando referidas em conjunto, a Três Tentos e a TentosCap. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Significa, quando utilizado neste Anexo Descritivo, a presente Única” classe de Cotas do Fundo. -5- Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino, sem a intermediação de i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Três Tentos e TentosCap",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "a ser captado com a primeira oferta de Cotas. “Cedentes” Significam, quando referidas em conjunto, a Três Tentos e a TentosCap. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Significa, quando utilizado neste Anexo Descritivo, a presente Única” classe de Cotas do Fundo. -5- Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino, sem a intermediação de i"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes das cedentes no agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "Administrador a serem incorridos periodicamente. “Devedores” Significa qualquer cliente das Cedentes, atuantes no segmento - 10 - Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 do agronegócio, cujos Direitos Creditórios venham a ser cedidos ao Fundo, observadas as características e condições descritas neste Anexo Descritivo, e que estejam de acordo com a Política de Crédito e Originação das Cedentes. “Direitos Creditórios” Significam os direitos creditórios originados pelas Cedentes, representados pelos Documentos Comprobatórios, detidos pelas Cedentes contra os Devedores, os quais incluem os Direitos Creditórios CPR. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Recompra/portabilidade e resolução por condições próprias; fluxo 6 meses/PL médio.",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Prazo de 10 a 365 dias; vence 30 dias antes do resgate sênior; adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "Os Direitos Creditórios deverão GESTOR COM BASE NAS ter data de vencimento de, pelo INFORMAÇÕES DO AGENTE menos, 30 (trinta) dias anteriores DE FORMALIZAÇÃO à última Data de Resgate das Cotas Seniores em circulação; (ii) DIREITOS CREDITÓRIOS (PRAZO) Os Direitos Creditórios deverão GESTOR COM BASE NAS ter prazo máximo de vencimento INFORMAÇÕES DO AGENTE de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição; (iii) DIREITOS CREDITÓRIOS (PRAZO MÍNIMO) GESTOR COM BASE NAS Os Direitos Creditórios deverão INFORMAÇÕES DO AGENTE ter prazo mínimo de vencimento DE FORMALIZAÇÃO de 10 (dez) dias;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "ter prazo máximo de vencimento INFORMAÇÕES DO AGENTE de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição; (iii) DIREITOS CREDITÓRIOS (PRAZO MÍNIMO) GESTOR COM BASE NAS Os Direitos Creditórios deverão INFORMAÇÕES DO AGENTE ter prazo mínimo de vencimento DE FORMALIZAÇÃO de 10 (dez) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo 10–365 dias, antecedência 30 dias do resgate sênior; devedor adimplente.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo ≤ 3% do PL; Mato Grosso ≤ 50%; TentosCap ≤ 30%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "E demais integrantes do seu Grupo Econômico), devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe; - 26 - Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 (v) DEVEDORES (INADIMPLÊNCIA) Os Devedores (considerado GESTOR COM BASE NAS individualmente ou em conjunto INFORMAÇÕES DO com as demais integrantes do seu CUSTODIANTE Grupo Econômico) não poderão estar Inadimplentes em relação ao Fundo na Data de Aquisição;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "Devedores do Estado do Mato DE FORMALIZAÇÃO Grosso deverão representar até 50% (cinquenta por cento) do Patrimônio Líquido; (viii) DEVEDORES (CONCENTRAÇÃO) Considerando-se pro forma a GESTOR COM BASE NAS aquisição pretendida, os Direitos INFORMAÇÕES DO AGENTE Creditórios originados pela DE FORMALIZAÇÃO TentosCap deverão representar até 30% (trinta por cento) do Patrimônio Líquido; 4.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "DE FORMALIZAÇÃO TentosCap deverão representar até 30% (trinta por cento) do Patrimônio Líquido; 4.2. A verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão. - 27 - Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 4.3. O Custodiante verificará, de maneira integral e definitiva, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Cedidos substituídos no respectivo trimestre, em conformidade e na forma disposta neste Anexo Descritivo e no Regulamento. 4.4. Para fins da verificação dos Critérios de Elegibilidade, serão consideradas a posição do Fundo e dos Direitos Creditórios até 2 (dois) Dias Úteis imediatamente anterior à Data de Aquisição com base na informação disponível no Administrador. 4.5."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Grupo≤3%/PL; Mato Grosso≤50%/PL; originação TentosCap≤30%/PL.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Originação TentosCap ≤ 30% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "DE FORMALIZAÇÃO TentosCap deverão representar até 30% (trinta por cento) do Patrimônio Líquido; 4.2. A verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão. - 27 - Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 4.3. O Custodiante verificará, de maneira integral e definitiva, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Cedidos substituídos no respectivo trimestre, em conformidade e na forma disposta neste Anexo Descritivo e no Regulamento. 4.4. Para fins da verificação dos Critérios de Elegibilidade, serão consideradas a posição do Fundo e dos Direitos Creditórios até 2 (dois) Dias Úteis imediatamente anterior à Data de Aquisição com base na informação disponível no Administrador. 4.5."
+    }
+   ],
+   "value": 30.0,
+   "legacy": {
+    "value": "Grupo≤3%/PL; Mato Grosso≤50%/PL; originação TentosCap≤30%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "term_max": {
+   "display": "De 10 a 365 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 71,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "ter prazo máximo de vencimento INFORMAÇÕES DO AGENTE de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição; (iii) DIREITOS CREDITÓRIOS (PRAZO MÍNIMO) GESTOR COM BASE NAS Os Direitos Creditórios deverão INFORMAÇÕES DO AGENTE ter prazo mínimo de vencimento DE FORMALIZAÇÃO de 10 (dez) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo 10–365 dias, antecedência 30 dias do resgate sênior; devedor adimplente.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 48,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 67% (sessenta e sete por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização de Principal” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor de principal das Cotas, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice, conforme aplicável"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC até 180 dias do início e novas emissões.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/10/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 76,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "spectivos Critérios de Elegibilidade descritos no Capítulo 4 deste Anexo Descritivo. 5.3. A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. 5.4. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor, e/ou do Custodiante. 5.5. A Classe deverá ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo e a cada emissão de novas Cotas. 5.6. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas≥20%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "Sênior ≤ 80% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "seguintes Índices de Monitoramento de desempenho da Classe: (i) “Índice de Subordinação Sênior” ou “Índice de Subordinação” significa a razão entre o valor total das Cotas Seniores e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no máximo, 80% (oitenta por cento); (ii) “Índice de Concentração Devedores” significa, para cada mês, o índice, em cada Data de Verificação, que apura a concentração dos Devedores, que deve ser de até 3% (três por cento) do Patrimônio Médio Líquido do Fundo, considerando os Devedores por Grupo Econômico; (iii) Índice de Concentração Cedentes” significa, para cada mês, o percentual equivalente a uma fração cujo numerador é igual à soma dos valores presentes (valor do administrador) dos Direitos Creditórios Cedidos por cada Cedente e o denominador é igual ao Patrimônio Médio Líquido do Fundo;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Total subordinadas≥20%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no anexo extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apuração pelo gestor; abaixo do mínimo veda novas aquisições",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "seguintes Índices de Monitoramento de desempenho da Classe: (i) “Índice de Subordinação Sênior” ou “Índice de Subordinação” significa a razão entre o valor total das Cotas Seniores e o Patrimônio Líquido, que deverá ser apurada pelo Gestor e deverá corresponder a, no máximo, 80% (oitenta por cento); (ii) “Índice de Concentração Devedores” significa, para cada mês, o índice, em cada Data de Verificação, que apura a concentração dos Devedores, que deve ser de até 3% (três por cento) do Patrimônio Médio Líquido do Fundo, considerando os Devedores por Grupo Econômico; (iii) Índice de Concentração Cedentes” significa, para cada mês, o percentual equivalente a uma fração cujo numerador é igual à soma dos valores presentes (valor do administrador) dos Direitos Creditórios Cedidos por cada Cedente e o denominador é igual ao Patrimônio Médio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Total subordinadas≥20%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez de cerca de 10 meses de despesas ordinárias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 62,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "equivalente 10 (dez) meses de despesas ordinárias do Fundo, a ser constituída e controlada pelo Gestor, para fins de cobertura dos encargos e despesas do Fundo. “Resgate” Significa o último pagamento de Amortização de Principal de uma série ou Subclasse de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "Valor aproximado de 10 meses das despesas ordinárias.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado no texto extraído",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Atrasos 31/61/91/181–360 dias acima de 15%/10%/5%/2% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 105,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "faixas de 31 a 360 dias, que deverá ser equivalente a no máximo 15% (quinze por cento), 61 a 360 dias, que deverá ser equivalente a no máximo 10% (dez por cento), 91 a 360 dias, que deverá ser equivalente a no máximo 5% (cinco por cento), 181 a 360 dias, que deverá ser equivalente a no máximo 2% (dois por cento), cujo numerador é igual à soma dos valores nominais (valor de face) dos Direitos Creditórios Cedi"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos 31/61/91/181–360 limitados a 15%/10%/5%/2%; base PL anterior.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Lista do item 11.7, a partir de avaliação convertida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 113,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "11.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pelas Cedentes ou qualquer autoridade governamental, e desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento;"
+    }
+   ],
+   "legacy": {
+    "value": "Atrasos 31/61/91/181–360 limitados a 15%/10%/5%/2%; base PL anterior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 09/07/2026, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalha recompra no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Ordem de alocação: sênior, mezanino e júnior pelas metas dos apêndices",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 76,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "spectivos Critérios de Elegibilidade descritos no Capítulo 4 deste Anexo Descritivo. 5.3. A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. 5.4. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor, e/ou do Custodiante. 5.5. A Classe deverá ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo e a cada emissão de novas Cotas. 5.6. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 250 mi, regressiva; mín. R$ 25 mil/mês; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 141,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) e R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,12% (doze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo acima de R$ 500.000.000,00 (quinhentos milhões de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 143,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "ou indiretamente, Direitos Creditórios à Classe. 14.4. Taxa de Administração. A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,2% (dois décimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), acrescido de 0,15% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) e R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,12% (doze centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo acima de R$ 500.000.000,00 (quinhentos milhões de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes. A taxa prevista neste item terá o piso de R$ 25.000,00 (vinte e cinco mil reais) mensais (“Taxa de Administração”)."
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,20%/0,15%/0,12% a.a.; cortesPLR$ 250/500 mi; piso R$ 25 mil/mês.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/10/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 142,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "correspondente a 0,25% (vinte e cinco centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo de R$20.000,00 (vinte mil reais) ao mês. 14.6.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 144,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "14.6. Taxa de Gestão. Em decorrência da prestação dos serviços do Gestor (“Taxa de Gestão”), o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25% (vinte e cinco centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo de R$20.000,00 (vinte mil reais) ao mês. 14.6.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil. Os valores expressos em reais dispostos no item 14.8 acima serão atualizados a cada período de 12 (doze) meses, contado da data de início das atividades do Fundo ou na menor periodicidade admitida em lei, pela variação positiva do acumulada do IPCA/IBGE ou, na sua falta, pelo índice que vier a substituí-lo. 14.7."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a./PL; mínimo R$ 20 mil/mês.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série sênior vigente não está no acervo; série de 2024 pagava DI + 1,80%",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa da mezanino definida em apêndice fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "ão de Cotas de Integralização de Cotas” determinada subclasse ou série de Cotas. “Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição com sede na cidade do Rio de Janeiro, estado do Rio de Janeiro, na Avenida das Américas, 3.434, Bloco 07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. “Agência de Significa a agência classificadora de risco, autorizada a prestar tais Classificação de Risco” serviços junto à CVM, que poderá ser contratada pelo Fundo para a classificação de risco das Cotas, conforme aplicável. Docusign En"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., sociedade empresária de responsabilidade limitada com sede na cidade de São Paulo, estado de São Paulo, na Rua Hungria, 1.240, 1º andar, conjunto 13, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021. Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 “Índices de Significam os índices de monitoramento a serem calculados e Monitoramento” verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. “Instituições Financeiras Significam quaisquer instituiçõ"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "l imediatamente anterior à respectiva data do pagamento. “Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 integrantes da Carteira, escrituração das Cotas, e guarda dos Documentos Comprobatórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição” Significa qualquer data na qual o Fundo (em benefício da Classe Única) formalize a aquisição de direitos creditórios elegíveis, que ocorrerá com o consequente pagamento do Preço de Aquisição pela Classe Única, por intermédio do Fundo, ao cedente dos direitos creditórios adquiridos. “Da"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança citado, sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "44D4 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1. Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados, respeitado que, no âmbito de uma Oferta Pública, as Cotas serão subscritas e integralizadas exclusivamente por Investidores Profissionais, nos termos da Resolução CVM 160/22. Nos termos do artigo 86, II, da Resolução CVM 160/22, as Cotas objeto de Oferta Pública somente poderão ser negociadas a Investidores Qualificados após decorridos 6 (seis) meses do encerramento da Oferta Pública respectiva. 3.2. Fica vedada a subscrição e/ou aquisição de Cotas pelo Administrador, suas sociedades controladas, coligadas ou sob controle comum, seus empregados e diretores e/ou familiares e, ainda, sociedades controladas por estes. 3.3. Não existem restrições de investimento para o Gestor, suas subsidiárias, coligadas ou sociedades sob controle comum, seus empregados e diretores e/ou familiares e sociedades controladas por tais pessoas. 4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "CPR e notas fiscais de clientes do agronegócio da Três Tentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1016583",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/10/2025",
+     "page": 56,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016583",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios originados pelas Cedentes, representados pelos Documentos Comprobatórios, detidos pelas Cedentes contra os Devedores, os quais incluem os Direitos Creditórios CPR. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Cedidos” Classe."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1247697",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "09/07/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1247697",
+     "excerpt": "a ser captado com a primeira oferta de Cotas. “Cedentes” Significam, quando referidas em conjunto, a Três Tentos e a TentosCap. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição da Cedente. “Classe” ou “Classe Significa, quando utilizado neste Anexo Descritivo, a presente Única” classe de Cotas do Fundo. -5- Docusign Envelope ID: 49B71828-0390-8FFD-82F1-134B8B9F44D4 “Colocação Privada” Significa a colocação privada de Cotas Subordinadas Mezanino, sem a intermediação de i"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos originados pelas cedentes, incluindo CPR e notas fiscais; política agro.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos recebíveis não descritas no anexo extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Recebíveis agro da Três Tentos com sênior ≤ 80% do PL; grupo devedor ≤ 3% e Mato Grosso ≤ 50% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,0 +1,825 @@
+{
+ "schema_version": 1,
+ "cnpj": "58291962000127",
+ "name": "HELM FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-13T20:40:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "957854",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854"
+  },
+  "D2": {
+   "document_id": "1100982",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "03/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1100982"
+  },
+  "D3": {
+   "document_id": "985997",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "05/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=985997"
+  },
+  "D4": {
+   "document_id": "962823",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "08/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=962823"
+  },
+  "D5": {
+   "document_id": "950677",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "21/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=950677"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas de insumos agropecuários da Helm, com lastro em notas fiscais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "r que venha a ser captado com a primeira oferta de Cotas. “Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA., sociedade empresária de responsabilidade limitada, com sede na - 45 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A cidade de São Paulo, Estado de São Paulo, na Rua Verbo Divino, nº 2.001, 2º andar, conjunto 21, Chacara Santo Antonio, CEP 04719-002, inscrita no CNPJ sob o nº 47.176.755/0001-05. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição"
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "os pelo Administrador a serem incorridos periodicamente. “Devedores” Significa qualquer cliente da Cedente cujos Direitos Creditórios venham a ser cedidos ao Fundo, observadas as características e condições descritas neste Anexo Descritivo, e que estejam de acordo com a Política de Crédito e Originação. “Devedores Especiais” Significa os Devedores cuja concentração poderá ser maior em relação ao Patrimônio Líquido, conforme listados no Acordo Operacional. - 50 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A “Direitos Creditórios” Significam os direitos creditórios cedidos pela Cedente, representados pelos Documentos Comprobatórios, detidos pela Cedente contra os Devedores. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Cedidos” Class"
+    }
+   ],
+   "legacy": {
+    "value": "Venda de insumos agropecuários pela HELM; lastro em notas fiscais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Helm do Brasil Mercantil (insumos agropecuários)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "r que venha a ser captado com a primeira oferta de Cotas. “Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA., sociedade empresária de responsabilidade limitada, com sede na - 45 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A cidade de São Paulo, Estado de São Paulo, na Rua Verbo Divino, nº 2.001, 2º andar, conjunto 21, Chacara Santo Antonio, CEP 04719-002, inscrita no CNPJ sob o nº 47.176.755/0001-05. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição"
+    }
+   ],
+   "legacy": {
+    "value": "HELM do Brasil Mercantil Ltda. como cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Helm do Brasil Mercantil (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "r que venha a ser captado com a primeira oferta de Cotas. “Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA., sociedade empresária de responsabilidade limitada, com sede na - 45 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A cidade de São Paulo, Estado de São Paulo, na Rua Verbo Divino, nº 2.001, 2º andar, conjunto 21, Chacara Santo Antonio, CEP 04719-002, inscrita no CNPJ sob o nº 47.176.755/0001-05. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição"
+    }
+   ],
+   "legacy": {
+    "value": "HELM do Brasil Mercantil Ltda. como cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Clientes da Helm no agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "os pelo Administrador a serem incorridos periodicamente. “Devedores” Significa qualquer cliente da Cedente cujos Direitos Creditórios venham a ser cedidos ao Fundo, observadas as características e condições descritas neste Anexo Descritivo, e que estejam de acordo com a Política de Crédito e Originação. “Devedores Especiais” Significa os Devedores cuja concentração poderá ser maior em relação ao Patrimônio Líquido, conforme listados no Acordo Operacional. - 50 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A “Direitos Creditórios” Significam os direitos creditórios cedidos pela Cedente, representados pelos Documentos Comprobatórios, detidos pela Cedente contra os Devedores. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Cedidos” Class"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Não vencidos; prazo mínimo de 30 dias; taxa de desconto do contrato",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "Gestor, com base nas informações do Cedente, (v) os Direitos Creditórios não poderão estar do Agente de Formalização e do Administrador vencidos, quando de sua aquisição pela Classe; DIREITOS CREDITÓRIOS (“FORMA”) Gestor, com base nas informações do Agente de (vi) a aquisição dos Direitos Creditórios Formalização deverá respeitar a Taxa de Desconto definida no Contrato de Cessão; GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (vii) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Gestor, com base nas informações do Cedente e Creditórios devidos por Devedores do Agente de Formalização (considerado em conjunto com as demais integrantes do seu Grupo Econômico) com sede ou domicílio no Estado do Rio Grande do Sul, devem estar limitados a 30% (trinta por cento) do Patrimônio Líquido da Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "edente e (viii) os Direitos Creditórios deverão ter prazo do Agente de Formalização mínimo de vencimento de 30 (trinta) dias, contados da Data de Aquisição; GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (ix) os Direitos Creditórios não podem ser Gestor, com base nas informações do Cedente e devidos por Devedores do mesmo Grupo do Agente de Formalização Econômico da Cedente, conforme Anexo II do Acordo Operacional; e - 66 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (x) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo ≤ 3% do PL; devedor especial ≤ 10%; Rio Grande do Sul ≤ 30%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 65,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "do Agente de Formalização e do Administrador (considerado em conjunto com as demais integrantes do seu Grupo Econômico), devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe; - 65 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A DIREITOS CREDITÓRIOS (“FORMA”) Gestor, com base nas informações do Cedente, (v) os Direitos Creditórios não poderão estar do Agente de Formalização e do Administrador vencidos, quando de sua aquisição pela Classe; DIREITOS CREDITÓRIOS (“FORMA”) Gestor, com base nas informações do Agente de (vi) a aquisição dos Direitos Creditórios Formalização deverá respeitar a Taxa de Desconto definida no Contrato de Cessão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "ro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. 4.2. A verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão. 4.3. O Custodiante verificará, de maneira integral e definitiva, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Cedidos substituídos no respectivo trimestre, em conformidade e na forma disposta neste Anexo Descritivo e no Regulamento. 4.4. Para fins da verificação dos Critérios de Elegibilidade, serão consideradas a posição do Fundo e dos Direitos Creditórios até 2 (dois) Dias Úteis imediatamente anterior à Data de Aquisição com base na informação disponível no Administrador. 4.5. Inobservância dos Critérios de Elegibilidade."
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "conjunto com as demais integrantes do seu Grupo Econômico) com sede ou domicílio no Estado do Rio Grande do Sul, devem estar limitados a 30% (trinta por cento) do Patrimônio Líquido da Classe; DIREITOS CREDITÓRIOS (“PRAZO”) Gestor, com base nas informações do Cedente e (viii) os Direitos Creditórios deverão ter prazo do Agente de Formalização mínimo de vencimento de 30 (trinta) dias, contados da Data de Aquisição; GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (ix) os Direitos Creditórios não podem ser Gestor, com base nas informações do Cedente e devidos por Devedores do mesmo Grupo do Agente de Formalização Econômico da Cedente, conforme Anexo II do Acordo Operacional;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Devedor/grupo ≤3% PL; devedores especiais ≤10% PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (Helm)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "r que venha a ser captado com a primeira oferta de Cotas. “Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA., sociedade empresária de responsabilidade limitada, com sede na - 45 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A cidade de São Paulo, Estado de São Paulo, na Rua Verbo Divino, nº 2.001, 2º andar, conjunto 21, Chacara Santo Antonio, CEP 04719-002, inscrita no CNPJ sob o nº 47.176.755/0001-05. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor/grupo ≤3% PL; devedores especiais ≤10% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/07/2025, Anexo"
+   }
+  },
+  "term_max": {
+   "display": "Prazo mínimo de 30 dias; máximo não fixado no anexo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "edente e (viii) os Direitos Creditórios deverão ter prazo do Agente de Formalização mínimo de vencimento de 30 (trinta) dias, contados da Data de Aquisição; GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (ix) os Direitos Creditórios não podem ser Gestor, com base nas informações do Cedente e devidos por Devedores do mesmo Grupo do Agente de Formalização Econômico da Cedente, conforme Anexo II do Acordo Operacional; e - 66 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A GRUPO ECONÔMICO (“CONCENTRAÇÃO”) (x) considerando-se pro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. 4.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 43,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 67% (sessenta e sete por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis. - 43 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A [NOTA VBSO: CONFIRMAR SE SERÁ MANTIDA A ALOCAÇÃO DE 67%, DADO QUE TRIBUTARIAMENTE NÃO É MAIS NECESSÁRIA A"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67% PL; documento mantém nota editorial propondo confirmação ou 50%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/07/2025, Anexo, cl. 1.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 69,
+     "clause": "Anexo, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "ctivos Critérios de Elegibilidade descritos no Capítulo 4 deste Anexo Descritivo. 5.3. A Classe buscará atingir a Meta de Remuneração das Cotas Seniores, das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. - 69 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A 5.4. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor, e/ou do Custodiante. 5.5. A Classe deverá, nos termos do artigo 44, do Anexo Normativo II da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo. 5.6. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 95,
+     "clause": "Anexo, cl. 8.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "Meta de Remuneração relativa às Cotas Seniores em circulação até o Resgate; (iv) pagamento da Meta de Amortização e Meta de Remuneração relativa às Cotas Subordinadas Mezanino em circulação; (v) pagamento do Prêmio de Excesso de Spread aos titulares das Cotas Subordinadas Mezanino; (vi) Resgate das Cotas Subordinadas Mezanino; e - 95 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A (vii) pagamento da Meta de Amortização e Meta de Remuneração com referência às Cotas Subordinadas Júnior em circulação até o Resgate das Cotas Subordinadas Júnior. 8.22. Observada a Ordem de Alocação disposta na Cláusula 8.21, deverá ser adotado procedimento de rateio de valores descrito abaixo deve ser aplicado às Cotas Seniores e/ou às Cotas Subordinadas Mezanino caso não haja Volume Disponível para Pagamento de Meta de Amortização Sênior, ou o Volume Disponível para Pagamento de Meta de Amortização Mezanino, conforme o caso, seja inferior ao valor agregado das Metas de Amortização da respectiva Subclasse de Cotas. 8.23."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/07/2025, Anexo, cl. 5.3"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 100,
+     "clause": "Anexo, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "questão, bem como sobre eventuais providências a serem adotadas, conforme aplicável: (i) Índice de Subordinação deverá corresponder a, no mínimo, 20% (vinte por cento); (ii) Índice de Concentração Devedores, que deverá ser de até 3% (três por cento) do Patrimônio Líquido; (iii) Índice de Concentração Devedores Especiais, que deverá ser de até 10% (dez inteiros por cento); - 100 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A (iv) em qualquer mês, com base no último Dia Útil de cada mês, o Índice de Resolução que deverá ser de até 15% (quinze por cento); (v) em qualquer mês, com base no último Dia Útil de cada mês, o Índice de Pagamentos Incorretos que deverá ser de até: (a) 40% (quarenta por cento) no 1º (primeiro) ano do Fundo (inclusive), a contar da data da 1ª (primeira) data de integralização;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥20%",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado no anexo extraído",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Índice de monitoramento apurado pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 100,
+     "clause": "Anexo, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "questão, bem como sobre eventuais providências a serem adotadas, conforme aplicável: (i) Índice de Subordinação deverá corresponder a, no mínimo, 20% (vinte por cento); (ii) Índice de Concentração Devedores, que deverá ser de até 3% (três por cento) do Patrimônio Líquido; (iii) Índice de Concentração Devedores Especiais, que deverá ser de até 10% (dez inteiros por cento); - 100 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A (iv) em qualquer mês, com base no último Dia Útil de cada mês, o Índice de Resolução que deverá ser de até 15% (quinze por cento); (v) em qualquer mês, com base no último Dia Útil de cada mês, o Índice de Pagamentos Incorretos que deverá ser de até: (a) 40% (quarenta por cento) no 1º (primeiro) ano do Fundo (inclusive), a contar da data da 1ª (primeira) data de integralização;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/07/2025, Anexo, cl. 10.2"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas de cerca de 12 meses de despesas ordinárias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 57,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "conforme o caso, calculada nos termos deste Anexo Descritivo. “Reserva de Despesas” A reserva a ser constituída, em valor aproximado equivalente 12 (doze) meses de despesas ordinárias do Fundo, a ser constituída e controlada pelo Gestor, para fins de cobertura dos encargos e despesas do Fundo. “Resgate” Significa o último pagamento de Amortização de Principal de uma série ou Subclasse de Cotas. “Resolução de Cessão” Significa a resolução de pleno direito da cessão de um ou mais Direitos Creditórios Cedidos na ocorrência de qualquer dos Eventos de Resolução da Cessão, exclusivamente em relação aos Direitos Creditórios Cedidos que forem objeto do respectivo Evento de Resolução da Cessão, sendo certo que, após a formalização da Resolução de Cessão, os respectivos Direitos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de PDD da administradora (perda esperada; efeito vagão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "ro forma a aquisição pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10% (dez por cento) do Patrimônio Líquido da Classe. 4.2. A verificação e validação do enquadramento dos Direitos Creditórios que a Classe pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada cessão, observados os termos específicos do Contrato de Cessão. 4.3. O Custodiante verificará, de maneira integral e definitiva, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Cedidos substituídos no respectivo trimestre, em conformidade e na forma disposta neste Anexo Descritivo e no Regulamento. 4.4. Para fins da verificação dos Critérios de Elegibilidade, serão consideradas a posição do Fundo e dos Direitos Creditórios até 2 (dois) Dias Úteis imediatamente anterior à Data de Aquisição com base na informação disponível no Administrador. 4.5. Inobservância dos Critérios de Elegibilidade."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Não pagamento da sênior sem cura em 2 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 106,
+     "clause": "Anexo, cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou admin"
+    }
+   ],
+   "legacy": {
+    "value": "Não pagamento sênior: cura de 2 DU; sem cura no resgate final",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida; sênior sem remuneração após 2 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 106,
+     "clause": "Anexo, cl. 11.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "11.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pela Cedente ou qualquer autoridade governamental, e desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento;"
+    }
+   ],
+   "legacy": {
+    "value": "Não pagamento sênior: cura de 2 DU; sem cura no resgate final",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalha recompra no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Ordem de alocação: sênior, mezanino e júnior pelas metas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 95,
+     "clause": "Anexo, cl. 8.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "Meta de Remuneração relativa às Cotas Seniores em circulação até o Resgate; (iv) pagamento da Meta de Amortização e Meta de Remuneração relativa às Cotas Subordinadas Mezanino em circulação; (v) pagamento do Prêmio de Excesso de Spread aos titulares das Cotas Subordinadas Mezanino; (vi) Resgate das Cotas Subordinadas Mezanino; e - 95 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A (vii) pagamento da Meta de Amortização e Meta de Remuneração com referência às Cotas Subordinadas Júnior em circulação até o Resgate das Cotas Subordinadas Júnior. 8.22. Observada a Ordem de Alocação disposta na Cláusula 8.21, deverá ser adotado procedimento de rateio de valores descrito abaixo deve ser aplicado às Cotas Seniores e/ou às Cotas Subordinadas Mezanino caso não haja Volume Disponível para Pagamento de Meta de Amortização Sênior, ou o Volume Disponível para Pagamento de Meta de Amortização Mezanino, conforme o caso, seja inferior ao valor agregado das Metas de Amortização da respectiva Subclasse de Cotas. 8.23."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,18% a.a. do PL; mín. R$ 18 mil/mês; inclui custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 136,
+     "clause": "Anexo, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "direta ou indiretamente, Direitos Creditórios à Classe. 14.6. Taxa de Administração. A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,18% (dezoito centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada Dia Útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes. A taxa prevista neste item terá o piso de R$18.000,00 (dezoito mil reais) mensais (“Taxa de Administração”). A Taxa de Administração será paga de maneira proporcional ao patrimônio líquido de cada Classe. 14.6.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 136,
+     "clause": "Anexo, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,18% (dezoito centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada Dia Útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes."
+    }
+   ],
+   "legacy": {
+    "value": "0,18% a.a. PL; mínimo R$ 18 mil/mês; inclui custódia/controladoria",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 138,
+     "clause": "Anexo, cl. 14.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "14.8. Taxa de Gestão. Em decorrência da prestação dos serviços do Gestor (“Taxa de Gestão”), o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25% (vinte e cinco por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo de R$20.000,00 (vinte mil reais) ao mês. 14.9. Ainda, será devida ao Gestor (i) parcela única de R$70.000,00 (setenta mil reais), a título de estruturação, em até 2 (dois) Dias Úteis contados da 1ª Data de Integralização de Cotas; e (ii) o valor de R$1.200.000,00 (um milhão e duzentos mil reais), a título de estruturação, na 1ª Data de Integralização de Cotas, a ser pago pelo Fundo e/ou pelo Cedente, conforme alinhamento a ser realizado entre o Cedente e o Gestor (“Remuneração de Estruturação”). 14.9.1. A Remuneração de Estruturação será utilizada, pelo Gestor, para integralização de Cotas Subordinadas Júnior, na 1ª Data de Integralização. 14.9.2. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil."
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 138,
+     "clause": "Anexo, cl. 14.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "correspondente a 0,25% (vinte e cinco por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo de R$20.000,00 (vinte mil reais) ao mês. 14.9. Ainda, será devida ao Gestor (i) parcela única de R$70.000,00 (setenta mil reais), a título de estruturação, em até 2 (dois) Dias Úteis contados da 1ª Data de Integralização de Cotas; e (ii) o valor de R$1.200.000,00 (um milhão e duzentos mil reais), a título de estruturação, na 1ª Data de Integraliz"
+    }
+   ],
+   "legacy": {
+    "value": "0,25% numérico e 25% por extenso; mínimo R$ 20 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/07/2025, Anexo, cl. 14.8"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "DI + 2,00% a.a. (1ª série sênior)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id957853",
+     "document_id": "957853",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "30/07/2025",
+     "page": 5,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957853",
+     "excerpt": "10/10/2026 Sim Sim Sobretaxa Sênior: 2,00% (dois inteiros por cento). Meta de Remuneração: 100% (cem por cento) da variação acumulada das taxas médias diárias dos DI – Depósitos Interfinanceiros de um dia, over extragrupo, na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis (conforme abaixo definido), calculadas e divulgadas diariamente pela B3 S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sobretaxa da mezanino definida em apêndice fora do acervo",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 69,
+     "clause": "Anexo, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "ctivos Critérios de Elegibilidade descritos no Capítulo 4 deste Anexo Descritivo. 5.3. A Classe buscará atingir a Meta de Remuneração das Cotas Seniores, das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior, conforme estabelecido nos respectivos Apêndices. - 69 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A 5.4. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor, e/ou do Custodiante. 5.5. A Classe deverá, nos termos do artigo 44, do Anexo Normativo II da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da data de início de funcionamento do Fundo. 5.6. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ]
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 3,
+     "clause": "Anexo II, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "ação de Cotas de de Cotas” determinada subclasse ou série de Cotas. “Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016. “Agência de Classificação Significa a agência classificadora de risco, autorizada a prestar tais de Risco” serviços junto à CVM, que poderá ser contratada pelo Fundo para a classificação de risco das Cotas, conforme aplicável. -3- Docusign Envelope ID: 27CB4A78-A"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 8,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., sociedade empresária de responsabilidade limitada com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 1º andar, conjunto 13, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021. “Índices de Monitoramento” Significam os índices de monitoramento a serem calculados e verificados nas Datas de Verificação pelo Gestor, conforme o caso, nos termos do Anexo Descritivo. -8- Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A “Instituições Finance"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 6,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "il imediatamente anterior à respectiva data do pagamento. “Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, e guarda dos Documentos Comprobatórios. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Aquisição” Significa qualquer data na qual o Fundo (em benefício da Classe Única) formalize a aquisição de direitos creditórios elegíveis, que -6- Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A ocorrerá com o consequente pagamento do Preço de Aquisição pela Classe Única, por intermédio do Fundo, ao cedente dos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 10,
+     "clause": "Anexo II",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "azo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro; e (iii) poderá ser cancelada caso não haja a colocação do montante mínimo das respectivas subclasses, em sua respectiva proporção, conforme assim definidos no respectivo Anexo Descritivo da Classe Única. “Ordem de Alocação de Tem seu significado atribuído no respectivo Anexo Descritivo. Recursos” “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 12,
+     "clause": "Anexo II, cl. 2.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "130/21 e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.3. O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse de Cotas de cada Classe estará descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia de Cotistas em conformidade com o disposto neste Regulamento. - 12 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A 2.4. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. 3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Insumos agropecuários vendidos pela Helm",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "r que venha a ser captado com a primeira oferta de Cotas. “Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA., sociedade empresária de responsabilidade limitada, com sede na - 45 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A cidade de São Paulo, Estado de São Paulo, na Rua Verbo Divino, nº 2.001, 2º andar, conjunto 21, Chacara Santo Antonio, CEP 04719-002, inscrita no CNPJ sob o nº 47.176.755/0001-05. “Chave de Acesso NF-e” Significa um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda – SEFAZ da circunscrição"
+    },
+    {
+     "doc": "D1",
+     "document_id": "957854",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/07/2025",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=957854",
+     "excerpt": "os pelo Administrador a serem incorridos periodicamente. “Devedores” Significa qualquer cliente da Cedente cujos Direitos Creditórios venham a ser cedidos ao Fundo, observadas as características e condições descritas neste Anexo Descritivo, e que estejam de acordo com a Política de Crédito e Originação. “Devedores Especiais” Significa os Devedores cuja concentração poderá ser maior em relação ao Patrimônio Líquido, conforme listados no Acordo Operacional. - 50 - Docusign Envelope ID: 27CB4A78-A02B-43D9-8229-93A75981C68A “Direitos Creditórios” Significam os direitos creditórios cedidos pela Cedente, representados pelos Documentos Comprobatórios, detidos pela Cedente contra os Devedores. “Direitos Creditórios Significam os Direitos Creditórios Elegíveis adquiridos pela Cedidos” Class"
+    }
+   ],
+   "legacy": {
+    "value": "Venda de insumos agropecuários pela HELM; lastro em notas fiscais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos recebíveis não descritas no anexo extraído",
+   "sources": []
+  }
+ },
+ "leitura": "Insumos agro da Helm com 20% de subordinação; grupo devedor ≤ 3% e Rio Grande do Sul ≤ 30% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,59 +1,53 @@
-# portado de 51554551000138 (57259989000170)
+# Três Tentos FIAGRO (Oliveira Trust; Opea; cedentes Três Tentos e TentosCap)
 type: Agro/FIAGRO
-q101: * "Direitos Creditórios” Significam os direitos creditórios do agronegócio performados, vincendos, existentes,"
-q102: * "50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios"
-q103: * "10 (dez) meses. “Prêmio de Excesso de Significa o montante em"
-q104: * "0,18% (dezoito centésimos por cento) ao ano aplicado sobre o Patrimônio"
-q105: * "0,135% (cento e trinta e cinco décimos por cento), pagos mensalmente,"
-q1: * "“Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA"
-q2: * "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais"
-q3: * "(i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100%"
-q4: * "estar inadimplentes em relação ao Fundo por mais de 1 (um) dia na Data de Aquisição"
-q5: * "“Índice de Subordinação” Significa a relação equivalente a, no mínimo, 25%"
-q6: * "Qualquer dos seguintes eventos será considerado um Evento de Avaliação"
-q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
-q8: * "manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos"
-q9: * "Não será cobrada dos Cotistas qualquer taxa de performance"
-q10: * "“Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
-q11: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
-q12: * "“Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
-q13: * "será destinada exclusivamente a Investidores Profissionais"
-q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas"
-q15: * "Sobretaxa Sênior: 1,85% (um inteiro e oitenta e cinco centésimos por cento)"
-q16: * "Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI"
-q17: * "pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação"
-q18: * "o Índice de Subordinação for menor que 25%"
-receivables: Créditos performados de venda de insumos agro, com NF-e em XML | q101
-originator: Companhia Nitro Química Brasileira (insumos agrícolas) | q1
-assignor: Companhia Nitro Química Brasileira (cedente única) | q1
-debtor: Produtores rurais, cooperativas e empresas do agronegócio | q2
-recourse: n/d | Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido
-eligibility: Devedor sem atraso > 1 dia; lista de autorizados; vedados e Serasa | q4,q3
-debtor_limit: Lista KPMG até 100% do PL; demais devedores até 20% | q3
-assignor_limit: Cedente única (Nitro Química) | q1
-term_max: n/d | Prazo máximo dos créditos não localizado no anexo extraído
-allocation: ≥ 50% do PL em direitos creditórios | q102 | value=50
-quota_structure: Sênior / Mezanino / Júnior | q16,q17
-sub_senior: 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+q18: * "TentosCap deverão representar até 30% (trinta por cento) do Patrimônio Líquido"
+q17: * "Grosso deverão representar até 50% (cinquenta por cento) do Patrimônio Líquido"
+q16: * "devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe"
+q15: * "de até 365 (trezentos e sessenta e DE FORMALIZAÇÃO cinco) dias com base na Data de Aquisição"
+q14: * "ter data de vencimento de, pelo INFORMAÇÕES DO AGENTE menos, 30 (trinta) dias anteriores"
+q1: * "“Cedentes” Significam, quando referidas em conjunto, a Três Tentos e a TentosCap"
+q2: * "“Devedores” Significa qualquer cliente das Cedentes, atuantes no segmento"
+q3: * "“Índice de Subordinação” significa a razão entre o valor total das Cotas Seniores e o Patrimônio Líquido"
+q5: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q6: * "“Administrador” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q7: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
+q8: * "“Custodiante” Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima"
+q9: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q10: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores, para as Cotas Subordinadas Mezanino e para as Cotas Subordinadas Júnior"
+q11: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,2%"
+q12: * "o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25%"
+q13: * "Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados"
+receivables: Créditos das cedentes, incluindo CPR e notas fiscais do agronegócio | o1
+originator: Três Tentos e TentosCap | q1
+assignor: Três Tentos e TentosCap | q1
+debtor: Clientes das cedentes no agronegócio | q2
+recourse: n/d | Recompra e resolução regidas pelo contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Prazo de 10 a 365 dias; vence 30 dias antes do resgate sênior; adimplente | q14,q15
+debtor_limit: Grupo ≤ 3% do PL; Mato Grosso ≤ 50%; TentosCap ≤ 30% | q16,q17,q18
+assignor_limit: Originação TentosCap ≤ 30% do PL | q18
+term_max: De 10 a 365 dias | q15
+allocation: ≥ 67% do PL em direitos creditórios | o24 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q10
+sub_senior: Sênior ≤ 80% do PL | q3 | basis=mez+jr/PL | value=20
 sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
-sub_check: Mensal (último DU); abaixo de 25% é evento do anexo | q18
-reserve: Fundo de despesas para cerca de 10 meses de despesas | q103
-pdd: Manual de PDD da administradora (perda esperada; efeito vagão) | q8
-eval_triggers: Violação do cedente não sanada em 5 DU, entre outros | q6
-liquidation: Avaliação convertida; sênior sem remuneração após 2 DU, entre outros | q7
+sub_check: Apuração pelo gestor; abaixo do mínimo veda novas aquisições | q3
+reserve: Reserva de liquidez de cerca de 10 meses de despesas ordinárias | o38
+pdd: n/d | Critério de provisão não localizado no texto extraído
+eval_triggers: Atrasos 31/61/91/181–360 dias acima de 15%/10%/5%/2% do PL | o44
+liquidation: Lista do item 11.7, a partir de avaliação convertida | q5
 revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
-amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas | q17
-admin_fee: 0,18% a.a. do PL; mín. R$ 18 mil/mês; implantação R$ 10 mil | q104
-mgmt_fee: 0,135% a.a. do PL; mín. R$ 15 mil/mês, mais flat fee | q105
-perf_fee: Não prevista | Regulamento veda taxa de performance | q9
-target_senior: DI + 1,85% a.a. (série sênior vigente) | q15
-target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo | q16 | why=Resposta anterior trata da série sênior, registrada na linha própria
-administrator: Vórtx DTVM | q10
-manager: Opea Gestora de Recursos | q11
-custodian: Vórtx DTVM | q12
-servicer: n/d | Agente de cobrança não nomeado no texto extraído
-investors: Investidores profissionais | q13
-duration: Indeterminado; prazo próprio por subclasse | q14
-agro_backing: Venda de insumos agrícolas da Nitro Química a produtores | q1,q101
+amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas dos apêndices | q10
+admin_fee: 0,20% a.a. até R$ 250 mi, regressiva; mín. R$ 25 mil/mês; inclui custódia | o55,q11
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês | o58,q12
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Apêndice da série sênior vigente não está no acervo; série de 2024 pagava DI + 1,80%
+target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo
+administrator: Oliveira Trust DTVM | q6
+manager: Opea Gestora de Recursos | q7
+custodian: Oliveira Trust DTVM | q8
+servicer: n/d | Agente de cobrança citado, sem nome no trecho lido
+investors: Investidores autorizados | q13
+duration: Indeterminado; prazo próprio por subclasse | q9
+agro_backing: CPR e notas fiscais de clientes do agronegócio da Três Tentos | o1,q1
 collateral: n/d | Garantias dos recebíveis não descritas no anexo extraído
-leitura: Insumos agrícolas da Nitro Química com 25% de subordinação; devedor fora da lista KPMG limitado a 20% do PL.
+leitura: Recebíveis agro da Três Tentos com sênior ≤ 80% do PL; grupo devedor ≤ 3% e Mato Grosso ≤ 50% do PL.

@@ -1,0 +1,800 @@
+{
+ "schema_version": 1,
+ "cnpj": "58171340000165",
+ "name": "FRIMESA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:40:18Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "861191",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "13/03/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191"
+  },
+  "D2": {
+   "document_id": "1067840",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1067840"
+  },
+  "D3": {
+   "document_id": "1066386",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "18/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1066386"
+  },
+  "D4": {
+   "document_id": "1059800",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "11/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1059800"
+  },
+  "D5": {
+   "document_id": "806368",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "20/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=806368"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas mercantis a prazo de produtos da Frimesa, performadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 47,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "“Direitos Creditórios” Significam os direitos creditórios performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de compra e venda mercantil a prazo de Produtos representados por #6937369v8 -8- notas fiscais eletrônicas (consubstanciados em arquivos XML"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados/vincendos de compra e venda mercantil a prazo de produtos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Frimesa Cooperativa Central e filiais",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 42,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "rido rebaixamento por outra instituição com classificação, no mínimo, igual a “AAA(bra)”. “Cedente” Significa a FRIMESA COOPERATIVA CENTRAL, com sede na cidade de Medianeira, Estado do Paraná, na Rua Bahia, nº 159, CEP 85723-006, inscrita no CNPJ sob o nº 77.595.395/0001-47, inclusive por meio de suas filiais. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de: (i) Cotas Subordinadas Mezanino, as quais serão destinadas para colocação exclusivamente ao Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Frimesa Cooperativa Central, CNPJ 77.595.395/0001-47, inclusive filiais.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 1.1"
+   }
+  },
+  "assignor": {
+   "display": "Frimesa Cooperativa Central (cedente única)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 42,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "rido rebaixamento por outra instituição com classificação, no mínimo, igual a “AAA(bra)”. “Cedente” Significa a FRIMESA COOPERATIVA CENTRAL, com sede na cidade de Medianeira, Estado do Paraná, na Rua Bahia, nº 159, CEP 85723-006, inscrita no CNPJ sob o nº 77.595.395/0001-47, inclusive por meio de suas filiais. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de: (i) Cotas Subordinadas Mezanino, as quais serão destinadas para colocação exclusivamente ao Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Frimesa Cooperativa Central, CNPJ 77.595.395/0001-47, inclusive filiais.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 1.1"
+   }
+  },
+  "debtor": {
+   "display": "Clientes da Frimesa, exceto grupo do cedente e entes públicos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 47,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente. “Devedor” Significam cada cliente do Cedente, não pertencente (i) ao Grupo Econômico do Cedente e que não seja uma Rede Varejista Subsidiária, ou (ii) a quaisquer entes públicos, bem como a qualquer pessoa ou ente privado de qualquer forma relacionadas à Administração Pública, direta ou indireta, nem a qualquer instituição governamental, que tenha comprado do Cedente, a prazo, algum dos Produtos vendidos pelo Cedente, operação essa representada por Documentos Comprobatórios e Documentos Adicionais de acordo com a Política de Crédito do Cedente. “Direitos Creditórios” Significam os direitos creditórios performados, vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de compra e venda mercantil a prazo de Produtos representados por #6937369v8"
+    }
+   ],
+   "legacy": {
+    "value": "Clientes do cedente; exclusões de grupo econômico e entes públicos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Cessão sem coobrigação; resolução por vícios conforme contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 45,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "Creditórios sem coobrigação pelo Cedente à Classe Única. “Cotas Seniores” Significam as Cotas da Subclasse Sênior, que não se subordinam a nenhuma outra Cota para fins de Amortização de Principal, pagamento de Remuneração e Resgate. “Cotas Subordinadas” Significam, em conjunto, as Cotas Subordinadas Júnior e as Cotas Subordinadas Mezanino."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão sem coobrigação; resolução e vícios conforme contrato.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Prazo de 2 a 60 dias; devedor adimplente; grupo ≤ 3% do PL",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 60,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "(PRAZO) Os Direitos Creditórios deverão ter GESTOR COM BASE NAS prazo máximo de vencimento de até INFORMAÇÕES DO CEDENTE 60 (sessenta) dias com base na Data de Aquisição; #6937369v8 - 21 - (iii) DIREITOS CREDITÓRIOS (PRAZO) GESTOR COM BASE NAS Os Direitos Creditórios deverão ter INFORMAÇÕES DO CEDENTE prazo mínimo de vencimento de 2 (dois) dias;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 61,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "om as demais integrantes do seu Grupo GESTOR COM BASE NAS Econômico), devem estar limitados INFORMAÇÕES DO a 3% (três por cento) do Patrimônio CUSTODIANTE e CEDENTE Líquido da Classe, sendo certo que, até o dia 31 de dezembro de 2024, será considerado como Patrimônio Líquido, o maior entre: (i) R$200.000.000,00 (duzentos milhões de reais); ou (ii) o Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo 2–60 dias; média≤35 dias; devedor adimplente; vencimento≥30 dias antes do resgate sênior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 4.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico ≤ 3% do PL; grupos especiais por acordo operacional",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 61,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "om as demais integrantes do seu Grupo GESTOR COM BASE NAS Econômico), devem estar limitados INFORMAÇÕES DO a 3% (três por cento) do Patrimônio CUSTODIANTE e CEDENTE Líquido da Classe, sendo certo que, até o dia 31 de dezembro de 2024, será considerado como Patrimônio Líquido, o maior entre: (i) R$200.000.000,00 (duzentos milhões de reais); ou (ii) o Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Grupo≤3%/PL; grupos especiais conforme Acordo Operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente única (Frimesa)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 42,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "rido rebaixamento por outra instituição com classificação, no mínimo, igual a “AAA(bra)”. “Cedente” Significa a FRIMESA COOPERATIVA CENTRAL, com sede na cidade de Medianeira, Estado do Paraná, na Rua Bahia, nº 159, CEP 85723-006, inscrita no CNPJ sob o nº 77.595.395/0001-47, inclusive por meio de suas filiais. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Colocação Privada” Significa a colocação privada de: (i) Cotas Subordinadas Mezanino, as quais serão destinadas para colocação exclusivamente ao Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Grupo≤3%/PL; grupos especiais conforme Acordo Operacional.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 1.1"
+   }
+  },
+  "term_max": {
+   "display": "De 2 a 60 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 60,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "(PRAZO) Os Direitos Creditórios deverão ter GESTOR COM BASE NAS prazo máximo de vencimento de até INFORMAÇÕES DO CEDENTE 60 (sessenta) dias com base na Data de Aquisição; #6937369v8 - 21 - (iii) DIREITOS CREDITÓRIOS (PRAZO) GESTOR COM BASE NAS Os Direitos Creditórios deverão ter INFORMAÇÕES DO CEDENTE prazo mínimo de vencimento de 2 (dois) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo 2–60 dias; média≤35 dias; devedor adimplente; vencimento≥30 dias antes do resgate sênior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 4.1"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 41,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios Elegíveis. “Alocação Mínima Para Significa a alocação de, pelo menos, 67% (sessenta e sete por Fins Tributários” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50%/PL até 90 dias da primeira emissão; tributária 67% sob melhores esforços.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 1.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 54,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "respectivo Apêndice das Cotas Subordinadas Júnior. #6937369v8 - 14 - “Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Subordinadas Mezanino. “Sobretaxa Sênior” Significa a sobretaxa a ser acrescentada à Taxa DI para determinação das Metas de Remuneração, conforme definição do respectivo Apêndice das Cotas Seniores. “Subclasses” Significam, em conjunto ou isoladamente, conforme o caso, a Subclasse Sênior, a Subclasse Subordinada Mezanino e/ou a Subclasse Subordinada Júnior. “Subclasse Sênior” Significa a subclasse de Cotas Seniores, cujas principais características e os direitos, estarão descritos no respectivo Apêndice. “Subclasse Subordinada Significa a subclasse de Cotas Subordinadas Júnior, cujas Júnior” principais características e os direitos, estarão descritos no"
+    },
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 85,
+     "clause": "Anexo, cl. 8.23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "ição do Índice de Subordinação Sênior, em caso de desenquadramento do referido índice, caso aplicável; (v) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação; e (vi) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Junior em circulação. 8.24. A Ordem de Alocação de Recursos em datas que não sejam Datas de Pagamento, caso a Amortização Sequencial esteja em curso, ocorrerá da seguinte forma: (i) pagamento das taxas, despesas e encargos de responsabilidade da Classe devidos nos termos do Regulamento, deste Anexo Descritivo e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos, caso existam; (ii) caso o Dia Útil seja uma Data de Recomposição da Reserva de Liquidez, recomposição da Reserva de Liquidez, respeitando as condições descritas nos itens 9 e 9.1 abaixo; e (iii) aquisição de Ativos Financeiros. 8.25."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥20%/PL; júnior≥1%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "caso, nos termos dos itens 9.3 e 9.3.1 deste Anexo Descritivo. “Índice de Subordinação Significa a relação equivalente a, no mínimo, 20% (vinte por Sênior” cento) entre o valor das Cotas Subordinadas, em conjunto, em circulação, e o Patrimônio Líquido da Classe Única, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175. Isto quer dizer que a Classe #6937369v8 - 11 - Única deverá ter, no máximo, 80% (oitenta por cento) do seu Patrimônio Líquido representado por Cotas Seniores. “Índice de Subordinação Significa a relação equivalente a, no mínimo, 1% (um por cento) Mezanino” entre o valor das Cotas Subordinadas Júnior, em circulação, e o Patrimônio Líquido da Classe Única, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas≥20%/PL; júnior≥1%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "1% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 51,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "ento) do seu Patrimônio Líquido representado por Cotas Seniores. “Índice de Subordinação Significa a relação equivalente a, no mínimo, 1% (um por cento) Mezanino” entre o valor das Cotas Subordinadas Júnior, em circulação, e o Patrimônio Líquido da Classe Única, nos termos do artigo 2º, inciso XV e do artigo 20, inciso II, ambos do Anexo Normativo II da Resolução CVM 175."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 1.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Cura de 15 dias abaixo de 20%; depois é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 90,
+     "clause": "Anexo, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "janeiro de 2025 e a última será na Data de Verificação imediatamente anterior à 1ª Data de Pagamento; (vi) observado o prazo de cura de 15 (quinze) dias contados da respectiva Data de Verificação, caso o Índice de Subordinação Sênior seja inferior a 20% (vinte por cento); e (vii) caso, em determinada Data de Verificação, a Alocação Mínima Para Fins Tributários não esteja sendo cumprida; #6937369v8 - 51 - CAPÍTULO DÉCIMO – EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA 10. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações, obrigações e garantias do Cedente no âmbito do Contrato de Cessão ou demais documentos integrantes do Fundo e da Classe e que não sejam sanadas pelo Cedente em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Cedente de notificação enviada pelo Administrador nesse sentido; (ii) em caso de declaração e/ou prestação de garantias falsas, incorretas e/ou incompletas realizada pelo Cedente em relação aos Direitos Creditórios e/ou às declarações da respectiva Cedente nos Contratos de Cessão e/ou Termos de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas≥20%/PL; júnior≥1%/PL.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 9.4"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Fundo de despesas com valor mínimo em branco ([●]) no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Fundo de despesas para ano subsequente; mínimo em branco R$ [●].",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Manual de PDD da administradora (perda esperada; efeito vagão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 12,
+     "clause": "Anexo IV, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "isão para créditos de liquidação duvidosa para Direitos Creditórios Adquiridos de acordo com os termos estabelecidos no manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos, disponível em https://vortx.com.br/static/assets/manuais/Z4%20- %20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf. 4.1.1. Sem prejuízo do quanto disposto na Cláusula 4.1 acima, para a provisão dos valores referentes aos Direitos Creditórios Adquiridos vencidos e não pagos será observada a seguinte regra: (i). até 30 (trinta) dias de atraso, o valor contabilizado da parcela do Direito Creditório Adquirido inadimplido corresponderá ao valor corrente, não sendo realizada qualquer provisão; (ii). para cada dia decorrido a partir de 31 (trinta e um) dias de atraso, será provisionado o valor correspondente a 1/60 do valor presente da parcela do Direito Creditório Adquirido Inadimplido, até o 90º (nonagésimo) dia (inclusive); e (iii)."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Violação do cedente sem cura em 5 DU; diluição, atrasos e subordinação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 91,
+     "clause": "Anexo, cl. 10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "O – EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO ANTECIPADA DA CLASSE ÚNICA 10. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) violação das declarações, obrigações e garantias do Cedente no âmbito do Contrato de Cessão ou demais documentos integrantes do Fundo e da Classe e que não sejam sanadas pelo Cedente em até 5 (cinco) Dias Úteis a contar do recebimento, pelo Cedente de notificação enviada pelo Administrador nesse sentido; (ii) em caso de declaração e/ou prestação de garantias falsas, incorretas e/ou incompletas realizada pelo Cedente em relação aos Direitos Creditórios e/ou às declarações da respectiva Cedente nos Contratos de Cessão e/ou Termos de Cessão; (iii) ocorrência de evento que, para os fins da legislação aplicável à época na qual ocorrer o evento, torne o Cedente insolvente; (iv) alteração ou modificação do objeto social do Cedente, que altere substancialmente seu ramo de negócios atualmente explorado; (v) caso a Cedente aliene as Cotas Subordinadas Mezanino e/ou a Gestora aliene as Cotas Subordinadas Juniores; (vi) (a) vencimento antecipado de obrigações pecuniárias contraídas pelo Cedente;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 90,
+     "clause": "Anexo, cl. 9.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "superior ou igual a 5% (cinco por cento); ou (b) em qualquer Data de Verificação, o Índice de Resolução/Diluição for igual ou superior a 10% (dez por cento), sendo certo que a primeira verificação deverá ocorrer em maio de 2025;"
+    }
+   ],
+   "legacy": {
+    "value": "Diluição/recompra≥5% recorrente ou 10% pontual; atraso 3/31/61 faixas com limites 3%/2%/1% e cura.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 10"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida; sênior sem remuneração após 2 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 94,
+     "clause": "Anexo, cl. 10.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "abaixo deste Capítulo Décimo. 10.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (i) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (ii) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de #6937369v8 - 55 - Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura; (iii) caso o Regulamento, este Anexo Descritivo, o Contrato de Cessão e/ou qualquer documento acessório previsto nestes contratos, sejam considerados nulos, inválidos ou ineficazes, no todo ou em parte, ou venham a ser contestados judicial, extrajudicialmente ou administrativamente pelo Cedente ou qualquer autoridade governamental, e desde que referida ocorrência não seja sanada em até 10 (dez) Dias Úteis a partir da data do seu acontecimento; (iv) caso o Contrato Cessão seja resolvido, resilido e/ou encerrado, de acordo com seus próprios termos e condições;"
+    }
+   ],
+   "legacy": {
+    "value": "Diluição/recompra≥5% recorrente ou 10% pontual; atraso 3/31/61 faixas com limites 3%/2%/1% e cura.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 10.6"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação não detalha recompra no texto extraído",
+   "sources": []
+  },
+  "amortization": {
+   "display": "Ordem de alocação: sênior, mezanino e júnior pelas metas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 85,
+     "clause": "Anexo, cl. 8.23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "ição do Índice de Subordinação Sênior, em caso de desenquadramento do referido índice, caso aplicável; (v) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação; e (vi) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Junior em circulação. 8.24. A Ordem de Alocação de Recursos em datas que não sejam Datas de Pagamento, caso a Amortização Sequencial esteja em curso, ocorrerá da seguinte forma: (i) pagamento das taxas, despesas e encargos de responsabilidade da Classe devidos nos termos do Regulamento, deste Anexo Descritivo e da regulamentação aplicável, inclusive despesas incorridas com a cobrança dos Direitos Creditórios Adquiridos e com Derivativos, caso existam; (ii) caso o Dia Útil seja uma Data de Recomposição da Reserva de Liquidez, recomposição da Reserva de Liquidez, respeitando as condições descritas nos itens 9 e 9.1 abaixo; e (iii) aquisição de Ativos Financeiros. 8.25."
+    }
+   ],
+   "legacy": {
+    "value": "Juros mensais no dia 10; principal no resgate 10/12/2028, sujeito ao regime e precedência sênior.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 8.23"
+   }
+  },
+  "admin_fee": {
+   "display": "Dezoito centésimos por cento a.a. do PL; mín. R$ 18 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 134,
+     "clause": "Anexo, cl. 13.6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "disposto nos demais artigos deste capítulo (“Taxa de Administração”): (i) pelo serviço de Administração do Fundo, será pago ao Administrador o valor correspondente a 018% (dezoito centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$18.000,00 (dezoito mil reais): (ii) parcela única de R$30.000,00 (trinta mil reais) será devida ao Administrador na 1ª Data de Integralização de Cotas, pelos serviços de implantação do Fundo; (iii) pela prestação dos serviços de verificação trimestral da existência e da integridade dos Documentos Comprobatórios dos Direitos Creditórios adquiridos substituídos ou inadimplidos no respectivo período, será devido pela Classe ao Custodiante o montante fixo de R$5.000,00 em cada data de verificação;"
+    }
+   ],
+   "legacy": {
+    "value": "Extenso 0,18% a.a./PL (extração 018%); mínimo R$ 18 mil/mês; confirmar numeral noPDF.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 13.6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Vinte e cinco centésimos por cento a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 136,
+     "clause": "Anexo, cl. 13.10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "Fundo e correspondente à prestação dos serviços do Gestor. Pela prestação dos serviços de gestão da carteira do Fundo, o Gestor fará jus à remuneração mensal, correspondente a 025% (vinte e cinco centésimos por cento) ao ano, aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$20.000,00 (vinte mil reais) mensais. 13.11. Serão acrescidos mensalmente às remunerações previstas nos itens acima os tributos incidentes (ISS, PIS, COFINS, CSLL e IRRF e outros que porventura venham a incidir) nas alíquotas vigentes nas respectivas datas de pagamento. 13.12. Taxa de Performance. Não será cobrada dos Cotistas qualquer taxa de performance. 13.13. Inexistência de Taxas Adicionais. Não serão cobradas taxas de ingresso, performance ou de saída pelo Administrador. 13.14."
+    }
+   ],
+   "legacy": {
+    "value": "Extenso 0,25% a.a./PL (extração 025%); mínimo R$ 20 mil/mês.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 13/03/2025, Anexo, cl. 13.10"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 136,
+     "clause": "Anexo, cl. 13.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "ue porventura venham a incidir) nas alíquotas vigentes nas respectivas datas de pagamento. 13.12. Taxa de Performance. Não será cobrada dos Cotistas qualquer taxa de performance. 13.13. Inexistência de Taxas Adicionais. Não serão cobradas taxas de ingresso, performance ou de saída pelo Administrador. 13.14. Entidade Registradora #6937369v8 - 97 - 13.14.1 A Entidade Registradora será contratada para realizar o registro dos Direitos Creditórios Adquiridos que sejam passíveis de registro e não poderá ser parte relacionada à Gestora ou à Consultoria Especializada. 13.14.2 Nos termos do artigo 37, parágrafo único, do Anexo Normativo II à Resolução CVM 175, serão dispensados do registro na Entidade Registradora os Direitos Creditórios Adquiridos que estejam registrados em mercado de balcão organizado autorizado pela CVM ou depositados em depositário central autorizado pela CVM ou pelo BACEN. Controladoria do Fundo, Custódia Qualificada, Escrituração das Cotas e Guarda dos Documentos Comprobatórios 13.15."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Apêndice da série sênior não está no acervo",
+   "sources": [],
+   "legacy": {
+    "value": "Mezanino 1ª série: Taxa DI; sobretaxa não aplicável no suplemento.",
+    "decision": "regression",
+    "why": "Resposta anterior trata da série mezanino, registrada na linha própria"
+   }
+  },
+  "target_mezz": {
+   "display": "Taxa DI, sem sobretaxa (1ª série mezanino)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "id1206367",
+     "document_id": "1206367",
+     "kind": "Ata",
+     "title": "AGE",
+     "date": "20/05/2026",
+     "page": 5,
+     "clause": "Apêndice, cl. 6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1206367",
+     "excerpt": "Colocação privada. Data de Resgate: 10/12/2028 Data de Desinvestimento: 10/10/2028 Sobretaxa Mezanino: Não aplicável. Meta de Remuneração: as Cotas Subordinadas Mezanino serão valoradas diariamente, a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas até a Data de Resgate das Cotas Subordinadas Mezanino, nos termos do Capítulo Oitavo do Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Mezanino 1ª série: Taxa DI; sobretaxa não aplicável no suplemento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 3,
+     "clause": "Anexo IV, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "a o “Acordo Operacional” celebrado entre o Administrador e o Gestor. “Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição com sede na cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 41, Sala 2, CEP 05425-020, inscrita no CNPJ sob o nº 22.610.500/0001-88, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016. “Agência de Classificação de Significa a agência classificadora de risco contratada pela Classe Risco” Única para a classificação de risco das Cotas da Subclasse sênior da Classe Única, caso aplicável. “Anexo” Significa qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente Regulamento. “Anexo Descritivo” Significa o anexo descritivo da Class"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Opea Gestora de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 7,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "TO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA. “Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Rua Hungria, nº 1.240, 1º andar, conjunto 62, Jardim Europa, CEP 01455-000, inscrita no CNPJ sob o nº 36.196.900/0001-01, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 19.365, de 7 de dezembro de 2021. “Instrução CVM 489/11” Significa a Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e/ou qualquer normativo que venha a substituí-la. “Investidores Autorizados” Significam os investidores autorizados a adquirir Cotas do Fundo, os quais deverão se enquadrar no conceito de Investidores Profissionais. “Investidores Profissionais” Significam os investidores assim definidos de acordo com o artigo 11"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 46,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "deste Anexo Descritivo. #6937369v8 -6- “Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, na qualidade de custodiante dos ativos integrantes da Carteira, responsável pela custódia qualificada dos ativos integrantes da Carteira, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios. “Data de Aniversário” Significa todo 10º (décimo) dia de cada mês, a contar da 1ª Data de Integralização de Cotas da, sendo certo que se tal data não for um Dia Útil, a Data de Aniversário correspondente será o Dia Útil imediatamente subsequente. “Data de Aquisição” Significa qualquer data na qual o Fundo (em benefício da Classe Única) formalize a aquisição de Direitos Creditórios Elegíveis, que ocorrerá com o consequente pagamento do Preço de Aquisição pela Classe Única, por intermédio do Fundo, ao Cedente. “Data de Emissão” Significa a data em que ocorrer a subscrição e a p"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 8,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "izada durante o prazo de duração do Fundo, nos termos da Resolução CVM 160/22, a qual (i) será destinada exclusivamente a Investidores Profissionais; (ii) será intermediada por sociedades integrantes do sistema de distribuição de valores mobiliários brasileiro. “Patrimônio Líquido” Significa o patrimônio líquido da Classe Única, correspondente à diferença entre (i) o valor agregado dos ativos da Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada, duração indeterminada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 10,
+     "clause": "Anexo IV, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "CVM 175/22, pela Resolução CMN nº 2.907 e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas, conforme o caso, conforme descrito no respectivo Anexo Descritivo. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente, pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices, os quais integram o presente Regulamento. CAPÍTULO TERCEIRO – PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO 3. Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados, respeitado que, no âmbito de uma Oferta Pública, as Cotas serão subscritas e integralizadas exclusivamente por Investidores Profissionais, nos termos da Resolução CVM 160/22. 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, responsabilidade limitada, duração indeterminada.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Grupo econômico ≤ 3% do PL; grupos especiais por acordo operacional",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "861191",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "13/03/2025",
+     "page": 61,
+     "clause": "Anexo, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=861191",
+     "excerpt": "om as demais integrantes do seu Grupo GESTOR COM BASE NAS Econômico), devem estar limitados INFORMAÇÕES DO a 3% (três por cento) do Patrimônio CUSTODIANTE e CEDENTE Líquido da Classe, sendo certo que, até o dia 31 de dezembro de 2024, será considerado como Patrimônio Líquido, o maior entre: (i) R$200.000.000,00 (duzentos milhões de reais); ou (ii) o Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "Grupo≤3%/PL; grupos especiais conforme Acordo Operacional.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Vendas a prazo curto (até 60 dias) da Frimesa com 20% de subordinação e grupo devedor ≤ 3% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

@@ -1,52 +1,49 @@
 # portado de 51554551000138 (58291962000127)
 type: Agro/FIAGRO
-q101: * "Direitos Creditórios” Significam os direitos creditórios do agronegócio performados, vincendos, existentes,"
-q102: * "50% (cinquenta por cento) do Investimento” Patrimônio Líquido em Direitos Creditórios"
-q103: * "10 (dez) meses. “Prêmio de Excesso de Significa o montante em"
-q104: * "0,18% (dezoito centésimos por cento) ao ano aplicado sobre o Patrimônio"
-q105: * "0,135% (cento e trinta e cinco décimos por cento), pagos mensalmente,"
-q1: * "“Cedente” Significa a COMPANHIA NITRO QUÍMICA BRASILEIRA"
-q2: * "“Devedores” Significam os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais"
-q3: * "(i) Devedores presentes na “Lista de Clientes Elegíveis KPMG”: até 100%"
-q4: * "estar inadimplentes em relação ao Fundo por mais de 1 (um) dia na Data de Aquisição"
-q5: * "“Índice de Subordinação” Significa a relação equivalente a, no mínimo, 25%"
-q6: * "Qualquer dos seguintes eventos será considerado um Evento de Avaliação"
+q22: * "“Reserva de Despesas” A reserva a ser constituída, em valor aproximado equivalente 12 (doze) meses"
+q21: * "o Gestor cobrará, pelos serviços de gestão profissional da Carteira, o valor correspondente a 0,25%"
+q20: * "A taxa de administração do Fundo, devida em decorrência dos serviços de administração, custódia e controladoria de ativos será equivalente a 0,18%"
+q19: * "mínimo de vencimento de 30 (trinta) dias, contados da Data de Aquisição"
+q1: * "“Cedente” Significa a HELM DO BRASIL MERCANTIL LTDA."
+q2: * "“Devedores” Significa qualquer cliente da Cedente cujos Direitos Creditórios venham a ser cedidos ao Fundo"
+q3: * "com as demais integrantes do seu Grupo Econômico), devem estar limitados a 3% (três por cento) do Patrimônio Líquido da Classe"
+q4: * "os Direitos Creditórios não poderão estar do Agente de Formalização e do Administrador vencidos"
+q5: * "Índice de Subordinação deverá corresponder a, no mínimo, 20%"
 q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
-q8: * "manual de provisão para perdas por redução no valor de recuperação ou provisão para perdas com devedores duvidosos"
-q9: * "Não será cobrada dos Cotistas qualquer taxa de performance"
+q8: * "Devedor Especial (considerado em conjunto com as demais integrantes do seu Grupo Econômico) conforme Anexo I do Acordo Operacional, devem estar limitados a 10%"
 q10: * "“Administrador” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
 q11: * "“Gestor” Significa a OPEA GESTORA DE RECURSOS LTDA."
 q12: * "“Custodiante” Significa a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
 q13: * "será destinada exclusivamente a Investidores Profissionais"
-q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Subclasse de Cotas"
-q15: * "Sobretaxa Sênior: 1,85% (um inteiro e oitenta e cinco centésimos por cento)"
-q16: * "Sobretaxa Mezanino” Significa a sobretaxa a ser acrescentada à Taxa DI"
-q17: * "pagamento da Meta de Remuneração com referência às Cotas Subordinadas Mezanino em circulação"
-q18: * "o Índice de Subordinação for menor que 25%"
-receivables: Créditos performados de venda de insumos agro, com NF-e em XML | q101
-originator: Companhia Nitro Química Brasileira (insumos agrícolas) | q1
-assignor: Companhia Nitro Química Brasileira (cedente única) | q1
-debtor: Produtores rurais, cooperativas e empresas do agronegócio | q2
+q14: * "O Fundo terá prazo de duração indeterminado, sendo o prazo de cada Subclasse"
+q15: id957853 "Sobretaxa Sênior: 2,00% (dois inteiros por cento)"
+q16: * "A Classe buscará atingir a Meta de Remuneração das Cotas Seniores, das Cotas Subordinadas Mezanino e das Cotas Subordinadas Júnior"
+q17: * "pagamento da Meta de Amortização e Meta de Remuneração relativa às Cotas Subordinadas Mezanino em circulação"
+q18: * "Rio Grande do Sul, devem estar limitados a 30% (trinta por cento)"
+receivables: Vendas de insumos agropecuários da Helm, com lastro em notas fiscais | q1,q2
+originator: Helm do Brasil Mercantil (insumos agropecuários) | q1
+assignor: Helm do Brasil Mercantil (cedente única) | q1
+debtor: Clientes da Helm no agronegócio | q2
 recourse: n/d | Regime de coobrigação fica nos termos gerais de cessão, fora do texto lido
-eligibility: Devedor sem atraso > 1 dia; lista de autorizados; vedados e Serasa | q4,q3
-debtor_limit: Lista KPMG até 100% do PL; demais devedores até 20% | q3
-assignor_limit: Cedente única (Nitro Química) | q1
-term_max: n/d | Prazo máximo dos créditos não localizado no anexo extraído
-allocation: ≥ 50% do PL em direitos creditórios | q102 | value=50
+eligibility: Não vencidos; prazo mínimo de 30 dias; taxa de desconto do contrato | q4,q19
+debtor_limit: Grupo ≤ 3% do PL; devedor especial ≤ 10%; Rio Grande do Sul ≤ 30% | q3,q8,q18
+assignor_limit: Cedente única (Helm) | q1
+term_max: Prazo mínimo de 30 dias; máximo não fixado no anexo | q19
+allocation: ≥ 67% do PL em direitos creditórios | o23 | value=67
 quota_structure: Sênior / Mezanino / Júnior | q16,q17
-sub_senior: 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
 sub_mezz: n/d | Índice próprio da mezanino não localizado no anexo extraído
-sub_check: Mensal (último DU); abaixo de 25% é evento do anexo | q18
-reserve: Fundo de despesas para cerca de 10 meses de despesas | q103
+sub_check: Índice de monitoramento apurado pelo gestor | q5
+reserve: Reserva de despesas de cerca de 12 meses de despesas ordinárias | q22
 pdd: Manual de PDD da administradora (perda esperada; efeito vagão) | q8
-eval_triggers: Violação do cedente não sanada em 5 DU, entre outros | q6
+eval_triggers: Não pagamento da sênior sem cura em 2 DU, entre outros | o39
 liquidation: Avaliação convertida; sênior sem remuneração após 2 DU, entre outros | q7
 revolving: n/d | Ordem de alocação não detalha recompra no texto extraído
 amortization: Ordem de alocação: sênior, mezanino e júnior pelas metas | q17
-admin_fee: 0,18% a.a. do PL; mín. R$ 18 mil/mês; implantação R$ 10 mil | q104
-mgmt_fee: 0,135% a.a. do PL; mín. R$ 15 mil/mês, mais flat fee | q105
-perf_fee: Não prevista | Regulamento veda taxa de performance | q9
-target_senior: DI + 1,85% a.a. (série sênior vigente) | q15
+admin_fee: 0,18% a.a. do PL; mín. R$ 18 mil/mês; inclui custódia | q20,o51
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 20 mil/mês | q21,o54
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: DI + 2,00% a.a. (1ª série sênior) | q15
 target_mezz: n/d | Sobretaxa da mezanino definida em apêndice fora do acervo | q16 | why=Resposta anterior trata da série sênior, registrada na linha própria
 administrator: Vórtx DTVM | q10
 manager: Opea Gestora de Recursos | q11
@@ -54,6 +51,6 @@ custodian: Vórtx DTVM | q12
 servicer: n/d | Agente de cobrança não nomeado no texto extraído
 investors: Investidores profissionais | q13
 duration: Indeterminado; prazo próprio por subclasse | q14
-agro_backing: Venda de insumos agrícolas da Nitro Química a produtores | q1,q101
+agro_backing: Insumos agropecuários vendidos pela Helm | q1,q2
 collateral: n/d | Garantias dos recebíveis não descritas no anexo extraído
-leitura: Insumos agrícolas da Nitro Química com 25% de subordinação; devedor fora da lista KPMG limitado a 20% do PL.
+leitura: Insumos agro da Helm com 20% de subordinação; grupo devedor ≤ 3% e Rio Grande do Sul ≤ 30% do PL.
