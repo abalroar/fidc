@@ -1,0 +1,893 @@
+{
+ "schema_version": 1,
+ "cnpj": "28169275000172",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PAGSEGURO I",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T16:16:39Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1149521",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "25/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521"
+  },
+  "D2": {
+   "document_id": "1148251",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "30/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148251"
+  },
+  "D3": {
+   "document_id": "998868",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "23/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998868"
+  },
+  "D4": {
+   "document_id": "773514",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "04/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=773514"
+  },
+  "D5": {
+   "document_id": "771338",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=771338"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "URs de vendas com cartão (crédito à vista, parcelado sem juros e débito)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 15,
+     "clause": "cl. 3.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.7.1. Cumprimento dos Critérios de Elegibilidade. Os Direitos Creditórios são oriundos de Transações de Pagamento realizadas por Usuários-Finais. A Classe adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e as Condições de Cessão, conforme verificados pela Gestora e pelo PagSeguro nas respectivas datas de oferta dos Direitos Creditórios à Classe. 3.7.2. Cessão da Totalidade dos Direitos Vinculados aos Direitos Creditórios Elegíveis."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 14,
+     "clause": "cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.2. Origem dos Direitos Creditórios. Os Direitos Creditórios são oriundos da realização de Transações de Pagamento por Usuários-Finais para aquisição de bens, produtos, mercadorias e/ou serviços oferecidos na rede de Estabelecimentos Credenciados, utilizando-se de Instrumentos de Pagamento por meio do sistema dos Devedores, na figura de Credenciadores. Ativos Financeiros de Liquidez 3.3."
+    }
+   ],
+   "legacy": {
+    "value": "Transações de crédito à vista/parcelado sem juros e débito, operacionalizadas pelo Sistema PagSeguro",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "estabelecimentos credenciados ao PagSeguro",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 15,
+     "clause": "cl. 3.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.7.1. Cumprimento dos Critérios de Elegibilidade. Os Direitos Creditórios são oriundos de Transações de Pagamento realizadas por Usuários-Finais. A Classe adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e as Condições de Cessão, conforme verificados pela Gestora e pelo PagSeguro nas respectivas datas de oferta dos Direitos Creditórios à Classe. 3.7.2. Cessão da Totalidade dos Direitos Vinculados aos Direitos Creditórios Elegíveis."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(i) deverão ser cedidos por Cedentes, representados pelo PagSeguro; (ii) deverão corresponder ao valor livre de uma respectiva U.R. na respectiva data de Cessão, sendo certo que posterior majoração ou diminuição no valor da U.R. não será considerada como desatendimento à referida condição; (iii) a U.R. deve estar devidamente registrada e atender aos Critérios de Elegibilidade; (iv) o Devedor deverá estar adimplente com relação a todos os pagamentos devidos ao Fundo em virtude dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Estabelecimentos credenciados cedem seus recebíveis; PagSeguro operacionaliza",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "estabelecimentos credenciados, representados pelo PagSeguro",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(i) deverão ser cedidos por Cedentes, representados pelo PagSeguro; (ii) deverão corresponder ao valor livre de uma respectiva U.R. na respectiva data de Cessão, sendo certo que posterior majoração ou diminuição no valor da U.R. não será considerada como desatendimento à referida condição; (iii) a U.R. deve estar devidamente registrada e atender aos Critérios de Elegibilidade; (iv) o Devedor deverá estar adimplente com relação a todos os pagamentos devidos ao Fundo em virtude dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "Estabelecimentos credenciados cedem seus recebíveis; PagSeguro operacionaliza",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Devedor das URs (credenciador ou emissor) não definido no trecho localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor na figura de credenciador; confirmar contrato da UR",
+    "decision": "regression",
+    "why": "A leitura anterior também indica confirmação pendente"
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação; resolução por vício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 17,
+     "clause": "cl. 3.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.14. Inexistência de Direito de Regresso e Coobrigação. A Classe adquirirá Direitos Creditórios Elegíveis e todos e quaisquer direitos, prerrogativas, garantias e acessórios pertinentes, em caráter definitivo e sem qualquer direito de regresso contra o respectivo Cedente e/ou coobrigação deste, observados, em qualquer caso: (i) os demais termos e condições deste Regulamento; (ii) os termos, condições e procedimentos previstos no Contrato de Prestação de Serviços PagBank e nas Condições Gerais de Cessão;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 35,
+     "clause": "cl. 4.7.31",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "Resolução da Cessão (conforme definido nas Condições Gerais de Cessão) à Classe. Na hipótese acima, os Cedentes dos Direitos Creditórios poderão não possuir recursos suficientes para realizar o pagamento do Preço da Resolução de Cessão à Classe, afetando negativamente a rentabilidade da Classe e o rendimento das Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "Resolução de cessão por inelegibilidade/vício; preço de resolução conforme condições gerais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Valor livre de UR; prazo ≤ 24 meses; devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(i) deverão ser cedidos por Cedentes, representados pelo PagSeguro; (ii) deverão corresponder ao valor livre de uma respectiva U.R. na respectiva data de Cessão, sendo certo que posterior majoração ou diminuição no valor da U.R. não será considerada como desatendimento à referida condição; (iii) a U.R. deve estar devidamente registrada e atender aos Critérios de Elegibilidade; (iv) o Devedor deverá estar adimplente com relação a todos os pagamentos devidos ao Fundo em virtude dos Direitos Creditórios Cedidos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 19,
+     "clause": "cl. 3.26",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(ii) deverão ter um prazo máximo de 24 (vinte e quatro) meses entre a data de aquisição pela Classe e a data do seu vencimento; (iii) deverão ter um valor de face maior que R$ 0,01 (um centavo);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(v) o Devedor não poderá estar inadimplente em relação aos Cedentes, na respectiva data de aquisição do Direito Creditório, exceto em caso de questionamento por disputa e/ou desacordo comercial de boa fé, assim como chargeback e/ou cancelamento de Transação de Pagamentono curso ordinário dos negócios do Devedor; (vi) a soma entre o montante de caixa, Ativos Financeiros e Direitos Creditórios cujo prazo de vencimento seja anterior ao prazo de resgate das Cotas Seniores ou das Cotas Mezanino emitidas em aberto da Classe Única, deverá ser igual ou superior ao valor das Cotas Seniores e/ou das Cotas Mezanino emitidas em aberto;"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo ≤ 24 meses; valor de face > R$ 0,01; reais; titularidade e ausência de ônus",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 3.30"
+   }
+  },
+  "debtor_limit": {
+   "display": "Sem limite de 20% do PL (dispensa regulatória)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 18,
+     "clause": "cl. 3.19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "observância do limite de 20% (vinte por cento) de seu Patrimônio Líquido, tendo em vista o estabelecido no artigo 45, § 7º, II, do Anexo Normativo II da Resolução CVM 175/22. 3.20. Operações Contratadas pela Gestora. A Gestora, respeitado o disposto no presente Capítulo, não poderá contratar quaisquer operações para a composição da carteira da Classe em que figurem como contrapartes a própria Gestora, empresas controladoras, controladas, coligadas e/ou subsidiárias da Gestora. 3.21. Segregação das Atividades da Administradora."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Dispensa do limite de 20% por mesmo devedor/coobrigado, art. 3.19.1",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 3.19.1"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por cedente",
+   "sources": [],
+   "legacy": {
+    "value": "Dispensa do limite de 20% por mesmo devedor/coobrigado, art. 3.19.1",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 24 meses da aquisição",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 19,
+     "clause": "cl. 3.26",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(ii) deverão ter um prazo máximo de 24 (vinte e quatro) meses entre a data de aquisição pela Classe e a data do seu vencimento; (iii) deverão ter um valor de face maior que R$ 0,01 (um centavo);"
+    }
+   ],
+   "legacy": {
+    "value": "Prazo ≤ 24 meses; valor de face > R$ 0,01; reais; titularidade e ausência de ônus",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 3.26"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL (67% tributário, discricionário)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 17,
+     "clause": "cl. 3.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(cento e oitenta) dias do início das atividades da Classe, esta deverá ter alocado, no mínimo, 50% Alocação Mínima Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 da Resolução CVM 175/22, observadas as demais disposições contidas neste Anexo Descritivo. 3.16.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 17,
+     "clause": "cl. 3.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "Alocação Mínima Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 da Resolução CVM 175/22, observadas as demais disposições contidas neste Anexo Descritivo. 3.16.1. Considerando a Alocação Mínima de Investimento Tributária, a qual a Gestora de forma discricionária busca perseguir, a alocação mínima de 67% (sessenta e sete por cento) de seu Patrimônio Líquido em Direitos Creditórios Elegíveis, os Cotistas passarão a se sujeitar ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, conforme o disposto na Lei nº 14.754/23. JUR_SP - 57153311v4 - 5574021.570066 3.16.2."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "50% do PL após 180 dias; alvo tributário discricionário de 67%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 3.16"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada (PagSeguro)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 39,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "Benchmark Sênior 6.4. As Cotas Mezanino emitidas pela Classe possuem as seguintes características, vantagens, direitos e obrigações: (i) somente poderão receber o pagamento de distribuição de Remuneração após a realização do pagamento de Remuneração às Cotas Seniores em cada Data de Amortização Programada, conforme aplicável, nos termos deste Anexo Descritivo; (ii) somente poderão ser amortizadas e/ou resgatadas após o resgate integral das Cotas Seniores, nos termos deste Anexo Descritivo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 39,
+     "clause": "cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(vi) as Cotas Mezanino possuirão como rentabilidade alvo remuneração determinada no Benchmark Mezanino 6.5. As Cotas Subordinadas a serem subscritas e integralizadas exclusivamente pelo PagSeguro e/ou por Parte Relacionada do PagSeguro, em montante equivalente, no mínimo, à proporção da Razão de Subordinação, terão as seguintes características, vantagens, direitos e obrigações: (i) subordinam-se às Cotas Seniores e às Cotas Mezanino para efeito de amortização e/ou resgate, observados os termos deste Anexo Descritivo;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 50% do PL; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 6.3"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 13,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "2.7. A Razão de Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) de Cotas Subordinadas da Classe, em relação ao seu Patrimônio Líquido, a ser apurada diariamente pela Administradora. Ordem de Alocação 2.8. A Administradora utilizará os recursos disponíveis para o pagamento das obrigações da Classe, obrigatoriamente e até a resolução integral das obrigações da Classe, na seguinte ordem: (i) pagamento de Despesas da Classe, conforme artigo 10.1 deste Anexo; (ii) constituição, manutenção e recomposição da Reserva de Despesa;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Subordinadas ≥ 50% do PL; apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice próprio da mezanino não localizado",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Apuração diária pelo administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 13,
+     "clause": "cl. 2.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "2.7. A Razão de Subordinação é a proporção mínima obrigatória de 50% (cinquenta por cento) de Cotas Subordinadas da Classe, em relação ao seu Patrimônio Líquido, a ser apurada diariamente pela Administradora. Ordem de Alocação 2.8. A Administradora utilizará os recursos disponíveis para o pagamento das obrigações da Classe, obrigatoriamente e até a resolução integral das obrigações da Classe, na seguinte ordem: (i) pagamento de Despesas da Classe, conforme artigo 10.1 deste Anexo; (ii) constituição, manutenção e recomposição da Reserva de Despesa;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas ≥ 50% do PL; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 2.7"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas ≥ R$ 1 mi, apurada mensalmente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 13,
+     "clause": "cl. 2.8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "no mínimo, R$ 1.000.000,00 (um milhão de reais) a ser calculada mensalmente, devendo ser constituída e controlada pela Administradora, para fins de cobertura de encargos e despesas da Classe, observado o disposto neste Anexo Descritivo. JUR_SP - 57153311v4 - 5574021.570066 3. POLÍTICA DE INVESTIMENTOS Objetivo 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "Reserva de despesas ≥ R$ 1 milhão; apuração mensal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de PDD não localizado no regulamento",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Pagamento das cotas não feito em 2 DU; reserva fora por 10 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 48,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(i) caso a Classe deixe de efetuar o pagamento, e não regularizado no prazo de até 2 (dois) Dias Úteis: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada, (b) pagamento integral dos Resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores, (c) do Benchmark Sênior nas respectivas Datas de Pagamento de Remuneração; (d) integral de qualquer das Amortizações Programadas das Cotas Mezanino, na respectiva Data de Amortização Programada, (e) pagamento integral dos Resgates das Cotas Mezanino, na respectiva Data de Re"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(xvii) desenquadramento da Reserva de Despesas por um prazo superior a 10 (dez) Dias Corridos, conforme calculada e comunicada pela Gestora; (xviii) caso haja qualquer decisão judicial e/ou ordem de autoridade governamental a respeito da existência, validade, regularidade e/ou formalização dos Direitos Creditórios cedidos à Classe, que prejudique a continuidade definitiva da Classe; e (xix) impossibilidade de aquisição de Direitos Creditórios devido a ordem judicial e/ou de autoridade governamental, que perdure por 20 (vinte) Dias Úteis consecutivos. 8.2."
+    }
+   ],
+   "legacy": {
+    "value": "Falha de pagamento sênior/MZ não regularizada em 2 DU; hipóteses adicionais no cap.8",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida pela AGC; eventos do art. 8.5",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 50,
+     "clause": "cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "8.2. Na ocorrência de qualquer Evento de Avaliação, será convocada Assembleia de Cotistas para avaliar o grau de comprometimento das atividades da Classe em razão do Evento de Avaliação, podendo a Assembleia de Cotistas deliberar: (i) pela não liquidação da Classe; ou (ii) que o Evento de Avaliação que deu causa à Assembleia de Cotistas constitui um Evento de Liquidação, estipulando os procedimentos para a liquidação da Classe, independentemente da convocação de nova Assembleia de Cotistas. JUR_SP - 57153311v4 - 5574021.570066 8.3. Fica ainda estabelecido que, na hipótese da ocorrência de qualquer dos Eventos de Avaliação descritos acima, a Administradora convocará, no prazo de até 15 (quinze) Dias Úteis, contado do Evento de Avaliação, Assembleia de Cotistas, a qual deverá deliberar acerca do assunto. 8.4. Caso, no âmbito de Assembleia de Cotistas cuja deliberação envolva a caracterização de um Evento de Avaliação como um Evento de Liquidação, os Cotistas em tal Assembleia de Cotistas aprovem a não liquidação da Classe, será assegurado, aos Cotistas Seniores dissidentes que o solicitarem, a possibilidade de resgate das Cotas Seniores, pelo valor patrimonial de tais Cotas Seniores. Eventos de Liquidação 8.5. Liquidação."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 4,
+     "clause": "cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "Integralização, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação da Classe Única, conforme definido no Artigo 8.5 do Anexo Descritivo, observados os limites previstos no Anexo Descritivo. 3.2.1. O Prazo de Duração do Fundo será automaticamente prorrogado por mais 20 (vinte) anos, exceto se decidido de forma contrária pela Gestora. 3.2.2. O Prazo de Duração poderá ser estendido por deliberação exclusiva do Gestor. 3.2.3. Na hipótese de o Prazo de Duração do Fundo encerrar-se em qualquer dia que não um Dia Útil, a liquidação do Fundo será efetuada no primeiro Dia Útil subsequente. 3.2.4. O término do Prazo de Duração do Fundo não afetará o cumprimento das obrigações do Fundo que tenham se tornado exigíveis até o último dia do Prazo de Duração do Fundo, inclusive. 3.2.5. A Classe Única é uma comunhão de recursos destinados, preponderantemente, à aquisição de Direitos Creditórios Elegíveis e demais Ativos Financeiros, durante seu Prazo de Duração, de acordo com a Política de Investimento descrita no Capítulo II do Anexo I ao Anexo Descritivo, e conforme previsto na Resolução CVM 175/22. 3.2.6."
+    }
+   ],
+   "legacy": {
+    "value": "Falha de pagamento sênior/MZ não regularizada em 2 DU; hipóteses adicionais no cap.8",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 8.2"
+   }
+  },
+  "revolving": {
+   "display": "Recebimentos compram novas URs ou amortizam",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 16,
+     "clause": "cl. 3.8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "do Preço de Aquisição de novos Direitos Creditórios e/ou para a amortização das Cotas. Política de Concessão de Crédito 3.9. O processo de concessão de crédito está baseado na realização de Transações de Pagamento por Usuários Finais para aquisição de bens, produtos, mercadorias e/ou serviços oferecidos na rede de Estabelecimentos Credenciados, utilizando-se de Instrumentos de Pagamento. 3.10. A aquisição dos Direitos Creditórios pela Classe será realizada com base nas regras, condições e procedimentos estabelecidos nas Condições Gerais de Cessão, bem como de acordo com os Critérios de Elegibilidade, observado que as Formalizações Eletrônicas de Cessão serão armazenadas em arquivos digitais e mantidas em sistema adequado para tanto. 3.11. A Administradora está autorizada a aceitar o pré-pagamento dos Direitos Creditórios Cedidos, conforme sejam propostos pelo Devedor, nos termos das Condições Gerais de Cessão. 3.12."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma por série no suplemento; regra geral não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Despesas → reserva → sênior → mezanino → subordinadas",
+    "decision": "regression",
+    "why": "A leitura anterior não tem fonte localizável no acervo"
+   }
+  },
+  "admin_fee": {
+   "display": "0,100% a.a. até R$ 1,5 bi; 0,075% até R$ 3 bi; 0,060% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 37,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "De R$0,01 a R$ 1.500.000.000,00 0,100% De R$ 1.500.000.000,01 a R$3.000.000.000,00 0,075% A partir de R$3.000.000.000,01 0,060% 5.2.1. A remuneração de que trata o Artigo acima será paga pela Classe mensalmente, no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas, sendo vedada qualquer participação nos resultados auferidos pelo Fundo, inclusive, sem limitação, cobrança de qualquer taxa de p"
+    }
+   ],
+   "legacy": {
+    "value": "Faixas cumulativas: 0,100% a.a. até R$ 1,5 bi; 0,075% até R$ 3 bi; 0,060% acima; agente de registro R$ 10 mil adicionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 5.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "10% da taxa de administração, até R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 37,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "5.3. Será cobrada taxa de Gestão equivalente a 10% (dez por cento) do valor da Taxa de Administração indicada no Artigo 5.2 acima, limitada ao valor máximo de R$ 4.000,00 (quatro mil reais) mensais. Taxa Máxima de Custódia 5.4. A taxa máxima de custódia, incidente sobre o patrimônio líquido da Classe é fixada nos seguintes parâmetros: (i) Valor da Taxa: 0,02 % (dois centésimos por cento) ao ano (base 252 dias)."
+    }
+   ],
+   "legacy": {
+    "value": "10% da taxa de administração, limitada a R$ 4 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não há cobrança de taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark da série no suplemento; não localizado no acervo",
+   "sources": [],
+   "legacy": {
+    "value": "4ª sênior: DI + 0,75% a.a.",
+    "decision": "regression",
+    "why": "O DI + 0,75% da leitura anterior não tem fonte localizável"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark da mezanino no suplemento; não localizado no acervo",
+   "sources": [],
+   "legacy": {
+    "value": "4ª sênior: DI + 0,75% a.a.",
+    "decision": "regression",
+    "why": "A leitura anterior trata da cota sênior"
+   }
+  },
+  "administrator": {
+   "display": "Genial Investimentos CVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 2,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "rmações específicas de cada Série, quando houver. 2. PRESTADORES DE SERVIÇOS Administradora GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A. 2.1. CNPJ/MF: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Serviços: Além dos serviços de administração fiduciária, a Administradora também prestará ao Fundo os serviços de: (i) Custódia; (ii) Escrituração; (iii) Controladoria; e (iv) Tesouraria; Gestora GENIAL GESTÃO LTDA. 2.2. CNPJ/MF: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 5 de setembro de 2015. 2.2.1. A Gestora é o responsável pela seleção de todos os ativos da carteira, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 2.2.2. Caso a Gestora contrate cogestor para a gestão de ativos da Classe Única, as informações do cogestor estarão descritas diretamente no Anexo Descritivo, assim como o seu mercado específico de atuação. Responsabilidade dos Prestadores de Serviços 2.3."
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia/escrituração/controladoria: Genial Investimentos C.V.M.; gestão: Genial Gestão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "manager": {
+   "display": "Genial Gestão",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 2,
+     "clause": "cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "ará ao Fundo os serviços de: (i) Custódia; (ii) Escrituração; (iii) Controladoria; e (iv) Tesouraria; Gestora GENIAL GESTÃO LTDA. 2.2. CNPJ/MF: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 5 de setembro de 2015. 2.2.1. A Gestora é o responsável pela seleção de todos os ativos da carteira, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 2.2.2. Caso a Gestora contrate cogestor para a gestão de ativos da Classe Única, as informações do cogestor estarão descritas diretamente no Anexo Descritivo, assim como o seu mercado específico de atuação. Responsabilidade dos Prestadores de Serviços 2.3. A responsabilidade de cada prestador de serviços perante o Fundo, a Classe Única, as Subclasses (conforme aplicável) e demais prestadores de serviços é individual e limitada, exclusivamente, ao cumprimento dos respectivos deveres, aferíveis conforme previsto na Resolução CVM 175/22, neste Regulamento, seus Anexos Descritivos e Apêndices (conforme aplicável) e, ainda, no respectivo contrato de prestação de serviços. JUR_SP - 57153311v4 - 5574021.570066 2.4."
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia/escrituração/controladoria: Genial Investimentos C.V.M.; gestão: Genial Gestão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "custodian": {
+   "display": "Genial Investimentos CVM (o administrador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 2,
+     "clause": "cl. 1.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "rmações específicas de cada Série, quando houver. 2. PRESTADORES DE SERVIÇOS Administradora GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A. 2.1. CNPJ/MF: 27.652.684/0001-62, Ato Declaratório CVM nº 6.819, de 17 de maio de 2002. 2.1.1. Serviços: Além dos serviços de administração fiduciária, a Administradora também prestará ao Fundo os serviços de: (i) Custódia; (ii) Escrituração; (iii) Controladoria; e (iv) Tesouraria; Gestora GENIAL GESTÃO LTDA. 2.2. CNPJ/MF: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 5 de setembro de 2015. 2.2.1. A Gestora é o responsável pela seleção de todos os ativos da carteira, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 2.2.2. Caso a Gestora contrate cogestor para a gestão de ativos da Classe Única, as informações do cogestor estarão descritas diretamente no Anexo Descritivo, assim como o seu mercado específico de atuação. Responsabilidade dos Prestadores de Serviços 2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 2,
+     "clause": "cl. 2.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "2.1.1. Serviços: Além dos serviços de administração fiduciária, a Administradora também prestará ao Fundo os serviços de: (i) Custódia; (ii) Escrituração; (iii) Controladoria; e (iv) Tesouraria; Gestora GENIAL GESTÃO LTDA. 2.2. CNPJ/MF: 22.119.959/0001-83, Ato Declaratório CVM nº 14.519, de 5 de setembro de 2015. 2.2.1. A Gestora é o responsável pela seleção de todos os ativos da carteira, estando por sua responsabilidade a negociação e gestão dos títulos e valores mobiliários. 2.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Administração/custódia/escrituração/controladoria: Genial Investimentos C.V.M.; gestão: Genial Gestão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no regulamento",
+   "sources": []
+  },
+  "investors": {
+   "display": "Profissionais; subordinadas só para o PagSeguro",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 5,
+     "clause": "cl. 3.2.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.2.9. A Classe tem como público-alvo Investidores Profissionais, conforme definidos na Resolução CVM 30 e suas posteriores alterações. Estruturação do Fundo 3.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 39,
+     "clause": "cl. 6.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "(vi) as Cotas Mezanino possuirão como rentabilidade alvo remuneração determinada no Benchmark Mezanino 6.5. As Cotas Subordinadas a serem subscritas e integralizadas exclusivamente pelo PagSeguro e/ou por Parte Relacionada do PagSeguro, em montante equivalente, no mínimo, à proporção da Razão de Subordinação, terão as seguintes características, vantagens, direitos e obrigações: (i) subordinam-se às Cotas Seniores e às Cotas Mezanino para efeito de amortização e/ou resgate, observados os termos deste Anexo Descritivo;"
+    }
+   ],
+   "legacy": {
+    "value": "20 anos; prorrogável por mais 20; sênior/MZ: profissionais; subordinadas: PagSeguro/relacionadas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 25/03/2026, cl. 3.2.8"
+   }
+  },
+  "duration": {
+   "display": "20 anos, prorrogáveis pelo gestor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 4,
+     "clause": "cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.2. O Fundo possui prazo de duração de 20 (vinte) anos, contados a partir da primeira Data de Integralização, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação da Classe Única, conforme definido no Artigo 8.5 do Anexo Descritivo, observados os limites previstos no Anexo Descritivo. 3.2.1. O Prazo de Duração do Fundo será automaticamente prorrogado por mais 20 (vinte) anos, exceto se decidido de forma contrária pela Gestora. 3.2.2. O Prazo de Duração poderá ser estendido por deliberação exclusiva do Gestor. 3.2.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 4,
+     "clause": "cl. 3.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "3.2.2. O Prazo de Duração poderá ser estendido por deliberação exclusiva do Gestor. 3.2.3. Na hipótese de o Prazo de Duração do Fundo encerrar-se em qualquer dia que não um Dia Útil, a liquidação do Fundo será efetuada no primeiro Dia Útil subsequente. 3.2.4."
+    }
+   ],
+   "legacy": {
+    "value": "20 anos; prorrogável por mais 20; sênior/MZ: profissionais; subordinadas: PagSeguro/relacionadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "URs com registro em entidade registradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 15,
+     "clause": "cl. 3.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "interoperabilidade entre Arranjos de Pagamento, referidas Transações de Pagamento geram múltiplas relações de crédito, sendo a mais relevante para fins da operação da Classe o crédito detido pelo Estabelecimento Credenciado em face do Devedor, os Direitos Creditórios; e (iii) a Classe, portanto, irá adquirir dos Estabelecimentos Credenciados os Direitos Creditórios detidos por tais Estabelecimentos Credenciados em face do Devedor. 3.7."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.28",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "partir do relatório disponibilizado pela Entidade Registradora, em periodicidade mensal, referente aos Direitos Creditórios adquiridos pela Classe no mês anterior. Condições da Cessão 3.30. Adicionalmente, em cada cessão de Direitos Creditórios à Classe, deverá ser verificado, previamente à cessão, se os Direitos Creditórios atendem às seguintes condições de cessão Condições de Cessão (i) deverão ser cedidos por Cedentes, representados pelo PagSeguro; (ii) deverão corresponder ao valor livre de uma respectiva U.R. na respectiva data de Cessão, sendo certo que posterior majoração ou diminuição no valor da U.R."
+    }
+   ],
+   "legacy": {
+    "value": "Transações de crédito à vista/parcelado sem juros e débito, operacionalizadas pelo Sistema PagSeguro",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "Liquidação na conta da classe via domicílio bancário",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 27,
+     "clause": "cl. 4.5.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "Registros e na indicação de domicílios bancários, a liquidação dos Direitos Creditórios na Conta da Classe poderá ser impactada, o que poderá gerar perdas à Classe e, por conseguinte, aos investidores. Adicionalmente, o recebimento do pagamento dos Direitos Creditórios Cedidos depende da atuação diligente do Agente Liquidação. Assim, qualquer falha de procedimento do Agente de Liquidação e Registro ou eventual interrupção da prestação de serviços, inclusive no caso de sua substituição, poderá afetar o recebimento do pagamento dos Direitos Creditórios Cedidos e acarretar recebimento de valor inferior aos recursos devidos pelo Devedor."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão acompanha garantias/acessórios do crédito; sem coobrigação do cedente pela solvência",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "dilution": {
+   "display": "Chargebacks e cancelamentos não desenquadram o devedor",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1149521",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/03/2026",
+     "page": 20,
+     "clause": "cl. 3.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1149521",
+     "excerpt": "comercial de boa fé, assim como chargeback e/ou cancelamento de Transação de Pagamentono curso ordinário dos negócios do Devedor; (vi) a soma entre o montante de caixa, Ativos Financeiros e Direitos Creditórios cujo prazo de vencimento seja anterior ao prazo de resgate das Cotas Seniores ou das Cotas Mezanino emitidas em aberto da Classe Única, deverá ser igual ou superior ao valor das Cotas Seniores e/ou das Cotas Mezanino emitidas em aberto;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "URs do PagSeguro com subordinação mínima de 50% do PL, detida pelo próprio PagSeguro.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

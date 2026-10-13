@@ -1,0 +1,39 @@
+# FIDC PagSeguro I
+type: Cartão/adquirência
+q1: D1 "Gestora GENIAL GESTÃO LTDA."
+q2: D1 "Administradora GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+receivables: URs de vendas com cartão (crédito à vista, parcelado sem juros e débito) | o1,c2
+originator: estabelecimentos credenciados ao PagSeguro | o1,c21
+assignor: estabelecimentos credenciados, representados pelo PagSeguro | c21
+debtor: n/d | Devedor das URs (credenciador ou emissor) não definido no trecho localizado | why=A leitura anterior também indica confirmação pendente
+recourse: Sem regresso nem coobrigação; resolução por vício | o11,o10
+eligibility: Valor livre de UR; prazo ≤ 24 meses; devedor adimplente | c21,o14,c19
+debtor_limit: Sem limite de 20% do PL (dispensa regulatória) | o17
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Até 24 meses da aquisição | o14
+allocation: ≥ 50% do PL (67% tributário, discricionário) | o25,c26 | value=50
+quota_structure: Sênior / Mezanino / Subordinada (PagSeguro) | c66,c68
+sub_senior: 50% · subord./PL | o32 | basis=jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado
+sub_check: Apuração diária pelo administrador | o32
+reserve: Reserva de despesas ≥ R$ 1 mi, apurada mensalmente | o38
+pdd: n/d | Critério de PDD não localizado no regulamento
+eval_triggers: Pagamento das cotas não feito em 2 DU; reserva fora por 10 dias | o42,c37
+liquidation: Avaliação convertida pela AGC; eventos do art. 8.5 | c43,c46
+revolving: Recebimentos compram novas URs ou amortizam | c53
+amortization: n/d | Cronograma por série no suplemento; regra geral não localizada | why=A leitura anterior não tem fonte localizável no acervo
+admin_fee: 0,100% a.a. até R$ 1,5 bi; 0,075% até R$ 3 bi; 0,060% acima | o55
+mgmt_fee: 10% da taxa de administração, até R$ 4 mil/mês | o58
+perf_fee: Não prevista | Regulamento: não há cobrança de taxa de performance
+target_senior: n/d | Benchmark da série no suplemento; não localizado no acervo | why=O DI + 0,75% da leitura anterior não tem fonte localizável
+target_mezz: n/d | Benchmark da mezanino no suplemento; não localizado no acervo | why=A leitura anterior trata da cota sênior
+administrator: Genial Investimentos CVM | q2
+manager: Genial Gestão | q1
+custodian: Genial Investimentos CVM (o administrador) | q2,o70
+servicer: n/d | Agente de cobrança não nomeado no regulamento
+investors: Profissionais; subordinadas só para o PagSeguro | c80,c68
+duration: 20 anos, prorrogáveis pelo gestor | o79,c83
+card_receivables: URs com registro em entidade registradora | o84,c85
+card_lock: Liquidação na conta da classe via domicílio bancário | c88
+dilution: Chargebacks e cancelamentos não desenquadram o devedor | c89
+leitura: URs do PagSeguro com subordinação mínima de 50% do PL, detida pelo próprio PagSeguro.

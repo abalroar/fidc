@@ -1,0 +1,730 @@
+{
+ "schema_version": 1,
+ "cnpj": "29226654000110",
+ "name": "INVESTCRED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-13T16:17:14Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1023849",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "29/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849"
+  },
+  "D2": {
+   "document_id": "1026237",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "31/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1026237"
+  },
+  "D3": {
+   "document_id": "1023320",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "28/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023320"
+  },
+  "D4": {
+   "document_id": "808919",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "26/12/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=808919"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCB de financiamento e parcelamento de faturas de cartões Credsystem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 12,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Direitos Creditórios são os direitos creditórios, detidos originalmente pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Devedores são os clientes pessoa física portadores de cartões de crédito emitidos pela Credsystem que tenham contratado qualquer tipo de financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Credsystem."
+    }
+   ],
+   "legacy": {
+    "value": "CCBs de refinanciamento/parcelamento de faturas e carnês de cartões administrados pela Credsystem.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "IFs conveniadas, com a Credsystem como mandatária dos titulares",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 12,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Direitos Creditórios são os direitos creditórios, detidos originalmente pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 13,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Endossantes são as Instituições Financeiras Conveniadas. Entidade Registradora significa a entidade autorizada pelo BACEN a prestar o serviço de registro de direitos creditórios e que poderá ser contratada pela Administradora, em nome do Fundo, para realização do registro de direitos creditórios que sejam passíveis de registro, desde que seja comprovada a existência de um ambiente interoperável entre a entidade registradora contratada"
+    }
+   ],
+   "legacy": {
+    "value": "Credsystem representa titulares na emissão; instituições financeiras conveniadas endossam as CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras conveniadas (endossantes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 13,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Endossantes são as Instituições Financeiras Conveniadas. Entidade Registradora significa a entidade autorizada pelo BACEN a prestar o serviço de registro de direitos creditórios e que poderá ser contratada pela Administradora, em nome do Fundo, para realização do registro de direitos creditórios que sejam passíveis de registro, desde que seja comprovada a existência de um ambiente interoperável entre a entidade registradora contratada"
+    }
+   ],
+   "legacy": {
+    "value": "Credsystem representa titulares na emissão; instituições financeiras conveniadas endossam as CCBs.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas portadoras de cartões Credsystem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Devedores são os clientes pessoa física portadores de cartões de crédito emitidos pela Credsystem que tenham contratado qualquer tipo de financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Credsystem."
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas titulares de cartões Credsystem.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso nem coobrigação do endossante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 38,
+     "clause": "Anexo, cl. 3.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "qualquer direito de regresso contra o respectivo Endossante e/ou coobrigação deste, observados, em qualquer caso: (i) os demais termos e condições deste Regulamento; (ii) os termos, condições e procedimentos previstos nos Contratos com Titulares, nos Contratos com Estabelecimentos e no Contrato de Endosso; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de Elegibilidade e às Condições de Endosso definidos neste Regulamento; e (iv) a Política de Investimento definida neste Capítulo. 3.1.5."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 10,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Bancário Sem Coobrigação” celebrado entre a Classe Única e as Instituições Financeiras Conveniadas, tendo a Gestora e o Custodiante como intervenientes anuentes. Controle significa, em relação a uma Pessoa específica, qualquer outra Pessoa que controle, seja controlada ou esteja sob controle comum com tal Pessoa específica."
+    }
+   ],
+   "legacy": {
+    "value": "Endosso definitivo; regressos e recompras seguem hipóteses do Contrato de Endosso.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Lista de critérios iniciada na cláusula 4.1; itens não localizados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "CCB em reais, sem atraso na aquisição, prazo até 36 meses e anterior ao término da classe; apta a registro/custódia.",
+    "decision": "regression",
+    "why": "A leitura anterior (36 meses, sem atraso) não tem trecho localizável"
+   }
+  },
+  "debtor_limit": {
+   "display": "5% do PL por devedor ou coobrigado",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 40,
+     "clause": "Anexo, cl. 3.6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "3.6.1. A Classe Única deverá observar o limite de 5% (cinco por cento) de seu Patrimônio Líquido para adquirir Direitos Creditórios Elegíveis e Ativos Financeiros de um mesmo devedor, ou de coobrigação de uma mesma Pessoa. 3.7. A Administradora mantém mecanismos e sistemas de segregação das suas atividades relacionadas à administração de recursos de terceiros, nos termos da regulamentação em vigor. 3.8. A Classe Única poderá realizar aplicações que coloquem em risco parte ou a totalidade de seu patrimônio."
+    }
+   ],
+   "value": 5.0,
+   "legacy": {
+    "value": "Mesmo devedor/coobrigado: DC e ativos financeiros até 5%/PL.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento não limita concentração por endossante",
+   "sources": [],
+   "legacy": {
+    "value": "Mesmo devedor/coobrigado: DC e ativos financeiros até 5%/PL.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo da CCB não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "CCB em reais, sem atraso na aquisição, prazo até 36 meses e anterior ao término da classe; apta a registro/custódia.",
+    "decision": "regression",
+    "why": "A leitura anterior não tem trecho localizável"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos elegíveis após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 38,
+     "clause": "Anexo, cl. 3.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Decorridos 180 (cento e oitenta) dias do início das atividades da Classe Única, esta deverá possuir parcela superior a 50% (cinquenta por cento) (“Alocação Mínima”) de seu Patrimônio Líquido representad"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Parcela superior a 50%/PL em DC elegíveis, após prazo de enquadramento do 3.2.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/10/2025, Anexo, cl. 3.2"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior (séries) / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 58,
+     "clause": "Anexo, cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "e (b) classe de Cotas seniores (“Cotas Seniores”). 9.1.1. A Classe Única buscará atin"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior por séries e subordinadas; inventário completo de emissões não reconstruído sem suplementos.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Relação mínima subordinadas/sênior definida no suplemento de cada série",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Índice apurado diariamente pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 15,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Índice de Subordinação é o índice correspondente à razão entre (a) o valor total das Cotas Subordinadas e (b) o valor do Patrimônio Líquido da Classe Única, calculada diariamente pela Gestora. Instituições Financeiras são as instituições financeiras autorizadas a funcionar Conveniadas perante o BACEN com quem tenham sido celebrados Acordos Operacionais Credsystem para concessão de crédito aos Devedores."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Caixa de 1 mês de despesas ordinárias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 17,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Reserva de Caixa significa uma reserva de caixa equivalente a, no mínimo, 1 (um) mês de despesas ordinárias da Classe Única, a ser constituída e controlada pela Gestora, para fins de cobertura dos encargos e despesas da Classe Única."
+    }
+   ],
+   "legacy": {
+    "value": "Mínimo de 1 mês de despesas ordinárias, mantido em ativos financeiros.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Metodologia própria por escore de crédito (anexo IV)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 87,
+     "clause": "Suplemento, cl. 16.7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "ANEXO IV – METODOLOGIA DE PROVISÃO PARA DEVEDORES DUVIDOSOS Os Direitos Creditórios Transferidos, contemplados ou não nos modelos de “Escores de Crédito”, são classificados em ordem crescente de risco, de acordo com o que determina a Resolução nº 2.682, de 21 de dezembro de 1999, do Conselho Monetário Nacional, conforme alterada, ou qualquer norma que venha a substituí-la. A Administradora e o Custodiante deverão utilizar a metodologia padrão de cálculo de provisão para devedores duvidosos (PDD) adotada pela Administradora. Não obstante, a Administradora reconhece que, para o Fundo, o percentual de provisionamento da última faixa de atraso dos Direitos Creditórios (de 120 a 360 dias) será sempre de 100% (cem por cento). Os Cotistas deverão ser informados pela Gestora em até 3 (três) Dias Úteis após a atualização da PDD do Fundo."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 10.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "provisão para devedores duvidosos (PDD) disposta no Anexo IV ao presente Regulamento. REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO 11.1. A Administradora cobrará, pelos serviços de administração do Fundo e controladoria dos ativos da Classe Única, um montante de acordo com as seguintes faixas do Patrimônio Líquido da Classe Única (“Taxa de Administração”): (i) 0,125% (cento e vinte e cinco milésimos por cento) incidente sobre o Patrimônio Líquido da Classe Única de até R$ 500.000.000,00 (quinhentos milhões de reais);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "NPL 90 ≥ 62,5% da carteira; concentração fora por 3 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 71,
+     "clause": "Anexo, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "(xv) a ocorrência do NPL 90 da Classe Única para uma porcentagem igual ou superior a 62,5% (sessenta e dois inteiros e cinquenta centésimos por cento) dos Direitos Creditórios pertencentes à Classe Única, desde que (a) esse indicador não seja reenquadrado na aferição mensal do mês subsequente ou (b) o novo desenquadramento tenha ocorrido dentro do período de 12 (doze) meses a contar do último desenquadramento;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 71,
+     "clause": "Anexo, cl. 12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "e/ou Ativos Financeiros adquiridos pela Classe em um mesmo Devedor, ou de coobrigação de uma mesma Pessoa, previsto no Artigo 3.6.1 deste Anexo, por mais de 3 (três) meses consecutivos; (xvii) o aumento, por mais de 3 (três) meses consecutivos do Índice de Inadimplência Classe 150+ para uma porcentagem superior a 53% (cinquenta e três por cento) do total da carteira de Direitos Creditórios da Classe Única; (xviii) redução do Índice Regional de Estoque, referente ao sul, sudeste e centro-oeste, por mais de 3 (três) meses consecutivos, para uma porcentagem inferior a 67% (sessenta e sete por cento) do total de Direitos Creditórios pertencentes à Classe Única;"
+    }
+   ],
+   "legacy": {
+    "value": "NPL90 ≥62,5%; atraso150+ >53% por mais de 3 meses; concentração persistente e eventos de prestadores.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/10/2025, Anexo, cl. 12.1"
+   }
+  },
+  "liquidation": {
+   "display": "Avaliação convertida pela AGC, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 74,
+     "clause": "Anexo, cl. 13.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "São eventos que ensejam a liquidação antecipada da Classe Única, a ser deliberada em Assembleia Especial da Classe Única (“Eventos de Liquidação”): (i) excetuadas as hipóteses"
+    }
+   ],
+   "legacy": {
+    "value": "NPL90 ≥62,5%; atraso150+ >53% por mais de 3 meses; concentração persistente e eventos de prestadores.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/10/2025, Anexo, cl. 13.1"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regra de revolvência não localizada no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Novas aquisições previstas no waterfall; suspensão por avaliação/liquidação; não há pool estático demonstrado.",
+    "decision": "regression",
+    "why": "A leitura anterior não tem trecho localizável"
+   }
+  },
+  "amortization": {
+   "display": "Cronograma por suplemento; aceleração após evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 5,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Amortização Acelerada é o cronograma de amortização das Cotas que será adotado nos termos dos Artigos 12.2 e 12.3 do Anexo da Classe Única. Anexo da Classe Única é o Anexo no qual constam as regras específicas aplicáveis à Classe Única e respectivas Subclasses. Anexos significa todos os anexos a este Regulamento, conjuntamente."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Data de Amortização é a respectiva data de amortização das Cotas Seniores, conforme cronograma de amortização disposto em seu respectivo Suplemento. Data de Resgate é a respectiva data de resgate das Cotas Seniores, conforme disposto em seu respectivo Suplemento. Dia Útil ou Dias Úteis significa qualquer dia que não seja sábado, domingo, feriado nacional ou feriado na Cidade de São Paulo, Estado de São Paulo, ou dias em que, por qualquer motivo, não houver expediente bancário na referida cidade."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas → reserva → obrigações seniores → novos créditos/ativos → subordinadas; liquidação preserva prioridade sênior.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,125% a.a. até R$ 500 mi; 0,100% acima",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 66,
+     "clause": "Anexo, cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "(i) 0,125% (cento e vinte e cinco milésimos por cento) incidente sobre o Patrimônio Líquido da Classe Única de até R$ 500.000.000,00 (quinhentos milhões de reais); (ii) 0,100% (cem milésimos por cento) incidente sobre um Patrimônio Líquido da Classe Única entre R$ 500.000.000,01 (quinhentos milhões de reais e um centavo) a R$ 999.999.999,99 (novecentos e noventa e nove milhões, novecentos e noventa e nove mil, novecentos e noventa e nove reais e noventa e nove centavos); ou (iii) 0,100% (cem milésimos por cento"
+    }
+   ],
+   "legacy": {
+    "value": "0,125% a.a./PL até R$ 500 mi; 0,10% acima; mínimos R$ 44 mil (12 primeiros meses)/R$ 54 mil depois; INPC anual.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/10/2025, Anexo, cl. 11.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,600% a.a. até R$ 500 mi, decrescente por faixa",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 67,
+     "clause": "Anexo, cl. 11.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "(i) 0,600% (seiscentos milésimos por cento) incidente sobre o Patrimônio Líquido da Classe Única de até R$ 500.000.000,00 (quinhentos milhões de reais); (ii) 0,550% (quinhentos e cinquenta milésimos por cento) incidente sobre o Patrimônio Líquido da Classe Única entre R$ 500.000.000,01 (quinhentos milhões de reais e um centavo) a R$ 999.999.999,99 (novecentos e noventa e nove milhões, novecentos e noventa e nove mil, novecentos e noventa e nove reais e nove centavos);"
+    }
+   ],
+   "legacy": {
+    "value": "0,600%/0,550%/0,500% a.a./PL por faixas até R$ 500 mi, R$ 1 bi e acima; mínimos R$ 34 mil/R$ 44 mil.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 29/10/2025, Anexo, cl. 11.2"
+   }
+  },
+  "perf_fee": {
+   "display": "1,75% do que a cota subordinada render acima de 100% do DI",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 68,
+     "clause": "Anexo, cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "tora uma taxa de performance equivalente a 1,75% (um vírgula setenta e cinco por cento) sobre a rentabilidade da Cota Subordinada que exceder a rentabilidade de 100% (cem por cento) da Taxa DI, a ser apurada diariamente pelo valor das Cotas e paga mensalmente pelo Fundo, sendo limitada mensalmente aos percentuais abaixo apurados com base no Patrimônio Líquido da Classe Única no último Dia Útil do fechamento do mês (“Taxa de Performance”): (i) 0,35% (trinta e cinco cent"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark de cada série no suplemento; não localizado no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 4,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Administradora é a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "H2 Kapital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 21,
+     "clause": "Anexo IV, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "legíveis transferidos à Classe Única não exclui a responsabilidade da Administradora. GESTORA 7.1. O Fundo será gerido pela H2 KAPITAL S.A., gestora de fundos de investimento devidamente autorizada pela CVM para o exercício profissional de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 18.819, de 08 de junho de 2021, com sede na Rua Fidêncio Ramos, nº 223, 7º andar, conj. 74, Vila Olímpia, CEP 04.551-010, Cidade de São Paulo, Estado de São Paulo inscrita no CNPJ/MF sob o nº 40.297.139/0001-63 (“Gestora”), que prestará os serviços referentes à gestão de liquidez da carteira da Classe Única, resgate e amortizações, bem como a aquisição, arrecadação e gestão de Direitos Creditórios. 7.2. A Gestora, observadas as limitações estabelecidas neste Regulamento e nas disposições legais e regulamentares pertinentes, tem amplos e gerais poderes para praticar todos os atos necessários à gestão profissional dos Ativos integrantes da carteira da Classe Única, sem prejuízo dos direitos e obrigações da Administradora e de terceiros contratados para prestação de serviços ao Fundo. 7.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Singulare CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 11,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Critérios de Elegibilidade são os critérios que todo e qualquer Direito Creditório deverá atender, cumulativamente, para que possa ser adquirido pela Classe Única, conforme definido no Artigo 4.1 do Anexo da Classe Única. Custodiante é a SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada. CVM é a Comissão de Valores Mobiliários. Devedores são os clientes pessoa física portadores de cartões de crédito emitidos pela Credsystem que tenham contratado qualquer tipo de financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Credsystem. Data de Amortização é a respectiva data de amortização das Cotas Seniores, conforme cronograma de amortização disposto em seu respectivo Suplemento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Credsystem (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 5,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "Agente de Cobrança é a Credsystem, abaixo qualificada. Extraordinária Alocação Mínima tem seu significado atribuído no Artigo 3.2 do Anexo da Classe Única. Amortização Acelerada é o cronograma de amortização das Cotas que será adotado nos termos dos Artigos 12.2 e 12.3 do Anexo da Classe Única. Anexo da Classe Única é o Anexo no qual constam as regras específicas aplicáveis à Classe Única e respectivas Subclasses."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido no anexo da classe; não localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada; séries têm prazos próprios nos suplementos; público profissional nos termos do regulamento.",
+    "decision": "regression",
+    "why": "A leitura anterior não tem trecho localizável"
+   }
+  },
+  "duration": {
+   "display": "20 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1023849",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/10/2025",
+     "page": 19,
+     "clause": "Anexo IV, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023849",
+     "excerpt": "2.1. O Fundo, constituído com prazo de duração de 20 (vinte) anos, disciplinado pela Resolução CVM 175/22, pela Resolução n° 2.907, de 29 de novembro de 2001, do Conselho Monetário Nacional, conforme alterada (“CMN”) e demais disposições legais e regulamentares aplicáveis à espécie, será regido pelo presente Regulamento, seus Anexos e Apêndices, conforme o disposto abaixo. 2.2."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada; séries têm prazos próprios nos suplementos; público profissional nos termos do regulamento.",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Refinanciamento de faturas da Credsystem com gatilho de NPL 90 em 62,5% e performance de 1,75% sobre a subordinada.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
