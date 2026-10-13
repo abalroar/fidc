@@ -3,19 +3,6 @@
   "cnpj": "42922136000107",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "88d17ac1f77114ee93c67f1de17bcf76d125f188b6d38688b8deab8a7b56d2fa",
-      "fc5c82dec7d2282dde8c5fd265992f6a37419ee756a7431540397a8ad1e6dcc2",
-      "fc0ebbfbac9ecf1ca6ac13a9de4cad683a656668d99c3df5288996d5cb59413a",
-      "6dbfce6057a29348a6f74c09bae08c85b28e8b3dde216b168a620f1bc09724a8",
-      "7aff883449d917806d96c1b0a05677bfe8c9e2c8bed81341fe3f32ea9a8c5b29",
-      "41d7813f95ef8db2219fb03ef23506a177f04ada86928d71a3b92dc4a617cc5f",
-      "8bc8e502ec8b16dc88c28b26d6c1a1b5d3a9ca8e5e70f289b4fcd6cb0e8637fb",
-      "2e3f4053eab08e76a92f03003381e8f5a4b889e57947c196e75fc2048b2cfbf9",
-      "4f989fff4d97ea9da93cc605317b9a1aa03b6fef5b77ddcde9e5e06d96184354",
-      "698a2962726a34a67af9f799318ccd021171aa19a093094f732e94173ee26208",
-      "e3195ec634ee8644d651b0a99d56105392d1b9e3d7b78c30186627a23381b9ba"
-    ],
     "ticket": [
       "e3305a3d5c21dd15fd8bd829ecba53a3143ff798f653573a0e9e75f5c4a16e62",
       "cf030a818979e290ad8e2528f88324e25e23b6dfe2da2fa807589dcd7b8643b8",
@@ -335,27 +322,6 @@
     "quota_grace": [
       "bfa2af81f7f73bd22075367ffd8c0f45d556e51b45379def89518d6fdc10e7fc"
     ],
-    "originator": [
-      "c2118299bbd2bf475ab05344f7d2272bdbdd2e9fc2ae262f70940ab8e16f310c",
-      "497efd1d6262cb1687e8621df00aee39905e7896122d8fd3383296d8153ff504",
-      "6dbfce6057a29348a6f74c09bae08c85b28e8b3dde216b168a620f1bc09724a8",
-      "55a6b72782a5804f21cf2c4ddd69fb35be3b371d4a6161c3ba78432903213df7",
-      "f583411266960d758edf232a7a1c3c0dc6bb61b44cd86dd9f69d8bf77c458879",
-      "f1944c075b94624a76d30835e35337375f3ef112406307544992b6b3057b660c",
-      "f1fb93e9c086372823627291588362ca62948c08996679f29c1358cb37ebcb67",
-      "c0ec4aafb885a4f050e56adf6cc11c7617d6601d5beae4fb0bba4dbad15555cf",
-      "4e3c61321cb7b001f0496e09ed28e0a0fc92fff71e5ecc365c5ad61dd311779d"
-    ],
-    "debtor": [
-      "16418c020b0ba9a81ef73c5e50754858ca6e5a3ea513eff95d9d172815d98cd1",
-      "5d235cb2b788f3208425c739a8f4047ff044e602949ec4103afcf4924e54f0ce",
-      "f08736ec817cadb5d32b254cf260752989ac2b46364a8eb0d58787b8e0157542",
-      "460e920410e9b5dd97a84a308a77a7ff317436b08dcba7e456c5e044c9f10de2",
-      "c5776b44e3804c8dd70a23bfbeef38ae90ee49425a044583f6aa4f4a2af4ae84",
-      "ab18569a7a945e9fbed395702977fcf63a96e947cef01baf372b524e797cb72d",
-      "300faa442eaf1f45d12a729df6995f5c265ec1fd403588882f45f460ed048ce3",
-      "e1ee7d7397fe63f3bb6e28eee602b9ecfbbd4b3dc08cba0949f6dca759400684"
-    ],
     "investee": [
       "30d3f8015434dd2bd8f1076c16a66b360abd19754af8fdb72531058527568af0",
       "2536bc35efe077b5053b5e54e97cdbd578f06886ef9d11d6af9860cb86bd4aa9",
@@ -399,6 +365,33 @@
       "5c5efd5863899c873fdb91a9eefe9ac58391734688260ff4bcdbadde383ea6c7",
       "bd99e95e4f174497f3b17a85ac1d7b21e8fa1f3c92e6ace42ec9c60c92196626",
       "8af053c002cdb7f46cdfde926abc678d562586278aa4ee910c743ba542c80347"
+    ],
+    "originator": [
+      "c2118299bbd2bf475ab05344f7d2272bdbdd2e9fc2ae262f70940ab8e16f310c",
+      "497efd1d6262cb1687e8621df00aee39905e7896122d8fd3383296d8153ff504",
+      "6dbfce6057a29348a6f74c09bae08c85b28e8b3dde216b168a620f1bc09724a8",
+      "55a6b72782a5804f21cf2c4ddd69fb35be3b371d4a6161c3ba78432903213df7",
+      "f583411266960d758edf232a7a1c3c0dc6bb61b44cd86dd9f69d8bf77c458879",
+      "f1944c075b94624a76d30835e35337375f3ef112406307544992b6b3057b660c",
+      "f1fb93e9c086372823627291588362ca62948c08996679f29c1358cb37ebcb67",
+      "c0ec4aafb885a4f050e56adf6cc11c7617d6601d5beae4fb0bba4dbad15555cf",
+      "4e3c61321cb7b001f0496e09ed28e0a0fc92fff71e5ecc365c5ad61dd311779d"
+    ],
+    "eligibility": [
+      "88d17ac1f77114ee93c67f1de17bcf76d125f188b6d38688b8deab8a7b56d2fa",
+      "fc5c82dec7d2282dde8c5fd265992f6a37419ee756a7431540397a8ad1e6dcc2",
+      "a7d955a87cf6e6a9d7c6304f3155dc5688ba4674fa3329a59b55f96c2ae42a8a",
+      "6dbfce6057a29348a6f74c09bae08c85b28e8b3dde216b168a620f1bc09724a8",
+      "661bb165925acb5d8eb2e74ecdd347547d8c95a28e919f087c4ad8c154bad3b7",
+      "f1bbb55e881afa09122a54fb6d60deddebcd4642f15e7c3906cdd58df5be4eed",
+      "31828da5415b676f4c55e890d96179634a90d1b67b48de7b92bf3536f3342c6f",
+      "9a1699b6c26dc4d3911c27def8a014e1cf15d444b2493713d048fc4bf3dbf35d",
+      "39d365ad2334ab48e3bb481669fa4b39202109aececc55034a1db45b5176afe3",
+      "04bce658017689f7997c9c626261d895b926ad7862e4d8542d1cbde02b4b2965",
+      "aa1c3f424109be6e3761f67335e4732ec045f9ff8df0177e8c018eb60df859cb",
+      "68baac46eee2141ac6f64180d65da223df1aa59b89f0f0902308fd4e140ad583",
+      "60270ff8ca4a816ffe1031577c2a887cdba34caab90c781f2a5f9f0fb1651c0e",
+      "e67731624cc747e55cec06c455ee7ed30c8be82a192557aa3bd9c296f0bb981e"
     ]
   },
   "entries": {
@@ -493,15 +486,6 @@
         "de6c61f8d48d87062cdfeae4435349669527aacf53619720dff6752ac0fea214"
       ]
     },
-    "16418c020b0ba9a81ef73c5e50754858ca6e5a3ea513eff95d9d172815d98cd1": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8037b77274c154c856b10877a332bb8202d36644ce21b5fa27761dd85cd025fe"
-      ]
-    },
     "5d235cb2b788f3208425c739a8f4047ff044e602949ec4103afcf4924e54f0ce": {
       "reference_date": "2026-04-10",
       "value": "",
@@ -582,78 +566,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a1634065c9a00c67c2089b2ae5685f484dc67c18aaeae65531451de555791b7b"
-      ]
-    },
-    "fc0ebbfbac9ecf1ca6ac13a9de4cad683a656668d99c3df5288996d5cb59413a": {
-      "reference_date": "2025-09-18",
-      "value": "a) Inobservância da Política de investimentos, critérios de elegibilidade e condições de cessão, para aprovar a aquisição, pelo fundo, dos ativos inadimplidos elencados no anexo I à presente ata. b) A alteração da denominação do Fundo para “FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA”",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d7260429d558ea03cf48e09c92afeafd7a31cac4fdc8c82983e442ca27d2b774"
-      ]
-    },
-    "7aff883449d917806d96c1b0a05677bfe8c9e2c8bed81341fe3f32ea9a8c5b29": {
-      "reference_date": "2026-04-10",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável; III – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "58a488f8d97d9d5f5e4b045448e0bcf856e2410d402f6892884d36b028f2fe2e"
-      ]
-    },
-    "41d7813f95ef8db2219fb03ef23506a177f04ada86928d71a3b92dc4a617cc5f": {
-      "reference_date": "2025-12-31",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável; III – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6bdaaf31b10d10d49840df3261001cee94fdf0bb4c056d8798d645c0c9d8ac71"
-      ]
-    },
-    "8bc8e502ec8b16dc88c28b26d6c1a1b5d3a9ca8e5e70f289b4fcd6cb0e8637fb": {
-      "reference_date": "2025-12-01",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável; III – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "03bb6da013987d9adfc315e7d7088becb14562b1696dde7c35786717e3abf357"
-      ]
-    },
-    "2e3f4053eab08e76a92f03003381e8f5a4b889e57947c196e75fc2048b2cfbf9": {
-      "reference_date": "2025-09-25",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável; III – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8985deb769900b3d160db8e6a74194d9dc1e7674b9086a286ee66110b6be35f0"
-      ]
-    },
-    "4f989fff4d97ea9da93cc605317b9a1aa03b6fef5b77ddcde9e5e06d96184354": {
-      "reference_date": "2025-05-15",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dd66c9dbfcddf692b39df7f2241b961d18d5136fd87905b9d249375fb1566068"
-      ]
-    },
-    "698a2962726a34a67af9f799318ccd021171aa19a093094f732e94173ee26208": {
-      "reference_date": "2024-11-25",
-      "value": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la: I - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo; II - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável; III – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9afc49b52ff6dac915f9e431a5a790eb5c22582bea5b4f3e465d9d51155c5c86"
-      ]
-    },
-    "e3195ec634ee8644d651b0a99d56105392d1b9e3d7b78c30186627a23381b9ba": {
-      "reference_date": "2023-11-15",
-      "value": "4.1. Todo e qualquer Direito Creditório a ser adquirido pelo FUNDO deverá atender, na Data de Aquisição, cumulativamente às Condições de Cessão/Endosso e aos Critérios de Elegibilidade.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ab25c24bae986bacced6bb6e2c0abe0f0676d9d09d6a03e4b9a3c865d176fc11"
       ]
     },
     "e3305a3d5c21dd15fd8bd829ecba53a3143ff798f653573a0e9e75f5c4a16e62": {
@@ -2975,6 +2887,105 @@
       "sources": [
         "ee08bf9deb0c9304400d693c77a7a58d19ca5f377da04db50e0d26ce2ecf206b"
       ]
+    },
+    "a7d955a87cf6e6a9d7c6304f3155dc5688ba4674fa3329a59b55f96c2ae42a8a": {
+      "reference_date": "2025-09-18",
+      "value": "Os cotistas, sem ressalva, aprovam: a) Inobservância da Política de investimentos, critérios de elegibilidade e condições de cessão, para aprovar a aquisição, pelo fundo, dos ativos inadimplidos elencados no anexo I à presente ata. b) A alteração da denominação do Fundo para “FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7c338f866ded4ce8539d78dddda80d39f8beb0c2a437e697f2afeeb695e379c6"
+      ]
+    },
+    "661bb165925acb5d8eb2e74ecdd347547d8c95a28e919f087c4ad8c154bad3b7": {
+      "reference_date": "2023-12-31",
+      "value": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta: i. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios deverão observar os limites de concentração previstos no item 3.14 do regulamento do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "69e64eb00aacabbd67fcca93b1c0d8760148404ef900c1f4241282c92c10d6b8"
+      ]
+    },
+    "f1bbb55e881afa09122a54fb6d60deddebcd4642f15e7c3906cdd58df5be4eed": {
+      "reference_date": "2022-12-31",
+      "value": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta: i. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios deverão observar os limites de concentração previstos no item 3.14 do regulamento do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f5afc136a2ee594e1ba17d49e2c8d2c038081b047e711554a94db029eb7999a9"
+      ]
+    },
+    "31828da5415b676f4c55e890d96179634a90d1b67b48de7b92bf3536f3342c6f": {
+      "reference_date": "2022-12-31",
+      "value": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta: i. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios deverão observar os limites de concentração previstos no item 3.14 do regulamento do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d0f6b5124923bbdd6b3163364fae065b28511d3eaf48fb90bc7766039923463a"
+      ]
+    },
+    "9a1699b6c26dc4d3911c27def8a014e1cf15d444b2493713d048fc4bf3dbf35d": {
+      "reference_date": "2026-04-10",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "27df9036eaad15e17ae280ebd678ada78784a8e9335183a661b400d6d8a295d4"
+      ]
+    },
+    "39d365ad2334ab48e3bb481669fa4b39202109aececc55034a1db45b5176afe3": {
+      "reference_date": "2025-12-31",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c704c3ff6ed0bbb6c5677c617f42257306532bb2161507ea40d520e63aeecf40"
+      ]
+    },
+    "04bce658017689f7997c9c626261d895b926ad7862e4d8542d1cbde02b4b2965": {
+      "reference_date": "2025-12-01",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "178e19708ef2e2a518ef4653c3409ee637fd0fb729b6456becb74c64d6ce147c"
+      ]
+    },
+    "aa1c3f424109be6e3761f67335e4732ec045f9ff8df0177e8c018eb60df859cb": {
+      "reference_date": "2025-09-25",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3c26e1a9da00576af2f7d2e34d7dc2aec6e841be6d54efcf3aad88abcba13599"
+      ]
+    },
+    "68baac46eee2141ac6f64180d65da223df1aa59b89f0f0902308fd4e140ad583": {
+      "reference_date": "2025-05-15",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fbdff04a168952654e854f13294e2186633e4e986d752413223bb180c0b7814a"
+      ]
+    },
+    "60270ff8ca4a816ffe1031577c2a887cdba34caab90c781f2a5f9f0fb1651c0e": {
+      "reference_date": "2024-11-25",
+      "value": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "eade7e766eb8ae12d6b4488e826e6320054b355d8a05daf739a1ed7793523d1e"
+      ]
+    },
+    "e67731624cc747e55cec06c455ee7ed30c8be82a192557aa3bd9c296f0bb981e": {
+      "reference_date": "2023-11-15",
+      "value": "4.2. Em cada cessão de Direitos Creditórios ao FUNDO, a GESTORA deverá verificar, previamente à cessão/transferência, se os Direitos Creditórios, considerando pro forma a cessão dos Direitos Creditórios oferecidos ao FUNDO, atendem às seguintes Condições de Cessão/Endosso:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dca4b768d0cad7439a3de0f5738226ec883bb807f0c36de90f01dfe0ec9a0dae"
+      ]
     }
   },
   "passages": {
@@ -3099,18 +3110,6 @@
       "sha256": "0ccb910ef26c2aa2f23d0075de801210ea89698f3be2534a9b28a1b39999453d",
       "verification": "primary_passage"
     },
-    "8037b77274c154c856b10877a332bb8202d36644ce21b5fa27761dd85cd025fe": {
-      "document_id": "883097",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883097",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 29,
-      "clause": "",
-      "excerpt": "Gestora alienar os Direitos Creditórios de titularidade da Classe. Em  decorrência do risco acima identificado e considerando-se que a Classe  somente procederá à amortização ou ao resgate das Cotas, em moeda corrente  nacional, na medida em que os Direitos Creditórios de titularidade da Classe  sejam devidamente pagos, e que as verbas recebidas sejam depositadas na  conta da Classe, a Administradora encontra-se impossibilitada de determinar o  intervalo de tempo necessário para a amortização ou o resgate integral das  Cotas. O valor de amortização das Cotas continuará a ser atualizado até a data  de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não  sendo devido pela Classe ou por qualquer pessoa, inclusive a Originadora, os  Endossantes, a Administradora e Gestora, todavia, qualquer multa ou  penalidade caso o referido evento prolongue-se por prazo indeterminado ou não  possa, por qualquer motivo, ser realizado. Ademais, o resgate das Cotas  poderá ser realizado mediante a dação em pagamento de Direitos Creditórios,  observados os procedimentos definidos no Regulamento. Nessa hipótese, os  Cotistas poderão encontrar dificuldades para alienar os Direitos Creditórios  recebidos em dação e/ou cobrar os valores devidos pelos Devedores.",
-      "sha256": "5710c38e17e0ab124072d6439387ebb2c96e574e4eeb7a9df4a5e0590a3a226f",
-      "verification": "primary_passage"
-    },
     "2cc747b454cd094a070a35583d846dcaf6bed12bec7b2ac9b9950020026bd9a9": {
       "document_id": "1159092",
       "title": "Regulamento",
@@ -3218,102 +3217,6 @@
       "clause": "",
       "excerpt": "Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar,  previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à  cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos  seguintes Critérios de Elegibilidade:\n(i) Em se tratando de Direitos Creditórios decorrentes de operações de empréstimo, ser  oriundos de operações de crédito realizadas pelos Endossantes e originados pela  ORIGINADORA;",
       "sha256": "7c4b77cd9f867d67a724f61b3f66ff83ffba87e22d809ed558238411fe0cb774",
-      "verification": "primary_passage"
-    },
-    "d7260429d558ea03cf48e09c92afeafd7a31cac4fdc8c82983e442ca27d2b774": {
-      "document_id": "998672",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998672",
-      "reference_date": "2025-09-18",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "a) Inobservância da Política de investimentos, critérios de elegibilidade e condições  de cessão, para aprovar a aquisição, pelo fundo, dos ativos inadimplidos  elencados no anexo I à presente ata.\n b) A alteração da denominação do Fundo para “FUNDO DE INVESTIMENTO EM  DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA”",
-      "sha256": "9fbcba38b0b4a8432782e7bdacb46a592255d9e24d4e99d669c007ff355a71aa",
-      "verification": "primary_passage"
-    },
-    "58a488f8d97d9d5f5e4b045448e0bcf856e2410d402f6892884d36b028f2fe2e": {
-      "document_id": "1159092",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159092",
-      "reference_date": "2026-04-10",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;\nIII – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "sha256": "a9ae2020b2588f372795b64ee02f9c77a5dfa99ab254e8472ea4146bb0537bf9",
-      "verification": "primary_passage"
-    },
-    "6bdaaf31b10d10d49840df3261001cee94fdf0bb4c056d8798d645c0c9d8ac71": {
-      "document_id": "1074005",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074005",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;\nIII – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "sha256": "21a452ad939c083db11379ad8c97d71f4a781941988e2d1a3365808b930753f7",
-      "verification": "primary_passage"
-    },
-    "03bb6da013987d9adfc315e7d7088becb14562b1696dde7c35786717e3abf357": {
-      "document_id": "1051572",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051572",
-      "reference_date": "2025-12-01",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;\nIII – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "sha256": "0ccb910ef26c2aa2f23d0075de801210ea89698f3be2534a9b28a1b39999453d",
-      "verification": "primary_passage"
-    },
-    "8985deb769900b3d160db8e6a74194d9dc1e7674b9086a286ee66110b6be35f0": {
-      "document_id": "998673",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998673",
-      "reference_date": "2025-09-25",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;\nIII – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "sha256": "62fe0893c3fe5b9a6f19a8be5b6a8a78eff28f30898266b43f8150a990d09178",
-      "verification": "primary_passage"
-    },
-    "dd66c9dbfcddf692b39df7f2241b961d18d5136fd87905b9d249375fb1566068": {
-      "document_id": "908833",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908833",
-      "reference_date": "2025-05-15",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;",
-      "sha256": "0945858b3ebff5c203efbcce7511bca8d3a137a099b4a2ae50fffd17fd5a7fd4",
-      "verification": "primary_passage"
-    },
-    "9afc49b52ff6dac915f9e431a5a790eb5c22582bea5b4f3e465d9d51155c5c86": {
-      "document_id": "884459",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884459",
-      "reference_date": "2024-11-25",
-      "version": "1",
-      "page": 13,
-      "clause": "4.3",
-      "excerpt": "4.3. Sem prejuízo de sua responsabilidade prevista na Resolução CVM 175, a GESTORA poderá subcontratar terceiros para dar suporte e auxiliá-la:\nI - na verificação e validação dos Critérios de Elegibilidade previstos em cada Anexo;\nII - no registro dos Direitos Creditórios nas entidades registradoras, se e quando aplicável;\nIII – na verificação do lastro de que trata o inciso XX do item 4.1.2. acima.",
-      "sha256": "02615d74c7fb36175431547320f4fa8bda95dc96a1e46edc4232ccf4476231a7",
-      "verification": "primary_passage"
-    },
-    "ab25c24bae986bacced6bb6e2c0abe0f0676d9d09d6a03e4b9a3c865d176fc11": {
-      "document_id": "557626",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557626",
-      "reference_date": "2023-11-15",
-      "version": "1",
-      "page": 5,
-      "clause": "4.1",
-      "excerpt": "4.1. Todo e qualquer Direito Creditório a ser adquirido pelo FUNDO deverá atender, na Data de Aquisição, cumulativamente às Condições de Cessão/Endosso e aos Critérios de Elegibilidade.",
-      "sha256": "3c01f680d887d3bc88045e0535f66276d1220c068726d2dc018b5a9c748ae578",
       "verification": "primary_passage"
     },
     "ef0e1bc7c0cb7972622c964eb4591a3a2ce19b1f7113c7e7e8cf1ce5d5ede508": {
@@ -6330,6 +6233,149 @@
       "excerpt": "A administração da carteira do Fundo é realizada pelo Banco Daycoval S.A. (“Administrador”) e a  gestão da carteira do Fundo é realizada pela Valora Gestão de Investimentos Ltda. (“Gestora”).",
       "sha256": "3ea3cbff1a3c118bd53eebeb477221dcb40cd132ce3e7b4c003f565878f3f9b1",
       "verification": "primary_passage"
+    },
+    "7c338f866ded4ce8539d78dddda80d39f8beb0c2a437e697f2afeeb695e379c6": {
+      "document_id": "998672",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998672",
+      "reference_date": "2025-09-18",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "Os cotistas, sem ressalva, aprovam:\na) Inobservância da Política de investimentos, critérios de elegibilidade e condições  de cessão, para aprovar a aquisição, pelo fundo, dos ativos inadimplidos  elencados no anexo I à presente ata.\n b) A alteração da denominação do Fundo para “FUNDO DE INVESTIMENTO EM  DIREITOS CREDITÓRIOS MONEE I DE RESPONSABILIDADE LIMITADA”",
+      "sha256": "9fbcba38b0b4a8432782e7bdacb46a592255d9e24d4e99d669c007ff355a71aa",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "69e64eb00aacabbd67fcca93b1c0d8760148404ef900c1f4241282c92c10d6b8": {
+      "document_id": "632572",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=632572",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta:\ni. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios  a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com  relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e  ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios  deverão observar os limites de concentração previstos no item 3.14 do regulamento do  Fundo.",
+      "sha256": "abf43fda97e9afd992ceb5c555ec244729ee817b8f175c0b710b3653ee56617e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f5afc136a2ee594e1ba17d49e2c8d2c038081b047e711554a94db029eb7999a9": {
+      "document_id": "439050",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=439050",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de  elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta:\ni. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios  a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com  relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e  ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios  deverão observar os limites de concentração previstos no item 3.14 do regulamento do  Fundo.",
+      "sha256": "4f443e84305dbe9a2d05d53d8f5885e4930c2c509692cb6498002440df706373",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d0f6b5124923bbdd6b3163364fae065b28511d3eaf48fb90bc7766039923463a": {
+      "document_id": "480076",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=480076",
+      "reference_date": "2022-12-31",
+      "version": "2",
+      "page": 18,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos de crédito que atendam aos seguintes critérios de  elegibilidade, a ser verificado pelo custodiante, na respectiva data de oferta:\ni. Excetuando-se as hipóteses de chargeback, os respectivos devedores dos direitos creditórios  a serem adquiridos pelo Fundo não poderão estar inadimplentes perante o Fundo com  relação a quaisquer parcelas dos direitos creditórios cedidos ao Fundo; e  ii. Considerada pro forma a aquisição de direitos creditórios pelo Fundo, os direitos creditórios  deverão observar os limites de concentração previstos no item 3.14 do regulamento do  Fundo.",
+      "sha256": "3ea3cbff1a3c118bd53eebeb477221dcb40cd132ce3e7b4c003f565878f3f9b1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "27df9036eaad15e17ae280ebd678ada78784a8e9335183a661b400d6d8a295d4": {
+      "document_id": "1159092",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1159092",
+      "reference_date": "2026-04-10",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "a9ae2020b2588f372795b64ee02f9c77a5dfa99ab254e8472ea4146bb0537bf9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c704c3ff6ed0bbb6c5677c617f42257306532bb2161507ea40d520e63aeecf40": {
+      "document_id": "1074005",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074005",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "21a452ad939c083db11379ad8c97d71f4a781941988e2d1a3365808b930753f7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "178e19708ef2e2a518ef4653c3409ee637fd0fb729b6456becb74c64d6ce147c": {
+      "document_id": "1051572",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051572",
+      "reference_date": "2025-12-01",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "0ccb910ef26c2aa2f23d0075de801210ea89698f3be2534a9b28a1b39999453d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "3c26e1a9da00576af2f7d2e34d7dc2aec6e841be6d54efcf3aad88abcba13599": {
+      "document_id": "998673",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=998673",
+      "reference_date": "2025-09-25",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "62fe0893c3fe5b9a6f19a8be5b6a8a78eff28f30898266b43f8150a990d09178",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "fbdff04a168952654e854f13294e2186633e4e986d752413223bb180c0b7814a": {
+      "document_id": "908833",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908833",
+      "reference_date": "2025-05-15",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "0945858b3ebff5c203efbcce7511bca8d3a137a099b4a2ae50fffd17fd5a7fd4",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "eade7e766eb8ae12d6b4488e826e6320054b355d8a05daf739a1ed7793523d1e": {
+      "document_id": "884459",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884459",
+      "reference_date": "2024-11-25",
+      "version": "1",
+      "page": 34,
+      "clause": "6.2",
+      "excerpt": "6.2. Em cada cessão/endosso de Direitos Creditórios à Classe, a GESTORA deverá verificar, previamente à cessão/endosso, se os Direitos Creditórios, considerando pro forma à cessão dos Direitos Creditórios oferecidos à Classe, atendem cumulativamente aos seguintes Critérios de Elegibilidade:",
+      "sha256": "02615d74c7fb36175431547320f4fa8bda95dc96a1e46edc4232ccf4476231a7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dca4b768d0cad7439a3de0f5738226ec883bb807f0c36de90f01dfe0ec9a0dae": {
+      "document_id": "557626",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557626",
+      "reference_date": "2023-11-15",
+      "version": "1",
+      "page": 5,
+      "clause": "4.2",
+      "excerpt": "4.2. Em cada cessão de Direitos Creditórios ao FUNDO, a GESTORA deverá verificar, previamente à cessão/transferência, se os Direitos Creditórios, considerando pro forma a cessão dos Direitos Creditórios oferecidos ao FUNDO, atendem às seguintes Condições de Cessão/Endosso:",
+      "sha256": "3c01f680d887d3bc88045e0535f66276d1220c068726d2dc018b5a9c748ae578",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

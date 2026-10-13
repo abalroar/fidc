@@ -3,18 +3,6 @@
   "cnpj": "52340225000190",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "0b689a95f02c992e444c4d98d58ef4c2f0a5b7f93001b83df5c9165655f42b35",
-      "89f2960dab4f2b284e6a7a5ddc82f9cb4dc5fb54e5ec7195eb20ee319304deef",
-      "9a5de14afafa51c1bc151a43aceaa135541e97fc1628a27b5bbc1b6b59f512c2",
-      "7e372cfad9d28c6e8c010adccab14f25d4b55f7a59e37b5448508139ac566666",
-      "af13fd759652d47776bd02fb443d4495e2166580f8c3f6cfd8e43e5d978b98ab",
-      "de70cd044cc80fcd362c4b322e63394bf8bef8a952f09939e27bc86bf6cbb77b",
-      "31f5a871833ecf21a7a343255826d2daa2a7d7b425a4b0ee8937281af3915e48",
-      "6e5cadf7b4ef3991e0c7f889ae98178ae168636c92dbf358890c96acf00ebade",
-      "2951379ceb927dc55b476540b692a89a2405490d0c010b8dcec99f75bc2fd697",
-      "264e5a86aa8b5021bc7306cd8943affbf6cc7717b3b29a6a4534cd92810e5afc"
-    ],
     "term": [
       "700e4f4723ccd93d44b70d407d87b73e94d96be05021524a2f419c63266017c9",
       "9e1029b4ced01b638a205fb5265502f69d765c1d39757dba97d3fb34d5b6bc12",
@@ -482,25 +470,6 @@
       "aadff0c30d2ffe4e608adf30b896a8168b460e78e15309d8c0309448d7ba8299",
       "83abfe2d16f99f07d488a0089df0fc94e2b46fb9d4718a1a019ea571f9564c74"
     ],
-    "originator": [
-      "723ff24d1411ad8d9a0bafd98a427f0180f1bbd212eeaab64f71a519919d86ad",
-      "1574fdcc1d0793bbaa6309eaf60effdab7bc59fc2d112db56c6a380d629c3378",
-      "97d2afc28c787667db82c6496f639f214b2308b8de89b730298c749b09e40818",
-      "41243f625796461e8de55fddad9bf5884c690251bde4b4785f047e6c999c2c47",
-      "20276bc31906df50dd97c6a8c37cbdf61086c99fa42336faf3a3fd178bcadf9a",
-      "b0f2bbe9f99a455e14f7820784115bdc2fcb4249d41030f774f1359c4a84a4c9",
-      "3116008d0d1e24f961f1cb1b9a29deb99d6a314ff01c9035ad58ffdb4e8d829f",
-      "797b4e080078d33fc813cc431ce602ea731d2171eb3ccb81acb7b793a49eb9ee"
-    ],
-    "debtor": [
-      "f0d0cca978147be64bcb244d16f440d166e50288c3e3d6806982e8b295576e9e",
-      "41243f625796461e8de55fddad9bf5884c690251bde4b4785f047e6c999c2c47",
-      "82eb56b27289e832abda92d1684a503b6d82355340ca906b3f710ed22e277e6c",
-      "d34383d55db610dc36786f5131c250d22d7da6412e52a440885f72b87686faaa",
-      "77368d47e3f05c509c4feea8d1dc755b493f936dd60cc8fb6608c39d637060b4",
-      "5a68aba8ccbddaf96c5413caefae338ef0619b6e900aacfb2e302dd169402d98",
-      "2c893383b4646c6472ee3af09118b3ab4b51a26f99897d103a354e1f5e0e8dbc"
-    ],
     "investee": [
       "ea1df087f98fb6ff2a00e80769ce386659c907773053475511f8b633f5ed512e",
       "34c3fcb9223789ad0b21257b1b0891d531b4e771decb243d739a6a7b445bdeec",
@@ -540,6 +509,27 @@
       "4009acf7affe0ec971936c0c43c312529707130d8919f533db62bcca4bc9e756",
       "5dbe768790853990352317718b29b13e08dbc3237931f0904e0d5fa89ca1ff37",
       "0d052ae6b3de9cc316fcb79fe11e9f3c895f27d159ed4033e182ffcdaba7ce04"
+    ],
+    "originator": [
+      "723ff24d1411ad8d9a0bafd98a427f0180f1bbd212eeaab64f71a519919d86ad",
+      "1574fdcc1d0793bbaa6309eaf60effdab7bc59fc2d112db56c6a380d629c3378",
+      "eba77b9ffe983bc4275b4533d0ee0424214934cdd20534b9aaa3aed5fc76362e",
+      "6f991f9a5ac25e3112613b063989300f99e81432e758a8f2f12ccbed24b0621d",
+      "20276bc31906df50dd97c6a8c37cbdf61086c99fa42336faf3a3fd178bcadf9a",
+      "b0f2bbe9f99a455e14f7820784115bdc2fcb4249d41030f774f1359c4a84a4c9",
+      "3116008d0d1e24f961f1cb1b9a29deb99d6a314ff01c9035ad58ffdb4e8d829f"
+    ],
+    "eligibility": [
+      "edd67cc053fdba5d81ae8d9757909481628351256f970a889748b923b53dab83",
+      "bbd90a380033462e6d9aa1849a11af40f982a1f74df10d46a15d5cfe4f8b44d7",
+      "e2db609ceee5edb8891b6d1d23af11bb84b5da0fbcb0d85e6717cf396460c9eb",
+      "f384aa8e55f0cbd444e174e85d0c12e91f1212724f101499ca29982e1423a2e6",
+      "76ec4ca6fd05962cd48e4aa80925abf5a4fd1b736363dc44a0553a60bfb77e87",
+      "875dfab25700e380e21b653c5ef90d51cb8d039cf4958130262769dc8fa32235",
+      "31f5a871833ecf21a7a343255826d2daa2a7d7b425a4b0ee8937281af3915e48",
+      "0eb4ae82a5c4ea1ae4663e0f331564a4e903851a5e692c272c0017fc64cb042d",
+      "2951379ceb927dc55b476540b692a89a2405490d0c010b8dcec99f75bc2fd697",
+      "e75371d58263ef9feda96d2f1e99d566b82f39ca0a8b3b2760905f0310625226"
     ]
   },
   "entries": {
@@ -580,24 +570,6 @@
         "fa3e1c2139a437386bebac59c75465bbe1c6c183bf2356ab2da89de88d383abc"
       ]
     },
-    "97d2afc28c787667db82c6496f639f214b2308b8de89b730298c749b09e40818": {
-      "reference_date": "2025-11-03",
-      "value": "(xii) considerada pro forma a aquisição pretendida, o valor agregado dos Direitos Creditórios cedidos por Originadores de Menor Porte não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; e” (vi) aprovar a alteração do item 14.6.2 do Regulamento, para prever que a emissão de novas Cotas Subordinadas Júnior não dependerá de aprovação em Assembleia de Cotistas, o qual passará a vigorar com a seguinte redação:.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69543d7229e67f7667c0678124d32062dd01f9b9d33f97070ec1ef86f49b278b"
-      ]
-    },
-    "41243f625796461e8de55fddad9bf5884c690251bde4b4785f047e6c999c2c47": {
-      "reference_date": "2025-09-30",
-      "value": "Nos reunimos com um dos sócios da CashU para obter esclarecimentos adicionais sobre o funcionamento da operação. A empresa conta atualmente com 17 colaboradores, dos quais 4 atuam de forma exclusiva na área comercial, com a responsabilidade de identificar novos cedentes interessados em designar seus sacados e realizar operações de antecipação de recebíveis.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b235724ceefe943df32526550259e3a74c7e8290b1a3d8a9a497f89ebca85fdd"
-      ]
-    },
     "20276bc31906df50dd97c6a8c37cbdf61086c99fa42336faf3a3fd178bcadf9a": {
       "reference_date": "2025-08-06",
       "value": "2.1. Por meio deste Termo de Endosso, a Endossante endossa e transfere para o Endossatário, os Títulos de Créditos descritos no anexo A, conforme os termos e condições previstos no Cláusulas do Contrato de Endosso, observando-se que cada título poderá ser transferido com ou sem coobrigação, conforme especificado expressamente no referido Anexo A. A aquisição ocorre nos termos indicados na Cláusula 2.2 abaixo, sendo certo que o Preço de Aquisição deverá ser pago pelo Endossatário à Endossante nesta data em moeda local, por meio de transferência eletrônica disponível para a conta corrente da Endossante informada pela Originadora e Consultora Especializada ou de outra maneira autorizada pelo Banco Central do Brasil, e o comprovante de depósito representará o recibo e será válido como um instrumento de quitação da Endossante.",
@@ -625,24 +597,6 @@
         "b40b979b97d2583b12eecb69245805100dcc98ed2b7df64542a55926339f096e"
       ]
     },
-    "797b4e080078d33fc813cc431ce602ea731d2171eb3ccb81acb7b793a49eb9ee": {
-      "reference_date": "2025-04-09",
-      "value": "H. Encaminhar, no prazo de 9 (nove) dias úteis a contar desta data, a autorização para que a empresa SINQIA TECNOLOGIA LTDA, provedora do software “Sinqia Custódia”, realize a transferência do cadastro dos Cedentes e do estoque de Direitos Creditórios de titularidade do Fundo para a Nova Administradora;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "32cf1353d9991a13a123e84f5e56a7bcce27227c9fedc015f83271c382f0747c"
-      ]
-    },
-    "0b689a95f02c992e444c4d98d58ef4c2f0a5b7f93001b83df5c9165655f42b35": {
-      "reference_date": "2026-02-23",
-      "value": "12.1.11 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos Critérios de Elegibilidade e Condições de Aquisição, observados, ainda, os limites estabelecidos na regulamentação pertinente.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3113080998ad51185e679d63d257d85d230bd6aa776f0b167222240b50ba4291"
-      ]
-    },
     "89f2960dab4f2b284e6a7a5ddc82f9cb4dc5fb54e5ec7195eb20ee319304deef": {
       "reference_date": "2025-12-31",
       "value": "O Fundo somente pode adquirir direitos creditórios que atendam, na data de aquisição e pagamento, aos seguintes critérios de elegibilidade, a serem verificados pela Gestora: (i) considerada pro forma a aquisição pretendida, o valor presente dos direitos creditórios devidos por cada Grupo Econômico de Devedor deverá atender aos limites de concentração por faixa de Patrimônio Líquido do Fundo, conforme indicados na tabela abaixo:",
@@ -650,42 +604,6 @@
       "provenance": "primary_passage",
       "sources": [
         "32ef1ceb30cf426c0e5bebb909fcc5fc3083070c34f173c18bda9aae9ab7bed1"
-      ]
-    },
-    "9a5de14afafa51c1bc151a43aceaa135541e97fc1628a27b5bbc1b6b59f512c2": {
-      "reference_date": "2025-11-03",
-      "value": "“12.3.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, na Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: (ix) o respectivo Devedor e o respectivo Credor Original não podem fazer parte do mesmo Grupo Econômico;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69543d7229e67f7667c0678124d32062dd01f9b9d33f97070ec1ef86f49b278b"
-      ]
-    },
-    "7e372cfad9d28c6e8c010adccab14f25d4b55f7a59e37b5448508139ac566666": {
-      "reference_date": "2025-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "77fe608289d6614b3eac8cf4568c47a64847cce202e2fea1daaab27d36f9be0f"
-      ]
-    },
-    "af13fd759652d47776bd02fb443d4495e2166580f8c3f6cfd8e43e5d978b98ab": {
-      "reference_date": "2025-08-06",
-      "value": "12.1.11 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos Critérios de Elegibilidade e Condições de Aquisição, observados, ainda, os limites estabelecidos na regulamentação pertinente.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e72f411614557faa5b96e4523b9c3f96d31e8c0d0b1ed1484afa43311f493cae"
-      ]
-    },
-    "de70cd044cc80fcd362c4b322e63394bf8bef8a952f09939e27bc86bf6cbb77b": {
-      "reference_date": "2025-04-09",
-      "value": "FIDC Tuper: R$ 2.500.000,00), que resultou em exposição a ativos não compatíveis com os Critérios de Elegibilidade e a política de.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c5f46b0667a5ff32c16a6b319648b5875cfec0b72eaba32346c544f2ba98517c"
       ]
     },
     "31f5a871833ecf21a7a343255826d2daa2a7d7b425a4b0ee8937281af3915e48": {
@@ -697,15 +615,6 @@
         "a1385c53c8fe85be6af97c8e5ec2fe71bfc1a44666649c2177980b38dbc29a86"
       ]
     },
-    "6e5cadf7b4ef3991e0c7f889ae98178ae168636c92dbf358890c96acf00ebade": {
-      "reference_date": "2024-11-26",
-      "value": "12.1.12 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos Critérios de Elegibilidade e Condições de Aquisição, observados, ainda, os limites estabelecidos na regulamentação pertinente.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "645a962eb059c7022d8fcd509e29c606ef32629001241f52887566ce689185f1"
-      ]
-    },
     "2951379ceb927dc55b476540b692a89a2405490d0c010b8dcec99f75bc2fd697": {
       "reference_date": "2024-11-13",
       "value": "(x) da aprovação das Minutas Aprovadas que serão utilizadas como base para celebração dos Contratos de Endosso, com ou sem coobrigação, a serem celebrados pelo Fundo, na qualidade de endossatário, pela Gestora, pela Cogestora, pela Administradora, pela Consultora Especializada, na qualidade de originadora, e pelo respectivo Credor Original, na qualidade de endossante, por meio dos quais serão endossadas as Duplicatas e CCBs ao Fundo, observadas as Condições de Aquisição e Critérios de Elegibilidade previstos no Regulamento.",
@@ -713,15 +622,6 @@
       "provenance": "primary_passage",
       "sources": [
         "80761b403679ae2beddbdf4adffc486874dbaaf8230f38ea14256628cebe10bf"
-      ]
-    },
-    "264e5a86aa8b5021bc7306cd8943affbf6cc7717b3b29a6a4534cd92810e5afc": {
-      "reference_date": "2024-08-12",
-      "value": "8.3.5 A Gestora não será responsável pela verificação do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a16ee05062d93686e93b1cad8a419de85bfc0e2c5aedcf7c35245565a28f508b"
       ]
     },
     "700e4f4723ccd93d44b70d407d87b73e94d96be05021524a2f419c63266017c9": {
@@ -3942,60 +3842,6 @@
         "9ecb1b711a729adc6f3ba4ff848655e9a3787906dea76c3ce21ad4553ed108c5"
       ]
     },
-    "f0d0cca978147be64bcb244d16f440d166e50288c3e3d6806982e8b295576e9e": {
-      "reference_date": "2026-02-23",
-      "value": "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA., empresa com sede na Cidade de Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no CNPJ/MF sob o nº 35.444.423/0001-85. “CCBs” significam as cédulas de crédito bancário emitidas ou a serem emitidas eletronicamente pelos Devedores, nos termos da Lei nº 10.931, com o objetivo de adquirir produtos dos Fornecedores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2f5a7c74fa5dcba3f2d29a9a8c0a54923e7cd7ee27e6633239d0334b3b3065cb"
-      ]
-    },
-    "82eb56b27289e832abda92d1684a503b6d82355340ca906b3f710ed22e277e6c": {
-      "reference_date": "2025-08-06",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9adcf1161ac66e60972ec16364b1be51b0d83a4fad60b69bb32cb34393cebf42"
-      ]
-    },
-    "d34383d55db610dc36786f5131c250d22d7da6412e52a440885f72b87686faaa": {
-      "reference_date": "2026-02-23",
-      "value": "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA., empresa com sede na Cidade de Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no CNPJ/MF sob o nº 35.444.423/0001-85. “CCBs” significam as cédulas de crédito bancário emitidas ou a serem emitidas eletronicamente pelos Devedores, nos termos da Lei nº 10.931, com o objetivo de adquirir produtos dos Fornecedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0d2c9c5a1702a0851169da278c7fbf47b91b7498f351a9aa274f0497969ed5e7"
-      ]
-    },
-    "77368d47e3f05c509c4feea8d1dc755b493f936dd60cc8fb6608c39d637060b4": {
-      "reference_date": "2025-11-03",
-      "value": "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA., empresa com sede na Cidade de Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no CNPJ/MF sob o nº 35.444.423/0001-85. “CCBs” significam as cédulas de crédito bancário emitidas ou a serem emitidas eletronicamente pelos Devedores, nos termos da Lei nº 10.931, com o objetivo de adquirir produtos dos Fornecedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "620ffeed84715fd99c7f3da195ad3a0427d05a78b7a131dbfd6250355819f9f0"
-      ]
-    },
-    "5a68aba8ccbddaf96c5413caefae338ef0619b6e900aacfb2e302dd169402d98": {
-      "reference_date": "2025-08-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "613088464f0f73f9c6e956a450edd1ba6c6a40f184d2992e1665dd0efbdcb769"
-      ]
-    },
-    "2c893383b4646c6472ee3af09118b3ab4b51a26f99897d103a354e1f5e0e8dbc": {
-      "reference_date": "2025-04-23",
-      "value": "“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE RECEBÍVEIS LTDA., empresa com sede na Cidade de Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no CNPJ/MF sob o nº 35.444.423/0001-85. “CCBs” significam as cédulas de crédito bancário emitidas ou a serem emitidas eletronicamente pelos Devedores, nos termos da Lei nº 10.931, com o objetivo de adquirir produtos dos Fornecedores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6ee16a3dbdf576e22d3d419165e5569807a6bd2da24dfc0b559cad9d72f16115"
-      ]
-    },
     "84a8ca52cac5693a7ce55e349ddbb26f04d67833d4f536df60f08f51cfa81b36": {
       "reference_date": "2026-02-23",
       "value": "",
@@ -4003,6 +3849,96 @@
       "provenance": "primary_passage",
       "sources": [
         "d548896cf5f42fe4bcb2305ed8f8352d88db763f8509717f768ae83d67f00057"
+      ]
+    },
+    "eba77b9ffe983bc4275b4533d0ee0424214934cdd20534b9aaa3aed5fc76362e": {
+      "reference_date": "2025-11-03",
+      "value": "Não será considerado Originador de Menor Porte, independentemente da data de sua primeira transferência de Direitos Creditórios ao Fundo, o Credor Original que,",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8c5e8c3e53d6df2b41c8e689f8fc7ca1065b41425d59036927d45f514399e299"
+      ]
+    },
+    "edd67cc053fdba5d81ae8d9757909481628351256f970a889748b923b53dab83": {
+      "reference_date": "2026-02-23",
+      "value": "12.2.3 A originação e a aquisição de Direitos Creditórios pelo Fundo ocorrem da seguinte forma: (i) a Originadora seleciona os potenciais Credores Originais, Fornecedores ou Devedores que poderão realizar operações com o Fundo; (ii) a Consultora Especializada fará a análise e seleção dos Direitos Creditórios, devendo verificar o atendimento às Condições de Aquisição, incluindo a observância da Política de Crédito constante do Complemento II a este Regulamento e no Contrato de Consultoria Especializada; (iii) após a recomendação da Consultora Especializada e validação das Condições de Aquisição, a Gestora verificará o atendimento dos Direitos Creditórios ofertados aos Critérios de Elegibilidade e, observada a política de composição e diversificação da carteira do Fundo, aprovará ou reprovará a aquisição dos Direitos Creditórios ofertados; (iv) cumpridas e aprovadas as etapas acima, é assinado o respectivo Contrato de Endosso, o Termo de Endosso e/ou boletim de subscrição, conforme aplicável; e (v) após a assinatura dos documentos indicados acima, o Custodiante realiza o pagamento do Preço de Aquisição dos Direitos Creditórios aos Credores Originais ou Devedores, conforme aplicável. 12.2.3.1 O pagamento do Preço de Aquisição relativo aos Direitos Creditórios Adquiridos pelo Fundo deverá ser realizado em moeda corrente nacional, mediante transferência eletrônica disponível ou outra forma autorizada pelo BACEN diretamente aos respectivos Credores Originais ou Devedores, conforme o caso.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "59089a361d9180d1c5f0f2e6ff378194b231881d4dcf5c18861a78fd6cc35c82"
+      ]
+    },
+    "bbd90a380033462e6d9aa1849a11af40f982a1f74df10d46a15d5cfe4f8b44d7": {
+      "reference_date": "2025-12-31",
+      "value": "Em Assembleia Geral Extraordinária de Cotistas, realizada em 06 de agosto de 2025, foram aprovadas: i) a alteração das Cláusulas 12.1.5 e 12.1.6 do Regulamento do Fundo para autorizar a aquisição de Direitos Creditórios cedidos e/ou endossados pela Consultora Especializada; ii) a alteração dos Critérios de Elegibilidade previstos no item (i), (ii), (iii), (v), (vi) e (x) da Cláusula 12.3.1 do Regulamento do Fundo, para prever que seus respectivos cálculos serão realizados com base nas informações da carteira diária e estoque de Direitos Creditórios do Fundo, com data base de 2 (dois) dias úteis anteriores a data do cálculo; iii) a alteração da Condição de Aquisição prevista no item (ii) da Cláusula 12.4.1 do Regulamento do Fundo, para prever que sua respectiva verificação será realizada considerando como referência os Direitos Creditórios adimplentes e inadimplentes do Fundo de 2 (dois) dias úteis anteriores;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "be8a746ed2ce9f232c2205dafbc43b6744b8db613e31085f80b38d26f0aeec8f"
+      ]
+    },
+    "e2db609ceee5edb8891b6d1d23af11bb84b5da0fbcb0d85e6717cf396460c9eb": {
+      "reference_date": "2025-11-03",
+      "value": "“12.3.1 O Fundo somente poderá adquirir Direitos Creditórios que atendam, na Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: (ix) o respectivo Devedor e o respectivo Credor Original não podem fazer parte do mesmo Grupo Econômico; (xi) os Direitos Creditórios não poderão ser cedidos ou devidos por empresas que estejam em recuperação judicial ou extrajudicial; (xii) considerada pro forma a aquisição pretendida, o valor agregado dos Direitos Creditórios cedidos por Originadores de Menor Porte não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; e” (vi) aprovar a alteração do item 14.6.2 do Regulamento, para prever que a emissão de novas Cotas Subordinadas Júnior não dependerá de aprovação em Assembleia de Cotistas, o qual passará a vigorar com a seguinte redação:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "69543d7229e67f7667c0678124d32062dd01f9b9d33f97070ec1ef86f49b278b"
+      ]
+    },
+    "f384aa8e55f0cbd444e174e85d0c12e91f1212724f101499ca29982e1423a2e6": {
+      "reference_date": "2025-09-30",
+      "value": "VETORES DE RATING O rating das cotas do fundo Inova Credtech III está fundamentado pelo perfil de risco e pelos critérios de elegibilidade dos ativos potencialmente securitizáveis, bem como pela alocação dos recursos remanescentes. Sendo assim, os principais aspectos que poderão acarretar o rebaixamento do rating são a qualidade dos direitos creditórios adquiridos capazes de levar a deteriorização da carteira do FIDC, o alongamento do prazo médio e possíveis alterações na política de investimento descrita em regulamento. Além disso, o fato de o Inova Credtech III possuir uma esteira de crédito automatizada calibrada com histórico e dados de duplicatas, considera-se que a inserção de outros tipos título pode aumentar o risco de crédito do FIDC. Por outro lado, os ratings poderão ser beneficiados caso as cotas do fundo perpetuem o histórico de desempenho positivo, refletindo a qualidade dos direitos creditórios, ou então o regulamento estipule mudanças nos critérios de elegibilidade que se reverteriam em benefício à minimização do risco de crédito da carteira de títulos.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "77fe608289d6614b3eac8cf4568c47a64847cce202e2fea1daaab27d36f9be0f"
+      ]
+    },
+    "76ec4ca6fd05962cd48e4aa80925abf5a4fd1b736363dc44a0553a60bfb77e87": {
+      "reference_date": "2025-08-06",
+      "value": "12.3.2 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir ao Critério de Elegibilidade será verificado e validado pela Gestora, observado que o Critério de Elegibilidade previsto no item 12.3.1(ii) acima será verificado por meio de arquivo contendo a relação de Credores Originais e Fornecedores com indicação de seus respectivos Grupo Econômicos, enviado pela Consultora Especializada à Gestora em cada Data de Referência, e a Gestora não será responsável pelas informações disponibilizadas pela Consultora Especializada no referido arquivo ou no Arquivo de Endosso, nos termos do Contrato de Consultoria Especializada.Observados os termos e as condições do presente Regulamento, dos respectivos Contratos de Endosso, será considerada como definitiva a verificação pela Gestora, conforme aplicável, do atendimento aos Critérios de Elegibilidade.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f6e31f03abe7d94d3b443e75f67130d2549184e642b04f8c5c159257bb4b364e"
+      ]
+    },
+    "875dfab25700e380e21b653c5ef90d51cb8d039cf4958130262769dc8fa32235": {
+      "reference_date": "2025-04-09",
+      "value": "Deliberar sobre: (i) a retificação dos dados cadastrais da Nova Administradora, a ser contratada pelo Fundo dentro do prazo estabelecido na Assembleia Geral Extraordinária de Cotistas realizada em 13 de novembro de 2024 (“AGC 13/11/24”); (ii) a concessão de prorrogação, pelo prazo de 30 (trinta) dias contados a partir da assinatura desta ata em relação ao Evento de Avaliação descrito no item (xxvi) da cláusula 19.1.1 do Regulamento (não substituição da Administradora até 13 de fevereiro de 2025), com a consequente exclusão do referido item da versão do regulamento do Fundo (“Regulamento”) que passará a viger a partir da Data de Transferência, conforme a versão disposta no Anexo II desta Ata; (iii) concessão de waiver quanto à inobservância da cláusula 12.1.9 do Regulamento resultante da aquisição de cotas seniores de FIDCs em 10 de janeiro de 2025 (FIDC Raízes: R$ 2.100.000,00; FIDC Tuper: R$ 2.500.000,00), que resultou em exposição a ativos não compatíveis com os Critérios de Elegibilidade e a política de",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c5f46b0667a5ff32c16a6b319648b5875cfec0b72eaba32346c544f2ba98517c"
+      ]
+    },
+    "0eb4ae82a5c4ea1ae4663e0f331564a4e903851a5e692c272c0017fc64cb042d": {
+      "reference_date": "2024-11-26",
+      "value": "12.2.3 A originação e a aquisição de Direitos Creditórios pelo Fundo ocorrem da seguinte forma: (i) a Originadora seleciona os potenciais Credores Originais, Fornecedores ou Devedores que poderão realizar operações com o Fundo; (ii) a Consultora Especializada fará a análise e seleção dos Direitos Creditórios, devendo verificar o atendimento às Condições de Aquisição, incluindo a observância da Política de Crédito constante do Complemento II a este Regulamento e no Contrato de Consultoria Especializada; (iii) após a recomendação da Consultora Especializada e validação das Condições de Aquisição, a Gestora ou, após a Data de Transição, a Cogestora verificará o atendimento dos Direitos Creditórios ofertados aos Critérios de Elegibilidade e, observada a política de composição e diversificação da carteira do Fundo, aprovará ou reprovará a aquisição dos Direitos Creditórios ofertados; (iv) cumpridas e aprovadas as etapas acima, é assinado o respectivo Contrato de Endosso, o Termo de Endosso e/ou boletim de subscrição, conforme aplicável; e (v) após a assinatura dos documentos indicados acima, o Custodiante realiza o pagamento do Preço de Aquisição dos Direitos Creditórios aos Credores Originais ou Devedores, conforme aplicável. 12.2.3.1 O pagamento do Preço de Aquisição relativo aos Direitos Creditórios Adquiridos pelo Fundo deverá ser realizado em moeda corrente nacional, mediante transferência eletrônica disponível ou outra forma autorizada pelo BACEN diretamente aos respectivos Credores Originais ou Devedores, conforme o caso.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4e7be16742a2826d51b827ab6b0d05fa8c20864cf79065ce3b42cf94062c8129"
+      ]
+    },
+    "e75371d58263ef9feda96d2f1e99d566b82f39ca0a8b3b2760905f0310625226": {
+      "reference_date": "2024-08-12",
+      "value": "9.3 Sem prejuízo dos Critérios de Elegibilidade previstos no Artigo 76 abaixo, os Direitos Creditórios a serem cedidos ao Fundo deverão atender às seguintes condições abaixo, bem como deverão ser submetidos previamente à análise da Consultora Especializada, que será responsável por verificar as seguintes Condições de Cessão (as “Condições de Cessão”): a) até 20% (vinte por cento) do PL poderão ser representados por Direitos Creditórios de Devedores/Sacados pertencentes ao mesmo Grupo Econômico; b) o prazo médio da carteira de Direitos Creditórios cedidos não será superior a 360 (trezentos e sessenta) dias; c) esteja enquadrado no limite descrito no item 10.6. abaixo; d) até 100% (cem por cento) do PL poderá ser alocado em operações compromissadas; e) até 20% (vinte por cento) do PL poderão ser representados por Direitos Creditórios a performar de um mesmo originador, quando não contarem com garantia de instituição financeira ou de sociedade seguradora; e f) até 100% (cem por cento) do PL poderá estar representado por créditos a performar.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f031f10fa7981031daef1912da372c23485f23186319551cf9f664b93584a90e"
+      ]
+    },
+    "6f991f9a5ac25e3112613b063989300f99e81432e758a8f2f12ccbed24b0621d": {
+      "reference_date": "2025-09-30",
+      "value": "Concentração. Quando o fundo tiver patrimônio líquido de até R$ 20 milhões, o limite máximo de exposição por grupo econômico devedor é de R$ 500.000,00; entre R$ 20 milhões e R$ 35 milhões, o limite é de 2% do patrimônio; entre R$ 35 milhões e R$ 50 milhões, 1,75%; entre R$ 50 milhões e R$ 75 milhões, 1,50%; e, caso o patrimônio líquido seja superior a R$ 75 milhões, o limite máximo será de 1,25% do patrimônio líquido do Fundo. Já para o cedente o limite máximo permitido em um único cedente é de R$ 10 milhões ou 20% do PL se o fundo estiver com PL abaixo de R$ 75 milhões. Caso contrário, o limite é de 15% do PL.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cafc857b2e15ca615d297a23ab3b7427f0404491832db1ab9b2c85d9a4b3f393"
       ]
     }
   },
@@ -4068,18 +4004,6 @@
       "sha256": "d2031bc052ac7c495480b6350ad9362c4ef9f91387fe9bb152199387275c5dfc",
       "verification": "primary_passage"
     },
-    "b235724ceefe943df32526550259e3a74c7e8290b1a3d8a9a497f89ebca85fdd": {
-      "document_id": "1010103",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
-      "reference_date": "2025-09-30",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Nos reunimos com um dos sócios da CashU para obter esclarecimentos  adicionais sobre o funcionamento da operação. A empresa conta atualmente  com 17 colaboradores, dos quais 4 atuam de forma exclusiva na área  comercial, com a responsabilidade de identificar novos cedentes  interessados em designar seus sacados e realizar operações de antecipação  de recebíveis.",
-      "sha256": "532ef930eb8e0f4f5936315486e8ff788923e75d73ec61294bd1a1d3eda71969",
-      "verification": "primary_passage"
-    },
     "233f291b67816edd4d2ffa736ad661008106b58a4561226b06c85f5ecc8efa5c": {
       "document_id": "974437",
       "title": "AGE",
@@ -4116,30 +4040,6 @@
       "sha256": "44ae1ef86143e081dda4fa04ea78dd1b59deb6ad0a79943449d84f0a3f01c47e",
       "verification": "primary_passage"
     },
-    "32cf1353d9991a13a123e84f5e56a7bcce27227c9fedc015f83271c382f0747c": {
-      "document_id": "876497",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=876497",
-      "reference_date": "2025-04-09",
-      "version": "1",
-      "page": 4,
-      "clause": "",
-      "excerpt": "H. Encaminhar, no prazo de 9 (nove) dias úteis a contar desta data, a autorização para que a  empresa SINQIA TECNOLOGIA LTDA, provedora do software “Sinqia Custódia”, realize a  transferência do cadastro dos Cedentes e do estoque de Direitos Creditórios de titularidade do  Fundo para a Nova Administradora;",
-      "sha256": "acb47288ca9688ce5d86e8b4aef4baa58643f74431c4726d5cdd38cffbf29a70",
-      "verification": "primary_passage"
-    },
-    "3113080998ad51185e679d63d257d85d230bd6aa776f0b167222240b50ba4291": {
-      "document_id": "1143357",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143357",
-      "reference_date": "2026-02-23",
-      "version": "1",
-      "page": 31,
-      "clause": "12.1.11",
-      "excerpt": "12.1.11 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos  Critérios de Elegibilidade e Condições de Aquisição, observados, ainda, os limites estabelecidos na  regulamentação pertinente.",
-      "sha256": "1ef8e565b9351711ce6e1603e3b457cb6bacb9217da409da91558330307769ca",
-      "verification": "primary_passage"
-    },
     "32ef1ceb30cf426c0e5bebb909fcc5fc3083070c34f173c18bda9aae9ab7bed1": {
       "document_id": "1162073",
       "title": "Demonstrações Financeiras",
@@ -4162,18 +4062,6 @@
       "clause": "",
       "excerpt": "VETORES DE RATING  O rating das cotas do fundo Inova Credtech III está fundamentado pelo perfil  de risco e pelos critérios de elegibilidade dos ativos potencialmente  securitizáveis, bem como pela alocação dos recursos remanescentes. Sendo  assim, os principais aspectos que poderão acarretar o rebaixamento do  rating são a qualidade dos direitos creditórios adquiridos capazes de levar a  deteriorização da carteira do FIDC, o alongamento do prazo médio e  possíveis alterações na política de investimento descrita em regulamento.\n Além disso, o fato de o Inova Credtech III possuir uma esteira de crédito  automatizada calibrada com histórico e dados de duplicatas, considera-se  que a inserção de outros tipos título pode aumentar o risco de crédito do  FIDC. Por outro lado, os ratings poderão ser beneficiados caso as cotas do  fundo perpetuem o histórico de desempenho positivo, refletindo a qualidade  dos direitos creditórios, ou então o regulamento estipule mudanças nos  critérios de elegibilidade que se reverteriam em benefício à minimização do  risco de crédito da carteira de títulos.",
       "sha256": "532ef930eb8e0f4f5936315486e8ff788923e75d73ec61294bd1a1d3eda71969",
-      "verification": "primary_passage"
-    },
-    "e72f411614557faa5b96e4523b9c3f96d31e8c0d0b1ed1484afa43311f493cae": {
-      "document_id": "974437",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974437",
-      "reference_date": "2025-08-06",
-      "version": "1",
-      "page": 46,
-      "clause": "12.1.11",
-      "excerpt": "12.1.11 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos Critérios de Elegibilidade e Condições de Aquisição, observados, ainda, os limites estabelecidos na regulamentação pertinente.",
-      "sha256": "714b5302c37633b54b3121daa2c9ec7ccc5b5298990838b08419f3caaffae9ff",
       "verification": "primary_passage"
     },
     "c5f46b0667a5ff32c16a6b319648b5875cfec0b72eaba32346c544f2ba98517c": {
@@ -4200,18 +4088,6 @@
       "sha256": "93117c9352505a3701828ca96f701c5fab020ca9d88330b7ef89eccd088da4af",
       "verification": "primary_passage"
     },
-    "645a962eb059c7022d8fcd509e29c606ef32629001241f52887566ce689185f1": {
-      "document_id": "788565",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788565",
-      "reference_date": "2024-11-26",
-      "version": "1",
-      "page": 41,
-      "clause": "12.1.12",
-      "excerpt": "12.1.12 Os Direitos Creditórios a serem adquiridos pelo Fundo deverão atender,  cumulativamente, aos Critérios de Elegibilidade e Condições de Aquisição, observados, ainda,  os limites estabelecidos na regulamentação pertinente.",
-      "sha256": "0e41a655bce5253266cb6c27bb11a4b04174792b9f830313b3d47c16aa6e5e94",
-      "verification": "primary_passage"
-    },
     "80761b403679ae2beddbdf4adffc486874dbaaf8230f38ea14256628cebe10bf": {
       "document_id": "778879",
       "title": "AGE",
@@ -4222,18 +4098,6 @@
       "clause": "",
       "excerpt": "(x) da aprovação das Minutas Aprovadas que serão utilizadas como base para celebração dos  Contratos de Endosso, com ou sem coobrigação, a serem celebrados pelo Fundo, na  qualidade de endossatário, pela Gestora, pela Cogestora, pela Administradora, pela  Consultora Especializada, na qualidade de originadora, e pelo respectivo Credor Original,  na qualidade de endossante, por meio dos quais serão endossadas as Duplicatas e CCBs ao  Fundo, observadas as Condições de Aquisição e Critérios de Elegibilidade previstos no  Regulamento.",
       "sha256": "90899e571ff27589f4480f3cec34e0380e73fca49fc1164c8df0b7dea718d214",
-      "verification": "primary_passage"
-    },
-    "a16ee05062d93686e93b1cad8a419de85bfc0e2c5aedcf7c35245565a28f508b": {
-      "document_id": "716336",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716336",
-      "reference_date": "2024-08-12",
-      "version": "1",
-      "page": 17,
-      "clause": "8.3.5",
-      "excerpt": "8.3.5 A Gestora não será responsável pela verificação do atendimento dos Direitos  Creditórios aos Critérios de Elegibilidade.",
-      "sha256": "eacea94b837c9c5d568f8425edb903fca2bcbce0a77441065457c9cc79a933a6",
       "verification": "primary_passage"
     },
     "20b51eb953677ff973b80bf3fc354b5c4489cfa902c91661f7699dacad5029ad": {
@@ -8272,78 +8136,6 @@
       "sha256": "714b5302c37633b54b3121daa2c9ec7ccc5b5298990838b08419f3caaffae9ff",
       "verification": "primary_passage"
     },
-    "2f5a7c74fa5dcba3f2d29a9a8c0a54923e7cd7ee27e6633239d0334b3b3065cb": {
-      "document_id": "1143357",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143357",
-      "reference_date": "2026-02-23",
-      "version": "1",
-      "page": 71,
-      "clause": "",
-      "excerpt": "Sociedade Simples; ou (vi) Grant Thornton Auditores  Independentes Ltda.\n “Aviso de Desenquadramento” significa a correspondência a ser enviada pela Gestora aos  Cotistas titulares das Cotas Subordinadas Júnior na hipótese  de desenquadramento dos Índices de Subordinação ou do  Índice de Cobertura.\n “BACEN” significa o Banco Central do Brasil.\n “Benchmark” tem o significado que lhe é atribuído no item 14.2.5 deste  Regulamento.\n “Benchmark Ponderado” significa a média ponderada do Benchmark das Cotas  Seniores e das Cotas Subordinadas Mezanino em circulação.\n “B3” significa a B3 S.A. – Brasil, Bolsa e Balcão.\n “Capítulos” significam os capítulos do Regulamento.\n “CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE  RECEBÍVEIS LTDA., empresa com sede na Cidade de  Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº\n 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no  CNPJ/MF sob o nº 35.444.423/0001-85.\n “CCBs” significam as cédulas de crédito bancário emitidas ou a  serem emitidas eletronicamente pelos Devedores, nos  termos da Lei nº 10.931, com o objetivo de adquirir produtos  dos Fornecedores.\n “Classe” significa a classe única de Cotas fechada do Fundo,  observado que todas as referências a Classe alcançam o  Fundo já que este possui Classe única.\n “CMN” significa o Conselho Monetário Nacional.\n “CNPJ/MF” significa o Cadastro Nacional da Pessoa Jurídica do  Ministério da Fazenda.\n “Código Civil” significa a Lei nº 10.406, de 10 de janeiro de 2002, conforme  alterada.\n “Condições de Aquisição” significam as condições de aquisição a serem verificadas e  validadas pela Consultora Especializada, em cada Data de  Aquisição e Pagamento, conforme estabelecidas no item",
-      "sha256": "1ef8e565b9351711ce6e1603e3b457cb6bacb9217da409da91558330307769ca",
-      "verification": "primary_passage"
-    },
-    "9adcf1161ac66e60972ec16364b1be51b0d83a4fad60b69bb32cb34393cebf42": {
-      "document_id": "974437",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974437",
-      "reference_date": "2025-08-06",
-      "version": "1",
-      "page": 97,
-      "clause": "",
-      "excerpt": "“Instituição Financeira Parceira” significa (i) a KANASTRA SOCIEDADE DE CRÉDITO DIRETO  S.A., instituição financeira autorizada pelo BACEN, inscrita no  CNPJ/MF sob o nº 49.288.113/0001-23, com sede na cidade de  Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos,  nº 71, sala 803, Bairro Jardim Sul, CEP 38411-848; ou (ii) outras  instituições financeiras selecionadas pela Originadora para  ofertar Direitos Creditórios ao Fundo que  venham a ser aprovadas pela Assembleia de Cotistas.\n“Investidores Profissionais” significam os investidores considerados profissionais, nos  termos do artigo 11 da Resolução CVM 30.\n“IPCA” significa o Índice Nacional de Preços ao Consumidor Amplo  – IPCA, divulgado pelo Instituto Brasileiro de Geografia e  Estatística – IBGE.\n“Instrução CVM 489” significa a Instrução CVM nº 489, de 14 de janeiro de 2011.\n“Justa Causa” significa a prática ou constatação dos seguintes atos ou  situações: (i) culpa, dolo, má-fé, fraude e/ou desvio de conduta  e/ou função no desempenho das respectivas funções, deveres  ou no cumprimento de obrigações nos termos deste  Regulamento e/ou legislação ou regulamentação aplicável; (ii)  prática, pelo prestador de serviços, por seus representantes,  administradores, diretores, conselheiros ou sócios, de crime  contra o sistema financeiro, de atos de corrupção, de lavagem  de dinheiro e/ou financiamento ao terrorismo; ou (iii)  declaração de falência ou pedido de autofalência,  recuperação judicial e/ou  extrajudicial.\n“Lei nº 10.931” significa a Lei nº 10.931, de 02 de agosto de 2004, conforme  em vigor.\n“Lei nº 13.775” significa a Lei nº 13.775, de 20 de setembro de 2018,  conforme em vigor.\n“Lei nº 14.195” significa a Lei nº 14.195, em 26 de agosto de 2021, conforme  em vigor.\n“Método de Verificação” significa o método de verificação a ser realizado em cada Data  de Verificação pela Consultora Especializada para verificar a  Condição de Aquisição descrita no item 12.4.1(vii), o qual  compreende, com relação aos Devedores, uma verificação do  Evento de Insolvência tão somente por meio do Situação  Cadastral na Receita Federal; e, com relação aos Credores  Originais e os Fornecedores (em caso de endosso de CCBs),  uma verificação do Evento de Insolvência tão somente por  meio das certidões dos distribuidores de pedido de falência,  recuperação judicial e extrajudicial da Comarca do domicílio ou  sede do Credor Original e do Fornecedor, conforme aplicável.",
-      "sha256": "714b5302c37633b54b3121daa2c9ec7ccc5b5298990838b08419f3caaffae9ff",
-      "verification": "primary_passage"
-    },
-    "0d2c9c5a1702a0851169da278c7fbf47b91b7498f351a9aa274f0497969ed5e7": {
-      "document_id": "1143358",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143358",
-      "reference_date": "2026-02-23",
-      "version": "1",
-      "page": 67,
-      "clause": "",
-      "excerpt": "Sociedade Simples; ou (vi) Grant Thornton Auditores  Independentes Ltda.\n “Aviso de Desenquadramento” significa a correspondência a ser enviada pela Gestora aos  Cotistas titulares das Cotas Subordinadas Júnior na hipótese  de desenquadramento dos Índices de Subordinação ou do  Índice de Cobertura.\n “BACEN” significa o Banco Central do Brasil.\n “Benchmark” tem o significado que lhe é atribuído no item 14.2.5 deste  Regulamento.\n “Benchmark Ponderado” significa a média ponderada do Benchmark das Cotas  Seniores e das Cotas Subordinadas Mezanino em circulação.\n “B3” significa a B3 S.A. – Brasil, Bolsa e Balcão.\n “Capítulos” significam os capítulos do Regulamento.\n “CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE  RECEBÍVEIS LTDA., empresa com sede na Cidade de  Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº\n 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no  CNPJ/MF sob o nº 35.444.423/0001-85.\n “CCBs” significam as cédulas de crédito bancário emitidas ou a  serem emitidas eletronicamente pelos Devedores, nos  termos da Lei nº 10.931, com o objetivo de adquirir produtos  dos Fornecedores.\n “Classe” significa a classe única de Cotas fechada do Fundo,  observado que todas as referências a Classe alcançam o  Fundo já que este possui Classe única.\n “CMN” significa o Conselho Monetário Nacional.\n “CNPJ/MF” significa o Cadastro Nacional da Pessoa Jurídica do  Ministério da Fazenda.\n “Código Civil” significa a Lei nº 10.406, de 10 de janeiro de 2002, conforme  alterada.\n “Condições de Aquisição” significam as condições de aquisição a serem verificadas e  validadas pela Consultora Especializada, em cada Data de  Aquisição e Pagamento, conforme estabelecidas no item",
-      "sha256": "fbf4e56dab13c1d062811299600b62b4c7e5a2b332e3b5b92fbba3f4156c6f78",
-      "verification": "primary_passage"
-    },
-    "620ffeed84715fd99c7f3da195ad3a0427d05a78b7a131dbfd6250355819f9f0": {
-      "document_id": "1033509",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033509",
-      "reference_date": "2025-11-03",
-      "version": "1",
-      "page": 67,
-      "clause": "",
-      "excerpt": "Independentes S.S.; (v) BDO RCS Auditores Independentes  Sociedade Simples; ou (vi) Grant Thornton Auditores  Independentes Ltda.\n“Aviso de Desenquadramento” significa a correspondência a ser enviada pela Gestora aos  Cotistas titulares das Cotas Subordinadas Júnior na hipótese  de desenquadramento dos Índices de Subordinação ou do  Índice de Cobertura.\n“BACEN” significa o Banco Central do Brasil.\n“Benchmark” tem o significado que lhe é atribuído no item 14.2.5 deste  Regulamento.\n“Benchmark Ponderado” significa a média ponderada do Benchmark das Cotas  Seniores e das Cotas Subordinadas Mezanino em circulação.\n“B3” significa a B3 S.A. – Brasil, Bolsa e Balcão.\n“Capítulos” significam os capítulos do Regulamento.\n“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE  RECEBÍVEIS LTDA., empresa com sede na Cidade de  Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº\n 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no  CNPJ/MF sob o nº 35.444.423/0001-85.\n“CCBs” significam as cédulas de crédito bancário emitidas ou a  serem emitidas eletronicamente pelos Devedores, nos  termos da Lei nº 10.931, com o objetivo de adquirir  produtos dos Fornecedores.\n“Classe” significa a classe única de Cotas fechada do Fundo,  observado que todas as referências a Classe alcançam o  Fundo já que este possui Classe única.\n“CMN” significa o Conselho Monetário Nacional.\n“CNPJ/MF” significa o Cadastro Nacional da Pessoa Jurídica do  Ministério da Fazenda.\n“Código Civil” significa a Lei nº 10.406, de 10 de janeiro de 2002, conforme  alterada.\n“Condições de Aquisição” significam as condições de aquisição a serem verificadas e  validadas pela Consultora Especializada, em cada Data de  Aquisição e Pagamento, conforme estabelecidas no item",
-      "sha256": "24b16e15007a24e7e00fd37b8246e49697bed14774eda8ffe9b58c2a35838bbf",
-      "verification": "primary_passage"
-    },
-    "613088464f0f73f9c6e956a450edd1ba6c6a40f184d2992e1665dd0efbdcb769": {
-      "document_id": "974439",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974439",
-      "reference_date": "2025-08-06",
-      "version": "1",
-      "page": 78,
-      "clause": "",
-      "excerpt": "“Instituição Financeira Parceira” significa (i) a KANASTRA SOCIEDADE DE CRÉDITO DIRETO  S.A., instituição financeira autorizada pelo BACEN, inscrita no  CNPJ/MF sob o nº 49.288.113/0001-23, com sede na cidade de  Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos,  nº 71, sala 803, Bairro Jardim Sul, CEP 38411-848; ou (ii) outras  instituições financeiras selecionadas pela Originadora para  ofertar Direitos Creditórios ao Fundo que  venham a ser aprovadas pela Assembleia de Cotistas.\n“Investidores Profissionais” significam os investidores considerados profissionais, nos  termos do artigo 11 da Resolução CVM 30.\n“IPCA” significa o Índice Nacional de Preços ao Consumidor Amplo  – IPCA, divulgado pelo Instituto Brasileiro de Geografia e  Estatística – IBGE.\n“Instrução CVM 489” significa a Instrução CVM nº 489, de 14 de janeiro de 2011.\n“Justa Causa” significa a prática ou constatação dos seguintes atos ou  situações: (i) culpa, dolo, má-fé, fraude e/ou desvio de conduta  e/ou função no desempenho das respectivas funções, deveres  ou no cumprimento de obrigações nos termos deste  Regulamento e/ou legislação ou regulamentação aplicável; (ii)  prática, pelo prestador de serviços, por seus representantes,  administradores, diretores, conselheiros ou sócios, de crime  contra o sistema financeiro, de atos de corrupção, de lavagem  de dinheiro e/ou financiamento ao terrorismo; ou (iii)  declaração de falência ou pedido de autofalência,  recuperação judicial e/ou  extrajudicial.\n“Lei nº 10.931” significa a Lei nº 10.931, de 02 de agosto de 2004, conforme  em vigor.\n“Lei nº 13.775” significa a Lei nº 13.775, de 20 de setembro de 2018,  conforme em vigor.\n“Lei nº 14.195” significa a Lei nº 14.195, em 26 de agosto de 2021, conforme  em vigor.\n“Método de Verificação” significa o método de verificação a ser realizado em cada Data  de Verificação pela Consultora Especializada para verificar a  Condição de Aquisição descrita no item 12.4.1(vii), o qual  compreende, com relação aos Devedores, uma verificação do  Evento de Insolvência tão somente por meio do Situação  Cadastral na Receita Federal; e, com relação aos Credores  Originais e os Fornecedores (em caso de endosso de CCBs),  uma verificação do Evento de Insolvência tão somente por  meio das certidões dos distribuidores de pedido de falência,  recuperação judicial e extrajudicial da Comarca do domicílio ou  sede do Credor Original e do Fornecedor, conforme aplicável.",
-      "sha256": "54ac0df613efe9d4e232dd031de2dde4f3ea08911889857dd92c8544b0a34edd",
-      "verification": "primary_passage"
-    },
-    "6ee16a3dbdf576e22d3d419165e5569807a6bd2da24dfc0b559cad9d72f16115": {
-      "document_id": "884809",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884809",
-      "reference_date": "2025-04-23",
-      "version": "1",
-      "page": 66,
-      "clause": "",
-      "excerpt": "“Capítulos” significam os capítulos do Regulamento.\n“CashU” significa a CASHU FINTECH DE ANTECIPAÇÃO DE  RECEBÍVEIS LTDA., empresa com sede na Cidade de  Manaus, Estado do Amazonas, na Avenida Álvaro Maia, Nº\n 2.357, Sala 1501, Adrianópolis, CEP 69057-035, inscrita no  CNPJ/MF sob o nº 35.444.423/0001-85.\n“CCBs” significam as cédulas de crédito bancário emitidas ou a  serem emitidas eletronicamente pelos Devedores, nos  termos da Lei nº 10.931, com o objetivo de adquirir produtos  dos Fornecedores.\n“Classe” significa a classe única de Cotas fechada do Fundo,  observado que todas as referências a Classe alcançam o  Fundo já que este possui Classe única.\n“CMN” significa o Conselho Monetário Nacional.",
-      "sha256": "0813d995ac12542a6026c067deaa7e3b77d9f71a466b27d47f06153a4ec14d64",
-      "verification": "primary_passage"
-    },
     "d548896cf5f42fe4bcb2305ed8f8352d88db763f8509717f768ae83d67f00057": {
       "document_id": "1143357",
       "title": "AGE",
@@ -8354,6 +8146,95 @@
       "clause": "",
       "excerpt": "“1ª Data de Integralização” significa a data da 1ª (primeira) integralização de Cotas.\n “Acordo Operacional” significa o “Acordo Operacional entre Prestadores de  Serviços Essenciais” celebrado entre a Gestora e a  Administradora, o qual estabelece as condições relativas aos  serviços de administração fiduciária e de gestão de carteira  do Fundo.\n “Administradora” significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS LTDA., instituição financeira, com  sede na cidade de São Paulo, Estado de São Paulo, na  Avenida Doutor Cardoso de Melo, n° 1.184, 9° andar,  conjunto 91, Vila Olímpia, CEP 04548-004, inscrita no  CNPJ/MF sob o nº 24.361.690/0001-72, devidamente  autorizada pela CVM para atuar como administrador  fiduciário na administração de carteiras de valores  mobiliários, nos termos do Ato Declaratório CVM nº 16.206,  de 08 de maio de 2018, ou sua sucessora a qualquer título.",
       "sha256": "1ef8e565b9351711ce6e1603e3b457cb6bacb9217da409da91558330307769ca",
+      "verification": "primary_passage"
+    },
+    "8c5e8c3e53d6df2b41c8e689f8fc7ca1065b41425d59036927d45f514399e299": {
+      "document_id": "1033506",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033506",
+      "reference_date": "2025-11-03",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "Não será considerado Originador de Menor Porte,  independentemente da data de sua primeira transferência de  Direitos Creditórios ao Fundo, o Credor Original que,",
+      "sha256": "d2031bc052ac7c495480b6350ad9362c4ef9f91387fe9bb152199387275c5dfc",
+      "verification": "primary_passage"
+    },
+    "59089a361d9180d1c5f0f2e6ff378194b231881d4dcf5c18861a78fd6cc35c82": {
+      "document_id": "1143357",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143357",
+      "reference_date": "2026-02-23",
+      "version": "1",
+      "page": 33,
+      "clause": "12.2.3",
+      "excerpt": "12.2.3 A originação e a aquisição de Direitos Creditórios pelo Fundo ocorrem da seguinte forma:\n(i) a Originadora seleciona os potenciais Credores Originais, Fornecedores ou Devedores que  poderão realizar operações com o Fundo;\n(ii) a Consultora Especializada fará a análise e seleção dos Direitos Creditórios, devendo verificar o  atendimento às Condições de Aquisição, incluindo a observância da Política de Crédito constante do  Complemento II a este Regulamento e no Contrato de Consultoria Especializada;\n(iii) após a recomendação da Consultora Especializada e validação das Condições de Aquisição, a  Gestora verificará o atendimento dos Direitos Creditórios ofertados aos Critérios de Elegibilidade e,  observada a política de composição e diversificação da carteira do Fundo, aprovará ou reprovará a  aquisição dos Direitos Creditórios ofertados;\n(iv) cumpridas e aprovadas as etapas acima, é assinado o respectivo Contrato de Endosso, o Termo  de Endosso e/ou boletim de subscrição, conforme aplicável; e\n(v) após a assinatura dos documentos indicados acima, o Custodiante realiza o pagamento do  Preço de Aquisição dos Direitos Creditórios aos Credores Originais ou Devedores, conforme aplicável.\n12.2.3.1 O pagamento do Preço de Aquisição relativo aos Direitos Creditórios Adquiridos pelo Fundo  deverá ser realizado em moeda corrente nacional, mediante transferência eletrônica disponível ou outra  forma autorizada pelo BACEN diretamente aos respectivos Credores Originais ou Devedores, conforme  o caso.",
+      "sha256": "1ef8e565b9351711ce6e1603e3b457cb6bacb9217da409da91558330307769ca",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "be8a746ed2ce9f232c2205dafbc43b6744b8db613e31085f80b38d26f0aeec8f": {
+      "document_id": "1162073",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1162073",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 66,
+      "clause": "",
+      "excerpt": "Em Assembleia Geral Extraordinária de Cotistas, realizada em 06 de agosto de  2025, foram aprovadas:\ni) a alteração das Cláusulas 12.1.5 e 12.1.6 do Regulamento do Fundo para  autorizar a aquisição de Direitos Creditórios cedidos e/ou endossados pela  Consultora Especializada;\nii) a alteração dos Critérios de Elegibilidade previstos no item (i), (ii), (iii), (v),\n (vi) e (x) da Cláusula 12.3.1 do Regulamento do Fundo, para prever que  seus respectivos cálculos serão realizados com base nas informações da  carteira diária e estoque de Direitos Creditórios do Fundo, com data base de  2 (dois) dias úteis anteriores a data do cálculo;\niii) a alteração da Condição de Aquisição prevista no item (ii) da Cláusula 12.4.1  do Regulamento do Fundo, para prever que sua respectiva verificação será  realizada considerando como referência os Direitos Creditórios adimplentes  e inadimplentes do Fundo de 2 (dois) dias úteis anteriores;",
+      "sha256": "c0571d91348cd592d1b8ff114ae05d13283513848a7829829572cf1ef8681e48",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f6e31f03abe7d94d3b443e75f67130d2549184e642b04f8c5c159257bb4b364e": {
+      "document_id": "974437",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974437",
+      "reference_date": "2025-08-06",
+      "version": "1",
+      "page": 51,
+      "clause": "12.3.2",
+      "excerpt": "12.3.2 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir ao Critério de Elegibilidade será verificado e validado pela Gestora, observado que o Critério de Elegibilidade previsto no item 12.3.1(ii) acima será verificado por meio de arquivo contendo a relação de Credores Originais e Fornecedores com indicação de seus respectivos Grupo Econômicos, enviado pela Consultora Especializada à Gestora em cada Data de Referência, e a Gestora não será responsável pelas informações disponibilizadas pela Consultora Especializada no referido arquivo ou no Arquivo de Endosso, nos termos do Contrato de Consultoria Especializada.Observados os termos e as condições do presente Regulamento, dos respectivos Contratos de Endosso, será considerada como definitiva a verificação pela Gestora, conforme aplicável, do atendimento aos Critérios de Elegibilidade.",
+      "sha256": "714b5302c37633b54b3121daa2c9ec7ccc5b5298990838b08419f3caaffae9ff",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4e7be16742a2826d51b827ab6b0d05fa8c20864cf79065ce3b42cf94062c8129": {
+      "document_id": "788565",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788565",
+      "reference_date": "2024-11-26",
+      "version": "1",
+      "page": 43,
+      "clause": "12.2.3",
+      "excerpt": "12.2.3 A originação e a aquisição de Direitos Creditórios pelo Fundo ocorrem da seguinte  forma:\n(i) a Originadora seleciona os potenciais Credores Originais, Fornecedores ou Devedores  que poderão realizar operações com o Fundo;\n(ii) a Consultora Especializada fará a análise e seleção dos Direitos Creditórios, devendo  verificar o atendimento às Condições de Aquisição, incluindo a observância da Política  de Crédito constante do Complemento II a este Regulamento e no Contrato de  Consultoria Especializada;\n(iii) após a recomendação da Consultora Especializada e validação das Condições de  Aquisição, a Gestora ou, após a Data de Transição, a Cogestora verificará o atendimento  dos Direitos Creditórios ofertados aos Critérios de Elegibilidade e, observada a política  de composição e diversificação da carteira do Fundo, aprovará ou reprovará a aquisição  dos Direitos Creditórios ofertados;\n(iv) cumpridas e aprovadas as etapas acima, é assinado o respectivo Contrato de Endosso,  o Termo de Endosso e/ou boletim de subscrição, conforme aplicável; e\n(v) após a assinatura dos documentos indicados acima, o Custodiante realiza o pagamento  do Preço de Aquisição dos Direitos Creditórios aos Credores Originais ou Devedores,  conforme aplicável.\n12.2.3.1 O pagamento do Preço de Aquisição relativo aos Direitos Creditórios Adquiridos  pelo Fundo deverá ser realizado em moeda corrente nacional, mediante transferência eletrônica  disponível ou outra forma autorizada pelo BACEN diretamente aos respectivos Credores  Originais ou Devedores, conforme o caso.",
+      "sha256": "0e41a655bce5253266cb6c27bb11a4b04174792b9f830313b3d47c16aa6e5e94",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f031f10fa7981031daef1912da372c23485f23186319551cf9f664b93584a90e": {
+      "document_id": "716336",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716336",
+      "reference_date": "2024-08-12",
+      "version": "1",
+      "page": 21,
+      "clause": "9.3",
+      "excerpt": "9.3 Sem prejuízo dos Critérios de Elegibilidade previstos no Artigo 76 abaixo, os Direitos  Creditórios a serem cedidos ao Fundo deverão atender às seguintes condições abaixo, bem  como deverão ser submetidos previamente à análise da Consultora Especializada, que será  responsável por verificar as seguintes Condições de Cessão (as “Condições de Cessão”):\na) até 20% (vinte por cento) do PL poderão ser representados por Direitos  Creditórios de Devedores/Sacados pertencentes ao mesmo Grupo  Econômico;\nb) o prazo médio da carteira de Direitos Creditórios cedidos não será superior a  360 (trezentos e sessenta) dias;\nc) esteja enquadrado no limite descrito no item 10.6. abaixo;\nd) até 100% (cem por cento) do PL poderá ser alocado em operações  compromissadas;\ne) até 20% (vinte por cento) do PL poderão ser representados por Direitos  Creditórios a performar de um mesmo originador, quando não contarem com  garantia de instituição financeira ou de sociedade seguradora; e\nf) até 100% (cem por cento) do PL poderá estar representado por créditos a  performar.",
+      "sha256": "eacea94b837c9c5d568f8425edb903fca2bcbce0a77441065457c9cc79a933a6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cafc857b2e15ca615d297a23ab3b7427f0404491832db1ab9b2c85d9a4b3f393": {
+      "document_id": "1010103",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1010103",
+      "reference_date": "2025-09-30",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Concentração. Quando o fundo tiver patrimônio líquido de até R$ 20  milhões, o limite máximo de exposição por grupo econômico devedor é de  R$ 500.000,00; entre R$ 20 milhões e R$ 35 milhões, o limite é de 2% do  patrimônio; entre R$ 35 milhões e R$ 50 milhões, 1,75%; entre R$ 50  milhões e R$ 75 milhões, 1,50%; e, caso o patrimônio líquido seja superior a  R$ 75 milhões, o limite máximo será de 1,25% do patrimônio líquido do  Fundo. Já para o cedente o limite máximo permitido em um único cedente é  de R$ 10 milhões ou 20% do PL se o fundo estiver com PL abaixo de R$ 75  milhões. Caso contrário, o limite é de 15% do PL.",
+      "sha256": "532ef930eb8e0f4f5936315486e8ff788923e75d73ec61294bd1a1d3eda71969",
       "verification": "primary_passage"
     }
   }

@@ -3,14 +3,6 @@
   "cnpj": "61288838000117",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "b01798ba611546d929ef264e2a4466bfdd6fa7ae34405e558ae8d6945e9ff12d",
-      "e8ef622fd5b5f30bd9c340974a969c2a25259cddb07cd90466e215457449dca6",
-      "4fa5cecba1e1078faa3f46604d278f93c7a93baa49c3509cae47df43040f42bd",
-      "ccf0571a1c26d4e944736b2307759567f208bcc4b624a40b229d84e22da37820",
-      "a744da02ce0fb7a503ecd2c457dd9f709c662e9bfc17b6980431af8ba2fcfac8",
-      "79136ea00fc04dba370f6952420b0b3bd56398ba0ea0fd622c80397a6fb3fede"
-    ],
     "ticket": [
       "3b2dbb87f89a4f413ad39db72303adf3c92c72ba56c3ceda01adfff4af8d2c67",
       "b4a46cda2b6f61eb8529514df3ae8d9cdc97d9a49227f08f852300de1f13c454",
@@ -340,21 +332,6 @@
       "3d9ed0cc060db5b90c38f03a2c024230028275e4ba738cfde3b64b81d724bc98",
       "045c6816f0cc967017ee2e75bb5b09758ba59e7e1c9e1f4b7b80f8a418adbc8c"
     ],
-    "originator": [
-      "651f8956911d264ab303b0967b221a2feae6324bd9936be8f8cabbcb0ec97e6d",
-      "af55671dfbd4fe00426262504806d18a4f700d56be05d692714665cc2fc96941",
-      "b5445fee24ae054b186d2b39853d7171310acf6c29f031a8ad922f77828a795d",
-      "309be349a0934da9f5ae010baa81bb7eed584824814dad1b45bdbd1d6cd95e20",
-      "25245fea0ef171ade71c9d3706f70b697d8ab821e0fb7d92e068af5d817ecc60",
-      "ca18f60c1262a911927668b003fb4dd6b5bcecaab686792f5c9a9bbd00fe2d1a"
-    ],
-    "debtor": [
-      "3f788a3db76c44a7a2a75fe676fe461962a5a767efcb35f07e5b056e5bf3b701",
-      "17ae0a4ab735c112d5b060c742885278b9269aba26c6155e6a56ad3bdd02075d",
-      "0b07dcaff6ebd32bbc8396b41d222845e08fff8b55c0a541c36c5e4109d22adb",
-      "c84141a6fe69614d6d6363b393446caa4a625ec6e7e5e4fc62899d4aa0903a27",
-      "26b8a32df5a236ebc70eff54a33b1cf54f1a719f7aca553013d4ed15a6c750d5"
-    ],
     "guarantee": [
       "1a53aa4a44ee0bfc2694dde1040fe0a6a8b4b997598e6aa0d3ed0b5ae0d7e597",
       "9aadbfb9eaf726b6cc086bc8971d16b6ce8200e2318ef9f5181971f6c0de2bdc",
@@ -388,6 +365,25 @@
       "4eb3fdd5ab8f46c952b3654a2fe9ef4dc6e84fbb230f1fdb07a65a5c0a2baf04",
       "7f6cb87f565453a33f6c657e899aabf979a0c1ad3d47d9486babb6c6d072baa1",
       "7332a31196e5b828cc75c3cd09876385ef9194cadf4ce5b913688e2df45f7564"
+    ],
+    "originator": [
+      "651f8956911d264ab303b0967b221a2feae6324bd9936be8f8cabbcb0ec97e6d",
+      "f873cc224b0632b83fcab8395c17e0c879d1bfc2c5158a4839f28605f94dec62",
+      "c913b684b1f9296137315a2009d1753f01ecd98e3fbfbb02dfa0d4c73afe7163",
+      "86f0622fc91073e4de10e2f8d22e8612492861f53fa466ed95a0e2c82f4a89ed",
+      "97c057aaf7106adff784fa22a1dade6cf30489b363ff0e10c60278cae27329f3",
+      "ca18f60c1262a911927668b003fb4dd6b5bcecaab686792f5c9a9bbd00fe2d1a"
+    ],
+    "eligibility": [
+      "b01798ba611546d929ef264e2a4466bfdd6fa7ae34405e558ae8d6945e9ff12d",
+      "d3c021e5f49b48878e96ccbd6a6aa5355951bab1ec98ae051ddc0a959224eebe",
+      "5ff2c80ae8159384d1617f3e15c4a0d32b2a744d57118657a83f22696db13a73",
+      "7d853e0035f259f8e6137390e1286d6ec53e03e0fb2155cb58daf356e6058ee2",
+      "4e37a0796b59638757ce58a48320283994ce00280053972762e8efd3d1f0c9f5",
+      "79136ea00fc04dba370f6952420b0b3bd56398ba0ea0fd622c80397a6fb3fede"
+    ],
+    "debtor": [
+      "3f788a3db76c44a7a2a75fe676fe461962a5a767efcb35f07e5b056e5bf3b701"
     ]
   },
   "entries": {
@@ -438,42 +434,6 @@
         "26450f11357f0f1e3b31fb99fd33eb89c63efacc78039892c135d86580d67116"
       ]
     },
-    "af55671dfbd4fe00426262504806d18a4f700d56be05d692714665cc2fc96941": {
-      "reference_date": "2025-12-31",
-      "value": "Risco de originador: As atividades da MovilePay, da Cedente e das instituições financeiras parceiras que resultam na originação dos direitos creditórios para atendimento à política de investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das instituições financeiras parceiras, o Fundo não consiga adquirir direitos creditórios que atendam às condições de aquisição e aos critérios de elegibilidade, pode haver um desenquadramento do Fundo com relação a seus limites de alocações mínimas e consequentemente a liquidação antecipada do Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d4983cadd327a9e5fd6aff14c584a5963ab0a81de200741015d64f523e1dada0"
-      ]
-    },
-    "b5445fee24ae054b186d2b39853d7171310acf6c29f031a8ad922f77828a795d": {
-      "reference_date": "2025-12-29",
-      "value": "9.3.13. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "902a9cee1217a5b81ef2130b27990bba7f7fa298f46d2e501efac4304b59ac0c"
-      ]
-    },
-    "309be349a0934da9f5ae010baa81bb7eed584824814dad1b45bdbd1d6cd95e20": {
-      "reference_date": "2025-12-29",
-      "value": "9.3.13. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d21f2121fecf9273941ddc24e5c1a58de9b018414e245213cbc0a7fbc35e58a2"
-      ]
-    },
-    "25245fea0ef171ade71c9d3706f70b697d8ab821e0fb7d92e068af5d817ecc60": {
-      "reference_date": "2025-09-22",
-      "value": "9.3.13. Risco de originador.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6fda003a1a9a6475ccbfc214fa6a9b26e51e0510e90a4927b928a059e00fb639"
-      ]
-    },
     "ca18f60c1262a911927668b003fb4dd6b5bcecaab686792f5c9a9bbd00fe2d1a": {
       "reference_date": "2025-06-12",
       "value": "1. A originação dos Direitos Creditórios é realizada por sociedades empresárias (“Originadoras” ou “Cedentes”) no curso regular de suas atividades comerciais, industriais ou de prestação de serviços.",
@@ -491,15 +451,6 @@
       "risk_note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria.",
       "sources": [
         "262dbd57c92fdcee3e6512fe3a906fd8cab0c3e922c7adea19145d081cdc3998"
-      ]
-    },
-    "17ae0a4ab735c112d5b060c742885278b9269aba26c6155e6a56ad3bdd02075d": {
-      "reference_date": "2025-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9109358c9e778b4ce9882939b6b0dc11b35e61aa6316ebafebd82346b5628eee"
       ]
     },
     "0b07dcaff6ebd32bbc8396b41d222845e08fff8b55c0a541c36c5e4109d22adb": {
@@ -537,42 +488,6 @@
       "risk_note": "AGE de 03/07/2026; não confundir esse prazo com o vencimento das cotas.",
       "sources": [
         "e791e88b275b855f3e81248b7f21cbe78e22daa73edfe4d61223d5593b35d0cc"
-      ]
-    },
-    "e8ef622fd5b5f30bd9c340974a969c2a25259cddb07cd90466e215457449dca6": {
-      "reference_date": "2025-12-31",
-      "value": "O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir (i) às Condições de Aquisição, será verificado e validado pelo Endossante, com o auxílio da MovilePay, conforme aplicável, em relação aos Direitos Creditórios CCB, e pela Cedente, em relação aos Direitos Creditórios Credenciadora, na respectiva Data de Oferta de Direitos Creditórios; e (ii) aos Critérios Página 59 de 165 de Elegibilidade será verificado e validado pela Gestora, com base em arquivo eletrônico a ser enviado pelo Endossante e pela Cedente, em layout previamente estabelecido, conforme o caso, previamente a cada aquisição, na respectiva Data de Oferta de Direitos Creditórios.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ee333e2b75fbc2ab8371b0904d5b031a6a15af42116992ee9fb4872164949372"
-      ]
-    },
-    "4fa5cecba1e1078faa3f46604d278f93c7a93baa49c3509cae47df43040f42bd": {
-      "reference_date": "2025-12-29",
-      "value": "Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "902a9cee1217a5b81ef2130b27990bba7f7fa298f46d2e501efac4304b59ac0c"
-      ]
-    },
-    "ccf0571a1c26d4e944736b2307759567f208bcc4b624a40b229d84e22da37820": {
-      "reference_date": "2025-12-29",
-      "value": "Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d21f2121fecf9273941ddc24e5c1a58de9b018414e245213cbc0a7fbc35e58a2"
-      ]
-    },
-    "a744da02ce0fb7a503ecd2c457dd9f709c662e9bfc17b6980431af8ba2fcfac8": {
-      "reference_date": "2025-09-22",
-      "value": "Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6fda003a1a9a6475ccbfc214fa6a9b26e51e0510e90a4927b928a059e00fb639"
       ]
     },
     "79136ea00fc04dba370f6952420b0b3bd56398ba0ea0fd622c80397a6fb3fede": {
@@ -2588,6 +2503,69 @@
       "sources": [
         "b4f7929b764ce92a2351548927069509685fb6112ddcc2648aa6214ee9beb186"
       ]
+    },
+    "d3c021e5f49b48878e96ccbd6a6aa5355951bab1ec98ae051ddc0a959224eebe": {
+      "reference_date": "2025-12-31",
+      "value": "Em relação aos Direitos Creditórios Credenciadora: (xvi) os Direitos Creditórios Credenciadora ofertados deverão ser expressos em moeda corrente nacional; (xvii) considerada pro forma a aquisição em questão, os Direitos Creditórios Credenciadora não poderão representar mais do que 50% (cinquenta) por cento do Patrimônio Líquido do Fundo; (xviii) o respectivo Devedor Credenciadora não poderá estar inadimplente com relação a qualquer Direito Creditório Credenciadora integrante da carteira do Fundo, na Data de Oferta de Direitos Creditórios; e (xix) considerando pro forma a aquisição dos Direitos Creditórios, o Índice de Liquidez deve ser igual ou superior a 1,00 (um inteiro). O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir (i) às Condições de Aquisição, será verificado e validado pelo Endossante, com o auxílio da MovilePay, conforme aplicável, em relação aos Direitos Creditórios CCB, e pela Cedente, em relação aos Direitos Creditórios Credenciadora, na respectiva Data de Oferta de Direitos Creditórios; e (ii) aos Critérios Página 59 de 165 de Elegibilidade será verificado e validado pela Gestora, com base em arquivo eletrônico a ser enviado pelo Endossante e pela Cedente, em layout previamente estabelecido, conforme o caso, previamente a cada aquisição, na respectiva Data de Oferta de Direitos Creditórios. c) Composição da carteira classificada por faixa de vencimento como aquisição substancial dos riscos e benefícios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "713dbe4f84b0ecef76b5eb0c2900baba734011c32b6d12419e52c5d995e234dd"
+      ]
+    },
+    "5ff2c80ae8159384d1617f3e15c4a0d32b2a744d57118657a83f22696db13a73": {
+      "reference_date": "2025-12-29",
+      "value": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos Critérios de Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual e integral dos Direitos Creditórios cedidos. Os recursos para pagamento da Remuneração e para amortização provirão exclusivamente da carteira de ativos do Fundo, a qual está sujeita a riscos diversos e cujo desempenho é incerto, que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ac7bf5f7cf1d0b6426a5b198dc17f641de66dfeb9be5382608178591f7975246"
+      ]
+    },
+    "7d853e0035f259f8e6137390e1286d6ec53e03e0fb2155cb58daf356e6058ee2": {
+      "reference_date": "2025-12-29",
+      "value": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos Critérios de Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual e integral dos Direitos Creditórios cedidos. Os recursos para pagamento da Remuneração e para amortização provirão exclusivamente da carteira de ativos do Fundo, a qual está sujeita a riscos diversos e cujo desempenho é incerto, que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "be759b7fde204aa39fe8e08d5712564de6171e96c03562ba62d394ed371f4c70"
+      ]
+    },
+    "4e37a0796b59638757ce58a48320283994ce00280053972762e8efd3d1f0c9f5": {
+      "reference_date": "2025-09-22",
+      "value": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos Critérios de Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual e integral dos Direitos Creditórios cedidos. Os recursos para pagamento da Remuneração e para amortização provirão exclusivamente da carteira de ativos do Fundo, a qual está sujeita a riscos diversos e cujo desempenho é incerto, que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "abb925aa2bf5c125bf11b4a037f2453eb13178bcc240ea4642703137d13ea12d"
+      ]
+    },
+    "c913b684b1f9296137315a2009d1753f01ecd98e3fbfbb02dfa0d4c73afe7163": {
+      "reference_date": "2025-12-29",
+      "value": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e pela Cedente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c67750291bc7fbd49c038668de2a5e782e80e5cd0ecb1f37d4c18eadd9e6f634"
+      ]
+    },
+    "86f0622fc91073e4de10e2f8d22e8612492861f53fa466ed95a0e2c82f4a89ed": {
+      "reference_date": "2025-12-29",
+      "value": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e pela Cedente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "65b9f372d58609d31269dcc28bbf7c40e261f0a1b8bd1b6576561eddd4ae73b8"
+      ]
+    },
+    "97c057aaf7106adff784fa22a1dade6cf30489b363ff0e10c60278cae27329f3": {
+      "reference_date": "2025-09-22",
+      "value": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e pela Cedente.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "49e877ea551cd6ffae34453e9147352b29ca76c52b4fe340ff26aa0d59357fc1"
+      ]
     }
   },
   "passages": {
@@ -2653,54 +2631,6 @@
       "verification": "previous_review",
       "citation_original": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 107,114,124"
     },
-    "d4983cadd327a9e5fd6aff14c584a5963ab0a81de200741015d64f523e1dada0": {
-      "document_id": "1158403",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158403",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 36,
-      "clause": "",
-      "excerpt": "Risco de originador: As atividades da MovilePay, da Cedente e das instituições financeiras parceiras que resultam na originação dos direitos creditórios para atendimento à política de investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das instituições financeiras parceiras, o Fundo não consiga adquirir direitos creditórios que atendam às condições de aquisição e aos critérios de elegibilidade, pode haver um desenquadramento do Fundo com relação a seus limites de alocações mínimas e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a MovilePay, a Cedente e as instituições financeiras parceiras conseguem e/ou originam e/ou cedem direitos creditórios suficientes para que o Fundo se enquadre às alocações mínimas e continue em funcionamento. Além disso, a ausência e/ou redução na quantidade de direitos creditórios elegíveis para aquisição pelo Fundo pode impactar negativamente na rentabilidade das cotas em função da impossibilidade de aquisição de ativos financeiros com a rentabilidade igual ou superior àquela proporcionada pelos direitos creditórios, o que pode causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
-      "sha256": "2653bdc0454eba293109b3c9cfcfe886a84d21bc2c7f58c52137da9ebfc54949",
-      "verification": "primary_passage"
-    },
-    "902a9cee1217a5b81ef2130b27990bba7f7fa298f46d2e501efac4304b59ac0c": {
-      "document_id": "1073756",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1073756",
-      "reference_date": "2025-12-29",
-      "version": "2",
-      "page": 31,
-      "clause": "9.3.13",
-      "excerpt": "9.3.13. Risco de originador. As atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras que resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais.\nCaso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada do Fundo. Não há garantia de que a MovilePay, a Cedente e as Instituições Financeiras Parceiras conseguirão e/ou irão originar e/ou ceder Direitos Creditórios suficientes para que o Fundo se enquadre às Alocações Mínimas e continue em funcionamento. Além disso, a ausência e/ou redução na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá impactar negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios, o que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
-      "sha256": "4544e1b99a2dbf32b726ad88fe9506efa6704448c976ebc1ebbd5b3df502d64a",
-      "verification": "primary_passage"
-    },
-    "d21f2121fecf9273941ddc24e5c1a58de9b018414e245213cbc0a7fbc35e58a2": {
-      "document_id": "1072389",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072389",
-      "reference_date": "2025-12-29",
-      "version": "1",
-      "page": 52,
-      "clause": "9.3.13",
-      "excerpt": "9.3.13. Risco de originador. As atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras que  resultam na originação dos Direitos Creditórios para atendimento à política de investimentos do Fundo podem,  devido a sua natureza, ser afetadas por diversos fatores, inclusive condições de mercado, efeitos da política  econômica do governo brasileiro e riscos operacionais. Caso, em decorrência de problemas relacionados às  atividades da MovilePay, da Cedente e das Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos  Creditórios que atendam às Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um  desenquadramento do Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação  antecipada do Fundo. Não há garantia de que a MovilePay, a Cedente e as Instituições Financeiras Parceiras  conseguirão e/ou irão originar e/ou ceder Direitos Creditórios suficientes para que o Fundo se enquadre às  Alocações Mínimas e continue em funcionamento. Além disso, a ausência e/ou redução na quantidade de Direitos  Creditórios elegíveis para aquisição pelo Fundo poderá impactar negativamente na rentabilidade das Cotas em  função da impossibilidade de aquisição de Ativos Financeiros com a rentabilidade igual ou superior àquela  proporcionada pelos Direitos Creditórios, o que poderá causar impacto negativo no patrimônio e na rentabilidade  do Fundo e no investimento dos Cotistas.\n Página 52 de 259",
-      "sha256": "0ff983fa01807ddf3e3bb9016140022dd63ef45015a52429a2a7be5607e340ea",
-      "verification": "primary_passage"
-    },
-    "6fda003a1a9a6475ccbfc214fa6a9b26e51e0510e90a4927b928a059e00fb639": {
-      "document_id": "995605",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995605",
-      "reference_date": "2025-09-22",
-      "version": "1",
-      "page": 31,
-      "clause": "9.3.13",
-      "excerpt": "9.3.13. Risco de originador. As atividades da MovilePay, da Cedente e das Instituições Financeiras  Parceiras que resultam na originação dos Direitos Creditórios para atendimento à política de  investimentos do Fundo podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive  condições de mercado, efeitos da política econômica do governo brasileiro e riscos operacionais.\n Caso, em decorrência de problemas relacionados às atividades da MovilePay, da Cedente e das  Instituições Financeiras Parceiras, o Fundo não consiga adquirir Direitos Creditórios que atendam às  Condições de Aquisição e aos Critérios de Elegibilidade, poderá haver um desenquadramento do  Fundo com relação a seus limites de Alocações Mínimas e consequentemente a liquidação antecipada  do Fundo. Não há garantia de que a MovilePay, a Cedente e as Instituições Financeiras Parceiras  conseguirão e/ou irão originar e/ou ceder Direitos Creditórios suficientes para que o Fundo se  enquadre às Alocações Mínimas e continue em funcionamento. Além disso, a ausência e/ou redução  na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá impactar  negativamente na rentabilidade das Cotas em função da impossibilidade de aquisição de Ativos  Financeiros com a rentabilidade igual ou superior àquela proporcionada pelos Direitos Creditórios, o  que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento  dos Cotistas.",
-      "sha256": "ff9b5f3bec84af574f228046a09ad5c63df408b49a756493e261a513f7c9b9d9",
-      "verification": "primary_passage"
-    },
     "93307d01f8145fb5a131fc4af6240ec0eca49d4cd9b75e68073293456065848c": {
       "document_id": "982981",
       "title": "Regulamento",
@@ -2725,18 +2655,6 @@
       "sha256": "fd8f57496e1c4572ea5793ffd8a7e61ddac2df686fcb2474b67fbdb715874b44",
       "verification": "previous_review",
       "citation_original": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 105-106"
-    },
-    "9109358c9e778b4ce9882939b6b0dc11b35e61aa6316ebafebd82346b5628eee": {
-      "document_id": "1158403",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158403",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 59,
-      "clause": "",
-      "excerpt": "Em assembleia geral de cotistas realizada no dia 29 de dezembro de 2025, foi deliberado e aprovado, sem quaisquer ressalvas, pela seguinte ordem do dia:\n(i) a alteração da cláusula 10.5.2 (1), item (iii) do regulamento, que passa a vigorar  conforme redação expressa na referida ata;\n(ii) a alteração da cláusula 18.1, item (ii) do regulamento, considerando os ajustes  acima e que não é considerado evento de liquidação antecipada o término do  contrato celebrado entre a Mi Pagamentos do Brasil Ltda. e o provedor das  contas digitais dos Devedores, tendo em vista que o Provedor de contas Digitais  dos Devedores pode atuar diretamente, na forma permitida pela legislação  aplicável, sem a necessidade de parceria bilateral com a Mi Pagamentos do  Brasil Ltda. ou com outra empresa integrante do seu grupo econômico, que  passa a vigorar conforme redação expressa na referida ata;\n(iii) a alteração da redação da disposição e da respectiva tabela especificamente  sobre direitos creditórios CCB constante do item “3. Do Cálculo para  Provisionamento de Perdas do Fundo”, previsto no Complemento III - Política de  Provisão para Devedores Duvidosos do regulamento, que passa a vigorar  conforme redação expressa na referida ata;\n(iv) a alteração da redação do tópico “Procedimento A.” especificamente em relação  aos direitos creditórios Credenciadora previstos no Complemento Vi –  procedimentos para verificação de lastro do regulamento, que passa a vigorar  conforme redação expressa na referida ata;",
-      "sha256": "2653bdc0454eba293109b3c9cfcfe886a84d21bc2c7f58c52137da9ebfc54949",
-      "verification": "primary_passage"
     },
     "0e96d720791fa32a455a1245fbb2465474143b6cf7553b187950830791c1b194": {
       "document_id": "1073756",
@@ -2786,18 +2704,6 @@
       "sha256": "713701e54c9ff9fba5c5ae22719d77f784690cd6558e41ab623c8fc5420c25ed",
       "verification": "previous_review",
       "citation_original": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 1"
-    },
-    "ee333e2b75fbc2ab8371b0904d5b031a6a15af42116992ee9fb4872164949372": {
-      "document_id": "1158403",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158403",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "Em relação aos Direitos Creditórios Credenciadora:\n(xvi) os Direitos Creditórios Credenciadora ofertados deverão ser expressos em  moeda corrente nacional;\n (xvii) considerada pro forma a aquisição em questão, os Direitos Creditórios  Credenciadora não poderão representar mais do que 50% (cinquenta) por  cento do Patrimônio Líquido do Fundo;\n (xviii) o respectivo Devedor Credenciadora não poderá estar inadimplente com  relação a qualquer Direito Creditório Credenciadora integrante da carteira do  Fundo, na Data de Oferta de Direitos Creditórios; e\n (xix) considerando pro forma a aquisição dos Direitos Creditórios, o Índice de  Liquidez deve ser igual ou superior a 1,00 (um inteiro).\nO enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir (i) às Condições de Aquisição, será verificado e validado pelo Endossante, com o auxílio da MovilePay, conforme aplicável, em relação aos Direitos Creditórios CCB, e pela Cedente, em relação aos Direitos Creditórios Credenciadora, na respectiva Data de Oferta de Direitos Creditórios; e (ii) aos Critérios Página 59 de 165 de Elegibilidade será verificado e validado pela Gestora, com base em arquivo eletrônico a ser enviado pelo Endossante e pela Cedente, em layout previamente estabelecido, conforme o caso, previamente a cada aquisição, na respectiva Data de Oferta de Direitos Creditórios.",
-      "sha256": "2653bdc0454eba293109b3c9cfcfe886a84d21bc2c7f58c52137da9ebfc54949",
-      "verification": "primary_passage"
     },
     "097e0c20fd8ca17924c7d7247ea8b1f5930b85dc3485c05e817f2654b681c237": {
       "document_id": "982981",
@@ -5267,6 +5173,94 @@
       "page": 79,
       "clause": "",
       "excerpt": "taxa que tenha sido  objeto de redução;\n 100% (cem por  deliberar sobre a Maioria das Cotas cento) das Cotas  Maioria das Cotas\n (ix) incorporação, a fusão, a dos Cotistas Subordinadas  em circulação  cisão do Fundo; Presentes Júnior em  circulação.\n deliberar sobre a  liquidação do Fundo na  ocorrência de qualquer Maioria das Cotas  Maioria das Cotas\n (x) dos Eventos de dos Cotistas Não aplicável  em circulação  Avaliação ou dos Presentes  Eventos de Liquidação  Antecipada;\n deliberar sobre a 100% (cem por  75% das Cotas  liquidação do Fundo em 75% das Cotas em cento) das Cotas  em circulação de\n (xi) situações que não as circulação de cada Subordinadas  cada Série ou  listadas no item (viii) Série ou Classe Júnior em  Classe  acima; circulação.\n deliberar sobre a 75% (setenta e 75% (setenta e  interrupção dos cinco por cento) cinco por cento)  procedimentos de das Cotas Seniores das Cotas\n (xii) liquidação do Fundo em e Cotas Seniores e Cotas Não aplicável  caso de ocorrência de Subordinadas Subordinadas  um Evento de Mezanino em Mezanino  Liquidação Antecipada; circulação presentes  100% (cem por  deliberar sobre 75% das Cotas  75% das Cotas em cento) das Cotas  alterações substanciais em circulação de\n (xiii) circulação de cada Subordinadas  na Política de Crédito cada Série ou  Série ou Classe Júnior em  aplicada ao Fundo; Classe  circulação.\n deliberar sobre a  substituição da Agência  Classificadora de Risco Maioria das Cotas Maioria das Cotas\n (xiv) por qualquer agência de dos Cotistas dos Cotistas Não aplicável  classificação de risco Presentes Presentes  que não esteja prevista  neste Regulamento;\n deliberar sobre a  substituição dos Maioria das Cotas Maioria das Cotas\n (xv) Auditores dos Cotistas dos Cotistas Não aplicável  Independentes por Presentes Presentes  auditor independente  Página 79 de 162",
+      "sha256": "ff9b5f3bec84af574f228046a09ad5c63df408b49a756493e261a513f7c9b9d9",
+      "verification": "primary_passage"
+    },
+    "713dbe4f84b0ecef76b5eb0c2900baba734011c32b6d12419e52c5d995e234dd": {
+      "document_id": "1158403",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158403",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "Em relação aos Direitos Creditórios Credenciadora:\n(xvi) os Direitos Creditórios Credenciadora ofertados deverão ser expressos em  moeda corrente nacional;\n (xvii) considerada pro forma a aquisição em questão, os Direitos Creditórios  Credenciadora não poderão representar mais do que 50% (cinquenta) por  cento do Patrimônio Líquido do Fundo;\n (xviii) o respectivo Devedor Credenciadora não poderá estar inadimplente com  relação a qualquer Direito Creditório Credenciadora integrante da carteira do  Fundo, na Data de Oferta de Direitos Creditórios; e\n (xix) considerando pro forma a aquisição dos Direitos Creditórios, o Índice de  Liquidez deve ser igual ou superior a 1,00 (um inteiro).\nO enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir (i) às Condições de Aquisição, será verificado e validado pelo Endossante, com o auxílio da MovilePay, conforme aplicável, em relação aos Direitos Creditórios CCB, e pela Cedente, em relação aos Direitos Creditórios Credenciadora, na respectiva Data de Oferta de Direitos Creditórios; e (ii) aos Critérios Página 59 de 165 de Elegibilidade será verificado e validado pela Gestora, com base em arquivo eletrônico a ser enviado pelo Endossante e pela Cedente, em layout previamente estabelecido, conforme o caso, previamente a cada aquisição, na respectiva Data de Oferta de Direitos Creditórios.\nc) Composição da carteira classificada por faixa de vencimento como  aquisição substancial dos riscos e benefícios",
+      "sha256": "2653bdc0454eba293109b3c9cfcfe886a84d21bc2c7f58c52137da9ebfc54949",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ac7bf5f7cf1d0b6426a5b198dc17f641de66dfeb9be5382608178591f7975246": {
+      "document_id": "1073756",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1073756",
+      "reference_date": "2025-12-29",
+      "version": "2",
+      "page": 32,
+      "clause": "9.3.17",
+      "excerpt": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos Critérios de Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual e integral dos Direitos Creditórios cedidos. Os recursos para pagamento da Remuneração e para amortização provirão exclusivamente da carteira de ativos do Fundo, a qual está sujeita a riscos diversos e cujo desempenho é incerto, que poderá causar impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
+      "sha256": "4544e1b99a2dbf32b726ad88fe9506efa6704448c976ebc1ebbd5b3df502d64a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "be759b7fde204aa39fe8e08d5712564de6171e96c03562ba62d394ed371f4c70": {
+      "document_id": "1072389",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072389",
+      "reference_date": "2025-12-29",
+      "version": "1",
+      "page": 54,
+      "clause": "9.3.17",
+      "excerpt": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos Critérios de  Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual e integral dos Direitos  Creditórios cedidos. Os recursos para pagamento da Remuneração e para amortização provirão exclusivamente da  carteira de ativos do Fundo, a qual está sujeita a riscos diversos e cujo desempenho é incerto, que poderá causar  impacto negativo no patrimônio e na rentabilidade do Fundo e no investimento dos Cotistas.",
+      "sha256": "0ff983fa01807ddf3e3bb9016140022dd63ef45015a52429a2a7be5607e340ea",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "abb925aa2bf5c125bf11b4a037f2453eb13178bcc240ea4642703137d13ea12d": {
+      "document_id": "995605",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995605",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 32,
+      "clause": "9.3.17",
+      "excerpt": "9.3.17. Insuficiência dos Critérios de Elegibilidade e das Condições de Aquisição. A verificação dos  Critérios de Elegibilidade e das Condições de Aquisição não constitui garantia do pagamento pontual  e integral dos Direitos Creditórios cedidos. Os recursos para pagamento da Remuneração e para  amortização provirão exclusivamente da carteira de ativos do Fundo, a qual está sujeita a riscos  diversos e cujo desempenho é incerto, que poderá causar impacto negativo no patrimônio e na  rentabilidade do Fundo e no investimento dos Cotistas.",
+      "sha256": "ff9b5f3bec84af574f228046a09ad5c63df408b49a756493e261a513f7c9b9d9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c67750291bc7fbd49c038668de2a5e782e80e5cd0ecb1f37d4c18eadd9e6f634": {
+      "document_id": "1073756",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1073756",
+      "reference_date": "2025-12-29",
+      "version": "2",
+      "page": 45,
+      "clause": "9.8.8",
+      "excerpt": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e pela Cedente. O Fundo está sujeito aos riscos inerentes ao processo de originação dos Direitos Creditórios CCB adotado pelas Instituições Financeiras Parceiras e pelo Endossante na análise e seleção dos Devedores CCB, conforme descritos neste Regulamento. Não há garantia de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos, sendo que nesse caso a Administradora, Gestora, o Custodiante, o Agente de Pagamentos, a Cedente e a respectiva Instituição Financeira Parceira não serão responsabilizados por eventuais prejuízos ou por qualquer depreciação dos bens da carteira do Fundo.",
+      "sha256": "4544e1b99a2dbf32b726ad88fe9506efa6704448c976ebc1ebbd5b3df502d64a",
+      "verification": "primary_passage"
+    },
+    "65b9f372d58609d31269dcc28bbf7c40e261f0a1b8bd1b6576561eddd4ae73b8": {
+      "document_id": "1072389",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072389",
+      "reference_date": "2025-12-29",
+      "version": "1",
+      "page": 75,
+      "clause": "9.8.8",
+      "excerpt": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e pela Cedente.\n O Fundo está sujeito aos riscos inerentes ao processo de originação dos Direitos Creditórios CCB adotado pelas  Instituições Financeiras Parceiras e pelo Endossante na análise e seleção dos Devedores CCB, conforme descritos  neste Regulamento. Não há garantia de que os resultados do Fundo não sofrerão impactos em razão de sua  exposição a tais riscos, sendo que nesse caso a Administradora, Gestora, o Custodiante, o Agente de Pagamentos,  a Cedente e a respectiva Instituição Financeira Parceira não serão responsabilizados por eventuais prejuízos ou por  qualquer depreciação dos bens da carteira do Fundo.",
+      "sha256": "0ff983fa01807ddf3e3bb9016140022dd63ef45015a52429a2a7be5607e340ea",
+      "verification": "primary_passage"
+    },
+    "49e877ea551cd6ffae34453e9147352b29ca76c52b4fe340ff26aa0d59357fc1": {
+      "document_id": "995605",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995605",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 45,
+      "clause": "9.8.8",
+      "excerpt": "9.8.8. Riscos decorrentes da Política de Crédito adotada pelas Instituições Financeiras Parceiras e  pela Cedente. O Fundo está sujeito aos riscos inerentes ao processo de originação dos Direitos  Creditórios CCB adotado pelas Instituições Financeiras Parceiras e pelo Endossante na análise e  seleção dos Devedores CCB, conforme descritos neste Regulamento. Não há garantia de que os  resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos, sendo que nesse  caso a Administradora, Gestora, o Custodiante, o Agente de Pagamentos, a Cedente e a respectiva  Instituição Financeira Parceira não serão responsabilizados por eventuais prejuízos ou por qualquer  depreciação dos bens da carteira do Fundo.",
       "sha256": "ff9b5f3bec84af574f228046a09ad5c63df408b49a756493e261a513f7c9b9d9",
       "verification": "primary_passage"
     }

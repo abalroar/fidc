@@ -1,0 +1,21 @@
+{
+  "schema_version": 3,
+  "generated_at": "2026-10-13T13:54:46+00:00",
+  "validator_revision": 7,
+  "validator_fingerprint": "a4c09d2ef24b1fdc2f5ec3b632138902c086d991cfcaea92e32c0b8d81e2ea8f",
+  "scope": "Global after-rebuild v7 relevance audit of current confirmed primary answers and source excerpts; manual interpretations are separate. No acquisition or extraction performed by this audit.",
+  "counts": {
+    "funds_checked": 195,
+    "confirmed_primary_cells": 7644,
+    "visible_value_checked": 7644,
+    "source_excerpt_checked": 17024
+  },
+  "affected_cell_count": 0,
+  "affected_fund_count": 0,
+  "affected_cnpjs": {},
+  "by_criterion": {},
+  "inputs_changed_while_read": [],
+  "findings": [],
+  "publication_status": "intermediate_historical_snapshot",
+  "superseded_by": "clause_validation_final_v8.json"
+}

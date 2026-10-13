@@ -3,18 +3,6 @@
   "cnpj": "51430054000128",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "45ac743f92041ccb55125cfb34db5d8ae659f4d4c0d55c93bde65129bdb36b56",
-      "1b09ff3cdc3d12548cf7c4aacdb530a2c61e5f9ca19975a92040f4d10b1a0c19",
-      "a6141a7ef447f04b8d625e4ee841cb80b2f57a2ee2374f2f7bf943f2b6b2df41",
-      "40632391ac4bc1436b4d96826b23ed90e2036001b16a5a192ecbda68ca9ac7ac",
-      "2a31167cd83bc07996b792895090102b971ad4d0d8309e9872cc066d2cdefdf7",
-      "0cf3b51e8e1e968959cd2f6244e3c44d783673b4ffbbd50f056ff7a3ddd5b4e4",
-      "da5bc1966f3d0e021b38e514d1575da10cb9c79723692cabee5a418ab81f3796",
-      "d62bbdccba110e58cc9463bd6d3c985fcc04868ee001e0e7f0e3238a22a422f1",
-      "14c951079a0b350218249e81506d81daf43e2c50ef568fee790f006002709fc9",
-      "7c13ad85c12e0b36e74a4aa1fd1e1ac54db9b9dc38ea86fa7fa64fb373848d67"
-    ],
     "term": [
       "2e86cfd0bc258ffaa5953eae7aaa749f9d5da0a10d9dcee239cdd126e28432e9",
       "746305bc6e947e6e08ef499e844b9b8ee89d8184f42901269ae1f9d5d0ba2984",
@@ -265,15 +253,6 @@
       "347dc73df4a4d7b7cb248d955588b626cdd1b9e15718ac7ae38396473bb1de91",
       "3beb4b765d22c81bb5c05acad753547d33c5ca2ce3d134aea141fec3220e4c38"
     ],
-    "originator": [
-      "a88a9159687cb6878efadbc60fd93968ac2f70cd26ad0c9cf565cd980d407cb7",
-      "373a3c86379a45ad189a4a087792bef6fd60f32e4482d1754f09a35cdf346d33",
-      "e7954529650e4335d5e0e4c1e85d09df0ba277834508cc3bb590c094f97f397b",
-      "0e920e2bf4959163658b0b1c2fab947fc7e46a444df41f615006bb589a7aeaa0",
-      "39f72e89fac9fe9b71507bec51744333e57d0e2a2e1344186481846edf6b41d6",
-      "a55d6a36e67514cf076a36e68e1125a4a17d7bdf7aac424f437c6f0b32e73202",
-      "c7db7505a0b673932468547543156899d97b9369f3cec098a830fdd0acb623fa"
-    ],
     "investee": [
       "fe9ed091e09d38d7613cf9d2b690ca65d52454dc76d63536659eb7bbd6e571cb",
       "2f8742339c3a3fb232a40dd8c5e3cc37b459081a14d016667bff311a1b6ce110"
@@ -295,6 +274,30 @@
       "c7e65c2261675ea94805ef4a99de109da9d9c9a8d684e3bda01f9bc36f75ea0d",
       "20b2d97e1332566a527d9fa9bf47709d80c970a6da9bf20d143c9f94fef2fecf",
       "724b0967e22d672d1514d46f3a25e047a80965848744ae316e19ca5660f30a07"
+    ],
+    "originator": [
+      "a88a9159687cb6878efadbc60fd93968ac2f70cd26ad0c9cf565cd980d407cb7",
+      "373a3c86379a45ad189a4a087792bef6fd60f32e4482d1754f09a35cdf346d33",
+      "e7954529650e4335d5e0e4c1e85d09df0ba277834508cc3bb590c094f97f397b",
+      "5ab8c08cd92d7fd28f93ee04fab3b7c222636451ff5e2e8e45ba83b7d3e640a0",
+      "fc24d991a3e185bae7a5e741a3717ac9708f47e729b7a9ea4ee7ca85b3455598",
+      "6596a1b3e808e91f2b2385973ac0d938321233787512915b81324ed4e3417fce",
+      "ea41f61641def47944d4890863b22d34966e14ab4cfc8206d309fd55468d6f26",
+      "a55d6a36e67514cf076a36e68e1125a4a17d7bdf7aac424f437c6f0b32e73202",
+      "c7db7505a0b673932468547543156899d97b9369f3cec098a830fdd0acb623fa",
+      "f1a4734ed8a9b6005285e166ed2073808fbb2956102e56e7f7a0c67b3b830c5e"
+    ],
+    "eligibility": [
+      "45ac743f92041ccb55125cfb34db5d8ae659f4d4c0d55c93bde65129bdb36b56",
+      "047ae9bb2b2bd86c5daf13ee66ef01014f695eff55c82620bbf5b3a7314b5a31",
+      "1dd8424ebf0f0b243606e4d9cf8ca1b401731fa01c6133dc61fa54559dd228f3",
+      "40632391ac4bc1436b4d96826b23ed90e2036001b16a5a192ecbda68ca9ac7ac",
+      "2a31167cd83bc07996b792895090102b971ad4d0d8309e9872cc066d2cdefdf7",
+      "7a23b8600e40df6a051c93fed8162d16e6530905c32854550ee7a6a0a915347e",
+      "09a57e2bf4a5855f5a70479a2a6a5c4e29651d5b5e6071a611aaa6caa450d0d1",
+      "df3882441fd5a77d9543d871799719f2a63cdce0e381ff3908187c576f5f8c63",
+      "52d0487a430f165fcfbc830b6f45d15d67d8d177bcf3811373c121317227c981",
+      "7c13ad85c12e0b36e74a4aa1fd1e1ac54db9b9dc38ea86fa7fa64fb373848d67"
     ]
   },
   "entries": {
@@ -326,24 +329,6 @@
         "f4edb26f0b4bc6b0df31a574c1fb1f4de589de9efd0fda30f64339912bbb0266"
       ]
     },
-    "0e920e2bf4959163658b0b1c2fab947fc7e46a444df41f615006bb589a7aeaa0": {
-      "reference_date": "2025-11-11",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "161bf9d4c7103b164283ef3ce155d5f274635dcf98262b96cf5a65d400c7b14b"
-      ]
-    },
-    "39f72e89fac9fe9b71507bec51744333e57d0e2a2e1344186481846edf6b41d6": {
-      "reference_date": "2025-05-06",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6c9039bb4b5b1e5a49c20bb8013ae071afc7ae36637d70c6bdca9531675b775e"
-      ]
-    },
     "a55d6a36e67514cf076a36e68e1125a4a17d7bdf7aac424f437c6f0b32e73202": {
       "reference_date": "2024-10-28",
       "value": "2.8. É vedada a aquisição de Direitos de Crédito, direta ou indiretamente originados ou cedidos pela ADMINISTRADORA, pelo GESTOR, ou partes a eles relacionadas, exceto se a Entidade Registradora e o Custodiante não forem partes relacionadas ao originador ou ao Cedente.",
@@ -372,24 +357,6 @@
         "9127663cd5fcc08a75a640a6a6d9232bb2446f230a0d32c9bff3221272847d90"
       ]
     },
-    "1b09ff3cdc3d12548cf7c4aacdb530a2c61e5f9ca19975a92040f4d10b1a0c19": {
-      "reference_date": "2025-04-22",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dd068f21e7e304285a81be017ae88fa50c128809f9fdea400b6db9cb53e36788"
-      ]
-    },
-    "a6141a7ef447f04b8d625e4ee841cb80b2f57a2ee2374f2f7bf943f2b6b2df41": {
-      "reference_date": "2025-03-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "98bba173a60bbc1847dd27e4ce30c9202347cd8e308166f7e3a1c212c873c586"
-      ]
-    },
     "40632391ac4bc1436b4d96826b23ed90e2036001b16a5a192ecbda68ca9ac7ac": {
       "reference_date": "2024-03-31",
       "value": "O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra as Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum",
@@ -406,42 +373,6 @@
       "provenance": "primary_passage",
       "sources": [
         "5d45c6b96ff1f25446b672db7dda7306940b471904bf8a40481232a50267a318"
-      ]
-    },
-    "0cf3b51e8e1e968959cd2f6244e3c44d783673b4ffbbd50f056ff7a3ddd5b4e4": {
-      "reference_date": "2025-11-11",
-      "value": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6c82fe09f5a248afdd8ffe76065ae005db2d1749bfaa0ba8c20156af59004889"
-      ]
-    },
-    "da5bc1966f3d0e021b38e514d1575da10cb9c79723692cabee5a418ab81f3796": {
-      "reference_date": "2025-05-06",
-      "value": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f407bc09d38a2a078892cba76dfff07b8a57afbeb300e1f27fc2bab79036343b"
-      ]
-    },
-    "d62bbdccba110e58cc9463bd6d3c985fcc04868ee001e0e7f0e3238a22a422f1": {
-      "reference_date": "2024-10-28",
-      "value": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade: (i) Direitos de Crédito deverão ser representados em moeda corrente nacional;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69b66b1c8ac6b531aab76829fc7b8d4a96055754b3815a0c026dccce9bf60bf4"
-      ]
-    },
-    "14c951079a0b350218249e81506d81daf43e2c50ef568fee790f006002709fc9": {
-      "reference_date": "2024-10-25",
-      "value": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade: (i) Direitos de Crédito deverão ser representados em moeda corrente nacional;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ca3176629aedfc8671141ff7c223674ca48e9520cb64c8b1ef0f84008f864a0b"
       ]
     },
     "7c13ad85c12e0b36e74a4aa1fd1e1ac54db9b9dc38ea86fa7fa64fb373848d67": {
@@ -2045,6 +1976,78 @@
       "sources": [
         "97aaf3b82727e800a9997ce1592c46d2e680c6b515c108d691fdc0477e26d512"
       ]
+    },
+    "047ae9bb2b2bd86c5daf13ee66ef01014f695eff55c82620bbf5b3a7314b5a31": {
+      "reference_date": "2025-04-22",
+      "value": "(ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto no Regulamento. (vii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (viii) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos do item (iii), não poderá ser superior a 180 dias. (ix) É permitida a aquisição de Diretos Creditórios vencidos. (x) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos. O Gestor será a instituição responsável por verificar e validar o atendimento dos Direitos de Crédito aos Critérios de Elegibilidade nas operações de aquisição de Direitos de Crédito pela Classe, caracterizando a integral conformidade, de forma irrevogável e irretratável, com todas as condições do Regulamento e da legislação e regulamentação aplicáveis.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dd068f21e7e304285a81be017ae88fa50c128809f9fdea400b6db9cb53e36788"
+      ]
+    },
+    "1dd8424ebf0f0b243606e4d9cf8ca1b401731fa01c6133dc61fa54559dd228f3": {
+      "reference_date": "2025-03-31",
+      "value": "Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade: (i) Direitos de Crédito deverão ser representados em moeda corrente nacional; (ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto no Regulamento. (vii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (viii) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos do item (iii), não poderá ser superior a 180 dias. (ix) É permitida a aquisição de Diretos Creditórios vencidos. (x) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "98bba173a60bbc1847dd27e4ce30c9202347cd8e308166f7e3a1c212c873c586"
+      ]
+    },
+    "7a23b8600e40df6a051c93fed8162d16e6530905c32854550ee7a6a0a915347e": {
+      "reference_date": "2025-11-11",
+      "value": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (d) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (e) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (f) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; (g) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto neste Regulamento. (h) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (i) O prazo médio da carteira de Direitos Creditório, com exceção dos ativos mencionados no item (iii), não poderá ser superior a 180 dias. (j) É permitida a aquisição de Direitos Creditórios vencidos. (k) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "66fadabf8ee7b7c6f687ccc8916c252bf8813bf679850d91b262495cfd316cd4"
+      ]
+    },
+    "09a57e2bf4a5855f5a70479a2a6a5c4e29651d5b5e6071a611aaa6caa450d0d1": {
+      "reference_date": "2025-05-06",
+      "value": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (d) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (e) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (f) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; (g) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto neste Regulamento. (h) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (i) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos do item (iii), não poderá ser superior a 180 dias. (j) É permitida a aquisição de Diretos Creditórios vencidos. (k) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b95cba8e0b9eea760a07518796358be5ecd26af5ada76cbeb7ef76b2ae401676"
+      ]
+    },
+    "df3882441fd5a77d9543d871799719f2a63cdce0e381ff3908187c576f5f8c63": {
+      "reference_date": "2024-10-28",
+      "value": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade: (i) Direitos de Crédito deverão ser representados em moeda corrente nacional; (ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; (vii) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto neste Regulamento. (viii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (ix) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos do item (iii), não poderá ser superior a 180 dias. (x) É permitida a aquisição de Diretos Creditórios vencidos. (xi) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d932f896dcf9580a864aa9a15a4735771b39176ea5d4fb0f1e604f109dcb98ae"
+      ]
+    },
+    "52d0487a430f165fcfbc830b6f45d15d67d8d177bcf3811373c121317227c981": {
+      "reference_date": "2024-10-25",
+      "value": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade: (i) Direitos de Crédito deverão ser representados em moeda corrente nacional; (ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original instituição financeira, instrumentos e/ou contratos que sejam emitidos por instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs, de até 36 (trinta e seis) meses. (iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações estabelecidos dentro do sistema operacional da Gestora. (v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC). (vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no relatório de processamento; (vii) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito, observado o disposto neste Regulamento. (viii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será estabelecida no momento de cada cessão, conforme definido no respectivo Contrato de Cessão; (ix) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos do item (iii), não poderá ser superior a 180 dias. (x) É permitida a aquisição de Diretos Creditórios vencidos. (xi) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou originados por empresas controladas pelo poder público; (iii) Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "87f85426ee3e737c7e9700b8cc5624c48ad0415cccb95062d595c9ba66e6bb8a"
+      ]
+    },
+    "6596a1b3e808e91f2b2385973ac0d938321233787512915b81324ed4e3417fce": {
+      "reference_date": "2025-11-11",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "849d8a4c6a4d0a032f6d140cf87134005274a787e5316d32e9f289194af5d21f"
+      ]
+    },
+    "ea41f61641def47944d4890863b22d34966e14ab4cfc8206d309fd55468d6f26": {
+      "reference_date": "2025-05-06",
+      "value": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5283b4f51e59e19b761ea7c87cf0b2538616592ca0889ead4700fa4ab539df8e"
+      ]
     }
   },
   "passages": {
@@ -2083,30 +2086,6 @@
       "clause": "",
       "excerpt": "A Classe não poderá efetuar cessão de Direitos Creditórios em favor dos Cedentes ou de suas partes relacionadas. É vedada a aquisição de Direitos de Crédito, direta ou indiretamente originados ou cedidos pela Administradora, pelo Gestor, ou partes a eles relacionadas, exceto se a Entidade Registradora e o Custodiante não forem partes relacionadas ao originador ou ao Cedente.",
       "sha256": "09041c0c4aafc7a4ce4ff6b93e93e1e1a9caa1d641dd2e6ec1133f39cd0b9167",
-      "verification": "primary_passage"
-    },
-    "161bf9d4c7103b164283ef3ce155d5f274635dcf98262b96cf5a65d400c7b14b": {
-      "document_id": "1033255",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033255",
-      "reference_date": "2025-11-11",
-      "version": "1",
-      "page": 24,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "8d86bea30758f4823f0441f0b25ed24fea7f9dc14cf70413e4fb52b6c5edf0a6",
-      "verification": "primary_passage"
-    },
-    "6c9039bb4b5b1e5a49c20bb8013ae071afc7ae36637d70c6bdca9531675b775e": {
-      "document_id": "894512",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=894512",
-      "reference_date": "2025-05-06",
-      "version": "1",
-      "page": 24,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
-      "sha256": "df50dfeb1eae9d1139af4f50fc0d2a4f6a43b573b72490431018a36e8cc44707",
       "verification": "primary_passage"
     },
     "69818b9e51fcd4f575e935a9ce7bd7c90280f004853e464284a9ec3dd36e1dd8": {
@@ -2192,54 +2171,6 @@
       "clause": "",
       "excerpt": "O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra as Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum",
       "sha256": "a809a8f0b0ab047ab2a6bcfbc9da5c7ee3a52598fa82e3c88f8d00aec5cfad1e",
-      "verification": "primary_passage"
-    },
-    "6c82fe09f5a248afdd8ffe76065ae005db2d1749bfaa0ba8c20156af59004889": {
-      "document_id": "1033255",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033255",
-      "reference_date": "2025-11-11",
-      "version": "1",
-      "page": 30,
-      "clause": "7.2.1",
-      "excerpt": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "8d86bea30758f4823f0441f0b25ed24fea7f9dc14cf70413e4fb52b6c5edf0a6",
-      "verification": "primary_passage"
-    },
-    "f407bc09d38a2a078892cba76dfff07b8a57afbeb300e1f27fc2bab79036343b": {
-      "document_id": "894512",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=894512",
-      "reference_date": "2025-05-06",
-      "version": "1",
-      "page": 30,
-      "clause": "7.2.1",
-      "excerpt": "7.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
-      "sha256": "df50dfeb1eae9d1139af4f50fc0d2a4f6a43b573b72490431018a36e8cc44707",
-      "verification": "primary_passage"
-    },
-    "69b66b1c8ac6b531aab76829fc7b8d4a96055754b3815a0c026dccce9bf60bf4": {
-      "document_id": "768243",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=768243",
-      "reference_date": "2024-10-28",
-      "version": "1",
-      "page": 35,
-      "clause": "3.1",
-      "excerpt": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade:\n(i) Direitos de Crédito deverão ser representados em moeda corrente nacional;",
-      "sha256": "ee11dc686c893a6c1dd04c8f6ccf959bb2f40433cec1f0512d0109f646ca0238",
-      "verification": "primary_passage"
-    },
-    "ca3176629aedfc8671141ff7c223674ca48e9520cb64c8b1ef0f84008f864a0b": {
-      "document_id": "764152",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=764152",
-      "reference_date": "2024-10-25",
-      "version": "1",
-      "page": 35,
-      "clause": "3.1",
-      "excerpt": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade:\n(i) Direitos de Crédito deverão ser representados em moeda corrente nacional;",
-      "sha256": "076c5c8bf3e1c29badd3992f48a7584a3182936726d8b034b021ee9f4764ee38",
       "verification": "primary_passage"
     },
     "744db87e50bc5de17f4e6b7282ac2a75b8ada7313bd0da7a7ac5f791714ed873": {
@@ -4310,6 +4241,82 @@
       "clause": "",
       "excerpt": "Opinião Examinamos as demonstrações financeiras do Bravos Fundo de Investimento em Direitos Creditórios Não Padronizados (“Fundo”), administrado pela Trustee Distribuidora de Títulos e Valores Mobiliários LTDA., que compreendem a demonstração da posição financeira em 31 de março de 2024 e as respectivas demonstrações da evolução do patrimônio líquido para o período de 13 de setembro de 2023 (“data do início das atividades”) à 31 de março de 2024, bem como as correspondentes notas explicativas, incluindo o resumo das principais políticas contábeis.",
       "sha256": "a809a8f0b0ab047ab2a6bcfbc9da5c7ee3a52598fa82e3c88f8d00aec5cfad1e",
+      "verification": "primary_passage"
+    },
+    "66fadabf8ee7b7c6f687ccc8916c252bf8813bf679850d91b262495cfd316cd4": {
+      "document_id": "1033255",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033255",
+      "reference_date": "2025-11-11",
+      "version": "1",
+      "page": 34,
+      "clause": "9.1",
+      "excerpt": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor  original instituição financeira, instrumentos e/ou contratos que sejam emitidos  por instituição financeira, contratos não performados, CCEs, Notas Comerciais e  CCBs, de até 36 (trinta e seis) meses.\n(d) A elegibilidade deve ser controlada automaticamente através de filtros de  negociações estabelecidos dentro do sistema operacional da Gestora.\n(e) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o  Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada  aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito”  (PLC).\n(f) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes  no relatório de processamento;\n(g) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente  verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de  Crédito, observado o disposto neste Regulamento.\n(h) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será  estabelecida no momento de cada cessão, conforme definido no respectivo  Contrato de Cessão;\n(i) O prazo médio da carteira de Direitos Creditório, com exceção dos ativos  mencionados no item (iii), não poderá ser superior a 180 dias.\n(j) É permitida a aquisição de Direitos Creditórios vencidos.\n(k) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas  originárias ou derivadas da união, dos Estados, do Distrito Federal e dos  Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios  cedidos ou originados por empresas controladas pelo poder público; (iii)  Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "sha256": "8d86bea30758f4823f0441f0b25ed24fea7f9dc14cf70413e4fb52b6c5edf0a6",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b95cba8e0b9eea760a07518796358be5ecd26af5ada76cbeb7ef76b2ae401676": {
+      "document_id": "894512",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=894512",
+      "reference_date": "2025-05-06",
+      "version": "1",
+      "page": 34,
+      "clause": "9.1",
+      "excerpt": "9.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor  original instituição financeira, instrumentos e/ou contratos que sejam emitidos  por instituição financeira, contratos não performados, CCEs, Notas Comerciais e  CCBs, de até 36 (trinta e seis) meses.\n(d) A elegibilidade deve ser controlada automaticamente através de filtros de  negociações estabelecidos dentro do sistema operacional da Gestora.\n(e) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o  Estatuto Social vigente da Gestora, sendo a indicação e aprovação de cada  aquisição de direitos creditórios formalizada por “Proposta de Limite de Crédito”  (PLC).\n(f) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes  no relatório de processamento;\n(g) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente  verificado pela Gestora quanto aos Documentos Comprobatórios dos Direitos de  Crédito, observado o disposto neste Regulamento.\n(h) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será  estabelecida no momento de cada cessão, conforme definido no respectivo  Contrato de Cessão;\n(i) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos  ativos do item (iii), não poderá ser superior a 180 dias.\n(j) É permitida a aquisição de Diretos Creditórios vencidos.\n(k) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas  originárias ou derivadas da união, dos Estados, do Distrito Federal e dos  Municípios bem como de suas autarquias e fundações; (ii) Direitos Creditórios  cedidos ou originados por empresas controladas pelo poder público; (iii)  Organizações não governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "sha256": "df50dfeb1eae9d1139af4f50fc0d2a4f6a43b573b72490431018a36e8cc44707",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d932f896dcf9580a864aa9a15a4735771b39176ea5d4fb0f1e604f109dcb98ae": {
+      "document_id": "768243",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=768243",
+      "reference_date": "2024-10-28",
+      "version": "1",
+      "page": "35–36",
+      "clause": "3.1",
+      "excerpt": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade:\n(i) Direitos de Crédito deverão ser representados em moeda corrente nacional;\n(ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no  vencimento;\n(iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original  instituição financeira, instrumentos e/ou contratos que sejam emitidos por  instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs,  de até 36 (trinta e seis) meses.\n(iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações  estabelecidos dentro do sistema operacional da Gestora.\n(v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto  Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de  direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC).\n(vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no  relatório de processamento;\n(vii) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado  pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito,  observado o disposto neste Regulamento.\n(viii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será  estabelecida no momento de cada cessão, conforme definido no respectivo Contrato  de Cessão;\n(ix) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos  do item (iii), não poderá ser superior a 180 dias.\n(x) É permitida a aquisição de Diretos Creditórios vencidos.\n(xi) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas  originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios  bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou  originados por empresas controladas pelo poder público; (iii) Organizações não  governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "sha256": "ee11dc686c893a6c1dd04c8f6ccf959bb2f40433cec1f0512d0109f646ca0238",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "87f85426ee3e737c7e9700b8cc5624c48ad0415cccb95062d595c9ba66e6bb8a": {
+      "document_id": "764152",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=764152",
+      "reference_date": "2024-10-25",
+      "version": "1",
+      "page": "35–36",
+      "clause": "3.1",
+      "excerpt": "3.1. Todos e quaisquer Direitos de Crédito a serem adquiridos pela Classe deverão atender aos seguintes Critérios de Elegibilidade:\n(i) Direitos de Crédito deverão ser representados em moeda corrente nacional;\n(ii) Tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no  vencimento;\n(iii) Ter prazo máximo dos instrumentos e/ou contratos que tenham como credor original  instituição financeira, instrumentos e/ou contratos que sejam emitidos por  instituição financeira, contratos não performados, CCEs, Notas Comerciais e CCBs,  de até 36 (trinta e seis) meses.\n(iv) A elegibilidade deve ser controlada automaticamente através de filtros de negociações  estabelecidos dentro do sistema operacional da Gestora.\n(v) Deverão ter sido aprovados pelo diretor de investimentos de acordo com o Estatuto  Social vigente da Gestora, sendo a indicação e aprovação de cada aquisição de  direitos creditórios formalizada por “Proposta de Limite de Crédito” (PLC).\n(vi) Área de Risco da Gestora deverá confirmar a aprovação dos contratos constantes no  relatório de processamento;\n(vii) Que sejam cedidos ao Fundo por meio de Contrato de Cessão, previamente verificado  pela Gestora quanto aos Documentos Comprobatórios dos Direitos de Crédito,  observado o disposto neste Regulamento.\n(viii) O Fundo adquirirá Direitos de Crédito a uma taxa de cessão individual, que será  estabelecida no momento de cada cessão, conforme definido no respectivo Contrato  de Cessão;\n(ix) O prazo médio da carteira da carteira de Direitos Creditório, com exceção dos ativos  do item (iii), não poderá ser superior a 180 dias.\n(x) É permitida a aquisição de Diretos Creditórios vencidos.\n(xi) É vedada a aquisição de Direitos Creditórios: (i) Decorrentes de receitas públicas  originárias ou derivadas da união, dos Estados, do Distrito Federal e dos Municípios  bem como de suas autarquias e fundações; (ii) Direitos Creditórios cedidos ou  originados por empresas controladas pelo poder público; (iii) Organizações não  governamentais; (iv) Clubes; e (v) Partidos Políticos.",
+      "sha256": "076c5c8bf3e1c29badd3992f48a7584a3182936726d8b034b021ee9f4764ee38",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "849d8a4c6a4d0a032f6d140cf87134005274a787e5316d32e9f289194af5d21f": {
+      "document_id": "1033255",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033255",
+      "reference_date": "2025-11-11",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "sha256": "8d86bea30758f4823f0441f0b25ed24fea7f9dc14cf70413e4fb52b6c5edf0a6",
+      "verification": "primary_passage"
+    },
+    "5283b4f51e59e19b761ea7c87cf0b2538616592ca0889ead4700fa4ab539df8e": {
+      "document_id": "894512",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=894512",
+      "reference_date": "2025-05-06",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+      "sha256": "df50dfeb1eae9d1139af4f50fc0d2a4f6a43b573b72490431018a36e8cc44707",
       "verification": "primary_passage"
     }
   }

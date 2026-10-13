@@ -3,15 +3,6 @@
   "cnpj": "42085830000109",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "a9a390a7bc5db0c622648b9ae3af977c62701157edb8144b929c4d45b3a8db64",
-      "4d98249d9817ccedb0900af107ab6c59e1720c5ce206c1cb23c26d9694979901",
-      "c2df86a7a8c5eaa4733a6ed2eef7de9c2b3487044f5670fa163e595bce86489e",
-      "c978ac81568781edd2206f2271eff7c0206be834cab49eda53521c41b16d6d77",
-      "4b3b938334f7e6b2ef0bf654591826034a78aada6206bd16a8228611a4880c33",
-      "88cda933ea961188f73a37db118cae62d67c7ce16b37a591ce9d9b061daa4d52",
-      "10bb49f85823efa08b7f2b64807aefcb9a5d4472064b7e1d119fb11f13293d92"
-    ],
     "concentration": [
       "37d60b8aa0e34c88a6f98e58af0e7f12d57bd5ac3555b5923966421227b04610",
       "0abc90e7a71682d154ee816197036601e27a428cfedee51276feebc5feb643f4",
@@ -297,22 +288,6 @@
       "41407a5c82afd5d633dcf400f864209613abf5fada6eaa64bdf2d03daea09341",
       "753899671e2c63fd96129b304e6dc0045c829006bfe170e1201efc742056458b"
     ],
-    "originator": [
-      "890d3b15aa560fb700a6449255b89381fe675605ddf4ec26582a82844059a071",
-      "b1d6ce736433d34b527c6e5fbd7833da7394e6311864a173dd4dfcb1f95a29eb",
-      "df2d91601a0b5a5b82c4d65a50f3bd09feeccb9730f0c6f25fe266b4165d8b05",
-      "a17bc6b47acd0a8f72f2ef2e6c16bf5f1cfcd77f5ba39d303cdd0013f76accde",
-      "702100f29e74bef51ce3525071d8932cbfd2571a8b2fe734209697b0c4101109"
-    ],
-    "debtor": [
-      "3b7cd45ed7613c26b871eb0e9a18da7cdd7cc36b486fb158ae93e25716549860",
-      "a9b33cb86c336b88eda71f5cab212d9149d817dba8f03ce175c6b3b5c89c8b8f",
-      "b82613f3407f6ea7620abcc52d184c8a1fd6c650bc47865356c916d09f6d6077",
-      "273eca2c007ca449d249ee034fff8b1c20ecae761c893b2f677a639d7a6d9c8f",
-      "a98f43a255946a3e1a7aa09985827919f62418e9710a8b292a8b3aeed3733b16",
-      "989984aed7698d47174ca65e92ce72f630c05934bc18983903494d37ae60f221",
-      "5d7159f96ec56a34dc7bd56974a4c4646c1bc898d93ffaacd88dfca53dc6f881"
-    ],
     "investee": [
       "17b41af150b290e91332b4b857f7641a8c5f321c7d9478eb218871b37f8cfe3f",
       "0e6f0bd53a2e0bc12ef364c25b79c6828e434a4d2235bc9a0df0628c8d259a01",
@@ -347,6 +322,33 @@
       "6fa8cc2701ca157440062235b6816b4af8566269e75f645b31a0b8132fce1546",
       "0044e126eea6c402be38a651b3463e0678f0558c7b4b37fbcb0518d099feae56",
       "6c108d0abf2f6b099a66fbeb9309b7d19becd1a70e8ad415a3ee8197c840e1b1"
+    ],
+    "originator": [
+      "890d3b15aa560fb700a6449255b89381fe675605ddf4ec26582a82844059a071",
+      "1e8af1bda619c4f59e627eeb5349358eef7c6ab15b15f0ed7118cf9432926480",
+      "b1d6ce736433d34b527c6e5fbd7833da7394e6311864a173dd4dfcb1f95a29eb",
+      "df2d91601a0b5a5b82c4d65a50f3bd09feeccb9730f0c6f25fe266b4165d8b05",
+      "0d6dcf6000186ad582ef27d39c25cc10911047bf8dc939e9a7faef5c0f8560ba",
+      "2988d260ec26a8da50cd035330df986ace63ffbe1b07f183fb5513371e9d1964",
+      "a5308f00ba53c8c1be677c10ec0719d581859426eed0aa06d1804a7998bb2b07"
+    ],
+    "eligibility": [
+      "a9a390a7bc5db0c622648b9ae3af977c62701157edb8144b929c4d45b3a8db64",
+      "5f9d9b570f0458b27f48c1cd64ba20e8b0ff6d71f60d0885e93a12e11e949507",
+      "c2df86a7a8c5eaa4733a6ed2eef7de9c2b3487044f5670fa163e595bce86489e",
+      "c978ac81568781edd2206f2271eff7c0206be834cab49eda53521c41b16d6d77",
+      "4b3b938334f7e6b2ef0bf654591826034a78aada6206bd16a8228611a4880c33",
+      "88cda933ea961188f73a37db118cae62d67c7ce16b37a591ce9d9b061daa4d52",
+      "10bb49f85823efa08b7f2b64807aefcb9a5d4472064b7e1d119fb11f13293d92"
+    ],
+    "debtor": [
+      "3b7cd45ed7613c26b871eb0e9a18da7cdd7cc36b486fb158ae93e25716549860",
+      "8582fb5b99d898504dc0fad984a89f24c54455b8bfdc8f50a197e02ee3c60b66",
+      "b5638b9704227a07869689cada553fb03d581ae3544c6b2b83785e044a6027fe",
+      "23b6e22fd1be54376f14bc37fd2d38434da229818830b3f55e5f2f69da49e012",
+      "8f7343229ef0af359b3a25be42044572a14d238898789d75e54ce7a538062d12",
+      "130502eef1d776743bb809e8ca8fe4dc9a3e9efdf809a0a421532adbf30da651",
+      "ba8c9710ee7508a3efd46bea9cf1afb12c84aa9040a6e8b1f9ed113c40fd2e3e"
     ]
   },
   "entries": {
@@ -442,24 +444,6 @@
         "37779f9046211b15c83bf2cc1a3a197bda04b3e33abb5b3466add8fc10b50287"
       ]
     },
-    "a17bc6b47acd0a8f72f2ef2e6c16bf5f1cfcd77f5ba39d303cdd0013f76accde": {
-      "reference_date": "2023-08-28",
-      "value": "8.5.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos Direitos Creditórios Cedidos, que não poderá ser o originador dos Direitos Creditórios Cedidos, a Cedente, a Gestora e eventual consultor especializado contratado pela Administradora para atuar no âmbito do Fundo, e suas respectivas partes relacionadas, tal como definido pelas regras contábeis que tratam deste assunto e respeitados os termos do Capítulo 15 deste Regulamento. As irregularidades apontadas nesta auditoria serão informadas à Administradora, à Gestora, ao Auditor Independente e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3fbe9b09fdb4282a139037dbabbc7781f130bc37084b41e5580529ba8e8bbe23"
-      ]
-    },
-    "702100f29e74bef51ce3525071d8932cbfd2571a8b2fe734209697b0c4101109": {
-      "reference_date": "2022-01-21",
-      "value": "8.5.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos Direitos Creditórios Cedidos, que não poderá ser o originador dos Direitos Creditórios Cedidos, a Cedente, a Gestora e eventual consultor especializado contratado pela Administradora para atuar no âmbito do Fundo, e suas respectivas partes relacionadas, tal como definido pelas regras contábeis que tratam deste assunto e respeitados os termos do Capítulo 15 deste Regulamento. As irregularidades apontadas nesta auditoria serão informadas à Administradora, à Gestora, ao Auditor Independente e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "146d69ccc84770ec436f15aad6a4d41f2fbc0f8a53b2fb7b06e1cf0d6d5b3d2b"
-      ]
-    },
     "3b7cd45ed7613c26b871eb0e9a18da7cdd7cc36b486fb158ae93e25716549860": {
       "reference_date": "2025-07-24",
       "value": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
@@ -468,33 +452,6 @@
       "risk_note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
       "sources": [
         "0c7f0191b43e283db2772fd4f1fd622511cab8e68a120d1245aa7e2f00bf6da3"
-      ]
-    },
-    "a9b33cb86c336b88eda71f5cab212d9149d817dba8f03ce175c6b3b5c89c8b8f": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "93ee0f778a61cdcd15a1bd620dc81d2d4817491995eb58f09f4267b6d4ca2821"
-      ]
-    },
-    "b82613f3407f6ea7620abcc52d184c8a1fd6c650bc47865356c916d09f6d6077": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3e53f6fd1f6bcc6c1110f8bc0256b9e2e8b2b009b099e818258bfbe8a255cb5f"
-      ]
-    },
-    "273eca2c007ca449d249ee034fff8b1c20ecae761c893b2f677a639d7a6d9c8f": {
-      "reference_date": "2022-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f3674020cd7ffa0c0fb0894ac2e9e986050e1d043060abf191a24c3de8eb3e0c"
       ]
     },
     "a98f43a255946a3e1a7aa09985827919f62418e9710a8b292a8b3aeed3733b16": {
@@ -532,15 +489,6 @@
       "risk_note": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual.",
       "sources": [
         "3556b3929a18f0734a517a323d3e83e845140f20048ffbf1b77782582796c720"
-      ]
-    },
-    "4d98249d9817ccedb0900af107ab6c59e1720c5ce206c1cb23c26d9694979901": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e6d6473e0732741c75df9454ef7cd05d16133a76ec230e40e6315bc5c174e53f"
       ]
     },
     "c2df86a7a8c5eaa4733a6ed2eef7de9c2b3487044f5670fa163e595bce86489e": {
@@ -2392,6 +2340,105 @@
       "sources": [
         "7eddc197985ab40c212cce23a995d5db8089bbbcf128abc87930c79cfdfd5490"
       ]
+    },
+    "5f9d9b570f0458b27f48c1cd64ba20e8b0ff6d71f60d0885e93a12e11e949507": {
+      "reference_date": "2024-12-31",
+      "value": "A aquisição dos Direitos Creditórios pela Classe A será realizada com base nas regras, condições e procedimentos estabelecidos no Contrato de Cessão e da comprovação do pagamento do Preço de Aquisição, mediante transferência à Conta Preço de Aquisição da Cedente, bem como de acordo com os Critérios de Elegibilidade.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f7463f07cadafc5a07b8249f28b093eb353775bb795eab33f9869cb5d7356c07"
+      ]
+    },
+    "1e8af1bda619c4f59e627eeb5349358eef7c6ab15b15f0ed7118cf9432926480": {
+      "reference_date": "2024-12-31",
+      "value": "O Custodiante pode contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos direitos creditórios cedidos, desde que não seja o originador dos direitos creditórios cedidos, os cedentes, a gestora e eventual consultor especializado contratado",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9468c9427dfe5d22b5d7077452f33570b9a49982f58f7e7b5ca43446f317a959"
+      ]
+    },
+    "0d6dcf6000186ad582ef27d39c25cc10911047bf8dc939e9a7faef5c0f8560ba": {
+      "reference_date": "2024-09-05",
+      "value": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando- se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos Devedores em face da Cedente, conforme as relações e operações descritas a seguir: (i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de regras e procedimentos que disciplina a prestação de determinado serviço de pagamento ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da regulamentação aplicável;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a08508751437315ddbbe67f5c7a13b950c1fbd2a5bee5a1db6b1d76b46b0d53e"
+      ]
+    },
+    "2988d260ec26a8da50cd035330df986ace63ffbe1b07f183fb5513371e9d1964": {
+      "reference_date": "2023-08-28",
+      "value": "6.7.22. Risco de Concentração em um Cedente. Os Direitos Creditórios a serem adquiridos pelo Fundo serão cedidos exclusivamente pela CloudWalk. A aquisição de Direitos Creditórios originados exclusivamente pela CloudWalk pode comprometer a continuidade do Fundo, em função da ausência de capacidade desta de originar Direitos Creditórios Elegíveis ou da diminuição da oferta de Direitos Creditórios Elegíveis ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d190a08f6cc7b90f43358a2f7bc2384ec24853fad4cbab1465930a791ea50baf"
+      ]
+    },
+    "a5308f00ba53c8c1be677c10ec0719d581859426eed0aa06d1804a7998bb2b07": {
+      "reference_date": "2022-01-21",
+      "value": "6.7.22. Risco de Concentração em um Cedente. Os Direitos Creditórios a serem adquiridos pelo Fundo serão cedidos exclusivamente pela CloudWalk. A aquisição de Direitos Creditórios originados exclusivamente pela CloudWalk pode comprometer a continuidade do Fundo, em função da ausência de capacidade desta de originar Direitos Creditórios Elegíveis ou da diminuição da oferta de Direitos Creditórios Elegíveis ao Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "435fa33ccab5a249c74c0d8647aac8de724efe7f6d93a53a2911af3a1a70ef35"
+      ]
+    },
+    "8582fb5b99d898504dc0fad984a89f24c54455b8bfdc8f50a197e02ee3c60b66": {
+      "reference_date": "2024-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras sujeitas a regulamentação do Banco Central do Brasil (BACEN), Comissão de Valores Mobiliários (CVM) e Conselho Monetário Nacional (CMN). Essas entidades podem impor sanções disciplinares e alterar normas que impactam a liquidez, a solvência e a estratégia de captação dos bancos. Além disso, o setor financeiro é altamente competitivo, com concorrência de grandes bancos e seguradoras nacionais e estrangeiras, o que pode afetar a capacidade dos Devedores de cumprir suas obrigações com a Classe A.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6f230dc881da29097e4ea84d360c00f509288c91e6c5d5fe23a0ea7f21d83a52"
+      ]
+    },
+    "b5638b9704227a07869689cada553fb03d581ae3544c6b2b83785e044a6027fe": {
+      "reference_date": "2023-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "563b0fbb7b515e83ea4977c632f6d9398f9dd6e5ae44840f5c836621ae0914b1"
+      ]
+    },
+    "23b6e22fd1be54376f14bc37fd2d38434da229818830b3f55e5f2f69da49e012": {
+      "reference_date": "2022-12-31",
+      "value": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8aff915576d91e9ef86571c4f9a326a6ac00ad56e08ee023c6f0ecdc10ac25c6"
+      ]
+    },
+    "8f7343229ef0af359b3a25be42044572a14d238898789d75e54ce7a538062d12": {
+      "reference_date": "2024-09-05",
+      "value": "20.1.10. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c7c2962b2d0bcd8543d674d4a4300631ef6e132eb3021d7a616ca470a24ec012"
+      ]
+    },
+    "130502eef1d776743bb809e8ca8fe4dc9a3e9efdf809a0a421532adbf30da651": {
+      "reference_date": "2023-08-28",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0affb542308187e87be08a5a16cc3b3882b2d965ee051be09424b3a421d93582"
+      ]
+    },
+    "ba8c9710ee7508a3efd46bea9cf1afb12c84aa9040a6e8b1f9ed113c40fd2e3e": {
+      "reference_date": "2022-01-21",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "aee985acb6a9f55e6a2e28a5dbc4f9a7f9979483a57725ed7e65088dbf96615a"
+      ]
     }
   },
   "passages": {
@@ -2504,66 +2551,6 @@
       "sha256": "f6efaabb0b53c8598acf84b8a653cc66972127eec6e62f78c85925e08e26f970",
       "verification": "primary_passage"
     },
-    "3fbe9b09fdb4282a139037dbabbc7781f130bc37084b41e5580529ba8e8bbe23": {
-      "document_id": "513483",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513483",
-      "reference_date": "2023-08-28",
-      "version": "1",
-      "page": 28,
-      "clause": "8.5.2",
-      "excerpt": "8.5.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar  a verificação do lastro dos Direitos Creditórios Cedidos, que não poderá ser o originador dos Direitos  Creditórios Cedidos, a Cedente, a Gestora e eventual consultor especializado contratado pela  Administradora para atuar no âmbito do Fundo, e suas respectivas partes relacionadas, tal como  definido pelas regras contábeis que tratam deste assunto e respeitados os termos do Capítulo 15  deste Regulamento. As irregularidades apontadas nesta auditoria serão informadas à  Administradora, à Gestora, ao Auditor Independente e aos Cotistas.",
-      "sha256": "3e369970780401e3034616fe69850ecb4ec2b225a9fa428e5940775d67e15a3d",
-      "verification": "primary_passage"
-    },
-    "146d69ccc84770ec436f15aad6a4d41f2fbc0f8a53b2fb7b06e1cf0d6d5b3d2b": {
-      "document_id": "259045",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=259045",
-      "reference_date": "2022-01-21",
-      "version": "1",
-      "page": 28,
-      "clause": "8.5.2",
-      "excerpt": "8.5.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar  a verificação do lastro dos Direitos Creditórios Cedidos, que não poderá ser o originador dos Direitos  Creditórios Cedidos, a Cedente, a Gestora e eventual consultor especializado contratado pela  Administradora para atuar no âmbito do Fundo, e suas respectivas partes relacionadas, tal como  definido pelas regras contábeis que tratam deste assunto e respeitados os termos do Capítulo 15  deste Regulamento. As irregularidades apontadas nesta auditoria serão informadas à  Administradora, à Gestora, ao Auditor Independente e aos Cotistas.",
-      "sha256": "fcafe29ddb4a9c3c9ef23387b0b925b0f43055c09779a53e672cc6430a8b997f",
-      "verification": "primary_passage"
-    },
-    "93ee0f778a61cdcd15a1bd620dc81d2d4817491995eb58f09f4267b6d4ca2821": {
-      "document_id": "868259",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868259",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 35,
-      "clause": "",
-      "excerpt": "Risco de Amortização de Cotas na Medida da Liquidação dos Ativos Integrantes da Carteira do Fundo e da Inexistência de Mercado Secundário para os Direitos Creditórios A Classe A está exposta a determinados riscos inerentes aos Direitos Creditórios Cedidos e aos Ativos Financeiros integrantes de sua carteira e, conforme o caso, aos mercados em que são negociados, incluindo a existência de vedações e/ou eventual impossibilidade de a Administradora alienar os Direitos Creditórios Cedidos de titularidade da Classe A. Em decorrência do risco acima identificado e considerando-se que a Classe A somente procede à amortização ou ao resgate das Cotas, em moeda corrente nacional, na medida em que (i) os Direitos Creditórios Cedidos de titularidade da Classe A são devidamente pagos pelos Devedores; (ii) os Ativos Financeiros integrantes de sua carteira são liquidadas por suas respectivas contrapartes; e (iii) as verbas recebidas são depositadas na Conta da Classe A, a Administradora, a Gestora, o Custodiante, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas encontram-se impossibilitados de determinar o intervalo de tempo necessário para a amortização ou o resgate integral das Cotas. O valor de amortização e, conforme o caso, do resgate das Cotas Seniores continua a ser atualizado até a data de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido à Classe A ou por qualquer pessoa, inclusive a Cedente, a Administradora, a Gestora, o Custodiante, o Agente de Cobrança Extraordinária, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas, todavia, qualquer multa ou penalidade, de qualquer natureza, caso o referido evento se prolongue por prazo indeterminado ou não possa, por qualquer motivo, ser realizado.\nAdemais, o resgate das Cotas pode ser realizado mediante a dação em pagamento de Direitos Creditórios, observados os procedimentos definidos no Regulamento. Nessa hipótese, os Cotistas podem encontrar dificuldades para alienar os Direitos Creditórios recebidos em dação e/ou cobrar os valores devidos pelos Devedores.",
-      "sha256": "0b323b3c69eb9a91ae2a91db4f2a147f01951e5ed506d66f8f1b015eea572e88",
-      "verification": "primary_passage"
-    },
-    "3e53f6fd1f6bcc6c1110f8bc0256b9e2e8b2b009b099e818258bfbe8a255cb5f": {
-      "document_id": "632126",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=632126",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 32,
-      "clause": "",
-      "excerpt": "Risco de Amortização de Cotas na Medida da Liquidação dos Ativos Integrantes da Carteira do Fundo e da Inexistência de Mercado Secundário para os Direitos Creditórios O Fundo está exposto a determinados riscos inerentes aos Direitos Creditórios Cedidos e aos Ativos Financeiros integrantes de sua carteira e, conforme o caso, aos mercados em que são negociados, incluindo a existência de vedações e/ou eventual impossibilidade da Administradora alienar os Direitos Creditórios Cedidos de titularidade do Fundo. Em decorrência do risco acima identificado e considerando-se que o Fundo somente procederá à amortização ou ao resgate das Cotas, em moeda corrente nacional, na medida em que (i) os Direitos Creditórios Cedidos de titularidade do Fundo sejam devidamente pagos pelos Devedores; (ii) os Ativos Financeiros integrantes de sua carteira sejam liquidados por suas respectivas contrapartes; e (iii) as verbas recebidas sejam depositadas na Conta do Fundo, a Administradora, a Gestora, o Custodiante, o distribuidor líder de qualquer oferta de Cotas do Fundo e/ou suas afiliadas encontram-se impossibilitados de determinar o intervalo de tempo necessário para a amortização ou o resgate integral das Cotas. O valor de amortização e, conforme o caso, do resgate das Cotas Seniores continuará a ser atualizado até a data de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido pelo Fundo ou por qualquer pessoa, inclusive a Cedente, a Administradora, a Gestora, o Custodiante, o Agente de Cobrança Extraordinária, o distribuidor líder de qualquer oferta de Cotas do Fundo e/ou suas",
-      "sha256": "4b0d3b8c8d7876c6ce20d50ef915f72e124a3a4452c79ecd131743c1a6e9f71a",
-      "verification": "primary_passage"
-    },
-    "f3674020cd7ffa0c0fb0894ac2e9e986050e1d043060abf191a24c3de8eb3e0c": {
-      "document_id": "440004",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=440004",
-      "reference_date": "2022-12-31",
-      "version": "1",
-      "page": 30,
-      "clause": "",
-      "excerpt": "Risco de Amortização de Cotas na Medida da Liquidação dos Ativos Integrantes da Carteira do Fundo e da Inexistência de Mercado Secundário para os Direitos Creditórios O Fundo está exposto a determinados riscos inerentes aos Direitos Creditórios Cedidos e aos Ativos Financeiros integrantes de sua carteira e, conforme o caso, aos mercados em que são negociados, incluindo a existência de vedações e/ou eventual impossibilidade da Administradora alienar os Direitos Creditórios Cedidos de titularidade do Fundo. Em decorrência do risco acima identificado e considerando-se que o Fundo somente procederá à amortização ou ao resgate das Cotas, em moeda corrente nacional, na medida em que (i) os Direitos Creditórios Cedidos de titularidade do Fundo sejam devidamente pagos pelos Devedores; (ii) os Ativos Financeiros integrantes de sua carteira sejam liquidados por suas respectivas contrapartes; e (iii) as verbas recebidas sejam depositadas na Conta do Fundo, a Administradora, a Gestora, o Custodiante, o distribuidor líder de qualquer oferta de Cotas do Fundo e/ou suas afiliadas encontram-se impossibilitados de determinar o intervalo de tempo necessário para a amortização ou o resgate integral das Cotas. O valor de amortização e, conforme o caso, do resgate das Cotas Seniores continuará a ser atualizado até a data de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido pelo Fundo ou por qualquer pessoa, inclusive a Cedente, a Administradora, a Gestora, o Custodiante, o Agente de Cobrança Extraordinária, o distribuidor líder de qualquer oferta de Cotas do Fundo e/ou suas afiliadas, todavia, qualquer multa ou penalidade, de qualquer natureza, caso o referido evento prolongue-se por prazo indeterminado ou não possa, por qualquer motivo, ser realizado. Ademais, o resgate das Cotas poderá ser realizado mediante a dação em pagamento de Direitos Creditórios, observados os procedimentos definidos no Regulamento. Nessa hipótese, os Cotistas poderão encontrar dificuldades para alienar os Direitos Creditórios recebidos em dação e/ou cobrar os valores devidos pelos Devedores.",
-      "sha256": "f6efaabb0b53c8598acf84b8a653cc66972127eec6e62f78c85925e08e26f970",
-      "verification": "primary_passage"
-    },
     "f13a9c297e17461028d3eb138a10955a4168a6464d3b9f72a1f89e9d1195db3f": {
       "document_id": "733255",
       "title": "Regulamento",
@@ -2612,18 +2599,6 @@
       "sha256": "c693ba9c2eaa9fcc79169c7b5ed02b6a1c86647258ac8c30ff6f9f7e1febd081",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 966441 | 24/07/2025 | Regulamento | p. 31, Anexo I, critérios de elegibilidade | data/raw/42085830000109/966441_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=966441"
-    },
-    "e6d6473e0732741c75df9454ef7cd05d16133a76ec230e40e6315bc5c174e53f": {
-      "document_id": "868259",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868259",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 26,
-      "clause": "",
-      "excerpt": "Riscos relacionados à transferência do valor equivalente ao Preço de Aquisição à  Conta Preço de Aquisição  Em decorrência de questões operacionais, os valores estimados para aquisição dos Direitos  Creditórios Elegíveis em um determinado Dia Útil são depositados na Conta Preço de Aquisição  antes da verificação das Condições de Cessão e dos Critérios de Elegibilidade, bem como da  celebração dos respectivos Termos de Cessão. Para isso, a Cedente deve oferecer à Classe A  Direitos Creditórios que, em seu melhor entendimento, atendem às Condições de Cessão e aos  Critérios de Elegibilidade, sem prejuízo da obrigação da Gestora de validar os Critérios de  Elegibilidade. Caso seja verificado que os Direitos Creditórios Elegíveis, em um determinado  Dia Útil, não atendem às Condições de Cessão e aos Critérios de Elegibilidade, ao final de cada  Dia Útil, o Custodiante realiza a conciliação dos valores transferidos à Conta Preço de  Aquisição e dos Direitos Creditórios Elegíveis efetivamente adquiridos pela Classe A, de forma  que o valor excedente então pago pela Classe A é subtraído do valor a ser transferido à Conta  Preço de Aquisição no Dia Útil seguinte, conforme definido no Item 12.3.2 do Regulamento.\n Caso não haja valores a serem transferidos à Conta Preço de Aquisição no Dia Útil subsequente  em níveis suficientes para compensar a parcela do Preço de Aquisição já paga, a Cedente tem a  obrigação de devolver tais recursos à Classe A, sem quaisquer deduções ou retenções de  valores. Nessa hipótese, o inadimplemento da Cedente referente à sua obrigação de devolução",
-      "sha256": "0b323b3c69eb9a91ae2a91db4f2a147f01951e5ed506d66f8f1b015eea572e88",
-      "verification": "primary_passage"
     },
     "32301a21e8459215682baa39dcb6ac2f2d86ba6b1e6c54dadf770274d5ee7afa": {
       "document_id": "632126",
@@ -4844,6 +4819,139 @@
       "clause": "",
       "excerpt": "Examinamos as demonstrações financeiras do Cloudwalk Akira I Fundo de Investimento em Direitos Creditórios (“Fundo”), administrado pelo Banco Genial S.A., que compreendem a demonstração da posição financeira em 31 de dezembro de 2022 e as respectivas demonstrações do resultado, das mutações do patrimônio líquido e dos fluxos de caixa para o período de 26 de janeiro de 2022 (data de início das atividades do Fundo) a 31 de dezembro de 2022, bem como as correspondentes notas explicativas, compreendendo as políticas contábeis significativas e outras informações elucidativas.\nEm nossa opinião, as demonstrações financeiras acima referidas apresentam adequadamente, em todos os aspectos relevantes, a posição patrimonial e financeira do Cloudwalk Akira I Fundo de Investimento em Direitos Creditórios em 31 de dezembro de 2022 e o desempenho de suas operações e os seus fluxos de caixa para o período de 26 de janeiro de 2022 a 31 de dezembro de 2022, de acordo com as práticas contábeis adotadas no Brasil aplicáveis aos fundos de investimento em direitos creditórios.",
       "sha256": "f6efaabb0b53c8598acf84b8a653cc66972127eec6e62f78c85925e08e26f970",
+      "verification": "primary_passage"
+    },
+    "f7463f07cadafc5a07b8249f28b093eb353775bb795eab33f9869cb5d7356c07": {
+      "document_id": "868259",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868259",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "A aquisição dos Direitos Creditórios pela Classe A será realizada com base nas regras,  condições e procedimentos estabelecidos no Contrato de Cessão e da comprovação do  pagamento do Preço de Aquisição, mediante transferência à Conta Preço de Aquisição da  Cedente, bem como de acordo com os Critérios de Elegibilidade.",
+      "sha256": "0b323b3c69eb9a91ae2a91db4f2a147f01951e5ed506d66f8f1b015eea572e88",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9468c9427dfe5d22b5d7077452f33570b9a49982f58f7e7b5ca43446f317a959": {
+      "document_id": "868259",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868259",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 20,
+      "clause": "",
+      "excerpt": "O Custodiante pode contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a  verificação do lastro dos direitos creditórios cedidos, desde que não seja o originador dos  direitos creditórios cedidos, os cedentes, a gestora e eventual consultor especializado contratado",
+      "sha256": "0b323b3c69eb9a91ae2a91db4f2a147f01951e5ed506d66f8f1b015eea572e88",
+      "verification": "primary_passage"
+    },
+    "a08508751437315ddbbe67f5c7a13b950c1fbd2a5bee5a1db6b1d76b46b0d53e": {
+      "document_id": "733255",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=733255",
+      "reference_date": "2024-09-05",
+      "version": "1",
+      "page": 53,
+      "clause": "12.1",
+      "excerpt": "12.1. Os Direitos Creditórios Elegíveis são originados da realização de Transações de  Pagamento pelos Usuários-Finais por meio do Sistema CloudWalk para a aquisição de  bens, produtos e serviços oferecidos na rede de Estabelecimentos Credenciados utilizando-  se de Instrumentos de Pagamento, dos quais decorrem as obrigações de pagamento dos  Devedores em face da Cedente, conforme as relações e operações descritas a seguir:\n(i) as Bandeiras são instituições responsáveis pela instituição de um conjunto de  regras e procedimentos que disciplina a prestação de determinado serviço de pagamento  ao público, denominado de Arranjo de Pagamento, detentoras dos direitos de propriedade  e/ou franqueadoras de suas marcas e logotipos que identificam os Instrumentos de  Pagamento, sendo também responsáveis por regulamentar e fiscalizar a emissão dos  Instrumentos de Pagamento, o uso e padrões operacionais e de segurança, nos termos da  regulamentação aplicável;\n(ii) no âmbito dos Arranjos de Pagamento, estabelecidos pelas Bandeiras, Emissores  são instituições financeiras e/ou instituições de pagamento devidamente autorizadas a  emitir moeda eletrônica e/ou Instrumentos de Pagamento (inclusive Cartões), com  validade no Brasil, nos termos da legislação aplicável do CMN e BACEN;\n(iii) entidades credenciadoras possibilitam a estabelecimentos comerciais ou  profissionais autônomos, por meio do oferecimento de aparelhos e sistemas, a aceitação  de Instrumentos de Pagamento, emitidos por Emissores, no âmbito dos Arranjos de  Pagamento estabelecidos pelas Bandeiras, como meio de pagamento;\n(iv) uma vez utilizados os Instrumentos de Pagamento e autorizada a respectiva  transação, gera-se um crédito dos estabelecimentos comerciais ou profissionais  autônomos contra as entidades credenciadoras, que, por outro lado, têm um equivalente  crédito contra os Emissores;",
+      "sha256": "7858a877f0bb1ae8ab234f6bf693d367906662766562d4cbc92f130541fa74cd",
+      "verification": "primary_passage"
+    },
+    "d190a08f6cc7b90f43358a2f7bc2384ec24853fad4cbab1465930a791ea50baf": {
+      "document_id": "513483",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513483",
+      "reference_date": "2023-08-28",
+      "version": "1",
+      "page": 20,
+      "clause": "6.7.22",
+      "excerpt": "6.7.22. Risco de Concentração em um Cedente. Os Direitos Creditórios a serem adquiridos pelo  Fundo serão cedidos exclusivamente pela CloudWalk. A aquisição de Direitos Creditórios originados  exclusivamente pela CloudWalk pode comprometer a continuidade do Fundo, em função da ausência  de capacidade desta de originar Direitos Creditórios Elegíveis ou da diminuição da oferta de Direitos  Creditórios Elegíveis ao Fundo.",
+      "sha256": "3e369970780401e3034616fe69850ecb4ec2b225a9fa428e5940775d67e15a3d",
+      "verification": "primary_passage"
+    },
+    "435fa33ccab5a249c74c0d8647aac8de724efe7f6d93a53a2911af3a1a70ef35": {
+      "document_id": "259045",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=259045",
+      "reference_date": "2022-01-21",
+      "version": "1",
+      "page": 20,
+      "clause": "6.7.22",
+      "excerpt": "6.7.22. Risco de Concentração em um Cedente. Os Direitos Creditórios a serem adquiridos pelo  Fundo serão cedidos exclusivamente pela CloudWalk. A aquisição de Direitos Creditórios originados  exclusivamente pela CloudWalk pode comprometer a continuidade do Fundo, em função da ausência  de capacidade desta de originar Direitos Creditórios Elegíveis ou da diminuição da oferta de Direitos  Creditórios Elegíveis ao Fundo.",
+      "sha256": "fcafe29ddb4a9c3c9ef23387b0b925b0f43055c09779a53e672cc6430a8b997f",
+      "verification": "primary_passage"
+    },
+    "6f230dc881da29097e4ea84d360c00f509288c91e6c5d5fe23a0ea7f21d83a52": {
+      "document_id": "868259",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=868259",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro  Os Devedores são instituições financeiras sujeitas a regulamentação do Banco Central do Brasil  (BACEN), Comissão de Valores Mobiliários (CVM) e Conselho Monetário Nacional (CMN).\n Essas entidades podem impor sanções disciplinares e alterar normas que impactam a liquidez, a  solvência e a estratégia de captação dos bancos. Além disso, o setor financeiro é altamente  competitivo, com concorrência de grandes bancos e seguradoras nacionais e estrangeiras, o que  pode afetar a capacidade dos Devedores de cumprir suas obrigações com a Classe A.",
+      "sha256": "0b323b3c69eb9a91ae2a91db4f2a147f01951e5ed506d66f8f1b015eea572e88",
+      "verification": "primary_passage"
+    },
+    "563b0fbb7b515e83ea4977c632f6d9398f9dd6e5ae44840f5c836621ae0914b1": {
+      "document_id": "632126",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=632126",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 22,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente instituições financeiras, inclusive para implementação de política econômica específica ou em decorrência de eventos extraordinários, tais como a pandemia de COVID-19.\nComo resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa competição",
+      "sha256": "4b0d3b8c8d7876c6ce20d50ef915f72e124a3a4452c79ecd131743c1a6e9f71a",
+      "verification": "primary_passage"
+    },
+    "8aff915576d91e9ef86571c4f9a326a6ac00ad56e08ee023c6f0ecdc10ac25c6": {
+      "document_id": "440004",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=440004",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 21,
+      "clause": "",
+      "excerpt": "Risco do Setor Financeiro  Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização  regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo  BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares.\n Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital  mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a  investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi)  limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo  brasileiro pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de eventos  extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo brasileiro pode  mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de  captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo  Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e  implementação pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos  Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente competitivo,  enfrenta significativa competição de outros grandes bancos e seguradoras brasileiras e  estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a  regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento,  nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "f6efaabb0b53c8598acf84b8a653cc66972127eec6e62f78c85925e08e26f970",
+      "verification": "primary_passage"
+    },
+    "c7c2962b2d0bcd8543d674d4a4300631ef6e132eb3021d7a616ca470a24ec012": {
+      "document_id": "733255",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=733255",
+      "reference_date": "2024-09-05",
+      "version": "1",
+      "page": 73,
+      "clause": "20.1.10",
+      "excerpt": "20.1.10. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram",
+      "sha256": "7858a877f0bb1ae8ab234f6bf693d367906662766562d4cbc92f130541fa74cd",
+      "verification": "primary_passage"
+    },
+    "0affb542308187e87be08a5a16cc3b3882b2d965ee051be09424b3a421d93582": {
+      "document_id": "513483",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513483",
+      "reference_date": "2023-08-28",
+      "version": "1",
+      "page": 12,
+      "clause": "6.3.11",
+      "excerpt": "6.3.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à  extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é  exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem  impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras:\n (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv)  exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações  compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de  provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente  instituições financeiras, inclusive para implementação de política econômica específica ou em  decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o  governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda,  regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma  que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando  as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é  altamente competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras  brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a  regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento,  nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "3e369970780401e3034616fe69850ecb4ec2b225a9fa428e5940775d67e15a3d",
+      "verification": "primary_passage"
+    },
+    "aee985acb6a9f55e6a2e28a5dbc4f9a7f9979483a57725ed7e65088dbf96615a": {
+      "document_id": "259045",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=259045",
+      "reference_date": "2022-01-21",
+      "version": "1",
+      "page": 12,
+      "clause": "6.3.11",
+      "excerpt": "6.3.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à  extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é  exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem  impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras:\n (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv)  exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações  compulsórias; (vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de  provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente  instituições financeiras, inclusive para implementação de política econômica específica ou em  decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o  governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda,  regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma  que sua promulgação e implementação pode ocorrer em um espaço muito curto de tempo, afetando  as atividades dos Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é  altamente competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras  brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação, já que a  regulamentação brasileira não faz clara distinção entre bancos comerciais e de investimento,  nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
+      "sha256": "fcafe29ddb4a9c3c9ef23387b0b925b0f43055c09779a53e672cc6430a8b997f",
       "verification": "primary_passage"
     }
   }

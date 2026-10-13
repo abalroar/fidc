@@ -3,11 +3,6 @@
   "cnpj": "58349979000198",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "dffeb566adc812634c2ef0834428ebd6bbdeec36b5b3e5000d19122094a75613",
-      "decd2f7bc82e0a2123d14eb6f79ed46bfdc91e63474291213e36d1b60d0df1c6",
-      "380e8fb773ea550e89f2056a0d10e14e679ee138f3101ae52b042a93c6aec5af"
-    ],
     "term": [
       "9057bc0be7e058856009f572ca4729e7599c901a3c2e1f4ebb5b78b5b7e6f10a",
       "704fe00fced462e749cdd4bed4ec690d0010046cdd9a4988b0a67039d9986a71"
@@ -197,14 +192,6 @@
       "29bded31f14bfe36ead7387a99589ae9fc0908c451dfa566e9a9ef5fc8a0986e",
       "3dcb0ae14990dbd36cc254c0a3e35aa1eb264312ca26fc531504bfcee3a138a5"
     ],
-    "originator": [
-      "944960230929d9f0cb4bf197cdacca792b024d87376b34b13d3dcf70e0805952",
-      "2570c9890319ba1381e062a9c03cae524ce75985005d9fb7a88df32ac499aa78",
-      "473a781b123acbd5879c0ca1bc4abc1c5d80ee2320e8861c4395d95afcdec5e5"
-    ],
-    "debtor": [
-      "488b4e2d10e1d632443445b543935307ac07f18db8dec82c8617ff7ea6c6c479"
-    ],
     "providers": [
       "c725996bc0055066de1265cf78cd6d953d35be0d0fb4f246fd58ca32f2d5ead9",
       "3bde716d494fcaf6b553c616a015dd9d388e1192e0d7aa73af4cfcdb0e59fa25",
@@ -218,6 +205,19 @@
       "4f4c0d67fe342afc1a67495341754107109fe547224769773cc7b49fb77a5220",
       "d816e9a875b5dad78981c89d02633ca1d939cf832c0c2ff2df78a5317ca61196",
       "230abbea0526cc40649bf67b1027ec9d83dbe07440697202bb5c013dadd531aa"
+    ],
+    "originator": [
+      "944960230929d9f0cb4bf197cdacca792b024d87376b34b13d3dcf70e0805952",
+      "41cbb715bfc0fe78fdbb06a379d59335f773e53b3a5e1484fc236af5ba44af78",
+      "7f625f3e3ed9ff8cdd34c216483c5461f35883ca705baae7e0adeceb647ff51e"
+    ],
+    "eligibility": [
+      "dffeb566adc812634c2ef0834428ebd6bbdeec36b5b3e5000d19122094a75613",
+      "decd2f7bc82e0a2123d14eb6f79ed46bfdc91e63474291213e36d1b60d0df1c6",
+      "380e8fb773ea550e89f2056a0d10e14e679ee138f3101ae52b042a93c6aec5af"
+    ],
+    "debtor": [
+      "488b4e2d10e1d632443445b543935307ac07f18db8dec82c8617ff7ea6c6c479"
     ]
   },
   "entries": {
@@ -239,24 +239,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "253eee9e527d22a7417ffba1e690d625a6c4dcd769a701200298ec2270000a83"
-      ]
-    },
-    "2570c9890319ba1381e062a9c03cae524ce75985005d9fb7a88df32ac499aa78": {
-      "reference_date": "2025-01-20",
-      "value": "6.4. Os prestadores de serviço eventualmente subcontratados pelo Custodiante não podem ser, em relação à Classe, originador, Cedente, Gestor, ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d143a97efe78dd8026bcf2dc31325f1c57dd2f21ab1287551b33f72e053fc1f6"
-      ]
-    },
-    "473a781b123acbd5879c0ca1bc4abc1c5d80ee2320e8861c4395d95afcdec5e5": {
-      "reference_date": "2024-12-04",
-      "value": "6.4. Os prestadores de serviço eventualmente subcontratados pelo Custodiante não podem ser, em relação à Classe, originador, Cedente, Gestor, ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7d0bbeb67d515539148b5044bf533c96298b60fa994d072d0588a12567b7faee"
       ]
     },
     "488b4e2d10e1d632443445b543935307ac07f18db8dec82c8617ff7ea6c6c479": {
@@ -1329,6 +1311,24 @@
       "sources": [
         "d61f1a0b6870c3660c29e3d07acc74d31f95c54da4677a32d264b8e7c1cd619d"
       ]
+    },
+    "41cbb715bfc0fe78fdbb06a379d59335f773e53b3a5e1484fc236af5ba44af78": {
+      "reference_date": "2025-01-20",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ceec21c6e9babc4de90f054e0bae70f1d57580f35af6f33b9ebf0ac9c1adb954"
+      ]
+    },
+    "7f625f3e3ed9ff8cdd34c216483c5461f35883ca705baae7e0adeceb647ff51e": {
+      "reference_date": "2024-12-04",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "29d151bcb041f1ed2cc97096d68cc9a7cb59385890ed04afab2ef4ce52036b71"
+      ]
     }
   },
   "passages": {
@@ -1357,30 +1357,6 @@
       "sha256": "ef626fd385bc5d3874330e10b3b5f8a1d158e89472de8baf74382492bf2cee5c",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 826213 | 28/01/2025 | regulamento | p. 85–86; Definição Cedente | data/raw/58349979000198/826213_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826213"
-    },
-    "d143a97efe78dd8026bcf2dc31325f1c57dd2f21ab1287551b33f72e053fc1f6": {
-      "document_id": "823153",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823153",
-      "reference_date": "2025-01-20",
-      "version": "1",
-      "page": 15,
-      "clause": "6.4",
-      "excerpt": "6.4. Os prestadores de serviço eventualmente subcontratados pelo Custodiante não podem ser, em relação  à Classe, originador, Cedente, Gestor, ou respectivas partes relacionadas.",
-      "sha256": "2ef1362403587ae574b0e77ee6ff9e93756f8fc39721c79760e037a2353cd3d4",
-      "verification": "primary_passage"
-    },
-    "7d0bbeb67d515539148b5044bf533c96298b60fa994d072d0588a12567b7faee": {
-      "document_id": "822809",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
-      "reference_date": "2024-12-04",
-      "version": "1",
-      "page": 15,
-      "clause": "6.4",
-      "excerpt": "6.4. Os prestadores de serviço eventualmente subcontratados pelo Custodiante não podem ser, em relação  à Classe, originador, Cedente, Gestor, ou respectivas partes relacionadas.",
-      "sha256": "51916f90824d4731a3598b85782810900b302fd00acde30bab2f375eae52c4f1",
-      "verification": "primary_passage"
     },
     "a1eadd81bf3adbf8f55eefc64495fd9b45844070752c17a4222a7f5aaf5111ce": {
       "document_id": "826213",
@@ -2714,6 +2690,30 @@
       "page": 86,
       "clause": "",
       "excerpt": "\"Custodiante\" significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES  MOBILIÁRIOS S.A., instituição financeira devidamente autorizada pela  CVM para prestação de serviços de custódia, na categoria de  administrador fiduciário, nos termos do Ato Declaratório CVM nº\n 11.484, de 27 de dezembro de 2010, com sede na cidade do Rio de  Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434,  bloco 7, sala 201, Barra da Tijuca, CEP 22640-102, inscrita no CNPJ  sob o nº 36.113.876/0001-91.",
+      "sha256": "51916f90824d4731a3598b85782810900b302fd00acde30bab2f375eae52c4f1",
+      "verification": "primary_passage"
+    },
+    "ceec21c6e9babc4de90f054e0bae70f1d57580f35af6f33b9ebf0ac9c1adb954": {
+      "document_id": "823153",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=823153",
+      "reference_date": "2025-01-20",
+      "version": "1",
+      "page": 90,
+      "clause": "",
+      "excerpt": "\"Evento de Alteração de Nível de significa (i) a redução ou rebaixamento da classificação de risco em  Concentração\" escala nacional (i.a) da Movida para classificação de risco AA ou  inferior, conforme apurada pela Fitch Ratings e/ou pela Standard &  Poor's e/ou pela Moody's Local, (i.b) da Unidas para classificação de  risco AA- ou inferior, conforme apurada pela Fitch Ratings e/ou pela  Standard & Poor's e/ou pela Moody's Local, (i.c) da LM para  classificação de risco AA ou inferior, conforme apurada pela Standard  & Poor's e/ou pela Moody's Local, e/ou AA- ou inferior, conforme  apurada pela Fitch Ratings; (ii) caso o Devedor Concentrado deixe de  ter sua classificação de risco apurada por pelo menos uma das seguintes  agências de classificação de risco: Fitch Ratings, Standard & Poor's  e/ou Moody's Investors Services; (iii) descumprimento pelo Devedor  Concentrado de qualquer índice financeiro previsto em qualquer  contrato de financiamento, dívidas bancárias e/ou operações de  mercado de capitais, local ou internacional; (iv) vencimento antecipado  de obrigação financeira do Devedor Concentrado ou de qualquer de  suas Afiliadas, incluindo aquelas oriundas de dívidas bancárias e  operações de mercado de capitais, local ou internacional, em valor,  individual ou agregado, igual ou superior a R$50.000.000,00  (cinquenta milhões de reais), ou seu equivalente em outras moeda; ou\n (v), em relação à LM, caso ela deixe de ser do Grupo Econômico da  Cedente.",
+      "sha256": "2ef1362403587ae574b0e77ee6ff9e93756f8fc39721c79760e037a2353cd3d4",
+      "verification": "primary_passage"
+    },
+    "29d151bcb041f1ed2cc97096d68cc9a7cb59385890ed04afab2ef4ce52036b71": {
+      "document_id": "822809",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=822809",
+      "reference_date": "2024-12-04",
+      "version": "1",
+      "page": 89,
+      "clause": "",
+      "excerpt": "\"Evento de Alteração de Nível de significa (i) a redução ou rebaixamento da classificação de risco em  Concentração\" escala nacional (i.a) da Movida para classificação de risco AA ou  inferior, conforme apurada pela Fitch Ratings e/ou pela Standard &  Poor's e/ou pela Moody's Local, (i.b) da Unidas para classificação de  risco AA-, conforme apurada pela Fitch Ratings e/ou pela Standard &  Poor's e/ou pela Moody's Local, (i.c) da LM para classificação de risco  AA ou inferior, conforme apurada pela Standard & Poor's e/ou pela  Moody's Local, e/ou AA- ou inferior, conforme apurada pela Fitch  Ratings; (ii) caso o Devedor Concentrado deixe de ter sua classificação  de risco apurada por pelo menos uma das seguintes agências de  classificação de risco: Fitch Ratings, Standard & Poor's e/ou Moody's  Investors Services; (iii) descumprimento pelo Devedor Concentrado de  qualquer índice financeiro previsto em qualquer contrato de  financiamento, dívidas bancárias e/ou operações de mercado de  capitais, local ou internacional; (iv) vencimento antecipado de  obrigação financeira do Devedor Concentrado ou de qualquer de suas  Afiliadas, incluindo aquelas oriundas de dívidas bancárias e operações  de mercado de capitais, local ou internacional, em valor, individual ou  agregado, igual ou superior a R$50.000.000,00 (cinquenta milhões de  reais), ou seu equivalente em outras moeda; ou (v), em relação à LM,  caso ela deixe de ser do Grupo Econômico da Cedente.",
       "sha256": "51916f90824d4731a3598b85782810900b302fd00acde30bab2f375eae52c4f1",
       "verification": "primary_passage"
     }

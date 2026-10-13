@@ -12,33 +12,6 @@
       "4c2f679f2d39e13de6d1993f83290f02b230c6ddfce1ecd7517b681aa8c60f90",
       "065da4ecdef0715493f80ae676bd51a21a2d72c6bf6332c8dd4e9dbd01ab754f"
     ],
-    "originator": [
-      "a349bb34253ad3407363a0eb136e59af695777adc65a637f93d83e24a09b7964",
-      "ae0f2015f6f1f220cc4fa5e4221fa8e01ca792781e20bed9ac6451f7fb687065",
-      "78ffd7d6c412d6f28d6de755b32790e2528f1decc007586927c8a54bf14ba464",
-      "6766dff71254cfe6a28fc1f290e957a4af1a467be0b42436b24212b57d8fa76c",
-      "372e1228d72d176e0f4c86ad7fdf7da5cd9e2fc67273320d776f789d8c03868b",
-      "d049d1a717519889f427f67bc6341f7b31046c142e695ed51c068a1ca1acb7e6",
-      "0192ca6ae854227e3f524bf5eb4ee5595be8978a2fb02d16da38c3a61f826d8d"
-    ],
-    "debtor": [
-      "d21001705f65cb7a83a59ef4851f63182b70fd6beead15bc025d1facefd19886",
-      "593555c046fda59eb64cb2a0a074c31ed1e1d7b82650cea1cb3305622331a590",
-      "b0f90cfa18be9d6f6f6362599ec98365b5714a063277df4f73a4d473a903e511",
-      "e04562dcd7fc92135169e0d49aea9696a25f68362e3ee4e06c7858ab7d23350c",
-      "84c3f3040b20ce6b6c8933154c5a577bee858fc7ca56f384cefaf6f289f21ce7",
-      "be9e2cd583e7914523fe47e9c5025804087a82b4d8cc866f91e4e65f7d4187d7",
-      "22639b94af9517f58a4b970a873f9157db8d4c58f570bcb9e26656ac3e81fa9f"
-    ],
-    "eligibility": [
-      "a47456e6fd0f99ce571e10de6d3da784bd7a48c3ebe4512414dbb5c0519635ad",
-      "6d62c140f77c8217bc285c2c0a5750a52f149367baa752996cee470fb7ae5895",
-      "8c5278dc2dd0d5d038fa7fca750fcd0f221521b34bd256a721f7e5b1da51f881",
-      "0ae62f5a7ba021919e3f878eeebc4d9f990f0cabbb1fbb601ce2c49aabdaec60",
-      "78b8e389df67ffd464fb6508190a985f1dae74d4fbe63ddfbb3055927b0875bc",
-      "5e275dfed274251636d2b81425702f927c7e5980a35c97363c8ceb87b08ca290",
-      "23b00a138e076b7c23381be41fd7f5406c97de92d3fb5830fcf04b844cc70476"
-    ],
     "term": [
       "6d62c140f77c8217bc285c2c0a5750a52f149367baa752996cee470fb7ae5895",
       "8c5278dc2dd0d5d038fa7fca750fcd0f221521b34bd256a721f7e5b1da51f881",
@@ -380,6 +353,32 @@
       "78b8e389df67ffd464fb6508190a985f1dae74d4fbe63ddfbb3055927b0875bc",
       "5e275dfed274251636d2b81425702f927c7e5980a35c97363c8ceb87b08ca290",
       "23b00a138e076b7c23381be41fd7f5406c97de92d3fb5830fcf04b844cc70476"
+    ],
+    "originator": [
+      "d21001705f65cb7a83a59ef4851f63182b70fd6beead15bc025d1facefd19886",
+      "ae0f2015f6f1f220cc4fa5e4221fa8e01ca792781e20bed9ac6451f7fb687065",
+      "78ffd7d6c412d6f28d6de755b32790e2528f1decc007586927c8a54bf14ba464",
+      "2f3379f144b45de0f24f73607a4dde81d0540ef10e0dfbe7a90dae605a94bc9b",
+      "a87d3547b5228aed025402e3ea4980a7734c9d27d4d8812cc6b27ce94fd265f2",
+      "bb01769267bfeb1973e4ce8be5709f93fb0265422a1fad4a47ba7cf747a0f6f2",
+      "0192ca6ae854227e3f524bf5eb4ee5595be8978a2fb02d16da38c3a61f826d8d"
+    ],
+    "eligibility": [
+      "a47456e6fd0f99ce571e10de6d3da784bd7a48c3ebe4512414dbb5c0519635ad",
+      "fbb0fbc9f756f032b49b4a896fb438f6a2013af850dd5a67cdd7c4de17e52395",
+      "ce3cdf5420e8aefe674f1b9685bc627eb2991732db3370e6a0318ebe1c268a96",
+      "3e4c0ff8e6e599a2e04cd35faf9dcad1e0ed38b2cd7ee73a00408ea2e4543df8",
+      "508cd8225dd8b8e927c4c4a3125278bda078b97ee8d53700e76c9d42e0eec596",
+      "bd414b6a49dd460b249d3d51994ebbcd6fc8ba7ed186a34243e430a06efdb0cb",
+      "56636b9651c2c52d07351077c1d4fa330b769fffa41202c92c6d22abde247861"
+    ],
+    "debtor": [
+      "593555c046fda59eb64cb2a0a074c31ed1e1d7b82650cea1cb3305622331a590",
+      "dfe6059a40401e41d87a7dec7a5f46f86d624bea92f30282b8b607acca4a153f",
+      "196ca8b7e2fa5e5a0e30da070a0313fedc558aea35c88d42bcba813dd5e71b6e",
+      "d50fac2a02572627a0a4aa5b98f59b66b3942668649d94f9e46dcf271f4451a0",
+      "72e2f732037ad1736ff83aa56455f9b57812f60d01edb4327e12c16a6c2614d4",
+      "139ab48065cb795c4aa4fde22492f3539a2b4fde31f34fdee1f03df37eae8379"
     ]
   },
   "entries": {
@@ -446,15 +445,6 @@
         "6357078109bf680b74fc627a35ebcfdab0cda1572866b85eaabb6699d874453c"
       ]
     },
-    "a349bb34253ad3407363a0eb136e59af695777adc65a637f93d83e24a09b7964": {
-      "reference_date": "2026-02-03",
-      "value": "Vínculos de crédito com a Meu Tudo na qualidade de originador da carteira e agente de retenção e cobrança.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "80a26736ee934ee0080c37939d993431cee9adde43954f7ee9ec90752946e02e"
-      ]
-    },
     "ae0f2015f6f1f220cc4fa5e4221fa8e01ca792781e20bed9ac6451f7fb687065": {
       "reference_date": "2026-01-06",
       "value": "(d) adquirir Cotas; (e) pagar ou ressarcir-se de multas impostas emrazão dodescumprimentode normas previstas neste Regulamento; (f) vender Cotas a prestação; ( g) vender Cotas a instituições financeiras e sociedades de arrendamento mercantil cedentes de direitos creditórios; (h) prometer rendimento predeterminado aos Cotistas;.",
@@ -471,33 +461,6 @@
       "provenance": "primary_passage",
       "sources": [
         "2163ab975b31d0d77e1a58afe6392c031b59adfb5d173834b76d985b0e7c7cc6"
-      ]
-    },
-    "6766dff71254cfe6a28fc1f290e957a4af1a467be0b42436b24212b57d8fa76c": {
-      "reference_date": "2025-11-04",
-      "value": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b16251fd5b530942cb7fc5d912fc192112da603bdecfd406dc16f216dcf5f20c"
-      ]
-    },
-    "372e1228d72d176e0f4c86ad7fdf7da5cd9e2fc67273320d776f789d8c03868b": {
-      "reference_date": "2025-10-30",
-      "value": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a31e3a784852ab253a719121e83a946ba571a0c467db36d0fa7719bb348395fd"
-      ]
-    },
-    "d049d1a717519889f427f67bc6341f7b31046c142e695ed51c068a1ca1acb7e6": {
-      "reference_date": "2025-09-04",
-      "value": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "74e3fdae34193331d0cfa905f3da5d14f4c873c5a4945dea0cdecfe01edc7cad"
       ]
     },
     "0192ca6ae854227e3f524bf5eb4ee5595be8978a2fb02d16da38c3a61f826d8d": {
@@ -525,51 +488,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e347f838ae06e16c5732346ba8a129a52a07be8ff6cdd833472f4878bb81498d"
-      ]
-    },
-    "b0f90cfa18be9d6f6f6362599ec98365b5714a063277df4f73a4d473a903e511": {
-      "reference_date": "2025-12-11",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dea9bbc9d5bf8f907e3dafa427584db624b4b5af94099d20f905af09639eb1da"
-      ]
-    },
-    "e04562dcd7fc92135169e0d49aea9696a25f68362e3ee4e06c7858ab7d23350c": {
-      "reference_date": "2025-11-04",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "808a3ef1119c5b0f18ea092b7f4d38aac2ab573e7666ef3e3d075dd045b60058"
-      ]
-    },
-    "84c3f3040b20ce6b6c8933154c5a577bee858fc7ca56f384cefaf6f289f21ce7": {
-      "reference_date": "2025-10-30",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "709cd95567095a83d1390fd34b8fca8c03c1eb56c0cc9a20aa5928a3994d96ff"
-      ]
-    },
-    "be9e2cd583e7914523fe47e9c5025804087a82b4d8cc866f91e4e65f7d4187d7": {
-      "reference_date": "2025-09-04",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "14875eca3f8e7f777eeb2e1e7dc12ce1fb43d22b23b7e28f77b1ffee5fc9b897"
-      ]
-    },
-    "22639b94af9517f58a4b970a873f9157db8d4c58f570bcb9e26656ac3e81fa9f": {
-      "reference_date": "2025-08-28",
-      "value": "(viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe serão descontados pelo INSS da remuneração do Devedor.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2db9c7246a10b07c78f6ace4738817e0d9315a513c779374119a8dba6e5bd007"
       ]
     },
     "a47456e6fd0f99ce571e10de6d3da784bd7a48c3ebe4512414dbb5c0519635ad": {
@@ -2551,6 +2469,123 @@
       "sources": [
         "e54552ef5a0337344b21ccf8e7c3a1f4f8316a43956a19e05c30658464822a44"
       ]
+    },
+    "fbb0fbc9f756f032b49b4a896fb438f6a2013af850dd5a67cdd7c4de17e52395": {
+      "reference_date": "2026-01-06",
+      "value": "4.9 Critérios de Elegibilidade para Direitos Creditórios MT: (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios MT que tenham sido adquiridos pela Classe; (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81 (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos Direitos Creditórios MT; (v) os Direitos Creditórios MT devidos por Devedores beneficiários do INSS por aposentadoria por invalidez ou BPC-LOAS não poderão representar, considerando pro forma a aquisição pretendida, mais de 10% (dez por cento) do Patrimônio Líquido da Classe; (vi) Cada Direito Creditório endossado à Classe deverá apresentar Spread Mínimo igual ou superior a 1,00% (um por cento) ao ano, calculado conforme a fórmula abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "33fffd8cc9cc9853a66e9aab0a5a4cbf576e5b24d6fd65d65487632d1ec610f0"
+      ]
+    },
+    "ce3cdf5420e8aefe674f1b9685bc627eb2991732db3370e6a0318ebe1c268a96": {
+      "reference_date": "2025-12-11",
+      "value": "4.9 Critérios de Elegibilidade para Direitos Creditórios MT: (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios MT que tenham sido adquiridos pela Classe; (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81 (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos Direitos Creditórios MT; (v) os Direitos Creditórios MT devidos por Devedores beneficiários do INSS por aposentadoria por invalidez ou BPC-LOAS não poderão representar, considerando pro forma a aquisição pretendida, mais de 10% (dez por cento) do Patrimônio Líquido da Classe; (vi) Cada Direito Creditório endossado à Classe deverá apresentar Spread Mínimo igual ou superior a 1,00% (um por cento) ao ano, calculado conforme a fórmula abaixo:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "52c1e970c4c2f7260889f79a206c85f0add671929f6e5b10e9dddef3e0e12acd"
+      ]
+    },
+    "3e4c0ff8e6e599a2e04cd35faf9dcad1e0ed38b2cd7ee73a00408ea2e4543df8": {
+      "reference_date": "2025-11-04",
+      "value": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT: (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "162941ecca7fe5df60e12515925b2f360960e22307b38b95867095a59e81df54"
+      ]
+    },
+    "508cd8225dd8b8e927c4c4a3125278bda078b97ee8d53700e76c9d42e0eec596": {
+      "reference_date": "2025-10-30",
+      "value": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT: (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4f77834a0ebc183cc292bff15c1a980f759f9abe4a4ae587b921d4c8ee6bed9d"
+      ]
+    },
+    "bd414b6a49dd460b249d3d51994ebbcd6fc8ba7ed186a34243e430a06efdb0cb": {
+      "reference_date": "2025-09-04",
+      "value": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT: (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9e40cf582da754ee40af88c835cde2e8a5d926d84e258ddfc0bb33f47af55afa"
+      ]
+    },
+    "56636b9651c2c52d07351077c1d4fa330b769fffa41202c92c6d22abde247861": {
+      "reference_date": "2025-08-28",
+      "value": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT: (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou das Cotas Mezanino;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8526acf6d84bae53a1630e5cad504411d0f4883d26a8b3a701fcbd34f882afe7"
+      ]
+    },
+    "2f3379f144b45de0f24f73607a4dde81d0540ef10e0dfbe7a90dae605a94bc9b": {
+      "reference_date": "2025-11-04",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "808a3ef1119c5b0f18ea092b7f4d38aac2ab573e7666ef3e3d075dd045b60058"
+      ]
+    },
+    "a87d3547b5228aed025402e3ea4980a7734c9d27d4d8812cc6b27ce94fd265f2": {
+      "reference_date": "2025-10-30",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "709cd95567095a83d1390fd34b8fca8c03c1eb56c0cc9a20aa5928a3994d96ff"
+      ]
+    },
+    "bb01769267bfeb1973e4ce8be5709f93fb0265422a1fad4a47ba7cf747a0f6f2": {
+      "reference_date": "2025-09-04",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "14875eca3f8e7f777eeb2e1e7dc12ce1fb43d22b23b7e28f77b1ffee5fc9b897"
+      ]
+    },
+    "dfe6059a40401e41d87a7dec7a5f46f86d624bea92f30282b8b607acca4a153f": {
+      "reference_date": "2025-12-11",
+      "value": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter celebrado o Convênio INSS previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7f60a826bb3b3c0286f374bf2bacc28d2658c5baac474e0aae89fcad5fb0f5fa"
+      ]
+    },
+    "196ca8b7e2fa5e5a0e30da070a0313fedc558aea35c88d42bcba813dd5e71b6e": {
+      "reference_date": "2025-11-04",
+      "value": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0d6d5298ec6b088e4e32998417022209f84b55db9eeb8f68d95dd8512f1b8156"
+      ]
+    },
+    "d50fac2a02572627a0a4aa5b98f59b66b3942668649d94f9e46dcf271f4451a0": {
+      "reference_date": "2025-10-30",
+      "value": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cbac5733c7ec1dcf32d6a783e69ab3a4ccca2ea73e7d8bca4bfc71986251b4bd"
+      ]
+    },
+    "72e2f732037ad1736ff83aa56455f9b57812f60d01edb4327e12c16a6c2614d4": {
+      "reference_date": "2025-09-04",
+      "value": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7645fefadab149031301517d2dc8c22f45e4e26e8427a29c360bf6a1af8ac219"
+      ]
     }
   },
   "passages": {
@@ -2800,18 +2835,6 @@
       },
       "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número."
     },
-    "80a26736ee934ee0080c37939d993431cee9adde43954f7ee9ec90752946e02e": {
-      "document_id": "1117748",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117748",
-      "reference_date": "2026-02-03",
-      "version": "1",
-      "page": 3,
-      "clause": "",
-      "excerpt": "Risco de descasamento de taxas de juros mitigado por contratação de operações swap. A carteira de créditos tem remuneração pré-fixada enquanto as obrigações de pagamento das cotas emitidas pelo fundo são pós-fixadas. Visando mitigar o risco de descasamento de taxa de juros na transação, são contratadas operações de swap, tendo o Banco BTG Pactual S.A. (“BTG”, AAA.br estável) como contraparte.\nVínculos de crédito com a Meu Tudo na qualidade de originador da carteira e agente de retenção e cobrança. A carteira lastro da operação é constituída durante o período de investimento. A qualidade de novos créditos pode ser negativamente afetada em caso de piora do perfil creditício do originador. O desempenho da carteira também depende da capacidade de servicing por parte Meu Tudo. A Meu Tudo não é avaliada pela Moody’s Local Brasil. Por outro lado, o BTG é envolvido no processo de originação dos créditos. Além disso, a subordinação mínima das Cotas Seniores absorve eventuais perdas resultantes de uma transição do servicing da operação em um cenário severamente estressado.\nRisco de fungibilidade limitado. O INSS repassa as parcelas descontadas da folha de pagamento do devedor para a conta escrow (conta vinculada) em nome da Parati. A conta vinculada é domiciliada no custodiante, o BTG. O custodiante valida o arquivo de conciliação da Dataprev e transfere os recursos devidos ao fundo à conta do fundo, que também é domiciliada no BTG.",
-      "sha256": "200b51e959ebc0028f58c6547adf70bcd31797940dfcb9f814794e6b8cd15b3b",
-      "verification": "primary_passage"
-    },
     "a6251be979da5b54116e20009bac747655e131633e5fea5da3c504e2b0d36229": {
       "document_id": "1079574",
       "title": "Regulamento",
@@ -2834,42 +2857,6 @@
       "clause": "11.7",
       "excerpt": "11.7 É vedado ao Administrador, em nome da Classe: (a) prestar fiança, aval, aceite ou coobrigar-se sob  qualquer outra forma; (b) realizar operações e negociar com ativos financeiros ou modalidades de  investimento não previstos neste Regulamento; (c) aplicar recursos diretamente no exterior; (d)  adquirir Cotas; (e) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas  previstas neste Regulamento; (f) vender Cotas a prestação; (g) vender Cotas a instituições  financeiras e sociedades de arrendamento mercantil cedentes de direitos creditórios; (h) prometer  rendimento predeterminado aos Cotistas; (i) fazer, em sua propaganda ou em outros documentos  apresentados aos investidores, promessas de retiradas ou de rendimentos, com base em seu  próprio desempenho, no desempenho alheio ou no de ativos financeiros ou modalidades de  investimento disponíveis no âmbito do mercado financeiro; (j) delegar poderes de gestão da  Carteira; (k) obter ou conceder empréstimos; e (l) efetuar locação, empréstimo, penhor ou caução  dos direitos e demais ativos integrantes da Carteira. O Administrador dispõe de regras e  procedimentos adequados, por escrito e passíveis de verificação, que lhe permitem verificar o",
       "sha256": "38e6dd6472eba2cb08f9c14568f59d2ea7533eb978d62279580dad742ed005fa",
-      "verification": "primary_passage"
-    },
-    "b16251fd5b530942cb7fc5d912fc192112da603bdecfd406dc16f216dcf5f20c": {
-      "document_id": "1028765",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028765",
-      "reference_date": "2025-11-04",
-      "version": "1",
-      "page": 29,
-      "clause": "11.21",
-      "excerpt": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados  serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços  eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o  Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "sha256": "f03ba9c5cce77750c1c4179abbc3e2efe13409980058887ed497ddd262ec3a95",
-      "verification": "primary_passage"
-    },
-    "a31e3a784852ab253a719121e83a946ba571a0c467db36d0fa7719bb348395fd": {
-      "document_id": "1044010",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044010",
-      "reference_date": "2025-10-30",
-      "version": "1",
-      "page": 28,
-      "clause": "11.21",
-      "excerpt": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados  serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços  eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o  Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "sha256": "d8ae08a74b621af847ec6f28eed04bf58545cb0ec5f6b55f9917e7ae3a571248",
-      "verification": "primary_passage"
-    },
-    "74e3fdae34193331d0cfa905f3da5d14f4c873c5a4945dea0cdecfe01edc7cad": {
-      "document_id": "985037",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=985037",
-      "reference_date": "2025-09-04",
-      "version": "1",
-      "page": 28,
-      "clause": "11.21",
-      "excerpt": "11.21 O Custodiante poderá subcontratar prestadores de serviços para a prestação de determinados  serviços à Classe, na forma da regulamentação aplicável, observado que os prestadores de serviços  eventualmente subcontratados não podem ser, em relação à Classe, o originador, endossante, o  Gestor, consultoria especializada ou partes a eles relacionadas.",
-      "sha256": "79a029640583c7bd138f03d43d5c6fb88aa24893d5dc1479ac67fe63eefbdb01",
       "verification": "primary_passage"
     },
     "6ca2ef73b11c3c0a5d15c930828f1218e5ae251b20b60b46e7d8274a94fc9318": {
@@ -2908,18 +2895,6 @@
       "sha256": "4b4395f0f3649571f9c1f9ffdf51fb51e2a54ab89d959c20da4f6a97c6571d6e",
       "verification": "primary_passage"
     },
-    "dea9bbc9d5bf8f907e3dafa427584db624b4b5af94099d20f905af09639eb1da": {
-      "document_id": "1079570",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1079570",
-      "reference_date": "2025-12-11",
-      "version": "1",
-      "page": 55,
-      "clause": "",
-      "excerpt": "ou na qualidade dos créditos, podem ter impactos significativos sobre os preços e liquidez  dos ativos desses emissores, causando perdas à Classe e ao Cotista. Além disso, a falta de  capacidade ou disposição de pagar por qualquer dos emissores dos Ativos Financeiros de  Liquidez ou das contrapartes nas transações que compõem a Carteira causará perdas à  Classe, e o que também poderá incorrer em custos para fins de recuperação de seus  recebíveis.\n (viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe  serão descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do  Devedor poderá ser afetada se, por exemplo, em virtude de decisão judicial, o Devedor for  obrigado a pagar alimentos, que têm prioridade sobre o empréstimo para fins de desconto  na folha de benefícios. Além disso, a morte do Devedor, a extrapolação de sua margem  consignável (inclusive em razão de qualquer diminuição da margem consignável permitida)  ou a suspensão ou extinção do pagamento do benefício pago pelo INSS ao respectivo  Devedor podem interromper o desconto automático na folha de pagamento das prestações  vincendas da CCB, e não há seguro ou mecanismo que garanta uma indenização à Classe  nesses casos, o que poderá afetar a rentabilidade da Classe.\n (ix) Risco de Competição: o mercado de empréstimos consignados experimentou grande  expansão no Brasil nos últimos anos. Nesse contexto, a Resolução CMN nº 5.057 dispõe que  deve ser garantido às pessoas naturais devedoras de operações de crédito (tais como as CCB)  a possibilidade de realizarem a portabilidade destas operações para outras instituições  financeiras, inclusive nos casos em que tenham sido objeto de cessão (tais como as realizadas  à Classe). Nesse cenário, é possível que os competidores do Endossante ofereçam  condições e taxas mais vantajosas para os empréstimos consignados, o que pode causar a  migração de clientes da Endossante para outras instituições financeiras, gerando a  liquidação antecipada de parte das CCB existentes e/ou redução no número de Direitos  Creditórios cedidos. Referida competição poderá afetar os resultados da Classe,  impactando negativamente os rendimentos dos Cotistas. Ainda, caso haja proposta de  portabilidade a um Devedor, o Agente de Retenção/Cobrança realizará procedimentos  visando à retenção do Direito Creditório Elegível na carteira da Classe, na forma do Manual  de Defesa de Carteira. Caso o Agente de Retenção/Cobrança seja bem sucedido na  retenção do Direito Creditório Elegível da Classe, referido Direito Creditório Elegível pode,  conforme o caso, ser substituído por Direito Creditório refinanciado, na forma da Manual de  Defesa de Carteira e do Contrato de Endosso, o qual poderá possuir termos e condições  menos favoráveis à Classe.\n Risco de liquidez\n (x) Risco de liquidez: consiste no risco de redução ou inexistência de demanda pelos  ativos que compõem a Classe nos respectivos mercados em que são negociados, devido  às condições específicas desses ativos ou aos mercados em que são negociados. Devido a  esses riscos, o Gestor poderá encontrar dificuldades em liquidar posições ou negociar esses  ativos pelo preço e prazo desejados, de acordo com a estratégia de gestão adotada pela  Classe, que permanecerá exposto, durante o período de baixa liquidez, aos riscos  associados a esses ativos e posições assumidas em mercados de derivativos, se houver, que  poderão até exigir que o Gestor aceite descontos em seus preços para realizar negociações  no mercado. Esses fatores poderão prejudicar o pagamento de amortizações ao Cotista, nos  valores e dentro dos termos aqui estabelecidos.\n (xi) Riscos do mercado secundário: a Classe é constituído na forma de condomínio  fechado. Assim, não haverá resgate de Cotas, exceto para a liquidação da Classe, razão pela  qual se, por qualquer razão, o investidor decidir alienar suas Cotas, terá o direito de dispor delas  no mercado secundário de cotas de classes de investimento, que é um mercado que, no Brasil,  tem baixa liquidez, o que poderá criar dificuldades à alienação dessas Cotas e/ou dar origem  à alienação das Cotas por um preço que importe prejuízo patrimonial para o investidor. Além  disso, a negociação das Cotas no mercado secundário será limitada a investidores  profissionais, conforme previsto nos regulamentos aplicáveis, o que poderá limitar a liquidez  das Cotas.\n BTG Pactual  SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com  55",
-      "sha256": "38e6dd6472eba2cb08f9c14568f59d2ea7533eb978d62279580dad742ed005fa",
-      "verification": "primary_passage"
-    },
     "808a3ef1119c5b0f18ea092b7f4d38aac2ab573e7666ef3e3d075dd045b60058": {
       "document_id": "1028765",
       "title": "Regulamento",
@@ -2954,18 +2929,6 @@
       "clause": "",
       "excerpt": "Complemento 1 do Anexo I ao Regulamento  CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS  CREDITÓRIOS RESPONSABILIDADE LIMITADA  recebíveis.\n (viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe  serão descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do  Devedor poderá ser af etada se, por exemplo, em virtude de decisão judicial, o Devedor for  obrigado a pagar alimentos, que têm prioridade sobre o empréstimo para fins de desconto na  f olha de benef ícios. Além disso, a morte do Devedor, a extrapolação de sua margem  consignável (inclusive em razão de qualquer diminuição da margem consignável permitida)  ou a suspensão ou extinção do pagamento do benef ício pago pelo INSS ao respectivo  Devedor podem interromper o desconto automático na f olha de pagamento das prestações  vincendas da CCB, e não há seguro ou mecanismo que garanta uma indenização à Classe  nesses casos, o que poderá af etar a rentabilidade da Classe.\n (ix ) Risco de Competição: o mercado de empréstimos consignados experimentou grande  expansão no Brasil nos últimos anos. Nesse contexto, a Resolução CMN nº 5.057 dispõe que  deve ser garantido às pessoas naturais devedoras de operações de crédito (tais como as CCB)  a possibilidade de realizarem a portabilidade destas operações para outras instituições  f inanceiras, inclusive nos casos em que tenham sido objeto de cessão (tais como as realizadas  à Classe). Nesse cenário, é possível que os competidores do Endossante ofereçam condições  e taxas mais vantajosas para os empréstimos consignados, o que pode causar a migração de  clientes da Endossante para outras instituições financeiras, gerando a liquidação antecipada  de parte das CCB existentes e/ou redução no número de Direitos Creditórios cedidos. Referida  competição poderá afetar os resultados da Classe, impactando negativamente os rendimentos  dos Cotistas. Ainda, caso haja proposta de portabilidade a um Devedor, o Agente de  Retenção/Cobrança realizará procedimentos visando à retenção do Direito Creditório Elegível  na carteira da Classe, na f orma do Manual de Def esa de Carteira. Caso o Agente de  Retenção/Cobrança seja bem sucedido na retenção do Direito Creditório Elegível da Classe,  ref erido Direito Creditório Elegível pode, conforme o caso, ser substituído por Direito Creditório  ref inanciado, na f orma da Manual de Def esa de Carteira e do Contrato de Endosso, o qual  poderá possuir termos e condições menos f avoráveis à Classe.\nRisco de liquidez  (x ) Risco de liquidez: consiste no risco de redução ou inexistência de demanda pelos  ativos que compõem a Classe nos respectivos mercados em que são negociados, devido às  condições específicas desses ativos ou aos mercados em que são negociados. Devido a esses  riscos, o Gestor poderá encontrar dificuldades em liquidar posições ou negociar esses ativos pelo  preço e prazo desejados, de acordo com a estratégia de gestão adotada pela Classe, que  permanecerá exposto, durante o período de baixa liquidez, aos riscos associados a esses  ativos e posições assumidas em mercados de derivativos, se houver, que poderão até exigir  que o Gestor aceite descontos em seus preços para realizar negociações no mercado. Esses  f atores poderão prejudicar o pagamento de amortizações ao Cotista, nos valores e dentro dos  termos aqui estabelecidos.\n (xi ) Riscos do mercado secundário: a Classe é constituído na f orma de condomínio  f echado. Assim, não haverá resgate de Cotas, exceto para a liquidação da Classe, razão pela  qual se, por qualquer razão, o investidor decidir alienar suas Cotas, terá o direito de dispor delas  no mercado secundário de cotas de classes de investimento, que é um mercado que, no Brasil,  tem baixa liquidez, o que poderá criar dificuldades à alienação dessas Cotas e/ou dar origem  à alienação das Cotas por um preço que importe prejuízo patrimonial para o investidor. Além  disso, a negociação das Cotas no mercado secundário será limitada a investidores  prof issionais, conforme previsto nos regulamentos aplicáveis, o que poderá limitar a liquidez  das Cotas.\nRiscos específicos Riscos operacionais\n (xii) Risco de fungibilidade: a estrutura da Classe não prevê um recebimento ordinário de  valores decorrentes do pagamento ordinário dos Direitos Creditórios cedidos à Classe de  qualquer outra forma que não seja por depósitos nas Conta Vinculada, feitos diretamente pelo  INSS. Entretanto, nos casos de Pagamento Antecipado, devido às limitações do sistema INSS  e/ou do Endossante, os recursos oriundos do Pagamento Antecipado serão depositados  BTG Pactual  SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 44",
       "sha256": "79a029640583c7bd138f03d43d5c6fb88aa24893d5dc1479ac67fe63eefbdb01",
-      "verification": "primary_passage"
-    },
-    "2db9c7246a10b07c78f6ace4738817e0d9315a513c779374119a8dba6e5bd007": {
-      "document_id": "979365",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=979365",
-      "reference_date": "2025-08-28",
-      "version": "1",
-      "page": 44,
-      "clause": "",
-      "excerpt": "Complemento 1 do Anexo I ao Regulamento  CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS  CREDITÓRIOS RESPONSABILIDADE LIMITADA  recebíveis.\n (viii) Riscos associados aos Devedores: os Direitos Creditórios a serem cedidos à Classe  serão descontados pelo INSS da remuneração do Devedor. A capacidade de pagamento do  Devedor poderá ser afetada se, por exemplo, em virtude de decisão judicial, o Devedor for  obrigado a pagar alimentos, que têm prioridade sobre o empréstimo para fins de desconto na  folha de benefícios. Além disso, a morte do Devedor, a extrapolação de sua margem  consignável (inclusive em razão de qualquer diminuição da margem consignável permitida)  ou a suspensão ou extinção do pagamento do benefício pago pelo INSS ao respectivo  Devedor podem interromper o desconto automático na folha de pagamento das prestações  vincendas da CCB, e não há seguro ou mecanismo que garanta uma indenização à Classe  nesses casos, o que poderá afetar a rentabilidade da Classe.\n (ix) Risco de Competição: o mercado de empréstimos consignados experimentou grande  expansão no Brasil nos últimos anos. Nesse contexto, a Resolução CMN nº 5.057 dispõe que  deve ser garantido às pessoas naturais devedoras de operações de crédito (tais como as CCB)  a possibilidade de realizarem a portabilidade destas operações para outras instituições  financeiras, inclusive nos casos em que tenham sido objeto de cessão (tais como as realizadas  à Classe). Nesse cenário, é possível que os competidores do Endossante ofereçam condições  e taxas mais vantajosas para os empréstimos consignados, o que pode causar a migração de  clientes da Endossante para outras instituições financeiras, gerando a liquidação antecipada  de parte das CCB existentes e/ou redução no número de Direitos Creditórios cedidos. Referida  competição poderá afetar os resultados da Classe, impactando negativamente os rendimentos  dos Cotistas. Ainda, caso haja proposta de portabilidade a um Devedor, o Agente de  Retenção/Cobrança realizará procedimentos visando à retenção do Direito Creditório Elegível  na carteira da Classe, na forma do Manual de Defesa de Carteira. Caso o Agente de  Retenção/Cobrança seja bem sucedido na retenção do Direito Creditório Elegível da Classe,  referido Direito Creditório Elegível pode, conforme o caso, ser substituído por Direito Creditório  refinanciado, na forma da Manual de Defesa de Carteira e do Contrato de Endosso, o qual  poderá possuir termos e condições menos favoráveis à Classe.\nRisco de liquidez\n (x) Risco de liquidez: consiste no risco de redução ou inexistência de demanda pelos  ativos que compõem a Classe nos respectivos mercados em que são negociados, devido às  condições específicas desses ativos ou aos mercados em que são negociados. Devido a esses  riscos, o Gestor poderá encontrar dificuldades em liquidar posições ou negociar esses ativos pelo  preço e prazo desejados, de acordo com a estratégia de gestão adotada pela Classe, que  permanecerá exposto, durante o período de baixa liquidez, aos riscos associados a esses  ativos e posições assumidas em mercados de derivativos, se houver, que poderão até exigir  que o Gestor aceite descontos em seus preços para realizar negociações no mercado. Esses  fatores poderão prejudicar o pagamento de amortizações ao Cotista, nos valores e dentro dos  termos aqui estabelecidos.\n (xi) Riscos do mercado secundário: a Classe é constituído na forma de condomínio  fechado. Assim, não haverá resgate de Cotas, exceto para a liquidação da Classe, razão pela  qual se, por qualquer razão, o investidor decidir alienar suas Cotas, terá o direito de dispor delas  no mercado secundário de cotas de classes de investimento, que é um mercado que, no Brasil,  tem baixa liquidez, o que poderá criar dificuldades à alienação dessas Cotas e/ou dar origem  à alienação das Cotas por um preço que importe prejuízo patrimonial para o investidor. Além  disso, a negociação das Cotas no mercado secundário será limitada a investidores  profissionais, conforme previsto nos regulamentos aplicáveis, o que poderá limitar a liquidez  das Cotas.\nRiscos específicos Riscos operacionais\n (xii) Risco de fungibilidade: a estrutura da Classe não prevê um recebimento ordinário de  valores decorrentes do pagamento ordinário dos Direitos Creditórios cedidos à Classe de  qualquer outra forma que não seja por depósitos nas Conta Vinculada, feitos diretamente pelo  INSS. Entretanto, nos casos de Pagamento Antecipado, devido às limitações do sistema INSS  e/ou do Endossante, os recursos oriundos do Pagamento Antecipado serão depositados  BTG Pactual  SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com  44",
-      "sha256": "efc0faba07810f607b9870e0cc417e16d3e867cd4e40aeaf483209a35e40ae61",
       "verification": "primary_passage"
     },
     "77a36cf926e45ee73ca46f64a067bea8f0aafb23bd21aefea5efe068881e0f3f": {
@@ -5963,6 +5926,106 @@
       },
       "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número.",
       "citation_original": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 8 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512"
+    },
+    "162941ecca7fe5df60e12515925b2f360960e22307b38b95867095a59e81df54": {
+      "document_id": "1028765",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028765",
+      "reference_date": "2025-11-04",
+      "version": "1",
+      "page": "8–9",
+      "clause": "4.10",
+      "excerpt": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT:\n (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96  (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal  Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou  das Cotas Mezanino;\n (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando  pro f orma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais),  para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento  e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos;\n (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na  respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a  outros Direitos Creditórios MT que tenham sido adquiridos pela Classe;\n (iv ) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81  (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de  Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter  até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data  de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos  Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11\n (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos  Direitos Creditórios MT;\n(i) até 100% (cem por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham até 60\n (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data  de Aquisição de Direitos Creditórios MT;\n (ii) até 50% (cinquenta por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 61 (sessenta  e um) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n (iii) até 30% (trinta por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta  e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e\n (iv) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta  e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.\n4.10.1 Para f ins de verif icação do Critério de Elegibilidade previsto no item 4. 10(i) acima, o Gestor  deverá ser comunicado pelo respectivo Endossante sobre quaisquer alterações de prazos  máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis, com,  no mínimo, 2 (dois) Dias Úteis de antecedência de uma Data de Aquisição de Direitos  Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos  previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja  realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste  Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo  Endossante, não podendo, em qualquer caso, o Gestor ser responsabilizado pela verificação  do Critério de Elegibilidade previsto no item 4.10(i) acima considerando prazos máximos  dif erentes daqueles previstos no Convênio INSS e/ou na legislação e regulamentação  aplicáveis na Data de Oferta de Direitos Creditórios MT, caso não seja observado o disposto  no presente item.\n4.10.2 Na respectiva Data de Aquisição, na f orma acordada nos termos do respectivo Contrato de  Endosso, (a) o Endossante encaminhará ao Gestor (1) a CCB relativa ao respectivo Direito  Creditório MT devidamente formalizada pelo respectivo Devedor e endossada à Classe e (2)  o comprovante de desembolso do valor da CCB ao respectivo Devedor, na conta indicada por  esse Devedor na respectiva CCB; e (b) o Agente de Retenção e Cobrança encaminhará ao  Gestor e ao Custodiante as cópias de todos os documentos f ornecidos pelo Devedor em  relação ao seu pedido de empréstimo consignado representado pela CCB, inclusive, mas não  exclusivamente, o arquivo eletrônico da biometria f acial capturada e os documentos de  identificação civil do Devedor (carteira de identidade, carteira de habilitação ou outros  documentos de identificação civil admitidos pela legislação e regulamentação aplicáveis).\n4.10.3 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Endossante MT  e/ou pelo Agente de Retenção/Cobrança ao Gestor na data de aquisição do respectivo Direito  Creditório MT pela Classe, sujeito à resolução d o respectivo endosso, de acordo com os  termos do Contrato de Endosso.\n4.10.4 Todos os Documentos Suporte deverão ser disponibilizados pelo Endossante MT e/ou pelo  Agente de Retenção/Cobrança ao Gestor em até 5 (cinco) Dias Úteis contados da data de  aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução do respectivo  endosso, de acordo com os termos do Contrato de Endosso.\n4.10.5 O Gestor deverá preparar e enviar ao Administrador e aos Cotistas, em cada Dia Útil, até as  16:00 (horário de Brasília), um relatório evidenciando (i) a conf ormidade dos Direitos  Creditórios contidos em cada respectivo Arquivo de Financiamento com cada Critério de",
+      "sha256": "f03ba9c5cce77750c1c4179abbc3e2efe13409980058887ed497ddd262ec3a95",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "4f77834a0ebc183cc292bff15c1a980f759f9abe4a4ae587b921d4c8ee6bed9d": {
+      "document_id": "1044010",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044010",
+      "reference_date": "2025-10-30",
+      "version": "1",
+      "page": "8–9",
+      "clause": "4.10",
+      "excerpt": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT:\n (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96  (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal  Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou  das Cotas Mezanino;\n (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando  pro f orma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais),  para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento  e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos;\n (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na  respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a  outros Direitos Creditórios MT que tenham sido adquiridos pela Classe;\n (iv ) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81  (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de  Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter  até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data  de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos  Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11\n (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos  Direitos Creditórios MT;\n(sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na  Data de Aquisição de Direitos Creditórios MT;\n • até 50% (cinquenta por cento) da carteira de Direitos Creditórios da Classe poderá  ser composta por Direitos Creditórios MT devidos por Devedores que tenham 61  (sessenta e um) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n • até 30% (trinta por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 65  (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n e  • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 69  (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.\n4.10.1 Para f ins de verif icação do Critério de Elegibilidade previsto no item 4. 10(i) acima, o Gestor  deverá ser comunicado pelo respectivo Endossante sobre quaisquer alterações de prazos  máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis, com,  no mínimo, 2 (dois) Dias Úteis de antecedência de uma Data de Aquisição de Direitos  Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos  previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja  realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste  Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo  Endossante, não podendo, em qualquer caso, o Gestor ser responsabilizado pela verificação  do Critério de Elegibilidade previsto no item 4.10(i) acima considerando prazos máximos  dif erentes daqueles previstos no Convênio INSS e/ou na legislação e regulamentação  aplicáveis na Data de Oferta de Direitos Creditórios MT, caso não seja observado o disposto  no presente item.\n4.10.2 Na respectiva Data de Aquisição, na f orma acordada nos termos do respectivo Contrato de  Endosso, (a) o Endossante encaminhará ao Gestor (1) a CCB relativa ao respectivo Direito  Creditório MT devidamente formalizada pelo respectivo Devedor e endossada à Classe e (2)  o comprovante de desembolso do valor da CCB ao respectivo Devedor, na conta indicada por  esse Devedor na respectiva CCB; e (b) o Agente de Retenção e Cobrança encaminhará ao  Gestor e ao Custodiante as cópias de todos os documentos f ornecidos pelo Devedor em  relação ao seu pedido de empréstimo consignado representado pela CCB, inclusive, mas não  exclusivamente, o arquivo eletrônico da biometria f acial capturada e os documentos de  identificação civil do Devedor (carteira de identidade, carteira de habilitação ou outros  documentos de identificação civil admitidos pela legislação e regulamentação aplicáveis).\n4.10.3 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Endossante MT  e/ou pelo Agente de Retenção/Cobrança ao Gestor na data de aquisição do respectivo Direito  Creditório MT pela Classe, sujeito à resolução d o respectivo endosso, de acordo com os  termos do Contrato de Endosso.\n4.10.4 Todos os Documentos Suporte deverão ser disponibilizados pelo Endossante MT e/ou pelo  Agente de Retenção/Cobrança ao Gestor em até 5 (cinco) Dias Úteis contados da data de  aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução do respectivo  endosso, de acordo com os termos do Contrato de Endosso.\n4.10.5 O Gestor deverá preparar e enviar ao Administrador e aos Cotistas, em cada Dia Útil, até as  16:00 (horário de Brasília), um relatório evidenciando (i) a conf ormidade dos Direitos  Creditórios contidos em cada respectivo Arquivo de Financiamento com cada Critério de  9",
+      "sha256": "d8ae08a74b621af847ec6f28eed04bf58545cb0ec5f6b55f9917e7ae3a571248",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "9e40cf582da754ee40af88c835cde2e8a5d926d84e258ddfc0bb33f47af55afa": {
+      "document_id": "985037",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=985037",
+      "reference_date": "2025-09-04",
+      "version": "1",
+      "page": "8–9",
+      "clause": "4.10",
+      "excerpt": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT:\n (i ) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96  (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB ref erente a tal  Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou  das Cotas Mezanino;\n (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando  pro f orma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais),  para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento  e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos;\n (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na  respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a  outros Direitos Creditórios MT que tenham sido adquiridos pela Classe;\n (iv ) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81  (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de  Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter  até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data  de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos  Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11\n (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos  Direitos Creditórios MT;\n(sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na  Data de Aquisição de Direitos Creditórios MT;\n • até 50% (cinquenta por cento) da carteira de Direitos Creditórios da Classe poderá  ser composta por Direitos Creditórios MT devidos por Devedores que tenham 61  (sessenta e um) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n • até 30% (trinta por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 65  (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n e  • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 69  (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.\n4.10.1 Para f ins de verif icação do Critério de Elegibilidade previsto no item 4. 10(i) acima, o Gestor  deverá ser comunicado pelo respectivo Endossante sobre quaisquer alterações de prazos  máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis, com,  no mínimo, 2 (dois) Dias Úteis de antecedência de uma Data de Aquisição de Direitos  Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos  previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja  realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste  Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo  Endossante, não podendo, em qualquer caso, o Gestor ser responsabilizado pela verificação  do Critério de Elegibilidade previsto no item 4.10(i) acima considerando prazos máximos  dif erentes daqueles previstos no Convênio INSS e/ou na legislação e regulamentação  aplicáveis na Data de Oferta de Direitos Creditórios MT, caso não seja observado o disposto  no presente item.\n4.10.2 Na respectiva Data de Aquisição, na f orma acordada nos termos do respectivo Contrato de  Endosso, (a) o Endossante encaminhará ao Gestor (1) a CCB relativa ao respectivo Direito  Creditório MT devidamente formalizada pelo respectivo Devedor e endossada à Classe e (2)  o comprovante de desembolso do valor da CCB ao respectivo Devedor, na conta indicada por  esse Devedor na respectiva CCB; e (b) o Agente de Retenção e Cobrança encaminhará ao  Gestor e ao Custodiante as cópias de todos os documentos f ornecidos pelo Devedor em  relação ao seu pedido de empréstimo consignado representado pela CCB, inclusive, mas não  exclusivamente, o arquivo eletrônico da biometria f acial capturada e os documentos de  identificação civil do Devedor (carteira de identidade, carteira de habilitação ou outros  documentos de identificação civil admitidos pela legislação e regulamentação aplicáveis).\n4.10.3 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Endossante MT  e/ou pelo Agente de Retenção/Cobrança ao Gestor na data de aquisição do respectivo Direito  Creditório MT pela Classe, sujeito à resolução d o respectivo endosso, de acordo com os  termos do Contrato de Endosso.\n4.10.4 Todos os Documentos Suporte deverão ser disponibilizados pelo Endossante MT e/ou pelo  Agente de Retenção/Cobrança ao Gestor em até 5 (cinco) Dias Úteis contados da data de  aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução do respectivo  endosso, de acordo com os termos do Contrato de Endosso.\n4.10.5 O Gestor deverá preparar e enviar ao Administrador e aos Cotistas, em cada Dia Útil, até as  16:00 (horário de Brasília), um relatório evidenciando (i) a conf ormidade dos Direitos  Creditórios contidos em cada respectivo Arquivo de Financiamento com cada Critério de  9",
+      "sha256": "79a029640583c7bd138f03d43d5c6fb88aa24893d5dc1479ac67fe63eefbdb01",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "8526acf6d84bae53a1630e5cad504411d0f4883d26a8b3a701fcbd34f882afe7": {
+      "document_id": "979365",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=979365",
+      "reference_date": "2025-08-28",
+      "version": "1",
+      "page": "8–9",
+      "clause": "4.10",
+      "excerpt": "4.10 Critérios de Elegibilidade para Direitos Creditórios MT:\n (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96  (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal  Direito Creditório MT, e não exceder o prazo de duração mais longo das Cotas Seniores ou  das Cotas Mezanino;\n (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando  pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais),  para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento  e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos;\n (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na  respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a  outros Direitos Creditórios MT que tenham sido adquiridos pela Classe;\n (iv) os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81  (oitenta e um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de  Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter  até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data  de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos  Direitos Creditórios MT; (4) por aposentadoria por invalidez e ter até 81 (oitenta e um), 11\n (onze) meses e 29 (vinte e nove) dias de idade; (5) ou por BPC-LOAS e ter até 81 (oitenta e  um), 11 (onze) meses e 29 (vinte e nove) dias de idade inclusive, na Data de Liquidação dos  Direitos Creditórios MT;\n(v) os Direitos Creditórios MT devidos por Devedores beneficiários do INSS por aposentadoria  por invalidez ou BPC-LOAS não poderão representar, considerando pro forma a aquisição  pretendida, mais de 10% (dez por cento) do Patrimônio Líquido da Classe;\n (vi) segundo o valor de face dos Direitos Creditórios MT, desconsiderando-se eventuais provisões  para perdas constituídas pelo Administrador, considerada pro forma cada aquisição de  Direitos Creditórios MT pretendida:\n até 100% (cem por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham até 60\n (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na  Data de Aquisição de Direitos Creditórios MT;\n até 50% (cinquenta por cento) da carteira de Direitos Creditórios da Classe poderá  ser composta por Direitos Creditórios MT devidos por Devedores que tenham 61  (sessenta e um) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n até 30% (trinta por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 65  (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT;\n e  até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser  composta por Direitos Creditórios MT devidos por Devedores que tenham 69  (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.\n4.10.1 Para fins de verificação do Critério de Elegibilidade previsto no item 4.10(i) acima, o Gestor  deverá ser comunicado pelo respectivo Endossante sobre quaisquer alterações de prazos  máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis, com,  no mínimo, 2 (dois) Dias Úteis de antecedência de uma Data de Aquisição de Direitos  Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos  previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja  realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste  Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo  Endossante, não podendo, em qualquer caso, o Gestor ser responsabilizado pela verificação  do Critério de Elegibilidade previsto no item 4.10(i) acima considerando prazos máximos  diferentes daqueles previstos no Convênio INSS e/ou na legislação e regulamentação  aplicáveis na Data de Oferta de Direitos Creditórios MT, caso não seja observado o disposto  no presente item.\n4.10.2 Na respectiva Data de Aquisição, na forma acordada nos termos do respectivo Contrato de  Endosso, (a) o Endossante encaminhará ao Gestor (1) a CCB relativa ao respectivo Direito  Creditório MT devidamente formalizada pelo respectivo Devedor e endossada à Classe e (2)  o comprovante de desembolso do valor da CCB ao respectivo Devedor, na conta indicada por  esse Devedor na respectiva CCB; e (b) o Agente de Retenção e Cobrança encaminhará ao  Gestor e ao Custodiante as cópias de todos os documentos fornecidos pelo Devedor em  relação ao seu pedido de empréstimo consignado representado pela CCB, inclusive, mas não  exclusivamente, o arquivo eletrônico da biometria facial capturada e os documentos de  identificação civil do Devedor (carteira de identidade, carteira de habilitação ou outros  documentos de identificação civil admitidos pela legislação e regulamentação aplicáveis).\n4.10.3 Todos os Documentos Comprobatórios MT deverão ser disponibilizados pelo Endossante MT  e/ou pelo Agente de Retenção/Cobrança ao Gestor na data de aquisição do respectivo Direito  Creditório MT pela Classe, sujeito à resolução do respectivo endosso, de acordo com os  termos do Contrato de Endosso.\n4.10.4 Todos os Documentos Suporte deverão ser disponibilizados pelo Endossante MT e/ou pelo  Agente de Retenção/Cobrança ao Gestor em até 5 (cinco) Dias Úteis contados da data de  aquisição do respectivo Direito Creditório MT pela Classe, sujeito à resolução do respectivo  endosso, de acordo com os termos do Contrato de Endosso.",
+      "sha256": "efc0faba07810f607b9870e0cc417e16d3e867cd4e40aeaf483209a35e40ae61",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "7f60a826bb3b3c0286f374bf2bacc28d2658c5baac474e0aae89fcad5fb0f5fa": {
+      "document_id": "1079570",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1079570",
+      "reference_date": "2025-12-11",
+      "version": "1",
+      "page": 7,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos  consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e  representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação  aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter  celebrado o Convênio INSS previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para  que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos  Creditórios MT decorrentes das CCB possa ser feito por Consignação (“Direitos Creditórios MT”).",
+      "sha256": "38e6dd6472eba2cb08f9c14568f59d2ea7533eb978d62279580dad742ed005fa",
+      "verification": "primary_passage"
+    },
+    "0d6d5298ec6b088e4e32998417022209f84b55db9eeb8f68d95dd8512f1b8156": {
+      "document_id": "1028765",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1028765",
+      "reference_date": "2025-11-04",
+      "version": "1",
+      "page": 7,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados  concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB  devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política  de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter  celebrado o Convênio INSS previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para  que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos  Creditórios MT decorrentes das CCB possa ser f eito por Consignação (“Direitos Creditórios MT”); e\n (ii) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de  operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras  classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação  de instituições f inanceiras, bem como cotas de f undos de investimento que invistam  preponderantemente nestes direitos, títulos e/ou valores mobiliários (“Direitos Creditórios TVM”).",
+      "sha256": "f03ba9c5cce77750c1c4179abbc3e2efe13409980058887ed497ddd262ec3a95",
+      "verification": "primary_passage"
+    },
+    "cbac5733c7ec1dcf32d6a783e69ab3a4ccca2ea73e7d8bca4bfc71986251b4bd": {
+      "document_id": "1044010",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044010",
+      "reference_date": "2025-10-30",
+      "version": "1",
+      "page": 7,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados  concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB  devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política  de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter  celebrado o Convênio INSS previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para  que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos  Creditórios MT decorrentes das CCB possa ser f eito por Consignação (“Direitos Creditórios MT”); e\n (ii) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de  operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras  classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação  de instituições f inanceiras, bem como cotas de f undos de investimento que invistam  preponderantemente nestes direitos, títulos e/ou valores mobiliários (“Direitos Creditórios TVM”).",
+      "sha256": "d8ae08a74b621af847ec6f28eed04bf58545cb0ec5f6b55f9917e7ae3a571248",
+      "verification": "primary_passage"
+    },
+    "7645fefadab149031301517d2dc8c22f45e4e26e8427a29c360bf6a1af8ac219": {
+      "document_id": "985037",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=985037",
+      "reference_date": "2025-09-04",
+      "version": "1",
+      "page": 7,
+      "clause": "4.2",
+      "excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados  concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB  devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política  de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter  celebrado o Convênio INSS previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para  que, após a averbação dos Direitos Creditórios MT na Dataprev, o pagamento regular dos Direitos  Creditórios MT decorrentes das CCB possa ser f eito por Consignação (“Direitos Creditórios MT”); e\n (ii) Direitos, títulos e/ou valores mobiliários representativos de créditos originados no âmbito de  operações de sociedades integrantes do conglomerado econômico de instituições f inanceiras  classificadas como S1 pelo BACEN, desde que não representem títulos de emissão ou coobrigação  de instituições f inanceiras, bem como cotas de f undos de investimento que invistam  preponderantemente nestes direitos, títulos e/ou valores mobiliários (“Direitos Creditórios TVM”).",
+      "sha256": "79a029640583c7bd138f03d43d5c6fb88aa24893d5dc1479ac67fe63eefbdb01",
+      "verification": "primary_passage"
     }
   }
 }

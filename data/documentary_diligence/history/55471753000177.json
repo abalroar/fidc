@@ -3,11 +3,6 @@
   "cnpj": "55471753000177",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "abf5d22498c62d5988a96d0db615d52b5a2534846e75758b5d096534c9fd67f3",
-      "b28393fc67f214eeed336f7520016e0153aa616dc045ffd5fb34bd27693678c2",
-      "5ba30094167dddcef68d5449a325c6abba2264efeb03383c19a1e5c8f85e78af"
-    ],
     "term": [
       "c927af7a33148f66e15d0ebafa69c7379c33da8af50705320026499f8e69081e",
       "a1ea3113900119d2ce6b5e900b81290ff39dd02add92fffb11b994f174af5227"
@@ -203,13 +198,6 @@
       "e820da5488daad26a818853e9d955d73a1cec37c2cdb92da6bbc109b900c609d",
       "3fba098abca1e38f3781c40a3c55893d201ab00357bc99d323a973bfada68a89"
     ],
-    "originator": [
-      "8a4285cd35255952c13d7df6807c0e8dc50bbb7cf9822feeb46dc1507970cbfd",
-      "6df1f58d96ea86423fd7cf087086c0d35d9f83a2dafb9347d3017ed84eb6fdca"
-    ],
-    "debtor": [
-      "334b0a579f70b057c44089ea6f59065817c21ea8ee6f356eca700834e33afa84"
-    ],
     "investee": [
       "9874b0985869fe2e5c599dc3947f2a4b1223c1e2a59f81a81c04858ff3160040",
       "d73ff8e3b158da82d4570040046144e4e7fd5b93b16df1e59ce32dc4b05ae4cb"
@@ -235,6 +223,19 @@
       "e7c3114a9c1ec15e9230f79a26f2f24d25475052da41686cb9d4740b31eaa0e0",
       "0b35e19b59a93290f60a7816f7e841bf4a39020a61515805c8a7dc2e52781b99",
       "cfda5af2ea2fce22d2e6cb27617c5f50540d8bc2122019a0b4cb2daabd5aa2b3"
+    ],
+    "originator": [
+      "8a4285cd35255952c13d7df6807c0e8dc50bbb7cf9822feeb46dc1507970cbfd",
+      "6df1f58d96ea86423fd7cf087086c0d35d9f83a2dafb9347d3017ed84eb6fdca",
+      "ca917aa16d206d8015229751d5484df4170c8cd4df322d042dd4919137e019fe"
+    ],
+    "eligibility": [
+      "abf5d22498c62d5988a96d0db615d52b5a2534846e75758b5d096534c9fd67f3",
+      "b28393fc67f214eeed336f7520016e0153aa616dc045ffd5fb34bd27693678c2",
+      "5ba30094167dddcef68d5449a325c6abba2264efeb03383c19a1e5c8f85e78af"
+    ],
+    "debtor": [
+      "334b0a579f70b057c44089ea6f59065817c21ea8ee6f356eca700834e33afa84"
     ]
   },
   "entries": {
@@ -1546,6 +1547,15 @@
       "provenance": "primary_passage",
       "sources": [
         "9b0654061880855491b8edb09b101c259be4f2ea3e3432cac53db9a3bb3003f3"
+      ]
+    },
+    "ca917aa16d206d8015229751d5484df4170c8cd4df322d042dd4919137e019fe": {
+      "reference_date": "2024-06-10",
+      "value": "“Agente de significa o MERCADO PAGO INSTITUIÇÃO DE PAGAMENTO Formalização” LTDA., sociedade limitada, com sede na Avenida das Nações Unidas, nº 3.003, Parte E, Bonfim, no Município de Osasco, Estado de São Paulo, CEP 06233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91, atuando na qualidade de representante dos Estabelecimentos Comerciais na formalização da promessa de cessão de Direitos Creditórios ao Cedente no âmbito da Primeira Cessão, de acordo com os Termos e Condições do Mercado Pago.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "de3f1cbcf4a5f712e6af5a94bc04f2f3ce98e36a707a05d0f04b34b4ca29bfc1"
       ]
     }
   },
@@ -3187,6 +3197,18 @@
       "clause": "",
       "excerpt": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO  MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA  Representado por sua Administradora e por sua Gestora  OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
       "sha256": "b200fd22f13f3d882ae5bf2f0b1aa6a4d7eb1bd79ba9d8307fb79840ae189fca",
+      "verification": "primary_passage"
+    },
+    "de3f1cbcf4a5f712e6af5a94bc04f2f3ce98e36a707a05d0f04b34b4ca29bfc1": {
+      "document_id": "691282",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691282",
+      "reference_date": "2024-06-10",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "“Agente de significa o MERCADO PAGO INSTITUIÇÃO DE PAGAMENTO  Formalização” LTDA., sociedade limitada, com sede na Avenida das Nações  Unidas, nº 3.003, Parte E, Bonfim, no Município de Osasco,  Estado de São Paulo, CEP 06233-903, inscrita no CNPJ sob o  nº 10.573.521/0001-91, atuando na qualidade de representante  dos Estabelecimentos Comerciais na formalização da  promessa de cessão de Direitos Creditórios ao Cedente no  âmbito da Primeira Cessão, de acordo com os Termos e  Condições do Mercado Pago.",
+      "sha256": "70ca85c893c17ab89b84e1a604db9c26e3c1267fca4453467ad035b7238d44ff",
       "verification": "primary_passage"
     }
   }

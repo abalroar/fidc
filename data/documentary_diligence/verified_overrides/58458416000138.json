@@ -1,0 +1,77 @@
+{
+  "cnpj": "58458416000138",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores: pessoas físicas com vínculo empregatício registrado na CTPS digital, verificado e validado pela Dataprev, na categoria101 do eSocial, que tomaram empréstimo consignado mediante emissão eletrônica de CCB.",
+      "sources": [
+        {
+          "document_id": "982232",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+          "reference_date": "28/08/2025",
+          "version": 1,
+          "page": "37",
+          "clause": "Glossário — Devedores",
+          "excerpt": "“Devedores”: cada pessoa física que possua vínculo empregatício formalizado mediante registro na Carteira de Trabalho e Previdência Social (CTPS) emitida de forma digital, conforme verificado e validado pela Dataprev, na categoria de nº 101 da tabela do eSocial, que tenha tomado um empréstimo consignado mediante a emissão eletrônica de uma CCB, nos termos da Lei nº 10.820, de 17 de dezembro de 2003, com a redação dada pela MP 1.292;",
+          "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2025-08-28",
+          "value": "15.1.4 Riscos específicos (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e aos Cotistas.",
+          "sources": [
+            {
+              "document_id": "982232",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+              "reference_date": "2025-08-28",
+              "version": "1",
+              "page": 30,
+              "clause": "15.1.4",
+              "excerpt": "15.1.4 Riscos específicos\n (i) Risco do Empregador se tornar insolvente: o pagamento dos Direitos Creditórios pelos  Devedores está diretamente ligado ao recebimento, pelos Devedores, de remuneração decorrente  do vínculo empregatício mantido junto aos Empregadores. Caso o Empregador de um determinado  Devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do  Devedor, o referido Devedor poderá ficar inadimplente e, consequentemente, não haverá repasse  à Classe do respectivo Direito Creditório, o que poderá resultar em perdas financeiras à Classe e  aos Cotistas.\n (ii) Risco do Empregador não efetuar o desconto em folha: o repasse dos recursos oriundos dos  Direitos Creditórios à Classe depende da realização, pelo Empregador, da Escrituração e do  desconto na respectiva folha de pagamento do Devedor. Na hipótese do Empregador deixar de  realizar a Escrituração ou os descontos na folha de pagamento, não haverá repasse de recursos  à Classe, podendo causar prejuízos à Classe e aos Cotistas.\n (iii) Risco de perda do vínculo empregatício com o Empregador: caso o Devedor perca o vínculo  empregatício com o Empregador, não haverá remuneração e folha de pagamento para realização  dos descontos para pagamento dos Direitos Creditórios. Neste caso, não obstante a possibilidade  do Agente de Retenção/Cobrança realizar a cobrança ativa dos Direitos Creditórios diretamente  do Devedor, a ausência de remuneração poderá deixar o Devedor inadimplente perante a Classe  até que o seu vínculo empregatício seja retomado e seja efetuado o procedimento operacional  para que a CCB seja aditada e/ou seja realizado o Processo de Reinicialização. Tais situações  poderão resultar em prejuízos à Classe e aos Cotistas.\n (iv) Risco relativo ao Agente de Retenção/Cobrança: A solvência do Agente de Retenção/Cobrança  quanto às suas obrigações financeiras poderá impactar o cumprimento de suas obrigações perante  a Classe e, consequentemente, os rendimentos da Classe poderão ser adversamente afetados.",
+              "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "982232",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+              "reference_date": "2025-08-28",
+              "version": "1",
+              "page": 30,
+              "clause": "15.1.5",
+              "excerpt": "15.1.5 Riscos operacionais\n (i) Risco de irregularidade dos Documentos Comprobatórios e/ou Documentos Suporte: o  terceiro contratado pelo GESTOR, que atuará sob responsabilidade do GESTOR, deverá realizar  a verificação da regularidade dos Documentos Comprobatórios. A Carteira poderá conter Direitos  Creditórios com documentação irregular, o que poderá impedir que a Classe exerça plenamente  as prerrogativas derivadas da titularidade dos Direitos Creditórios.\n (ii) Risco operacional da Dataprev e da CEF: o empréstimo contraído pelos Devedores é pago por  meio de desconto na folha de pagamento feito pela Dataprev e pela CEF, conforme aplicável. É  possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões  operacionais envolvendo a Dataprev e/ou a CEF. Nesse caso, a Carteira poderá sofrer, já que não  receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento,  os recursos decorrentes dos Direitos Creditórios.\n (iii) Risco de validação das informações para conciliação e reconciliação dos Direitos  Creditórios adquiridos pela Classe: as informações para conciliação dos pagamentos, sendo  considerado como tal, também, o Arquivo Dataprev, listando todos os empregados cujas folhas  de pagamento serão sujeitas a desconto no mês, nos valores acordados ao efetuar a Consignação,",
+              "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "982232",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982232",
+              "reference_date": "2025-08-28",
+              "version": "1",
+              "page": 17,
+              "clause": "",
+              "excerpt": "subvenções, autorizações ou licenças, relevantes para o exercício regular dos negócios realizados pelo  Endossante ou pelo Agente da Conta Vinculada, incluindo o Convênio Consignado Privado, e as  autorizações regulatórias concedidas pelo Banco Central;\n (xi) no caso de o Endossante ou o Agente de Retenção/Cobrança e/ou seus acionistas controladores diretos  e/ou indiretos (pessoas físicas ou jurídicas), quotistas, diretores, conselheiros e/ou representantes e  colaboradores do Endossante ou seus acionistas controladores, (a) terem contra si uma decisão judicial  transitada em julgado envolvendo (1) crimes contra a propriedade, (2) crimes de falsificação, (3) crimes  contra o sistema financeiro nacional, (4) crimes contra o mercado de capitais, (5) crimes contra a  seguridade social, (6) crimes contra as relações de consumo e (7) crimes previstos na lei de falências;\n e/ou (b) violar as normas anticorrupção aplicáveis, especialmente a Lei nº 9.613, de 3 de março de  1998, conforme alterada ou substituída de tempos em tempos, e qualquer outra a que estejam sujeitos,  quer contratual ou legalmente, desde que a violação mencionada seja considerada como,  especialmente, mas não limitada a (1) financiamento, crédito, patrocínio ou outra forma de subvenção  à prática de atos ilícitos previstos na legislação anticorrupção, de combate à lavagem de dinheiro,  organizações antissociais e/ou crime organizado; (2) promessa, oferta ou entrega, direta ou  indiretamente, de qualquer objeto de valor a um funcionário público ou terceiros para obter ou manter  negócios ou para obter qualquer vantagem indevida; (3) aceitação ou compromisso de aceitar, de quem  quer que seja, por si ou por outrem, qualquer pagamento, doação, compensação, vantagens financeiras  ou não financeiras ou benefícios de qualquer tipo, direta ou indiretamente relacionados com o objeto da  Classe, que constituam uma prática ilegal, que violem as boas condutas, a ética, a moral e constitua  corrupção nos termos das leis dos países da sede e onde existam filiais das partes envolvidas, das  partes contratantes;\n (xii) caso o Índice de Liquidez seja inferior à 1 (um) em 2 (duas) Datas de Verificação;\n (xiii) caso, conjuntamente, o Índice de Perdas Estoque seja superior à 15% (quinze por cento) e a  rentabilidade mensal da cota Subordinada Júnior seja negativa em 2 (duas) Datas de Verificação  consecutivas;\n (xiv) caso o Público-Alvo das Cotas Subordinadas Júnior deixe de ser atendido;\n (xv) no caso de não serem realizados pagamentos de amortização e/ou resgate de Cotas Seniores e/ou  Cotas Subordinadas Mezanino, nos termos, prazos e condições previstos no presente Regulamento e  nos respectivos Apêndices e Suplementos, não sanados em até 5 (cinco) Dias Úteis contados do prazo  final do respectivo evento;\n (xvi) no caso de intercorrências operacionais, a CEF não realizar o repasse das consignações da folha de  pagamento dos Devedores ao Endossante por 30 (trinta) dias corridos consecutivos, contados da data  do repasse mensal previsto na legislação aplicável;\n (xvii) no caso de a conciliação na Conta Vinculada não ser realizada pelo Endossante, na figura de agente  de conta vinculada, em conformidade com os valores previstos nos Arquivos Dataprev e, desde que tal  fato não seja sanado em até 30 (trinta) dias, contados da data do recebimento pela Endossante dos  Arquivos Dataprev ou do recebimento dos recursos na Conta Vinculada, o que ocorrer primeiro;\n (xviii) no caso de não repasse pelo Endossante, na figura de agente de conta vinculada, dos valores recebidos  na Conta Vinculada e devidos à Classe em montante financeiro relevante e incontroverso, conforme  apurado pelo GESTOR, e que tal fato não seja sanado em até 30 (trinta) dias corridos do recebimento,  pelo Endossante, do Arquivo Dataprev ou do recebimento dos recursos na Conta Vinculada, o que  ocorrer primeiro;\n (xix) no caso do não pagamento pelo Agente de Retenção/Cobrança e/ou pelo Endossante dos preços de  opção de venda e recompra, respectivamente, em montante financeiro relevante, conforme apurado  pelo GESTOR, e que tal fato não seja sanado em até 30 (trinta) dias, contados do fim dos prazos de  cura definidos no Contrato de Endosso;\n (xx) caso a Conta Vinculada seja fechada, por qualquer motivo, e o Endossante não faça a abertura de uma  nova conta vinculada em tempo da Classe receber os recursos de sua titularidade, em montante  financeiro relevante e incontroverso, conforme apurado pelo GESTOR;\n (xxi) no caso de pagamento de resgate e/ou amortização de Cotas Subordinadas Júnior em desacordo com  os termos, prazos e condições previstos no presente Regulamento e no respectivo Apêndice, não  sanados em até 5 (cinco) Dias Úteis contados do prazo final do respectivo evento;",
+              "sha256": "fdb21bb23a3477e047556b7f0ec7ea7f9c0e4be4fe790cd49e861800bbe39d68",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:58:42-03:00"
+}

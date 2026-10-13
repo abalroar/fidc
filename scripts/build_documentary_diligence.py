@@ -236,6 +236,7 @@ def processing_revisions_current(payload,criterion_ids):
 
 def criterion_anchors(ident,anchors):
     aliases={'providers':('administrado','gerido'),
+             'originator':('cedente','endossante'),
              'receivables':('financiamentos estudantis','financiamento de matrículas','instrumentos de concessão de crédito'),
              'pdd':('perdas estimadas em créditos','perdas estimadas em crédito','créditos de liquidação duvidosa','perdas por redução')}
     return tuple(anchors)+aliases.get(ident,())
@@ -244,6 +245,21 @@ def criterion_anchors(ident,anchors):
 def override_revision(cnpj):
     path=ROOT/'data/documentary_diligence/verified_overrides'/f'{cnpj}.json'
     return sha256(path.read_bytes() if path.exists() else b'').hexdigest()
+
+
+def partial_override_change_safe(cached, criterion_ids, cnpj):
+    """A target-only analyst correction need not re-extract unrelated rows.
+
+    A changed graph or any override outside this batch still requires the full
+    path. This also protects removals of previously applied, untargeted work.
+    """
+    override=read_json(ROOT/'data/documentary_diligence/verified_overrides'/f'{cnpj}.json')
+    if any(key in override for key in ('lookthrough','excluded_candidates','excluded_relationship_candidates','identity_mappings')):
+        return False
+    requested=set(criterion_ids)
+    replacement_ids={row.get('criterion_id') for row in override.get('criteria') or []}
+    applied_ids={row.get('criterion_id') for row in cached.get('criteria') or [] if row.get('provenance')=='verified_override' or row.get('manual_review')}
+    return replacement_ids<=requested and applied_ids<=requested
 
 
 QUARTER_TOPICS = (
@@ -446,7 +462,7 @@ def reviewed_source(fact, documents):
     return result
 
 
-def paragraphs(page):
+def paragraphs(page, *, join_alpha_lists=False):
     """Retain paragraph/list boundaries and page identity, without an 80p cut."""
     # Numbered legal clauses are essential boundaries even when Poppler sees no
     # blank line between them. Otherwise a keyword can inherit another clause's
@@ -460,7 +476,8 @@ def paragraphs(page):
             continue
         # PDF lines wrap inside paragraphs; retain actual numbered list starts.
         part = re.sub(r'(?<![.;:])\n(?!\s*(?:\d+\.\d+|\([a-zivx]+\)|[a-z]\)))', ' ', part)
-        if len(part) >= 35:
+        list_item=re.match(r'^\s*(?:\([a-zivxlcdm]+\)|[a-zivxlcdm]+[.)])\s',part,re.I)
+        if len(part) >= 35 or (join_alpha_lists and list_item):
             prepared.append(part)
     index=0
     while index<len(prepared):
@@ -469,10 +486,66 @@ def paragraphs(page):
         # Blank PDF lines can separate an operative colon from its actual
         # numbered payments. Retain that adjacent list in the same evidence.
         if part.rstrip().endswith(':'):
-            while index<len(prepared) and re.match(r'^\s*(?:\([ivxlcdm]+\)|[ivxlcdm]+\s*[–-])',prepared[index],re.I):
+            parent=re.match(r'^(\d+(?:\.\d+)+)',part)
+            markers=r'^\s*(?:\([ivxlcdm]+\)|[ivxlcdm]+\s*[–-])'
+            if join_alpha_lists:
+                markers=r'^\s*(?:\([a-zivxlcdm]+\)|[a-zivxlcdm]+[.)]\s)'
+                if parent:
+                    markers+='|^'+re.escape(parent[1])+r'\.\d+(?:\.\d+)*[.)]?\s'
+            while index<len(prepared) and re.match(markers,prepared[index],re.I):
                 part+='\n'+prepared[index]
                 index+=1
         yield part
+
+
+def eligibility_passages(pages, page_index, excluded_pages=()):
+    """Recover adjacent conditions while retaining physical page boundaries.
+
+    Only an eligibility/acquisition list can join following lettered or nested
+    items. A new numbered clause stops it. Excluded OCR pages never supply
+    text, and an unresolved continuation is marked rather than completed.
+    """
+    marker=re.compile(r'^\s*(?:\([a-zivxlcdm]+\)|[a-zivxlcdm]+[.)])\s',re.I)
+    excluded={str(value) for value in excluded_pages}
+    blocks=list(paragraphs(pages[page_index],join_alpha_lists=True))
+    for part_index,part in enumerate(blocks):
+        start=end=page_index+1
+        parent=re.match(r'^(\d+(?:\.\d+)+)',part)
+        is_list=bool(re.search(r'criterios de elegibilidade|condicoes de (?:aquisicao|cessao)',fold(part)) and ':' in part)
+        complete=True
+        if is_list and part.rstrip().endswith((':',';',' e')) and part_index==len(blocks)-1:
+            if page_index+1>=len(pages):
+                complete=False
+            for next_index in range(page_index+1,min(len(pages),page_index+3)):
+                if str(next_index+1) in excluded:
+                    complete=False
+                    break
+                continuation=list(paragraphs(pages[next_index],join_alpha_lists=True))
+                # Repeated document headers have no role in the clause.
+                while continuation and re.match(r'^(?:anexo|regulamento|parte geral)\b',fold(continuation[0])) and not marker.match(continuation[0]):
+                    header=continuation.pop(0)
+                    embedded=re.search(r'(?m)^\s*(?:\([a-zivxlcdm]+\)|[a-zivxlcdm]+[.)])\s',header,re.I)
+                    if embedded:
+                        continuation.insert(0,header[embedded.start():].strip())
+                        break
+                joined=[]
+                for item in continuation:
+                    nested=parent and re.match(r'^'+re.escape(parent[1])+r'\.\d+(?:\.\d+)*[.)]?\s',item)
+                    if not marker.match(item) and not nested:
+                        break
+                    if len(part)+sum(len(value) for value in joined)+len(item)>6000:
+                        complete=False
+                        break
+                    joined.append(item)
+                if not joined:
+                    break
+                part+='\n'+'\n'.join(joined)
+                end=next_index+1
+                if len(joined)<len(continuation) or part.rstrip().endswith('.'):
+                    break
+                if next_index==min(len(pages),page_index+3)-1 and part.rstrip().endswith((':',';',' e')):
+                    complete=False
+        yield part,start,end,complete
 
 
 def candidate_score(criterion_id, anchors, text, *, folded=None, folded_anchors=None):
@@ -551,19 +624,28 @@ def extract_primary_candidates(documents, roots, criterion_ids=None):
         for page_no, page in enumerate(pages, 1):
             if str(page_no) in excluded_pages:
                 continue
-            for paragraph in paragraphs(page):
+            regular_catalog=[row for row in normalized_catalog if row[0]!='eligibility']
+            eligibility_catalog=[row for row in normalized_catalog if row[0]=='eligibility']
+            passages=((paragraph,page_no,page_no,True,regular_catalog) for paragraph in paragraphs(page))
+            if eligibility_catalog:
+                from itertools import chain
+                passages=chain(passages,((paragraph,start,end,complete,eligibility_catalog) for paragraph,start,end,complete in eligibility_passages(pages,page_no-1,excluded_pages)))
+            for paragraph,start_page,end_page,list_complete,catalog in passages:
                 clause_match = re.match(r'(\d+(?:\.\d+)+)', paragraph)
                 clause = clause_match.group(1) if clause_match else ''
                 if not mapped_pages and not clause:
                     continue
                 folded = fold(paragraph)
-                for ident, theme, label, anchors, folded_anchors in normalized_catalog:
+                for ident, theme, label, anchors, folded_anchors in catalog:
                     if not any(anchor in folded for anchor in folded_anchors):
                         continue
                     score = candidate_score(ident, anchors, paragraph, folded=folded, folded_anchors=folded_anchors)
                     if score and validate_primary_clause(ident,paragraph)['valid']:
                         bucket = results[ident]
-                        source = primary_source(metadata, page=page_no if mapped_pages else None, clause=clause, excerpt=paragraph)
+                        page_locator=start_page if start_page==end_page else f'{start_page}–{end_page}'
+                        source = primary_source(metadata, page=page_locator if mapped_pages else None, clause=clause, excerpt=paragraph)
+                        if ident=='eligibility':
+                            source['list_recovery_complete']=list_complete
                         if not mapped_pages:
                             source['verification'] = 'cached_primary_text_clause_pdf_not_local'
                         record = {'score': score, 'text': paragraph, 'source': source, 'full_regulation': full_regulation, 'classification': doc.get('classification'), 'provider_status':doc.get('provider_status') or doc.get('status') or '',
@@ -605,7 +687,9 @@ def choose_passages(records, ident):
     else:
         version = max(r['source']['reference_date'] for r in eligible)
         latest = [r for r in eligible if r['source']['reference_date'] == version]
-    latest.sort(key=lambda r:(r['score'],r['source']['reference_date']), reverse=True)
+    latest.sort(key=lambda r:(r['source'].get('list_recovery_complete',True),r['score'],r['source']['reference_date']), reverse=True)
+    if ident=='eligibility' and any(r['source'].get('list_recovery_complete') is True for r in latest):
+        latest=[r for r in latest if r['source'].get('list_recovery_complete') is not False]
     selected, seen = [], set()
     for r in latest:
         marker = fold(r['text'])
@@ -625,6 +709,8 @@ def brief_clause(ident, text):
     rewritten, inferred or chosen by a first-percentage rule.
     """
     compact=re.sub(r'\s+',' ',text).strip()
+    if ident=='eligibility' and len(compact)<=2500:
+        return compact if validate_primary_clause(ident,compact)['valid'] else ''
     if len(compact)<=650:
         return compact if validate_primary_clause(ident,compact)['valid'] else ''
     if ident in {'evaluation','liquidation','legacy_events'}:
@@ -851,6 +937,8 @@ def build_fund(cnpj, name, corpus, review, roots, quarterly_inventory=None, crit
         if selected:
             summaries=list(dict.fromkeys(brief_clause(ident,r['text']) for r in selected))
             value = '\n\n'.join(summary for summary in summaries if summary)
+            if ident=='eligibility' and any(r['source'].get('list_recovery_complete') is False for r in selected):
+                value=''
             rule_text='\n\n'.join(r['text'] for r in selected)
             sources = [r['source'] for r in selected]
             provenance = 'primary_passage'
@@ -861,6 +949,8 @@ def build_fund(cnpj, name, corpus, review, roots, quarterly_inventory=None, crit
         status,reason = ('confirmed','') if value and sources and all(s['reference_date'] and (s['page'] or s['clause']) for s in sources) else absence_status(documents,corpus,versions)
         if selected and not value:
             status,reason='extraction_pending','Cláusula primária localizada e citada, mas sua lista/condições extensas não admitem uma síntese literal curta confirmada. O trecho integral permanece nas fontes.'
+            if ident=='eligibility' and any(r['source'].get('list_recovery_complete') is False for r in selected):
+                reason='Lista de elegibilidade recuperada parcialmente: continuação em página excluída do OCR ou além do limite de leitura adjacente. Não foi tratada como conjunto completo de condições.'
         if status != 'confirmed':
             value = ''
         applicability = 'applicable' if status=='confirmed' else 'unresolved'
@@ -1072,7 +1162,8 @@ def main():
             payload=cached
         else:
             review=read_json(ROOT/'data/regulatory_profiles/documentary_comparisons'/f'{cnpj}.json')
-            partial=bool(args.only_criterion and history_complete and cached.get('build_revision')==BUILD_REVISION and cached.get('corpus_revision')==corpus_revision(corpus) and cached.get('override_revision')==override_revision(cnpj))
+            same_or_scoped_override=cached.get('override_revision')==override_revision(cnpj) or partial_override_change_safe(cached,wanted_criteria,cnpj)
+            partial=bool(args.only_criterion and history_complete and cached.get('build_revision')==BUILD_REVISION and cached.get('corpus_revision')==corpus_revision(corpus) and same_or_scoped_override)
             refreshed=build_fund(cnpj,registered.get(cnpj,review.get('label',cnpj)),corpus,review,[ROOT,args.source_root],quarterly_inventory=quarterly_inventory,
                                  criterion_ids=wanted_criteria if partial else None)
             payload=merge_partial_fund(cached,refreshed,wanted_criteria) if partial else refreshed

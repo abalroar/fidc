@@ -3,11 +3,6 @@
   "cnpj": "62010175000137",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "efbb657896f865cafa596e92ff776c08cfb032d1660883b9cce9a250e16d9179",
-      "2fcc8a5bb548bbd1c089bc9da5852a97c14abdf166134ff72f3fc5d3bfb7887c",
-      "70ccce9be5d5cc6ce7ab708d1b851b15ed3b795a999fd4f50b89c07947fca43a"
-    ],
     "term": [
       "aa1489c721006709ac356489817685c5fe0e801d7e263997d41e6bd87bc77a4c",
       "c393fec9badcd6dc5504b44100fdba73c3314865863b31a24337778692e4a237"
@@ -183,15 +178,6 @@
       "bd45d537ce3ffd4842098b8a244861740b7fd0a69e4b4c4fc586b5a2af4d84ea",
       "83c404dd205979969d4b9dd426dcd841f30e4268637930208b62c1912349ca78"
     ],
-    "originator": [
-      "42a543f09607ff9e506ac21ba03bc5e4eb0a7fd944be05aeef744a793228890f",
-      "62273a4da70121c55eb7ac6f1ea6f0aa71922eef2171e3f4417cd3e553331e8d"
-    ],
-    "debtor": [
-      "a05d289f2ff1f21d45cf86d94e18992cb2250a323a98ec271e1345612e99544c",
-      "2fcc8a5bb548bbd1c089bc9da5852a97c14abdf166134ff72f3fc5d3bfb7887c",
-      "70ccce9be5d5cc6ce7ab708d1b851b15ed3b795a999fd4f50b89c07947fca43a"
-    ],
     "investee": [
       "8d37cdbb9df8926f4622e916ee7ae689d818fab962d66728083c4b297acb699d",
       "84542c4c9ec0ff4ffa92cccf5e35d43fca0bde14e839203e550041a868c8137d"
@@ -214,6 +200,20 @@
     "allocation": [
       "3cec932a08172253a0ed71562a993a5e17d600ef752fe0e883600f5c57b5a71f",
       "a6a70e1f4b3447ba0767a2d9b63afeb36dc17e508dc8172adf7da9eb42a015c1"
+    ],
+    "originator": [
+      "c85ec4c77ca255f496e021d763af3bb07e98d8fc7f151681faf0aebb500bb7f4",
+      "7c4179ad7bc591c7a3546071fec6f0b0e7b22758e262b6daac420ca9f976b36b"
+    ],
+    "eligibility": [
+      "efbb657896f865cafa596e92ff776c08cfb032d1660883b9cce9a250e16d9179",
+      "1365b694007f534e1d7d0fe1b07b999f16f313ce0ccb7a570db7e7010817a804",
+      "a32259cbbda6cb9b32c2b3e04ae21262e4dba0d059f695d34ecbfb05c04a2c13"
+    ],
+    "debtor": [
+      "a05d289f2ff1f21d45cf86d94e18992cb2250a323a98ec271e1345612e99544c",
+      "2fcc8a5bb548bbd1c089bc9da5852a97c14abdf166134ff72f3fc5d3bfb7887c",
+      "70ccce9be5d5cc6ce7ab708d1b851b15ed3b795a999fd4f50b89c07947fca43a"
     ]
   },
   "entries": {
@@ -225,24 +225,6 @@
       "risk_note": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
       "sources": [
         "58ae5c8a99322fcfbfde97ab21245f75b19607abd087e106d8dfcf405e547f98"
-      ]
-    },
-    "42a543f09607ff9e506ac21ba03bc5e4eb0a7fd944be05aeef744a793228890f": {
-      "reference_date": "2025-07-31",
-      "value": "(d) adquirir Cotas; (e) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas previstas neste Regulamento; (f) vender Cotas a prestação; (g) vender Cotas a instituições financeiras e sociedades de arrendamento mercantil cedentes de direitos creditórios, exceto quando se tratar de Cotas cuja subclasse subordine-se às demais para efeito de resgate; (h) prometer rendimento predeterminado aos Cotistas;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8b466ccb3086bdf50bc2c0097b4b1b732bc924dd372fb983ca34e6ed899992a2"
-      ]
-    },
-    "62273a4da70121c55eb7ac6f1ea6f0aa71922eef2171e3f4417cd3e553331e8d": {
-      "reference_date": "2025-07-31",
-      "value": "(d) adquirir Cotas; (e) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas previstas neste Regulamento; (f) vender Cotas a prestação; (g) vender Cotas a instituições financeiras e sociedades de arrendamento mercantil cedentes de direitos creditórios, exceto quando se tratar de Cotas cuja subclasse subordine-se às demais para efeito de resgate; (h) prometer rendimento predeterminado aos Cotistas;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "79807389b00b9c0693d3e35ffa37a7aded71108570b9bb3b3e74f59045df19c4"
       ]
     },
     "a05d289f2ff1f21d45cf86d94e18992cb2250a323a98ec271e1345612e99544c": {
@@ -1213,6 +1195,42 @@
       "sources": [
         "0d84447bb90dccf22a8b16862ec65438d64a2d02214d2b040809f45c18fcde1d"
       ]
+    },
+    "1365b694007f534e1d7d0fe1b07b999f16f313ce0ccb7a570db7e7010817a804": {
+      "reference_date": "2025-07-31",
+      "value": "4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque- aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude; (v) o Preço de Compra de cada CCB a ser adquirida pela Classe (considerando o Endosso de todas as parcelas vincendas) não deverá ser inferior a R$ 10,00 (dez reais); (vi) a soma dos Preços de Compra das CCBs constantes da carteira da Classe que sejam devidas por um mesmo Devedor, considerando, pro forma, a aquisição pretendida, deverá respeitar os seguintes limites de concentração:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "682be5ea6758581ff0759c2f0c5714fb71f2bec8765c3a26c779a2d442dd312e"
+      ]
+    },
+    "a32259cbbda6cb9b32c2b3e04ae21262e4dba0d059f695d34ecbfb05c04a2c13": {
+      "reference_date": "2025-07-31",
+      "value": "4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios deverão ser representados por CCB cujos Devedores sejam exclusivamente pessoas físicas, desde que estejam livres e desembaraçados de quaisquer ônus, exceto pelo ônus decorrente do endosso das CCB; (ii) os Direitos Creditórios serão adquiridos pelo Preço de Compra; (iii) os Direitos Creditórios devem ser decorrentes de cada uma das parcelas vincendas de uma CCB emitida eletronicamente por um Devedor, em favor do Endossante, representando um empréstimo pessoal com garantia de cessão fiduciária dos valores referentes ao Saque- aniversário a que faz jus o Devedor, nos termos da Lei nº 8.036 e da Resolução nº 958 do Conselho Curador do FGTS, de forma que parte do Saque-aniversário do Devedor seja utilizada para liquidar as parcelas devidas da CCB, de acordo com os procedimentos estabelecidos pelo respectivo Convênio FGTS; (iv) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e/ou inadimplidos e não pagos à Classe e/ou recomprados da Classe em razão de fraude; (v) o Preço de Compra de cada CCB a ser adquirida pela Classe (considerando o Endosso de todas as parcelas vincendas) não deverá ser inferior a R$ 10,00 (dez reais); (vi) a soma dos Preços de Compra das CCBs constantes da carteira da Classe que sejam devidas por um mesmo Devedor, considerando, pro forma, a aquisição pretendida, deverá respeitar os seguintes limites de concentração:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b18db9c61348d3a859745a99a4c70f9d10420e49339a09a73adc683cf6268058"
+      ]
+    },
+    "c85ec4c77ca255f496e021d763af3bb07e98d8fc7f151681faf0aebb500bb7f4": {
+      "reference_date": "2025-07-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "682be5ea6758581ff0759c2f0c5714fb71f2bec8765c3a26c779a2d442dd312e"
+      ]
+    },
+    "7c4179ad7bc591c7a3546071fec6f0b0e7b22758e262b6daac420ca9f976b36b": {
+      "reference_date": "2025-07-31",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b18db9c61348d3a859745a99a4c70f9d10420e49339a09a73adc683cf6268058"
+      ]
     }
   },
   "passages": {
@@ -1228,30 +1246,6 @@
       "sha256": "44cbf0fb90a862483a866ff77e10a65614f4d515b3949f2e1a34fe14e26a3ad1",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 12-15 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924"
-    },
-    "8b466ccb3086bdf50bc2c0097b4b1b732bc924dd372fb983ca34e6ed899992a2": {
-      "document_id": "971889",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971889",
-      "reference_date": "2025-07-31",
-      "version": "1",
-      "page": 45,
-      "clause": "12.7",
-      "excerpt": "12.7 É vedado ao ADMINISTRADOR, em nome da Classe: (a) prestar fiança, aval, aceite ou coobrigar-se  sob qualquer outra forma; (b) realizar operações e negociar com ativos financeiros ou modalidades de  investimento não previstos neste Regulamento; (c) aplicar recursos diretamente no exterior; (d) adquirir  Cotas; (e) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas previstas  neste Regulamento; (f) vender Cotas a prestação; (g) vender Cotas a instituições financeiras e  sociedades de arrendamento mercantil cedentes de direitos creditórios, exceto quando se tratar de  Cotas cuja subclasse subordine-se às demais para efeito de resgate; (h) prometer rendimento  predeterminado aos Cotistas; (i) fazer, em sua propaganda ou em outros documentos apresentados  aos investidores, promessas de retiradas ou de rendimentos, com base em seu próprio desempenho,  no desempenho alheio ou no de ativos financeiros ou modalidades de investimento disponíveis no  âmbito do mercado financeiro; (j) delegar poderes de gestão da Carteira; (k) obter ou conceder  empréstimos; e (l) efetuar locação, empréstimo, penhor ou caução dos direitos e demais ativos  integrantes da Carteira. O ADMINISTRADOR dispõe de regras e procedimentos adequados, por escrito  e passíveis de verificação, que lhe permitem verificar o cumprimento, pelos prestadores de serviços  contratos da Classe das funções para os quais foram contratados, sendo certo que tais regras e  procedimentos disponibilizados e mantidos atualizados em seu website, no endereço  https://www.vortx.com.br/ri.",
-      "sha256": "b3924b21bacb46f2fbfa71bac1286444dc8a030945263826f2b319acd8c4f485",
-      "verification": "primary_passage"
-    },
-    "79807389b00b9c0693d3e35ffa37a7aded71108570b9bb3b3e74f59045df19c4": {
-      "document_id": "971910",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971910",
-      "reference_date": "2025-07-31",
-      "version": "1",
-      "page": 41,
-      "clause": "12.7",
-      "excerpt": "12.7 É vedado ao ADMINISTRADOR, em nome da Classe: (a) prestar fiança, aval, aceite ou coobrigar-se  sob qualquer outra forma; (b) realizar operações e negociar com ativos financeiros ou modalidades de  investimento não previstos neste Regulamento; (c) aplicar recursos diretamente no exterior; (d) adquirir  Cotas; (e) pagar ou ressarcir-se de multas impostas em razão do descumprimento de normas previstas  neste Regulamento; (f) vender Cotas a prestação; (g) vender Cotas a instituições financeiras e  sociedades de arrendamento mercantil cedentes de direitos creditórios, exceto quando se tratar de  Cotas cuja subclasse subordine-se às demais para efeito de resgate; (h) prometer rendimento  predeterminado aos Cotistas; (i) fazer, em sua propaganda ou em outros documentos apresentados  aos investidores, promessas de retiradas ou de rendimentos, com base em seu próprio desempenho,  no desempenho alheio ou no de ativos financeiros ou modalidades de investimento disponíveis no  âmbito do mercado financeiro; (j) delegar poderes de gestão da Carteira; (k) obter ou conceder  empréstimos; e (l) efetuar locação, empréstimo, penhor ou caução dos direitos e demais ativos  integrantes da Carteira. O ADMINISTRADOR dispõe de regras e procedimentos adequados, por escrito  e passíveis de verificação, que lhe permitem verificar o cumprimento, pelos prestadores de serviços  contratos da Classe das funções para os quais foram contratados, sendo certo que tais regras e  procedimentos disponibilizados e mantidos atualizados em seu website, no endereço  https://www.vortx.com.br/ri.",
-      "sha256": "bb3740577c49aae6e74928b210d85e2969e5ea73b61a9e91866838cecb352f71",
-      "verification": "primary_passage"
     },
     "8869af38281e9831f135313a083bad271775c84850302fd3183d69458a8bbaa4": {
       "document_id": "971924",

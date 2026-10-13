@@ -1,6 +1,6 @@
 {
   "cnpj": "62552447000120",
-  "verified_at": "2026-10-13T04:36:38+00:00",
+  "verified_at": "2026-10-13T10:50:06-03:00",
   "criteria": [
     {
       "criterion_id": "receivables",
@@ -86,7 +86,7 @@
       "theme": "Recebíveis e aquisição",
       "status": "confirmed",
       "applicability": "applicable",
-      "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+      "value": "Critérios de elegibilidade: Todos os créditos: moeda nacional; registro contábil e custódia possíveis; limites de concentração atendidos pro forma na aquisição; inexistência de impedimento ou exigência legal, administrativa ou judicial para endosso; atendimento à política de crédito e, quando aplicável, de cobrança. Consignado privado e FGTS: empréstimo do Endossante representado por CCB, com máximo de parcelas mensais ou anuais definido nas normas aplicáveis. Refinanciamento livre: refinanciamento de consignado privado ou FGTS. TVM: máximo de 10% do PL, a qualquer momento.",
       "sources": [
         {
           "document_id": 1200623,
@@ -94,28 +94,17 @@
           "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
           "reference_date": "21/05/2026",
           "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
-          "page": "6",
-          "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
-          "excerpt": "Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
+          "page": "6–7",
+          "clause": "Anexo I, item1.2 — Critérios de Elegibilidade (i)–(v)",
+          "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade, na f orma prevista no item 4.6 (“Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante;\n(c) atendam, pro forma, na Data de Aquisição, aos limites de concentração definidos no Capítulo 4 deste Anexo I; (d) não haver disposição legal ou regulamentar aprovada, ou ordem judicial ou administrativa emitida, que tenha como objetivo impedir ou impor limites ou exigências adicionais para o endosso de Direitos Creditórios decorrentes de transações dedutíveis da f olha de pagamento a f undos de investimento; (e) atendam à Política de Crédito e, conforme aplicável, à Política de Cobrança; e (ii) com relação aos Direitos Creditórios Consignado Privado : (a) decorram de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB com número máximo de parcelas mensais e sucessivas previsto nas normas aplicáveis; (iii) com relação aos Direitos Creditórios FGTS: (a) decorram de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB com número máximo de parcelas anuais e sucessivas previsto nas normas aplicáveis; (iv) com relação aos Direitos Creditórios Ref inanciamento Livre: (a) decorram do refinanciamento de Direitos Creditórios Consignado Privado ou Direitos Creditórios FGTS; e, (v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido.",
           "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
           "identity_verified": true,
-          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
-        },
-        {
-          "document_id": 1200623,
-          "title": "Regulamento",
-          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
-          "reference_date": "21/05/2026",
-          "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
-          "page": "7",
-          "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
-          "excerpt": "(v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido. Sem prejuízo dos Critérios de Elegibilidade, a Classe somente poderá adquirir os Direitos Creditórios Ref inanciamento Livre, os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS com relação aos quais tenha se verif icado as seguintes Condições de Endosso, na forma prevista na Cláusula 4.7 (“Co",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
-          "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
-          "identity_verified": true,
-          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
-        },
+          "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "risk_note": "O item4.6, p.12, disciplina verificação individual e integral, com base no dia útil anterior. A lista de condições está no item1.2, p.6–7; quantidade máxima de parcelas remetida à norma aplicável, sem número inventado.",
+      "context_sources": [
         {
           "document_id": 1200623,
           "title": "Regulamento",
@@ -125,13 +114,62 @@
           "page": "12",
           "clause": "AnexoI4.6",
           "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que, na data da sua aquisição (“Data de Aquisição”), atendam a todos os Critérios de Elegibilidade, a serem verif icados e validados pelo Gestor, de f orma individualizada e integral, e não por amostragem. 4.6.1 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Todos os Documentos Comprobatórios e, com relação a cada Direito Creditório, conforme apli",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62552447000120/1200623_regulamento.pdf",
           "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
           "identity_verified": true,
           "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
         }
       ],
-      "risk_note": ""
+      "rule": {},
+      "reason": "",
+      "history": [
+        {
+          "reference_date": "21/05/2026",
+          "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+          "sources": [
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "6",
+              "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
+              "excerpt": "Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+            },
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "7",
+              "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
+              "excerpt": "(v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido. Sem prejuízo dos Critérios de Elegibilidade, a Classe somente poderá adquirir os Direitos Creditórios Ref inanciamento Livre, os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS com relação aos quais tenha se verif icado as seguintes Condições de Endosso, na forma prevista na Cláusula 4.7 (“Co",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+            },
+            {
+              "document_id": 1200623,
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+              "reference_date": "21/05/2026",
+              "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+              "page": "12",
+              "clause": "AnexoI4.6",
+              "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que, na data da sua aquisição (“Data de Aquisição”), atendam a todos os Critérios de Elegibilidade, a serem verif icados e validados pelo Gestor, de f orma individualizada e integral, e não por amostragem. 4.6.1 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Todos os Documentos Comprobatórios e, com relação a cada Direito Creditório, conforme apli",
+              "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+              "identity_verified": true,
+              "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+            }
+          ],
+          "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
     },
     {
       "criterion_id": "allocation",

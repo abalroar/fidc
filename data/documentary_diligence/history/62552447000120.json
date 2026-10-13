@@ -36,6 +36,9 @@
     ],
     "providers": [
       "d5efc02b890fd34270e2261518555f17fcb040c7eeded28509bb8f995be3f080"
+    ],
+    "eligibility": [
+      "98a46532e2ce50581ba6e0fd769d49257dac9031890de07033fe0d0db8757694"
     ]
   },
   "entries": {
@@ -126,6 +129,17 @@
       "sources": [
         "e6e9ec706d78d104e4bdf36b07e135d932aadd375ac5d904d57fa81a4709bdfc"
       ]
+    },
+    "98a46532e2ce50581ba6e0fd769d49257dac9031890de07033fe0d0db8757694": {
+      "reference_date": "21/05/2026",
+      "value": "Créditos em reais, registráveis/ custodiáveis e enquadrados pró-forma; consignado/FGTS com máximo de parcelas remetido às normas; refinanciamento ligado aos créditos originais; TVM ≤10% PL. Gestor valida elegibilidade integralmente, sem amostragem.",
+      "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "3545c35f6520843e46287690885deea7229e54153e21e85c9d553d44ae884210",
+        "aac9a015abb67ae8481be7334d1bea62b829b4577d1312544aa64931e7af7329",
+        "03868e4b013c6afb31adbb91d81679fb1294e620f07583c80cc43b78ac8da98f"
+      ]
     }
   },
   "passages": {
@@ -191,6 +205,45 @@
       "excerpt": "(vii) Aprovar a 1ª (primeira) emissão de cotas da Classe, na qual serão emitidas 250.000 (duzentas e  cinquenta mil) cotas, de subclasse única, com valor nominal unitário de R$ 1.000,00 (mil reais),  na respectiva data da 1ª (primeira) integralização de cotas da Classe, totalizando  R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) (“Cotas”), sendo que as Cotas serão  objeto de colocação privada (“Colocação Privada”), cujos termos e condições são descritos no  suplemento constante do Anexo II ao presente Instrumento Particular de Constituição;",
       "sha256": "8ecc8a771bb9713d64e5fc2052c489664cb0433801a9280db68e5187d35bf7a5",
       "verification": "primary_passage"
+    },
+    "3545c35f6520843e46287690885deea7229e54153e21e85c9d553d44ae884210": {
+      "document_id": 1200623,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+      "reference_date": "21/05/2026",
+      "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+      "page": "6",
+      "clause": "AnexoI1.2 Critérios(i)(a)–(b)",
+      "excerpt": "Critérios de Elegibilidade”): (i) com relação a todos os Direitos Creditórios : (a) sejam representados em moeda corrente nacional; Critérios de Elegibilidade (b) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados",
+      "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+      "identity_verified": true,
+      "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+    },
+    "aac9a015abb67ae8481be7334d1bea62b829b4577d1312544aa64931e7af7329": {
+      "document_id": 1200623,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+      "reference_date": "21/05/2026",
+      "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+      "page": "7",
+      "clause": "AnexoI1.2 Critérios(i)(c)–(v)",
+      "excerpt": "(v) com relação aos Direitos Creditórios TVM: (a) representem, a qualquer momento, no máximo 10% (dez por cento) do Patrimônio Líquido. Sem prejuízo dos Critérios de Elegibilidade, a Classe somente poderá adquirir os Direitos Creditórios Ref inanciamento Livre, os Direitos Creditórios Consignado Privado e os Direitos Creditórios FGTS com relação aos quais tenha se verif icado as seguintes Condições de Endosso, na forma prevista na Cláusula 4.7 (“Co",
+      "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+      "identity_verified": true,
+      "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
+    },
+    "03868e4b013c6afb31adbb91d81679fb1294e620f07583c80cc43b78ac8da98f": {
+      "document_id": 1200623,
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200623",
+      "reference_date": "21/05/2026",
+      "version": "Consolidado21/05/2026 aprovado pelo ato1200625",
+      "page": "12",
+      "clause": "AnexoI4.6",
+      "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que, na data da sua aquisição (“Data de Aquisição”), atendam a todos os Critérios de Elegibilidade, a serem verif icados e validados pelo Gestor, de f orma individualizada e integral, e não por amostragem. 4.6.1 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.6.2 Todos os Documentos Comprobatórios e, com relação a cada Direito Creditório, conforme apli",
+      "sha256": "ce263dab633fe90115bab3883ddaa15c82a10f6c91dd3fa653b50ffcc401e2df",
+      "identity_verified": true,
+      "identity_verification_method": "nomeVCDT1 exato + ato1200625 comCNPJ62552447000120 e consolidação do mesmo dia"
     }
   }
 }

@@ -3,11 +3,6 @@
   "cnpj": "57532556000146",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "760dd9744e704fe7b5be7e4d9aaf31146689abecf85eb0ffcfcb2820cfb44f95",
-      "31f9d213313d1a4963ae833ad9e910c7868160cdf2098edee0a74edd72bb6c23",
-      "81463844b797cfb8557cedccfec249056bef8d7d3a2053b9953b3657ef482e44"
-    ],
     "term": [
       "5afbcfb4585b1369809ddcdcef09c8a2c5ccd429e9e4cf48f12ecb2e0bea5982",
       "3938c8faa0cfcb8e0b5878b4a98e5a98c4ddc2cc8703efd8baed9009ebf213d2"
@@ -205,11 +200,6 @@
     "quota_grace": [
       "d2ab91c329d5183da0a8c4a42e915e13d36f9a9165cfdb69f552f40f47cadce9"
     ],
-    "debtor": [
-      "e75718d2e49cd6b8bfd2c1cfdd8586598fe2b09fc65660176d2c707c34f879fb",
-      "ea7a47d57bb8526f46905534ac991c196704423b463e294af2e1b8af0960b620",
-      "cf0ad641d1534fabb4cc7385f20bdbc26355bda5fb0106457189f5834ed69ead"
-    ],
     "investee": [
       "e26f3736f56c25a3d61c481574abe4dfec87f015a0540d3df99f86bb0f0bc0ca"
     ],
@@ -234,6 +224,17 @@
       "c09ea99d122e120998eb5357c4f2112b9ec8980284bfc194914a0231cb9f06a8",
       "4dc9425540ee4e46f7f0c0b4a9b90472c3c8e687b281e7371405e8f921cccca5",
       "5f869feebe80972e0fce9e489523b698b2e34c1327a66dddec57e86b90bddd53"
+    ],
+    "eligibility": [
+      "fd5fe3a8f291e598f52f030e92b97496c4ba60726fbd4fa03d713330a6aec00a",
+      "31f9d213313d1a4963ae833ad9e910c7868160cdf2098edee0a74edd72bb6c23",
+      "81463844b797cfb8557cedccfec249056bef8d7d3a2053b9953b3657ef482e44"
+    ],
+    "debtor": [
+      "89574e9d34dbb7d4437c3fcc5e1ad5d87e7823b0133e9f570ee38bcae8c3c725",
+      "e75718d2e49cd6b8bfd2c1cfdd8586598fe2b09fc65660176d2c707c34f879fb",
+      "ea7a47d57bb8526f46905534ac991c196704423b463e294af2e1b8af0960b620",
+      "cf0ad641d1534fabb4cc7385f20bdbc26355bda5fb0106457189f5834ed69ead"
     ]
   },
   "entries": {
@@ -262,15 +263,6 @@
       "provenance": "primary_passage",
       "sources": [
         "5308f419bd6647266af6a2d4c86e4d3d98d8f46fa89197875f64cedd839fff02"
-      ]
-    },
-    "760dd9744e704fe7b5be7e4d9aaf31146689abecf85eb0ffcfcb2820cfb44f95": {
-      "reference_date": "2024-12-06",
-      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso: (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "91029be69ea0b35e9c6a09d1e3708a7df2a2bd9005f23e708d25d5a9626a802c"
       ]
     },
     "31f9d213313d1a4963ae833ad9e910c7868160cdf2098edee0a74edd72bb6c23": {
@@ -1460,6 +1452,24 @@
       "sources": [
         "5915fb9a9b569eb10122b18e7d0d91f843e58a8e23c4e94bc825fec875439b22"
       ]
+    },
+    "fd5fe3a8f291e598f52f030e92b97496c4ba60726fbd4fa03d713330a6aec00a": {
+      "reference_date": "2024-12-06",
+      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso: (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas; (ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos mil reais); e (iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a R$175.000,00 (cento e setenta e cinco mil reais).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "01b8da690253a2b62660d7e394f53c2ca7ed10df4f1fcba97819618cb49df8ee"
+      ]
+    },
+    "89574e9d34dbb7d4437c3fcc5e1ad5d87e7823b0133e9f570ee38bcae8c3c725": {
+      "reference_date": "2024-12-06",
+      "value": "“(ii) os Direitos Creditórios são (i) decorrentes de recebíveis futuros, ou seja, operações de financiamento concedidas pelo Emitente a Devedores para aquisição de Veículos Automotores e para pagamento dos prêmios de seguros conforme descritos no respectivo CCCB; e (ii) devidamente formalizados mediante a emissão de CCBs pelos Devedores em favor do Emitente destinadas ao financiamento de veículos leves a serem adquiridos pelos Devedores;”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b0435d185e28fee495e633381d1ee3e22c0520b079c3edd9982aca6fdb699069"
+      ]
     }
   },
   "passages": {
@@ -1497,18 +1507,6 @@
       "clause": "5.5",
       "excerpt": "5.5. Sem prejuízo dos Critérios de Elegibilidade, o Emitente deverá declarar, na data  de emissão de cada CCCB, que os Direitos Creditórios atendem aos seguintes critérios  para vinculação, os quais também serão objeto de declaração pelo Emitente na Data de  Endosso (em conjunto, “Critérios para Vinculação”):\n(i) os Devedores são pessoas físicas;\n(ii) os Direitos Creditórios são (i) decorrentes de recebíveis futuros, ou seja,  operações de financiamento concedidas pela Emitente a Devedores para  aquisição de Veículos Automotores; e (ii) devidamente formalizados mediante a  emissão de CCBs pelos Devedores em favor da Emitente destinadas ao  financiamento de veículos leves a serem adquiridos pelos Devedores;\n(iii) as CCBs atendem aos requisitos legais da Lei 10.931, bem como à  legislação e normas aplicáveis para a formalização de CCBs e manifestação de  vontade do Devedor por meio eletrônico;\n(iv) o Emitente é o exclusivo e legítimo proprietário dos respectivos Direitos  Creditórios;\n(v) os Direitos Creditórios são garantidos por Alienação Fiduciária dos  Veículos Automotores, a qual deverá ter sido devidamente registrada perante o",
       "sha256": "ee760fb18d63ce3d746225c8c65fda4b7feccadc278f9279bb6ed9c2f01ed8f6",
-      "verification": "primary_passage"
-    },
-    "91029be69ea0b35e9c6a09d1e3708a7df2a2bd9005f23e708d25d5a9626a802c": {
-      "document_id": "796044",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=796044",
-      "reference_date": "2024-12-06",
-      "version": "1",
-      "page": 32,
-      "clause": "5.1",
-      "excerpt": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e  confirmados pela Gestora, na Data de Endosso:\n(i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data  de pagamento das Cotas emitidas;\n(ii) considerando-se pro forma a aquisição pretendida, a soma do valor  presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os  CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete  milhões e quinhentos mil reais); e",
-      "sha256": "6ca7b054314245425b81772116659de83b5676f0bc60502ec93db980556836fe",
       "verification": "primary_passage"
     },
     "3faa1e5fc60def53059d3be6b3431c46e99459be036695a2373e4292f70bd948": {
@@ -2985,6 +2983,31 @@
       "clause": "",
       "excerpt": "“Administradora”: Significa o BANCO DAYCOVAL S.A., instituição financeira  autorizada pela CVM para o exercício profissional de  administração de carteiras de valores mobiliários, na  categoria de administrador fiduciário, por meio do Ato  Declaratório CVM nº 17.552, de 5 de dezembro de 2019,  com sede na cidade de São Paulo, Estado de São Paulo, na  Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ  sob o nº 62.232.889/0001-90, ou seu sucessor a qualquer  título;",
       "sha256": "ee760fb18d63ce3d746225c8c65fda4b7feccadc278f9279bb6ed9c2f01ed8f6",
+      "verification": "primary_passage"
+    },
+    "01b8da690253a2b62660d7e394f53c2ca7ed10df4f1fcba97819618cb49df8ee": {
+      "document_id": "796044",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=796044",
+      "reference_date": "2024-12-06",
+      "version": "1",
+      "page": "32–33",
+      "clause": "5.1",
+      "excerpt": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e  confirmados pela Gestora, na Data de Endosso:\n(i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data  de pagamento das Cotas emitidas;\n(ii) considerando-se pro forma a aquisição pretendida, a soma do valor  presente das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os  CCCBs adquiridos pela Classe A, não poderá exceder R$17.500.000,00 (dezessete  milhões e quinhentos mil reais); e\n(iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a  R$175.000,00 (cento e setenta e cinco mil reais).",
+      "sha256": "6ca7b054314245425b81772116659de83b5676f0bc60502ec93db980556836fe",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b0435d185e28fee495e633381d1ee3e22c0520b079c3edd9982aca6fdb699069": {
+      "document_id": "803233",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803233",
+      "reference_date": "2024-12-06",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "“(ii) os Direitos Creditórios são (i) decorrentes de recebíveis futuros, ou seja, operações  de financiamento concedidas pelo Emitente a Devedores para aquisição de Veículos  Automotores e para pagamento dos prêmios de seguros conforme descritos no  respectivo CCCB; e (ii) devidamente formalizados mediante a emissão de CCBs pelos  Devedores em favor do Emitente destinadas ao financiamento de veículos leves a serem  adquiridos pelos Devedores;”",
+      "sha256": "e7765b5ada754e17d52aabb85f863c737d0c4bde4cf411929b653f5840db0cd4",
       "verification": "primary_passage"
     }
   }

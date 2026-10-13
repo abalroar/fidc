@@ -3,12 +3,6 @@
   "cnpj": "57270666000187",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "7b7ec69e57d30043132226650b6452944af4336ea2da9cc7b9d2e25913e8b664",
-      "5e167ae5bfefca1ae4cbd8e85c725d36a9f93900768d17134ac7fc23be133a29",
-      "7f47979d7700e894b86a7f877c73b1dc0e627301795f2495e44c4914a05ed314",
-      "5888864d86456f1d2806f53ba10ac2213f2794a3f2178576211701b4ed599a4d"
-    ],
     "term": [
       "a64f865f1ed97f2a117e14d1df98912fd58eb3f2ede72a63d44c8f6868853336",
       "75430dba3a888b8468f75e6c5bcee461e74ebee52d7addd94acb3ec3fb274969",
@@ -217,15 +211,6 @@
       "30becd8b49fa143ced631db1fc14f7f27b3f86bf386b364c29182bf2c142cd51",
       "6e62f2c830af80b5706dfa39941c39e6411ae40800d1f3755f900b01c3210d1e"
     ],
-    "originator": [
-      "d1f1285f1dd1884ccd1ea0ab32476c357aeb86b8244061506a8f6edaef4c9c28",
-      "98fb752e57eb85db869f27fe38fe17214a2e73fa63bceec71f570ae8aecaa6bf",
-      "864cbb2673664e0c64c40ca3a9bd7d7413f48041449b8935f951234efd6ae515",
-      "cb2f5adae93c708cc66e1f83eff64b715d5c7bfbb8d168e9eeda17cc3801f949"
-    ],
-    "debtor": [
-      "5495e706ea43a73b2f72458f3681d861b0170f629cad0d7d4c77a4dc461497bb"
-    ],
     "guarantee": [
       "9ed8b350581fc717496c281bc63930739eed3eb357c296cce398ae1eeeae33c5"
     ],
@@ -248,6 +233,21 @@
       "82aadf3736514cf125cdb231ef435317406948d5555996041a5a3c25fd4aa68a",
       "577b02e0e0d5eb086c5dd9dbb1c3b7a723ef99ab0efcad08c5284ef6159d1510",
       "662f490bc216b22e8d83f90bc922431c80abaa565bc37656948924c5c02d5981"
+    ],
+    "originator": [
+      "d1f1285f1dd1884ccd1ea0ab32476c357aeb86b8244061506a8f6edaef4c9c28",
+      "98fb752e57eb85db869f27fe38fe17214a2e73fa63bceec71f570ae8aecaa6bf",
+      "864cbb2673664e0c64c40ca3a9bd7d7413f48041449b8935f951234efd6ae515",
+      "cb2f5adae93c708cc66e1f83eff64b715d5c7bfbb8d168e9eeda17cc3801f949"
+    ],
+    "eligibility": [
+      "fb2660be7b6eb74fa01b99f451fccdbb17c26d09d2d634b0b60a6424731fd195",
+      "a7db59499be4d6eaeb86c509fef4a4c670e23eaf13a8599c48a282631d3b9d47",
+      "d31d9942578eb609d70119bb9718311c65ef5dd323d51d64730055216b0eac7a",
+      "e00267fc023aacc0cdb3e6bb100eb229693e96e35e9a410364e57bd29e8c65aa"
+    ],
+    "debtor": [
+      "5495e706ea43a73b2f72458f3681d861b0170f629cad0d7d4c77a4dc461497bb"
     ]
   },
   "entries": {
@@ -305,42 +305,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "ca2947a7df3f8f1973a83953c5a5614dac69229c0083a5af3f5e234ff071a1d1"
-      ]
-    },
-    "7b7ec69e57d30043132226650b6452944af4336ea2da9cc7b9d2e25913e8b664": {
-      "reference_date": "2024-10-30",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b548aadddd0fdc81b1febf1e28551ce7c2926a3975a963af64c1197e5f9b8fe0"
-      ]
-    },
-    "5e167ae5bfefca1ae4cbd8e85c725d36a9f93900768d17134ac7fc23be133a29": {
-      "reference_date": "2024-10-24",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f0ca2ccc5e58c1024d7e2c11e746f83887449eb44cc8987ba7dea6d50f7c3aa4"
-      ]
-    },
-    "7f47979d7700e894b86a7f877c73b1dc0e627301795f2495e44c4914a05ed314": {
-      "reference_date": "2024-09-26",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "76ac677906d0a6d8a00505cb43421456eecd6485a77d13f3d8d6f2ff63123e40"
-      ]
-    },
-    "5888864d86456f1d2806f53ba10ac2213f2794a3f2178576211701b4ed599a4d": {
-      "reference_date": "2024-09-11",
-      "value": "(iii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições de Cessão e realizará a verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4 abaixo, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; e (iv) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do preço de aquisição pelo Custodiante, em nome do Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8ca24fd9fbdff35ef4fce3c01b7aacc9e6a8f8e901399f879bd3fcb7fe0ea896"
       ]
     },
     "a64f865f1ed97f2a117e14d1df98912fd58eb3f2ede72a63d44c8f6868853336": {
@@ -1628,6 +1592,42 @@
       "provenance": "primary_passage",
       "sources": [
         "cd6d831c2509432703754b0ab9d98a30aa8ea7f3e5ef0a75c07bd7feaf4c3315"
+      ]
+    },
+    "fb2660be7b6eb74fa01b99f451fccdbb17c26d09d2d634b0b60a6424731fd195": {
+      "reference_date": "2024-10-30",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "28beda22e7c0c543a1b0a6b9decf98fbec44c095732712afe4141d87bb2d766d"
+      ]
+    },
+    "a7db59499be4d6eaeb86c509fef4a4c670e23eaf13a8599c48a282631d3b9d47": {
+      "reference_date": "2024-10-24",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1527a18087eeb16907ffecd16b9c4acb6f0f56fdf8602f9230afd4bed274d1b9"
+      ]
+    },
+    "d31d9942578eb609d70119bb9718311c65ef5dd323d51d64730055216b0eac7a": {
+      "reference_date": "2024-09-26",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d7c4e2729ed70719456e38936f5a50f6bc6d1632dca130a6ab4d5cb30afbd224"
+      ]
+    },
+    "e00267fc023aacc0cdb3e6bb100eb229693e96e35e9a410364e57bd29e8c65aa": {
+      "reference_date": "2024-09-11",
+      "value": "7.1. A originação e a cessão dos Direitos Creditórios da Classe observarão, no mínimo, os procedimentos descritos a seguir: (i) a originação dos Direitos Creditórios Elegíveis se dá por meio (i) da celebração da Proposta Comercial; e (ii) da realização das Transações de Pagamento pelos Usuários com a utilização de Instrumentos de Pagamentos para a aquisição de bens ou serviços junto aos Cedentes; (ii) os Cedentes encaminharão à Gestora as informações a respeito dos Direitos Creditórios que pretendem ceder; (iii) a Gestora verificará o atendimento dos Direitos Creditórios às Condições de Cessão e realizará a verificação da integridade e titularidade do lastro, na forma da Cláusula 7.4 abaixo, bem como o enquadramento à Política de Investimento, a verificação dos limites de concentração e o atendimento dos Critérios de Elegibilidade, conforme regras dispostas no Anexo da Classe Única; e (iv) cumpridas e aprovadas as etapas anteriores, será realizada a assinatura dos respectivos Instrumentos de Aquisição, conforme aplicável, e o pagamento do preço de aquisição pelo Custodiante, em nome do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8ca24fd9fbdff35ef4fce3c01b7aacc9e6a8f8e901399f879bd3fcb7fe0ea896"
       ]
     }
   },
@@ -3356,6 +3356,45 @@
       "excerpt": "LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, Conj. 91, 9º andar, CEP 04.548-004, Vila Olímpia, inscrita no CNPJ sob o nº. 24.361.690/0001-72, devidamente autorizada para tanto através do Ato Declaratório da CVM nº 16.206, de 08 de maio de 2018 (“Administradora”), em conjunto com a KANASTRA ADMINISTRAÇÃO DE RECURSOS LTDA., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, por meio do Ato Declaratório nº\n19.724, de 7 de abril de 2022, com sede na cidade de Uberlândia, Estado de Minas Gerais, na Avenida dos Vinhedos, nº 71, sala 802, inscrita no CNPJ sob o nº 44.870.662/0001-98. (“Gestora” e, quando em conjunto à Administradora, os “Prestadores de Serviços Essenciais”):\n(i) os Prestadores de Serviços Essenciais, por meio do “INSTRUMENTO PARTICULAR DE  CONSTITUIÇÃO DO MOBILITAS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS –  RESPONSABILIDADE LIMITADA” datado de 11 de setembro de 2024, constituíram o Fundo e, no  dia imediatamente subsequente, registraram seu regulamento (“Regulamento”) perante a CVM;\n e\n(ii) até a presente data, o Fundo não iniciou suas atividades e não possui cotistas.",
       "sha256": "ea55bbabe794b84c49351f3a4cfff33191a1825c57cca6d31a014ba14dd255ba",
       "verification": "primary_passage"
+    },
+    "28beda22e7c0c543a1b0a6b9decf98fbec44c095732712afe4141d87bb2d766d": {
+      "document_id": "769070",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769070",
+      "reference_date": "2024-10-30",
+      "version": "1",
+      "page": "59–60",
+      "clause": "13.2",
+      "excerpt": "13.2. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação:\n(i) Em caso de insolvência da Administradora ou Gestora;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (viii) e (ix) da  Cláusula 8.1 acima;\n(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do  montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às  Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pela Administradora e/ou pela Gestora de suas obrigações  previstas neste Anexo e no Regulamento, desde que, se notificado por escrito pela  Administradora e/ou pela Gestora, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 2 (dois) Dias Úteis contado do  recebimento da referida notificação;\n(v) rebaixamento da classificação de risco das Cotas Seniores em circulação (a) a qualquer  tempo, em 3 (três) níveis abaixo da classificação de risco originalmente atribuída, ou (2)  após uma única revisão de classificação de risco ou após 2 (duas) revisões consecutivas,  em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída, conforme  aplicável;\n(vi) desenquadramento da Alocação Mínima por mais de 30 (trinta) Dias Úteis consecutivos  sem que haja a correspondente regularização neste período;\n(vii) verificação de Patrimônio Líquido Negativo;\n(viii) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de  Alocação de Recursos;\n(ix) desenquadramento de Índice de Subordinação por um período superior ao previsto na  Cláusula 5.1 acima;\n(x) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Resolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xi) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Dissolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xii) que não haja a alteração do controle direto ou indireto do Grupo Linhares, bem como que  as Cotas Subordinadas Júnior deixem de pertecer aos respectivos controladores do Grupo  Linhares; e\n(xiii) caso seja verificado erro operacional, cometido pela Entidade Registradora Contratada,  que ocasione Efeito Adverso Relevante, observada a possibilidade de substituição  desse prestador de serviço nos termos da Cláusula 7.6.1 deste Regulamento.",
+      "sha256": "2fecb18b95910fa5ddf4c8aa9d36499f9d831973595eab1004c1029f87b57b15",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1527a18087eeb16907ffecd16b9c4acb6f0f56fdf8602f9230afd4bed274d1b9": {
+      "document_id": "764775",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=764775",
+      "reference_date": "2024-10-24",
+      "version": "1",
+      "page": "59–60",
+      "clause": "13.2",
+      "excerpt": "13.2. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação:\n(i) Em caso de insolvência da Administradora ou Gestora;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (viii) e (ix) da  Cláusula 8.1 acima;\n(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do  montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às  Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pela Administradora e/ou pela Gestora de suas obrigações  previstas neste Anexo e no Regulamento, desde que, se notificado por escrito pela  Administradora e/ou pela Gestora, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 2 (dois) Dias Úteis contado do  recebimento da referida notificação;\n(v) rebaixamento da classificação de risco das Cotas Seniores em circulação (a) a qualquer  tempo, em 3 (três) níveis abaixo da classificação de risco originalmente atribuída, ou (2)  após uma única revisão de classificação de risco ou após 2 (duas) revisões consecutivas,  em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída, conforme  aplicável;\n(vi) desenquadramento da Alocação Mínima por mais de 30 (trinta) Dias Úteis consecutivos  sem que haja a correspondente regularização neste período;\n(vii) verificação de Patrimônio Líquido Negativo;\n(viii) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de  Alocação de Recursos;\n(ix) desenquadramento de Índice de Subordinação por um período superior ao previsto na  Cláusula 5.1 acima;\n(x) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Resolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xi) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Dissolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xii) que não haja a alteração do controle direto ou indireto do Grupo Linhares, bem como que  as Cotas Subordinadas Júnior deixem de pertecer aos respectivos controladores do Grupo  Linhares; e\n(xiii) caso seja verificado erro operacional, cometido pela Entidade Registradora Contratada,  que ocasione Efeito Adverso Relevante, observada a possibilidade de substituição  desse prestador de serviço nos termos da Cláusula 7.6.1 deste Regulamento.",
+      "sha256": "b30e63808302322e0a0f9881b1831cd575d3dbbbf67dab86cdbd717316ffac47",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d7c4e2729ed70719456e38936f5a50f6bc6d1632dca130a6ab4d5cb30afbd224": {
+      "document_id": "744471",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=744471",
+      "reference_date": "2024-09-26",
+      "version": "1",
+      "page": "59–60",
+      "clause": "13.2",
+      "excerpt": "13.2. A ocorrência de qualquer das seguintes hipóteses constituirá Evento de Avaliação:\n(i) Em caso de insolvência da Administradora ou Gestora;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (viii) e (ix) da  Cláusula 8.1 acima;\n(iii) Em caso de verificação, a qualquer tempo, de que 10% (dez por cento) ou mais do  montante total dos Direitos Creditórios não atendiam aos Critérios de Elegibilidade e às  Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pela Administradora e/ou pela Gestora de suas obrigações  previstas neste Anexo e no Regulamento, desde que, se notificado por escrito pela  Administradora e/ou pela Gestora, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 2 (dois) Dias Úteis contado do  recebimento da referida notificação;\n(v) rebaixamento da classificação de risco das Cotas Seniores em circulação (a) a qualquer  tempo, em 3 (três) níveis abaixo da classificação de risco originalmente atribuída, ou (2)  após uma única revisão de classificação de risco ou após 2 (duas) revisões consecutivas,  em 2 (dois) níveis abaixo da classificação de risco originalmente atribuída, conforme  aplicável;\n(vi) desenquadramento da Alocação Mínima por mais de 30 (trinta) Dias Úteis consecutivos  sem que haja a correspondente regularização neste período;\n(vii) verificação de Patrimônio Líquido Negativo;\n(viii) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de  Alocação de Recursos;\n(ix) desenquadramento de Índice de Subordinação por um período superior ao previsto na  Cláusula 5.1 acima;\n(x) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Resolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xi) caso seja verificado, em uma Data de Verificação, o desenquadramento do Índice de  Dissolução, por 2 (duas) vezes consecutivas ou 3 (três) vezes alternadas no período de 12\n (doze) meses anteriores a uma Data de Verificação;\n(xii) que não haja a alteração do controle direto ou indireto do Grupo Linhares, bem como que  as Cotas Subordinadas Júnior deixem de pertecer aos respectivos controladores do Grupo  Linhares; e\n(xiii) caso seja verificado erro operacional, cometido pela Entidade Registradora Contratada,  que ocasione Efeito Adverso Relevante, observada a possibilidade de substituição  desse prestador de serviço nos termos da Cláusula 7.6.1 deste Regulamento.",
+      "sha256": "b413e9d565bbb0e6f4f9ed0987968d0737809c60f5caa65146beebda1e5ca809",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

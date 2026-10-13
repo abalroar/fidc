@@ -13,7 +13,7 @@ from typing import Any
 
 from services.documentary_criteria_catalog import CRITERIA
 
-VALIDATOR_REVISION = 6
+VALIDATOR_REVISION = 8
 
 
 def validation_fingerprint() -> str:
@@ -65,6 +65,94 @@ def _explicit_credit_nature(text: str) -> bool:
         r"(?:fundo|classe).{0,90}(?:adquirira|devera adquirir|podera adquirir|adquire).{0,100}(?:emprestimos? consignad|financiamentos? estudant|recebiveis de cartao|creditos imobiliari)",
     )
     return any(_has(text, pattern) for pattern in descriptions)
+
+
+def _eligibility_conditions(text: str) -> bool:
+    """Clause numbers and the verification date do not describe an eligible asset."""
+    conditions = (
+        r"(?:vencimento|prazo|parcela|idade|valor|saldo|taxa|juros|concentracao|percentual).{0,100}\d+(?:[.,]\d+)?\s*(?:%|dias|meses|anos)|r\$\s*\d",
+        r"adimplent|inadimplent|nao vencid|nao estar vencid|vencidos? e nao pagos|performad|sem restric|moeda nacional|legalmente constitu|certos.{0,50}validos.{0,50}exigiveis|regularmente (?:emitid|formalizad|constitu[ií]d)|(?:registro|registrad).{0,60}(?:entidade|autorizad|sistema|registrador)",
+        r"(?:direitos creditorios|creditos|ccbs?|devedores?|cedentes?).{0,100}(?:deverao|devem|tenham|sejam|nao poderao|nao podem).{0,120}(?:garantia|coobrig|litigio|judicial|document|cedula|duplicata|consignad|emprestimo|pessoa|instituic|empresa|originad|emitid|formalizad|devedor|cedente)",
+        r"(?:originad|decorrent|representad).{0,120}(?:" + _CREDIT_TYPES + r")",
+        r"(?:ser|sejam|devem ser|deverao ser).{0,45}(?:emitid|representad|originad).{0,100}(?:pessoas? (?:fisicas?|juridicas?)|instituic|empresa|" + _CREDIT_TYPES + r")",
+    )
+    return any(_has(text, pattern) for pattern in conditions)
+
+
+def _identified_party(text: str, criterion: str) -> bool:
+    role = r"originador(?:a)?s?|cedentes?|endossantes?" if criterion == "originator" else r"devedores?|sacados?"
+    relation = (r"(?:" + role + r")[^.;]{0,35}(?:sao|sera|serao|deverao ser|poderao ser|significa|compreendem|consistem|correspondem)"
+                + r".{0,180}(?:" + _ENTITY + r"|pessoas? (?:fisicas?|juridicas?)|instituicoes? financeiras|empresas?|inss|aposentad|pensionist|consumidor|trabalhador)")
+    definition = r"[“\"'](?:" + role + r")[”\"']\s*[:\-]?\s*(?:significa\s*)?(?:" + _ENTITY + r"|pessoas? (?:fisicas?|juridicas?)|instituicoes? financeiras|empresas?)"
+    action = r"originad|cedid|emitid|endossad" if criterion == "originator" else r"devidos"
+    origin = r"(?:direitos creditorios|creditos|ccbs?).{0,100}(?:" + action + r").{0,80}(?:pela|pelo|por|aos|pelos).{0,100}(?:" + _ENTITY + r"|pessoas? (?:fisicas?|juridicas?)|instituicoes? financeiras|consumidor|trabalhador)"
+    return _has(text, relation + "|" + definition + "|" + origin)
+
+
+def _identified_debtor(text: str) -> bool:
+    """Require a positive borrower definition, rather than an incidental role.
+
+    A payment channel, KYC checklist or risk description can mention both the
+    debtor and a type of person without identifying the portfolio's borrowers.
+    Keep the population bound to its role or to the actual loan transaction.
+    """
+    role = r"(?:devedor(?:es|\(es\))?|sacados?|tomadores?)"
+    population = (r"(?:cada |qualquer |as? |os? |)(?:pessoas? (?:fisicas?|juridicas?)|"
+                  r"pessoas? que (?:celebr|contrat|tom)|clientes? (?:pessoa|que|dos)|"
+                  r"trabalhadores?|empregados?|aposentad[oa]s?|pensionistas?|beneficiarios?|"
+                  r"consumidores?|estudantes?|alunos?|empresas?|instituicoes? financeiras|"
+                  r"credenciadoras?|adquirentes?|produtores? rurais?|estabelecimentos?|"
+                  r"tomadores? de (?:emprestimos?|financiamentos?)|" + _ENTITY + r")")
+    # A role label can contain its portfolio scope or a parenthesised synonym.
+    scope = r"(?:\s*\(sacados?\))?(?:\s+dos? direitos (?:creditorios|de credito)(?: cedidos| adquiridos)?|\s+de consignado privado|\s+tomadores? de financiamento solar)?"
+    definition = (
+        r"\b" + role + scope + r"\s*[”\"']?\s*[:\-]?\s*"
+        r"(?:sao|e|serao|sera|significa[m]?|compreendem|consistem em|correspondem a|devem ser|deverao ser)\s+"
+        r"(?!atendid|cadastrad|monitorad|avaliad|verificad|obrigad|responsavel|cobrad|consultad)" + population
+    )
+    glossary = (r"[“\"']" + role + r"(?:\s*[–-]\s*[^”\"']{1,70})?[”\"']\s*[:\-]?\s*"
+                r"(?:(?:significa[m]?|sao|e)\s+)?" + population)
+    labelled_answer = r"(?:^|[.;]\s*)" + role + scope + r"\s*:\s*" + population
+    # Glossary columns sometimes place the quoted label inside its definition.
+    reverse_definition = (r"significa[m]?\s+(?:os? |as? |)" + role
+                          + r"\s*(?:\(sacados?\))?\s*,\s*" + population)
+    expanded_definition = (r"[“\"']" + role + r"[”\"']\s*(?:sao\s+)?os? " + role
+                           + r" dos direitos creditorios.{0,70}incluindo.{0,130}" + population)
+    enumerated_definition = (r"(?:[“\"']" + role + r"[”\"']\s*significa[m]?\s*,|"
+                             r"serao considerados " + role + r"\s*:)"
+                             + r"[^.;]{0,130}" + population)
+    named_population = (r"(?:estudantes?|alunos?|consumidores?|tomadores?|pessoas? (?:fisicas?|juridicas?))"
+                        + r"\s*\([“\"']?" + role + r"[”\"']?\)")
+    debt_population = (r"(?:direitos? creditorios?|creditos|titulos de credito).{0,320}"
+                       r"(?:podendo serem|podendo ser|serao|sao|)\s*devid[oa]s? por\s+" + population)
+    eligible_borrower = (r"(?:direitos? creditorios?|ccbs?).{0,120}cujos? " + role
+                         + r"\s+sejam\s+(?:exclusivamente\s+)?" + population)
+    named_issuers = (r"[“\"']" + role + r"[”\"']\s*significa[m]?.{0,150}"
+                    r"para fins da classe.{0,45}serao.{0,60}(?:credenciadoras|instituicoes financeiras).{0,100}(?:" + _ENTITY + r")")
+    explicit_profile = (r"definicao clara do perfil d(?:os? |e )" + role
+                        + r"[^.]{0,160}devem ser\s+" + population)
+    if any(_has(text, pattern) for pattern in (
+            definition, glossary, labelled_answer, reverse_definition, expanded_definition,
+            enumerated_definition, named_population, debt_population,
+            eligible_borrower, named_issuers, explicit_profile)):
+        return True
+    # A positive loan relation identifies its borrower without inventing PF/PJ.
+    # Risk paragraphs about repayment do not become a population definition.
+    incidental = r"risco|caso|capacidade de|nada garante|podera.{0,100}(?:prejuizo|perda)|checklist|documentos? cadastra|reclamac|ouvidoria|atendimento ao consumidor"
+    loan_to_borrower = (r"(?:emprestimos?|financiamentos?)(?: consignad[oa]s?| solar(?:es)?| pessoal| pessoais)?"
+                       r"[^.;]{0,100}(?:concedid[oa]s?|conferid[oa]s?|contratad[oa]s?)"
+                       r"[^.;]{0,100}(?:a(?:o|os)?\s+(?:um |o |os |respectiv[oa]s? |)?" + role
+                       + r"|pel[oa]s?\s+(?:respectiv[oa]s? |)?" + role + r")")
+    credit_policy_population = (
+        _has(text, r"analise de credito do tomador")
+        and _has(text, r"liberar (?:um |o |)financiamento (?:solar|pessoal|consignado)")
+        and _has(text, r"para devedores? pessoa fisica")
+        and _has(text, r"para devedores? pessoa juridica")
+        and not _has(text, r"checklist|documentos? cadastra|copia do rg|comprovante de residencia")
+    )
+    if credit_policy_population:
+        return True
+    return not _has(text, incidental) and _has(text, loan_to_borrower)
 
 
 def validate_primary_clause(criterion_id: str, text: str) -> dict[str, Any]:
@@ -132,6 +220,24 @@ def validate_primary_clause(criterion_id: str, text: str) -> dict[str, Any]:
         if _has(value, r"amortizacao.{0,100}(?:extraordinaria|seniores)|alteracoes? dos criterios|deliberacoes?.{0,100}politica de investimento") and not _has(value, r"direitos creditorios.{0,70}(?:originad|decorrent|representad)|aquisicao.{0,80}(?:" + _CREDIT_TYPES + r")"):
             return _result(False, "A cláusula regula amortização ou governança, sem descrever a origem do lastro.")
         return _result(True, "O trecho caracteriza instrumentos, origem ou atividade geradora dos recebíveis.")
+
+    if criterion == "eligibility":
+        introductory = r"(?:atendam|atender|satisfacam|satisfazer|cumpram|cumprir|observad|verificad).{0,100}(?:criterios de elegibilidade|condicoes de aquisicao)|(?:criterios de elegibilidade|condicoes de aquisicao).{0,140}(?:verificad|seguintes|data de aquisicao)"
+        if _has(value, introductory) and not _eligibility_conditions(value):
+            return _result(False, "A cláusula introduz ou remete aos critérios de elegibilidade sem transcrever condições efetivas dos créditos ou das partes.")
+
+    if criterion == "debtor":
+        if _identified_debtor(value):
+            return _result(True, "O trecho identifica positivamente os devedores, seu universo ou sua relação de tomador dos empréstimos que compõem o lastro.")
+        return _result(False, "O trecho não define nem identifica positivamente a contraparte devedora; menções em atendimento, cadastro, cobrança, concentração ou risco não comprovam quem toma o crédito.")
+
+    if criterion == "originator":
+        provider_conflict = r"prestadores? de servic|subcontratad|subcontratac|custodiante|administrador|gestor"
+        exclusion = r"nao poderao.{0,80}ser|nao podem.{0,80}ser|nao podera.{0,80}ser|vedad.{0,100}(?:contrat|subcontrat)|nao (?:serao|poderao ser) contratad"
+        if _has(value, provider_conflict) and _has(value, exclusion) and not _identified_party(value, criterion):
+            return _result(False, "O trecho veda contratação ou conflito de prestadores; não identifica quem origina, cede ou deve os créditos da carteira.")
+        if _identified_party(value, criterion):
+            return _result(True, "O trecho identifica a contraparte ou define seu tipo de pessoa e papel na originação, cessão ou dívida.")
 
     if criterion == "providers":
         roles = r"administrador(?:a)?|administrad[ao]|administracao(?: fiduciaria)?|gestor(?:a)?|gerid[ao]|gestao|custodiante|custodia"

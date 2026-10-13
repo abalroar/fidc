@@ -3,17 +3,6 @@
   "cnpj": "48313595000161",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "823ed6c89998f9194af047e9a0acd70e0feba4794fed4f49e982c8bd0c428435",
-      "4fd4de465ad233a102956c75a8de0f630f555d47de74feaa77a9680d802ab482",
-      "e61023392bb901caed3dc8bcc32fd78630b1fffca9bf8bca0823c833568fa64e",
-      "d82f27b0b1c7e8aa2e21483c57de81a4709ef51a5f65fd5d7a18f65cd777ec9f",
-      "be2f6fd3fc3eb6f3109650de94709e7a79b72a4b3b4fb24f859e9ab913e58610",
-      "de007d72d1476b157afe1167bee62fed1b0606f7b17aeec1dcf6e951fd860f4d",
-      "31151a995f8994462eaea1e01d7ca007723c4d9a4d874b64ede6de03d0e8dee0",
-      "0736de86e5359dc026bfe70a11debf600b7fd11ab0016a34c51ea061c21243ed",
-      "c5df02ea682036c45d4f2e9eee424dcf94b4be5a724bbe4038a2c27721925814"
-    ],
     "concentration": [
       "d7e5a45da1d9e0a46c78ec6c4298ac3cb37c7f04b4ea3118aa83b32dd2840f0e",
       "333626cbcb10dda6991a6423d9fd917f8e7df5bfd2a13fb57b2d34dfa05d16ad",
@@ -369,27 +358,6 @@
       "7b0faee58d198ed09044b84dfb3d74efade939d0c3efbb8ebc340858b265eb00",
       "4e7ee64e41d36c4a07076fd0d1eb037f14e92b58dd9be9f3805cee842ea3f0ca"
     ],
-    "originator": [
-      "ae0863671835dc23a07933198df2b3c657f61735a14f3ec1a25353fa3dad145e",
-      "333626cbcb10dda6991a6423d9fd917f8e7df5bfd2a13fb57b2d34dfa05d16ad",
-      "1a1b89189fe0793c57557c0d76807d832b5e3ee2b14a0c8fd592c84f6cb1b217",
-      "549e72e2c82fded10adfa49e341544f318e215440d6960a2b58bd15c65a17451",
-      "6b6c0171f561b0637448c9032fd7877a89bdcfde3419dd42e92110ca9541f1c4",
-      "ef2af2b8a32dc2021da17a03780fa33978dec4827aadbbc333bc9afa1583c4d6",
-      "1fe2b486b072bc85dff65417dec10834567d23e02d23251d7179e9b162ee1177",
-      "2d4c2f7ac07029bbb95092b999d664d39168cdbcd57e96803692ce56de9595f3",
-      "26f46e56e96c946112b86c76fbc6e68fc3010292233981e40d1650cb625e1e77"
-    ],
-    "debtor": [
-      "c4750c0ec0bbb3e977d55c09fb99c368e85caefb982d3b6efa268984a9bab133",
-      "333626cbcb10dda6991a6423d9fd917f8e7df5bfd2a13fb57b2d34dfa05d16ad",
-      "2fa8a8acf1326d596aefb47cc55819ca5c6ff2c21cdc3a1da99db27b05eb44ff",
-      "c1058fe04c5b8ad710342ed5578efdf8f053914e66418be3b60f59caa8be2b0d",
-      "ec55d8a59c31a1fd76e3ca13d45eaf8175414eeb54bd4aa442bdb7fb318523b6",
-      "750d841cfdcd838fba79746aa2d228f4fb983babed4fbbddad81cdddff3d2f5b",
-      "d8a0aa34c8066e784fc6d274c42cac5b1281d4655e01f15d368fa7b7512d164f",
-      "ecf2a84d4281dd8f55cf8563a922b676eebd70f3fb2504b48a3d4e3f3ce8f3e2"
-    ],
     "investee": [
       "95b14eccdbdcf875f3b313d9563eddd7e19613b395e7db4134a7d6158a7132d8",
       "670ea022b5dbf72ff8bf5381f318ff51281516f2fa96ace5ff99ee9167f0ef90",
@@ -441,6 +409,38 @@
       "9e59c904318dc5e25a6211b647169dc94eced93040da357fb6792469746cf176",
       "3ceaedb6af2ef514696bf24a58327dc0fb2be1154831593d760f658dfbb5288f",
       "11a23eba529d99fa28373c2a369b4b1bd766fc9f8ab89ab6500c86e4d73c6a78"
+    ],
+    "originator": [
+      "ae0863671835dc23a07933198df2b3c657f61735a14f3ec1a25353fa3dad145e",
+      "333626cbcb10dda6991a6423d9fd917f8e7df5bfd2a13fb57b2d34dfa05d16ad",
+      "fc0414d794b281a93d6525b39667907f28015279552edf97a2d80df7648d5889",
+      "549e72e2c82fded10adfa49e341544f318e215440d6960a2b58bd15c65a17451",
+      "6b6c0171f561b0637448c9032fd7877a89bdcfde3419dd42e92110ca9541f1c4",
+      "ef2af2b8a32dc2021da17a03780fa33978dec4827aadbbc333bc9afa1583c4d6",
+      "1fe2b486b072bc85dff65417dec10834567d23e02d23251d7179e9b162ee1177",
+      "2d4c2f7ac07029bbb95092b999d664d39168cdbcd57e96803692ce56de9595f3"
+    ],
+    "eligibility": [
+      "823ed6c89998f9194af047e9a0acd70e0feba4794fed4f49e982c8bd0c428435",
+      "4fd4de465ad233a102956c75a8de0f630f555d47de74feaa77a9680d802ab482",
+      "99ee6f8b8631b7f4fd2938b63f101018ccd99e2a2a2c7039481b7f9853ae0000",
+      "c903231ebfd78b55c9de3989df1671c4cdf05b37777cd1276f56222881087384",
+      "76958372ec3516beefb46539ac3553a5a8f86db611c5a22b94844134057c4d49",
+      "7cc4162a273451ccadf3309d960c8aa47e46962af3e5be8164b899623b052833",
+      "45e0d5f8fb1f0cb24db21dc173160e5a42a4d6e2cb625be6d4e2bbd20f04a5fe",
+      "62180c04e6008e7df0949a1ec2858cf991b8d784e0344f4a8215c84de6effd16",
+      "e75f73aabc0ace83410d3f1e315d2a37e220b62cfeb06786a15bb833f1ba058a",
+      "eeba202285ca127b92ac5784f19dfd20c28132c40efc7f4452ffaa5b7a2c2de5"
+    ],
+    "debtor": [
+      "c4750c0ec0bbb3e977d55c09fb99c368e85caefb982d3b6efa268984a9bab133",
+      "9c8020519be5c644f2d6dff8679ad8059a8f4f7de124db9930e8e758bc87ac26",
+      "6a43b6cfa5837429b522da32d5a61a3c1db5dd131a85b6f9276a95498ba355cb",
+      "948a2be86bb359047c1f09dd46084089811ce9fb781051725903767a077373b8",
+      "aa6ca461cb242c70c49d03b11f212b04386e5bbb440111554e8594cbdb32e442",
+      "13f916ea89235dd46e721d4b6412c7a2c8b7614c96df6cbf5b8bc81e44a4b710",
+      "5e2000014fef9c712be71f4109ea3b210e451acf64cad314915bce4b40d08a99",
+      "3393166f703d5c9c1067ab656a31c482698c92654ed013e2cda9fcf637d51cfc"
     ]
   },
   "entries": {
@@ -563,15 +563,6 @@
         "c77000e9d85edb922596dbf910ee3154269952250b197912b28ec5e2c7f2d7d4"
       ]
     },
-    "1a1b89189fe0793c57557c0d76807d832b5e3ee2b14a0c8fd592c84f6cb1b217": {
-      "reference_date": "2023-09-30",
-      "value": "Eventual plataforma digital utilizada para a formalização digital de parte dos Direitos Creditórios, Contratos de Cessão e respectivos Termos de Cessão considerará informações prestadas pelos Cedentes, para avaliar a viabilidade da aquisição de Direitos Creditórios. Caso estes prestem informações inverídicas, a plataforma digital poderá não ter capacidade de identificar este fato.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bc93c199399d7edba0cabd295f642fd28160985d09e8878ee7431e0c298e7d71"
-      ]
-    },
     "c4750c0ec0bbb3e977d55c09fb99c368e85caefb982d3b6efa268984a9bab133": {
       "reference_date": "2025-08-22",
       "value": "Pessoas físicas/jurídicas clientes dos cedentes agro e respectivos grupos econômicos",
@@ -653,69 +644,6 @@
       "provenance": "primary_passage",
       "sources": [
         "2f81929ce7e0b0bb7775f47b9989b4e80a8448162d4611a233b000eb1a569e94"
-      ]
-    },
-    "e61023392bb901caed3dc8bcc32fd78630b1fffca9bf8bca0823c833568fa64e": {
-      "reference_date": "2023-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "20be2530bea9b7fae803a21c614f34c7a972d0a8b2f77ab7d88ff679c57149dc"
-      ]
-    },
-    "d82f27b0b1c7e8aa2e21483c57de81a4709ef51a5f65fd5d7a18f65cd777ec9f": {
-      "reference_date": "2025-02-12",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1f115d5c653308c0e12463554596bbc25742e91c0145be4eaa58d5ef7745442a"
-      ]
-    },
-    "be2f6fd3fc3eb6f3109650de94709e7a79b72a4b3b4fb24f859e9ab913e58610": {
-      "reference_date": "2024-07-02",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "00b7e5f3f7a8ab1dbe872ce3320177719bab0c8aa692c5e2bec11870fe435eb9"
-      ]
-    },
-    "de007d72d1476b157afe1167bee62fed1b0606f7b17aeec1dcf6e951fd860f4d": {
-      "reference_date": "2024-01-24",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4dbbf862b0a0d7005ad0c18fe350d4b9da2772fc3bfa297dbeda3955cf1e81b2"
-      ]
-    },
-    "31151a995f8994462eaea1e01d7ca007723c4d9a4d874b64ede6de03d0e8dee0": {
-      "reference_date": "2024-01-19",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4226c916f047523ea9aba10d8a402999d78ab2ed63c27481fd79e780fa6f7630"
-      ]
-    },
-    "0736de86e5359dc026bfe70a11debf600b7fd11ab0016a34c51ea061c21243ed": {
-      "reference_date": "2024-01-19",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f78d4a23a5b40e57914e518e566b90e6fa10a64016527ba2780f51155c54e3dc"
-      ]
-    },
-    "c5df02ea682036c45d4f2e9eee424dcf94b4be5a724bbe4038a2c27721925814": {
-      "reference_date": "2023-12-26",
-      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "66fea8352515b2ed52a265e91cf5445c12272ec7e3b61319092c46078c526b29"
       ]
     },
     "d7e5a45da1d9e0a46c78ec6c4298ac3cb37c7f04b4ea3118aa83b32dd2840f0e": {
@@ -3342,6 +3270,150 @@
       "sources": [
         "f6cad2d1f75cbb585e56a79f7f312e25efc4a1a1e0b07ceb90521712a4aa6c2f"
       ]
+    },
+    "fc0414d794b281a93d6525b39667907f28015279552edf97a2d80df7648d5889": {
+      "reference_date": "2023-09-30",
+      "value": "Riscos relacionados ao setor de atuação dos Cedentes e dos Devedores. Eventual retração no mercado de atuação dos Cedentes poderá acarretar a diminuição de volume nas vendas pelo Cedente e pressão por diminuição de preços, podendo impactar de forma adversa os resultados dos Cedentes e dos Devedores. Qualquer redução na capacidade financeira dos Devedores, consumidores dos produtos comercializados pelos Cedentes, pode afetar de forma adversa os resultados dos Cedentes e comprometer a originação e/ou o recebimento de pagamentos de Direitos Creditórios Adquiridos, o que poderá causar prejuízos ao Fundo e, consequentemente, aos Cotistas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ad372fd2b73a7ebf1d149e7b1f61043a30d0e2c68024754295cb96611a11242d"
+      ]
+    },
+    "99ee6f8b8631b7f4fd2938b63f101018ccd99e2a2a2c7039481b7f9853ae0000": {
+      "reference_date": "2023-09-30",
+      "value": "Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos seguintes critérios de elegibilidade, na respectiva Data de Aquisição: (i) Os Direitos Creditórios deverão ser representados em moeda corrente nacional; (ii) Os Direitos Creditórios não poderão estar inadimplidos, em atraso ou prorrogados; (iii) Os Devedores não poderão estar inadimplentes perante o Fundo, ou em atraso, por período igual ou superior a 07 (sete) Dias Úteis na Data de Aquisição; (iv) Os Direitos Creditórios deverão ser representados por Duplicata ou CPR-F; (v) Os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias; e (vi) A Taxa de Desconto acordada para fins de determinação do Preço de Aquisição deverá ser correspondente a, no mínimo, Taxa DI + 4,80% (quatro inteiros e oitenta centéscimos por cento) ao ano, calculados de forma exponencial na base 252 (duzentos e cinquenta e dois) Dia Úteis, observado que será considerada a Taxa DI da data da aquisição dos Direitos Creditórios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "20be2530bea9b7fae803a21c614f34c7a972d0a8b2f77ab7d88ff679c57149dc"
+      ]
+    },
+    "c903231ebfd78b55c9de3989df1671c4cdf05b37777cd1276f56222881087384": {
+      "reference_date": "2025-02-12",
+      "value": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor; (ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste Regulamento; (iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição; (iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do recebimento da referida notificação; (v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175; (vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento; (vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1f115d5c653308c0e12463554596bbc25742e91c0145be4eaa58d5ef7745442a"
+      ]
+    },
+    "76958372ec3516beefb46539ac3553a5a8f86db611c5a22b94844134057c4d49": {
+      "reference_date": "2024-07-02",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "48f7202bda26305ab6e3c8ab90c92ba33c9451f2bce70fe87756ee4b1fd77202"
+      ]
+    },
+    "7cc4162a273451ccadf3309d960c8aa47e46962af3e5be8164b899623b052833": {
+      "reference_date": "2024-01-24",
+      "value": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor; (ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste Regulamento; (iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição; (iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do recebimento da referida notificação; (v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175; (vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento; (vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos; (viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento; (ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4dbbf862b0a0d7005ad0c18fe350d4b9da2772fc3bfa297dbeda3955cf1e81b2"
+      ]
+    },
+    "45e0d5f8fb1f0cb24db21dc173160e5a42a4d6e2cb625be6d4e2bbd20f04a5fe": {
+      "reference_date": "2024-01-19",
+      "value": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor; (ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste Regulamento; (iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição; (iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do recebimento da referida notificação; (v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175; (vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento; (vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos; (viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento; (ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4226c916f047523ea9aba10d8a402999d78ab2ed63c27481fd79e780fa6f7630"
+      ]
+    },
+    "62180c04e6008e7df0949a1ec2858cf991b8d784e0344f4a8215c84de6effd16": {
+      "reference_date": "2024-01-19",
+      "value": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor; (ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste Regulamento; (iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição; (iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do recebimento da referida notificação; (v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175; (vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento; (vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos; (viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento; (ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f78d4a23a5b40e57914e518e566b90e6fa10a64016527ba2780f51155c54e3dc"
+      ]
+    },
+    "e75f73aabc0ace83410d3f1e315d2a37e220b62cfeb06786a15bb833f1ba058a": {
+      "reference_date": "2023-12-26",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "292c01c404c7862d71991b279b9bd3de1c3d37e4bc512bda4b63630e00064529"
+      ]
+    },
+    "eeba202285ca127b92ac5784f19dfd20c28132c40efc7f4452ffaa5b7a2c2de5": {
+      "reference_date": "2023-09-25",
+      "value": "(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a10407343b15cd9b8aef2ffac07b1afa4fe8fea4b6b73b2b20aa66ddb224dab"
+      ]
+    },
+    "9c8020519be5c644f2d6dff8679ad8059a8f4f7de124db9930e8e758bc87ac26": {
+      "reference_date": "2025-02-12",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f3c587ee7b53b6be38fad2116f5f78fe88134b41d219bc101a4e41fc469487af"
+      ]
+    },
+    "6a43b6cfa5837429b522da32d5a61a3c1db5dd131a85b6f9276a95498ba355cb": {
+      "reference_date": "2024-07-02",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "62371d8cab9a93230a13bd0a3cd448b7bf075dd780913eacce188613879b0490"
+      ]
+    },
+    "948a2be86bb359047c1f09dd46084089811ce9fb781051725903767a077373b8": {
+      "reference_date": "2024-01-24",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bda5bc47533b60e014b39574fdbbd0e304704cd0fc874b4ef9a135e5886f15ca"
+      ]
+    },
+    "aa6ca461cb242c70c49d03b11f212b04386e5bbb440111554e8594cbdb32e442": {
+      "reference_date": "2024-01-19",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "27d53d2c921b08600b51e3019c78f8b96bc409f1c964344c61f7ac5aed53be7c"
+      ]
+    },
+    "13f916ea89235dd46e721d4b6412c7a2c8b7614c96df6cbf5b8bc81e44a4b710": {
+      "reference_date": "2024-01-19",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1c48339b71dc000414a5bf4b20e134327186e22fbdc2233957818cffd052890e"
+      ]
+    },
+    "5e2000014fef9c712be71f4109ea3b210e451acf64cad314915bce4b40d08a99": {
+      "reference_date": "2023-09-25",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e6b405d6c2b2a3904122b1e143152eee2f60659bd02e640be8b9c067df539c39"
+      ]
+    },
+    "3393166f703d5c9c1067ab656a31c482698c92654ed013e2cda9fcf637d51cfc": {
+      "reference_date": "2022-11-03",
+      "value": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os devedores, clientes dos Cedentes, pessoas físicas e/ou jurídicas, que realizaram a compra de produtos ou insumos agrícolas, produzidos e/ou revendidos pelos Cedentes, e seus respectivos Grupos Econômicos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1988cef3ed3b58d66810ec0a9b720db6fba2811fe6ac9d03a8dc2fd5e7f60497"
+      ]
     }
   },
   "passages": {
@@ -3503,18 +3575,6 @@
       "sha256": "60b72f21fe24a37aeef1bcc7f9293148842ba233cfcfb0384191a13baed77469",
       "verification": "primary_passage"
     },
-    "bc93c199399d7edba0cabd295f642fd28160985d09e8878ee7431e0c298e7d71": {
-      "document_id": "559587",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559587",
-      "reference_date": "2023-09-30",
-      "version": "1",
-      "page": 36,
-      "clause": "",
-      "excerpt": "Risco de fraude em plataforma digital. Eventual plataforma digital utilizada para  a formalização digital de parte dos Direitos Creditórios, Contratos de Cessão e  respectivos Termos de Cessão considerará informações prestadas pelos  Cedentes, para avaliar a viabilidade da aquisição de Direitos Creditórios. Caso  estes prestem informações inverídicas, a plataforma digital poderá não ter  capacidade de identificar este fato. É possível que a plataforma digital não  identifique eventuais fraudes, títulos ilegais que podem afetar negativamente os  Direitos Creditórios. Nestes casos, a existência, validade, eficácia ou  exequibilidade dos Direitos Creditórios integrantes dos Ativos do Fundo poderão  ser negativamente afetados.",
-      "sha256": "643c55c5336ff88ac9ec657fa2c8e785e75b17d250895b673f55e5b5aae0f1a0",
-      "verification": "primary_passage"
-    },
     "8cc0af3dfd88bd0e337de5374709c2ada2bd8752798a89ac6af3b11f7e1cff83": {
       "document_id": "976737",
       "title": "Regulamento",
@@ -3649,18 +3709,6 @@
       "sha256": "110dd850b290a7ba4feec4d3449b04f6886b53cf1ecac46f5a49f227de173ee6",
       "verification": "primary_passage"
     },
-    "00b7e5f3f7a8ab1dbe872ce3320177719bab0c8aa692c5e2bec11870fe435eb9": {
-      "document_id": "691155",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691155",
-      "reference_date": "2024-07-02",
-      "version": "1",
-      "page": 48,
-      "clause": "12.1",
-      "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;\n(v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período  de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175;\n(vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período  superior ao estipulado no item 9.37 do Regulamento;\n(vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois)  meses seguidos;",
-      "sha256": "a43539e79c0f1c1f2679048968c7f6993a8dd4323a3c77b3d1dd3e0b34700fda",
-      "verification": "primary_passage"
-    },
     "4dbbf862b0a0d7005ad0c18fe350d4b9da2772fc3bfa297dbeda3955cf1e81b2": {
       "document_id": "675460",
       "title": "Regulamento",
@@ -3695,18 +3743,6 @@
       "clause": "12.1",
       "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;\n(v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período  de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175;\n(vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período  superior ao estipulado no item 9.37 do Regulamento;\n(vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois)  meses seguidos;\n(viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste  Regulamento;\n(ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de",
       "sha256": "bc567d5926c44e3f719f49ed77cbf10f52640a1d77aaa9ca7e881f29ffecfc5d",
-      "verification": "primary_passage"
-    },
-    "66fea8352515b2ed52a265e91cf5445c12272ec7e3b61319092c46078c526b29": {
-      "document_id": "579402",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579402",
-      "reference_date": "2023-12-26",
-      "version": "1",
-      "page": 47,
-      "clause": "12.1",
-      "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;",
-      "sha256": "3655d170e9a5d3b4c11b0055ff764642d83972776c9c6ddc355bee94ec6ecc13",
       "verification": "primary_passage"
     },
     "5732abed44b145748be69373ad95ee091224c2b8cd57aabb8c5498c2b4309885": {
@@ -6821,6 +6857,141 @@
       "clause": "",
       "excerpt": "“Administrador” Significa a SINGULARE CORRETORA DE TÍTULOS E  VALORES MOBILIÁRIOS S.A., sociedade devidamente  autorizada pela CVM para o exercício da atividade de  administração de carteiras e valores mobiliários, nos  termos do Ato Declaratório nº 1.498, expedido em 28  de agosto de 1990, com sede na Cidade de São Paulo,  Estado de São Paulo, na Avenida Brigadeiro Faria Lima,  nº 1.355, 5º andar, Jd. Paulistano, CEP 01452-919,  inscrita no CNPJ/MF sob nº 62.285.390/0001-40, ou  quem venha a substituí-lo.",
       "sha256": "110dd850b290a7ba4feec4d3449b04f6886b53cf1ecac46f5a49f227de173ee6",
+      "verification": "primary_passage"
+    },
+    "ad372fd2b73a7ebf1d149e7b1f61043a30d0e2c68024754295cb96611a11242d": {
+      "document_id": "559587",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=559587",
+      "reference_date": "2023-09-30",
+      "version": "1",
+      "page": 29,
+      "clause": "",
+      "excerpt": "Riscos relacionados ao setor de atuação dos Cedentes e dos Devedores.\n Eventual retração no mercado de atuação dos Cedentes poderá acarretar a  diminuição de volume nas vendas pelo Cedente e pressão por diminuição de  preços, podendo impactar de forma adversa os resultados dos Cedentes e dos  Devedores. Qualquer redução na capacidade financeira dos Devedores,  consumidores dos produtos comercializados pelos Cedentes, pode afetar de  forma adversa os resultados dos Cedentes e comprometer a originação e/ou o  recebimento de pagamentos de Direitos Creditórios Adquiridos, o que poderá  causar prejuízos ao Fundo e, consequentemente, aos Cotistas.",
+      "sha256": "643c55c5336ff88ac9ec657fa2c8e785e75b17d250895b673f55e5b5aae0f1a0",
+      "verification": "primary_passage"
+    },
+    "48f7202bda26305ab6e3c8ab90c92ba33c9451f2bce70fe87756ee4b1fd77202": {
+      "document_id": "691155",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691155",
+      "reference_date": "2024-07-02",
+      "version": "1",
+      "page": "48–49",
+      "clause": "12.1",
+      "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;\n(v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período  de 90 (noventa) dias para enquadramento da carteira, nos termos da RCVM 175;\n(vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período  superior ao estipulado no item 9.37 do Regulamento;\n(vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois)  meses seguidos;\n(viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento;\n(ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de Alocação de Recursos;\n(x) Rescisão, pelo Fundo, do Contrato de Cobrança e/ou do Contrato de Consultoria, sem a correspondente deliberação neste sentido em Assembleia Geral de Cotistas de Cotistas, nos termos deste Regulamento;\n(xi) Não revisão da classificação de risco das Cotas Seniores e das Cotas Subordinadas Mezanino em frequência, no mínimo, trimestral, se aplicável;\n(xii) Descumprimento, pelo Agente de Cobrança, de seus deveres e obrigações materiais estabelecidos neste Regulamento, no Contrato de Cobrança ou qualquer outro contrato ou documento do qual o Agente de Cobrança e o Fundo sejam contrapartes, caso referido inadimplemento não seja remediado em até de 3 (três) Dias Úteis contados da data da notificação para sanar tal inadimplemento enviada pelo Administrador ao Agente de Cobrança, observado que esse prazo de cura não se aplica às situações para as quais haja prazo de cura já estabelecido;\n(xiii) Nulidade, invalidade, ineficácia ou inexigibilidade, questionamento judicial, extrajudicial ou administrativo, por qualquer autoridade governamental, e/ou a ocorrência de Resolução de Cessão, de 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos, desde que referida ocorrência não seja sanada em até 3 (três) dias corridos a partir da data do seu acontecimento, no prazo previsto pelo respectivo Contrato de Cessão para pagamento do preço de Resolução de Cessão (conforme definido nos Contratos de Cessão), ou em prazo diverso previsto em lei ou regulamentação aplicável ou por autoridade competente, conforme aplicável;\n(xiv) Não substituição dos prestadores de serviço do Fundo, no caso de renúncia e/ou destituição do respectivo prestador de serviço, no prazo de até 90 (noventa) dias contados da data da comunicação da renúncia e/ou da destituição, em qualquer caso observados os procedimentos de renúncia e substituição previstos neste Regulamento;\n(xv) Não pagamento da Meta de Remuneração e da totalidade da Amortização nas respectivas Datas de Resgate;\n(xvi) Renúncia do Administrador, do Custodiante e/ou do Gestor, como prestadores de serviços do Fundo, sem que ocorra sua devida substituição nos termos deste Regulamento;\n(xvii) Caso a Taxa Média de Alocação em Direitos Creditórios seja inferior a 0,8;\n(xviii) Caso a Taxa de Desconto média dos Direitos Creditórios Adquiridos integrantes do patrimônio do Fundo, conforme apurada mensalmente, nos termos do inciso (vi) do Artigo",
+      "sha256": "a43539e79c0f1c1f2679048968c7f6993a8dd4323a3c77b3d1dd3e0b34700fda",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "292c01c404c7862d71991b279b9bd3de1c3d37e4bc512bda4b63630e00064529": {
+      "document_id": "579402",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579402",
+      "reference_date": "2023-12-26",
+      "version": "1",
+      "page": "47–49",
+      "clause": "12.1",
+      "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;\n(v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da Instrução CVM 356;\n(vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento;\n(vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos;\n(viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento;\n(ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de Alocação de Recursos;\n(x) Rescisão, pelo Fundo, do Contrato de Cobrança e/ou do Contrato de Consultoria, sem a correspondente deliberação neste sentido em Assembleia Geral, nos termos deste Regulamento;\n(xi) Não revisão da classificação de risco das Cotas Seniores e das Cotas Subordinadas Mezanino em frequência, no mínimo, trimestral, se aplicável;\n(xii) Descumprimento, pelo Agente de Cobrança, de seus deveres e obrigações materiais estabelecidos neste Regulamento, no Contrato de Cobrança ou qualquer outro contrato ou documento do qual o Agente de Cobrança e o Fundo sejam contrapartes, caso referido inadimplemento não seja remediado em até de 3 (três) Dias Úteis contados da data da notificação para sanar tal inadimplemento enviada pelo Administrador ao Agente de Cobrança, observado que esse prazo de cura não se aplica às situações para as quais haja prazo de cura já estabelecido;\n(xiii) Nulidade, invalidade, ineficácia ou inexigibilidade, questionamento judicial, extrajudicial ou administrativo, por qualquer autoridade governamental, e/ou a ocorrência de Resolução de Cessão, de 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos, desde que referida ocorrência não seja sanada em até 3 (três) dias corridos a partir da data do seu acontecimento, no prazo previsto pelo respectivo Contrato de Cessão para pagamento do preço de Resolução de Cessão (conforme definido nos Contratos de Cessão), ou em prazo diverso previsto em lei ou regulamentação aplicável ou por autoridade competente, conforme aplicável;\n(xiv) Não substituição dos prestadores de serviço do Fundo, no caso de renúncia e/ou destituição do respectivo prestador de serviço, no prazo de até 90 (noventa) dias contados da data da comunicação da renúncia e/ou da destituição, em qualquer caso observados os procedimentos de renúncia e substituição previstos neste Regulamento;\n(xv) Não pagamento da Meta de Remuneração e da totalidade da Amortização nas\n(xvi) Renúncia do Administrador, do Custodiante e/ou do Gestor, como prestadores de  serviços do Fundo, sem que ocorra sua devida substituição nos termos deste Regulamento;\n(xvii) Caso a Taxa Média de Alocação em Direitos Creditórios seja inferior a 0,8;\n(xviii) Caso a Taxa de Desconto média dos Direitos Creditórios Adquiridos integrantes do  patrimônio do Fundo, conforme apurada mensalmente, nos termos do inciso (vi) do Artigo",
+      "sha256": "3655d170e9a5d3b4c11b0055ff764642d83972776c9c6ddc355bee94ec6ecc13",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2a10407343b15cd9b8aef2ffac07b1afa4fe8fea4b6b73b2b20aa66ddb224dab": {
+      "document_id": "526648",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526648",
+      "reference_date": "2023-09-25",
+      "version": "1",
+      "page": "47–49",
+      "clause": "12.1",
+      "excerpt": "12.1 Qualquer dos seguintes eventos será considerado um Evento de Avaliação:\n(i) Em caso de insolvência do Custodiante, Administrador e/ou do Gestor;\n(ii) Em caso de verificação, a qualquer tempo, de descumprimento superveniente de  quaisquer dos limites de concentração estabelecidos nos incisos (xi) e (xii) do Artigo 8.6 deste  Regulamento;\n(iii) Em caso de verificação, a qualquer tempo, de que 2% (dois por cento) ou mais do  montante total dos Direitos Creditórios Adquiridos não atendiam aos Critérios de  Elegibilidade e às Condições de Cessão na respectivas Datas de Aquisição;\n(iv) Em caso de inobservância, pelo Custodiante, pelo Administrador e/ou pelo Gestor de  suas obrigações previstas neste Regulamento, desde que, se notificado por escrito pelo  Administrador e/ou pelo Gestor, conforme o caso, para sanar ou justificar o  descumprimento, não o faça no período máximo de 7 (sete) Dias Úteis contado do  recebimento da referida notificação;\n(v) Inobservância da Alocação Mínima por mais de 30 (trinta) dias, observado o período de 90 (noventa) dias para enquadramento da carteira, nos termos da Instrução CVM 356;\n(vi) Não atendimento dos Índices de Subordinação e/ou Razões de Garantia por período superior ao estipulado no item 9.37 do Regulamento;\n(vii) Desenquadramento de quaisquer dos Índices de Inadimplemento por até 2 (dois) meses seguidos;\n(viii) Não restabelecimento da Reserva de Despesas, observadas as disposições deste Regulamento;\n(ix) Utilização dos recursos do Fundo em desconformidade com a respectiva Ordem de Alocação de Recursos;\n(x) Rescisão, pelo Fundo, do Contrato de Cobrança e/ou do Contrato de Consultoria, sem a correspondente deliberação neste sentido em Assembleia Geral, nos termos deste Regulamento;\n(xi) Não revisão da classificação de risco das Cotas Seniores e das Cotas Subordinadas Mezanino em frequência, no mínimo, trimestral, se aplicável;\n(xii) Descumprimento, pelo Agente de Cobrança, de seus deveres e obrigações materiais estabelecidos neste Regulamento, no Contrato de Cobrança ou qualquer outro contrato ou documento do qual o Agente de Cobrança e o Fundo sejam contrapartes, caso referido inadimplemento não seja remediado em até de 3 (três) Dias Úteis contados da data da notificação para sanar tal inadimplemento enviada pelo Administrador ao Agente de Cobrança, observado que esse prazo de cura não se aplica às situações para as quais haja prazo de cura já estabelecido;\n(xiii) Nulidade, invalidade, ineficácia ou inexigibilidade, questionamento judicial, extrajudicial ou administrativo, por qualquer autoridade governamental, e/ou a ocorrência de Resolução de Cessão, de 2% (dois por cento) ou mais do montante total dos Direitos Creditórios Adquiridos, desde que referida ocorrência não seja sanada em até 3 (três) dias corridos a partir da data do seu acontecimento, no prazo previsto pelo respectivo Contrato de Cessão para pagamento do preço de Resolução de Cessão (conforme definido nos Contratos de Cessão), ou em prazo diverso previsto em lei ou regulamentação aplicável ou por autoridade competente, conforme aplicável;\n(xiv) Não substituição dos prestadores de serviço do Fundo, no caso de renúncia e/ou destituição do respectivo prestador de serviço, no prazo de até 90 (noventa) dias contados da data da comunicação da renúncia e/ou da destituição, em qualquer caso observados os procedimentos de renúncia e substituição previstos neste Regulamento;\n(xv) Não pagamento da Meta de Remuneração e da totalidade da Amortização nas\n(xvi) Renúncia do Administrador, do Custodiante e/ou do Gestor, como prestadores de  serviços do Fundo, sem que ocorra sua devida substituição nos termos deste Regulamento;\n(xvii) Caso a Taxa Média de Alocação em Direitos Creditórios seja inferior a 0,8;\n(xviii) Caso a Taxa de Desconto média dos Direitos Creditórios Adquiridos integrantes do  patrimônio do Fundo, conforme apurada mensalmente, nos termos do inciso (vi) do Artigo",
+      "sha256": "b50b5ec4a02b404c4c8e5513a287bea2a86c15ba56960c74d342853c8af7a44e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f3c587ee7b53b6be38fad2116f5f78fe88134b41d219bc101a4e41fc469487af": {
+      "document_id": "839465",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839465",
+      "reference_date": "2025-02-12",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "110dd850b290a7ba4feec4d3449b04f6886b53cf1ecac46f5a49f227de173ee6",
+      "verification": "primary_passage"
+    },
+    "62371d8cab9a93230a13bd0a3cd448b7bf075dd780913eacce188613879b0490": {
+      "document_id": "691155",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691155",
+      "reference_date": "2024-07-02",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "a43539e79c0f1c1f2679048968c7f6993a8dd4323a3c77b3d1dd3e0b34700fda",
+      "verification": "primary_passage"
+    },
+    "bda5bc47533b60e014b39574fdbbd0e304704cd0fc874b4ef9a135e5886f15ca": {
+      "document_id": "675460",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675460",
+      "reference_date": "2024-01-24",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "bc567d5926c44e3f719f49ed77cbf10f52640a1d77aaa9ca7e881f29ffecfc5d",
+      "verification": "primary_passage"
+    },
+    "27d53d2c921b08600b51e3019c78f8b96bc409f1c964344c61f7ac5aed53be7c": {
+      "document_id": "588739",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588739",
+      "reference_date": "2024-01-19",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "7e1e0a517ffef2779a0ac4c15db4b61e01104c35db6a5136e1967f6c2950020d",
+      "verification": "primary_passage"
+    },
+    "1c48339b71dc000414a5bf4b20e134327186e22fbdc2233957818cffd052890e": {
+      "document_id": "792023",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792023",
+      "reference_date": "2024-01-19",
+      "version": "2",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "bc567d5926c44e3f719f49ed77cbf10f52640a1d77aaa9ca7e881f29ffecfc5d",
+      "verification": "primary_passage"
+    },
+    "e6b405d6c2b2a3904122b1e143152eee2f60659bd02e640be8b9c067df539c39": {
+      "document_id": "526648",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526648",
+      "reference_date": "2023-09-25",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "b50b5ec4a02b404c4c8e5513a287bea2a86c15ba56960c74d342853c8af7a44e",
+      "verification": "primary_passage"
+    },
+    "1988cef3ed3b58d66810ec0a9b720db6fba2811fe6ac9d03a8dc2fd5e7f60497": {
+      "document_id": "429000",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=429000",
+      "reference_date": "2022-11-03",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "“Devedores” Significam, para os Direitos Creditórios Adquiridos, os  devedores, clientes dos Cedentes, pessoas físicas e/ou  jurídicas, que realizaram a compra de produtos ou  insumos agrícolas, produzidos e/ou revendidos pelos  Cedentes, e seus respectivos Grupos Econômicos.",
+      "sha256": "01c074a96460b4bac53377dc1c4cea587a56203ddeb69c746293e046049fcf1a",
       "verification": "primary_passage"
     }
   }

@@ -1,0 +1,134 @@
+{
+  "cnpj": "40975325000104",
+  "criteria": [
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Na aquisição, a Gestora verifica cumulativamente: créditos em moeda nacional; legalmente constituídos, certos, válidos, exigíveis e líquidos no vencimento; não vencidos nem pendentes de pagamento; devedor adimplente perante o Fundo; documentos comprobatórios; prazo mínimo de vencimento de 5 dias úteis a partir do ingresso no Fundo.",
+      "sources": [
+        {
+          "document_id": "1188990",
+          "title": "Regulamento — Parte Geral e Anexo da classe",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+          "reference_date": "2026-05-13",
+          "version": "1",
+          "page": "36",
+          "clause": "Anexo, 10.1(a)–(f)",
+          "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+          "excerpt": "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:\n(a) os Direitos Creditórios deverão ser representados em moeda corrente nacional;\n(b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos  no vencimento;\n(c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de  Aquisição;\n(d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo;\n(e) estejam amparados pelos respectivos Documentos Comprobatórios; e\n(f) tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis contados da  respectiva data de ingresso no Fundo.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "Verificação definitiva na Data de Aquisição. A passagem preserva todas as seis condições; a remissão8.2.1 não foi contada como conteúdo.",
+      "history": [
+        {
+          "value": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.\n\n10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:",
+          "sources": [
+            {
+              "document_id": "1188990",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+              "reference_date": "2026-05-13",
+              "version": "1",
+              "page": 33,
+              "clause": "8.2.1",
+              "excerpt": "8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição.",
+              "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1188990",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+              "reference_date": "2026-05-13",
+              "version": "1",
+              "page": 36,
+              "clause": "10.1",
+              "excerpt": "10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição:",
+              "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+              "verification": "primary_passage"
+            }
+          ],
+          "reason": "Resposta automática anterior rejeitada: a introdução não transcrevia condições e a vedação de prestadores não identificava a origem dos créditos. Correção preservada para auditoria.",
+          "provenance": "rejected_automatic_selection"
+        }
+      ]
+    },
+    {
+      "criterion_id": "originator",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cedentes são pessoas físicas ou jurídicas com atuação nos segmentos Agro, Indústria ou Comércio. Cessão definitiva, irrevogável e irretratável; cada cedente responde pela existência dos créditos cedidos (art.295 do Código Civil).",
+      "sources": [
+        {
+          "document_id": "1188990",
+          "title": "Regulamento — Parte Geral e Anexo da classe",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+          "reference_date": "2026-05-13",
+          "version": "1",
+          "page": "2",
+          "clause": "Glossário, Cedente",
+          "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+          "excerpt": "“Cedente” Pessoa física ou jurídica que cede os Direitos Creditórios ao Fundo.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1188990",
+          "title": "Regulamento — Parte Geral e Anexo da classe",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+          "reference_date": "2026-05-13",
+          "version": "1",
+          "page": "35",
+          "clause": "Anexo, 9.1",
+          "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+          "excerpt": "9.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs.",
+          "verification": "analyst_primary_clause"
+        },
+        {
+          "document_id": "1188990",
+          "title": "Regulamento — Parte Geral e Anexo da classe",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+          "reference_date": "2026-05-13",
+          "version": "1",
+          "page": "35",
+          "clause": "Anexo, 9.2 e 9.2(b)",
+          "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+          "excerpt": "9.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados os demais elementos da relação obrigacional. (b) Cada Cedente será responsável pela existência dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "O regulamento define tipo de pessoa, segmentos e papel do cedente; não apresenta relação nominal de originadores/cedentes nesses dispositivos. Catálise Estruturação é identificada como consultoria, sem atribuição aqui de originadora dos créditos: a remuneração de cessões “originadas” pela consultoria em7.5.2 não afasta a vedação8.5 de créditos originados/cedidos por prestadores e relacionados.",
+      "history": [
+        {
+          "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria especializada ou partes a eles relacionadas.",
+          "sources": [
+            {
+              "document_id": "1188990",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1188990",
+              "reference_date": "2026-05-13",
+              "version": "1",
+              "page": 25,
+              "clause": "4.4.3",
+              "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão  ser, em relação ao Fundo, originador, Cedente, Gestora, Consultoria  especializada ou partes a eles relacionadas.",
+              "sha256": "0a6172e1bf12b9dd1150491ba74a2116196dc9ebe770fa82da817a30dc5b3871",
+              "verification": "primary_passage"
+            }
+          ],
+          "reason": "Resposta automática anterior rejeitada: a introdução não transcrevia condições e a vedação de prestadores não identificava a origem dos créditos. Correção preservada para auditoria.",
+          "provenance": "rejected_automatic_selection"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:20:14-03:00"
+}

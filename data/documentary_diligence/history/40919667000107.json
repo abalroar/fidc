@@ -3,17 +3,6 @@
   "cnpj": "40919667000107",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "bda6fd253c0136d45e5379dbe287edce76375f116cee8d96d2fd22ae5a14e9e1",
-      "50beeb6440ef382eb4d14e535d65cea800b2661f6afbc95c1d2e388320b20557",
-      "000d3747d5369a6a1c67b7369dc15defc8eff63d7b61795d125449aa39c1850e",
-      "347c2473a6f14d4df93dc00826152c3a3ffcc155333cd4e1cbf9962fa357686f",
-      "392d87139b74c8e6bd4ad69b4ba961e64c2f70544f08fdf92fba83e269abaeda",
-      "e2f4e8074b09a2e56e18d4bfb1aafca6a6ae4dd1c8b72c94dd0cbfc9ddfaa0b3",
-      "e7d9f17d3b4cbb5bc08dcae7f9476661195363ed2f92e8529349a47989d04ca7",
-      "255ba734c717347dd25f4713a5f07b805e2d862491fe8a2bd12a93ffb29794c7",
-      "e07da36d0ed0c86ef2231e116b53c06e282b93745f0abfaff795eeabb983590f"
-    ],
     "term": [
       "fbd54c4708a3277995b273758edba6634b8a8f7f8abe5b0aa4c4f60c12f2762a",
       "74fc45b8ed0f3d24d01f3b6336dc95201a68146604c08b71c78970708c1b9c1a",
@@ -408,29 +397,6 @@
       "eaf2e1089dbc473db40e94ba76cc577193d840b95444b1925c8ee3c8b1f0c2ef",
       "e5005a43ce174e243824c8b5a657935cab038aeab1dacd670dc790e7924608a2"
     ],
-    "originator": [
-      "918a2c5e5bcc86a77c8b826d1aae6f3260e530a2635a275e5c26081e71d25676",
-      "d41a91e3d4909ec75e477e668e9dc2dbb2442c92a10e953027bb837395f9cf3f",
-      "3ebe9bafb98f009b4ce1cf2c0e5d23e46f364b17ba3560975e6196946759925b",
-      "bdebd67b2098e6ef74b52b6c8321b620021bd33f916a20d8467b4863df1da914",
-      "9826c8b52d18663a08a1bac85a2068cbb5d198093dabc2dda9d81b317cf72054",
-      "32163409581ed3123159537310d14d35bbcbdf7b10c7a37868361b78dcae1705",
-      "643020eb9c74debc23f360d52cfb108af1f5c8ea085b62ebd2e861492c40d908",
-      "6396fa8b82372bb68c2c6860cc0f51747240e58b2ae7fbbb2dbfcf3e4dbc6f92"
-    ],
-    "debtor": [
-      "5bf80be2718027e06c09951fb6810e3d0315effe137ef7bdfe160ef88bf65006",
-      "85791789d066b72616dbd2a9f78a1b6994fc5216cbb4d2848652020cbe9d02ab",
-      "9c0177594144d75882f2e44ebcb1d7e795662e08b380fc94c845f9456636a7f0",
-      "0a59fa7794a53349dc0a5c57162a22c76fe31d97bcefca6cd8489799adcdee04",
-      "c6a72005ff1f66afe87321b0c1abe8ef6f1f67a10010cc026165eb37582a116b",
-      "bbfa67d277d5abededadacf861fad227b799503c4a286f3822e7f829454b6f05",
-      "9d6af1ce48be7ebfc7502eac3ee89a00796de5deff596a05e272d450c1e2b70b",
-      "7c77b1ad94e2b40266f6c442c4b4e7f56f5868d1b356b3b967e54df0721784ef",
-      "75392b219f8f8f682a4b3d2498416da00e2abc78e4af38cb3e8c9ea564f75862",
-      "425245d89ee23f576402907b77630854f444f4420076ea9faf428e3117bcd9bb",
-      "3e3d51609f35f54ccccd5e466f2c2b6feac5e58c6cf615f7cfd77118709c4770"
-    ],
     "investee": [
       "e93ab9dd76f80009cbcd9f0189b4dafc1c7bb2ad4fb3f56881905b0d170bbd3f"
     ],
@@ -476,6 +442,28 @@
       "7f090eb7130b1d4eefbb787bcecdb4049f43f6ccfad58b19043b4cd91c836657",
       "4d83a8d3664d9e4244faa6e406034f4742631e94900fb4c4ad4e275f0276aeb1",
       "e369b9060b58f8c58e29d9c230cc0eed3fd9febe4728a18c61f74f832eade4ac"
+    ],
+    "originator": [
+      "918a2c5e5bcc86a77c8b826d1aae6f3260e530a2635a275e5c26081e71d25676",
+      "d41a91e3d4909ec75e477e668e9dc2dbb2442c92a10e953027bb837395f9cf3f",
+      "3ebe9bafb98f009b4ce1cf2c0e5d23e46f364b17ba3560975e6196946759925b",
+      "bdebd67b2098e6ef74b52b6c8321b620021bd33f916a20d8467b4863df1da914",
+      "9826c8b52d18663a08a1bac85a2068cbb5d198093dabc2dda9d81b317cf72054",
+      "32163409581ed3123159537310d14d35bbcbdf7b10c7a37868361b78dcae1705",
+      "643020eb9c74debc23f360d52cfb108af1f5c8ea085b62ebd2e861492c40d908",
+      "6396fa8b82372bb68c2c6860cc0f51747240e58b2ae7fbbb2dbfcf3e4dbc6f92"
+    ],
+    "eligibility": [
+      "bda6fd253c0136d45e5379dbe287edce76375f116cee8d96d2fd22ae5a14e9e1",
+      "461d6b02cca2dc5c822f239ed1e30088df84f04adefc85dcdd5acf2965dea4df",
+      "4317287ff702a5c0ced902ca6ff47b35a281d9019f7954230d99096e81294ef6",
+      "72eaff7bfc21e714ff5596a190a9cf699a44e2402964a40ec1a0e3033d3738da",
+      "1e82f7d1f7d6e5d1e51fc82fa3d4ef5e19e232074bc04b786d7ba55c4ab242b6",
+      "f210ad6be6a89e8cbc08e2d92d9932e0a7ed5a5d0fadc5ee84e1b2dc99097409",
+      "16181fa79e7c1e0f7d077ecd1972589140101b2515bcc763977c623ceea2d8e3",
+      "4cd37a71a78a8b24da3fdf13e3f8c50ec002cf814e5b179aebc6ee266fcf53b2",
+      "14f3a9978b352fc9dc21bbe0b9ed15c67284521344cd00b8426c8001d7e461ed",
+      "898689845720a05b078c3f6e87599ec8cd150cb0f185f002c8febdff6a6eec8a"
     ]
   },
   "entries": {
@@ -652,105 +640,6 @@
         "2a695c51aea1914176a2fa79afa77ac70474993d2c0defc9eede09ed191c75a9"
       ]
     },
-    "5bf80be2718027e06c09951fb6810e3d0315effe137ef7bdfe160ef88bf65006": {
-      "reference_date": "2025-11-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2901780caf5aa1ea9d753c74c32998bb3d20ddaa30cd20dfe797e89c345fb214"
-      ]
-    },
-    "85791789d066b72616dbd2a9f78a1b6994fc5216cbb4d2848652020cbe9d02ab": {
-      "reference_date": "2024-11-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a887b389f8f9dff988d8708fca439651a36b679890a71ef731763e35afadc0c7"
-      ]
-    },
-    "9c0177594144d75882f2e44ebcb1d7e795662e08b380fc94c845f9456636a7f0": {
-      "reference_date": "2023-12-20",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "43f4b6929dbeb327b5347d4f780066a177aa0e296ad4359d184a4a9a281a9d39"
-      ]
-    },
-    "0a59fa7794a53349dc0a5c57162a22c76fe31d97bcefca6cd8489799adcdee04": {
-      "reference_date": "2023-11-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7634ae4d9452ccaac4c874f76486000b5ef56e36f6662469b5cad982931245bd"
-      ]
-    },
-    "c6a72005ff1f66afe87321b0c1abe8ef6f1f67a10010cc026165eb37582a116b": {
-      "reference_date": "2024-11-04",
-      "value": "(xxii) caso a Gestora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8d05c82babc5e4cf8f0c4d5e6180554d8a3875c719eca91e98e155ad79880ec1"
-      ]
-    },
-    "bbfa67d277d5abededadacf861fad227b799503c4a286f3822e7f829454b6f05": {
-      "reference_date": "2024-05-09",
-      "value": "(xxii) caso a Gestora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "03de62d719066b18aed7df779114a2f0dc03af858ba91a93f98a5639d43b1e0e"
-      ]
-    },
-    "9d6af1ce48be7ebfc7502eac3ee89a00796de5deff596a05e272d450c1e2b70b": {
-      "reference_date": "2023-12-20",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ab9a62e8f96ad221a02381f5bf81ec9fcef19e9a0f4459a03e7740a11773d093"
-      ]
-    },
-    "7c77b1ad94e2b40266f6c442c4b4e7f56f5868d1b356b3b967e54df0721784ef": {
-      "reference_date": "2023-09-13",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e52eea9e46a2d42fc209b63c2cb0cd19e3597a3b5e060063955cc3455c19ee54"
-      ]
-    },
-    "75392b219f8f8f682a4b3d2498416da00e2abc78e4af38cb3e8c9ea564f75862": {
-      "reference_date": "2023-08-14",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e9d97b5da11e63f70a4957fa2ffdee36a32d2150b2ad6a19ab773539c5cda876"
-      ]
-    },
-    "425245d89ee23f576402907b77630854f444f4420076ea9faf428e3117bcd9bb": {
-      "reference_date": "2023-03-02",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b2e10aa3756a84ebd857c826f482548e436a2b059d2f1e1be4908cf23511eeb3"
-      ]
-    },
-    "3e3d51609f35f54ccccd5e466f2c2b6feac5e58c6cf615f7cfd77118709c4770": {
-      "reference_date": "2022-12-16",
-      "value": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b84291d6b3bf5b83b2a82d6194319943604b5ac434b1bbd15f7836c0f7174dab"
-      ]
-    },
     "bda6fd253c0136d45e5379dbe287edce76375f116cee8d96d2fd22ae5a14e9e1": {
       "reference_date": "2026-02-12",
       "value": "BRL; carteira sem cedidos inadimplidos; taxa mínima de cessão cobre benchmark sênior e despesas",
@@ -761,24 +650,6 @@
         "7c2f62cc51642a55173015ff718b704956fc772865a09c3407977ec2c2021826"
       ]
     },
-    "50beeb6440ef382eb4d14e535d65cea800b2661f6afbc95c1d2e388320b20557": {
-      "reference_date": "2025-11-30",
-      "value": "Condições de cessão Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "655e56c6325fd5c544b3053a265242b15d86aa44f92b75aed81f57266ed633fa"
-      ]
-    },
-    "000d3747d5369a6a1c67b7369dc15defc8eff63d7b61795d125449aa39c1850e": {
-      "reference_date": "2024-11-30",
-      "value": "Condições de cessão Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a582dbd45cac34cd470908c4bf0a6d363e10f61d63cfcd7aadffb240493c4bd5"
-      ]
-    },
     "347c2473a6f14d4df93dc00826152c3a3ffcc155333cd4e1cbf9962fa357686f": {
       "reference_date": "2023-12-20",
       "value": "“5.1. Critérios de Elegibilidade. Todos e quaisquer Direitos Creditórios adquiridos pelo Fundo deverão observar os seguintes critérios de elegibilidade em cada data de cessão (“Critérios de Elegibilidade”): (iii) os Direitos Creditórios não poderão ter data de vencimento posterior ao vencimento das Cotas Seniores ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva Data de Pagamento do Preço de Aquisição, o que for menor; (viii) a taxa mínima de cessão aplicada à aquisição dos Direitos Creditórios deverá representar, no mínimo, o Benchmark Sênior, acrescido das despesas com a respectiva aquisição.”",
@@ -786,51 +657,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e837d4a5e3e964e0512a1479dd68d54268424c8471919eb00453b9a2d7d98205"
-      ]
-    },
-    "392d87139b74c8e6bd4ad69b4ba961e64c2f70544f08fdf92fba83e269abaeda": {
-      "reference_date": "2023-11-30",
-      "value": "e. Condições de cessão Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2b72b33944a3aa58640d165fd871bf543eed44ee565197262a92186705b1a882"
-      ]
-    },
-    "e2f4e8074b09a2e56e18d4bfb1aafca6a6ae4dd1c8b72c94dd0cbfc9ddfaa0b3": {
-      "reference_date": "2024-11-04",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2e67efbc0ad623c1e74996020dcc0e61f654623413495e1e53466f770c8d6c81"
-      ]
-    },
-    "e7d9f17d3b4cbb5bc08dcae7f9476661195363ed2f92e8529349a47989d04ca7": {
-      "reference_date": "2024-05-09",
-      "value": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes à Classe deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "930130cd9aee84cfe260922b0627ee5950d2bc8407e49c12f67214f11a55cb93"
-      ]
-    },
-    "255ba734c717347dd25f4713a5f07b805e2d862491fe8a2bd12a93ffb29794c7": {
-      "reference_date": "2023-12-20",
-      "value": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8cfc1e68408a8f904be1943be87d6c4f8c408bfb4c465ae4e3d7ce7c2104c9bc"
-      ]
-    },
-    "e07da36d0ed0c86ef2231e116b53c06e282b93745f0abfaff795eeabb983590f": {
-      "reference_date": "2023-09-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "43709bc4f658717ba39a7a2c27c928c6b1ece0da80dcc800c459251cf2f1c21e"
       ]
     },
     "fbd54c4708a3277995b273758edba6634b8a8f7f8abe5b0aa4c4f60c12f2762a": {
@@ -3734,6 +3560,87 @@
       "sources": [
         "8ce6fc577dbb876f72b480137a02a6f6d3aa94360b5f9ba9dd56ec77cb1b6b4d"
       ]
+    },
+    "461d6b02cca2dc5c822f239ed1e30088df84f04adefc85dcdd5acf2965dea4df": {
+      "reference_date": "2025-11-30",
+      "value": "e. Condições de cessão Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo. f. Composição dos direitos creditórios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e825f57738877f6b7d9d716a0f5ae51e952d33e1283f50658e9d0140686c0878"
+      ]
+    },
+    "4317287ff702a5c0ced902ca6ff47b35a281d9019f7954230d99096e81294ef6": {
+      "reference_date": "2024-11-30",
+      "value": "e. Condições de cessão Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo. f. Composição dos direitos creditórios Por prazo de vencimento 30/11/2024 30/11/2023",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1336b76a7161e1680bf3799eb9a2263a5e42a3be0f829e613c7a37a7923be4c5"
+      ]
+    },
+    "72eaff7bfc21e714ff5596a190a9cf699a44e2402964a40ec1a0e3033d3738da": {
+      "reference_date": "2023-11-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d626421a702956d6b36513699415a8a573724d7909fb3a6263bf727575e255b1"
+      ]
+    },
+    "1e82f7d1f7d6e5d1e51fc82fa3d4ef5e19e232074bc04b786d7ba55c4ab242b6": {
+      "reference_date": "2024-11-04",
+      "value": "5.1. Critérios de Elegibilidade. Todos e quaisquer Direitos Creditórios adquiridos pela Classe deverão observar os seguintes critérios de elegibilidade em cada data de cessão (“Critérios de Elegibilidade”): (i) todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes, representados pela RecargaPay, à Classe, deverão ser devidos pela RecargaPay; (ii) todos os Direitos Creditórios deverão ter sido originados de Transações de Pagamento que contenham em seu Arranjo de Pagamento Adquirentes da Operação; (iii) na data da respectiva cessão à Classe, os Direitos Creditórios deverão ter prazo de vencimento superior a 1 (um) dia; (iv) os Direitos Creditórios não poderão estar inadimplidos, quando de sua aquisição pela Classe; (v) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (vi) não poderá haver Direitos Creditórios Cedidos Inadimplidos na carteira da Classe; e (vii) a taxa mínima de cessão aplicada à aquisição dos Direitos Creditórios deverá representar, no mínimo, o Benchmark Sênior, acrescido das despesas com a respectiva aquisição. 5.1.1. Inobservância dos Critérios de Elegibilidade. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar os Critérios de Elegibilidade acima descrito após a sua respectiva aquisição pela Classe e verificação pela Gestora, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou os Cedentes, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto nas Condições Gerais de Cessão e respectivas Formalizações Eletrônicas de Cessão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "462514ff7ea86ed63cac6dc7eba7bee5dbd996aaee4a3dfa97e9aa634659bda1"
+      ]
+    },
+    "f210ad6be6a89e8cbc08e2d92d9932e0a7ed5a5d0fadc5ee84e1b2dc99097409": {
+      "reference_date": "2024-05-09",
+      "value": "6.6.1. Liquidação Antecipada – A Classe e, por consequência, o Fundo, poderá ser liquidada antecipadamente por diversas razões, conforme contempladas no Capítulo Vinte do presente Anexo Descritivo, em especial na hipótese de ocorrência de um Evento de Liquidação ou caso um Evento de Avaliação seja caracterizado como um Evento de Liquidação. Dentre referidos eventos, observados os Capítulos Dezenove e Vinte abaixo, incluem-se, exemplificativamente: (i) caso a Classe deixe de efetuar o pagamento das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada; (ii) caso não haja o atendimento à Razão de Subordinação; (iii) inobservância pela Administradora ou pelo Custodiante de seus deveres previstos neste Anexo Descritivo e em seus respectivos contratos, conforme aplicável; e (iv) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade ou as Condições de Cessão especificados no Regulamento, entre outros eventos. É possível que não haja disponíveis no mercado aplicações com as mesmas características de prazo, risco e rentabilidade, o que frustraria a expectativa que o Investidor Profissional possuía quando adquiriu as Cotas",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "99895d8f5c356ff69d975cf0d2990d08c289f94bbc538254a60e62565acef852"
+      ]
+    },
+    "16181fa79e7c1e0f7d077ecd1972589140101b2515bcc763977c623ceea2d8e3": {
+      "reference_date": "2023-12-20",
+      "value": "6.6.1. Liquidação Antecipada – O Fundo poderá ser liquidado antecipadamente por diversas razões, conforme contempladas no Capítulo Vinte do presente Regulamento, em especial na hipótese de ocorrência de um Evento de Liquidação ou caso um Evento de Avaliação seja caracterizado como um Evento de Liquidação. Dentre referidos eventos, observados os Capítulos Dezenove e Vinte abaixo, incluem-se, exemplificativamente: (i) caso o Fundo deixe de efetuar o pagamento das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada; (ii) caso não haja o atendimento à Razão de Subordinação; (iii) inobservância pela Administradora ou pelo Custodiante de seus deveres previstos neste Regulamento e em seus respectivos contratos, conforme aplicável; e (iv) impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade ou as Condições de Cessão especificados no Regulamento, entre outros eventos. É possível que não haja disponíveis no mercado aplicações com as mesmas características de prazo, risco e rentabilidade, o que frustraria a expectativa que o Investidor Profissional possuía no momento em que adquiriu as Cotas",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "38f5bfca455e336ff9ef4d547d6a179212289c015c5eba9536d50ec994bca4ef"
+      ]
+    },
+    "4cd37a71a78a8b24da3fdf13e3f8c50ec002cf814e5b179aebc6ee266fcf53b2": {
+      "reference_date": "2023-09-13",
+      "value": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e (iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo. 5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma prevista abaixo. 5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento. 5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o Custodiante poderá se basear inclusive nos respectivos Documentos Adicionais, os quais deverão ser solicitados pela Administradora à RecargaPay.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "74c1ec0256ea48b3dd321e9b4979a3b8a1ff92ee1ad9207e3c40e5d73ce75df2"
+      ]
+    },
+    "14f3a9978b352fc9dc21bbe0b9ed15c67284521344cd00b8426c8001d7e461ed": {
+      "reference_date": "2023-08-14",
+      "value": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e (iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo. 5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma prevista abaixo. 5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento. 5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o Custodiante poderá se basear inclusive nos respectivos Documentos Adicionais, os quais deverão ser solicitados pela Administradora à RecargaPay.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6201857a0e3930f31d1c2b02fe4f1910a52fa4de619b711f5842f818f308d20a"
+      ]
+    },
+    "898689845720a05b078c3f6e87599ec8cd150cb0f185f002c8febdff6a6eec8a": {
+      "reference_date": "2023-03-02",
+      "value": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de Cessão”): (i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade; (ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; e (iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo. 5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma prevista abaixo. 5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento. 5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a20a6c4e6d85d5fb30878db497eb319efc9cafd3171fd863871207032a09e89e"
+      ]
     }
   },
   "passages": {
@@ -3954,138 +3861,6 @@
       "sha256": "77c917e9d2c462fb0ff348f6fb9ad5afca4ec79e57390e5afe6d0715b1b2fc86",
       "verification": "primary_passage"
     },
-    "2901780caf5aa1ea9d753c74c32998bb3d20ddaa30cd20dfe797e89c345fb214": {
-      "document_id": "1098055",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1098055",
-      "reference_date": "2025-11-30",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes  Pagadores e pelos Estabelecimentos Comerciais Credenciados, em face  da RecargaPay em razão de uma Transação de Pagamento, realizados  pelos Clientes Pagadores e Usuários-Finais com a utilização de  Instrumentos de Pagamento para a aquisição de serviços no aplicativo  Recargapay, sendo devidos pelos Devedores, conforme aplicável. após o  desconto das taxas que constituem a remuneração das Bandeiras, dos  Emissores e da Adquirente da Operação, bem como de outras eventuais  retenções previstas nas regras do Arranjo de Pagamento e/ou no  respectivo contrato de credenciamento e adesão, conforme aplicável.\n Cedentes são os Clientes Pagadores que, representados pela RecargaPay na forma  dos Termos e Condições de Uso RecargaPay por meio de cláusula  mandato, cedem a totalidade ou parte de seus respectivos Direitos  Creditórios Elegíveis ao Fundo, sendo as cessões formalizadas por meio  da(s) Formalização(ões) Eletrônica (s) de Cessão (a(s) qual(is)  inclui(em) cada Termo de Cessão e Instrumento de Aceite, nos termos  dos Termos e Condições de Uso RecargaPay e das Condições Gerais de  Cessão.\n Clientes Pagadores são quaisquer Pessoas que, desde que devidamente cadastradas pela  RecargaPay por meio do processo de know your client/customer (KYC),  realizado pela RecargaPay, em observância à regulamentação expedida  pelo BACEN e que tenham aderido e anuído aos Termos e Condições de  Uso RecargaPay, possuem uma Conta RecargaPay e que adquirem bens,  produtos e serviços e/ou efetuem os Pagamentos de Produtos dos  Estabelecimentos Comerciais.\n Estabelecimentos são as pessoas naturais, pessoas jurídicas e/ou demais Pessoas, residentes  Comerciais Credenciados e domiciliados ou sediados no Brasil, conforme o caso, os quais  fornecem bens, produtos e serviços e/ou recebem os Pagamentos de  Produtos dos Clientes Pagadores ao Contrato de Prestação de Serviços  RecargaPay e aos Termos e Condições Gerais de Cessão, por meio do  Contrato de Prestação de Serviços RecargaPay.\n Devedor é, em relação aos Direitos Creditórios, a RecargaPay.",
-      "sha256": "85f850f881c082d5b26bae26e7ff071df0a29cc8f8e07f95e5d968209730aa8a",
-      "verification": "primary_passage"
-    },
-    "a887b389f8f9dff988d8708fca439651a36b679890a71ef731763e35afadc0c7": {
-      "document_id": "839645",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839645",
-      "reference_date": "2024-11-30",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes  Pagadores e pelos Estabelecimentos Comerciais Credenciados, em face  da RecargaPay em razão de uma Transação de Pagamento, realizados  pelos Clientes Pagadores e Usuários-Finais com a utilização de  Instrumentos de Pagamento para a aquisição de serviços no aplicativo  Recargapay, sendo devidos pelos Devedores, conforme aplicável. após o  desconto das taxas que constituem a remuneração das Bandeiras, dos  Emissores e da Adquirente da Operação, bem como de outras eventuais  retenções previstas nas regras do Arranjo de Pagamento e/ou no  respectivo contrato de credenciamento e adesão, conforme aplicável.\n Cedentes são os Clientes Pagadores que, representados pela RecargaPay na forma  dos Termos e Condições de Uso RecargaPay por meio de cláusula  mandato, cedem a totalidade ou parte de seus respectivos Direitos  Creditórios Elegíveis ao Fundo, sendo as cessões formalizadas por meio  da(s) Formalização(ões) Eletrônica (s) de Cessão (a(s) qual(is)  inclui(em) cada Termo de Cessão e Instrumento de Aceite, nos termos  dos Termos e Condições de Uso RecargaPay e das Condições Gerais de  Cessão.\n Clientes Pagadores são quaisquer Pessoas que, desde que devidamente cadastradas pela  RecargaPay por meio do processo de know your client/customer (KYC),  realizado pela RecargaPay, em observância à regulamentação expedida  pelo BACEN e que tenham aderido e anuído aos Termos e Condições de  Uso RecargaPay, possuem uma Conta RecargaPay e que adquirem bens,  produtos e serviços e/ou efetuem os Pagamentos de Produtos dos  Estabelecimentos Comerciais.\n Estabelecimentos são as pessoas naturais, pessoas jurídicas e/ou demais Pessoas, residentes  Comerciais Credenciados e domiciliados ou sediados no Brasil, conforme o caso, os quais  fornecem bens, produtos e serviços e/ou recebem os Pagamentos de  Produtos dos Clientes Pagadores ao Contrato de Prestação de Serviços  RecargaPay e aos Termos e Condições Gerais de Cessão, por meio do  Contrato de Prestação de Serviços RecargaPay.\n Devedor é, em relação aos Direitos Creditórios, a RecargaPay.",
-      "sha256": "991def58bc31510c65479653ae9971fe2d93e55c6bc0e0cd8568be60ed1432e3",
-      "verification": "primary_passage"
-    },
-    "43f4b6929dbeb327b5347d4f780066a177aa0e296ad4359d184a4a9a281a9d39": {
-      "document_id": "574297",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574297",
-      "reference_date": "2023-12-20",
-      "version": "1",
-      "page": 8,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que  ensejem o protesto ou que tenham sido protestados títulos emitidos pela  RecargaPay e/ou qualquer de suas Pessoas controladas ou sacados contra a  RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor unitário ou  total seja superior a 10% (dez por cento) do patrimônio líquido da RecargaPay,  corrigidos anualmente pela variação positiva do IPCA, ou o equivalente em outras",
-      "sha256": "07427a50992cfd31722cbde53ff106938b8e87a9244140eb5b6dc4026aebfde6",
-      "verification": "primary_passage"
-    },
-    "7634ae4d9452ccaac4c874f76486000b5ef56e36f6662469b5cad982931245bd": {
-      "document_id": "612813",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=612813",
-      "reference_date": "2023-11-30",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "Direitos Creditórios são os direitos creditórios detidos, de tempos em tempos, pelos Clientes  Pagadores e pelos Estabelecimentos Comerciais Credenciados, em face  da RecargaPay em razão de uma Transação de Pagamento, realizados  pelos Clientes Pagadores e Usuários-Finais com a utilização de  Instrumentos de Pagamento para a aquisição de serviços no aplicativo  Recargapay, sendo devidos pelos Devedores, conforme aplicável. após o  desconto das taxas que constituem a remuneração das Bandeiras, dos  Emissores e da Adquirente da Operação, bem como de outras eventuais  retenções previstas nas regras do Arranjo de Pagamento e/ou no  respectivo contrato de credenciamento e adesão, conforme aplicável.\n Cedentes são os Clientes Pagadores que, representados pela RecargaPay na forma  dos Termos e Condições de Uso RecargaPay por meio de cláusula  mandato, cedem a totalidade ou parte de seus respectivos Direitos  Creditórios Elegíveis ao Fundo, sendo as cessões formalizadas por meio  da(s) Formalização(ões) Eletrônica (s) de Cessão (a(s) qual(is)  inclui(em) cada Termo de Cessão e Instrumento de Aceite, nos termos  dos Termos e Condições de Uso RecargaPay e das Condições Gerais de  Cessão.\n Clientes Pagadores são quaisquer Pessoas que, desde que devidamente cadastradas pela  RecargaPay por meio do processo de know your client/customer (KYC),  realizado pela RecargaPay, em observância à regulamentação expedida  pelo BACEN e que tenham aderido e anuído aos Termos e Condições de  Uso RecargaPay, possuem uma Conta RecargaPay e que adquirem bens,  produtos e serviços e/ou efetuem os Pagamentos de Produtos dos  Estabelecimentos Comerciais.\n Estabelecimentos são as pessoas naturais, pessoas jurídicas e/ou demais Pessoas, residentes  Comerciais Credenciados e domiciliados ou sediados no Brasil, conforme o caso, os quais  fornecem bens, produtos e serviços e/ou recebem os Pagamentos de  Produtos dos Clientes Pagadores ao Contrato de Prestação de Serviços  RecargaPay e aos Termos e Condições Gerais de Cessão, por meio do  Contrato de Prestação de Serviços RecargaPay.\n Devedor é, em relação aos Direitos Creditórios, a RecargaPay.",
-      "sha256": "5b89fe0be521c95033cafe5446dde92690eb4a9efed8b4bdb10d53b0483493c9",
-      "verification": "primary_passage"
-    },
-    "8d05c82babc5e4cf8f0c4d5e6180554d8a3875c719eca91e98e155ad79880ec1": {
-      "document_id": "775346",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=775346",
-      "reference_date": "2024-11-04",
-      "version": "1",
-      "page": 88,
-      "clause": "",
-      "excerpt": "(xxii) caso a Gestora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou  qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer  de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por  cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação  positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido  objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus  efeitos;",
-      "sha256": "284c25279fd6362ad9614f6363164157c4f9a75e6a88b093524e0ea9b2a64544",
-      "verification": "primary_passage"
-    },
-    "03de62d719066b18aed7df779114a2f0dc03af858ba91a93f98a5639d43b1e0e": {
-      "document_id": "660636",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=660636",
-      "reference_date": "2024-05-09",
-      "version": "1",
-      "page": 86,
-      "clause": "",
-      "excerpt": "(xxii) caso a Gestora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou  qualquer de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer  de suas Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por  cento) do patrimônio líquido da RecargaPay, corrigidos anualmente pela variação  positiva do IPCA, ou o equivalente em outras moedas, excetuados os que tenham sido  objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus  efeitos;",
-      "sha256": "f8710062329f6f418205d2920e2da6e03e91dd0dc9674c4ba811db27e08f562f",
-      "verification": "primary_passage"
-    },
-    "ab9a62e8f96ad221a02381f5bf81ec9fcef19e9a0f4459a03e7740a11773d093": {
-      "document_id": "574299",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574299",
-      "reference_date": "2023-12-20",
-      "version": "1",
-      "page": 79,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer  de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas  Pessoas controladas, cujo valor unitário ou total seja superior a 10% (dez por cento) do  patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA,  ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida  judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "sha256": "6fd50c586f2b4f4ea480fcc768d8d0e55064fbe946299a4244c25a5121543fb0",
-      "verification": "primary_passage"
-    },
-    "e52eea9e46a2d42fc209b63c2cb0cd19e3597a3b5e060063955cc3455c19ee54": {
-      "document_id": "520031",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520031",
-      "reference_date": "2023-09-13",
-      "version": "1",
-      "page": 73,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer  de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas  Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do  patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA,  ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida  judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "sha256": "77c917e9d2c462fb0ff348f6fb9ad5afca4ec79e57390e5afe6d0715b1b2fc86",
-      "verification": "primary_passage"
-    },
-    "e9d97b5da11e63f70a4957fa2ffdee36a32d2150b2ad6a19ab773539c5cda876": {
-      "document_id": "508996",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=508996",
-      "reference_date": "2023-08-14",
-      "version": "1",
-      "page": 73,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer  de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas  Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do  patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA,  ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida  judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "sha256": "f29b2d0247fcc5485d389e51ea7cbf9121d863151f30c32a865479a321499c88",
-      "verification": "primary_passage"
-    },
-    "b2e10aa3756a84ebd857c826f482548e436a2b059d2f1e1be4908cf23511eeb3": {
-      "document_id": "424666",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=424666",
-      "reference_date": "2023-03-02",
-      "version": "1",
-      "page": 75,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o  protesto ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer  de suas Pessoas controladas ou sacados contra a RecargaPay e/ou qualquer de suas  Pessoas controladas, cujo valor unitário ou total seja superior a 20% (vinte por cento) do  patrimônio líquido da RecargaPay, corrigidos anualmente pela variação positiva do IPCA,  ou o equivalente em outras moedas, excetuados os que tenham sido objeto de medida  judicial ou extrajudicial adequada para anulação ou sustação de seus efeitos;",
-      "sha256": "acba542413e7094586fae589cb5851c660f9c568afcdcc408d8196e5589b2b3d",
-      "verification": "primary_passage"
-    },
-    "b84291d6b3bf5b83b2a82d6194319943604b5ac434b1bbd15f7836c0f7174dab": {
-      "document_id": "393691",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=393691",
-      "reference_date": "2022-12-16",
-      "version": "1",
-      "page": 68,
-      "clause": "",
-      "excerpt": "(xxii) caso a administradora seja informada sobre a ocorrência de eventos que ensejem o protesto  ou que tenham sido protestados títulos emitidos pela RecargaPay e/ou qualquer de suas Pessoas  controladas ou sacados contra a RecargaPay e/ou qualquer de suas Pessoas controladas, cujo valor  unitário ou total seja superior a 20% (vinte por cento) do patrimônio líquido da RecargaPay, corrigidos  anualmente pela variação positiva do IPCA, ou o equivalente em outras moedas, excetuados os que  tenham sido objeto de medida judicial ou extrajudicial adequada para anulação ou sustação de seus  efeitos;",
-      "sha256": "821a548ed46f2c4e5ba2d06051817273eedda3aa9fe91dfcadb1165707cdae03",
-      "verification": "primary_passage"
-    },
     "7c2f62cc51642a55173015ff718b704956fc772865a09c3407977ec2c2021826": {
       "document_id": "1118056",
       "title": "Regulamento",
@@ -4099,30 +3874,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1118056 | 12/02/2026 | regulamento | p. 41–42; 5.1 | data/raw/40919667000107/1118056_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1118056"
     },
-    "655e56c6325fd5c544b3053a265242b15d86aa44f92b75aed81f57266ed633fa": {
-      "document_id": "1098055",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1098055",
-      "reference_date": "2025-11-30",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "e. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e\n (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial,\n (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser  definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo.",
-      "sha256": "85f850f881c082d5b26bae26e7ff071df0a29cc8f8e07f95e5d968209730aa8a",
-      "verification": "primary_passage"
-    },
-    "a582dbd45cac34cd470908c4bf0a6d363e10f61d63cfcd7aadffb240493c4bd5": {
-      "document_id": "839645",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839645",
-      "reference_date": "2024-11-30",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "e. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e\n (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial,\n (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser  definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo.",
-      "sha256": "991def58bc31510c65479653ae9971fe2d93e55c6bc0e0cd8568be60ed1432e3",
-      "verification": "primary_passage"
-    },
     "e837d4a5e3e964e0512a1479dd68d54268424c8471919eb00453b9a2d7d98205": {
       "document_id": "574297",
       "title": "AGE",
@@ -4133,66 +3884,6 @@
       "clause": "",
       "excerpt": "“5.1. Critérios de Elegibilidade. Todos e quaisquer Direitos Creditórios  adquiridos pelo Fundo deverão observar os seguintes critérios de elegibilidade em  cada data de cessão (“Critérios de Elegibilidade”):\n(iii) os Direitos Creditórios não poderão ter data de vencimento posterior ao  vencimento das Cotas Seniores ou a 365 (trezentos e sessenta e cinco) dias a contar  da respectiva Data de Pagamento do Preço de Aquisição, o que for menor;\n(viii) a taxa mínima de cessão aplicada à aquisição dos Direitos Creditórios  deverá representar, no mínimo, o Benchmark Sênior, acrescido das despesas com  a respectiva aquisição.”",
       "sha256": "07427a50992cfd31722cbde53ff106938b8e87a9244140eb5b6dc4026aebfde6",
-      "verification": "primary_passage"
-    },
-    "2b72b33944a3aa58640d165fd871bf543eed44ee565197262a92186705b1a882": {
-      "document_id": "612813",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=612813",
-      "reference_date": "2023-11-30",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "e. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e",
-      "sha256": "5b89fe0be521c95033cafe5446dde92690eb4a9efed8b4bdb10d53b0483493c9",
-      "verification": "primary_passage"
-    },
-    "2e67efbc0ad623c1e74996020dcc0e61f654623413495e1e53466f770c8d6c81": {
-      "document_id": "775346",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=775346",
-      "reference_date": "2024-11-04",
-      "version": "1",
-      "page": 43,
-      "clause": "5.3",
-      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes à Classe deverão observar as seguintes condições de cessão (“Condições  de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza; e\n(iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial  e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento  similar que venha a ser definido por lei, na data da cessão ou aquisição do Direito  Creditório cedido ao Fundo.",
-      "sha256": "284c25279fd6362ad9614f6363164157c4f9a75e6a88b093524e0ea9b2a64544",
-      "verification": "primary_passage"
-    },
-    "930130cd9aee84cfe260922b0627ee5950d2bc8407e49c12f67214f11a55cb93": {
-      "document_id": "660636",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=660636",
-      "reference_date": "2024-05-09",
-      "version": "1",
-      "page": 41,
-      "clause": "5.3",
-      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes à Classe deverão observar as seguintes condições de cessão (“Condições  de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza; e",
-      "sha256": "f8710062329f6f418205d2920e2da6e03e91dd0dc9674c4ba811db27e08f562f",
-      "verification": "primary_passage"
-    },
-    "8cfc1e68408a8f904be1943be87d6c4f8c408bfb4c465ae4e3d7ce7c2104c9bc": {
-      "document_id": "574299",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=574299",
-      "reference_date": "2023-12-20",
-      "version": "1",
-      "page": 31,
-      "clause": "5.3",
-      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de  Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;",
-      "sha256": "6fd50c586f2b4f4ea480fcc768d8d0e55064fbe946299a4244c25a5121543fb0",
-      "verification": "primary_passage"
-    },
-    "43709bc4f658717ba39a7a2c27c928c6b1ece0da80dcc800c459251cf2f1c21e": {
-      "document_id": "520031",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520031",
-      "reference_date": "2023-09-13",
-      "version": "1",
-      "page": 26,
-      "clause": "5.3",
-      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de  Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza; e\n(iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial  e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar  que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido  ao Fundo.",
-      "sha256": "77c917e9d2c462fb0ff348f6fb9ad5afca4ec79e57390e5afe6d0715b1b2fc86",
       "verification": "primary_passage"
     },
     "21cd02b0c9979bc3b1affca31d65eff30afa75ca84f707e8aab059884a0978b7": {
@@ -7731,6 +7422,97 @@
       "excerpt": "Por este Instrumento Particular de Termo de Constituição (“Termo de Constituição”) do SAN DIEGO  BP - FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO MULTIMERCADO  (“Fundo”), a PLURAL S.A. BANCO MÚLTIPLO, com sede na cidade do Rio de Janeiro, Estado do Rio de  Janeiro, na Praia de Botafogo, 228, sala 907, CEP 22250-040, inscrita no CNPJ/MF sob nº\n 45.246.410/0001-55 (“Administradora”), devidamente autorizada pela CVM à prestação dos serviços  de administração de carteira de títulos e valores mobiliários, nos termos do Ato Declaratório nº\n 15.455, expedido em 13 de janeiro de 2017, por seus representantes legais infra-assinados, vem pela  presente, deliberar, a constituição do Fundo, nos termos da Instrução CVM nº 555, de 17 de  dezembro de 2014, e suas alterações posteriores, e demais disposições legais e regulamentares  aplicáveis, juntando para tanto:\n(i) o Regulamento do Fundo (“Anexo I”), ora devidamente aprovado.",
       "sha256": "51e3c3af00479a7656f8b4c8df9955e058b3973846b627c4f41c857ca49e1f5b",
       "verification": "primary_passage"
+    },
+    "e825f57738877f6b7d9d716a0f5ae51e952d33e1283f50658e9d0140686c0878": {
+      "document_id": "1098055",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1098055",
+      "reference_date": "2025-11-30",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "e. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e\n (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial,\n (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser  definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo.\nf. Composição dos direitos creditórios",
+      "sha256": "85f850f881c082d5b26bae26e7ff071df0a29cc8f8e07f95e5d968209730aa8a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1336b76a7161e1680bf3799eb9a2263a5e42a3be0f829e613c7a37a7923be4c5": {
+      "document_id": "839645",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839645",
+      "reference_date": "2024-11-30",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "e. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e\n (iii) o Devedor não pode estar em processo de (a) falência, (b) recuperação judicial e/ou extrajudicial,\n (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar que venha a ser  definido por lei, na data da cessão ou aquisição do Direito Creditório cedido ao Fundo.\nf. Composição dos direitos creditórios  Por prazo de vencimento 30/11/2024 30/11/2023",
+      "sha256": "991def58bc31510c65479653ae9971fe2d93e55c6bc0e0cd8568be60ed1432e3",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d626421a702956d6b36513699415a8a573724d7909fb3a6263bf727575e255b1": {
+      "document_id": "612813",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=612813",
+      "reference_date": "2023-11-30",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "b. Resolução de Cessão dos Direitos Creditórios Cedidos  Nas hipóteses abaixo, poderá haver Resolução de Cessão dos Direitos Creditórios Cedidos, sujeito a  qualquer das hipóteses descritas abaixo, conforme o caso, obrigando-se os Cedentes em tais hipóteses,  conforme representados pela RecargaPay, a realizarem o pagamento do Preço da Resolução de Cessão,  equivalente ao preço de aquisição do respectivo direito creditório cedido, desde que as hipóteses abaixo  tenham sido verificadas antes da data do pagamento integral do respectivo Direito Creditório Cedido ao  Fundo:\n(i) inexistência em virtude de má formalização ou vício dos respectivos Documentos Comprobatórios  ou Documentos Adicionais, na forma do artigo 295 do Código Civil Brasileiro, incluindo qualquer  inconsistência superveniente que seja averiguada a qualquer momento dos dados e/ou descrição  dos Direitos Creditórios Cedidos em relação aos Documentos Comprobatórios;\n (ii) aquisição, pelo Fundo, de Direito Creditório que venha a ser reclamado por terceiro  comprovadamente titular de ônus, gravame ou encargo constituído sobre tal Direito Creditório  previamente à sua aquisição pelo Fundo;\n (iii) ocorrência de Chargebacks e/ou Cancelamentos;\n (iv) aquisição, pelo Fundo, de Direitos Creditórios em virtude de declaração falsa ou incorreta  realizada pelos Cedentes.\nc. Garantias  Não há garantias reais ou fidejussórias vinculadas aos direitos creditórios integrantes da carteira do  Fundo.\nd. Critérios de elegibilidade  Todos e quaisquer Direitos Creditórios adquiridos pelo Fundo deverão observar os seguintes critérios de  elegibilidade em cada data de cessão (“Critérios de Elegibilidade”):\n(i) todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes, representados pela  RecargaPay, ao Fundo, devem ser devidos pela RecargaPay;\n (ii) todos os Direitos Creditórios devem ser originados de Transações de Pagamento que contenham  em seu Arranjo de Pagamento Adquirentes da Operação;\n (iii) os Direitos Creditórios não poderão ter data de vencimento posterior ao vencimento das Cotas  Seniores ou a 365 (trezentos e sessenta e cinco) dias a contar da respectiva Data de Pagamento  do Preço de Aquisição, o que for menor;\n (iv) na data da respectiva cessão ao Fundo, os Direitos Creditórios deverão ter prazo de vencimento  superior a 1 (um) dia;\n (v) os Direitos Creditórios não poderão estar inadimplidos, quando de sua aquisição pelo Fundo;\n (vi) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; e\n (vii) não poderá haver Direitos Creditórios Cedidos Inadimplidos na carteira do Fundo.\ne. Condições de cessão  Todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes ao Fundo deverão observar as seguintes  condições de cessão (“Condições de Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados devem ter suas parcelas  consecutivas, sendo que todas as parcelas deverão atender aos Critérios de Elegibilidade;\n (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou  restrições de qualquer natureza; e",
+      "sha256": "5b89fe0be521c95033cafe5446dde92690eb4a9efed8b4bdb10d53b0483493c9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "462514ff7ea86ed63cac6dc7eba7bee5dbd996aaee4a3dfa97e9aa634659bda1": {
+      "document_id": "775346",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=775346",
+      "reference_date": "2024-11-04",
+      "version": "1",
+      "page": 42,
+      "clause": "5.1",
+      "excerpt": "5.1. Critérios de Elegibilidade. Todos e quaisquer Direitos Creditórios adquiridos  pela Classe deverão observar os seguintes critérios de elegibilidade em cada data de  cessão (“Critérios de Elegibilidade”):\n(i) todos e quaisquer Direitos Creditórios oferecidos pelos Cedentes,  representados pela RecargaPay, à Classe, deverão ser devidos pela RecargaPay;\n(ii) todos os Direitos Creditórios deverão ter sido originados de Transações de  Pagamento que contenham em seu Arranjo de Pagamento Adquirentes da Operação;\n(iii) na data da respectiva cessão à Classe, os Direitos Creditórios deverão ter prazo  de vencimento superior a 1 (um) dia;\n(iv) os Direitos Creditórios não poderão estar inadimplidos, quando de sua aquisição  pela Classe;\n(v) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(vi) não poderá haver Direitos Creditórios Cedidos Inadimplidos na carteira da  Classe; e\n(vii) a taxa mínima de cessão aplicada à aquisição dos Direitos Creditórios deverá  representar, no mínimo, o Benchmark Sênior, acrescido das despesas com a respectiva  aquisição.\n5.1.1. Inobservância dos Critérios de Elegibilidade. Na hipótese de os Direitos  Creditórios Elegíveis deixarem de observar os Critérios de Elegibilidade acima descrito  após a sua respectiva aquisição pela Classe e verificação pela Gestora, não haverá, por  parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante  e/ou os Cedentes, salvo na existência de comprovada má-fé ou dolo das partes e  observado o disposto nas Condições Gerais de Cessão e respectivas Formalizações  Eletrônicas de Cessão.",
+      "sha256": "284c25279fd6362ad9614f6363164157c4f9a75e6a88b093524e0ea9b2a64544",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "74c1ec0256ea48b3dd321e9b4979a3b8a1ff92ee1ad9207e3c40e5d73ce75df2": {
+      "document_id": "520031",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520031",
+      "reference_date": "2023-09-13",
+      "version": "1",
+      "page": 26,
+      "clause": "5.3",
+      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de  Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza; e\n(iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial  e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar  que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido  ao Fundo.\n5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma  prevista abaixo.\n5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora  possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe  permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos  Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento.\n5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos  itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas  declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento  de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das  Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca  da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o  Custodiante poderá se basear inclusive nos respectivos Documentos Adicionais, os quais  deverão ser solicitados pela Administradora à RecargaPay.",
+      "sha256": "77c917e9d2c462fb0ff348f6fb9ad5afca4ec79e57390e5afe6d0715b1b2fc86",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6201857a0e3930f31d1c2b02fe4f1910a52fa4de619b711f5842f818f308d20a": {
+      "document_id": "508996",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=508996",
+      "reference_date": "2023-08-14",
+      "version": "1",
+      "page": 26,
+      "clause": "5.3",
+      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de  Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza; e\n(iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial  e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar  que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido  ao Fundo.\n5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma  prevista abaixo.\n5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora  possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe  permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos  Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento.\n5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos  itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas  declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento  de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das  Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca  da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o  Custodiante poderá se basear inclusive nos respectivos Documentos Adicionais, os quais  deverão ser solicitados pela Administradora à RecargaPay.",
+      "sha256": "f29b2d0247fcc5485d389e51ea7cbf9121d863151f30c32a865479a321499c88",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a20a6c4e6d85d5fb30878db497eb319efc9cafd3171fd863871207032a09e89e": {
+      "document_id": "424666",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=424666",
+      "reference_date": "2023-03-02",
+      "version": "1",
+      "page": 28,
+      "clause": "5.3",
+      "excerpt": "5.3. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pelos  Cedentes ao Fundo deverão observar as seguintes condições de cessão (“Condições de  Cessão”):\n(i) os Direitos Creditórios que decorram de créditos parcelados deverão ter suas  parcelas consecutivas, sendo que todas as parcelas deverão atender aos Critérios de  Elegibilidade;\n(ii) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza; e\n(iii) o Devedor não poderá estar em processo de (a) falência, (b) recuperação judicial  e/ou extrajudicial, (c) intervenção ou liquidação extrajudicial, ou (d) em procedimento similar  que venha a ser definido por lei, na data da cessão ou aquisição do Direito Creditório cedido  ao Fundo.\n5.3.1. As Condições de Cessão deverão ser verificadas pelo Custodiante, na forma  prevista abaixo.\n5.3.2. Nos termos do artigo 34, inciso IX, da Instrução CVM 356/01, a Administradora  possui regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe  permitam verificar o cumprimento, pelo Custodiante, da obrigação de validar os Direitos  Creditórios em relação às Condições de Cessão estabelecidas neste Regulamento.\n5.3.3. Para fins da verificação do cumprimento das Condições de Cessão descritas nos  itens (i), (ii) e (iii) do Artigo 5.3 acima, o Custodiante deverá se basear exclusivamente nas  declarações prestadas pela Cedente, nos Termos de Cessão, confirmando o atendimento  de tais Condições de Cessão. Adicionalmente, nos casos em que a verificação das  Condições de Cessão do respectivo Direito Creditório Cedido envolver discussões acerca  da existência, veracidade, conteúdo e/ou da exequibilidade do Direito Creditório Cedido, o",
+      "sha256": "acba542413e7094586fae589cb5851c660f9c568afcdcc408d8196e5589b2b3d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

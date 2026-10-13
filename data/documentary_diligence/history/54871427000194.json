@@ -3,10 +3,6 @@
   "cnpj": "54871427000194",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "d521c2199c90fd785cac36276c3afabd52231bcc8ae2ac0125c691d118f4815c",
-      "694fd0a4f60dd8909fc81b9b7a67b9b8b0aa5a4e4f662fad489de0d4d836d8ca"
-    ],
     "concentration": [
       "b6c26c85a046432677e0967e0cab559f7d83b58a82ce189392136699d1c3c9a3",
       "35b0c3d50edca0af0361febee3af4deab8141aecb7a6d9329b934743d3829f9b"
@@ -143,14 +139,6 @@
       "93995ebfbb20c9f0538c4fbae7dde4b0a1e1192e7cf91e52e4d1aab3fb19cab6",
       "65cffda4cb5c01e36d04179c40aa43c8e7cbcd68f52406c88ff1a0ed87563698"
     ],
-    "originator": [
-      "459b882735abc88bee2e012a36c031bbea82d4a085a914426f8d6067f407279a",
-      "a893f04fee8aeb2dc68b2fc0b1e5e2d146b1c14ccbef18da5324fa13f8b2f99d"
-    ],
-    "debtor": [
-      "b78629fb680b3963a6fffeb83576fc6a3c7611c9d43acae7df422a28d329fdec",
-      "a9d3688a57c4b5fc892d7bc0721897f40fa21afa044204ffb10b8a6afd98b6c9"
-    ],
     "investee": [
       "d71f13223610d1a685ed7bfab2cf76dfc39a4a30bc8e56a488a65b794d77dcbc",
       "f0ca2e01a8a57fb672b6051f96ef251983e805483226db4b4ac1d69291ef14a3",
@@ -177,6 +165,17 @@
     "allocation": [
       "4e613ec80f358010d4204da00be83c971a328a98af9a718ec78a11637a6a5eda",
       "2ce631b7d6c0f30d655babe04bb6c54011648547e544159b11e2b9252699ac6b"
+    ],
+    "originator": [
+      "459b882735abc88bee2e012a36c031bbea82d4a085a914426f8d6067f407279a",
+      "a893f04fee8aeb2dc68b2fc0b1e5e2d146b1c14ccbef18da5324fa13f8b2f99d"
+    ],
+    "eligibility": [
+      "d521c2199c90fd785cac36276c3afabd52231bcc8ae2ac0125c691d118f4815c",
+      "a9d3688a57c4b5fc892d7bc0721897f40fa21afa044204ffb10b8a6afd98b6c9"
+    ],
+    "debtor": [
+      "b78629fb680b3963a6fffeb83576fc6a3c7611c9d43acae7df422a28d329fdec"
     ]
   },
   "entries": {

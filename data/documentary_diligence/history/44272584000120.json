@@ -3,14 +3,6 @@
   "cnpj": "44272584000120",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "5f3d9fff9d7d28c3154cd6739181044d782dda032c23c5a1b27edf47c73e1928",
-      "2bc9167174a1ea0987d988aad6fb0ef82bfaa5144df6d9d911bf96fa29d0efd9",
-      "8aa0e7e1bcc1cc739df0ef4ed69eaf08ce81a5aa81f24e08ae86b636cae6270c",
-      "ece6af38b82b90e67a5fcb0de0da2488dd2925a4804c3f3a6719c2a68822a226",
-      "91a90befbf0a9de8d3ca5243aaf40b4830b1571a9b222a8530fae050eafc8307",
-      "900e35898afbf62d27bfa960d9ec5cc68730cd99c42332069d9002bf3193c8df"
-    ],
     "term": [
       "76e9dd4e7a87fb711a7bcc83f902b1e145245142a4eb0017c74d78918b9a2210",
       "72d63c55e608f47024af5d72cd12ccf880eee7b6fea9859c48a5fe0e594f6ec7",
@@ -456,25 +448,6 @@
       "e0d5103c9cada8b9e57036af53efcbf3e1210f69c9d489bfa482d0f81159fce9",
       "ead19dad8b7e15b5cd5cd7fe0e47c5b334e755ae762bca5f2e482b1926f1c79d"
     ],
-    "originator": [
-      "6dceaba193c14f15eb63ecfb3def53541e7d855421aa5adc2261bd46dc4cc4e9",
-      "5de37976dbfd1f8eb5f55d2e35f8d31ea40b9e23cf65f5e46dd5fe6dfe7ebd8b",
-      "780db45007a91798ad1ffb68ef438476c04041c96b31fbee5388c26a954aeaa0",
-      "5de7dd1eacce10316ba5550e82266d8c7d7d183c90e1c8beb6b2f0633a5c5377",
-      "82c373194a0945e1607358a9ba25750030ace6714fcc83fdedc7b356da380289",
-      "136c7a56a066a70df106a070cfb3ee1ec113fab2e30e74a50a734733edc30a72",
-      "8cfe4ff6f371e888c0339d4c91835739652365d523612683d9952cce7a68aa4a",
-      "98ff1265a699602ed7c034913b453841101507aeb765ea0b7c9d9e07a05b8f24"
-    ],
-    "debtor": [
-      "c186bdab2ed0083c8fec1734557dff8bc445559b5acf9e762f081401af88d921",
-      "1b12be572f20f8dcce4493e4548c39475f3287db7cfd7b4bdbc28d7f01923f6a",
-      "ea8880795446a793f3158aa807b2e9e656f40740a19fbbdc3784556d7447efdf",
-      "24063e11be0d878b39e29aaad466f2ee9a1d1797c8f16c5d29e9d66c363be5fc",
-      "87c3d97e626f1e959dbe3c9b9983dcfd1e0becf0b2ac84f03a64e34c5e40e520",
-      "30b238068e3ae763ac530ea780c220e6392b7458510591056c8e223cf61280d5",
-      "b391b8ff88b9cd6dfc5ad402fb099e256b48d823692affd8eb2bc66bddea0bbd"
-    ],
     "investee": [
       "75322025dc7a5b81989f299f86791224ac990d52d470fbc8340e23a5e7facc6d",
       "200938dd26af69bc41d9e2f28794d7e1ae892501b075ed944cebfcd0a583e99e",
@@ -541,6 +514,27 @@
       "bbaf221a92ccac492b699c125baff301eea9901f43f950a36b93cdbf4bcb83cc",
       "d7a6031ba886ac2ced2ef75de19dd3b36ad8c52fc0e763c9f9ae8795ee500b49",
       "d657743cfbab739a714c85a2af5ca6e59ddf4267e95b40eb78eddf643373a1c7"
+    ],
+    "originator": [
+      "6dceaba193c14f15eb63ecfb3def53541e7d855421aa5adc2261bd46dc4cc4e9",
+      "5de37976dbfd1f8eb5f55d2e35f8d31ea40b9e23cf65f5e46dd5fe6dfe7ebd8b",
+      "780db45007a91798ad1ffb68ef438476c04041c96b31fbee5388c26a954aeaa0",
+      "5de7dd1eacce10316ba5550e82266d8c7d7d183c90e1c8beb6b2f0633a5c5377",
+      "82c373194a0945e1607358a9ba25750030ace6714fcc83fdedc7b356da380289",
+      "6617df8be26dc88e223f933c3d790488350974c321fefefa4f2f3b1291e576c8",
+      "136c7a56a066a70df106a070cfb3ee1ec113fab2e30e74a50a734733edc30a72",
+      "8cfe4ff6f371e888c0339d4c91835739652365d523612683d9952cce7a68aa4a"
+    ],
+    "eligibility": [
+      "3882b2f8a6d1da17811af56de7fa38d76de556397ce753346f1cfa9eca8cbde6",
+      "f7cf2e60d4b5444d0d9e36776a9651b2b99832ee2d3fcb5c4359f8004931b7c9",
+      "8add3c27a10f5a51f73d76ee12e5f33e40d91e64bdc4abecf5c3cf92625b7242",
+      "5722049bb5d4a848d164ba19d27aefa57182431cf421b9a268cd27efd77e0d3c",
+      "db29e2df37c877ed68279e507ff559c3ba71ba6568a21add399eff29d6a0ac36",
+      "71847b5bc9fedd713a2b6508620f24724a14c13e0b7be060c318bfbd3574382f"
+    ],
+    "debtor": [
+      "c186bdab2ed0083c8fec1734557dff8bc445559b5acf9e762f081401af88d921"
     ]
   },
   "entries": {
@@ -617,15 +611,6 @@
         "04d265c9a69899c0104121bb79383ac33234a2bcfcdec9feeda301b7303c181e"
       ]
     },
-    "98ff1265a699602ed7c034913b453841101507aeb765ea0b7c9d9e07a05b8f24": {
-      "reference_date": "2025-03-10",
-      "value": "11.2.1 A Classe poderá adquirir Direitos Creditórios cedidos por sociedades empresárias em processo de recuperação judicial ou extrajudicial, e consequentemente, nos termos do artigo 2º, §1º, do Anexo Normativo II à Resolução CVM 175, tais Direitos Creditórios não serão considerados direitos creditórios não-padronizados, desde que cumpridos, cumulativamente, os seguintes requisitos: (a) os Direitos Creditórios não sejam originados por contratos mercantis de compra e venda de produtos, mercadorias e serviços para entrega ou prestação futura, ou seja, devem ser performados; e (b) os Cedentes tenham plano de recuperação homologado em juízo, independentemente do trânsito em julgado da homologação do plano de recuperação judicial ou extrajudicial.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ec7f0b9bfe25faf5931d7ab3690b14b86e0f31f45beee2138edaba1cbaebf820"
-      ]
-    },
     "c186bdab2ed0083c8fec1734557dff8bc445559b5acf9e762f081401af88d921": {
       "reference_date": "2025-09-30",
       "value": "Produtores rurais compradores dos produtos das cedentes",
@@ -634,60 +619,6 @@
       "risk_note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos.",
       "sources": [
         "eb46b5ef4c09116e5a06ef237c2f81da14fe02e93bcf61c93f24b6da8a5db13e"
-      ]
-    },
-    "5f3d9fff9d7d28c3154cd6739181044d782dda032c23c5a1b27edf47c73e1928": {
-      "reference_date": "2025-08-29",
-      "value": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data de Aquisição, e que deve ser validado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "38b5c5a5d808daecde11a47ed0a15f6727cbfbe27311a3020b7964a0bfd12e0c"
-      ]
-    },
-    "2bc9167174a1ea0987d988aad6fb0ef82bfaa5144df6d9d911bf96fa29d0efd9": {
-      "reference_date": "2025-08-29",
-      "value": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data de Aquisição, e que deve ser validado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1a1b5692f3483539d32808b366b1086f7e8c352270a29476943e7813f992be48"
-      ]
-    },
-    "8aa0e7e1bcc1cc739df0ef4ed69eaf08ce81a5aa81f24e08ae86b636cae6270c": {
-      "reference_date": "2025-08-16",
-      "value": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data de Aquisição, e que deve ser validado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dcb4a95832a7365a811bc8c350f7fe42ff278dfb6241eef25f051b18c847092a"
-      ]
-    },
-    "ece6af38b82b90e67a5fcb0de0da2488dd2925a4804c3f3a6719c2a68822a226": {
-      "reference_date": "2025-05-16",
-      "value": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data de Aquisição, e que deve ser validado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "43caa2ba64d28b366f37eeb358a0689227dbe0dc1572d3a9c0d2d8bf0233a21c"
-      ]
-    },
-    "91a90befbf0a9de8d3ca5243aaf40b4830b1571a9b222a8530fae050eafc8307": {
-      "reference_date": "2025-03-31",
-      "value": "As Cedentes deverão sempre ofertar os Direitos Creditórios à Classe em sua integralidade. A Classe, entretanto, poderá adquirir apenas determinadas parcelas de determinado Direito Creditório, recusando aquelas que não atenderem às Condições de Cessão e aos Critérios de Elegibilidade. Sendo este o caso, as Cedentes ficam terminantemente proibidas de ofertar a(s) parcela(s) não adquirida(s) pelo Fundo para qualquer outro veículo, pessoa física ou jurídica, ou de utilizá-las como garantia.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d21393cc575f0a5299aa1b8559b0da7116c197715da6d775129d96d8dcbae793"
-      ]
-    },
-    "900e35898afbf62d27bfa960d9ec5cc68730cd99c42332069d9002bf3193c8df": {
-      "reference_date": "2025-03-10",
-      "value": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data de Aquisição, e que deve ser validado pelo Gestor.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8d1d40c03de59d9dd755bf7c3c9367e946547c9db3254a282766a8cdc67efdc8"
       ]
     },
     "76e9dd4e7a87fb711a7bcc83f902b1e145245142a4eb0017c74d78918b9a2210": {
@@ -4069,58 +4000,58 @@
         "9b0e8c23db4e3b381cd94d8303c3bd57acc3111f6d4ccd5b17fab5f08293c872"
       ]
     },
-    "1b12be572f20f8dcce4493e4548c39475f3287db7cfd7b4bdbc28d7f01923f6a": {
+    "3882b2f8a6d1da17811af56de7fa38d76de556397ce753346f1cfa9eca8cbde6": {
       "reference_date": "2025-08-29",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "value": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima: (a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "6d2207c137a741f5dd34064cfeb966b2b6e84879e37fc257ef524e8465afe918"
+        "b34f098ff9250208ed4228e64051689843ae32cf54f88761cd86b2aed5b0909d"
       ]
     },
-    "ea8880795446a793f3158aa807b2e9e656f40740a19fbbdc3784556d7447efdf": {
+    "f7cf2e60d4b5444d0d9e36776a9651b2b99832ee2d3fcb5c4359f8004931b7c9": {
       "reference_date": "2025-08-29",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "value": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima: (a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "ee104526128be915f1dbcb8baf6e4e403cfa83b9ad502bb2bef45d8130b71ed9"
+        "259c68a3c319822a08e2a67a0f10935decfcf01d60f2802a94772ddba6909f86"
       ]
     },
-    "24063e11be0d878b39e29aaad466f2ee9a1d1797c8f16c5d29e9d66c363be5fc": {
+    "8add3c27a10f5a51f73d76ee12e5f33e40d91e64bdc4abecf5c3cf92625b7242": {
       "reference_date": "2025-08-16",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "value": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima: (a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "6af705be5b98c1199eacca8e3ae38f2722d768ac5f444ef2c0ae4d292f5ff1ef"
+        "bed6ab410ac0f02ba7c3aa2b735bc86b0d062c53379b11881b14beaae35a4d56"
       ]
     },
-    "87c3d97e626f1e959dbe3c9b9983dcfd1e0becf0b2ac84f03a64e34c5e40e520": {
+    "5722049bb5d4a848d164ba19d27aefa57182431cf421b9a268cd27efd77e0d3c": {
       "reference_date": "2025-05-16",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "value": "",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "b0cf1f8adf623405663159aefc58ffdfaf8142e7d6aa79b6f7be40a3a4436520"
+        "49eedd7cc38de9247d9e107d1cff01a75654ab1d90762b16eec83fc5b71b5798"
       ]
     },
-    "30b238068e3ae763ac530ea780c220e6392b7458510591056c8e223cf61280d5": {
+    "db29e2df37c877ed68279e507ff559c3ba71ba6568a21add399eff29d6a0ac36": {
+      "reference_date": "2025-03-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1962a8ef186df19a9f8b496ef914576a1d569f1b0150691ff0aba6cd2b5061a1"
+      ]
+    },
+    "71847b5bc9fedd713a2b6508620f24724a14c13e0b7be060c318bfbd3574382f": {
       "reference_date": "2025-03-10",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "value": "",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "f9250525a41aa21dd50842691084aeecf03bcb7482a46cad43b481b7444f084e"
-      ]
-    },
-    "b391b8ff88b9cd6dfc5ad402fb099e256b48d823692affd8eb2bc66bddea0bbd": {
-      "reference_date": "2024-12-07",
-      "value": "Nesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3febfba4f5b528c070f59d12909aada0e83dfcf0cfc9cfed5f37a5b615d8f70a"
+        "6fc67a7adf80cdc793315cd7ba68a9d5120ceafd37aba20c5d97d4e3bc73b800"
       ]
     }
   },
@@ -4222,18 +4153,6 @@
       "sha256": "7f0ecd010f706239188288d049f521d7778d33efd0cc30801df06333bb7c15a3",
       "verification": "primary_passage"
     },
-    "ec7f0b9bfe25faf5931d7ab3690b14b86e0f31f45beee2138edaba1cbaebf820": {
-      "document_id": "851408",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851408",
-      "reference_date": "2025-03-10",
-      "version": "1",
-      "page": 83,
-      "clause": "11.2.1",
-      "excerpt": "11.2.1 A Classe poderá adquirir Direitos Creditórios cedidos por sociedades empresárias em processo de recuperação judicial ou extrajudicial, e consequentemente, nos termos do artigo 2º, §1º, do Anexo Normativo II à Resolução CVM 175, tais Direitos Creditórios não serão considerados direitos creditórios não-padronizados, desde que cumpridos, cumulativamente, os seguintes requisitos: (a) os Direitos Creditórios não sejam originados por contratos mercantis de compra e venda de produtos, mercadorias e serviços para entrega ou prestação futura, ou seja, devem ser performados; e (b) os Cedentes tenham plano de recuperação homologado em juízo, independentemente do trânsito em julgado da homologação do plano de recuperação judicial ou extrajudicial.",
-      "sha256": "cef368abb92a3a656f407ab9c387287146089ada327e9311afc99bdee6e1944a",
-      "verification": "primary_passage"
-    },
     "eb46b5ef4c09116e5a06ef237c2f81da14fe02e93bcf61c93f24b6da8a5db13e": {
       "document_id": "1003378",
       "title": "Regulamento",
@@ -4246,78 +4165,6 @@
       "sha256": "b5c02cc88f85cdf377629d6e43c9dce8a245f37fe464d5fe95305641aa843343",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,12.5, p90; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true"
-    },
-    "38b5c5a5d808daecde11a47ed0a15f6727cbfbe27311a3020b7964a0bfd12e0c": {
-      "document_id": "986746",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=986746",
-      "reference_date": "2025-08-29",
-      "version": "1",
-      "page": 68,
-      "clause": "7.4.1",
-      "excerpt": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data  de Aquisição, e que deve ser validado pelo Gestor.",
-      "sha256": "d33b1cdb67aac428178813e8c4a88ebf042f0b5d24956bb7b2c142b1d77fc15f",
-      "verification": "primary_passage"
-    },
-    "1a1b5692f3483539d32808b366b1086f7e8c352270a29476943e7813f992be48": {
-      "document_id": "974834",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974834",
-      "reference_date": "2025-08-29",
-      "version": "1",
-      "page": 73,
-      "clause": "7.4.1",
-      "excerpt": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data  de Aquisição, e que deve ser validado pelo Gestor.",
-      "sha256": "89460ee2db5239048cc46a4f76391d4ae37cb65e2b58548cee9c24fd231d4fbd",
-      "verification": "primary_passage"
-    },
-    "dcb4a95832a7365a811bc8c350f7fe42ff278dfb6241eef25f051b18c847092a": {
-      "document_id": "961191",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=961191",
-      "reference_date": "2025-08-16",
-      "version": "1",
-      "page": 73,
-      "clause": "7.4.1",
-      "excerpt": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data  de Aquisição, e que deve ser validado pelo Gestor.",
-      "sha256": "a273e2f141d17ab9f5bd2efe7051e44a5fd58d3c529f7a602bb3a8aea3d70697",
-      "verification": "primary_passage"
-    },
-    "43caa2ba64d28b366f37eeb358a0689227dbe0dc1572d3a9c0d2d8bf0233a21c": {
-      "document_id": "895098",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=895098",
-      "reference_date": "2025-05-16",
-      "version": "1",
-      "page": 71,
-      "clause": "7.4.1",
-      "excerpt": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data  de Aquisição, e que deve ser validado pelo Gestor.",
-      "sha256": "a226095390deea8ecf1d6197c8ce68e175e59e40f9f1c8d7a002ff0bd7c04e06",
-      "verification": "primary_passage"
-    },
-    "d21393cc575f0a5299aa1b8559b0da7116c197715da6d775129d96d8dcbae793": {
-      "document_id": "982753",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982753",
-      "reference_date": "2025-03-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "As Cedentes deverão sempre ofertar os Direitos Creditórios à Classe em sua integralidade. A Classe, entretanto, poderá adquirir apenas determinadas parcelas de determinado Direito Creditório, recusando aquelas que não atenderem às Condições de Cessão e aos Critérios de Elegibilidade.\nSendo este o caso, as Cedentes ficam terminantemente proibidas de ofertar a(s) parcela(s) não adquirida(s) pelo Fundo para qualquer outro veículo, pessoa física ou jurídica, ou de utilizá-las como garantia.",
-      "sha256": "7f0ecd010f706239188288d049f521d7778d33efd0cc30801df06333bb7c15a3",
-      "verification": "primary_passage"
-    },
-    "8d1d40c03de59d9dd755bf7c3c9367e946547c9db3254a282766a8cdc67efdc8": {
-      "document_id": "851408",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851408",
-      "reference_date": "2025-03-10",
-      "version": "1",
-      "page": 69,
-      "clause": "7.4.1",
-      "excerpt": "7.4.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, aos Critérios de Elegibilidade e às Condições de Cessão, na respectiva Data  de Aquisição, e que deve ser validado pelo Gestor.",
-      "sha256": "cef368abb92a3a656f407ab9c387287146089ada327e9311afc99bdee6e1944a",
-      "verification": "primary_passage"
     },
     "cee2f94177a1c81779abbe44c8a391b2f3bd9622a6e6e2aec650b928d6b8444a": {
       "document_id": "986746",
@@ -8735,77 +8582,83 @@
       "sha256": "93c3920e19339c0d27b2c558904c453acc2501d1b662d1caca03f2282ce2483f",
       "verification": "primary_passage"
     },
-    "6d2207c137a741f5dd34064cfeb966b2b6e84879e37fc257ef524e8465afe918": {
+    "b34f098ff9250208ed4228e64051689843ae32cf54f88761cd86b2aed5b0909d": {
       "document_id": "986746",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=986746",
       "reference_date": "2025-08-29",
       "version": "1",
-      "page": 94,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "page": 86,
+      "clause": "12.5",
+      "excerpt": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme  aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "sha256": "d33b1cdb67aac428178813e8c4a88ebf042f0b5d24956bb7b2c142b1d77fc15f",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "ee104526128be915f1dbcb8baf6e4e403cfa83b9ad502bb2bef45d8130b71ed9": {
+    "259c68a3c319822a08e2a67a0f10935decfcf01d60f2802a94772ddba6909f86": {
       "document_id": "974834",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=974834",
       "reference_date": "2025-08-29",
       "version": "1",
-      "page": 99,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "page": 91,
+      "clause": "12.5",
+      "excerpt": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme  aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "sha256": "89460ee2db5239048cc46a4f76391d4ae37cb65e2b58548cee9c24fd231d4fbd",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "6af705be5b98c1199eacca8e3ae38f2722d768ac5f444ef2c0ae4d292f5ff1ef": {
+    "bed6ab410ac0f02ba7c3aa2b735bc86b0d062c53379b11881b14beaae35a4d56": {
       "document_id": "961191",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=961191",
       "reference_date": "2025-08-16",
       "version": "1",
-      "page": 99,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "page": 91,
+      "clause": "12.5",
+      "excerpt": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme  aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)",
       "sha256": "a273e2f141d17ab9f5bd2efe7051e44a5fd58d3c529f7a602bb3a8aea3d70697",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     },
-    "b0cf1f8adf623405663159aefc58ffdfaf8142e7d6aa79b6f7be40a3a4436520": {
+    "49eedd7cc38de9247d9e107d1cff01a75654ab1d90762b16eec83fc5b71b5798": {
       "document_id": "895098",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=895098",
       "reference_date": "2025-05-16",
       "version": "1",
-      "page": 97,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "page": "89–91",
+      "clause": "12.5",
+      "excerpt": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme  aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)  insolvência civil, (iv) intervenção ou liquidação extrajudicial, conforme aplicável e/ou (v) em  procedimento similar que venha a ser definido por lei;\n(b) deverão contar com declaração prestada pelas respectivas Cedentes, em cada Termo de Cessão,  atestando que, na Data de Oferta de Direitos Creditórios e na Data de Aquisição dos Direitos  Creditórios, pela Classe: (i) os Direitos Creditórios ofertados e adquiridos pela Classe são  performados, existentes, válidos, eficazes e exequíveis, estando livres e desembaraçados de  quaisquer Ônus, de qualquer tipo ou natureza, bem como a inexistência de qualquer vedação  e/ou impedimento para oferta e cessão dos Direitos Creditórios à Classe; (ii) os Devedores dos  Direitos Creditórios ofertados e adquiridos pela Classe tem sede ou domicílio no Brasil e,  conforme aplicável, são constituídos de acordo com a legislação brasileira; (iii) os Devedores  dos Direitos Creditórios ofertados e adquiridos pela Classe estão adimplentes no cumprimento  de suas obrigações perante as Cedentes; (iv) os Direitos Creditórios ofertados e adquiridos pela  Classe decorrem de operações de distribuição ou fornecimento de Produtos celebradas pelas  respectivas Cedentes com os respectivos Devedores, exclusivamente no mercado local e em  moeda nacional, em observância a Política de Crédito; (v) cada Devedor dos Direitos Creditórios  Adquiridos possui, pelo menos, 2 (dois) anos de relacionamento comercial prévio com as  respectivas Cedentes; (vi) não ter sido atribuída aos Devedores dos Direitos Creditórios  ofertados, pelas respectivas Cedentes, no momento da aquisição dos Direitos Creditórios,  classificação de risco de crédito igual ou inferior à “D”, conforme Política de Crédito; (vii) não  há qualquer tipo de crédito pertencente ao Devedor e a ele oponível e/ou passível de  compensação de dívidas contra as respectivas Cedentes que possa afetar os Direitos Creditórios  Adquiridos; (viii) todos os Produtos objeto das Notas Fiscais vinculadas aos Direitos Creditórios  Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que  as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes,  adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são  realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos  comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por  organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos  Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no  Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão);\n (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às  Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos  Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as  Cedentes atendem a todas as Condições de Cessão; (xiv) as Cedentes não atuam na cadeia  produtiva do tabaco, fumo e derivados; e (xv) dão ciência aos respectivos Devedores das  políticas anticorrupção e socioambiental das Cedentes;\n(c) que os Devedores não podem possuir (i) registro em órgão de proteção ao crédito ou em  cartórios de protestos e/ou (ii) títulos protestados por falta de pagamento ou aceite, pelas  Cedentes e/ou por qualquer terceiro, ainda que na qualidade de garantidores, em montante,  individual ou agregado, superior a R$35.000,00 (trinta e cinco mil reais);\n(d) os Direitos Creditórios não poderão ser devidos por Devedores que tenham firmado  renegociações com o Fundo, com relação aos respectivos Direitos Creditórios Adquiridos, e que  ainda não tenham sido devidamente quitados pelos correspondentes Devedores;\n(e) os Direitos Creditórios deverão ter Data de Vencimento anterior à última Data de Resgate  Esperada das Cotas da Subclasse Sênior e das Cotas da Subclasse Subordinadas Mezanino em  circulação;\n(f) os Direitos Creditórios Adquiridos, quando computada a cessão proforma, não poderão  representar mais do que (i) 30% (trinta por cento) de Direitos Creditórios adquiridos da Lavoro,\n (ii) de forma conjunta, 30% (trinta por cento) de Direitos Creditórios da Agrovenci e da  Agrocontato e/ou (iii) 50% (cinquenta por cento) de Direitos Creditórios da Pitangueiras, todas  consideradas em relação à totalidade de Direitos Creditórios Adquiridos, respectivamente;\n(g) o maior Devedor ou seu Grupo Econômico deverá ter percentual de concentração máxima de  3% (três por cento) em relação à totalidade de Direitos Creditórios Adquiridos;\n(h) os 3 (três) maiores Devedores ou seus respectivos Grupos Econômicos, considerados  conjuntamente, deverão ter concentração máxima de 7% (sete por cento) em relação à  totalidade de Direitos Creditórios Adquiridos;\n(i) os 5 (cinco) maiores Devedores ou seus respectivos Grupos Econômicos, considerados  conjuntamente, deverão ter concentração máxima de 10% (dez por cento) em relação à  totalidade de Direitos Creditórios Adquiridos;",
       "sha256": "a226095390deea8ecf1d6197c8ce68e175e59e40f9f1c8d7a002ff0bd7c04e06",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": false
     },
-    "f9250525a41aa21dd50842691084aeecf03bcb7482a46cad43b481b7444f084e": {
+    "1962a8ef186df19a9f8b496ef914576a1d569f1b0150691ff0aba6cd2b5061a1": {
+      "document_id": "982753",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=982753",
+      "reference_date": "2025-03-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii) insolvência civil, (iv) intervenção ou liquidação extrajudicial, conforme aplicável e/ou (v) em procedimento similar que venha a ser definido por lei;\n(b) deverão contar com declaração prestada pelas respectivas Cedentes, em cada Termo de Cessão, atestando que, na Data de Oferta de Direitos Creditórios e na Data de Aquisição dos Direitos Creditórios, pela Classe: (i) os Direitos Creditórios ofertados e adquiridos pela Classe são performados, existentes, válidos, eficazes e exequíveis, estando livres e desembaraçados de quaisquer Ônus, de qualquer tipo ou natureza, bem como a inexistência de qualquer vedação e/ou impedimento para oferta e cessão dos Direitos Creditórios à Classe; (ii) os Devedores dos Direitos Creditórios ofertados e adquiridos pela Classe tem sede ou domicílio no Brasil e, conforme aplicável, são constituídos de acordo com a legislação brasileira; (iii) os Devedores dos Direitos Creditórios ofertados e adquiridos pela Classe estão adimplentes no cumprimento de suas obrigações perante as Cedentes; (iv) os Direitos Creditórios ofertados e adquiridos pela Classe decorrem de operações de distribuição ou fornecimento de Produtos celebradas pelas respectivas Cedentes com os respectivos Devedores, exclusivamente no mercado local e em moeda nacional, em observância a Política de Crédito; (v) cada Devedor dos Direitos Creditórios Adquiridos possui, pelo menos, 2 (dois) anos de relacionamento comercial prévio com as respectivas Cedentes; (vi) não ter sido atribuída aos Devedores dos Direitos Creditórios ofertados, pelas respectivas Cedentes, no momento da aquisição dos Direitos Creditórios, classificação de risco de crédito igual ou inferior à “D”, conforme Política de Crédito; (vii) não há qualquer tipo de crédito pertencente ao Devedor e a ele oponível e/ou passível de compensação de dívidas contra as respectivas Cedentes que possa afetar os Direitos Creditórios Adquiridos; (viii) todos os Produtos objeto das Notas Fiscais vinculadas aos Direitos Creditórios Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão); (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as Cedentes atendem a todas as  17",
+      "sha256": "7f0ecd010f706239188288d049f521d7778d33efd0cc30801df06333bb7c15a3",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6fc67a7adf80cdc793315cd7ba68a9d5120ceafd37aba20c5d97d4e3bc73b800": {
       "document_id": "851408",
       "title": "AGE",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851408",
       "reference_date": "2025-03-10",
       "version": "1",
-      "page": 95,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
+      "page": "87–89",
+      "clause": "12.5",
+      "excerpt": "12.5 Supletivamente, após a validação dos Critérios de Elegibilidade, previstos na Cláusula 12.1 acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição, observado e sem prejuízo do disposto nas Cláusulas 12.3 e 12.4 acima:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme  aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii)  insolvência civil, (iv) intervenção ou liquidação extrajudicial, conforme aplicável e/ou (v) em  procedimento similar que venha a ser definido por lei;\n(b) deverão contar com declaração prestada pelas respectivas Cedentes, em cada Termo de Cessão,  atestando que, na Data de Oferta de Direitos Creditórios e na Data de Aquisição dos Direitos  Creditórios, pela Classe: (i) os Direitos Creditórios ofertados e adquiridos pela Classe são  performados, existentes, válidos, eficazes e exequíveis, estando livres e desembaraçados de  quaisquer Ônus, de qualquer tipo ou natureza, bem como a inexistência de qualquer vedação  e/ou impedimento para oferta e cessão dos Direitos Creditórios à Classe; (ii) os Devedores dos  Direitos Creditórios ofertados e adquiridos pela Classe tem sede ou domicílio no Brasil e,  conforme aplicável, são constituídos de acordo com a legislação brasileira; (iii) os Devedores  dos Direitos Creditórios ofertados e adquiridos pela Classe estão adimplentes no cumprimento  de suas obrigações perante as Cedentes; (iv) os Direitos Creditórios ofertados e adquiridos pela  Classe decorrem de operações de distribuição ou fornecimento de Produtos celebradas pelas  respectivas Cedentes com os respectivos Devedores, exclusivamente no mercado local e em  moeda nacional, em observância a Política de Crédito; (v) cada Devedor dos Direitos Creditórios  Adquiridos possui, pelo menos, 2 (dois) anos de relacionamento comercial prévio com as  respectivas Cedentes; (vi) não ter sido atribuída aos Devedores dos Direitos Creditórios  ofertados, pelas respectivas Cedentes, no momento da aquisição dos Direitos Creditórios,  classificação de risco de crédito igual ou inferior à “D”, conforme Política de Crédito; (vii) não  há qualquer tipo de crédito pertencente ao Devedor e a ele oponível e/ou passível de  compensação de dívidas contra as respectivas Cedentes que possa afetar os Direitos Creditórios  Adquiridos; (viii) todos os Produtos objeto das Notas Fiscais vinculadas aos Direitos Creditórios  Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que  as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes,  adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são  realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos  comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por  organismos nacional e/ou estrangeiro; (xi) no melhor do seu conhecimento, os Devedores dos  Direitos Creditório Adquiridos cumprem a Legislação Socioambiental (conforme definido no  Contrato de Cessão) e a Legislação Anticorrupção (conforme definido no Contrato de Cessão);\n (xii) as Cedentes não exercem, em cada Data de Aquisição, nenhuma atividade relacionada às  Atividades de Pesquisa de OGM (conforme definido no Contrato de Cessão); (xiii) os Direitos  Creditórios ofertados e adquiridos pela Classe, bem como os respectivos Devedores e as  Cedentes atendem a todas as Condições de Cessão; (xiv) as Cedentes não atuam na cadeia  produtiva do tabaco, fumo e derivados; e (xv) dão ciência aos respectivos Devedores das  políticas anticorrupção e socioambiental das Cedentes;\n(c) que os Devedores não podem possuir (i) registro em órgão de proteção ao crédito ou em  cartórios de protestos e/ou (ii) títulos protestados por falta de pagamento ou aceite, pelas  Cedentes e/ou por qualquer terceiro, ainda que na qualidade de garantidores, em montante,  individual ou agregado, superior a R$35.000,00 (trinta e cinco mil reais);\n(d) os Direitos Creditórios não poderão ser devidos por Devedores que tenham firmado  renegociações com o Fundo, com relação aos respectivos Direitos Creditórios Adquiridos, e que  ainda não tenham sido devidamente quitados pelos correspondentes Devedores;\n(e) os Direitos Creditórios deverão ter Data de Vencimento anterior à última Data de Resgate  Esperada das Cotas da Subclasse Sênior e das Cotas da Subclasse Subordinadas Mezanino em  circulação;\n(f) os Direitos Creditórios Adquiridos, quando computada a cessão proforma, não poderão  representar mais do que (i) 30% (trinta por cento) de Direitos Creditórios adquiridos da Lavoro,\n (ii) de forma conjunta, 30% (trinta por cento) de Direitos Creditórios da Agrovenci e da  Agrocontato e/ou (iii) 50% (cinquenta por cento) de Direitos Creditórios da Pitangueiras, todas  consideradas em relação à totalidade de Direitos Creditórios Adquiridos, respectivamente;\n(g) o maior Devedor ou seu Grupo Econômico deverá ter percentual de concentração máxima de  3% (três por cento) em relação à totalidade de Direitos Creditórios Adquiridos;\n(h) os 3 (três) maiores Devedores ou seus respectivos Grupos Econômicos, considerados  conjuntamente, deverão ter concentração máxima de 7% (sete por cento) em relação à  totalidade de Direitos Creditórios Adquiridos;\n(i) os 5 (cinco) maiores Devedores ou seus respectivos Grupos Econômicos, considerados  conjuntamente, deverão ter concentração máxima de 10% (dez por cento) em relação à  totalidade de Direitos Creditórios Adquiridos;",
       "sha256": "cef368abb92a3a656f407ab9c387287146089ada327e9311afc99bdee6e1944a",
-      "verification": "primary_passage"
-    },
-    "3febfba4f5b528c070f59d12909aada0e83dfcf0cfc9cfed5f37a5b615d8f70a": {
-      "document_id": "788888",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788888",
-      "reference_date": "2024-12-07",
-      "version": "1",
-      "page": 89,
-      "clause": "13.8",
-      "excerpt": "13.8 Risco relativo ao conflito entre Federação Russa e Ucrânia, em relação ao preço e ao fornecimento de commodities agrícolas no Brasil. Fatores relacionados à geopolítica internacional podem afetar adversamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Nesse sentido, o conflito envolvendo a Federação Russa e a Ucrânia traz como risco uma nova alta nos preços do commodities agrícolas, ocorrendo simultaneamente a possível valorização do dólar, o que causaria ainda mais pressão inflacionária e poderia dificultar a retomada econômica brasileira. Adicionalmente, o conflito impacta também o fornecimento global de commodities agrícolas, de modo que, havendo reajuste para cima do preço dos grãos devido à alta procura, a demanda pela produção brasileira aumentaria, tendo em vista a alta capacidade de produção e a consequente possibilidade de negociar por valores mais competitivos. Dessa forma, aumentam-se as taxas de exportação e elevam-se os preços internos, o que gera ainda mais pressão inflacionária. Ainda, parcela significativa do agronegócio brasileiro é altamente dependente de fertilizantes, cujo principais insumos para sua fabricação são importados, principalmente, da Federação Russa, bem como de dois de seus aliados (República da Bielorrússia e República Popular da China); dessa forma, a mudança na política de exportação desses produtos poderá impactar negativamente a economia brasileira e, por consequência, o mercado de capitais brasileiro. Diante da invasão perpetrada no dia 24 de fevereiro de 2022, afloram-se as animosidades não apenas entre os países diretamente envolvidos na celeuma, mas outras nações indiretamente interessadas na questão, trazendo um cenário de alta incerteza para a economia global.\nNesse sentido, a incerteza da economia global está produzindo e/ou poderá produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, poderá impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários e de taxas e juros sobre as mercadorias, entre outras, e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.",
-      "sha256": "74004ab68ecc94ae720a54d36849e295091370e73c013221a7e9081177e93f85",
-      "verification": "primary_passage"
+      "verification": "primary_passage",
+      "list_recovery_complete": false
     }
   }
 }

@@ -3,14 +3,6 @@
   "cnpj": "43866348000179",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "a543df7c1d1fc5adb9b59e597a10d654ee221f7a305aad0468df1e1d114bdded",
-      "f131a7108005a21e02519243d6fac9be4c124072ed561d62965b0d0266a7dcc8",
-      "4e3823d543c818b9a0f9b82dba3eb8393d301ebb64b7bcecab160b5c20e6b77c",
-      "00a21f111ab5c80a59a95f847463085a67845bc4576df1532e5ff28d6ee9cd18",
-      "d259e1407f05df0d4ede9e77c53417c211923e45bec3f7ae7024a760875af15d",
-      "dffdeb2f71f0889039f8b51fa385cdedf8544f163c7557c1af3c8f8e80947fac"
-    ],
     "term": [
       "1da055e654d57516c426ef996626acadaa104be88c4752451a53ddb5540ad19f",
       "50d2daf1a2906be94d526c7b7b172ee574a49f06b6d8cb8c33a6cc9a4e59e0c6",
@@ -312,25 +304,6 @@
       "93166175c1e118d6a7e3fb760d2ba28db73324a8e32f5c5d7d9b2692b34f9e8e",
       "fa9a52079d643a0806981a9ceba52bd3276c3df4cac6eb68af4d6d01dc2414ea"
     ],
-    "originator": [
-      "0dbcea4b4deefd743d0e7aa74d38ec1c62efe1012659f70e25d691f21c92ea4d",
-      "9ad7290456d2a632c04217a81fe6d8cfb6ca6679edbab46e986261f04b2d29d6",
-      "cbb0b0779e50870d0f2d73e4f1777a5d78898181f3ba24107473f13a30ac392b",
-      "58fd5f55e7c6bb807ada196cff5ee4aa1d4bbd526bb3d9c54e5a71997f7b500e",
-      "6cd034b8ab2a034e3dc861efd34ae2de4fcd72ee7f51e80561bb7f7dd0a31da3",
-      "5502f17d8acce9ea5dbadae3ad9e46463d3ca96795c13eeb550b72f00a936a64",
-      "d7252183dd02ab009ae1a229c58f462219a546f18f2a9dbdc04ba619200c195c",
-      "2316fe0539d001fae87aee4939b91f76b6dcdf6622ba0ca7f8b99b4f72225529",
-      "a9813563915d3261d22e292bd314b102d9fdfb41d52fec3a9843484d0f57a758",
-      "43bbb4c8770e814c307fa44f9428d835f753aa127ed1cdea7c73102b54c627a4"
-    ],
-    "debtor": [
-      "9769defa67a9b4298ab5508bd11f89552d477a2398f7e3cc0a30041553a36ed7",
-      "b009558fa096d43111a5277e9907676b134ef9a7845c0fe486773354519b8af5",
-      "10b4e7b5a420d19d4933443920325ff78acb3db9835a1c73dbdf440403b1400c",
-      "8a0af2ad074221e036dcbd0928b732b006f454e08c451794331cd23009be013b",
-      "f3bce9761c3eae05edb6751a84c41cf9051f12c7b0bca1c57b84ddacf3aa61ea"
-    ],
     "guarantee": [
       "31f204f9ecfb9ba7a73027de1851ae44c07130f014c925c7b64034f46dba2b54",
       "0ae8ee6b174092ef3b6bc2056ca54811dfd2054f4e3e571a352297b120dec1eb",
@@ -361,6 +334,29 @@
       "1c094dcd759f0553068048fb87fb10865eb8786478ed1d8d584a8e6308da17b2",
       "4680444738bb8d7282d2a47223f21492e646b7788193d2bf711ec1ad32af4c27",
       "7d7a099248695ec60313eb1851952752d69edd2531d12b56286559bde256d529"
+    ],
+    "originator": [
+      "0dbcea4b4deefd743d0e7aa74d38ec1c62efe1012659f70e25d691f21c92ea4d",
+      "9ad7290456d2a632c04217a81fe6d8cfb6ca6679edbab46e986261f04b2d29d6",
+      "cbb0b0779e50870d0f2d73e4f1777a5d78898181f3ba24107473f13a30ac392b",
+      "fa59ae1ea9126708e9513d6578db97395138dedada78a0c88204615aa0cd3782",
+      "6cd034b8ab2a034e3dc861efd34ae2de4fcd72ee7f51e80561bb7f7dd0a31da3",
+      "5502f17d8acce9ea5dbadae3ad9e46463d3ca96795c13eeb550b72f00a936a64",
+      "d7252183dd02ab009ae1a229c58f462219a546f18f2a9dbdc04ba619200c195c"
+    ],
+    "eligibility": [
+      "a543df7c1d1fc5adb9b59e597a10d654ee221f7a305aad0468df1e1d114bdded",
+      "f131a7108005a21e02519243d6fac9be4c124072ed561d62965b0d0266a7dcc8",
+      "4e3823d543c818b9a0f9b82dba3eb8393d301ebb64b7bcecab160b5c20e6b77c",
+      "00a21f111ab5c80a59a95f847463085a67845bc4576df1532e5ff28d6ee9cd18",
+      "d259e1407f05df0d4ede9e77c53417c211923e45bec3f7ae7024a760875af15d",
+      "dffdeb2f71f0889039f8b51fa385cdedf8544f163c7557c1af3c8f8e80947fac"
+    ],
+    "debtor": [
+      "b009558fa096d43111a5277e9907676b134ef9a7845c0fe486773354519b8af5",
+      "4f29d4e0d865919ac0219e4baa7973e9fd5688e18c52bf4039abfb30878a20fd",
+      "8a0af2ad074221e036dcbd0928b732b006f454e08c451794331cd23009be013b",
+      "f3bce9761c3eae05edb6751a84c41cf9051f12c7b0bca1c57b84ddacf3aa61ea"
     ]
   },
   "entries": {
@@ -483,15 +479,6 @@
         "33003238b842a6360ce83548fff16736cc5907e5b44132e1b300b9192966ddf3"
       ]
     },
-    "58fd5f55e7c6bb807ada196cff5ee4aa1d4bbd526bb3d9c54e5a71997f7b500e": {
-      "reference_date": "2023-12-31",
-      "value": "I. considerando-se proforma a aquisição pretendida, a concentração máxima de direitos creditórios agro, considerando o estado do domicílio do devedor do respectivo direito creditório, será de até 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo; e II. considerando-se proforma a aquisição pretendida, a concentração máxima de Devedores de Direitos Creditórios Agro, deverão representar, no máximo, os seguintes percentuais de concentração do patrimônio líquido por classificação de crédito na escala do originador: (i) faixa “A”: até 100% (cem por cento);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9445c6657411595d8d8111aa5dfac51de47e92ab7246c85414d5bb08d7bf7313"
-      ]
-    },
     "6cd034b8ab2a034e3dc861efd34ae2de4fcd72ee7f51e80561bb7f7dd0a31da3": {
       "reference_date": "2023-12-29",
       "value": "Partes da Transação Rating de Rating de Longo Prazo Perspectiva / Observação Curto Prazo Emissor FIDC Sumitomo NA NA NA Originador Sumitomo Chemical do Brasil Industria Quimica NA NA NA Custodiante Vortx DTVM NA NA NA Banco Domicílio da Conta do Emissor Itaú Unibanco S.A. F1+(bra) AAA(bra) Perspectiva Estável NA – Não Avaliada",
@@ -517,42 +504,6 @@
       "provenance": "primary_passage",
       "sources": [
         "ce4200be2ea598859c0c85ccc73b8c5c725deff41efc1ee2a27bcc39915dc1b7"
-      ]
-    },
-    "2316fe0539d001fae87aee4939b91f76b6dcdf6622ba0ca7f8b99b4f72225529": {
-      "reference_date": "2023-07-01",
-      "value": "4.1. O Originador celebrará com o Fundo o Acordo Operacional, que regulará os termos e condições da indicação dos Devedores dos Direitos Creditórios Agro, bem como os procedimentos operacionais de sua aquisição pelo Fundo. Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e o Fundo, regulando os termos e condições da cessão de Direitos Creditórios Agro ao Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "46707343ce58bb2a556e16f16d5b89040ba973356956009fe2e43761a3e58d21"
-      ]
-    },
-    "a9813563915d3261d22e292bd314b102d9fdfb41d52fec3a9843484d0f57a758": {
-      "reference_date": "2023-06-30",
-      "value": "Partes da Transação Rating de Rating de Longo Prazo Perspectiva / Observação Curto Prazo Emissor FIDC Sumitomo NA NA NA Originador Sumitomo Chemical do Brasil Industria Quimica NA NA NA Custodiante Vortx DTVM NA NA NA Banco Domicílio da Conta do Emissor Itau Unibanco S.A. F1+(bra) AAA(bra) Perspectiva Estável NA – Não Avaliada",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "10c14703578f42bc5a4975b08a882741d3daa97968e32c40ca8a08a633585829"
-      ]
-    },
-    "43bbb4c8770e814c307fa44f9428d835f753aa127ed1cdea7c73102b54c627a4": {
-      "reference_date": "2023-03-31",
-      "value": "Emissor FIDC Sumitomo NA NA NA Originador Sumitomo Chemical do Brasil Industria Quimica NA NA NA Custodiante Vortx DTVM NA NA NA Banco Domicílio da Conta do Emissor Itau Unibanco S.A. F1+(bra) AAA(bra) Perspectiva Estável NA – Não Avaliada",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c559d98fca937eb271b282e50ad74f5825fd1cf8df239d19d7af59ff34cb38c7"
-      ]
-    },
-    "10b4e7b5a420d19d4933443920325ff78acb3db9835a1c73dbdf440403b1400c": {
-      "reference_date": "2023-07-01",
-      "value": "(iii) no caso dos Direitos Creditórios Distribuidores, (a) os Distribuidores Cedentes, indicados pelo Originador e previamente aprovados pelo Gestor, na qualidade de coobrigados dos Direitos Creditórios Distribuidores, de acordo com as disposições dos respectivos Contratos de Cessão; e (b) os devedores originais dos Direitos Creditórios Distribuidor, representados por produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, originados pelo Distribuidor Cedente e previamente aprovados pelo Gestor;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b435eb2f1a0f49b0833d1285315d18d6a316d197cc9659a6028c37dbb4abadf3"
       ]
     },
     "a543df7c1d1fc5adb9b59e597a10d654ee221f7a305aad0468df1e1d114bdded": {
@@ -2545,15 +2496,6 @@
         "d1562e6100627b0bb673db5e75629d1cc4cb86b70ebecec1096a6e9af0b0361b"
       ]
     },
-    "9769defa67a9b4298ab5508bd11f89552d477a2398f7e3cc0a30041553a36ed7": {
-      "reference_date": "2023-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8e0a13f84677d278afeb0a0db1bcc93654c0e91e8234f98d1b7662f3cad83d6f"
-      ]
-    },
     "b009558fa096d43111a5277e9907676b134ef9a7845c0fe486773354519b8af5": {
       "reference_date": "2023-07-05",
       "value": "“Devedores” Significam, para (1) os Direitos Creditórios Agro: (i) no caso das CPR- F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais e os distribuidores que exerçam a atividade de produção ou comercialização de insumos agrícolas, de máquinas e implementos agrícolas e de equipamentos de armazenagem indicadas pelo Originador ou por um Distribuidor Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional previamente aprovadas pelo Gestor;.",
@@ -2579,6 +2521,24 @@
       "provenance": "primary_passage",
       "sources": [
         "b8f878e3a16b1232249c0cd2924b8df4be5cd090fcd5c89acdfbc26377306925"
+      ]
+    },
+    "fa59ae1ea9126708e9513d6578db97395138dedada78a0c88204615aa0cd3782": {
+      "reference_date": "2023-12-31",
+      "value": "Formalização das operações O originador, os distribuidores cedentes, o agente de formalização, o agente de cobrança extrajudicial e/ou o agente de cobrança judicial, conforme o caso e se aplicável, serão responsáveis por documentar os direitos creditórios agro e as garantias, formalizando os documentos comprobatórios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "51684dd7eefccf27a41aa9766a00c7aa789a329209a87cad4468819c9ddc1cb5"
+      ]
+    },
+    "4f29d4e0d865919ac0219e4baa7973e9fd5688e18c52bf4039abfb30878a20fd": {
+      "reference_date": "2023-07-01",
+      "value": "Serão considerados Devedores: (1) dos Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais e os distribuidores que exerçam a atividade de produção ou comercialização de insumos agrícolas, de máquinas e implementos agrícolas e de equipamentos de armazenagem, indicadas pelo Originador ou por um Distribuidor Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b2a42b8f6e7c8111fff34c0548e456a020134411798a130d83ac16d69c7aab8b"
       ]
     }
   },
@@ -2728,18 +2688,6 @@
       "sha256": "1ff0b2d317bd2b2dc2fbca6456651c017fb7e64772614ffefb8dade9e00af4b7",
       "verification": "primary_passage"
     },
-    "9445c6657411595d8d8111aa5dfac51de47e92ab7246c85414d5bb08d7bf7313": {
-      "document_id": "633277",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=633277",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "I. considerando-se proforma a aquisição pretendida, a concentração máxima de direitos creditórios  agro, considerando o estado do domicílio do devedor do respectivo direito creditório, será de até 35%  (trinta e cinco por cento) do Patrimônio Líquido do Fundo; e  II. considerando-se proforma a aquisição pretendida, a concentração máxima de Devedores de Direitos  Creditórios Agro, deverão representar, no máximo, os seguintes percentuais de concentração do  patrimônio líquido por classificação de crédito na escala do originador: (i) faixa “A”: até 100% (cem  por cento); (ii) faixa “B”: até 100% (cem por cento); (iii) faixa “C”: até 60% (sessenta por cento); e\n (iv) grupo “D” ou outros: 0% (zero por cento);",
-      "sha256": "562ab0aeefa7ff5b2d85138836de4e69a765452f143bc102f00780d58f5186e8",
-      "verification": "primary_passage"
-    },
     "3f195af0c9e5d287d19ef6590330ffb096a3ee7f093cdbcf42e53a00517d1857": {
       "document_id": "607569",
       "title": "Relatório de Agência de Rating",
@@ -2774,54 +2722,6 @@
       "clause": "4.1",
       "excerpt": "4.1. O Originador celebrará com o Fundo o Acordo Operacional, que regulará os termos e condições da indicação dos Devedores dos Direitos Creditórios Agro, bem como os procedimentos operacionais de sua aquisição pelo Fundo. Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e o Fundo, regulando os termos e condições da cessão de Direitos Creditórios Agro ao Fundo.",
       "sha256": "60902818968bae6bb101f5419bb9e8cee3eecb8a17ec42a94de061a239915dcb",
-      "verification": "primary_passage"
-    },
-    "46707343ce58bb2a556e16f16d5b89040ba973356956009fe2e43761a3e58d21": {
-      "document_id": "481044",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481044",
-      "reference_date": "2023-07-01",
-      "version": "1",
-      "page": 44,
-      "clause": "4.1",
-      "excerpt": "4.1. O Originador celebrará com o Fundo o Acordo Operacional, que regulará os termos e condições da indicação dos Devedores dos Direitos Creditórios Agro, bem como os procedimentos operacionais de sua aquisição pelo Fundo. Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e o Fundo, regulando os termos e condições da cessão de Direitos Creditórios Agro ao Fundo.",
-      "sha256": "2bb75e3cf1fb1193b00c7bd70425da84133c4cd4408ee2ae1f967c1f69ad69be",
-      "verification": "primary_passage"
-    },
-    "10c14703578f42bc5a4975b08a882741d3daa97968e32c40ca8a08a633585829": {
-      "document_id": "512777",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=512777",
-      "reference_date": "2023-06-30",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "Partes da Transação  Rating de  Rating de Longo Prazo Perspectiva / Observação  Curto Prazo  Emissor FIDC Sumitomo NA NA NA  Originador Sumitomo Chemical do Brasil Industria Quimica NA NA NA  Custodiante Vortx DTVM NA NA NA  Banco Domicílio da Conta do Emissor Itau Unibanco S.A. F1+(bra) AAA(bra) Perspectiva Estável NA – Não Avaliada",
-      "sha256": "39f9a5a23d6b53240a3cd377d2e8b22e10078d75d876eccda487f9a76d0e0b96",
-      "verification": "primary_passage"
-    },
-    "c559d98fca937eb271b282e50ad74f5825fd1cf8df239d19d7af59ff34cb38c7": {
-      "document_id": "474161",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=474161",
-      "reference_date": "2023-03-31",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "Emissor FIDC Sumitomo NA NA NA  Originador Sumitomo Chemical do Brasil Industria Quimica NA NA NA  Custodiante Vortx DTVM NA NA NA  Banco Domicílio da Conta do Emissor Itau Unibanco S.A. F1+(bra) AAA(bra) Perspectiva Estável NA – Não Avaliada",
-      "sha256": "a61ca97a90f7112de706dca1b435f33d924b7289578d2fb54f37ce8ace464f62",
-      "verification": "primary_passage"
-    },
-    "b435eb2f1a0f49b0833d1285315d18d6a316d197cc9659a6028c37dbb4abadf3": {
-      "document_id": "481044",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481044",
-      "reference_date": "2023-07-01",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "que exerçam a atividade de distribuição dos referidos Insumos,  originados pela Sumitomo e previamente aprovados pelo Gestor; (iii)  no caso dos Direitos Creditórios Distribuidores, (a) os Distribuidores  Cedentes, indicados pelo Originador e previamente aprovados pelo  Gestor, na qualidade de coobrigados dos Direitos Creditórios  Distribuidores, de acordo com as disposições dos respectivos  Contratos de Cessão; e (b) os devedores originais dos Direitos  Creditórios Distribuidor, representados por produtores rurais, pessoas  físicas e/ou jurídicas, cooperativas de produtores rurais, originados  pelo Distribuidor Cedente e previamente aprovados pelo Gestor; (iv)  no caso de Notas Promissórias e dos CDCA, os emissores que são os  Distribuidores, indicados pelo Originador, conforme previsto no  Acordo Operacional, e previamente aprovados pelo Gestor; e (2)  para os Direitos Creditórios LF, instituições financeiras que tenham  emitido Letras Financeiras e sejam devedoras dos Direitos  Creditórios LF.",
-      "sha256": "2bb75e3cf1fb1193b00c7bd70425da84133c4cd4408ee2ae1f967c1f69ad69be",
       "verification": "primary_passage"
     },
     "0f6a80f749cab36310c6f0dc527f09e9e9abc789ae4c543b6c9c2bf12f55537c": {
@@ -5255,18 +5155,6 @@
       "sha256": "7634cc534afc471725f153217010b09d7c2c2d4654f066939a6e3a3a5e703b7d",
       "verification": "primary_passage"
     },
-    "8e0a13f84677d278afeb0a0db1bcc93654c0e91e8234f98d1b7662f3cad83d6f": {
-      "document_id": "633277",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=633277",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 31,
-      "clause": "",
-      "excerpt": "Riscos relacionados ao setor de atuação dos fornecedores, dos cedentes e dos devedores\n (a) O setor agrícola está sujeito a características específicas, inclusive, mas não se limitando a: (i) natureza predominantemente sazonal, com o que as operações são afetadas pelo ciclo das lavouras; (ii) condições meteorológicas adversas, inclusive secas, inundações, granizo ou temperaturas extremamente altas, que são fatores imprevisíveis, podendo ter impacto negativo na produção agrícola ou pecuária; (iii) incêndios e demais sinistros; (iv) pragas e doenças, que podem atingir de maneira imprevisível as safras; (v) preços praticados mundialmente, que têm sua cotação em dólar, além de estarem sujeitos a flutuações significativas, dependendo (v.1) da oferta e demanda globais, (v.2) de alterações dos níveis de subsídios agrícolas de certos produtores importantes (principalmente Estados Unidos e Comunidade Europeia), (v.3) de mudanças de barreiras comerciais de certos mercados consumidores importantes e (v.4) da adoção de outras políticas públicas que afetem as condições de mercado e os preços dos produtos agrícolas; (vi) concorrência de commodities similares e/ou substitutivas; e (vii) acesso limitado ou excessivamente oneroso à captação de recursos, além de alterações em políticas de concessão de crédito, tanto por parte de órgãos governamentais como de instituições privadas, para determinados devedores, inclusive os devedores e/ou os cedentes. A verificação de um ou mais desses fatores poderá impactar negativamente o setor, afetando o pagamento dos direitos creditórios agro e, consequentemente, a rentabilidade dos cotistas. (b) Não há como assegurar que, no futuro, o agronegócio brasileiro (i) terá taxas de crescimento sustentável, e (ii) não apresentará perdas em decorrência de condições climáticas desfavoráveis, redução de preços de commodities do setor agrícola nos mercados nacional e internacional, alterações em políticas de concessão de crédito para produtores nacionais, tanto da parte de órgãos governamentais como de entidades privadas, que possam afetar a renda dos devedores e/ou dos cedentes e, consequentemente, a capacidade de pagamento dos devedores e/ou dos cedentes, bem como outras crises econômicas e políticas que possam afetar o setor agrícola em geral. A redução da capacidade de pagamento dos devedores e/ou dos cedentes poderá impactar negativamente a capacidade de pagamento dos direitos creditórios elegíveis agro.",
-      "sha256": "562ab0aeefa7ff5b2d85138836de4e69a765452f143bc102f00780d58f5186e8",
-      "verification": "primary_passage"
-    },
     "2825b9c5f10413adc98ddf145b23f8b0a2ab1eaa87d214ea06920afff80ead84": {
       "document_id": "487276",
       "title": "AGE",
@@ -5301,6 +5189,30 @@
       "clause": "",
       "excerpt": "“Devedores” Significam, para (1) os Direitos Creditórios Agro: (i) no caso das CPR-  F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de  produtores rurais, a associação de produtores rurais que tenha por  objeto a produção, comercialização e a industrialização dos produtos  rurais e os distribuidores que exerçam a atividade de produção ou  comercialização de insumos agrícolas, de máquinas e implementos  agrícolas e de equipamentos de armazenagem indicadas pelo Originador  ou por um Distribuidor Cedente, nos termos dos Contratos de Cessão e  do Acordo Operacional previamente aprovadas pelo Gestor; (ii) no caso  dos Direitos Creditórios Sumitomo, os produtores rurais, pessoas físicas  e/ou jurídicas, cooperativas de produtores rurais, bem como outras  pessoas jurídicas que exerçam a atividade de distribuição dos referidos  Insumos, originados pela Sumitomo e previamente aprovados pelo  Gestor; (iii) no caso dos Direitos Creditórios Distribuidores, (a) os  Distribuidores Cedentes, indicados pelo Originador e previamente  aprovados pelo Gestor, na qualidade de coobrigados dos Direitos  Creditórios Distribuidores, de acordo com as disposições dos respectivos  Contratos de Cessão; e (b) os devedores originais dos Direitos  Creditórios Distribuidor, representados por produtores rurais, pessoas  físicas e/ou jurídicas, cooperativas de produtores rurais, originados pelo  Distribuidor Cedente e previamente aprovados pelo Gestor; (iv) no caso  de Notas Promissórias e dos CDCA, os emissores que são os  Distribuidores, indicados pelo Originador, conforme previsto no Acordo",
       "sha256": "6be8eead11092210c82f74270000584bb1d48c894826793386af7d6fd0553aa6",
+      "verification": "primary_passage"
+    },
+    "51684dd7eefccf27a41aa9766a00c7aa789a329209a87cad4468819c9ddc1cb5": {
+      "document_id": "633277",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=633277",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 23,
+      "clause": "",
+      "excerpt": "Formalização das operações O originador, os distribuidores cedentes, o agente de formalização, o agente de cobrança extrajudicial e/ou o agente de cobrança judicial, conforme o caso e se aplicável, serão responsáveis por documentar os direitos creditórios agro e as garantias, formalizando os documentos comprobatórios. Não é possível garantir que o originador, os distribuidores cedentes, o agente de formalização, o agente de cobrança extrajudicial e/ou o agente de cobrança judicial, conforme o caso, atuarão em conformidade com as exigências legais, incluindo, sem limitação, a documentação relativa à emissão das CPR-F, das notas promissórias e/ou dos CDCA e da constituição das garantias, ou em relação à celebração dos contratos de cessão e respectivos termos de cessão, o que pode resultar em perdas para o Fundo e seus cotistas.",
+      "sha256": "562ab0aeefa7ff5b2d85138836de4e69a765452f143bc102f00780d58f5186e8",
+      "verification": "primary_passage"
+    },
+    "b2a42b8f6e7c8111fff34c0548e456a020134411798a130d83ac16d69c7aab8b": {
+      "document_id": "481044",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481044",
+      "reference_date": "2023-07-01",
+      "version": "1",
+      "page": 43,
+      "clause": "",
+      "excerpt": "4. Originação e Aquisição dos Direitos Creditórios. Serão considerados Devedores: (1) dos Direitos Creditórios Agro: (i) no caso das CPR-F, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, a associação de produtores rurais que tenha por objeto a produção, comercialização e a industrialização dos produtos rurais e os distribuidores que exerçam a atividade de produção ou comercialização de insumos agrícolas, de máquinas e implementos agrícolas e de equipamentos de armazenagem, indicadas pelo Originador ou por um Distribuidor Cedente, nos termos dos Contratos de Cessão e do Acordo Operacional, e que sejam, em ambos os casos, previamente aprovadas pelo Gestor;\n(ii) no caso de Notas Promissórias e/ou CDCA, emitidas por emissores que são os Distribuidores, indicados pelo Originador e previamente aprovados pelo Gestor, observados os Critérios de Elegibilidade; (iii) no caso dos Direitos Creditórios Sumitomo, os produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, bem como para outras pessoas jurídicas que exerçam a atividade de distribuição dos referidos Insumos, originados pela Sumitomo e previamente aprovados pelo Gestor, devedores dos Direitos Creditórios Sumitomo; (iv) no caso dos Direitos Creditórios Distribuidores, (a) os Distribuidores Cedentes, indicados pelo Originador e previamente aprovados pelo Gestor, na qualidade de coobrigados dos Direitos Creditórios Distribuidores, de acordo com as disposições dos respectivos Contratos de Cessão;\ne (b) os devedores originais dos Direitos Creditórios Distribuidor, representados por produtores rurais, pessoas físicas e/ou jurídicas, cooperativas de produtores rurais, originados pelo Distribuidor Cedente e previamente aprovadas pelo Gestor; e (2) dos Direitos Creditórios LF, as Instituições Financeiras Autorizadas que tenham emitido Letras Financeiras.",
+      "sha256": "2bb75e3cf1fb1193b00c7bd70425da84133c4cd4408ee2ae1f967c1f69ad69be",
       "verification": "primary_passage"
     }
   }

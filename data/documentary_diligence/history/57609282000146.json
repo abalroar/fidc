@@ -3,10 +3,6 @@
   "cnpj": "57609282000146",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "6e0a470d0e8a7955da63514d875508e9a688565bca074e511bbb532c1fdd8982",
-      "f5211525266e01aeba46d8dfedef1cf4ef45df21117a8c45054850bd2783b012"
-    ],
     "concentration": [
       "6adea6fd46f93516bdbdd1bfa6ff86e0496d858148c4591ad6675a733ac92a07",
       "1bb8e63a5bbb350967cd950dde0c22ad89de4c0d9158842c53c3162e4bc2c5e3"
@@ -218,17 +214,6 @@
       "9997dcc4c1021feafd2d8f3be6e69cfa0ac69e4b25f8a746d213fe1c1ffcdabc",
       "c264ee42ae0280387558ac8ca4aece8a36c6202a98a78f18b9be504e09b7e39e"
     ],
-    "originator": [
-      "e16b326931817037d920b810e427d145c613db7bb837f4722aa0c3b1f6ec68ae",
-      "d259c941a986311a8087d866a1ed5ab4199d73ad7d66c0ca1423f3f0e466c100",
-      "19e8fa76930e1b8091ce6222afe0a1d8a3e4b0796e6aaabbdb8cd888532a3392",
-      "99c23451845e30dcb1b9eadab1236d80362586288767f695afecab2157ffa0ff",
-      "457941db34aa8ba4f6e098ed806938965f6e5d664f5af8aac85ac4236f5227db"
-    ],
-    "debtor": [
-      "399cb7a67e9db8444dee41a3e33ca9e6f427327edf76707e68b0880567435a28",
-      "1bb8e63a5bbb350967cd950dde0c22ad89de4c0d9158842c53c3162e4bc2c5e3"
-    ],
     "guarantee": [
       "f21a4ad733c8fe310b1538ad2c7300855c2d6b2b1e80e290722bc26c04c1a6e7"
     ],
@@ -248,6 +233,21 @@
     "allocation": [
       "25dd02d817df78cefe91501690cf493e456c2ae1f23bb433cc88cb3d2834b9e6",
       "782e92d05aa5fce9b4a549a423bc6c74a10c00513b1ffed0a6336a08adb0c270"
+    ],
+    "originator": [
+      "e16b326931817037d920b810e427d145c613db7bb837f4722aa0c3b1f6ec68ae",
+      "d259c941a986311a8087d866a1ed5ab4199d73ad7d66c0ca1423f3f0e466c100",
+      "19e8fa76930e1b8091ce6222afe0a1d8a3e4b0796e6aaabbdb8cd888532a3392",
+      "99c23451845e30dcb1b9eadab1236d80362586288767f695afecab2157ffa0ff",
+      "457941db34aa8ba4f6e098ed806938965f6e5d664f5af8aac85ac4236f5227db"
+    ],
+    "eligibility": [
+      "6e0a470d0e8a7955da63514d875508e9a688565bca074e511bbb532c1fdd8982",
+      "4857f8dd72047bee992896410d53c66ff832c3bad59bb77279381906dd49a832"
+    ],
+    "debtor": [
+      "399cb7a67e9db8444dee41a3e33ca9e6f427327edf76707e68b0880567435a28",
+      "204a60bd8c118e9499d24f69722c3b5ed54217d21a28255bca27b7e9a82e4e45"
     ]
   },
   "entries": {
@@ -343,15 +343,6 @@
       "risk_note": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual.",
       "sources": [
         "364981fe0b010c9523ccde0ec6e35e70cc2953ca821cc68200e7336de8f4df3c"
-      ]
-    },
-    "f5211525266e01aeba46d8dfedef1cf4ef45df21117a8c45054850bd2783b012": {
-      "reference_date": "2024-11-01",
-      "value": "3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5bafc4fccae6cf2be7fe421c891b172673d99a7ad37b22c9efed35d14d33126b"
       ]
     },
     "6adea6fd46f93516bdbdd1bfa6ff86e0496d858148c4591ad6675a733ac92a07": {
@@ -1509,6 +1500,24 @@
       "sources": [
         "bdef8524cb443d6d6a69c3789bc83538ce7a277562c1ac8f47219bb1fe447ccd"
       ]
+    },
+    "4857f8dd72047bee992896410d53c66ff832c3bad59bb77279381906dd49a832": {
+      "reference_date": "2024-11-01",
+      "value": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos Devedores à Cedente, decorrente das Transações de Pagamento realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento, de quaisquer Bandeiras, na modalidade “crédito”, operacionalizados pelo Sistema CloudWalk para a aquisição de bens, produtos e serviços ofertados pelos Estabelecimentos Credenciados, após o desconto das Taxas Aplicáveis; (ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (iii) os Devedores deverão estar adimplentes com relação a todos os pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos à Classe A; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias, o que for menor; (v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias contados da respectiva Data de Oferta; e (vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, a exposição da carteira da Classe A a Direitos Creditórios deverá respeitar os seguintes limites mínimos e máximos de concentração: a) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por cento) do Patrimônio Líquido da Classe A deverá ser alocado em Direitos Creditórios devidos por Devedores Grupo 1, considerados em conjunto e/ou em Disponibilidades, sendo certo que (1) não haverá volume mínimo ou máximo de Direitos Creditórios",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "96a7731e9d12d80463c241b0b09795ccab640b1267f5495149e3339db83826d2"
+      ]
+    },
+    "204a60bd8c118e9499d24f69722c3b5ed54217d21a28255bca27b7e9a82e4e45": {
+      "reference_date": "2024-11-01",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "44a9bbecce676f59473ccd103dda62d00a9e6329739c667172d1acdc00df2368"
+      ]
     }
   },
   "passages": {
@@ -1609,18 +1618,6 @@
       "sha256": "abc57d7c58dda8b699e3397e475d36f80c9e3b9ad3a1486410462f56bb3313ee",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35, Anexo I, critérios de elegibilidade | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693"
-    },
-    "5bafc4fccae6cf2be7fe421c891b172673d99a7ad37b22c9efed35d14d33126b": {
-      "document_id": "770927",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=770927",
-      "reference_date": "2024-11-01",
-      "version": "1",
-      "page": 37,
-      "clause": "3.4",
-      "excerpt": "3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a  verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do  atendimento aos Critérios de Elegibilidade será considerada como definitiva.",
-      "sha256": "222ac31892df544ace217826cd46e2bb98efd610d6a7b4d61cbd167d5bc1b520",
-      "verification": "primary_passage"
     },
     "b6a2287da995140b57a4ed46a70a98b03766d9548e59a9c23329ec33a31fa30e": {
       "document_id": "993693",
@@ -2895,6 +2892,31 @@
       "page": 5,
       "clause": "2.1",
       "excerpt": "2.1. A atividade de administração fiduciária do Fundo será exercida pelo BTG PACTUAL  SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES  MOBILIÁRIOS, instituição com sede no município do Rio de Janeiro, Estado do Rio de  Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no  CNPJ/MF sob o nº 59.281.253/0001-23, autorizada a funcionar pelo Banco Central do  Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores  mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006. A  Administradora tem poderes para praticar os atos necessários à administração do Fundo,  na sua respectiva esfera de atuação.",
+      "sha256": "222ac31892df544ace217826cd46e2bb98efd610d6a7b4d61cbd167d5bc1b520",
+      "verification": "primary_passage"
+    },
+    "96a7731e9d12d80463c241b0b09795ccab640b1267f5495149e3339db83826d2": {
+      "document_id": "770927",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=770927",
+      "reference_date": "2024-11-01",
+      "version": "1",
+      "page": 35,
+      "clause": "3.2",
+      "excerpt": "3.2. Critérios de Elegibilidade. A Classe A somente poderá adquirir Direitos Creditórios  que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa,  aos seguintes Critérios de Elegibilidade:\n(i) os Direitos Creditórios deverão ser provenientes do pagamento devido pelos  Devedores à Cedente, decorrente das Transações de Pagamento realizadas  por Usuários-Finais utilizando-se de Instrumentos de Pagamento, de  quaisquer Bandeiras, na modalidade “crédito”, operacionalizados pelo  Sistema CloudWalk para a aquisição de bens, produtos e serviços ofertados  pelos Estabelecimentos Credenciados, após o desconto das Taxas  Aplicáveis;\n(ii) os Direitos Creditórios deverão ser exclusivamente expressos em moeda  corrente nacional;\n(iii) os Devedores deverão estar adimplentes com relação a todos os  pagamentos devidos à Classe A em virtude dos Direitos Creditórios Cedidos  à Classe A;\n(iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento  das Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco)  dias, o que for menor;\n(v) os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias  contados da respectiva Data de Oferta; e\n(vi) considerada pro forma a aquisição dos Direitos Creditórios em questão, a  exposição da carteira da Classe A a Direitos Creditórios deverá respeitar os  seguintes limites mínimos e máximos de concentração:\na) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por  cento) do Patrimônio Líquido da Classe A deverá ser alocado em  Direitos Creditórios devidos por Devedores Grupo 1, considerados  em conjunto e/ou em Disponibilidades, sendo certo que (1) não  haverá volume mínimo ou máximo de Direitos Creditórios",
+      "sha256": "222ac31892df544ace217826cd46e2bb98efd610d6a7b4d61cbd167d5bc1b520",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "44a9bbecce676f59473ccd103dda62d00a9e6329739c667172d1acdc00df2368": {
+      "document_id": "770927",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=770927",
+      "reference_date": "2024-11-01",
+      "version": "1",
+      "page": 79,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro",
       "sha256": "222ac31892df544ace217826cd46e2bb98efd610d6a7b4d61cbd167d5bc1b520",
       "verification": "primary_passage"
     }

@@ -3,10 +3,6 @@
   "cnpj": "60356171000180",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "3b22813f30ad41e1cb2dda2cca71da56dcc0b86d8c44d6938f5d653e6db25403",
-      "2fdc5b603664270b52f1ce2b286c9744e5fdc6903f748985bdd0f871b2ada3cc"
-    ],
     "concentration": [
       "5e0ff86dcea91d7051c0d7aacd8997aed91d17ce2ef00465c08dd6a7324d5246",
       "a4f269180a197295c9d24ec6885f3d2928d98afe256f996cbc37deb2c71e88a0"
@@ -188,16 +184,6 @@
       "9c0ef4f7798b4ddf5523c8e1b92844039138c4cc7cda70284f319cf9c78c926c",
       "bda62756904995e4f90f207d9075018d38ad734645a077b11f5a730fc3447ea3"
     ],
-    "originator": [
-      "9e0304eef049d8ee50f2f95872571d1f5e6881a0afb2e296482c5339a937241e",
-      "2ce8b7be4ee53f7054f16e793ea386ebb79cf3dd76c8e1eb69c3345e882dacd9",
-      "d8f51e15d67557b361e108deac608fce182f45183cc7e975ba458df9c654e21e",
-      "2596b4135eedd7f13d652b99e2717d51f8a96abc3c2c2dde06600eb00329774e"
-    ],
-    "debtor": [
-      "b3b5a44e5f984beb617c2544bafdb5f62f9249012c542efdd53651c9c3ec2a93",
-      "a4f269180a197295c9d24ec6885f3d2928d98afe256f996cbc37deb2c71e88a0"
-    ],
     "investee": [
       "d9cea64d167890cdbb25101f95df8ac4d233dc8cdfebeaf7797263272e838928",
       "d29492d23c7bb70536af557c074f336fc60c41eede07da59974060bd59b09ad7",
@@ -224,6 +210,20 @@
     "allocation": [
       "054e872ddd96a0e6f02b2071271afe98d3ef030fc2a5d3b29cb7efda97e58073",
       "1f228bb6b8f425244e9fbed91e5eaf31c42500898aff2f3b1577570d7ab31be2"
+    ],
+    "originator": [
+      "9e0304eef049d8ee50f2f95872571d1f5e6881a0afb2e296482c5339a937241e",
+      "2ce8b7be4ee53f7054f16e793ea386ebb79cf3dd76c8e1eb69c3345e882dacd9",
+      "d8f51e15d67557b361e108deac608fce182f45183cc7e975ba458df9c654e21e",
+      "2596b4135eedd7f13d652b99e2717d51f8a96abc3c2c2dde06600eb00329774e"
+    ],
+    "eligibility": [
+      "3b22813f30ad41e1cb2dda2cca71da56dcc0b86d8c44d6938f5d653e6db25403",
+      "2fdc5b603664270b52f1ce2b286c9744e5fdc6903f748985bdd0f871b2ada3cc"
+    ],
+    "debtor": [
+      "b3b5a44e5f984beb617c2544bafdb5f62f9249012c542efdd53651c9c3ec2a93",
+      "0086fdd5acbf47466b852d7b07f58f46422440b94ed592f69ce5400f93334127"
     ]
   },
   "entries": {
@@ -1248,6 +1248,15 @@
       "provenance": "primary_passage",
       "sources": [
         "52f96ed0423310a4e1341aa678ae2bcf304e62036cca2f697e75a69b64164884"
+      ]
+    },
+    "0086fdd5acbf47466b852d7b07f58f46422440b94ed592f69ce5400f93334127": {
+      "reference_date": "2025-04-11",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a890da53870c942668ef23beebfa72d2fc07417e93a24f2e392e8698710c20b0"
       ]
     }
   },
@@ -2432,6 +2441,18 @@
       "page": 5,
       "clause": "2.1",
       "excerpt": "2.1. A atividade de administração fiduciária do Fundo será exercida pelo BTG PACTUAL  SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES  MOBILIÁRIOS, instituição com sede no município do Rio de Janeiro, Estado do Rio de  Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, inscrita no  CNPJ/MF sob o nº 59.281.253/0001-23, autorizada a funcionar pelo Banco Central do  Brasil e autorizada pela CVM para a atividade de administração de carteiras de valores  mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006. A  Administradora tem poderes para praticar os atos necessários à administração do Fundo,  na sua respectiva esfera de atuação.",
+      "sha256": "122094d4a6164f9da1a22628884c1276817c9bc665163c71fa4ffe5f7b9ab2b9",
+      "verification": "primary_passage"
+    },
+    "a890da53870c942668ef23beebfa72d2fc07417e93a24f2e392e8698710c20b0": {
+      "document_id": "883045",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883045",
+      "reference_date": "2025-04-11",
+      "version": "1",
+      "page": 81,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão  sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.\n Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram  o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas  com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura  mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda  fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e outras  restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro  pode implementar regramentos que afetem negativamente instituições financeiras,  inclusive para implementação de política econômica específica ou em decorrência de  eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo  brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a  solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio.\n Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo  legislativo, de forma que sua promulgação e implementação pode ocorrer em um espaço  muito curto de tempo, afetando as atividades dos Devedores de maneira imprevista e  repentina. Por fim, o setor financeiro é altamente competitivo, enfrenta significativa  competição de outros grandes bancos e seguradoras brasileiras e estrangeiras, públicas e  privadas, em todas as principais áreas de operação, já que a regulamentação brasileira  não faz clara distinção entre bancos comerciais e de investimento, nacionais ou  estrangeiros, e seguradoras, podendo, assim, ocorrer impacto adverso relevante na  capacidade de pagamento, pelos Devedores, dos Direitos Creditórios.",
       "sha256": "122094d4a6164f9da1a22628884c1276817c9bc665163c71fa4ffe5f7b9ab2b9",
       "verification": "primary_passage"
     }

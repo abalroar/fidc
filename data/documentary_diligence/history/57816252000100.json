@@ -3,18 +3,6 @@
   "cnpj": "57816252000100",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "281352c57ebd57f20dec2a9d55ffef1f7952e2756e6b212bf4ebeb0541995a62",
-      "f798a89a956b00e52cb1daac820bc96ad00ea20903f270e673ef6874491b1f5e",
-      "10210e58f6863910aed4da3f7e49cb3bc80b90b7f58c6a9dffe3447849dfd76d",
-      "3d244b071bb1a5441e3c9ff5606360f183e2ac02b620ac5ccb3c4c0b4c299d4d",
-      "0d9b4d43f7c3d334e8815da4c297653f998f4beaedbc351908e7380333989de1",
-      "531040204854cf5220d4579cad397002cbb2aa24a83ca9943eddace7e0fa1427",
-      "ca64a48602cf02470a2c9e64a2289dbf10e49c7041f9dfd91fee98eee1e0d33a",
-      "5c0f7efc13b41219314cf85bf9c6b1b0f5aaea823dd85db26181e58947c7d772",
-      "340a988504f5af0976ba15dd5b6a485b3340055d11f002006a5c010dced444dc",
-      "4562782f740736e5b9776b833cefac8e99f61d738af842e2f11d5a41be1c4ad8"
-    ],
     "term": [
       "482c6d3c085b3b968d2c91b23981c2e6d7d78763d8c6a86bd1a7fac2c8caf571",
       "1a14eac1f2e1a660dbd731bae914e0755604919eb961b2040ba701e482793d7a",
@@ -358,24 +346,6 @@
     "quota_grace": [
       "15a60726a1c564a288e66f4a0c3e323b70ead757d3bde86804b8e075ed5a5cc1"
     ],
-    "originator": [
-      "15eca3715c1c1044aa64abbd0203ecc768d1760a4ba1d76d377a90daacdff0f0",
-      "9060e3ef4d88c2eb5698badf86afbf6ba6a9aa5a17f7b9199553b8aadf29790f",
-      "43864ead5b678dd6f2b07c61a47740bdaac7508b1aa745e43ef17ad8c59b4978",
-      "3d084bdab9d9250a44eeaeba4a2163eefb4b0d0f213fd59158afa25e69595d70",
-      "b568cdc95892108a43a40f0524530d2bbcaf0ec31f8dc2dacd8f243e3b58999c",
-      "78187bc7e64d28a0633d77d392ff7d890069c99bb62bc1a75778f58b548b191b",
-      "e566ad2b005aabe0161c5ab6a60833cd3ae9897a002d85d0e3f721b27bd92768",
-      "d7691738c1ac653160cfb9f11c1f6c7f1523acc907ff0235a38ec3da8d2db807"
-    ],
-    "debtor": [
-      "1b243fbc1ae9e5a8ad195e19eb304720c835d362d46de2b7b9fbd6ce72a2bed4",
-      "4f0d0d8002fdd8908e55238e176985f8adc9519832293868cff82b0fe32899fa",
-      "2c697ffa52142bbcd2c46e4d2ffd98ca83b4511090b0a5e478221ce25a3d0165",
-      "ca21aa26efd6d37456d3e08a0a2f8be36a393de8f2d45fa0234c1d07f4fe589d",
-      "8ba6c9f1ee252865cdff49a2323c9f50ff6eeec4dccee6755dd2248791fa9018",
-      "45626afd689cfb6893c17748d6f9d6183b4a397e1facd7c40b27dad9060a86e3"
-    ],
     "investee": [
       "e30cbf5de58ff46ce9df1cadf2839d027713c0d88cbda6ab7792a8c80641b184"
     ],
@@ -407,6 +377,30 @@
       "754d7e939f1b086d2eb41a094baa4cd685dd5ff3166bd1c00cbc9fccdb8ae331",
       "fb6f42d3a0ef3f8f190f5c9928795bcdae9eb15bae904e3560af16df0042d1c7",
       "f92ec1e061e601d81b0a7392684a49897b5c73a679f5dda4af6d0cd893523801"
+    ],
+    "originator": [
+      "15eca3715c1c1044aa64abbd0203ecc768d1760a4ba1d76d377a90daacdff0f0",
+      "281352c57ebd57f20dec2a9d55ffef1f7952e2756e6b212bf4ebeb0541995a62",
+      "b4b110b24f6b9b16d22ec925e69a3c62f8405dd9435bb5804ff2fca7188acd0a",
+      "43864ead5b678dd6f2b07c61a47740bdaac7508b1aa745e43ef17ad8c59b4978",
+      "1c36954372d7ca1ea207ba5b0e9133387d74858703daf54c895afed00fda0e35",
+      "67dc097ee609dcf8c3da979574db5ef17fe9f42b4f9585e905a82be2e87cab36",
+      "531040204854cf5220d4579cad397002cbb2aa24a83ca9943eddace7e0fa1427",
+      "ca64a48602cf02470a2c9e64a2289dbf10e49c7041f9dfd91fee98eee1e0d33a",
+      "5c0f7efc13b41219314cf85bf9c6b1b0f5aaea823dd85db26181e58947c7d772",
+      "e566ad2b005aabe0161c5ab6a60833cd3ae9897a002d85d0e3f721b27bd92768"
+    ],
+    "eligibility": [
+      "3ffd09ef5e5598367e5da1f45e0a09d80e2fb7fa221f7c4550ffb3ab3113ea8c",
+      "f798a89a956b00e52cb1daac820bc96ad00ea20903f270e673ef6874491b1f5e",
+      "1fc4545f0bebe11a0665b759fe5f9fe4b651d79133865efddc9daaa5e6774511",
+      "5fa618e8b3e342203eb3b68db94a00fd0f7e9d7231960e6a5f64125ac2411da5",
+      "afe05d3445faa9e1420b4421329dbf070b2fb51ecf13c1bb53641100ed667cb7",
+      "4b1bd5a73b535574c668b4a7026eb7273d9a6699a2c40ec5f1e3254340a471b2",
+      "ef7be072ceeea0d92b8fd2341e08658c65bfb582e8fbe701c1fba4866a70116e",
+      "221e4f709624a0ee049906b2966cd8dab544cb888d54f8c652aeca6b6c2a7389",
+      "4562782f740736e5b9776b833cefac8e99f61d738af842e2f11d5a41be1c4ad8",
+      "54e4dd73e240ddd7471711f882c2be5bf3cee84df05be3b344ffa40b6b8d656a"
     ]
   },
   "entries": {
@@ -420,15 +414,6 @@
         "c767a8213309af9c86bc7784c8fcf6789842414c1a37eb0a934c34c879e036b9"
       ]
     },
-    "9060e3ef4d88c2eb5698badf86afbf6ba6a9aa5a17f7b9199553b8aadf29790f": {
-      "reference_date": "2026-03-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9fb66792af74481a0a0104212e3b40ae247934143492ee18ecc3af38b0fcc9b2"
-      ]
-    },
     "43864ead5b678dd6f2b07c61a47740bdaac7508b1aa745e43ef17ad8c59b4978": {
       "reference_date": "2025-07-09",
       "value": "Considerando as particularidades operacionais do período, bem como os esforços demonstrados pela Originadora para regularização da alocação nos termos pactuados, os Cotistas APROVAM um waiver em relação ao referido descumprimento da Alocação Mínima, com efeitos até o dia 31 de julho de 2025 (“Prazo de Vigência do Waiver”) inclusive, de modo a afastar, temporariamente, os efeitos decorrentes do Evento de Avaliação identificado naquela data. Durante o período, o Fundo poderá continuar com o seu processo de securitização, adquirindo novos direitos creditórios.",
@@ -438,33 +423,6 @@
         "ef635735410bb5ba46cd29b7bb676c4af787e0485308f389ae08d9f4d8d4ed66"
       ]
     },
-    "3d084bdab9d9250a44eeaeba4a2163eefb4b0d0f213fd59158afa25e69595d70": {
-      "reference_date": "2026-05-07",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "63c97074348f2f0cdfae6ee5979ee763ea92698c40182e33f106ae6eca3ef5f4"
-      ]
-    },
-    "b568cdc95892108a43a40f0524530d2bbcaf0ec31f8dc2dacd8f243e3b58999c": {
-      "reference_date": "2026-03-30",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4a1833d1c2308ce5d79ccb0f2dfc8c3246bf3fbaa6b36d39ec5cd2a15d92320f"
-      ]
-    },
-    "78187bc7e64d28a0633d77d392ff7d890069c99bb62bc1a75778f58b548b191b": {
-      "reference_date": "2026-01-22",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "edffe990d1de659b11040e31529782c792c3da7cd29a19d01908858819486045"
-      ]
-    },
     "e566ad2b005aabe0161c5ab6a60833cd3ae9897a002d85d0e3f721b27bd92768": {
       "reference_date": "2025-10-03",
       "value": "",
@@ -472,69 +430,6 @@
       "provenance": "primary_passage",
       "sources": [
         "1300a8c680205f9e06cb6d934a605f08fd89770f49540deb88c61c344804c46e"
-      ]
-    },
-    "d7691738c1ac653160cfb9f11c1f6c7f1523acc907ff0235a38ec3da8d2db807": {
-      "reference_date": "2024-10-30",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "04c29ed46278b5e97eadd5f709d24d9bb53fe652f04045b9993cab86c03b0262"
-      ]
-    },
-    "1b243fbc1ae9e5a8ad195e19eb304720c835d362d46de2b7b9fbd6ce72a2bed4": {
-      "reference_date": "2026-03-30",
-      "value": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "80ac9aeb8b2d0338660f2ae24dd82b91adc654183f8d149b835303ab4eab1db7"
-      ]
-    },
-    "4f0d0d8002fdd8908e55238e176985f8adc9519832293868cff82b0fe32899fa": {
-      "reference_date": "2026-05-07",
-      "value": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2c644c5c9b97bd7d1185218a03d90fa6264551e9c76530ba9d19d9b43914d3f0"
-      ]
-    },
-    "2c697ffa52142bbcd2c46e4d2ffd98ca83b4511090b0a5e478221ce25a3d0165": {
-      "reference_date": "2026-03-30",
-      "value": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69a6d557a5fb5df9dd5bc758d2ce5dbd78fde896e7f814eae8ad36092dc7cdb3"
-      ]
-    },
-    "ca21aa26efd6d37456d3e08a0a2f8be36a393de8f2d45fa0234c1d07f4fe589d": {
-      "reference_date": "2026-01-22",
-      "value": "15.1. Durante todo o prazo de vigência da Classe, os índices de monitoramento deverão ser atendidos (cada um, um “Índice de Monitoramento”): (i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "230bdb99be972f926e83326945be76356752ae6ac7b7bfb0fca49d35d6c16108"
-      ]
-    },
-    "8ba6c9f1ee252865cdff49a2323c9f50ff6eeec4dccee6755dd2248791fa9018": {
-      "reference_date": "2025-10-03",
-      "value": "15.1. Durante todo o prazo de vigência da Classe, os índices de monitoramento deverão ser atendidos (cada um, um “Índice de Monitoramento”): (i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9b1715b51a6354cf16037d422047bc1caeb67870f05eb7325e56d6bcb5b63626"
-      ]
-    },
-    "45626afd689cfb6893c17748d6f9d6183b4a397e1facd7c40b27dad9060a86e3": {
-      "reference_date": "2024-10-30",
-      "value": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem mil) Devedores, pessoa física ou jurídica, observado que referido número deverá ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª Integralização;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4fb5a4c2652e64264572bc69803be87000ab4a58b983f4f81173d5eb2fe529df"
       ]
     },
     "281352c57ebd57f20dec2a9d55ffef1f7952e2756e6b212bf4ebeb0541995a62": {
@@ -607,15 +502,6 @@
       "provenance": "primary_passage",
       "sources": [
         "be6c7745790effbdb8dcc35087913150541d972419fe83bbc8829425fb9babd6"
-      ]
-    },
-    "340a988504f5af0976ba15dd5b6a485b3340055d11f002006a5c010dced444dc": {
-      "reference_date": "2025-10-03",
-      "value": "2.2. Sem prejuízo dos Critérios de Elegibilidade, considerando que a Classe é destinada exclusivamente a investidores profissionais, a carteira da Classe não está sujeita a qualquer",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "eb7a7ebe5855d6270ef3b2435aea3b97905f47add8f56fdfc0d13ba582fca728"
       ]
     },
     "4562782f740736e5b9776b833cefac8e99f61d738af842e2f11d5a41be1c4ad8": {
@@ -2865,6 +2751,105 @@
       "sources": [
         "9e413e0f19c8c829fa74e68807b336af9bd57b4b692452801170c698a99ee8e7"
       ]
+    },
+    "3ffd09ef5e5598367e5da1f45e0a09d80e2fb7fa221f7c4550ffb3ab3113ea8c": {
+      "reference_date": "2026-03-30",
+      "value": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”): (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a Entidade Registradora, observado que os Documentos Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo estabelecidos neste Regulamento;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6fa7b9fa3ea9abb5bfe9fb6182c075f7c66bb328c7be1728a9c21998256cfb1d"
+      ]
+    },
+    "1fc4545f0bebe11a0665b759fe5f9fe4b651d79133865efddc9daaa5e6774511": {
+      "reference_date": "2025-12-31",
+      "value": "d) Critérios de elegibilidade Os direitos creditórios somente poderão ser adquiridos pelo Fundo caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pelo Gestor, na respectiva data de aquisição e pagamento pelo Fundo: (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a entidade registradora, observado que os documentos comprobatórios serão verificados pelo Gestor por amostragem, na forma e prazo estabelecidos no regulamento; (ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) ser devido em até 9 parcelas mensais, sendo que a primeira parcela deverá ter um prazo máximo de vencimento de até 90 dias contados da respectiva data de aquisição e pagamento; (iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$ 0,1 (cem reais); (v) o endosso dos direitos creditórios ao Fundo deve refletir uma taxa mínima de endosso de 1,75% ao mês; (vi) não estar vencido na respectiva data de aquisição e pagamento, considerando a data de vencimento final do direito creditório; (vii) a respectiva Devedora não poderá ser devedora de direitos creditórios inadimplidos em relação ao Fundo na data de aquisição e pagamento, sendo certo que, assim que as parcelas em atraso dos direitos creditórios inadimplidos sejam quitadas, novos direitos creditórios devidos pela Devedora poderão ser endossados ao Fundo; e (viii) considerado proforma o endosso pretendido, os direitos creditórios devidos por uma mesma Devedora não poderão ter valor total superior ao que for menor entre (a) 1% em relação ao patrimônio líquido; ou (b) R$ 1.000.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "abe13f0ae2f3efa1ab84301d0ce50893341f2bae0c7c2600d96114ae5b78a921"
+      ]
+    },
+    "5fa618e8b3e342203eb3b68db94a00fd0f7e9d7231960e6a5f64125ac2411da5": {
+      "reference_date": "2024-12-31",
+      "value": "d) Critérios de elegibilidade Os direitos creditórios somente poderão ser adquiridos pelo Fundo caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pelo Gestor, na respectiva data de aquisição e pagamento pelo Fundo: (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a entidade registradora, observado que os documentos comprobatórios serão verificados pelo Gestor por amostragem, na forma e prazo estabelecidos no regulamento; (ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) ser devido em até 9 parcelas mensais, sendo que a primeira parcela deverá ter um prazo máximo de vencimento de até 90 dias contados da respectiva data de aquisição e pagamento; (iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$ 0,1 (cem reais); (v) o endosso dos direitos creditórios ao Fundo deve refletir uma taxa mínima de endosso de 1,75% ao mês; (vi) não estar vencido na respectiva data de aquisição e pagamento, considerando a data de vencimento final do direito creditório; (vii) a respectiva Devedora não poderá ser devedora de direitos creditórios inadimplidos em relação ao Fundo na data de aquisição e pagamento, sendo certo que, assim que as parcelas em atraso dos direitos creditórios inadimplidos sejam quitadas, novos direitos creditórios devidos pela Devedora poderão ser endossados ao Fundo; e (viii) considerado proforma o endosso pretendido, os direitos creditórios devidos por uma mesma Devedora não poderão ter valor total superior ao que for menor entre (a) 1% em relação ao patrimônio líquido; ou (b) R$ 1.000.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a60317801cccc26f5345ee3547768ab5c059b89feca0ea49ef8a1aa85ba45c6e"
+      ]
+    },
+    "afe05d3445faa9e1420b4421329dbf070b2fb51ecf13c1bb53641100ed667cb7": {
+      "reference_date": "2026-05-07",
+      "value": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”): (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a Entidade Registradora, observado que os Documentos Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo estabelecidos neste Regulamento;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "94862e3231f7e86e7daba41cb75d4d24f6dee18d0039bef791dcad087f6eee29"
+      ]
+    },
+    "4b1bd5a73b535574c668b4a7026eb7273d9a6699a2c40ec5f1e3254340a471b2": {
+      "reference_date": "2026-03-30",
+      "value": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”): (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a Entidade Registradora, observado que os Documentos Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo estabelecidos neste Regulamento;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f53dc6dcbca42b124f616fea126ee9bf8439a777c482693d6d8bda56eabaa9dc"
+      ]
+    },
+    "ef7be072ceeea0d92b8fd2341e08658c65bfb582e8fbe701c1fba4866a70116e": {
+      "reference_date": "2026-01-22",
+      "value": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”): (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a Entidade Registradora, observado que os Documentos Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo estabelecidos neste Regulamento;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ca8054cbe826629dcb9753ea3a72328bf8e2b14713a8c1616e21dffe99e0dca8"
+      ]
+    },
+    "221e4f709624a0ee049906b2966cd8dab544cb888d54f8c652aeca6b6c2a7389": {
+      "reference_date": "2025-10-03",
+      "value": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam, cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”): (i) ter sido originado de operação de financiamento, representada por uma CCB devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e registrada perante a Entidade Registradora, observado que os Documentos Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo estabelecidos neste Regulamento; (ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado de quaisquer ônus, gravames ou restrições de qualquer natureza; (iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da respectiva Data de Aquisição e Pagamento; (iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem reais); (v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês; (vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando a data de vencimento final do Direito Creditório; (vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que, assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas, novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e (viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos por uma mesma Devedora não poderão ter valor total superior ao que for menor entre (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um milhão de reais).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ec76a1451368b765e8542aa881d9ede99e06b11aa01d8eea9a2b5a18ba0822c6"
+      ]
+    },
+    "54e4dd73e240ddd7471711f882c2be5bf3cee84df05be3b344ffa40b6b8d656a": {
+      "reference_date": "2024-10-30",
+      "value": "2. Incluir os itens 2.21, 2.22 e 2.23 no “Capítulo II – Do Objetivo da Classe e da Política de Investimento”, bem como alterar o inciso \"i\" do item 3.1 e o item 3.2 relativos aos Critérios de Elegibilidade, e o inciso \"ii\" do item 9.2 relativo às obrigações da Gestora, todos constantes do Anexo da Classe, para prever a verificação e análise dos Documentos Comprobatórios (conforme definido no Regulamento) por amostragem, os quais vigorarão com as seguintes redações:",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f4206f02f59fe6483df84b400d87a5f84b71bd03c72d9d190acc9890383940cd"
+      ]
+    },
+    "b4b110b24f6b9b16d22ec925e69a3c62f8405dd9435bb5804ff2fca7188acd0a": {
+      "reference_date": "2025-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "875d8dfa9776716738464f4ce27d4a968c54cab06f58753e439629036387c0dd"
+      ]
+    },
+    "1c36954372d7ca1ea207ba5b0e9133387d74858703daf54c895afed00fda0e35": {
+      "reference_date": "2024-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4b529f634093d540d20b64f00820fda1b7235ad19d68094e0b4539409873d29d"
+      ]
+    },
+    "67dc097ee609dcf8c3da979574db5ef17fe9f42b4f9585e905a82be2e87cab36": {
+      "reference_date": "2024-10-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "addefc3302b004e563a2fd11be243cff5599b904031356b10d57b2c7b2da7076"
+      ]
     }
   },
   "passages": {
@@ -2881,18 +2866,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1182394; referência 07/05/2026; data/raw/57816252000100/1182394_documentary_review.txt; p.66, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1182394&cvm=true"
     },
-    "9fb66792af74481a0a0104212e3b40ae247934143492ee18ecc3af38b0fcc9b2": {
-      "document_id": "1150911",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1150911",
-      "reference_date": "2026-03-30",
-      "version": "1",
-      "page": 69,
-      "clause": "18.1.29",
-      "excerpt": "18.1.29. Possibilidade de Redução da taxa de remuneração dos Direitos Creditórios.\n Apesar de as CCBs representativas dos Direitos Creditórios serem devidamente constituídas  por instituição financeira, os juros cobrados podem ser questionados judicialmente após a  transferência de tais CCBs à Classe. Determinadas decisões judiciais estabeleceram que  cessões de direitos creditórios a entidades não participantes do Sistema Financeiro Nacional  não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as",
-      "sha256": "f49b9811d8a83cb4f4f17d2c8565c52663a3fb6cbc5be0972867bfa807ba8489",
-      "verification": "primary_passage"
-    },
     "ef635735410bb5ba46cd29b7bb676c4af787e0485308f389ae08d9f4d8d4ed66": {
       "document_id": "944629",
       "title": "AGE",
@@ -2905,42 +2878,6 @@
       "sha256": "109ffe709361e1a510ee84ff7d761389748d516e7e9679cba5c57e47b4bb28eb",
       "verification": "primary_passage"
     },
-    "63c97074348f2f0cdfae6ee5979ee763ea92698c40182e33f106ae6eca3ef5f4": {
-      "document_id": "1182394",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
-      "reference_date": "2026-05-07",
-      "version": "1",
-      "page": 57,
-      "clause": "18.1.29",
-      "excerpt": "18.1.29. Possibilidade de Redução da taxa de remuneração dos Direitos Creditórios.\n Apesar de as CCBs representativas dos Direitos Creditórios serem devidamente constituídas  por instituição financeira, os juros cobrados podem ser questionados judicialmente após a  transferência de tais CCBs à Classe. Determinadas decisões judiciais estabeleceram que  cessões de direitos creditórios a entidades não participantes do Sistema Financeiro Nacional  não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as",
-      "sha256": "a7e0bf1536c7e8e6509cf80db0e1137b8d9501019b4a5d23d99ce56122fdc962",
-      "verification": "primary_passage"
-    },
-    "4a1833d1c2308ce5d79ccb0f2dfc8c3246bf3fbaa6b36d39ec5cd2a15d92320f": {
-      "document_id": "1151279",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151279",
-      "reference_date": "2026-03-30",
-      "version": "1",
-      "page": 57,
-      "clause": "18.1.29",
-      "excerpt": "18.1.29. Possibilidade de Redução da taxa de remuneração dos Direitos Creditórios.\n Apesar de as CCBs representativas dos Direitos Creditórios serem devidamente constituídas  por instituição financeira, os juros cobrados podem ser questionados judicialmente após a  transferência de tais CCBs à Classe. Determinadas decisões judiciais estabeleceram que  cessões de direitos creditórios a entidades não participantes do Sistema Financeiro Nacional  não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as",
-      "sha256": "3bd4eea95293b3a00c69eea3c4a57aebfa5c8d1349cc0e04ee753f95c12b1c62",
-      "verification": "primary_passage"
-    },
-    "edffe990d1de659b11040e31529782c792c3da7cd29a19d01908858819486045": {
-      "document_id": "1093027",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093027",
-      "reference_date": "2026-01-22",
-      "version": "1",
-      "page": 58,
-      "clause": "",
-      "excerpt": "não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as  Devedoras. A imposição dos referidos limites de cobrança poderá afetar negativamente o fluxo  de pagamentos dos Direitos Creditórios.",
-      "sha256": "7d2b41d16854043bc83118c53b3b9143fce33e2c076240ed0c829bdf42442205",
-      "verification": "primary_passage"
-    },
     "1300a8c680205f9e06cb6d934a605f08fd89770f49540deb88c61c344804c46e": {
       "document_id": "1016671",
       "title": "Regulamento",
@@ -2951,54 +2888,6 @@
       "clause": "",
       "excerpt": "não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as  Devedoras. A imposição dos referidos limites de cobrança poderá afetar negativamente o fluxo  de pagamentos dos Direitos Creditórios.",
       "sha256": "d05163de356383147506b58a7f152e393c7d4e734c73aaaacf6b1362e1573d4f",
-      "verification": "primary_passage"
-    },
-    "04c29ed46278b5e97eadd5f709d24d9bb53fe652f04045b9993cab86c03b0262": {
-      "document_id": "769056",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769056",
-      "reference_date": "2024-10-30",
-      "version": "1",
-      "page": 56,
-      "clause": "18.1.29",
-      "excerpt": "18.1.29. Possibilidade de Redução da taxa de remuneração dos Direitos Creditórios.\n Apesar de as CCBs representativas dos Direitos Creditórios serem devidamente constituídas  por instituição financeira, os juros cobrados podem ser questionados judicialmente após a  transferência de tais CCBs à Classe. Determinadas decisões judiciais estabeleceram que  cessões de direitos creditórios a entidades não participantes do Sistema Financeiro Nacional  não atribuiriam, a tais cessionárias, as mesmas prerrogativas que seriam atribuídas às  entidades integrantes do Sistema Financeiro Nacional, como a possibilidade de cobrança de  encargos, juros e correção monetária permitidos às instituições financeiras em decorrência da  aplicação do Decreto 22.626/1933 (Lei de Usura), que institui o limite de cobrança de juros  para instituições externas ao sistema financeiro nacional. Sendo assim, ainda que haja  precedentes favoráveis à Classe no âmbito do Superior Tribunal de Justiça, não há uma  jurisprudência consolidada sobre o tema e não é possível prever se serão impostas ou não à  Classe, por meio de decisão judicial, limitações à cobrança de encargos e/ou juros  remuneratórios dos Direitos Creditórios, nos termos inicialmente pactuados com as  Devedoras. A imposição dos referidos limites de cobrança poderá afetar negativamente o fluxo  de pagamentos dos Direitos Creditórios.",
-      "sha256": "bcd2a4a8b22874af9cd893b9f9c6341a434989928b8dc518b18649236cd3be3b",
-      "verification": "primary_passage"
-    },
-    "80ac9aeb8b2d0338660f2ae24dd82b91adc654183f8d149b835303ab4eab1db7": {
-      "document_id": "1150911",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1150911",
-      "reference_date": "2026-03-30",
-      "version": "1",
-      "page": 56,
-      "clause": "",
-      "excerpt": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem  mil) Devedores, pessoa física ou jurídica, observado que referido número deverá  ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª  Integralização;",
-      "sha256": "f49b9811d8a83cb4f4f17d2c8565c52663a3fb6cbc5be0972867bfa807ba8489",
-      "verification": "primary_passage"
-    },
-    "2c644c5c9b97bd7d1185218a03d90fa6264551e9c76530ba9d19d9b43914d3f0": {
-      "document_id": "1182394",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
-      "reference_date": "2026-05-07",
-      "version": "1",
-      "page": 44,
-      "clause": "",
-      "excerpt": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem  mil) Devedores, pessoa física ou jurídica, observado que referido número deverá  ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª  Integralização;",
-      "sha256": "a7e0bf1536c7e8e6509cf80db0e1137b8d9501019b4a5d23d99ce56122fdc962",
-      "verification": "primary_passage"
-    },
-    "69a6d557a5fb5df9dd5bc758d2ce5dbd78fde896e7f814eae8ad36092dc7cdb3": {
-      "document_id": "1151279",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151279",
-      "reference_date": "2026-03-30",
-      "version": "1",
-      "page": 44,
-      "clause": "",
-      "excerpt": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem  mil) Devedores, pessoa física ou jurídica, observado que referido número deverá  ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª  Integralização;",
-      "sha256": "3bd4eea95293b3a00c69eea3c4a57aebfa5c8d1349cc0e04ee753f95c12b1c62",
       "verification": "primary_passage"
     },
     "230bdb99be972f926e83326945be76356752ae6ac7b7bfb0fca49d35d6c16108": {
@@ -3023,18 +2912,6 @@
       "clause": "15.1",
       "excerpt": "15.1. Durante todo o prazo de vigência da Classe, os índices de monitoramento deverão ser  atendidos (cada um, um “Índice de Monitoramento”):\n(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem  mil) Devedores, pessoa física ou jurídica, observado que referido número deverá  ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª  Integralização;\n(ii) observância à Alocação Mínima Inicial e à Alocação Mínima Tributária;\n(iii) o montante de Direitos Creditórios objeto de Recompra Facultativa Parcial  (conforme definido no Contrato de Endosso), em um determinado mês, deverá ser  limitada a 8% (oito por cento) do Patrimônio Líquido da Classe apurado no último  Dia Útil do mês imediatamente anterior, desde que, em todo caso, sejam mantidos  os índices de Alocação Mínima Inicial e o de Alocação Mínima Tributária, conforme  o caso;\n(iv) o volume financeiro de pagamentos devidos à Classe que não sejam realizados  diretamente na Conta de Cobrança, calculado considerando a média móvel dos  últimos 2 (dois) meses, será limitado a 3% (três por cento) do Patrimônio Líquido  da Classe apurado no último Dia Útil do mês imediatamente anterior;\n(v) em um determinado mês, as Hipóteses de Recompra Compulsória (conforme  definido no Contrato de Endosso) estarão limitadas a 5% (cinco por cento) do  Patrimônio Líquido da Classe apurado no último Dia Útil do mês imediatamente  anterior; e\n(vi) o percentual de inadimplência de Direitos Creditórios dentro da carteira da Classe,  em um determinado Dia Útil, estará sujeito aos seguintes limites, considerando o  Patrimônio Líquido da Classe do Dia Útil imediatamente anterior: (1) 13% (treze  por cento) do Patrimônio Líquido da Classe representado por Direitos Creditórios  cujo pagamento da parcela atrasada esteja com um atraso acima de 31 (trinta e um)  dias contados de seu vencimento; e (ii) 10% (dez por cento) do Patrimônio Líquido  da Classe representado por Direitos Creditórios cujo pagamento da parcela  atrasada esteja com um atraso acima de 91 (noventa e um) dias contados de seu  vencimento.",
       "sha256": "d05163de356383147506b58a7f152e393c7d4e734c73aaaacf6b1362e1573d4f",
-      "verification": "primary_passage"
-    },
-    "4fb5a4c2652e64264572bc69803be87000ab4a58b983f4f81173d5eb2fe529df": {
-      "document_id": "769056",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769056",
-      "reference_date": "2024-10-30",
-      "version": "1",
-      "page": 43,
-      "clause": "",
-      "excerpt": "(i) a carteira de Direitos Creditórios da Classe deve possuir, no mínimo, 100.000 (cem  mil) Devedores, pessoa física ou jurídica, observado que referido número deverá  ser atendido em até 180 (cento e oitenta) dias contados da Data de 1ª  Integralização;",
-      "sha256": "bcd2a4a8b22874af9cd893b9f9c6341a434989928b8dc518b18649236cd3be3b",
       "verification": "primary_passage"
     },
     "8d04aeae64ca83882e480b36ea1d443809eeed820548f277a8d61e14c6fafff7": {
@@ -3131,18 +3008,6 @@
       "clause": "3.1",
       "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao  microcrédito refletido na metodologia de investimento sustentável adotada pela  Classe;",
       "sha256": "7d2b41d16854043bc83118c53b3b9143fce33e2c076240ed0c829bdf42442205",
-      "verification": "primary_passage"
-    },
-    "eb7a7ebe5855d6270ef3b2435aea3b97905f47add8f56fdfc0d13ba582fca728": {
-      "document_id": "1016671",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016671",
-      "reference_date": "2025-10-03",
-      "version": "1",
-      "page": 20,
-      "clause": "2.2",
-      "excerpt": "2.2. Sem prejuízo dos Critérios de Elegibilidade, considerando que a Classe é destinada  exclusivamente a investidores profissionais, a carteira da Classe não está sujeita a qualquer",
-      "sha256": "d05163de356383147506b58a7f152e393c7d4e734c73aaaacf6b1362e1573d4f",
       "verification": "primary_passage"
     },
     "286367e7c891b4da294a89cb86893dfea5f1c6bce941fe97baf1925e7489f2bb": {
@@ -5802,6 +5667,108 @@
       "clause": "",
       "excerpt": "Natura Pay Fundo de Investimento em Direitos Creditórios Crédito Pessoal Responsabilidade Limitada (CNPJ nº 57.816.252/0001-00) (Administrado pela Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.\nCNPJ nº 36.113.876/0001-91) (Gerido pela Oliveira Trust Servicer S.A CNPJ nº 02.150.453/0001-20)",
       "sha256": "89defce253a046ec49a8db9c33935a4af6d666da4f120c7f052ab1e71374181e",
+      "verification": "primary_passage"
+    },
+    "6fa7b9fa3ea9abb5bfe9fb6182c075f7c66bb328c7be1728a9c21998256cfb1d": {
+      "document_id": "1150911",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1150911",
+      "reference_date": "2026-03-30",
+      "version": "1",
+      "page": "36–37",
+      "clause": "3.1",
+      "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao  microcrédito refletido na metodologia de investimento sustentável adotada pela  Classe;\n(v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de  endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês;\n(vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando  a data de vencimento final do Direito Creditório;\n(vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios  Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que,  assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas,  novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e\n(viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos  por uma mesma Devedora não poderão ter valor total superior ao que for menor entre\n (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um  milhão de reais).\n3.1.1. Com base na análise da Gestora dos Critérios de Elegibilidade definidos neste item 3.1,  a carteira de Direitos Creditórios está alinhada e comprometida com o objetivo de  investimento sustentável da Classe definido no item 2.3, e a Endossante e as Devedoras não  causam nenhum dano ao objetivo social adotado pela Classe, considerando o próprio perfil  social médio das Devedoras, enquanto tomadoras de microcrédito, e as taxas para concessão  de crédito praticadas pela Endossante, que permitem às Devedoras adquirirem produtos  cosméticos da Natura Cosméticos para atuarem como suas consultoras de beleza na  distribuição destes produtos e complementarem sua renda.",
+      "sha256": "f49b9811d8a83cb4f4f17d2c8565c52663a3fb6cbc5be0972867bfa807ba8489",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "94862e3231f7e86e7daba41cb75d4d24f6dee18d0039bef791dcad087f6eee29": {
+      "document_id": "1182394",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182394",
+      "reference_date": "2026-05-07",
+      "version": "1",
+      "page": "24–25",
+      "clause": "3.1",
+      "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao  microcrédito refletido na metodologia de investimento sustentável adotada pela  Classe;\n(v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de  endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês;\n(vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando  a data de vencimento final do Direito Creditório;\n(vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios  Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que,  assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas,  novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e\n(viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos  por uma mesma Devedora não poderão ter valor total superior ao que for menor entre\n (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um  milhão de reais).\n3.1.1. Com base na análise da Gestora dos Critérios de Elegibilidade definidos neste item 3.1,  a carteira de Direitos Creditórios está alinhada e comprometida com o objetivo de  investimento sustentável da Classe definido no item 2.3, e a Endossante e as Devedoras não  causam nenhum dano ao objetivo social adotado pela Classe, considerando o próprio perfil  social médio das Devedoras, enquanto tomadoras de microcrédito, e as taxas para concessão  de crédito praticadas pela Endossante, que permitem às Devedoras adquirirem produtos  cosméticos da Natura Cosméticos para atuarem como suas consultoras de beleza na  distribuição destes produtos e complementarem sua renda.",
+      "sha256": "a7e0bf1536c7e8e6509cf80db0e1137b8d9501019b4a5d23d99ce56122fdc962",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f53dc6dcbca42b124f616fea126ee9bf8439a777c482693d6d8bda56eabaa9dc": {
+      "document_id": "1151279",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151279",
+      "reference_date": "2026-03-30",
+      "version": "1",
+      "page": "24–25",
+      "clause": "3.1",
+      "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao  microcrédito refletido na metodologia de investimento sustentável adotada pela  Classe;\n(v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de  endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês;\n(vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando  a data de vencimento final do Direito Creditório;\n(vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios  Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que,  assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas,  novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e\n(viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos  por uma mesma Devedora não poderão ter valor total superior ao que for menor entre\n (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um  milhão de reais).\n3.1.1. Com base na análise da Gestora dos Critérios de Elegibilidade definidos neste item 3.1,  a carteira de Direitos Creditórios está alinhada e comprometida com o objetivo de  investimento sustentável da Classe definido no item 2.3, e a Endossante e as Devedoras não  causam nenhum dano ao objetivo social adotado pela Classe, considerando o próprio perfil  social médio das Devedoras, enquanto tomadoras de microcrédito, e as taxas para concessão  de crédito praticadas pela Endossante, que permitem às Devedoras adquirirem produtos  cosméticos da Natura Cosméticos para atuarem como suas consultoras de beleza na  distribuição destes produtos e complementarem sua renda.",
+      "sha256": "3bd4eea95293b3a00c69eea3c4a57aebfa5c8d1349cc0e04ee753f95c12b1c62",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ca8054cbe826629dcb9753ea3a72328bf8e2b14713a8c1616e21dffe99e0dca8": {
+      "document_id": "1093027",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093027",
+      "reference_date": "2026-01-22",
+      "version": "1",
+      "page": "24–25",
+      "clause": "3.1",
+      "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais) e, no máximo, R$ 5.000,00 (cinco mil reais), dado o viés social referente ao  microcrédito refletido na metodologia de investimento sustentável adotada pela  Classe;\n(v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de  endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês;\n(vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando  a data de vencimento final do Direito Creditório;\n(vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios  Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que,  assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas,  novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e\n(viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos  por uma mesma Devedora não poderão ter valor total superior ao que for menor entre\n (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um  milhão de reais).\n3.1.1. Com base na análise da Gestora dos Critérios de Elegibilidade definidos neste item 3.1,  a carteira de Direitos Creditórios está alinhada e comprometida com o objetivo de  investimento sustentável da Classe definido no item 2.3, e a Endossante e as Devedoras não  causam nenhum dano ao objetivo social adotado pela Classe, considerando o próprio perfil  social médio das Devedoras, enquanto tomadoras de microcrédito, e as taxas para concessão  de crédito praticadas pela Endossante, que permitem às Devedoras adquirirem produtos  cosméticos da Natura Cosméticos para atuarem como suas consultoras de beleza na  distribuição destes produtos e complementarem sua renda.",
+      "sha256": "7d2b41d16854043bc83118c53b3b9143fce33e2c076240ed0c829bdf42442205",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ec76a1451368b765e8542aa881d9ede99e06b11aa01d8eea9a2b5a18ba0822c6": {
+      "document_id": "1016671",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1016671",
+      "reference_date": "2025-10-03",
+      "version": "1",
+      "page": "23–24",
+      "clause": "3.1",
+      "excerpt": "3.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe caso atendam,  cumulativamente, os seguintes critérios de elegibilidade, a serem checados pela Gestora, na  respectiva Data de Aquisição e Pagamento pela Classe (“Critérios de Elegibilidade”):\n(i) ter sido originado de operação de financiamento, representada por uma CCB  devidamente emitida eletronicamente por uma Devedora, em favor da Endossante, e  registrada perante a Entidade Registradora, observado que os Documentos  Comprobatórios serão verificados pela Gestora por amostragem, na forma e prazo  estabelecidos neste Regulamento;\n(ii) ser de legítima e exclusiva titularidade da Endossante, livre e desembaraçado  de quaisquer ônus, gravames ou restrições de qualquer natureza;\n(iii) ser devido em até 10 (dez) parcelas mensais, sendo que a primeira parcela  deverá ter um prazo máximo de vencimento de até 90 (noventa) dias contados da  respectiva Data de Aquisição e Pagamento;\n(iv) serem provenientes de CCB cujo valor de face seja, no mínimo, R$100,00 (cem  reais);\n(v) o endosso dos Direitos Creditórios à Classe deve refletir uma taxa mínima de  endosso de 1,75% (um inteiro e setenta e cinco centésimos por cento) ao mês;\n(vi) não estar vencido na respectiva Data de Aquisição e Pagamento, considerando  a data de vencimento final do Direito Creditório;\n(vii) a respectiva Devedora não poderá ser devedora de Direitos Creditórios  Inadimplidos em relação à Classe na Data de Aquisição e Pagamento, sendo certo que,  assim que as parcelas em atraso dos Direitos Creditórios Inadimplidos sejam quitadas,  novos Direitos Creditórios devidos pela Devedora poderão ser endossados à Classe; e\n(viii) considerado pro forma o endosso pretendido, os Direitos Creditórios devidos  por uma mesma Devedora não poderão ter valor total superior ao que for menor entre\n (a) 1% (um por cento) em relação ao Patrimônio Líquido; ou (b) R$ 1.000.000,00 (um  milhão de reais).",
+      "sha256": "d05163de356383147506b58a7f152e393c7d4e734c73aaaacf6b1362e1573d4f",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f4206f02f59fe6483df84b400d87a5f84b71bd03c72d9d190acc9890383940cd": {
+      "document_id": "769055",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769055",
+      "reference_date": "2024-10-30",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "2. Incluir os itens 2.21, 2.22 e 2.23 no “Capítulo II – Do Objetivo da Classe e da  Política de Investimento”, bem como alterar o inciso \"i\" do item 3.1 e o item 3.2 relativos  aos Critérios de Elegibilidade, e o inciso \"ii\" do item 9.2 relativo às obrigações da Gestora,  todos constantes do Anexo da Classe, para prever a verificação e análise dos Documentos  Comprobatórios (conforme definido no Regulamento) por amostragem, os quais  vigorarão com as seguintes redações:",
+      "sha256": "3a7a553c8edd93b942393aba46063226c721a3784dfd4bd6a9b21c65685880c7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "875d8dfa9776716738464f4ce27d4a968c54cab06f58753e439629036387c0dd": {
+      "document_id": "1115490",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115490",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "(ii) não tenha ocorrido nada que possa dar origem à rescisão, demandas judiciais, defesas ou  reconvenção das CCB, ou outras discussões envolvendo a Devedora, de um lado, e a Endossante,  do outro;\n (iii) o direito creditório deve ter sido originado em conformidade com os critérios para concessão de  crédito da Endossante previstos no regulamento e com a legislação e regulamentação aplicáveis às  operações da Endossante;\n (iv) considerado proforma o endosso pretendido, os direitos creditórios devidos pelas Devedoras que  tenham relacionamento menor do que 6meses com a Endossante deverão representar menos de  5% do patrimônio líquido do Fundo, considerando o patrimônio líquido do Fundo do último dia útil  do mês imediatamente anterior ao do endosso pretendido;\n (v) o direito creditório não deve, na respectiva data de aquisição e pagamento, possuir parcelas em  atraso há mais de 30 dias a contar da data devida de pagamento;\n (vi) o direito creditório deve ter sido originado enquanto a licença da Endossante para atuar como  sociedade de crédito direto junto ao Banco Central do Brasil estiver válida e vigente;\n (vii) considerado proforma o endosso pretendido, os direitos creditórios cujo prazo final de vencimento  seja maior do que 6 meses contados a partir da data de aquisição e pagamento do respectivo direito  creditório deverão representar, no máximo, 15% do patrimônio líquido do Fundo, considerando o  último dia útil do mês imediatamente anterior ao do endosso pretendido; e a cobrança do direito  creditório é efetuada exclusivamente por meio de boleto bancário.",
+      "sha256": "89defce253a046ec49a8db9c33935a4af6d666da4f120c7f052ab1e71374181e",
+      "verification": "primary_passage"
+    },
+    "4b529f634093d540d20b64f00820fda1b7235ad19d68094e0b4539409873d29d": {
+      "document_id": "863532",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863532",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "(ii) não tenha ocorrido nada que possa dar origem à rescisão, demandas judiciais, defesas ou  reconvenção das CCB, ou outras discussões envolvendo a Devedora, de um lado, e a Endossante, do  outro;\n (iii) o direito creditório deve ter sido originado em conformidade com os critérios para concessão de  crédito da Endossante previstos no regulamento e com a legislação e regulamentação aplicáveis às  operações da Endossante;\n (iv) considerado proforma o endosso pretendido, os direitos creditórios devidos pelas Devedoras que  tenham relacionamento menor do que 6meses com a Endossante deverão representar menos de 5%  do patrimônio líquido do Fundo, considerando o patrimônio líquido do Fundo do último dia útil do  mês imediatamente anterior ao do endosso pretendido;\n (v) o direito creditório não deve, na respectiva data de aquisição e pagamento, possuir parcelas em  atraso há mais de 30 dias a contar da data devida de pagamento;\n (vi) o direito creditório deve ter sido originado enquanto a licença da Endossante para atuar como  sociedade de crédito direto junto ao Banco Central do Brasil estiver válida e vigente;\n (vii) considerado proforma o endosso pretendido, os direitos creditórios cujo prazo final de vencimento  seja maior do que 6 meses contados a partir da data de aquisição e pagamento do respectivo direito  creditório deverão representar, no máximo, 15% do patrimônio líquido do Fundo, considerando o  último dia útil do mês imediatamente anterior ao do endosso pretendido; e a cobrança do direito  creditório é efetuada exclusivamente por meio de boleto bancário.",
+      "sha256": "98889be3d5a26f090f5f8a97b1eab18428045864358487c9d108d87ea1f05f4e",
       "verification": "primary_passage"
     }
   }

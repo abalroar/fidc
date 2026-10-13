@@ -1,0 +1,53 @@
+{
+  "cnpj": "23956882000169",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores (sacados): pessoas físicas ou jurídicas com sede no país, de créditos nos segmentos industrial, comercial, agronegócio, financeiro e prestação de serviços. A localização dos sócios ou acionistas no exterior é admitida pelo item14.1.",
+      "sources": [
+        {
+          "document_id": "1218996",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+          "reference_date": "12/06/2026",
+          "version": 1,
+          "page": "6,57",
+          "clause": "Glossário — Devedores; Anexo I–A, item14.1",
+          "excerpt": "“Devedores” Devedores (sacados) dos Direitos Creditórios.\n14.1. A Classe terá como objetivo proporcionar aos Cotistas a valorização das Cotas de suas respectivas titularidades por meio da aplicação dos recursos da Classe, preponderantemente na aquisição de Direitos Creditórios nos segmentos industrial, comercial, do agronegócio, financeiro e de prestação de serviços representados por (a) títulos de crédito, tais como mas não mas limitadamente a duplicatas, notas promissórias, notas comerciais, cédulas de crédito bancário, cédulas de crédito imobiliário, cédulas de produtor rural, podendo serem devidos por pessoas físicas ou jurídicas com sede no país (independentemente de terem como sócios ou acionistas, diretos ou indiretos, pessoas físicas ou jurídicas, residentes ou sediadas no exterior) (b) contratos; e (c) todo e qualquer instrumento representativo de crédito, desde que aprovado pela Administradora e Gestora no que diz respeito às suas respectivas esferas de análise.",
+          "sha256": "05fc2c8cf440b06354138f6c30d2239325a2b00ab978e019a4794b2d9b699f0c",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2026-06-12",
+          "value": "Monitoramento de Grupos Econômicos – Os desempenhos econômico e financeiro de empresas são potencialmente afetados por eventos e/ou situações referentes a outras empresas pertencentes a seus Grupos Econômicos. A Gestora busca informações que permitam identificar se os Cedentes e/ou os Devedores pertencem aos mesmos Grupos Econômicos e, com essas informações, gerenciar melhor os Direitos Creditórios detidos pelo Fundo. Entretanto, essa busca de informações para caracterização de Grupos Econômicos pode ser de difícil acesso, dificultando a gestão dos Direitos Creditórios e podendo levar à queda da rentabilidade ou à perda patrimonial do Fundo.",
+          "sources": [
+            {
+              "document_id": "1218996",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218996",
+              "reference_date": "2026-06-12",
+              "version": "1",
+              "page": 77,
+              "clause": "",
+              "excerpt": "Monitoramento de Grupos Econômicos – Os desempenhos econômico e financeiro de empresas são potencialmente afetados por eventos e/ou situações referentes a outras empresas pertencentes a seus Grupos Econômicos. A Gestora busca informações que permitam identificar se os Cedentes e/ou os Devedores pertencem aos mesmos Grupos Econômicos e, com essas informações, gerenciar melhor os Direitos Creditórios detidos pelo Fundo. Entretanto, essa busca de informações para caracterização de Grupos Econômicos pode ser de difícil acesso, dificultando a gestão dos Direitos Creditórios e podendo levar à queda da rentabilidade ou à perda patrimonial do Fundo.",
+              "sha256": "05fc2c8cf440b06354138f6c30d2239325a2b00ab978e019a4794b2d9b699f0c",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:58:42-03:00"
+}

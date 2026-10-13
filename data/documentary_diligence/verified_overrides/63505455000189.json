@@ -1,0 +1,77 @@
+{
+  "cnpj": "63505455000189",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores tomadores de Financiamento Solar: pessoas físicas e pessoas jurídicas, avaliadas separadamente na política de concessão de crédito. A Solfácil instrui a instituição financeira parceira na liberação do financiamento; a análise financeira considera o devedor e seus coobrigados.",
+      "sources": [
+        {
+          "document_id": "1199536",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+          "reference_date": "14/05/2026",
+          "version": 1,
+          "page": "100",
+          "clause": "Anexo III — Política de originação e concessão de crédito, itemII",
+          "excerpt": "A Solfácil avalia três componentes principais para instruir a Instituição Financeira Parceira a liberar um Financiamento Solar: (i) o risco de execução do projeto, conforme avaliação do Integrador Solar; (ii) o risco financeiro, por meio da avaliação do Devedor e seu(s) coobrigado(s); e (iii) o risco de performance do projeto solar, por meio da análise técnica do Sistema Solar em questão. II. Análise de Crédito do Tomador (i) para Devedores pessoa física: (a) a Solfácil verifica a ausência de irregularidades financeiras relevantes do Devedor nos principais birôs de crédito e ausência de alto endividamento bancário; (b) o ticket máximo é de R$350.000,00 (trezentos e cinquenta mil reais) por Devedor e o prazo mais longo é de 126 (cento e vinte e seis) meses; e (c) a idade máxima do Devedor na data de emissão da respectiva CCB é 71 (setenta e um) anos. (ii) Para Devedores pessoa jurídica: (a) a Solfácil verifica a ausência de irregularidades financeiras relevantes do Devedor nos principais birôs de crédito e ausência de alto endividamento bancário;",
+          "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2026-05-14",
+          "value": "(iii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa física ou cópia do contrato/estatuto social, documentos que comprovem os poderes de representação da sociedade (conforme aplicável), para os Devedores pessoa jurídica, podendo, na ausência de cópia digital desses documentos, conforme aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil, por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de Programação de Aplicação (“API”);.\n\n(xvi) a idade dos Devedores pessoas físicas, na data de emissão da respectiva CCB, deve ser de, no máximo, 71 (setenta e um) anos; e",
+          "sources": [
+            {
+              "document_id": "1199536",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+              "reference_date": "2026-05-14",
+              "version": "1",
+              "page": 115,
+              "clause": "6.2",
+              "excerpt": "6.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e  cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora  na respectiva Data de Oferta:\n(i) a taxa de juros dos Direitos Creditórios deve ser uma taxa fixa e constante  durante o prazo do Direito Creditório;\n(ii) os pagamentos das parcelas dos Direitos Creditórios devem ser realizados  em Reais (moeda brasileira);\n(iii) os Direitos Creditórios devem ter sido formalizados por meio da emissão,  pelos Devedores, de CCBs em favor da Instituição Financeira Parceira;\n(iv) o respectivo Devedor não deve estar em atraso ou inadimplente com o  Fundo, conforme o caso, em relação a qualquer Direito Creditório, na Data de  Aquisição e Pagamento;\n(v) considerada pro forma o endosso pretendido, a média ponderada dos  prazos de vencimento das CCBs integrantes do patrimônio do Fundo deverá ser de  no máximo 2.400 (dois mil e quatrocentos) dias;\n(vi) a taxa de Transferência aplicável aos Direitos Creditórios ofertados,  determinada como a taxa interna de retorno, expressa na forma percentual e  calculada diariamente sob forma de capitalização composta, com base em um ano  de 252 (duzentos e cinquenta e dois) Dias Úteis, considerando os fluxos de caixa de  todos os Direitos Creditórios ofertados, de forma agregada, considerando os Direitos  Creditórios Transferidos existentes, deverá ser igual ou superior à Taxa Mínima de  Transferência;\n(vii) o Direito Creditório seja um financiamento que prevê o pagamento do  principal e dos juros em parcelas mensais, sem a existência de parcela final em  montante superior às demais parcelas;\n(viii) o prazo máximo de vencimento original de cada Direito Creditório deverá ser  de, no máximo, 126 (cento e vinte e seis) meses;\n(ix) as CCBs que não estejam inadimplidas;\n(x) as CCBs deverão ter carência máxima de 185 (cento e cinco e oitenta) dias;\n(xi) as CCBs deverão ter valor nominal máximo de (a) R$ 350.000,00 (trezentos  e cinquenta mil reais) se o Devedor for pessoa física, e (b) R$700.000,00 (setecentos  mil reais) se o Devedor for pessoa jurídica; e\n(xii) considerada pro forma o endosso pretendido, o valor agregado dos Direitos  Creditórios devidos por qualquer Devedor (a) pessoa física não poderá representar",
+              "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1199536",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+              "reference_date": "2026-05-14",
+              "version": "1",
+              "page": 113,
+              "clause": "5.5",
+              "excerpt": "5.5. Os documentos que compõem o “checklist” jurídico e cadastral relativos às  operações de crédito originadoras dos Direitos Creditórios (“Documentos  Complementares”) são os seguintes:\n(i) o comprovante de liberação do crédito oriundo da respectiva CCB, por conta  e ordem e a pedido do respectivo Devedor, nos termos previstos na respectiva\n(ii) CCB, caso tal liberação seja questionada pelo respectivo Devedor;\n(iii) cópia do RG ou Carteira Nacional de Habilitação para os Devedores pessoa  física ou cópia do contrato/estatuto social, documentos que comprovem os poderes  de representação da sociedade (conforme aplicável), para os Devedores pessoa  jurídica, podendo, na ausência de cópia digital desses documentos, conforme  aplicável e no limite permitido pela Legislação Aplicável, serem obtidos, pela Solfácil,  por meio de consulta e obtenção de dados cadastrais e/ou poderes, via Interface de  Programação de Aplicação (“API”);\n(iv) comprovante de residência para os Devedores pessoa física; e\n(v) evidência de consulta, a ser realizada aos órgãos de proteção ao crédito,  enviada pela Solfácil à Gestora, evidenciando que no momento da concessão do  crédito foi realizada consulta, individualmente, sobre possível existência de fraude  nos documentos do Devedor.",
+              "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1199536",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1199536",
+              "reference_date": "2026-05-14",
+              "version": "1",
+              "page": 114,
+              "clause": "",
+              "excerpt": "(xvi) a idade dos Devedores pessoas físicas, na data de emissão da respectiva  CCB, deve ser de, no máximo, 71 (setenta e um) anos; e",
+              "sha256": "312d951d4087f975631b7b75a765c9edff693ddd61705999de00152c18bcde88",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:59:39-03:00"
+}

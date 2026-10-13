@@ -3,11 +3,6 @@
   "cnpj": "58476088000100",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "480ac22890059f36cd5d48884d57e9826beb17206c74c29af32e52482f0d3c85",
-      "dc4349fef7f8507ff6c3e025f238d7d1d51c95432016a218ed03a675681e6023",
-      "7e03b9045f40ad2bf82d45bbafaae368a315c0880e5d6c4db0e46f923cb7e5f9"
-    ],
     "ticket": [
       "8aa1bc49d14a170cf650a76498bd2cb28b6cb414c2b41ab0b6d6f92f2f53e9c4",
       "201755ea14334792508d375cbdfa17dab86df63b7e3a1713892b43095ff5cf6b"
@@ -187,16 +182,6 @@
       "ff1555f58ffd5e359b606bb58461c302d8d19e603ff57a254bbc254f50b16f5a",
       "2aee9456c628efdf2bce981f4071c9a10d5396f22ae83dde7ee8a153d02257f0"
     ],
-    "originator": [
-      "3d883eb0901251fc713a67194f49e9f3912a4b2d0d056540d500c506b9f86c40",
-      "b2002c2c824252a4315b4cd1cfef0472dc91d439cdf48ee036b01962aaa811f9",
-      "b7868d6ed7255f1793eced025bfe312a874b16cd363e2b5bc6158f2a2e82e927"
-    ],
-    "debtor": [
-      "e5edccd3075c011f8363914aa9f6901617fcae09ae815dd11ee9203b510e11be",
-      "098d2c66c85d0b09f9808cd3bf03d6babdf5d4148673216d5023f5def66f698f",
-      "86481b84e73ef0e033a692ba0cd53a9b89406f4b47cc7d8bc28c06706b26d009"
-    ],
     "guarantee": [
       "b869f5528b4a8a3c1db69879816e4706b6392fe209281170753ccf321571e607",
       "c4c81ae2226f5ef35c2fecc519a5391a73861f5069fabb3887c68acdbaec53ab"
@@ -216,6 +201,21 @@
       "d7875c46d39f20d133b4db86eb2b30194a3bed652b3867017fd94b7335a7c429",
       "186d5bad342a0d6b05488d35f91f823b7e9729919dd5ff3a10a4e853e21d8561",
       "5bc6b7a697c7c4a521b0de704b09bf1e93070503ed1118c9b64fa86e7b2fd250"
+    ],
+    "originator": [
+      "3d883eb0901251fc713a67194f49e9f3912a4b2d0d056540d500c506b9f86c40",
+      "b2002c2c824252a4315b4cd1cfef0472dc91d439cdf48ee036b01962aaa811f9",
+      "b7868d6ed7255f1793eced025bfe312a874b16cd363e2b5bc6158f2a2e82e927"
+    ],
+    "eligibility": [
+      "480ac22890059f36cd5d48884d57e9826beb17206c74c29af32e52482f0d3c85",
+      "4173c6bc25731c28d1db7a4b520e39d190e15e27c84b6c68348c34140efce8c6",
+      "b665072410ccb4721cea1ae03f821e1b8eb37d7e374624683512c298c4265bc1"
+    ],
+    "debtor": [
+      "e5edccd3075c011f8363914aa9f6901617fcae09ae815dd11ee9203b510e11be",
+      "098d2c66c85d0b09f9808cd3bf03d6babdf5d4148673216d5023f5def66f698f",
+      "86481b84e73ef0e033a692ba0cd53a9b89406f4b47cc7d8bc28c06706b26d009"
     ]
   },
   "entries": {
@@ -293,24 +293,6 @@
       "risk_note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria.",
       "sources": [
         "1bdc8a8a0fdeaa11260338841eb3ef737bf808b971240b37aed68c1007658726"
-      ]
-    },
-    "dc4349fef7f8507ff6c3e025f238d7d1d51c95432016a218ed03a675681e6023": {
-      "reference_date": "2025-02-03",
-      "value": "3.3. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento e aos respectivos Critérios de Elegibilidade, cumulativamente, verificados em cada respectiva Data de Aquisição, ou seja, que sejam Direitos Creditórios Elegíveis.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "786b1318fd39bc1275b5a58c4c855ed7ddd63532a08e6b6fd55b19fc7f834b00"
-      ]
-    },
-    "7e03b9045f40ad2bf82d45bbafaae368a315c0880e5d6c4db0e46f923cb7e5f9": {
-      "reference_date": "2025-02-03",
-      "value": "3.3. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento e aos respectivos Critérios de Elegibilidade, cumulativamente, verificados em cada respectiva Data de Aquisição, ou seja, que sejam Direitos Creditórios Elegíveis.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "175e0f56a2eaea3eb9fdc63e9a8b82d908dcbf6fa231116889d50ed345194e53"
       ]
     },
     "8aa1bc49d14a170cf650a76498bd2cb28b6cb414c2b41ab0b6d6f92f2f53e9c4": {
@@ -1331,30 +1313,6 @@
       "sha256": "61431b51f061ec6a54c40b0c59ae663102fc8d847df839cf44cc100685087743",
       "verification": "previous_review",
       "citation_original": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 67"
-    },
-    "786b1318fd39bc1275b5a58c4c855ed7ddd63532a08e6b6fd55b19fc7f834b00": {
-      "document_id": "830535",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830535",
-      "reference_date": "2025-02-03",
-      "version": "1",
-      "page": 71,
-      "clause": "3.3",
-      "excerpt": "3.3. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento e aos respectivos Critérios de Elegibilidade, cumulativamente, verificados em cada  respectiva Data de Aquisição, ou seja, que sejam Direitos Creditórios Elegíveis.",
-      "sha256": "608ada0b3316c10e5a4cfcfa03c3be17d66b28ac329bc4f06011ff98e826de9d",
-      "verification": "primary_passage"
-    },
-    "175e0f56a2eaea3eb9fdc63e9a8b82d908dcbf6fa231116889d50ed345194e53": {
-      "document_id": "830536",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830536",
-      "reference_date": "2025-02-03",
-      "version": "1",
-      "page": 64,
-      "clause": "3.3",
-      "excerpt": "3.3. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de  Investimento e aos respectivos Critérios de Elegibilidade, cumulativamente, verificados em cada  respectiva Data de Aquisição, ou seja, que sejam Direitos Creditórios Elegíveis.",
-      "sha256": "3b3f3c56a13b927ed0b3003ba1ebae24ef1301b909204cbb214cb81d392375a6",
-      "verification": "primary_passage"
     },
     "c3011a8426fcf6a21b6c63b6a0baba71b757e4cf131134973ddab4bbed6216c7": {
       "document_id": "830535",

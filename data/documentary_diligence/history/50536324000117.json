@@ -3,14 +3,6 @@
   "cnpj": "50536324000117",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "dcc3c501facc37a443e4dd4b72f719a269d74c0c75d350cb39c40b6576448626",
-      "565f1e124cf3686db42591d03201352f3817db92cfa4444c726bcbbbfa56546e",
-      "c1ac10610044db0b7c3b90bd2ffbabad2c696231e04d0143602ba4d2df069970",
-      "dba81796920fa899c3cc208dc6ae9e2b27838c58c83048488dc6c29cfcb5fc30",
-      "bd4b83a32374e40f89e739784bd9b3d9aa17a17f2d6530bee4c0da063e03b5ac",
-      "dec6a01a2b504c3256a5f099627ca2b40710cf0b6e316954d87090cfe25e3e7f"
-    ],
     "term": [
       "7603193d5b2a52dc0adac0137fefdbde3c2dfe9a5f7bf72b2a788438ed494084",
       "8a9c0f258e8bab5fc517dbb9ee2571adf496df98e73c65641c9222ca1ce52b14",
@@ -298,20 +290,6 @@
       "703ddb6a43cab381f042590f42602ec91420cee0fd35a70911e0879a1b5fede9",
       "e70d410e52f89805007aa293bae551de84147f5f1478e63cbdb3398330685f59"
     ],
-    "originator": [
-      "67907ac7b6d1d5bab6d6f5e4674ef43de608faa8ea8c3cbd30c2cbd7f943ae4a",
-      "22296588b7c205e62b6bf5a1dc926e0101db08092d4365aae9e9426c7f6c1afa",
-      "7799e8cb6711c51763980759ff33bde227d5576a754aef05ee039b026f08a71a",
-      "89393d922d5754cfe00027be286a9ba2391274f0529fac9117b5794af502a1de",
-      "1d9f9a7ebcb3602202d03516963e0a7538b83b58f2e263b30b01e89a5c896ac1",
-      "929c697d1645fe3e90a4736884878e874be88a04228b9de52c56e4f7a26b5ddb"
-    ],
-    "debtor": [
-      "d82458007cb7c1c8ae47598fb315ef920075d785b1e5241f1af43b5627837c42",
-      "dc0a624fa6351469ef91e65a4186024f21b4f7f224df6770540e725ddafb5ef8",
-      "14a75695d743b68e700a43310b0be7cc5ddb103499ac6420e43c9c4561f7abd6",
-      "fb62d721dee55326d9435156593b88b6fee57b415ccf3725d7488257c6761f7e"
-    ],
     "investee": [
       "207a3331c2463f78c3b65dbff20091d2d191a1e323edb454fa0b822401f928b6",
       "7363c5a4f564e4e106ddb51a253232e037edcfc7784c56c8aa8c5bba957819c0",
@@ -338,6 +316,23 @@
       "63130d354504636b967b3462f590a52ae63eb80d2b147476c1352458d3a69823",
       "ee27eb7ee8228fa021c93e33e6c74c09e3ba9f798414463d0bf00a2292b78667",
       "a2e092dfdb3cb29c8e3b4ac3d6ceef5b4378b0e59be32c1aed48a918327723ff"
+    ],
+    "originator": [
+      "2dffda7fa0ceb4d93599725fd97f9b1acfb23c6becb8392129d548b822bcc7b3",
+      "22296588b7c205e62b6bf5a1dc926e0101db08092d4365aae9e9426c7f6c1afa",
+      "7799e8cb6711c51763980759ff33bde227d5576a754aef05ee039b026f08a71a",
+      "89393d922d5754cfe00027be286a9ba2391274f0529fac9117b5794af502a1de",
+      "1d9f9a7ebcb3602202d03516963e0a7538b83b58f2e263b30b01e89a5c896ac1",
+      "929c697d1645fe3e90a4736884878e874be88a04228b9de52c56e4f7a26b5ddb",
+      "9baac1339de4bedf0e01f9187e82c98c8b4d94fa9f9d36152b9683748f55a84b"
+    ],
+    "eligibility": [
+      "8d1180fb6ca9dae5a46daaa1e3c1bcb77f9b9d629460941c7d389a2a21373f5f",
+      "565f1e124cf3686db42591d03201352f3817db92cfa4444c726bcbbbfa56546e",
+      "ed46099a86b94894297632bf509369d7b4c476e6f137af6eb0ccfdb5e6a296fd",
+      "7dd005e3ded031410507374e29820764aebdbbeff4ff90e48f8b631acecf23bc",
+      "7fd20c0d6e336df9e32d01ad2c08530cf95770316fb3f861520c77e0f9500aec",
+      "ad8e6b5bef7688c7e2a5b9e4767f2b0b1f82cef84c8dde38b966acd35f3bc0dd"
     ]
   },
   "entries": {
@@ -404,51 +399,6 @@
         "4218922a46dc9ca1df44eccc3d2d22060587f33aaffbe842fa38124d8b306721"
       ]
     },
-    "d82458007cb7c1c8ae47598fb315ef920075d785b1e5241f1af43b5627837c42": {
-      "reference_date": "2024-10-09",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2e20cec8f0b02e33ae36d03b399daece3e0b7d69cff5c41bb016d16711d324cb"
-      ]
-    },
-    "dc0a624fa6351469ef91e65a4186024f21b4f7f224df6770540e725ddafb5ef8": {
-      "reference_date": "2024-04-23",
-      "value": "Grupo Econômico Em relação a qualquer Pessoa, o grupo formado por seu controlador, sociedades controladas, e demais sociedades consideradas como tais, bem como veículos de investimento do controlador, sociedades controladas e demais sociedades consideradas como tais. Os Grupos Econômicos serão informados pelas Cedentes ao Custodiante, sendo atualizados esporadicamente caso haja qualquer alteração dos Grupos Econômicos das Cedentes e/ou dos Devedores, conforme o caso, nesta hipótese sempre antes da realização de nova oferta de Direitos Creditórios ao Fundo, sendo que qualquer",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "abffb3509d796e22ff8a3ebb185defb27d975b712241f7f0d791299495097d70"
-      ]
-    },
-    "14a75695d743b68e700a43310b0be7cc5ddb103499ac6420e43c9c4561f7abd6": {
-      "reference_date": "2024-01-10",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0cabf75e2f310357da43d07dd4882f38a1f491853a860a4f064f629ffad9225b"
-      ]
-    },
-    "fb62d721dee55326d9435156593b88b6fee57b415ccf3725d7488257c6761f7e": {
-      "reference_date": "2023-07-12",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "edb64a2c5fba683bb6addee0858c549439893a1d9c81d79c07ddd2a7a53db024"
-      ]
-    },
-    "dcc3c501facc37a443e4dd4b72f719a269d74c0c75d350cb39c40b6576448626": {
-      "reference_date": "2024-06-30",
-      "value": "No dia 23 de abril de 2024, em assembleia geral de cotistas, foi aprovado, por unanimidade e sem ressalvas, as seguintes alterações no regulamento: (i) do termo definido “Devedoras KA” do artigo 1.1 referente à sua definição e da cláusula 1.1 do contrato de cessão; (ii) a inclusão do termo “documento de aprovação devedoras KA” e (iii) da redação dos critérios de elegibilidade constantes nos itens ii, iii, v do artigo 5.1 do regulamento; (iv) do incremento percentual “P” que passará a ser de 2,80% ao ano; e (v) do excesso de spread “ES” que passará a ser de 0,60% ao ano.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9d790b1812280a47fd746d41eef62ecc1a3ff992670f0b604fd69f3419edee5f"
-      ]
-    },
     "565f1e124cf3686db42591d03201352f3817db92cfa4444c726bcbbbfa56546e": {
       "reference_date": "2024-10-09",
       "value": "3.5.2 A Classe Única poderá adquirir Direitos Creditórios e Ativos Financeiros de uma mesma Devedora (incluindo integrantes de seu respectivo grupo econômico), ou de coobrigação de uma mesma pessoa ou entidade, acima do limite de 20% (vinte por cento) do Patrimônio Líquido da Classe Única, tendo em vista que a Classe é destinada exclusivamente a Investidores Profissionais, nos termos do parágrafo 7º do artigo 45 do Anexo Normativo II da Resolução CVM 175, sem prejuízo dos Critérios de Elegibilidade relacionados à concentração por Devedora de Direitos Creditórios do mesmo grupo econômico, conforme aplicável.",
@@ -456,42 +406,6 @@
       "provenance": "primary_passage",
       "sources": [
         "d4d28fa728983ecbf871baa3b5714d74a52a679ddb68a0d56273a94a4903d4dc"
-      ]
-    },
-    "c1ac10610044db0b7c3b90bd2ffbabad2c696231e04d0143602ba4d2df069970": {
-      "reference_date": "2024-04-23",
-      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a062351dc52c57d50f088c3e847084079787987a29ed55441343262e39ee54fb"
-      ]
-    },
-    "dba81796920fa899c3cc208dc6ae9e2b27838c58c83048488dc6c29cfcb5fc30": {
-      "reference_date": "2024-01-10",
-      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ea954a81c5f2873f6256f2421e605e815dd7f351163d0c362b957ebea66ec5e4"
-      ]
-    },
-    "bd4b83a32374e40f89e739784bd9b3d9aa17a17f2d6530bee4c0da063e03b5ac": {
-      "reference_date": "2023-07-12",
-      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9413cff8b331b24811642ebf11447ac76520fe16b116f6284535922b2c206efd"
-      ]
-    },
-    "dec6a01a2b504c3256a5f099627ca2b40710cf0b6e316954d87090cfe25e3e7f": {
-      "reference_date": "2023-05-02",
-      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "76a7e147f9d45e8765fa5645835ccaa126a0d2127716d3a04bcff54608beb4f8"
       ]
     },
     "7603193d5b2a52dc0adac0137fefdbde3c2dfe9a5f7bf72b2a788438ed494084": {
@@ -2389,6 +2303,69 @@
       "sources": [
         "ffdd1072af6d5a5ff0790c468ac6ad426da58370b65652ff8071f88d3ece7523"
       ]
+    },
+    "9baac1339de4bedf0e01f9187e82c98c8b4d94fa9f9d36152b9683748f55a84b": {
+      "reference_date": "2023-05-02",
+      "value": "(x) considerada pro forma a cessão dos Direitos Creditórios, 90% (noventa por cento) dos Direitos Creditórios deverão ser devidos por Devedoras com histórico de relacionamento com o Grupo Econômico das Cedentes superior a 2 (dois) anos;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7fa8ef375486e0597129786d1bfc9fe1819f640fd3863b4a86c6620c06510550"
+      ]
+    },
+    "8d1180fb6ca9dae5a46daaa1e3c1bcb77f9b9d629460941c7d389a2a21373f5f": {
+      "reference_date": "2024-06-30",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios caso sejam atendidos, nas respectivas datas de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo custodiante até a respectiva data de aquisição: i. Os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional; ii. Considerada pro forma a cessão dos direitos creditórios, estes deverão ter prazo máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do patrimônio líquido do Fundo que poderá aceitar direitos creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e 10% (dez por cento) do patrimônio líquido do Fundo que poderá aceitar direitos creditórios com prazo de até 1.800 (mil e oitocentos) dias, contados, em todos os casos, a partir da respectiva data de aquisição; iii. O prazo médio dos direitos creditórios por devedora deverá ser de, no máximo, 37 (trinta e sete) meses; iv. Os direitos creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze) dias após a respectiva data de oferta; v. Considerada proforma a aquisição dos direitos creditórios, até 10% (dez por cento) dos direitos creditórios do Fundo poderão ter vencimento superior ao vencimento das cotas seniores em circulação; vi. Considerando-se pro forma a cessão pretendida, os valores de face dos direitos creditórios devidos por uma mesma devedora, considerada individualmente, não poderão representar concentração superior a 3% (três por cento) do patrimônio líquido, conforme previamente cadastrados pelas cedentes junto ao custodiante, ressalvados os devedores KA (devedores que sejam selecionadas pelas cedentes, devidamente listadas no documento de aprovação devedores KA, que poderão realizar o pagamento dos direitos creditórios por qualquer meio de transferência autorizado pelo BACEN), que, nos primeiros 180 (cento e oitenta) dias",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "880083d0e8f3c2bf174387afbe54c5805ea4904a3b75e08ab385fdfff52ac254"
+      ]
+    },
+    "ed46099a86b94894297632bf509369d7b4c476e6f137af6eb0ccfdb5e6a296fd": {
+      "reference_date": "2024-04-23",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0072561458a4bad91bd03d576bbdc0ec08820a0ca37510f3d77248abc74a54c7"
+      ]
+    },
+    "7dd005e3ded031410507374e29820764aebdbbeff4ff90e48f8b631acecf23bc": {
+      "reference_date": "2024-01-10",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "af5de9e3d590048257e540812e516bdc4bb7ca6a998bd4fe010eb071357e3a35"
+      ]
+    },
+    "7fd20c0d6e336df9e32d01ad2c08530cf95770316fb3f861520c77e0f9500aec": {
+      "reference_date": "2023-07-12",
+      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) considerada pro forma a cessão dos Direitos Creditórios, estes deverão ter prazo máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias, contados, em ambos os casos, a partir da respectiva Data de Aquisição; (iii) os Direitos Creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze) dias após a respectiva Data de Oferta; (iv) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação; (v) considerando-se pro forma a cessão pretendida, os valores de face dos Direitos Creditórios devidos por uma mesma Devedora, considerada individualmente, não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pelas Cedentes junto ao Custodiante,",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9413cff8b331b24811642ebf11447ac76520fe16b116f6284535922b2c206efd"
+      ]
+    },
+    "ad8e6b5bef7688c7e2a5b9e4767f2b0b1f82cef84c8dde38b966acd35f3bc0dd": {
+      "reference_date": "2023-05-02",
+      "value": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas Seniores em circulação; (iii) considerada pro forma a cessão dos Direitos Creditórios ofertados, deverá ser observado o Índice de Diversificação de Devedoras; (iv) as Devedoras, individualmente, deverão ter concentração máxima de 5% (cinco por cento) do Patrimônio Líquido do Fundo; (v) as 10 (dez) maiores Devedoras, em conjunto, deverão representar até 30% (trinta por cento) do Patrimônio Líquido do Fundo; (vi) os Direitos Creditórios a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo grupo econômico da Administradora, da Gestora e/ou das Cedentes diretamente ou por meio de veículos de investimento, sendo certo que, em caso de alteração do Grupo Econômico da Cedente, esta deverá encaminhar o novo organograma para que a Gestora passe a controlar nas próximas cessões;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "76a7e147f9d45e8765fa5645835ccaa126a0d2127716d3a04bcff54608beb4f8"
+      ]
+    },
+    "2dffda7fa0ceb4d93599725fd97f9b1acfb23c6becb8392129d548b822bcc7b3": {
+      "reference_date": "2024-06-30",
+      "value": "a) Descrição O Fundo tem como objetivo a aquisição de direitos creditórios representados por notas fiscais eletrônicas, emitidas pelas cedentes contra seus clientes em razão da celebração de contratos mercantis de compra e venda a prazo de bens comercializados pela Maqnelson Agrícola Ltda, Maqnelson Eleva Ltda e Maqnelson Irrigação Ltda (“Maqnelson”).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1971ea7f0a50097266f250b90fb67f46722933c63e9cadf0adae8f5431725eb0"
+      ]
     }
   },
   "passages": {
@@ -2474,66 +2451,6 @@
       "clause": "",
       "excerpt": "(vii) Risco de Originador – As atividades das Cedentes que resultam na originação dos  Direitos Creditórios para atendimento à Política de Investimentos do Fundo  podem, devido a sua natureza, ser afetadas por diversos fatores, inclusive  condições de mercado, efeitos da política econômica do governo brasileiro e riscos  operacionais. Caso, em decorrência de problemas relacionados às atividades da  Cedente, o Fundo não consiga adquirir Direitos Creditórios que atendam aos  Critérios de Elegibilidade, poderá haver um desenquadramento do Fundo com  relação a seus limites de Alocação Mínima e consequentemente a liquidação  antecipada do Fundo. Não há garantia de que as Cedentes conseguirão e/ou irão  originar e/ou ceder Direitos Creditórios suficientes para que o Fundo se enquadre  à Alocação Mínima e continue em existência. Além disso, a ausência e/ou redução  na quantidade de Direitos Creditórios elegíveis para aquisição pelo Fundo poderá  impactar negativamente na rentabilidade das Cotas em função da impossibilidade  de aquisição de Ativos Financeiros com a rentabilidade igual ou superior àquela  proporcionada pelos Direitos Creditórios;",
       "sha256": "131f757e93f95188062f0c073cfd102500f97d863f9b0ec4282f13ff115cdf80",
-      "verification": "primary_passage"
-    },
-    "2e20cec8f0b02e33ae36d03b399daece3e0b7d69cff5c41bb016d16711d324cb": {
-      "document_id": "756476",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=756476",
-      "reference_date": "2024-10-09",
-      "version": "1",
-      "page": 101,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer Pessoa, o grupo formado por  seu controlador, sociedades controladas, e demais  sociedades consideradas como tais, bem como  veículos de investimento do controlador,  sociedades controladas e demais sociedades  consideradas como tais. Os Grupos Econômicos  serão informados pelas Cedentes ao Custodiante,  sendo atualizados esporadicamente caso haja  qualquer alteração dos Grupos Econômicos das  Cedentes e/ou dos Devedores, conforme o caso,  nesta hipótese sempre antes da realização de nova  oferta de Direitos Creditórios à Classe, sendo que  qualquer alteração na lista de Grupos Econômicos  deverá ser informada ao Custodiante com, no  mínimo, 2 (dois) Dias Úteis de antecedência.",
-      "sha256": "18064debfdecc87872a5c66e0826cd7c3769818150a07a599030d9e1e57ce503",
-      "verification": "primary_passage"
-    },
-    "abffb3509d796e22ff8a3ebb185defb27d975b712241f7f0d791299495097d70": {
-      "document_id": "644265",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644265",
-      "reference_date": "2024-04-23",
-      "version": "1",
-      "page": 13,
-      "clause": "",
-      "excerpt": "Grupo Econômico Em relação a qualquer Pessoa, o grupo formado por seu  controlador, sociedades controladas, e demais sociedades  consideradas como tais, bem como veículos de  investimento do controlador, sociedades controladas e  demais sociedades consideradas como tais. Os Grupos  Econômicos serão informados pelas Cedentes ao  Custodiante, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos das  Cedentes e/ou dos Devedores, conforme o caso, nesta  hipótese sempre antes da realização de nova oferta de  Direitos Creditórios ao Fundo, sendo que qualquer",
-      "sha256": "6e57997f3f68ac1ab4d395055d12c8b3e88bfb24b87716c5ac65baccedd7eabd",
-      "verification": "primary_passage"
-    },
-    "0cabf75e2f310357da43d07dd4882f38a1f491853a860a4f064f629ffad9225b": {
-      "document_id": "582950",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=582950",
-      "reference_date": "2024-01-10",
-      "version": "1",
-      "page": 13,
-      "clause": "",
-      "excerpt": "Grupo Econômico Em relação a qualquer Pessoa, o grupo formado por seu  controlador, sociedades controladas, e demais sociedades  consideradas como tais, bem como veículos de  investimento do controlador, sociedades controladas e  demais sociedades consideradas como tais. Os Grupos  Econômicos serão informados pelas Cedentes ao  Custodiante, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos das  Cedentes e/ou dos Devedores, conforme o caso, nesta  hipótese sempre antes da realização de nova oferta de  Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser  informada ao Custodiante com, no mínimo, 2 (dois) Dias  Úteis de antecedência.",
-      "sha256": "3f42749a748f856a68c97d32ab042618f131cefa8b108413848c6cc9f01b6c86",
-      "verification": "primary_passage"
-    },
-    "edb64a2c5fba683bb6addee0858c549439893a1d9c81d79c07ddd2a7a53db024": {
-      "document_id": "492372",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=492372",
-      "reference_date": "2023-07-12",
-      "version": "1",
-      "page": 13,
-      "clause": "",
-      "excerpt": "Grupo Econômico Em relação a qualquer Pessoa, o grupo formado por seu  controlador, sociedades controladas, e demais sociedades  consideradas como tais, bem como veículos de  investimento do controlador, sociedades controladas e  demais sociedades consideradas como tais. Os Grupos  Econômicos serão informados pelas Cedentes ao  Custodiante, sendo atualizados esporadicamente caso  haja qualquer alteração dos Grupos Econômicos das  Cedentes e/ou dos Devedores, conforme o caso, nesta  hipótese sempre antes da realização de nova oferta de  Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser  informada ao Custodiante com, no mínimo, 2 (dois) Dias  Úteis de antecedência.",
-      "sha256": "131f757e93f95188062f0c073cfd102500f97d863f9b0ec4282f13ff115cdf80",
-      "verification": "primary_passage"
-    },
-    "9d790b1812280a47fd746d41eef62ecc1a3ff992670f0b604fd69f3419edee5f": {
-      "document_id": "747714",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=747714",
-      "reference_date": "2024-06-30",
-      "version": "1",
-      "page": 27,
-      "clause": "",
-      "excerpt": "No dia 23 de abril de 2024, em assembleia geral de cotistas, foi aprovado, por unanimidade e sem ressalvas,  as seguintes alterações no regulamento: (i) do termo definido “Devedoras KA” do artigo 1.1 referente à sua  definição e da cláusula 1.1 do contrato de cessão; (ii) a inclusão do termo “documento de aprovação  devedoras KA” e (iii) da redação dos critérios de elegibilidade constantes nos itens ii, iii, v do artigo 5.1 do  regulamento; (iv) do incremento percentual “P” que passará a ser de 2,80% ao ano; e (v) do excesso de spread  “ES” que passará a ser de 0,60% ao ano.",
-      "sha256": "a056afe33d6f4b0cf8a10d6104101add24269f18ceac4bad82c0a6390e51a6a1",
       "verification": "primary_passage"
     },
     "d4d28fa728983ecbf871baa3b5714d74a52a679ddb68a0d56273a94a4903d4dc": {
@@ -4964,6 +4881,69 @@
       "clause": "16.1",
       "excerpt": "16.1 Caracterizam Eventos de Avaliação do Fundo, as seguintes hipóteses:\n(i) inobservância pela Gestora, pelo Custodiante e/ou pelas Cedentes de seus  respectivos deveres e obrigações, que não constitua um Evento de Liquidação,  desde que o respectivo evento, (a) possa afetar negativamente a boa ordem  financeira, operacional ou legal do Fundo, bem como os direitos, as garantias e  as prerrogativas dos Cotistas; e (b) não seja regularizado no prazo de 2 (dois)  Dias Úteis contados do respectivo descumprimento;\n(ii) interrupção, não decorrente de falha operacional, a qualquer tempo e por qualquer  motivo, da prestação dos serviços de administração, gestão e/ou custódia pela  Administradora, pela Gestora ou pelo Custodiante, sem que tenha havido sua  efetiva substituição por outro prestador de serviços, nos termos deste  Regulamento;\n(iii) resilição de quaisquer dos Documentos do Fundo por qualquer Pessoa sem que  outra(s) Pessoa(s) assuma(m) integralmente as atribuições ali estabelecidas e tal",
       "sha256": "3a7d0f3430bc46683974c44c0174a2102761198c2b78268b327e986d665d8910",
+      "verification": "primary_passage"
+    },
+    "7fa8ef375486e0597129786d1bfc9fe1819f640fd3863b4a86c6620c06510550": {
+      "document_id": "492368",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=492368",
+      "reference_date": "2023-05-02",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "(x) considerada pro forma a cessão dos Direitos Creditórios, 90% (noventa por cento)  dos Direitos Creditórios deverão ser devidos por Devedoras com histórico de  relacionamento com o Grupo Econômico das Cedentes superior a 2 (dois) anos;",
+      "sha256": "3a7d0f3430bc46683974c44c0174a2102761198c2b78268b327e986d665d8910",
+      "verification": "primary_passage"
+    },
+    "880083d0e8f3c2bf174387afbe54c5805ea4904a3b75e08ab385fdfff52ac254": {
+      "document_id": "747714",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=747714",
+      "reference_date": "2024-06-30",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios caso sejam atendidos, nas respectivas datas de  aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados  pelo custodiante até a respectiva data de aquisição:\ni. Os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional;\nii. Considerada pro forma a cessão dos direitos creditórios, estes deverão ter prazo máximo de vencimento em  até 720 (setecentos e vinte) dias, com exceção de até 40% (quarenta por cento) do patrimônio líquido do  Fundo que poderá aceitar direitos creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e  10% (dez por cento) do patrimônio líquido do Fundo que poderá aceitar direitos creditórios com prazo de  até 1.800 (mil e oitocentos) dias, contados, em todos os casos, a partir da respectiva data de aquisição;\niii. O prazo médio dos direitos creditórios por devedora deverá ser de, no máximo, 37 (trinta e sete) meses;\niv. Os direitos creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze) dias após a respectiva data  de oferta;\nv. Considerada proforma a aquisição dos direitos creditórios, até 10% (dez por cento) dos direitos creditórios  do Fundo poderão ter vencimento superior ao vencimento das cotas seniores em circulação;\nvi. Considerando-se pro forma a cessão pretendida, os valores de face dos direitos creditórios devidos por uma  mesma devedora, considerada individualmente, não poderão representar concentração superior a 3% (três  por cento) do patrimônio líquido, conforme previamente cadastrados pelas cedentes junto ao custodiante,  ressalvados os devedores KA (devedores que sejam selecionadas pelas cedentes, devidamente listadas no  documento de aprovação devedores KA, que poderão realizar o pagamento dos direitos creditórios por  qualquer meio de transferência autorizado pelo BACEN), que, nos primeiros 180 (cento e oitenta) dias",
+      "sha256": "a056afe33d6f4b0cf8a10d6104101add24269f18ceac4bad82c0a6390e51a6a1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0072561458a4bad91bd03d576bbdc0ec08820a0ca37510f3d77248abc74a54c7": {
+      "document_id": "644265",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=644265",
+      "reference_date": "2024-04-23",
+      "version": "1",
+      "page": "30–31",
+      "clause": "5.1",
+      "excerpt": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\n(ii) considerada pro forma a cessão dos Direitos Creditórios, estes deverão ter prazo  máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até  40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar  Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias e  10% (dez por cento) do Patrimônio Líquido do Fundo que poderá aceitar Direitos  Creditórios com prazo de até 1.800 (mil e oitocentos) dias, contados, em todos os  casos, a partir da respectiva Data de Aquisição;\n(iii) o prazo médio dos Direitos Creditórios por Devedora deverá ser de, no máximo,  37 (trinta e sete) meses;\n(iv) os Direitos Creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze)  dias após a respectiva Data de Oferta;\n(v) considerada pro forma a aquisição dos Direitos Creditórios, até 10% (dez por  cento) dos Direitos Creditórios do Fundo poderão ter vencimento superior ao  vencimento das Cotas Seniores em circulação;\n(vi) considerando-se pro forma a cessão pretendida, os valores de face dos Direitos  Creditórios devidos por uma mesma Devedora, considerada individualmente, não  poderão representar concentração superior a 3% (três por cento) do Patrimônio  Líquido, conforme previamente cadastrados pelas Cedentes junto ao Custodiante,  ressalvados os Devedores KA, que, nos primeiros 180 (cento e oitenta) dias  contados da primeira data de integralização de Cotas do Fundo, poderão  representar, considerados individualmente, concentração de até 5% (cinco por  cento) do Patrimônio Líquido;\n(vii) os Direitos Creditórios serão cedidos ao Fundo com, no mínimo, 2 (dois) dias  contados da data de sua efetiva originação pela respectiva Cedente, conforme  informado no Arquivo de Remessa;\n(viii) as Devedoras não poderão estar inadimplentes em relação ao Fundo na data da  respectiva cessão;\n(ix) os Direitos Creditórios a serem adquiridos não poderão ser devidos por partes  relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da  Administradora, da Gestora e/ou das Cedentes, sendo certo que, em caso de  alteração do Grupo Econômico da Cedente, esta deverá encaminhar o novo  organograma para que o Custodiante possa controlar nas próximas cessões;\n(x) considerada pro forma a cessão dos Direitos Creditórios, os Direitos Creditórios  ofertados e cedidos pela Irrigação e pela Eleva, consideradas em conjunto,  deverão representar, no máximo, 15% (quinze por cento) do Patrimônio Líquido  do Fundo; e\n(xi) os Direitos Creditórios não poderão estar vencidos, quando de sua aquisição pelo  Fundo.\n5.1.1 As Cedentes deverão sempre ofertar os Direitos Creditórios ao Fundo em sua integralidade.",
+      "sha256": "6e57997f3f68ac1ab4d395055d12c8b3e88bfb24b87716c5ac65baccedd7eabd",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "af5de9e3d590048257e540812e516bdc4bb7ca6a998bd4fe010eb071357e3a35": {
+      "document_id": "582950",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=582950",
+      "reference_date": "2024-01-10",
+      "version": "1",
+      "page": "30–31",
+      "clause": "5.1",
+      "excerpt": "5.1 O Fundo somente poderá adquirir Direitos Creditórios caso sejam atendidos, nas respectivas Datas de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante até a respectiva Data de Aquisição:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\n(ii) considerada pro forma a cessão dos Direitos Creditórios, estes deverão ter prazo  máximo de vencimento em até 720 (setecentos e vinte) dias, com exceção de até  40% (quarenta por cento) do Patrimônio Líquido do Fundo que poderá aceitar  Direitos Creditórios com prazo de até 1.440 (mil quatrocentos e quarenta) dias,  contados, em ambos os casos, a partir da respectiva Data de Aquisição;\n(iii) o prazo médio dos Direitos Creditórios por Devedora deverá ser de, no máximo,  30 (trinta) meses;\n(iv) os Direitos Creditórios deverão ter prazo de vencimento, no mínimo, 15 (quinze)  dias após a respectiva Data de Oferta;\n(v) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das  Cotas Seniores em circulação;\n(vi) considerando-se pro forma a cessão pretendida, os valores de face dos Direitos  Creditórios devidos por uma mesma Devedora, considerada individualmente, não  poderão representar concentração superior a 3% (três por cento) do Patrimônio  Líquido, conforme previamente cadastrados pelas Cedentes junto ao Custodiante,  ressalvados os Devedores KA, que, nos primeiros 180 (cento e oitenta) dias  contados da primeira data de integralização de Cotas do Fundo, poderão  representar, considerados individualmente, concentração de até 5% (cinco por  cento) do Patrimônio Líquido;\n(vii) os Direitos Creditórios serão cedidos ao Fundo com, no mínimo, 2 (dois) dias  contados da data de sua efetiva originação pela respectiva Cedente, conforme  informado no Arquivo de Remessa;\n(viii) as Devedoras não poderão estar inadimplentes em relação ao Fundo na data da  respectiva cessão;\n(ix) os Direitos Creditórios a serem adquiridos não poderão ser devidos por partes  relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da  Administradora, da Gestora e/ou das Cedentes, sendo certo que, em caso de  alteração do Grupo Econômico da Cedente, esta deverá encaminhar o novo  organograma para que o Custodiante possa controlar nas próximas cessões;\n(x) considerada pro forma a cessão dos Direitos Creditórios, os Direitos Creditórios  ofertados e cedidos pela Irrigação e pela Eleva, consideradas em conjunto,  deverão representar, no máximo, 15% (quinze por cento) do Patrimônio Líquido  do Fundo; e\n(xi) os Direitos Creditórios não poderão estar vencidos, quando de sua aquisição pelo  Fundo.\n5.1.1 As Cedentes deverão sempre ofertar os Direitos Creditórios ao Fundo em sua integralidade.\n5.1.2 O enquadramento dos Direitos Creditórios que o Fundo pretenda adquirir aos Critérios de Elegibilidade será verificada pelo Custodiante previamente a cada cessão e até a respectiva Data de Aquisição, por meio do envio ao Custodiante do Arquivo de Remessa, o qual deverá conter as informações necessárias dos Direitos Creditórios objeto de oferta ao Fundo, na forma do Contrato de Cessão.",
+      "sha256": "3f42749a748f856a68c97d32ab042618f131cefa8b108413848c6cc9f01b6c86",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1971ea7f0a50097266f250b90fb67f46722933c63e9cadf0adae8f5431725eb0": {
+      "document_id": "747714",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=747714",
+      "reference_date": "2024-06-30",
+      "version": "1",
+      "page": 13,
+      "clause": "",
+      "excerpt": "a) Descrição  O Fundo tem como objetivo a aquisição de direitos creditórios representados por notas fiscais eletrônicas,  emitidas pelas cedentes contra seus clientes em razão da celebração de contratos mercantis de compra e  venda a prazo de bens comercializados pela Maqnelson Agrícola Ltda, Maqnelson Eleva Ltda e Maqnelson  Irrigação Ltda (“Maqnelson”).",
+      "sha256": "a056afe33d6f4b0cf8a10d6104101add24269f18ceac4bad82c0a6390e51a6a1",
       "verification": "primary_passage"
     }
   }

@@ -3,18 +3,6 @@
   "cnpj": "36643621000130",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "c234b284a447a47f3c3074de7546ee93325ad5a6ddebeccbb8d1600c997980df",
-      "26c10f43d08bcc3e9eecb51a0f11074a853b7eed3c20e8cfb2195fadaf250ef9",
-      "e9096d4fbd066b307341ce8add5ba8fa46dc7a654586dff088bcfcdfec74d260",
-      "1a929ba6a0757e7526448db7613130fadef7b2c8ac946404db1d32e7d0c68485",
-      "7716b1605feb39187d37509dd74c4c7bcb42acea11d4839a5d8a4bc0798a0c8e",
-      "47d937c0eb6cc8b5a5d8801cd75028ed0cb79c7fa9cb462f316d99d2f6ff23ce",
-      "053380439a9512cbc97c19e956375fc7e84145aaa6a5c94bc4d413be037e79bc",
-      "75aa036235f8828b7db8c5e21f3a88e606cd1f0d7a793386cbcc93f072693481",
-      "482aecb0c4fd116e5f93ba981898c64226f1c614b21b4652d57d98e7e71ffcaa",
-      "1d2fd6cae30e76a5948ff95dca7a980f0089045f7ee165a351047f67940bf6ff"
-    ],
     "concentration": [
       "4c15bfcb4884aee97e16391c7825b9e29931d642817cebc50e2822dbf4c3d308",
       "40eaa6f0972d693013e991a313c4c0a964a202bb0bb91cb72837ffb29adc573c",
@@ -242,28 +230,6 @@
       "a910d5f793a2e6b41aadcdcde36ca8a18710a6e616652b7ad357731d9545b962",
       "915a374ab8e8327bbd10016b0f2f4f15e2258ea7e22d0da190d028f5bbbd2452"
     ],
-    "originator": [
-      "72756640bf75ee63c038381f0b648376158e660fae8975f467181a4cd0ec5dfa",
-      "78b501be199d45fd5012292c3cc41a1ab5561218831715c2d3e2e15a66b2a4bd",
-      "1b86f848db97e7897672a5a271efc8baebaa99a17547bbab213dfd071454e14e",
-      "475c63201b2df7e236221072c4644e78ed9aa245dfae7b0dca97cd1fff7cf132",
-      "331e7e02e9dcf5227a3dd01b3dc969df55fcaa6f9002566165d4279a64459041",
-      "ad2f92cb04348bc59dd74b3887a985e7854d51c30081d0f51cd4e95ffc4c6487",
-      "dab548de16865af1731d687d1976bc2323232530fffe8f1b93bd967474bccd96"
-    ],
-    "debtor": [
-      "9bca377c6656505495e35fa04f2fe16ec66319b2ea73b8c1497d54aca1c43a3d",
-      "9ec5666429ce544aa70f5c0db70b03995af90940c825e576927b28285dba3d1e",
-      "7716b1605feb39187d37509dd74c4c7bcb42acea11d4839a5d8a4bc0798a0c8e",
-      "7a989ab2154c63079b0e776cd75de1322dfd61fa5447d066b882527fc614d5cb",
-      "f2f3de387d847cc8e5949e855e05ab915a297322409d3f489418ecc294ead229",
-      "75aa036235f8828b7db8c5e21f3a88e606cd1f0d7a793386cbcc93f072693481",
-      "482aecb0c4fd116e5f93ba981898c64226f1c614b21b4652d57d98e7e71ffcaa",
-      "1d2fd6cae30e76a5948ff95dca7a980f0089045f7ee165a351047f67940bf6ff",
-      "0000b88782bb328376b7080a41f2c665f632956faa8d04335761822599bc37b4",
-      "44ed357570836de1513bbd66916ef28318d396de784c312e10e03b098043dacd",
-      "2e909fc2d4e9568efdaca8ccec549a684278b775c27c8347ee752c30e9b2a47d"
-    ],
     "investee": [
       "84042fec00c88eab7c080a65e5897a80555b7946e1dd9c11d3c9fc52d4da98b0",
       "f614e2a3522d2023711c650038fda9c5efcecd6b303dd4c32c2a262e2d84462d",
@@ -312,6 +278,39 @@
       "4a6d4207fd1e04fa4334f2f8955167bb7664935da5f42e307a47a0dca505715e",
       "8ec666469813202f40dbeb397526c22b2c69aaa20e4e415de94c5b6163aca7fd",
       "2481308ea483379bd73db275a27d9b57c68c1c8ef6b2bc4febdfa3531113d0e3"
+    ],
+    "originator": [
+      "72756640bf75ee63c038381f0b648376158e660fae8975f467181a4cd0ec5dfa",
+      "32737ad1360b3327b19f366e2d5684c01a79e6e0db7c749a7ba7258cbade4079",
+      "78b501be199d45fd5012292c3cc41a1ab5561218831715c2d3e2e15a66b2a4bd",
+      "c652304a1945dbdc3ce9684fa8254095a66d0638cae69a277d53998cc0a2898f",
+      "5863fb3f1e33cf61d34f9c0f6786c0b38464f7439e0a0e82131278a4c6163bef",
+      "1b86f848db97e7897672a5a271efc8baebaa99a17547bbab213dfd071454e14e",
+      "475c63201b2df7e236221072c4644e78ed9aa245dfae7b0dca97cd1fff7cf132",
+      "331e7e02e9dcf5227a3dd01b3dc969df55fcaa6f9002566165d4279a64459041",
+      "ad2f92cb04348bc59dd74b3887a985e7854d51c30081d0f51cd4e95ffc4c6487",
+      "dab548de16865af1731d687d1976bc2323232530fffe8f1b93bd967474bccd96"
+    ],
+    "eligibility": [
+      "d057522d5f9cd1d0b2dcdbb4005f9bfa11c5ac4d26c065b7d392c9be7ae67a72",
+      "fd0ae35f1605458998f638241ed3bd1053f1754e3e22802062836080f9962b33",
+      "25e50b65bec05e89a098126c71d4ce6771a97a5f0d22256d1890f049638e527f",
+      "1a929ba6a0757e7526448db7613130fadef7b2c8ac946404db1d32e7d0c68485",
+      "12242897c090c051885797ab97d3935ac74ce0e8a2c9c54b6f6fb5b7c82082f7",
+      "baf586ce1ba31de8af1c23792b25b81aa937d96f7b2952429d52b93e73163447",
+      "571e4f647e98eeece37912c237db5095fae5e0a278e613a7a33dcdc4dfaacdd4",
+      "884662dbfeee6408e5a1d9dfd025bce2053c05f4f376487f740c3178bf7c934b",
+      "ec71966007e096ea60d47c271ba780474a9cce3a1bbf5e4a2e7892ccd3cc6aa5",
+      "8eb6675397f0e7f3dce10e487368d0bc4ea210547f599e59731a090563247e6a",
+      "dad017adf2fa012cdbd5c70c9f05d17dc99b20e1c38dd2e59ef42f119213ee39"
+    ],
+    "debtor": [
+      "7716b1605feb39187d37509dd74c4c7bcb42acea11d4839a5d8a4bc0798a0c8e",
+      "75aa036235f8828b7db8c5e21f3a88e606cd1f0d7a793386cbcc93f072693481",
+      "482aecb0c4fd116e5f93ba981898c64226f1c614b21b4652d57d98e7e71ffcaa",
+      "1d2fd6cae30e76a5948ff95dca7a980f0089045f7ee165a351047f67940bf6ff",
+      "0000b88782bb328376b7080a41f2c665f632956faa8d04335761822599bc37b4",
+      "2e909fc2d4e9568efdaca8ccec549a684278b775c27c8347ee752c30e9b2a47d"
     ]
   },
   "entries": {
@@ -460,24 +459,6 @@
         "6525263efb622d0707a75e39722d01b25827e58eae45e569740a5b68181548f0"
       ]
     },
-    "9bca377c6656505495e35fa04f2fe16ec66319b2ea73b8c1497d54aca1c43a3d": {
-      "reference_date": "2023-12-31",
-      "value": "Os devedores dos direitos creditórios são de pessoas físicas ou jurídicas inscritas, respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas; iii.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1022edf77395b8eb2f74fae14fb58669be78d24987ed1513782ef14b710cf9e7"
-      ]
-    },
-    "9ec5666429ce544aa70f5c0db70b03995af90940c825e576927b28285dba3d1e": {
-      "reference_date": "2022-12-31",
-      "value": "(ii) os devedores dos direitos creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ba4344d4b26cc3bc77a5cd2b58c1936ee3bb4a99b8612a894752ca3c7156dacb"
-      ]
-    },
     "7716b1605feb39187d37509dd74c4c7bcb42acea11d4839a5d8a4bc0798a0c8e": {
       "reference_date": "2021-12-31",
       "value": "Os critérios de elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “critérios de elegibilidade”): (i) os direitos creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1 do Regulamento do Fundo, e (ii) os devedores dos direitos creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas;.",
@@ -485,15 +466,6 @@
       "provenance": "primary_passage",
       "sources": [
         "c5efa1f428f38f6e8ff37b2d00cad7f5c6bbe4c4b57403d957bafae0818c4319"
-      ]
-    },
-    "7a989ab2154c63079b0e776cd75de1322dfd61fa5447d066b882527fc614d5cb": {
-      "reference_date": "2020-03-02",
-      "value": "Embora o Custodiante tenha a obrigação de permitir, ao Fundo, à Administradora e à empresa de auditoria eventualmente contratada, livre acesso aos Documentos Comprobatórios, a guarda dos Documentos Comprobatórios, pelo Custodiante ou por terceiro por ele contratado, poderá dificultar ou retardar eventuais procedimentos de cobrança contra os respectivos Devedores, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "22e45ca792ba5d0f0ec2973efa6cfe36fc2fb6f78003a58ebf6c729e0e8e2283"
       ]
     },
     "f2f3de387d847cc8e5949e855e05ab915a297322409d3f489418ecc294ead229": {
@@ -541,15 +513,6 @@
         "c5f57be2b4abec5006a50b1918c108f2f6e39a5320d79a591838ee144e515a67"
       ]
     },
-    "44ed357570836de1513bbd66916ef28318d396de784c312e10e03b098043dacd": {
-      "reference_date": "2020-03-02",
-      "value": "Embora o Custodiante tenha a obrigação de permitir, ao Fundo, à Administradora e à empresa de auditoria eventualmente contratada, livre acesso aos Documentos Comprobatórios, a guarda dos Documentos Comprobatórios, pelo Custodiante ou por terceiro por ele contratado, poderá dificultar ou retardar eventuais procedimentos de cobrança contra os respectivos Devedores, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3c216d7969118f48f872e6ef6ea15538a109af314c86751c4756292b6ed9d289"
-      ]
-    },
     "2e909fc2d4e9568efdaca8ccec549a684278b775c27c8347ee752c30e9b2a47d": {
       "reference_date": "2021-06-09",
       "value": "9.1. Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1,; e (ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas;.",
@@ -559,33 +522,6 @@
         "37e21d17e5411f47915176cf6c08a6c4ba310d9f5f095b5c2d47ccf32b82a8ac"
       ]
     },
-    "c234b284a447a47f3c3074de7546ee93325ad5a6ddebeccbb8d1600c997980df": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e273129369c27e2f3d01ae3480bf67c6f76ce088656a8bd332dc7891b6447c07"
-      ]
-    },
-    "26c10f43d08bcc3e9eecb51a0f11074a853b7eed3c20e8cfb2195fadaf250ef9": {
-      "reference_date": "2024-11-22",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "094b9dbe4ddbc1c9ec60c457697a020b0c24ace55bb796965f6aa9b30e90ce6f"
-      ]
-    },
-    "e9096d4fbd066b307341ce8add5ba8fa46dc7a654586dff088bcfcdfec74d260": {
-      "reference_date": "2023-12-31",
-      "value": "Para a verificação dos critérios de elegibilidade, o custodiante deve receber, no layout previamente definido, a listagem dos direitos creditórios que o Fundo pretende adquirir na respectiva cessão. Em tais arquivos deve constar a relação dos direitos creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos devedores, as informações necessárias para validação do lastro e o valor pelo qual os direitos creditórios serão cedidos ao Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d6413f99299cb68d1fab90def233c6fd057f5c966829180cc3c2f4a4929a0fc9"
-      ]
-    },
     "1a929ba6a0757e7526448db7613130fadef7b2c8ac946404db1d32e7d0c68485": {
       "reference_date": "2022-12-31",
       "value": "Os critérios de elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “critérios de elegibilidade”): (i) os direitos creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1 do Regulamento, e",
@@ -593,24 +529,6 @@
       "provenance": "primary_passage",
       "sources": [
         "8f29e6a28ea3bbda2b45c8def922a498a7350ff25d407aea5ae8a442c59c3d8b"
-      ]
-    },
-    "47d937c0eb6cc8b5a5d8801cd75028ed0cb79c7fa9cb462f316d99d2f6ff23ce": {
-      "reference_date": "2020-03-02",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "59caf0c7a28d3b552a5a92c7a3f62dc70f397b3f2020fd59215022292fc4c213"
-      ]
-    },
-    "053380439a9512cbc97c19e956375fc7e84145aaa6a5c94bc4d413be037e79bc": {
-      "reference_date": "2024-11-19",
-      "value": "4.5 A GESTORA obriga-se a realizar análise cadastral e de crédito dos Devedores e/ou dos Emitentes, e/ou dos Cedentes, previamente à aquisição de Direitos Creditórios. O disposto neste item não impede a ADMINISTRADORA de realizar a análise de crédito, previamente à aquisição dos Direitos Creditórios, bem como de realizar o cadastro dos Cedentes e/ou Devedores. Critérios de Elegibilidade",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e829a97343065c430cefe919ec5943b5720442bb24f5f13638d19cd7429aff28"
       ]
     },
     "4c15bfcb4884aee97e16391c7825b9e29931d642817cebc50e2822dbf4c3d308": {
@@ -2163,6 +2081,125 @@
       "sources": [
         "d74c1d30557eed12b3a106e54c93ca92ff9d6da66c227dc30ac609adf0b68c4a"
       ]
+    },
+    "d057522d5f9cd1d0b2dcdbb4005f9bfa11c5ac4d26c065b7d392c9be7ae67a72": {
+      "reference_date": "2024-12-31",
+      "value": "contrato mercantis de compra e venda de produtos, mercadorias e serviços, títulos ou certificados representativos desses contratos decorrentes de operações nos segmentos comercial, industrial, imobiliário, financeiro, de hipotecas, do agronegócio, de arrendamento mercantil e de prestação de serviços, dentro outros de dívida privada, utilizando-se de instrumentos disponíveis no âmbito do mercado financeiro, de forma que a Classe possa ficar exposto a direitos creditórios de naturezas diversas, sem compromisso de concentração em nenhum; (v) os devedores não poderão ter na carteira da Classe direitos creditórios vencidos e não pagos há mais de 60 (sessenta) dias, no momento de nova aquisição de direitos creditórios; (vi) o prazo de vencimento dos direitos creditórios deverá ser de no mínimo 4 (quatro) dias e, no máximo, 371 (trezentos e setenta e um) dias; e (vii) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do patrimônio líquido da Classe. Para a verificação dos critérios de elegibilidade, o custodiante deve receber, no layout previamente definido, a listagem dos direitos creditórios que a Classe pretende adquirir na respectiva cessão. Em tais arquivos deve constar a relação dos direitos creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos devedores, as informações necessárias para validação do lastro e o valor pelo qual os direitos creditórios serão cedidos à Classe. Verificada a compatibilidade e validade dos direitos creditórios nos termos acima, assinado o contrato de cessão, emite-se o termo de cessão, preferencialmente em forma eletrônica, para conclusão da aquisição dos direitos creditórios. Na hipótese de os direitos creditórios deixarem de observar quaisquer dos critérios de elegibilidade acima descritos após sua aquisição pela Classe, não caberá, por parte dos cotistas, direito de regresso contra a instituição administradora, os cedentes, a gestora ou o custodiante, salvo se comprovada má-fé ou dolo das partes. I. Composição dos direitos creditórios por tipo de ativo Em 31 de dezembro de 2024",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e273129369c27e2f3d01ae3480bf67c6f76ce088656a8bd332dc7891b6447c07"
+      ]
+    },
+    "fd0ae35f1605458998f638241ed3bd1053f1754e3e22802062836080f9962b33": {
+      "reference_date": "2024-11-22",
+      "value": "7 Deliberações: Os Cotistas deliberaram, por unanimidade e sem quaisquer ressalvas ou restrições: (i) Aprovar a Adaptação 175, incluindo, mas não limitando a: (a) alteração da denominação do Fundo; (b) a criação da Classe, e (c) a instituição da responsabilidade limitada dos Cotistas; (ii) Aprovar a obrigatoriedade de alocação mínima de 67% (sessenta e sete por cento) do patrimônio líquido da Classe em direitos creditórios; (iii) Aprovar a alteração dos fatores de risco com a inclusão de fatores de risco que tratam do patrimônio líquido negativo do fundo e regime de responsabilidade limitada dos cotistas; (iv) A alteração nos critérios de elegibilidade; (v) Aprovar a alteração, reforma e consolidação do Regulamento, que passa a vigorar com a redação constante do Anexo B; e (vi) Autorizar os Prestadores de Serviços Essenciais a realizarem todos os atos e assinarem todos os documentos necessários para a implementação das deliberações ora aprovadas, conforme aplicável.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "094b9dbe4ddbc1c9ec60c457697a020b0c24ace55bb796965f6aa9b30e90ce6f"
+      ]
+    },
+    "25e50b65bec05e89a098126c71d4ce6771a97a5f0d22256d1890f049638e527f": {
+      "reference_date": "2023-12-31",
+      "value": "Os Critérios de Elegibilidade são exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”): i. Os direitos creditórios são representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1 do Regulamento. ii. Os devedores dos direitos creditórios são de pessoas físicas ou jurídicas inscritas, respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas; iii. Os devedores não podem ter na carteira do fundo direitos creditórios vencidos e não pagos há mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.; iv. A soma de direitos creditórios por devedor não pode ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo; e 14",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6accba4e84983318707807f36afa552723517db7f9e2248384dfe4f09045ead8"
+      ]
+    },
+    "12242897c090c051885797ab97d3935ac74ce0e8a2c9c54b6f6fb5b7c82082f7": {
+      "reference_date": "2021-12-31",
+      "value": "Os critérios de elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “critérios de elegibilidade”): (i) os direitos creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1 do Regulamento do Fundo, e (ii) os devedores dos direitos creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas; (iii) os devedores não poderão ter na carteira do fundo direitos creditórios vencidos e não pagos há mais de 60 (sessenta), no momento de nova aquisição de seus direitos creditórios.; (iv) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do patrimônio líquido do Fundo; e (v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c5efa1f428f38f6e8ff37b2d00cad7f5c6bbe4c4b57403d957bafae0818c4319"
+      ]
+    },
+    "baf586ce1ba31de8af1c23792b25b81aa937d96f7b2952429d52b93e73163447": {
+      "reference_date": "2020-03-02",
+      "value": "15.3 As Cotas poderão ser integralizadas por meio de Direitos Creditórios, atendido aos Critérios de Elegibilidade previsto neste Regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "38e3f35dd099a048ab64c4a883cf13e187218dd82230b9ad20f150364c3aa9d1"
+      ]
+    },
+    "571e4f647e98eeece37912c237db5095fae5e0a278e613a7a33dcdc4dfaacdd4": {
+      "reference_date": "2024-11-19",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c5a35bfb0beca0150e61854a817cb11b6f0ad1003bf8410b51cd39363b832b1d"
+      ]
+    },
+    "884662dbfeee6408e5a1d9dfd025bce2053c05f4f376487f740c3178bf7c934b": {
+      "reference_date": "2023-06-16",
+      "value": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1,; e (ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas; (iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.; (iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo; e (v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias. 9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo. 9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima, assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica, para conclusão da aquisição dos Direitos Creditórios. 9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios cedidos. 9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do Fundo, na respectiva data de aquisição. 9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "28e4d3c3c011675d677ac680d264d3beb2a1a69f752e1e85b4354a969f76b4ed"
+      ]
+    },
+    "ec71966007e096ea60d47c271ba780474a9cce3a1bbf5e4a2e7892ccd3cc6aa5": {
+      "reference_date": "2023-05-29",
+      "value": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1,; e (ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas; (iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.; (iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo; e (v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias. 9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo. 9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima, assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica, para conclusão da aquisição dos Direitos Creditórios. 9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios cedidos. 9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do Fundo, na respectiva data de aquisição. 9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a3dbc5d5ab6c7f490e01560f50dc7f78c0eea79dab97b4f8d9fa719542deaca"
+      ]
+    },
+    "8eb6675397f0e7f3dce10e487368d0bc4ea210547f599e59731a090563247e6a": {
+      "reference_date": "2021-10-18",
+      "value": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de crédito, incluindo aqueles listados na Cláusula 10.1,; e (ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas; (iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.; (iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido do Fundo; e (v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias. 9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo. 9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima, assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica, para conclusão da aquisição dos Direitos Creditórios. 9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios cedidos. 9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do Fundo, na respectiva data de aquisição. 9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c3bb086defa27f357d725efcbdf1e98fd88fb664cbcc211da16faef8aa337b14"
+      ]
+    },
+    "dad017adf2fa012cdbd5c70c9f05d17dc99b20e1c38dd2e59ef42f119213ee39": {
+      "reference_date": "2025-01-13",
+      "value": "4.5 A GESTORA obriga-se a realizar análise cadastral e de crédito dos Devedores e/ou dos Emitentes, e/ou dos Cedentes, previamente à aquisição de Direitos Creditórios. O disposto neste item não impede a ADMINISTRADORA de realizar a análise de crédito, previamente à aquisição dos Direitos Creditórios, bem como de realizar o cadastro dos Cedentes e/ou Devedores. Critérios de Elegibilidade\n\n4.22 Sem prejuízo do disposto no item 4.21 acima, a GESTORA, será a instituição responsável por verificar e validar, na Data de Aquisição dos Direitos Creditórios pela Classe, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pela Classe.",
+      "assessment": "Resposta anteriormente publicada rejeitada na validação de relevância: A cláusula introduz ou remete aos critérios de elegibilidade sem transcrever condições efetivas dos créditos ou das partes.",
+      "provenance": "published_primary_answer_rejected",
+      "sources": [
+        "da65144cb0db41bc29de3462151e8d94f068d59b9374da6b1a5fb97b754cdc53",
+        "1b20b825a7cecbd7ee81a9abda7e96b0c76aab3ef263ae842c3f3dafc37a7590",
+        "d488d858aaf1b0ffa365cbf3af847cb4f8d3b88f8c43654049d717b52d5c77b3"
+      ]
+    },
+    "32737ad1360b3327b19f366e2d5684c01a79e6e0db7c749a7ba7258cbade4079": {
+      "reference_date": "2023-12-31",
+      "value": "Os direitos creditórios são classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4b4181f78523fb33d2a91de85740cb2a58e00219542ea0abecfa89c7baccb79f"
+      ]
+    },
+    "c652304a1945dbdc3ce9684fa8254095a66d0638cae69a277d53998cc0a2898f": {
+      "reference_date": "2022-12-31",
+      "value": "Os direitos creditórios são classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente; (ii) Operações sem aquisição substancial de riscos e benefícios: quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "323b6262d32803183e331d0e0b9421cd9d9da0cf9bc24601c697d901a0634814"
+      ]
+    },
+    "5863fb3f1e33cf61d34f9c0f6786c0b38464f7439e0a0e82131278a4c6163bef": {
+      "reference_date": "2021-12-31",
+      "value": "Os direitos creditórios são classificados nos seguintes grupos: (i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente; (ii) Operações sem aquisição substancial de riscos e benefícios: quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9df5b6fda9f1bef06ce0a81301a175345b83368373b6e3e478df8201e3d44161"
+      ]
     }
   },
   "passages": {
@@ -2359,30 +2396,6 @@
       "sha256": "7d54a20bb3de13583d418690f49215f4e464dc4af8ebdad042d48af690339d7b",
       "verification": "primary_passage"
     },
-    "1022edf77395b8eb2f74fae14fb58669be78d24987ed1513782ef14b710cf9e7": {
-      "document_id": "627094",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=627094",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "i. Os direitos creditórios são representados por direitos e/ou títulos representativos de crédito,  incluindo aqueles listados na Cláusula 10.1 do Regulamento.\n ii. Os devedores dos direitos creditórios são de pessoas físicas ou jurídicas inscritas, respectivamente,  no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas;\n iii. Os devedores não podem ter na carteira do fundo direitos creditórios vencidos e não pagos há mais  de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.;\n iv. A soma de direitos creditórios por devedor não pode ser superior a 20% (vinte por cento) do  Patrimônio Líquido do Fundo; e  14",
-      "sha256": "91e7eac6bfe03738b34542f04137a1bdc8778923852a5d4eb3741df63939fb7c",
-      "verification": "primary_passage"
-    },
-    "ba4344d4b26cc3bc77a5cd2b58c1936ee3bb4a99b8612a894752ca3c7156dacb": {
-      "document_id": "433976",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=433976",
-      "reference_date": "2022-12-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "(ii) os devedores dos direitos creditórios devem ser pessoas físicas ou jurídicas inscritas, respectivamente, no  cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas;\n(iii) os devedores não poderão ter na carteira do fundo direitos creditórios vencidos e não pagos há mais de  60 (sessenta), no momento de nova aquisição de seus direitos creditórios.;\n(iv) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do patrimônio  líquido do Fundo; e\n(v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em direitos creditórios  com prazo de vencimento superior a 180 (cento e oitenta) dias.",
-      "sha256": "da12508ff8d84f0ed4b8af06a1badc91764ff0b64f92a6dd0380bbef195f218f",
-      "verification": "primary_passage"
-    },
     "c5efa1f428f38f6e8ff37b2d00cad7f5c6bbe4c4b57403d957bafae0818c4319": {
       "document_id": "286513",
       "title": "Demonstrações Financeiras",
@@ -2393,18 +2406,6 @@
       "clause": "",
       "excerpt": "Os critérios de elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “critérios de elegibilidade”):\n(i) os direitos creditórios deverão ser representados por direitos e/ou títulos representativos de  crédito, incluindo aqueles listados na Cláusula 10.1 do Regulamento do Fundo, e\n (ii) os devedores dos direitos creditórios devem ser pessoas físicas ou jurídicas inscritas,  respectivamente, no cadastro de pessoas físicas ou no cadastro nacional de pessoas  jurídicas;\n (iii) os devedores não poderão ter na carteira do fundo direitos creditórios vencidos e não pagos  há mais de 60 (sessenta), no momento de nova aquisição de seus direitos creditórios.;\n (iv) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento)  do patrimônio líquido do Fundo; e\n (v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em  direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias.",
       "sha256": "4930c8721b7e3821f36668ebfbfcdb122f727d3fe2d3c7171d1358a1f4af1aad",
-      "verification": "primary_passage"
-    },
-    "22e45ca792ba5d0f0ec2973efa6cfe36fc2fb6f78003a58ebf6c729e0e8e2283": {
-      "document_id": "185842",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185842",
-      "reference_date": "2020-03-02",
-      "version": "1",
-      "page": 24,
-      "clause": "14.9.6",
-      "excerpt": "14.9.6 Guarda dos Documentos Comprobatórios. O Custodiante ou o terceiro por ele contratado, nos termos da regulamentação vigente, será depositário dos Documentos Comprobatórios e os guardará em imóvel próprio ou em imóvel de terceiro subcontratado. Embora o Custodiante tenha a obrigação de permitir, ao Fundo, à Administradora e à empresa de auditoria eventualmente contratada, livre acesso aos Documentos Comprobatórios, a guarda dos Documentos Comprobatórios, pelo Custodiante ou por terceiro por ele contratado, poderá dificultar ou retardar eventuais procedimentos de cobrança contra os respectivos Devedores, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas.\nAdicionalmente, eventos fora do controle do Custodiante ou do terceiro por ele contratado, incluindo, mas não se limitando a incêndios, inundações e outras hipóteses de força maior, poderão acarretar a perda dos Documentos Comprobatórios, gerando prejuízos ao Fundo e aos Cotistas.",
-      "sha256": "82e0a32cd701e75e473e19d54e1d7f742969e166a2296ad1e9aa6408683278df",
       "verification": "primary_passage"
     },
     "4ba2736cbf0e7db961e79721cd6c4a2024fa0434581e3e7694539337d512be5a": {
@@ -2467,18 +2468,6 @@
       "sha256": "7d54a20bb3de13583d418690f49215f4e464dc4af8ebdad042d48af690339d7b",
       "verification": "primary_passage"
     },
-    "3c216d7969118f48f872e6ef6ea15538a109af314c86751c4756292b6ed9d289": {
-      "document_id": "185850",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185850",
-      "reference_date": "2020-03-02",
-      "version": "1",
-      "page": 24,
-      "clause": "14.9.6",
-      "excerpt": "14.9.6 Guarda dos Documentos Comprobatórios. O Custodiante ou o terceiro por ele contratado, nos termos da regulamentação vigente, será depositário dos Documentos Comprobatórios e os guardará em imóvel próprio ou em imóvel de terceiro subcontratado. Embora o Custodiante tenha a obrigação de permitir, ao Fundo, à Administradora e à empresa de auditoria eventualmente contratada, livre acesso aos Documentos Comprobatórios, a guarda dos Documentos Comprobatórios, pelo Custodiante ou por terceiro por ele contratado, poderá dificultar ou retardar eventuais procedimentos de cobrança contra os respectivos Devedores, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas.\nAdicionalmente, eventos fora do controle do Custodiante ou do terceiro por ele contratado, incluindo, mas não se limitando a incêndios, inundações e outras hipóteses de força maior, poderão acarretar a perda dos Documentos Comprobatórios, gerando prejuízos ao Fundo e aos Cotistas.",
-      "sha256": "82e0a32cd701e75e473e19d54e1d7f742969e166a2296ad1e9aa6408683278df",
-      "verification": "primary_passage"
-    },
     "37e21d17e5411f47915176cf6c08a6c4ba310d9f5f095b5c2d47ccf32b82a8ac": {
       "document_id": "185846",
       "title": "Instrumento Particular de Alteração do Regulamento",
@@ -2515,18 +2504,6 @@
       "sha256": "ed1d16856cb4f5f07127736da4eb6c5f7ebc538007bb8e540fbf17b31e73c814",
       "verification": "primary_passage"
     },
-    "d6413f99299cb68d1fab90def233c6fd057f5c966829180cc3c2f4a4929a0fc9": {
-      "document_id": "627094",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=627094",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "Para a verificação dos critérios de elegibilidade, o custodiante deve receber, no layout previamente definido, a listagem dos direitos creditórios que o Fundo pretende adquirir na respectiva cessão. Em tais arquivos deve constar a relação dos direitos creditórios ofertados, seu valor de face, as datas dos seus vencimentos, os dados dos devedores, as informações necessárias para validação do lastro e o valor pelo qual os direitos creditórios serão cedidos ao Fundo.",
-      "sha256": "91e7eac6bfe03738b34542f04137a1bdc8778923852a5d4eb3741df63939fb7c",
-      "verification": "primary_passage"
-    },
     "8f29e6a28ea3bbda2b45c8def922a498a7350ff25d407aea5ae8a442c59c3d8b": {
       "document_id": "433976",
       "title": "Demonstrações Financeiras",
@@ -2537,30 +2514,6 @@
       "clause": "",
       "excerpt": "Os critérios de elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “critérios  de elegibilidade”):\n(i) os direitos creditórios deverão ser representados por direitos e/ou títulos representativos de crédito,  incluindo aqueles listados na Cláusula 10.1 do Regulamento, e",
       "sha256": "da12508ff8d84f0ed4b8af06a1badc91764ff0b64f92a6dd0380bbef195f218f",
-      "verification": "primary_passage"
-    },
-    "59caf0c7a28d3b552a5a92c7a3f62dc70f397b3f2020fd59215022292fc4c213": {
-      "document_id": "185842",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185842",
-      "reference_date": "2020-03-02",
-      "version": "1",
-      "page": 21,
-      "clause": "14.5.3",
-      "excerpt": "14.5.3 Verificação Prévia dos Critérios de Elegibilidade e das Condições de Cessão. O  Fundo adquirirá apenas Direitos Creditórios que atendam, cumulativamente, aos  Critérios de Elegibilidade e às Condições de Cessão, verificados até a respectiva Data  de Aquisição e Pagamento, nos termos deste Regulamento. Na hipótese de, após a  sua aquisição pelo Fundo, os Direitos Creditórios Adquiridos deixarem, por  qualquer motivo, de atender aos Critérios de Elegibilidade ou às Condições de  Cessão, nenhuma medida será tomada pela Administradora, pela Gestora ou pelo  Custodiante em relação a referidos Direitos Creditórios, que permanecerão na  Carteira do Fundo.",
-      "sha256": "82e0a32cd701e75e473e19d54e1d7f742969e166a2296ad1e9aa6408683278df",
-      "verification": "primary_passage"
-    },
-    "e829a97343065c430cefe919ec5943b5720442bb24f5f13638d19cd7429aff28": {
-      "document_id": "786319",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786319",
-      "reference_date": "2024-11-19",
-      "version": "1",
-      "page": 9,
-      "clause": "4.5",
-      "excerpt": "4.5 A GESTORA obriga-se a realizar análise cadastral e de crédito dos Devedores e/ou dos Emitentes,  e/ou dos Cedentes, previamente à aquisição de Direitos Creditórios. O disposto neste item não  impede a ADMINISTRADORA de realizar a análise de crédito, previamente à aquisição dos Direitos  Creditórios, bem como de realizar o cadastro dos Cedentes e/ou Devedores.\nCritérios de Elegibilidade",
-      "sha256": "a6500ff4bc5fc5932e77e6fe39d0d6e8dacf562dd6e0f2d2de76d78011304f67",
       "verification": "primary_passage"
     },
     "0a6c9ea59c2f483342aa8da3969eea1545be8c85f3361cc7c072fd1ce9bde6ce": {
@@ -4520,6 +4473,159 @@
       "clause": "",
       "excerpt": "(Administrado pela BRL Trust Distribuidora de Títulos e Valores Mobiliários S.A.)  CNPJ: 13.486.793/0001-42",
       "sha256": "91e7eac6bfe03738b34542f04137a1bdc8778923852a5d4eb3741df63939fb7c",
+      "verification": "primary_passage"
+    },
+    "6accba4e84983318707807f36afa552723517db7f9e2248384dfe4f09045ead8": {
+      "document_id": "627094",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=627094",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "Os Critérios de Elegibilidade são exclusiva e cumulativamente os dispostos abaixo (em conjunto, os “Critérios de Elegibilidade”):\ni. Os direitos creditórios são representados por direitos e/ou títulos representativos de crédito,  incluindo aqueles listados na Cláusula 10.1 do Regulamento.\n ii. Os devedores dos direitos creditórios são de pessoas físicas ou jurídicas inscritas, respectivamente,  no cadastro de pessoas físicas ou no cadastro nacional de pessoas jurídicas;\n iii. Os devedores não podem ter na carteira do fundo direitos creditórios vencidos e não pagos há mais  de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.;\n iv. A soma de direitos creditórios por devedor não pode ser superior a 20% (vinte por cento) do  Patrimônio Líquido do Fundo; e  14",
+      "sha256": "91e7eac6bfe03738b34542f04137a1bdc8778923852a5d4eb3741df63939fb7c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "38e3f35dd099a048ab64c4a883cf13e187218dd82230b9ad20f150364c3aa9d1": {
+      "document_id": "185842",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185842",
+      "reference_date": "2020-03-02",
+      "version": "1",
+      "page": 27,
+      "clause": "15.3",
+      "excerpt": "15.3 As Cotas poderão ser integralizadas por meio de Direitos Creditórios, atendido aos  Critérios de Elegibilidade previsto neste Regulamento.",
+      "sha256": "82e0a32cd701e75e473e19d54e1d7f742969e166a2296ad1e9aa6408683278df",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c5a35bfb0beca0150e61854a817cb11b6f0ad1003bf8410b51cd39363b832b1d": {
+      "document_id": "786319",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786319",
+      "reference_date": "2024-11-19",
+      "version": "1",
+      "page": "9–10",
+      "clause": "4.6",
+      "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes Critérios de Elegibilidade, a serem verificados e validados pela GESTORA, de forma  individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que  apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição:\n (i) sejam representados em moeda corrente nacional;\n (ii) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro  contábil e a sua custódia pelo CUSTODIANTE, de acordo com os procedimentos  operacionais e contábeis praticados pelo CUSTODIANTE;\n (iii) atendam, pro forma, no momento da aquisição, aos limites de concentração definidos no  CAPÍTULO 4;\n (iv) sejam representados por direitos e/ou títulos representativos de crédito, com ou sem garantias  reais ou pessoais a eles atreladas, incluindo, sem limitação, duplicatas, debêntures, cédulas  de debêntures, notas promissórias, recebíveis oriundos de trasações eletrônicas (“cartões  de crédito no geral”), cédulas de crédito bancário, certificado de crédito bancário, certificados  de recebíveis imobiliários, cédulas de produto rural, certificado de produto rural financeiro,  certificado de direitos creditórios do agronegócio, certificados de recebíveis do agronegócio,  letra de crédito do agronegócio, notas de crédito rural, títulos da dívida agrária, cédulas de  crédito imobiliário, letra de crédito imobiliário, letras hipotecárias, letras de câmbio, letras de  arrendamento mercantil, notas de crédito a exportação, certificados a termo de energia  elétrica, duplicatas, notas fiscais, contrato de locação/arrendamento, commercial paper,  warrants, contrato mercantis de compra e venda de produtos, mercadorias e serviços, títulos  ou certificados representativos desses contratos decorrentes de operações nos segmetos  comercial, industrial, imobiliário, financeiro, de hipotecas, do agronegócio, de arrendamento  mercantil e de prestação de serviços, dentro outros de dívida privada, utililizando-se de  instrumentos disponíveis no âmbito do mercado financeiro, de forma que o Fundo possa ficar  exposto a Direitos Creditórios de naturezas diversas, sem compromisso de concentração em  nenhum;\n (v) os devedores não poderão ter na carteira do fundo direitos creditórios vencidos e não pagos  há mais de 60 (sessenta) dias, no momento de nova aquisição de direitos creditórios;\n(vi) o prazo de vencimento dos direitos creditórios deverá ser de no mínimo 4 (quatro) dias e, no  máximo, 371 (trezentos e setenta e um) dias; e\n (vii) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do  patrimônio líquido do fundo.\n4.6.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido  e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à  Data de Aquisição.\n4.6.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de  Elegibilidade após sua aquisição pela Classe tal fato não será entendido como um  desenquadramento da Carteira, tampouco haverá direito de regresso contra a  ADMINISTRADORA, a GESTORA, a Consultora e/ou o Agente de Cobrança.\nAtivos Financeiros de Liquidez",
+      "sha256": "a6500ff4bc5fc5932e77e6fe39d0d6e8dacf562dd6e0f2d2de76d78011304f67",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "28e4d3c3c011675d677ac680d264d3beb2a1a69f752e1e85b4354a969f76b4ed": {
+      "document_id": "480756",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=480756",
+      "reference_date": "2023-06-16",
+      "version": "1",
+      "page": 15,
+      "clause": "9.1",
+      "excerpt": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em  conjunto, os “Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de  crédito, incluindo aqueles listados na Cláusula 10.1,; e\n(ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas,  respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas;\n(iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há  mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.;\n(iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do  Patrimônio Líquido do Fundo; e\n(v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em  direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias.\n9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout  previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva  cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face,  as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do  lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo.\n9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima,  assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica,  para conclusão da aquisição dos Direitos Creditórios.\n9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios  cedidos.\n9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores  correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do  Fundo, na respectiva data de aquisição.\n9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "sha256": "f81c998498edd0b609245114a5d781b8306a4828b656472fea054e32184a510c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2a3dbc5d5ab6c7f490e01560f50dc7f78c0eea79dab97b4f8d9fa719542deaca": {
+      "document_id": "472090",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=472090",
+      "reference_date": "2023-05-29",
+      "version": "1",
+      "page": 15,
+      "clause": "9.1",
+      "excerpt": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em  conjunto, os “Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de  crédito, incluindo aqueles listados na Cláusula 10.1,; e\n(ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas,  respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas;\n(iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há  mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.;\n(iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do  Patrimônio Líquido do Fundo; e\n(v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em  direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias.\n9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout  previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva  cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face,  as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do  lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo.\n9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima,  assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica,  para conclusão da aquisição dos Direitos Creditórios.\n9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios  cedidos.\n9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores  correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do  Fundo, na respectiva data de aquisição.\n9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "sha256": "45ee5ebc9d9207b5cedcb1ee1112972d3e2f11221851ee0ccecf3b17a58ce49d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "c3bb086defa27f357d725efcbdf1e98fd88fb664cbcc211da16faef8aa337b14": {
+      "document_id": "226811",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=226811",
+      "reference_date": "2021-10-18",
+      "version": "1",
+      "page": 15,
+      "clause": "9.1",
+      "excerpt": "9.1 Os Critérios de Elegibilidade serão exclusiva e cumulativamente os dispostos abaixo (em  conjunto, os “Critérios de Elegibilidade”):\n(i) os Direitos Creditórios deverão ser representados por direitos e/ou títulos representativos de  crédito, incluindo aqueles listados na Cláusula 10.1,; e\n(ii) os Devedores dos Direitos Creditórios devem ser pessoas físicas ou jurídicas inscritas,  respectivamente, no Cadastro de Pessoas Físicas ou no Cadastro Nacional de Pessoas Jurídicas;\n(iii) os Devedores não poderão ter na carteira do fundo Direitos Creditórios vencidos e não pagos há  mais de 60 (sessenta), no momento de nova aquisição de seus Direitos Creditórios.;\n(iv) a soma de direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do  Patrimônio Líquido do Fundo; e\n(v) o fundo não poderá adquirir mais do que 20% (vinte por cento) do patrimônio líquido em  direitos creditórios com prazo de vencimento superior a 180 (cento e oitenta) dias.\n9.1.1 Para a verificação dos Critérios de Elegibilidade, o Custodiante deverá receber, no layout  previamente definido, a listagem dos Direitos Creditórios que o Fundo pretende adquirir na respectiva  cessão. Em tais arquivos deverá constar a relação dos Direitos Creditórios ofertados, seu valor de face,  as datas dos seus vencimentos, os dados dos Devedores, as informações necessárias para validação do  lastro e o valor pelo qual os Direitos Creditórios serão cedidos ao Fundo.\n9.1.2 Verificada a compatibilidade e validade dos Direitos Creditórios nos termos acima,  assinado o Contrato de Cessão, emite-se o Termo de Cessão, preferencialmente em forma eletrônica,  para conclusão da aquisição dos Direitos Creditórios.\n9.1.3 A Gestora acompanhará todo o procedimento de oferta e cessão dos Direitos Creditórios  cedidos.\n9.1.4 O pagamento dos Direitos Creditórios será realizado mediante o pagamento dos valores  correspondentes ao preço da cessão, pela Instituição Administradora, atuando por conta e ordem do  Fundo, na respectiva data de aquisição.\n9.1.5 Não é admitido o pagamento do preço de cessão para pessoas que não sejam as próprias",
+      "sha256": "698f5f4bb3f21b7910f23d94eb2e66fc5a02e297074db4a560fec27871e07647",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "da65144cb0db41bc29de3462151e8d94f068d59b9374da6b1a5fb97b754cdc53": {
+      "document_id": "826314",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+      "reference_date": "2025-01-13",
+      "version": "1",
+      "page": "9–10",
+      "clause": "4.6",
+      "excerpt": "4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes Critérios de Elegibilidade, a serem verificados e validados pela GESTORA, de forma  individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que  apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição:\n (i) sejam representados em moeda corrente nacional;\n (ii) a natureza ou característica essencial dos Direitos Creditórios deverá permitir o seu registro  contábil e a sua custódia pelo CUSTODIANTE, de acordo com os procedimentos  operacionais e contábeis praticados pelo CUSTODIANTE;\n (iii) atendam, pro forma, no momento da aquisição, aos limites de concentração definidos no  CAPÍTULO 4;\n (iv) sejam representados por direitos e/ou títulos representativos de crédito, com ou sem garantias  reais ou pessoais a eles atreladas, incluindo, sem limitação, duplicatas, debêntures, cédulas  de debêntures, notas promissórias, recebíveis oriundos de trasações eletrônicas (“cartões  de crédito no geral”), cédulas de crédito bancário, certificado de crédito bancário, certificados  de recebíveis imobiliários, cédulas de produto rural, certificado de produto rural financeiro,  certificado de direitos creditórios do agronegócio, certificados de recebíveis do agronegócio,  letra de crédito do agronegócio, notas de crédito rural, títulos da dívida agrária, cédulas de  crédito imobiliário, letra de crédito imobiliário, letras hipotecárias, letras de câmbio, letras de  arrendamento mercantil, notas de crédito a exportação, certificados a termo de energia  elétrica, duplicatas, notas fiscais, contrato de locação/arrendamento, commercial paper,  warrants, contrato mercantis de compra e vendade de produtos, mercadorias e serviços,  títulos ou certificados representativos desses contratos decorrentes de operações nos  segmetos comercial, industrial, imobiliario, financeiro, de hipotecas, do agronegócio, de  arrendamento mercantil e de prestação de serviços, dentro outros de dívida privada,  utililizando-se de instrumentos disponíveis no âmbito do mercado financeiro, de forma que o  Fundo possa ficar exposto a Direitos Creditórios de naturezas diversas, sem compromisso  de concentração em nenhum;\n (v) os devedores não poderão ter na carteira do fundo direitos creditórios vencidos e não pagos  há mais de 60 (sessenta) dias, no momento de nova aquisição de direitos creditórios;\n(vi) o prazo de vencimento dos direitos creditórios deverá ser de no mínimo 4 (quatro) dias e, no  máximo, 371 (trezentos e setenta e um) dias; e\n (vii) a soma de direitos creditórios por devedor não poderá ser superior a 20% (vinte por cento) do  patrimônio líquido do fundo.\n4.6.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido  e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à  Data de Aquisição.\n4.6.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de  Elegibilidade após sua aquisição pela Classe tal fato não será entendido como um  desenquadramento da Carteira, tampouco haverá direito de regresso contra a  ADMINISTRADORA, a GESTORA, a Consultora e/ou o Agente de Cobrança.\n Ativos Financeiros de Liquidez",
+      "sha256": "a3e36b586d9911242a6ca8ae98b1063ad28d18d26788af4f0ecd64127d0a2a32",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1b20b825a7cecbd7ee81a9abda7e96b0c76aab3ef263ae842c3f3dafc37a7590": {
+      "document_id": "826314",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+      "reference_date": "2025-01-13",
+      "version": "1",
+      "page": 9,
+      "clause": "4.5",
+      "excerpt": "4.5 A GESTORA obriga-se a realizar análise cadastral e de crédito dos Devedores e/ou dos Emitentes,  e/ou dos Cedentes, previamente à aquisição de Direitos Creditórios. O disposto neste item não  impede a ADMINISTRADORA de realizar a análise de crédito, previamente à aquisição dos Direitos  Creditórios, bem como de realizar o cadastro dos Cedentes e/ou Devedores.\n Critérios de Elegibilidade",
+      "sha256": "a3e36b586d9911242a6ca8ae98b1063ad28d18d26788af4f0ecd64127d0a2a32",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d488d858aaf1b0ffa365cbf3af847cb4f8d3b88f8c43654049d717b52d5c77b3": {
+      "document_id": "826314",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+      "reference_date": "2025-01-13",
+      "version": "1",
+      "page": 12,
+      "clause": "4.22",
+      "excerpt": "4.22 Sem prejuízo do disposto no item 4.21 acima, a GESTORA, será a instituição responsável por  verificar e validar, na Data de Aquisição dos Direitos Creditórios pela Classe, o atendimento dos  Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos  Creditórios pela Classe.",
+      "sha256": "a3e36b586d9911242a6ca8ae98b1063ad28d18d26788af4f0ecd64127d0a2a32",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "4b4181f78523fb33d2a91de85740cb2a58e00219542ea0abecfa89c7baccb79f": {
+      "document_id": "627094",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=627094",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "Os direitos creditórios são classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente;",
+      "sha256": "91e7eac6bfe03738b34542f04137a1bdc8778923852a5d4eb3741df63939fb7c",
+      "verification": "primary_passage"
+    },
+    "323b6262d32803183e331d0e0b9421cd9d9da0cf9bc24601c697d901a0634814": {
+      "document_id": "433976",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=433976",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 13,
+      "clause": "",
+      "excerpt": "Os direitos creditórios são classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente;\n(ii) Operações sem aquisição substancial de riscos e benefícios: quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "sha256": "da12508ff8d84f0ed4b8af06a1badc91764ff0b64f92a6dd0380bbef195f218f",
+      "verification": "primary_passage"
+    },
+    "9df5b6fda9f1bef06ce0a81301a175345b83368373b6e3e478df8201e3d44161": {
+      "document_id": "286513",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=286513",
+      "reference_date": "2021-12-31",
+      "version": "1",
+      "page": 13,
+      "clause": "",
+      "excerpt": "Os direitos creditórios são classificados nos seguintes grupos:\n(i) Operações com aquisição substancial de riscos e benefícios: quando o Fundo adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, ensejando na baixa do direito creditório no registro contábil do cedente;\n(ii) Operações sem aquisição substancial de riscos e benefícios: quando o Fundo não adquire substancialmente todos os riscos e benefícios de propriedade do direito creditório objeto da operação, não ensejando na baixa do direito creditório no registro contábil do cedente.",
+      "sha256": "4930c8721b7e3821f36668ebfbfcdb122f727d3fe2d3c7171d1358a1f4af1aad",
       "verification": "primary_passage"
     }
   }

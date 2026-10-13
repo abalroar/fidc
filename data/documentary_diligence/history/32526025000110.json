@@ -3,18 +3,6 @@
   "cnpj": "32526025000110",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "4dd1dc41ae3a5100bdb8e4e45c4b05a55d4b86c8a8b3aedf038ef3516832c8a9",
-      "3ac73c1920fdf41f0641ac459c6cf45b85d789d63486b2860e04d6d7cf7af72a",
-      "e1628f3068e97329a4bf8d60d1e6d4ee696478d74bb9318b3666f0802dccfd96",
-      "1f0b6f77e5d7a49217e03913e100ff8bff0557479f478cda6cf61afc99bb87a0",
-      "f4619558ce02b570a527157c61d45c88c375747d3edd6156188c81a7cbfb7592",
-      "111347692afb16c72e03eaaeb2225fc23eef06c4f7376c56c38494561fcd0673",
-      "21a9516e40779b2fbf94f99d228d146477fc0eff2ae1c4a8cfd6e13de70748da",
-      "549b42d3a24326ac0b0739151081bd08fa94764eefafe385e0c275d368ed2fd7",
-      "57506e334f5b0889843aef0d717b13c53b9a60deaac6e2395c45dfb5bea221db",
-      "f58cb036cc1b8aba367c6be123524a7f9a8a4fcaa4365e7ce7e510aa97272cf1"
-    ],
     "ticket": [
       "c5c88760180143b254bc4c72d5289c349524fa01fd82af97dbbd56a3da6c145d",
       "42072266ebf05137da5a71773af4f6e479ac0741c77944b90403734e985a40e1"
@@ -531,30 +519,6 @@
       "fda131f0a9455c951ce665edc75943aa2354b1b07237d15bdca207b2bbee3727",
       "a37f518f5de21c9acd131b6ec53235da0a0cfc0cdb2bcf324966b3fb8fe0c227"
     ],
-    "originator": [
-      "7234fa2cd0b1de14510d0fc76d99e1e7d30fe59817a47b94282ffd8b9447cbb8",
-      "c0ae19c4443960287c1d6f6cc6e3eab8ec242b01523f3ee5874cf70b9bdb4b3a",
-      "7391ae1681fb534f4212c6178d439a0ed8a6cf9531a31e84fd717adfc77b8063",
-      "de73e398991860f9fc876e3004a075b29d9f099b34da4949d1d82da4594540aa",
-      "c0743a5a3ce081c4056f566686a5ab944f97db7d2a67935ab344475a2156b4d7",
-      "f76e7af2a579b5fa88a1987014ec75e050b1861d29daf45bda2e479234d34b25",
-      "94f78829e4c4d7f30c0ee72cdf8788da4c1766b9022f6ff710fdc6bd29df34e1",
-      "aa8e904f0da8e6eaed1b52c9523abaabcc8069a7d6697ceb2bc162b1799f0f36",
-      "18411512374a9e6c53f679fc364f913bd1c54d4c6f2ccf2d83e1f79f9f63896a"
-    ],
-    "debtor": [
-      "232d6250489ecc278fd33f92ec5de7c867344a72bb81edc849dad7abc6de8348",
-      "b915bf97fe3d53984134716ceb46c16fab2290f79f4c04908a0eef15c5be8891",
-      "6eb3e5ef33919ae57c471d6700799eac0e8db1a47c9e6b1c7f2ab6d768aa8584",
-      "832b4844979be117509af7295c207aa89fba6319a79c517200d4e48671f8c9aa",
-      "084e91296c45f7437b864eb123006d5a1b9a6a2a5382c6b047cbcb08d77ad746",
-      "1309ac15193f4e2842aa8924be4e37f30c4ccc8f892c02159299d5cf4195d4d4",
-      "420843e2da8ee66275b3d04a57f44e6cdba2a5e1fe8f70ad0d3a0affa0d7ddc3",
-      "433c642fad848c4c0524fa672c351383697f01694e5016fc238f8be29a12269c",
-      "37a1c1c3e9af55016cd8a937e41efe115e8df5caf08f033d9e992532f545662d",
-      "ded841e72f30c52214983861eace02e41662be9f011856d1dd63709b985279ce",
-      "c2f94baf5fec29d000a050a06486ce02ed3b8a487df52651b0809254c8ee4337"
-    ],
     "investee": [
       "3408773dd5c7b74a42c9feeb0c38d7784bca7dc3326756ae7e896742ae2229de",
       "8a39cadc913e0ad48d12fb223da5ee17da32fb041fea4a80cfc2f9c3104b7b93",
@@ -624,6 +588,30 @@
       "c14b021d591345ec082477426d982bd3ff60ccddbdd1570bac13748d726a4bdc",
       "1c64d299ab146c1effbc73d1305f195eda64136985934b1f0e5f0fc5b551cea6",
       "cd9c8cdd9c19c43c1b1e67ff6bde14bed1db4ea59303457ba2804ed4c1651c93"
+    ],
+    "originator": [
+      "7234fa2cd0b1de14510d0fc76d99e1e7d30fe59817a47b94282ffd8b9447cbb8",
+      "c0ae19c4443960287c1d6f6cc6e3eab8ec242b01523f3ee5874cf70b9bdb4b3a",
+      "265d5009eca1f4bccb1121d88fb78284fff0b1f88f74facb84b4994b047a6520",
+      "7391ae1681fb534f4212c6178d439a0ed8a6cf9531a31e84fd717adfc77b8063",
+      "de73e398991860f9fc876e3004a075b29d9f099b34da4949d1d82da4594540aa",
+      "c0743a5a3ce081c4056f566686a5ab944f97db7d2a67935ab344475a2156b4d7",
+      "f76e7af2a579b5fa88a1987014ec75e050b1861d29daf45bda2e479234d34b25",
+      "94f78829e4c4d7f30c0ee72cdf8788da4c1766b9022f6ff710fdc6bd29df34e1",
+      "390a845a1e03dbee5f1b623cd3c4f8986ea733042faec70e4abe8bb735837575",
+      "f5c9afcb86a4081367ff048968d5a27eb75299238629819fa09d7478d198622c"
+    ],
+    "eligibility": [
+      "4dd1dc41ae3a5100bdb8e4e45c4b05a55d4b86c8a8b3aedf038ef3516832c8a9",
+      "2629950a88ee7ecb65b4ce3e8810e0997340c064832991f45d4d088a2c1f1c06",
+      "ea5d544cee7459a6d5909388b6287766d4d35a56224c67885c159c583e8cb203",
+      "880c4259459f9917bb0271f57ff4859d6dcf76019099bd0b9d11bb6166239195",
+      "32ee6c0c9352525aed3769cea2e588981d4fbbbc1c5f1d9c6e3ee7e3ac65a68a",
+      "089318b3bcc9a37240332f173a45105e616b9514f92c16d30d134b6c4fb508d8",
+      "e64ba0ee0facd047c94ef2adbf823be8803816bffd702b348c8f28a7407ba9bc",
+      "ff3a2ea724620e80dd87931e27df00bd00d4adcbb9c37e12fd83cc070c240edf",
+      "ffa188f46c9066e98d060e0306978d9fdeb9217a7e985c2da2f2eb1dff59563e",
+      "0880493890b91e407f8522a3557eefc768ecfc97499e824bd84b26716a2b5407"
     ]
   },
   "entries": {
@@ -854,24 +842,6 @@
         "b86f639432f9258f3224c888020773824942b016cd76c88aa8ebb43f38a449d9"
       ]
     },
-    "aa8e904f0da8e6eaed1b52c9523abaabcc8069a7d6697ceb2bc162b1799f0f36": {
-      "reference_date": "2025-06-10",
-      "value": "A cobrança dos Direitos de Creditórios serão realizadas diretamente a Originadora que mantem convênio, para que as parcelas das CCBs sejam pagas ao Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d84770e51a93e1a03aed6bff024c060953b125d818e9333648e2ecaf39f2e46a"
-      ]
-    },
-    "18411512374a9e6c53f679fc364f913bd1c54d4c6f2ccf2d83e1f79f9f63896a": {
-      "reference_date": "2025-05-21",
-      "value": "A cobrança dos Direitos de Creditórios serão realizadas diretamente a Originadora que mantem convênio, para que as parcelas das CCBs sejam pagas ao Fundo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1bba406562e2bc8b8b24b1c3598d289c9f2f3e54f8255b539969f93c1199ee43"
-      ]
-    },
     "232d6250489ecc278fd33f92ec5de7c867344a72bb81edc849dad7abc6de8348": {
       "reference_date": "2026-01-19",
       "value": "A SINGULARE CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, cidade e Estado de São Paulo, instituição administradora (“Administradora”) do FUNDO, vem comunicar aos cotistas e ao mercado em geral que em razão do aumento no provisionamento para devedores duvidosos (PDD) do FUNDO, o valor da cota apresentou variação negativa de -17,66% em 19 de janeiro de 2026.",
@@ -890,15 +860,6 @@
         "4ff044a17d64c7be3255e530960a97523e0d4c92ae48031772367f0c31bdd060"
       ]
     },
-    "6eb3e5ef33919ae57c471d6700799eac0e8db1a47c9e6b1c7f2ab6d768aa8584": {
-      "reference_date": "2025-05-31",
-      "value": "(g) considerada proforma a aquisição pretendida, as operações de concessão de empréstimo pessoal para os Devedores, constituídas por meio da emissão de CCB, em favor das Instituições Financeiras Conveniadas, poderão representar até no máximo 40% (quarenta por cento) do valor financeiro dos Direitos Creditórios de Financiamento cedidos a Classe; (h) considerada proforma a aquisição pretendida, os Direitos Creditórios de Antecipação poderão representar até 30% (trinta por cento) do Patrimônio Líquido do Fundo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bdb24e552006534e4bad6fcd54703bc6df6a23cf111cf4fbfab18a04ae4999a3"
-      ]
-    },
     "832b4844979be117509af7295c207aa89fba6319a79c517200d4e48671f8c9aa": {
       "reference_date": "2025-05-16",
       "value": "A Singulare Corretora de Títulos e Valores Mobiliários S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40, com sede na Av. Brigadeiro Faria Lima, 1.355 – 5º andar, cidade e Estado de São Paulo, instituição administradora (“Administradora”) do FUNDO, vem comunicar aos cotistas e ao mercado em geral que devido à atualização das provisões para devedores duvidosos (“PDD”) do FUNDO, em 14 de maio de 2025 o valor do patrimônio líquido apresentou variação negativa, equivalente a – 12,76%.",
@@ -906,60 +867,6 @@
       "provenance": "primary_passage",
       "sources": [
         "4c58a8dc34df7eec65463b0079c8946404c3c8dff781662b3b86dde44a476449"
-      ]
-    },
-    "084e91296c45f7437b864eb123006d5a1b9a6a2a5382c6b047cbcb08d77ad746": {
-      "reference_date": "2024-05-31",
-      "value": "(e) Os Direitos Creditórios de Créditos Vencidos + 360 dias podem representar até o limite de máximo de 18%(dezoito por cento) do Patrimônio Líquido do Fundo; (f) O Fundo poderá ainda adquirir Direitos Creditórios representados por contratosperformados ou a performar, desde que o limite máximo não exceda o equivalentea 5% (cinco por cento) de seu Patrimônio Líquido; (g) os Direitos Creditórios de Financiamento podem representar até 100% (cempor cento) do Patrimônio Líquido do Fundo; (h) as operações de concessão de empréstimo pessoal para os Devedores, constituídas por meio da emissão de CCB, em favor das Instituições FinanceirasConveniadas, podem representar até no máximo 40% (quarenta por cento) do valor financeiro dos Direitos Creditórios de Financiamento cedidos ao Fundo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "424e323d3034ecaa423b693da9177d7a73badf8765d23388f5a84ab0ce4cbda6"
-      ]
-    },
-    "1309ac15193f4e2842aa8924be4e37f30c4ccc8f892c02159299d5cf4195d4d4": {
-      "reference_date": "2023-05-31",
-      "value": "(d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (e) Os Direitos Creditórios de Créditos Vencidos + 360 dias poderão representar até o limite de máximo de 18% (dezoito por cento) do Patrimônio Líquido do Fundo; (f) O Fundo poderá ainda adquirir Direitos Creditórios representados por contratos performados ou a performar, desde que o limite máximo não exceda o equivalente a 5% (cinco por cento) de seu Patrimônio Líquido; (g) os Direitos Creditórios de Financiamento poderão representar até 100% (cem por cento) do Patrimônio Líquido do Fundo; (h) as operações de concessão de empréstimo pessoal para os Devedores, constituídas por meio da emissão de CCB, em favor das Instituições Financeiras Conveniadas, poderão representar até no máximo 40% (quarenta por cento) do valor financeiro dos Direitos Creditórios de Financiamento cedidos ao Fundo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "edf561c3d9b29ca4c5893931403ba91633ec79b36571e8fd22f35c7b66d49607"
-      ]
-    },
-    "420843e2da8ee66275b3d04a57f44e6cdba2a5e1fe8f70ad0d3a0affa0d7ddc3": {
-      "reference_date": "2022-05-31",
-      "value": "(c) Direitos originados de contratos de compra e venda de energia elétrica no âmbiente livre (“CCVAL”) (d) Direitos originados de Transações de Pagamentos realizadas pelos Usuários- Finais com a utilização de Instrumentos de Pagamentos para aquisição de bens e serviços nos Estabelecimentos Credenciados, sendo devidos pelos Devedores, conforme aplicávele; (e) Faturas de cartão de créditos a receber e/ou vencidas, originadas de empresas administradoras de arranjos de pagamento (Faturas de Cartão de Créditos); (f) Duplicatas originadas por Nota Fiscal Eletrônica, Notas Fiscais de Serviço e Notas de Produtor Rural; e (g) Cheques pré-datados, originados do comércio em geral;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "391215333290b1d6837be4eafb48164b0a77bdb604e78b7b8d086309ce4bbb23"
-      ]
-    },
-    "433c642fad848c4c0524fa672c351383697f01694e5016fc238f8be29a12269c": {
-      "reference_date": "2021-05-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f8bdc462d3570755d0b7e72085d656c3e980b7d69ad9020317ac4ec57c374254"
-      ]
-    },
-    "ded841e72f30c52214983861eace02e41662be9f011856d1dd63709b985279ce": {
-      "reference_date": "2025-06-10",
-      "value": "(g) considerada pro forma a aquisição pretendida, as operações de concessão de empréstimo pessoal para os Devedores, constituídas por meio da emissão de CCB, em favor das Instituições Financeiras Conveniadas, poderão representar até no máximo 40% (quarenta por cento) do valor financeiro dos Direitos Creditórios de Financiamento cedidos a Classe;",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "33b753193db1f25caa614f520fa5cf8b36f424543fe6641a63fc7400d673668c"
-      ]
-    },
-    "c2f94baf5fec29d000a050a06486ce02ed3b8a487df52651b0809254c8ee4337": {
-      "reference_date": "2025-05-21",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e8c8cd173a9a62ea281957fbb9e6b6c77325eb463c7125e1a8d7a5da12f1e12c"
       ]
     },
     "4dd1dc41ae3a5100bdb8e4e45c4b05a55d4b86c8a8b3aedf038ef3516832c8a9": {
@@ -981,33 +888,6 @@
         "0cf64207466d2623d6ae00ddac4ac409889afe261385b07b020017ebf8c743a0"
       ]
     },
-    "e1628f3068e97329a4bf8d60d1e6d4ee696478d74bb9318b3666f0802dccfd96": {
-      "reference_date": "2024-02-14",
-      "value": "(d) a Classe Única contará com uma subclasse de Cotas Subordinadas Mezanino, sendo certo que as Cotas Subordinadas atualmente existentes passarão a ser as Cotas Subordinadas Júnior; (e) o Fundo terá nova regras quanto à aplicação em Ativos Financeiros; (f) a Classe Única não poderá mais adquirir Direitos Creditórios que estejam inadimplidos no momento de sua aquisição pela Classe Única, observado que os Direitos Creditórios previamente adquiridos, nos termos do Regulamento, e que estivavam inadimplidos no momento da aquisição pelo Fundo poderão permanecer em sua carteira, observadas as demais disposições do Regulamento; (g) os Critérios de Elegibilidade e as Condições de Cessão, assim como os Eventos de Avaliação e a Ordem de Alocação dos Recursos serão alterados, nos termos do Regulamento;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "406ed7bd57fbfe453fb0ad54134eb6c569573733bd37799029c2c04959b5d963"
-      ]
-    },
-    "1f0b6f77e5d7a49217e03913e100ff8bff0557479f478cda6cf61afc99bb87a0": {
-      "reference_date": "2023-05-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0449706e1559d3121e72f4194af87e035b1472b47b6f6c4848a69d23ad174915"
-      ]
-    },
-    "f4619558ce02b570a527157c61d45c88c375747d3edd6156188c81a7cbfb7592": {
-      "reference_date": "2022-05-31",
-      "value": "O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não obriga a sua alienação pelo Fundo, nem dá ao Fundo qualquer pretensão, recurso ou direito de regresso contra as Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "855253cd8e64e3ec8668aff12d96157de706e9533271e68a525b2bfae99df109"
-      ]
-    },
     "111347692afb16c72e03eaaeb2225fc23eef06c4f7376c56c38494561fcd0673": {
       "reference_date": "2021-05-31",
       "value": "",
@@ -1015,42 +895,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cda3d2c2285293d8c05b9162ab447b4e92771f85836e78cfb4c621ef90fd262e"
-      ]
-    },
-    "21a9516e40779b2fbf94f99d228d146477fc0eff2ae1c4a8cfd6e13de70748da": {
-      "reference_date": "2026-01-02",
-      "value": "(vi) os Critérios de Elegibilidade e/ou as Condições de Cessão; e/ou (vii) os quóruns e itens de deliberação da Assembleia Geral de Cotistas estabelecidos neste Capitulo; 75% (setenta e cinco por cento) das Cotas emitidas referentes às Subclasses com Maioria das prioridade maior que a (vi) redução da relação mínima do Maioria das Cotas em prioridade da Subclasse Índice de Subordinação;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a0ce6d1fed72a9b64138bb4ccc3fbae01536327162cb2830534d4493a451abaf"
-      ]
-    },
-    "549b42d3a24326ac0b0739151081bd08fa94764eefafe385e0c275d368ed2fd7": {
-      "reference_date": "2025-06-10",
-      "value": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo da Classe.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2ae36e80907e861f2d59d74bcfa9b8fb2c34549058a684421b2302dc8d1cf814"
-      ]
-    },
-    "57506e334f5b0889843aef0d717b13c53b9a60deaac6e2395c45dfb5bea221db": {
-      "reference_date": "2025-05-21",
-      "value": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo da Classe.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "26b307cb654700f1d82971c9549875baba39feced83f33858eabe538549b265c"
-      ]
-    },
-    "f58cb036cc1b8aba367c6be123524a7f9a8a4fcaa4365e7ce7e510aa97272cf1": {
-      "reference_date": "2025-05-14",
-      "value": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo da Classe.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "758ca93fe0d6d38f32a9c4f228b300007635dc6439492d42b468c9f260b371e2"
       ]
     },
     "c5c88760180143b254bc4c72d5289c349524fa01fd82af97dbbd56a3da6c145d": {
@@ -4767,13 +4611,112 @@
         "18547c03aabf3886e5aaab633b0b5e6c2b16ff4f31bddb1edc523cfca0e79cca"
       ]
     },
-    "37a1c1c3e9af55016cd8a937e41efe115e8df5caf08f033d9e992532f545662d": {
+    "2629950a88ee7ecb65b4ce3e8810e0997340c064832991f45d4d088a2c1f1c06": {
+      "reference_date": "2025-05-31",
+      "value": "Adicionalmente às Condições de Cessão, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos creditórios de natureza diversa aos créditos anteriormente mencionados, a serem cedidos pelos Cedentes em confor midade com as regras e procedimentos disciplinados pelo Regulamento e o presente Anexo; (b) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e vinculante para o Devedor e para o Cedente; (d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (e) o Fundo poderá ainda adquirir Direitos Creditórios representados por contratos performados ou a performar, desde que o limite máximo não exceda o equivalente a 5% (cinco por cento) de seu Patrimônio Líquido, considerada proforma a aquisição pretendida; (f) considerada proforma a aquisição pretendida, os Direitos Creditórios de Financiamento poderão representar até 100% (cem por cento) do Patrimônio Líquido do Fundo;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4bf342ed1ae69a8a345a92e1c4657354c6fe0df8a647b49a9a87f73425811a01"
+      ]
+    },
+    "ea5d544cee7459a6d5909388b6287766d4d35a56224c67885c159c583e8cb203": {
+      "reference_date": "2024-05-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f2a3a0bf3ba5f47426a0b924f42e4493c558344fa2896cfc9b30706b50873181"
+      ]
+    },
+    "880c4259459f9917bb0271f57ff4859d6dcf76019099bd0b9d11bb6166239195": {
+      "reference_date": "2024-02-14",
+      "value": "I. APROVAR: (i) a alteração no Regulamento no Fundo, incluindo, mas não se limitando, para alteração dos Ativos Financeiros permitidos, em especial quantos as cotas de fundos, para restringir a cotas de fundos de investimento de renda fixa e que possuam como política de investimento a alocação exclusiva títulos de emissão do Tesouro Nacional e/ou títulos de emissão do BACEN, Critérios de Elegibilidade e das Condições de Cessão, dos Eventos de Avaliação e da Ordem de Alocação dos Recursos, bem como para adaptação do Fundo à Resolução CVM 175, alterando assim a nova denominação do Fundo que passara a ser",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "24170722ee03fc2a9f5cff6ff32abdb6363d4a062dd1fd994d47b68da647e072"
+      ]
+    },
+    "32ee6c0c9352525aed3769cea2e588981d4fbbbc1c5f1d9c6e3ee7e3ac65a68a": {
+      "reference_date": "2023-05-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b02b3228ca775ca9aa628d1dd1efe8d7a8eb5d3a098535f156c79e937f372e1c"
+      ]
+    },
+    "089318b3bcc9a37240332f173a45105e616b9514f92c16d30d134b6c4fb508d8": {
+      "reference_date": "2022-12-08",
+      "value": "5. ORDEM DO DIA: Deliberar sobre as seguintes matérias: (i) aprovar a revisão e inclusão de novos itens do Capítulo 6. Critérios de Elegibilidade e Condições de Cessão a serem observados na aquisição dos direitos creditórios pelo Fundo; (ii) aprovar a alteração do item 9.2.9, de modo que os Serviços de Controladoria passarão a ser exercidos pelo Custodiante; (iii) aprovar a revisão e inclusão de novas matérias do Capítulo 14. Cotas, Emissão, Integralização e Negociação de Cotas; (iv) aprovar a revisão e inclusão de novas matérias do Capítulo 16. Eventos de Avaliação; (v) aprovar a revisão e inclusão de novas matérias do Capítulo 17. Liquidação do Fundo; (vi) aprovar a revisão e inclusão de novas matérias do Capítulo 19. Assembleia Geral; (vii) aprovar a alteração integral do Regulamento do Fundo, o qual passará a vigorar de forma consolidada nos termos do Anexo I ao presente instrumento; (viii) aprovar o Suplemento das Cotas Seniores 1ª Série, nos termos do Anexo II ao presente instrumento; (ix) aprovar a oferta pública, com esforços restritos de distribuição, nos termos da Instrução nº 476 da CVM, de 16 de janeiro de 2009, conforme alterada Instrução CVM 476 Cotas Seniores da 1ª Série a. Coordenador Líder: O coordenador líder da Oferta será BANCO ITAÚ BBA S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 1º, 2º, 3º (parte), 4º e 5º andares, Itaim Bibi, inscrita no CNPJ/ME sob o nº 17.298.092/0001-30 Coordenador Líder , que distribuirá publicamente com esforços restritos as Cotas Seniores da 1ª Série sob o regime de garantia firme de colocação, sujeito aos termos e condições previstos no contrato de distribuição a ser celebrado entre o Fundo e o Coordenador Líder; b. Montante Total da Oferta: 100.000 (cem mil) Cotas Seniores da 1ª Série, com valor unitário de R$1.000,00 (mil reais), perfazendo o valor total de R$100.000.000,00 (cem milhões de reais). Adicionalmente não serão constituídos fundos nem celebrados contratos de estabilização de preços e/ou de garantia de liquidez para as Cotas Seniores da 1ª Série; c. Regime de Distribuição: As Cotas Seniores da 1ª Série serão objeto de distribuição pública com esforços restritos, realizada nos termos da Instrução CVM 476; d. Distribuição Parcial: As Cotas Seniores da 1ª Série serão distribuídas pelo Coordenador Líder em regime de garantia firme de colocação, para o montante total",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0ae286244200fcc410a0b12f2c2e5d9b21755219967c60484760f2a1b380f32f"
+      ]
+    },
+    "e64ba0ee0facd047c94ef2adbf823be8803816bffd702b348c8f28a7407ba9bc": {
+      "reference_date": "2022-05-31",
+      "value": "Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) as debêntures de oferta privada,limitadas à 100% (cem por cento) do patrimônio líquido, deverão ser ofertadas por companhias emissoras, com registro na CVM , atendendo as condições de emissor categoria “B” estabelecidas no Inciso II, Art. 2º, da instrução CVM nº 480 de 07 de dezembro de 2009 e alteradas; e (b) as debêntures de oferta privada, ofertadas por sociedades anônimas de capital fechado, sem registro de emissor na CVM, devem observar o limite de 20% (vinte por cento) do patrimônio líquido do fundo por devedor ou responsável solidário;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6aa43ff5001822282462fbbbad56f3c9be668f1b36a8ef0ebec67d60c0c5d916"
+      ]
+    },
+    "ff3a2ea724620e80dd87931e27df00bd00d4adcbb9c37e12fd83cc070c240edf": {
+      "reference_date": "2021-05-31",
+      "value": "Investimentos em direitos creditórios (Conforme Nota Explicativa no 6 – Direitos Creditórios) Motivo pelo qual o assunto foi considerado um PAA O Fundo foi constituído sob a forma de condomínio fechado e é destinado a investidores qualificados. Em 31 de maio de 2021, o Fundo possuía R$ 157.437 mil, o equivalente a 98,81% de seu Patrimônio Líquido investido em direitos creditórios, adquiridos com a aquisição substancial dos riscos e benefícios representados por Cédulas de Crédito Bancário (“CCBs”) e operações de cartão de crédito. Desta forma, em nosso julgamento os riscos mais significativos para fins de auditoria são a mensuração do valor justo, a existência e a realização destes ativos. Por esse motivo, foram tratados como assuntos relevantes em nossa auditoria. Como o assunto foi conduzido em nossa auditoria Nossos procedimentos de auditoria foram, entre outros: (i) conciliação contábil da carteira; (ii) recálculo do valor justo dos recebíveis por amostragem; (iii) análise do enquadramento dos direitos creditórios adquiridos no exercício quanto aos critérios de elegibilidade definidos no regulamento do Fundo; (iv) verificação dos termos de cessão para as aquisições de direitos creditórios ocorridas no exercício por amostragem; (v) verificação dos lastros das operações de crédito, representados por Cédulas de Crédito Bancário (“CCBs”) e operações de cartão de crédito, por amostragem; (vi) testes documentais, por amostragem, para os recebimentos financeiros dos direitos creditórios; (vii) acompanhamento dos níveis de inadimplência e recálculo da provisão no valor de recuperação de recebíveis, com base nas premissas disponibilizadas pela administradora do Fundo, para os direitos creditórios vencidos e não; (viii) teste de arrasto para validação dos percentuais utilizados na composição da provisão no valor de recuperação dos recebíveis realizada pelo Fundo; e (ix) teste de aderência entre as informações registradas e as informações contábeis registradas e divulgadas. Com base na abordagem de nossa auditoria e nos procedimentos efetuados, entendemos que os critérios e premissas adotados pelo Fundo para a apuração do valor justo do seu investimento no exercício foram adequados no contexto das demonstrações contábeis do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cda3d2c2285293d8c05b9162ab447b4e92771f85836e78cfb4c621ef90fd262e"
+      ]
+    },
+    "ffa188f46c9066e98d060e0306978d9fdeb9217a7e985c2da2f2eb1dff59563e": {
       "reference_date": "2026-01-02",
       "value": "",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "b8dc8353ffa7c03a6245d58d058e1a6ff56295e2d273eb039f4f879601a6a8ab"
+        "93c1739d6d388ad5a8cfce149873858a4fe6520b6c40d250bfdef39721b5baee"
+      ]
+    },
+    "0880493890b91e407f8522a3557eefc768ecfc97499e824bd84b26716a2b5407": {
+      "reference_date": "2025-06-10",
+      "value": "8.2. Adicionalmente às Condições de Cessão, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos creditórios de natureza diversa aos créditos anteriormente mencionados, a serem cedidos pelos Cedentes em conformidade com as regras e procedimentos disciplinados pelo Regulamento e o presente Anexo; (b) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de qualquer natureza; (c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e vinculante para o Devedor e para o Cedente; (d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (e) o Fundo poderá ainda adquirir Direitos Creditórios representados por contratos performados ou a performar, desde que o limite máximo não exceda o equivalente a 5% (cinco por cento) de seu Patrimônio Líquido, considerada pro forma a aquisição pretendida;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b8bcd021e7cc49be80e2bffe56437cb052cbd30a9f8553c28e2536fd1eb3219f"
+      ]
+    },
+    "265d5009eca1f4bccb1121d88fb78284fff0b1f88f74facb84b4994b047a6520": {
+      "reference_date": "2025-05-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bdb24e552006534e4bad6fcd54703bc6df6a23cf111cf4fbfab18a04ae4999a3"
+      ]
+    },
+    "390a845a1e03dbee5f1b623cd3c4f8986ea733042faec70e4abe8bb735837575": {
+      "reference_date": "2025-06-10",
+      "value": "Documentos Comprobatórios são os documentos comprobatórios do lastro dos Direitos Creditórios, cujo processo de originação compete às Instituições Financeiras Conveniadas e aos Cedentes ou Endossantes, conforme aplicável, que compreendem, conjuntamente, (a) o Acordo Operacional Brasil Card; (b) a via eletrônica das CCBs, cujos Direitos Creditórios sejam objeto de transferência à Classe, cedidas ou endossadas eletronicamente à Classe; (c) o Contrato com Titulares; (d) os Contratos com os Estabelecimentos; (e) o Contrato de Cessão e/ou de Endosso; e (f) os respectivos Termos de Cessão e/ou de Endosso.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "46d1fc6ee38cc9cfaeb597c7ab103e6b1b349edaff6b5bdf76dda8b7d02cb120"
+      ]
+    },
+    "f5c9afcb86a4081367ff048968d5a27eb75299238629819fa09d7478d198622c": {
+      "reference_date": "2025-05-21",
+      "value": "Documentos Comprobatórios são os documentos comprobatórios do lastro dos Direitos Creditórios, cujo processo de originação compete às Instituições Financeiras Conveniadas e aos Cedentes ou Endossantes, conforme aplicável, que compreendem, conjuntamente, (a) o Acordo Operacional Brasil Card; (b) a via eletrônica das CCBs, cujos Direitos Creditórios sejam objeto de transferência à Classe, cedidas ou endossadas eletronicamente à Classe; (c) o Contrato com Titulares; (d) os Contratos com os Estabelecimentos; (e) o Contrato de Cessão e/ou de Endosso; e (f) os respectivos Termos de Cessão e/ou de Endosso.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "87d080ab6fc41b50f2ee2fe56863efda1d03a5d67857fca59276dbb0cc912869"
       ]
     }
   },
@@ -5068,30 +5011,6 @@
       "sha256": "edc29ff4064ac28cf51c8d0a4af03c7e359b0cf08292677ba86679858ca09ac3",
       "verification": "primary_passage"
     },
-    "d84770e51a93e1a03aed6bff024c060953b125d818e9333648e2ecaf39f2e46a": {
-      "document_id": "1183147",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1183147",
-      "reference_date": "2025-06-10",
-      "version": "1",
-      "page": 74,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos de Creditórios serão realizadas diretamente a Originadora que  mantem convênio, para que as parcelas das CCBs sejam pagas ao Fundo.",
-      "sha256": "a040387cdcb77f1d76ad7217ee6ccff7b4201b495f49cddaa91589adba376e93",
-      "verification": "primary_passage"
-    },
-    "1bba406562e2bc8b8b24b1c3598d289c9f2f3e54f8255b539969f93c1199ee43": {
-      "document_id": "909660",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909660",
-      "reference_date": "2025-05-21",
-      "version": "1",
-      "page": 74,
-      "clause": "",
-      "excerpt": "A cobrança dos Direitos de Creditórios serão realizadas diretamente a Originadora que mantem convênio, para que as parcelas das CCBs sejam pagas ao Fundo.",
-      "sha256": "0695d60d9ca87c063c3b5dcb4af5d64efd1b21eee9e19c0ff9a214fa19938418",
-      "verification": "primary_passage"
-    },
     "24456dd458345b50c2e381e71143c28803656fb9bb263e3c985e2a195218bf62": {
       "document_id": "1094023",
       "title": "Fato Relevante",
@@ -5140,66 +5059,6 @@
       "sha256": "c18dc5a430947db418d6820a3416ebd5cafeef7a0afdb620162baf828babeafc",
       "verification": "primary_passage"
     },
-    "424e323d3034ecaa423b693da9177d7a73badf8765d23388f5a84ab0ce4cbda6": {
-      "document_id": "730161",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=730161",
-      "reference_date": "2024-05-31",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(e) Os Direitos Creditórios de Créditos Vencidos + 360 dias podem  representar até o limite de máximo de 18%(dezoito por cento) do Patrimônio  Líquido do Fundo;\n (f) O Fundo poderá ainda adquirir Direitos Creditórios representados por  contratosperformados ou a performar, desde que o limite máximo não exceda  o equivalentea 5% (cinco por cento) de seu Patrimônio Líquido;\n (g) os Direitos Creditórios de Financiamento podem representar até 100%  (cempor cento) do Patrimônio Líquido do Fundo;\n (h) as operações de concessão de empréstimo pessoal para os Devedores,  constituídas por meio da emissão de CCB, em favor das Instituições  FinanceirasConveniadas, podem representar até no máximo 40% (quarenta  por cento) do valor financeiro dos Direitos Creditórios de Financiamento  cedidos ao Fundo;\n (i) os Direitos Creditórios de Antecipação podem representar até 30% (trinta  porcento) do Patrimônio Líquido do Fundo; e\n (j) os Direitos Creditórios de natureza diversa podem representar até 5%  (cincopor cento) do Patrimônio Líquido do Fundo.\n (k) o valor total dos Direitos de Creditórios cedidos/endossados ao Fundo,  considerados pro forma, contra um único Devedor do Fundo, não pode ser  superior a 4% (quatro por cento) do Patrimônio Líquido do Fundo;\n (l) o valor total dos Direitos Creditórios cedidos/endossados ao Fundo,  considerados pro forma, contra os 5 (cinco) maiores Devedores do Fundo,  com base no valor do Patrimônio Líquido do Fundo no fechamento do Dia  Útil imediatamente anterior a data da oferta, não pode ser superior a 20%  (vinte porcento) do Patrimônio Líquido do Fundo; e\n (m) o valor total dos Direitos Creditórios cedidos/endossados ao Fundo,  considerados pro forma, contra Devedores pessoas jurídicas, não pode ser  superior a 35% (trinta e cinco por cento) do Patrimônio Líquido do Fundo.",
-      "sha256": "8f6f4a90e5ae7c18677e94a67d7a6142e7d93c9a1636ec901746e6e7c498de88",
-      "verification": "primary_passage"
-    },
-    "391215333290b1d6837be4eafb48164b0a77bdb604e78b7b8d086309ce4bbb23": {
-      "document_id": "344400",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=344400",
-      "reference_date": "2022-05-31",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "(Valores expressos em milhares de reais, exceto quando indicado de outra forma)\n (b) Debenture privada com garantia dos direitos de créditos originados nas vendas  com cartões de créditos do comércio;\n (c) Direitos originados de contratos de compra e venda de energia elétrica no  âmbiente livre (“CCVAL”)\n (d) Direitos originados de Transações de Pagamentos realizadas pelos Usuários-  Finais com a utilização de Instrumentos de Pagamentos para aquisição de bens e  serviços nos Estabelecimentos Credenciados, sendo devidos pelos Devedores,  conforme aplicávele;\n (e) Faturas de cartão de créditos a receber e/ou vencidas, originadas de empresas  administradoras de arranjos de pagamento (Faturas de Cartão de Créditos);\n (f) Duplicatas originadas por Nota Fiscal Eletrônica, Notas Fiscais de Serviço e Notas  de Produtor Rural; e\n (g) Cheques pré-datados, originados do comércio em geral;",
-      "sha256": "c971cd301fa15884127cc87032006f11a32fd70afefd8efa39771ea2e1312a85",
-      "verification": "primary_passage"
-    },
-    "f8bdc462d3570755d0b7e72085d656c3e980b7d69ad9020317ac4ec57c374254": {
-      "document_id": "210186",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=210186",
-      "reference_date": "2021-05-31",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "O Fundo poderá adquirir Direitos Creditórios, sendo o segmento,  individualmente, representados por cédulas de crédito bancário (“CCBs”),  originadas do saldo rotativo de operação com cartão de crédito, realizada pela  Cedente com seus clientes os “Devedores”, e/ou, certificados de cédulas de  créditos bancários (“CCCB”), por operações com a emissão de debêntures  privadas com garantia dos direitos de créditos originados nas vendas comcartões  de créditos do comércio e direitos originados de contratos de compra e venda de  energia elétrica no ambiente livre (“CCVEAL”), por operações detidas pelos  Estabelecimentos Credenciados, originárias de Transações de Pagamentos  realizadas pelos Usuários-Finais com a utilização de Instrumentos de  Pagamentos para aquisição de bens e serviços nos Estabelecimentos  Credenciados, sendo devidos pelos Devedores, conforme aplicável e, faturas de  cartão de créditos a receber originadas de empresas administradoras de arranjos  de pagamento (Faturas de Cartão de Créditos).",
-      "sha256": "edc29ff4064ac28cf51c8d0a4af03c7e359b0cf08292677ba86679858ca09ac3",
-      "verification": "primary_passage"
-    },
-    "33b753193db1f25caa614f520fa5cf8b36f424543fe6641a63fc7400d673668c": {
-      "document_id": "1183147",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1183147",
-      "reference_date": "2025-06-10",
-      "version": "1",
-      "page": 52,
-      "clause": "",
-      "excerpt": "(g) considerada pro forma a aquisição pretendida, as operações de  concessão de empréstimo pessoal para os Devedores, constituídas por meio da  emissão de CCB, em favor das Instituições Financeiras Conveniadas, poderão  representar até no máximo 40% (quarenta por cento) do valor financeiro dos  Direitos Creditórios de Financiamento cedidos a Classe;",
-      "sha256": "a040387cdcb77f1d76ad7217ee6ccff7b4201b495f49cddaa91589adba376e93",
-      "verification": "primary_passage"
-    },
-    "e8c8cd173a9a62ea281957fbb9e6b6c77325eb463c7125e1a8d7a5da12f1e12c": {
-      "document_id": "909660",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909660",
-      "reference_date": "2025-05-21",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "Devedores são os devedores (sacados) dos Direitos Creditórios,  que são, conforme o caso: (i) portadores de Cartões  Brasil Card, que tenham outorgado, nos termos do  Contrato com os Titulares, poderes especiais para a  Brasil Card obter, em nome do titular, financiamento  de valor não excedente ao saldo devedor das faturas  e/ou carnês inadimplidos ou que estão a vencer  contendo qualquer tipo de parcelamento referentes às  Transações de Pagamento feitas mediante o uso do  Cartão Brasil Card, por meio da emissão de CCBs ou  outro instrumento de qualquer natureza para  formalizar o financiamento; (ii) a Bolt Card, na  condição de devedora dos Estabelecimentos  Comerciais, em razão da realização de Transações  de Pagamento pelos Usuários-Finais; e (iii) qualquer  outra Pessoa, conforme aplicável, que se caracterize  como devedora dos Direitos Creditórios, mesmo  daqueles de natureza diversa.",
-      "sha256": "0695d60d9ca87c063c3b5dcb4af5d64efd1b21eee9e19c0ff9a214fa19938418",
-      "verification": "primary_passage"
-    },
     "f4b392fa7c3d6c0dcf83eca7fdb4124f343ce654860c41e5a92c564c38abb1ca": {
       "document_id": "1186789",
       "title": "Regulamento",
@@ -5237,30 +5096,6 @@
       "sha256": "f9aa929c3e830279da10b3b45691d0d1522dfff3c1a652320e8c73928404bc8d",
       "verification": "primary_passage"
     },
-    "0449706e1559d3121e72f4194af87e035b1472b47b6f6c4848a69d23ad174915": {
-      "document_id": "513762",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513762",
-      "reference_date": "2023-05-31",
-      "version": "1",
-      "page": 19,
-      "clause": "",
-      "excerpt": "Os Direitos Creditórios são oriundos de\n (i) operações de financiamento com as Instituições Financeiras Conveniadas  realizadas pelos Devedores, representados pela Brasil Card, para quitar  faturas em atraso ou que estejam a vencer contendo qualquer tipo de  parcelamento referentes aos Cartões Brasil Card, representados por CCB ou  outro instrumento de qualquer natureza para formalizar o financiamento;\n (ii) Transações de Pagamentos realizadas pelos Usuários-Finais com a utilização  de Cartões Brasil Card para aquisição de bens e serviços nos  Estabelecimentos Credenciados, sendo devidos pelos Devedores, sendo que  um direito creditório considerado individualmente poderá ser correspondente  à integralidade de uma Transação de Pagamento (no caso de pagamento à  vista) ou a uma parcela de uma Transação de Pagamento (no caso de  pagamento parcelado), conforme aplicável;\n (iii) valor correspondente às operações de concessão de empréstimo pessoal  para os Devedores, constituídas por meio da emissão de CCB em favor das  Instituições Financeiras Conveniadas; e\n (iv) direitos creditórios de natureza diversa aos créditos anteriormente  mencionados, a serem cedidos pelos Cedentes em conformidade com as  regras e procedimentos disciplinados pelo regulamento. O Fundo adquirirá  apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às  Condições de Cessão, conforme verificados nas respectivas datas de  aquisição.",
-      "sha256": "9152b962610f27bbfe3257d100be491917c4759b7b06c7a689c5326a63711c80",
-      "verification": "primary_passage"
-    },
-    "855253cd8e64e3ec8668aff12d96157de706e9533271e68a525b2bfae99df109": {
-      "document_id": "344400",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=344400",
-      "reference_date": "2022-05-31",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "O desenquadramento de qualquer Direito Creditório aos Critérios de Elegibilidade  e/ou Condições de Cessão, por qualquer motivo, após a sua cessão ao Fundo, não  obriga a sua alienação pelo Fundo, nem dá ao Fundo qualquer pretensão, recurso ou  direito de regresso contra as Cedentes, a Administradora, a Gestora, o Custodiante,  seus controladores, sociedades por eles direta ou indiretamente controladas,  coligadas ou outras sociedades sob controle comum.",
-      "sha256": "c971cd301fa15884127cc87032006f11a32fd70afefd8efa39771ea2e1312a85",
-      "verification": "primary_passage"
-    },
     "cda3d2c2285293d8c05b9162ab447b4e92771f85836e78cfb4c621ef90fd262e": {
       "document_id": "210186",
       "title": "Demonstrações Financeiras",
@@ -5271,54 +5106,6 @@
       "clause": "",
       "excerpt": "Investimentos em direitos creditórios (Conforme Nota Explicativa no 6 – Direitos Creditórios) Motivo pelo qual o assunto foi considerado um PAA O Fundo foi constituído sob a forma de condomínio fechado e é destinado a investidores qualificados.\nEm 31 de maio de 2021, o Fundo possuía R$ 157.437 mil, o equivalente a 98,81% de seu Patrimônio Líquido investido em direitos creditórios, adquiridos com a aquisição substancial dos riscos e benefícios representados por Cédulas de Crédito Bancário (“CCBs”) e operações de cartão de crédito. Desta forma, em nosso julgamento os riscos mais significativos para fins de auditoria são a mensuração do valor justo, a existência e a realização destes ativos. Por esse motivo, foram tratados como assuntos relevantes em nossa auditoria.\nComo o assunto foi conduzido em nossa auditoria Nossos procedimentos de auditoria foram, entre outros: (i) conciliação contábil da carteira;\n(ii) recálculo do valor justo dos recebíveis por amostragem; (iii) análise do enquadramento dos direitos creditórios adquiridos no exercício quanto aos critérios de elegibilidade definidos no regulamento do Fundo; (iv) verificação dos termos de cessão para as aquisições de direitos creditórios ocorridas no exercício por amostragem; (v) verificação dos lastros das operações de crédito, representados por Cédulas de Crédito Bancário (“CCBs”) e operações de cartão de crédito, por amostragem;\n(vi) testes documentais, por amostragem, para os recebimentos financeiros dos direitos creditórios;\n(vii) acompanhamento dos níveis de inadimplência e recálculo da provisão no valor de recuperação de recebíveis, com base nas premissas disponibilizadas pela administradora do Fundo, para os direitos creditórios vencidos e não; (viii) teste de arrasto para validação dos percentuais utilizados na composição da provisão no valor de recuperação dos recebíveis realizada pelo Fundo; e (ix) teste de aderência entre as informações registradas e as informações contábeis registradas e divulgadas.\nCom base na abordagem de nossa auditoria e nos procedimentos efetuados, entendemos que os critérios e premissas adotados pelo Fundo para a apuração do valor justo do seu investimento no exercício foram adequados no contexto das demonstrações contábeis do Fundo.",
       "sha256": "edc29ff4064ac28cf51c8d0a4af03c7e359b0cf08292677ba86679858ca09ac3",
-      "verification": "primary_passage"
-    },
-    "a0ce6d1fed72a9b64138bb4ccc3fbae01536327162cb2830534d4493a451abaf": {
-      "document_id": "1074438",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074438",
-      "reference_date": "2026-01-02",
-      "version": "1",
-      "page": 41,
-      "clause": "",
-      "excerpt": "Maioria das Cotas  Subordinadas Júnior em  circulação  alterar (i) as Datas de  Amortização e/ou a Data de  Resgate de uma série de  Cotas Seniores ou Cotas  Subordinadas Mezanino,  conforme dispostos no  respectivo Apêndice; (ii) os  direitos e prerrogativas das 75% (setenta e cinco  Cotas Seniores, das Cotas porcento) das Cotas  Mezanino e/ou a ordem de Seniores, 75% (setenta  prioridade nas amortizações e e cinco porcento) das\n(v) Maioria das Maioria das  resgates de Cotas; (iii) a Cotas Subordinadas  Cotas presentes Cotas presentes  ordem de alocação de Mezanino e  recursos e a forma de cálculo Maioria das Cotas  das Cotas; (iv) os Eventos de Subordinadas Júnior em  Avaliação; (v) os Eventos de circulação  Liquidação Antecipada; (vi) os  Critérios de Elegibilidade e/ou  as Condições de Cessão;\n e/ou (vii) os quóruns e itens  de deliberação da Assembleia  Geral de Cotistas  estabelecidos neste Capitulo;\n 75% (setenta e cinco  por cento) das Cotas  emitidas referentes às  Subclasses com  Maioria das prioridade maior que a\n(vi) redução da relação mínima do Maioria das  Cotas em prioridade da Subclasse  Índice de Subordinação; Cotas presentes  circulação relacionada ao Índice de  Subordinação em  questão, consideradas  agrupadas nas suas  respectivas Subclasses  75% (setenta e cinco  por cento) das Cotas  emitidas referentes às  Subclasses com  prioridade menor ou  maioria das\n(vii) aumento da relação mínima maioria das igual à prioridade da  Cotas em  do Índice de Subordinação; Cotas presentes Subclasse relacionada  circulação  ao Índice de  Subordinação em  questão, consideradas  agrupadas nas suas  respectivas Subclasses  41",
-      "sha256": "0ac1a39f0ca5ad81597ec8e30730f9ad65fe89e8ba739aab9e52a93694092681",
-      "verification": "primary_passage"
-    },
-    "2ae36e80907e861f2d59d74bcfa9b8fb2c34549058a684421b2302dc8d1cf814": {
-      "document_id": "1183147",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1183147",
-      "reference_date": "2025-06-10",
-      "version": "1",
-      "page": 29,
-      "clause": "7.1",
-      "excerpt": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na  respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às  Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no  respectivo Anexo da Classe.",
-      "sha256": "a040387cdcb77f1d76ad7217ee6ccff7b4201b495f49cddaa91589adba376e93",
-      "verification": "primary_passage"
-    },
-    "26b307cb654700f1d82971c9549875baba39feced83f33858eabe538549b265c": {
-      "document_id": "909660",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909660",
-      "reference_date": "2025-05-21",
-      "version": "1",
-      "page": 29,
-      "clause": "7.1",
-      "excerpt": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo da Classe.",
-      "sha256": "0695d60d9ca87c063c3b5dcb4af5d64efd1b21eee9e19c0ff9a214fa19938418",
-      "verification": "primary_passage"
-    },
-    "758ca93fe0d6d38f32a9c4f228b300007635dc6439492d42b468c9f260b371e2": {
-      "document_id": "902378",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=902378",
-      "reference_date": "2025-05-14",
-      "version": "1",
-      "page": 30,
-      "clause": "7.1",
-      "excerpt": "7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe do Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às Condições de Cessão e aos Critérios de Elegibilidade que se encontram descritos no respectivo Anexo da Classe.",
-      "sha256": "8f3310feccb26159f6a6da406d339851dad4f23cd6e8df689612d0ab307f66ba",
       "verification": "primary_passage"
     },
     "d39f7fd684e5a4afdb5fab86800fc84fe35624c1346ee87d50f9d54934834568": {
@@ -9809,16 +9596,132 @@
       "sha256": "0ac1a39f0ca5ad81597ec8e30730f9ad65fe89e8ba739aab9e52a93694092681",
       "verification": "primary_passage"
     },
-    "b8dc8353ffa7c03a6245d58d058e1a6ff56295e2d273eb039f4f879601a6a8ab": {
+    "4bf342ed1ae69a8a345a92e1c4657354c6fe0df8a647b49a9a87f73425811a01": {
+      "document_id": "979425",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=979425",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "Adicionalmente às Condições de Cessão, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os Direitos Creditórios:\n(a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios  de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos  creditórios de natureza diversa aos créditos anteriormente  mencionados, a serem cedidos pelos Cedentes em confor midade com  as regras e procedimentos disciplinados pelo Regulamento e o presente  Anexo;\n(b) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza;\n(c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e  vinculante para o Devedor e para o Cedente;\n(d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de  cada Cedente, bem como devem estar livres e desembaraçados de  quaisquer ônus, gravames ou restrições de qualquer natureza;\n(e) o Fundo poderá ainda adquirir Direitos Creditórios representados por  contratos performados ou a performar, desde que o limite máximo não  exceda o equivalente a 5% (cinco por cento) de seu Patrimônio Líquido,  considerada proforma a aquisição pretendida;\n(f) considerada proforma a aquisição pretendida, os Direitos Creditórios de  Financiamento poderão representar até 100% (cem por cento) do  Patrimônio Líquido do Fundo;",
+      "sha256": "6a8044323fde17ee7ee48c9126c8174bd35b3045902143079cfabdd0a2add3a8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f2a3a0bf3ba5f47426a0b924f42e4493c558344fa2896cfc9b30706b50873181": {
+      "document_id": "730161",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=730161",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 48,
+      "clause": "",
+      "excerpt": "I. APROVAR:\n(i) a alteração no Regulamento no Fundo, incluindo, mas não se limitando, para  alteração dos Ativos Financeiros permitidos, em especial quantos as cotas de fundos,  para restringir a cotas de fundos de investimento de renda fixa e que possuam como  política de investimento a alocação exclusiva títulos de emissão do Tesouro Nacional  e/ou títulos de emissão do BACEN, Critérios de Elegibilidade e das Condições de  Cessão, dos Eventos de Avaliação e da Ordem de Alocação dos Recursos, bem como  para adaptação do Fundo à Resolução CVM 175, alterando assim a nova  denominação do Fundo que passara a ser “Cobuccio Fundo de Investimento em  Direitos Creditórios de Classe Única Fechada de Responsabilidade Limitada”, criação  da Classe Única, de responsabilidade limitada, criação da subclasse de Cotas  Subordinadas Mezanino, de modo que as Cotas Subordinadas passam a  corresponder às Cotas Subordinadas Júnior, e vedação à aquisição, pela Classe  Única, de Direitos Creditórios que estejam inadimplidos no momento da cessão para  a Classe Única, observado que os Direitos Creditórios previamente adquiridos, nos  termos do Regulamento, e que estivavam inadimplidos no momento da aquisição pelo  Fundo podem permanecer em sua carteira, observadas as demais disposições do  Regulamento. A versão aprovada do Regulamento consta do “Anexo I - Regulamento”  abaixo;\n (ii) a alteração dos modelos dos Contratos de Cessão e do Contrato de Endosso, para  fins de adequação destes documentos às alterações do Regulamento mencionadas  no item “i” acima. As versões aprovadas dos Contratos de Cessão e do Contrato de  Endosso constam do “Anexo II – Contratos de Cessão e Contrato de Endosso”;\n (iii) a primeira emissão da 3ª (terceira) série de Cotas Seniores da Classe Única, a ser  composta por 50.000 (cinquenta mil) Cotas Seniores, com valor nominal unitário de  R$1 cada, no montante, inicialmente, de R$50.000 na data da primeira subscrição e  integralização das Cotas Seniores, as quais são objeto de oferta pública de  distribuição, sob o rito de registro automático, nos termos da Resolução CVM n° 160,  de 13 de julho de 2022, conforme alterada (“Emissão” e “Oferta”, respectivamente),  sendo que a Oferta será coordenada pelo Banco Itaú BBA S.A., instituição financeira  com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria  Lima, nº 3.500, 1º, 2º, 3º (parte), 4º e 5º andares, Itaim Bibi, CEP 04538-132, inscrita  no CNPJ sob o nº 17.298.092/0001-30. Não haverá direito de preferência para  subscrição das Cotas Seniores da nova Emissão pelos atuais Cotistas. As  características da Emissão e da Oferta encontram-se descritas no Apêndice constante  do “Anexo III - Apêndice”;\nII. Autorizar a Administradora e a Gestora a realizar todas as ações necessárias à  implementação das deliberações aprovadas.",
+      "sha256": "8f6f4a90e5ae7c18677e94a67d7a6142e7d93c9a1636ec901746e6e7c498de88",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "24170722ee03fc2a9f5cff6ff32abdb6363d4a062dd1fd994d47b68da647e072": {
+      "document_id": "606218",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=606218",
+      "reference_date": "2024-02-14",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "I. APROVAR:\n(i) a alteração no Regulamento no Fundo, incluindo, mas não se limitando,  para alteração dos Ativos Financeiros permitidos, em especial quantos as cotas  de fundos, para restringir a cotas de fundos de investimento de renda fixa e que  possuam como política de investimento a alocação exclusiva títulos de emissão  do Tesouro Nacional e/ou títulos de emissão do BACEN, Critérios de  Elegibilidade e das Condições de Cessão, dos Eventos de Avaliação e da Ordem  de Alocação dos Recursos, bem como para adaptação do Fundo à Resolução  CVM 175, alterando assim a nova denominação do Fundo que passara a ser",
+      "sha256": "f9aa929c3e830279da10b3b45691d0d1522dfff3c1a652320e8c73928404bc8d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b02b3228ca775ca9aa628d1dd1efe8d7a8eb5d3a098535f156c79e937f372e1c": {
+      "document_id": "513762",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513762",
+      "reference_date": "2023-05-31",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e  Pagamento, deverão atender, cumulativamente, às seguintes Condições de  Cessão para todos os Direitos Creditórios:\n(a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios de  Antecipação, Direitos Creditórios de Financiamento e/ou de direitos creditórios de  natureza diversa aos créditos anteriormente mencionados, a serem cedidos pelos  Cedentes em conformidade com as regras e procedimentos disciplinados pelo  regulamento;\n (b) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer  ônus ou gravames de qualquer natureza;\n (c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e  vinculante para o Devedor e para o Cedente;\n (d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de cada  Cedente, bem como devem estar livres e desembaraçados de quaisquer ônus,  gravames ou restrições de qualquer natureza; (e) Os Direitos Creditórios de  Créditos Vencidos + 360 dias poderão representar até o limite de máximo de 18%  (dezoito por cento) do Patrimônio Líquido do Fundo;\n (f) O Fundo poderá ainda adquirir Direitos Creditórios representados por contratos  performados ou a performar, desde que o limite máximo não exceda o equivalente  a 5% (cinco por cento) de seu Patrimônio Líquido;\n (g) os Direitos Creditórios de Financiamento poderão representar até 100% (cem  por cento) do Patrimônio Líquido do Fundo;\n (h) as operações de concessão de empréstimo pessoal para os Devedores,  constituídas por meio da emissão de CCB, em favor das Instituições Financeiras  Conveniadas, poderão representar até no máximo 40% (quarenta por cento) do  valor financeiro dos Direitos Creditórios de Financiamento cedidos ao Fundo;\n (i) os Direitos Creditórios de Antecipação poderão representar até 30% (trinta por  cento) do Patrimônio Líquido do Fundo; e\n (j) os Direitos Creditórios de natureza diversa poderão representar até 5% (cinco  por cento) do Patrimônio Líquido do Fundo.\n (k) o valor total dos Direitos de Creditórios cedidos/endossados ao Fundo,  considerados pro forma, contra um único Devedor do Fundo, não poderá ser  superior a 4% (quatro por cento) do Patrimônio Líquido do Fundo;\n (l) o valor total dos Direitos Creditórios cedidos/endossados ao Fundo,  considerados pro forma, contra os 5 (cinco) maiores Devedores do Fundo, com  base no valor do Patrimônio Líquido do Fundo no fechamento do Dia Útil  imediatamente anterior a data da oferta, não poderá ser superior a 20% (vinte por  cento) do Patrimônio Líquido do Fundo; e  25",
+      "sha256": "9152b962610f27bbfe3257d100be491917c4759b7b06c7a689c5326a63711c80",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0ae286244200fcc410a0b12f2c2e5d9b21755219967c60484760f2a1b380f32f": {
+      "document_id": "389124",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389124",
+      "reference_date": "2022-12-08",
+      "version": "1",
+      "page": "1–2",
+      "clause": "",
+      "excerpt": "5. ORDEM DO DIA: Deliberar sobre as seguintes matérias:\n(i) aprovar a revisão e inclusão de novos itens do Capítulo 6. Critérios de  Elegibilidade e Condições de Cessão a serem observados na aquisição dos  direitos creditórios pelo Fundo;\n(ii) aprovar a alteração do item 9.2.9, de modo que os Serviços de Controladoria  passarão a ser exercidos pelo Custodiante;\n(iii) aprovar a revisão e inclusão de novas matérias do Capítulo 14. Cotas, Emissão,  Integralização e Negociação de Cotas;\n(iv) aprovar a revisão e inclusão de novas matérias do Capítulo 16. Eventos de  Avaliação;\n(v) aprovar a revisão e inclusão de novas matérias do Capítulo 17. Liquidação do  Fundo;\n(vi) aprovar a revisão e inclusão de novas matérias do Capítulo 19. Assembleia  Geral;\n(vii) aprovar a alteração integral do Regulamento do Fundo, o qual passará a  vigorar de forma consolidada nos termos do Anexo I ao presente instrumento;\n(viii) aprovar o Suplemento das Cotas Seniores 1ª Série, nos termos do Anexo II ao  presente instrumento;\n(ix) aprovar a oferta pública, com esforços restritos de distribuição, nos termos da  Instrução nº 476 da CVM, de 16 de janeiro de 2009, conforme alterada  Instrução CVM 476 Cotas Seniores da 1ª  Série\na. Coordenador Líder: O coordenador líder da Oferta será BANCO ITAÚ BBA  S.A., instituição financeira com sede na Cidade de São Paulo, Estado de São Paulo,  na Avenida Brigadeiro Faria Lima, nº 3.500, 1º, 2º, 3º (parte), 4º e 5º andares, Itaim  Bibi, inscrita no CNPJ/ME sob o nº 17.298.092/0001-30 Coordenador Líder ,  que distribuirá publicamente com esforços restritos as Cotas Seniores da 1ª Série  sob o regime de garantia firme de colocação, sujeito aos termos e condições  previstos no contrato de distribuição a ser celebrado entre o Fundo e o Coordenador  Líder;\nb. Montante Total da Oferta: 100.000 (cem mil) Cotas Seniores da 1ª Série, com  valor unitário de R$1.000,00 (mil reais), perfazendo o valor total de  R$100.000.000,00 (cem milhões de reais). Adicionalmente não serão constituídos  fundos nem celebrados contratos de estabilização de preços e/ou de garantia de  liquidez para as Cotas Seniores da 1ª Série;\nc. Regime de Distribuição: As Cotas Seniores da 1ª Série serão objeto de  distribuição pública com esforços restritos, realizada nos termos da Instrução CVM  476;\nd. Distribuição Parcial: As Cotas Seniores da 1ª Série serão distribuídas pelo  Coordenador Líder em regime de garantia firme de colocação, para o montante total",
+      "sha256": "3136fbb54125cb4ec0e677e20bb52f9d70dcbd12aac5adf719adea0fee7362f1",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "6aa43ff5001822282462fbbbad56f3c9be668f1b36a8ef0ebec67d60c0c5d916": {
+      "document_id": "344400",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=344400",
+      "reference_date": "2022-05-31",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva  Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos  seguintes Critérios de Elegibilidade:\n(a) as debêntures de oferta privada,limitadas à 100% (cem por cento) do  patrimônio líquido, deverão ser ofertadas por companhias emissoras, com registro  na CVM , atendendo as condições de emissor categoria “B” estabelecidas no  Inciso II, Art. 2º, da instrução CVM nº 480 de 07 de dezembro de 2009 e alteradas;\n e\n(b) as debêntures de oferta privada, ofertadas por sociedades anônimas de capital  fechado, sem registro de emissor na CVM, devem observar o limite de 20% (vinte  por cento) do patrimônio líquido do fundo por devedor ou responsável solidário;",
+      "sha256": "c971cd301fa15884127cc87032006f11a32fd70afefd8efa39771ea2e1312a85",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "93c1739d6d388ad5a8cfce149873858a4fe6520b6c40d250bfdef39721b5baee": {
       "document_id": "1074438",
       "title": "Regulamento",
       "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074438",
       "reference_date": "2026-01-02",
       "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "“Data de Referência” Significa o 3º (terceiro) Dia Útil de cada mês.\n “Data de Resgate” é a respectiva data de resgate das Cotas, conforme  disposto em seu respectivo Apêndice.\n “Data de Subscrição Inicial” A data da primeira subscrição e integralização de  Cotas.\n “Data de Verificação” Significa o 5º (quinto) Dia Útil de cada mês.\n “Devedores” são os Devedores (sacados) dos Direitos Creditórios,  que são, conforme o caso: (i) portadores de Cartões  Brasil Card, que tenham outorgado, nos termos do  Contrato com os Titulares, poderes especiais para a  Brasil Card obter, em nome do titular, financiamento  de valor não excedente ao saldo devedor das faturas  e/ou carnês inadimplidos ou que estão a vencer  contendo qualquer tipo de parcelamento referentes  às Transações de Pagamento feitas mediante o uso  do Cartão Brasil Card, por meio da emissão de CCBs  ou outro instrumento de qualquer natureza para  formalizar o financiamento; (ii) a Bolt Card, na  condição de devedora dos Estabelecimentos  Comerciais, em razão da realização de Transações  de Pagamento pelos Usuários-Finais; e (iii) qualquer  outra Pessoa, conforme aplicável, que se caracterize  como devedora dos Direitos Creditórios, mesmo  daqueles de natureza diversa.\n “Dia Útil” Cada dia útil, para fins de operações praticadas no  mercado financeiro brasileiro, conforme especificado  na Resolução CMN nº 4.880, de 23 de dezembro de  2020, conforme alterada. Todas as obrigações  previstas no Regulamento, inclusive obrigações de  pagamento, cuja data de vencimento coincida com  dia que não seja Dia Útil serão cumpridas no Dia Útil  imediatamente subsequente.\n “Direitos Creditórios” Direitos creditórios passíveis de aquisição pelo  Fundo e/ou pela Classe, que no caso do Anexo I -A  significam, em conjunto, os Direitos Creditórios de  Antecipação e os Direitos Creditórios de  Financiamento, podendo inclusive incluir direitos  creditórios de natureza diversa aos créditos  anteriormente mencionados, inadimplidos ou a  vencer, a serem cedidos pelos Cedentes e ou  Endossantes em conformidade com as regras e  procedimentos disciplinados pelo presente  Regulamento e pelo respectivo Anexo I-A.",
+      "page": "64–65",
+      "clause": "8.2",
+      "excerpt": "8.2. Adicionalmente às Condições de Cessão, os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os Direitos Creditórios:\n(a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios  de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos  creditórios de natureza diversa aos créditos anteriormente mencionados, a  serem cedidos pelos Cedentes em conformidade com as regras e procedimentos  disciplinados pelo Regulamento e o presente Anexo;\n(b) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza;\n(c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e  vinculante para o Devedor e para o Cedente;\n(d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de  cada Cedente, bem como devem estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(e) o Fundo poderá ainda adquirir Direitos Creditórios representados por  contratos performados ou a performar, desde que o limite máximo não exceda o  equivalente a 5% (cinco por cento) de seu Patrimônio Líquido, considerada pro  forma a aquisição pretendida;\n(f) considerada pro forma a aquisição pretendida, os Direitos Creditórios de  Financiamento poderão representar até 100% (cem por cento) do Patrimônio  Líquido do Fundo;\n(g) considerada pro forma a aquisição pretendida, as operações de  concessão de empréstimo pessoal para os Devedores, constituídas por meio da  emissão de CCB, em favor das Instituições Financeiras Conveniadas, poderão  representar até no máximo 40% (quarenta por cento) do valor financeiro dos  Direitos Creditórios de Financiamento cedidos a Classe;\n(h) considerada pro forma a aquisição pretendida, os Direitos Creditórios de  Antecipação poderão representar até 30% (trinta por cento) do Patrimônio  Líquido do Fundo;\n(i) considerada pro forma a aquisição pretendida, os Direitos Creditórios de  natureza diversa poderão representar até 5% (cinco por cento) do Patrimônio  Líquido do Fundo.\n(j) ressalvado quando o Cedente for a Brasil Card, considerada pro forma a  aquisição pretendida, o valor total dos Direitos de Creditórios  cedidos/endossados ao Fundo, considerados pro forma, contra um único  Devedor da Classe, não poderá ser superior a 4% (quatro por cento) do  Patrimônio Líquido da Classe;\n(k) considerada pro forma a aquisição pretendida, o valor total dos Direitos  Creditórios cedidos/endossados à Classe, devidos pelos 5 (cinco) maiores  Devedores da Classe, com base no valor do Patrimônio Líquido da Classe no  fechamento do Dia Útil imediatamente anterior a Data da Oferta, não poderá ser  superior a 20% (vinte por cento) do Patrimônio Líquido da Classe;\n(l) considerada pro forma a aquisição pretendida, o valor total dos Direitos  Creditórios cedidos/endossados à Classe, devidos por Devedores pessoas  jurídicas, não poderá ser superior a 25% (vinte cinco por cento) do Patrimônio  Líquido da Classe; e",
       "sha256": "0ac1a39f0ca5ad81597ec8e30730f9ad65fe89e8ba739aab9e52a93694092681",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b8bcd021e7cc49be80e2bffe56437cb052cbd30a9f8553c28e2536fd1eb3219f": {
+      "document_id": "1183147",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1183147",
+      "reference_date": "2025-06-10",
+      "version": "1",
+      "page": 51,
+      "clause": "8.2",
+      "excerpt": "8.2. Adicionalmente às Condições de Cessão, os Direitos Creditórios que poderão  ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento, deverão  atender, cumulativamente, aos seguintes Critérios de Elegibilidade para todos os  Direitos Creditórios:\n(a) os Direitos Creditórios deverão ser provenientes de Direitos Creditórios  de Antecipação, Direitos Creditórios de Financiamento e/ou de direitos  creditórios de natureza diversa aos créditos anteriormente mencionados, a  serem cedidos pelos Cedentes em conformidade com as regras e procedimentos  disciplinados pelo Regulamento e o presente Anexo;\n(b) os Direitos Creditórios devem estar livres e desembaraçados de  quaisquer ônus ou gravames de qualquer natureza;\n(c) os Direitos Creditórios deverão constituir uma obrigação legal, válida e  vinculante para o Devedor e para o Cedente;\n(d) os Direitos Creditórios devem ser de legítima e exclusiva titularidade de  cada Cedente, bem como devem estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(e) o Fundo poderá ainda adquirir Direitos Creditórios representados por  contratos performados ou a performar, desde que o limite máximo não exceda o  equivalente a 5% (cinco por cento) de seu Patrimônio Líquido, considerada pro  forma a aquisição pretendida;",
+      "sha256": "a040387cdcb77f1d76ad7217ee6ccff7b4201b495f49cddaa91589adba376e93",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "46d1fc6ee38cc9cfaeb597c7ab103e6b1b349edaff6b5bdf76dda8b7d02cb120": {
+      "document_id": "1183147",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1183147",
+      "reference_date": "2025-06-10",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Documentos Comprobatórios são os documentos comprobatórios do lastro dos  Direitos Creditórios, cujo processo de originação  compete às Instituições Financeiras Conveniadas e  aos Cedentes ou Endossantes, conforme aplicável,  que compreendem, conjuntamente, (a) o Acordo  Operacional Brasil Card; (b) a via eletrônica das  CCBs, cujos Direitos Creditórios sejam objeto de  transferência à Classe, cedidas ou endossadas  eletronicamente à Classe; (c) o Contrato com  Titulares; (d) os Contratos com os Estabelecimentos;\n (e) o Contrato de Cessão e/ou de Endosso; e (f) os  respectivos Termos de Cessão e/ou de Endosso.",
+      "sha256": "a040387cdcb77f1d76ad7217ee6ccff7b4201b495f49cddaa91589adba376e93",
+      "verification": "primary_passage"
+    },
+    "87d080ab6fc41b50f2ee2fe56863efda1d03a5d67857fca59276dbb0cc912869": {
+      "document_id": "909660",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909660",
+      "reference_date": "2025-05-21",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "Documentos Comprobatórios são os documentos comprobatórios do lastro dos  Direitos Creditórios, cujo processo de originação  compete às Instituições Financeiras Conveniadas e  aos Cedentes ou Endossantes, conforme aplicável,  que compreendem, conjuntamente, (a) o Acordo  Operacional Brasil Card; (b) a via eletrônica das  CCBs, cujos Direitos Creditórios sejam objeto de  transferência à Classe, cedidas ou endossadas  eletronicamente à Classe; (c) o Contrato com  Titulares; (d) os Contratos com os Estabelecimentos;\n (e) o Contrato de Cessão e/ou de Endosso; e (f) os  respectivos Termos de Cessão e/ou de Endosso.",
+      "sha256": "0695d60d9ca87c063c3b5dcb4af5d64efd1b21eee9e19c0ff9a214fa19938418",
       "verification": "primary_passage"
     }
   }

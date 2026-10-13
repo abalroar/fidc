@@ -3,18 +3,6 @@
   "cnpj": "62393829000159",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "0e449de70f8abc2b801852e7870898428c5ebe5692963ea437fef9b442e8b544",
-      "2197a5897b487dbf5c2f040b2b4f872e746de70007aebd25e3bb1def58ef2df8",
-      "57099570c9eb06a1411adae3b12f0a534ebfaaff8bc48ed00a04317e2298475d",
-      "78d34877a6d33ea9953ec231e2ac72a91eeb7afa590c05ed1bdd9c71548f3417",
-      "9b28794dd6620e275908f07f1cd0b60fce822c7c357e18fde615b7437fc7b745",
-      "6de87febaa0fce23afadbf55d99f6fc28720b17a85fb7526632dadcba5959ac7",
-      "e9ee66c565388ef23b8817bae2bd905461b0c9dbde98a69e3bca78ea372f0cd7",
-      "253f8bf4a5ab93efe23b43afff055ceb60325dee7b53d0d17a1c29fe9148065f",
-      "e907cfe8b214f87ca4bca267fed2e463137b1b941d348fda24e26ce3eccaf1d1",
-      "26b2d0a2ea22267fa43d8f2777a858c310ee89724464798b1f413f62ed4f17f0"
-    ],
     "ticket": [
       "d478edbf2ca260dba20cd4ad3104b4dfbe65601a2b0fbe6d8ae5c20c4b18e5f3",
       "f6e6ef32a619e41193190a1a5cb491db8fb98dd5a4e76b840c8e7daf55e93ba9",
@@ -416,24 +404,6 @@
       "18d6c0246173fc44033ea8eecbff91bb5ca80b5a4deee339846698169a4b2578",
       "9845ee81f5e7205d3d8aafba6b7209f5208e2227c7bd50d1bb095651573577a2"
     ],
-    "originator": [
-      "1b9b0f7261e162103c6762e399472420cc8512ef2f7e90da3e7876d00119d67f",
-      "31908f7307fc67c63ba115051ef9e7833f540bcebb6ff09d3f16dabb767bd292",
-      "560099f4f6e5ae3b3c44d6dfb7b420f5b651082083d747d52d6d2a1083c04014",
-      "e7344bf9b43a43e42e5a332f9d87f22d7ffefdf0849e97301a6f6a3355383967",
-      "dcaeabc4316b08ebe73e5776702edfa6ae16f479cfa1ed4ae9ff047fee5a7155",
-      "3d9dc8ad0ac15233c92a75f2f1897b70d7b16c56b70f24e65429534be1f57361",
-      "f5dab5b877ebbb096944d3b3c38d4f359dea9f8c2a7dc75e1f6b979b73f5e46e",
-      "09ebe9d52a9ff83fa419b8284eb474e9d8b6b5fe11cf631151edd571c5a4f0f0",
-      "728cb73eba51876cc5e803cb7a1dd79583add3af400d9a03d025e95b89b9b0b6"
-    ],
-    "debtor": [
-      "0966167b04530a76cd46b7c1eeaf200bc69fc44c1cb30d7fe12e894502e07ed9",
-      "a8dbca78e0b7b767d6192bfc80faad7ecccd07a64f1fb6cedbcf5393efae7adc",
-      "4be6e658105681e7aea7f4b77018e557b79b0dbdefe4e19198aa5a79235d30df",
-      "452f5b4797b6656ef558a4c31f3518e48634bd8385d2481f4949b22e70789303",
-      "959f04e84d295ee3f96e6e1f81a6acadeed79275481ab3b6b75f51e64000bc1d"
-    ],
     "investee": [
       "19c71a5256901d47eedab63526493f8fde29874a8fd957010885827985ed5994",
       "aceb05524f8cca6b5c1078b7872d03d646f7f4de8eb1acce865237504ec6facc",
@@ -483,6 +453,33 @@
       "4300c5f18f88e1ea646ec8dc54e05fb19fbce5122286136e05c14c96674bbc6a",
       "8a1dfa3483d5eb6813afda5fe67f58d9dadaaa7b8b7ff771e708d07d9fd8c076",
       "abcbb30a3d9c029e0d4f57bde4527aaba1b9a74e3d0f8427b2719e68d916a67c"
+    ],
+    "originator": [
+      "9c55605fb71bc4d2bc9e72538ce33a2bae7d97b39520c050843c608283dcdaca",
+      "31908f7307fc67c63ba115051ef9e7833f540bcebb6ff09d3f16dabb767bd292",
+      "560099f4f6e5ae3b3c44d6dfb7b420f5b651082083d747d52d6d2a1083c04014",
+      "ab0354ed686a0b68faf5ee3cfd5116a914c0b494159331a1d043481e3306cde6",
+      "07e785a440780b715d9b5d121500f3ce5604b177d7d3d6a2d6a48764abf334f6",
+      "b214d65079e69f9477eb89523ee5dfc3e3f2e062fd6045861d827c137723e395",
+      "31d8f30098d2ca2c6004bfd913ea4d8542dc84598b43ba600172b47fe4a2b463",
+      "638ce5973594e190bccaca7b23d646fb08035095cf35da06b72858c3bf8dc7dc",
+      "6dc2a58d0e26f922c8fe40e513e6f35c44831faa029dbd83b8d63cc8fa2a5b11"
+    ],
+    "eligibility": [
+      "0e449de70f8abc2b801852e7870898428c5ebe5692963ea437fef9b442e8b544",
+      "455609031b6799acab55f0c7a30f73be607c8ae7f06e4177c7fa0f4ef456d3e5",
+      "a050a89c21af485a6f2ac08f8fc96b00ff1dacf70334656a024fd0f7409c1b2c",
+      "a49ea548af8fe5d04de0e4b1b25d5000f533cc5771fb0b2e6164782c3785afe0",
+      "9b28794dd6620e275908f07f1cd0b60fce822c7c357e18fde615b7437fc7b745",
+      "048b1e78cfa906b4320cf3122e2c339e0d4d09e89dca39af8c72090161273872",
+      "43f51f7691a6a0ed3d938a9fc0eaa839ade0a724ef746b370a3bf56f2f8a1648",
+      "507a83c4903bf4f01f1db40212470bf4c9c1d35fcefa0495a852d31617ce29ad",
+      "f5b0a7d06573f324a047373be0ca8f7ec2e545be45e15ce536910f2952556841",
+      "fb98ead42d030e2fe878224a38c1abfdbb489d58d36cfc012c3fd798427403cb",
+      "fe042c994535fa0d47375f0a272ad1dcb2ccf88d434acbf9e001bd188328a535"
+    ],
+    "debtor": [
+      "0966167b04530a76cd46b7c1eeaf200bc69fc44c1cb30d7fe12e894502e07ed9"
     ]
   },
   "entries": {
@@ -494,15 +491,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "02dab56245b5c28038a72d4a979703b437571cbc925a4a45ca8d846aa0aa7e6a"
-      ]
-    },
-    "1b9b0f7261e162103c6762e399472420cc8512ef2f7e90da3e7876d00119d67f": {
-      "reference_date": "2025-10-14",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9fe1a7ca7b970bbcd4a197a3982a1a2076ae7364af313ae8365468a2a2a9d3c1"
       ]
     },
     "31908f7307fc67c63ba115051ef9e7833f540bcebb6ff09d3f16dabb767bd292": {
@@ -523,60 +511,6 @@
         "4c4883a450d42bef885d35ded8b94255497e9a5f20218d28c2d4a7d98b6d100e"
       ]
     },
-    "e7344bf9b43a43e42e5a332f9d87f22d7ffefdf0849e97301a6f6a3355383967": {
-      "reference_date": "2026-07-08",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d6ddc703ccb758810298ca9b59c72dbb8d639ce162877b6e7c6197734961b0be"
-      ]
-    },
-    "dcaeabc4316b08ebe73e5776702edfa6ae16f479cfa1ed4ae9ff047fee5a7155": {
-      "reference_date": "2026-04-30",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6777238d4ce12a2d0549a07a5df99643476fe701f42c4d7ff5fcd3be26e22591"
-      ]
-    },
-    "3d9dc8ad0ac15233c92a75f2f1897b70d7b16c56b70f24e65429534be1f57361": {
-      "reference_date": "2025-12-31",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "505e68df0738aee13a2ff57a263bd18b71ceef3fc84d3222676172c8df965261"
-      ]
-    },
-    "f5dab5b877ebbb096944d3b3c38d4f359dea9f8c2a7dc75e1f6b979b73f5e46e": {
-      "reference_date": "2025-12-16",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c946b52bb95caec902dd04dd6064fcd46153263678fa8e72825190afc4d76645"
-      ]
-    },
-    "09ebe9d52a9ff83fa419b8284eb474e9d8b6b5fe11cf631151edd571c5a4f0f0": {
-      "reference_date": "2025-10-21",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7af9c46774eae92136d08d1eac0fc17c09253129db8f4faa1fff91b2519f92e2"
-      ]
-    },
-    "728cb73eba51876cc5e803cb7a1dd79583add3af400d9a03d025e95b89b9b0b6": {
-      "reference_date": "2025-10-15",
-      "value": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela Administradora não podem ser, em relação à Classe, o originador, as Cedentes, a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e5c9809884001e50d5d7b148b52e9be49bf9120674e4fac4727c3c3b73dce863"
-      ]
-    },
     "0966167b04530a76cd46b7c1eeaf200bc69fc44c1cb30d7fe12e894502e07ed9": {
       "reference_date": "2026-08-12",
       "value": "BRF, Marfrig e sociedades listadas dos grupos com aval da respectiva controladora",
@@ -585,24 +519,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "d383408a45ba29742dfa629e50bead684117fc9bc21881057d65eedda2eedd3f"
-      ]
-    },
-    "452f5b4797b6656ef558a4c31f3518e48634bd8385d2481f4949b22e70789303": {
-      "reference_date": "2025-09-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "16d8d502a4fd99d27c026d3315790352c6cea0d8fb8595434d50b00d9d965945"
-      ]
-    },
-    "959f04e84d295ee3f96e6e1f81a6acadeed79275481ab3b6b75f51e64000bc1d": {
-      "reference_date": "2025-08-25",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a8fba8a8382d61e86fbe7357343706472d7b4dd37b198ceb905a72cf0ba86814"
       ]
     },
     "0e449de70f8abc2b801852e7870898428c5ebe5692963ea437fef9b442e8b544": {
@@ -615,33 +531,6 @@
         "396a3ce066a37c1be39c148393c9ab59f7bfa23da76cdb33d6e57693c7510968"
       ]
     },
-    "2197a5897b487dbf5c2f040b2b4f872e746de70007aebd25e3bb1def58ef2df8": {
-      "reference_date": "2025-10-14",
-      "value": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "99bf76a59ac21149c80ac29fb76daa2a9a2fbc4d5f4a10c69a86e3b8b50028bc"
-      ]
-    },
-    "57099570c9eb06a1411adae3b12f0a534ebfaaff8bc48ed00a04317e2298475d": {
-      "reference_date": "2026-06-30",
-      "value": "(ii) aprovada a alteração da Política de Investimento e dos Critérios de Elegibilidade para permitir a aquisição de Recebíveis de Cartões de Crédito (Cielo, Rede e GetNet), limitada a 10% do PL e prazo máximo de 30 dias por ativo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8c9fa5253040c660c14da714b0a3703ac8b271ab98e87ef74efa2f2abee9e38a"
-      ]
-    },
-    "78d34877a6d33ea9953ec231e2ac72a91eeb7afa590c05ed1bdd9c71548f3417": {
-      "reference_date": "2026-04-24",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c0996bb6e720ca30f70678e7ca3521d5066f2e75d3b0c9f0a28a57da3a7ec707"
-      ]
-    },
     "9b28794dd6620e275908f07f1cd0b60fce822c7c357e18fde615b7437fc7b745": {
       "reference_date": "2025-12-31",
       "value": "(i) por meio da ata da Assembleia Especial de Cotistas da Classe realizada em 03/12/2025 (“Assembleia 03/12”), os cotistas detentores de 100% (cem por cento) das cotas em circulação de emissão da Classe aprovaram, entre outras matérias, a alteração, sob condição Resolutiva, do Regulamento, para: (a) prever na política de investimento do Fundo a possibilidade da aquisição de cotas de Fundos de Investimento em Direitos Creditórios (“FIDC”), em especial do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALBAUGH I RESPONSABILIDADE LIMITADA, inscrito no CNPJ sob o nº 47.280.025/0001-50; e (b) alterar os Critérios de Elegibilidade, de forma a: (1) incluir a possibilidade da aquisição de cotas de FIDC, bem como renomear termos definidos do regulamento, de forma a adaptar a aprovação; (2) determinar que a aquisição pelo Fundo das cotas de FIDC não dependerão do atendimento dos critérios de elegibilidade dispostos no regulamento.",
@@ -649,51 +538,6 @@
       "provenance": "primary_passage",
       "sources": [
         "d1faf7e12934d51a1889aa61e51e03c85ccb9d67b1d648db04df37d44a8b6062"
-      ]
-    },
-    "6de87febaa0fce23afadbf55d99f6fc28720b17a85fb7526632dadcba5959ac7": {
-      "reference_date": "2025-12-16",
-      "value": "(b) alterar os Critérios de Elegibilidade, de forma a excluir o Critério de Elegibilidade segundo o qual o valor total do Patrimônio Líquido da Classe representado por Direitos Creditórios Devedoras adquiridos pela Classe não deverá superar R$ 1.400.000.000,00 (um bilhão e quatrocentos milhões de reais), considerado, para tanto, o valor de face dos Direitos Creditórios Devedoras; e",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e7df48a74101946b0f0920375ce5737d29480ecb9fa675afc339bb9aa110cb0d"
-      ]
-    },
-    "e9ee66c565388ef23b8817bae2bd905461b0c9dbde98a69e3bca78ea372f0cd7": {
-      "reference_date": "2026-07-08",
-      "value": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "320f07f92c70110371f47db037315a83c4540176276128bcf4cff741768cde39"
-      ]
-    },
-    "253f8bf4a5ab93efe23b43afff055ceb60325dee7b53d0d17a1c29fe9148065f": {
-      "reference_date": "2026-04-30",
-      "value": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "927e98b6258c98945a7d82242a2011ca9403080fd76b350ee401c8d05515e2eb"
-      ]
-    },
-    "e907cfe8b214f87ca4bca267fed2e463137b1b941d348fda24e26ce3eccaf1d1": {
-      "reference_date": "2025-12-31",
-      "value": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "266ea1d58cbab3f060095a99c88e648988cb93ee6fbd4dd0d0e4cb3d40d26fc5"
-      ]
-    },
-    "26b2d0a2ea22267fa43d8f2777a858c310ee89724464798b1f413f62ed4f17f0": {
-      "reference_date": "2025-12-16",
-      "value": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dbdc58f31c10035546d08bb3b7b141cfe8d1de39b14d081db186c44380d2c904"
       ]
     },
     "d478edbf2ca260dba20cd4ad3104b4dfbe65601a2b0fbe6d8ae5c20c4b18e5f3": {
@@ -3484,22 +3328,148 @@
         "0a9c791fb34577d9907c8833bfba26cbc218a63a4dd35859322df7d5df1ba345"
       ]
     },
-    "a8dbca78e0b7b767d6192bfc80faad7ecccd07a64f1fb6cedbcf5393efae7adc": {
-      "reference_date": "2025-09-10",
-      "value": "“Devedores” Significa a (i) BRF S.A., sociedade inscrita no CNPJ sob o nº 01.838.723/0001-27, com sede na cidade de Itajaí, Estado de Santa Catarina, na Rua Jorge Tzachel, nº 475, Fazenda, CEP 88.301-600 (“BRF”),,",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+    "9c55605fb71bc4d2bc9e72538ce33a2bae7d97b39520c050843c608283dcdaca": {
+      "reference_date": "2025-10-14",
+      "value": "originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "d40068185dd1bb7916a94cdf9960f7b080522f413ae6385b2117683e9e6fc75f"
+        "a9acd716b96b734e329e885820f71abed5e710c967308815d97663634cfa7c5b"
       ]
     },
-    "4be6e658105681e7aea7f4b77018e557b79b0dbdefe4e19198aa5a79235d30df": {
-      "reference_date": "2025-09-10",
-      "value": "“Devedores” Significa a (i) BRF S.A., sociedade inscrita no CNPJ sob o nº 01.838.723/0001-27, com sede na cidade de Itajaí, Estado de Santa Catarina, na Rua Jorge Tzachel, nº 475, Fazenda, CEP 88.301-600 (“BRF”),, ou sua sucessora a qualquer título; e (ii) MARFRIG GLOBAL FOODS S.A., sociedade inscrita no CNPJ sob o nº 03.853.896/0001-40, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Queiroz Filho, nº 1540, Vila Hamburguesa (“Marfrig”), ou sua sucessora a qualquer título.",
+    "ab0354ed686a0b68faf5ee3cfd5116a914c0b494159331a1d043481e3306cde6": {
+      "reference_date": "2026-07-08",
+      "value": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
       "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
       "provenance": "primary_passage",
       "sources": [
-        "a5ecce0eeea33e5dbdd477993cf2ee7d88ad46211f2758284cd6830445ed8266"
+        "1cc28dfdadcf805ea78f79b0212d7c6fd6c846b39a7726a9dbafdadbcb68b175"
+      ]
+    },
+    "07e785a440780b715d9b5d121500f3ce5604b177d7d3d6a2d6a48764abf334f6": {
+      "reference_date": "2026-04-30",
+      "value": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a7da5e4edc8c0ac80f86aea18ed7849bcfd585e0ee1a53b5e434e7d2eaf1533f"
+      ]
+    },
+    "b214d65079e69f9477eb89523ee5dfc3e3f2e062fd6045861d827c137723e395": {
+      "reference_date": "2025-12-31",
+      "value": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a7da078a882899708b2314d61a7c6e18fefe4c84df329de35b5f7550819dccc6"
+      ]
+    },
+    "31d8f30098d2ca2c6004bfd913ea4d8542dc84598b43ba600172b47fe4a2b463": {
+      "reference_date": "2025-12-16",
+      "value": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ae266f2f7935894a811c3f40632bd749839b091bbd491221a12fdd5439abe10c"
+      ]
+    },
+    "638ce5973594e190bccaca7b23d646fb08035095cf35da06b72858c3bf8dc7dc": {
+      "reference_date": "2025-10-21",
+      "value": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e163b6006b6466f0a9670c4a810c29e6261296beb5a4ecd922c161fd94744441"
+      ]
+    },
+    "6dc2a58d0e26f922c8fe40e513e6f35c44831faa029dbd83b8d63cc8fa2a5b11": {
+      "reference_date": "2025-10-15",
+      "value": "originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1ed11f894008cd7e3075e64481d15f908ba62044c49d73b771fff6a84e7d0b08"
+      ]
+    },
+    "455609031b6799acab55f0c7a30f73be607c8ae7f06e4177c7fa0f4ef456d3e5": {
+      "reference_date": "2025-10-14",
+      "value": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução CVM 175: (a) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de Liquidez para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela Classe, em estrita observância (1) às políticas de crédito e (2) à Política de Investimento, bem como à composição e à diversificação da carteira; (b) efetuar a devida formalização dos Termos e Condições e respectivos Termos de Cessão; (c) validar, previamente a cada cessão, a aderência dos Direitos Creditórios aos Critérios de Elegibilidade; (d) verificar previamente o enquadramento dos Direitos Creditórios à Política de Investimento, compreendendo, no mínimo, a validação dos Direitos Creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; (e) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à Política de Investimento; (f) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los à Administradora, conforme o caso; (g) na hipótese de substituição de Direitos Creditórios, diligenciar para que a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da Política de Investimento;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7fc3138eeb3c8f41856a13da1b72dc97eae930d79f36714244f6dc760416854d"
+      ]
+    },
+    "a050a89c21af485a6f2ac08f8fc96b00ff1dacf70334656a024fd0f7409c1b2c": {
+      "reference_date": "2026-06-30",
+      "value": "Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) o Direito creditório deverá ser representado por: (i) direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição; (c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados da Data de Aquisição; (d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que antecede a data de vencimento das Cotas Seniores em circulação cujo prazo seja o mais longo; (e) o Direito Creditório deve ser performado e não passível de qualquer discussão entre a Cedente e a Devedora; (f) o Direito Creditório deve ser representado em moeda corrente nacional e seu valor de face não deve estar sujeito a variação cambial; (g) o Direito Creditório deve estar amparado pelos Documentos Comprobatórios; (h) o Direito Creditório deve ser devido por uma das Devedoras; (i) considerada proforma a cessão pretendida, o prazo médio dos Direitos Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias; (j) considerada proforma a cessão pretendida, o valor dos Direitos Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez por cento) do Patrimônio Líquido; (k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10% (dez por cento) do Patrimônio Líquido do Fundo (l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo máximo de cada ativo de 30 dias corridos; (m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada por cessão, de acordo com seguinte fórmula, considerando, para tanto, as cessões realizadas no período compreendido entre o Dia Útil",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0184d44d4313461d24fdea6777424d66aff96d508668e112b3a310d7d7c8ee01"
+      ]
+    },
+    "a49ea548af8fe5d04de0e4b1b25d5000f533cc5771fb0b2e6164782c3785afe0": {
+      "reference_date": "2026-04-24",
+      "value": "(iii) alterar os Critérios de Elegibilidade relacionados no item 10.1 do Anexo Descritivo I ao Regulamento, de modo a renumerar as alíneas e incluir uma nova redação na alínea “j”, nos seguintes termos: (j) considerada pro forma a cessão pretendida, o valor dos Direitos Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar 12% (doze por cento) do Patrimônio Líquido;” (iv) alterar (a) a definição de Devedoras e (b) os Critérios de Elegibilidade relacionados no item 10.1 do Anexo Descritivo I ao Regulamento, de modo a excluir os termos descritos: (a) “",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "55f3b809271ac86e23dca72abd2e18c84d94e95f465309243248e93ee52886ca"
+      ]
+    },
+    "048b1e78cfa906b4320cf3122e2c339e0d4d09e89dca39af8c72090161273872": {
+      "reference_date": "2025-12-16",
+      "value": "6. DELIBERAÇÕES: o Cotista detentor de 100% (cem por cento) das Cotas em circulação de emissão da Classe, sem qualquer ressalva, aprovou o seguinte: (i) a alteração do Regulamento, para: (a) excluir a Crescera e sua remuneração como Consultoria Especializada, bem como demais ajustes redacionais necessários em virtude deste item; (b) alterar os Critérios de Elegibilidade, de forma a excluir o Critério de Elegibilidade segundo o qual o valor total do Patrimônio Líquido da Classe representado por Direitos Creditórios Devedoras adquiridos pela Classe não deverá superar R$ 1.400.000.000,00 (um bilhão e quatrocentos milhões de reais), considerado, para tanto, o valor de face dos Direitos Creditórios Devedoras; e (c)alterar os Critérios de Elegibilidade, de forma a excluir o item (a)(ii), sendo que o item (a) passará a vigorar com a seguinte redação:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8a40279893cc007762283acfaa2644c3afdf4816618ef2d6574e98d1d96289c1"
+      ]
+    },
+    "43f51f7691a6a0ed3d938a9fc0eaa839ade0a724ef746b370a3bf56f2f8a1648": {
+      "reference_date": "2025-09-09",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9d96fb4ef588a26e0ec7a7d691efcff1102933fabfcc1efbc8fa660c0a67eb25"
+      ]
+    },
+    "507a83c4903bf4f01f1db40212470bf4c9c1d35fcefa0495a852d31617ce29ad": {
+      "reference_date": "2026-07-08",
+      "value": "10.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) o Direito creditório deverá ser representado por: (i) direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9eb29a4c8b619290a60110cdb0b261d1ce51c43b55ced56b06c8d0726200f68d"
+      ]
+    },
+    "f5b0a7d06573f324a047373be0ca8f7ec2e545be45e15ce536910f2952556841": {
+      "reference_date": "2026-04-30",
+      "value": "10.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) o Direito creditório deverá ser representado por: (i) direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d6f099312ddaabdf50fb53f3e730b09a0aa11391cec02b32433d8b3ae2986032"
+      ]
+    },
+    "fb98ead42d030e2fe878224a38c1abfdbb489d58d36cfc012c3fd798427403cb": {
+      "reference_date": "2025-12-31",
+      "value": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução CVM 175: (a) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de Liquidez para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela Classe, em estrita observância (1) às políticas de crédito e (2) à Política de Investimento, bem como à composição e à diversificação da carteira; (b) efetuar a devida formalização dos Termos e Condições e respectivos Termos de Cessão; (c) validar, previamente a cada cessão, a aderência dos Direitos Creditórios aos Critérios de Elegibilidade; (d) verificar previamente o enquadramento dos Direitos Creditórios à Política de Investimento, compreendendo, no mínimo, a validação dos Direitos Creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; (e) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à Política de Investimento; (f) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los à Administradora, conforme o caso; (g) na hipótese de substituição de Direitos Creditórios, diligenciar para que a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da Política de Investimento;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e6bf6aa185c5c850e3ac9e8a3e148b050cebde341d8038575f162bb925fd3b77"
+      ]
+    },
+    "fe042c994535fa0d47375f0a272ad1dcb2ccf88d434acbf9e001bd188328a535": {
+      "reference_date": "2025-12-16",
+      "value": "10.1. Os Direitos Creditórios Devedoras somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade: (a) o Direito creditório deverá ser representado por: (i) direitos creditórios performados, devidos pelas Devedoras, originados de operações comerciais de venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras, representados por Documentos Comprobatórios; (b) prazo máximo do Direito Creditório Devedoras deve ser de 365 (trezentos e sessenta e cinco) dias contados da Data de Aquisição;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e9f0878737479e574612b2c4e0610b0c8557c6f4a38468a984718b40ebc73207"
       ]
     }
   },
@@ -3516,18 +3486,6 @@
       "sha256": "c28114d2e0080c8d09cd222ec761d4edcafd01989a152d0dfa5e028d4b4e6d09",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1287845 | 12/08/2026 | regulamento | p. 6–7,51–52; Definições; 10.1(k) | data/raw/62393829000159/1287845_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845"
-    },
-    "9fe1a7ca7b970bbcd4a197a3982a1a2076ae7364af313ae8365468a2a2a9d3c1": {
-      "document_id": "1014518",
-      "title": "Anexo ao Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014518",
-      "reference_date": "2025-10-14",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "8a95b9d3bb7881e1a9c44e0c65b9d020aad4e7f4a86b747de5246170cffdf605",
-      "verification": "primary_passage"
     },
     "8c9fa5253040c660c14da714b0a3703ac8b271ab98e87ef74efa2f2abee9e38a": {
       "document_id": "1331813",
@@ -3551,78 +3509,6 @@
       "clause": "",
       "excerpt": "constante da ordem do dia, acima elencada. Assim, resta rejeitada a  alteração da definição de Devedoras e dos Critérios de Elegibilidade do  Fundo, previstos no item 10.1 (j) do Anexo Descritivo I do Regulamento,  que visava estabelecer um limite de concentração de 12% do Patrimônio  Líquido para cedentes do mesmo Grupo Econômico das Devedoras, bem  como excluir as regras e limites atrelados à exigência de classificação de  risco (rating) aplicáveis às Devedoras.",
       "sha256": "3d37e896611e0769da19b51e3668f8f6f05c0312b5b502bc003721153a10273d",
-      "verification": "primary_passage"
-    },
-    "d6ddc703ccb758810298ca9b59c72dbb8d639ce162877b6e7c6197734961b0be": {
-      "document_id": "1242436",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242436",
-      "reference_date": "2026-07-08",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "5a11a59e8f3c7124f360205ffd0188173ccdbb2137688dcac98e70796021fcc9",
-      "verification": "primary_passage"
-    },
-    "6777238d4ce12a2d0549a07a5df99643476fe701f42c4d7ff5fcd3be26e22591": {
-      "document_id": "1180705",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180705",
-      "reference_date": "2026-04-30",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "fa2767ec89824fbc402bb0512dc7f5b85dd06407e21cac7ef293ff51b6ecf9ac",
-      "verification": "primary_passage"
-    },
-    "505e68df0738aee13a2ff57a263bd18b71ceef3fc84d3222676172c8df965261": {
-      "document_id": "1074624",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074624",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "b5a034bec5f56c40f2fce445d192d254057b389e74429376987de82770a9bc78",
-      "verification": "primary_passage"
-    },
-    "c946b52bb95caec902dd04dd6064fcd46153263678fa8e72825190afc4d76645": {
-      "document_id": "1074622",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074622",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "2aec66a7dd69bfe837dbff917bc9e229d319a044e6728203b0d000cad8c4d37c",
-      "verification": "primary_passage"
-    },
-    "7af9c46774eae92136d08d1eac0fc17c09253129db8f4faa1fff91b2519f92e2": {
-      "document_id": "1017976",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017976",
-      "reference_date": "2025-10-21",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "cdfb1b856714ca88a73cb783abd909ef5c690fb627b3b60786fbfa2a6f8a0a7c",
-      "verification": "primary_passage"
-    },
-    "e5c9809884001e50d5d7b148b52e9be49bf9120674e4fac4727c3c3b73dce863": {
-      "document_id": "1014747",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014747",
-      "reference_date": "2025-10-15",
-      "version": "1",
-      "page": 15,
-      "clause": "1.3.3",
-      "excerpt": "1.3.3. Os prestadores de serviço eventualmente subcontratados pela  Administradora não podem ser, em relação à Classe, o originador, as Cedentes,  a Gestora, a Consultora Especializada ou respectivas partes relacionadas.",
-      "sha256": "0f2befe4a820aa32d14900fed8415bc1bbd2444b705cae209060af4a3c2464fe",
       "verification": "primary_passage"
     },
     "d383408a45ba29742dfa629e50bead684117fc9bc21881057d65eedda2eedd3f": {
@@ -3675,30 +3561,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1287845 | 12/08/2026 | regulamento | p. 51–52; 10.1 | data/raw/62393829000159/1287845_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1287845"
     },
-    "99bf76a59ac21149c80ac29fb76daa2a9a2fbc4d5f4a10c69a86e3b8b50028bc": {
-      "document_id": "1014518",
-      "title": "Anexo ao Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014518",
-      "reference_date": "2025-10-14",
-      "version": "1",
-      "page": 45,
-      "clause": "8.1.1",
-      "excerpt": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "sha256": "8a95b9d3bb7881e1a9c44e0c65b9d020aad4e7f4a86b747de5246170cffdf605",
-      "verification": "primary_passage"
-    },
-    "c0996bb6e720ca30f70678e7ca3521d5066f2e75d3b0c9f0a28a57da3a7ec707": {
-      "document_id": "1180704",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180704",
-      "reference_date": "2026-04-24",
-      "version": "1",
-      "page": 5,
-      "clause": "",
-      "excerpt": "(ii) Cotistas detentores de (a) 100% (cem por cento) das cotas subordinadas  juniores; (b) 100% (cem por cento) das cotas seniores 1; e (c) 77,45%  (setenta e sete inteiros e quarenta e cinco centésimos por cento) das cotas  seniores 2 aprovaram, enquanto 11,71% (onze inteiros e setenta e um  centésimos por cento) das cotas seniores 2 reprovaram a matéria (ii)  constante da ordem do dia, acima elencada. Dessa forma, resta aprovada  a alteração da Política de Investimento e dos Critérios de Elegibilidade do  Fundo para permitir o investimento em Recebíveis de Cartões de Crédito,  mediante a inclusão de definições de Credenciadoras, detalhamento dos  procedimentos de cessão e estabelecimento de novos limites de  concentração e prazo, conforme as novas redações dos itens 9.1 e 10.1  do Anexo Descritivo I do Regulamento.",
-      "sha256": "3d37e896611e0769da19b51e3668f8f6f05c0312b5b502bc003721153a10273d",
-      "verification": "primary_passage"
-    },
     "d1faf7e12934d51a1889aa61e51e03c85ccb9d67b1d648db04df37d44a8b6062": {
       "document_id": "1074623",
       "title": "Instrumento Particular de Alteração do Regulamento",
@@ -3709,66 +3571,6 @@
       "clause": "",
       "excerpt": "(i) por meio da ata da Assembleia Especial de Cotistas da Classe realizada em 03/12/2025 (“Assembleia 03/12”), os cotistas detentores de 100% (cem por cento) das cotas em circulação de emissão da Classe aprovaram, entre outras matérias, a alteração, sob condição Resolutiva, do Regulamento, para: (a) prever na política de investimento do Fundo a possibilidade da aquisição de cotas de Fundos de Investimento em Direitos Creditórios (“FIDC”), em especial do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALBAUGH I RESPONSABILIDADE LIMITADA, inscrito no CNPJ sob o nº\n47.280.025/0001-50; e (b) alterar os Critérios de Elegibilidade, de forma a: (1) incluir a possibilidade da aquisição de cotas de FIDC, bem como renomear termos definidos do regulamento, de forma a adaptar a aprovação; (2) determinar que a aquisição pelo Fundo das cotas de FIDC não dependerão do atendimento dos critérios de elegibilidade dispostos no regulamento.",
       "sha256": "0b7bce1450ce27a119889159388ae729183844dae1f3f8fd0fb6b3622f03967f",
-      "verification": "primary_passage"
-    },
-    "e7df48a74101946b0f0920375ce5737d29480ecb9fa675afc339bb9aa110cb0d": {
-      "document_id": "1074621",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074621",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 2,
-      "clause": "",
-      "excerpt": "(b) alterar os Critérios de Elegibilidade, de forma a excluir o Critério de Elegibilidade segundo o qual o valor total do Patrimônio Líquido da Classe representado por Direitos Creditórios Devedoras adquiridos pela Classe não deverá superar R$ 1.400.000.000,00 (um bilhão e quatrocentos milhões de reais), considerado, para tanto, o valor de face dos Direitos Creditórios Devedoras; e",
-      "sha256": "f60b7f774bf278ca2d9d8f8fca23162d1b64afb1a1df08f3ba4546b111af8e21",
-      "verification": "primary_passage"
-    },
-    "320f07f92c70110371f47db037315a83c4540176276128bcf4cff741768cde39": {
-      "document_id": "1242436",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242436",
-      "reference_date": "2026-07-08",
-      "version": "1",
-      "page": 45,
-      "clause": "8.1.1",
-      "excerpt": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "sha256": "5a11a59e8f3c7124f360205ffd0188173ccdbb2137688dcac98e70796021fcc9",
-      "verification": "primary_passage"
-    },
-    "927e98b6258c98945a7d82242a2011ca9403080fd76b350ee401c8d05515e2eb": {
-      "document_id": "1180705",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180705",
-      "reference_date": "2026-04-30",
-      "version": "1",
-      "page": 45,
-      "clause": "8.1.1",
-      "excerpt": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "sha256": "fa2767ec89824fbc402bb0512dc7f5b85dd06407e21cac7ef293ff51b6ecf9ac",
-      "verification": "primary_passage"
-    },
-    "266ea1d58cbab3f060095a99c88e648988cb93ee6fbd4dd0d0e4cb3d40d26fc5": {
-      "document_id": "1074624",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074624",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 45,
-      "clause": "8.1.1",
-      "excerpt": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "sha256": "b5a034bec5f56c40f2fce445d192d254057b389e74429376987de82770a9bc78",
-      "verification": "primary_passage"
-    },
-    "dbdc58f31c10035546d08bb3b7b141cfe8d1de39b14d081db186c44380d2c904": {
-      "document_id": "1074622",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074622",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 45,
-      "clause": "8.1.1",
-      "excerpt": "8.1.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam,  cumulativamente, à Política de Investimento e aos Critérios de Elegibilidade.",
-      "sha256": "2aec66a7dd69bfe837dbff917bc9e229d319a044e6728203b0d000cad8c4d37c",
       "verification": "primary_passage"
     },
     "f822c66d17421bda18a8c10623a051d638e3e1dc5bcb569b5ed772cf1d631082": {
@@ -7121,29 +6923,206 @@
       "sha256": "d6d737c1b76eaa164d079eeac6f6f1cf4687cf0cdc82401a4c3de43555366154",
       "verification": "primary_passage"
     },
-    "d40068185dd1bb7916a94cdf9960f7b080522f413ae6385b2117683e9e6fc75f": {
-      "document_id": "988970",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988970",
-      "reference_date": "2025-09-10",
+    "a9acd716b96b734e329e885820f71abed5e710c967308815d97663634cfa7c5b": {
+      "document_id": "1014518",
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014518",
+      "reference_date": "2025-10-14",
       "version": "1",
-      "page": 5,
+      "page": 50,
       "clause": "",
-      "excerpt": "“Devedores” Significa a (i) BRF S.A., sociedade inscrita no CNPJ  sob o nº 01.838.723/0001-27, com sede na cidade  de Itajaí, Estado de Santa Catarina, na Rua Jorge  Tzachel, nº 475, Fazenda, CEP 88.301-600 (“BRF”),,",
-      "sha256": "f108499c8119cf5c03e268e4d6932d10baf8084c0ea1d7ce88208580400291f3",
+      "excerpt": "originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "8a95b9d3bb7881e1a9c44e0c65b9d020aad4e7f4a86b747de5246170cffdf605",
       "verification": "primary_passage"
     },
-    "a5ecce0eeea33e5dbdd477993cf2ee7d88ad46211f2758284cd6830445ed8266": {
-      "document_id": "1000667",
+    "1cc28dfdadcf805ea78f79b0212d7c6fd6c846b39a7726a9dbafdadbcb68b175": {
+      "document_id": "1242436",
       "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000667",
-      "reference_date": "2025-09-10",
-      "version": "2",
-      "page": 6,
-      "clause": "",
-      "excerpt": "“Devedores” Significa a (i) BRF S.A., sociedade inscrita no CNPJ  sob o nº 01.838.723/0001-27, com sede na cidade  de Itajaí, Estado de Santa Catarina, na Rua Jorge  Tzachel, nº 475, Fazenda, CEP 88.301-600 (“BRF”),,  ou sua sucessora a qualquer título; e (ii) MARFRIG  GLOBAL FOODS S.A., sociedade inscrita no CNPJ  sob o nº 03.853.896/0001-40, com sede na cidade  de São Paulo, Estado de São Paulo, na Avenida  Queiroz Filho, nº 1540, Vila Hamburguesa  (“Marfrig”), ou sua sucessora a qualquer título.",
-      "sha256": "d6d737c1b76eaa164d079eeac6f6f1cf4687cf0cdc82401a4c3de43555366154",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242436",
+      "reference_date": "2026-07-08",
+      "version": "1",
+      "page": 50,
+      "clause": "9.8",
+      "excerpt": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "5a11a59e8f3c7124f360205ffd0188173ccdbb2137688dcac98e70796021fcc9",
       "verification": "primary_passage"
+    },
+    "a7da5e4edc8c0ac80f86aea18ed7849bcfd585e0ee1a53b5e434e7d2eaf1533f": {
+      "document_id": "1180705",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180705",
+      "reference_date": "2026-04-30",
+      "version": "1",
+      "page": 50,
+      "clause": "9.8",
+      "excerpt": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "fa2767ec89824fbc402bb0512dc7f5b85dd06407e21cac7ef293ff51b6ecf9ac",
+      "verification": "primary_passage"
+    },
+    "a7da078a882899708b2314d61a7c6e18fefe4c84df329de35b5f7550819dccc6": {
+      "document_id": "1074624",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074624",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 49,
+      "clause": "9.8",
+      "excerpt": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "b5a034bec5f56c40f2fce445d192d254057b389e74429376987de82770a9bc78",
+      "verification": "primary_passage"
+    },
+    "ae266f2f7935894a811c3f40632bd749839b091bbd491221a12fdd5439abe10c": {
+      "document_id": "1074622",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074622",
+      "reference_date": "2025-12-16",
+      "version": "1",
+      "page": 49,
+      "clause": "9.8",
+      "excerpt": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "2aec66a7dd69bfe837dbff917bc9e229d319a044e6728203b0d000cad8c4d37c",
+      "verification": "primary_passage"
+    },
+    "e163b6006b6466f0a9670c4a810c29e6261296beb5a4ecd922c161fd94744441": {
+      "document_id": "1017976",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017976",
+      "reference_date": "2025-10-21",
+      "version": "1",
+      "page": 50,
+      "clause": "9.8",
+      "excerpt": "9.8. Tendo em vista que os Direitos Creditórios a serem adquiridos pela Classe são originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "cdfb1b856714ca88a73cb783abd909ef5c690fb627b3b60786fbfa2a6f8a0a7c",
+      "verification": "primary_passage"
+    },
+    "1ed11f894008cd7e3075e64481d15f908ba62044c49d73b771fff6a84e7d0b08": {
+      "document_id": "1014747",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014747",
+      "reference_date": "2025-10-15",
+      "version": "1",
+      "page": 50,
+      "clause": "",
+      "excerpt": "originados exclusivamente a partir das operações comerciais realizadas entre os Cedentes e as duas únicas Devedoras, (i) não se aplica, para fins deste Anexo Descritivo, a descrição de políticas formais de concessão de crédito ou processos estruturados de originação típicos de instituições financeiras, tampouco os fatores de risco específicos associados a tais processos ou política; e (ii) a definição da estratégia de cobrança caberá à Gestora, que deverá adotá-la conforme as circunstâncias concretas da inadimplência. Dessa forma, não é possível preestabelecer e, portanto, não está contida neste Anexo Descritivo a descrição dos procedimentos de cobrança dos Direitos Creditórios Cedidos vencidos e não pagos.",
+      "sha256": "0f2befe4a820aa32d14900fed8415bc1bbd2444b705cae209060af4a3c2464fe",
+      "verification": "primary_passage"
+    },
+    "7fc3138eeb3c8f41856a13da1b72dc97eae930d79f36714244f6dc760416854d": {
+      "document_id": "1014518",
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1014518",
+      "reference_date": "2025-10-14",
+      "version": "1",
+      "page": 16,
+      "clause": "1.6",
+      "excerpt": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução CVM 175:\n(a) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de  Liquidez para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela  Classe, em estrita observância (1) às políticas de crédito e (2) à Política de  Investimento, bem como à composição e à diversificação da carteira;\n(b) efetuar a devida formalização dos Termos e Condições e respectivos  Termos de Cessão;\n(c) validar, previamente a cada cessão, a aderência dos Direitos Creditórios  aos Critérios de Elegibilidade;\n(d) verificar previamente o enquadramento dos Direitos Creditórios à  Política de Investimento, compreendendo, no mínimo, a validação dos Direitos  Creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos  de composição e diversificação, de forma individualizada;\n(e) avaliar a aderência do risco de performance dos Direitos Creditórios, se  houver, à Política de Investimento;\n(f) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los  à Administradora, conforme o caso;\n(g) na hipótese de substituição de Direitos Creditórios, diligenciar para que a  relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada,  nos termos da Política de Investimento;",
+      "sha256": "8a95b9d3bb7881e1a9c44e0c65b9d020aad4e7f4a86b747de5246170cffdf605",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0184d44d4313461d24fdea6777424d66aff96d508668e112b3a310d7d7c8ee01": {
+      "document_id": "1331813",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1331813",
+      "reference_date": "2026-06-30",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na  respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes  Critérios de Elegibilidade:\n(a) o Direito creditório deverá ser representado por: (i) direitos creditórios  performados, devidos pelas Devedoras, originados de operações comerciais de  venda de produtos ou prestação de serviços pelos Fornecedores às Devedoras,  representados por Documentos Comprobatórios;\n (b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta e  cinco) dias contados da Data de Aquisição;\n (c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados da  Data de Aquisição;\n (d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que antecede  a data de vencimento das Cotas Seniores em circulação cujo prazo seja o mais  longo;\n (e) o Direito Creditório deve ser performado e não passível de qualquer  discussão entre a Cedente e a Devedora;\n (f) o Direito Creditório deve ser representado em moeda corrente nacional e seu  valor de face não deve estar sujeito a variação cambial;\n (g) o Direito Creditório deve estar amparado pelos Documentos Comprobatórios;\n (h) o Direito Creditório deve ser devido por uma das Devedoras;\n (i) considerada proforma a cessão pretendida, o prazo médio dos Direitos  Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias;\n (j) considerada proforma a cessão pretendida, o valor dos Direitos Creditórios  integrantes da carteira cuja Cedente seja uma sociedade integrante do Grupo  Econômico de quaisquer das Devedoras não deverá superar 10% (dez por  cento) do Patrimônio Líquido;\n (k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a 10%  (dez por cento) do Patrimônio Líquido do Fundo\n (l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo  máximo de cada ativo de 30 dias corridos;\n (m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a  gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à  Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano),  calculada por cessão, de acordo com seguinte fórmula, considerando, para  tanto, as cessões realizadas no período compreendido entre o Dia Útil",
+      "sha256": "b18e84ffa5fa363bcd5c5753ed6371b08a1b5108dcee6e1a8bec50f90d44b272",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "55f3b809271ac86e23dca72abd2e18c84d94e95f465309243248e93ee52886ca": {
+      "document_id": "1180704",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180704",
+      "reference_date": "2026-04-24",
+      "version": "1",
+      "page": "3–4",
+      "clause": "",
+      "excerpt": "(iii) alterar os Critérios de Elegibilidade relacionados no item 10.1 do Anexo Descritivo I ao Regulamento, de modo a renumerar as alíneas e incluir uma nova redação na alínea “j”, nos seguintes termos:\n(j) considerada pro forma a cessão pretendida, o valor dos Direitos  Creditórios integrantes da carteira cuja Cedente seja uma sociedade  integrante do Grupo Econômico de quaisquer das Devedoras não deverá  superar 12% (doze por cento) do Patrimônio Líquido;”\n(iv) alterar (a) a definição de Devedoras e (b) os Critérios de Elegibilidade relacionados no item 10.1 do Anexo Descritivo I ao Regulamento, de modo a excluir os termos descritos:\n(a)  “",
+      "sha256": "3d37e896611e0769da19b51e3668f8f6f05c0312b5b502bc003721153a10273d",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8a40279893cc007762283acfaa2644c3afdf4816618ef2d6574e98d1d96289c1": {
+      "document_id": "1074621",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074621",
+      "reference_date": "2025-12-16",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "6. DELIBERAÇÕES: o Cotista detentor de 100% (cem por cento) das Cotas em circulação de emissão da Classe, sem qualquer ressalva, aprovou o seguinte:\n(i) a alteração do Regulamento, para:\n(a) excluir a Crescera e sua remuneração como Consultoria Especializada, bem como demais ajustes redacionais necessários em virtude deste item;\n(b) alterar os Critérios de Elegibilidade, de forma a excluir o Critério de Elegibilidade segundo o qual o valor total do Patrimônio Líquido da Classe representado por Direitos Creditórios Devedoras adquiridos pela Classe não deverá superar R$ 1.400.000.000,00 (um bilhão e quatrocentos milhões de reais), considerado, para tanto, o valor de face dos Direitos Creditórios Devedoras; e\n(c)alterar os Critérios de Elegibilidade, de forma a excluir o item (a)(ii), sendo que o item\n(a) passará a vigorar com a seguinte redação:",
+      "sha256": "f60b7f774bf278ca2d9d8f8fca23162d1b64afb1a1df08f3ba4546b111af8e21",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9d96fb4ef588a26e0ec7a7d691efcff1102933fabfcc1efbc8fa660c0a67eb25": {
+      "document_id": "1026717",
+      "title": "Demonstrações Financeiras - Substituição de administrador",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1026717",
+      "reference_date": "2025-09-09",
+      "version": "1",
+      "page": 19,
+      "clause": "",
+      "excerpt": "I. Riscos Operacionais:\n(a) Guarda dos Documentos Comprobatórios. O Administrador contratou o Custodiante  dos Direitos Creditórios para realizar a guarda dos Documentos Comprobatórios. O  Custodiante dos Direitos Creditórios tem a faculdade de contratar terceiro para a prestação  de serviços de guarda dos Documentos Comprobatórios, desde que o Custodiante dos  Direitos Creditórios se mantenha responsável por esse terceiro. Ainda que o Custodiante  dos Direitos Creditórios continue responsável pela guarda dos Documentos  Comprobatórios, a contratação de eventual terceiro para a prestação de tais serviços poderá  representar dificuldade adicional à verificação do lastro dos Direitos Creditórios ou, até  mesmo, à sua cobrança, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas;\n(b) Troca de Informações. Dada a complexidade operacional própria dos fundos de  investimento em direitos creditórios, não há garantia de que as trocas de informações entre  o Administrador, o Gestor, o Custodiante, o Custodiante dos Direitos Creditórios e  terceiros ocorrerão livre de erros. Caso esse risco venha a se materializar, os processos de  aquisição, monitoramento e cobrança dos Direitos Creditórios, inclusive dos Direitos  Creditórios vencidos e não pagos, poderão ser adversamente afetados, prejudicando o  desempenho do Fundo;\n(c) Verificação dos Critérios de Elegibilidade. O Fundo adquirirá apenas Direitos  Creditórios que atendam aos Critérios de Elegibilidade, na respectiva data de aquisição,  nos termos do Regulamento. Na hipótese de, após a sua aquisição pelo Fundo, os Direitos  Creditórios deixarem, por qualquer motivo, de atender aos Critérios de Elegibilidade,  nenhuma medida a esse respeito será tomada pelo Administrador, pelo Gestor, pelo  Custodiante dos Direitos Creditórios, ou pelo Custodiante em relação a referidos Direitos  Creditórios, que permanecerão na carteira do Fundo. O não atendimento dos Direitos  Creditórios aos Critérios de Elegibilidade, após a respectiva data de aquisição, não ensejará  qualquer direito de indenização do Fundo contra o Administrador, o Gestor, o Custodiante  dos Direitos Creditórios, ou o Custodiante em relação aos Direitos Creditórios que tenham  sido regularmente adquiridos, nos termos do Regulamento;\n(d) Falhas ou Interrupção da Prestação de Serviços pela Instituição Financeira na qual o  Fundo Mantém Conta. Qualquer falha ou eventual interrupção da prestação de serviços  pela instituição financeira na qual o Fundo mantém a Conta Corrente Autorizada do Fundo,  inclusive no caso de sua substituição, poderá afetar a cobrança dos Direitos Creditórios e  o recebimento dos recursos devidos pelos Devedores. Isso pode levar à queda da  rentabilidade ou à perda patrimonial do Fundo;\n(e) Falhas ou Interrupção da Prestação de Serviços de Cobrança. A cobrança dos Direitos  Creditórios inadimplidos depende da atuação diligente do Agente de Cobrança  10",
+      "sha256": "d2d637459239c205341bee5db255fe55b293167fddfbcbbd04a51c972d5c1755",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9eb29a4c8b619290a60110cdb0b261d1ce51c43b55ced56b06c8d0726200f68d": {
+      "document_id": "1242436",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1242436",
+      "reference_date": "2026-07-08",
+      "version": "1",
+      "page": "51–52",
+      "clause": "10.1",
+      "excerpt": "10.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:\n(a) o Direito creditório deverá ser representado por: (i) direitos creditórios  performados, devidos pelas Devedoras, originados de operações  comerciais de venda de produtos ou prestação de serviços pelos  Fornecedores às Devedoras, representados por Documentos  Comprobatórios;\n(b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta  e cinco) dias contados da Data de Aquisição;\n(c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados  da Data de Aquisição;\n(d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que  antecede a data de vencimento das Cotas Seniores em circulação cujo prazo seja  o mais longo;\n(e) o Direito Creditório deve ser performado e não passível de qualquer  discussão entre a Cedente e a Devedora;\n(f) o Direito Creditório deve ser representado em moeda corrente nacional  e seu valor de face não deve estar sujeito a variação cambial;\n(g) o Direito Creditório deve estar amparado pelos Documentos  Comprobatórios;\n(h) o Direito Creditório deve ser devido por uma das Devedoras;\n(i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos  Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias;\n(j) considerada pro forma a cessão pretendida, o valor dos Direitos  Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante  do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez  por cento) do Patrimônio Líquido;\n(k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a  10% (dez por cento) do Patrimônio Líquido do Fundo\n(l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo  máximo de cada ativo de 30 dias corridos;\n(m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a  gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à  Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada  por cessão, de acordo com seguinte fórmula, considerando, para tanto, as  cessões realizadas no período compreendido entre o Dia Útil imediatamente  anterior à data de cálculo e o 15º (décimo quinto) Dia Útil anterior à data de  cálculo:\n Taxa média mínima = ∑ Txn/N\n10.1.1. O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora ou pelo prestador de  serviços por ela subcontratado na respectiva Data de Aquisição.\n10.1.2. Observados os termos e as condições do Regulamento e deste Anexo  Descritivo, a verificação do atendimento aos Critérios de Elegibilidade pela  Gestora será considerada definitiva.",
+      "sha256": "5a11a59e8f3c7124f360205ffd0188173ccdbb2137688dcac98e70796021fcc9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d6f099312ddaabdf50fb53f3e730b09a0aa11391cec02b32433d8b3ae2986032": {
+      "document_id": "1180705",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180705",
+      "reference_date": "2026-04-30",
+      "version": "1",
+      "page": "51–52",
+      "clause": "10.1",
+      "excerpt": "10.1. Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:\n(a) o Direito creditório deverá ser representado por: (i) direitos creditórios  performados, devidos pelas Devedoras, originados de operações  comerciais de venda de produtos ou prestação de serviços pelos  Fornecedores às Devedoras, representados por Documentos  Comprobatórios;\n(b) prazo máximo do Direito Creditório deve ser de 365 (trezentos e sessenta  e cinco) dias contados da Data de Aquisição;\n(c) o prazo mínimo do Direito Creditório deve ser de 7 (sete) dias contados  da Data de Aquisição;\n(d) o Direito Creditório deve vencer até o 15º (décimo quinto) dia que  antecede a data de vencimento das Cotas Seniores em circulação cujo prazo seja  o mais longo;\n(e) o Direito Creditório deve ser performado e não passível de qualquer  discussão entre a Cedente e a Devedora;\n(f) o Direito Creditório deve ser representado em moeda corrente nacional  e seu valor de face não deve estar sujeito a variação cambial;\n(g) o Direito Creditório deve estar amparado pelos Documentos  Comprobatórios;\n(h) o Direito Creditório deve ser devido por uma das Devedoras;\n(i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos  Creditórios integrantes da carteira não deverá exceder 110 (cento e dez) dias;\n(j) considerada pro forma a cessão pretendida, o valor dos Direitos  Creditórios integrantes da carteira cuja Cedente seja uma sociedade integrante  do Grupo Econômico de quaisquer das Devedoras não deverá superar 10% (dez  por cento) do Patrimônio Líquido;\n(k) o Fundo poderá adquirir Recebíveis de Cartões de Crédito, limitados a  10% (dez por cento) do Patrimônio Líquido do Fundo\n(l) o Fundo poderá adquirir Recebível de Cartão de Crédito com um prazo  máximo de cada ativo de 30 dias corridos;\n(m) após o 1º (primeiro) mês contado do início das atividades da Classe sob a  gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório à  Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao ano), calculada  por cessão, de acordo com seguinte fórmula, considerando, para tanto, as  cessões realizadas no período compreendido entre o Dia Útil imediatamente  anterior à data de cálculo e o 15º (décimo quinto) Dia Útil anterior à data de  cálculo:\n Taxa média mínima = ∑ Txn/N\n10.1.1. O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora ou pelo prestador de  serviços por ela subcontratado na respectiva Data de Aquisição.\n10.1.2. Observados os termos e as condições do Regulamento e deste Anexo  Descritivo, a verificação do atendimento aos Critérios de Elegibilidade pela  Gestora será considerada definitiva.",
+      "sha256": "fa2767ec89824fbc402bb0512dc7f5b85dd06407e21cac7ef293ff51b6ecf9ac",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e6bf6aa185c5c850e3ac9e8a3e148b050cebde341d8038575f162bb925fd3b77": {
+      "document_id": "1074624",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074624",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "1.6",
+      "excerpt": "1.6. Incluem-se entre as obrigações da Gestora, além das demais previstas na Resolução CVM 175:\n(a) analisar e selecionar os Direitos Creditórios e os Ativos Financeiros de  Liquidez para aquisição e, conforme o caso, alienação pelo Fundo e/ou pela  Classe, em estrita observância (1) às políticas de crédito e (2) à Política de  Investimento, bem como à composição e à diversificação da carteira;\n(b) efetuar a devida formalização dos Termos e Condições e respectivos  Termos de Cessão;\n(c) validar, previamente a cada cessão, a aderência dos Direitos Creditórios  aos Critérios de Elegibilidade;\n(d) verificar previamente o enquadramento dos Direitos Creditórios à  Política de Investimento, compreendendo, no mínimo, a validação dos Direitos  Creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos  de composição e diversificação, de forma individualizada;\n(e) avaliar a aderência do risco de performance dos Direitos Creditórios, se  houver, à Política de Investimento;\n(f) registrar os Direitos Creditórios na Entidade Registradora ou entregá-los  à Administradora, conforme o caso;\n(g) na hipótese de substituição de Direitos Creditórios, diligenciar para que a  relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada,  nos termos da Política de Investimento;",
+      "sha256": "b5a034bec5f56c40f2fce445d192d254057b389e74429376987de82770a9bc78",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "e9f0878737479e574612b2c4e0610b0c8557c6f4a38468a984718b40ebc73207": {
+      "document_id": "1074622",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1074622",
+      "reference_date": "2025-12-16",
+      "version": "1",
+      "page": "51–52",
+      "clause": "10.1",
+      "excerpt": "10.1. Os Direitos Creditórios Devedoras somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade:\n(a) o Direito creditório deverá ser representado por: (i) direitos creditórios  performados, devidos pelas Devedoras, originados de operações  comerciais de venda de produtos ou prestação de serviços pelos  Fornecedores às Devedoras, representados por Documentos  Comprobatórios;\n(b) prazo máximo do Direito Creditório Devedoras deve ser de 365 (trezentos  e sessenta e cinco) dias contados da Data de Aquisição;\n(c) o prazo mínimo do Direito Creditório Devedoras deve ser de 7 (sete) dias  contados da Data de Aquisição;\n(d) o Direito Creditório Devedoras deve vencer até o 15º (décimo quinto) dia  que antecede a data de vencimento das Cotas Seniores em circulação cujo prazo  seja o mais longo;\n(e) o Direito Creditório Devedoras deve ser performado e não passível de  qualquer discussão entre a Cedente e a Devedora;\n(f) o Direito Creditório Devedoras deve ser representado em moeda  corrente nacional e seu valor de face não deve estar sujeito a variação cambial;\n(g) o Direito Creditório Devedoras deve estar amparado pelos Documentos  Comprobatórios;\n(h) o Direito Creditório Devedoras deve ser devido por uma das Devedoras;\n(i) considerada pro forma a cessão pretendida, o prazo médio dos Direitos  Creditórios Devedoras integrantes da carteira não deverá exceder 110 (cento e  dez) dias;\n(j) considerada pro forma a cessão pretendida, o valor dos Direitos  Creditórios Devedoras integrantes da carteira cuja Cedente seja uma sociedade  integrante do Grupo Econômico de quaisquer das Devedoras não deverá superar  10% (dez por cento) do Patrimônio Líquido;\n(k) considerada pro forma a cessão pretendida, o valor dos Direitos  Creditórios Devedoras integrantes da carteira cuja Devedora seja uma sociedade  que não tenha sido objeto de classificação de risco não deverá superar 2,50%  (dois inteiro e cinquenta centésimos por cento) do Patrimônio Líquido;\n(l) após o 1º (primeiro) mês contado do início das atividades da Classe sob a  gestão da atual Gestora, a taxa média mínima de cessão do Direito Creditório  Devedoras à Classe deverá ser de Taxa DI + 2% a.a. (dois inteiros por cento ao  ano), calculada por cessão, de acordo com seguinte fórmula, considerando, para  tanto, as cessões realizadas no período compreendido entre o Dia Útil  imediatamente anterior à data de cálculo e o 15º (décimo quinto) Dia Útil  anterior à data de cálculo:\n Taxa média mínima = ∑ Txn/N\n(m) a Devedora do Direito Creditório Devedoras deve possuir rating definido  por Agência de Classificação de Risco.\n10.1.1. O enquadramento dos Direitos Creditórios que a Classe pretenda adquirir  aos Critérios de Elegibilidade será verificado pela Gestora ou pelo prestador de  serviços por ela subcontratado na respectiva Data de Aquisição.\n10.1.2. Observados os termos e as condições do Regulamento e deste Anexo  Descritivo, a verificação do atendimento aos Critérios de Elegibilidade pela  Gestora será considerada definitiva.",
+      "sha256": "2aec66a7dd69bfe837dbff917bc9e229d319a044e6728203b0d000cad8c4d37c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

@@ -3,15 +3,6 @@
   "cnpj": "55983705000168",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "d4d3efd51e1e17b48c73e07b252764bcc5bc654cf8f7588e38bd952fda816fe8",
-      "6bbc696b1fe8ba4f969211c2e0a609bee848ecbb80ef8952a9601b93713e84e3",
-      "f8c705deae3a8788a41593e5edb75f9bbe1bee7cf98ec9415f2a29748ae6e840",
-      "ed3ae7c83760d3202d445db31beec06b3ca5d09f184e664b243eef3ef6564b78",
-      "b8bd79a3678e671269007785a30b1e62d3f5d2da2c5630df2d022dd048303192",
-      "2390a0b5b1a0351946728ecadd5e9da0a715d195f547a5afb278aae40b8ce19b",
-      "de0c66ebe1ea0c372c7d150e92b50fc50ce54ca34ca4d1120e8064a446f360ce"
-    ],
     "term": [
       "19d1590cada774c4c8fb3512d7fa6c3ad62d73bbae67dc8772eb9cbd3190ba56",
       "12b33fd71e5eb14bd3ded7ef2712637f7bf4dba2cc61521317c5a7e8b92ddbc7",
@@ -326,23 +317,6 @@
       "b8d26973a4f200672d22a307dd47e0a0d7fbd8ef7a61c2627dc363f3c679e4f5",
       "783e34d2b08250f84ba49f3473d5bbcd8c1624edb356e846c76f3136ea201ded"
     ],
-    "originator": [
-      "eece9aae6f07a948431e7ba68f4a13d78531ba52c8a483d23a02e3bd98fcd843",
-      "6bbc696b1fe8ba4f969211c2e0a609bee848ecbb80ef8952a9601b93713e84e3",
-      "8463184e5a6c4aee5de0121006163706e79f10db447e12e756d2c07cd3e68842",
-      "bab221df659a3d6a94871f3e1955f607afad97a707fe5f15a455a49c1180d42d",
-      "cb3eb3b92b1378f7a877191dab04f3671d0801d97b910533bc01157a945df47f",
-      "93fefc74a25f60c6616b473a35ea7101843249fdc36ae7596360cf28388c583f",
-      "a2651911c135971b218e5659412a735b4cd3ea9811f902cd14004e6ec3356316"
-    ],
-    "debtor": [
-      "d04322f5f3c81ae64fe00a07495c09075fa5a1ab379203cd68e80a21f69d900e",
-      "6bbc696b1fe8ba4f969211c2e0a609bee848ecbb80ef8952a9601b93713e84e3",
-      "21aadd2afd69a2d96da61c543fa37db005db1293f93a3f3efd8b654d3736c4af",
-      "6d4fb28ba9551d44d07fffdd34d1f1ae0cc0298111ef8e1f2d06187562d3b8c9",
-      "3102048887c92bb3afcfe484191dd7a327053f9c369ec6afa4089916be61c10c",
-      "93e635809fe877117ce0ed53199af02e34a3ab7b60dae2537f7584d4da50790d"
-    ],
     "providers": [
       "d17b2c29f9cb762917f6e32d49305db68fcc4b31b4e422d4df40c891e14f4afc",
       "c4f1d774a355edace86f6fae3c0e60aadc117463e7057780aac0260d66cee7b7",
@@ -373,6 +347,39 @@
       "2924fc25e4c5eb81d434dc752e57c80b33ca4072250903d5c3b22939d5b58e96",
       "31ee7e06ca9c9106d328001dc6ba835c6f84c1e0771755b0e8729c125e06718b",
       "31a9934f695c787add218d280a93c17cbfe49e04e6e2f4a71857095aa646a3a4"
+    ],
+    "originator": [
+      "17f2424d204223d8e328e9223fd237ba066b451ee89acc198bf347b0ef765c95",
+      "b29c6fcb40f221877bd2d14d1d55efe437ff9a447d3196e4693d131c7d0d1284",
+      "eece9aae6f07a948431e7ba68f4a13d78531ba52c8a483d23a02e3bd98fcd843",
+      "111057081103a683ba4f3372421b5ba66436fd627ca63539f9939672e6e9792d",
+      "27820a6a0abcffc28a25cc5269384aeeaa2064a3cdd749214faccb72d68f87f8",
+      "6bbc696b1fe8ba4f969211c2e0a609bee848ecbb80ef8952a9601b93713e84e3",
+      "8463184e5a6c4aee5de0121006163706e79f10db447e12e756d2c07cd3e68842",
+      "bab221df659a3d6a94871f3e1955f607afad97a707fe5f15a455a49c1180d42d",
+      "cb3eb3b92b1378f7a877191dab04f3671d0801d97b910533bc01157a945df47f",
+      "93fefc74a25f60c6616b473a35ea7101843249fdc36ae7596360cf28388c583f",
+      "a2651911c135971b218e5659412a735b4cd3ea9811f902cd14004e6ec3356316"
+    ],
+    "eligibility": [
+      "896d69e4ec28a2075a68ff7e017af6164dcf0da4620a7afefb17f20656eff85e",
+      "010be4a33565ccc5d05fd6e1c3e397f2806ec348f59dcc4b6d6ef7023490a37b",
+      "d3ea1f407be784e385f211836ff2aa5916c16ac9ccd9d85ba6e3526ffc55cdf2",
+      "cbea6787dbf9c5af8d44bc8d668b9007a0003d614f589b5c5c610d6123ead64b",
+      "299aa3979312684c8ddae1598789dff28b0a2725d017d5eda9c071ca95dd731a",
+      "c00a7a2a5ddf4f73f6e3fa5f516f4c409f6c183003c65e81abc490f3510c760d",
+      "99817c64dfdccf3684e6b8f4143843a73ebb5cf84f82625515b9d2f1089a50e0",
+      "c8c38cf2974132ec8cefdf438aaa1ab927275b75e955e3c6924a5556166177a2"
+    ],
+    "debtor": [
+      "17f2424d204223d8e328e9223fd237ba066b451ee89acc198bf347b0ef765c95",
+      "b29c6fcb40f221877bd2d14d1d55efe437ff9a447d3196e4693d131c7d0d1284",
+      "111057081103a683ba4f3372421b5ba66436fd627ca63539f9939672e6e9792d",
+      "27820a6a0abcffc28a25cc5269384aeeaa2064a3cdd749214faccb72d68f87f8",
+      "9e58f48931c86067e5d563e472923671572584e2e7d8ab9155cc39af658589e8",
+      "9aac7426ed59f93941360ca37a8ee853fe10c2556ca8309e434ca0f8b2e2fe1a",
+      "69061fddb73d925a0c5f0d35568b6ae5c779a418779a7f24eda7eac59ce4ab53",
+      "45f74214eaaa8ae1c6a0d4cf2f959e92b962506d8db4f8d97f4935d791b98e3d"
     ]
   },
   "entries": {
@@ -482,87 +489,6 @@
       "provenance": "primary_passage",
       "sources": [
         "493a0027ed538e1c9d29446c2c042f5a08d743c98801db469f6ff3c95f5f0401"
-      ]
-    },
-    "d04322f5f3c81ae64fe00a07495c09075fa5a1ab379203cd68e80a21f69d900e": {
-      "reference_date": "2025-12-31",
-      "value": "Os direitos creditórios podem ser originados, dentre outros, dos seguintes instrumentos: (a) contratos de concessão de crédito, sob quaisquer modalidades admitidas, inclusive contratos de crédito direto ao consumidor, cédulas de crédito bancário (“CCB”) ou outros instrumentos de financiamento, celebrados entre Devedores que buscam recursos para o pagamento de serviços educacionais e instituições financeiras; (b) contratos de financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos juridicamente válidos que envolvam a liberação de recursos e/ou a constituição de relação de crédito, celebrados entre alunos (ou seus representantes legais) e instituições de ensino; e (c) contratos de concessão de crédito originalmente integrantes da carteira do FIDC Crédito Universitário III e posteriormente cedidos ao Fundo.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cf9f5d8df66f89e79e0907cb8623dc09e51b8ffd2f31500aeff1e19b5721c13b"
-      ]
-    },
-    "21aadd2afd69a2d96da61c543fa37db005db1293f93a3f3efd8b654d3736c4af": {
-      "reference_date": "2024-07-16",
-      "value": "Caberá ao Agente de Cobrança, entre outros: (i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a Administradora e a Gestora sobre as providências que precisarem ser tomadas nas hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo Fundo, de seus direitos e obrigações; e (ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3fdeb4ae7bc714090f2a5fc5ff3521ed67f1df7cdcab259944ee99502720171a"
-      ]
-    },
-    "6d4fb28ba9551d44d07fffdd34d1f1ae0cc0298111ef8e1f2d06187562d3b8c9": {
-      "reference_date": "2024-08-27",
-      "value": "Caberá ao Agente de Cobrança, entre outros: (i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a Administradora e a Gestora sobre as providências que precisarem ser tomadas nas hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo Fundo, de seus direitos e obrigações; e (ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bb15cbed158cf5b0b070463a337bdc6940ff70818eb2bd8a729b648e1890f74c"
-      ]
-    },
-    "3102048887c92bb3afcfe484191dd7a327053f9c369ec6afa4089916be61c10c": {
-      "reference_date": "2024-08-27",
-      "value": "Caberá ao Agente de Cobrança, entre outros: (i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a Administradora e a Gestora sobre as providências que precisarem ser tomadas nas hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo Fundo, de seus direitos e obrigações; e (ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e153fa579a87fb794a8f683d1d8b15f2e885b672ad80aa049ad720b643b543cb"
-      ]
-    },
-    "93e635809fe877117ce0ed53199af02e34a3ab7b60dae2537f7584d4da50790d": {
-      "reference_date": "2024-07-16",
-      "value": "Caberá ao Agente de Cobrança, entre outros: (i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a Administradora e a Gestora sobre as providências que precisarem ser tomadas nas hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo Fundo, de seus direitos e obrigações; e (ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1883fbdc08b663f644262fc5fbb05f317c5dcbc3c45b5306d4cbff04bee5fed2"
-      ]
-    },
-    "ed3ae7c83760d3202d445db31beec06b3ca5d09f184e664b243eef3ef6564b78": {
-      "reference_date": "2024-07-16",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "984bdb18ab429fcf312024c0a916d516129ec0921d749495b9df21fb2577da4d"
-      ]
-    },
-    "b8bd79a3678e671269007785a30b1e62d3f5d2da2c5630df2d022dd048303192": {
-      "reference_date": "2024-08-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c9b76460050fa0f5de22da42b3f1b0f67b51f0f19de6e6e51cf747d9a5c44aa1"
-      ]
-    },
-    "2390a0b5b1a0351946728ecadd5e9da0a715d195f547a5afb278aae40b8ce19b": {
-      "reference_date": "2024-08-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "717e0a66c2ae07de8e0f17a683840472e8b093b3561d0584a736f698f0ca48b7"
-      ]
-    },
-    "de0c66ebe1ea0c372c7d150e92b50fc50ce54ca34ca4d1120e8064a446f360ce": {
-      "reference_date": "2024-07-16",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4c7f30f798498951cb1eb4917d9bee2ea632dbfa45f706d83fd1fdc0d232d916"
       ]
     },
     "19d1590cada774c4c8fb3512d7fa6c3ad62d73bbae67dc8772eb9cbd3190ba56": {
@@ -2643,6 +2569,123 @@
       "sources": [
         "e66b231b536a29874a268638d32d6161d096d45f377a8662c52f87355293f03b"
       ]
+    },
+    "896d69e4ec28a2075a68ff7e017af6164dcf0da4620a7afefb17f20656eff85e": {
+      "reference_date": "2025-12-31",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, serem verificados e validados pelo Gestor ou por prestador de serviço por ela subcontratado, previamente a cada cessão na respectiva data de oferta de direitos creditórios: i) Exclusivamente em relação à primeira e segunda data de oferta de direitos creditórios, do total de direitos creditórios ofertados ao Fundo, apenas 20% poderão estar vencidos e pendentes de pagamento, considerando, para fins deste critério de verificação e para fins de verificação do volume inadimplente, o valor presente dos direitos creditórios. Entende-se por direito creditório vencido e pendente de pagamento, qualquer título em atraso a partir do 1º dia após o seu vencimento. ii) Que a carteira do Fundo, em valor presente, tenha até 2% de direitos creditórios com prazo máximo de vencimento superior a 4.000 dias corridos contados de suas respectivas datas de aquisição e pagamento, não excedendo o limite de 6.000 dias corridos; iii) O devedor dos direitos creditórios ofertados não seja devedor de outro direito creditório de titularidade do Fundo, vencido e não pago por mais de 90 dias corridos; iv) Os direitos creditórios não estejam vencidos quando da cessão ao Fundo; v) Considerado proforma o valor presente líquido dos direitos creditórios a serem adquiridos, o valor presente líquido total dos direitos creditórios contra um mesmo devedor em uma determinada data de verificação, não poderá ser superior ao menor dos seguintes valores contábeis: (a) o equivalente a 0,5% do patrimônio líquido, ou (b) R$ 800. O valor presente líquido total de que trata este item será calculado de acordo com a fórmula a seguir:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8e02b3615d730e78b61f54a0f523a92f99b78916a4bb0f2fe2fd4339aafabc3f"
+      ]
+    },
+    "010be4a33565ccc5d05fd6e1c3e397f2806ec348f59dcc4b6d6ef7023490a37b": {
+      "reference_date": "2025-07-15",
+      "value": "Qualidade de crédito dos ativos. A carteira de direitos creditórios do Crédito Universitário IV FIDC é composta de contratos de empréstimos oriundos do segmento educacional que atendam aos critérios definidos no seu regulamento. Além dos direitos creditórios, o FIDC pode alocar até 50% do valor de seu patrimônio líquido (PL) total em outros ativos financeiros especificados na política de investimento. O regulamento da operação especifica os critérios de elegibilidade e as condições de cessão a serem observados na aquisição de novos direitos creditórios. Dada a natureza rotativa da estrutura, tais critérios atuam como forma de mitigação do risco de deterioração da qualidade de crédito da carteira subjacente durante a vida do FIDC.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8e0e1e693442a458464ea09c06449418a8493f94c375f96304b5f34a2eab7f95"
+      ]
+    },
+    "d3ea1f407be784e385f211836ff2aa5916c16ac9ccd9d85ba6e3526ffc55cdf2": {
+      "reference_date": "2024-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b99dbca4d5765590b48f4e83081e14ec1b77639c86048de24c7f0acc03df8239"
+      ]
+    },
+    "cbea6787dbf9c5af8d44bc8d668b9007a0003d614f589b5c5c610d6123ead64b": {
+      "reference_date": "2024-08-23",
+      "value": "Qualidade de crédito dos ativos. A carteira de direitos creditórios do Crédito Universitário IV FIDC será composta por contratos de empréstimo oriundos do segmento educacional que atendam aos critérios definidos no seu regulamento. Além dos direitos creditórios, o FIDC IV pode alocar até 50% do valor de seu patrimônio líquido (PL) total em outros ativos financeiros especificados na política de investimento. O regulamento da operação especifica os critérios de elegibilidade e as condições de cessão a serem observados na aquisição de novos direitos creditórios. Dada a natureza rotativa da estrutura, tais critérios atuam como forma de mitigação do risco de deterioração da qualidade de crédito da carteira subjacente durante a vida do FIDC.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5abf0ef7fa248f54be258b3dc5043ebda2d1c9911cef254bc6d6e141e607de37"
+      ]
+    },
+    "299aa3979312684c8ddae1598789dff28b0a2725d017d5eda9c071ca95dd731a": {
+      "reference_date": "2024-07-16",
+      "value": "9.5.10 Critérios de Elegibilidade - Não Obrigatoriedade de Manutenção dos Critérios de Elegibilidade após a Aquisição de Direitos Creditórios. Ainda que os Direitos Creditórios atendam todos os Critérios de Elegibilidade, em cada Data de Oferta dos Direitos Creditórios, não é possível assegurar que os Critérios de Elegibilidade previstos no Regulamento serão suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios. Caso os Direitos Creditórios não sejam pontualmente pagos pelos Devedores ou pelos Devedores Solidários ou os Direitos Creditórios não tenham a realização esperada pelo Fundo, o Patrimônio Líquido poderá ser afetado negativamente. Além disso, a Gestora verificará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Oferta de Direitos Creditórios. Na hipótese de, após a verificação e validação pela Gestora dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a algum Critério de Elegibilidade, o Fundo poderá ter em sua carteira Direitos Creditórios que não atendam os Critérios de Elegibilidade, os quais não serão verificados novamente pela Gestora.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "984bdb18ab429fcf312024c0a916d516129ec0921d749495b9df21fb2577da4d"
+      ]
+    },
+    "c00a7a2a5ddf4f73f6e3fa5f516f4c409f6c183003c65e81abc490f3510c760d": {
+      "reference_date": "2024-08-27",
+      "value": "9.5.10 Critérios de Elegibilidade - Não Obrigatoriedade de Manutenção dos Critérios de Elegibilidade após a Aquisição de Direitos Creditórios. Ainda que os Direitos Creditórios atendam todos os Critérios de Elegibilidade, em cada Data de Oferta dos Direitos Creditórios, não é possível assegurar que os Critérios de Elegibilidade previstos no Regulamento serão suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios. Caso os Direitos Creditórios não sejam pontualmente pagos pelos Devedores ou pelos Devedores Solidários ou os Direitos Creditórios não tenham a realização esperada pelo Fundo, o Patrimônio Líquido poderá ser afetado negativamente. Além disso, a Gestora verificará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Oferta de Direitos Creditórios. Na hipótese de, após a verificação e validação pela Gestora dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a algum Critério de Elegibilidade, o Fundo poderá ter em sua carteira Direitos Creditórios que não atendam os Critérios de Elegibilidade, os quais não serão verificados novamente pela Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c9b76460050fa0f5de22da42b3f1b0f67b51f0f19de6e6e51cf747d9a5c44aa1"
+      ]
+    },
+    "99817c64dfdccf3684e6b8f4143843a73ebb5cf84f82625515b9d2f1089a50e0": {
+      "reference_date": "2024-08-27",
+      "value": "9.5.10 Critérios de Elegibilidade - Não Obrigatoriedade de Manutenção dos Critérios de Elegibilidade após a Aquisição de Direitos Creditórios. Ainda que os Direitos Creditórios atendam todos os Critérios de Elegibilidade, em cada Data de Oferta dos Direitos Creditórios, não é possível assegurar que os Critérios de Elegibilidade previstos no Regulamento serão suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios. Caso os Direitos Creditórios não sejam pontualmente pagos pelos Devedores ou pelos Devedores Solidários ou os Direitos Creditórios não tenham a realização esperada pelo Fundo, o Patrimônio Líquido poderá ser afetado negativamente. Além disso, a Gestora verificará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Oferta de Direitos Creditórios. Na hipótese de, após a verificação e validação pela Gestora dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a algum Critério de Elegibilidade, o Fundo poderá ter em sua carteira Direitos Creditórios que não atendam os Critérios de Elegibilidade, os quais não serão verificados novamente pela Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "717e0a66c2ae07de8e0f17a683840472e8b093b3561d0584a736f698f0ca48b7"
+      ]
+    },
+    "c8c38cf2974132ec8cefdf438aaa1ab927275b75e955e3c6924a5556166177a2": {
+      "reference_date": "2024-07-16",
+      "value": "9.5.10 Critérios de Elegibilidade - Não Obrigatoriedade de Manutenção dos Critérios de Elegibilidade após a Aquisição de Direitos Creditórios. Ainda que os Direitos Creditórios atendam todos os Critérios de Elegibilidade, em cada Data de Oferta dos Direitos Creditórios, não é possível assegurar que os Critérios de Elegibilidade previstos no Regulamento serão suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios. Caso os Direitos Creditórios não sejam pontualmente pagos pelos Devedores ou pelos Devedores Solidários ou os Direitos Creditórios não tenham a realização esperada pelo Fundo, o Patrimônio Líquido poderá ser afetado negativamente. Além disso, a Gestora verificará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Oferta de Direitos Creditórios. Na hipótese de, após a verificação e validação pela Gestora dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a algum Critério de Elegibilidade, o Fundo poderá ter em sua carteira Direitos Creditórios que não atendam os Critérios de Elegibilidade, os quais não serão verificados novamente pela Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4c7f30f798498951cb1eb4917d9bee2ea632dbfa45f706d83fd1fdc0d232d916"
+      ]
+    },
+    "b29c6fcb40f221877bd2d14d1d55efe437ff9a447d3196e4693d131c7d0d1284": {
+      "reference_date": "2025-12-31",
+      "value": "a) Descrição Os direitos creditórios adquiridos pelo Fundo consistem em direitos creditórios vincendos, decorrentes de contratos de empréstimo e/ou financiamento, originados de operações concedidas por instituições financeiras, instituições de ensino ou pelo Crédito Universitário III Fundo de Investimento em Direitos Creditórios (individualmente “Cedente”) a pessoas físicas (“Devedores”), com a finalidade exclusiva de viabilizar o pagamento de matrículas e cursos junto a instituições de ensino a título de contraprestação por serviços educacionais prestados.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5390ae09ad1726a28c3016cf42dfe8ab761bb32dfeacd769c5ef0fcc70b23c9a"
+      ]
+    },
+    "9e58f48931c86067e5d563e472923671572584e2e7d8ab9155cc39af658589e8": {
+      "reference_date": "2024-07-16",
+      "value": "“Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2fc17eb190f22c40c9778d77baaa7d9cb253a77c5b9b005b6ae123ac460590cd"
+      ]
+    },
+    "9aac7426ed59f93941360ca37a8ee853fe10c2556ca8309e434ca0f8b2e2fe1a": {
+      "reference_date": "2024-08-27",
+      "value": "“Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9b40441d94f3c7b5c9343bad4ad8cedf7adc91043f9a69f70bc6dae8456f46d3"
+      ]
+    },
+    "69061fddb73d925a0c5f0d35568b6ae5c779a418779a7f24eda7eac59ce4ab53": {
+      "reference_date": "2024-08-27",
+      "value": "“Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bfd944ad69759916094f5915a17f42805b53ab77dc9575dd7defcca153729b3e"
+      ]
+    },
+    "45f74214eaaa8ae1c6a0d4cf2f959e92b962506d8db4f8d97f4935d791b98e3d": {
+      "reference_date": "2024-07-16",
+      "value": "“Devedores” Os alunos das Instituições de Ensino que tenham valores a pagar referentes aos Direitos Creditórios, nos termos dos Contratos de Empréstimo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5953e09efadf27885ad914314431ebf66a1cf4658d1dc20abc45cd76830b52ce"
+      ]
     }
   },
   "passages": {
@@ -2790,30 +2833,6 @@
       "sha256": "795627f5abd4f22d2f75f9da9735ec56d02505e50cf627567582af29191cf8a2",
       "verification": "primary_passage"
     },
-    "cf9f5d8df66f89e79e0907cb8623dc09e51b8ffd2f31500aeff1e19b5721c13b": {
-      "document_id": "1139740",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1139740",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "Os direitos creditórios podem ser originados, dentre outros, dos seguintes instrumentos: (a) contratos  de concessão de crédito, sob quaisquer modalidades admitidas, inclusive contratos de crédito direto ao  consumidor, cédulas de crédito bancário (“CCB”) ou outros instrumentos de financiamento, celebrados  entre Devedores que buscam recursos para o pagamento de serviços educacionais e instituições  financeiras; (b) contratos de financiamento, programas de bolsa restituível, programas de financiamento  estudantil, crediários ou outros instrumentos juridicamente válidos que envolvam a liberação de  recursos e/ou a constituição de relação de crédito, celebrados entre alunos (ou seus representantes  legais) e instituições de ensino; e (c) contratos de concessão de crédito originalmente integrantes da  carteira do FIDC Crédito Universitário III e posteriormente cedidos ao Fundo.",
-      "sha256": "d5f85f5af9c368fe1f5b35a591ab8a99c69396902fce02b29eb08c6ee635b4ad",
-      "verification": "primary_passage"
-    },
-    "3fdeb4ae7bc714090f2a5fc5ff3521ed67f1df7cdcab259944ee99502720171a": {
-      "document_id": "701561",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701561",
-      "reference_date": "2024-07-16",
-      "version": "1",
-      "page": 26,
-      "clause": "8.12",
-      "excerpt": "8.12 Os serviços de cobrança dos Direitos Creditórios vencidos e não pagos serão  prestados pela Pravaler S.A., na qualidade de Agente de Cobrança, em nome do Fundo, de  acordo com o Contrato de Cobrança e com a Política de Cobrança prevista no Anexo III  ao presente Regulamento, mediante a adoção de procedimentos judiciais e extrajudiciais.\n Caberá ao Agente de Cobrança, entre outros:\n(i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos  decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a  Administradora e a Gestora sobre as providências que precisarem ser tomadas nas  hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão  e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo  Fundo, de seus direitos e obrigações; e\n(ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de  serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de  Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos  Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "sha256": "cf7a1273c5c99f90540ca1bb8fef1c6a3d2dae3b6a13fa2d53cb62b7759d9638",
-      "verification": "primary_passage"
-    },
     "bb15cbed158cf5b0b070463a337bdc6940ff70818eb2bd8a729b648e1890f74c": {
       "document_id": "727048",
       "title": "Instrumento Particular de Alteração do Regulamento",
@@ -2836,18 +2855,6 @@
       "clause": "8.12",
       "excerpt": "8.12 Os serviços de cobrança dos Direitos Creditórios vencidos e não pagos serão  prestados pela Pravaler S.A., na qualidade de Agente de Cobrança, em nome do Fundo, de  acordo com o Contrato de Cobrança e com a Política de Cobrança prevista no Anexo III  ao presente Regulamento, mediante a adoção de procedimentos judiciais e extrajudiciais.\n Caberá ao Agente de Cobrança, entre outros:\n(i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos  decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a  Administradora e a Gestora sobre as providências que precisarem ser tomadas nas  hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão  e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo  Fundo, de seus direitos e obrigações; e\n(ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de  serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de  Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos  Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
       "sha256": "53f0720e7a74b85fef32dd471769d8343bac4e4b9bdb06fb3895170a2155ba6e",
-      "verification": "primary_passage"
-    },
-    "1883fbdc08b663f644262fc5fbb05f317c5dcbc3c45b5306d4cbff04bee5fed2": {
-      "document_id": "701565",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701565",
-      "reference_date": "2024-07-16",
-      "version": "1",
-      "page": 22,
-      "clause": "8.12",
-      "excerpt": "8.12 Os serviços de cobrança dos Direitos Creditórios vencidos e não pagos serão  prestados pela Pravaler S.A., na qualidade de Agente de Cobrança, em nome do Fundo, de  acordo com o Contrato de Cobrança e com a Política de Cobrança prevista no Anexo III  ao presente Regulamento, mediante a adoção de procedimentos judiciais e extrajudiciais.\n Caberá ao Agente de Cobrança, entre outros:\n(i) avaliar e acompanhar o cumprimento das obrigações e exercício dos direitos  decorrentes dos Contratos de Cessão e/ou Termos de Cessão, orientando a  Administradora e a Gestora sobre as providências que precisarem ser tomadas nas  hipóteses de inadimplemento de quaisquer dos Cedentes nos Contratos de Cessão  e/ou Termos de Cessão aplicáveis, ou relativas ao exercício e cumprimento, pelo  Fundo, de seus direitos e obrigações; e\n(ii) escolher e selecionar os (a) escritórios de advocacia e/ou empresas prestadoras de  serviços especializadas em cobrança e recuperação de créditos, e (b) os Agentes de  Recebimento para emissão de boletos de cobrança aos Devedores Cedidos dos  Direitos Creditórios cedidos ao Fundo, de modo a facilitar os pagamentos.",
-      "sha256": "795627f5abd4f22d2f75f9da9735ec56d02505e50cf627567582af29191cf8a2",
       "verification": "primary_passage"
     },
     "984bdb18ab429fcf312024c0a916d516129ec0921d749495b9df21fb2577da4d": {
@@ -5428,6 +5435,92 @@
       "clause": "",
       "excerpt": "S&P Global Ratings não realiza due diligence em ativos subjacentes Quando a S&P Global Ratings atribuiu ratings a um instrumento de operações estruturadas, esta recebe informações sobre ativos subjacentes, as quais são fornecidas por terceiros que acreditamos tenham conhecimento dos fatos relevantes. Tais terceiros são normalmente instituições financeiras que estruturaram a transação e/ou instituições que originaram os ativos ou estão vendendo os ativos aos emissores e/ou uma empresa de contabilidade reconhecida e/ou um escritório de advocacia, cada qual agindo em nome da instituição financeira ou originador ou vendedor dos ativos. Além disso, a S&P Global Ratings pode se apoiar em informações presentes nos prospectos de oferta das transações, emitidos de acordo com as leis de valores mobiliários da jurisdição relevante. Em alguns casos, a S&P Global Ratings pode se apoiar em fatos gerais (tais como índices de inflação, taxas de juros dos bancos centrais, índices de default) que são de domínio público e produzidos por instituições privadas ou públicas. Em nenhuma circunstância a S&P Global Ratings realiza qualquer processo de due diligence sobre ativos subjacentes. A S&P Global Ratings também pode receber a garantia por parte da instituição que está estruturando a transação ou originando ou vendendo os ativos para o emissor, (a) o qual vai fornecer à S&P Global Ratings todas as informações requisitadas pela S&P Global Ratings de acordo com seus critérios publicados e outras informações relevantes para o rating de crédito e, se aplicável, para o monitoramento do rating de crédito, incluindo informações ou mudanças materiais das informações anteriormente fornecidas e (b) a informações fornecidas à S&P Global Ratings relativas ao rating de crédito ou, se aplicável, ao monitoramento do rating de crédito, de que estas não contêm nenhuma afirmação falsa sobre um fato material e não omitem um fato material necessário para fazer tal afirmação, em vista das circunstâncias nas quais foram fornecidas, e não enganosa.\nA precisão e completude das informações revisadas pela S&P Global Ratings em conexão com sua análise, pode ter um efeito significativo nos resultados de tais análises. Embora a S&P Global Ratings colete informações de fontes que acredita serem confiáveis, quaisquer imprecisões ou",
       "sha256": "c4e473f1aa173a5287403958830c010e1a5d15ce868e1d01a5d0b53f3ec3fa1f",
+      "verification": "primary_passage"
+    },
+    "8e02b3615d730e78b61f54a0f523a92f99b78916a4bb0f2fe2fd4339aafabc3f": {
+      "document_id": "1139740",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1139740",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "d) Critérios de elegibilidade  O Fundo somente poderá adquirir direitos creditórios que atendam, exclusiva e cumulativamente, aos  seguintes critérios de elegibilidade, serem verificados e validados pelo Gestor ou por prestador de  serviço por ela subcontratado, previamente a cada cessão na respectiva data de oferta de direitos  creditórios:\ni) Exclusivamente em relação à primeira e segunda data de oferta de direitos creditórios, do total  de direitos creditórios ofertados ao Fundo, apenas 20% poderão estar vencidos e pendentes de  pagamento, considerando, para fins deste critério de verificação e para fins de verificação do  volume inadimplente, o valor presente dos direitos creditórios. Entende-se por direito creditório  vencido e pendente de pagamento, qualquer título em atraso a partir do 1º dia após o seu  vencimento.\nii) Que a carteira do Fundo, em valor presente, tenha até 2% de direitos creditórios com prazo  máximo de vencimento superior a 4.000 dias corridos contados de suas respectivas datas de  aquisição e pagamento, não excedendo o limite de 6.000 dias corridos;\niii) O devedor dos direitos creditórios ofertados não seja devedor de outro direito creditório de  titularidade do Fundo, vencido e não pago por mais de 90 dias corridos;\niv) Os direitos creditórios não estejam vencidos quando da cessão ao Fundo;\nv) Considerado proforma o valor presente líquido dos direitos creditórios a serem adquiridos, o  valor presente líquido total dos direitos creditórios contra um mesmo devedor em uma  determinada data de verificação, não poderá ser superior ao menor dos seguintes valores  contábeis: (a) o equivalente a 0,5% do patrimônio líquido, ou (b) R$ 800. O valor presente líquido  total de que trata este item será calculado de acordo com a fórmula a seguir:",
+      "sha256": "d5f85f5af9c368fe1f5b35a591ab8a99c69396902fce02b29eb08c6ee635b4ad",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b99dbca4d5765590b48f4e83081e14ec1b77639c86048de24c7f0acc03df8239": {
+      "document_id": "862679",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=862679",
+      "reference_date": "2024-12-31",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "a) Descrição  Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios vincendos decorrentes de  contratos de empréstimo, oriundos de financiamentos concedidos pelos respectivos cedentes instituições  financeiras ou cedentes instituições de ensino aos devedores, ou, ainda, direitos creditórios de titularidade  do Crédito Universitário III Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada  (“FIDC Crédito Universitário III”), cedidos por meio do respectivo contrato de cessão, no caso dos direitos  creditórios – FIDC Crédito Universitário III, sendo, em todos os casos e independentemente de quem os esteja  cedendo ao Fundo, vinculados a operações para financiamento de matrículas e cursos junto a instituições de  ensino a título de pagamento de serviços educacionais prestados aos devedores, conforme pactuados nos  seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores  solidários para garantir o pagamento dos mesmos, que atendam aos critérios de elegibilidade e às condições  de cessão expostos no regulamento Fundo, podendo ser:\n(i) Contratos de concessão de crédito, que podem estar revestidos de qualquer forma, inclusive  contratos de crédito direto ao consumidor, cédulas de créditos bancárias (“CCB”) ou outras  modalidades de financiamento, empréstimo e qualquer outra modalidade de parcelamento da  Instituição de Ensino, que tenham como partes (a) devedores que buscam crédito para pagamento  de prestação de serviços educacionais, (b) cedentes instituições financeiras e (c) cedentes instituição  de ensino;\n(ii) Contratos de financiamento, programas de bolsa restituível, programas de financiamento estudantil,  crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de  dívida/crédito, que tenham como partes (a) alunos ou seus representantes e (b) cedentes instituições  de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o  escopo de financiar débitos advindos de serviços educacionais; e\n(iii) Contratos de concessão de crédito, que podem estar revestidos de qualquer forma, inclusive  contratos de crédito direto ao consumidor, CCBs ou outras modalidades de financiamento e  empréstimo, celebrados entre os devedores que buscam crédito para pagamento de prestação de  serviços educacionais e instituições financeiras ou outras entidades autorizadas pelo Banco Central  do Brasil (“BACEN”), nos termos da regulamentação aplicável, cujos direitos creditórios tenham sido  originalmente cedidos ao FIDC Crédito Universitário III.\nb) Classificação dos direitos creditórios do Fundo  O Fundo adquiriu direitos creditórios registrando-os como sendo “com aquisição substancial de riscos e  benefícios”, tendo em vista a cessão incondicional e irretratável, incluindo o direito de vendê-lo pelo valor  justo em sua totalidade, de forma autônoma e sem imposição de restrições à operação, nos termos do inciso  II, do parágrafo 1º, do artigo 3° da Instrução CVM nº489/2011.",
+      "sha256": "89ccd5705f4382615299fb24bf403569e9691c41c231341b2add2fb3d88612ff",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5390ae09ad1726a28c3016cf42dfe8ab761bb32dfeacd769c5ef0fcc70b23c9a": {
+      "document_id": "1139740",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1139740",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "a) Descrição  Os direitos creditórios adquiridos pelo Fundo consistem em direitos creditórios vincendos, decorrentes  de contratos de empréstimo e/ou financiamento, originados de operações concedidas por instituições  financeiras, instituições de ensino ou pelo Crédito Universitário III Fundo de Investimento em Direitos  Creditórios (individualmente “Cedente”) a pessoas físicas (“Devedores”), com a finalidade exclusiva de  viabilizar o pagamento de matrículas e cursos junto a instituições de ensino a título de contraprestação  por serviços educacionais prestados.",
+      "sha256": "d5f85f5af9c368fe1f5b35a591ab8a99c69396902fce02b29eb08c6ee635b4ad",
+      "verification": "primary_passage"
+    },
+    "2fc17eb190f22c40c9778d77baaa7d9cb253a77c5b9b005b6ae123ac460590cd": {
+      "document_id": "701561",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701561",
+      "reference_date": "2024-07-16",
+      "version": "1",
+      "page": 123,
+      "clause": "",
+      "excerpt": "“Devedores” Os alunos das Instituições de Ensino que  tenham valores a pagar referentes aos  Direitos Creditórios, nos termos dos  Contratos de Empréstimo.",
+      "sha256": "cf7a1273c5c99f90540ca1bb8fef1c6a3d2dae3b6a13fa2d53cb62b7759d9638",
+      "verification": "primary_passage"
+    },
+    "9b40441d94f3c7b5c9343bad4ad8cedf7adc91043f9a69f70bc6dae8456f46d3": {
+      "document_id": "727048",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727048",
+      "reference_date": "2024-08-27",
+      "version": "1",
+      "page": 130,
+      "clause": "",
+      "excerpt": "“Devedores” Os alunos das Instituições de Ensino que  tenham valores a pagar referentes aos  Direitos Creditórios, nos termos dos  Contratos de Empréstimo.",
+      "sha256": "07d5419cf016dee14d84a9cdc3fa49812d1334d004e957a0dd682cc29b44de07",
+      "verification": "primary_passage"
+    },
+    "bfd944ad69759916094f5915a17f42805b53ab77dc9575dd7defcca153729b3e": {
+      "document_id": "727051",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727051",
+      "reference_date": "2024-08-27",
+      "version": "1",
+      "page": 120,
+      "clause": "",
+      "excerpt": "“Devedores” Os alunos das Instituições de Ensino que  tenham valores a pagar referentes aos  Direitos Creditórios, nos termos dos  Contratos de Empréstimo.",
+      "sha256": "53f0720e7a74b85fef32dd471769d8343bac4e4b9bdb06fb3895170a2155ba6e",
+      "verification": "primary_passage"
+    },
+    "5953e09efadf27885ad914314431ebf66a1cf4658d1dc20abc45cd76830b52ce": {
+      "document_id": "701565",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701565",
+      "reference_date": "2024-07-16",
+      "version": "1",
+      "page": 119,
+      "clause": "",
+      "excerpt": "“Devedores” Os alunos das Instituições de Ensino que  tenham valores a pagar referentes aos  Direitos Creditórios, nos termos dos  Contratos de Empréstimo.",
+      "sha256": "795627f5abd4f22d2f75f9da9735ec56d02505e50cf627567582af29191cf8a2",
       "verification": "primary_passage"
     }
   }

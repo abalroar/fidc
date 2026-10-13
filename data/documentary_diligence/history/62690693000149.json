@@ -3,9 +3,6 @@
   "cnpj": "62690693000149",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "46f61b32b970aabf58a210239409d45f327cccdb1d63dd8c7f16449f84da8e2c"
-    ],
     "term": [
       "4d344f0b9b6f3714c8bdbf11d8222b84c4fe694d1a665ed52865061a3fc8eebf"
     ],
@@ -107,12 +104,6 @@
     "legacy_events": [
       "598834e29fd2293bf5ffcd0f0eec655524e49e2091596fb9011cdd11979f30fc"
     ],
-    "originator": [
-      "b31c10fe144ce5758096f8905a8ce17ba3202d99330d10c7841dadb1b5298841"
-    ],
-    "debtor": [
-      "88dcf53443d665fcd8c03658ac7621e801280e4220af47c321480ae9b0c98df6"
-    ],
     "providers": [
       "633f22f2cc8901c870f7d14056453f3e29759b8e03dcbb5d71a573760280c526",
       "832e5b6c13879284ed4afd6e3666e6a96d48ed7c035d773b9b151896a3327500"
@@ -124,6 +115,12 @@
     "allocation": [
       "fc430175172c37326fa28c469ca3f4a3f0d3fb3ec7d1bf20e53faa84f8274d02",
       "606a13c1ea238ccdb1b86d0e288677cbd523afcb2e81ff120ce0db78537d4e26"
+    ],
+    "originator": [
+      "53286bf8e6393eb8125e7a03983f915f3c311c44f43c39369c17bce18c87ca3c"
+    ],
+    "eligibility": [
+      "c2d7684a3bde0343d1114c5654badafb6999d0dbf4124bbe3cc92b386bb8a23e"
     ]
   },
   "entries": {
@@ -153,24 +150,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cd4d20d2bd86afeb16fc82c57e53b669a216fc51bb987e40f2146fa8556372d9"
-      ]
-    },
-    "88dcf53443d665fcd8c03658ac7621e801280e4220af47c321480ae9b0c98df6": {
-      "reference_date": "2025-09-11",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4544fcc39daaf3a055d220610726150d64fbd6afe84a6fa6779b3ad75e9c470f"
-      ]
-    },
-    "46f61b32b970aabf58a210239409d45f327cccdb1d63dd8c7f16449f84da8e2c": {
-      "reference_date": "2025-09-11",
-      "value": "Os Cedentes somente poderão ceder ao Fundo Direitos Creditórios que atendam cumulativamente os Critérios de Elegibilidade e aos termos do Convênio e do respectivo Termo de Adesão ao Convênio, conforme aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dccb99ef0a27acc3e2c95ef3397abbb0a6b7bb2fb68b4ed7804a11f6fc550406"
       ]
     },
     "4d344f0b9b6f3714c8bdbf11d8222b84c4fe694d1a665ed52865061a3fc8eebf": {
@@ -536,6 +515,15 @@
       "sources": [
         "9dc430db12c9476d9fb79a9caa3f42b88d41284fb8c9d93ca046dbc6b348264c"
       ]
+    },
+    "c2d7684a3bde0343d1114c5654badafb6999d0dbf4124bbe3cc92b386bb8a23e": {
+      "reference_date": "2025-09-11",
+      "value": "11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fa9bcce7cdbfd08ea0cb6ab8aa7bdf5a632ed4211ab853e513f955e96b7f4f43"
+      ]
     }
   },
   "passages": {
@@ -573,30 +561,6 @@
       "page": 33,
       "clause": "8.4.2",
       "excerpt": "8.4.2. Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os  originadores dos Direitos Creditórios, os Cedentes, a Gestora ou as suas respectivas partes  relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "sha256": "a0a708615666b421516673814f7eff9d5bfd2fad19039609ef66f69321cc1280",
-      "verification": "primary_passage"
-    },
-    "4544fcc39daaf3a055d220610726150d64fbd6afe84a6fa6779b3ad75e9c470f": {
-      "document_id": "992732",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992732",
-      "reference_date": "2025-09-11",
-      "version": "1",
-      "page": 44,
-      "clause": "",
-      "excerpt": "Não recuperação dos Direitos Creditórios Cedidos. No caso de os Devedores, conforme  aplicável, inadimplirem as obrigações de pagamento dos Direitos Creditórios cedidos ao Fundo,  poderá haver cobrança judicial e/ou extrajudicial dos valores devidos. Os Cedentes, o Administrador,  a Gestora, o Custodiante, o Agente de Cobrança e o Agente Operacional não são responsáveis pela  solvência dos Devedores ou pelo sucesso dos procedimentos de cobrança empregados para  recuperação dos Direitos Creditórios Cedidos. Embora os Direitos Creditórios Cedidos possam ser  cobrados judicial ou extrajudicialmente, não é possível assegurar que os valores devidos ao Fundo  em decorrência do inadimplemento dos Direitos Creditórios Cedidos serão recuperados, o que poderá  causar prejuízos ao Fundo e, consequentemente, aos Cotistas.",
-      "sha256": "a0a708615666b421516673814f7eff9d5bfd2fad19039609ef66f69321cc1280",
-      "verification": "primary_passage"
-    },
-    "dccb99ef0a27acc3e2c95ef3397abbb0a6b7bb2fb68b4ed7804a11f6fc550406": {
-      "document_id": "992732",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992732",
-      "reference_date": "2025-09-11",
-      "version": "1",
-      "page": 51,
-      "clause": "",
-      "excerpt": "Riscos decorrentes dos critérios adotados pelos Cedentes para concessão de crédito. Os  Cedentes somente poderão ceder ao Fundo Direitos Creditórios que atendam cumulativamente os  Critérios de Elegibilidade e aos termos do Convênio e do respectivo Termo de Adesão ao Convênio,  conforme aplicável. A realização dos Direitos Creditórios depende de diversos fatores, inclusive da  solvência dos Devedores, que pode, por sua vez, ser influenciada pelo cenário macroeconômico e  pela situação econômico-financeira dos Devedores na respectiva data de vencimento do Direito  Creditório. Adicionalmente, não é possível assegurar que não haverá erros ou falhas no processo de  análise dos Cedentes para a vendas a prazo aos Devedores, sendo que tais situações podem ensejar  o inadimplemento de Direitos Creditórios, causando prejuízos ao Fundo.",
       "sha256": "a0a708615666b421516673814f7eff9d5bfd2fad19039609ef66f69321cc1280",
       "verification": "primary_passage"
     },
@@ -1047,6 +1011,19 @@
       "excerpt": "“Administrador” Significa a Integral Access Distribuidora de Títulos e Valores  Mobiliários Ltda., sociedade regularmente constituída e em  funcionamento no Brasil, devidamente autorizada e habilitada pela  CVM a administrar carteiras de valores mobiliários, na categoria de  administrador fiduciário, pelo Ato Declaratório CVM nº 20.066, de  15 de agosto de 2022, com sede na Cidade de São Paulo, Estado  de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.663, 3º  andar, CEP 01.452-001, inscrita no CNPJ/MF sob o nº\n 34.978.626/0001-99, ou qualquer de seus sucessores ou  cessionários devidamente autorizados e habilitados pela CVM a  administrar carteiras de valores mobiliários, na categoria de  administrador fiduciário.",
       "sha256": "a0a708615666b421516673814f7eff9d5bfd2fad19039609ef66f69321cc1280",
       "verification": "primary_passage"
+    },
+    "fa9bcce7cdbfd08ea0cb6ab8aa7bdf5a632ed4211ab853e513f955e96b7f4f43": {
+      "document_id": "992732",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=992732",
+      "reference_date": "2025-09-11",
+      "version": "1",
+      "page": 42,
+      "clause": "11.2.2",
+      "excerpt": "11.2.2. Observados os termos e condições do presente Regulamento, a verificação pela  Gestora ou por terceiro por ela contratado do enquadramento dos Direitos Creditórios aos Critérios  de Elegibilidade será considerada como definitiva.",
+      "sha256": "a0a708615666b421516673814f7eff9d5bfd2fad19039609ef66f69321cc1280",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

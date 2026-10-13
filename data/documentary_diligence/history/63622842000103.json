@@ -3,11 +3,6 @@
   "cnpj": "63622842000103",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "b3966f3b563bc7a56c8eccbd507afe6e9a897a5c10597ff932be125cdc327674",
-      "7d7a5499b3f5103cc1ea90d3710cafbdd9283b4365362c4001317c70ff35c803",
-      "f01b2efd8d1d004098fe65f53d3bbbab34fb39a2ee0f0b7c8bc3d6227b0116c4"
-    ],
     "ticket": [
       "f4bf644974fb9d61e47a5a7d29281a07518fcd4f817e20448e564aefb0312358",
       "72c09446ad02b1ea12424bd4e2ce8261eacbc04ef59d6bc3b656329bd7031caf",
@@ -217,16 +212,6 @@
       "c833e9093961aeaa27ccc395886dc948684c6c7ad54ae4bdda8157b72dae1075",
       "e6bdcafb96821744d96a8af7d9da41c227efaf30968e06a2434571716807f4f4"
     ],
-    "originator": [
-      "652aae096117331867823e8846afa098f58449693cb6cc79d4c0b645ffafd772",
-      "aee0c2b14cbcac0ee52748d5a58709efc4c17660d8364db63586df4ee0aea676",
-      "dc81db1d760a8022075603571915b93bb33bf35d96a0f15eef1334b1c844e22c"
-    ],
-    "debtor": [
-      "aa8f35c02d256e2826274fc7d4c40be792548a793f88a046a2cabff84308766a",
-      "44618f31afa9a14d42089f752c5d9d1ba1864711e0f1121b9ad768c3aa2994cb",
-      "c080abb8efc75ef1c66d141aeae79a55427c311fa8ca33cd31cc9b8ea008e6db"
-    ],
     "investee": [
       "8b810b82f3af5d0327f3b69c3aad672ea445498f874cf18359b445a2b2ae067c",
       "40904558576ae0333c05f364cde7c84a764bbf9eafbc9be4edc039f793d95a7e",
@@ -257,6 +242,16 @@
       "5930e7621f2ea935fddeb17d590a17cc5c628f144838c3efb50d16a3c8be01f7",
       "a3ec4a8a5386e93db801f2fefe6aa222285fe868083ccb3fffc79e19a23ef4ac",
       "340e4a3c73f03fc08e3aa71d3eb1008b4ff226c4ed647949e10301e255906ef2"
+    ],
+    "originator": [
+      "756b0ab6a0cf5db2eab2dc044c68c7dfa4092c841bd86b86880125d189e76bae",
+      "0a961de9d2fb6d7691a2b81e98f39a8765d7bba2e38b05f4ef6e62e63c67c4c4",
+      "2a93e6ac0de4a48366866171e1cc28066530103056c7503efef9b7031e7932f8"
+    ],
+    "eligibility": [
+      "2357ee6474d6f7c575460cb85a37e66b771215e6ec9d7a4424a5771d24a04311",
+      "084a26335329c40a7688f343b5aa2815b56d518cd97fca73fbf2438f4a5a0e51",
+      "d903a2cda4cb54e7c67987b2a15ab77ff6d71a256b74d944767beca1248d2647"
     ]
   },
   "entries": {
@@ -295,60 +290,6 @@
       "provenance": "primary_passage",
       "sources": [
         "9f868e6a02895dfe13d62036bff88fe426b25c7d240c0a27bb9b3b2f1311f002"
-      ]
-    },
-    "652aae096117331867823e8846afa098f58449693cb6cc79d4c0b645ffafd772": {
-      "reference_date": "2025-11-27",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos neste Regulamento ou em outros demonstrativos trimestrais; e (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos neste Regulamento ou em outros demonstrativos trimestrais;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "135b646d5ce2e1b6938d7ebb128260fb81499fd0dd3b209033167b9d769c34a3"
-      ]
-    },
-    "aee0c2b14cbcac0ee52748d5a58709efc4c17660d8364db63586df4ee0aea676": {
-      "reference_date": "2025-11-17",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre:.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bd5ec5f93f1cbea2d4dc5575b3b15e749e66489f537e1784790abdc55484e766"
-      ]
-    },
-    "dc81db1d760a8022075603571915b93bb33bf35d96a0f15eef1334b1c844e22c": {
-      "reference_date": "2025-11-11",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre:.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "29032f545721c1732b3bee98fa80a8091c97bb33097d2cca09b3805aa34842e1"
-      ]
-    },
-    "b3966f3b563bc7a56c8eccbd507afe6e9a897a5c10597ff932be125cdc327674": {
-      "reference_date": "2025-11-27",
-      "value": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de 21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a Destinação de Recursos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f7640966154cdbd01095c01b998b2b59163e35e3f20803ccec6c45e02dc55f38"
-      ]
-    },
-    "7d7a5499b3f5103cc1ea90d3710cafbdd9283b4365362c4001317c70ff35c803": {
-      "reference_date": "2025-11-17",
-      "value": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de 21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a Destinação de Recursos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a9a7e74a977328671cad522a12fbdcd64e3b98ff1b9630f0c4c4706d1ab6a333"
-      ]
-    },
-    "f01b2efd8d1d004098fe65f53d3bbbab34fb39a2ee0f0b7c8bc3d6227b0116c4": {
-      "reference_date": "2025-11-11",
-      "value": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de 21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a Destinação de Recursos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4a3a7a460db3ecfdd18bc087c22d572ebb9c6b043fb980f40d81ada6d9ccb5ed"
       ]
     },
     "f4bf644974fb9d61e47a5a7d29281a07518fcd4f817e20448e564aefb0312358": {
@@ -1555,33 +1496,6 @@
         "27d45369ee98a577b51e7520ebbe193201122134819430dbd06f7232d3cae580"
       ]
     },
-    "aa8f35c02d256e2826274fc7d4c40be792548a793f88a046a2cabff84308766a": {
-      "reference_date": "2025-11-27",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3feb977e5f7cd7e36c0c57feb13b55e6598e3827ffc856e1f84f957042657400"
-      ]
-    },
-    "44618f31afa9a14d42089f752c5d9d1ba1864711e0f1121b9ad768c3aa2994cb": {
-      "reference_date": "2025-11-17",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "48f491b13c8dc19d8d4101499f88ab880fb24c2f40bedab5df9124f8d72ea729"
-      ]
-    },
-    "c080abb8efc75ef1c66d141aeae79a55427c311fa8ca33cd31cc9b8ea008e6db": {
-      "reference_date": "2025-11-11",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e4b323008dcbab2d88da49db5544a9ac8bd736033f51295f8b19dbf16d0e23a9"
-      ]
-    },
     "fd3a4ee230d009293741d296450bf7686f695475365a156ceff10b3f6283e3af": {
       "reference_date": "2025-11-27",
       "value": "Uma parcela ou a totalidade dos Direitos Creditórios poderá contar com garantias reais ou fidejussórias.",
@@ -1607,6 +1521,60 @@
       "provenance": "primary_passage",
       "sources": [
         "e4b323008dcbab2d88da49db5544a9ac8bd736033f51295f8b19dbf16d0e23a9"
+      ]
+    },
+    "2357ee6474d6f7c575460cb85a37e66b771215e6ec9d7a4424a5771d24a04311": {
+      "reference_date": "2025-11-27",
+      "value": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por este contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e modalidades operacionais, para o Fundo com identificação, dados, características e valores precisos; (e) no âmbito de suas diligências relacionadas à aquisição de Direitos Creditórios, o Gestor deve verificar a possibilidade de ineficácia da aquisição pelo Fundo em virtude de riscos de natureza fiscal, alcançando direitos creditórios que tenham representatividade no patrimônio do Fundo, assim como dar ciência do risco, caso existente, no termo de adesão e no material de divulgação. (f) fornecer ao Administrador e manter registro da documentação relativa às operações do Fundo pelo",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a0119afa05cf8277d73fd3df175862f41a9df5fb478c0a8d36d1aef7a6c75303"
+      ]
+    },
+    "084a26335329c40a7688f343b5aa2815b56d518cd97fca73fbf2438f4a5a0e51": {
+      "reference_date": "2025-11-17",
+      "value": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por este contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d7cf470127552f672299fe16d4ac3cfb23906fffe325f23ff1583c62083ded1a"
+      ]
+    },
+    "d903a2cda4cb54e7c67987b2a15ab77ff6d71a256b74d944767beca1248d2647": {
+      "reference_date": "2025-11-11",
+      "value": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por este contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ef958ccb92baa5a3dfc5168b329283840645158a305e955357bb318eb65874f7"
+      ]
+    },
+    "756b0ab6a0cf5db2eab2dc044c68c7dfa4092c841bd86b86880125d189e76bae": {
+      "reference_date": "2025-11-27",
+      "value": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7b68a3dfc7d3cad944ad656b0ef91fa1e07b1aa1000c653d7654466d09243a50"
+      ]
+    },
+    "0a961de9d2fb6d7691a2b81e98f39a8765d7bba2e38b05f4ef6e62e63c67c4c4": {
+      "reference_date": "2025-11-17",
+      "value": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "acab5cf6585ba00528c6c7fe6a1629b706787b6657bbf6d6f07f5a9ac35c96ec"
+      ]
+    },
+    "2a93e6ac0de4a48366866171e1cc28066530103056c7503efef9b7031e7932f8": {
+      "reference_date": "2025-11-11",
+      "value": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e0e12a1d851d94314b3e9314aad213af4adf6cd86d23fcbd256338cf49194aa8"
       ]
     }
   },
@@ -1693,42 +1661,6 @@
       "page": 20,
       "clause": "",
       "excerpt": "do respectivo Direito Creditório:(i) não respeite a legislação e regulamentação relacionadas à saúde  e segurança ocupacional e ao meio ambiente; (ii) incentive a prostituição; (iii) utilize ou incentive o  uso de mão-de-obra infantil e/ou em condição análoga à de escravo; ou (iv) de qualquer forma  infrinja direitos dos silvícolas.\n(r) certificar-se que as Notas Comerciais possuam declaração específica acerca da observância das  obrigações socioambientais do Devedor, especialmente em relação às normas relativas à saúde,  segurança ocupacional e à inexistência de trabalho escravo e infantil, bem como obrigação desses  de demonstrar referida observância se assim solicitado;\n(s) registrar os Direitos Creditórios na Entidade Registradora;\n(t) na hipótese de ocorrer substituição de Direitos Creditórios, por qualquer motivo, diligenciar para que  a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da  política de investimentos;\n(u) efetuar a correta formalização dos documentos relativos à aquisição dos direitos creditórios;\n(v) controlar o enquadramento fiscal do Fundo de modo que esteja enquadrado no disposto no inciso  VIII do parágrafo 1º-A do art. 1º, da Lei 12.431;\n(w) sem prejuízo de outros parâmetros eventualmente definidos neste Regulamento, monitorar:\n (i) Alocação Mínima;\n (ii) Reserva de Despesas e Encargos da Classe;\n (iii) o Índice de Subordinação;\n (iv) Quantidades e valores agregados das Cotas Seniores, Cotas Subordinadas em circulação,  segregados por séries e subclasses, conforme aplicável;\n (v) a adimplência da carteira de Direitos Creditórios e, em relação aos Direitos Creditórios  vencidos e não pagos, diligenciar para que sejam adotados os procedimentos de cobrança,  observado que essa última obrigação inexiste no caso de hipóteses de dispensa previstas  neste Regulamento;\n (vi) Patrimônio Líquido; e\n (vii) a taxa de retorno dos Direitos Creditórios, considerando, no mínimo, pagamentos, pré-  pagamentos e inadimplência; e\n(x) elaborar e encaminhar ao administrador, em até 45 (quarenta e cinco) dias após o encerramento do  trimestre civil a que se referir, relatório contendo:\n (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de  ativos;\n (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da  carteira de Direitos Creditórios no trimestre:",
-      "sha256": "e8cdd1dad29dda4fdfa0c97661bff44723020d32cb47df6380da0e722bcd3133",
-      "verification": "primary_passage"
-    },
-    "f7640966154cdbd01095c01b998b2b59163e35e3f20803ccec6c45e02dc55f38": {
-      "document_id": "1048679",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048679",
-      "reference_date": "2025-11-27",
-      "version": "1",
-      "page": 27,
-      "clause": "6.1.1",
-      "excerpt": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos  Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de  21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a  Destinação de Recursos.",
-      "sha256": "8b79cb3596ebc8337dc3d374230d9e33bd01ec4472cb94042de8a03e1deb0415",
-      "verification": "primary_passage"
-    },
-    "a9a7e74a977328671cad522a12fbdcd64e3b98ff1b9630f0c4c4706d1ab6a333": {
-      "document_id": "1043098",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1043098",
-      "reference_date": "2025-11-17",
-      "version": "1",
-      "page": 28,
-      "clause": "6.1.1",
-      "excerpt": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos  Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de  21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a  Destinação de Recursos.",
-      "sha256": "8a4596c882165953feb060de8dec16e4bf420b913595c9c2c68b6640834059ef",
-      "verification": "primary_passage"
-    },
-    "4a3a7a460db3ecfdd18bc087c22d572ebb9c6b043fb980f40d81ada6d9ccb5ed": {
-      "document_id": "1042148",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1042148",
-      "reference_date": "2025-11-11",
-      "version": "1",
-      "page": 28,
-      "clause": "6.1.1",
-      "excerpt": "6.1.1 O Fundo investirá, no mínimo, 85% (oitenta e cinco por cento) do seu Patrimônio Líquido em Direitos  Creditórios que se enquadrem no artigo 4º da Resolução nº 5.111 do Conselho Monetário Nacional, de  21 de dezembro de 2023, conforme alterada, e atendam aos Critérios de Elegibilidade, observada a  Destinação de Recursos.",
       "sha256": "e8cdd1dad29dda4fdfa0c97661bff44723020d32cb47df6380da0e722bcd3133",
       "verification": "primary_passage"
     },
@@ -3181,6 +3113,81 @@
       "page": 85,
       "clause": "",
       "excerpt": "Fundo sofrer perda patrimonial significativa, o que afetaria negativamente a rentabilidade das  Cotas.\n(viii) Risco de Pré-pagamento. Os Devedores podem voluntariamente pagar antecipadamente os  Direitos Creditórios. Caso tais pagamentos antecipados ocorram, pode haver alteração no fluxo  de caixa previsto para o Fundo, o que pode vir a impactar de forma negativa a expectativa de  recebimento dos respectivos rendimentos nos prazos originariamente estabelecidos, bem como  a consequente remuneração dos Cotistas.\n(ix) Necessidade de Aporte de Recursos Adicionais, caso Aprovado pela Assembleia Geral, para  Proceder à Cobrança Judicial e Extrajudicial dos Direitos Creditórios. Os respectivos custos e  despesas relativos à cobrança dos Direitos Creditórios serão de inteira e exclusiva  responsabilidade do Fundo, até o limite de seu Patrimônio Líquido. O Fundo, por sua vez,  somente poderá adotar e/ou manter os procedimentos judiciais ou extrajudiciais de cobrança,  uma vez ultrapassado o limite referido acima, caso os titulares das Cotas adiantem os valores  necessários para a sua adoção e/ou manutenção, o que será deliberado em Assembleia Geral.\n Caso quaisquer dos titulares das Cotas não aportem os recursos suficientes para tanto, na forma  prevista neste Regulamento, o Administrador, o Gestor e o Custodiante, seus administradores,  empregados e demais prepostos não serão responsáveis por eventuais danos ou prejuízos, de  qualquer natureza, sofridos pelo Fundo e por seus Cotistas em decorrência da não propositura  ou manutenção de medidas judiciais e/ou extrajudiciais necessárias à Cobrança Judicial e  Extrajudicial dos Direitos Creditórios vencidos e não pagos ou à salvaguarda de seus direitos e  prerrogativas.\n(x) Cobrança Judicial e Extrajudicial dos Direitos Creditórios Vencidos e Não Pagos. O Gestor (ou  terceiro subcontratado pelo Gestor nos termos deste Regulamento) poderá celebrar, em nome  do Fundo, acordos com os Devedores para a liquidação dos seus débitos, sendo que tais  acordos poderão incluir descontos no valor total devido pelo respectivo Devedor, ou extensão  do respectivo prazo de vencimento. Não há garantias de que o Gestor (ou terceiro subcontratado  pelo Gestor nos termos deste Regulamento) consiga receber dos Devedores, em nome do  Fundo, a totalidade ou qualquer parte dos Direitos Creditórios vencidos e não pagos. O  insucesso na cobrança dos Direitos Creditórios vencidos e não pagos pode acarretar perdas  para o Fundo e seus Cotistas.\n(xi) Risco de Insuficiência das Garantias. Uma parcela ou a totalidade dos Direitos Creditórios  poderá contar com garantias reais ou fidejussórias. Havendo inadimplemento dos Direitos  Creditórios, os Devedores e os respectivos garantidores, se houver, serão executados, conforme  o caso, extrajudicialmente ou judicialmente. No entanto, dependendo da garantia prestada, é",
+      "sha256": "e8cdd1dad29dda4fdfa0c97661bff44723020d32cb47df6380da0e722bcd3133",
+      "verification": "primary_passage"
+    },
+    "a0119afa05cf8277d73fd3df175862f41a9df5fb478c0a8d36d1aef7a6c75303": {
+      "document_id": "1048679",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048679",
+      "reference_date": "2025-11-27",
+      "version": "1",
+      "page": 17,
+      "clause": "3.1.6",
+      "excerpt": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e  observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de  serviços por este contratados nos termos deste Regulamento, independentemente de qualquer  procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se:\n(a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de  Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos  Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a  legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários;\n (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a  carteira de ativos, o que inclui, no mínimo:\n (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no  mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância  aos requisitos de composição e diversificação, de forma individualizada; e\n (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de  investimento;\n (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional  na respectiva forma e prazos ajustados;\n (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e  modalidades operacionais, para o Fundo com identificação, dados, características e valores  precisos;\n (e) no âmbito de suas diligências relacionadas à aquisição de Direitos Creditórios, o Gestor deve  verificar a possibilidade de ineficácia da aquisição pelo Fundo em virtude de riscos de natureza  fiscal, alcançando direitos creditórios que tenham representatividade no patrimônio do Fundo, assim  como dar ciência do risco, caso existente, no termo de adesão e no material de divulgação.\n (f) fornecer ao Administrador e manter registro da documentação relativa às operações do Fundo pelo",
+      "sha256": "8b79cb3596ebc8337dc3d374230d9e33bd01ec4472cb94042de8a03e1deb0415",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "d7cf470127552f672299fe16d4ac3cfb23906fffe325f23ff1583c62083ded1a": {
+      "document_id": "1043098",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1043098",
+      "reference_date": "2025-11-17",
+      "version": "1",
+      "page": 18,
+      "clause": "3.1.6",
+      "excerpt": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e  observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de  serviços por este contratados nos termos deste Regulamento, independentemente de qualquer  procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se:\n(a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de  Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos  Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a  legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários;\n (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a  carteira de ativos, o que inclui, no mínimo:\n (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no  mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância  aos requisitos de composição e diversificação, de forma individualizada; e\n (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de  investimento;\n (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional  na respectiva forma e prazos ajustados;\n (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e",
+      "sha256": "8a4596c882165953feb060de8dec16e4bf420b913595c9c2c68b6640834059ef",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ef958ccb92baa5a3dfc5168b329283840645158a305e955357bb318eb65874f7": {
+      "document_id": "1042148",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1042148",
+      "reference_date": "2025-11-11",
+      "version": "1",
+      "page": 18,
+      "clause": "3.1.6",
+      "excerpt": "3.1.6 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e  observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de  serviços por este contratados nos termos deste Regulamento, independentemente de qualquer  procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se:\n(a) cumprir fielmente as disposições do Acordo Operacional, deste Regulamento, do Código de  Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos  Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e a  legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários;\n (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a  carteira de ativos, o que inclui, no mínimo:\n (i) verificar o enquadramento dos Direitos Creditórios à política de investimento, compreendendo, no  mínimo, a validação dos direitos creditórios quanto aos Critérios de Elegibilidade e a observância  aos requisitos de composição e diversificação, de forma individualizada; e\n (ii) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de  investimento;\n (c) desempenhar as atividades que lhe sejam atribuídas neste Regulamento e no Acordo Operacional  na respectiva forma e prazos ajustados;\n (d) fornecer instruções para a negociação de Direitos Creditórios e aos Ativos Financeiros e",
+      "sha256": "e8cdd1dad29dda4fdfa0c97661bff44723020d32cb47df6380da0e722bcd3133",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "7b68a3dfc7d3cad944ad656b0ef91fa1e07b1aa1000c653d7654466d09243a50": {
+      "document_id": "1048679",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048679",
+      "reference_date": "2025-11-27",
+      "version": "1",
+      "page": 30,
+      "clause": "6.13",
+      "excerpt": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o  Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum  critério de concentração máxima por Devedor, cedente ou originador, observados os Critérios  de Elegibilidade.",
+      "sha256": "8b79cb3596ebc8337dc3d374230d9e33bd01ec4472cb94042de8a03e1deb0415",
+      "verification": "primary_passage"
+    },
+    "acab5cf6585ba00528c6c7fe6a1629b706787b6657bbf6d6f07f5a9ac35c96ec": {
+      "document_id": "1043098",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1043098",
+      "reference_date": "2025-11-17",
+      "version": "1",
+      "page": 30,
+      "clause": "6.13",
+      "excerpt": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é  destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de  concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade.",
+      "sha256": "8a4596c882165953feb060de8dec16e4bf420b913595c9c2c68b6640834059ef",
+      "verification": "primary_passage"
+    },
+    "e0e12a1d851d94314b3e9314aad213af4adf6cd86d23fcbd256338cf49194aa8": {
+      "document_id": "1042148",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1042148",
+      "reference_date": "2025-11-11",
+      "version": "1",
+      "page": 30,
+      "clause": "6.13",
+      "excerpt": "6.13 Em linha com o disposto no artigo 45, parágrafo 7º do Anexo Normativo II, considerando que o Fundo é  destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de  concentração máxima por Devedor, cedente ou originador, observados os Critérios de Elegibilidade.",
       "sha256": "e8cdd1dad29dda4fdfa0c97661bff44723020d32cb47df6380da0e722bcd3133",
       "verification": "primary_passage"
     }

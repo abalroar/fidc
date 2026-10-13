@@ -3,15 +3,6 @@
   "cnpj": "44173467000109",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "c9704b57648d2a2450dfcd2895eec61e29e97f83382d7185b071ffc30004974a",
-      "be2a88d42a11470447d94d887590fc32d508f56e7796a709c2ec41385ba5fb41",
-      "7ed8cd18a90f6ddb2912ce7bc4196ba8c74ecab1c19a8606150f284280ed5c8e",
-      "7c81e99df5ea30f3a272d8ce56ee49e23a2b86594636e1d7105914c1ddad1295",
-      "5f9a7a4c9773a127e9c81b269b13b14768814665b4cd731c9db7eb91c1d3acdf",
-      "d1161a8157ac1015d5bc1278324bdb864730b6db963fb63863da69805c2d8191",
-      "df0f9bb039c374844fe4aeb4032a79ad2c8f27a4f33c851b4256afd487613d31"
-    ],
     "term": [
       "9d002899ba81b2691258c0266044e59c811c590e16e175cc417b171ad3a4845c",
       "fbab7c722453ebea67117baa7d8a1d57327d10915db1591d094f94e824434b87",
@@ -235,22 +226,6 @@
       "8463ab797cd31040df9ff7cdadddc268323afac9d19227bd4e7fa017155a3367",
       "82553ca3478451786ce75d7fe73448f4c31821dbc061d26384de699f3cfbdabf"
     ],
-    "originator": [
-      "5f6601bf91653ca271c14eb223a98af23553b3d6ef75d43184ac9264f8f56e17",
-      "2a33248ea7409f4aaf6ba03cf5bab61548d7402b6613bf713e6cb7ddf5369450",
-      "62484513b6dc14b3d8c0fa3ef26208d604e68b91e6c3b601de06279276dfaa17",
-      "0567cfbf0d554450d70871cabeddc884f61e6b8835e81aa9a1e2016bd6deac3e",
-      "37a7061766bb2b81e59024a26297cb0da00a7324b8f4bbe80939bf15eb111af1"
-    ],
-    "debtor": [
-      "e1a53c3f70dffcd4a7e1d5cd0449652fbd44d10d812c9562bd9ced6f1060213c",
-      "771af7fffd0f167683a26439d1325ada544e4a9d58931ae4937e5dd6ff693e65",
-      "cfafb5ad65dc7be4927852a01598973890cb64445704186b3af95594c6682542",
-      "3edfc1b90ab531e5e71ffcdf8c22892cfc381137b1e5cbd8c02160032334230a",
-      "993b940bf9b441ba4e8a4712d381932f475aa91bf2caee8e7772c3e1653e8b1f",
-      "56ca4ffb8d164c7e41c30677d93664e521b0598b6be7afec4530bf129c9ef832",
-      "6ca7ebcc852e3d957fcee77f50278b51878342b37f9e280b6fa287a10131133d"
-    ],
     "guarantee": [
       "2e985d29e0347f31c2e21fc48ed313d4b3dfb05f4d59819e8f88a5fe780fcb55",
       "b8839d9c30f682d0bf2441617d30df869344fc79214746e470f7ff405d3ab23f",
@@ -278,6 +253,32 @@
       "993b940bf9b441ba4e8a4712d381932f475aa91bf2caee8e7772c3e1653e8b1f",
       "c8187442db537930789af3d1c6696d75c7a69fc03ee23fe813332abca3b0dd5b",
       "babf50d96870b43af8acc977a452dd84a2f5a97e085ef5b161b4807c3be18f7d"
+    ],
+    "originator": [
+      "5f6601bf91653ca271c14eb223a98af23553b3d6ef75d43184ac9264f8f56e17",
+      "f5557988a49b658e670cdbc7f97b044ab14aae7361dae597bf78f13f279b4986",
+      "2a33248ea7409f4aaf6ba03cf5bab61548d7402b6613bf713e6cb7ddf5369450",
+      "62484513b6dc14b3d8c0fa3ef26208d604e68b91e6c3b601de06279276dfaa17",
+      "0567cfbf0d554450d70871cabeddc884f61e6b8835e81aa9a1e2016bd6deac3e",
+      "37a7061766bb2b81e59024a26297cb0da00a7324b8f4bbe80939bf15eb111af1"
+    ],
+    "eligibility": [
+      "9a35f74894b85f8f4060fd6ad1fca015b6786479446dce1ad4be83f21f148173",
+      "ec7712685dd39bbb313b67df143b999cf26071823a76c1ea382a6125881f6d14",
+      "7ed8cd18a90f6ddb2912ce7bc4196ba8c74ecab1c19a8606150f284280ed5c8e",
+      "692986486f8398ca5e73b24515a419f83eb18cd87e81937650f44129c1426faf",
+      "24dc6aa5b7195007287ad57397dff45e21a7432c9af494d6f90312b84a073617",
+      "da2ab02e6d199be65a6846a228ee46a8f155d799712a7c151882f99fcce0c994",
+      "a2aaa6aa8f26ad8252e7a802588fe3e293a1d4d554cdba86358c9db88c305388"
+    ],
+    "debtor": [
+      "e1a53c3f70dffcd4a7e1d5cd0449652fbd44d10d812c9562bd9ced6f1060213c",
+      "e30a8f5d6305ce212577e0fdc908de6246f4d40516a9ceaaa0c45c346ca8a2c6",
+      "f5557988a49b658e670cdbc7f97b044ab14aae7361dae597bf78f13f279b4986",
+      "b817e528ae4613e82856f0d3b223c136b93dec3158186d0af3f7b1522fbb5578",
+      "3bb79934bf5372e51a6e7b16bd9892a2ddccbebf6bf34ba7c2d0ad89e39bb6c0",
+      "7d09cc1c355f37c586d7fd211cb6e3decdb6f6fbc0c5f68bf4e46c39f6d2e545",
+      "aacdda614f0e6f0abc5fd7401395ba704d7f766e17e768a43d5dc1337ce0e5ca"
     ]
   },
   "entries": {
@@ -427,33 +428,6 @@
         "8dd983eec19fb749533cdbe1aaca2b0360863797299fdb0c66771d24e3873483"
       ]
     },
-    "3edfc1b90ab531e5e71ffcdf8c22892cfc381137b1e5cbd8c02160032334230a": {
-      "reference_date": "2022-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3b1130891fb4ba4306a26665d260876884909892699003208e377c256a07aa93"
-      ]
-    },
-    "56ca4ffb8d164c7e41c30677d93664e521b0598b6be7afec4530bf129c9ef832": {
-      "reference_date": "2022-09-23",
-      "value": "Parágrafo Segundo Após a implementação pelo INSS de um mecanismo que lhe permita transferir valores referentes a empréstimos consignados diretamente aos respectivos cessionários, os recursos devidos ao Fundo em relação aos Direitos Creditórios a ele cedidos serão arrecadados/recebidos na Conta de Cobrança do Fundo, sujeito, entretanto, à adoção do mecanismo acima mencionado pelo Fundo, o Custodiante e o Cedente.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3202b055843316e874d0ac7f1d0c68aee38c80d9348e3738e8fde09a2f261f5b"
-      ]
-    },
-    "6ca7ebcc852e3d957fcee77f50278b51878342b37f9e280b6fa287a10131133d": {
-      "reference_date": "2022-06-14",
-      "value": "Parágrafo Segundo Após a implementação pelo INSS de um mecanismo que lhe permita transferir valores referentes a empréstimos consignados diretamente aos respectivos cessionários, os recursos devidos ao Fundo em relação aos Direitos Creditórios a ele cedidos serão arrecadados/recebidos na Conta de Cobrança do Fundo, sujeito, entretanto, à adoção do mecanismo acima mencionado pelo Fundo, o Custodiante e o Cedente.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0840d6b577cc942510ddc7433825996c677875a563cadbc0656a162a4a523a0f"
-      ]
-    },
     "c9704b57648d2a2450dfcd2895eec61e29e97f83382d7185b071ffc30004974a": {
       "reference_date": "2024-11-27",
       "value": "(a) A alteração do capítulo que da Política de Investimentos; (b) Alteração do capítulo que trata da responsabilidade dos cotistas; (c) A alteração do capítulo que trata dos critérios de elegibilidade; (d) A alteração do capítulo que trata do limite de concentração e composição da carteira; (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios; (f) Alteração do capítulo que trata dos eventos de avaliação; BTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
@@ -461,51 +435,6 @@
       "provenance": "primary_passage",
       "sources": [
         "03841b577a864b4b6a479afcca021748e453206e840b18d4fa7f744621cc8df5"
-      ]
-    },
-    "be2a88d42a11470447d94d887590fc32d508f56e7796a709c2ec41385ba5fb41": {
-      "reference_date": "2023-12-31",
-      "value": "viii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$ 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando- se eventuais provisões para perdas constituídas pelo administrador, nos termos do Regulamento:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "617a952a371e8448c043f760360f5e785a6ecc85d2fd9b06024e1f82b9256a5d"
-      ]
-    },
-    "7c81e99df5ea30f3a272d8ce56ee49e23a2b86594636e1d7105914c1ddad1295": {
-      "reference_date": "2022-12-31",
-      "value": "viii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$ 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando- se eventuais provisões para perdas constituídas pelo administrador, nos termos do Regulamento:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5989c39e5b370a6f4985ffc5048d985335ed7e374d689834e90f1f3c99914b4c"
-      ]
-    },
-    "5f9a7a4c9773a127e9c81b269b13b14768814665b4cd731c9db7eb91c1d3acdf": {
-      "reference_date": "2024-11-18",
-      "value": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5201d7bfc5c7b2b1369766c1951f948f6d8616e6acbc44a104d53cdc2c5d1a47"
-      ]
-    },
-    "d1161a8157ac1015d5bc1278324bdb864730b6db963fb63863da69805c2d8191": {
-      "reference_date": "2022-09-23",
-      "value": "(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo Administrador, nos termos deste Regulamento:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6827eb1cee4d29777b76156e536bc063ef613e2a32c7c73d17cd272d4593d36b"
-      ]
-    },
-    "df0f9bb039c374844fe4aeb4032a79ad2c8f27a4f33c851b4256afd487613d31": {
-      "reference_date": "2022-06-14",
-      "value": "(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo Administrador, nos termos deste Regulamento:",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d736e77057f950546afb87ec8c5418371217189bd141b6649aa298186ccedb31"
       ]
     },
     "9d002899ba81b2691258c0266044e59c811c590e16e175cc417b171ad3a4845c": {
@@ -1904,6 +1833,105 @@
       "sources": [
         "0465ac27a0352803be5ca8303a733873eaf3d12e77fa160b1d0c51cf48b8632f"
       ]
+    },
+    "9a35f74894b85f8f4060fd6ad1fca015b6786479446dce1ad4be83f21f148173": {
+      "reference_date": "2024-11-27",
+      "value": "4.3. Além dos ajustes necessários para a adaptação do Fundo à Resolução 175, aprovar as seguintes alterações nas características do Fundo: (a) A alteração do capítulo que da Política de Investimentos; (b) Alteração do capítulo que trata da responsabilidade dos cotistas; (c) A alteração do capítulo que trata dos critérios de elegibilidade; (d) A alteração do capítulo que trata do limite de concentração e composição da carteira; (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios; (f) Alteração do capítulo que trata dos eventos de avaliação; BTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "06c39ce4bf585a95a0a7111c0946b611926e350342b90e47f1d57925fd8137fa"
+      ]
+    },
+    "ec7712685dd39bbb313b67df143b999cf26071823a76c1ea382a6125881f6d14": {
+      "reference_date": "2023-12-31",
+      "value": "Os direitos creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes critérios de elegibilidade, a serem validados pelo custodiante na data de cessão de cada direito creditório ao Fundo: i. os direitos creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de cotas seniores de qualquer das séries em circulação; ii. o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00; iii. o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao fundo, considerando, proforma, a cessão pretendida, não deverá exceder R$60.000,00; iv. na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18e 75 anos, 11 meses e 29 dias de idade, inclusive; v. o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima; vi. os direitos creditórios deverão ser adquiridos em observância à taxa mínima de cessão, nos termos do artigo 9 do regulamento; vii. os direitos creditórios não poderão ser devidos por um devedor inadimplente em relação a outros direitos creditórios liquidáveis por meio de consignação, conforme o convênio INSS, originados por meio da plataforma MT e que tenham sido adquiridos pelo Fundo ou por qualquer outro fundo de investimento que tenha o custodiante como responsável pela prestação de serviços de custódia; viii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$ 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando- se eventuais provisões para perdas constituídas pelo administrador, nos termos do Regulamento:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9fb313a1629c6fd44ad837d3e1b67939e83b30b77561cd7a91de9489a3014254"
+      ]
+    },
+    "692986486f8398ca5e73b24515a419f83eb18cd87e81937650f44129c1426faf": {
+      "reference_date": "2022-12-31",
+      "value": "Os direitos creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes critérios de elegibilidade, a serem validados pelo custodiante na data de cessão de cada direito creditório ao Fundo: i. os direitos creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de cotas seniores de qualquer das séries em circulação; ii. o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00; iii. o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao fundo, considerando, proforma, a cessão pretendida, não deverá exceder R$60.000,00; iv. na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18e 75 anos, 11 meses e 29 dias de idade, inclusive; v. o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima; vi. os direitos creditórios deverão ser adquiridos em observância à taxa mínima de cessão, nos termos do artigo 9 do regulamento;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2d55809a2e06976b26d08875f9e01ab8c8ab74f63e40c2e8159ea6adf64f0b10"
+      ]
+    },
+    "24dc6aa5b7195007287ad57397dff45e21a7432c9af494d6f90312b84a073617": {
+      "reference_date": "2024-11-18",
+      "value": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma, a cessão pretendida, não deverá exceder R$60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item (i) acima; (vi) os Direitos Creditórios deverão ser adquiridos em observância à Taxa Mínima de Cessão, nos termos do Artigo 9 deste Regulamento; (vii) os Direitos Creditórios não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios liquidáveis por meio de Consignação, conforme o Convênio INSS, originados por meio da Plataforma MT e que tenham sido adquiridos pelo Fundo ou por qualquer outro fundo de investimento que tenha o Custodiante como responsável pela prestação de serviços de custódia; (viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes Critérios de Elegibilidade 15",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5201d7bfc5c7b2b1369766c1951f948f6d8616e6acbc44a104d53cdc2c5d1a47"
+      ]
+    },
+    "da2ab02e6d199be65a6846a228ee46a8f155d799712a7c151882f99fcce0c994": {
+      "reference_date": "2022-09-23",
+      "value": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "27c10702ca156ca48a6ddd9ae8d923d6113749271be4cf406fe065bbe3d1e759"
+      ]
+    },
+    "a2aaa6aa8f26ad8252e7a802588fe3e293a1d4d554cdba86358c9db88c305388": {
+      "reference_date": "2022-06-14",
+      "value": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "58e0854610039a970160973ff57e310e36507d72b6357c2f866bb32a3c6556af"
+      ]
+    },
+    "e30a8f5d6305ce212577e0fdc908de6246f4d40516a9ceaaa0c45c346ca8a2c6": {
+      "reference_date": "2023-12-31",
+      "value": "O Fundo tem a finalidade de proporcionar aos cotistas a valorização de suas cotas, aplicando a maior parte dos seus recursos na aquisição de direitos creditórios elegíveis decorrentes de empréstimos consignados concedidos por um cedente a um devedor por meio da plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e no regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a5a28dbc3d463ab66504f0b87b5bd479bb60c33cd5f0b11a749f57fddd87cc87"
+      ]
+    },
+    "b817e528ae4613e82856f0d3b223c136b93dec3158186d0af3f7b1522fbb5578": {
+      "reference_date": "2022-12-31",
+      "value": "O Fundo tem a finalidade de proporcionar aos cotistas a valorização de suas cotas, aplicando a maior parte dos seus recursos na aquisição de direitos creditórios elegíveis decorrentes de empréstimos consignados concedidos por um cedente a um devedor por meio da plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e no regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3f1a883b5a6783b6bfb58fae8c5a8b7f82dbd965b4db3f37ad82dfd093ed5971"
+      ]
+    },
+    "3bb79934bf5372e51a6e7b16bd9892a2ddccbebf6bf34ba7c2d0ad89e39bb6c0": {
+      "reference_date": "2024-11-18",
+      "value": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por 11",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ca256f055c66b97c75cc732df0eb928afabfaaa2ca22a8644628eb70e0e24f2c"
+      ]
+    },
+    "7d09cc1c355f37c586d7fd211cb6e3decdb6f6fbc0c5f68bf4e46c39f6d2e545": {
+      "reference_date": "2022-09-23",
+      "value": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9a068812c31770fbdf55ec8fc0a75235c61685bef65fb697c5f0cebb7b8205bf"
+      ]
+    },
+    "aacdda614f0e6f0abc5fd7401395ba704d7f766e17e768a43d5dc1337ce0e5ca": {
+      "reference_date": "2022-06-14",
+      "value": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7511cb8af7b8df38ff1b054c6d40ddd22f74a76af2668722491009cbf2c35fa9"
+      ]
     }
   },
   "passages": {
@@ -2076,30 +2104,6 @@
       "sha256": "6b84a9d7d1d7034834f6517baf9e68a2d9f0f714db79fe1ca0b6e78d008c6321",
       "verification": "primary_passage"
     },
-    "3202b055843316e874d0ac7f1d0c68aee38c80d9348e3738e8fde09a2f261f5b": {
-      "document_id": "355220",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
-      "reference_date": "2022-09-23",
-      "version": "1",
-      "page": 30,
-      "clause": "",
-      "excerpt": "Parágrafo Segundo Após a implementação pelo INSS de um mecanismo que lhe permita transferir valores referentes a empréstimos consignados diretamente aos respectivos cessionários, os recursos devidos ao Fundo em relação aos Direitos Creditórios a ele cedidos serão arrecadados/recebidos na Conta de Cobrança do Fundo, sujeito, entretanto, à adoção do mecanismo acima mencionado pelo Fundo, o Custodiante e o Cedente.\nParágrafo Terceiro Caso o Cedente, por qualquer razão, receba qualquer pagamento referente aos Direitos Creditórios, inclusive mediante qualquer Pagamento Antecipado, o Cedente deverá transferir os respectivos valores para a Conta de Cobrança do Fundo em até 2 (dois) Dias Úteis a partir do respectivo recebimento, exceto na hipótese de portabilidade e/ou em Operações de Refinanciamento, em que o Cedente deverá transferir os respectivos valores para a Conta de Cobrança do Fundo no mesmo Dia Útil de seu recebimento, conforme descrito no Contrato de Cessão.\nParágrafo Quarto A cobrança dos Direitos Creditórios ocorrerá exclusivamente nos termos deste Artigo 31, e nem o Fundo nem quaisquer terceiros por ele contratados tomarão qualquer tipo de medida extrajudicial ou judicial contra os Devedores para a cobrança de Direitos Creditórios Inadimplidos, salvo decisão em contrário pela Assembleia de Cotistas.",
-      "sha256": "eabaced71201fb7bb2cd6e625f6d669deffebafa6b85d892da2c4b2dfc571049",
-      "verification": "primary_passage"
-    },
-    "0840d6b577cc942510ddc7433825996c677875a563cadbc0656a162a4a523a0f": {
-      "document_id": "320078",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
-      "reference_date": "2022-06-14",
-      "version": "1",
-      "page": 30,
-      "clause": "",
-      "excerpt": "Parágrafo Segundo Após a implementação pelo INSS de um mecanismo que lhe permita transferir valores referentes a empréstimos consignados diretamente aos respectivos cessionários, os recursos devidos ao Fundo em relação aos Direitos Creditórios a ele cedidos serão arrecadados/recebidos na Conta de Cobrança do Fundo, sujeito, entretanto, à adoção do mecanismo acima mencionado pelo Fundo, o Custodiante e o Cedente.\nParágrafo Terceiro Caso o Cedente, por qualquer razão, receba qualquer pagamento referente aos Direitos Creditórios, inclusive mediante qualquer Pagamento Antecipado, o Cedente deverá transferir os respectivos valores para a Conta de Cobrança do Fundo em até 2 (dois) Dias Úteis a partir do respectivo recebimento, exceto na hipótese de portabilidade e/ou em Operações de Refinanciamento, em que o Cedente deverá transferir os respectivos valores para a Conta de Cobrança do Fundo no mesmo Dia Útil de seu recebimento, conforme descrito no Contrato de Cessão.\nParágrafo Quarto A cobrança dos Direitos Creditórios ocorrerá exclusivamente nos termos deste Artigo 31, e nem o Fundo nem quaisquer terceiros por ele contratados tomarão qualquer tipo de medida extrajudicial ou judicial contra os Devedores para a cobrança de Direitos Creditórios Inadimplidos, salvo decisão em contrário pela Assembleia de Cotistas.",
-      "sha256": "85441eeb3f475eaa35825fba737a7927a8ca31874f9f258f163100ae8d5f5507",
-      "verification": "primary_passage"
-    },
     "03841b577a864b4b6a479afcca021748e453206e840b18d4fa7f744621cc8df5": {
       "document_id": "791511",
       "title": "AGE",
@@ -2110,54 +2114,6 @@
       "clause": "",
       "excerpt": "(a) A alteração do capítulo que da Política de Investimentos;\n (b) Alteração do capítulo que trata da responsabilidade dos cotistas;\n (c) A alteração do capítulo que trata dos critérios de elegibilidade;\n (d) A alteração do capítulo que trata do limite de concentração e composição da  carteira;\n (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios;\n (f) Alteração do capítulo que trata dos eventos de avaliação;\nBTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
       "sha256": "af7b8dc9653dd26c11c6b2fd74bafeef227c92bfaa2257681f2965675e6c207f",
-      "verification": "primary_passage"
-    },
-    "617a952a371e8448c043f760360f5e785a6ecc85d2fd9b06024e1f82b9256a5d": {
-      "document_id": "628955",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628955",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "viii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$\n 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados,  a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando-  se eventuais provisões para perdas constituídas pelo administrador, nos termos do  Regulamento:",
-      "sha256": "ad2cb0544e513c17af1d307995958c792690a4a9a01fcd980200bf1304f741d4",
-      "verification": "primary_passage"
-    },
-    "5989c39e5b370a6f4985ffc5048d985335ed7e374d689834e90f1f3c99914b4c": {
-      "document_id": "437537",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=437537",
-      "reference_date": "2022-12-31",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "viii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$\n 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados,  a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando-  se eventuais provisões para perdas constituídas pelo administrador, nos termos do  Regulamento:",
-      "sha256": "6b84a9d7d1d7034834f6517baf9e68a2d9f0f714db79fe1ca0b6e78d008c6321",
-      "verification": "primary_passage"
-    },
-    "6827eb1cee4d29777b76156e536bc063ef613e2a32c7c73d17cd272d4593d36b": {
-      "document_id": "355220",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
-      "reference_date": "2022-09-23",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual  ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes  Critérios de Elegibilidade deverão passar a ser observados, a serem  verificados segundo o valor contábil dos Direitos Creditórios,  desconsiderando-se eventuais provisões para perdas constituídas pelo  Administrador, nos termos deste Regulamento:",
-      "sha256": "eabaced71201fb7bb2cd6e625f6d669deffebafa6b85d892da2c4b2dfc571049",
-      "verification": "primary_passage"
-    },
-    "d736e77057f950546afb87ec8c5418371217189bd141b6649aa298186ccedb31": {
-      "document_id": "320078",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
-      "reference_date": "2022-06-14",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual  ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes  Critérios de Elegibilidade deverão passar a ser observados, a serem  verificados segundo o valor contábil dos Direitos Creditórios,  desconsiderando-se eventuais provisões para perdas constituídas pelo  Administrador, nos termos deste Regulamento:",
-      "sha256": "85441eeb3f475eaa35825fba737a7927a8ca31874f9f258f163100ae8d5f5507",
       "verification": "primary_passage"
     },
     "b40082db6a9d0965ac54736a052542743ec5dfe164c44364e1d8dbd105d80474": {
@@ -3883,6 +3839,131 @@
       "clause": "",
       "excerpt": "A BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, com sede no município e estado do Rio de Janeiro, localizada à Praia de Botafogo, nº 501, 5º Andar (Parte), Torre Corcovado, Botafogo, e inscrita no CNPJ sob o nº 59.281.253/0001-23, devidamente credenciada na CVM como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (“Administradora”), vem, por meio deste termo de apuração da Consulta Formal do Fundo (“Termo de Apuração”), divulgar, na forma de sumário, o resultado dos votos dos titulares de Cotas de emissão do Fundo (“Cotistas”), no âmbito da consulta formal, com prazo de resposta pelos Cotistas até [Data de envio +] (“Consulta Formal”).",
       "sha256": "5e50f12ddc68456250f004567d6af8d610309d6027aefd04c26a7b355c829719",
+      "verification": "primary_passage"
+    },
+    "06c39ce4bf585a95a0a7111c0946b611926e350342b90e47f1d57925fd8137fa": {
+      "document_id": "791511",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791511",
+      "reference_date": "2024-11-27",
+      "version": "1",
+      "page": 1,
+      "clause": "4.3",
+      "excerpt": "4.3. Além dos ajustes necessários para a adaptação do Fundo à Resolução 175, aprovar as seguintes alterações nas características do Fundo:\n(a) A alteração do capítulo que da Política de Investimentos;\n (b) Alteração do capítulo que trata da responsabilidade dos cotistas;\n (c) A alteração do capítulo que trata dos critérios de elegibilidade;\n (d) A alteração do capítulo que trata do limite de concentração e composição da  carteira;\n (e) Alteração do capítulo que trata da verificação do lastro dos direitos creditórios;\n (f) Alteração do capítulo que trata dos eventos de avaliação;\nBTG Pactual Praia de Botafogo, 501 - 6º Andar | Torre Corcovado - Botafogo | 22250-040 | Rio de Janeiro - RJ - Brasil SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.com 1 de 2",
+      "sha256": "af7b8dc9653dd26c11c6b2fd74bafeef227c92bfaa2257681f2965675e6c207f",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "9fb313a1629c6fd44ad837d3e1b67939e83b30b77561cd7a91de9489a3014254": {
+      "document_id": "628955",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628955",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os direitos creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes critérios de  elegibilidade, a serem validados pelo custodiante na data de cessão de cada direito creditório ao  Fundo:\ni. os direitos creditórios deverão decorrer de empréstimos consignados representados por  uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de  resgate de cotas seniores de qualquer das séries em circulação;\nii. o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a  cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00;\niii. o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao fundo,  considerando, proforma, a cessão pretendida, não deverá exceder R$60.000,00;\niv. na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18e 75  anos, 11 meses e 29 dias de idade, inclusive;\nv. o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis  deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e  regulamentações aplicáveis, sem prejuízo do item (i) acima;\nvi. os direitos creditórios deverão ser adquiridos em observância à taxa mínima de cessão,  nos termos do artigo 9 do regulamento;\nvii. os direitos creditórios não poderão ser devidos por um devedor inadimplente em relação  a outros direitos creditórios liquidáveis por meio de consignação, conforme o convênio  INSS, originados por meio da plataforma MT e que tenham sido adquiridos pelo Fundo  ou por qualquer outro fundo de investimento que tenha o custodiante como responsável  pela prestação de serviços de custódia;\nviii. a partir do momento em que o Fundo atingir patrimônio líquido igual ou superior a R$\n 10.000.000,00, os seguintes critérios de elegibilidade deverão passar a ser observados,  a serem verificados segundo o valor contábil dos direitos creditórios, desconsiderando-  se eventuais provisões para perdas constituídas pelo administrador, nos termos do  Regulamento:",
+      "sha256": "ad2cb0544e513c17af1d307995958c792690a4a9a01fcd980200bf1304f741d4",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2d55809a2e06976b26d08875f9e01ab8c8ab74f63e40c2e8159ea6adf64f0b10": {
+      "document_id": "437537",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=437537",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Os direitos creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes critérios de  elegibilidade, a serem validados pelo custodiante na data de cessão de cada direito creditório ao  Fundo:\ni. os direitos creditórios deverão decorrer de empréstimos consignados representados por  uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de  resgate de cotas seniores de qualquer das séries em circulação;\nii. o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a  cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00;\niii. o saldo dos direitos creditórios elegíveis devidos pelo mesmo devedor ao fundo,  considerando, proforma, a cessão pretendida, não deverá exceder R$60.000,00;\niv. na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18e 75  anos, 11 meses e 29 dias de idade, inclusive;\nv. o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis  deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e  regulamentações aplicáveis, sem prejuízo do item (i) acima;\nvi. os direitos creditórios deverão ser adquiridos em observância à taxa mínima de cessão,  nos termos do artigo 9 do regulamento;",
+      "sha256": "6b84a9d7d1d7034834f6517baf9e68a2d9f0f714db79fe1ca0b6e78d008c6321",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "27c10702ca156ca48a6ddd9ae8d923d6113749271be4cf406fe065bbe3d1e759": {
+      "document_id": "355220",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+      "reference_date": "2022-09-23",
+      "version": "1",
+      "page": "14–15",
+      "clause": "",
+      "excerpt": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo:\n(i) os Direitos Creditórios deverão decorrer de empréstimos consignados  representados por uma CCB, com taxa de juros prefixada e vencimento  final anterior à última data de resgate de Cotas Seniores de qualquer  das Séries em circulação;\n(ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo  (considerando a cessão de todas as parcelas vincendas) não deverá ser  inferior a R$200,00 (duzentos reais);\n(iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor  ao Fundo, considerando, pro forma, a cessão pretendida, não deverá  exceder R$60.000,00 (sessenta mil reais);\n(iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter  entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de  idade, inclusive;\n(v) o prazo de vencimento das CCB representativas dos Direitos Creditórios  Elegíveis deverá ser, no máximo, equivalente ao prazo máximo  permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item\n (i) acima;\n(vi) os Direitos Creditórios deverão ser adquiridos em observância à Taxa  Mínima de Cessão, nos termos do Artigo 9 deste Regulamento;\n(vii) os Direitos Creditórios não poderão ser devidos por um Devedor  inadimplente em relação a outros Direitos Creditórios liquidáveis por  meio de Consignação, conforme o Convênio INSS, originados por meio  da Plataforma MT e que tenham sido adquiridos pelo Fundo ou por  qualquer outro fundo de investimento que tenha o Custodiante como  responsável pela prestação de serviços de custódia;\n(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual  ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes  Critérios de Elegibilidade deverão passar a ser observados, a serem  verificados segundo o valor contábil dos Direitos Creditórios,  desconsiderando-se eventuais provisões para perdas constituídas pelo  Administrador, nos termos deste Regulamento:\n(a) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 40% (quarenta por cento) da carteira de  Direitos Creditórios do Fundo deverá ser composta por Direitos  Creditórios Elegíveis devidos por Devedores que tenham até 60  anos, 11 meses e 29 dias de idade, inclusive na data de emissão  da respectiva CCB;\n(b) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 60% (sessenta por cento) da carteira de  Direitos Creditórios do Fundo deverá ser composta por Direitos  Creditórios Elegíveis devidos por Devedores que tenham até 65  anos, 11 meses e 29 dias de idade, inclusive na data de emissão  da respectiva CCB;\n(c) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 85% (oitenta e cinco por cento) da",
+      "sha256": "eabaced71201fb7bb2cd6e625f6d669deffebafa6b85d892da2c4b2dfc571049",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "58e0854610039a970160973ff57e310e36507d72b6357c2f866bb32a3c6556af": {
+      "document_id": "320078",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+      "reference_date": "2022-06-14",
+      "version": "1",
+      "page": "14–15",
+      "clause": "",
+      "excerpt": "12. Os Direitos Creditórios a serem adquiridos pelo Fundo deverão satisfazer os seguintes Critérios de Elegibilidade, a serem validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo:\n(i) os Direitos Creditórios deverão decorrer de empréstimos consignados  representados por uma CCB, com taxa de juros prefixada e vencimento  final anterior à última data de resgate de Cotas Seniores de qualquer  das Séries em circulação;\n(ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo  (considerando a cessão de todas as parcelas vincendas) não deverá ser  inferior a R$200,00 (duzentos reais);\n(iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor  ao Fundo, considerando, pro forma, a cessão pretendida, não deverá  exceder R$60.000,00 (sessenta mil reais);\n(iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter  entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de  idade, inclusive;\n(v) o prazo de vencimento das CCB representativas dos Direitos Creditórios  Elegíveis deverá ser, no máximo, equivalente ao prazo máximo  permitido pelas leis e regulamentações aplicáveis, sem prejuízo do item\n (i) acima;\n(vi) os Direitos Creditórios deverão ser adquiridos em observância à Taxa  Mínima de Cessão, nos termos do Artigo 9 deste Regulamento;\n(vii) os Direitos Creditórios não poderão ser devidos por um Devedor  inadimplente em relação a outros Direitos Creditórios liquidáveis por  meio de Consignação, conforme o Convênio INSS, originados por meio  da Plataforma MT e que tenham sido adquiridos pelo Fundo ou por  qualquer outro fundo de investimento que tenha o Custodiante como  responsável pela prestação de serviços de custódia;\n(viii) a partir do momento em que o Fundo atingir Patrimônio Líquido igual  ou superior a R$ 10.000.000,00 (dez milhões de reais), os seguintes  Critérios de Elegibilidade deverão passar a ser observados, a serem  verificados segundo o valor contábil dos Direitos Creditórios,  desconsiderando-se eventuais provisões para perdas constituídas pelo  Administrador, nos termos deste Regulamento:\n(a) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 40% (quarenta por cento) da carteira de  Direitos Creditórios do Fundo deverá ser composta por Direitos  Creditórios Elegíveis devidos por Devedores que tenham até 60  anos, 11 meses e 29 dias de idade, inclusive na data de emissão  da respectiva CCB;\n(b) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 60% (sessenta por cento) da carteira de  Direitos Creditórios do Fundo deverá ser composta por Direitos  Creditórios Elegíveis devidos por Devedores que tenham até 65  anos, 11 meses e 29 dias de idade, inclusive na data de emissão  da respectiva CCB;\n(c) considerada pro forma cada cessão de Direitos Creditórios  pretendida, pelo menos 85% (oitenta e cinco por cento) da",
+      "sha256": "85441eeb3f475eaa35825fba737a7927a8ca31874f9f258f163100ae8d5f5507",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "a5a28dbc3d463ab66504f0b87b5bd479bb60c33cd5f0b11a749f57fddd87cc87": {
+      "document_id": "628955",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628955",
+      "reference_date": "2023-12-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "O Fundo tem a finalidade de proporcionar aos cotistas a valorização de suas cotas, aplicando a  maior parte dos seus recursos na aquisição de direitos creditórios elegíveis decorrentes de  empréstimos consignados concedidos por um cedente a um devedor por meio da plataforma MT e  representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação  aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação  aplicável e no regulamento.",
+      "sha256": "ad2cb0544e513c17af1d307995958c792690a4a9a01fcd980200bf1304f741d4",
+      "verification": "primary_passage"
+    },
+    "3f1a883b5a6783b6bfb58fae8c5a8b7f82dbd965b4db3f37ad82dfd093ed5971": {
+      "document_id": "437537",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=437537",
+      "reference_date": "2022-12-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "O Fundo tem a finalidade de proporcionar aos cotistas a valorização de suas cotas, aplicando a  maior parte dos seus recursos na aquisição de direitos creditórios elegíveis decorrentes de  empréstimos consignados concedidos por um cedente a um devedor por meio da plataforma MT e  representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação  aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação  aplicável e no regulamento.",
+      "sha256": "6b84a9d7d1d7034834f6517baf9e68a2d9f0f714db79fe1ca0b6e78d008c6321",
+      "verification": "primary_passage"
+    },
+    "ca256f055c66b97c75cc732df0eb928afabfaaa2ca22a8644628eb70e0e24f2c": {
+      "document_id": "791325",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791325",
+      "reference_date": "2024-11-18",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por  11",
+      "sha256": "3e7470e5dce34265afd4f0d57e4d70678643ecfbdbf02c17ae62e1be915e7d34",
+      "verification": "primary_passage"
+    },
+    "9a068812c31770fbdf55ec8fc0a75235c61685bef65fb697c5f0cebb7b8205bf": {
+      "document_id": "355220",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=355220",
+      "reference_date": "2022-09-23",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento.",
+      "sha256": "eabaced71201fb7bb2cd6e625f6d669deffebafa6b85d892da2c4b2dfc571049",
+      "verification": "primary_passage"
+    },
+    "7511cb8af7b8df38ff1b054c6d40ddd22f74a76af2668722491009cbf2c35fa9": {
+      "document_id": "320078",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=320078",
+      "reference_date": "2022-06-14",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recursos na aquisição de Direitos Creditórios Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento.",
+      "sha256": "85441eeb3f475eaa35825fba737a7927a8ca31874f9f258f163100ae8d5f5507",
       "verification": "primary_passage"
     }
   }

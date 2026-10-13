@@ -1,0 +1,53 @@
+{
+  "cnpj": "65836995000170",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Os devedores (sacados) são pessoas físicas ou jurídicas que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "sources": [
+        {
+          "document_id": "1322406",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+          "reference_date": "14/09/2026",
+          "version": 1,
+          "page": "7",
+          "clause": "Glossário — Devedores",
+          "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+          "sha256": "8f2487707a400c6f3d1916142c2ed23d6fde2d2dcc19d3c28d5349b9cb42c43d",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2026-09-14",
+          "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+          "sources": [
+            {
+              "document_id": "1322406",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+              "reference_date": "2026-09-14",
+              "version": "1",
+              "page": 7,
+              "clause": "",
+              "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que  tenham estabelecido relação de consumo dos Direitos Creditórios com as  Cedentes.",
+              "sha256": "8f2487707a400c6f3d1916142c2ed23d6fde2d2dcc19d3c28d5349b9cb42c43d",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:59:39-03:00"
+}

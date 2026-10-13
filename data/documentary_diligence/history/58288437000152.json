@@ -3,17 +3,6 @@
   "cnpj": "58288437000152",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "3a4f4738bafcc317eca2ef04a23dc6bc882284acce2d4c3a872edf5b905f5ea7",
-      "9d4f8064b79fc1d6dbd54b5d820c4d01b5dbc237c0432ca2f33bd42cbd09ff83",
-      "9978e682a13c2a0c5ac2de3609f7ac73c93fa26b122924be6505fd94b6fcc7aa",
-      "65b24a76eb5c64da0e5e3db038d0cdcbc0d3076eeeb5a0e786fa467d81893ebf",
-      "6b5315f05cf9f9faa0f404491b64b3bc537ffe12ad07c1ebb2caf24057503b27",
-      "7ab5dc8dbb3cddd0dc0d0653b433fc3088447496d4d60753d49adc20be9f4400",
-      "840b76673de914386300e2ba60350bfa6e897a0d99e79b075985adece0068bc6",
-      "13211ded2a060a35232a60bbf119c0ea9f65550edc236e2c28bf7318c34518f3",
-      "f406a3573cc7edf734ce6a81fef98c8d1c1adfae4e7a2e9d340403165e5fc325"
-    ],
     "term": [
       "3a4461faa53501134e75153d3a835d17896f7e6764a632c12e0266ab604b4acb",
       "9978e682a13c2a0c5ac2de3609f7ac73c93fa26b122924be6505fd94b6fcc7aa",
@@ -378,28 +367,6 @@
       "511ab8d2ff189ecbbbab3a01fccc67f37bce54100e39931e4d3570640cd56d9a",
       "46072eb4af40b6a75328384c244cf36ec92ea203ed0d4776b156a8b0a446555f"
     ],
-    "originator": [
-      "e0f4b39e45a63f8695f78f28418b70668e84b79f6f4a5fcdeef612cb28da65f0",
-      "f906a2822767e486b876ffa2d2c87b6fe4dc4d89a14c4febb60a33808e96b672",
-      "17f915a4e80a9287dfa64176e887491095b48b743843d0db8d07a128f7b93d1a",
-      "003d083e499c6ad07148ad8542ad6057c8d883e3133e40d03d302ed77e62e71d",
-      "215cb140923cef6a9a58fdb6a2d006a597d83ae65a989881d6f7b508ef16c3b6",
-      "933258592feb30f32430d94c22d22786c60c0f13f9308b8f32497ece70fafba6",
-      "b25979ad80011ff375e4869d1a33fcd82f0a90dcdfdeba1339d19d65ad3bdafb",
-      "6f60d6e0166d784098661d1c5a732d69ba750cdcbceed68ac8511b3cde500efc",
-      "3dbcde43e5480cbc0768280d20e0fbe37e32c00adf6466db9fa0b1b098b05e7b"
-    ],
-    "debtor": [
-      "198e78b66d1464f64c0e3c062106c93110dfd98ed458db1e03d76bc9897b729d",
-      "fa16cac102b29f10ca54e220635c7acb1e3928c99848c97693d79a3f48e94f6c",
-      "b74fe9b60f2f2f380a226dfcd735ed9ed678ca48a36eb3b4a243403efb618f18",
-      "3069a5f8ad04f7b8b8e9209acbb7de72637200e9c028ee387f1f9b808b9b3abd",
-      "1411de995bca6895f5b393da0be0877a107793e8342398502d46cb211b1f6a8b",
-      "ed4c77a48b10a892106364c3f69b44501494b6858daa92b609bfbd8deda0db04",
-      "09364ea8c5e0d99275a648f6b10b8bb5187ae6d2623594c8f3e754daeb62f0bf",
-      "7234a9457571e78560aa127f29d63be106268898b5a973483b7b00d41e0700fe",
-      "890a5ef287ac5bd1b6ecf1d230514e1f72155db91f870e3d86c2361a966b4bf9"
-    ],
     "investee": [
       "4de0ca073e01418c61d3891129cea9dfe1a8c5c6b282e2be3bb42b8605df2f37",
       "beaf51631194ac3da38b3b73bb786138eab70bd19fc399e72721809d5dade2bc",
@@ -448,6 +415,28 @@
       "87359c97a46f92996176ec0efb068def79b703c0b1be880a04d20f00a5d7919c",
       "a22f5fc8a111330e67b14d67dc461bbf1e0f57aad290d745a31a686ebafaacd0",
       "d14d8c1a124201ba6c29dada5c478032fd2af7a121f0f54be70b3f956873f12a"
+    ],
+    "originator": [
+      "e0f4b39e45a63f8695f78f28418b70668e84b79f6f4a5fcdeef612cb28da65f0",
+      "2d8ec5c0b1c91ac85ce21b70b26555219ab81e1e05bf60c9db3fe0e03dca9781",
+      "1e030979506564de807da24ae3d777a7880db079a35df461de96d177ae7ebebf",
+      "fa16cac102b29f10ca54e220635c7acb1e3928c99848c97693d79a3f48e94f6c",
+      "17f915a4e80a9287dfa64176e887491095b48b743843d0db8d07a128f7b93d1a",
+      "003d083e499c6ad07148ad8542ad6057c8d883e3133e40d03d302ed77e62e71d",
+      "215cb140923cef6a9a58fdb6a2d006a597d83ae65a989881d6f7b508ef16c3b6",
+      "933258592feb30f32430d94c22d22786c60c0f13f9308b8f32497ece70fafba6",
+      "b25979ad80011ff375e4869d1a33fcd82f0a90dcdfdeba1339d19d65ad3bdafb"
+    ],
+    "eligibility": [
+      "521749196a179235a152e61de5208e7b7e0efeb652e7b0d165818333f1f1a227",
+      "9d4f8064b79fc1d6dbd54b5d820c4d01b5dbc237c0432ca2f33bd42cbd09ff83",
+      "9978e682a13c2a0c5ac2de3609f7ac73c93fa26b122924be6505fd94b6fcc7aa",
+      "824158c789a4304f1d236dab983390f5d80c2fee58f5fee8552fff65b0e130db",
+      "5b442527544faa938b4985a990c905c04c2a9cdab37fcd79dc8bc6603f658cd2",
+      "774d201183898482ba07dde813d7649d85be4714e88714dba553c10ee11828a0",
+      "84b87ac07c1d08d98512d22d6eb48291b45d512a4065f670b4abdc1e0db32333",
+      "0c8c04bfba05eb0b198ebf2ef3e7afc8a9243615149ba63f956f414bd8fc8094",
+      "4e465e9d5d6db2e30e32d00224f614bd779d45d37e4ccc68c2e538d61eebae2b"
     ]
   },
   "entries": {
@@ -596,33 +585,6 @@
         "21b033f0dce81927be802daf59c5d2a23081b8b17aae6be903f2a9feea83ba17"
       ]
     },
-    "6f60d6e0166d784098661d1c5a732d69ba750cdcbceed68ac8511b3cde500efc": {
-      "reference_date": "2024-12-13",
-      "value": "negativamente o patrimônio do Fundo. Adicionalmente, Usuários-Finais podem contestar Transações de Pagamento extrajudicialmente, ou os chamados chargebacks. A existência de chargebacks nas operações originadoras dos Direitos Creditórios – Recebíveis Cartão, ou a eventual insolvência dos Cedentes – Recebíveis Cartão nas hipóteses acima, poderão afetar negativamente e resultar em perdas nos resultados do Fundo e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "442b69f9da71df80247a6f11a76e6e333b4b35109d5882424b64fbaa72670128"
-      ]
-    },
-    "3dbcde43e5480cbc0768280d20e0fbe37e32c00adf6466db9fa0b1b098b05e7b": {
-      "reference_date": "2024-11-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d3c06a00721873af284ddda1551a9cf12933f645a199ca2bc8975e4f63ec9e06"
-      ]
-    },
-    "198e78b66d1464f64c0e3c062106c93110dfd98ed458db1e03d76bc9897b729d": {
-      "reference_date": "2025-12-31",
-      "value": "(v) a alteração do item 3.16.1.g do regulamento do Fundo para excepcionar o EBAZAR.COM.BR. LTDA (“devedor especial”), inscrito no CNPJ 03.007.331/0008-18, do limite de concentração de 5% de devedores especiais, para que, neste caso, seja de até 10%; e prever que os limites de concentração por um devedor – duplicatas ou por um devedor especial poderão ser aumentados mediante solicitação do cedente Altomax, utilizando a soma do limite de 3,5%, do limite de 5%, no caso de ser um devedor especial, ou do limite de 10% no caso do devedor especial dispostos no referido item, com o percentual apurado de excesso de subordinação disponível na data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "db331c5e6a9f521a51ae147d8a406ee69e3c44cda0469fcba377bd9a10bce4cd"
-      ]
-    },
     "fa16cac102b29f10ca54e220635c7acb1e3928c99848c97693d79a3f48e94f6c": {
       "reference_date": "2025-02-18",
       "value": "(v) a alteração do item 3.16.1, inciso (g) do Regulamento do Fundo para (x) excepcionar o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº 03.007.331/0008-18, do limite de concentração de 5% (cinco por cento) de Devedores Especiais, para que, neste caso, seja de até 10% (dez por cento); e (y) prever que os limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderão ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma do limite de 3,5% (três inteiros e cinco décimos por cento), do limite de 5% (cinco por cento), no caso de ser um Devedor Especial, ou do limite de 10% (dez por cento) no caso do Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº 03.007.331/0008-18, dispostos no referido item, com o percentual apurado de excesso de subordinação disponível na Data de Aquisição;.",
@@ -630,78 +592,6 @@
       "provenance": "primary_passage",
       "sources": [
         "73e8309738ccaa0c36b56130ad53a0673f543080a712de9163705f35ae5d7c44"
-      ]
-    },
-    "b74fe9b60f2f2f380a226dfcd735ed9ed678ca48a36eb3b4a243403efb618f18": {
-      "reference_date": "2024-12-31",
-      "value": "(v) a alteração do item 3.16.1.g do regulamento do Fundo para excepcionar o EBAZAR.COM.BR. LTDA (“devedor especial”), inscrito no CNPJ 03.007.331/0008-18, do limite de concentração de 5% de devedores especiais, para que, neste caso, seja de até 10%; e prever que os limites de concentração por um devedor – duplicatas ou por um devedor especial poderão ser aumentados mediante solicitação do cedente Altomax, utilizando a soma do limite de 3,5%, do limite de 5%, no caso de ser um devedor especial, ou do limite de 10% no caso do devedor especial dispostos no referido item, com o percentual apurado de excesso de subordinação disponível na data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "753326aa9613ba2bd73b056f5361bbf00d3772b878b5b40e715fa6bbe810476a"
-      ]
-    },
-    "3069a5f8ad04f7b8b8e9209acbb7de72637200e9c028ee387f1f9b808b9b3abd": {
-      "reference_date": "2024-11-28",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9e9ddf2427771a477367eeb82c0c753d3bcfe0d5092aa8c33493dd041cbca155"
-      ]
-    },
-    "1411de995bca6895f5b393da0be0877a107793e8342398502d46cb211b1f6a8b": {
-      "reference_date": "2026-01-15",
-      "value": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor – Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5% (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que os limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderá ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma dos limites dispostos acima, individualmente, conforme aplicável, com o percentual apurado de Excesso de Subordinação disponível na Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5b270e119ef24067ec1c4b107b17e0d08761d956f3f2967a6918f730c7d7f678"
-      ]
-    },
-    "ed4c77a48b10a892106364c3f69b44501494b6858daa92b609bfbd8deda0db04": {
-      "reference_date": "2025-06-17",
-      "value": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor – Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5% (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que os limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderá ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma dos limites dispostos acima, individualmente, conforme aplicável, com o percentual apurado de Excesso de Subordinação disponível na Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5393c251952215b727dc91a40c0f791a77eb235846765e3bc74168031709c60e"
-      ]
-    },
-    "09364ea8c5e0d99275a648f6b10b8bb5187ae6d2623594c8f3e754daeb62f0bf": {
-      "reference_date": "2025-02-18",
-      "value": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor – Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5% (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que os limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderá ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma dos limites dispostos acima, individualmente, conforme aplicável, com o percentual apurado de excesso de subordinação disponível na Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dcd01efae4c25ee5820c9c122cc3557a38ddac47faded4777ae97acc4dcf190c"
-      ]
-    },
-    "7234a9457571e78560aa127f29d63be106268898b5a973483b7b00d41e0700fe": {
-      "reference_date": "2024-12-13",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b9fc7e5d6b36bdf204f535b272cb12e890df702b06bf63a674a52660a054035f"
-      ]
-    },
-    "890a5ef287ac5bd1b6ecf1d230514e1f72155db91f870e3d86c2361a966b4bf9": {
-      "reference_date": "2024-11-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bbdc9208eabc161821002258807195babf3f0feeb52ad0c93a3eec9976ebb33a"
-      ]
-    },
-    "3a4f4738bafcc317eca2ef04a23dc6bc882284acce2d4c3a872edf5b905f5ea7": {
-      "reference_date": "2026-01-15",
-      "value": "3.1.1. Desde que não esteja em curso um Evento de Avaliação, caso seja verificado, pela Gestora ou pelo Cedente Altomax, Excesso de Cobertura, a Gestora poderá realizar a aquisição de Direitos Creditórios - Adicionais, até o limite do Excesso de Cobertura, observado os limites de diversificação e composição da carteira, a política de investimento do Fundo, os Critérios de Elegibilidade, as Condições de Cessão e a ordem de alocação de recursos definida no Capítulo 12 abaixo, mediante solicitação dos cotistas titulares das Cotas Subordinadas Júnior, observado que tal aquisição independe de aprovação de quaisquer dos Cotistas Seniores ou dos Cotistas Subordinados Mezanino.”.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "f87fd657ea24de536188a5e525e9f39bda86982ccfc133d8fd7324e337d339d2"
       ]
     },
     "9d4f8064b79fc1d6dbd54b5d820c4d01b5dbc237c0432ca2f33bd42cbd09ff83": {
@@ -720,60 +610,6 @@
       "provenance": "primary_passage",
       "sources": [
         "a8edc0b7bc8d5f563e15c0a88a9037392fdeefaa9b1c4b8db9dbf31c5efc1b48"
-      ]
-    },
-    "65b24a76eb5c64da0e5e3db038d0cdcbc0d3076eeeb5a0e786fa467d81893ebf": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "753326aa9613ba2bd73b056f5361bbf00d3772b878b5b40e715fa6bbe810476a"
-      ]
-    },
-    "6b5315f05cf9f9faa0f404491b64b3bc537ffe12ad07c1ebb2caf24057503b27": {
-      "reference_date": "2024-11-28",
-      "value": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas rotinas e procedimentos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "23b3b6f60bd5d57d4717cddaf3b269650102f0cac8b0ae8fff2f311f53f0777c"
-      ]
-    },
-    "7ab5dc8dbb3cddd0dc0d0653b433fc3088447496d4d60753d49adc20be9f4400": {
-      "reference_date": "2026-01-15",
-      "value": "3.1.1. Desde que não esteja em curso um Evento de Avaliação, caso seja verificado, pela Gestora ou pelo Cedente Altomax, Excesso de Cobertura, a Gestora poderá realizar a aquisição de Direitos Creditórios - Adicionais, até o limite do Excesso de Cobertura, observado os limites de diversificação e composição da carteira, a política de investimento do Fundo, os Critérios de Elegibilidade, as Condições de Cessão e a ordem de alocação de recursos definida no Capítulo 12 abaixo, mediante solicitação dos cotistas titulares das Cotas Subordinadas Júnior, observado que tal aquisição independe de aprovação de quaisquer dos Cotistas Seniores ou dos Cotistas Subordinados Mezanino.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9c90407719231b4678b534f749db77c6778e1a27eea3581d7c2397a36a2efc15"
-      ]
-    },
-    "840b76673de914386300e2ba60350bfa6e897a0d99e79b075985adece0068bc6": {
-      "reference_date": "2025-06-17",
-      "value": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas rotinas e procedimentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fb9d126256d47549b82d65575631aae97477e16f3f18f1a3ba01752cd4ac55fe"
-      ]
-    },
-    "13211ded2a060a35232a60bbf119c0ea9f65550edc236e2c28bf7318c34518f3": {
-      "reference_date": "2025-02-18",
-      "value": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas rotinas e procedimentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c7c8f0943c260cdd4b6b7ce47c9ace3afd150c0930a5a54ac28ac6e307b82ea4"
-      ]
-    },
-    "f406a3573cc7edf734ce6a81fef98c8d1c1adfae4e7a2e9d340403165e5fc325": {
-      "reference_date": "2024-12-13",
-      "value": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas rotinas e procedimentos.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3f7a8b26b9164285e6ff73c854e7f0973a405d3d2102a79ffc8678807d757812"
       ]
     },
     "3a4461faa53501134e75153d3a835d17896f7e6764a632c12e0266ab604b4acb": {
@@ -3149,6 +2985,87 @@
       "sources": [
         "0271ffd1f9e4db17d614831f814710cad919c6dd04accfb0c3990b3d37b62b4a"
       ]
+    },
+    "2d8ec5c0b1c91ac85ce21b70b26555219ab81e1e05bf60c9db3fe0e03dca9781": {
+      "reference_date": "2025-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0faf6fecc76dcd21eb3331213279582ee20ddc239937b9871498369330976a3e"
+      ]
+    },
+    "521749196a179235a152e61de5208e7b7e0efeb652e7b0d165818333f1f1a227": {
+      "reference_date": "2026-01-15",
+      "value": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na respectiva data de cessão, às seguintes Condições de Cessão: [...] (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de Concessão de Crédito, exceto para os Direitos Creditórios – Adicionais, dispensados de observar a Política de Concessão de Crédito;”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "380d7604248ab1eb76f499d13332adb5e936242b72cf70c05885219d5208dfca"
+      ]
+    },
+    "824158c789a4304f1d236dab983390f5d80c2fee58f5fee8552fff65b0e130db": {
+      "reference_date": "2024-12-31",
+      "value": "18 Eventos subsequentes No dia 18 de fevereiro de 2025, em assembleia geral de cotistas foi deliberado, por unanimidade e sem ressalvas, (i) a postergação, pelo prazo adicional de 30 dias, contado a partir da 1ª integralização das cotas de subclasse subordinada júnior, para apresentação, pelos cedentes duplicatas dos documentos de comprovação da entrega dos produtos, a título de documentos comprobatórios, duplicatas relativos aos direitos creditórios, duplicatas cedidos ao Fundo; (ii) a alteração do item 3.15.1.f das condições de cessão do regulamento do Fundo; (iii) a alteração do prazo máximo de vencimento das parcelas dos direitos creditórios do Fundo para 180 dias, conforme previsto nos critérios de elegibilidade; (iv) a alteração do item 3.16.1.b do regulamento do Fundo; (v) a alteração do item 3.16.1.g do regulamento do Fundo para excepcionar o EBAZAR.COM.BR. LTDA (“devedor especial”), inscrito no CNPJ 03.007.331/0008-18, do limite de concentração de 5% de devedores especiais, para que, neste caso, seja de até 10%; e prever que os limites de concentração por um devedor – duplicatas ou por um devedor especial poderão ser aumentados mediante solicitação do cedente Altomax, utilizando a soma do limite de 3,5%, do limite de 5%, no caso de ser um devedor especial, ou do limite de 10% no caso do devedor especial dispostos no referido item, com o percentual apurado de excesso de subordinação disponível na data de aquisição; (vi) a alteração do item 3.19.1.ii do regulamento para excepcionar o devedor especial do limite de concentração de 5% de devedores especiais, para que, neste caso, seja de até 10%; e prever a possibilidade de aumento dos limites de concentração por um devedor, duplicatas ou por um devedor especial, conforme o caso, mediante solicitação do cedente Altomax, utilizando a soma do limite de 3,5%, do limite de 5%, no caso de ser um devedor especial, ou do limite de 10% no caso do devedor especial, dispostos no referido item, com o percentual apurado de excesso de subordinação disponível na data de aquisição; (vii) a alteração do conceito de capital",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "753326aa9613ba2bd73b056f5361bbf00d3772b878b5b40e715fa6bbe810476a"
+      ]
+    },
+    "5b442527544faa938b4985a990c905c04c2a9cdab37fcd79dc8bc6603f658cd2": {
+      "reference_date": "2024-11-28",
+      "value": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na respectiva data de cessão, às seguintes Condições de Cessão: (a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da sua cessão; (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de Concessão de Crédito;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "296f1ff9ae9c0e9468843afe21dfc35d1bdf1ebfee305987b420b9e3b7a2ab11"
+      ]
+    },
+    "774d201183898482ba07dde813d7649d85be4714e88714dba553c10ee11828a0": {
+      "reference_date": "2026-01-15",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "85d74eeade9af890490cf19edb9f54c634c08bf993f651a254c689a80004c3cf"
+      ]
+    },
+    "84b87ac07c1d08d98512d22d6eb48291b45d512a4065f670b4abdc1e0db32333": {
+      "reference_date": "2025-06-17",
+      "value": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na respectiva data de cessão, às seguintes Condições de Cessão: (a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da sua cessão; (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6071e97d2be687e29539a815be58bdce631d2ceea5711e1bdcdb537ff34e2d6d"
+      ]
+    },
+    "0c8c04bfba05eb0b198ebf2ef3e7afc8a9243615149ba63f956f414bd8fc8094": {
+      "reference_date": "2025-02-18",
+      "value": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na respectiva data de cessão, às seguintes Condições de Cessão: (a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da sua cessão; (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "93f158c5808483059531414c96119ba3e452191078b245f7db4fdb4cc6d836f5"
+      ]
+    },
+    "4e465e9d5d6db2e30e32d00224f614bd779d45d37e4ccc68c2e538d61eebae2b": {
+      "reference_date": "2024-12-13",
+      "value": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na respectiva data de cessão, às seguintes Condições de Cessão: (a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento quando da sua cessão; (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de Concessão de Crédito;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "32777c1d29d2c75f8020ce6e4e057cae539e6c7ae68fc51764810470bf00779e"
+      ]
+    },
+    "1e030979506564de807da24ae3d777a7880db079a35df461de96d177ae7ebebf": {
+      "reference_date": "2025-08-26",
+      "value": "Público-alvo: Exclusivamente os ‘Cotistas Subordinados Júnior’, nos termos do Regulamento: o Cedente Altomax ou, conforme o caso, seus sócios/controladores, fundos de investimento detidos exclusivamente pelos sócios controladores do Cedente, sociedades por ele, direta ou indiretamente, controladas, suas coligadas e sociedades sob controle comum. As Cotas Subordinadas Júnior não podem ser negociadas com terceiros fora desse grupo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f3f7373c8b74b0f8151a2eab577aa4709b7e59b3c318fcc004ddae71bb1b1a43"
+      ]
     }
   },
   "passages": {
@@ -3345,30 +3262,6 @@
       "sha256": "0c3ca32c4d959cc05a940edc2d64623f5340f8c61a1a0200714609964c865224",
       "verification": "primary_passage"
     },
-    "442b69f9da71df80247a6f11a76e6e333b4b35109d5882424b64fbaa72670128": {
-      "document_id": "803104",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803104",
-      "reference_date": "2024-12-13",
-      "version": "1",
-      "page": 54,
-      "clause": "",
-      "excerpt": "negativamente o patrimônio do Fundo. Adicionalmente, Usuários-Finais podem contestar Transações  de Pagamento extrajudicialmente, ou os chamados chargebacks. A existência de chargebacks nas  operações originadoras dos Direitos Creditórios – Recebíveis Cartão, ou a eventual insolvência dos  Cedentes – Recebíveis Cartão nas hipóteses acima, poderão afetar negativamente e resultar em  perdas nos resultados do Fundo e aos Cotistas.",
-      "sha256": "d5fc2a01ff9fd10060a6000992293ae9fc71ce00b2673d0792d0f338a1f437b8",
-      "verification": "primary_passage"
-    },
-    "d3c06a00721873af284ddda1551a9cf12933f645a199ca2bc8975e4f63ec9e06": {
-      "document_id": "803099",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803099",
-      "reference_date": "2024-11-28",
-      "version": "1",
-      "page": 54,
-      "clause": "",
-      "excerpt": "(iii) Risco de Originação – Modificação de Créditos por Decisão Judicial: Os Direitos  Creditórios – Recebíveis Cartão são devidos pelos respectivos Devedores – Recebíveis Cartão aos  Cedentes e são decorrentes das Transações de Pagamento realizadas no âmbito dos arranjos de  pagamento, envolvendo Instrumentos de Pagamento pelos Usuários-Finais para a realização de  compras de produtos no Estabelecimento Credenciado, que podem eventualmente ter suas  condições questionadas em juízo pelos respectivos Usuários-Finais ou terceiros. Não pode ser  afastada a possibilidade de os Usuários-Finais ou terceiros lograrem êxito nas demandas ajuizadas.\n Nessa hipótese, os Direitos Creditórios Cedidos podem ter seus valores reduzidos, serem anulados  ou até serem considerados nulos em decisão judicial, o que, em qualquer caso, afetaria  negativamente o patrimônio do Fundo. Adicionalmente, Usuários-Finais podem contestar Transações  de Pagamento extrajudicialmente, ou os chamados chargebacks. A existência de chargebacks nas  operações originadoras dos Direitos Creditórios – Recebíveis Cartão, ou a eventual insolvência dos  Cedentes – Recebíveis Cartão nas hipóteses acima, poderão afetar negativamente e resultar em  perdas nos resultados do Fundo e aos Cotistas.",
-      "sha256": "495203cfbc8d80d3baa744b4c5c4abc6209407f259cd24ef6308515caea6a1d5",
-      "verification": "primary_passage"
-    },
     "db331c5e6a9f521a51ae147d8a406ee69e3c44cda0469fcba377bd9a10bce4cd": {
       "document_id": "1129554",
       "title": "Demonstrações Financeiras",
@@ -3405,90 +3298,6 @@
       "sha256": "7c1172d22ddd77ac7fc292a6233d69bd28596cb3a6f2335330c9110dd32af441",
       "verification": "primary_passage"
     },
-    "9e9ddf2427771a477367eeb82c0c753d3bcfe0d5092aa8c33493dd041cbca155": {
-      "document_id": "803097",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803097",
-      "reference_date": "2024-11-28",
-      "version": "1",
-      "page": 61,
-      "clause": "",
-      "excerpt": "(ii) Risco decorrente dos critérios adotados pelos Cedentes para concessão de crédito:\n os Direitos Creditórios que serão adquiridos pelo Fundo serão originados com base nos critérios,  processos e políticas adotados pelos Cedentes, descritos no Complemento V, de modo que não há  garantia de que os Devedores honrarão os seus compromissos. Ademais, os resultados do Fundo  poderão ser afetados negativamente caso os Cedentes não indenizem o Fundo pelos Direitos  Creditórios que não forem pagos integralmente pelos Devedores em decorrência de qualquer  problema de natureza comercial entre o Devedor e o respectivo Cedente, tais como (i) defeito ou  vício do produto; ou (ii) oposição de exceções pessoais do Devedor aos Cedentes. Caso os  compromissos assumidos pelos Devedores não sejam devidamente cumpridos, a rentabilidade das  Cotas poderá ser afetada adversamente. Por fim, não se pode afastar o risco de ocorrência de falhas  operacionais que poderão dificultar, ou mesmo impedir, a efetiva cobrança dos Direitos Creditórios  cedidos ao Fundo, o que poderá afetar negativamente a rentabilidade dos Cotistas.",
-      "sha256": "96a91acb783950296ccdc8967a4ebb603d526b1e1c8143d3bd7d070b14b48e82",
-      "verification": "primary_passage"
-    },
-    "5b270e119ef24067ec1c4b107b17e0d08761d956f3f2967a6918f730c7d7f678": {
-      "document_id": "1090132",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090132",
-      "reference_date": "2026-01-15",
-      "version": "1",
-      "page": 10,
-      "clause": "",
-      "excerpt": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor –  Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido  do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5%  (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº\n 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme  consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que os  limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderá ser  aumentados mediante solicitação do Cedente Altomax, utilizando a soma dos limites dispostos  acima, individualmente, conforme aplicável, com o percentual apurado de Excesso de  Subordinação disponível na Data de Aquisição. No caso dos Direitos Creditórios - Recebíveis de  Cartão e dos Direitos Creditórios - Adicionais, não haverá limitação de concentração por  Devedor;",
-      "sha256": "32bd135224c7771e2b44599022bd5d7d58ecdb136cf08cfe208a615bd9ecff4a",
-      "verification": "primary_passage"
-    },
-    "5393c251952215b727dc91a40c0f791a77eb235846765e3bc74168031709c60e": {
-      "document_id": "935844",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935844",
-      "reference_date": "2025-06-17",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor –  Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido  do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5%  (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº\n 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo,  conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora,  sendo que os limites de concentração por um Devedor – Duplicatas ou por um Devedor  Especial poderá ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma  dos limites dispostos acima, individualmente, conforme aplicável, com o percentual apurado  de Excesso de Subordinação disponível na Data de Aquisição. No caso dos Direitos Creditórios  - Recebíveis de Cartão, não haverá limitação de concentração por Devedor;",
-      "sha256": "c34c6533a0fb48a268c330d6e1e2e79aa8bd0906f62ae170010764b41931693b",
-      "verification": "primary_passage"
-    },
-    "dcd01efae4c25ee5820c9c122cc3557a38ddac47faded4777ae97acc4dcf190c": {
-      "document_id": "845769",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845769",
-      "reference_date": "2025-02-18",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor –  Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido  do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5%  (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº\n 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo,  conforme consulta de Devedores por grupo econômico mais recente realizada pela Gestora,  sendo que os limites de concentração por um Devedor – Duplicatas ou por um Devedor  Especial poderá ser aumentados mediante solicitação do Cedente Altomax, utilizando a soma  dos limites dispostos acima, individualmente, conforme aplicável, com o percentual apurado  de excesso de subordinação disponível na Data de Aquisição. No caso dos Direitos Creditórios  - Recebíveis de Cartão, não haverá limitação de concentração por Devedor;",
-      "sha256": "0c3ca32c4d959cc05a940edc2d64623f5340f8c61a1a0200714609964c865224",
-      "verification": "primary_passage"
-    },
-    "b9fc7e5d6b36bdf204f535b272cb12e890df702b06bf63a674a52660a054035f": {
-      "document_id": "803104",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803104",
-      "reference_date": "2024-12-13",
-      "version": "1",
-      "page": 54,
-      "clause": "",
-      "excerpt": "(ii) Risco decorrente dos critérios adotados pelos Cedentes para concessão de crédito:\n os Direitos Creditórios que serão adquiridos pelo Fundo serão originados com base nos critérios,  processos e políticas adotados pelos Cedentes, descritos no Complemento V, de modo que não há  garantia de que os Devedores honrarão os seus compromissos. Ademais, os resultados do Fundo  poderão ser afetados negativamente caso os Cedentes não indenizem o Fundo pelos Direitos  Creditórios que não forem pagos integralmente pelos Devedores em decorrência de qualquer  problema de natureza comercial entre o Devedor e o respectivo Cedente, tais como (i) defeito ou  vício do produto; ou (ii) oposição de exceções pessoais do Devedor aos Cedentes. Caso os  compromissos assumidos pelos Devedores não sejam devidamente cumpridos, a rentabilidade das  Cotas poderá ser afetada adversamente. Por fim, não se pode afastar o risco de ocorrência de falhas  operacionais que poderão dificultar, ou mesmo impedir, a efetiva cobrança dos Direitos Creditórios  cedidos ao Fundo, o que poderá afetar negativamente a rentabilidade dos Cotistas.",
-      "sha256": "d5fc2a01ff9fd10060a6000992293ae9fc71ce00b2673d0792d0f338a1f437b8",
-      "verification": "primary_passage"
-    },
-    "bbdc9208eabc161821002258807195babf3f0feeb52ad0c93a3eec9976ebb33a": {
-      "document_id": "803099",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803099",
-      "reference_date": "2024-11-28",
-      "version": "1",
-      "page": 54,
-      "clause": "",
-      "excerpt": "(ii) Risco decorrente dos critérios adotados pelos Cedentes para concessão de crédito:\n os Direitos Creditórios que serão adquiridos pelo Fundo serão originados com base nos critérios,  processos e políticas adotados pelos Cedentes, descritos no Complemento V, de modo que não há  garantia de que os Devedores honrarão os seus compromissos. Ademais, os resultados do Fundo  poderão ser afetados negativamente caso os Cedentes não indenizem o Fundo pelos Direitos  Creditórios que não forem pagos integralmente pelos Devedores em decorrência de qualquer  problema de natureza comercial entre o Devedor e o respectivo Cedente, tais como (i) defeito ou  vício do produto; ou (ii) oposição de exceções pessoais do Devedor aos Cedentes. Caso os  compromissos assumidos pelos Devedores não sejam devidamente cumpridos, a rentabilidade das  Cotas poderá ser afetada adversamente. Por fim, não se pode afastar o risco de ocorrência de falhas  operacionais que poderão dificultar, ou mesmo impedir, a efetiva cobrança dos Direitos Creditórios  cedidos ao Fundo, o que poderá afetar negativamente a rentabilidade dos Cotistas.",
-      "sha256": "495203cfbc8d80d3baa744b4c5c4abc6209407f259cd24ef6308515caea6a1d5",
-      "verification": "primary_passage"
-    },
-    "f87fd657ea24de536188a5e525e9f39bda86982ccfc133d8fd7324e337d339d2": {
-      "document_id": "1090126",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090126",
-      "reference_date": "2026-01-15",
-      "version": "1",
-      "page": 2,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Desde que não esteja em curso um Evento de Avaliação, caso seja verificado, pela  Gestora ou pelo Cedente Altomax, Excesso de Cobertura, a Gestora poderá realizar a  aquisição de Direitos Creditórios - Adicionais, até o limite do Excesso de Cobertura,  observado os limites de diversificação e composição da carteira, a política de  investimento do Fundo, os Critérios de Elegibilidade, as Condições de Cessão e a ordem  de alocação de recursos definida no Capítulo 12 abaixo, mediante solicitação dos  cotistas titulares das Cotas Subordinadas Júnior, observado que tal aquisição independe  de aprovação de quaisquer dos Cotistas Seniores ou dos Cotistas Subordinados  Mezanino.”",
-      "sha256": "815b8cf9898d995064fbe285e4c349d5090788249b3533d6b79549757fc9ed8a",
-      "verification": "primary_passage"
-    },
     "a8edc0b7bc8d5f563e15c0a88a9037392fdeefaa9b1c4b8db9dbf31c5efc1b48": {
       "document_id": "845768",
       "title": "AGO/E",
@@ -3499,66 +3308,6 @@
       "clause": "",
       "excerpt": "(iii) a alteração do prazo máximo de vencimento das parcelas dos Direitos  Creditórios do Fundo para 180 (cento e oitenta) dias, conforme previsto nos  Critérios de Elegibilidade;",
       "sha256": "4108fd885bff5f7ea0ba87eb5a01eae2a900c04902e53179dbd1b30bb8d5e940",
-      "verification": "primary_passage"
-    },
-    "23b3b6f60bd5d57d4717cddaf3b269650102f0cac8b0ae8fff2f311f53f0777c": {
-      "document_id": "803097",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803097",
-      "reference_date": "2024-11-28",
-      "version": "1",
-      "page": 17,
-      "clause": "3.16.3",
-      "excerpt": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos  Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá  comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos  Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas  rotinas e procedimentos.",
-      "sha256": "96a91acb783950296ccdc8967a4ebb603d526b1e1c8143d3bd7d070b14b48e82",
-      "verification": "primary_passage"
-    },
-    "9c90407719231b4678b534f749db77c6778e1a27eea3581d7c2397a36a2efc15": {
-      "document_id": "1090132",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090132",
-      "reference_date": "2026-01-15",
-      "version": "1",
-      "page": 5,
-      "clause": "3.1.1",
-      "excerpt": "3.1.1. Desde que não esteja em curso um Evento de Avaliação, caso seja verificado, pela Gestora  ou pelo Cedente Altomax, Excesso de Cobertura, a Gestora poderá realizar a aquisição de Direitos  Creditórios - Adicionais, até o limite do Excesso de Cobertura, observado os limites de diversificação  e composição da carteira, a política de investimento do Fundo, os Critérios de Elegibilidade, as  Condições de Cessão e a ordem de alocação de recursos definida no Capítulo 12 abaixo, mediante  solicitação dos cotistas titulares das Cotas Subordinadas Júnior, observado que tal aquisição  independe de aprovação de quaisquer dos Cotistas Seniores ou dos Cotistas Subordinados Mezanino.",
-      "sha256": "32bd135224c7771e2b44599022bd5d7d58ecdb136cf08cfe208a615bd9ecff4a",
-      "verification": "primary_passage"
-    },
-    "fb9d126256d47549b82d65575631aae97477e16f3f18f1a3ba01752cd4ac55fe": {
-      "document_id": "935844",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935844",
-      "reference_date": "2025-06-17",
-      "version": "1",
-      "page": 10,
-      "clause": "3.16.3",
-      "excerpt": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos  Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá  comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos  Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas  rotinas e procedimentos.",
-      "sha256": "c34c6533a0fb48a268c330d6e1e2e79aa8bd0906f62ae170010764b41931693b",
-      "verification": "primary_passage"
-    },
-    "c7c8f0943c260cdd4b6b7ce47c9ace3afd150c0930a5a54ac28ac6e307b82ea4": {
-      "document_id": "845769",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845769",
-      "reference_date": "2025-02-18",
-      "version": "1",
-      "page": 10,
-      "clause": "3.16.3",
-      "excerpt": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos  Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá  comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos  Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas  rotinas e procedimentos.",
-      "sha256": "0c3ca32c4d959cc05a940edc2d64623f5340f8c61a1a0200714609964c865224",
-      "verification": "primary_passage"
-    },
-    "3f7a8b26b9164285e6ff73c854e7f0973a405d3d2102a79ffc8678807d757812": {
-      "document_id": "803104",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803104",
-      "reference_date": "2024-12-13",
-      "version": "1",
-      "page": 10,
-      "clause": "3.16.3",
-      "excerpt": "3.16.3. Caso a Gestora verifique quaisquer inconsistências durante o processo de verificação dos  Direitos Creditórios em relação aos Critérios de Elegibilidade e as Condições de Cessão, esta deverá  comunicar por escrito tal fato ao respectivo Cedente para que regularize a validação em relação aos  Critérios de Elegibilidade e as Condições de Cessão, inclusive mediante o estabelecimento de novas  rotinas e procedimentos.",
-      "sha256": "d5fc2a01ff9fd10060a6000992293ae9fc71ce00b2673d0792d0f338a1f437b8",
       "verification": "primary_passage"
     },
     "852e5a2a49544a71193463d8a65dcdafbbc981c9def475ab6634fcf77cfd5fe7": {
@@ -6589,6 +6338,96 @@
       "clause": "",
       "excerpt": "significam os documentos eletrônicos que  evidenciam o lastro dos Direitos Creditórios  elegíveis adquiridos pelo Fundo, quais sejam:\n “Documentos as respectivas duplicatas eletrônicas  Comprobatórios – representativas da operação de compra e  Duplicatas” venda, documento de comprovação da  entrega de produtos e o Arquivo XML da NF-  e e o respectivo termo de cessão.",
       "sha256": "c05071fbac34607abc84033fba568e86b79865004fd667f8fcfc129f89604bb1",
+      "verification": "primary_passage"
+    },
+    "380d7604248ab1eb76f499d13332adb5e936242b72cf70c05885219d5208dfca": {
+      "document_id": "1090126",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090126",
+      "reference_date": "2026-01-15",
+      "version": "1",
+      "page": 2,
+      "clause": "3.15.1",
+      "excerpt": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na  respectiva data de cessão, às seguintes Condições de Cessão:\n [...]\n (b) os Direitos Creditórios devem ter sido originados de acordo com a Política de  Concessão de Crédito, exceto para os Direitos Creditórios – Adicionais, dispensados de  observar a Política de Concessão de Crédito;”",
+      "sha256": "815b8cf9898d995064fbe285e4c349d5090788249b3533d6b79549757fc9ed8a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "296f1ff9ae9c0e9468843afe21dfc35d1bdf1ebfee305987b420b9e3b7a2ab11": {
+      "document_id": "803097",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803097",
+      "reference_date": "2024-11-28",
+      "version": "1",
+      "page": "13–14",
+      "clause": "3.15.1",
+      "excerpt": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na  respectiva data de cessão, às seguintes Condições de Cessão:\n(a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento  quando da sua cessão;\n(b) os Direitos Creditórios devem ter sido originados de acordo com a Política de  Concessão de Crédito;\n(c) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus ou  gravames no momento de sua aquisição pelo Fundo, conforme verificado pela Gestora em  Entidade Registradora na respectiva Data de Aquisição;\n(d) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(e) o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios,  oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um  Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas  inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao  Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos  Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário  tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior  àquelas devidas ao Fundo;\n(f) os Direitos Creditórios – Duplicatas devem ser oriundos de operações de compra e  venda mercantil, cuja contraprestação que condiciona o seu pagamento já tenha sido cumprida  pelos Cedentes Duplicatas, mediante a entrega dos produtos ao Devedor - Duplicata, conforme  verificação no comprovante/recibo de entrega;\n(g) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão  estar inadimplentes no cumprimento de quaisquer obrigações pecuniárias assumidas perante  os Cedentes, conforme declarado pelos Cedentes em cada Termo de Cessão (conforme  definido nos Contratos de Cessão), sendo que para os Direitos Creditórios – Duplicatas, o  referido inadimplemento não poderá ser superior a 5 (cinco) dias, sejam decorrentes das  operações que lastreiam os Direitos Creditórios – Duplicatas ofertados ao Fundo ou de outras  operações contratadas com os Cedentes Duplicatas, e tais inadimplementos não poderão  representar mais que 2% (dois por cento) do patrimônio líquido do Fundo;\n(h) os Direitos Creditórios – Duplicatas não poderão ter sido objeto de renegociações,  operações de reestruturação e/ou rolagem de obrigações entre os Cedentes – Duplicatas e os  Devedores, conforme declarado pelos Cedentes – Duplicatas em cada Termo de Cessão  (conforme definido nos Contratos de Cessão); e\n(i) os Direitos Creditórios – Recebíveis Cartão devem ser Transações de Pagamento  realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento operacionalizados  pelos respectivos Sistemas de Pagamento para a aquisição de produtos ofertados pela Cedente  – Altomax em seu marketplace;\n(j) os Direitos Creditórios - Duplicatas adquiridos pelo Fundo deverão ser oriundos de  operações mercantis cujos Documentos Comprobatórios - Duplicatas e Documentos Adicionais  - Duplicatas não prevejam qualquer direito de arrependimento ou de devolução da mercadoria  recebida sem vícios ou defeitos, conforme declarado pelos Cedentes – Duplicatas em cada  Termo de Cessão (conforme definido nos Contratos de Cessão); e\n(k) o respectivo Cedente (a) não teve a sua falência decretada; (b) não ajuizou pedido  de autofalência; e (c) não pediu recuperação judicial ou teve plano de recuperação",
+      "sha256": "96a91acb783950296ccdc8967a4ebb603d526b1e1c8143d3bd7d070b14b48e82",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "85d74eeade9af890490cf19edb9f54c634c08bf993f651a254c689a80004c3cf": {
+      "document_id": "1090132",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090132",
+      "reference_date": "2026-01-15",
+      "version": "1",
+      "page": "9–11",
+      "clause": "3.16.1",
+      "excerpt": "3.16.1. Os Critérios de Elegibilidade listados abaixo deverão ser verificados e validados pela  Gestora, na respectiva data de cessão de Direitos Creditórios ao Fundo:\n(a) a carteira do Fundo, em relação aos Direitos Creditórios, considerando pro forma a  aquisição pretendida, deverá manter prazo médio máximo de 180 (cento e oitenta) dias,  devendo tal cálculo levar em consideração a quantidade de dias entre a data de cálculo aplicável  e as datas de vencimentos, e os respectivos valores ponderados de cada parcela dos Direitos  Creditórios, conforme aplicável;\n(b) as parcelas não terão prazo de vencimento superior a 180 (cento e oitenta) dias, a  contar da data da emissão das respectivas notas fiscais no caso dos Direitos Creditórios -  Duplicatas; da data da cessão no caso dos Direitos Creditórios – Recebíveis Cartão ou da data  da emissão em face do Fundo ou da cessão para o Fundo, conforme aplicável, dos Direitos  Creditórios - Adicionais;\n(c) a taxa de desconto que será adotada para a cessão dos Direitos Creditórios ao Fundo  e refletida no preço de aquisição dos Direitos Creditórios deverá corresponder, no mínimo, à  Taxa DI, obtida por meio da taxa negociada na B3 na forma de contrato futuro de taxa média de  depósitos interfinanceiros de um dia, com vencimento posterior mais próximo ao prazo médio  ponderado dos Direitos Creditórios a serem cedidos na respectiva data de aquisição, expressa  na forma de um percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias Úteis,  acrescida de sobretaxa correspondente ao Benchmark ponderado entre as Cotas Seniores,  desconsiderando, portanto, as Cotas Subordinadas, mais 5% (cinco por cento), expressa na  forma de percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias Úteis, mais o  percentual referente à divisão entre (a) o valor estimado pela Gestora no 1º (primeiro) Dia Útil  do mês em questão, dos custos a serem incorridos pelo Fundo nos próximos 12 (doze) meses, e\n (b) o patrimônio líquido do Fundo na data de cálculo em questão;\n(d) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\n(e) os Direitos Creditórios não poderão ter vencimento superior ao vencimento das Cotas  Seniores em circulação;\n(f) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão  estar inadimplentes no cumprimento de quaisquer obrigações pecuniárias assumidas perante o  Fundo, sendo que para os Direitos Creditórios – Duplicatas, o referido inadimplemento não  poderá ser superior a 5 (cinco) dias, sejam decorrentes das operações que lastreiam os Direitos  Creditórios – Duplicatas ofertados ao Fundo ou de outras operações contratadas com os  Cedentes Duplicatas, e tais inadimplementos não poderão representar mais que 2% (dois por  cento) do patrimônio líquido do Fundo;\n(g) o Valor Presente dos Direitos Creditórios – Duplicatas devidos por um Devedor –  Duplicatas será limitado a 3,5% (três inteiros e cinco décimos por cento) do patrimônio líquido  do Fundo, exceto para Devedores Especiais, cujo limite de concentração poderá ser de até 5%  (cinco por cento) e para o Devedor Especial EBAZAR.COM.BR. LTDA, inscrito no CNPJ sob o nº\n 03.007.331/0008-18, cujo limite será de até 10% (dez por cento), a ser verificado  considerando-se pro forma cada cessão de Direitos Creditórios – Duplicatas ao Fundo, conforme  consulta de Devedores por grupo econômico mais recente realizada pela Gestora, sendo que os  limites de concentração por um Devedor – Duplicatas ou por um Devedor Especial poderá ser  aumentados mediante solicitação do Cedente Altomax, utilizando a soma dos limites dispostos  acima, individualmente, conforme aplicável, com o percentual apurado de Excesso de  Subordinação disponível na Data de Aquisição. No caso dos Direitos Creditórios - Recebíveis de  Cartão e dos Direitos Creditórios - Adicionais, não haverá limitação de concentração por  Devedor;\n(h) o Valor Presente dos Direitos Creditórios – Duplicatas devidos pelos 10 (dez) maiores  Devedores, excetuados os Devedores Especiais, será limitado a 25% (vinte e cinco por cento)  do patrimônio líquido do Fundo, a ser verificado considerando-se pro forma cada cessão de  Direitos Creditórios – Duplicatas ao Fundo, conforme consulta de Devedores por grupo  econômico mais recente realizada pela Gestora, sendo que, na hipótese de aporte nas Cotas  Subordinadas Júnior, o limite de concentração pelos 10 (dez) maiores Devedores poderá ser  aumentado no limite do Excesso de Subordinação. No caso dos Direitos Creditórios – Recebíveis  de Cartão e dos Direitos Creditórios - Adicionais, não haverá limitação de concentração por  Devedor;\n(i) os Direitos Creditórios – Duplicatas devem ser originados pelos Cedentes –  Duplicatas;\n(j) considerada pro forma a aquisição dos Direitos Creditórios, os limites de  concentração previstos no Artigo 3.19 do Regulamento deverão ser observados no que lhes\n(k) os Devedores dos Direitos Creditórios – Duplicatas ofertados ao Fundo (a) não  tiveram a sua falência decretada; (b) não ajuizaram pedido de autofalência; (c) não pediram  recuperação judicial ou tiveram plano de recuperação homologado pelo juízo competente, a ser  verificado, pela Gestora, com base nos relatórios do Serviço de Proteção ao Crédito – SPC ou ao  Serasa Experian emitidos pelos Cedentes – Duplicatas até, no máximo de 60 (sessenta) dias  antes da Data de Aquisição e enviada à Gestora em cada Data de Aquisição, observado que a  verificação deste Critério de Elegibilidade somente começará a ser realizado a partir de 30\n (trinta) dias contados da data da primeira aquisição de Direitos Creditórios pelo Fundo,  momento no qual todos os Direitos Creditórios – Duplicatas já cedidos ou a serem cedidos  deverão estar adimplentes com esta Condição de Cessão, sob pena de resolução de cessão, nos  termos do Contratos de Cessão;",
+      "sha256": "32bd135224c7771e2b44599022bd5d7d58ecdb136cf08cfe208a615bd9ecff4a",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
+    },
+    "6071e97d2be687e29539a815be58bdce631d2ceea5711e1bdcdb537ff34e2d6d": {
+      "document_id": "935844",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935844",
+      "reference_date": "2025-06-17",
+      "version": "1",
+      "page": "6–8",
+      "clause": "3.15.1",
+      "excerpt": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na  respectiva data de cessão, às seguintes Condições de Cessão:\n(a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento  quando da sua cessão;\n(b) os Direitos Creditórios devem ter sido originados de acordo com a Política de  Concessão de Crédito;\n(c) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus ou  gravames no momento de sua aquisição pelo Fundo, conforme verificado pela Gestora em  Entidade Registradora na respectiva Data de Aquisição;\n(d) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(e) o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios,  oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um  Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas  inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao  Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos  Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário  tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior  àquelas devidas ao Fundo;\n(f) os Direitos Creditórios – Duplicatas devem ser oriundos de operações de compra e  venda mercantil, cuja contraprestação que condiciona o seu pagamento já tenha sido cumprida  pelos Cedentes Duplicatas, mediante a entrega dos produtos ao Devedor - Duplicata, conforme  verificação do comprovante de entrega dos produtos, observado que a verificação desta  Condição de Cessão somente começará a ser realizada após decorridos 90 (noventa) dias  consecutivos, contados a partir da Assembleia Geral de Costistas realizada em 17 de junho de  2025, momento no qual todos os Direitos Creditórios – Duplicatas já cedidos ou a serem  cedidos deverão estar adimplentes com esta Condição de Cessão, sob pena de resolução de  cessão, nos termos dos Contratos de Cessão, sendo certo que, até o ínico da verificação desta  Condição de Cessão, o montante dos Direitos Creditórios – Duplicatas não deve ser superior  ao volume das Cotas Subordinadas Júnior;\n(g) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão  estar inadimplentes no cumprimento de quaisquer obrigações pecuniárias assumidas perante  os Cedentes, conforme declarado pelos Cedentes em cada Termo de Cessão (conforme  definido nos Contratos de Cessão), sendo que para os Direitos Creditórios – Duplicatas, o  referido inadimplemento não poderá ser superior a 5 (cinco) dias, sejam decorrentes das  operações que lastreiam os Direitos Creditórios – Duplicatas ofertados ao Fundo ou de outras  operações contratadas com os Cedentes Duplicatas, e tais inadimplementos não poderão  representar mais que 2% (dois por cento) do patrimônio líquido do Fundo;\n(h) os Direitos Creditórios – Duplicatas não poderão ter sido objeto de renegociações,  operações de reestruturação e/ou rolagem de obrigações entre os Cedentes – Duplicatas e os  Devedores, conforme declarado pelos Cedentes – Duplicatas em cada Termo de Cessão  (conforme definido nos Contratos de Cessão); e\n(i) os Direitos Creditórios – Recebíveis Cartão devem ser Transações de Pagamento  realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento operacionalizados  pelos respectivos Sistemas de Pagamento para a aquisição de produtos ofertados pela Cedente  – Altomax em seu marketplace;\n(j) os Direitos Creditórios - Duplicatas adquiridos pelo Fundo deverão ser oriundos de  operações mercantis cujos Documentos Comprobatórios - Duplicatas e Documentos Adicionais  - Duplicatas não prevejam qualquer direito de arrependimento ou de devolução da mercadoria  recebida sem vícios ou defeitos, conforme declarado pelos Cedentes – Duplicatas em cada  Termo de Cessão (conforme definido nos Contratos de Cessão); e\n(k) o respectivo Cedente (a) não teve a sua falência decretada; (b) não ajuizou pedido  de autofalência; e (c) não pediu recuperação judicial ou teve plano de recuperação  homologado pelo juízo competente, conforme declarado pelos respectivos Cedentes em cada  Termo de Cessão;",
+      "sha256": "c34c6533a0fb48a268c330d6e1e2e79aa8bd0906f62ae170010764b41931693b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "93f158c5808483059531414c96119ba3e452191078b245f7db4fdb4cc6d836f5": {
+      "document_id": "845769",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845769",
+      "reference_date": "2025-02-18",
+      "version": "1",
+      "page": "6–7",
+      "clause": "3.15.1",
+      "excerpt": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na  respectiva data de cessão, às seguintes Condições de Cessão:\n(a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento  quando da sua cessão;\n(b) os Direitos Creditórios devem ter sido originados de acordo com a Política de  Concessão de Crédito;\n(c) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus ou  gravames no momento de sua aquisição pelo Fundo, conforme verificado pela Gestora em  Entidade Registradora na respectiva Data de Aquisição;\n(d) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(e) o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios,  oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um  Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas  inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao  Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos  Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário  tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior  àquelas devidas ao Fundo;\n(f) os Direitos Creditórios – Duplicatas devem ser oriundos de operações de compra e  venda mercantil, cuja contraprestação que condiciona o seu pagamento já tenha sido cumprida  pelos Cedentes Duplicatas, mediante a entrega dos produtos ao Devedor - Duplicata, conforme  verificação do comprovante de entrega dos produtos, observado que a verificação desta  Condição de Cessão somente começará a ser realizada a partir de 60 (sessenta) dias contados  da data da primeira aquisição de Direitos Creditórios pelo Fundo, momento no qual todos os  Direitos Creditórios – Duplicatas já cedidos ou a serem cedidos deverão estar adimplentes com  esta Condição de Cessão, sob pena de resolução de cessão, nos termos dos Contratos de  Cessão;\n(g) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão  estar inadimplentes no cumprimento de quaisquer obrigações pecuniárias assumidas perante  os Cedentes, conforme declarado pelos Cedentes em cada Termo de Cessão (conforme  definido nos Contratos de Cessão), sendo que para os Direitos Creditórios – Duplicatas, o  referido inadimplemento não poderá ser superior a 5 (cinco) dias, sejam decorrentes das  operações que lastreiam os Direitos Creditórios – Duplicatas ofertados ao Fundo ou de outras  operações contratadas com os Cedentes Duplicatas, e tais inadimplementos não poderão  representar mais que 2% (dois por cento) do patrimônio líquido do Fundo;\n(h) os Direitos Creditórios – Duplicatas não poderão ter sido objeto de renegociações,  operações de reestruturação e/ou rolagem de obrigações entre os Cedentes – Duplicatas e os  Devedores, conforme declarado pelos Cedentes – Duplicatas em cada Termo de Cessão  (conforme definido nos Contratos de Cessão); e\n(i) os Direitos Creditórios – Recebíveis Cartão devem ser Transações de Pagamento  realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento operacionalizados  pelos respectivos Sistemas de Pagamento para a aquisição de produtos ofertados pela Cedente  – Altomax em seu marketplace;\n(j) os Direitos Creditórios - Duplicatas adquiridos pelo Fundo deverão ser oriundos de  operações mercantis cujos Documentos Comprobatórios - Duplicatas e Documentos Adicionais  - Duplicatas não prevejam qualquer direito de arrependimento ou de devolução da mercadoria",
+      "sha256": "0c3ca32c4d959cc05a940edc2d64623f5340f8c61a1a0200714609964c865224",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "32777c1d29d2c75f8020ce6e4e057cae539e6c7ae68fc51764810470bf00779e": {
+      "document_id": "803104",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=803104",
+      "reference_date": "2024-12-13",
+      "version": "1",
+      "page": "6–7",
+      "clause": "3.15.1",
+      "excerpt": "3.15.1. Somente poderão ser cedidos ao Fundo, os Direitos Creditórios que atendam, na  respectiva data de cessão, às seguintes Condições de Cessão:\n(a) os Direitos Creditórios não poderão estar vencidos e pendentes de pagamento  quando da sua cessão;\n(b) os Direitos Creditórios devem ter sido originados de acordo com a Política de  Concessão de Crédito;\n(c) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus ou  gravames no momento de sua aquisição pelo Fundo, conforme verificado pela Gestora em  Entidade Registradora na respectiva Data de Aquisição;\n(d) os Direitos Creditórios devem estar corretamente formalizados e representados por  Documentos Comprobatórios;\n(e) o Fundo poderá adquirir total ou parcialmente os recebíveis dos Direitos Creditórios,  oriundos de cada operação de compra e venda mercantil contratada entre os Cedentes e um  Devedor, desde que (i) os Direitos Creditórios adquiridos pelo Fundo correspondam às parcelas  inteiras e específicas do saldo a pagar, sendo certo que cada termo de cessão vinculado ao  Contrato de Cessão deverá especificar as parcelas cedidas ao Fundo; e (ii) as parcelas dos  Direitos Creditórios a vencer sejam cedidas ao Fundo de forma que nenhum outro cessionário  tenha direito de receber parcelas a vencer de tais Direitos Creditórios com vencimento anterior  àquelas devidas ao Fundo;\n(f) os Direitos Creditórios – Duplicatas devem ser oriundos de operações de compra e  venda mercantil, cuja contraprestação que condiciona o seu pagamento já tenha sido cumprida  pelos Cedentes Duplicatas, mediante a entrega dos produtos ao Devedor - Duplicata, conforme  verificação no comprovante/recibo de entrega;\n(g) os Devedores dos respectivos Direitos Creditórios da cessão em questão não poderão  estar inadimplentes no cumprimento de quaisquer obrigações pecuniárias assumidas perante  os Cedentes, conforme declarado pelos Cedentes em cada Termo de Cessão (conforme  definido nos Contratos de Cessão), sendo que para os Direitos Creditórios – Duplicatas, o  referido inadimplemento não poderá ser superior a 5 (cinco) dias, sejam decorrentes das  operações que lastreiam os Direitos Creditórios – Duplicatas ofertados ao Fundo ou de outras  operações contratadas com os Cedentes Duplicatas, e tais inadimplementos não poderão  representar mais que 2% (dois por cento) do patrimônio líquido do Fundo;\n(h) os Direitos Creditórios – Duplicatas não poderão ter sido objeto de renegociações,  operações de reestruturação e/ou rolagem de obrigações entre os Cedentes – Duplicatas e os  Devedores, conforme declarado pelos Cedentes – Duplicatas em cada Termo de Cessão  (conforme definido nos Contratos de Cessão); e\n(i) os Direitos Creditórios – Recebíveis Cartão devem ser Transações de Pagamento  realizadas por Usuários-Finais utilizando-se de Instrumentos de Pagamento operacionalizados  pelos respectivos Sistemas de Pagamento para a aquisição de produtos ofertados pela Cedente  – Altomax em seu marketplace;\n(j) os Direitos Creditórios - Duplicatas adquiridos pelo Fundo deverão ser oriundos de  operações mercantis cujos Documentos Comprobatórios - Duplicatas e Documentos Adicionais  - Duplicatas não prevejam qualquer direito de arrependimento ou de devolução da mercadoria  recebida sem vícios ou defeitos, conforme declarado pelos Cedentes – Duplicatas em cada  Termo de Cessão (conforme definido nos Contratos de Cessão); e\n(k) o respectivo Cedente (a) não teve a sua falência decretada; (b) não ajuizou pedido  de autofalência; e (c) não pediu recuperação judicial ou teve plano de recuperação",
+      "sha256": "d5fc2a01ff9fd10060a6000992293ae9fc71ce00b2673d0792d0f338a1f437b8",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f3f7373c8b74b0f8151a2eab577aa4709b7e59b3c318fcc004ddae71bb1b1a43": {
+      "document_id": "978340",
+      "title": "Instrumento Particular de Emissão de Cotas",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=978340",
+      "reference_date": "2025-08-26",
+      "version": "1",
+      "page": 3,
+      "clause": "",
+      "excerpt": "Público-alvo: Exclusivamente os ‘Cotistas Subordinados Júnior’, nos  termos do Regulamento: o Cedente Altomax ou, conforme  o caso, seus sócios/controladores, fundos de investimento  detidos exclusivamente pelos sócios controladores do  Cedente, sociedades por ele, direta ou indiretamente,  controladas, suas coligadas e sociedades sob controle  comum. As Cotas Subordinadas Júnior não podem ser  negociadas com terceiros fora desse grupo.",
+      "sha256": "cdbee6ec335f2a738396553f27ba39c7395564ef4134d803fe3823b121c9e875",
       "verification": "primary_passage"
     }
   }

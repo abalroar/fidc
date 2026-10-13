@@ -1,14 +1,14 @@
 {
   "cnpj": "63953620000165",
-  "verified_at": "2026-10-13T04:43:51+00:00",
+  "verified_at": "2026-10-13T10:59:39-03:00",
   "criteria": [
     {
       "criterion_id": "originator",
-      "label": "Originador eendossante",
-      "theme": "Recebíveis eaquisição",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
       "status": "confirmed",
       "applicability": "applicable",
-      "value": "Parati CFI (03.311.443/0001-91): endossante/cedente. Tudo Serviços (27.852.506/0001-85): retenção/cobrança e Plataforma MT, ambas identificadas na própria classe.",
+      "value": "Parati Crédito, Financiamento e Investimento S.A. (03.311.443/0001-91): Endossante/Cedente contratado pela Classe. Os créditos consignados são originados de empréstimos concedidos por esse Endossante ao devedor, processados pela Plataforma MT e representados por CCB eletrônica.",
       "sources": [
         {
           "document_id": 1222863,
@@ -17,13 +17,16 @@
           "reference_date": "02/06/2026",
           "version": "AnexoConsignadoPrivado02/06/2026",
           "page": "5",
-          "clause": "4.3–4.4",
-          "excerpt": "4.3 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91 (“Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias asse",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
+          "clause": "Anexo I, itens 4.3–4.4",
+          "excerpt": "4.3 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91 (“Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias assegurados aos seus titulares; (iii) da subscrição de títulos de crédito e/ou valores mobiliários, colocados de forma privada ou ofertados publicamente, independentemente do regime de distribuição, observada a Política de Investimentos (conforme definida abaixo) e as demais disposições deste Regulamento e da legislação e regulamentação aplicáveis; e/ou (iii) negociação em mercado organizado. Características dos Direitos Creditórios Consignado Privado 4.4 Os Direitos Creditórios Consignado Privado são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
           "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
           "identity_verified": true,
-          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
-        },
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "risk_note": "A fonte12.6, p.19, identifica Tudo Serviços como agente de retenção/cobrança. Esse serviço não comprova que a empresa seja originadora ou endossante; a fonte positiva do Endossante e da origem é4.3–4.4.",
+      "context_sources": [
         {
           "document_id": 1222863,
           "title": "Anexo ao Regulamento",
@@ -33,13 +36,49 @@
           "page": "19",
           "clause": "12.6",
           "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará, na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
           "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
           "identity_verified": true,
           "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
         }
       ],
-      "risk_note": "Nomeação nominal atual da classe; distinta da origem histórica dos ativos recebidos por cisão de outros veículos."
+      "rule": {},
+      "reason": "",
+      "history": [
+        {
+          "reference_date": "02/06/2026",
+          "value": "Parati CFI (03.311.443/0001-91): endossante/cedente. Tudo Serviços (27.852.506/0001-85): retenção/cobrança e Plataforma MT, ambas identificadas na própria classe.",
+          "sources": [
+            {
+              "document_id": 1222863,
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "02/06/2026",
+              "version": "AnexoConsignadoPrivado02/06/2026",
+              "page": "5",
+              "clause": "4.3–4.4",
+              "excerpt": "4.3 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91 (“Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias asse",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "identity_verified": true,
+              "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+            },
+            {
+              "document_id": 1222863,
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "02/06/2026",
+              "version": "AnexoConsignadoPrivado02/06/2026",
+              "page": "19",
+              "clause": "12.6",
+              "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará, na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "identity_verified": true,
+              "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+            }
+          ],
+          "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
     },
     {
       "criterion_id": "receivables",
@@ -196,11 +235,28 @@
     {
       "criterion_id": "eligibility",
       "label": "Elegibilidade",
-      "theme": "Recebíveis eaquisição",
+      "theme": "Recebíveis e aquisição",
       "status": "confirmed",
       "applicability": "applicable",
-      "value": "Gestor valida individual e integralmente antes e na aquisição, usando PL/estoque do dia útil anterior. Deterioração posterior não é desenquadramento/regresso, salvo má-fé, culpa ou dolo comprovados.",
+      "value": "Critérios de elegibilidade: Consignado privado: empréstimo do Endossante a devedor, representado por CCB com juros prefixados e vencimento anterior ao da Classe; saldo devido à Classe pelo mesmo devedor, pro forma após o endosso, até R$150.000; prazo da CCB até o máximo legal; devedor com idade até 64 anos, 11 meses e 29 dias na emissão. TVM: subscrição primária, moeda nacional, registro contábil e custódia possíveis e limite de 3,00% do PL da Classe.",
       "sources": [
+        {
+          "document_id": 1222863,
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": "AnexoConsignadoPrivado02/06/2026",
+          "page": "2",
+          "clause": "Anexo I, item 1.1 — Critérios de Elegibilidade (a)(i)–(iv) e (b)(i)–(iv)",
+          "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade, na forma prevista na Cláusula 4.10 (“Critérios de Elegibilidade”): (a) Quando representados por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150.000,00 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e Critérios de Elegibilidade (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do Patrimônio Líquido da Classe.",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "identity_verified": true,
+          "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "risk_note": "O item4.10–4.10.3, p.6, disciplina a verificação integral antes e na aquisição, a base do dia útil anterior e a deterioração posterior. Essas regras de validação ficam separadas da lista efetiva de condições.",
+      "context_sources": [
         {
           "document_id": 1222863,
           "title": "Anexo ao Regulamento",
@@ -210,13 +266,36 @@
           "page": "6",
           "clause": "4.10–4.10.3",
           "excerpt": "4.10 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes",
-          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/raw/industry_large_funds/63953620000165/1222863_regulamento_regulamento_1222863.pdf",
           "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
           "identity_verified": true,
           "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
         }
       ],
-      "risk_note": ""
+      "rule": {},
+      "reason": "",
+      "history": [
+        {
+          "reference_date": "02/06/2026",
+          "value": "Gestor valida individual e integralmente antes e na aquisição, usando PL/estoque do dia útil anterior. Deterioração posterior não é desenquadramento/regresso, salvo má-fé, culpa ou dolo comprovados.",
+          "sources": [
+            {
+              "document_id": 1222863,
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "02/06/2026",
+              "version": "AnexoConsignadoPrivado02/06/2026",
+              "page": "6",
+              "clause": "4.10–4.10.3",
+              "excerpt": "4.10 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "identity_verified": true,
+              "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+            }
+          ],
+          "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
     },
     {
       "criterion_id": "subordination",
@@ -805,6 +884,77 @@
         }
       ],
       "risk_note": "Vigência efetiva da versão 02/06/2026 não inferida da data de publicação; não aplicar a fev/26 automaticamente."
+    },
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores de consignado privado: tomadores de empréstimos concedidos pelo Endossante, processados pela Plataforma MT, representados por CCB eletrônica e pagos por desconto em folha após averbação na Dataprev, conforme o Convênio Consignado Privado.",
+      "sources": [
+        {
+          "document_id": "1222863",
+          "title": "Anexo ao Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+          "reference_date": "02/06/2026",
+          "version": 1,
+          "page": "5",
+          "clause": "Anexo I, item4.4",
+          "excerpt": "4.4 Os Direitos Creditórios Consignado Privado são originados no âmbito de operações de empréstimo consignado concedido pelo Endossante a um Devedor por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso de Direitos Creditórios Elegíveis à Classe, para que, após a averbação dos Direitos Creditórios na Dataprev, o pagamento regular dos Direitos Creditórios decorrentes das CCB seja feito por Consignação.",
+          "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "Descrição restrita aos tomadores do consignado privado; o anexo consultado não individualiza os devedores de TVM.",
+      "history": [
+        {
+          "reference_date": "2026-06-02",
+          "value": "(iii) manter e operar um serviço de atendimento ao consumidor - SAC e uma ouvidoria em conformidade com os regulamentos aplicáveis, monitorar e resolver reclamações e solicitações de Devedores com relação às operações de empréstimo consignado que dão origem aos Direitos Creditórios, em conformidade com o Acordo de Parceria;.",
+          "sources": [
+            {
+              "document_id": "1222863",
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "2026-06-02",
+              "version": "1",
+              "page": 1,
+              "clause": "1.1",
+              "excerpt": "1.1 As principais características da Classe Consignado Privado (para fins deste Anexo, “Classe”) estão descritas  abaixo:\n Tipo de Condomínio Fechado.\n Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas  Prazo de Duração  reunidos em Assembleia Especial de Cotistas. (“Prazo de Duração”)  Tipo “Financeiro”.\n Classificação ANBIMA  Foco de atuação “Créditos Consignados”.\n O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas  por meio da aplicação de seu Patrimônio Líquido (conforme definido abaixo) na  aquisição de: (i) “Direitos Creditórios Crédito Consignado”, representados por  cédula de crédito bancário regida pela Lei nº 10.931, emitida eletronicamente por  um devedor em favor do endossante (“CCB”) e, consequentemente, os recebíveis  decorrente de cada uma das parcelas vincendas, representando um empréstimo  consignado concedido pelo endossante ao devedor, e cujo pagamento ordinário  é feito por desconto de cada prestação vincenda de uma CCB na folha de  pagamentos do devedor (“Consignação”), efetuada pela Caixa Econômica  Federal, de acordo com a legislação aplicável e em conformidade com os  procedimentos estabelecidos no convênio celebrado entre o Endossante e a  Empresa de Tecnologia e Informações da Previdência – DATAPREV e paga na  Conta Vinculada do Endossante (“Convênio Consignado Privado”); e/ou (ii)  “Direitos Creditórios TVM”, representados por direitos, títulos e/ou valores  mobiliários representativos de créditos originados no âmbito de operações de  sociedades integrantes do conglomerado econômico de instituições financeiras  classificadas como S1 pelo BACEN, desde que não representem títulos de  emissão ou coobrigação de instituições financeiras, bem como cotas de fundos  de investimento que invistam preponderantemente nestes direitos, títulos e/ou  Objetivo  valores mobiliários (Direitos Creditórios TVM quando referidos em conjunto  com os Direitos Creditórios Consignado Privado, “Direitos Creditórios”)  observados todos os limites de composição e diversificação da carteira da Classe  (“Carteira”), estabelecidos neste Regulamento e na regulamentação aplicável.\n Subsidiariamente, a parcela do Patrimônio Líquido que não esteja alocada em  Direitos Creditórios poderá estar alocado em: (1) certificados de depósito  bancário (CDB) ou recibos de depósito bancário (RDB) com prazo máximo de  vencimento equivalente ao prazo remanescente do Período de Investimento, com  liquidez diária, emitidos por Parati Crédito, Financiamento e Investimento S.A.\n e/ou pelo Endossante (“Ativos de Liquidez MT”); e/ou (2) (i) moeda corrente  nacional; (ii) títulos do Tesouro SELIC, anteriormente denominado letra financeira  do Tesouro Nacional (LFT); (iii) certificados de depósito bancário (CDB) ou recibos  de depósito bancário (RDB) com prazo máximo de vencimento equivalente ao  prazo remanescente do Período de Investimento, com liquidez diária, emitidos  por (a) Itaú Unibanco S.A.; (b) Banco Bradesco S.A.; (c) Caixa Econômica Federal;\n (d) Banco do Brasil S.A.; (e) Banco Santander (Brasil) S.A.; (f) Banco BTG Pactual  S.A.; (g) Banco Sistema S.A. (“Instituições Autorizadas”); (iv) operações  compromissadas, desde que lastreadas nos títulos mencionados nas alíneas (i) a\n (iii) acima, emitidas por Instituições Autorizadas, com liquidez diária e vencimento",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1222863",
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "2026-06-02",
+              "version": "1",
+              "page": 19,
+              "clause": "12.6",
+              "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará,  na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ  sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no  “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de  Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no  monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na  regulamentação aplicável (“Agente de Retenção/Cobrança”):\n (i) caso aplicável, atuar na retenção (defesa) de operações de empréstimo consignado cujos Direitos  Creditórios sejam de titularidade da Classe, em caso de tentativa de transferência de tais operações de  empréstimo consignado por instituições proponentes, nos termos da Resolução CMN nº 5.057, em razão de  ofertas de portabilidade feitas por tais instituições proponentes, conforme informado pelo Endossante ou pelo  Custodiante ao Agente de Retenção/Cobrança, diariamente, de acordo com o Contrato de Endosso; sendo  que tal serviço deverá incluir, entre outras atividades auxiliares a ele relacionadas, a avaliação das ofertas de  portabilidade feitas pelas instituições proponentes, buscando, se for o caso, esclarecer as vantagens de não  recorrer à portabilidade, retendo a respectiva operação de empréstimo consignado em seus termos atuais;\n (ii) mediante inadimplemento de um Direito Creditório devido à indisponibilidade da margem de crédito do  Devedor, auxiliar o Endossante com o Processo de Reinicialização (conforme detalhado no Contrato de  Endosso) em relação ao respectivo Direito Creditório;\n (iii) manter e operar um serviço de atendimento ao consumidor - SAC e uma ouvidoria em conformidade  com os regulamentos aplicáveis, monitorar e resolver reclamações e solicitações de Devedores com  relação às operações de empréstimo consignado que dão origem aos Direitos Creditórios, em  conformidade com o Acordo de Parceria;\n (iv) realizar a cobrança dos Direitos Creditórios Inadimplidos;\n (v) auxiliar o Endossante na correção de qualquer irregularidade relevante identificada com relação à  originação dos Direitos Creditórios;\n (vi) realizar a renegociação junto aos Devedores de Direitos Creditórios Inadimplidos e, caso aplicável, celebrar  aditamento à CCB para refletir os novos termos, decorrentes da renegociação  CAPÍTULO 13 – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇOS  0,05% (cinco centésimos por cento) ao ano, apropriada diariamente na base de 252  (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia  Útil do mês subsequente ao mês que se refere, incidente sobre o Patrimônio Líquido  da Classe alocado em Direitos Creditórios Consignado Privado e/ou Ativos de  Liquidez MT, observada remuneração mínima mensal de R$ 2.500,00 (dois mil e  quinhentos reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação  Taxa de Administração  positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio  Vargas (“Taxa de Administração” e “IGP-M”, respectivamente).\n Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua  utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna,  divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC  – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1222863",
+              "title": "Anexo ao Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+              "reference_date": "2026-06-02",
+              "version": "1",
+              "page": 27,
+              "clause": "",
+              "excerpt": "(iii) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos  pela Classe: as informações para conciliação dos pagamentos, sendo considerado como tal, também, o  Arquivo Dataprev, listando todos os empregados cujas folhas de pagamento serão sujeitas a desconto no  mês relevante, nos valores acordados ao efetuar a Consignação, e qualquer glosa será enviada pela CEF ao  Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao Custodiante. Caso o  Endossante não forneça essas informações em tempo hábil ou for verificada qualquer inconsistência nas  informações recebidas pelo Custodiante, poderá isso impedir ou dar origem a falhas no processo de  reconciliação dos valores depositados na Conta de Cobrança da Classe e causando perdas à Classe e ao  Cotista.\n (iv) Risco operacional dos sistemas: o desconto na folha de pagamento do Devedor das parcelas da CCB e a  transferência para o Endossante dos Direitos Creditórios serão processados por um sistema controlado  pela Dataprev, e o Endossante, o Administrador ou o Gestor não têm controle sobre esse processo. Assim,  qualquer falha ou mudança nesse sistema poderá atrasar ou reduzir o desconto dos rendimentos dos  Devedores ou sua transferência para a Classe. Nesse caso, a rentabilidade e a propriedade da Classe  poderão ser adversamente afetadas enquanto o problema do sistema persistir, ou até que todos os valores  sejam devidamente transferidos.\n (v) Risco operacional do Contrato: o desconto na folha de pagamento das parcelas dos empréstimos  concedidos aos Devedores é permitido pelo Convênio Consignado Privado. As partes do Convênio  Consignado Privado devem seguir certas regras para manter o Convênio Consignado Privado, e a violação  delas poderá levar à sua rescisão. Além disso, mudanças legais podem afetar e/ou tornar inviável a  manutenção do Convênio Consignado Privado. No caso de rescisão do Convênio Consignado Privado, a  estrutura de cobrança dos Direitos Creditórios (desconto na folha de pagamento) poderá ser  comprometida, dando origem à necessidade de adoção de uma nova estrutura, que poderá não ser tão  eficaz quanto ela ou mesmo revelar, na prática, ser inadequada ou ter altos custos operacionais. Esses  eventos podem levar a perdas patrimoniais para a Classe, na medida em que este deixará de receber,  definitiva ou temporariamente, recursos oriundos dos Direitos Creditórios, no todo ou em parte.\n Adicionalmente, de acordo com o Contrato de Endosso, a manutenção do Convênio Consignado Privado é  uma condição para a aquisição de novos Direitos Creditórios pela Classe e, portanto, no caso de rescisão  do Convênio Consignado Privado, a Classe poderá ser impedido de adquirir novos Direitos Creditórios.\n Riscos de Originação e do Originador\n (i) Riscos do originador e da originação: a continuidade da Classe poderá ser comprometida no caso de  inconstância na concessão de empréstimos pelo Endossante aos Devedores ou incapacidade do Agente de  Retenção/Cobrança operacionalizar a Plataforma MT, através da qual os Direitos Creditórios Elegíveis são  originados. Portanto, o investimento na Classe está sujeito ao risco de não originação, no futuro, de  Direitos Creditórios pelo Endossante contra os Devedores através da Plataforma MT, disponibilizada pelo  Agente de Retenção/Cobrança. Se isso acontecer, a originação dos Direitos Creditórios pelo Endossante  poderá ser impactada negativamente ou mesmo impossibilitada, o que poderá gerar a liquidação  antecipada da Classe. Além disso, a Classe poderá adquirir Direitos Creditórios que foram originados em  conformidade com o processo de originação e/ou políticas de concessão de crédito desenvolvidos e  monitorados pelo Endossante. Entretanto, não é possível assegurar que o cumprimento dessas diretrizes  garanta a qualidade dos Direitos Creditórios e/ou a solvência dos respectivos Devedores, ou que as  diretrizes e parâmetros estabelecidos no Capítulo 14 sejam corretamente interpretados e aplicados  quando a Classe fizer os investimentos. Além disso, se o Endossante deixar de existir ou estiver sujeito a  uma ordem de intervenção, liquidação extrajudicial ou regime especial ou gestão temporária ou evento  similar, a Classe será impactada também pelo fato de que a Conta Vinculada na qual as transferências feitas  pela CEF foram depositadas foi aberta em nome do Endossante. Neste caso, a Classe poderá sofrer perdas  principalmente em relação ao atraso na regularização da titularidade dos Direitos Creditórios junto à CEF.\n (ii) Risco decorrente de múltiplos Devedores: a Classe está apta a adquirir os Direitos Creditórios devidos por  múltiplos devedores. Esses Devedores poderão ser previamente desconhecidos pela Classe, o Gestor, o  Agente de Retenção/Cobrança, o Administrador e/ou o Custodiante, de modo que quaisquer problemas  de natureza comercial entre o Endossante e os Devedores poderão não ser previamente identificados pela  Classe, o Gestor, o Agente de Retenção/Cobrança, o Administrador e/ou o Custodiante. Caso os Direitos",
+              "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
     }
   ],
   "lookthrough": [],

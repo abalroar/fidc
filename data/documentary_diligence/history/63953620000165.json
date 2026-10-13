@@ -3,16 +3,6 @@
   "cnpj": "63953620000165",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "b51185720e74f051232e044d046c5748b159e898feaa9d3dd097eefd32948b41",
-      "3958e0171f2a84a317be504476a467bb2e4c6893ce619321003e0a93ce7d96b6",
-      "07e962e01d833c9df614c62e2c2cb1fe90fe1b965e483a032240131ca859a750",
-      "f33a0ed556ff9786a79bb2fd62df831b30e6a57879f1826e2d359453ab205a7e",
-      "a218e410ce6d66886fbb55060d274ec1029e0af4625a11a1084b01d8d8e6db48",
-      "1004f335a01124ea6f1723ea3063bc9bbf192ee104cbdc1e36af6a641e90ea86",
-      "5ab7d0d413ef3f6e19a057a611db5beb5d60187076723a7af3babdd68579a3c3",
-      "8b710f2bd5124c9980ef2271072fbd52f604fb74cf4113010fc4530abb34f58a"
-    ],
     "term": [
       "845820b63595db41104f0d547d226b2deecaa5d3b038b9d7dbae2b1cfc8c3c78",
       "6f8f15c3dec338d230489ab3f0b3aa322396cc3bcf57f7de8905e1b348026a78",
@@ -203,26 +193,6 @@
       "b9e179cf9ddaff4f322b26e026cf7c1b0ca202cbf4d6e7490c8d71d8f41165a7",
       "1004f335a01124ea6f1723ea3063bc9bbf192ee104cbdc1e36af6a641e90ea86"
     ],
-    "originator": [
-      "fb5c6949fb3c68483a29f64aa1ec1edce219f90d6a8af2a1ba2cf9c93ba1a850",
-      "02046c00d4417869e7d5af0f56fcfb58830a192ac58773de55176faf49faf1b6",
-      "98867433a6072d50db99b71ac600b7ab77ff7606cfb6db3c1c425f8400b809cf",
-      "15c45aeae41a78c6f970eac2220614935409a60d8ca02197b1e115a40b61b0c7",
-      "72dfbf43875380c4f0155f0fd1dd05dac52c338ad797d31b6db35dfb08e466e0",
-      "57eede91e6c9d3b803e876e94c802dbcd5be6d6a8dc80aa59c5962975704657d",
-      "74533b4919f8e357f3e234c3905b2fa272fad03e06e1afdaa2f56f7d05e7ec67",
-      "7398eed24d8afa0ed3bb135187a85cdd569a2436928f1d8515f6c9a939cffd66"
-    ],
-    "debtor": [
-      "9c4fe226c42b608998451837fa728dc8abdb7533199cb8287ebeef26d4504274",
-      "7b0c5e902d7d92e0b14f6b9c15e68ec9f02eb91474325195d9db699cd34960b3",
-      "afde54fd598793f690edf662d2c05274b4b8f1a66d6abc941777171f8ad4449b",
-      "18576fcebcf4d92dfbfa11f00a34e620c4cb60a4e9fd852685e366fd3560b3bb",
-      "6101de2a91801e266fd212f5fcc42b052ae5cc94cf632a53db83561795191232",
-      "8034ea6aee906fc2cf2ba94599c273c3c748144784acb054a70005b57e766b0e",
-      "dc1e66711ec3e642e51b32ad16fedd86fb18b7301326eab06b5a52a1dc02c8a0",
-      "618a0ae1a1d9fbadf55e523f62350cc24f939f780145a7225b07e5e6aae14fac"
-    ],
     "guarantee": [
       "211a64908d5837406607b38591c8f411f602f0a4b8432a2fc40a16393c02c563",
       "6414b7fc5c05fefcddd0f2bb5577e2712727d3cf078686439e065ff948a3e065",
@@ -251,6 +221,38 @@
       "57eede91e6c9d3b803e876e94c802dbcd5be6d6a8dc80aa59c5962975704657d",
       "74533b4919f8e357f3e234c3905b2fa272fad03e06e1afdaa2f56f7d05e7ec67",
       "7398eed24d8afa0ed3bb135187a85cdd569a2436928f1d8515f6c9a939cffd66"
+    ],
+    "originator": [
+      "fb5c6949fb3c68483a29f64aa1ec1edce219f90d6a8af2a1ba2cf9c93ba1a850",
+      "02046c00d4417869e7d5af0f56fcfb58830a192ac58773de55176faf49faf1b6",
+      "98867433a6072d50db99b71ac600b7ab77ff7606cfb6db3c1c425f8400b809cf",
+      "15c45aeae41a78c6f970eac2220614935409a60d8ca02197b1e115a40b61b0c7",
+      "72dfbf43875380c4f0155f0fd1dd05dac52c338ad797d31b6db35dfb08e466e0",
+      "57eede91e6c9d3b803e876e94c802dbcd5be6d6a8dc80aa59c5962975704657d",
+      "74533b4919f8e357f3e234c3905b2fa272fad03e06e1afdaa2f56f7d05e7ec67",
+      "4877be95462e07cf280994f10930800794653b5df1226b984c151065d295e50f"
+    ],
+    "eligibility": [
+      "7c1c1573ac9e3cd1807e986da7aa59e0e702bdf9cb6fca8cb527907c3e44060f",
+      "e144f8ff9ac28343efa8f730f69ba21e138bed36e9a681acda7db0884a8dbd99",
+      "05da8fc736c513a732829dedcc0242f36f49074cb3e87fc86f379a26cfafc09d",
+      "26455248c709aa09cdd0bd30d2a2d3a9f972e8fe6421e3d8bdda66c2490a51c8",
+      "1033cfe9a5a515488e9b3375ef80547e863dc5753f42074785d2cc4130648509",
+      "1004f335a01124ea6f1723ea3063bc9bbf192ee104cbdc1e36af6a641e90ea86",
+      "13ba4a044a54f87bfec1204ceaf9e2d91a6edde556ad3becb5081f667c3051a1",
+      "b9f33381bada91394cdc1fd72dbd82cf3647ca5a94873b97d8788fecab852ba7",
+      "298ace13eaccba9fb346c784e1dd24d2859e798518efa9bd020adcd734e8a8cb"
+    ],
+    "debtor": [
+      "b005ef2089b60a9a52bd084703d7b2898b21421395321a58bf797a1937377499",
+      "25fd9fe5e06a615f342b41c90e4fe819451a3119a480239e5ad196e8879e3d89",
+      "a3b515068b7db146d915d9c97bd4fe4541bc6e3f2eef0f2a552bca6829a4df82",
+      "612eccd95c624fe006d611f9cc8854952632bcfcea125ee750b344a68fabf653",
+      "4b4be2255d75aba052e344def503d4f7f4b58311a67cfcb96b4cfdfa8e58c75f",
+      "5475d314e41f7ba8c525e1f54cd0ef34d83f40ddf1057dfcbc53595151d9d8bc",
+      "ef00161dd6d8cb87214f31a77e8d5ee49155cc37b9603c50eac3f60bebfdc327",
+      "3c86bbc214f3a3ba5732bf53e5d6228b6cf84ae79436a7654e382a47ccd1c57a",
+      "64686b4efe00f1107716184f37fd28a80c2cd335fc9b96b2818b77cbda09f6bb"
     ]
   },
   "entries": {
@@ -335,123 +337,6 @@
         "9a87b319e921cd0acedda9abf1bca090a2024fa5674021a1144b8a75442762d3"
       ]
     },
-    "9c4fe226c42b608998451837fa728dc8abdb7533199cb8287ebeef26d4504274": {
-      "reference_date": "2026-05-15",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2e63671654081dd56ec77a43e1429ada5a020d4723a691ece9054ee863f55e77"
-      ]
-    },
-    "7b0c5e902d7d92e0b14f6b9c15e68ec9f02eb91474325195d9db699cd34960b3": {
-      "reference_date": "2026-05-08",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2b19b3d071aeae037cf61d540ba87364aad35054d8e3b6f2c36611b630e5d5d8"
-      ]
-    },
-    "afde54fd598793f690edf662d2c05274b4b8f1a66d6abc941777171f8ad4449b": {
-      "reference_date": "2026-04-28",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4fa132845275303d8a979356daca68542f8ff219d2bf71117039f1715e57f8c6"
-      ]
-    },
-    "18576fcebcf4d92dfbfa11f00a34e620c4cb60a4e9fd852685e366fd3560b3bb": {
-      "reference_date": "2026-04-16",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5f0d57ac05ee61afd2c9ca2d2fad8e0df25b8a2fe516678b9212bf52a2a7878a"
-      ]
-    },
-    "6101de2a91801e266fd212f5fcc42b052ae5cc94cf632a53db83561795191232": {
-      "reference_date": "2026-03-18",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d03d707b8f7fce5b190ff13ba3d3b843263901d9061f7e7662073469490b5635"
-      ]
-    },
-    "8034ea6aee906fc2cf2ba94599c273c3c748144784acb054a70005b57e766b0e": {
-      "reference_date": "2026-02-19",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4a2d5d1130545c38f917f03ab6ef67c8dead71731c34405b6f3df51e648672f2"
-      ]
-    },
-    "dc1e66711ec3e642e51b32ad16fedd86fb18b7301326eab06b5a52a1dc02c8a0": {
-      "reference_date": "2026-02-18",
-      "value": "4.2. A incorporação das Parcelas Cindidas, pela Classe CP, está condicionada à aprovação da cisão da CLASSE ÚNICA DO BTG PACTUAL CONSIGNADOS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, inscrita no CNPJ sob o nº 52.242.420/0001-88 (“Classe Cindida”), com a subsequente incorporação da parcela cindida, emitindo-se cotas da Classe CP, a serem atribuídas integralmente ao Cotista da Classe Cindida no valor da parcela cindida, na Data-Base, de acordo com o valor das cotas da Classe CP na mesma data.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a527f7f7f34fc8467c5251c219035e538605a32365d18fc38cd54b5a18981441"
-      ]
-    },
-    "618a0ae1a1d9fbadf55e523f62350cc24f939f780145a7225b07e5e6aae14fac": {
-      "reference_date": "2026-02-02",
-      "value": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração decorrente do vínculo empregatício mantido junto aos empregadores. Caso o empregador de um determinado devedor se torne insolvente e, em razão disso, haja suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9ef4f69f3c85fa36738d5ec3a6a08123af9c229d420380dfcf8389f02ca73772"
-      ]
-    },
-    "b51185720e74f051232e044d046c5748b159e898feaa9d3dd097eefd32948b41": {
-      "reference_date": "2026-05-15",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0e77ef73d6024ffdfe29196e1944509ed6f30d20b2332ef28a04ccf0ca5df84b"
-      ]
-    },
-    "3958e0171f2a84a317be504476a467bb2e4c6893ce619321003e0a93ce7d96b6": {
-      "reference_date": "2026-05-08",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4ab0d3057361f00bb9daab19bfafc246a438206a3c0d7db72b2fda75b7aca290"
-      ]
-    },
-    "07e962e01d833c9df614c62e2c2cb1fe90fe1b965e483a032240131ca859a750": {
-      "reference_date": "2026-04-28",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "142c5d2af361ecef4240a6fed959091a78aaba201cffa662821ff6b74f2fe5ad"
-      ]
-    },
-    "f33a0ed556ff9786a79bb2fd62df831b30e6a57879f1826e2d359453ab205a7e": {
-      "reference_date": "2026-04-16",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8c4904b1e53687bc3fb12330952a4fb2fdc30cb49bd122ff4d91acad46907bb6"
-      ]
-    },
-    "a218e410ce6d66886fbb55060d274ec1029e0af4625a11a1084b01d8d8e6db48": {
-      "reference_date": "2026-03-18",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0ed83dfb880160cf70e3ae0432705fefdd91e47ac5388a6d82e92400e471fff6"
-      ]
-    },
     "1004f335a01124ea6f1723ea3063bc9bbf192ee104cbdc1e36af6a641e90ea86": {
       "reference_date": "2026-02-19",
       "value": "",
@@ -459,24 +344,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7b89fa703bd80249633bf026280468682c2c844be38f686d62aa8841ab3ea4c0"
-      ]
-    },
-    "5ab7d0d413ef3f6e19a057a611db5beb5d60187076723a7af3babdd68579a3c3": {
-      "reference_date": "2026-02-02",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fff46d1cd2e8d9885691b3fa543813d1569888314a2822e98fb76dc0f369e52f"
-      ]
-    },
-    "8b710f2bd5124c9980ef2271072fbd52f604fb74cf4113010fc4530abb34f58a": {
-      "reference_date": "2026-01-21",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bec2a570a6bfe508618ec2c679c68161bb0d0b6a8d301db6b08e147ff178af0f"
       ]
     },
     "845820b63595db41104f0d547d226b2deecaa5d3b038b9d7dbae2b1cfc8c3c78": {
@@ -1765,6 +1632,171 @@
       "sources": [
         "f109bc36101c199ecb2999ec39e4b2f220db624a7f4cfc97a51bd560cc7dbfaa"
       ]
+    },
+    "7c1c1573ac9e3cd1807e986da7aa59e0e702bdf9cb6fca8cb527907c3e44060f": {
+      "reference_date": "2026-05-15",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2c1d31eb820e668fef11638223198855cc6a099157cf419828bbc43439525f3c"
+      ]
+    },
+    "e144f8ff9ac28343efa8f730f69ba21e138bed36e9a681acda7db0884a8dbd99": {
+      "reference_date": "2026-05-08",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b415400c703d2f6d1747de5b64d1423737cbb4d6e8cea6a53acb26871aba44b5"
+      ]
+    },
+    "05da8fc736c513a732829dedcc0242f36f49074cb3e87fc86f379a26cfafc09d": {
+      "reference_date": "2026-04-28",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe. c) Verificação de lastro dos direitos creditórios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1646cf642e6f0f83eb2f22bc33d3174ba0eb0227ea27ae53f9eb7775537479f5"
+      ]
+    },
+    "26455248c709aa09cdd0bd30d2a2d3a9f972e8fe6421e3d8bdda66c2490a51c8": {
+      "reference_date": "2026-04-16",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe. c) Verificação de lastro dos direitos creditórios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dba614e1f3228af08f44e3a6de9f7855e55d984ea34febb02c524df7795af4c7"
+      ]
+    },
+    "1033cfe9a5a515488e9b3375ef80547e863dc5753f42074785d2cc4130648509": {
+      "reference_date": "2026-03-18",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe. c) Verificação de lastro dos direitos creditórios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "de9578ce6ace337dee0bac1368dd5a5bb4de5c6b3af16f6b5ed4c7f6c55dd9bd"
+      ]
+    },
+    "13ba4a044a54f87bfec1204ceaf9e2d91a6edde556ad3becb5081f667c3051a1": {
+      "reference_date": "2026-02-02",
+      "value": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes critérios de elegibilidade: (a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro) anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB. (b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária; (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três por cento) do patrimônio líquido da Classe. c) Verificação de lastro dos direitos creditórios",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cee317ae0d10f05d8954cad40501ee0ed2f82959cd0265eef91f79426baf2ece"
+      ]
+    },
+    "b9f33381bada91394cdc1fd72dbd82cf3647ca5a94873b97d8788fecab852ba7": {
+      "reference_date": "2026-01-21",
+      "value": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos Creditórios cumpram com todas as condições de endosso e declarações e garantias estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos, não é possível afirmar que essas condições de endosso, declarações e garantias e os Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade e as condições de endosso, ou que as declarações e garantias prestadas pelo Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser suficientes para manter a Classe protegida de perdas decorrentes de tal verificação inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bec2a570a6bfe508618ec2c679c68161bb0d0b6a8d301db6b08e147ff178af0f"
+      ]
+    },
+    "4877be95462e07cf280994f10930800794653b5df1226b984c151065d295e50f": {
+      "reference_date": "02/06/2026",
+      "value": "Parati CFI (03.311.443/0001-91): endossante/cedente. Tudo Serviços (27.852.506/0001-85): retenção/cobrança e Plataforma MT, ambas identificadas na própria classe.",
+      "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "8f778a0be23963270ef788df44ec8991e396329857ccb6eaec57b87f4791aa20",
+        "732c954fa3dceb05ea60bf9f40dd0e10a74edfaf0148c70aff83275abce4f379"
+      ]
+    },
+    "298ace13eaccba9fb346c784e1dd24d2859e798518efa9bd020adcd734e8a8cb": {
+      "reference_date": "02/06/2026",
+      "value": "Gestor valida individual e integralmente antes e na aquisição, usando PL/estoque do dia útil anterior. Deterioração posterior não é desenquadramento/regresso, salvo má-fé, culpa ou dolo comprovados.",
+      "assessment": "Leitura manual anterior corrigida: fonte de validação/remissão ou prestação de retenção/cobrança estava junto da resposta material. As fontes positivas e as condições efetivas foram relidas no mesmo documento; contexto separado da evidência do critério.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "c6fc7b42a0eb29ca140474af6737f30adf356497098d65357c44ee5dcbfa4a13"
+      ]
+    },
+    "b005ef2089b60a9a52bd084703d7b2898b21421395321a58bf797a1937377499": {
+      "reference_date": "2026-05-15",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ba9e4230382e37f299e565a5be4fe36d8998ed7f46920b480f5d2021e77b439a"
+      ]
+    },
+    "25fd9fe5e06a615f342b41c90e4fe819451a3119a480239e5ad196e8879e3d89": {
+      "reference_date": "2026-05-08",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1eb9fc451e62869255707b1347bb264dfa6ed2c094b117d9daad0129dacd41a1"
+      ]
+    },
+    "a3b515068b7db146d915d9c97bd4fe4541bc6e3f2eef0f2a552bca6829a4df82": {
+      "reference_date": "2026-04-28",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fb8f2c94d1089a0ef9f77209e3ff24f0557cdadb4c89e70dc372ca33103d6cc9"
+      ]
+    },
+    "612eccd95c624fe006d611f9cc8854952632bcfcea125ee750b344a68fabf653": {
+      "reference_date": "2026-04-16",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5510abf690d580a0f2208591bb17c0514d22a7a7fc600b0f5defb5532a508dfc"
+      ]
+    },
+    "4b4be2255d75aba052e344def503d4f7f4b58311a67cfcb96b4cfdfa8e58c75f": {
+      "reference_date": "2026-03-18",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "66f6e9ff3f4f630662eabd24bdfc640c741c7a288640fccdbdd1c14ea8c9824b"
+      ]
+    },
+    "5475d314e41f7ba8c525e1f54cd0ef34d83f40ddf1057dfcbc53595151d9d8bc": {
+      "reference_date": "2026-02-19",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1998cb958b9cf76eeb056a92875bb97bc1e369206463e0c44cc23670d9970a06"
+      ]
+    },
+    "ef00161dd6d8cb87214f31a77e8d5ee49155cc37b9603c50eac3f60bebfdc327": {
+      "reference_date": "2026-02-02",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "71c827eb4170804786a8c155feee10a25d9ff70f30f8b340f501d2aad1cfbced"
+      ]
+    },
+    "3c86bbc214f3a3ba5732bf53e5d6228b6cf84ae79436a7654e382a47ccd1c57a": {
+      "reference_date": "2026-01-21",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "390ab15ac68d33ac6127eff167dbde670dddf0dbceb99cbf86f50b71ec526a93"
+      ]
+    },
+    "64686b4efe00f1107716184f37fd28a80c2cd335fc9b96b2818b77cbda09f6bb": {
+      "reference_date": "2026-06-02",
+      "value": "(iii) manter e operar um serviço de atendimento ao consumidor - SAC e uma ouvidoria em conformidade com os regulamentos aplicáveis, monitorar e resolver reclamações e solicitações de Devedores com relação às operações de empréstimo consignado que dão origem aos Direitos Creditórios, em conformidade com o Acordo de Parceria;.",
+      "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "40c3c715fcd25939172ecbce4b45279a7f3a721e096f59a65de0015c433345f6",
+        "9ce7b599d82a58ed3439a6be408e3f0f05b25ba6716577ef17f1ef5333f7b1c4",
+        "a41b0f44274fe3d790703119cf44b86d231caae8a1069df7e0843d3e20f8de48"
+      ]
     }
   },
   "passages": {
@@ -1874,174 +1906,6 @@
       "clause": "",
       "excerpt": "(iv) Risco operacional dos sistemas: o desconto na folha de pagamento do Devedor das  parcelas da CCB e a transferência para o Endossante dos Direitos Creditórios serão  processados por um sistema controlado pela Dataprev, e o Endossante, o Administrador  ou o Gestor não têm controle sobre esse processo. Assim, qualquer falha ou mudança  nesse sistema poderá atrasar ou reduzir o desconto dos rendimentos dos Devedores ou  sua transferência para a Classe. Nesse caso, a rentabilidade e a propriedade da Classe  poderão ser adversamente afetadas enquanto o problema do sistema persistir, ou até  que todos os valores sejam devidamente transferidos.\n (v) Risco operacional do Contrato: o desconto na folha de pagamento das parcelas dos  empréstimos concedidos aos Devedores é permitido pelo Convênio Consignado Privado.\n As partes do Convênio Consignado Privado devem seguir certas regras para manter o  Convênio Consignado Privado, e a violação delas poderá levar à sua rescisão. Além  disso, mudanças legais podem afetar e/ou tornar inviável a manutenção do Convênio  Consignado Privado. No caso de rescisão do Convênio Consignado Privado, a estrutura  de cobrança dos Direitos Creditórios (desconto na folha de pagamento) poderá ser  comprometida, dando origem à necessidade de adoção de uma nova estrutura, que  poderá não ser tão eficaz quanto ela ou mesmo revelar, na prática, ser inadequada ou  ter altos custos operacionais. Esses eventos podem levar a perdas patrimoniais para a  Classe, na medida em que este deixará de receber, definitiva ou temporariamente,  recursos oriundos dos Direitos Creditórios, no todo ou em parte. Adicionalmente, de  acordo com o Contrato de Endosso, a manutenção do Convênio Consignado Privado é  uma condição para a aquisição de novos Direitos Creditórios pela Classe e, portanto, no  caso de rescisão do Convênio Consignado Privado, a Classe poderá ser impedido de  adquirir novos Direitos Creditórios.\n Riscos de Originação e do Originador\n (i) Riscos do originador e da originação: a continuidade da Classe poderá ser  comprometida no caso de inconstância na concessão de empréstimos pelo Endossante  aos Devedores ou incapacidade do Agente de Retenção/Cobrança operacionalizar a  Plataforma MT, através da qual os Direitos Creditórios Elegíveis são originados.\n Portanto, o investimento na Classe está sujeito ao risco de não originação, no futuro, de  Direitos Creditórios pelo Endossante contra os devedores através da plataforma MT,  disponibilizada pelo agente de retenção/cobrança. Se isso acontecer, a originação dos  Direitos Creditórios pelo Endossante poderá ser impactada negativamente ou mesmo  impossibilitada, o que poderá gerar a liquidação antecipada da Classe. Além disso, a  Classe poderá adquirir Direitos Creditórios que foram originados em conformidade com  o processo de originação e/ou políticas de concessão de crédito desenvolvidos e  monitorados pelo Endossante. Entretanto, não é possível assegurar que o cumprimento  dessas diretrizes garanta a qualidade dos Direitos Creditórios e/ou a solvência dos  respectivos Devedores, ou que as diretrizes e parâmetros estabelecidos no Capítulo 14  sejam corretamente interpretados e aplicados quando a Classe fizer os investimentos.\n Além disso, se o Endossante deixar de existir ou estiver sujeito a uma ordem de  intervenção, liquidação extrajudicial ou regime especial ou gestão temporária ou evento  similar, a Classe será impactada também pelo fato de que a Conta Vinculada na qual as  transferências feitas pela CEF foram depositadas foi aberta em nome do Endossante.\n Neste caso, a Classe poderá sofrer perdas principalmente em relação ao atraso na  regularização da titularidade dos Direitos Creditórios junto à CEF.",
       "sha256": "dca1c68babb97f887528c3e2e47596a9c30f507b067981a35655b2f2da9c8054",
-      "verification": "primary_passage"
-    },
-    "2e63671654081dd56ec77a43e1429ada5a020d4723a691ece9054ee863f55e77": {
-      "document_id": "1327859",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1327859",
-      "reference_date": "2026-05-15",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "dca1c68babb97f887528c3e2e47596a9c30f507b067981a35655b2f2da9c8054",
-      "verification": "primary_passage"
-    },
-    "2b19b3d071aeae037cf61d540ba87364aad35054d8e3b6f2c36611b630e5d5d8": {
-      "document_id": "1298691",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1298691",
-      "reference_date": "2026-05-08",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "58c570d9b8d4d265330d3db3ea81c435b8e44a6dab4002aa37790652a1ee9819",
-      "verification": "primary_passage"
-    },
-    "4fa132845275303d8a979356daca68542f8ff219d2bf71117039f1715e57f8c6": {
-      "document_id": "1282180",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282180",
-      "reference_date": "2026-04-28",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "afaaa0e6809be4385e5bdb6c911aac582032c5bdbac3d7750234bf9eaf00438a",
-      "verification": "primary_passage"
-    },
-    "5f0d57ac05ee61afd2c9ca2d2fad8e0df25b8a2fe516678b9212bf52a2a7878a": {
-      "document_id": "1282179",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282179",
-      "reference_date": "2026-04-16",
-      "version": "1",
-      "page": 22,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "beb67afbcd64169019477673fd3b7c1edbfabbd9db07379388d8cdd5d3fc9395",
-      "verification": "primary_passage"
-    },
-    "d03d707b8f7fce5b190ff13ba3d3b843263901d9061f7e7662073469490b5635": {
-      "document_id": "1224479",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224479",
-      "reference_date": "2026-03-18",
-      "version": "1",
-      "page": 21,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "1de350a65419f3f192240ecc83ea6c7030feda853c1dde26f3fb847ce0bb401e",
-      "verification": "primary_passage"
-    },
-    "4a2d5d1130545c38f917f03ab6ef67c8dead71731c34405b6f3df51e648672f2": {
-      "document_id": "1200324",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200324",
-      "reference_date": "2026-02-19",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "aba4246af804161a6cb22052dc79425be7591e0bb7df5467cda6487f249272fc",
-      "verification": "primary_passage"
-    },
-    "a527f7f7f34fc8467c5251c219035e538605a32365d18fc38cd54b5a18981441": {
-      "document_id": "1119041",
-      "title": "Instrumento Particular de Emissão de Cotas",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1119041",
-      "reference_date": "2026-02-18",
-      "version": "1",
-      "page": 1,
-      "clause": "4.2",
-      "excerpt": "4.2. A incorporação das Parcelas Cindidas, pela Classe CP, está condicionada à aprovação da cisão da CLASSE ÚNICA DO BTG PACTUAL CONSIGNADOS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, inscrita no CNPJ sob o nº 52.242.420/0001-88 (“Classe Cindida”), com a subsequente incorporação da parcela cindida, emitindo-se cotas da Classe CP, a serem atribuídas integralmente ao Cotista da Classe Cindida no valor da parcela cindida, na Data-Base, de acordo com o valor das cotas da Classe CP na mesma data.",
-      "sha256": "b98380111cbc35ef86d69ae203e3b9085d47dd615eccba9d238386db345b6083",
-      "verification": "primary_passage"
-    },
-    "9ef4f69f3c85fa36738d5ec3a6a08123af9c229d420380dfcf8389f02ca73772": {
-      "document_id": "1177607",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1177607",
-      "reference_date": "2026-02-02",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "(ii) Risco do empregador se tornar insolvente: o pagamento dos direitos creditórios pelos  devedores está diretamente ligado ao recebimento, pelos devedores, de remuneração  decorrente do vínculo empregatício mantido junto aos empregadores. Caso o  empregador de um determinado devedor se torne insolvente e, em razão disso, haja  suspensão do pagamento da remuneração do devedor, o referido devedor poderá ficar  inadimplente e, consequentemente, não haverá repasse à classe do respectivo direito  creditório, o que poderá resultar em perdas financeiras à classe e aos cotistas.",
-      "sha256": "1a882789998af2963f5ccd4acc1184de9c7fab40f753802d79c4bf37431a7ab5",
-      "verification": "primary_passage"
-    },
-    "0e77ef73d6024ffdfe29196e1944509ed6f30d20b2332ef28a04ccf0ca5df84b": {
-      "document_id": "1327859",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1327859",
-      "reference_date": "2026-05-15",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "dca1c68babb97f887528c3e2e47596a9c30f507b067981a35655b2f2da9c8054",
-      "verification": "primary_passage"
-    },
-    "4ab0d3057361f00bb9daab19bfafc246a438206a3c0d7db72b2fda75b7aca290": {
-      "document_id": "1298691",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1298691",
-      "reference_date": "2026-05-08",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "58c570d9b8d4d265330d3db3ea81c435b8e44a6dab4002aa37790652a1ee9819",
-      "verification": "primary_passage"
-    },
-    "142c5d2af361ecef4240a6fed959091a78aaba201cffa662821ff6b74f2fe5ad": {
-      "document_id": "1282180",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282180",
-      "reference_date": "2026-04-28",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "afaaa0e6809be4385e5bdb6c911aac582032c5bdbac3d7750234bf9eaf00438a",
-      "verification": "primary_passage"
-    },
-    "8c4904b1e53687bc3fb12330952a4fb2fdc30cb49bd122ff4d91acad46907bb6": {
-      "document_id": "1282179",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282179",
-      "reference_date": "2026-04-16",
-      "version": "1",
-      "page": 25,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "beb67afbcd64169019477673fd3b7c1edbfabbd9db07379388d8cdd5d3fc9395",
-      "verification": "primary_passage"
-    },
-    "0ed83dfb880160cf70e3ae0432705fefdd91e47ac5388a6d82e92400e471fff6": {
-      "document_id": "1224479",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224479",
-      "reference_date": "2026-03-18",
-      "version": "1",
-      "page": 24,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "1de350a65419f3f192240ecc83ea6c7030feda853c1dde26f3fb847ce0bb401e",
-      "verification": "primary_passage"
-    },
-    "fff46d1cd2e8d9885691b3fa543813d1569888314a2822e98fb76dc0f369e52f": {
-      "document_id": "1177607",
-      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1177607",
-      "reference_date": "2026-02-02",
-      "version": "1",
-      "page": 23,
-      "clause": "",
-      "excerpt": "(i) Risco relativo à elegibilidade dos Direitos Creditórios: mesmo que os Direitos  Creditórios cumpram com todas as condições de endosso e declarações e garantias  estabelecidas no Contrato de Endosso e os Critérios de Elegibilidade aqui estabelecidos,  não é possível afirmar que essas condições de endosso, declarações e garantias e os  Critérios de Elegibilidade sejam suficientes para garantir a satisfação e o pagamento dos  Direitos Creditórios. Além disso, não é possível assegurar que o Gestor verificará  adequadamente a conformidade dos direitos creditórios com os critérios de Elegibilidade  e as condições de endosso, ou que as declarações e garantias prestadas pelo  Endossante e pelo Agente de Retenção/Cobrança em relação aos direitos creditórios  sejam verdadeiras e exatas. A verificação inadequada dos Elegibilidade e das condições  de endosso, bem como a falsidade ou inexatidão das declarações e garantias referentes  aos direitos creditórios poderão resultar na compra de direitos creditórios inelegíveis pela  Classe, e as medidas disponíveis no âmbito do Contrato de Endosso poderão não ser  suficientes para manter a Classe protegida de perdas decorrentes de tal verificação  inadequada ou falsidade/inexatidão. Caso os direitos creditórios não sejam pagos  pontualmente pelos Devedores ou os Direitos Creditórios não tenham o desempenho  esperado pela Classe, o patrimônio da Classe poderá ser afetado adversamente.",
-      "sha256": "1a882789998af2963f5ccd4acc1184de9c7fab40f753802d79c4bf37431a7ab5",
       "verification": "primary_passage"
     },
     "bec2a570a6bfe508618ec2c679c68161bb0d0b6a8d301db6b08e147ff178af0f": {
@@ -3686,6 +3550,159 @@
       "clause": "",
       "excerpt": "O nível de rating atribuído ao direito creditório determina diretamente o montante calculado como  provisão para perdas por redução no valor de recuperação para operações de crédito. Dessa  maneira, para cada direito creditório o montante de provisão para perdas por redução no valor  de recuperação para operações de crédito calculado é resultado da multiplicação de seu valor  presente pelo impacto, que é função do nível de rating atribuído conforme tabela abaixo:",
       "sha256": "aba4246af804161a6cb22052dc79425be7591e0bb7df5467cda6487f249272fc",
+      "verification": "primary_passage"
+    },
+    "2c1d31eb820e668fef11638223198855cc6a099157cf419828bbc43439525f3c": {
+      "document_id": "1327859",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1327859",
+      "reference_date": "2026-05-15",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.",
+      "sha256": "dca1c68babb97f887528c3e2e47596a9c30f507b067981a35655b2f2da9c8054",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b415400c703d2f6d1747de5b64d1423737cbb4d6e8cea6a53acb26871aba44b5": {
+      "document_id": "1298691",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1298691",
+      "reference_date": "2026-05-08",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.",
+      "sha256": "58c570d9b8d4d265330d3db3ea81c435b8e44a6dab4002aa37790652a1ee9819",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1646cf642e6f0f83eb2f22bc33d3174ba0eb0227ea27ae53f9eb7775537479f5": {
+      "document_id": "1282180",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282180",
+      "reference_date": "2026-04-28",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.\nc) Verificação de lastro dos direitos creditórios",
+      "sha256": "afaaa0e6809be4385e5bdb6c911aac582032c5bdbac3d7750234bf9eaf00438a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "dba614e1f3228af08f44e3a6de9f7855e55d984ea34febb02c524df7795af4c7": {
+      "document_id": "1282179",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1282179",
+      "reference_date": "2026-04-16",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.\nc) Verificação de lastro dos direitos creditórios",
+      "sha256": "beb67afbcd64169019477673fd3b7c1edbfabbd9db07379388d8cdd5d3fc9395",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "de9578ce6ace337dee0bac1368dd5a5bb4de5c6b3af16f6b5ed4c7f6c55dd9bd": {
+      "document_id": "1224479",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224479",
+      "reference_date": "2026-03-18",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.\nc) Verificação de lastro dos direitos creditórios",
+      "sha256": "1de350a65419f3f192240ecc83ea6c7030feda853c1dde26f3fb847ce0bb401e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cee317ae0d10f05d8954cad40501ee0ed2f82959cd0265eef91f79426baf2ece": {
+      "document_id": "1177607",
+      "title": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1177607",
+      "reference_date": "2026-02-02",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos  seguintes critérios de elegibilidade:\n(a) Quando representado por Direitos Creditórios Consignado Privado: (i) os Direitos Creditórios  deverão decorrer de empréstimo concedido pelo Endossante a um Devedor, representado por  uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe;\n (ii) o saldo dos Direitos Creditórios devidos pelo mesmo Devedor à Classe, considerando, pro  forma, o endosso pretendido, não deverá exceder R$ 150 (cento e cinquenta mil reais); (iii) o  prazo de vencimento das CCB representativas dos Direitos Creditórios deverá ser, no máximo,  equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; e (iv) os Direitos  Creditórios não poderão ser devidos por Devedores que tenham acima de 64 (sessenta e quatro)  anos 11 (onze) meses e 29 (vinte e nove) dias na data de emissão da respectiva CCB.\n(b) Quando representados por Direitos Creditórios TVM: (i) sejam objeto de subscrição primária;\n (ii) sejam representados em moeda corrente nacional; (iii) a natureza ou característica essencial  dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo  Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo  Custodiante, de acordo com as normas aplicáveis vigentes; e (iv) sejam limitados a 3,00% (três  por cento) do patrimônio líquido da Classe.\nc) Verificação de lastro dos direitos creditórios",
+      "sha256": "1a882789998af2963f5ccd4acc1184de9c7fab40f753802d79c4bf37431a7ab5",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8f778a0be23963270ef788df44ec8991e396329857ccb6eaec57b87f4791aa20": {
+      "document_id": 1222863,
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "02/06/2026",
+      "version": "AnexoConsignadoPrivado02/06/2026",
+      "page": "5",
+      "clause": "4.3–4.4",
+      "excerpt": "4.3 Os Direitos Creditórios serão adquiridos pela Classe por meio: (i) contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e a Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede na cidade de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 699, torre A, conjuntos 404 a 407, Santa Lúcia, CEP 29.056-250, inscrita no CNPJ sob nº 03.311.443/0001-91 (“Endossante” ou “Cedente”), acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias asse",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "identity_verified": true,
+      "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+    },
+    "732c954fa3dceb05ea60bf9f40dd0e10a74edfaf0148c70aff83275abce4f379": {
+      "document_id": 1222863,
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "02/06/2026",
+      "version": "AnexoConsignadoPrivado02/06/2026",
+      "page": "19",
+      "clause": "12.6",
+      "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará, na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "identity_verified": true,
+      "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+    },
+    "c6fc7b42a0eb29ca140474af6737f30adf356497098d65357c44ee5dcbfa4a13": {
+      "document_id": 1222863,
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "02/06/2026",
+      "version": "AnexoConsignadoPrivado02/06/2026",
+      "page": "6",
+      "clause": "4.10–4.10.3",
+      "excerpt": "4.10 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, de forma individualizada e integral, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "identity_verified": true,
+      "identity_verification_method": "ClasseConsignadoPrivadoMTGlobal exata noAnexo, CNPJna consultaFundos.NET e AGC1222860"
+    },
+    "40c3c715fcd25939172ecbce4b45279a7f3a721e096f59a65de0015c433345f6": {
+      "document_id": "1222863",
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "2026-06-02",
+      "version": "1",
+      "page": 1,
+      "clause": "1.1",
+      "excerpt": "1.1 As principais características da Classe Consignado Privado (para fins deste Anexo, “Classe”) estão descritas  abaixo:\n Tipo de Condomínio Fechado.\n Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas  Prazo de Duração  reunidos em Assembleia Especial de Cotistas. (“Prazo de Duração”)  Tipo “Financeiro”.\n Classificação ANBIMA  Foco de atuação “Créditos Consignados”.\n O objetivo da classe é proporcionar aos seus Cotistas a valorização de suas Cotas  por meio da aplicação de seu Patrimônio Líquido (conforme definido abaixo) na  aquisição de: (i) “Direitos Creditórios Crédito Consignado”, representados por  cédula de crédito bancário regida pela Lei nº 10.931, emitida eletronicamente por  um devedor em favor do endossante (“CCB”) e, consequentemente, os recebíveis  decorrente de cada uma das parcelas vincendas, representando um empréstimo  consignado concedido pelo endossante ao devedor, e cujo pagamento ordinário  é feito por desconto de cada prestação vincenda de uma CCB na folha de  pagamentos do devedor (“Consignação”), efetuada pela Caixa Econômica  Federal, de acordo com a legislação aplicável e em conformidade com os  procedimentos estabelecidos no convênio celebrado entre o Endossante e a  Empresa de Tecnologia e Informações da Previdência – DATAPREV e paga na  Conta Vinculada do Endossante (“Convênio Consignado Privado”); e/ou (ii)  “Direitos Creditórios TVM”, representados por direitos, títulos e/ou valores  mobiliários representativos de créditos originados no âmbito de operações de  sociedades integrantes do conglomerado econômico de instituições financeiras  classificadas como S1 pelo BACEN, desde que não representem títulos de  emissão ou coobrigação de instituições financeiras, bem como cotas de fundos  de investimento que invistam preponderantemente nestes direitos, títulos e/ou  Objetivo  valores mobiliários (Direitos Creditórios TVM quando referidos em conjunto  com os Direitos Creditórios Consignado Privado, “Direitos Creditórios”)  observados todos os limites de composição e diversificação da carteira da Classe  (“Carteira”), estabelecidos neste Regulamento e na regulamentação aplicável.\n Subsidiariamente, a parcela do Patrimônio Líquido que não esteja alocada em  Direitos Creditórios poderá estar alocado em: (1) certificados de depósito  bancário (CDB) ou recibos de depósito bancário (RDB) com prazo máximo de  vencimento equivalente ao prazo remanescente do Período de Investimento, com  liquidez diária, emitidos por Parati Crédito, Financiamento e Investimento S.A.\n e/ou pelo Endossante (“Ativos de Liquidez MT”); e/ou (2) (i) moeda corrente  nacional; (ii) títulos do Tesouro SELIC, anteriormente denominado letra financeira  do Tesouro Nacional (LFT); (iii) certificados de depósito bancário (CDB) ou recibos  de depósito bancário (RDB) com prazo máximo de vencimento equivalente ao  prazo remanescente do Período de Investimento, com liquidez diária, emitidos  por (a) Itaú Unibanco S.A.; (b) Banco Bradesco S.A.; (c) Caixa Econômica Federal;\n (d) Banco do Brasil S.A.; (e) Banco Santander (Brasil) S.A.; (f) Banco BTG Pactual  S.A.; (g) Banco Sistema S.A. (“Instituições Autorizadas”); (iv) operações  compromissadas, desde que lastreadas nos títulos mencionados nas alíneas (i) a\n (iii) acima, emitidas por Instituições Autorizadas, com liquidez diária e vencimento",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "verification": "primary_passage"
+    },
+    "9ce7b599d82a58ed3439a6be408e3f0f05b25ba6716577ef17f1ef5333f7b1c4": {
+      "document_id": "1222863",
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "2026-06-02",
+      "version": "1",
+      "page": 19,
+      "clause": "12.6",
+      "excerpt": "12.6 A Classe contratou a Tudo Serviços S.A., sociedade anônima, com sede no município de Fortaleza, Estado do Ceará,  na Avenida Senador Virgulo Távora, nº 303, Lojas 02, 03, 04, 05, 06 e 19, Meireles, CEP 60.170-265, inscrita no CNPJ  sob o nº 27.852.506/0001-85, cujos deveres, sem prejuízo daqueles estabelecidos neste Regulamento, no  “Contrato de Serviços de Retenção e Cobrança e Outras Avenças”, celebrado entre o Agente de  Retenção/Cobrança e a Classe (“Contrato de Serviços MT”) e no Contrato de Endosso, consistirão no  monitoramento e cobrança dos Direitos Creditórios Inadimplidos, observado o disposto neste Anexo I e na  regulamentação aplicável (“Agente de Retenção/Cobrança”):\n (i) caso aplicável, atuar na retenção (defesa) de operações de empréstimo consignado cujos Direitos  Creditórios sejam de titularidade da Classe, em caso de tentativa de transferência de tais operações de  empréstimo consignado por instituições proponentes, nos termos da Resolução CMN nº 5.057, em razão de  ofertas de portabilidade feitas por tais instituições proponentes, conforme informado pelo Endossante ou pelo  Custodiante ao Agente de Retenção/Cobrança, diariamente, de acordo com o Contrato de Endosso; sendo  que tal serviço deverá incluir, entre outras atividades auxiliares a ele relacionadas, a avaliação das ofertas de  portabilidade feitas pelas instituições proponentes, buscando, se for o caso, esclarecer as vantagens de não  recorrer à portabilidade, retendo a respectiva operação de empréstimo consignado em seus termos atuais;\n (ii) mediante inadimplemento de um Direito Creditório devido à indisponibilidade da margem de crédito do  Devedor, auxiliar o Endossante com o Processo de Reinicialização (conforme detalhado no Contrato de  Endosso) em relação ao respectivo Direito Creditório;\n (iii) manter e operar um serviço de atendimento ao consumidor - SAC e uma ouvidoria em conformidade  com os regulamentos aplicáveis, monitorar e resolver reclamações e solicitações de Devedores com  relação às operações de empréstimo consignado que dão origem aos Direitos Creditórios, em  conformidade com o Acordo de Parceria;\n (iv) realizar a cobrança dos Direitos Creditórios Inadimplidos;\n (v) auxiliar o Endossante na correção de qualquer irregularidade relevante identificada com relação à  originação dos Direitos Creditórios;\n (vi) realizar a renegociação junto aos Devedores de Direitos Creditórios Inadimplidos e, caso aplicável, celebrar  aditamento à CCB para refletir os novos termos, decorrentes da renegociação  CAPÍTULO 13 – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇOS  0,05% (cinco centésimos por cento) ao ano, apropriada diariamente na base de 252  (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente até o 5º (quinto) Dia  Útil do mês subsequente ao mês que se refere, incidente sobre o Patrimônio Líquido  da Classe alocado em Direitos Creditórios Consignado Privado e/ou Ativos de  Liquidez MT, observada remuneração mínima mensal de R$ 2.500,00 (dois mil e  quinhentos reais), a ser corrigida anualmente, em janeiro de cada ano, pela variação  Taxa de Administração  positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio  Vargas (“Taxa de Administração” e “IGP-M”, respectivamente).\n Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua  utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna,  divulgado pela Fundação Getúlio Vargas, ou, na falta de ambos, pela variação do IPC  – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "verification": "primary_passage"
+    },
+    "a41b0f44274fe3d790703119cf44b86d231caae8a1069df7e0843d3e20f8de48": {
+      "document_id": "1222863",
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "2026-06-02",
+      "version": "1",
+      "page": 27,
+      "clause": "",
+      "excerpt": "(iii) Risco de validação das informações para conciliação e reconciliação dos Direitos Creditórios adquiridos  pela Classe: as informações para conciliação dos pagamentos, sendo considerado como tal, também, o  Arquivo Dataprev, listando todos os empregados cujas folhas de pagamento serão sujeitas a desconto no  mês relevante, nos valores acordados ao efetuar a Consignação, e qualquer glosa será enviada pela CEF ao  Endossante, que efetuará a conciliação e, posteriormente, enviará as informações ao Custodiante. Caso o  Endossante não forneça essas informações em tempo hábil ou for verificada qualquer inconsistência nas  informações recebidas pelo Custodiante, poderá isso impedir ou dar origem a falhas no processo de  reconciliação dos valores depositados na Conta de Cobrança da Classe e causando perdas à Classe e ao  Cotista.\n (iv) Risco operacional dos sistemas: o desconto na folha de pagamento do Devedor das parcelas da CCB e a  transferência para o Endossante dos Direitos Creditórios serão processados por um sistema controlado  pela Dataprev, e o Endossante, o Administrador ou o Gestor não têm controle sobre esse processo. Assim,  qualquer falha ou mudança nesse sistema poderá atrasar ou reduzir o desconto dos rendimentos dos  Devedores ou sua transferência para a Classe. Nesse caso, a rentabilidade e a propriedade da Classe  poderão ser adversamente afetadas enquanto o problema do sistema persistir, ou até que todos os valores  sejam devidamente transferidos.\n (v) Risco operacional do Contrato: o desconto na folha de pagamento das parcelas dos empréstimos  concedidos aos Devedores é permitido pelo Convênio Consignado Privado. As partes do Convênio  Consignado Privado devem seguir certas regras para manter o Convênio Consignado Privado, e a violação  delas poderá levar à sua rescisão. Além disso, mudanças legais podem afetar e/ou tornar inviável a  manutenção do Convênio Consignado Privado. No caso de rescisão do Convênio Consignado Privado, a  estrutura de cobrança dos Direitos Creditórios (desconto na folha de pagamento) poderá ser  comprometida, dando origem à necessidade de adoção de uma nova estrutura, que poderá não ser tão  eficaz quanto ela ou mesmo revelar, na prática, ser inadequada ou ter altos custos operacionais. Esses  eventos podem levar a perdas patrimoniais para a Classe, na medida em que este deixará de receber,  definitiva ou temporariamente, recursos oriundos dos Direitos Creditórios, no todo ou em parte.\n Adicionalmente, de acordo com o Contrato de Endosso, a manutenção do Convênio Consignado Privado é  uma condição para a aquisição de novos Direitos Creditórios pela Classe e, portanto, no caso de rescisão  do Convênio Consignado Privado, a Classe poderá ser impedido de adquirir novos Direitos Creditórios.\n Riscos de Originação e do Originador\n (i) Riscos do originador e da originação: a continuidade da Classe poderá ser comprometida no caso de  inconstância na concessão de empréstimos pelo Endossante aos Devedores ou incapacidade do Agente de  Retenção/Cobrança operacionalizar a Plataforma MT, através da qual os Direitos Creditórios Elegíveis são  originados. Portanto, o investimento na Classe está sujeito ao risco de não originação, no futuro, de  Direitos Creditórios pelo Endossante contra os Devedores através da Plataforma MT, disponibilizada pelo  Agente de Retenção/Cobrança. Se isso acontecer, a originação dos Direitos Creditórios pelo Endossante  poderá ser impactada negativamente ou mesmo impossibilitada, o que poderá gerar a liquidação  antecipada da Classe. Além disso, a Classe poderá adquirir Direitos Creditórios que foram originados em  conformidade com o processo de originação e/ou políticas de concessão de crédito desenvolvidos e  monitorados pelo Endossante. Entretanto, não é possível assegurar que o cumprimento dessas diretrizes  garanta a qualidade dos Direitos Creditórios e/ou a solvência dos respectivos Devedores, ou que as  diretrizes e parâmetros estabelecidos no Capítulo 14 sejam corretamente interpretados e aplicados  quando a Classe fizer os investimentos. Além disso, se o Endossante deixar de existir ou estiver sujeito a  uma ordem de intervenção, liquidação extrajudicial ou regime especial ou gestão temporária ou evento  similar, a Classe será impactada também pelo fato de que a Conta Vinculada na qual as transferências feitas  pela CEF foram depositadas foi aberta em nome do Endossante. Neste caso, a Classe poderá sofrer perdas  principalmente em relação ao atraso na regularização da titularidade dos Direitos Creditórios junto à CEF.\n (ii) Risco decorrente de múltiplos Devedores: a Classe está apta a adquirir os Direitos Creditórios devidos por  múltiplos devedores. Esses Devedores poderão ser previamente desconhecidos pela Classe, o Gestor, o  Agente de Retenção/Cobrança, o Administrador e/ou o Custodiante, de modo que quaisquer problemas  de natureza comercial entre o Endossante e os Devedores poderão não ser previamente identificados pela  Classe, o Gestor, o Agente de Retenção/Cobrança, o Administrador e/ou o Custodiante. Caso os Direitos",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
       "verification": "primary_passage"
     }
   }

@@ -1,0 +1,23 @@
+{
+  "validation_scope": "Curadoria documental, competencia IME, comparativos nativos, contratos de interface/exportacao, downloads e reload",
+  "final_relevant_suite": {
+    "passed": 433,
+    "subtests_passed": 33,
+    "seconds": 9.06,
+    "result": "passed"
+  },
+  "broader_suite_attempt": {
+    "result": "interrupted_for_resource_budget",
+    "passed_before_interrupt": 113,
+    "failed": 4,
+    "seconds": 41.06,
+    "observed_process_rss_kib": 885168,
+    "failures": [
+      "tests/test_carteira_apuracao.py::test_a_apuracao_publicada_cobre_todos_os_pendentes",
+      "tests/test_carteira_estresse.py::test_a_lamina_de_estresse_entra_no_deck",
+      "tests/test_carteira_provisao.py::test_a_base_publicada_cobre_a_carteira_ativa",
+      "tests/test_carteira_subordinacao.py::test_a_troca_de_slides_nao_duplica_partes_no_pacote"
+    ],
+    "context": "Testes de artefatos setoriais e seus arquivos permanecem inalterados em relacao ao HEAD9ffb7cfb. Essa tentativa nao confirma aprovacao da suite geral."
+  }
+}

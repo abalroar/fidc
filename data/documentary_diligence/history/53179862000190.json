@@ -3,16 +3,6 @@
   "cnpj": "53179862000190",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "f6e274afb1ac3b4aaeab01275c39eaa6c9c1dd02d85faeb245f647199c5c1f14",
-      "c46cb655f2c55ddb731340170eff1158a751f59e643073af0185aa1f67723f6f",
-      "ab5617887fbd2c8aa76473486aeb5725f5f75da394c751f991c212eba1625df3",
-      "607df48cde32a7013254096b0eb52bd11e62f236598a5ce0817db1342e5dec2d",
-      "1b60fbae0851b887b368f43cc870c1f4cf05fac8287d06fc7101c74926ea96c2",
-      "bd6d0b534d45ec2c36965540b9e9ab6910218efaf3e133edb74dd93d622f6994",
-      "acfaf007b0449fc977ae1cd6297ed3811e471a56dd6f7fc92e559d162dbe5885",
-      "99f5ddc896f64cd2195f3a5c3b34a57b49936f608481f8748729b7d286d83d9e"
-    ],
     "term": [
       "64ea7180aefde3b548a23a973e804ec0e5bd67052aa15d38765706406f1c2a86"
     ],
@@ -336,28 +326,6 @@
       "ccfe029d7ac1c24bf2c274c35cdddbba670dfd399fcde6b016167896d436ad4e",
       "3aa3ed68134418858b36d56cb1c337edf78e891000bac6047ef494395943ce29"
     ],
-    "originator": [
-      "f6e274afb1ac3b4aaeab01275c39eaa6c9c1dd02d85faeb245f647199c5c1f14",
-      "c46cb655f2c55ddb731340170eff1158a751f59e643073af0185aa1f67723f6f",
-      "ab5617887fbd2c8aa76473486aeb5725f5f75da394c751f991c212eba1625df3",
-      "a5c24466135f7ee7f8aaaf82fc38a2a58ecd08bc980b005990f5834552652eb0",
-      "4e82a79ed47bfb7c892394afd55f5150e389e42bedbf4a93193c656926cc7d34",
-      "8116d2eeda97d52e2024dc975d05bd37f258cd45488ee4db80805b2acbff546c",
-      "b3dbc71999dc5bda580e71e2305a95cf5e6a6185898ff34cfd06525a825bab6b",
-      "6ab4b026623e791d6874b1622797a4d34f44e0895c54072576eb2d15f9f2b3fb",
-      "7239f37d8f12491359d7659316fa5150cadb69344ad59fa65e27baddf00624d7",
-      "c247b80da9bad0b2f91507ad41a78b143ea87c35dd48714261b11e86ff4f11c6"
-    ],
-    "debtor": [
-      "5c4e3c840df1811f143e51c2207db09c8a6a885d2fad87489e4831d4fc48f0cd",
-      "be1fb0cd31f8f8d7423e6a1404ae438416651c0a223b67ec81c0341432a7cad4",
-      "b4121601ba9d497417329119837e7ef208ed38e7f9b63d5e724f6bc5a4b14728",
-      "2763d9dbf3b07343ad07bb01f5a4e720cafb00181dec4b8c68e122136e1ed02c",
-      "73b0ed807432c43c1f5fce9e2c44053bbfc3285b799d6a6511213713f7e8d985",
-      "55d2bacba425b0e55cbdd8385fb1248f8a258d8affcfec802d367762ab94f0d5",
-      "bbc3d9c8170a49bdf37954a65193baa582df9290b846ffa0d5d3bf705455067e",
-      "16e7894995ea0ad7e3ab600de62a8c4cd7d07552cb5369a597562d487dd911bd"
-    ],
     "investee": [
       "a8330f66aa4b75c9728decf0a29c78bd6321f50efe582af03eed4589448db287",
       "e73e05f6979fa4d8065896d0c5d9a1c7684b94e654c38e953bc1bdeee90b5d4d",
@@ -402,6 +370,27 @@
       "b8cbb46ce15351b51e833a4c51b26f436e4130967022cf4a8156924d93e7a01c",
       "2e967870bbde2f58dbfdb97cd9c3d94c0a9acc581a72c10d462ca09f5066c6af",
       "0c78cd9b91070a57181f2bc4f0dc1898887b20fde707a35b0fb0f0a36b4cdaa9"
+    ],
+    "originator": [
+      "f6e274afb1ac3b4aaeab01275c39eaa6c9c1dd02d85faeb245f647199c5c1f14",
+      "c46cb655f2c55ddb731340170eff1158a751f59e643073af0185aa1f67723f6f",
+      "ab5617887fbd2c8aa76473486aeb5725f5f75da394c751f991c212eba1625df3",
+      "a5c24466135f7ee7f8aaaf82fc38a2a58ecd08bc980b005990f5834552652eb0",
+      "4e82a79ed47bfb7c892394afd55f5150e389e42bedbf4a93193c656926cc7d34",
+      "8116d2eeda97d52e2024dc975d05bd37f258cd45488ee4db80805b2acbff546c",
+      "b9fefa0bcafb8c18103f4b44301819a8a0a6e3d7b9daf30e6f935378ff6b596f",
+      "a667927446ee14e2e3a964a39b60c30684002c7a3634fbbfafa3d60867339e0c"
+    ],
+    "eligibility": [
+      "55397e8af53787c3ba281144386d52349c98ef09834471e90437f1993c2feec5",
+      "1a8f39d3399174d2dedc78753777b7e14acca5fea8efadbfee0ade3ef45fe60b",
+      "610146e98cfef089a6ed8a412ecf24b8786f99acb3b3157109e52b3c4385a39c",
+      "50ddc72e0ba464312eca1cc3616c0fcc4410a5b7be259d2bac23061d3e249c37",
+      "79fde15281a6020f30a25c1789202a3e1e145de08d777fa3e98a6a1e149ad2bf",
+      "803dd12a260f5355377c9bb9f91cfed98f3501dc0bbd3012914b565268fbf992",
+      "57b739e1e71936528dcb85317bcf595850914907d1e28f41f97965ff53983216",
+      "3841e0759ca72d318b6dfec7258064e8293e7e507c70441d450e58f458879e23",
+      "93f01f9d4ba601d4c5258118691a4d59d1cb8d4c1569c15af1c25112204727db"
     ]
   },
   "entries": {
@@ -475,159 +464,6 @@
       "provenance": "primary_passage",
       "sources": [
         "fb3bce9b10f15d322b7ee521b1992702eb76be557fb064cd0584e8c666789065"
-      ]
-    },
-    "b3dbc71999dc5bda580e71e2305a95cf5e6a6185898ff34cfd06525a825bab6b": {
-      "reference_date": "2024-12-03",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "de4fc2b9674f882ec46c66fc53268566368cf615f0edbb2e925636138b628350"
-      ]
-    },
-    "6ab4b026623e791d6874b1622797a4d34f44e0895c54072576eb2d15f9f2b3fb": {
-      "reference_date": "2024-05-15",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "123d7b6363474d6a8e8347f61e775a63a7b394c7a81db27c6513579bc4195927"
-      ]
-    },
-    "7239f37d8f12491359d7659316fa5150cadb69344ad59fa65e27baddf00624d7": {
-      "reference_date": "2024-04-11",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a3957c9dc45648fa305933eb8daaaa0d73974536028c8ff800823b17f3663d7b"
-      ]
-    },
-    "c247b80da9bad0b2f91507ad41a78b143ea87c35dd48714261b11e86ff4f11c6": {
-      "reference_date": "2024-02-07",
-      "value": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas partes relacionadas, tais como definidas pelas regras contábeis que tratam desse assunto.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a32ca8c3a6b6fe2c45e4eeabfeb24380d3e94844c22e80528bc4d2926f37a8ef"
-      ]
-    },
-    "5c4e3c840df1811f143e51c2207db09c8a6a885d2fad87489e4831d4fc48f0cd": {
-      "reference_date": "2025-06-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a1c128cc07c574da2dc487e8d9ced1887697879049456e21b15e1b243a3d087b"
-      ]
-    },
-    "be1fb0cd31f8f8d7423e6a1404ae438416651c0a223b67ec81c0341432a7cad4": {
-      "reference_date": "2025-03-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0ad6ed23b69581a55552d1996890cb723e1c86f4ae1267f8c1afa711e498025e"
-      ]
-    },
-    "b4121601ba9d497417329119837e7ef208ed38e7f9b63d5e724f6bc5a4b14728": {
-      "reference_date": "2024-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3953b9bc47fc2abf11f2fd37618c82bc2df048e5a387dd5d95a4fef4b1799b61"
-      ]
-    },
-    "2763d9dbf3b07343ad07bb01f5a4e720cafb00181dec4b8c68e122136e1ed02c": {
-      "reference_date": "2024-12-03",
-      "value": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ffb28f15c404e6bb82a73ce0106ee25207c69e0d2964dbeefe2a566b5d8294c4"
-      ]
-    },
-    "73b0ed807432c43c1f5fce9e2c44053bbfc3285b799d6a6511213713f7e8d985": {
-      "reference_date": "2024-05-15",
-      "value": "As alíquotas e os valores que podem ser sacados, a cada ano, das contas de cada Devedor junto ao FGTS estão previstos na Lei nº 8.036/90. O Poder Executivo Federal pode alterar, todo ano, tais alíquotas e valores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fcd1a64c901e15d06dc6d77d3fe25fe220249a71e0d78f30225c56ad21fe98c4"
-      ]
-    },
-    "55d2bacba425b0e55cbdd8385fb1248f8a258d8affcfec802d367762ab94f0d5": {
-      "reference_date": "2024-04-11",
-      "value": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e4fb95accf08df4073846f00189eae215a3b94c9cfd223bfb4e2901df466540a"
-      ]
-    },
-    "bbc3d9c8170a49bdf37954a65193baa582df9290b846ffa0d5d3bf705455067e": {
-      "reference_date": "2024-02-07",
-      "value": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8a1666739319ecea4f9e449d7ba4bc72584bf1f6f82d7e13d4688f124174cfb4"
-      ]
-    },
-    "16e7894995ea0ad7e3ab600de62a8c4cd7d07552cb5369a597562d487dd911bd": {
-      "reference_date": "2024-01-23",
-      "value": "As alíquotas e os valores que podem ser sacados, a cada ano, das contas de cada Devedor junto ao FGTS estão previstos na Lei nº 8.036/90. O Poder Executivo Federal pode alterar, todo ano, tais alíquotas e valores.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "842782e884038b1c95eeb7c65aa6dcbf1be863597dec36ac3250e0ef96b90cc8"
-      ]
-    },
-    "607df48cde32a7013254096b0eb52bd11e62f236598a5ce0817db1342e5dec2d": {
-      "reference_date": "2024-12-03",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3bd8cd21ddafd05d5ce56b70b18eae328dc8a5c759b926b83474d1e0ac587a94"
-      ]
-    },
-    "1b60fbae0851b887b368f43cc870c1f4cf05fac8287d06fc7101c74926ea96c2": {
-      "reference_date": "2024-05-15",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "69ae1e3471a076171ac35f1a43de629d30b7995749957312165004616b8f3c2b"
-      ]
-    },
-    "bd6d0b534d45ec2c36965540b9e9ab6910218efaf3e133edb74dd93d622f6994": {
-      "reference_date": "2024-04-11",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "73fd8e776f3be8cf9739eecf04c63fd1fe4771ec8d42c8f664d53468b1eef530"
-      ]
-    },
-    "acfaf007b0449fc977ae1cd6297ed3811e471a56dd6f7fc92e559d162dbe5885": {
-      "reference_date": "2024-02-07",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "127249f4c14528a661e4b2a74f6b88a80915f73a4598cc2e999c112a2253fc32"
-      ]
-    },
-    "99f5ddc896f64cd2195f3a5c3b34a57b49936f608481f8748729b7d286d83d9e": {
-      "reference_date": "2024-01-23",
-      "value": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5253651dad5ddf4b5897d4515a1d09dc9390ead54dbe812b1912b008ec054910"
       ]
     },
     "64ea7180aefde3b548a23a973e804ec0e5bd67052aa15d38765706406f1c2a86": {
@@ -2779,6 +2615,105 @@
       "sources": [
         "e128ef22d502025c09edf45893ecb3f13b833b04b8d92e9caa63f2eb4029532c"
       ]
+    },
+    "b9fefa0bcafb8c18103f4b44301819a8a0a6e3d7b9daf30e6f935378ff6b596f": {
+      "reference_date": "2024-12-03",
+      "value": "O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continuidade das operações com Direitos Creditórios elegíveis do Originador como correspondente bancário do Endossante, nos termos do Regulamento, inclusive em volume suficiente para alcançar a meta de rentabilidade das Cotas Seniores.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1d7650b7c54c97c94aaba2b72e4fd81eaa16bc5ea8a6b42b1014468b79511d3b"
+      ]
+    },
+    "a667927446ee14e2e3a964a39b60c30684002c7a3634fbbfafa3d60867339e0c": {
+      "reference_date": "2024-05-15",
+      "value": "O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continuidade das operações com Direitos Creditórios elegíveis do Originador como correspondente bancário do Endossante, nos termos do Regulamento, inclusive em volume suficiente para alcançar a meta de rentabilidade das Cotas Seniores.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1a56c831ada5c44861ec1c740bb417515fd0cfde683ad14d1da58899586f96f1"
+      ]
+    },
+    "55397e8af53787c3ba281144386d52349c98ef09834471e90437f1993c2feec5": {
+      "reference_date": "2025-06-30",
+      "value": "A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ Critérios de 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no Elegibilidade: máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "090cbbbab84cfe704322610cf88bacfdaa19ef91618773b99eccf83892342b0d"
+      ]
+    },
+    "1a8f39d3399174d2dedc78753777b7e14acca5fea8efadbfee0ade3ef45fe60b": {
+      "reference_date": "2025-03-31",
+      "value": "A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ Critérios de 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no Elegibilidade: máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "75bc1eec6d77c480445d75d9d476829ed80894a85b8d0336762e9c597eca8924"
+      ]
+    },
+    "610146e98cfef089a6ed8a412ecf24b8786f99acb3b3157109e52b3c4385a39c": {
+      "reference_date": "2024-12-31",
+      "value": "A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ Critérios de 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no Elegibilidade: máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ac765b54325971c26c635a31826926f7e163539ce007c8e756000c9c643ea642"
+      ]
+    },
+    "50ddc72e0ba464312eca1cc3616c0fcc4410a5b7be259d2bac23061d3e249c37": {
+      "reference_date": "2024-11-30",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pelo Fundo, outros Direitos Creditórios vencidos e não pagos ao Fundo; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados ao Fundo, o valor nominal das parcelas devidas por um mesmo Devedor perante o Fundo não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e o Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9a25613b3d2f941dbaf769f69ad2aab49a1f47c42acd937b65c2e36a89ce1af5"
+      ]
+    },
+    "79fde15281a6020f30a25c1789202a3e1e145de08d777fa3e98a6a1e149ad2bf": {
+      "reference_date": "2024-12-03",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f31de912962990bd68b3ab4685e7c74f7ef1414150181748961fb11d4709f2fe"
+      ]
+    },
+    "803dd12a260f5355377c9bb9f91cfed98f3501dc0bbd3012914b565268fbf992": {
+      "reference_date": "2024-05-15",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição; h) os Direitos Creditórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "523a91b90a289394f47d54bb2722d6b87c1a8ba978e1d60e051fea9bdeb3db7e"
+      ]
+    },
+    "57b739e1e71936528dcb85317bcf595850914907d1e28f41f97965ff53983216": {
+      "reference_date": "2024-04-11",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB; c) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; d) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); e) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB; f) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; g) os Direitos Creditórios deverão ser representados por CCB; h) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8a1c13e40877f6301f0c0c2814c54877744559f8977a66a95f518bfd1244831a"
+      ]
+    },
+    "3841e0759ca72d318b6dfec7258064e8293e7e507c70441d450e58f458879e23": {
+      "reference_date": "2024-02-07",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; c) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); d) o prazo de vencimento das CCBs não poderá ser superior a 3.650 (três mil seiscentos e cinquenta) dias, equivalente à 120 (cento e vinte) meses; e) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3ae6f32294e45800bc709446f042087a3008284e148edffa74d65e0b9a247ce7"
+      ]
+    },
+    "93f01f9d4ba601d4c5258118691a4d59d1cb8d4c1569c15af1c25112204727db": {
+      "reference_date": "2024-01-23",
+      "value": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: a) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora; b) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à Classe; c) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais); d) o prazo de vencimento das CCBs não poderá ser superior a 3.650 (três mil seiscentos e cinquenta) dias, equivalente à 120 (cento e vinte) meses; e) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a1538bd5fd470f13c361d1a4f3f4be3e932ce49b0e75c1a5678d8a64e37d644"
+      ]
     }
   },
   "passages": {
@@ -2876,210 +2811,6 @@
       "clause": "",
       "excerpt": "INFORMATIVO INFORMAÇÕES REGULATÓRIAS COMPLEMENTARES 1. O Comitê de Classificação de Risco que atribuiu o rating das Cotas Seniores do FIDC de Responsabilidade Limitada FGTS MT II  (Fundo), se reuniu no dia 10 de abril de 2024. Esta reunião de Comitê está registrada na ata nº 20240410-3.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas  classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu  anteriormente classificações de risco de crédito para Cotas de FIDCs, com lastro em créditos originados de operações de empréstimos  com lastro em antecipação de saques aniversário do FGTS.\n5. As classificações de risco de crédito da Austin Rating estão sujeitas a diversas limitações, conforme descrito no final deste documento  (Disclaimers).\n6. As fontes de informações foram consideradas confiáveis pela Austin Rating. Os analistas utilizaram informações provenientes dos  estruturadores e do Grupo Originador dos Direitos Creditórios.\n7. As informações obtidas pela Austin Rating foram consideradas suficientes para a indicação de uma classificação de risco de crédito.\n8. As estimativas de inadimplência e níveis de perda do Fundo baseiam-se em metodologia própria, a qual considera as características  de sua carteira atual e potencial e seu desempenho histórico e o desempenho de carteiras semelhantes disponíveis na base de dados  da Austin Rating.\n9. O nível de diligência da análise para o produto financeiro estruturado foi adequado ao padrão estabelecido pela Austin Rating. Foi  realizada análise aprofundada sobre as informações recebidas acerca dos ativos subjacentes às Cotas classificadas do Fundo.\n10. A classificação será revisada e atualizada trimestralmente, conforme previsto no item VIII do artigo 34 da instrução CVM nº356/2001.\n Até o 45º dia após o encerramento do trimestre em análise, será divulgado Relatório de Monitoramento, contendo a opinião atualizada  da Austin Rating sobre o risco de default do Fundo em relação às Cotas classificadas, por ele emitidas. A Austin Rating salienta que  poderão ser realizadas ações de rating a qualquer tempo, inclusive no intervalo entre os monitoramentos trimestrais previstos.\n11. A Austin Rating adota políticas e procedimentos que visam mitigar potenciais situações de conflitos de interesse que possam afetar o  desempenho da atividade de classificação de risco e seus resultados. O presente processo de classificação de risco está isento de  situações de potencial conflito de interesses, incluindo aquelas previstas na Resolução CVM nº 9, de 27 de outubro de 2020.\n12. Na data do presente relatório, a Austin Rating não atribui classificação de risco de crédito à instituição responsável pela Administração  e Custódia do Fundo, mas, classifica outros Fundos administrados ou de Custódia do mesmo. A Austin Rating também não atribui  ratings de crédito ou de qualidade de gestão às Gestoras, mas possui igualmente classificações de outros Fundos desses prestadores,  os quais podem ser consultados no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html..\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serviços  adicionais ao serviço de classificação de risco para o Fundo, nem sequer para qualquer outra parte relacionada a este Fundo nos  últimos 12 meses.\n14. O serviço de classificação de risco das Cotas foi solicitado em nome do Fundo por partes a ele relacionadas. Desse modo, houve  compensação financeira pela prestação do serviço.\n15. A classificação foi comunicada ao Contratante e a outras partes ligadas ao Fundo, via e-mail, em 10 de abril de 2024. A versão original  do informativo foi enviada a essas partes, também via na mesma data. Não foram realizadas alterações relevantes no conteúdo deste,  nem tampouco foi promovida alteração na classificação em razão dos comentários e observações realizados pelo contratante.\n16. Este documento é um relatório de classificação de risco de crédito, para fins de atendimento ao que dispõe o artigo 16 da Resolução  CVM nº 9, de 27 de outubro de 2020.",
       "sha256": "075a686d07360fff35c302836243ab90cdfa1d1e4cdc8cd4fc29f26d0673d9fe",
-      "verification": "primary_passage"
-    },
-    "de4fc2b9674f882ec46c66fc53268566368cf615f0edbb2e925636138b628350": {
-      "document_id": "794094",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794094",
-      "reference_date": "2024-12-03",
-      "version": "1",
-      "page": 34,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser  os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas  partes relacionadas, tais como definidas pelas regras contábeis que tratam desse  assunto.",
-      "sha256": "2c658436e947417915d4aeae098ca1252dcfbfd6e308cf48acf5fc0763da3614",
-      "verification": "primary_passage"
-    },
-    "123d7b6363474d6a8e8347f61e775a63a7b394c7a81db27c6513579bc4195927": {
-      "document_id": "664126",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664126",
-      "reference_date": "2024-05-15",
-      "version": "1",
-      "page": 38,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser  os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas  respectivas partes relacionadas, tais como definidas pelas regras contábeis que  tratam desse assunto.",
-      "sha256": "eb16f65feeb708fc3590470d7000e16d45954e59bbcaaa0842b31f4bc3a60c36",
-      "verification": "primary_passage"
-    },
-    "a3957c9dc45648fa305933eb8daaaa0d73974536028c8ff800823b17f3663d7b": {
-      "document_id": "638010",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638010",
-      "reference_date": "2024-04-11",
-      "version": "1",
-      "page": 32,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser  os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas  partes relacionadas, tais como definidas pelas regras contábeis que tratam desse  assunto.",
-      "sha256": "c1833a70c6c4c1a13cd51b99e415b915b4c79aeb23cad12bc01327da5611affa",
-      "verification": "primary_passage"
-    },
-    "a32ca8c3a6b6fe2c45e4eeabfeb24380d3e94844c22e80528bc4d2926f37a8ef": {
-      "document_id": "599031",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=599031",
-      "reference_date": "2024-02-07",
-      "version": "1",
-      "page": 32,
-      "clause": "4.4.3",
-      "excerpt": "4.4.3 Os prestadores de serviços subcontratados pelo Custodiante não poderão ser  os originadores dos Direitos Creditórios, o Endossante, a Gestora ou as suas respectivas  partes relacionadas, tais como definidas pelas regras contábeis que tratam desse  assunto.",
-      "sha256": "a5794451975d8b64525f390621a7e23039375b3f28823edbe0861b28447cd267",
-      "verification": "primary_passage"
-    },
-    "a1c128cc07c574da2dc487e8d9ced1887697879049456e21b15e1b243a3d087b": {
-      "document_id": "1090111",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090111",
-      "reference_date": "2025-06-30",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam,  cumulativamente, às seguintes Condições de Cessão: a) os Direitos Creditórios devem ser representados por CCBs que contem  com a outorga da Cessão Fiduciária dos Direitos aos Saques-Aniversários; b) houve a consignação dos Saques-Aniversários em  relação a cada Devedor, a qual foi devidamente autorizada pelo Devedor, cuja comprovação deverá se dar pelo Cedente ao  Condições de Originador, através do meio aplicável, conforme previsto no Contrato de Cessão; c) os Direitos Creditórios decorrerem de  Cessão: Antecipação Saques-FGTS cujas características se encontrem em consonância com todas as declarações e garantias prestadas  no âmbito do Contrato de Cessão e seus respectivos Termos de Transferência; e d) quando da concessão da Antecipação Saques  FGTS a Cedente tenha realizado o Bloqueio do Saldo FGTS junto ao Agente Operador do FGTS, nos termos e condições Lei\n 8.036/90 e da Resolução CCFGTS 958 e o Bloqueio do Saldo FGTS perdurará em montante e período necessários ao término da  Cessão Fiduciária ou da Alienação Fiduciária dos direitos aos Saques-Aniversário.",
-      "sha256": "9d3afe640bf537a4aeef865bbbf478e280d97fab6f127d93b4f54e2e102fb0e0",
-      "verification": "primary_passage"
-    },
-    "0ad6ed23b69581a55552d1996890cb723e1c86f4ae1267f8c1afa711e498025e": {
-      "document_id": "1090108",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1090108",
-      "reference_date": "2025-03-31",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam,  cumulativamente, às seguintes Condições de Cessão: a) os Direitos Creditórios devem ser representados por CCBs que contem  com a outorga da Cessão Fiduciária dos Direitos aos Saques-Aniversários; b) houve a consignação dos Saques-Aniversários em  relação a cada Devedor, a qual foi devidamente autorizada pelo Devedor, cuja comprovação deverá se dar pelo Cedente ao  Condições de Originador, através do meio aplicável, conforme previsto no Contrato de Cessão; c) os Direitos Creditórios decorrerem de  Cessão: Antecipação Saques-FGTS cujas características se encontrem em consonância com todas as declarações e garantias prestadas  no âmbito do Contrato de Cessão e seus respectivos Termos de Transferência; e d) quando da concessão da Antecipação Saques  FGTS a Cedente tenha realizado o Bloqueio do Saldo FGTS junto ao Agente Operador do FGTS, nos termos e condições Lei\n 8.036/90 e da Resolução CCFGTS 958 e o Bloqueio do Saldo FGTS perdurará em montante e período necessários ao término da  Cessão Fiduciária ou da Alienação Fiduciária dos direitos aos Saques-Aniversário.",
-      "sha256": "c3ffcf53a9651d44d7c275b1503c451c8cbb704d847d9092c5d5d5b6f89f67c9",
-      "verification": "primary_passage"
-    },
-    "3953b9bc47fc2abf11f2fd37618c82bc2df048e5a387dd5d95a4fef4b1799b61": {
-      "document_id": "935485",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935485",
-      "reference_date": "2024-12-31",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam,  cumulativamente, às seguintes Condições de Cessão: a) os Direitos Creditórios devem ser representados por CCBs que contem  com a outorga da Cessão Fiduciária dos Direitos aos Saques-Aniversários; b) houve a consignação dos Saques-Aniversários em  relação a cada Devedor, a qual foi devidamente autorizada pelo Devedor, cuja comprovação deverá se dar pelo Cedente ao  Condições de Originador, através do meio aplicável, conforme previsto no Contrato de Cessão; c) os Direitos Creditórios decorrerem de  Cessão: Antecipação Saques-FGTS cujas características se encontrem em consonância com todas as declarações e garantias prestadas  no âmbito do Contrato de Cessão e seus respectivos Termos de Transferência; e d) quando da concessão da Antecipação Saques  FGTS a Cedente tenha realizado o Bloqueio do Saldo FGTS junto ao Agente Operador do FGTS, nos termos e condições Lei\n 8.036/90 e da Resolução CCFGTS 958 e o Bloqueio do Saldo FGTS perdurará em montante e período necessários ao término da  Cessão Fiduciária ou da Alienação Fiduciária dos direitos aos Saques-Aniversário.",
-      "sha256": "98532c87362003aee8619328e3cfecc67f97b19aa1cf5ecda25f9f7a4044f7b1",
-      "verification": "primary_passage"
-    },
-    "ffb28f15c404e6bb82a73ce0106ee25207c69e0d2964dbeefe2a566b5d8294c4": {
-      "document_id": "794094",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794094",
-      "reference_date": "2024-12-03",
-      "version": "1",
-      "page": 49,
-      "clause": "10.27",
-      "excerpt": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados. A despeito do bloqueio, os seguintes eventos ensejam o saque de recursos da conta do Devedor, de forma a afetar o bloqueio, e a execução antecipada da garantia: (a) caso o Devedor ou algum de seus dependentes (1) seja acometido por neoplasia maligna; (2) seja portador do vírus HIV;\n(3) esteja em estágio terminal em razão de doença grave; ou (4) possua doença rara; bem como\n(b) caso o Devedor (1) tenha idade igual ou superior a 70 (setenta) anos; (2) se aposente pela previdência social; ou (3) faleça. Na ocorrência de qualquer dos citados eventos, o saque será realizado e os valores bloqueados serão direcionados ao pagamento antecipado da respectiva CCB. Nessa hipótese, o fluxo de caixa previsto para o Fundo seria afetado, o que poderia prejudicar os resultados da carteira da Classe.",
-      "sha256": "2c658436e947417915d4aeae098ca1252dcfbfd6e308cf48acf5fc0763da3614",
-      "verification": "primary_passage"
-    },
-    "fcd1a64c901e15d06dc6d77d3fe25fe220249a71e0d78f30225c56ad21fe98c4": {
-      "document_id": "664126",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664126",
-      "reference_date": "2024-05-15",
-      "version": "1",
-      "page": 55,
-      "clause": "10.30",
-      "excerpt": "10.30. Alteração das Alíquotas e Valores para o Saque Aniversário. As alíquotas e os valores que podem ser sacados, a cada ano, das contas de cada Devedor junto ao FGTS estão previstos na Lei nº 8.036/90. O Poder Executivo Federal pode alterar, todo ano, tais alíquotas e valores. Nesse caso, exceto se houver saldo suficiente na conta para elevação do valor bloqueado, o valor de cada parcela, a quantidade de parcelas e o prazo de vencimento das CCB serão automaticamente alterados para sua adequação às novas alíquotas e valores, mantendo-se, entretanto, as taxas de juros originalmente pactuadas. Tal medida poderia afetar o fluxo de caixa previsto para o Fundo e, consequentemente, o rendimento das Cotas.",
-      "sha256": "eb16f65feeb708fc3590470d7000e16d45954e59bbcaaa0842b31f4bc3a60c36",
-      "verification": "primary_passage"
-    },
-    "e4fb95accf08df4073846f00189eae215a3b94c9cfd223bfb4e2901df466540a": {
-      "document_id": "638010",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638010",
-      "reference_date": "2024-04-11",
-      "version": "1",
-      "page": 47,
-      "clause": "10.27",
-      "excerpt": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados. A despeito do bloqueio, os seguintes eventos ensejam o saque de recursos da conta do Devedor, de forma a afetar o bloqueio, e a execução antecipada da garantia: (a) caso o Devedor ou algum de seus dependentes (1) seja acometido por neoplasia maligna; (2) seja portador do vírus HIV;\n(3) esteja em estágio terminal em razão de doença grave; ou (4) possua doença rara; bem como\n(b) caso o Devedor (1) tenha idade igual ou superior a 70 (setenta) anos; (2) se aposente pela previdência social; ou (3) faleça. Na ocorrência de qualquer dos citados eventos, o saque será realizado e os valores bloqueados serão direcionados ao pagamento antecipado da respectiva CCB. Nessa hipótese, o fluxo de caixa previsto para o Fundo seria afetado, o que poderia prejudicar os resultados da carteira da Classe.",
-      "sha256": "c1833a70c6c4c1a13cd51b99e415b915b4c79aeb23cad12bc01327da5611affa",
-      "verification": "primary_passage"
-    },
-    "8a1666739319ecea4f9e449d7ba4bc72584bf1f6f82d7e13d4688f124174cfb4": {
-      "document_id": "599031",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=599031",
-      "reference_date": "2024-02-07",
-      "version": "1",
-      "page": 47,
-      "clause": "10.27",
-      "excerpt": "10.27. Movimentação das Contas dos Devedores junto ao FGTS. Quando da Cessão Fiduciária dos Direitos aos Saques-Aniversário em garantia dos Direitos Creditórios endossados, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios endossados. A despeito do bloqueio, os seguintes eventos ensejam o saque de recursos da conta do Devedor, de forma a afetar o bloqueio, e a execução antecipada da garantia: (a) caso o Devedor ou algum de seus dependentes (1) seja acometido por neoplasia maligna; (2) seja portador do vírus HIV;\n(3) esteja em estágio terminal em razão de doença grave; ou (4) possua doença rara; bem como\n(b) caso o Devedor (1) tenha idade igual ou superior a 70 (setenta) anos; (2) se aposente pela previdência social; ou (3) faleça. Na ocorrência de qualquer dos citados eventos, o saque será realizado e os valores bloqueados serão direcionados ao pagamento antecipado da respectiva CCB. Nessa hipótese, o fluxo de caixa previsto para o Fundo seria afetado, o que poderia prejudicar os resultados da carteira da Classe.",
-      "sha256": "a5794451975d8b64525f390621a7e23039375b3f28823edbe0861b28447cd267",
-      "verification": "primary_passage"
-    },
-    "842782e884038b1c95eeb7c65aa6dcbf1be863597dec36ac3250e0ef96b90cc8": {
-      "document_id": "588883",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588883",
-      "reference_date": "2024-01-23",
-      "version": "1",
-      "page": 47,
-      "clause": "10.30",
-      "excerpt": "10.30. Alteração das Alíquotas e Valores para o Saque Aniversário. As alíquotas e os valores que podem ser sacados, a cada ano, das contas de cada Devedor junto ao FGTS estão previstos na Lei nº 8.036/90. O Poder Executivo Federal pode alterar, todo ano, tais alíquotas e valores. Nesse caso, exceto se houver saldo suficiente na conta para elevação do valor bloqueado, o valor de cada parcela, a quantidade de parcelas e o prazo de vencimento das CCB serão automaticamente alterados para sua adequação às novas alíquotas e valores, mantendo-se, entretanto, as taxas de juros originalmente pactuadas. Tal medida poderia afetar o fluxo de caixa previsto para o Fundo e, consequentemente, o rendimento das Cotas.",
-      "sha256": "38a69c5cd92ae8626fb94f8d19ca2ad2536963f3da3dc4100a16d8e06800000c",
-      "verification": "primary_passage"
-    },
-    "3bd8cd21ddafd05d5ce56b70b18eae328dc8a5c759b926b83474d1e0ac587a94": {
-      "document_id": "794094",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794094",
-      "reference_date": "2024-12-03",
-      "version": "1",
-      "page": 37,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "sha256": "2c658436e947417915d4aeae098ca1252dcfbfd6e308cf48acf5fc0763da3614",
-      "verification": "primary_passage"
-    },
-    "69ae1e3471a076171ac35f1a43de629d30b7995749957312165004616b8f3c2b": {
-      "document_id": "664126",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664126",
-      "reference_date": "2024-05-15",
-      "version": "1",
-      "page": 41,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que  atendam aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "sha256": "eb16f65feeb708fc3590470d7000e16d45954e59bbcaaa0842b31f4bc3a60c36",
-      "verification": "primary_passage"
-    },
-    "73fd8e776f3be8cf9739eecf04c63fd1fe4771ec8d42c8f664d53468b1eef530": {
-      "document_id": "638010",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638010",
-      "reference_date": "2024-04-11",
-      "version": "1",
-      "page": 35,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "sha256": "c1833a70c6c4c1a13cd51b99e415b915b4c79aeb23cad12bc01327da5611affa",
-      "verification": "primary_passage"
-    },
-    "127249f4c14528a661e4b2a74f6b88a80915f73a4598cc2e999c112a2253fc32": {
-      "document_id": "599031",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=599031",
-      "reference_date": "2024-02-07",
-      "version": "1",
-      "page": 35,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "sha256": "a5794451975d8b64525f390621a7e23039375b3f28823edbe0861b28447cd267",
-      "verification": "primary_passage"
-    },
-    "5253651dad5ddf4b5897d4515a1d09dc9390ead54dbe812b1912b008ec054910": {
-      "document_id": "588883",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588883",
-      "reference_date": "2024-01-23",
-      "version": "1",
-      "page": 34,
-      "clause": "6.2.1",
-      "excerpt": "6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam  aos Critérios de Elegibilidade na respectiva Data de Aquisição.",
-      "sha256": "38a69c5cd92ae8626fb94f8d19ca2ad2536963f3da3dc4100a16d8e06800000c",
       "verification": "primary_passage"
     },
     "cce911ab29bfda482c00c38e7ef7fde04205f5e18a9a34ce1d19aa458cee0a05": {
@@ -5774,6 +5505,108 @@
       "excerpt": "Em 30 de novembro de 2024, o Fundo não possuía garantias reais ou fidejussórias pela liquidação dos direitos creditórios, porém, os direitos creditórios adquiridos poderão contar com garantias, o que significa, se houver, quando referidos individualmente ou em conjunto, a alienação fiduciária de produto, a alienação fiduciária de imóvel, a cessão fiduciária de recebíveis, o aval, e quaisquer outras modalidades de garantias fidejussórias ou reais que venham a ser estabelecidas em cada CCB, ou em instrumento próprio (conforme aplicável), o que poderá incluir, sem limitação, a celebração de contrato de alienação fiduciária de imóvel e/ou de contrato de cessão fiduciária de recebíveis, conforme o caso.",
       "sha256": "ba9aa15c727cf10fc6ba4007cbac0c924b3d21d5ae221fb23b64efeb41d73c60",
       "verification": "primary_passage"
+    },
+    "1d7650b7c54c97c94aaba2b72e4fd81eaa16bc5ea8a6b42b1014468b79511d3b": {
+      "document_id": "794094",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794094",
+      "reference_date": "2024-12-03",
+      "version": "1",
+      "page": 52,
+      "clause": "10.41",
+      "excerpt": "10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continuidade das operações com Direitos Creditórios elegíveis do Originador como correspondente bancário do Endossante, nos termos do Regulamento, inclusive em volume suficiente para alcançar a meta de rentabilidade das Cotas Seniores. Se, por qualquer motivo, o contrato de correspondente bancário celebrado entre o Originador e o Endossante for rescindido, a continuidade das atividades será comprometida.",
+      "sha256": "2c658436e947417915d4aeae098ca1252dcfbfd6e308cf48acf5fc0763da3614",
+      "verification": "primary_passage"
+    },
+    "1a56c831ada5c44861ec1c740bb417515fd0cfde683ad14d1da58899586f96f1": {
+      "document_id": "664126",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664126",
+      "reference_date": "2024-05-15",
+      "version": "1",
+      "page": 58,
+      "clause": "10.41",
+      "excerpt": "10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continuidade das operações com Direitos Creditórios elegíveis do Originador como correspondente bancário do Endossante, nos termos do Regulamento, inclusive em volume suficiente para alcançar a meta de rentabilidade das Cotas Seniores. Se, por qualquer motivo, o contrato de correspondente bancário celebrado entre o Originador e o Endossante for rescindido, a continuidade das atividades será comprometida.",
+      "sha256": "eb16f65feeb708fc3590470d7000e16d45954e59bbcaaa0842b31f4bc3a60c36",
+      "verification": "primary_passage"
+    },
+    "9a25613b3d2f941dbaf769f69ad2aab49a1f47c42acd937b65c2e36a89ce1af5": {
+      "document_id": "851337",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=851337",
+      "reference_date": "2024-11-30",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela Gestora Valora;\nb) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de uma mesma CCB;\nc) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no momento de aquisição pelo Fundo, outros Direitos Creditórios vencidos e não pagos ao Fundo;\nd) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que forem ofertados ao Fundo, o valor nominal das parcelas devidas por um mesmo Devedor perante o Fundo não pode superar o valor agregado de R$ 200.000,00 (duzentos mil reais);\ne) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de emissão de cada CCB;\nf) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\ng) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento) sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição;\nh) os Direitos Creditórios deverão ser representados por CCB;\ni) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e o Fundo.",
+      "sha256": "ba9aa15c727cf10fc6ba4007cbac0c924b3d21d5ae221fb23b64efeb41d73c60",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "f31de912962990bd68b3ab4685e7c74f7ef1414150181748961fb11d4709f2fe": {
+      "document_id": "794094",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794094",
+      "reference_date": "2024-12-03",
+      "version": "1",
+      "page": "41–42",
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela  Gestora Valora;\nb) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de  uma mesma CCB;\nc) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no  momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à  Classe;\nd) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que  forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor  perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil  reais);\ne) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no  máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de  emissão de cada CCB;\nf) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\ng) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de  Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de  Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento)  sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição;\nh) os Direitos Creditórios deverão ser representados por CCB;\ni) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador,  nos termos dos contratos firmados entre estes e a Classe.\n8.1.1 Observados os termos e condições do presente Anexo, a verificação do  enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada  como definitiva.",
+      "sha256": "2c658436e947417915d4aeae098ca1252dcfbfd6e308cf48acf5fc0763da3614",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "523a91b90a289394f47d54bb2722d6b87c1a8ba978e1d60e051fea9bdeb3db7e": {
+      "document_id": "664126",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664126",
+      "reference_date": "2024-05-15",
+      "version": "1",
+      "page": "46–47",
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela  Gestora Valora;\nb) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas  de uma mesma CCB;\nc) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no  momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos  à Classe;\nd) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que  forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo  Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00  (duzentos mil reais);\ne) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser,  no máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de  emissão de cada CCB;\nf) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\ng) o conjunto dos Direitos Creditórios adquiridos nos 6 meses anteriores a cada Data de  Aquisição, somados aos Direitos Creditórios a serem adquiridos na respectiva Data de  Aquisição poderão incluir um ágio máximo ponderado de 15,0% (quinze por cento)  sobre o valor presente de tais Direitos Creditórios nas respectivas datas de aquisição;\nh) os Direitos Creditórios deverão ser representados por CCB;\ni) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador,  nos termos dos contratos firmados entre estes e a Classe.\n8.1.1 Observados os termos e condições do presente Anexo, a verificação  do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será  considerada como definitiva.",
+      "sha256": "eb16f65feeb708fc3590470d7000e16d45954e59bbcaaa0842b31f4bc3a60c36",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8a1c13e40877f6301f0c0c2814c54877744559f8977a66a95f518bfd1244831a": {
+      "document_id": "638010",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638010",
+      "reference_date": "2024-04-11",
+      "version": "1",
+      "page": 40,
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela  Gestora Valora;\nb) os Direitos Creditórios deverão ter como objeto a totalidade das parcelas vincendas de  uma mesma CCB;\nc) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no  momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à  Classe;\nd) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que  forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor  perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil  reais);\ne) o prazo de vencimento das CCBs representativas dos Direitos Creditórios deverá ser, no  máximo, equivalente 144 (cento e quarenta e quatro) meses contados da data de  emissão de cada CCB;\nf) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\ng) os Direitos Creditórios deverão ser representados por CCB;\nh) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador,  nos termos dos contratos firmados entre estes e a Classe.\n8.1.1 Observados os termos e condições do presente Anexo, a verificação do  enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada  como definitiva.",
+      "sha256": "c1833a70c6c4c1a13cd51b99e415b915b4c79aeb23cad12bc01327da5611affa",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "3ae6f32294e45800bc709446f042087a3008284e148edffa74d65e0b9a247ce7": {
+      "document_id": "599031",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=599031",
+      "reference_date": "2024-02-07",
+      "version": "1",
+      "page": 40,
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela  Gestora Valora;\nb) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no  momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à  Classe;\nc) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em que  forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo Devedor  perante a Classe não pode superar o valor agregado de R$ 200.000,00 (duzentos mil  reais);\nd) o prazo de vencimento das CCBs não poderá ser superior a 3.650 (três mil seiscentos e  cinquenta) dias, equivalente à 120 (cento e vinte) meses;\ne) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\nf) os Direitos Creditórios deverão ser representados por CCB;\ng) os Direitos Creditórios possam ser recomprados pelo Endossante.\n8.1.1 Observados os termos e condições do presente Anexo, a verificação do  enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada  como definitiva.",
+      "sha256": "a5794451975d8b64525f390621a7e23039375b3f28823edbe0861b28447cd267",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "2a1538bd5fd470f13c361d1a4f3f4be3e932ce49b0e75c1a5678d8a64e37d644": {
+      "document_id": "588883",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588883",
+      "reference_date": "2024-01-23",
+      "version": "1",
+      "page": 39,
+      "clause": "8.1",
+      "excerpt": "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora:\na) os Direitos Creditórios deverão ter sido previamente selecionados e aprovados pela  Gestora Valora;\nb) os Direitos Creditórios devem ser devidos por Devedores que não apresentem, no  momento de aquisição pela Classe, outros Direitos Creditórios vencidos e não pagos à  Classe;\nc) considerada pro forma a respectiva aquisição dos Direitos Creditórios, na data em  que forem ofertados à Classe, o valor nominal das parcelas devidas por um mesmo  Devedor perante a Classe não pode superar o valor agregado de R$ 200.000,00  (duzentos mil reais);\nd) o prazo de vencimento das CCBs não poderá ser superior a 3.650 (três mil seiscentos e  cinquenta) dias, equivalente à 120 (cento e vinte) meses;\ne) os Direitos Creditórios deverão atender a Taxa Mínima de Endosso;\nf) os Direitos Creditórios deverão ser representados por CCB;\ng) os Direitos Creditórios possam ser recomprados pelo Endossante.\n8.1.1 Observados os termos e condições do presente Anexo, a verificação do  enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada  como definitiva.",
+      "sha256": "38a69c5cd92ae8626fb94f8d19ca2ad2536963f3da3dc4100a16d8e06800000c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

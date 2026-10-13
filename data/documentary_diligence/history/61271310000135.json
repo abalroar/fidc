@@ -3,16 +3,6 @@
   "cnpj": "61271310000135",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "189ee7a9bce7e06c62141a84c84cbba51ff05c1a90d65734d2b5809dabbd233e",
-      "4f85b6eaa432d8ec4ef9ec72268e8293857856e62c031bb6869ec5d976a7c80f",
-      "72d984ea8759160fd463a337a7d03e5293122306d3cc6298b0dc12710bfb9e79",
-      "3b276001d39be30d620a16e44859a212e03466dd45ac8c91e4f1a15ccb8c7f9b",
-      "992079404bddc7881fb85270a3396b3bce032629933435314303da4943f5238e",
-      "a847e60096fb1657add8a22782e248ec1612c36e4ca0a0bc7bec611c6f8934a9",
-      "423198d0e81da7f7ed9bf0880e81a8aaf1962da6d71a69f643b7f83d471a0668",
-      "c61eac652c4003e7f50a23625b0fedecc2f03f85ee52451cc92b518eb0906cb9"
-    ],
     "term": [
       "134f88ca79cb4e81ec2ce0fb265a20c34059c54a4dd5ba04aef8b490b09a6237",
       "99aba45c65543d5e575e31790be96ed5befd2d5f32a241e9d7976ab895fcf547",
@@ -301,22 +291,6 @@
       "54e215af2ed525bdc47d45620d5522d6a753bf775886852ed9a9f846f827340f",
       "a1d7c66dc3357538561f3e304fa3da2fe7b02042eac30f766ae11638f0c19460"
     ],
-    "originator": [
-      "8518c4a4df32c106c69997cb80ea3977921acf6b4c350bf4a9e3b92f821d30f9",
-      "49a4abc94b6b4fe2c3a05fa75f8848812386f67ae8515474f669b2cd95312cc0",
-      "0067440e6e948733285d2f3d4c66876772d73b0d7b9187bb58e87f93f4415ac1",
-      "a78a57993054758cde3779fb928930e785b29176c3419bb929e510e05b7a54f4",
-      "c429e3d9707444d3c4727c9ccb106351c02b79e4b395cb3244e3ed29762ea1cf",
-      "14ea50ca4c8907652b7eb4dabf035386c00644f77e13b1de7b8cc82c84390deb",
-      "56d07d970194b511efd826b442f2d54f239538f62a44c79244e9e60b8005d1cf"
-    ],
-    "debtor": [
-      "9ba24067a4dcd837df6763177c3f597cb53860eb632f31f6e373c922d6a7a69d",
-      "5f8d23934f93492dbafd3692b2d684e2cc5a24111bb5cf40d177c2bfdf092b50",
-      "c165d582dab06edc74003d7f4cb44bc9abfc119138948cf53aff6d469fdbfe73",
-      "5d3146a9281ceacabca7207c4d6509326570ebe7937de0b934fdc900220f0ac9",
-      "44d6d9c87ed9d042a76f87ceb5d4988027b8a9e81867cbc15de7608e6a6025a3"
-    ],
     "investee": [
       "d69a87d36a956d08b85564b81c1c8fca6d611c12c08c39a6cc348f14822f40b0",
       "0ac9c6e910f967b68b283d8d8f32579f4bdc95877501c0f8812010d24bfe9fa3",
@@ -346,6 +320,25 @@
       "1cffbf1987b7a664d0018498c891d005d7649eba5188c27e7a4634816434b34e",
       "423198d0e81da7f7ed9bf0880e81a8aaf1962da6d71a69f643b7f83d471a0668",
       "e7199259d6032edbbc3ec6930c6e14dd732e22a3465b05d7e7518476519eb1cc"
+    ],
+    "originator": [
+      "8518c4a4df32c106c69997cb80ea3977921acf6b4c350bf4a9e3b92f821d30f9",
+      "49a4abc94b6b4fe2c3a05fa75f8848812386f67ae8515474f669b2cd95312cc0",
+      "0067440e6e948733285d2f3d4c66876772d73b0d7b9187bb58e87f93f4415ac1",
+      "a78a57993054758cde3779fb928930e785b29176c3419bb929e510e05b7a54f4",
+      "c429e3d9707444d3c4727c9ccb106351c02b79e4b395cb3244e3ed29762ea1cf",
+      "14ea50ca4c8907652b7eb4dabf035386c00644f77e13b1de7b8cc82c84390deb",
+      "56d07d970194b511efd826b442f2d54f239538f62a44c79244e9e60b8005d1cf"
+    ],
+    "eligibility": [
+      "189ee7a9bce7e06c62141a84c84cbba51ff05c1a90d65734d2b5809dabbd233e",
+      "b7d118bed8ad16cedb43cece51a9a7ca06c72d8494dadeae52bb2b5ad920d086",
+      "4d04d1e8249e053232f74de025e3583dc6c8657ea6a1fe09d8fa045876c6179c",
+      "d7b9a0c1041edc8041ec16578c7cbd97d8152a2c5d337abf823680bd7e89c98c",
+      "3833adcfe2d097efb01dcf81457efc1dd18dc34610c21886576d659da57ea507",
+      "32b001838f0529b153ac6059974bb01e0eb665b1008b68914195daab92df571e",
+      "b9547ae590d9cc06c1e1b372dbb8df5d8fba8377488883d5c08dd7e39a0b5df1",
+      "2c9ef9449b4677b78d0a6e057bb63acc098a2833d8befb5799ee27a8daea4257"
     ]
   },
   "entries": {
@@ -422,51 +415,6 @@
         "60c61b5cabdb1c7a2d5e015a1ce7bebf2de147f12b0379d1a979bfe3069a5aff"
       ]
     },
-    "9ba24067a4dcd837df6763177c3f597cb53860eb632f31f6e373c922d6a7a69d": {
-      "reference_date": "2025-12-16",
-      "value": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "efe91af3f0daa3a75cbab0cc47e30161b17b9a1ea24f48a958fde2710f4f7f0c"
-      ]
-    },
-    "5f8d23934f93492dbafd3692b2d684e2cc5a24111bb5cf40d177c2bfdf092b50": {
-      "reference_date": "2025-12-16",
-      "value": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2f651b7e3d7acab9bc5a7b0cea6795f209065e455cd61daa81a5a3e5c856b3b3"
-      ]
-    },
-    "c165d582dab06edc74003d7f4cb44bc9abfc119138948cf53aff6d469fdbfe73": {
-      "reference_date": "2025-10-08",
-      "value": "13.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "389ff80963af25839108c908688fce99f522e572bc742567f472831421d04e54"
-      ]
-    },
-    "5d3146a9281ceacabca7207c4d6509326570ebe7937de0b934fdc900220f0ac9": {
-      "reference_date": "2025-09-19",
-      "value": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ceac0fd57a93e083164b0c222d36fd2a37c50a758c2f1d43579eeaaf13a2c156"
-      ]
-    },
-    "44d6d9c87ed9d042a76f87ceb5d4988027b8a9e81867cbc15de7608e6a6025a3": {
-      "reference_date": "2025-06-10",
-      "value": "13.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Originadores, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2ad4e6d251ed7f3c79322dc5a5556abffa1282d663aa84ae784718ced0fc6ad1"
-      ]
-    },
     "189ee7a9bce7e06c62141a84c84cbba51ff05c1a90d65734d2b5809dabbd233e": {
       "reference_date": "2025-09-19",
       "value": "Devedor adimplente; ≥30 dias de prazo e vencimento ≥30 dias antes do resgate sênior; até 360 dias, exceção até 540",
@@ -475,33 +423,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "a8bf0865a1075ad4302c328933673bb30043f36442a9d3514c241863ce2d7da9"
-      ]
-    },
-    "4f85b6eaa432d8ec4ef9ec72268e8293857856e62c031bb6869ec5d976a7c80f": {
-      "reference_date": "2025-12-31",
-      "value": "d) Critérios de elegibilidade Todos e quaisquer direitos creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva data de aquisição, aos critérios de elegibilidade, abaixo elencados, a serem verificados pelo Gestor, previamente à aquisição de direitos creditórios pelo Fundo: (i) os direitos creditórios deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e7f6c65ce64f28e73102ada9f3f18e92e8fa3d3f576612a8614454e89c00e137"
-      ]
-    },
-    "72d984ea8759160fd463a337a7d03e5293122306d3cc6298b0dc12710bfb9e79": {
-      "reference_date": "2025-12-31",
-      "value": "d) Critérios de elegibilidade Todos e quaisquer direitos creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva data de aquisição, aos critérios de elegibilidade, abaixo elencados, a serem verificados pelo Gestor, previamente à aquisição de direitos creditórios pelo Fundo: (i) os direitos creditórios deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6d5aa3c938fa95e916f69a687687ae6495133cf9f7adb5bb30b3ca947d39e11d"
-      ]
-    },
-    "3b276001d39be30d620a16e44859a212e03466dd45ac8c91e4f1a15ccb8c7f9b": {
-      "reference_date": "2025-12-16",
-      "value": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7161c8488b4f0cf56ea1331e893e624b63f03450da98d1135844ed22333f3ffb"
       ]
     },
     "992079404bddc7881fb85270a3396b3bce032629933435314303da4943f5238e": {
@@ -513,15 +434,6 @@
         "73f1b3d400ea16ec27f7645a49b8fb7bce4187d877826d3d0a134af5fd648e51"
       ]
     },
-    "a847e60096fb1657add8a22782e248ec1612c36e4ca0a0bc7bec611c6f8934a9": {
-      "reference_date": "2025-10-08",
-      "value": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d7328ddc3beaaf4ac2510f160914d0dc49a91f77c6867955fdcf0056899c5bb4"
-      ]
-    },
     "423198d0e81da7f7ed9bf0880e81a8aaf1962da6d71a69f643b7f83d471a0668": {
       "reference_date": "2025-09-19",
       "value": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
@@ -529,15 +441,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e4a53d3a7bfea15ac2fbde3ae2999edb9a61939850f55b93b50281c7775ba6db"
-      ]
-    },
-    "c61eac652c4003e7f50a23625b0fedecc2f03f85ee52451cc92b518eb0906cb9": {
-      "reference_date": "2025-06-10",
-      "value": "deverá ter alocado, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7878a3f19640e446edec69147901b694f296baf3a9b019d61e2e7f1fd8e8e850"
       ]
     },
     "134f88ca79cb4e81ec2ce0fb265a20c34059c54a4dd5ba04aef8b490b09a6237": {
@@ -2337,6 +2240,69 @@
       "sources": [
         "e6e4f21d6515ff0a12fefa7f6f087e5b9bd156b529b96dd67b002bcfead5c58d"
       ]
+    },
+    "b7d118bed8ad16cedb43cece51a9a7ca06c72d8494dadeae52bb2b5ad920d086": {
+      "reference_date": "2025-12-31",
+      "value": "d) Critérios de elegibilidade Todos e quaisquer direitos creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva data de aquisição, aos critérios de elegibilidade, abaixo elencados, a serem verificados pelo Gestor, previamente à aquisição de direitos creditórios pelo Fundo: (i) os direitos creditórios deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição; (ii) os direitos creditórios não poderão ser devidos por Devedor que esteja inadimplente perante o Fundo; (iii) os direitos creditórios deverão ter data de vencimento com pelo menos 30 dias anteriores à data de resgate das cotas de subclasse sênior em circulação; (iv) os direitos creditórios deverão ter prazo de vencimento de até 360 dias, com exceção de até 20% do valor do patrimônio líquido base ou do patrimônio líquido vigente, conforme aplicável, que poderá aceitar que esses direitos creditórios tenham prazo de vencimento de até 540 dias, sendo referidos prazos, em qualquer caso, contados das respectivas datas de aquisição critério de concentração de prazo; e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos direitos creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% do patrimônio líquido base ou do patrimônio líquido vigente, conforme aplicável, com exceção de determinados devedores especiais que poderão representar concentração superior a 3% do patrimônio líquido base ou do patrimônio líquido, conforme aplicável, conforme previamente aprovados pelo investidor das cotas de subclasse sênior critério de concentração por devedor critérios de concentração.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e7f6c65ce64f28e73102ada9f3f18e92e8fa3d3f576612a8614454e89c00e137"
+      ]
+    },
+    "4d04d1e8249e053232f74de025e3583dc6c8657ea6a1fe09d8fa045876c6179c": {
+      "reference_date": "2025-12-31",
+      "value": "d) Critérios de elegibilidade Todos e quaisquer direitos creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva data de aquisição, aos critérios de elegibilidade, abaixo elencados, a serem verificados pelo Gestor, previamente à aquisição de direitos creditórios pelo Fundo: (i) os direitos creditórios deverão ter prazo de vencimento de, no mínimo, 30 dias corridos após a respectiva data de aquisição; (ii) os direitos creditórios não poderão ser devidos por Devedor que esteja inadimplente perante o Fundo; (iii) os direitos creditórios deverão ter data de vencimento com pelo menos 30 dias anteriores à data de resgate das cotas de subclasse sênior em circulação; (iv) os direitos creditórios deverão ter prazo de vencimento de até 360 dias, com exceção de até 20% do valor do patrimônio líquido base ou do patrimônio líquido vigente, conforme aplicável, que poderá aceitar que esses direitos creditórios tenham prazo de vencimento de até 540 dias, sendo referidos prazos, em qualquer caso, contados das respectivas datas de aquisição critério de concentração de prazo; e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos direitos creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% do patrimônio líquido base ou do patrimônio líquido vigente, conforme aplicável, com exceção de determinados devedores especiais que poderão representar concentração superior a 3% do patrimônio líquido base ou do patrimônio líquido, conforme aplicável, conforme previamente aprovados pelo investidor das cotas de subclasse sênior critério de concentração por devedor critérios de concentração.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6d5aa3c938fa95e916f69a687687ae6495133cf9f7adb5bb30b3ca947d39e11d"
+      ]
+    },
+    "d7b9a0c1041edc8041ec16578c7cbd97d8152a2c5d337abf823680bd7e89c98c": {
+      "reference_date": "2025-12-16",
+      "value": "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados, a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I: (i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante a Classe I; (iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias anteriores à data de resgate das Cotas Seniores em circulação; (iv) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição (“Critério de Concentração de Prazo”); e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido, conforme aplicável, conforme previamente aprovados pelo investidor das Cotas Seniores (“Critério de Concentração por Devedor” e, em conjunto com o Critério de Concentração de Prazo, os “Critérios de Concentração”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c53fd8b1dff6607890bab77245e24e94f4a7a2a6133778aa46679a107aaf0624"
+      ]
+    },
+    "3833adcfe2d097efb01dcf81457efc1dd18dc34610c21886576d659da57ea507": {
+      "reference_date": "2025-12-16",
+      "value": "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados, a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I: (i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante a Classe I; (iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias anteriores à data de resgate das Cotas Seniores em circulação; (iv) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição Critério de Concentração de Prazo ; e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido, conforme aplicável, conforme previamente aprovados pelo investidor das Cotas Seniores Critério de Concentração por Devedor Critérios de Concentração .",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b440ffc07d36db2879a89acd6300dbfa4780c8aee136c3a6e672d0ab2d02e519"
+      ]
+    },
+    "32b001838f0529b153ac6059974bb01e0eb665b1008b68914195daab92df571e": {
+      "reference_date": "2025-10-08",
+      "value": "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados, a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I: (i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante a Classe I; (iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias anteriores à data de resgate das Cotas Seniores em circulação; (iv) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição (“Critério de Concentração de Prazo”); e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido, conforme aplicável, conforme previamente aprovados pelo investidor das Cotas Seniores (“Critério de Concentração por Devedor” e, em conjunto com o Critério de Concentração de Prazo, os “Critérios de Concentração”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7c9e1ac98fec9ac994ba0d41c543e47067e2ec2dafe7a6820f01b6f832aa7870"
+      ]
+    },
+    "b9547ae590d9cc06c1e1b372dbb8df5d8fba8377488883d5c08dd7e39a0b5df1": {
+      "reference_date": "2025-09-19",
+      "value": "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados, a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I: (i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante a Classe I; (iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias anteriores à data de resgate das Cotas Seniores em circulação; (iv) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias, com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, que poderá aceitar que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta) dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição Critério de Concentração de Prazo ; e (v) considerando-se pro forma a aquisição pretendida, o somatório do valor presente dos Direitos Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido vigente, conforme aplicável, observando-se o disposto na Cláusula 4.16.1, com exceção de determinados Devedores Especiais que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido Base ou do Patrimônio Líquido, conforme aplicável, conforme previamente aprovados pelo investidor das Cotas Seniores Critério de Concentração por Devedor Critérios de Concentração .",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "eac0cf9c93403d6d9ddde8293d38c83bacac94e92ee386ea0bd5251ce4d7b11d"
+      ]
+    },
+    "2c9ef9449b4677b78d0a6e057bb63acc098a2833d8befb5799ee27a8daea4257": {
+      "reference_date": "2025-06-10",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c16d1ebbaa159f61b5a82c82b8904fab527a29cf7620a930a2f3e82c383405bd"
+      ]
     }
   },
   "passages": {
@@ -2437,66 +2403,6 @@
       "sha256": "08fa84de947e8ec49d7aa4bea793f767390b5ff7606ba253c1609586cd7c2d8b",
       "verification": "primary_passage"
     },
-    "efe91af3f0daa3a75cbab0cc47e30161b17b9a1ea24f48a958fde2710f4f7f0c": {
-      "document_id": "1065760",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065760",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 56,
-      "clause": "13.31",
-      "excerpt": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de  direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos  Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os  Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes  direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em  conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos  procedimentos referidos neste Capítulo.",
-      "sha256": "f156ee2d31229a4679fdf36e56f326296afcbbf9cb370d6aa7c94113da38d881",
-      "verification": "primary_passage"
-    },
-    "2f651b7e3d7acab9bc5a7b0cea6795f209065e455cd61daa81a5a3e5c856b3b3": {
-      "document_id": "1065761",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065761",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 54,
-      "clause": "13.31",
-      "excerpt": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "sha256": "2cf9f50491260827222a81ddfdbd878c17c8935ab5db6cbcae1873b21f435cbc",
-      "verification": "primary_passage"
-    },
-    "389ff80963af25839108c908688fce99f522e572bc742567f472831421d04e54": {
-      "document_id": "1009459",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1009459",
-      "reference_date": "2025-10-08",
-      "version": "1",
-      "page": 54,
-      "clause": "13.2",
-      "excerpt": "13.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de  direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos  Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os  Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes  direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em  conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos  procedimentos referidos neste Capítulo.",
-      "sha256": "a72f8992e40fbbfefa69685ce39fd3434a99619de672024ff612a47394e29dc0",
-      "verification": "primary_passage"
-    },
-    "ceac0fd57a93e083164b0c222d36fd2a37c50a758c2f1d43579eeaaf13a2c156": {
-      "document_id": "994705",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
-      "reference_date": "2025-09-19",
-      "version": "1",
-      "page": 54,
-      "clause": "13.31",
-      "excerpt": "13.31. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os Sponsors, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum, em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos procedimentos referidos neste Capítulo.",
-      "sha256": "a3cd0637a1de802aad13121435eb67040c7cb8c1eb931d08dc6d97ad8a4c2c0f",
-      "verification": "primary_passage"
-    },
-    "2ad4e6d251ed7f3c79322dc5a5556abffa1282d663aa84ae784718ced0fc6ad1": {
-      "document_id": "935449",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935449",
-      "reference_date": "2025-06-10",
-      "version": "1",
-      "page": 54,
-      "clause": "13.2",
-      "excerpt": "13.2. Todos os custos e despesas referidos neste Capítulo, inclusive para salvaguarda de  direitos e prerrogativas da Classe I e/ou com a cobrança judicial e/ou extrajudicial de Direitos  Creditórios, serão de inteira responsabilidade da Classe I, não estando o Administrador, a Gestora, os  Originadores, os Devedores e quaisquer de suas respectivas pessoas controladoras, sociedades por  estes direta ou indiretamente controladas, a estes coligadas ou outras sociedades sob controle comum,  em conjunto ou isoladamente, obrigados pelo adiantamento ou pagamento de valores relacionados aos  procedimentos referidos neste Capítulo.",
-      "sha256": "08fa84de947e8ec49d7aa4bea793f767390b5ff7606ba253c1609586cd7c2d8b",
-      "verification": "primary_passage"
-    },
     "a8bf0865a1075ad4302c328933673bb30043f36442a9d3514c241863ce2d7da9": {
       "document_id": "994705",
       "title": "Regulamento",
@@ -2534,18 +2440,6 @@
       "sha256": "8a821c109412b3fb8a54f2726acd0b1dfe17229ef82ab66deef557c7badbc502",
       "verification": "primary_passage"
     },
-    "7161c8488b4f0cf56ea1331e893e624b63f03450da98d1135844ed22333f3ffb": {
-      "document_id": "1065760",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1065760",
-      "reference_date": "2025-12-16",
-      "version": "1",
-      "page": 18,
-      "clause": "4.4",
-      "excerpt": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo  deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos  Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "sha256": "f156ee2d31229a4679fdf36e56f326296afcbbf9cb370d6aa7c94113da38d881",
-      "verification": "primary_passage"
-    },
     "73f1b3d400ea16ec27f7645a49b8fb7bce4187d877826d3d0a134af5fd648e51": {
       "document_id": "1065761",
       "title": "Regulamento",
@@ -2558,18 +2452,6 @@
       "sha256": "2cf9f50491260827222a81ddfdbd878c17c8935ab5db6cbcae1873b21f435cbc",
       "verification": "primary_passage"
     },
-    "d7328ddc3beaaf4ac2510f160914d0dc49a91f77c6867955fdcf0056899c5bb4": {
-      "document_id": "1009459",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1009459",
-      "reference_date": "2025-10-08",
-      "version": "1",
-      "page": 16,
-      "clause": "4.4",
-      "excerpt": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo  deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos  Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "sha256": "a72f8992e40fbbfefa69685ce39fd3434a99619de672024ff612a47394e29dc0",
-      "verification": "primary_passage"
-    },
     "e4a53d3a7bfea15ac2fbde3ae2999edb9a61939850f55b93b50281c7775ba6db": {
       "document_id": "994705",
       "title": "Regulamento",
@@ -2580,18 +2462,6 @@
       "clause": "4.4",
       "excerpt": "4.4. Decorridos 180 (cento e oitenta) dias da Data da Primeira Integralização, o Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
       "sha256": "a3cd0637a1de802aad13121435eb67040c7cb8c1eb931d08dc6d97ad8a4c2c0f",
-      "verification": "primary_passage"
-    },
-    "7878a3f19640e446edec69147901b694f296baf3a9b019d61e2e7f1fd8e8e850": {
-      "document_id": "935449",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935449",
-      "reference_date": "2025-06-10",
-      "version": "1",
-      "page": 16,
-      "clause": "",
-      "excerpt": "deverá ter alocado, no mínimo, 67% (sessenta e sete por cento) do seu Patrimônio Líquido em Direitos  Creditórios, observados os Critérios de Elegibilidade estabelecidos neste Anexo I.",
-      "sha256": "08fa84de947e8ec49d7aa4bea793f767390b5ff7606ba253c1609586cd7c2d8b",
       "verification": "primary_passage"
     },
     "f176994874469e4048dba954d775c04d9c90fba944be691e4018a070528a1d61": {
@@ -4691,6 +4561,19 @@
       "excerpt": "“Sponsors”: significam, em conjunto, a Bayer e a Monsanto, na qualidade de cedentes dos Direitos  Creditórios XML e, conforme aplicável, na qualidade de originadores dos Direitos Creditórios Títulos  de Crédito, nos termos do Acordo de Indicação;",
       "sha256": "a72f8992e40fbbfefa69685ce39fd3434a99619de672024ff612a47394e29dc0",
       "verification": "primary_passage"
+    },
+    "c16d1ebbaa159f61b5a82c82b8904fab527a29cf7620a930a2f3e82c383405bd": {
+      "document_id": "935449",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=935449",
+      "reference_date": "2025-06-10",
+      "version": "1",
+      "page": "17–18",
+      "clause": "4.16",
+      "excerpt": "4.16. Todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender,  cumulativamente, na respectiva Data de Aquisição, aos Critérios de Elegibilidade, abaixo elencados,  a serem verificados pela Gestora, previamente à aquisição de Direitos Creditórios pela Classe I:\n(i) os Direitos Creditórios deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos  após a respectiva Data de Aquisição;\n(ii) os Direitos Creditórios não poderão ser devidos por Devedor que esteja inadimplente perante  a Classe I;\n(iii) os Direitos Creditórios deverão ter data de vencimento com pelo menos 30 (trinta) dias  anteriores à data de resgate das Cotas Seniores em circulação;\n(iv) os Direitos Creditórios deverão ter prazo de vencimento de até 360 (trezentos e sessenta) dias,  com exceção de até 20% (vinte por cento) do valor do Patrimônio Líquido que poderá aceitar  que esses Direitos Creditórios tenham prazo de vencimento de até 540 (quinhentos e quarenta)  dias, sendo referidos prazos, em qualquer caso, contados das respectivas Datas de Aquisição;\n e\n(v) considerando-se pro forma a aquisição pretendida, o somatório do valor de face dos Direitos  Creditórios devidos por um mesmo Devedor não poderá representar concentração superior a  3% (três por cento) do Patrimônio Líquido, com exceção de determinados Devedores Especiais  que poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido,  conforme previamente aprovados pelo investidor das Cotas Seniores.\n4.16.1. Observados os termos e as condições do presente Anexo I e da parte geral do  Regulamento, a verificação do atendimento aos Critérios de Elegibilidade será considerada como  definitiva, de forma que o desenquadramento de qualquer Direito Creditório com relação a qualquer  Critério de Elegibilidade, por qualquer motivo ocorrido após a sua transferência ao Fundo, desde que  o requisito tenha sido devidamente cumprido na respectiva Data de Aquisição, não dará à Classe I  qualquer pretensão, recurso ou direito de regresso contra os Originadores, o Administrador, a Gestora,  o Agente de Formalização e Cobrança, o Custodiante ou suas partes relacionadas, exceto nos casos de  culpa, dolo e/ou má-fé.\n4.16.2. A Gestora será responsável por verificar e validar os Critérios de Elegibilidade em cada  Data de Aquisição. A verificação e validação do enquadramento dos Direitos Creditórios que a Classe  pretenda adquirir aos Critérios de Elegibilidade será feita previamente a cada aquisição,  exclusivamente por meio do envio, pelos Originadores e/ou Agente de Formalização e Cobrança ao  Gestor, das informações necessárias dos Direitos Creditórios objeto de oferta à Classe, em formato  previamente definido entre as partes.\n4.16.2.1. A responsabilidade pela veracidade, integridade, consistência e suficiência das  informações fornecidas acerca dos Direitos Creditórios caberá exclusivamente aos Originadores e/ou  ao Agente de Formalização e Cobrança, conforme o caso, não assumindo a Gestora qualquer obrigação  de diligência adicional quanto à origem ou acurácia de tais informações. A Gestora atuará com base",
+      "sha256": "08fa84de947e8ec49d7aa4bea793f767390b5ff7606ba253c1609586cd7c2d8b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

@@ -1,0 +1,77 @@
+{
+  "cnpj": "51326028000154",
+  "criteria": [
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Devedores: pessoas que celebraram Contratos de Empréstimo com consignação em folha de pagamento ou de benefício.",
+      "sources": [
+        {
+          "document_id": "1219005",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1219005",
+          "reference_date": "09/06/2026",
+          "version": 1,
+          "page": "10",
+          "clause": "Glossário — Devedores",
+          "excerpt": "“Devedores” Pessoas que celebraram Contratos de Empréstimo com consignação em folha de pagamento/benefício.",
+          "sha256": "e6ea4a70a4bdf54ca1ee0021e0fde7087a7954e33b18f329d0ad588291d3d1ac",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "reason": "",
+      "risk_note": "",
+      "history": [
+        {
+          "reference_date": "2026-06-09",
+          "value": "“Devedores” Pessoas que celebraram Contratos de Empréstimo com consignação em folha de pagamento/benefício.\n\nXX. Movimentação das contas dos Devedores junto ao FGTS: quando da Cessão Fiduciária em garantia dos Direitos Creditórios Saque-Aniversário, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueada, em valor suficiente para o pagamento dos Direitos Creditórios Saque-Aniversário.\n\nXXI. Limite máximo das taxas de juros das CCB: as operações de crédito garantidas pela Cessão Fiduciária têm, por lei, suas taxas de juros sujeitas ao limite máximo estipulado pelo Conselho Curador do FGTS, o qual deve ser inferior aos limites máximos das taxas de juros aplicáveis aos empréstimos consignados a servidores públicos federais do Poder Executivo. Caso tais limites sejam fixados pelo Conselho Curador do FGTS ou pelo Poder Executivo Federal em patamares muito baixos ou não compatíveis com parâmetros de mercado, novas CCB que venham a ser adquiridas pela Classe, sujeitas a tais limites, poderão impactar negativamente a carteira da Classe, gerando perdas aos investidores. 71.",
+          "sources": [
+            {
+              "document_id": "1219005",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1219005",
+              "reference_date": "2026-06-09",
+              "version": "1",
+              "page": 10,
+              "clause": "",
+              "excerpt": "“Devedores” Pessoas que celebraram Contratos de Empréstimo com  consignação em folha de pagamento/benefício.",
+              "sha256": "e6ea4a70a4bdf54ca1ee0021e0fde7087a7954e33b18f329d0ad588291d3d1ac",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1219005",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1219005",
+              "reference_date": "2026-06-09",
+              "version": "1",
+              "page": 71,
+              "clause": "",
+              "excerpt": "XX. Movimentação das contas dos Devedores junto ao FGTS: quando da Cessão  Fiduciária em garantia dos Direitos Creditórios Saque-Aniversário, parte do saldo  que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueada, em  valor suficiente para o pagamento dos Direitos Creditórios Saque-Aniversário. A  despeito do bloqueio, os seguintes eventos ensejam o saque de recursos da conta  do Devedor, de forma a afetar o bloqueio, gerando a execução antecipada da  garantia: (a) caso o Devedor ou algum de seus dependentes (1) seja acometido  por neoplasia maligna; (2) seja portador do vírus HIV; (3) esteja em estágio  terminal em razão de doença grave; ou (4) possua doença rara; bem como (b)  caso o Devedor (1) tenha idade igual ou superior a 70 (setenta) anos; (2) se  aposente pela previdência social; ou (3) faleça. Na ocorrência de qualquer dos  citados eventos, o saque poderá ser realizado e os valores bloqueados serão  direcionados ao pagamento antecipado da respectiva CCB, por valor inferior ao  que seria recebido pela Classe caso fosse observado o cronograma de pagamento  original da CCB. Nessa hipótese, o fluxo de caixa previsto para o Fundo seria  afetado, o que poderia prejudicar os resultados da carteira da Classe.",
+              "sha256": "e6ea4a70a4bdf54ca1ee0021e0fde7087a7954e33b18f329d0ad588291d3d1ac",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1219005",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1219005",
+              "reference_date": "2026-06-09",
+              "version": "1",
+              "page": 71,
+              "clause": "",
+              "excerpt": "XXI. Limite máximo das taxas de juros das CCB: as operações de crédito garantidas  pela Cessão Fiduciária têm, por lei, suas taxas de juros sujeitas ao limite máximo  estipulado pelo Conselho Curador do FGTS, o qual deve ser inferior aos limites  máximos das taxas de juros aplicáveis aos empréstimos consignados a servidores  públicos federais do Poder Executivo. Caso tais limites sejam fixados pelo  Conselho Curador do FGTS ou pelo Poder Executivo Federal em patamares muito  baixos ou não compatíveis com parâmetros de mercado, novas CCB que venham  a ser adquiridas pela Classe, sujeitas a tais limites, poderão impactar  negativamente a carteira da Classe, gerando perdas aos investidores.\n 71",
+              "sha256": "e6ea4a70a4bdf54ca1ee0021e0fde7087a7954e33b18f329d0ad588291d3d1ac",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+          "provenance": "verified_override_relevance_correction"
+        }
+      ]
+    }
+  ],
+  "verified_at": "2026-10-13T10:58:42-03:00"
+}

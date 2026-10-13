@@ -3,35 +3,6 @@
   "cnpj": "08692888000182",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "originator": [
-      "0bd3e9a443eb67775827df914211655741e23e44105ba0b29d16e0fe9b8ed479",
-      "0e7eb240a08a5f58575751473c5ed6d76e97415c545c01e75b5ac79a1501e0c9",
-      "15e358ab3a30f3bca545a0b30b1221bf64b4379bf941cde57004afea70529e55",
-      "de5da62776385094149c06e92beaca44a7afebbbe2a21ab033bcfb4427fb6c53",
-      "5a7cffe1f69c705df742d63d371365e183e8de4d8445af98aed97748282fc9b8",
-      "ab787f5a71f022b0ca09deb561d50232350d7ed92ac9a31f98efff79b3989ebf"
-    ],
-    "debtor": [
-      "b302fda746fe427f92d549faaecea1737f01fe7b685eb3cebe0b9f5d9dba04c9",
-      "398b04d9aab1924adafe60692d0bf5cfe5d4978ae4043f9b5efc39c0b12c9d5e",
-      "754e6deab194461f465e740fc154449b26d0c0a0f1b53560ab8bf9163e973ab7",
-      "0abf7651b869413d1a8282829e81308cd4ca96a76e8bb59245232be668ba2dac",
-      "e36ab6d6ecbed78b4bb90576ec1a137b40f897ffdbd0eacfa24c1df238583d82",
-      "f61061faaf8f1377d52b6d300fcec7e59a9e9122a0f24bb81b10bde3e2b5e24d",
-      "d9049cf24d9e20935dd39f038a760443b930104d5f4308cc41ca41cf05f69919"
-    ],
-    "eligibility": [
-      "6127e5169c6c6a3aee8a12d4ccc62f32adc9c5ca502fe24fc72918509d115ad6",
-      "1a170c074ae650cfab575c554225ea8e8f492cb0799a679d32c8d219322cfc77",
-      "e6fb66d860698699ca8287e3bb4754972ed34a98b6fd3ff496b36cb6fb7ef29a",
-      "b2b4a97d6779c1754e6b44de04558b723b84a3d198ee2f023913c43b7d1a1ed0",
-      "7c87aeb1284cb65384ef90c7388af39033938b34da3859acda0a627988c459ad",
-      "c10669abaa67084a5aaa6072592d33fd5410aa64beceae94263b1d35580f6e87",
-      "5698446a8a98a2562c151bd4ff6afaa761d93cbe7717997a8dfbf512fd8b8d09",
-      "2ba079e7e236a3cdf81cb90eb8bdaec2b44f2c66531850b1fb370bfb7f913e8d",
-      "e4a1e486f230f1a603db693cace43ac978c77515baca88fe2430441ca2213051",
-      "5c3e0b5058f1162298f1f54cce070abac898cdd46a2a0dd6d63bdcb2bd2a1319"
-    ],
     "term": [
       "b2b4a97d6779c1754e6b44de04558b723b84a3d198ee2f023913c43b7d1a1ed0",
       "9e12157b2b63f0113ae4ffe6ec6cceb7a05be3a8fb2ddc0d457bca043b0d3150",
@@ -394,6 +365,27 @@
       "f8b64c2101b1381f18a7b328b1443ccece395424a6ecfe3445f9db5a51acfdc0",
       "ed7974c23ba940f67f2ad188f8f484430de7dafe3f0ee8b3bed03ae555c3a64d",
       "b8f10935da8dc72410719c0d2138f6d64507fc3e6d43c2361082c2e526512a85"
+    ],
+    "originator": [
+      "0bd3e9a443eb67775827df914211655741e23e44105ba0b29d16e0fe9b8ed479",
+      "c05f2af1c518e4d5416064975d24e3647ab59332eff837f153a4e927d0d2eeaf",
+      "15e358ab3a30f3bca545a0b30b1221bf64b4379bf941cde57004afea70529e55",
+      "de5da62776385094149c06e92beaca44a7afebbbe2a21ab033bcfb4427fb6c53"
+    ],
+    "eligibility": [
+      "6127e5169c6c6a3aee8a12d4ccc62f32adc9c5ca502fe24fc72918509d115ad6",
+      "1a170c074ae650cfab575c554225ea8e8f492cb0799a679d32c8d219322cfc77",
+      "e6fb66d860698699ca8287e3bb4754972ed34a98b6fd3ff496b36cb6fb7ef29a",
+      "e0ca32eea8fa56a904bc5cd2a4565dad0b495d0a627b47365edaca2bc085f504",
+      "1de1fb8962a1fe923dd8b14a587038829f74ebb93e920d737f64b3ffd8286aa1",
+      "c10669abaa67084a5aaa6072592d33fd5410aa64beceae94263b1d35580f6e87",
+      "17a8241cbd022a40dcccfccb0fbfff5ebe8fd76da79831e2bae63f34c8f6797a",
+      "39a9a2fd1e99f5bc14f1f5a1ea0934f23e1d1269b57b01a82a209cc3ba416be4",
+      "a2cf6ae8407693fe0bd9d41e314ffb8a1eb12b95205df3ceae4495e682681dda",
+      "64a6a314d8eea20cc8950f7ee51e8489f5f0402dc996d8ef00560c170b501d2b"
+    ],
+    "debtor": [
+      "b302fda746fe427f92d549faaecea1737f01fe7b685eb3cebe0b9f5d9dba04c9"
     ]
   },
   "entries": {
@@ -444,15 +436,6 @@
         "c1e2c6aca32fb7c25998a29db4bb4b3144fb261283c60573622e7f0086eb796b"
       ]
     },
-    "0e7eb240a08a5f58575751473c5ed6d76e97415c545c01e75b5ac79a1501e0c9": {
-      "reference_date": "2024-07-29",
-      "value": "Partes da Transação Rating de Curto Prazo Rating de Longo Prazo Emissor Cartão de Compra Supplier Fundo de Investimentos em Direitos Creditorios NA NA Originador Banco Ourinvest S.A. NA NA Administrador Oliveira Trust DTVM Ltda. NA NA Custodiante Oliveira Trust DTVM Ltda. NA NA Agente Cobrador Banco Bradesco S.A. F1+(bra) AAA(bra)",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "d509b02bf29db78cc1edac8036f998c9526c9d6eec3727bd2811f69d7b02a96a"
-      ]
-    },
     "15e358ab3a30f3bca545a0b30b1221bf64b4379bf941cde57004afea70529e55": {
       "reference_date": "2024-01-11",
       "value": "Percepção da Qualidade de Crédito do Originador Não Limita Rating: Os recebíveis da operação são originados e cedidos pela Supplier a partir de compras de produtos e serviços de empresas que usam o cartão de bandeira própria da Supplier. Devido às características de curto prazo dos recebíveis e à natureza rotativa da operação, o risco do originador não pode ser totalmente separado do da operação. A atual percepção da qualidade de crédito do originador não restringe as classificações.",
@@ -471,24 +454,6 @@
         "25b2a5ca8ba0979d452618852856f32460d0afc19797c73b7dc9c2941b2dbcb0"
       ]
     },
-    "5a7cffe1f69c705df742d63d371365e183e8de4d8445af98aed97748282fc9b8": {
-      "reference_date": "2023-12-31",
-      "value": "a) Descrição Os direitos creditórios referem-se às operações de securitização de recebíveis comerciais performados, provenientes de aquisição de insumos ou serviços de empresas de pequeno e médio portes, que utilizam como meio de pagamento cartões de bandeira própria da Suppliercard. Este meio de pagamento permite que os detentores dos cartões efetuem as suas compras a prazo. Através desta operação tanto a Suppliercard quanto o Banco Ourinvest, na qualidade de cedentes dos créditos, buscam recursos para primordialmente continuar a financiar suas operações.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c84701f1b0b8bb5c2252994cf121a89035d598d7fb8b5dca3858208add007b54"
-      ]
-    },
-    "ab787f5a71f022b0ca09deb561d50232350d7ed92ac9a31f98efff79b3989ebf": {
-      "reference_date": "2023-11-09",
-      "value": "Partes da Transação Rating de Curto Prazo Rating de Longo Prazo Emissor Cartão de Compra Supplier Fundo de Investimentos em Direitos Creditorios NA NA Originador Banco Ourinvest S.A. NA NA Administrador Oliveira Trust DTVM Ltda. NA NA Custodiante Oliveira Trust DTVM Ltda. NA NA Agente Cobrador Banco Bradesco S.A. F1+(bra) AAA(bra) Contrapartida do Swap NA NA NA",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b5fa5aef50772aaa05e9d083ac11bbee94de284d478d384bc1e8002889043cae"
-      ]
-    },
     "b302fda746fe427f92d549faaecea1737f01fe7b685eb3cebe0b9f5d9dba04c9": {
       "reference_date": "2024-11-05",
       "value": "Titulares PF/PJ do cartão de compra",
@@ -497,60 +462,6 @@
       "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
       "sources": [
         "4f8188ffcb54fd2b5855077d9175dd088e03596896e578fad4f460780faaa6d0"
-      ]
-    },
-    "398b04d9aab1924adafe60692d0bf5cfe5d4978ae4043f9b5efc39c0b12c9d5e": {
-      "reference_date": "2022-03-29",
-      "value": "Características Homogêneas dos Titulares Devedores dos Direitos Creditórios Os Titulares são pessoas físicas ou jurídicas, domiciliadas ou com sede no Brasil, devidamente credenciadas pelos Cedentes, que utilizam os Cartões para aquisição de produtos ou contratação de serviços junto aos Estabelecimentos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fee5c24cd6c1aeca96f4b5de01735c87c27fd017367312f520ce13fa3160b5e7"
-      ]
-    },
-    "754e6deab194461f465e740fc154449b26d0c0a0f1b53560ab8bf9163e973ab7": {
-      "reference_date": "2020-01-15",
-      "value": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9db7d3ecc9d7a432f68da134a9a9a9dcd69f88aaf8a9c7c20246eb2a514055f8"
-      ]
-    },
-    "0abf7651b869413d1a8282829e81308cd4ca96a76e8bb59245232be668ba2dac": {
-      "reference_date": "2024-09-10",
-      "value": "8.7. Verificação dos Documentos Comprobatórios pela Gestora. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, a Gestora verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos a Classe Única no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a14c1e563724bb3aada45e67eabdd8dacd6ed5a6cada9406591af8b3525baa35"
-      ]
-    },
-    "e36ab6d6ecbed78b4bb90576ec1a137b40f897ffdbd0eacfa24c1df238583d82": {
-      "reference_date": "2022-03-03",
-      "value": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2a17a32b8a3a3e6ee3e4b2055c1530df2bf3d86eef3aaa3af102b3faad4ce600"
-      ]
-    },
-    "f61061faaf8f1377d52b6d300fcec7e59a9e9122a0f24bb81b10bde3e2b5e24d": {
-      "reference_date": "2022-01-13",
-      "value": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4d7cd082c1997139a03f0bc6b6df6d9dab8c4d1eb6a7aefa8a8ba81718ed4d06"
-      ]
-    },
-    "d9049cf24d9e20935dd39f038a760443b930104d5f4308cc41ca41cf05f69919": {
-      "reference_date": "2021-01-15",
-      "value": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "76d5a9e5bd78c888659f58253c25615201e4ffa1ece96acda0b5f266a496474f"
       ]
     },
     "6127e5169c6c6a3aee8a12d4ccc62f32adc9c5ca502fe24fc72918509d115ad6": {
@@ -590,15 +501,6 @@
         "008b78eac89a16cd92dc52a33717881b9de32a409360c627c8da49c7d2c3674a"
       ]
     },
-    "7c87aeb1284cb65384ef90c7388af39033938b34da3859acda0a627988c459ad": {
-      "reference_date": "2022-03-28",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c75d0d1ad53e3903d25c63f04fd411c0dcde413cc0f5819fedfdf5d878d6f2e1"
-      ]
-    },
     "c10669abaa67084a5aaa6072592d33fd5410aa64beceae94263b1d35580f6e87": {
       "reference_date": "2022-02-18",
       "value": "Só aqui, mais de 40 reunirem em assembleia geral de quotistas, que se realizará por meio de vídeo e/ou teleconferência, a ser organizada pela Administradora, e/ou e alinhados à conservação mil pessoas já estão usando Camila Rioja Arantes através da manifestação de voto por escrito, no dia 18 de fevereiro de 2022, em primeira convocação, às 11 (onze) horas, a fim de deliberar ambiental como o Climate a Valora, uma das carteiras sobre as seguintes matérias constantes da Ordem do Dia: (i) alterar o mais integrações forem lan- uma delas ocupará um ti- regulamento para: (a) alterar os critérios de elegibilidade do Fundo para Collective, que une diversas construídas em Celo.",
@@ -606,42 +508,6 @@
       "provenance": "primary_passage",
       "sources": [
         "092d989fa6a6e1e688febafd2e7728effbf4065005044d83d2b4459ae119beff"
-      ]
-    },
-    "5698446a8a98a2562c151bd4ff6afaa761d93cbe7717997a8dfbf512fd8b8d09": {
-      "reference_date": "2021-12-31",
-      "value": "Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios cujas informações sejam transmitidas pela cedente ao custodiante, por meio eletrônico ou magnético, de acordo com os procedimentos definidos no contrato de cessão e no contrato de custódia, e que atendam, cumulativamente, na data de aquisição, aos seguintes critérios de elegibilidade: (i) Não terem prazo de vencimento superior a 180 (cento e oitenta) dias corridos, contados da data de aquisição, observado que é permitido que até 5% (cinco por cento) do patrimônio líquido do Fundo contenha direitos creditórios com prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias corridos, contado da data de aquisição;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "51ed91041e1f273afb3bdf371723bc3394d477f9ecdace3d4c4d7e92174bd9ef"
-      ]
-    },
-    "2ba079e7e236a3cdf81cb90eb8bdaec2b44f2c66531850b1fb370bfb7f913e8d": {
-      "reference_date": "2020-12-31",
-      "value": "É objetivo do Fundo proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de recursos, preponderantemente, na aquisição de direitos creditórios originários de operações realizadas em qualquer segmento da economia, incluindo, mas não se limitando, os segmentos financeiro, industrial, comercial e de prestação de serviços (serviços performados), desde que originados e cedidos pelas cedentes, que atendam aos critérios de elegibilidade e à condição de cessão, observados todos os índices de composição e diversificação da carteira estabelecidos no regulamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2ac8dadfcd683a67be9b1bc02bb7842bed734ec145e9899d5377a554162a07d3"
-      ]
-    },
-    "e4a1e486f230f1a603db693cace43ac978c77515baca88fe2430441ca2213051": {
-      "reference_date": "2020-01-15",
-      "value": "4.1. É objetivo do Fundo proporcionar aos seus Quotistas a valorização de suas Quotas por meio da aplicação de recursos, preponderantemente, na aquisição de Direitos Creditórios originários de operações realizadas em qualquer segmento da economia, incluindo, mas não se limitando, os segmentos financeiro, industrial, comercial e de prestação de serviços (serviços performados), desde que originados e cedidos pelos Cedentes, que atendam aos Critérios de Elegibilidade e à Condição de Cessão, observados todos os índices de composição e diversificação da carteira estabelecidos neste Regulamento.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8f700493b79c612c1b612fa43e4cfab21ae2ef8b9914c7541395397c05f8cbf6"
-      ]
-    },
-    "5c3e0b5058f1162298f1f54cce070abac898cdd46a2a0dd6d63bdcb2bd2a1319": {
-      "reference_date": "2024-09-10",
-      "value": "4.2. O Fundo somente poderá adquirir Direitos Creditórios cujas informações sejam transmitidas pelo Cedente à Gestora, por meio eletrônico ou magnético, de acordo com os procedimentos definidos no Contrato de Cessão e no Contrato de Custódia, e que atendam, cumulativamente, na Data de Aquisição, aos seguintes “Critérios de Elegibilidade”: a) não terem prazo de vencimento superior a 180 (cento e oitenta) dias corridos, contado da Data de Aquisição, observado que é permitido que até (i) 13% (treze por cento) do patrimônio líquido da Classe Única contenha Direitos Creditórios com prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias corridos, contado da Data de Aquisição e (ii) até 25% (vinte e cinco por cento) do limite de 13% (treze por cento).",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "a5b85be5d0e9dba787a5719ab2b28c613820a27f91ce9c8509cfbd0f7cb4b61f"
       ]
     },
     "9e12157b2b63f0113ae4ffe6ec6cceb7a05be3a8fb2ddc0d457bca043b0d3150": {
@@ -2970,6 +2836,69 @@
       "sources": [
         "dc144fae71ebc03fdb30d367c44b9cd941bd4ef10a88a8c9f152d89b859a4659"
       ]
+    },
+    "e0ca32eea8fa56a904bc5cd2a4565dad0b495d0a627b47365edaca2bc085f504": {
+      "reference_date": "2022-03-29",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1b1e7b34da9e683b1d5365e94c0f210e5200585b1a078c4c445fef7b87f3123d"
+      ]
+    },
+    "1de1fb8962a1fe923dd8b14a587038829f74ebb93e920d737f64b3ffd8286aa1": {
+      "reference_date": "2022-03-28",
+      "value": "8. POLÍTICA DE INVESTIMENTO Composição da carteira do Fundo Os investimentos do Fundo estão sujeitos à política de investimento e aos requisitos de composição da carteira do Fundo estabelecidos no Regulamento e no Prospecto, observadas as condições previstas nos respectivos contratos de cessão dos Direitos Creditórios ao Fundo (“Contratos de Cessão”) e na legislação aplicável. A composição da carteira de Direitos Creditórios do Fundo não apresentará requisitos de diversificação além dos critérios de elegibilidade e da condição de cessão previstos no Regulamento e no Prospecto. O Fundo deverá observar a alocação mínima de investimento de 50% (cinquenta por cento) e, no máximo 100% (cem por cento) do patrimônio líquido do Fundo (“Patrimônio Líquido”) em Direitos Creditórios, observada, ainda, a alocação de recursos para a Reserva de Liquidez e Reserva de Caixa, conforme previstas no Regulamento. Respeitada a Alocação Mínima de Investimento, conforme definida no Regulamento, o Fundo poderá manter ou aplicar a totalidade do saldo remanescente de seu patrimônio líquido, não investido em Direitos Creditórios, em qualquer das seguintes modalidades de investimento: (a) títulos de emissão do Tesouro Nacional; (b) quotas de fundo(s) de investimento classificados como renda fixa ou como referenciados, com liquidez diária e com resgate no 1º (primeiro) dia útil subsequente a solicitação, que tenha(m) seu(s) patrimônio(s) representado(s) por títulos ou ativos de renda fixa de longo prazo, pré ou pós-fixados, de emissão do Tesouro Nacional, bem como quotas de fundos de investimento em quotas desses fundo(s) de investimento, e que sejam administrados por quaisquer das instituições autorizadas, conforme definidas no Regulamento e no Prospecto (“Instituições Autorizadas”); (c) operações compromissadas lastreadas em títulos públicos; e (d) títulos de renda fixa de emissão de instituições financeiras autorizadas pelo BACEN a atuar no mercado brasileiro, respeitados os seguintes limites de concentração:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c75d0d1ad53e3903d25c63f04fd411c0dcde413cc0f5819fedfdf5d878d6f2e1"
+      ]
+    },
+    "17a8241cbd022a40dcccfccb0fbfff5ebe8fd76da79831e2bae63f34c8f6797a": {
+      "reference_date": "2021-12-31",
+      "value": "c. Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios cujas informações sejam transmitidas pela cedente ao custodiante, por meio eletrônico ou magnético, de acordo com os procedimentos definidos no contrato de cessão e no contrato de custódia, e que atendam, cumulativamente, na data de aquisição, aos seguintes critérios de elegibilidade: (i) Não terem prazo de vencimento superior a 180 (cento e oitenta) dias corridos, contados da data de aquisição, observado que é permitido que até 5% (cinco por cento) do patrimônio líquido do Fundo contenha direitos creditórios com prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias corridos, contado da data de aquisição; (ii) depois de computada, pro forma, a cessão pretendida, o índice de direitos creditórios adimplentes de titulares impontuais seja menor ou igual a 1,5% (um inteiro e cinquenta centésimos por cento); (iii) Depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do valor total de direitos creditórios de titularidade do Fundo, devido pelo respectivo titular, resultar em um valor igual ou inferior a (i) 1,25% (hum vírgula vinte e cinco centésimos por cento) do patrimônio líquido do Fundo na ocasião, caso o respectivo titular não esteja coberto por apólice de seguro ou, (ii) 4% (quatro por cento), até 3 (três) meses contados da data de concessão do registro da sexta oferta de cotas pela CVM, e 2% (dois por cento), após esta data, do patrimônio líquido do Fundo na ocasião, caso o respectivo titular esteja coberto por apólice de seguro; (iv) Depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do valor total de direitos creditórios de titularidade do Fundo, originado pelo respectivo estabelecimento, resultar em um valor igual ou inferior a 50% (cinquenta por cento) do patrimônio líquido na ocasião, sendo que, passados 18 (dezoito) meses do início das atividades, esse percentual deverá ser, no máximo, 40% (quarenta por cento);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "51ed91041e1f273afb3bdf371723bc3394d477f9ecdace3d4c4d7e92174bd9ef"
+      ]
+    },
+    "39a9a2fd1e99f5bc14f1f5a1ea0934f23e1d1269b57b01a82a209cc3ba416be4": {
+      "reference_date": "2020-12-31",
+      "value": "É objetivo do Fundo proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de recursos, preponderantemente, na aquisição de direitos creditórios originários de operações realizadas em qualquer segmento da economia, incluindo, mas não se limitando, os segmentos financeiro, industrial, comercial e de prestação de serviços (serviços performados), desde que originados e cedidos pelas cedentes, que atendam aos critérios de elegibilidade e à condição de cessão, observados todos os índices de composição e diversificação da carteira estabelecidos no regulamento. Em caráter complementar, o Fundo aplicará seus recursos em outros ativos. O Fundo buscará atingir uma rentabilidade (benchmark) de (i) 100% (cem por cento) da variação da Taxa DI, acrescida de uma sobretaxa de 1,20% a.a. (um vírgula vinte por cento), referente às Cotas Seniores; (ii) 100% (cem por cento) da variação da Taxa DI, acrescida de uma sobretaxa de 2% a.a. (dois por cento), referente às Cotas Mezanino I; (iii) 100% (cem por cento) da variação da Taxa DI, acrescida de uma sobretaxa de 4% a.a. (quatro por cento), referente às Cotas Mezanino II, sendo que não há benchmark predeterminado para as Cotas Subordinadas. Conforme exposto na nota 10.b, abaixo, as captações das Cotas Mezanino I e Mezanino II iniciaram em 16 de janeiro de 2020. O Fundo deverá ter alocado, no mínimo, 50% (cinquenta por cento), e, no máximo, 100% (cem por cento) de seu patrimônio em direitos creditórios, observada, ainda, a alocação de recursos para a reserva de liquidez e reserva de caixa. As aplicações realizadas no Fundo não contam com a garantia da Cedente, da Administradora, do Custodiante ou de suas partes relacionadas, nem do Fundo Garantidor de Créditos (“FGC”). Não obstante a diligência da Administradora no gerenciamento dos recursos do Fundo, a política de investimento coloca em risco o patrimônio deste, pelas características dos papéis que o compõem, os quais sujeitam-no às oscilações do mercado e aos riscos de crédito inerentes a tais investimentos, podendo, inclusive, ocorrer perda do capital investido.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2ac8dadfcd683a67be9b1bc02bb7842bed734ec145e9899d5377a554162a07d3"
+      ]
+    },
+    "a2cf6ae8407693fe0bd9d41e314ffb8a1eb12b95205df3ceae4495e682681dda": {
+      "reference_date": "2020-01-15",
+      "value": "4.1. É objetivo do Fundo proporcionar aos seus Quotistas a valorização de suas Quotas por meio da aplicação de recursos, preponderantemente, na aquisição de Direitos Creditórios originários de operações realizadas em qualquer segmento da economia, incluindo, mas não se limitando, os segmentos financeiro, industrial, comercial e de prestação de serviços (serviços performados), desde que originados e cedidos pelos Cedentes, que atendam aos Critérios de Elegibilidade e à Condição de Cessão, observados todos os índices de composição e diversificação da carteira estabelecidos neste Regulamento. Em caráter complementar, o Fundo aplicará seus recursos em Outros Ativos.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8f700493b79c612c1b612fa43e4cfab21ae2ef8b9914c7541395397c05f8cbf6"
+      ]
+    },
+    "64a6a314d8eea20cc8950f7ee51e8489f5f0402dc996d8ef00560c170b501d2b": {
+      "reference_date": "2024-09-10",
+      "value": "4.2. O Fundo somente poderá adquirir Direitos Creditórios cujas informações sejam transmitidas pelo Cedente à Gestora, por meio eletrônico ou magnético, de acordo com os procedimentos definidos no Contrato de Cessão e no Contrato de Custódia, e que atendam, cumulativamente, na Data de Aquisição, aos seguintes “Critérios de Elegibilidade”: a) não terem prazo de vencimento superior a 180 (cento e oitenta) dias corridos, contado da Data de Aquisição, observado que é permitido que até (i) 13% (treze por cento) do patrimônio líquido da Classe Única contenha Direitos Creditórios com prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias corridos, contado da Data de Aquisição e (ii) até 25% (vinte e cinco por cento) do limite de 13% (treze por cento)",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a5b85be5d0e9dba787a5719ab2b28c613820a27f91ce9c8509cfbd0f7cb4b61f"
+      ]
+    },
+    "c05f2af1c518e4d5416064975d24e3647ab59332eff837f153a4e927d0d2eeaf": {
+      "reference_date": "2024-07-29",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb002ed8e582909d3d702cf3cc3877815944576e9bba61f511a60a5856f70d6e"
+      ]
     }
   },
   "passages": {
@@ -3035,18 +2964,6 @@
       "verification": "previous_review",
       "citation_original": "data/raw/08692888000182/772020_regulamento.pdf · ID Fundos.NET 772020 · 05/11/2024 · regulamento · p. 59 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=772020"
     },
-    "d509b02bf29db78cc1edac8036f998c9526c9d6eec3727bd2811f69d7b02a96a": {
-      "document_id": "717978",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=717978",
-      "reference_date": "2024-07-29",
-      "version": "1",
-      "page": 12,
-      "clause": "",
-      "excerpt": "Partes da Transação  Rating de Curto Prazo Rating de Longo Prazo  Emissor Cartão de Compra Supplier Fundo de Investimentos em Direitos Creditorios NA NA  Originador Banco Ourinvest S.A. NA NA  Administrador Oliveira Trust DTVM Ltda. NA NA  Custodiante Oliveira Trust DTVM Ltda. NA NA  Agente Cobrador Banco Bradesco S.A. F1+(bra) AAA(bra)",
-      "sha256": "ad045faca942538de6843d275947d190d7f004e2cfb1d75c99a0f30c60a47bd6",
-      "verification": "primary_passage"
-    },
     "64a0600a3ba4bdd47d6db3e5e0f5a144094df658e34c96dcc7202768e8fafee5": {
       "document_id": "657461",
       "title": "Relatório de Agência de Rating",
@@ -3071,30 +2988,6 @@
       "sha256": "1a80226240c574866ed1e073b6b120aa3b52a0c7df5218abf16cd12a26bb2ad1",
       "verification": "primary_passage"
     },
-    "c84701f1b0b8bb5c2252994cf121a89035d598d7fb8b5dca3858208add007b54": {
-      "document_id": "594339",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=594339",
-      "reference_date": "2023-12-31",
-      "version": "1",
-      "page": 15,
-      "clause": "",
-      "excerpt": "a) Descrição  Os direitos creditórios referem-se às operações de securitização de recebíveis comerciais performados,  provenientes de aquisição de insumos ou serviços de empresas de pequeno e médio portes, que utilizam  como meio de pagamento cartões de bandeira própria da Suppliercard. Este meio de pagamento permite  que os detentores dos cartões efetuem as suas compras a prazo. Através desta operação tanto a Suppliercard  quanto o Banco Ourinvest, na qualidade de cedentes dos créditos, buscam recursos para primordialmente  continuar a financiar suas operações.",
-      "sha256": "38046086a7c5d48554c60ac826b9f1501f244b2712c2c2db9cf1c7eb52688601",
-      "verification": "primary_passage"
-    },
-    "b5fa5aef50772aaa05e9d083ac11bbee94de284d478d384bc1e8002889043cae": {
-      "document_id": "556393",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556393",
-      "reference_date": "2023-11-09",
-      "version": "1",
-      "page": 12,
-      "clause": "",
-      "excerpt": "Partes da Transação  Rating de Curto Prazo Rating de Longo Prazo  Emissor Cartão de Compra Supplier Fundo de Investimentos em Direitos Creditorios NA NA  Originador Banco Ourinvest S.A. NA NA  Administrador Oliveira Trust DTVM Ltda. NA NA  Custodiante Oliveira Trust DTVM Ltda. NA NA  Agente Cobrador Banco Bradesco S.A. F1+(bra) AAA(bra)  Contrapartida do Swap NA NA NA",
-      "sha256": "77a6570e2572155d8b9d907158dc228769a52f6d50cdbc4677eafa9a2e50d5ad",
-      "verification": "primary_passage"
-    },
     "fee5c24cd6c1aeca96f4b5de01735c87c27fd017367312f520ce13fa3160b5e7": {
       "document_id": "285893",
       "title": "Prospecto",
@@ -3105,66 +2998,6 @@
       "clause": "",
       "excerpt": "Ademais e especificamente com relação às Operações de Financiamento, são emitidas eletronicamente, conforme disposto no Contrato de CardMember, as Cédulas de Crédito Bancário em nome dos Titulares. Em caso de inadimplemento de referidos Titulares, os Cedentes podem, em nome do Fundo, tomar as medidas cabíveis para cobrança dos Direitos Creditórios Inadimplentes, como negativação, protesto ou ajuizamento.\nInformações sobre os Titulares Nível de Concentração dos Direitos Creditórios Conforme Critério de Elegibilidade estabelecido no Regulamento e neste Prospecto, o Fundo somente poderá adquirir determinado Direito Creditório, caso, depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do valor total de Direitos Creditórios de titularidade do Fundo, devido pelo respectivo Titular, resultar em um valor igual ou inferior a: (a) 1,25% (um inteiro e vinte e cinco centésimos por cento) do patrimônio líquido do Fundo na ocasião, caso o respectivo Titular não esteja coberto por Apólice de Seguro; ou (b) 4% (quatro por cento) até 3 (três) meses contados da data de concessão do registro da sétima oferta de Quotas pela CVM, e 2% (dois por cento), após esta data, do patrimônio líquido do Fundo na ocasião, caso o respectivo Titular esteja coberto por Apólice de Seguro.\nCaracterísticas Homogêneas dos Titulares Devedores dos Direitos Creditórios Os Titulares são pessoas físicas ou jurídicas, domiciliadas ou com sede no Brasil, devidamente credenciadas pelos Cedentes, que utilizam os Cartões para aquisição de produtos ou contratação de serviços junto aos Estabelecimentos.\nPara fins de definição do limite de crédito a ser concedido, são examinadas determinadas informações e documentos relativos aos Titulares, conforme a Política de Concessão de Crédito constante do Anexo VI ao Regulamento.\nEm 21 de Dezembro de 2021, a carteira operacional de Cartões do Fundo apresentava aproximadamente 448.253 (quatrocentos e quarenta e oito mil, duzentos e cinquenta e três) contratos ativos, com valor médio das parcelas de R$2.700,00 (dois mil e setecentos reais).\nInformações sobre os Cedentes As informações relativas aos Cedentes encontram-se na seção “Informações Relativas aos Cedentes” do presente Prospecto.\nContratos Relativos ao Fundo Nos termos dos Contratos de Cessão, considerar-se-á resolvida a cessão de todos os Direitos Creditórios referentes a cada Operação de Financiamento ou Operação Comercial de Cartão de Crédito, inclusive na hipótese de a respectiva cessão ter sido realizada em contrapartida à subscrição e integralização de Quotas Mezanino e/ou Quotas Subordinadas, operada de pleno direito, independentemente de qualquer aviso, notificação aos Cedentes e sem qualquer ônus ou custo para o Fundo, nas seguintes hipóteses:\n(a) cujo pagamento, até a respectiva data de vencimento, não venha a ser realizado pelo respectivo Titular  em virtude (1) de rejeição ou devolução do produto cuja venda tenha originado tal Direito Creditório, por  força de vícios ou defeitos, ocultos ou aparentes, de qualidade ou de quantidade; e/ou (2) do não  recebimento de tal produto;\n(b) caso fique caracterizada a inexistência do negócio subjacente;\n(c) que o respectivo Direito Creditório venha a ser reclamado por terceiro comprovadamente titular de  direitos sobre tal crédito previamente à sua aquisição pelo Fundo;\n(d) caso não seja verificada a constituição apropriada de documentos e/ou títulos para a sua cobrança,  administrativa ou judicial; e/ou\n(e) nas hipóteses em que o pagamento de um Direito Creditório venha a se frustrar, por qualquer motivo que  seja, desde que os Cedentes tenham dado causa a esse fato.\nOs Cedentes restituirão, ao Fundo, o Preço de Aquisição dos respectivos Direitos Creditórios, cuja cessão tiver sido resolvida, apurado na forma dos Contratos de Cessão, atualizado pro rata temporis, desde a respectiva Data de Aquisição até a data de restituição dos valores devidos, considerando-se a Taxa de Desconto utilizada na determinação do Preço de Aquisição para o respectivo Direito Creditório.\nNão foram identificados quaisquer outros eventos nos contratos relativos ao Fundo que possam acarretar a liquidação ou a amortização antecipada, ou que possam afetar a regularidade do fluxo de pagamento dos Direitos Creditórios. Maiores informações sobre os contratos podem ser obtidas na seção “Sumário dos Contratos Relevantes” deste Prospecto.",
       "sha256": "2d06b1c11c7afee43c1488e516e8214be8d327ffff9e8b1ba5025c9a721645b9",
-      "verification": "primary_passage"
-    },
-    "9db7d3ecc9d7a432f68da134a9a9a9dcd69f88aaf8a9c7c20246eb2a514055f8": {
-      "document_id": "142213",
-      "title": "AGO",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=142213",
-      "reference_date": "2020-01-15",
-      "version": "1",
-      "page": 24,
-      "clause": "11.9.1",
-      "excerpt": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios  cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre,  comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de  Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "sha256": "604f4a68fa435772db839b8d44e1aaf71d5c3a9e8130cf0d07108596d1e8fc0e",
-      "verification": "primary_passage"
-    },
-    "a14c1e563724bb3aada45e67eabdd8dacd6ed5a6cada9406591af8b3525baa35": {
-      "document_id": "737756",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=737756",
-      "reference_date": "2024-09-10",
-      "version": "1",
-      "page": 44,
-      "clause": "8.7",
-      "excerpt": "8.7. Verificação dos Documentos Comprobatórios pela Gestora. Em decorrência da expressiva  diversificação de devedores e significativo volume de Direitos Creditórios cedidos, a Gestora  verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos a Classe Única no  respectivo trimestre, comunicando o resultado dessa verificação à Administradora e aos  Cedentes. A Agência de Classificação de Risco e a Empresa de Auditoria do Fundo poderão  solicitar a qualquer momento o resultado dessa verificação.",
-      "sha256": "a0b25b1b5aa5463daece2a9fd1029049790025aef69b8557552f87136ed093c8",
-      "verification": "primary_passage"
-    },
-    "2a17a32b8a3a3e6ee3e4b2055c1530df2bf3d86eef3aaa3af102b3faad4ce600": {
-      "document_id": "273886",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=273886",
-      "reference_date": "2022-03-03",
-      "version": "1",
-      "page": 24,
-      "clause": "11.9.1",
-      "excerpt": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios  cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre,  comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de  Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "sha256": "e92f1c38cc5c7b490fb9c7dd221b5973fc990ef9b135bb9f54285a816cdd325f",
-      "verification": "primary_passage"
-    },
-    "4d7cd082c1997139a03f0bc6b6df6d9dab8c4d1eb6a7aefa8a8ba81718ed4d06": {
-      "document_id": "256407",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=256407",
-      "reference_date": "2022-01-13",
-      "version": "1",
-      "page": 24,
-      "clause": "11.9.1",
-      "excerpt": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios  cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre,  comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de  Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "sha256": "fa5a8d90ea2360b898ffcf48412bcbf67850e2dbb783071a42fded3fa13984a8",
-      "verification": "primary_passage"
-    },
-    "76d5a9e5bd78c888659f58253c25615201e4ffa1ece96acda0b5f266a496474f": {
-      "document_id": "142218",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=142218",
-      "reference_date": "2021-01-15",
-      "version": "1",
-      "page": 24,
-      "clause": "11.9.1",
-      "excerpt": "11.9.1. Em decorrência da expressiva diversificação de devedores e significativo volume de Direitos Creditórios  cedidos, o Custodiante verificará, em até 30 (trinta) dias a contar da respectiva Data de Aquisição, bem como  trimestralmente, por amostragem, o lastro dos Direitos Creditórios cedidos ao Fundo no respectivo trimestre,  comunicando o resultado dessa verificação à Administradora e aos Cedentes. A Agência de Classificação de  Risco e a Empresa de Auditoria do Fundo poderão solicitar a qualquer momento o resultado dessa verificação.",
-      "sha256": "604f4a68fa435772db839b8d44e1aaf71d5c3a9e8130cf0d07108596d1e8fc0e",
       "verification": "primary_passage"
     },
     "7c1a5af3a1de44979bbe291705c62931d57eb31fe2f83ec068c6be8833c56ef5": {
@@ -6196,6 +6029,19 @@
       "excerpt": "18.1. As Quotas Mezanino serão resgatadas, observado um prazo de carência de: (i) dois anos, para as Quotas  Mezanino I; e (ii) dois anos para as Quotas Mezanino II, ambos contados da respectiva data de integralização,  para solicitação de resgate. O resgate será efetivado até o 180º (centésimo octogésimo) dia ou Dia Útil  subsequente, contado da data de solicitação (“Data de Resgate de Quotas Mezanino”).",
       "sha256": "604f4a68fa435772db839b8d44e1aaf71d5c3a9e8130cf0d07108596d1e8fc0e",
       "verification": "primary_passage"
+    },
+    "1b1e7b34da9e683b1d5365e94c0f210e5200585b1a078c4c445fef7b87f3123d": {
+      "document_id": "285893",
+      "title": "Prospecto",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285893",
+      "reference_date": "2022-03-29",
+      "version": "1",
+      "page": "49–50",
+      "clause": "",
+      "excerpt": "Sem prejuízo da Condição de Cessão, o Fundo somente poderá adquirir Direitos Creditórios cujas informações sejam transmitidas pelos Cedentes ao Custodiante, por meio eletrônico ou magnético, de acordo com os procedimentos definidos nos Contratos de Cessão e no Contrato de Custódia, e que atendam, cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade:\n(a) não terem prazo de vencimento superior a 180 (cento e oitenta) dias corridos, contado da Data de  Aquisição, observado que é permitido que até (i) 13% (treze por cento) do patrimônio líquido do Fundo  contenha Direitos Creditórios com prazo de vencimento de até 365 (trezentos e sessenta e cinco) dias  corridos, contado da Data de Aquisição e (ii) até 50% (cinquenta por cento) do limite de 13% (treze por  cento) do patrimônio líquido descritos no item (i) poderão ter prazo de vencimento de até 540  (quinhentos e quarenta) dias corridos, contado da Data de Aquisição;\n(b) depois de computada, pro forma, a cessão pretendida, o Índice de Novos Direitos Creditórios de Titulares  Impontuais (conforme definido no Regulamento) seja menor ou igual a 1,5% (um inteiro e cinquenta  centésimos por cento);\n(c) depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do  valor total de Direitos Creditórios de titularidade do Fundo, devido pelo respectivo Titular, resultar em  um valor igual ou inferior a: (1) 1,25% (um inteiro e vinte e cinco centésimos por cento) do patrimônio  líquido do Fundo na ocasião, caso o respectivo Titular não esteja coberto por Apólice de Seguro; ou (2)  4% (quatro por cento), até 3 (três) meses contados da data de concessão do registro da sétima oferta de  Quotas pela CVM, e 2% (dois por cento), após esta data, do patrimônio líquido do Fundo na ocasião, caso  o respectivo Titular esteja coberto por Apólice de Seguro;\n(d) depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do  valor total de Direitos Creditórios de titularidade do Fundo, originado pelo respectivo Estabelecimento,  resultar em um valor igual ou inferior a 50% (cinquenta por cento) do patrimônio líquido na ocasião, sendo  que, passados 18 (dezoito) meses do Início das Atividades, esse percentual deverá ser no máximo 40%  (quarenta por cento);\n(e) o respectivo Estabelecimento não se encontrar inadimplente com o Fundo, em relação à coobrigação por  esse prestada vinculada a Direito Creditório de titularidade do Fundo, seja integral ou parcial, por período  igual ou superior a 30 (trinta) dias;\n(f) depois de computada, pro forma, a cessão pretendida, o percentual correspondente ao somatório do  valor total de Direitos Creditórios originados de Operações de Refinanciamento de Saldo Remanescente  de titularidade do Fundo seja igual ou inferior a 5% (cinco por cento);\n(g) o prazo médio de vencimento das parcelas dos Direitos Creditórios de propriedade do Fundo, depois de  computada, pro forma, a aquisição de Direitos Creditórios pretendida pelo Fundo, não poderá ser superior  a 80 (oitenta) dias, calculado conforme a fórmula abaixo:",
+      "sha256": "2d06b1c11c7afee43c1488e516e8214be8d327ffff9e8b1ba5025c9a721645b9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

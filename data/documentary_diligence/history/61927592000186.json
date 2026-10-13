@@ -3,16 +3,6 @@
   "cnpj": "61927592000186",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "cb39965e563c0e7560a089b843cad577a1f03303955b2403789fec2a99531cd7",
-      "5d6106e1f716676c612c20a3c8c6fb27d514e49e0cac9798190715c3ac7d5b07",
-      "696da5b8761626200d8b27f28801ed64b0f308b0cec4412e791b3246981ad8b3",
-      "df031e675db2094af42ea6d61f5830b6531f8639296a3beaddfac2b8c634bcc6",
-      "72b50a7ecc4455d9699211aad3954fd02d27cf6f8f471de345f54a2cf55d983f",
-      "eef0e814bd7816a19c57aa50823a51d1e46c597da73e8d598763493e876ab2d6",
-      "76c3fe84ba231225eca661c15e4405cd2c1bd29547932a725a33b3d0401e0b30",
-      "da29e478b9a643480cf96b836bb739edc46dd361ba4d0b4ef18d6dd2bb266985"
-    ],
     "concentration": [
       "e73c04b3856f2d9222c9e24093e5b229a51a7054ae8da287eee69a27908afedd",
       "ea0633b1351b79bd736e806eeb6b65e1f23bb2049bbe5858bf4ad0a6453c4772",
@@ -232,17 +222,6 @@
       "b3280150f200fa28dfba7ad134a2bc25471a14d63f84b1d006052d205b524b93",
       "10b35b144a70e92d7d7b3878489218ca30cd5cbb9ec57bfc408f8cb84b303ca6"
     ],
-    "originator": [
-      "e778f8210810e263e116fdf06ed8a906c4762e154b027c9e7ce7d4e566031dcf",
-      "f3ed3390d75eea55dedb98a692bd16b1ecee55ca2e3f1dd54578308fdc0ba79f",
-      "4031fdbb7099d50581b57875c8037cce1ceccf36d9ec1b8c8893eecc626ac153",
-      "832edca6ede767f49350cb3a6289bc1c44d35bc480704049289d47102a5d83da",
-      "01efe9b38cc264a23505fdea7ab2f3df60f0710aa8bd1e317fe5839b474c2cbf",
-      "38117e408f5a1eb5c7ecf0e91a0966077e192278c22bbc5b9def53d351d6db6e"
-    ],
-    "debtor": [
-      "1739d8be385b85b6c57f66875545f85972e7c78a5f612323473c7c44b6d62bb2"
-    ],
     "guarantee": [
       "68354d4b5eda2188ef698691a37264585e9f844ce267f8852fd5d3739697df3a",
       "594b56d1b256ab8b14d034f5bf5ea3f8d45c9e64e84b885c434bc00684270372",
@@ -273,6 +252,26 @@
       "661d6233b2caaa75e011c0dafb42a0634f78b436290bf69261ec3b990dcfcfe3",
       "e96b2bc6782ebf0d3d8d5f0a70c7ee579e882bba0e634794b7c4d77ce64a64b0",
       "0779a1593c09529a6137ed72ea543ce159b0b7144662ff8229b338fa310e9c0f"
+    ],
+    "originator": [
+      "f2368020d2606f330c9fc2ad71ca99a26c65768084e99495d87f25cbc280da21",
+      "f3ed3390d75eea55dedb98a692bd16b1ecee55ca2e3f1dd54578308fdc0ba79f",
+      "4031fdbb7099d50581b57875c8037cce1ceccf36d9ec1b8c8893eecc626ac153",
+      "832edca6ede767f49350cb3a6289bc1c44d35bc480704049289d47102a5d83da",
+      "01efe9b38cc264a23505fdea7ab2f3df60f0710aa8bd1e317fe5839b474c2cbf",
+      "38117e408f5a1eb5c7ecf0e91a0966077e192278c22bbc5b9def53d351d6db6e"
+    ],
+    "eligibility": [
+      "cb39965e563c0e7560a089b843cad577a1f03303955b2403789fec2a99531cd7",
+      "1ce47c0f6c0e20672a45297d2cf5ce6778d0166240de3a075f49dd2d80d5d040",
+      "a37b96d6440614e5bd42d717551a4b2bd7c3c606f425a7b41797b1f3ef7ba571",
+      "63ccf5382aa9d0c48c7a65d7688c7ffb9d751769d6cf4498834f74abbcbd6154",
+      "946f60c7498974db06a173a8574d20a7223a3c62e829bb03b4c919c75db19f7b",
+      "8f6d8c50da2f7c7a52e23f2176907848d2a845e1992f794b9faecbda52963116",
+      "2b6e84eded31ed4f8e321e99b3865bbcad2394c11cd96a1947fd123f4ec98e66"
+    ],
+    "debtor": [
+      "1739d8be385b85b6c57f66875545f85972e7c78a5f612323473c7c44b6d62bb2"
     ]
   },
   "entries": {
@@ -284,15 +283,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "0bc31e75b9f1765990a3f4a2089d74e6d96e1784bf07513429336265acb635b0"
-      ]
-    },
-    "e778f8210810e263e116fdf06ed8a906c4762e154b027c9e7ce7d4e566031dcf": {
-      "reference_date": "2026-06-10",
-      "value": "Os analistas utilizaram informações provenientes das seguintes fontes: Administradora e Custodiante, Gestora e Originadora.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2a9c87afc104ea6445a3ad6fd6728a5411b5433770622f9a9e0b536c214a76d7"
       ]
     },
     "f3ed3390d75eea55dedb98a692bd16b1ecee55ca2e3f1dd54578308fdc0ba79f": {
@@ -357,69 +347,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7bc6253294a27cf50cab1f31e67b42f1d217488826c97c0ed9bcf9ecff43427b"
-      ]
-    },
-    "5d6106e1f716676c612c20a3c8c6fb27d514e49e0cac9798190715c3ac7d5b07": {
-      "reference_date": "2026-06-10",
-      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de Condições de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "bb0675be9bb4d278282bfaeb8096704228e789671c24f84a8ae6485dc42db589"
-      ]
-    },
-    "696da5b8761626200d8b27f28801ed64b0f308b0cec4412e791b3246981ad8b3": {
-      "reference_date": "2026-02-28",
-      "value": "Os direitos creditórios que podem ser adquiridos pela classe, na respectiva data de aquisição e pagamento, devem atender, cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e validados pelo consultor especializado, no momento da cessão ou aquisição direta pela classe: (i) os direitos creditórios devem ser adquiridos observando um valor mínimo de cessão de: (a) R$ 1 (mil reais), para duplicatas, (b) R$ 5 (cinco mil reais), para notas comerciais; e (c) R$ 5 (cinco mil reais), para CCBs;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "85b29fc08f9c1055c060f16481989426565e2242f0bc7c277dede64f70e3bc74"
-      ]
-    },
-    "df031e675db2094af42ea6d61f5830b6531f8639296a3beaddfac2b8c634bcc6": {
-      "reference_date": "2026-02-11",
-      "value": "“7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Consultor Especializado, no momento da cessão ou aquisição direta pela Classe:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "62cd3da5d7380e8632d6ebe9c518174f928b87bc6682f03955a236af2b87bb9d"
-      ]
-    },
-    "72b50a7ecc4455d9699211aad3954fd02d27cf6f8f471de345f54a2cf55d983f": {
-      "reference_date": "2025-12-02",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c71629c46a5aa53ddd3ba5a2ec8ddf98e0b69ff9c89c1acec1772bb13f1eb787"
-      ]
-    },
-    "eef0e814bd7816a19c57aa50823a51d1e46c597da73e8d598763493e876ab2d6": {
-      "reference_date": "2026-07-01",
-      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9de764734b90af2da3ea376e3ba7d13d78caa45dc60a293ee0c8ec5993516518"
-      ]
-    },
-    "76c3fe84ba231225eca661c15e4405cd2c1bd29547932a725a33b3d0401e0b30": {
-      "reference_date": "2026-02-12",
-      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7ddf8cdc6f9cff34a449ff2cf85f5069327af780bd6ebe3a40ceeeb724c8e2e4"
-      ]
-    },
-    "da29e478b9a643480cf96b836bb739edc46dd361ba4d0b4ef18d6dd2bb266985": {
-      "reference_date": "2025-07-25",
-      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "745881f885f5651dbd3f25fd34c6025f95ef531730399953c9a70781ab569f70"
       ]
     },
     "e73c04b3856f2d9222c9e24093e5b229a51a7054ae8da287eee69a27908afedd": {
@@ -1861,6 +1788,69 @@
       "sources": [
         "c4da27214f5addb313f1f2c81da86b98484a8a43a5fb1d2a206ca160ce63c310"
       ]
+    },
+    "1ce47c0f6c0e20672a45297d2cf5ce6778d0166240de3a075f49dd2d80d5d040": {
+      "reference_date": "2026-06-10",
+      "value": "Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de Condições de quaisquer ônus, gravames ou restrições de qualquer natureza; (ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos Aquisição na data de aquisição pela Classe; (iii) os Direitos Creditórios não poderão ser originados de Cedentes ou Devedores em processo de recuperação judicial ou extrajudicial; e (iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos Direitos Creditórios, conforme o caso, deverá ser equivalente ao Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao ano (“Taxa Mínima”).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb0675be9bb4d278282bfaeb8096704228e789671c24f84a8ae6485dc42db589"
+      ]
+    },
+    "a37b96d6440614e5bd42d717551a4b2bd7c3c606f425a7b41797b1f3ef7ba571": {
+      "reference_date": "2026-02-28",
+      "value": "Os direitos creditórios que podem ser adquiridos pela classe, na respectiva data de aquisição e pagamento, devem atender, cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e validados pelo consultor especializado, no momento da cessão ou aquisição direta pela classe: (i) os direitos creditórios devem ser adquiridos observando um valor mínimo de cessão de: (a) R$ 1 (mil reais), para duplicatas, (b) R$ 5 (cinco mil reais), para notas comerciais; e (c) R$ 5 (cinco mil reais), para CCBs; (ii) os direitos creditórios devem ser adquiridos com um prazo de vencimento máximo de 36 (trinta e seis) meses; e (iii) os direitos creditórios adquiridos de um mesmo cedente, emissor ou devedor podem representar, no máximo, 20% (vinte por cento) do patrimônio líquido da classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "85b29fc08f9c1055c060f16481989426565e2242f0bc7c277dede64f70e3bc74"
+      ]
+    },
+    "63ccf5382aa9d0c48c7a65d7688c7ffb9d751769d6cf4498834f74abbcbd6154": {
+      "reference_date": "2025-12-02",
+      "value": "Perspectiva e Fatores de Sensibilidade dos Ratings A perspectiva estável traduz a expectativa da Austin Rating de que as classificações das Cotas Seniores e Subordinadas Mezanino do Fundo não se modificarão no curto prazo. No entanto, ações de ratings poderão ser realizadas, entre outros fatores, em função de: (i) alterações regulamentares, principalmente em Critérios de Elegibilidade e Condições de Cessão, e substituições dos participantes dos Fundo; (ii) elevações dos níveis de inadimplência e perda da carteira acima do esperado; e (iii) observação de desenquadramentos em relação aos parâmetros definidos no Regulamento atual, sobretudo em relação os limites de concentração atualmente praticados pelo Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c71629c46a5aa53ddd3ba5a2ec8ddf98e0b69ff9c89c1acec1772bb13f1eb787"
+      ]
+    },
+    "946f60c7498974db06a173a8574d20a7223a3c62e829bb03b4c919c75db19f7b": {
+      "reference_date": "2026-07-01",
+      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos na data de aquisição pela Classe; (iii) os Direitos Creditórios não poderão ser originados de Cedentes ou Devedores em processo de recuperação judicial ou extrajudicial; e (iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos Direitos Creditórios, conforme o caso, deverá ser equivalente ao Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao ano (“Taxa Mínima”). 7.2.1. O enquadramento dos Direitos Creditórios que a Classe pretender adquirir às Condições de Cessão ou Aquisição será verificado e validado pelo Consultor Especializado previamente a cada cessão ou aquisição, conforme o caso, sem prejuízo dos deveres de supervisão da Gestora em relação ao",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "eab9cb1af379ba6664b3670c674005e58bef199fb0560397e4c9b8213e6fd17e"
+      ]
+    },
+    "8f6d8c50da2f7c7a52e23f2176907848d2a845e1992f794b9faecbda52963116": {
+      "reference_date": "2026-02-12",
+      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos na data de aquisição pela Classe; (iii) os Direitos Creditórios não poderão ser originados de Cedentes ou Devedores em processo de recuperação judicial ou extrajudicial; e (iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos Direitos Creditórios, conforme o caso, deverá ser equivalente ao Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao ano (“Taxa Mínima”). 7.2.1. O enquadramento dos Direitos Creditórios que a Classe pretender adquirir às Condições de Cessão ou Aquisição será verificado e validado pelo Consultor Especializado previamente a cada cessão ou aquisição, conforme o caso, sem prejuízo dos deveres de supervisão da Gestora em relação ao cumprimento do aqui previsto e, ainda, observado o disposto neste Anexo, no Contrato de Consultoria Especializada e na regulamentação aplicável.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "01212b0e760d0e65df9c5a27e52acc7203d11ec22333028a7e8eaca02afa37d9"
+      ]
+    },
+    "2b6e84eded31ed4f8e321e99b3865bbcad2394c11cd96a1947fd123f4ec98e66": {
+      "reference_date": "2025-07-25",
+      "value": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição: (i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes, bem como devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza; (ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos na data de aquisição pela Classe; (iii) os Direitos Creditórios não poderão ser originados de Cedentes ou Devedores em processo de recuperação judicial ou extrajudicial; e (iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos Direitos Creditórios, conforme o caso, deverá ser equivalente ao Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao ano (“Taxa Mínima”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "745881f885f5651dbd3f25fd34c6025f95ef531730399953c9a70781ab569f70"
+      ]
+    },
+    "f2368020d2606f330c9fc2ad71ca99a26c65768084e99495d87f25cbc280da21": {
+      "reference_date": "2026-06-10",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb0675be9bb4d278282bfaeb8096704228e789671c24f84a8ae6485dc42db589"
+      ]
     }
   },
   "passages": {
@@ -1996,18 +1986,6 @@
       "clause": "",
       "excerpt": "Os direitos creditórios que podem ser adquiridos pela classe, na respectiva data de aquisição e pagamento, devem atender, cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e validados pelo consultor especializado, no momento da cessão ou aquisição direta pela classe:\n(i) os direitos creditórios devem ser adquiridos observando um valor mínimo de cessão de: (a) R$ 1 (mil reais), para duplicatas, (b) R$ 5 (cinco mil reais), para notas comerciais; e (c) R$ 5 (cinco mil reais), para CCBs;\n(ii) os direitos creditórios devem ser adquiridos com um prazo de vencimento máximo de 36 (trinta e seis) meses; e\n(iii) os direitos creditórios adquiridos de um mesmo cedente, emissor ou devedor podem representar, no máximo, 20% (vinte por cento) do patrimônio líquido da classe.",
       "sha256": "1bfb49c8685f13221c4bdbac4100d7b2e8a74fd1e5704c0a4326241d830dedfb",
-      "verification": "primary_passage"
-    },
-    "62cd3da5d7380e8632d6ebe9c518174f928b87bc6682f03955a236af2b87bb9d": {
-      "document_id": "1213806",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1213806",
-      "reference_date": "2026-02-11",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "“7.1. Os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de  Aquisição e Pagamento, deverão atender, cumulativamente, aos seguintes Critérios de  Elegibilidade, a serem verificados e validados pelo Consultor Especializado, no momento da  cessão ou aquisição direta pela Classe:",
-      "sha256": "87146af3731c838efd16fe09d2859e2e0f0ccf9188e16a5d3fc9979eef3026d6",
       "verification": "primary_passage"
     },
     "c71629c46a5aa53ddd3ba5a2ec8ddf98e0b69ff9c89c1acec1772bb13f1eb787": {
@@ -3732,6 +3710,32 @@
       "excerpt": "Gestora A GALAPAGOS CAPITAL INVESTIMENTOS E  PARTICIPAÇÕES LTDA., sociedade empresária  limitada com sede na Cidade de São Paulo, Estado de  São Paulo, na Avenida Rebouças, nº 3.507, 2º andar\n (parte), CEP 05.401-400, inscrita no CNPJ/MF sob o  nº 32.706.879/0001-88, devidamente autorizada a  administrar carteira de títulos e valores mobiliários  pela CVM, por meio do Ato Declaratório nº 17.441,  de 09 de outubro de 2019, ou sua sucessora a  qualquer título.",
       "sha256": "cc6f59f7a8d10deb6af3df5137fefe659a1aace46099271b07fcb245a065896f",
       "verification": "primary_passage"
+    },
+    "eab9cb1af379ba6664b3670c674005e58bef199fb0560397e4c9b8213e6fd17e": {
+      "document_id": "1237737",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237737",
+      "reference_date": "2026-07-01",
+      "version": "1",
+      "page": 36,
+      "clause": "7.2",
+      "excerpt": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição:\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos  Cedentes, bem como devem estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos na data  de aquisição pela Classe;\n(iii) os Direitos Creditórios não poderão ser originados de Cedentes ou  Devedores em processo de recuperação judicial ou extrajudicial; e\n(iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de  desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos  Direitos Creditórios, conforme o caso, deverá ser equivalente ao  Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao  ano (“Taxa Mínima”).\n7.2.1. O enquadramento dos Direitos Creditórios que a Classe pretender  adquirir às Condições de Cessão ou Aquisição será verificado e validado pelo  Consultor Especializado previamente a cada cessão ou aquisição, conforme o  caso, sem prejuízo dos deveres de supervisão da Gestora em relação ao",
+      "sha256": "99ba17c1b85939289fc1d4b116f5c796595aadd9be75cb58b1e56249bc5491bf",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "01212b0e760d0e65df9c5a27e52acc7203d11ec22333028a7e8eaca02afa37d9": {
+      "document_id": "1213807",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1213807",
+      "reference_date": "2026-02-12",
+      "version": "1",
+      "page": 37,
+      "clause": "7.2",
+      "excerpt": "7.2. Adicionalmente aos Critérios de Elegibilidade, os Direitos Creditórios que  poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento,  deverão atender, cumulativamente, às seguintes Condições de Cessão ou Aquisição:\n(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos  Cedentes, bem como devem estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza;\n(ii) os Direitos Creditórios não podem estar vencidos ou inadimplidos na data  de aquisição pela Classe;\n(iii) os Direitos Creditórios não poderão ser originados de Cedentes ou  Devedores em processo de recuperação judicial ou extrajudicial; e\n(iv) a taxa mínima a ser estabelecida pela Classe na aquisição (i.e., taxa de  desconto) e/ou na remuneração (i.e., juros remuneratórios) oriunda dos  Direitos Creditórios, conforme o caso, deverá ser equivalente ao  Benchmark Sênior previsto no Anexo, acrescido de 2% (dois por cento) ao  ano (“Taxa Mínima”).\n7.2.1. O enquadramento dos Direitos Creditórios que a Classe pretender  adquirir às Condições de Cessão ou Aquisição será verificado e validado pelo  Consultor Especializado previamente a cada cessão ou aquisição, conforme o  caso, sem prejuízo dos deveres de supervisão da Gestora em relação ao  cumprimento do aqui previsto e, ainda, observado o disposto neste Anexo, no  Contrato de Consultoria Especializada e na regulamentação aplicável.",
+      "sha256": "cc6f59f7a8d10deb6af3df5137fefe659a1aace46099271b07fcb245a065896f",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

@@ -3,16 +3,6 @@
   "cnpj": "52968533000165",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "460536a9398f206d40d11efb25bfb8f46df0d4cdc3750f16e09e2ac497643c0c",
-      "b14da7f91bbbf521d5c9c051e8c989e781e2b3edea3406b15eb1a66749be2896",
-      "2314dbd6a0740f4a640bb01f8c06b4d8c73a67a8ad4ce54162c2bc5074eb9280",
-      "b36eb38cffeac369244d27848d5d4a361e290ddc1ff04f9e0deb5b90b1e5539d",
-      "76f98aaa55092a101ea4153765d887d72abeca32c02cb9c3d74eeade468c26dd",
-      "e5c391827e7b3f77b097388454e4e2fe6b4d71616c821960707bbd8e8952e510",
-      "5ca4afd8f4589623341d1ceb1e8210e239b9bc3b9e5abdaf69e7ac1a879cc7eb",
-      "4712748cca20e54cbb189bb15e519eb9f588a9c774da1ae7a53be694cce22088"
-    ],
     "term": [
       "a4706e8ab72bf4c7ead5b810a7264f00b07489136d929f8994e2575e40f9fb75",
       "5b670b24f5e5d21e5fda1bd23b7634dd6573325f0360e329bc1dc1369d1e44ec",
@@ -358,24 +348,6 @@
       "26007db25e8cc77ba0e5cff7362734350cd8d92a2ffe531f0b24f68a355b0de2",
       "9497062dab833ff2d6765903c85864ebebacf448795f5d7c6b4808d7dca82de2"
     ],
-    "originator": [
-      "9e33cc214a159aac9d9a6ee57a5ccbb54f040ed5fd2b8af70a237ff3b071cd6d",
-      "c5b5bab57ec36a4f575b5f4db95b93280ca1ac8c20217dec42caea298b9e6787",
-      "93b752474e1e6db913c6832514dee6efd5cf1f21a63c403628a05f558ca771c7",
-      "54cb92eb5bc40555a0725c0d4ea43a29dbac4566801caf19d1bbda0c4eadf0d0",
-      "883a781bc86eeeebf6c619a5361e69ce8ff3fe8d4045e2328dd416d7c96334d6",
-      "27cb0b9f55f9b6483b7bb45e9537f057eff193e6f8d7f983ae160ca2c51723c8",
-      "a3ed90a3eb4af1ef231c322212536360099541c2b20c16339ac8a32735c9a5b8"
-    ],
-    "debtor": [
-      "2411b4376cfc9eeaba8404c30832d1bd08871c285242a7c7fa4bf73f9cbd7755",
-      "0f766f889e49ab89d5977a09ac52a8602af19ceb747da8b29206e829b98d15b2",
-      "b074c1d1e66628c26dc05417ec57cc1ea8aeba6920eaeee6e5c2df237df79e43",
-      "f6909f6d1a531a110ac0de4521c4eb524fbdf46107b5bc5b2c3966be6cfa138d",
-      "e6513c1acdca0031dfe6e95768b4949430cef307a414b443db9d621f5ff38f81",
-      "6c611ebdd5b8d752700586fd020ddd3db2cc2ccecde1894e28b2562dcc717ac9",
-      "a957b8cda3e1a97fee05f56695936cf3e82eed00a2cb269a836e896e8387bcc3"
-    ],
     "investee": [
       "f93713ef64cd7a300b4705e6afd4ebc347921f70f07453d8032ca47c383c8b5c",
       "0c1832083057323fc2124b20938038db8d4fcd999bb85c82da5feb319fc6c89c"
@@ -412,6 +384,26 @@
       "fa6ae5792af0fb24428d866429dd6a7ca4b1bcdd3977d0a4e2cadf6f43de22bd",
       "94ab83e95b19a0534cd4b069d41c94945341e8892b9f4ef49b30f4605cde0366",
       "5372570c713bd90c1e21b193b7e9f5c91877447176c7e3cd71ccf8172077e4da"
+    ],
+    "originator": [
+      "b755396a84411988bb840bc9a97e3ceba0c81eb3d7b5beeb2e0f7f68c21f2ec0",
+      "c5b5bab57ec36a4f575b5f4db95b93280ca1ac8c20217dec42caea298b9e6787",
+      "cc4b5473235789ada427baa7bf601b698bc2137be4286f7b17640a79e6fa0665",
+      "93b752474e1e6db913c6832514dee6efd5cf1f21a63c403628a05f558ca771c7",
+      "54cb92eb5bc40555a0725c0d4ea43a29dbac4566801caf19d1bbda0c4eadf0d0",
+      "883a781bc86eeeebf6c619a5361e69ce8ff3fe8d4045e2328dd416d7c96334d6",
+      "27cb0b9f55f9b6483b7bb45e9537f057eff193e6f8d7f983ae160ca2c51723c8",
+      "a3ed90a3eb4af1ef231c322212536360099541c2b20c16339ac8a32735c9a5b8"
+    ],
+    "eligibility": [
+      "460536a9398f206d40d11efb25bfb8f46df0d4cdc3750f16e09e2ac497643c0c",
+      "3b1446c8f2b2d58a5fef70ca9a2a6e979d48a59efc8c777e45b8d0b72fc79b5e",
+      "92a29fb9097e95a4c226fa8f852aced5a8c385fc6479a4e17069ed06d07fde8d",
+      "6240e8d86e41a0c0e41ade6e12c1eb64128db15250aa1c1f02222f3bafd4771a",
+      "76f98aaa55092a101ea4153765d887d72abeca32c02cb9c3d74eeade468c26dd",
+      "2e1deb9a78293c82cf0986d04d2339541da7f1de595f2606f252549bb5a0b49d",
+      "174111f0f008283e8f39d0f65c21e3f7be062a857c23dd9746c71a25371ec659",
+      "2df293e6d7b0b49ea478db09ac952c4dd8b84028338f80ddf0a30cc8b88af238"
     ]
   },
   "entries": {
@@ -423,15 +415,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "f66078fe6917e9e9d6e9c3ecdc872a26e40c2ad2f9d8d9b2695d73e8c16cb593"
-      ]
-    },
-    "9e33cc214a159aac9d9a6ee57a5ccbb54f040ed5fd2b8af70a237ff3b071cd6d": {
-      "reference_date": "2025-06-30",
-      "value": "o agente de cobrança acionará a originadora dos títulos no intuito de verificar a localização do bem em garantia e designará um agente para uma visita in loco;",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "ccbaa271ee1e980a920a96e9d3689f37461ac4c82208753bd8c9cf0af8c8b325"
       ]
     },
     "c5b5bab57ec36a4f575b5f4db95b93280ca1ac8c20217dec42caea298b9e6787": {
@@ -506,51 +489,6 @@
         "a42d438815f539549ed32b636d132dc7fbbfb9eae18bedbd94c1d11814d90e90"
       ]
     },
-    "b074c1d1e66628c26dc05417ec57cc1ea8aeba6920eaeee6e5c2df237df79e43": {
-      "reference_date": "2025-08-06",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "aad92297591dea7fec5013820167183c7be86db6ccc746b0a88dd095b8b6a8c2"
-      ]
-    },
-    "f6909f6d1a531a110ac0de4521c4eb524fbdf46107b5bc5b2c3966be6cfa138d": {
-      "reference_date": "2024-03-07",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c60cb7cbac4668a562952921522ebb442a97cbfd3a326b784c5b2aa060b3f1b0"
-      ]
-    },
-    "e6513c1acdca0031dfe6e95768b4949430cef307a414b443db9d621f5ff38f81": {
-      "reference_date": "2024-02-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "54fabf3e1f9c454d9bf7732642637455aed6827ffa0157cf0c86fada084844ac"
-      ]
-    },
-    "6c611ebdd5b8d752700586fd020ddd3db2cc2ccecde1894e28b2562dcc717ac9": {
-      "reference_date": "2024-01-15",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b31728d3962ec527cf0e3230ab22e463ae4b606c0636ff3cc102b5ec7bc44a59"
-      ]
-    },
-    "a957b8cda3e1a97fee05f56695936cf3e82eed00a2cb269a836e896e8387bcc3": {
-      "reference_date": "2023-12-28",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b8a2e519b3d885d77555b7b8b83bf4cef97492884f24f0862cc600263a888dce"
-      ]
-    },
     "460536a9398f206d40d11efb25bfb8f46df0d4cdc3750f16e09e2ac497643c0c": {
       "reference_date": "2025-10-14",
       "value": "Vincendos; peças/serviços≤150 dias e≤30% PL; usados≤10% PL e fabricação≤5 anos",
@@ -561,33 +499,6 @@
         "5b1397672fb91252640e75276cf792a8886109478729ce4a6e0adfb0b1471614"
       ]
     },
-    "b14da7f91bbbf521d5c9c051e8c989e781e2b3edea3406b15eb1a66749be2896": {
-      "reference_date": "2025-06-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3d4c14b27a68f5e99c7b10abf3306b838f378f3673cc74013596ac6ad6598184"
-      ]
-    },
-    "2314dbd6a0740f4a640bb01f8c06b4d8c73a67a8ad4ce54162c2bc5074eb9280": {
-      "reference_date": "2024-06-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "62f3f4d0d566b826895aa5c9b792568eebd5373a09b9477a3fe8c010ee8e37e0"
-      ]
-    },
-    "b36eb38cffeac369244d27848d5d4a361e290ddc1ff04f9e0deb5b90b1e5539d": {
-      "reference_date": "2025-08-06",
-      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "396fcbdfce543f56bee525ad652c98d36e2109fcc10f52ed0e79e4915ec3ce86"
-      ]
-    },
     "76f98aaa55092a101ea4153765d887d72abeca32c02cb9c3d74eeade468c26dd": {
       "reference_date": "2024-03-07",
       "value": "4.2.1. O Cogestor será responsável por verificar e validar, previamente à Data de Aquisição, os Critérios de Elegibilidade descritos nos itens (i), (iv), (v), (viii), (xii), (xiii) e (xiv) da Cláusula 4.1 acima.",
@@ -595,33 +506,6 @@
       "provenance": "primary_passage",
       "sources": [
         "42005bede65845d406bf5f200a4d920eacc92d0a4724a51ce37256e724175f86"
-      ]
-    },
-    "e5c391827e7b3f77b097388454e4e2fe6b4d71616c821960707bbd8e8952e510": {
-      "reference_date": "2024-02-02",
-      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2dc0dd453c987e34bc63d1eef56dfafc06e4d522f12a6fa69b1c091adca97445"
-      ]
-    },
-    "5ca4afd8f4589623341d1ceb1e8210e239b9bc3b9e5abdaf69e7ac1a879cc7eb": {
-      "reference_date": "2024-01-15",
-      "value": "de Cotas Subordinadas Mezanino e/ou de Cotas Seniores em Cotas Subordinadas Júnior (exceto nas circulação hipóteses expressamente previstas no presente Anexo Descritivo); 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por circulação circulação cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade e das Cotas a Política de Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "3554c587c9b25e1e526bbe32a763aabed85adbda8399099887ade12929cbfe67"
-      ]
-    },
-    "4712748cca20e54cbb189bb15e519eb9f588a9c774da1ae7a53be694cce22088": {
-      "reference_date": "2023-12-28",
-      "value": "(x) aprovar a emissão de uma ou mais 2/3 das Cotas em 2/3 das Cotas em séries de Cotas Seniores, de novas circulação circulação 80% (oitenta por classes de Cotas Subordinadas Mezanino cento) mais um das e/ou de Cotas Subordinadas Júnior Cotas Seniores em (exceto nas hipóteses expressamente circulação previstas no presente Anexo Descritivo); 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por circulação circulação cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade das Cotas e a Política de Investimento;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "440888b81104e57847159767aac396513532a7f043cac5c5394de622f306782d"
       ]
     },
     "a4706e8ab72bf4c7ead5b810a7264f00b07489136d929f8994e2575e40f9fb75": {
@@ -3019,6 +2903,69 @@
       "sources": [
         "3d8dbd582e3b94a3179ea95dde5b78dec99bf05f46114e24e4f0d209d2456fbc"
       ]
+    },
+    "3b1446c8f2b2d58a5fef70ca9a2a6e979d48a59efc8c777e45b8d0b72fc79b5e": {
+      "reference_date": "2025-06-30",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo Cogestor, até a data de aquisição: (i) os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) os direitos creditórios não poderão ter vencimento superior a 30 dias de antecedência ao vencimento da série mais longa das cotas de subclasse seniores em circulação; (iii) considerando-se proforma a cessão pretendida, os direitos creditórios devidos por grupo econômico de um mesmo devedor, considerada em conjunto com a posição atualizada do estoque de direitos creditórios do Fundo, não poderão representar concentração superior a 3% do patrimônio líquido, conforme previamente cadastrados pela cedente junto ao Gestor, Cogestor e Agente de Cobrança. Até 01 de março de 2024, deverá ser utilizado como patrimônio líquido, para fins deste cálculo, o maior entre o patrimônio líquido e R$ 400.000;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3d4c14b27a68f5e99c7b10abf3306b838f378f3673cc74013596ac6ad6598184"
+      ]
+    },
+    "92a29fb9097e95a4c226fa8f852aced5a8c385fc6479a4e17069ed06d07fde8d": {
+      "reference_date": "2024-06-30",
+      "value": "d) Critérios de elegibilidade O Fundo somente poderá adquirir direitos creditórios que atendam, cumulativamente, na respectiva data de aquisição, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade, a serem verificados pelo Cogestor, até a data de aquisição: (i) os direitos creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) os direitos creditórios não poderão ter vencimento superior a 30 dias de antecedência ao vencimento da série mais longa das cotas de subclasse seniores em circulação; (iii) considerando-se proforma a cessão pretendida, os direitos creditórios devidos por grupo econômico de um mesmo devedor, considerada em conjunto com a posição atualizada do estoque de direitos creditórios do Fundo, não poderão representar concentração superior a 3% do 14",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "62f3f4d0d566b826895aa5c9b792568eebd5373a09b9477a3fe8c010ee8e37e0"
+      ]
+    },
+    "6240e8d86e41a0c0e41ade6e12c1eb64128db15250aa1c1f02222f3bafd4771a": {
+      "reference_date": "2025-08-06",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9beb1afbc7d019af3f5663a2aed6bf5aac679aad4573a49f562fe6484e5c59c0"
+      ]
+    },
+    "2e1deb9a78293c82cf0986d04d2339541da7f1de595f2606f252549bb5a0b49d": {
+      "reference_date": "2024-02-02",
+      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição: (i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente nacional; (ii) os Direitos Creditórios não poderão ter vencimento superior a 30 (trinta) dias de antecedência ao vencimento da série mais longa das Cotas Seniores em circulação; (iii) considerando-se pro forma a cessão pretendida, os Direitos Creditórios devidos por Grupo Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do estoque de Direitos Creditórios do Fundo, não poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pela Cedente junto ao Gestor, Cogestor e Agente de Cobrança. Até 01 de março de 2024, deverá ser utilizado como Patrimônio Líquido, para fins deste cálculo, o maior entre o Patrimônio Líquido e R$ 400.000.000 (quatrocentos milhões de reais); (iv) os Direitos Creditórios deverão ter sido originados de acordo com a Política de Crédito e Originação;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2dc0dd453c987e34bc63d1eef56dfafc06e4d522f12a6fa69b1c091adca97445"
+      ]
+    },
+    "174111f0f008283e8f39d0f65c21e3f7be062a857c23dd9746c71a25371ec659": {
+      "reference_date": "2024-01-15",
+      "value": "de Cotas Subordinadas Mezanino e/ou de Cotas Seniores em Cotas Subordinadas Júnior (exceto nas circulação hipóteses expressamente previstas no presente Anexo Descritivo); 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por circulação circulação cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade e das Cotas a Política de Investimento; Subordinadas Mezanino e maioria das Cotas Subordinadas Júnior 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por (xii) deliberar a substituição do Agente de circulação circulação cento) mais um das Cobrança, o Cogestor e/ou de qualquer Cotas Seniores em, outro prestador de serviços da Classe, maioria das Cotas com exceção do Auditor Independente, o Subordinadas qual poderá ser substituído em Mezanino e conformidade com as políticas internas maioria das Cotas do Administrador; Subordinadas Júnior (xiii) eleger e destituir eventual(is) 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por representante(s) dos Cotistas, circulação circulação cento) mais um das nomeado(s) conforme o item 6.3 deste Cotas Seniores em Anexo Descritivo; circulação (xiv) deliberar se, na ocorrência de 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por qualquer dos Eventos de Avaliação, tal circulação circulação cento) mais um das Evento de Avaliação deve ser Cotas Seniores em considerado como um Evento de circulação Liquidação Antecipada; (xv) deliberar sobre a proposta do 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por Administrador a respeito do pagamento circulação circulação cento) mais um das de encargos da Classe relacionados aos Cotas Seniores em Direitos Creditórios Cedidos; circulação 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por (xvi) deliberar sobre a alteração das circulação circulação cento) mais um das características das Cotas; Cotas Seniores em circulação, maioria",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3554c587c9b25e1e526bbe32a763aabed85adbda8399099887ade12929cbfe67"
+      ]
+    },
+    "2df293e6d7b0b49ea478db09ac952c4dd8b84028338f80ddf0a30cc8b88af238": {
+      "reference_date": "2023-12-28",
+      "value": "Seniores mediante dação em pagamento Cotas Seniores em de Direitos Creditórios Cedidos e Ativos circulação Financeiros; (x) aprovar a emissão de uma ou mais 2/3 das Cotas em 2/3 das Cotas em séries de Cotas Seniores, de novas circulação circulação 80% (oitenta por classes de Cotas Subordinadas Mezanino cento) mais um das e/ou de Cotas Subordinadas Júnior Cotas Seniores em (exceto nas hipóteses expressamente circulação previstas no presente Anexo Descritivo); 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por circulação circulação cento) mais um das Cotas Seniores em circulação, maioria (xi) alterar os Critérios de Elegibilidade das Cotas e a Política de Investimento; Subordinadas Mezanino e maioria das Cotas Subordinadas Júnior 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por (xii) deliberar a substituição do Agente circulação circulação cento) mais um das de Cobrança, o Cogestor e/ou de Cotas Seniores em, qualquer outro prestador de serviços da maioria das Cotas Classe, com exceção do Auditor Subordinadas Independente, o qual poderá ser Mezanino e substituído em conformidade com as maioria das Cotas políticas internas do Administrador; Subordinadas Júnior (xiii) eleger e destituir eventual(is) 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por representante(s) dos Cotistas, circulação circulação cento) mais um das nomeado(s) conforme o item 6.3 deste Cotas Seniores em Anexo Descritivo; circulação (xiv) deliberar se, na ocorrência de 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por qualquer dos Eventos de Avaliação, tal circulação circulação cento) mais um das Evento de Avaliação deve ser Cotas Seniores em considerado como um Evento de circulação Liquidação Antecipada; (xv) deliberar sobre a proposta do 2/3 das Cotas em 2/3 das Cotas em 80% (oitenta por Administrador a respeito do pagamento circulação circulação cento) mais um das de encargos da Classe relacionados aos Cotas Seniores em",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "440888b81104e57847159767aac396513532a7f043cac5c5394de622f306782d"
+      ]
+    },
+    "b755396a84411988bb840bc9a97e3ceba0c81eb3d7b5beeb2e0f7f68c21f2ec0": {
+      "reference_date": "2025-06-30",
+      "value": "(vii) os direitos creditórios não poderão ser devidos por devedores que pertençam ao mesmo grupo econômico da cedente;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0cae58acd10075b6f497baf6da925bb371702a0a2d2c075d54b5fe86193943fe"
+      ]
     }
   },
   "passages": {
@@ -3034,18 +2981,6 @@
       "sha256": "e27a97fb02d3e82f47edc3ec7d0b36cffd52f01d9741c7fefc7fb0ab18d7728f",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1049185 | 14/10/2025 | regulamento | p. 63–64,87–88; Definições;4.1 | data/raw/52968533000165/1049185_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1049185"
-    },
-    "ccbaa271ee1e980a920a96e9d3689f37461ac4c82208753bd8c9cf0af8c8b325": {
-      "document_id": "997720",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997720",
-      "reference_date": "2025-06-30",
-      "version": "1",
-      "page": 20,
-      "clause": "",
-      "excerpt": "o agente de cobrança acionará a originadora dos títulos no intuito de verificar a localização do bem em  garantia e designará um agente para uma visita in loco;",
-      "sha256": "33276b82dbd8ce6749f585b3cdc1570ccd70e4899c8421c6d3c594ce3172a755",
-      "verification": "primary_passage"
     },
     "2a605389d1eb0a682f04acf0230d67bc78dd78b5179883072e63b71c55acc054": {
       "document_id": "747720",
@@ -3141,66 +3076,6 @@
       "clause": "",
       "excerpt": "OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 36.113.876/0001-91, na qualidade de administradora (“Administradora”), e ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., inscrita no CNPJ sob o nº 09.452.272/0001-05, na qualidade de gestora do MCPO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, fundo de investimento inscrito no CNPJ sob o nº 52.968.533/0001-65 (“Gestora” e “Fundo”, respectivamente), vem, em conformidade com o disposto no artigo 64, § 1º da Instrução CVM nº 175 de 2022 (“ICVM nº 175”), informar que o incremento da provisão para devedores duvidosos do Fundo (\"PDD\"), realizado em 30 de junho de 2025, impactou a valoração patrimonial do Fundo, especificamente, a integralidade da Subclasse Subordinada Júnior, uma vez que o valor provisionado superou o patrimônio líquido da referida subclasse.\nAdicionalmente, a Subclasse Mezanino também foi impactada, tendo o seu patrimônio reduzido parcialmente. O Administrador e o Gestor estão monitorando, com rigor e constância, o comportamento do fluxo de recebíveis do portfólio do Fundo, além de atuar, em conjunto com o Agente de Cobrança, na promoção da recuperação dos créditos, conforme a Política de Cobrança.",
       "sha256": "53265d26ea43fb14ee8810cad2a437f0e3156d988c457d8bbbbcab0bc5dbd650",
-      "verification": "primary_passage"
-    },
-    "aad92297591dea7fec5013820167183c7be86db6ccc746b0a88dd095b8b6a8c2": {
-      "document_id": "994391",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994391",
-      "reference_date": "2025-08-06",
-      "version": "1",
-      "page": 67,
-      "clause": "",
-      "excerpt": "“Grupo Econômico” Em relação a qualquer pessoa, o grupo formado por seu  controlador, sociedades controladas, coligadas e demais  sociedades consideradas como tais, bem como veículos de  investimento do controlador, sociedades controladas e demais  sociedades consideradas como tais. Os Grupos Econômicos  serão informados pela Cedente ao Gestor e ao Cogestor, sendo  atualizados esporadicamente caso haja qualquer alteração dos  Grupos Econômicos da Cedente e/ou dos Devedores, conforme  o caso, nesta hipótese sempre antes da realização de nova  oferta de Direitos Creditórios ao Fundo, sendo que qualquer  alteração na lista de Grupos Econômicos deverá ser informada  ao Gestor e ao Cogestor com, no mínimo, 2 (dois) Dias Úteis de  antecedência.",
-      "sha256": "7563d30955d21063c5aa97a2297dd4ce702ea2883ced161cbd73974689beca98",
-      "verification": "primary_passage"
-    },
-    "c60cb7cbac4668a562952921522ebb442a97cbfd3a326b784c5b2aa060b3f1b0": {
-      "document_id": "619335",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=619335",
-      "reference_date": "2024-03-07",
-      "version": "1",
-      "page": 90,
-      "clause": "4.2.4",
-      "excerpt": "4.2.4. Em cada Termo de Cessão, a Cedente declarará que: (i) os Direitos Creditórios não são devidos por Devedores que atuem na cadeia produtiva do tabaco, fumo e produtos derivados;\n(ii) os Direitos Creditórios não estão vencidos, quando de sua aquisição pelo Fundo; (iii) considerada pro forma a aquisição dos Direitos Creditórios, 75% (setenta e cinco por cento) dos Direitos Creditórios adquiridos pelo Fundo são devidos por Devedores com relacionamento prévio com a Cedente de, no mínimo, 24 (vinte e quatro) meses; (iv) dos 25% (vinte e cinco por cento) com menos de 24 (vinte e quatro) meses de relacionamento com a Cedente, até 15% (quinze por cento) são permitidos sem nenhum critério de eligibilidade adicional, e o percentual remanescente se enquadra nos Critérios Adicionais; (v) os Devedores não estão inadimplentes perante a Cedente e/ou perante o Banco John Deere, inscrito no CNPJ sob o nº 91.884.981/0001- 32; e (vi) os Direitos Creditórios não são passíveis de compensação pelos Devedores;",
-      "sha256": "056c2db8dec48d8730b6aa37faef77f8a5838af4c3277c42d2164e586cda00bd",
-      "verification": "primary_passage"
-    },
-    "54fabf3e1f9c454d9bf7732642637455aed6827ffa0157cf0c86fada084844ac": {
-      "document_id": "595041",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=595041",
-      "reference_date": "2024-02-02",
-      "version": "1",
-      "page": 86,
-      "clause": "4.2.4",
-      "excerpt": "4.2.4. Em cada Termo de Cessão, a Cedente declarará que: (i) os Direitos Creditórios não  são devidos por Devedores que atuem na cadeia produtiva do tabaco, fumo e produtos derivados;\n (ii) os Direitos Creditórios não estão vencidos, quando de sua aquisição pelo Fundo; (iii)  considerada pro forma a aquisição dos Direitos Creditórios, 85% (oitenta e cinco por cento) dos  Direitos Creditórios adquiridos pelo Fundo são devidos por Devedores com relacionamento prévio  com a Cedente de, no mínimo, 24 (vinte e quatro) meses; (iv) os Devedores não estão inadimplentes  perante a Cedente e/ou perante o Banco John Deere, inscrito no CNPJ sob o nº 91.884.981/0001-  32; e (v) os Direitos Creditórios não são passíveis de compensação pelos Devedores;",
-      "sha256": "ed2c860a29990da00624d2a2276316f72eac61bc3b8d406afca505f0e701ab03",
-      "verification": "primary_passage"
-    },
-    "b31728d3962ec527cf0e3230ab22e463ae4b606c0636ff3cc102b5ec7bc44a59": {
-      "document_id": "586381",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586381",
-      "reference_date": "2024-01-15",
-      "version": "1",
-      "page": 86,
-      "clause": "4.2.4",
-      "excerpt": "4.2.4. Em cada Termo de Cessão, a Cedente declarará que: (i) os Direitos Creditórios não  são devidos por Devedores que atuem na cadeia produtiva do tabaco, fumo e produtos derivados;\n (ii) os Direitos Creditórios não estão vencidos, quando de sua aquisição pelo Fundo; (iii)  considerada pro forma a aquisição dos Direitos Creditórios, 85% (oitenta e cinco por cento) dos  Direitos Creditórios adquiridos pelo Fundo são devidos por Devedores com relacionamento prévio  com a Cedente de, no mínimo, 24 (vinte e quatro) meses; (iv) os Devedores não estão inadimplentes  perante a Cedente e/ou perante o Banco John Deere, inscrito no CNPJ sob o nº 91.884.981/0001-  32; e (v) os Direitos Creditórios não são passíveis de compensação pelos Devedores;",
-      "sha256": "6833b31af7e8cd915ec8f305d1401aae0c0fd390dcbc1db5c29fa949d7073ae0",
-      "verification": "primary_passage"
-    },
-    "b8a2e519b3d885d77555b7b8b83bf4cef97492884f24f0862cc600263a888dce": {
-      "document_id": "578409",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=578409",
-      "reference_date": "2023-12-28",
-      "version": "1",
-      "page": 85,
-      "clause": "4.2.4",
-      "excerpt": "4.2.4. Em cada Termo de Cessão, a Cedente declarará que: (i) os Direitos Creditórios não  são devidos por Devedores que atuem na cadeia produtiva do tabaco, fumo e produtos derivados;\n (ii) os Direitos Creditórios não estão vencidos, quando de sua aquisição pelo Fundo; (iii)  considerada pro forma a aquisição dos Direitos Creditórios, 85% (oitenta e cinco por cento) dos  Direitos Creditórios adquiridos pelo Fundo são devidos por Devedores com relacionamento  prévio com a Cedente de, no mínimo, 24 (vinte e quatro) meses; (iv) os Devedores não estão  inadimplentes perante a Cedente e/ou perante o Banco John Deere, inscrito no CNPJ sob o nº\n 91.884.981/0001-32; e (v) os Direitos Creditórios não são passíveis de compensação pelos  Devedores;",
-      "sha256": "466dd5f134c10c898c7cd0c1c7c65f811e71dcfe8fde06c730a59a1ed02f831b",
       "verification": "primary_passage"
     },
     "5b1397672fb91252640e75276cf792a8886109478729ce4a6e0adfb0b1471614": {
@@ -6177,6 +6052,31 @@
       "clause": "",
       "excerpt": "Assembleia Especial, conforme circulação e previsto nesta Cláusula; maioria das  Cotas  Subordinadas  Júnior  2/3 das Cotas 2/3 das Cotas 80% (oitenta  em circulação em circulação por cento) mais  um das Cotas  Seniores em  circulação,\n(xix) deliberar sobre a alteração maioria das dos Eventos de Avaliação e/ou Cotas dos Eventos de Avaliação; e Subordinadas  Mezanino e  maioria das  Cotas  Subordinadas  Júnior  2/3 das Cotas 2/3 das Cotas 80% (oitenta  em circulação em circulação por cento) mais  um das Cotas  Seniores em  circulação,\n(xx) alteração do Índice de maioria das Subordinação e do Índice de Cotas Subordinação Ex-Derivativo. Subordinadas  Mezanino e  maioria das  Cotas  Subordinadas  Júnior",
       "sha256": "056c2db8dec48d8730b6aa37faef77f8a5838af4c3277c42d2164e586cda00bd",
+      "verification": "primary_passage"
+    },
+    "9beb1afbc7d019af3f5663a2aed6bf5aac679aad4573a49f562fe6484e5c59c0": {
+      "document_id": "994391",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994391",
+      "reference_date": "2025-08-06",
+      "version": "1",
+      "page": "86–87",
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam,  cumulativamente, na respectiva Data de Aquisição, individualmente e de forma cumulativa, os  seguintes Critérios de Elegibilidade, a serem verificados pelo Cogestor, até a Data de Aquisição:\n(i) os Direitos Creditórios deverão ser exclusivamente expressos em moeda corrente  nacional;\n(ii) os Direitos Creditórios não poderão ter vencimento superior a 30 (trinta) dias de  antecedência ao vencimento da série mais longa das Cotas Seniores em circulação;\n(iii) considerando-se pro forma a cessão pretendida, os Direitos Creditórios devidos por Grupo  Econômico de um mesmo Devedor, considerada em conjunto com a posição atualizada do  estoque de Direitos Creditórios do Fundo, não poderão representar concentração superior  a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados pela  Cedente junto ao Gestor, Cogestor e Agente de Cobrança. Até 01 de março de 2024,  deverá ser utilizado como Patrimônio Líquido, para fins deste cálculo, o maior entre o  Patrimônio Líquido e R$ 400.000.000 (quatrocentos milhões de reais);\n(iv) os Direitos Creditórios deverão ter sido originados de acordo com a Política de Crédito e  Originação;\n(v) a data de vencimento de quaisquer parcelas deve ser posterior à Data de Aquisição do  respectivo Direito Creditório;\n(vi) os Devedores não poderão estar inadimplentes em relação ao Fundo na data da respectiva  cessão;\n(vii) os Direitos Creditórios não poderão ser devidos por Devedores que pertençam ao mesmo  Grupo Econômico da Cedente;\n(viii) os Direitos Creditórios a serem adquiridos não poderão ser devidos por partes  relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da  Administradora, do Gestor e/ou do Cogestor, sendo certo que, em caso de alteração do  Grupo Econômico da Administradora e/ou do Gestor, esta deverá encaminhar o novo  organograma para que o Cogestor possa controlar nas próximas cessões;\n(ix) os Direitos Creditórios decorrentes de Peças e Implementos e/ou Serviços deverão ter  prazo máximo de vencimento de 150 (cento e cinquenta) dias;\n(x) considerada pro forma a aquisição dos Direitos Creditórios, o Índice de Prazo Médio por  Devedor não poderá ser superior a 36 (trinta e seis) meses;\n(xi) na Data de Aquisição, o Índice de Subordinação Ex-Derivativo deve estar atendido;\n(xii) os Devedores não poderão estar inadimplentes, em montante superior a R$300.000,00  (trezentos mil reais) perante outras instituições financeiras conforme consulta no Sistema  de Informações de Crédito do BACEN;\n(xiii) os Direitos Creditórios não poderão ser passíveis de compensação pelos Devedores;\n(xiv) caso a Reserva de Caixa ainda não esteja totalmente composta, somente poderão ser  adquiridos, com recursos decorrentes de revolvência, Direitos Creditórios com prazo de  vencimento de, no mínimo, 45 (quarenta e cinco) dias de antecedência da próxima Data  de Pagamento;\n(xv) os Direitos Creditórios decorrentes de Peças e Implementos e/ou Serviços, considerados",
+      "sha256": "7563d30955d21063c5aa97a2297dd4ce702ea2883ced161cbd73974689beca98",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0cae58acd10075b6f497baf6da925bb371702a0a2d2c075d54b5fe86193943fe": {
+      "document_id": "997720",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=997720",
+      "reference_date": "2025-06-30",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "(vii) os direitos creditórios não poderão ser devidos por devedores que pertençam ao mesmo grupo  econômico da cedente;",
+      "sha256": "33276b82dbd8ce6749f585b3cdc1570ccd70e4899c8421c6d3c594ce3172a755",
       "verification": "primary_passage"
     }
   }

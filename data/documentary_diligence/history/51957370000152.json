@@ -3,18 +3,6 @@
   "cnpj": "51957370000152",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "48520a88627fc2bd9cf2a5a38a80f4371992e72ea1aac3906a8ecf222f5debd0",
-      "7ecf3b25900e628cba081844d01710c14cebd46c07510d71ffffb593751ec3ae",
-      "f126e39e7d87347ffbdc5741ca94a09cbd1cc379a6d0de53f60a12d6f359b7fa",
-      "157d62edfb33226aa5266ed5918f7833fb476da16d98fcc8dc7e5e787d2da4ec",
-      "2e2fd7362795a5c9293743c9b4fffa77308ad0a90d15a04cdd1c9f58a78f54a2",
-      "7aada41fcedafe1230e01e4e4bc33ca3564c7c873c3da416b8288434ab1ad46d",
-      "f7fde63990f2b58ec6b33416de684451de80b5ef3b7d08b7cf1ee56af74031d4",
-      "7843c46fa3c4b3db355332c6ff1e797acd8425cd198aab30995cb1eab2c4b6a8",
-      "c6b5ec5ea576460fdce2148d7dde227383927a7ff9aebc6a89d3e3f6cc8375cf",
-      "bf041ff52031ac38eee058f954f7248cb0ec64abc78599eafc166c5f147905c3"
-    ],
     "term": [
       "4e25beb610733951a2655e74655c187dbe0681bc983303c05ce76032783cc3d6",
       "e5887da806e48fce1f40ff473a39fa85ecfe2fe9e630ef7ea12bb0c6fa60cc25",
@@ -338,18 +326,6 @@
       "1e838597dd12aabf988d4ed097a96dbf56644bc2f18eabd388b1f45f0cec1cc6",
       "047665ad4a3dfabb557e91af27bcb3a25afbdb28c38a33349b9817c3a6b65a0a"
     ],
-    "originator": [
-      "ea0844624e8d3577b0afe18f86cfa9ee211aeb6f8a3a49f4f86b7fac25881a5d",
-      "6074179cdcd426f1e7f57dbafb4cd50113c88e74e3821916b07048031e5d5f01"
-    ],
-    "debtor": [
-      "c7409405b4941d6886269b52657278337326ac90662ceff6a747c049959faf76",
-      "198093c16ca4e31735c834362236bd797e8c99bb73e1be9e307fb9e85ed8b17b",
-      "3aebed13b5291e8bc19f7b05fbd78593c7b01cf644173390d73f6c0c564ae5d8",
-      "8d8bb2d71960f5dccd34d418e0591fa0a712074e56650ba9e747033a70340c3d",
-      "d1cff5249eeaa046328d12b903f10c61ca76b30d211c68aee27b0ecf08a70d5f",
-      "2dbf9f4e2a31023a3d2ba3e15b6aa293a0a1c20e6884cbb564f6e54f121d188e"
-    ],
     "guarantee": [
       "cbe306946b490585209ee5bc9cc21433aba9b538d63009fae0e5f8cb942f0b9c",
       "8a87851db4d4ee46922d499d11daf6ed4f0d402027a9b971254ac4059166fca3",
@@ -385,6 +361,42 @@
       "f76b33305c5e46409625d562438e866c7657d6ab34e0e52ebb4d52de3a56d6d7",
       "c5ece37ebbb2bb51c6a0d1ac5304da3abeb8913c5363ff5d75fc84be56632871",
       "42f0ea3f722c5d3ebfdd5cc90254aa4e89ecf9b357a198a89c69e32368fca5ef"
+    ],
+    "originator": [
+      "ea0844624e8d3577b0afe18f86cfa9ee211aeb6f8a3a49f4f86b7fac25881a5d",
+      "7171a84d63e5c6396a0e307ca7672208a2c85a004eb5104e5947ee3685eae5c9",
+      "9af57dd66125745259e184ce2e5c5730b83dbb9980e323ba7c5b1fccb6ac1342",
+      "7493af992622d01eec115cc0ee906cc7bc8c0da9dde5c174375964e0224cfdfd",
+      "1a954c9831878bb3fc97adafb8eb194730c57adc79ccf5e20e7443fea66d53b9",
+      "6074179cdcd426f1e7f57dbafb4cd50113c88e74e3821916b07048031e5d5f01",
+      "25fb46341806929fa3a589b4b8b6fd3f38c74c0c813f3afb2eee6829b5e16bca",
+      "3ab6e9a2015c804ba6fb1b6a88a55d822df9487fbe56a3fd3ba2105beec126fc",
+      "9eefedff21590f351f719e50cc44f3b67de92fbbcd815e5d827ebd0e6d8bf4ef",
+      "198062b74f3749d136b5e6a784062c5eb597b96c0b69953aca696fd142f1d02f",
+      "3531662928c2caaffc6e993f439d52e66fa99d4fe12151c8ba6147509192c17f"
+    ],
+    "eligibility": [
+      "48520a88627fc2bd9cf2a5a38a80f4371992e72ea1aac3906a8ecf222f5debd0",
+      "e0344d78722c9aec4a7598ef366c9b408df4ea626808a314118f41c88023c18e",
+      "6f5f17005fd1865ae3f8a6bea8916ecf64f7b23af58ab8baad407b37ea47fdc0",
+      "e5bc1185046749b2aae797a1546bec37e8b4bbadf09d15f7ac52bd18554566a5",
+      "2e2fd7362795a5c9293743c9b4fffa77308ad0a90d15a04cdd1c9f58a78f54a2",
+      "8b74679847edcb27be7f9470d3e21998c300786a9f8951ed7741fd7457046202",
+      "f7fde63990f2b58ec6b33416de684451de80b5ef3b7d08b7cf1ee56af74031d4",
+      "c4f4318b993f7559dcfeab0479a65420089c9c4a582f8c4effa7483eee82b246",
+      "48c31e2665e008e81c0d4f642e130f06af39e76805ddd2b2a2f73518ba3eef30",
+      "bf041ff52031ac38eee058f954f7248cb0ec64abc78599eafc166c5f147905c3",
+      "25cee710589789019691d85ef65fa0899b20d3d313b60de40013bbf899aaeb06"
+    ],
+    "debtor": [
+      "c7409405b4941d6886269b52657278337326ac90662ceff6a747c049959faf76",
+      "96a285006e1b83d10c79252c5858e93b1916b79fc991773e5fad5aca0e50dee9",
+      "dd7c82fbc732fc8f5ebe88bb0476602e8588b5895dec64631f70bb85a36121d6",
+      "f77c32bfcf729ad67075699584f2d047c60af96aca6a2bb8e7c4d5fe9d9f5596",
+      "455b505b24cc9ac5d3a78382a07e2cf6c32dd35f7fb703a7008137cd5a33310f",
+      "30626c0be742cfc5da7d5ad24dfe49e596fac165286ae3cac166e777e562b1e8",
+      "41a17c750f6d13a3d30d203b53cbc0624756832b683b2ba9ca47390f4548bcf8",
+      "6c6ee3f7452c4ce75afbed76e1a360ab1a7419acb57717c54b27432e53e83871"
     ]
   },
   "entries": {
@@ -463,15 +475,6 @@
         "d0795314356d4079c6885414b2ddf97d494281775182f3feaa8bd524644cf4b6"
       ]
     },
-    "198093c16ca4e31735c834362236bd797e8c99bb73e1be9e307fb9e85ed8b17b": {
-      "reference_date": "2024-09-30",
-      "value": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "88cc2e03c3a42c04f60f7d23c28498ab2d197ba52017d93b84e76862beacbcc3"
-      ]
-    },
     "3aebed13b5291e8bc19f7b05fbd78593c7b01cf644173390d73f6c0c564ae5d8": {
       "reference_date": "2024-09-30",
       "value": "Os Direitos Creditórios são performados oriundos de operações de empréstimo pessoal, com garantia da alienação fiduciária ou cessão fiduciária da totalidade ou parte dos direitos do Devedor aos saques anuais (saque-aniversário) de contas vinculadas do FGTS de sua titularidade, nos termos da Lei 8036 e da Resolução CCFGTS 958, sendo que a concessão de crédito pelo Cedente aos clientes – Devedores dos Direitos Creditórios, segue a Política de Crédito do Cedente.",
@@ -490,24 +493,6 @@
         "7209205813d818ef2c97f6c25a8cef73ca6c5e9a14b8e2f9ede28c1659e64608"
       ]
     },
-    "d1cff5249eeaa046328d12b903f10c61ca76b30d211c68aee27b0ecf08a70d5f": {
-      "reference_date": "2023-12-29",
-      "value": "E ainda, os Devedores do Fundo não são notificados sobre a cessão dos Direitos Creditórios, de modo que a cessão dos Direitos Creditórios ao FIDC Angá FGTS I pode ser questionada quanto ao atendimento das formalidades previstas no Artigo 290 do Código Civil em relação à notificação aos Devedores.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "965ad24330dc3a6521420f41c5ba67fcd911a4fe8a362dfa5d1c78a989d32eda"
-      ]
-    },
-    "2dbf9f4e2a31023a3d2ba3e15b6aa293a0a1c20e6884cbb564f6e54f121d188e": {
-      "reference_date": "2023-12-12",
-      "value": "(viii) Movimentação das Contas dos Devedores junto ao FGTS. Quando da cessão fiduciária dos Saques-Aniversário em garantia dos Direitos Creditórios cedidos, parte do saldo que o respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o pagamento dos Direitos Creditórios cedidos.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dfedbd95adea0afea032d6c4bb5c9c252e4fa19134581ca68ee62cc700b26a71"
-      ]
-    },
     "48520a88627fc2bd9cf2a5a38a80f4371992e72ea1aac3906a8ecf222f5debd0": {
       "reference_date": "2025-04-03",
       "value": "CCB prefixada e adimplente; vencimento até a série sênior mais longa",
@@ -516,33 +501,6 @@
       "risk_note": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
       "sources": [
         "b49c0aee6adbc98670cd30b57df32a1aa6a265d9cd39eef3e7349504d1067446"
-      ]
-    },
-    "7ecf3b25900e628cba081844d01710c14cebd46c07510d71ffffb593751ec3ae": {
-      "reference_date": "2024-09-30",
-      "value": "Sem prejuízo dos Critérios de Elegibilidade, o Cedente deverá declarar à Classe A que as seguintes declarações são verdadeiras, corretas e completas, na Data de Aquisição, em relação aos Direitos Creditórios oferecidos à cessão para a Classe A, sob pena de resolução da, nos termos dos respectivos Termos de Cessão (em conjunto, “Declarações de Aquisição”): (i) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou encargos de qualquer natureza;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "88cc2e03c3a42c04f60f7d23c28498ab2d197ba52017d93b84e76862beacbcc3"
-      ]
-    },
-    "f126e39e7d87347ffbdc5741ca94a09cbd1cc379a6d0de53f60a12d6f359b7fa": {
-      "reference_date": "2024-09-30",
-      "value": "Os Direitos Creditórios deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição: i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Critérios de Cotas Seniores de maior prazo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6d9f735da608d1450c6b6f1bdf8ef1c685b5c74280fad645c9fe827651723243"
-      ]
-    },
-    "157d62edfb33226aa5266ed5918f7833fb476da16d98fcc8dc7e5e787d2da4ec": {
-      "reference_date": "2024-06-28",
-      "value": "Os Direitos Creditórios deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição: i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Critérios de Cotas Seniores de maior prazo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9f14f8653c2159c58e7d9f99e7d8437b2cc3daca6d53c788f180715dde34b2fb"
       ]
     },
     "2e2fd7362795a5c9293743c9b4fffa77308ad0a90d15a04cdd1c9f58a78f54a2": {
@@ -554,15 +512,6 @@
         "97e341049c36242370bfcf198190b587a2dcdf7b9451fad14c7ae79444d1a084"
       ]
     },
-    "7aada41fcedafe1230e01e4e4bc33ca3564c7c873c3da416b8288434ab1ad46d": {
-      "reference_date": "2023-12-12",
-      "value": "5.2. Adicionalmente às Condições de Cessão descritas acima, os Direitos Creditórios deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "8cc46eb2e1442ee9005a9a78f42a87bf93b691d22ca61a856149376268b0b8c4"
-      ]
-    },
     "f7fde63990f2b58ec6b33416de684451de80b5ef3b7d08b7cf1ee56af74031d4": {
       "reference_date": "2023-09-30",
       "value": "O Fundo somente poderá adquirir os direitos creditórios que atendam, cumulativamente, aos seguintes critérios de elegibilidade: (i) os direitos creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das cotas seniores de maior prazo; (ii) os direitos creditórios deverão ser devidos por devedores que não apresentem, na data de aquisição, outros direitos creditórios inadimplidos cedidos ao Fundo; e (iii) os direitos creditórios devem ter taxas de juros prefixadas.",
@@ -570,24 +519,6 @@
       "provenance": "primary_passage",
       "sources": [
         "2e8d7e3bc02ea81f9f446ae2d560235114451b6e488ac7694581b896aa34349e"
-      ]
-    },
-    "7843c46fa3c4b3db355332c6ff1e797acd8425cd198aab30995cb1eab2c4b6a8": {
-      "reference_date": "2025-03-21",
-      "value": "5.1.1. A partir da Data de Adaptação, em caso de novas aquisições de Direitos Creditórios pela Classe A, a Gestora deverá verificar os Critérios de Elegibilidade e o Cedente deverá declarar as Declarações de Aquisição aqui dispostas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "fb1ec4b3cef2e3c7fdd8bf287a961e1380a66f8a04ea47380c74b507482acb11"
-      ]
-    },
-    "c6b5ec5ea576460fdce2148d7dde227383927a7ff9aebc6a89d3e3f6cc8375cf": {
-      "reference_date": "2024-10-07",
-      "value": "5.1.1. A partir da Data de Adaptação, em caso de novas aquisições de Direitos Creditórios pela Classe A, a Gestora deverá verificar os Critérios de Elegibilidade e o Cedente deverá declarar as Declarações de Aquisição aqui dispostas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "4e8b275ed0d38353f3d84ff93136f85b768c5f9e59f71ba86ef6a7655a7ee0d1"
       ]
     },
     "bf041ff52031ac38eee058f954f7248cb0ec64abc78599eafc166c5f147905c3": {
@@ -2866,6 +2797,177 @@
       "sources": [
         "228a0dceff2d0f6ba9bf2db8eb9e76cf06b0f95176102316ba87cdc9abb3d7e7"
       ]
+    },
+    "e0344d78722c9aec4a7598ef366c9b408df4ea626808a314118f41c88023c18e": {
+      "reference_date": "2024-09-30",
+      "value": "Sem prejuízo dos Critérios de Elegibilidade, o Cedente deverá declarar à Classe A que as seguintes declarações são verdadeiras, corretas e completas, na Data de Aquisição, em relação aos Direitos Creditórios oferecidos à cessão para a Classe A, sob pena de resolução da, nos termos dos respectivos Termos de Cessão (em conjunto, “Declarações de Aquisição”): (i) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou encargos de qualquer natureza; (ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária; (iii) os Direitos Creditórios devem ter sido averbados junto ao Agente Operador do FGTS, com expressa autorização do Devedor, nos termos e condições Lei nº 8.036 e da Resolução CCFGTS 958; (iv) os Direitos Creditórios devem estar em consonância com as declarações e garantias prestadas pelo Cedente no âmbito do Contrato de Cessão e nos respectivos Termos de Cessão; (v) as respectivas CCB devem conter previsão da adoção das seguintes providências aplicáveis em caso de alteração, pelo Poder Executivo Federal, dos valores das faixas, das alíquotas e das parcelas adicionais constantes do Anexo I da Lei nº 8.036, de modo a manter inalterado o valor total dos Saques-Aniversários objeto da Cessão Fiduciária e satisfazer o pagamento da obrigação contraída pelo Devedor junto ao Cedente: (a) elevação do valor bloqueado, na forma da Lei nº 8.036, se existir saldo suficiente nas contas vinculadas dos Devedores; e (b) supletivamente, em caso de insuficiência de saldo, a ampliação dos prazos de vencimentos das CCB e, consequentemente, da quantidade de Saques-Aniversário objeto da Cessão Fiduciária, mantidas as taxas pactuadas; (vi) considerada pro forma a cessão pretendida o Fundo poderá deter CCB devidas simultaneamente por um único Devedor; (vii) na data de emissão da CCB, o respectivo Devedor deve ter, no mínimo, 18 anos de idade; (viii) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, conforme definido no Contrato de Cessão; e (ix) não haverá CCBs emitidas mediante assinatura a rogo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "88cc2e03c3a42c04f60f7d23c28498ab2d197ba52017d93b84e76862beacbcc3"
+      ]
+    },
+    "6f5f17005fd1865ae3f8a6bea8916ecf64f7b23af58ab8baad407b37ea47fdc0": {
+      "reference_date": "2024-09-30",
+      "value": "Os Direitos Creditórios deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição: i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Critérios de Cotas Seniores de maior prazo; (ii) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, Elegibilidade: outros Direitos Creditórios Inadimplidos cedidos ao Fundo; (iii) os Direitos Creditórios devem ter taxas de juros prefixadas; e (iv) o saldo devedor dos Direitos Creditórios devidos por um mesmo devedor não poderá ser superior à R$ 120.000,00;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6d9f735da608d1450c6b6f1bdf8ef1c685b5c74280fad645c9fe827651723243"
+      ]
+    },
+    "e5bc1185046749b2aae797a1546bec37e8b4bbadf09d15f7ac52bd18554566a5": {
+      "reference_date": "2024-06-28",
+      "value": "Os Direitos Creditórios deverão atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição: i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Critérios de Cotas Seniores de maior prazo; (ii) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, Elegibilidade: outros Direitos Creditórios Inadimplidos cedidos ao Fundo; (iii) os Direitos Creditórios devem ter taxas de juros prefixadas; e (iv) o saldo devedor dos Direitos Creditórios devidos por um mesmo devedor não poderá ser superior à R$ 120.000,00;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9f14f8653c2159c58e7d9f99e7d8437b2cc3daca6d53c788f180715dde34b2fb"
+      ]
+    },
+    "8b74679847edcb27be7f9470d3e21998c300786a9f8951ed7741fd7457046202": {
+      "reference_date": "2023-12-12",
+      "value": "5.1.1. Caberá à Administradora, de acordo com as regras e procedimentos por ela adotados, mantidos atualizados em seu website, verificar se os Direitos Creditórios atendem integralmente às Condições de Cessão, podendo fazê-lo após a efetiva aquisição dos Direitos Creditórios pelo Fundo, sem prejuízo das obrigações nesse sentido assumidas pelos Cedentes nos Contratos de Cessão.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1d09ba3034079fa4df494f3259627c3b3fe35557f91e0aedcf3d8547756848f7"
+      ]
+    },
+    "c4f4318b993f7559dcfeab0479a65420089c9c4a582f8c4effa7483eee82b246": {
+      "reference_date": "2025-03-21",
+      "value": "5.8. Em adição aos Critérios de Elegibilidade, em caso de aquisição de novos Direitos Creditórios, a partir da Data de Adaptação, o Cedente deverá declarar à Classe A que as seguintes declarações são verdadeiras, corretas e completas, na Data de Aquisição, em relação aos Direitos Creditórios oferecidos à cessão para a Classe A, sob pena de resolução da, nos termos dos respectivos Termos de Cessão (em conjunto, “Declarações de Aquisição”): (i) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou encargos de qualquer natureza; (ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária; (iii) os Direitos Creditórios devem ter sido averbados junto ao Agente Operador do FGTS, com expressa autorização do Devedor, nos termos e condições Lei nº 8.036 e da Resolução CCFGTS 958; (iv) os Direitos Creditórios devem estar em consonância com as declarações e garantias prestadas pelo Cedente no âmbito do Contrato de Cessão e nos respectivos Termos de Cessão; (v) as respectivas CCB devem conter previsão da adoção das seguintes providências aplicáveis em caso de alteração, pelo Poder Executivo Federal, dos valores das faixas, das alíquotas e das parcelas adicionais constantes do Anexo I da Lei nº 8.036, de modo a manter inalterado o valor total dos Saques-Aniversários objeto da Cessão Fiduciária e satisfazer o pagamento da obrigação contraída pelo Devedor junto ao Cedente: (a) elevação do valor bloqueado, na forma da Lei nº 8.036, se existir saldo suficiente nas contas vinculadas dos Devedores; e (b) supletivamente, em caso de insuficiência de saldo, a ampliação dos prazos de vencimentos das CCB e, consequentemente, da quantidade de Saques-Aniversário objeto da Cessão Fiduciária, mantidas as taxas pactuadas; (vi) na data de emissão da CCB, o respectivo Devedor deve ter, no mínimo, 18 anos de idade; e (vii) não haverá CCBs emitidas mediante assinatura a rogo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ea3b101e5f2b17534652b88c603c9db499d96cc12e7fc03d4551e8524313ce42"
+      ]
+    },
+    "48c31e2665e008e81c0d4f642e130f06af39e76805ddd2b2a2f73518ba3eef30": {
+      "reference_date": "2024-10-07",
+      "value": "5.2. Os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade, na Data de Aquisição: (i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (ii) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, outros Direitos Creditórios Inadimplidos junto à Classe A; (iii) os Direitos Creditórios possuem taxas de juros prefixadas; (iv) saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, conforme definido no Contrato de Cessão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "021a07fb02af690171a775786cad2ab5c9681140d148b08ed47c71901ffa9892"
+      ]
+    },
+    "25cee710589789019691d85ef65fa0899b20d3d313b60de40013bbf899aaeb06": {
+      "reference_date": "2023-09-22",
+      "value": "atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser verificados pelo Custodiante na Data de Aquisição: (i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (ii) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, outros Direitos Creditórios Inadimplidos cedidos ao Fundo; (iii) os Direitos Creditórios devem ter taxas de juros prefixadas; (iv) o saldo devedor dos Direitos Creditórios devidos por um mesmo devedor não poderá ser superior à R$ 120.000,00 (cento e vinte mil reais); e (v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, conforme definido no Contrato de Cessão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4fb8867483a684a0fc19340c2f2d0aaa0ea43b16abcc2368172bb933640d661d"
+      ]
+    },
+    "25fb46341806929fa3a589b4b8b6fd3f38c74c0c813f3afb2eee6829b5e16bca": {
+      "reference_date": "2023-09-30",
+      "value": "Ausência de Coobrigação do Cedente. O Cedente e os integrantes do seu Grupo Econômico não respondem pelo pagamento dos Direitos Creditórios cedidos ou pela solvência dos Devedores. O Cedente é somente responsável pela existência dos respectivos Direitos Creditórios cedidos, de acordo com o previsto no presente Regulamento e no Contrato de Cessão. Na hipótese de inadimplemento dos Direitos Creditórios cedidos, portanto, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "231164b870c0ff11951965e85e508a5d7095d4b0e074174a14810f1afd4efbd4"
+      ]
+    },
+    "3ab6e9a2015c804ba6fb1b6a88a55d822df9487fbe56a3fd3ba2105beec126fc": {
+      "reference_date": "2025-03-21",
+      "value": "6.10. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite que o Cedente apresente ao Custodiante, ou regularize, os Documentos Representativos do Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "63845f8ae677fb4aba17f57ab4227d747d11906ee6fc9a037b1ae66ff62164f4"
+      ]
+    },
+    "9eefedff21590f351f719e50cc44f3b67de92fbbcd815e5d827ebd0e6d8bf4ef": {
+      "reference_date": "2024-10-07",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f827ee6780cd3f367279cccd303269e9c045d2ac5b4d33acd00c39a7bc16b090"
+      ]
+    },
+    "198062b74f3749d136b5e6a784062c5eb597b96c0b69953aca696fd142f1d02f": {
+      "reference_date": "2024-09-04",
+      "value": "6.23. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite que o Cedente apresente ao Custodiante, ou regularize, os Documentos Representativos do Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "56c3339667e0775a5857e7974baba2ad44184bb5066de8f7e97e85a1dbc58c92"
+      ]
+    },
+    "3531662928c2caaffc6e993f439d52e66fa99d4fe12151c8ba6147509192c17f": {
+      "reference_date": "2023-09-22",
+      "value": "12.4. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite ao Cedente apresente ao Custodiante os Documentos Representativos do Crédito.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "16b37ee409f511de918a1f82e17ed96bfd91eb4252d353b73cac69d304afb5b7"
+      ]
+    },
+    "96a285006e1b83d10c79252c5858e93b1916b79fc991773e5fad5aca0e50dee9": {
+      "reference_date": "2023-12-29",
+      "value": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a5f05664589dec80d4a883fd2bd44684c4dd3f96096e16d3a2bd26a5e33ae5bd"
+      ]
+    },
+    "dd7c82fbc732fc8f5ebe88bb0476602e8588b5895dec64631f70bb85a36121d6": {
+      "reference_date": "2023-12-12",
+      "value": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "11efb1eab64229a8f7f58f37713decc46361fc3f093e5b4ae27b63fd68453a95"
+      ]
+    },
+    "f77c32bfcf729ad67075699584f2d047c60af96aca6a2bb8e7c4d5fe9d9f5596": {
+      "reference_date": "2025-03-21",
+      "value": "“Devedores”: As pessoas físicas titulares de contas vinculadas do FGTS, que tenham contratado empréstimos representados pela CCB e estejam com a opção da modalidade de Saque-Aniversário vigente na data da contratação do empréstimo;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ffeb1ab3e9d2a48f10038f6303716e2efcc666d5198131cfae6beb0851e6e72a"
+      ]
+    },
+    "455b505b24cc9ac5d3a78382a07e2cf6c32dd35f7fb703a7008137cd5a33310f": {
+      "reference_date": "2024-10-07",
+      "value": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "83b91d53704042b941c1e6e84caf4e058e21b9ad0ee67856142e7e99395a73b7"
+      ]
+    },
+    "30626c0be742cfc5da7d5ad24dfe49e596fac165286ae3cac166e777e562b1e8": {
+      "reference_date": "2024-09-04",
+      "value": "“Devedores”: As pessoas físicas titulares de contas vinculadas do FGTS, que tenham contratado empréstimos representados pela CCB e estejam com a opção da modalidade de Saque-Aniversário vigente na data da contratação do empréstimo;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "93c62b607c679a02b1c8a6a7da62741a44a51eeb9bbc7315fed6e83226d7342d"
+      ]
+    },
+    "41a17c750f6d13a3d30d203b53cbc0624756832b683b2ba9ca47390f4548bcf8": {
+      "reference_date": "2023-09-22",
+      "value": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e0a1c0b0a5a868570695ac36997ae311d2dc56af61f90a9fb8dcaaa501aa5741"
+      ]
+    },
+    "6c6ee3f7452c4ce75afbed76e1a360ab1a7419acb57717c54b27432e53e83871": {
+      "reference_date": "2023-09-14",
+      "value": "“Devedores”: As pessoas físicas titulares de contas vinculadas do FGTS, que tenham contratado empréstimos representados pela CCB e estejam com a opção da modalidade de Saque-Aniversário vigente na data da contratação do empréstimo;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "78563b129c3d9c4f174ef52d00ca39848e4eb2cfd68d64b54070d4fc3543fea5"
+      ]
     }
   },
   "passages": {
@@ -2991,18 +3093,6 @@
       "sha256": "2264598a48c5184a9c6774d10669058e0f4f61d896cb92e89e716b45866c3b3b",
       "verification": "primary_passage"
     },
-    "dfedbd95adea0afea032d6c4bb5c9c252e4fa19134581ca68ee62cc700b26a71": {
-      "document_id": "568595",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=568595",
-      "reference_date": "2023-12-12",
-      "version": "1",
-      "page": 48,
-      "clause": "",
-      "excerpt": "(viii) Movimentação das Contas dos Devedores junto ao FGTS. Quando da cessão fiduciária  dos Saques-Aniversário em garantia dos Direitos Creditórios cedidos, parte do saldo que o  respectivo Devedor possui em sua conta junto ao FGTS é bloqueado, em valor suficiente para o  pagamento dos Direitos Creditórios cedidos. A despeito do bloqueio, os seguintes eventos  ensejam o saque de recursos da conta do Devedor, de forma a afetar o bloqueio, e a execução  antecipada da garantia: (a) caso o Devedor ou algum de seus dependentes (i) seja acometido por  neoplasia maligna; (ii) seja portador do vírus HIV; (iii) esteja em estágio terminal em razão de  doença grave; ou (iv) possua doença rara; bem como (b) caso o Devedor (i) tenha idade igual ou  superior a 70 (setenta) anos; (ii) se aposente pela previdência social; ou (iii) faleça. Na ocorrência  de qualquer dos citados eventos, o saque será realizado e os valores bloqueados serão  direcionados ao pagamento antecipado da respectiva CCB. Nessa hipótese, o fluxo de caixa  previsto para o Fundo seria afetado, o que poderia prejudicar os resultados da carteira do Fundo.",
-      "sha256": "a3131f03142ef8827299b55d00afe8f7c86384eb024156da015a17d0d89a4068",
-      "verification": "primary_passage"
-    },
     "b49c0aee6adbc98670cd30b57df32a1aa6a265d9cd39eef3e7349504d1067446": {
       "document_id": "1025473",
       "title": "Regulamento",
@@ -3052,18 +3142,6 @@
       "sha256": "2264598a48c5184a9c6774d10669058e0f4f61d896cb92e89e716b45866c3b3b",
       "verification": "primary_passage"
     },
-    "8cc46eb2e1442ee9005a9a78f42a87bf93b691d22ca61a856149376268b0b8c4": {
-      "document_id": "568595",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=568595",
-      "reference_date": "2023-12-12",
-      "version": "1",
-      "page": 29,
-      "clause": "5.2",
-      "excerpt": "5.2. Adicionalmente às Condições de Cessão descritas acima, os Direitos Creditórios deverão  atender, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, que deverão ser  verificados pelo Custodiante na Data de Aquisição:",
-      "sha256": "a3131f03142ef8827299b55d00afe8f7c86384eb024156da015a17d0d89a4068",
-      "verification": "primary_passage"
-    },
     "2e8d7e3bc02ea81f9f446ae2d560235114451b6e488ac7694581b896aa34349e": {
       "document_id": "575578",
       "title": "Demonstrações Financeiras",
@@ -3074,30 +3152,6 @@
       "clause": "",
       "excerpt": "O Fundo somente poderá adquirir os direitos creditórios que atendam, cumulativamente, aos  seguintes critérios de elegibilidade:\n(i) os direitos creditórios deverão ter vencimento em data igual ou inferior à data de  vencimento das cotas seniores de maior prazo;\n (ii) os direitos creditórios deverão ser devidos por devedores que não apresentem, na data de  aquisição, outros direitos creditórios inadimplidos cedidos ao Fundo; e\n (iii) os direitos creditórios devem ter taxas de juros prefixadas.",
       "sha256": "570d16b763ab8e91bf5aa85fbaa5b485a2245f5b229578b2611d7de7bb3c85bc",
-      "verification": "primary_passage"
-    },
-    "fb1ec4b3cef2e3c7fdd8bf287a961e1380a66f8a04ea47380c74b507482acb11": {
-      "document_id": "863171",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
-      "reference_date": "2025-03-21",
-      "version": "1",
-      "page": 23,
-      "clause": "5.1.1",
-      "excerpt": "5.1.1. A partir da Data de Adaptação, em caso de novas aquisições de Direitos Creditórios pela Classe A, a Gestora deverá verificar os Critérios de Elegibilidade e o Cedente deverá declarar as Declarações de Aquisição aqui dispostas.",
-      "sha256": "d1a888d1387c628b6fc1e9806518b1a6716219f18528bc33e324fe5cc53cd2bc",
-      "verification": "primary_passage"
-    },
-    "4e8b275ed0d38353f3d84ff93136f85b768c5f9e59f71ba86ef6a7655a7ee0d1": {
-      "document_id": "753152",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=753152",
-      "reference_date": "2024-10-07",
-      "version": "1",
-      "page": 23,
-      "clause": "5.1.1",
-      "excerpt": "5.1.1. A partir da Data de Adaptação, em caso de novas aquisições de Direitos Creditórios pela Classe A, a Gestora deverá verificar os Critérios de Elegibilidade e o Cedente deverá declarar as Declarações de Aquisição aqui dispostas.",
-      "sha256": "2814ed3e2190fb40a74e0d6c7f37bb0fd9ed25f51e6b133a0e3a673845aaca3a",
       "verification": "primary_passage"
     },
     "779e5412e6aa3c7d6d043905234fdd9675ecf4031a87b7e1439b1866e034702c": {
@@ -5827,6 +5881,177 @@
       "clause": "",
       "excerpt": "Em 30 de setembro de 2024, o Fundo não possuía garantias reais ou fidejussórias pela liquidação dos direitos creditórios, porém, os direitos creditórios adquiridos poderão contar com garantias, o que significa, se houver, quando referidos individualmente ou em conjunto, a alienação fiduciária de produto, a alienação fiduciária de imóvel, a cessão fiduciária de recebíveis, o aval, e quaisquer outras modalidades de garantias fidejussórias ou reais que venham a ser estabelecidas em cada CRA, CRI ou Debênture, ou em instrumento próprio (conforme aplicável), o que poderá incluir, sem limitação, a celebração de contrato de alienação fiduciária de imóvel e/ou de contrato de cessão fiduciária de recebíveis, conforme o caso.",
       "sha256": "af31a5b8783deab7b649f01ca0082df62fcabec8ff160ebf98de0ae2839b4b2c",
+      "verification": "primary_passage"
+    },
+    "1d09ba3034079fa4df494f3259627c3b3fe35557f91e0aedcf3d8547756848f7": {
+      "document_id": "568595",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=568595",
+      "reference_date": "2023-12-12",
+      "version": "1",
+      "page": 29,
+      "clause": "5.1.1",
+      "excerpt": "5.1.1. Caberá à Administradora, de acordo com as regras e procedimentos por ela  adotados, mantidos atualizados em seu website, verificar se os Direitos Creditórios  atendem integralmente às Condições de Cessão, podendo fazê-lo após a efetiva  aquisição dos Direitos Creditórios pelo Fundo, sem prejuízo das obrigações nesse  sentido assumidas pelos Cedentes nos Contratos de Cessão.",
+      "sha256": "a3131f03142ef8827299b55d00afe8f7c86384eb024156da015a17d0d89a4068",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "ea3b101e5f2b17534652b88c603c9db499d96cc12e7fc03d4551e8524313ce42": {
+      "document_id": "863171",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+      "reference_date": "2025-03-21",
+      "version": "1",
+      "page": "24–25",
+      "clause": "5.8",
+      "excerpt": "5.8. Em adição aos Critérios de Elegibilidade, em caso de aquisição de novos Direitos Creditórios, a partir da Data de Adaptação, o Cedente deverá declarar à Classe A que as seguintes declarações são verdadeiras, corretas e completas, na Data de Aquisição, em relação aos Direitos Creditórios oferecidos à cessão para a Classe A, sob pena de resolução da, nos termos dos respectivos Termos de Cessão (em conjunto, “Declarações de Aquisição”):\n(i) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou encargos de qualquer natureza;\n(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;\n(iii) os Direitos Creditórios devem ter sido averbados junto ao Agente Operador do FGTS, com expressa autorização do Devedor, nos termos e condições Lei nº 8.036 e da Resolução CCFGTS 958;\n(iv) os Direitos Creditórios devem estar em consonância com as declarações e garantias prestadas pelo Cedente no âmbito do Contrato de Cessão e nos respectivos Termos de Cessão;\n(v) as respectivas CCB devem conter previsão da adoção das seguintes providências aplicáveis em caso de alteração, pelo Poder Executivo Federal, dos valores das faixas, das alíquotas e das parcelas adicionais constantes do Anexo I da Lei nº 8.036, de modo a manter inalterado o valor total dos Saques-Aniversários objeto da Cessão Fiduciária e satisfazer o pagamento da obrigação contraída pelo Devedor junto ao Cedente: (a) elevação do valor bloqueado, na forma da Lei nº 8.036, se existir saldo suficiente nas contas vinculadas dos Devedores; e (b) supletivamente, em caso de insuficiência de saldo, a ampliação dos prazos de vencimentos das CCB e, consequentemente, da quantidade de Saques-Aniversário objeto da Cessão Fiduciária, mantidas as taxas pactuadas;\n(vi) na data de emissão da CCB, o respectivo Devedor deve ter, no mínimo, 18 anos de idade;\ne\n(vii) não haverá CCBs emitidas mediante assinatura a rogo.",
+      "sha256": "d1a888d1387c628b6fc1e9806518b1a6716219f18528bc33e324fe5cc53cd2bc",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "021a07fb02af690171a775786cad2ab5c9681140d148b08ed47c71901ffa9892": {
+      "document_id": "753152",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=753152",
+      "reference_date": "2024-10-07",
+      "version": "1",
+      "page": "23–24",
+      "clause": "5.2",
+      "excerpt": "5.2. Os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade, na Data de Aquisição:\n(i) os Direitos Creditórios deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo;\n(ii) os Direitos Creditórios deverão ser devidos por Devedores que não apresentem, na Data de Aquisição, outros Direitos Creditórios Inadimplidos junto à Classe A;\n(iii) os Direitos Creditórios possuem taxas de juros prefixadas;\n(iv) saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00 (cento e vinte mil reais); e\n(v) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Aquisição, conforme definido no Contrato de Cessão.",
+      "sha256": "2814ed3e2190fb40a74e0d6c7f37bb0fd9ed25f51e6b133a0e3a673845aaca3a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "231164b870c0ff11951965e85e508a5d7095d4b0e074174a14810f1afd4efbd4": {
+      "document_id": "575578",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=575578",
+      "reference_date": "2023-09-30",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "Ausência de Coobrigação do Cedente. O Cedente e os integrantes do seu Grupo Econômico não  respondem pelo pagamento dos Direitos Creditórios cedidos ou pela solvência dos Devedores. O  Cedente é somente responsável pela existência dos respectivos Direitos Creditórios cedidos, de  acordo com o previsto no presente Regulamento e no Contrato de Cessão. Na hipótese de  inadimplemento dos Direitos Creditórios cedidos, portanto, poderá haver um impacto negativo no  patrimônio e na rentabilidade do Fundo.",
+      "sha256": "570d16b763ab8e91bf5aa85fbaa5b485a2245f5b229578b2611d7de7bb3c85bc",
+      "verification": "primary_passage"
+    },
+    "63845f8ae677fb4aba17f57ab4227d747d11906ee6fc9a037b1ae66ff62164f4": {
+      "document_id": "863171",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+      "reference_date": "2025-03-21",
+      "version": "1",
+      "page": 32,
+      "clause": "6.10",
+      "excerpt": "6.10. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite que o Cedente apresente ao Custodiante, ou regularize, os Documentos Representativos do Crédito.",
+      "sha256": "d1a888d1387c628b6fc1e9806518b1a6716219f18528bc33e324fe5cc53cd2bc",
+      "verification": "primary_passage"
+    },
+    "56c3339667e0775a5857e7974baba2ad44184bb5066de8f7e97e85a1dbc58c92": {
+      "document_id": "731787",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731787",
+      "reference_date": "2024-09-04",
+      "version": "1",
+      "page": 32,
+      "clause": "6.23",
+      "excerpt": "6.23. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite que o Cedente apresente ao Custodiante, ou regularize, os Documentos Representativos do Crédito.",
+      "sha256": "f01d24f1c8e0eb94971bef3825e0c2ad529a0c4c53d5fb46dd3dac4867bf78bb",
+      "verification": "primary_passage"
+    },
+    "16b37ee409f511de918a1f82e17ed96bfd91eb4252d353b73cac69d304afb5b7": {
+      "document_id": "525691",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+      "reference_date": "2023-09-22",
+      "version": "1",
+      "page": 18,
+      "clause": "12.4",
+      "excerpt": "12.4. Eventuais vícios verificados nos Documentos Representativos do Crédito serão comunicados por escrito pelo Custodiante, ou empresa contratada, à Administradora e à Gestora, em até 5 (cinco) Dias Úteis da sua verificação, para que a Administradora solicite ao Cedente apresente ao Custodiante os Documentos Representativos do Crédito.",
+      "sha256": "ddf67fd51974dd634098cbe775143998d2ed26523264d6a9d07a723e03cf9d4f",
+      "verification": "primary_passage"
+    },
+    "a5f05664589dec80d4a883fd2bd44684c4dd3f96096e16d3a2bd26a5e33ae5bd": {
+      "document_id": "586375",
+      "title": "Relatório de Agência de Rating",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+      "reference_date": "2023-12-29",
+      "version": "1",
+      "page": 5,
+      "clause": "",
+      "excerpt": "Condições de Cessão: Em cada cessão de Direitos Creditórios ao Fundo, os Direitos Creditórios devem  atender, cumulativamente, na respectiva Data de Aquisição, às seguintes Condições  de Cessão a serem verificadas pela Administradora, na Data de Aquisição,  exclusivamente com base em declarações prestadas pelo Cedente no âmbito do  Contrato de Cessão e nos respectivos Termos de Cessão: (i) os Direitos Creditórios  devem estar livres e desembaraçados de quaisquer ônus, gravames ou encargos de  qualquer natureza; (ii) os Direitos Creditórios devem decorrer de empréstimos pessoais  concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo  disponível em conta vinculada de FGTS, representados por CCB, com garantia de  Cessão Fiduciária; (iii) os Direitos Creditórios devem ter sido averbados junto ao Agente  Operador do FGTS, com expressa autorização do Devedor, nos termos e condições Lei  nº 8.036 e da Resolução CCFGTS 958; (iv) os Direitos Creditórios devem estar em  consonância com as declarações e garantias prestadas pelo Cedente no âmbito do",
+      "sha256": "2264598a48c5184a9c6774d10669058e0f4f61d896cb92e89e716b45866c3b3b",
+      "verification": "primary_passage"
+    },
+    "11efb1eab64229a8f7f58f37713decc46361fc3f093e5b4ae27b63fd68453a95": {
+      "document_id": "568595",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=568595",
+      "reference_date": "2023-12-12",
+      "version": "1",
+      "page": 29,
+      "clause": "",
+      "excerpt": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos  pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta  vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "sha256": "a3131f03142ef8827299b55d00afe8f7c86384eb024156da015a17d0d89a4068",
+      "verification": "primary_passage"
+    },
+    "ffeb1ab3e9d2a48f10038f6303716e2efcc666d5198131cfae6beb0851e6e72a": {
+      "document_id": "863171",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+      "reference_date": "2025-03-21",
+      "version": "1",
+      "page": 13,
+      "clause": "",
+      "excerpt": "“Devedores”: As pessoas físicas titulares de contas vinculadas do FGTS, que  tenham contratado empréstimos representados pela CCB e  estejam com a opção da modalidade de Saque-Aniversário  vigente na data da contratação do empréstimo;",
+      "sha256": "d1a888d1387c628b6fc1e9806518b1a6716219f18528bc33e324fe5cc53cd2bc",
+      "verification": "primary_passage"
+    },
+    "83b91d53704042b941c1e6e84caf4e058e21b9ad0ee67856142e7e99395a73b7": {
+      "document_id": "753152",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=753152",
+      "reference_date": "2024-10-07",
+      "version": "1",
+      "page": 25,
+      "clause": "",
+      "excerpt": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "sha256": "2814ed3e2190fb40a74e0d6c7f37bb0fd9ed25f51e6b133a0e3a673845aaca3a",
+      "verification": "primary_passage"
+    },
+    "93c62b607c679a02b1c8a6a7da62741a44a51eeb9bbc7315fed6e83226d7342d": {
+      "document_id": "731787",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731787",
+      "reference_date": "2024-09-04",
+      "version": "1",
+      "page": 12,
+      "clause": "",
+      "excerpt": "“Devedores”: As pessoas físicas titulares de contas vinculadas do FGTS, que  tenham contratado empréstimos representados pela CCB e  estejam com a opção da modalidade de Saque-Aniversário  vigente na data da contratação do empréstimo;",
+      "sha256": "f01d24f1c8e0eb94971bef3825e0c2ad529a0c4c53d5fb46dd3dac4867bf78bb",
+      "verification": "primary_passage"
+    },
+    "e0a1c0b0a5a868570695ac36997ae311d2dc56af61f90a9fb8dcaaa501aa5741": {
+      "document_id": "525691",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+      "reference_date": "2023-09-22",
+      "version": "1",
+      "page": 8,
+      "clause": "",
+      "excerpt": "(ii) os Direitos Creditórios devem decorrer de empréstimos pessoais concedidos  pelo Cedente aos Devedores, ou seja, pessoas naturais com saldo disponível em conta  vinculada de FGTS, representados por CCB, com garantia de Cessão Fiduciária;",
+      "sha256": "ddf67fd51974dd634098cbe775143998d2ed26523264d6a9d07a723e03cf9d4f",
+      "verification": "primary_passage"
+    },
+    "78563b129c3d9c4f174ef52d00ca39848e4eb2cfd68d64b54070d4fc3543fea5": {
+      "document_id": "520822",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520822",
+      "reference_date": "2023-09-14",
+      "version": "1",
+      "page": 59,
+      "clause": "",
+      "excerpt": "“Devedores”: As pessoas físicas titulares de contas vinculadas do  FGTS, que tenham contratado empréstimos  representados pela CCB e estejam com a opção da  modalidade de Saque-Aniversário vigente na data da  contratação do empréstimo;",
+      "sha256": "9d9f88d0687d31dcc4a9d64402f8752574ad43a241b7c70d1543c906b843342b",
       "verification": "primary_passage"
     }
   }

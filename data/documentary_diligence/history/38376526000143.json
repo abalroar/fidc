@@ -3,18 +3,6 @@
   "cnpj": "38376526000143",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "13fa9a15f9516a39d244685f9915f40087f7e4618893cc8163398e717dd646bb",
-      "acac53acbed01e1235b902ac3197efaa97587b62dbe89b57ad9916b2b79abcc4",
-      "7feca6bc0d8408972fd5d3ab82467252a0923540d77e433f7fd6daff8f11ef37",
-      "5c030156bc59d52f105410315266883639f17140a2c90ba7ef31709440053e48",
-      "baa17d175656f445553a2720fc151f3ce473a7f74c059bc1cf99d58b4a014bb9",
-      "db6c7fd389d946aab5a589f403eced9461e44c998ce6eb2b723ddb027661d9ef",
-      "cbc72a3d52b36b9262542d3dcdd10f63c216ffa84237947250010c56b6bb8cd8",
-      "3f0918aee8cfc345f0ca6a8e1e4262f2f4a9a132d76365ca4f0899e98074c470",
-      "19848abf2860b3f1b02c30818329fd374a8d45bd5243181750b029de02d03ff2",
-      "ff8ce4d9be25b27bb6f86e26c8749fc554a831a91ee962c71f66f05f99910796"
-    ],
     "term": [
       "4d41f47318cb2b3ab736df4daa5a2e406d07bb9b8788b5d907e992441ce61c89",
       "b7b348c9e48e7bd37b0dd640bab496f705066fb41de022aa2703735c97ed859a",
@@ -465,23 +453,6 @@
       "53fce35a2c42f9ae1fea597cfea48323743f7c19576d015c194e7c39b91ee8d5",
       "3cc6d6f606780c4a087342ed88f610fba64604b55e6c5229c12660a3d2681001"
     ],
-    "originator": [
-      "f2824e5fcf8220f2a460a3754a11e6dbee3dbda6c8c0943c285242a59b83d8b6",
-      "663eed843fe677080132c6c78932ce5c720af23e4875a0b0cb061939727dd976",
-      "c64a17dc7103b632b9cbba1222561e75461c169a2c42dab91f4439bfcff79fb3",
-      "8f3bbb1afb0587101c69d80dff08f27447a0b194e94d781a11bc3aede458b779",
-      "37e92e5eacb8c9c9c70b224b6b73ad2ae756cacb9335797c40d08d31b498a6b1",
-      "ab91223a1ae0499de6a7e6266f8ac7c4ad9c6d04261ea73779dead16437c1434",
-      "e2686ca7f96646ca74e8a8f9ef79273283e3c8c535eaa8684a52c5557ab4c0bc",
-      "50f22ac7c19cad0fa418d4014b7f12189f3a4c52fdbe71b48990ef0d44a30074",
-      "3fb8974ad21b62c1bc5df5b80ebab9684a8b44947a1564ab305b8960bd59b29f",
-      "07cc66d7d642c3c1e1678bedbc59d35c9e8daa02c5db0b293961c762d41afc2d",
-      "100d2bc347273541041f7b693550b6c95368ab9f6f2e0196e5083b21442bfcd6"
-    ],
-    "debtor": [
-      "cff29bb9fbc9e080bf1a48e209a9be730662b44500da0a45a3036d4565a489be",
-      "d709bf1ec0537bdee136ecdfe61650849ff2d411b1ce7b297e21a10e5be847c9"
-    ],
     "investee": [
       "d86f2a98ca09c01c8a36ca3b4468bf1b1efefb236c313a0b44b30f23ee6d0967",
       "cab6101761986b6f3869d8130d0fa3cd1b2a189cf0d7b940b544c3c8a43a0671"
@@ -526,6 +497,32 @@
       "9198d1c9154ee923524b6b1ff855db12924b4cc72a80e806d3dd24f43f957e05",
       "c448ba2bf7d6c61c3ab628f6ec60d3f96fccdeb82f9ff63f00c500d0751dd13b",
       "87eee99c83bc5ff75dcb75f63a32a5e822bb31a17a958a2dfa0ab896d92943b9"
+    ],
+    "originator": [
+      "f2824e5fcf8220f2a460a3754a11e6dbee3dbda6c8c0943c285242a59b83d8b6",
+      "663eed843fe677080132c6c78932ce5c720af23e4875a0b0cb061939727dd976",
+      "c64a17dc7103b632b9cbba1222561e75461c169a2c42dab91f4439bfcff79fb3",
+      "8f3bbb1afb0587101c69d80dff08f27447a0b194e94d781a11bc3aede458b779",
+      "37e92e5eacb8c9c9c70b224b6b73ad2ae756cacb9335797c40d08d31b498a6b1",
+      "ab91223a1ae0499de6a7e6266f8ac7c4ad9c6d04261ea73779dead16437c1434",
+      "e2686ca7f96646ca74e8a8f9ef79273283e3c8c535eaa8684a52c5557ab4c0bc",
+      "50f22ac7c19cad0fa418d4014b7f12189f3a4c52fdbe71b48990ef0d44a30074",
+      "3fb8974ad21b62c1bc5df5b80ebab9684a8b44947a1564ab305b8960bd59b29f",
+      "07cc66d7d642c3c1e1678bedbc59d35c9e8daa02c5db0b293961c762d41afc2d"
+    ],
+    "eligibility": [
+      "107c8b625252578ea4f9a99f3ff36b334469867a1db3ac7f6bf2c94c60f67fd9",
+      "2c0877c047cdde1e100ca16c0555193771f1ab01744bccc67b0d319d24dc5767",
+      "7cafa0750cd182ab26e97eaba4945df5c19514632a18ea2c8bf8644cbbfc8ce7",
+      "8938e253df7a3e8cc96e8dabb0f363bc564b5a605257fec15ed387cf41be615d",
+      "6ab17db7fb556b443d193f158f66ba357a8ed84c37f02fde80573da4b2208f54",
+      "369893b17501cdeff32cbe93dd041c2610d9923103dcc63f4c0e1064f5c83147",
+      "4cc389aed4c2b60d171e55900b82ac398a4b4e7e380c792dfb8a694a5bf2ec9a",
+      "61e0cea4be762473b0452b8bdfecb74558ade2a4ad5489d42a58014a19522d47",
+      "a111952be3d3c0c935fe07f4bfac978c322458826a4820c8a12b89f565e913ba"
+    ],
+    "debtor": [
+      "cff29bb9fbc9e080bf1a48e209a9be730662b44500da0a45a3036d4565a489be"
     ]
   },
   "entries": {
@@ -666,15 +663,6 @@
         "8eb375376f43f65d027046bbd1f3c49558908c77e9855cda26c054e8afc09a5f"
       ]
     },
-    "100d2bc347273541041f7b693550b6c95368ab9f6f2e0196e5083b21442bfcd6": {
-      "reference_date": "2024-03-21",
-      "value": "8.6.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos Direitos Creditórios Adquiridos, desde que não seja o originador dos Direitos Creditórios Adquiridos, os Cedentes, a Gestora e eventual consultor especializado contratado pela Administradora para atuar no âmbito do Fundo, e demais partes relacionadas ao Fundo, tal como definido pelas regras contábeis que tratam deste assunto e respeitados os termos do Artigo 5.2.3 acima. As irregularidades apontadas nesta auditoria serão informadas à Administradora, ao auditor independente e aos Cotistas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7175f399bbf4298439a3aaf7e11a6b289b39cc5f2b93b9b35d93610caf0b7d39"
-      ]
-    },
     "cff29bb9fbc9e080bf1a48e209a9be730662b44500da0a45a3036d4565a489be": {
       "reference_date": "2026-10-01",
       "value": "Cartões: Hotmart; recebíveis a prazo: usuários compradores",
@@ -683,105 +671,6 @@
       "risk_note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
       "sources": [
         "4533081f55bcfa7a62396152ccc8c1064d3544e94184ab8b63be18e50a790b2b"
-      ]
-    },
-    "d709bf1ec0537bdee136ecdfe61650849ff2d411b1ce7b297e21a10e5be847c9": {
-      "reference_date": "2020-08-27",
-      "value": "Artigo 44 - Somente poderão integrar a Carteira do Fundo, Direitos Creditórios que tenham sido previamente selecionados e recomendados pelo ADMINISTRADOR. Os Direitos Creditórios deverão representar, na data de aquisição e pagamento, obrigação de Devedores que sejam pessoas físicas ou jurídicas com inscrição ativa, no cadastro de pessoa física (CPF) ou no cadastro nacional da pessoa jurídica (CNPJ), respectivamente (“Critérios de Elegibilidade”).",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e2e893208c109444e8ed4185456cc664efa7c62a22d474fc7fcd0a1a43848816"
-      ]
-    },
-    "13fa9a15f9516a39d244685f9915f40087f7e4618893cc8163398e717dd646bb": {
-      "reference_date": "2025-09-30",
-      "value": "Por meio de Instrumento Particular de Alteração de 02 de julho de 2025 foram deliberadas: (i) Alteração da Razão Social do Fundo para \"Hotfund Fundo de Investimento em Direitos Creditórios Segmento Meios de Pagamento de Responsabilidade Limitada”. (ii) Reforma Integral do Regulamento, incluindo a mudança nos critérios de elegibilidade e condições de cessão de direitos creditórios.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b476678ea17d057121c4fa76ae6a8e98a3096ff1b8d2e897ce68f334c767c69d"
-      ]
-    },
-    "acac53acbed01e1235b902ac3197efaa97587b62dbe89b57ad9916b2b79abcc4": {
-      "reference_date": "2024-03-21",
-      "value": "“3.1.1. A Hotmart, na qualidade de representante dos Cedentes, em determinado dia (“Data de Oferta”), ofertará os Direitos Creditórios ao Fundo que, em seu entendimento, atendem aos Critérios de Elegibilidade, identificando, de forma agregada, no Sistema Hotpay, cujo acesso é outorgado à Administradora e à Custodiante, as seguintes informações (i) representante do Cedente;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e66a265c55f30b16513a1b8845eb06b643a923c32a7e29caf6e8be394170add0"
-      ]
-    },
-    "7feca6bc0d8408972fd5d3ab82467252a0923540d77e433f7fd6daff8f11ef37": {
-      "reference_date": "2023-09-30",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e4ba9668169c152d78012210367d73f042bc22080b6b0cbef057f29ae2a8cbbc"
-      ]
-    },
-    "5c030156bc59d52f105410315266883639f17140a2c90ba7ef31709440053e48": {
-      "reference_date": "2026-08-14",
-      "value": "4.4. Sem prejuízo dos Critérios de Elegibilidade previstos no item 4.1 acima, a Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, às seguintes Condições de Cessão: (i) os Direitos Creditórios Recebíveis a Prazo deverão ser provenientes da venda a prazo de cursos e/ou outros conteúdos oferecidos pelos Produtores na Plataforma Hotmart e cujas Transações de Pagamento são operacionalizadas em parcelas mensais e não no valor total no momento da compra, sendo certo que não será admitida a aquisição parcial de tais créditos, de forma que a Classe deve adquirir 100% (cem por cento) de cada Direito Creditório Recebível a Prazo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "06d12b2ed9a2624cc3f6b0fe551d714385611121001c69a27f1b9a18796d05bb"
-      ]
-    },
-    "baa17d175656f445553a2720fc151f3ce473a7f74c059bc1cf99d58b4a014bb9": {
-      "reference_date": "2025-07-02",
-      "value": "4.4. Sem prejuízo dos Critérios de Elegibilidade previstos no item 4.1 acima, a Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, às seguintes Condições de Cessão: (i) os Direitos Creditórios Recebíveis a Prazo deverão ser provenientes da venda a prazo de cursos e/ou outros conteúdos oferecidos pelos Produtores na Plataforma Hotmart e cujas Transações de Pagamento são operacionalizadas em parcelas mensais e não no valor total no momento da compra, sendo certo que não será admitida a aquisição parcial de tais créditos, de forma que a Classe deve adquirir 100% (cem por cento) de cada Direito Creditório Recebível a Prazo;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e8515297187bcfeeb062d6c9987c33ad711cb3204dffece6e05bb834d2799f7b"
-      ]
-    },
-    "db6c7fd389d946aab5a589f403eced9461e44c998ce6eb2b723ddb027661d9ef": {
-      "reference_date": "2024-11-22",
-      "value": "3.10. A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9df707f7c747f5a5d3ddaf260a82fc14245e651f9c0db2ca2d18783f11856eb6"
-      ]
-    },
-    "cbc72a3d52b36b9262542d3dcdd10f63c216ffa84237947250010c56b6bb8cd8": {
-      "reference_date": "2024-10-29",
-      "value": "3.10. A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b38d94095394096fc5d726c352c54de1dfba2bc7e15c03cd6358fe704ad792c2"
-      ]
-    },
-    "3f0918aee8cfc345f0ca6a8e1e4262f2f4a9a132d76365ca4f0899e98074c470": {
-      "reference_date": "2024-03-21",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "22eaded7c8a59d161b46e0e2d79937a711ba8d8cf74494f091a7a4b532325729"
-      ]
-    },
-    "19848abf2860b3f1b02c30818329fd374a8d45bd5243181750b029de02d03ff2": {
-      "reference_date": "2022-12-08",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6f6bd9fdd10eed8ad410b19c3e4abdb398dc4963fcf36da55831767de3a4d603"
-      ]
-    },
-    "ff8ce4d9be25b27bb6f86e26c8749fc554a831a91ee962c71f66f05f99910796": {
-      "reference_date": "2021-06-10",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "32c6ae64250cbf2309ae8f1781d1ceebfe9cb910713dcb10d64b1e1b192b6f2b"
       ]
     },
     "4d41f47318cb2b3ab736df4daa5a2e406d07bb9b8788b5d907e992441ce61c89": {
@@ -4139,6 +4028,87 @@
       "sources": [
         "601c177cd2cfe3e51e20cc4aacb2faab16750c1fc7b454971766ef1e6e62009c"
       ]
+    },
+    "107c8b625252578ea4f9a99f3ff36b334469867a1db3ac7f6bf2c94c60f67fd9": {
+      "reference_date": "2025-09-30",
+      "value": "Por meio de Instrumento Particular de Alteração de 02 de julho de 2025 foram deliberadas: (i) Alteração da Razão Social do Fundo para \"Hotfund Fundo de Investimento em Direitos Creditórios Segmento Meios de Pagamento de Responsabilidade Limitada”. (ii) Reforma Integral do Regulamento, incluindo a mudança nos critérios de elegibilidade e condições de cessão de direitos creditórios. (iii) Aprovação da celebração do Segundo Aditamento ao Instrumento Particular de Promessa de Cessão para incorporar as alterações do Regulamento. (iv) Autorização à Administradora e ao Gestor para tomar as medidas necessárias para implementar o aprovado, e dispensa da Administradora do envio do resumo das deliberações.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b476678ea17d057121c4fa76ae6a8e98a3096ff1b8d2e897ce68f334c767c69d"
+      ]
+    },
+    "2c0877c047cdde1e100ca16c0555193771f1ab01744bccc67b0d319d24dc5767": {
+      "reference_date": "2023-09-30",
+      "value": "Os Eventos de Liquidação são casos que ensejam a liquidação antecipada do fundo :(i) Quando houver determinação da CVM, nos termos previstos no artigo 9º da Instrução CVM 356/01; (ii) Impossibilidade de aquisição de Direitos Creditórios que preencham os Critérios de Elegibilidade especificados no Regulamento; (iii) Resilição do Contrato de Agente de Liquidação sem a consequente substituição por nova instituição prestadora dos serviços de agente de liquidação; (iv) Re for deliberado em Assembleia Geral que um Evento de Avaliação constitui Evento de Liquidação;(v) Na hipótese de inexistência de Direitos Creditórios na carteira do Fundo ou na hipótese de inexigibilidade, por qualquer meio judicial, dos Direitos Creditórios Adquiridos porventura existentes, por período superior a 60 (sessenta) dias; (vi) No caso de decretação de intervenção, liquidação, falência, Regime de Administração Especial Temporária (RAET) da Hotmart e/ou da Administradora;(vii) Não substituição da Administradora no prazo previsto no Artigo 9.2.1 acima; (viii) Na hipótese de declaração da invalidade, nulidade ou ineficácia das Condições Gerais de Cessão, por ordem judicial e/ou por qualquer autoridade governamental;(ix) Interrupção, não decorrente de falha operacional, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, inclusive nas hipóteses de destituição e renúncia, sem que tenha havido sua efetiva substituição por outro prestador de serviços, nos termos deste Regulamento; (x) caso as Condições Gerais de Cessão sejam, por qualquer motivo, resilidas;(xi) caso o índice ou parâmetro de apuração do valor das Cotas Seniores e/ou das Cotas Mezanino em circulação seja extinto ou, por outro motivo, haja a impossibilidade legal de aplicação do índice ou parâmetro de apuração do valor das Cotas Seniores e/ou das Cotas Mezanino e os Cotistas não consigam, por 2 (duas) Assembleias Gerais consecutivas, determinar um novo índice ou parâmetro de apuração do valor das Cotas Seniores e/ou Mezanino ou caso não haja aprovação do índice ou parâmetro apresentado pelos titulares de Cotas Subordinadas;(xii) caso a Hotmart deixe de tempestivamente comunicar à Administradora e/ou ao Custodiante a ocorrência de um Evento de Avaliação, que seja de conhecimento da Hotmart, nos termos das Condições Gerais de Cessão, conforme aplicável;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e4ba9668169c152d78012210367d73f042bc22080b6b0cbef057f29ae2a8cbbc"
+      ]
+    },
+    "7cafa0750cd182ab26e97eaba4945df5c19514632a18ea2c8bf8644cbbfc8ce7": {
+      "reference_date": "2026-08-14",
+      "value": "4.4. Sem prejuízo dos Critérios de Elegibilidade previstos no item 4.1 acima, a Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, às seguintes Condições de Cessão: (i) os Direitos Creditórios Recebíveis a Prazo deverão ser provenientes da venda a prazo de cursos e/ou outros conteúdos oferecidos pelos Produtores na Plataforma Hotmart e cujas Transações de Pagamento são operacionalizadas em parcelas mensais e não no valor total no momento da compra, sendo certo que não será admitida a aquisição parcial de tais créditos, de forma que a Classe deve adquirir 100% (cem por cento) de cada Direito Creditório Recebível a Prazo; (ii) considerada pro forma a aquisição em questão, o Valor da Carteira Direitos Creditórios Recebíveis a Prazo não poderá exceder R$50.000.000,00 (cinquenta milhões de reais); e (iii) especificamente em relação aos Direitos Creditórios Recebíveis a Prazo, a 1º (primeira) parcela de pagamento não será objeto de aquisição pela Classe, pois esta já deverá ter sido recebida pelo respectivo Produtor na data da sua respectiva aquisição pela Classe dos Direitos Creditórios Recebíveis a Prazo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "06d12b2ed9a2624cc3f6b0fe551d714385611121001c69a27f1b9a18796d05bb"
+      ]
+    },
+    "8938e253df7a3e8cc96e8dabb0f363bc564b5a605257fec15ed387cf41be615d": {
+      "reference_date": "2025-07-02",
+      "value": "4.4. Sem prejuízo dos Critérios de Elegibilidade previstos no item 4.1 acima, a Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, às seguintes Condições de Cessão: (i) os Direitos Creditórios Recebíveis a Prazo deverão ser provenientes da venda a prazo de cursos e/ou outros conteúdos oferecidos pelos Produtores na Plataforma Hotmart e cujas Transações de Pagamento são operacionalizadas em parcelas mensais e não no valor total no momento da compra, sendo certo que não será admitida a aquisição parcial de tais créditos, de forma que a Classe deve adquirir 100% (cem por cento) de cada Direito Creditório Recebível a Prazo; (ii) considerada pro forma a aquisição em questão, o Valor da Carteira Direitos Creditórios Recebíveis a Prazo não poderá exceder R$50.000.000,00 (cinquenta milhões de reais); e (iii) especificamente em relação aos Direitos Creditórios Recebíveis a Prazo, a 1º (primeira) parcela de pagamento não será objeto de aquisição pela Classe, pois esta já deverá ter sido recebida pelo respectivo Produtor na data da sua respectiva aquisição pela Classe dos Direitos Creditórios Recebíveis a Prazo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e8515297187bcfeeb062d6c9987c33ad711cb3204dffece6e05bb834d2799f7b"
+      ]
+    },
+    "6ab17db7fb556b443d193f158f66ba357a8ed84c37f02fde80573da4b2208f54": {
+      "reference_date": "2024-11-22",
+      "value": "3.10. A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de Pagamento operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou outros conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e (iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional (“Critérios de Elegibilidade”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9df707f7c747f5a5d3ddaf260a82fc14245e651f9c0db2ca2d18783f11856eb6"
+      ]
+    },
+    "369893b17501cdeff32cbe93dd041c2610d9923103dcc63f4c0e1064f5c83147": {
+      "reference_date": "2024-10-29",
+      "value": "3.10. A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade: (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de Pagamento operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou outros conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e (iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional (“Critérios de Elegibilidade”).",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b38d94095394096fc5d726c352c54de1dfba2bc7e15c03cd6358fe704ad792c2"
+      ]
+    },
+    "4cc389aed4c2b60d171e55900b82ac398a4b4e7e380c792dfb8a694a5bf2ec9a": {
+      "reference_date": "2024-03-21",
+      "value": "5.1. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de Pagamento operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou outros conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e (iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional. 5.1.1. Inobservância dos Critérios de Elegibilidade. Na hipótese de os Direitos Creditórios Elegíveis deixarem de observar os respectivos Critérios de Elegibilidade acima descritos após a sua respectiva aquisição pelo Fundo e verificação pelo Custodiante, não haverá, por parte dos Cotistas, direito de regresso contra a Administradora, a Gestora, o Custodiante e/ou os Cedentes, salvo na existência de comprovada má-fé ou dolo das partes e observado o disposto nas Condições Gerais de Cessão, conforme o caso.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e7622e01575b91c36ffef4fff68ea84156a6b43e412cbcdfe705e275ff90f36b"
+      ]
+    },
+    "61e0cea4be762473b0452b8bdfecb74558ade2a4ad5489d42a58014a19522d47": {
+      "reference_date": "2022-12-08",
+      "value": "5.1. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6f6bd9fdd10eed8ad410b19c3e4abdb398dc4963fcf36da55831767de3a4d603"
+      ]
+    },
+    "a111952be3d3c0c935fe07f4bfac978c322458826a4820c8a12b89f565e913ba": {
+      "reference_date": "2021-06-10",
+      "value": "5.1. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de Elegibilidade”): (i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão; (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "32c6ae64250cbf2309ae8f1781d1ceebfe9cb910713dcb10d64b1e1b192b6f2b"
+      ]
     }
   },
   "passages": {
@@ -4324,18 +4294,6 @@
       "sha256": "66f2a2b4549ae8a1041ad5a1dbe1e2389a224df9d6f9a17195dc6d5a93a97606",
       "verification": "primary_passage"
     },
-    "7175f399bbf4298439a3aaf7e11a6b289b39cc5f2b93b9b35d93610caf0b7d39": {
-      "document_id": "624772",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624772",
-      "reference_date": "2024-03-21",
-      "version": "1",
-      "page": 55,
-      "clause": "8.6.2",
-      "excerpt": "8.6.2. O Custodiante poderá contratar, sem prejuízo de sua responsabilidade,  terceiro para realizar a verificação do lastro dos Direitos Creditórios Adquiridos, desde  que não seja o originador dos Direitos Creditórios Adquiridos, os Cedentes, a Gestora  e eventual consultor especializado contratado pela Administradora para atuar no  âmbito do Fundo, e demais partes relacionadas ao Fundo, tal como definido pelas  regras contábeis que tratam deste assunto e respeitados os termos do Artigo 5.2.3  acima. As irregularidades apontadas nesta auditoria serão informadas à  Administradora, ao auditor independente e aos Cotistas.",
-      "sha256": "44125117e86356c3876f48501c2d6bd876234af3c7bab0b1a73a5f8b6f05b092",
-      "verification": "primary_passage"
-    },
     "4533081f55bcfa7a62396152ccc8c1064d3544e94184ab8b63be18e50a790b2b": {
       "document_id": "1337960",
       "title": "Regulamento",
@@ -4349,18 +4307,6 @@
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 1337960 | 01/10/2026 | regulamento | p. 19; 3.5.1–3.5.2 | data/raw/38376526000143/1337960_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960"
     },
-    "e2e893208c109444e8ed4185456cc664efa7c62a22d474fc7fcd0a1a43848816": {
-      "document_id": "180260",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=180260",
-      "reference_date": "2020-08-27",
-      "version": "1",
-      "page": 14,
-      "clause": "",
-      "excerpt": "Artigo 44 - Somente poderão integrar a Carteira do Fundo, Direitos Creditórios que tenham sido previamente selecionados e recomendados pelo ADMINISTRADOR. Os Direitos Creditórios deverão representar, na data de aquisição e pagamento, obrigação de Devedores que sejam pessoas físicas ou jurídicas com inscrição ativa, no cadastro de pessoa física (CPF) ou no cadastro nacional da pessoa jurídica (CNPJ), respectivamente (“Critérios de Elegibilidade”).",
-      "sha256": "e046cf950cbf1567bbe7c70390281d4f7c57a07f02d9e4ff06bb9afb5d515a54",
-      "verification": "primary_passage"
-    },
     "b476678ea17d057121c4fa76ae6a8e98a3096ff1b8d2e897ce68f334c767c69d": {
       "document_id": "1072072",
       "title": "Demonstrações Financeiras",
@@ -4371,18 +4317,6 @@
       "clause": "",
       "excerpt": "Por meio de Instrumento Particular de Alteração de 02 de julho de 2025 foram deliberadas:\n(i) Alteração da Razão Social do Fundo para \"Hotfund Fundo de Investimento em Direitos  Creditórios Segmento Meios de Pagamento de Responsabilidade Limitada”.\n(ii) Reforma Integral do Regulamento, incluindo a mudança nos critérios de elegibilidade e  condições de cessão de direitos creditórios.\n(iii) Aprovação da celebração do Segundo Aditamento ao Instrumento Particular de  Promessa de Cessão para incorporar as alterações do Regulamento.\n(iv) Autorização à Administradora e ao Gestor para tomar as medidas necessárias para  implementar o aprovado, e dispensa da Administradora do envio do resumo das  deliberações.",
       "sha256": "c1ed36e170a8f74e05eeca84a7f1d0df275456ce12ec7badde8820ecbece3506",
-      "verification": "primary_passage"
-    },
-    "e66a265c55f30b16513a1b8845eb06b643a923c32a7e29caf6e8be394170add0": {
-      "document_id": "624769",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624769",
-      "reference_date": "2024-03-21",
-      "version": "1",
-      "page": 5,
-      "clause": "",
-      "excerpt": "“3.1.1. A Hotmart, na qualidade de representante dos Cedentes, em determinado  dia (“Data de Oferta”), ofertará os Direitos Creditórios ao Fundo que, em seu  entendimento, atendem aos Critérios de Elegibilidade, identificando, de forma  agregada, no Sistema Hotpay, cujo acesso é outorgado à Administradora e à  Custodiante, as seguintes informações (i) representante do Cedente; (ii) valor  de face; (iii) Preço de Aquisição; (iv) Data de Pagamento do Preço de Aquisição;\n (v) número de identificação de referência junto ao Sistema Hotpay que: (a)  permita a identificação da Transação de Pagamento de forma unitária e  individualizada e (b) que seja suficiente para identificação da Transação de  Pagamento do respectivo código de autorização da Transação de Pagamento  junto à Credenciadora da Operação (NSU); e (vi) data de vencimento aplicável  com base no prazo de liquidação definido no respectivo Arranjo de Pagamento,  observando-se, para a cessão dos Direitos Creditórios, os seguintes  procedimentos, os quais deverão ser realizados de forma sequencial  (“Processamento da Oferta”):",
-      "sha256": "ea2546a11e27e03744d3e1d0dfd7104dc66ef5a6757762d5df2cf98255286f6a",
       "verification": "primary_passage"
     },
     "e4ba9668169c152d78012210367d73f042bc22080b6b0cbef057f29ae2a8cbbc": {
@@ -4443,18 +4377,6 @@
       "clause": "3.10",
       "excerpt": "3.10. A Classe somente poderá adquirir Direitos Creditórios que atendam, nas respectivas datas  de aquisição, individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade:\n(i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos Cedentes  para venda, por meio de qualquer canal de comunicação disponibilizado pela Hotmart,  sendo certo que a Hotmart representará os respectivos Cedentes para fins da cessão;\n (ii) os Direitos Creditórios deverão ser provenientes de Transações de Pagamento  realizadas por Usuários Compradores utilizando-se de Instrumentos de Pagamento  operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou outros  conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e\n (iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional (“Critérios  de Elegibilidade”).",
       "sha256": "66f2a2b4549ae8a1041ad5a1dbe1e2389a224df9d6f9a17195dc6d5a93a97606",
-      "verification": "primary_passage"
-    },
-    "22eaded7c8a59d161b46e0e2d79937a711ba8d8cf74494f091a7a4b532325729": {
-      "document_id": "624772",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624772",
-      "reference_date": "2024-03-21",
-      "version": "1",
-      "page": 32,
-      "clause": "5.1",
-      "excerpt": "5.1. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos  Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de  forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de  Elegibilidade”):\n(i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos  Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela  Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da  cessão;\n(ii) os Direitos Creditórios deverão ser provenientes de Transações de  Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de  Pagamento operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou  outros conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e\n(iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional.",
-      "sha256": "44125117e86356c3876f48501c2d6bd876234af3c7bab0b1a73a5f8b6f05b092",
       "verification": "primary_passage"
     },
     "6f6bd9fdd10eed8ad410b19c3e4abdb398dc4963fcf36da55831767de3a4d603": {
@@ -8558,6 +8480,19 @@
       "excerpt": "Cedentes decorrentes de Transações de Pagamento realizadas por Usuários Compradores com  Cartão, à vista ou parceladas, operacionalizada pelo Sistema Hotpay no âmbito do respectivo  Arranjo de Pagamento, conforme descrição a seguir:\n(i) os Produtores, de tempos em tempos, realizam a venda de cursos e/ou outros conteúdos a  Usuários Compradores, os quais podem utilizar Instrumentos de Pagamento de qualquer  Bandeira e Emissor, aceitos pelo Sistema Hotpay, gerando, assim, Transações de Pagamentos,  com o processamento das Transações de Pagamento integralmente no momento da compra;\n(ii) de acordo com a regulamentação vigente, referidas Transações de Pagamento geram múltiplas  relações de crédito, sendo a mais relevante para fins da operação da Classe o crédito do Produtor  em face da Subcredenciadora (i.e., Hotmart), os Direitos Creditórios; e; e\n(iii) a Classe, portanto, irá adquirir dos Produtores os Direitos Creditórios Cartões detidos por tais  Produtores em face da Hotmart.\n Os Direitos Creditórios Recebíveis a Prazo são originados do pagamento devidos por Usuários  Compradores decorrentes da compra a prazo de cursos e/ou outros conteúdos oferecidos pelos  Produtores na Plataforma Hotmart e cujas Transações de Pagamento são operacionalizadas em  parcelas mensais e não no valor total no momento da compra, conforme descrição a seguir:\n(i) os Produtores, de tempos em tempos, realizam a venda de cursos e/ou outros conteúdos a  Usuários Compradores, os quais podem utilizar a opção de compra parcelada, com o  processamento das Transações de Pagamento mensalmente e não integralmente no momento  da compra;\n (ii) de acordo com os Termos de Aceite, a Hotmart atua como Agente de Recebimento de tais  Direitos Creditórios Recebíveis a Prazo, recebendo os pagamentos dos Usuários Compradores e  transferindo-os, na respectiva data de vencimento, aos Produtores ou, se cedidos à Classe, à  Conta Bancária da Classe;\n (iii) a cessão dos Direitos Creditórios Recebíveis a Prazo à Classe é feita com coobrigação, de forma  que o Cedente é responsável pela solvência dos Direitos Creditórios Recebíveis a Prazo até o  limite da Parcela Retida do Preço de Aquisição. Respeitadas as disposições das Condições Gerais  de Cessão, a Classe paga parcela do Preço de Aquisição à vista, devendo realizar o pagamento da  Parcela Retida do Preço de Aquisição na medida em que os Direitos Creditórios Recebíveis a  Prazo forem liquidados pelos Devedores dos Direitos Creditórios Recebíveis a Prazo. Em caso de  inadimplência dos Direitos Creditórios Recebíveis a Prazo, fica a Classe autorizada a realizar a  Compensação dos valores devidos pelo Cedente à Classe em razão da coobrigação, contra os  montantes devidos pela Classe ao Cedente em razão da Parcela Retida do Preço de Aquisição;\n (iv) nos termos das Condições Gerais de Cessão, os Direitos Creditórios Recebíveis a Prazo cedidos à  Classe serão objeto de Fiança prestada pela Hotmart, caso a Hotmart não exerça Opção de  Compra Hotmart dos Direitos Creditórios; e\n (v) a Classe, portanto, irá adquirir dos Produtores os Direitos Creditórios Recebíveis a Prazo detidos  por tais Produtores em face dos Usuários Compradores, os quais são objeto de cessão com  coobrigação e, em caso de inadimplemento, podem ser objeto de Compensação até o limite da  Parcela Retida do Preço de Aquisição, sendo também garantidos pela Fiança da Hotmart, caso  não sejam objeto de exercício da Opção de Compra Hotmart.\n O “Sistema Hotpay” significa o serviço oferecido pela Hotmart para processamento das  instruções de pagamento realizadas pelos usuários finais e sua liquidação para os Produtores e  afiliados, que permite ao usuário final e/ou ao Produtor que: (i) pague pela compra de produtos  cadastrados na Plataforma Hotmart, se for Usuário Hotmart; (ii) receba os valores relativos à  comercialização de seus produtos, se for Produtor; (iii) pague aos afiliados os valores devidos  pela divulgação de produtos, se for Produtor; (iv) receba os valores relativos à divulgação de  produtos, se for afiliado; e (v) compre produtos utilizando o saldo da conta de pagamento na  Hotmart.",
       "sha256": "c1ed36e170a8f74e05eeca84a7f1d0df275456ce12ec7badde8820ecbece3506",
       "verification": "primary_passage"
+    },
+    "e7622e01575b91c36ffef4fff68ea84156a6b43e412cbcdfe705e275ff90f36b": {
+      "document_id": "624772",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624772",
+      "reference_date": "2024-03-21",
+      "version": "1",
+      "page": 32,
+      "clause": "5.1",
+      "excerpt": "5.1. Critérios de Elegibilidade. O Fundo somente poderá adquirir Direitos  Creditórios que atendam, nas respectivas datas de aquisição, individualmente e de  forma cumulativa, aos seguintes critérios de elegibilidade (“Critérios de  Elegibilidade”):\n(i) os Direitos Creditórios deverão ser colocados à disposição pelos respectivos  Cedentes para venda, por meio de qualquer canal de comunicação disponibilizado pela  Hotmart, sendo certo que a Hotmart representará os respectivos Cedentes para fins da  cessão;\n(ii) os Direitos Creditórios deverão ser provenientes de Transações de  Pagamento realizadas por Usuários Compradores utilizando-se de Instrumentos de  Pagamento operacionalizados pelo Sistema Hotpay para a aquisição de cursos e/ou  outros conteúdos ofertados pelos respectivos Cedentes (i.e., Produtores); e\n(iii) os Direitos Creditórios deverão ser expressos em moeda corrente nacional.\n5.1.1. Inobservância dos Critérios de Elegibilidade. Na hipótese de os Direitos  Creditórios Elegíveis deixarem de observar os respectivos Critérios de Elegibilidade  acima descritos após a sua respectiva aquisição pelo Fundo e verificação pelo  Custodiante, não haverá, por parte dos Cotistas, direito de regresso contra a  Administradora, a Gestora, o Custodiante e/ou os Cedentes, salvo na existência de  comprovada má-fé ou dolo das partes e observado o disposto nas Condições Gerais  de Cessão, conforme o caso.",
+      "sha256": "44125117e86356c3876f48501c2d6bd876234af3c7bab0b1a73a5f8b6f05b092",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

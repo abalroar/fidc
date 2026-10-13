@@ -3,13 +3,6 @@
   "cnpj": "65836995000170",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "2e1a12426389f5393240395f512d4b86bb88a97966351562b7729eac68b1b938",
-      "d3de0f4f7c2588c1e1e52cee7180aa924f7508788b2f80724735d40bc8da6bc7",
-      "54cda313fcd17fb072231b3961a9698d5c027be62c368bfac0c1941aae8ed88a",
-      "ab8ed285dfb649eb8e8b8db74ba5e3d38d42afe4c107cba14202fafe4fb7d72d",
-      "a4ce8edef3d6bd055946c88414f7f13aee9b60e6f15796c03da85509311f076f"
-    ],
     "term": [
       "46481c07901dbb9845e9bc67fca79e630de90863d91c9c457bb17ba3bff9005c",
       "048b45a00816cd62679673282ebd7b1267d4023321df297d20c28c792d3965e1",
@@ -270,20 +263,6 @@
     "quota_grace": [
       "05dda608b53485717da0e2080f0f9783718980a6e89182214f8bb075715a50b5"
     ],
-    "originator": [
-      "cae9b30c93928e3f0c0998ac2b748e473d5d06a865e4f61987a6d45487326985",
-      "0105f3fa6c1b13e7854626c7820becc271034538f3bde4555a2e8802b0286118",
-      "6fc48f20f4bffe0ba366a0be584cb00822818b3f326545f926916a179a0d848d",
-      "fe2cea13d30bccc1ccdf8f68ae4a9ba4ccaefcdbf3fefdd927154b1d90a16655",
-      "64e6b7a90d037a0cb33a058300a70ec081a710e942c6dfa53d4fd4e26b4de41a"
-    ],
-    "debtor": [
-      "a2a103c231251257aedafad5c51adde91b8bc64cbc57e54ace03e929f31e1e63",
-      "3f640fadca1dd3c86d12de9d7d99a1416bad6b57dbebb0d5f074055ab8513066",
-      "17c7b6e1c86353747eaf6abfec62f8074b52ab447c3bf801c0aa309f87648caa",
-      "000f85dd8406be52f597d2a080e35278e066f6cef7fcbcbbee2113a7c11f513f",
-      "b23b35c2a92819193e2f9516671ad3e0f105ae7e93cd8227bab9e27c64133788"
-    ],
     "investee": [
       "88271f4c88babd50faced0afa95f53ed4d7ccf21cdc4a848e9b85042876188e9",
       "c8c112804a2f957a88b5a8026602b5a544d4bc4ecf8ece6ea53216ee7c8281b4",
@@ -309,6 +288,28 @@
       "920a4dea1a1a580a7793052b474f7455fbb5ccefb96108dea34607e7abad417e",
       "86207ab092bd2d4afa59897f5884c73976943a3bac455814b418e9f2b47f3a60",
       "6e5c843e6ad47be2731e2be8d132f5dae93b2ad656a4466bcb03bb23e456e55a"
+    ],
+    "originator": [
+      "cae9b30c93928e3f0c0998ac2b748e473d5d06a865e4f61987a6d45487326985",
+      "0105f3fa6c1b13e7854626c7820becc271034538f3bde4555a2e8802b0286118",
+      "6fc48f20f4bffe0ba366a0be584cb00822818b3f326545f926916a179a0d848d",
+      "fe2cea13d30bccc1ccdf8f68ae4a9ba4ccaefcdbf3fefdd927154b1d90a16655",
+      "64e6b7a90d037a0cb33a058300a70ec081a710e942c6dfa53d4fd4e26b4de41a"
+    ],
+    "eligibility": [
+      "2e1a12426389f5393240395f512d4b86bb88a97966351562b7729eac68b1b938",
+      "0cea022accf030298ba623e688ce93ba36cf93b68dfd3f4cfdb24e7c2412afe8",
+      "e7829bc691c9c6f5582542758d980dda36bd47949477960170af8cb2cd8ac7fe",
+      "2127a8608f2cc61b3747a5241bfa6c646b650f6285f6274a7115ff4afb8bb502",
+      "096d57f0313666ce18a2fa49d3a31aa824843279acaa55f3a27517a8abf8f4f8"
+    ],
+    "debtor": [
+      "a2a103c231251257aedafad5c51adde91b8bc64cbc57e54ace03e929f31e1e63",
+      "3a54a8e2d99bcbb97d3eab9ec38fcce7923f161e7712faaa233db3897af854d1",
+      "11971c85e0e64a3117b434719223e9057a4a649af1260dbed6c7b836ec0db544",
+      "891469a0d9ba9bf8cfbbe4013c78df47b90385f743bdce571e39daadbfc9b9f2",
+      "b01176a886c49942ea2b7a37a9ff455fdd9cf7cd7e6e18369438f733b2845316",
+      "34d2d091ac33baa5336c068dd937591935966e0beb4cf04d3bdf590280c4fe95"
     ]
   },
   "entries": {
@@ -411,42 +412,6 @@
       "risk_note": "Transferência do FIDC I tem exceções próprias; validar lastro e dispensas no contrato específico.",
       "sources": [
         "11341cb2afb2eb0ccb3b5642646123c142a8e44059adf3c06ddeb9c6d65be641"
-      ]
-    },
-    "d3de0f4f7c2588c1e1e52cee7180aa924f7508788b2f80724735d40bc8da6bc7": {
-      "reference_date": "2026-09-14",
-      "value": "8.1 Observado o disposto no item 8.1.1 abaixo, os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "af122df332072952e96e1c5d72ec496aa2b7cd1252fe3aff2e0d31c7a32c85ca"
-      ]
-    },
-    "54cda313fcd17fb072231b3961a9698d5c027be62c368bfac0c1941aae8ed88a": {
-      "reference_date": "2026-05-07",
-      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0756317338c03f70bd1e745d75674e7419b1754e073004a617f06db0afc366da"
-      ]
-    },
-    "ab8ed285dfb649eb8e8b8db74ba5e3d38d42afe4c107cba14202fafe4fb7d72d": {
-      "reference_date": "2026-05-07",
-      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cd8232d08a7c2610e08e5c50da752cc8f3dccb4620d3cdfd5777504e94ec7b34"
-      ]
-    },
-    "a4ce8edef3d6bd055946c88414f7f13aee9b60e6f15796c03da85509311f076f": {
-      "reference_date": "2026-04-30",
-      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1067bbc38ddfdc2b58be45f21c71127664512f8b2e6b05277c40d0c698cd55fa"
       ]
     },
     "46481c07901dbb9845e9bc67fca79e630de90863d91c9c457bb17ba3bff9005c": {
@@ -2002,6 +1967,87 @@
       "provenance": "primary_passage",
       "sources": [
         "d20eef53b6d1c00a4ab729a4e0d39ecc6fe96430094b0e11d58fc234cd635c6d"
+      ]
+    },
+    "0cea022accf030298ba623e688ce93ba36cf93b68dfd3f4cfdb24e7c2412afe8": {
+      "reference_date": "2026-09-14",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d16602deed16b129333b0ac54916a2eecb25af0388eb8b53c893353de59463bf"
+      ]
+    },
+    "e7829bc691c9c6f5582542758d980dda36bd47949477960170af8cb2cd8ac7fe": {
+      "reference_date": "2026-05-07",
+      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e Pagamento; (iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe; (v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento; e (ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar observados. 31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do Agente de Formalização, nos termos da Resolução CVM 175.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3a17b8530283b9aabb9f50bb984519253890754580a0bbcb454aa0d28075e6ab"
+      ]
+    },
+    "2127a8608f2cc61b3747a5241bfa6c646b650f6285f6274a7115ff4afb8bb502": {
+      "reference_date": "2026-05-07",
+      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e Pagamento; (iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe; (v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento; e (ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar observados. 31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do Agente de Formalização, nos termos da Resolução CVM 175.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b5b3a736ab939bfca3effdccd3a95fa6cab372d138f19257813f4720852f8175"
+      ]
+    },
+    "096d57f0313666ce18a2fa49d3a31aa824843279acaa55f3a27517a8abf8f4f8": {
+      "reference_date": "2026-04-30",
+      "value": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para este fim, pelo Gestor: (i) não poderão estar com parcelas vencidas e devem possuir valor fixo e determinado; (ii) deverão ser representados em moeda corrente nacional; (iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e Pagamento; (iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe; (v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de Subordinação estejam enquadrados; (vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do Patrimônio Líquido por Grupo Econômico dos Devedores; (vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias anterior da data de Resgate da série de Cotas Seniores mais longa; (viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma, deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento; e (ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar observados. 31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do Agente de Formalização, nos termos da Resolução CVM 175.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8e029b90c2567598d91dab67814d4c6a3fdd7aee7da992807ca44cd7ce923659"
+      ]
+    },
+    "3a54a8e2d99bcbb97d3eab9ec38fcce7923f161e7712faaa233db3897af854d1": {
+      "reference_date": "2026-09-14",
+      "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "47dfb0b776005c9cd9d1187d475729b20936acb83cbf88ecf509b391e3e04c8f"
+      ]
+    },
+    "11971c85e0e64a3117b434719223e9057a4a649af1260dbed6c7b836ec0db544": {
+      "reference_date": "2026-05-07",
+      "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "54192696fed025f76854a58eec70effc36d4b3d080121894050e11ee5a13f3e9"
+      ]
+    },
+    "891469a0d9ba9bf8cfbbe4013c78df47b90385f743bdce571e39daadbfc9b9f2": {
+      "reference_date": "2026-05-07",
+      "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bded138c062cd2589f27fcdd108cfcde168936cebd746f110dd6c58ed3eb9841"
+      ]
+    },
+    "b01176a886c49942ea2b7a37a9ff455fdd9cf7cd7e6e18369438f733b2845316": {
+      "reference_date": "2026-04-30",
+      "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0519e5fab66dece45ad408ef53a29c7af70bb350cfc77e8365503a370d191d58"
+      ]
+    },
+    "34d2d091ac33baa5336c068dd937591935966e0beb4cf04d3bdf590280c4fe95": {
+      "reference_date": "2026-09-14",
+      "value": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que tenham estabelecido relação de consumo dos Direitos Creditórios com as Cedentes.",
+      "assessment": "Reextração anterior corrigida: a prova positiva de contraparte foi relida; passagem incidental sobre serviços, documentação ou risco não identifica o devedor e foi arquivada.",
+      "provenance": "verified_override_relevance_correction",
+      "sources": [
+        "5c83d7e56b184cfcf113555ddfab6966711d9dc2f6715a75ee05aa433088be94"
       ]
     }
   },
@@ -3857,6 +3903,118 @@
       "clause": "",
       "excerpt": "“Gestor” Significa a ANGÁ ADMINISTRAÇÃO DE  RECURSOS LTDA., sociedade limitada com sede na  Cidade de São Paulo, Estado de São Paulo, na Av.\n Magalhães de Castro, nº 4.800, 17° andar, conjunto  174, CEP 05676-120, Cidade Jardim, inscrita no  CNPJ sob o nº 09.452.272/0001-05, devidamente  credenciada como administradora de carteira de  valores mobiliários pela CVM pelo Ato Declaratório nº\n 9.837, de 14 de agosto de 2008, que presta serviço  de gestão da carteira de Ativos do Fundo.",
       "sha256": "ccb722ed9b27bcfc0387ee368535de3773cd6d52b93563dfe1265a15af10fa5b",
+      "verification": "primary_passage"
+    },
+    "d16602deed16b129333b0ac54916a2eecb25af0388eb8b53c893353de59463bf": {
+      "document_id": "1320162",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+      "reference_date": "2026-09-14",
+      "version": "1",
+      "page": "60–61",
+      "clause": "8.1",
+      "excerpt": "8.1 Observado o disposto no item 8.1.1 abaixo, os Direitos Creditórios somente poderão ser  adquiridos pela Classe, na respectiva Data de Aquisição e Pagamento, caso atendam,  cumulativamente, aos seguintes Critérios de Elegibilidade, conforme validados,  diretamente ou por meio de empresa contratada para este fim, pelo Gestor:\n(i) não poderão estar com parcelas vencidas;\n(ii) devem possuir valor fixo e determinado;\n(iii) deverão ser representados em moeda corrente nacional;\n(iv) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e  Pagamento;\n(v) não poderão ser devidos por Devedor que esteja inadimplente com a Classe há  mais de 1 (um) dia corrido;\n(vi) a aquisição do Direito Creditório somente ocorrerá caso os Índices de  Subordinação estejam enquadrados;\n(vii) deverão se enquadrar nos limites de concentração de até 1% (um por cento) do  Patrimônio Líquido por Grupo Econômico dos Devedores;\n(viii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias  anterior da data de Resgate da série de Cotas Seniores mais longa;\n(ix) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma,  deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição  e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco  inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo  máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;\n e\n(x) considerando pro forma a aquisição dos Direitos Creditórios, o Índice de Liquidez  Sênior, o Índice de Liquidez Mezanino A e o Índice de Liquidez Mezanino B  deverão estar observados.\n8.1.1 Em relação exclusivamente à cessão dos Direitos Creditórios FIDC I, nos termos  do Contrato de Cessão FIDC I, a ser realizada pelo Cedente FIDC I ao Fundo, os  Critérios de Elegibilidade (i), (iv), (v), (vi) e (x) não serão aplicáveis, conforme  aprovado em assembleia geral de cotistas do Fundo.\n8.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação  dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do  Agente de Formalização, nos termos da Resolução CVM 175.\n8.1.3 O Critério de Elegibilidade previsto no item (vii) da Cláusula 8.1 acima será  verificado exclusivamente mediante declaração de quaisquer das Cedentes no  respectivo Contrato de Cessão ou no Contrato de Cessão FIDC I, conforme o  caso, e, para fins de verificação, as Cedentes se obrigam a, individualmente,  enviar ao Gestor as informações referentes aos respectivos Grupos Econômicos  de cada Devedor, conforme previsto no Contrato de Cessão ou no Contrato de  Cessão FIDC I, conforme o caso.\n8.1.4 Observados os termos e as condições do presente Regulamento, a verificação  do atendimento aos Critérios de Elegibilidade será considerada definitiva.\n8.1.5 Sem prejuízo do disposto acima quanto a cessão dos Direitos Creditórios FIDC I,  o desenquadramento de qualquer Direito Creditório a quaisquer Critérios de  Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a  sua alienação pela Classe, nem dará à Classe qualquer pretensão, recurso ou  direito de regresso em face das Cedentes, do Administrador, do Gestor, de seus  respectivos controladores, das sociedades por elas direta ou indiretamente  controladas, coligadas ou outras sociedades sob controle comum.",
+      "sha256": "c623224691787a727e989b69a4f97ce1ca151c20362c1a6e935d8d0c66f65c2a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "3a17b8530283b9aabb9f50bb984519253890754580a0bbcb454aa0d28075e6ab": {
+      "document_id": "1182214",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+      "reference_date": "2026-05-07",
+      "version": "1",
+      "page": 66,
+      "clause": "31.1",
+      "excerpt": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para  este fim, pelo Gestor:\n(i) não poderão estar com parcelas vencidas e devem possuir valor fixo e  determinado;\n(ii) deverão ser representados em moeda corrente nacional;\n(iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e  Pagamento;\n(iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe;\n(v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de  Subordinação estejam enquadrados;\n(vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do  Patrimônio Líquido por Grupo Econômico dos Devedores;\n(vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias  anterior da data de Resgate da série de Cotas Seniores mais longa;\n(viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma,  deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição  e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco  inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo  máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;\n e\n(ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar  observados.\n31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação  dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do  Agente de Formalização, nos termos da Resolução CVM 175.",
+      "sha256": "a6fb7d15e6eff46ad0559e58d6fc7e5d2be3d4074095160efc17d6743715cc1c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b5b3a736ab939bfca3effdccd3a95fa6cab372d138f19257813f4720852f8175": {
+      "document_id": "1184844",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1184844",
+      "reference_date": "2026-05-07",
+      "version": "2",
+      "page": 66,
+      "clause": "31.1",
+      "excerpt": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para  este fim, pelo Gestor:\n(i) não poderão estar com parcelas vencidas e devem possuir valor fixo e  determinado;\n(ii) deverão ser representados em moeda corrente nacional;\n(iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e  Pagamento;\n(iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe;\n(v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de  Subordinação estejam enquadrados;\n(vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do  Patrimônio Líquido por Grupo Econômico dos Devedores;\n(vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias  anterior da data de Resgate da série de Cotas Seniores mais longa;\n(viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma,  deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição  e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco  inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo  máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;\n e\n(ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar  observados.\n31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação  dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do  Agente de Formalização, nos termos da Resolução CVM 175.",
+      "sha256": "a6fb7d15e6eff46ad0559e58d6fc7e5d2be3d4074095160efc17d6743715cc1c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "8e029b90c2567598d91dab67814d4c6a3fdd7aee7da992807ca44cd7ce923659": {
+      "document_id": "1178986",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+      "reference_date": "2026-04-30",
+      "version": "1",
+      "page": 55,
+      "clause": "31.1",
+      "excerpt": "31.1 Os Direitos Creditórios somente poderão ser adquiridos pela Classe, na respectiva Data  de Aquisição e Pagamento, caso atendam, cumulativamente, aos seguintes Critérios de  Elegibilidade, conforme validados, diretamente ou por meio de empresa contratada para  este fim, pelo Gestor:\n(i) não poderão estar com parcelas vencidas e devem possuir valor fixo e  determinado;\n(ii) deverão ser representados em moeda corrente nacional;\n(iii) não deverão ter prazo de vencimento inferior da respectiva Data de Aquisição e  Pagamento;\n(iv) não poderão ser devidos por Devedor que esteja inadimplente com a Classe;\n(v) a aquisição do Direito Creditório somente ocorrerá caso os Índices de  Subordinação estejam enquadrados;\n(vi) deverão se enquadrar nos limites de concentração de até 2% (dois por cento) do  Patrimônio Líquido por Grupo Econômico dos Devedores;\n(vii) a data de vencimento dos Direitos Creditórios deverá ser de até 15 (quinze) dias  anterior da data de Resgate da série de Cotas Seniores mais longa;\n(viii) o prazo médio máximo da carteira de Direitos Creditórios cedidos, pró forma,  deverá ser, no máximo, de 120 (cento e vinte) dias contados da Data de Aquisição  e Pagamento, salvo Direitos Creditórios que representem até 5,00% (cinco  inteiros por cento) do Patrimônio Líquido do Fundo, os quais deverão ter prazo  máximo de até 300 (trezentos) dias contados da Data de Aquisição e Pagamento;\n e\n(ix) o Índice de Liquidez Sênior e o Índice de Liquidez Mezanino deverão estar  observados.\n31.1.2 O Gestor poderá contratar o Agente de Formalização para realizar a verificação  dos Critérios de Elegibilidade acima elencado e deverá fiscalizar as atividades do  Agente de Formalização, nos termos da Resolução CVM 175.",
+      "sha256": "ccb722ed9b27bcfc0387ee368535de3773cd6d52b93563dfe1265a15af10fa5b",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "47dfb0b776005c9cd9d1187d475729b20936acb83cbf88ecf509b391e3e04c8f": {
+      "document_id": "1320162",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1320162",
+      "reference_date": "2026-09-14",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que  tenham estabelecido relação de consumo dos Direitos Creditórios com as  Cedentes.",
+      "sha256": "c623224691787a727e989b69a4f97ce1ca151c20362c1a6e935d8d0c66f65c2a",
+      "verification": "primary_passage"
+    },
+    "54192696fed025f76854a58eec70effc36d4b3d080121894050e11ee5a13f3e9": {
+      "document_id": "1182214",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1182214",
+      "reference_date": "2026-05-07",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas  ou jurídicas, que tenham estabelecido relação de  consumo dos Direitos Creditórios com as Cedentes.",
+      "sha256": "a6fb7d15e6eff46ad0559e58d6fc7e5d2be3d4074095160efc17d6743715cc1c",
+      "verification": "primary_passage"
+    },
+    "bded138c062cd2589f27fcdd108cfcde168936cebd746f110dd6c58ed3eb9841": {
+      "document_id": "1184844",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1184844",
+      "reference_date": "2026-05-07",
+      "version": "2",
+      "page": 18,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas  ou jurídicas, que tenham estabelecido relação de  consumo dos Direitos Creditórios com as Cedentes.",
+      "sha256": "a6fb7d15e6eff46ad0559e58d6fc7e5d2be3d4074095160efc17d6743715cc1c",
+      "verification": "primary_passage"
+    },
+    "0519e5fab66dece45ad408ef53a29c7af70bb350cfc77e8365503a370d191d58": {
+      "document_id": "1178986",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1178986",
+      "reference_date": "2026-04-30",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas  ou jurídicas, que tenham estabelecido relação de  consumo dos Direitos Creditórios com as Cedentes.",
+      "sha256": "ccb722ed9b27bcfc0387ee368535de3773cd6d52b93563dfe1265a15af10fa5b",
+      "verification": "primary_passage"
+    },
+    "5c83d7e56b184cfcf113555ddfab6966711d9dc2f6715a75ee05aa433088be94": {
+      "document_id": "1322406",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322406",
+      "reference_date": "2026-09-14",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "“Devedores” Significam os devedores (sacados), pessoas físicas ou jurídicas, que  tenham estabelecido relação de consumo dos Direitos Creditórios com as  Cedentes.",
+      "sha256": "8f2487707a400c6f3d1916142c2ed23d6fde2d2dcc19d3c28d5349b9cb42c43d",
       "verification": "primary_passage"
     }
   }

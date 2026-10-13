@@ -3,15 +3,6 @@
   "cnpj": "47240785000133",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "79bfff688edd94d669eaba4b2265dd6cdb67e258f5e5e8b1a276d38d37ed5c69",
-      "6dcc610be036df1a1d0a6a31a90346eaf35240df2d9e98b183e399d326ac6b60",
-      "f81ecfad4f10fcfac63eb571fc8daa04122ae140e2727bf5840e20e4be608f3a",
-      "3a4063aa4ba5abd9857b9e662dc6c719055c60d95f9020453534917fcd878ae5",
-      "2d183dbca82b61b3f8998d2ade841bbad92cf089ff9c39535780bc04c8eca1de",
-      "6b8135d117ccf13f0acb3c9e2021d659668afa281c43aa9dc24060e02132b3b2",
-      "b4ea336defc86fe02f92fbaf896cc6bf15dfa015e54a37c34c501817a52dba7d"
-    ],
     "ticket": [
       "5e17461208aa9234427b03d1dc914f4624aa2dd1328ff94e6348565c3b811b6d",
       "49680491d2fcd372df1b5d3187226ec5825822ce14a2d507c8b403eaca59a8c5",
@@ -236,25 +227,6 @@
       "590e9a437354364d1895158f932158e61f40e9b2d727389ed35797e5eaca7979",
       "ed828291e4c82cc8b61feeb1da8604f404ffbc778d6cfe4248a13f06cf150c33"
     ],
-    "originator": [
-      "4a666cc18c1f050d3124a13cd4b3fd27f2ff8eb0de64bc7ea2ad7cdb4bb6fb86",
-      "ad1f8597b8c0721768647339a05596a467af0ee45a73a21ceba6094cacc921a8",
-      "88a80eb7d4fd9ddad2e5459fd9ba6ed7a1d717fdbfba80646ed4c801dc0e0820",
-      "f1c77e5f03d77fd191f773ef30180e8d7ba47d61e65528fafef01c9a01536ba2",
-      "605b00a86a44c6b7f6505ab520302268c39d3619f5518d2f657c1b2f111c96b0",
-      "a192d2166aa84ecf6e603e18f5c9ff08f8a05c99aae55ae7a8e13b40f7953ac1",
-      "a0e16945633f1360e9d054f5c5685eaa9bff575006730921ea1c756bdd5e9109"
-    ],
-    "debtor": [
-      "1f3261a0ba7259cf01d1bb5485106f3a71574b6a01917bd9a62b8fd5af285591",
-      "1a64b2e1da075f71f5a937c2daf15491cca34cbb636ceea4a3688a79894e936d",
-      "eb64d7cbebd87d8afee5a0ef857cfd164f3064a03d8f5b6573ddf57e1e9accd3",
-      "68c78c0dacefcc4f78d8df235c852c56c395b51a8c1c9912f446977ec2ce6e9e",
-      "b0cc3f29b7c3ab31cb6f7ccc13aa051ae43520a722afa21432a3f73d44e2c5aa",
-      "f7c4b1376a18596a7ec8165dc9b354dcce3ef56b12b7f3b5f27de8871a3cd8e9",
-      "af290241c27fbe26272dd27aa0641d16332d8fe78d10d656c8ed160792bb117e",
-      "4d8fffbe08431930553a8d7806ca24a6066da66479d6deea209330abc5e9421a"
-    ],
     "investee": [
       "8692e8966bc620722d51e64e1b29a928ae3d8b7ea3965e7f90805076e8accb83"
     ],
@@ -290,6 +262,33 @@
       "9242dfc7f9d9b78b6f6c52412fe2e49034ba4b40f2b6c998834c554421b4f098",
       "3805ad9d8d46e6cf2f558bf3eda74ee7424f92ff4529fbc425d2f467a315c20e",
       "3f2be8adec467627206db47d0e4c64e2902fd6e6013a95bf227a3e6115bbe5ab"
+    ],
+    "originator": [
+      "340d9f8dcf3f678dc36c22bd9816b3adac7dc5c17d4c7d9f96bb44cf5c4fd2a1",
+      "ad1f8597b8c0721768647339a05596a467af0ee45a73a21ceba6094cacc921a8",
+      "d575aa47dadc3731233f2a6344784db9712ee9b9c26b7bdf54a1adedbde183ea",
+      "e148c210066fed8ffd575e58be36fa9586b460e3b984a61c7681a3b7e45c93a8",
+      "605b00a86a44c6b7f6505ab520302268c39d3619f5518d2f657c1b2f111c96b0",
+      "a192d2166aa84ecf6e603e18f5c9ff08f8a05c99aae55ae7a8e13b40f7953ac1",
+      "a0e16945633f1360e9d054f5c5685eaa9bff575006730921ea1c756bdd5e9109"
+    ],
+    "eligibility": [
+      "79bfff688edd94d669eaba4b2265dd6cdb67e258f5e5e8b1a276d38d37ed5c69",
+      "39c81089d4d877daeb6a246168c8751cc9af875dcaca12eb159ab1ba6650894a",
+      "fd55387d2cb8cac17c6645c9c7c95432a5d1fe2f3904745ce697dda9e7c9d11c",
+      "927b6664366aafbe22e73cf68c225f5e7e1442bfd4f29d31f796b9dde2917e85",
+      "bee0aed60add89c670eb5d5ebeb0b9e06dafad244b8b1e2b4430948924d2f6ed",
+      "56bcba61accc0e1d6b638bc8b8015e80709b54c9d97d746c015b828bf312fe14",
+      "b6e679eba3ab3948ca02cf583d7bc510ce801524683892919c275427af2acdf9"
+    ],
+    "debtor": [
+      "1f3261a0ba7259cf01d1bb5485106f3a71574b6a01917bd9a62b8fd5af285591",
+      "3128f268a9fcdbb98bb43bcb7c921a6744a5e1fbc5dffc0af10ecd912003974b",
+      "923f939a14959b58552cb16c1cdc23dd2a7fbfb689e151eaf7ea75807177c39f",
+      "68fa1b22500908ff32ce45bc28ddbcef948cbdff86d4144df56203641dfc84fa",
+      "f7c4b1376a18596a7ec8165dc9b354dcce3ef56b12b7f3b5f27de8871a3cd8e9",
+      "af290241c27fbe26272dd27aa0641d16332d8fe78d10d656c8ed160792bb117e",
+      "4d8fffbe08431930553a8d7806ca24a6066da66479d6deea209330abc5e9421a"
     ]
   },
   "entries": {
@@ -365,24 +364,6 @@
         "1f1666f7f2dca31b8dd3df475dce3c0c63c521c50acf82e28d97d65db2dca761"
       ]
     },
-    "88a80eb7d4fd9ddad2e5459fd9ba6ed7a1d717fdbfba80646ed4c801dc0e0820": {
-      "reference_date": "2023-09-29",
-      "value": "Os analistas utilizaram informações provenientes das seguintes fontes: Solfácil Energia Solar e Serviços Financeiros Ltda (Originador);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "09c446a5b9b924ae89fd28689fe2f3921873609d7fb7d65b0818902e1047a1ea"
-      ]
-    },
-    "f1c77e5f03d77fd191f773ef30180e8d7ba47d61e65528fafef01c9a01536ba2": {
-      "reference_date": "2023-06-30",
-      "value": "Os analistas utilizaram informações provenientes das seguintes fontes: Solfácil Energia Solar e Serviços Financeiros Ltda (Originador);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dc36c33197dc949a18d893ba06a37d9e7d551d01b837473322ed32d28c5225e4"
-      ]
-    },
     "605b00a86a44c6b7f6505ab520302268c39d3619f5518d2f657c1b2f111c96b0": {
       "reference_date": "2024-06-20",
       "value": "5.3. As Condições de Cessão elencadas no item 5.2, I a VIII, acima serão validadas pelo Gestor com base nas declarações e informações recebidas do Originador ou da Cedente, inclusive as constantes no Arquivo Remessa e nos respectivos termos de endosso.",
@@ -417,15 +398,6 @@
       "provenance": "primary_passage",
       "sources": [
         "7d552f2c8cab1b236f9763d695a5af921ae29d53c01dfe6885aea7dbac9bc9a4"
-      ]
-    },
-    "1a64b2e1da075f71f5a937c2daf15491cca34cbb636ceea4a3688a79894e936d": {
-      "reference_date": "2023-12-29",
-      "value": "INTENSIDADE MÉDIA EXPOSIÇÃO MÉDIA RISCO DE CRÉDITO E * Pulverização dos devedores tanto DE LIQUIDEZ DOS pessoa física quanto jurídica. ATIVOS * Presença de fundo de reserva de * Fundo de condomínio fechado. amortização e caixa. * Baixo nível de inadimplência. * Importante nível de subordinação das cotas.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5c648e730dc46f5263f9e696a4fdd71a0ff9bbbd46b13baa3fa1abb0779844f3"
       ]
     },
     "eb64d7cbebd87d8afee5a0ef857cfd164f3064a03d8f5b6573ddf57e1e9accd3": {
@@ -491,15 +463,6 @@
         "31121d7df66bc2adaeec096285aa41759bedddce5769bf2fce9aeef19adb8daf"
       ]
     },
-    "6dcc610be036df1a1d0a6a31a90346eaf35240df2d9e98b183e399d326ac6b60": {
-      "reference_date": "2024-06-28",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante na respectiva Data de Oferta: (i) considerada pro forma a cessão pretendida, o conjunto das CPR-Financeiras integrantes do patrimônio do Fundo deverá representar, no máximo, 15,0% do patrimônio líquido do Fundo;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7d552f2c8cab1b236f9763d695a5af921ae29d53c01dfe6885aea7dbac9bc9a4"
-      ]
-    },
     "f81ecfad4f10fcfac63eb571fc8daa04122ae140e2727bf5840e20e4be608f3a": {
       "reference_date": "2023-12-29",
       "value": "Atuam na estrutura de mitigadores os limites regulamentares quanto à concentração e composição da carteira, além das condições de cessão ao fundo e os critérios de elegibilidade dos direitos creditórios, como o limite de concentração de 2% do patrimônio por devedor entre outros.",
@@ -507,42 +470,6 @@
       "provenance": "primary_passage",
       "sources": [
         "943102d04b1669051058c7f51261d0a251c272e83f39eb960c0101116de9cb76"
-      ]
-    },
-    "3a4063aa4ba5abd9857b9e662dc6c719055c60d95f9020453534917fcd878ae5": {
-      "reference_date": "2023-11-30",
-      "value": "A Gestora será responsável por verificar e validar as condições de cessão a cada aquisição de direitos creditórios pelo Fundo. 17",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "cfea6bf3d4ee2b83232c50f95d56e7a81f7c156e14ad36d340fbeea7a567186e"
-      ]
-    },
-    "2d183dbca82b61b3f8998d2ade841bbad92cf089ff9c39535780bc04c8eca1de": {
-      "reference_date": "2024-06-20",
-      "value": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo, inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens, direitos e obrigações das Cotas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b16166516cb13b4f995c5435e9e897041650c71f737a5032a140b188ef4ffa3a"
-      ]
-    },
-    "6b8135d117ccf13f0acb3c9e2021d659668afa281c43aa9dc24060e02132b3b2": {
-      "reference_date": "2023-03-08",
-      "value": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo, inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens, direitos e obrigações das Cotas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b8d1af69cd585b1a7b44e9784027d7682cef5fe52068484f0d558d030c7cb4ee"
-      ]
-    },
-    "b4ea336defc86fe02f92fbaf896cc6bf15dfa015e54a37c34c501817a52dba7d": {
-      "reference_date": "2022-12-14",
-      "value": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo, inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens, direitos e obrigações das Cotas.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "68fd5989b4d196422b2271ea854efd763d4eb1eeb0beb521cc3e584ae944ecc4"
       ]
     },
     "5e17461208aa9234427b03d1dc914f4624aa2dd1328ff94e6348565c3b811b6d": {
@@ -1997,6 +1924,87 @@
       "sources": [
         "f2c6255c06573ac99c14dfa6c2e590be9eea23ad90cfc479e0ec14093aa18abf"
       ]
+    },
+    "39c81089d4d877daeb6a246168c8751cc9af875dcaca12eb159ab1ba6650894a": {
+      "reference_date": "2024-06-28",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados pelo Custodiante na respectiva Data de Oferta: (i) considerada pro forma a cessão pretendida, o conjunto das CPR-Financeiras integrantes do patrimônio do Fundo deverá representar, no máximo, 15,0% do patrimônio líquido do Fundo; (ii) observada a Condição de Cessão prevista no item 5.2, inciso I do Regulamento, o prazo de vencimento dos Direitos Creditórios, incluindo o período de carência de pagamento de principal e/ou juros, deverá ser de, no máximo, 4.760 dias; (iii) caso o Devedor seja pessoa física, o respectivo Preço de Aquisição não deverá exceder R$500.000,00 (quinhentos mil reais); (iv) caso o Devedor seja pessoa jurídica, o respectivo Preço de Aquisição não deverá exceder R$700.000,00 (setecentos mil reais); (v) devem ser observados os seguintes limites de concentração, considerando-se pro forma a cessão pretendida: a) o Critérios de Valor Presente dos Direitos Creditórios devidos por um mesmo Devedor, individualmente, não deverá representar mais de 2,0% Elegibilidade: do patrimônio líquido do Fundo; b) o grupo dos 10 maiores Devedores não deverá representar mais de 10,0% do patrimônio líquido do Fundo; c) o conjunto dos Direitos Creditórios cujos Devedores sejam pessoas físicas e cujos respectivos Preços de Aquisição, considerados individualmente, excedam R$350.000,00 (trezentos e cinquenta mil reais) não deverá representar mais de 1,0% do patrimônio líquido do Fundo; e d) o conjunto dos Direitos Creditórios cujos Devedores sejam pessoas jurídicas e cujos respectivos Preço de Aquisição, considerados individualmente, exceda R$550.000,00 (quinhentos e cinquenta mil reais) não deverá representar mais de 1,0% do patrimônio líquido do Fundo; (vi) o Valor Presente dos Direitos Creditórios com taxas pré-fixadas integrantes da carteira do Fundo não deve representar mais de 15,0% do patrimônio líquido do Fundo; (vii) o Devedor não poderá estar inadimplente perante o Fundo; e (viii) a CCB deverá ter prazo de carência máximo de dias, e a CPR-Financeira deverá ter prazo de carência máximo de 366 dias.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7d552f2c8cab1b236f9763d695a5af921ae29d53c01dfe6885aea7dbac9bc9a4"
+      ]
+    },
+    "fd55387d2cb8cac17c6645c9c7c95432a5d1fe2f3904745ce697dda9e7c9d11c": {
+      "reference_date": "2023-12-29",
+      "value": "track record satisfatório, bastante positivo. Considera-se também, fortemente, a natureza de longo prazo, dos créditos em questão, expondo o Fundo a riscos de ciclo macroeconômicos, a despeito de certa resiliência aparente pelo segmento de atuação e garantias envolvidas. Atuam na estrutura de mitigadores os limites regulamentares quanto à concentração e composição da carteira, além das condições de cessão ao fundo e os critérios de elegibilidade dos direitos creditórios, como o limite de concentração de 2% do patrimônio por devedor entre outros. Ademais, as emissões de classe de cota sênior contam com subordinação mínima, devendo o patrimônio total ser composto, ao mínimo, de 20% de cotas subordinadas. Por sua vez, o patrimônio do fundo deve ser composto por 7% de cotas subordinadas júnior.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "943102d04b1669051058c7f51261d0a251c272e83f39eb960c0101116de9cb76"
+      ]
+    },
+    "927b6664366aafbe22e73cf68c225f5e7e1442bfd4f29d31f796b9dde2917e85": {
+      "reference_date": "2023-11-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "779f7a311e31703f5a2a0ca5070e95fc81710a8a743b4e464615634f56e68fce"
+      ]
+    },
+    "bee0aed60add89c670eb5d5ebeb0b9e06dafad244b8b1e2b4430948924d2f6ed": {
+      "reference_date": "2024-06-20",
+      "value": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta: I. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio líquido do Fundo; II. considerada pro forma a cessão pretendida e o saldo devedor dos respectivos Devedores, (a) o maior Integrador Solar não deverá representar mais de 10% (dez por cento) do patrimônio líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores Integradores Solares não deverá representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo; III. considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos Direitos Creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores mínimos: (a) para o conjunto de Direitos Creditórios com taxas pré-fixadas integrantes da carteira do Fundo: 20,5% (vinte inteiros e cinco décimos por cento) ao ano; e (b) para o conjunto de Direitos Creditórios com taxas pós-fixadas integrantes da carteira do Fundo: IPCA + 16,5% (dezesseis inteiros e cinco décimos por cento) ao ano; IV. o Preço de Aquisição deverá ser menor ou igual a 100,5% (cem inteiros e cinco décimos por cento) do saldo devedor da CCB ou CPR-Financeira; V. caso o Devedor seja uma pessoa física, (a) na data de emissão da respectiva CCB ou CPR- Financeira, o Devedor deve ter idade superior a 18 (dezoito) anos e inferior a 71 (setenta e um) anos; e (b) na data de vencimento da respectiva CCB ou CPR-Financeira, o Devedor deve ter idade inferior a 77 (setenta e sete) anos; VI. caso o Devedor seja uma pessoa jurídica, (a) o Devedor deverá ter sido constituído há, pelo menos, 2 (dois) anos contados da respectiva Data de Oferta; (b) a CCB ou CPR-Financeira deve contar com a coobrigação de um dos sócios do Devedor; e (c) referido coobrigado, na data de",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b3b9e7ca8fec7034f570e158be9bd20b229b7cb427bd8dcab086b434ec897f16"
+      ]
+    },
+    "56bcba61accc0e1d6b638bc8b8015e80709b54c9d97d746c015b828bf312fe14": {
+      "reference_date": "2023-03-08",
+      "value": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta: I. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio líquido do Fundo; II. considerada pro forma a cessão pretendida e o saldo devedor dos respectivos Devedores, (a) o maior Integrador Solar não deverá representar mais de 10% (dez por cento) do patrimônio líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores Integradores Solares não deverá representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo; III. considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos Direitos Creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores mínimos: (a) para o conjunto de Direitos Creditórios com taxas pré-fixadas integrantes da carteira",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "cc0baea475bba7f2453614e13f084a315c48b1727ec419ae484fb08dfc2c49e1"
+      ]
+    },
+    "b6e679eba3ab3948ca02cf583d7bc510ce801524683892919c275427af2acdf9": {
+      "reference_date": "2022-12-14",
+      "value": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta: I. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio líquido do Fundo;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "23c161b83074285f43608f70c924240f55d9dbe84882250f791dfbb8b21561ae"
+      ]
+    },
+    "3128f268a9fcdbb98bb43bcb7c921a6744a5e1fbc5dffc0af10ecd912003974b": {
+      "reference_date": "2023-11-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c04d2980109a4f5dac7e3a3444296a13c926c26aadc492d053da9ee623a5920d"
+      ]
+    },
+    "923f939a14959b58552cb16c1cdc23dd2a7fbfb689e151eaf7ea75807177c39f": {
+      "reference_date": "2023-09-29",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "14a7c5d0f0df83796e2b985cf8093bcd9caa12a0561ffcb7b18cf8b1f21e24c6"
+      ]
+    },
+    "68fa1b22500908ff32ce45bc28ddbcef948cbdff86d4144df56203641dfc84fa": {
+      "reference_date": "2023-06-30",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a7b6f20d9f28863a6533b3a866eaed3a8a776e4ac0f8395d06771690a6917eeb"
+      ]
     }
   },
   "passages": {
@@ -2168,18 +2176,6 @@
       "sha256": "695061fc8ad611e3ce44c59c8d886388459d931cf6fc29643667fb9a1208da28",
       "verification": "primary_passage"
     },
-    "5c648e730dc46f5263f9e696a4fdd71a0ff9bbbd46b13baa3fa1abb0779844f3": {
-      "document_id": "642258",
-      "title": "Relatório de Agência de Rating",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=642258",
-      "reference_date": "2023-12-29",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "INTENSIDADE MÉDIA  EXPOSIÇÃO MÉDIA  RISCO DE CRÉDITO E * Pulverização dos devedores tanto  DE LIQUIDEZ DOS pessoa física quanto jurídica.\n ATIVOS * Presença de fundo de reserva de  * Fundo de condomínio fechado.\n amortização e caixa.\n * Baixo nível de inadimplência.\n * Importante nível de subordinação das  cotas.",
-      "sha256": "aa7cf38f40b711b7e9dcc4005f0a6b225d6ab589a0c95846ded6947b86153659",
-      "verification": "primary_passage"
-    },
     "ffbc30e9bdd653b34ddc4aa2573f3c71d268275c667af650de3e785f0442e83c": {
       "document_id": "612711",
       "title": "Demonstrações Financeiras",
@@ -2274,54 +2270,6 @@
       "clause": "",
       "excerpt": "track record satisfatório, bastante positivo. Considera-se também, fortemente, a natureza de longo prazo, dos  créditos em questão, expondo o Fundo a riscos de ciclo macroeconômicos, a despeito de certa resiliência  aparente pelo segmento de atuação e garantias envolvidas. Atuam na estrutura de mitigadores os limites  regulamentares quanto à concentração e composição da carteira, além das condições de cessão ao fundo  e os critérios de elegibilidade dos direitos creditórios, como o limite de concentração de 2% do patrimônio por  devedor entre outros. Ademais, as emissões de classe de cota sênior contam com subordinação mínima,  devendo o patrimônio total ser composto, ao mínimo, de 20% de cotas subordinadas. Por sua vez, o  patrimônio do fundo deve ser composto por 7% de cotas subordinadas júnior.",
       "sha256": "aa7cf38f40b711b7e9dcc4005f0a6b225d6ab589a0c95846ded6947b86153659",
-      "verification": "primary_passage"
-    },
-    "cfea6bf3d4ee2b83232c50f95d56e7a81f7c156e14ad36d340fbeea7a567186e": {
-      "document_id": "612711",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=612711",
-      "reference_date": "2023-11-30",
-      "version": "1",
-      "page": 18,
-      "clause": "",
-      "excerpt": "A Gestora será responsável por verificar e validar as condições de cessão a cada aquisição de direitos  creditórios pelo Fundo.\n 17",
-      "sha256": "1e18f0b0c3a93bc5bc3010521c1494c86154e9363e3ab925ab294fdbf499a67a",
-      "verification": "primary_passage"
-    },
-    "b16166516cb13b4f995c5435e9e897041650c71f737a5032a140b188ef4ffa3a": {
-      "document_id": "687741",
-      "title": "Instrumento Particular de Alteração do Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=687741",
-      "reference_date": "2024-06-20",
-      "version": "1",
-      "page": 41,
-      "clause": "20.12",
-      "excerpt": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo, inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens, direitos e obrigações das Cotas.",
-      "sha256": "ce22bcba44e2ea9828dbee73e90ef52d03beb9b165d56d6488399da9047d960e",
-      "verification": "primary_passage"
-    },
-    "b8d1af69cd585b1a7b44e9784027d7682cef5fe52068484f0d558d030c7cb4ee": {
-      "document_id": "427007",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=427007",
-      "reference_date": "2023-03-08",
-      "version": "1",
-      "page": 38,
-      "clause": "20.12",
-      "excerpt": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a  aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas  Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX  do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado  alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como  nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo,  inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens,  direitos e obrigações das Cotas.",
-      "sha256": "0466191e17c04ce8231967b13b7819339d3a38e648ac42f8b82053b927ea5818",
-      "verification": "primary_passage"
-    },
-    "68fd5989b4d196422b2271ea854efd763d4eb1eeb0beb521cc3e584ae944ecc4": {
-      "document_id": "389114",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389114",
-      "reference_date": "2022-12-14",
-      "version": "1",
-      "page": 38,
-      "clause": "20.12",
-      "excerpt": "20.12. Os Cotistas titulares da maioria simples das Cotas Subordinadas Júnior terão o direito de vetar a aprovação das matérias previstas nos incisos IV e VI do item 20.1. Qualquer Cotista titular de Cotas Subordinadas Júnior terá o direito de vetar a aprovação (a) das matérias previstas nos incisos VII, VIII, e IX do item 20.1; e (b) de qualquer matéria de competência da Assembleia Geral que tenha como resultado alteração (1) nos Eventos de Avaliação ou nos Eventos de Liquidação; (2) na Razão de Garantia, bem como nas regras de subordinação previstas neste Regulamento; (3) na política de investimento do Fundo, inclusive nos critérios de Elegibilidade e nas Condições de Cessão; ou (4) nas características, vantagens, direitos e obrigações das Cotas.",
-      "sha256": "3f1c21ae7126988c2db5a0426377c2e997d61518d03e1e68fe4b1854b8d503b9",
       "verification": "primary_passage"
     },
     "8637b8a8e442df5630930bbc92aeecbf98f7d1783bf83e1b89cd9baa80232f18": {
@@ -3887,6 +3835,58 @@
       "excerpt": "IV. Risco relativo à regulação do setor de energia solar: os Direitos Creditórios decorrem de  transações que têm por objeto um Financiamento Solar. O setor de energia é regulamentado e  supervisionado pela Agência Nacional de Energia Elétrica (ANEEL) e pelo Ministério de Minas e  Energia (MME). Reformas nas regulamentações, incluindo aquelas expedidas pela ANEEL, e  ações governamentais ou de outros órgãos fiscalizadores poderão ocorrer no futuro e impactar  de forma negativa e relevante o setor de energia e, consequentemente, a capacidade do  Originador de originar Direitos Creditórios Elegíveis e/ou do Agente de Cobrança de cobrar os  Direitos Creditórios Inadimplidos, o que poderá afetar a disponibilidade de Direitos Creditórios  Elegíveis passíveis de aquisição pelo Fundo ou a cobrança dos Direitos Creditórios inadimplidos.\n - 64 -",
       "sha256": "0466191e17c04ce8231967b13b7819339d3a38e648ac42f8b82053b927ea5818",
       "verification": "primary_passage"
+    },
+    "779f7a311e31703f5a2a0ca5070e95fc81710a8a743b4e464615634f56e68fce": {
+      "document_id": "612711",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=612711",
+      "reference_date": "2023-11-30",
+      "version": "1",
+      "page": 17,
+      "clause": "",
+      "excerpt": "O Fundo somente poderá adquirir direitos creditórios que atendam cumulativamente às seguintes condições de cessão, a serem verificadas na respectiva data de oferta:\ni. Considerada pro forma a cessão pretendida, o valor presente das parcelas dos direitos  creditórios cujo prazo de vencimento seja superior ao vencimento das cotas subordinadas  mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio  líquido do Fundo;\n ii. Considerada pro forma a cessão pretendida e o saldo devedor dos respectivos devedores,\n (a) o maior integrador solar não deverá representar mais de 10% (dez por cento) do  patrimônio líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores integradores solares não  deverá representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo;\n iii. Considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos  direitos creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores  mínimos: (a) para o conjunto de direitos creditórios com taxas pré-fixadas integrantes da  carteira do Fundo: 20,5% (vinte inteiros e cinco décimos por cento) ao ano; e (b) para o  conjunto de direitos creditórios com taxas pós-fixadas integrantes da carteira do Fundo: IPCA  + 16,5% (dezesseis inteiros e cinco décimos por cento) ao ano;\n iv. O preço de aquisição deverá ser menor ou igual a 100,5% (cem inteiros e cinco décimos por  cento) do saldo devedor da CCB ou CPF-Financeira;\n v. Caso o devedor seja uma pessoa física, (a) na data de emissão da respectiva CCB ou CPF-Financeira,  o devedor deve ter idade superior a 18 (dezoito) anos e inferior a 71 (setenta e um) anos; e (b) na  data de vencimento da respectiva CCB ou CPF-Financeira, o devedor deve ter idade inferior a 77  (setenta e sete) anos;\n vi. Caso o devedor seja uma pessoa jurídica, (a) o devedor deverá ter sido constituído há, pelo menos,  2 (dois) anos contados da respectiva data de oferta; (b) a CCB ou CPF-Financeira deve contar com  a coobrigação de um dos sócios do devedor; e (c) referido coobrigado, na data de emissão da  respectiva CCB ou CPF-Financeira, deve ter idade superior a 18 (dezoito) anos e inferior a 71  (setenta e um) anos;\n vii. Considerada pro forma a cessão pretendida, o índice de garantia de cotas públicas deverá ser de, no  mínimo, 105% (cento e cinco por cento);\nviii. Considerada pro forma a cessão pretendida, a média ponderada dos prazos de vencimento das CCB  e das CPF-Financeiras integrantes do patrimônio do fundo deverá ser de, no máximo, 2.400 (dois mil  e quatrocentos) dias;\n ix. Os direitos creditórios devem ter sido formalizados por meio da emissão, pelos devedores, de CCB  ou de CPF-Financeiras em favor de uma cedente;\n x. As CCB ou CPF-Financeiras devem contar com garantia de alienação fiduciária de equipamentos, que  tenha sido devidamente (a) constituída na CCB ou na CPR-Financeira; ou (b) celebrada, caso  formalizada mediante a celebração de contrato independente, observado que o registro do contrato  nos competentes CRTD não será um requisito para cumprimento deste inciso;",
+      "sha256": "1e18f0b0c3a93bc5bc3010521c1494c86154e9363e3ab925ab294fdbf499a67a",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "b3b9e7ca8fec7034f570e158be9bd20b229b7cb427bd8dcab086b434ec897f16": {
+      "document_id": "687741",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=687741",
+      "reference_date": "2024-06-20",
+      "version": "1",
+      "page": 10,
+      "clause": "5.2",
+      "excerpt": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta:\nI. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos  Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas  Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio  líquido do Fundo;\nII. considerada pro forma a cessão pretendida e o saldo devedor dos respectivos Devedores, (a) o  maior Integrador Solar não deverá representar mais de 10% (dez por cento) do patrimônio  líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores Integradores Solares não deverá  representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo;\nIII. considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos Direitos  Creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores mínimos:\n(a) para o conjunto de Direitos Creditórios com taxas pré-fixadas integrantes da carteira  do Fundo: 20,5% (vinte inteiros e cinco décimos por cento) ao ano; e\n(b) para o conjunto de Direitos Creditórios com taxas pós-fixadas integrantes da carteira  do Fundo: IPCA + 16,5% (dezesseis inteiros e cinco décimos por cento) ao ano;\nIV. o Preço de Aquisição deverá ser menor ou igual a 100,5% (cem inteiros e cinco décimos por  cento) do saldo devedor da CCB ou CPR-Financeira;\nV. caso o Devedor seja uma pessoa física, (a) na data de emissão da respectiva CCB ou CPR-  Financeira, o Devedor deve ter idade superior a 18 (dezoito) anos e inferior a 71 (setenta e um)  anos; e (b) na data de vencimento da respectiva CCB ou CPR-Financeira, o Devedor deve ter  idade inferior a 77 (setenta e sete) anos;\nVI. caso o Devedor seja uma pessoa jurídica, (a) o Devedor deverá ter sido constituído há, pelo  menos, 2 (dois) anos contados da respectiva Data de Oferta; (b) a CCB ou CPR-Financeira deve  contar com a coobrigação de um dos sócios do Devedor; e (c) referido coobrigado, na data de",
+      "sha256": "ce22bcba44e2ea9828dbee73e90ef52d03beb9b165d56d6488399da9047d960e",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "cc0baea475bba7f2453614e13f084a315c48b1727ec419ae484fb08dfc2c49e1": {
+      "document_id": "427007",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=427007",
+      "reference_date": "2023-03-08",
+      "version": "1",
+      "page": 7,
+      "clause": "5.2",
+      "excerpt": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às  seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta:\nI. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos  Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas  Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio  líquido do Fundo;\nII. considerada pro forma a cessão pretendida e o saldo devedor dos respectivos Devedores, (a) o  maior Integrador Solar não deverá representar mais de 10% (dez por cento) do patrimônio  líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores Integradores Solares não deverá  representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo;\nIII. considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos Direitos  Creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores mínimos:\n(a) para o conjunto de Direitos Creditórios com taxas pré-fixadas integrantes da carteira",
+      "sha256": "0466191e17c04ce8231967b13b7819339d3a38e648ac42f8b82053b927ea5818",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "23c161b83074285f43608f70c924240f55d9dbe84882250f791dfbb8b21561ae": {
+      "document_id": "389114",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=389114",
+      "reference_date": "2022-12-14",
+      "version": "1",
+      "page": "7–9",
+      "clause": "5.2",
+      "excerpt": "5.2. O Fundo somente poderá adquirir Direitos Creditórios que atendam cumulativamente às seguintes Condições de Cessão, a serem verificadas na respectiva Data de Oferta:\nI. considerada pro forma a cessão pretendida, o Valor Presente das parcelas dos Direitos  Creditórios cujo prazo de vencimento seja superior ao vencimento das Cotas Subordinadas  Mezanino em circulação não deverá representar mais de 1% (um por cento) do patrimônio  líquido do Fundo;\nII. considerada pro forma a cessão pretendida e o saldo devedor dos respectivos Devedores, (a) o  maior Integrador Solar não deverá representar mais de 10% (dez por cento) do patrimônio  líquido do Fundo; e (b) o grupo dos 5 (cinco) maiores Integradores Solares não deverá  representar mais de 30% (trinta por cento) do patrimônio líquido do Fundo;\nIII. considerada pro forma a cessão pretendida, a taxa interna de retorno do conjunto dos Direitos  Creditórios integrantes da carteira do Fundo deve respeitar os seguintes valores mínimos:\n(a) para o conjunto de Direitos Creditórios com taxas pré-fixadas integrantes da carteira  do Fundo: 20,5% (vinte inteiros e cinco décimos por cento) ao ano; e\n(b) para o conjunto de Direitos Creditórios com taxas pós-fixadas integrantes da carteira  do Fundo: IPCA + 16,5% (dezesseis inteiros e cinco décimos por cento) ao ano;\nIV. o Preço de Aquisição deverá ser menor ou igual a 100,5% (cem inteiros e cinco décimos por  cento) do saldo devedor da CCB ou CPR-Financeira;\nV. caso o Devedor seja uma pessoa física, (a) na data de emissão da respectiva CCB ou CPR-  Financeira, o Devedor deve ter idade superior a 18 (dezoito) anos e inferior a 71 (setenta e um)  anos; e (b) na data de vencimento da respectiva CCB ou CPR-Financeira, o Devedor deve ter  idade inferior a 77 (setenta e sete) anos;\nVI. caso o Devedor seja uma pessoa jurídica, (a) o Devedor deverá ter sido constituído há, pelo  menos, 2 (dois) anos contados da respectiva Data de Oferta; (b) a CCB ou CPR-Financeira deve  contar com a coobrigação de um dos sócios do Devedor; e (c) referido coobrigado, na data de  emissão da respectiva CCB ou CPR-Financeira, deve ter idade superior a 18 (dezoito) anos e  inferior a 71 (setenta e um) anos;\nVII. considerada pro forma a cessão pretendida, o Índice de Garantia de Cotas Públicas deverá ser  de, no mínimo, 105% (cento e cinco por cento);\nVIII. considerada pro forma a cessão pretendida, a Média Ponderada dos Prazos de Vencimento das  CCB e das CPR-Financeiras integrantes do patrimônio do Fundo deverá ser de, no máximo, 2.400  (dois mil e quatrocentos) dias;\nIX. os Direitos Creditórios devem ter sido formalizados por meio da emissão, pelos Devedores, de  CCB ou de CPR-Financeiras em favor de uma Cedente;\nX. as CCB ou CPR-Financeiras devem contar com garantia de Alienação Fiduciária de Equipamentos,  que tenha sido devidamente (a) constituída na CCB ou na CPR-Financeira; ou (b) celebrada, caso  formalizada mediante a celebração de contrato independente, observado que o registro do  contrato nos competentes CRTD não será um requisito para cumprimento deste inciso;\nXI. os Direitos Creditórios devem ser líquidos, certos e estar corretamente formalizados por meio  dos Documentos Comprobatórios (exceto, se aplicável, o contrato de Alienação Fiduciária de  Equipamentos, cujo registro nos competentes CRTD não será um requisito para cumprimento  deste inciso);\nXII. as Cedentes devem ser as exclusivas e legítimas proprietárias dos respectivos Direitos  Creditórios;\nXIII. os respectivos Integrador Solar e Devedor devem ter sido previamente aprovados pela  Plataforma;\nXIV. os Direitos Creditórios não devem estar relacionados a Integradores Solares que estejam  temporariamente proibidos de operar por meio da Plataforma na respectiva data de emissão da  CCB ou da CPR-Financeira;\nXV. caso o Devedor seja uma pessoa física, o Devedor não deverá estar falecido;\nXVI. as informações fornecidas pelas Instituições Financeiras Parceiras e/ou pelo Originador ao  Fundo, conforme aplicável, sobre os Direitos Creditórios ofertados (incluindo informações sobre  a sua originação e a sua cobrança, bem como as constantes nos Arquivos Remessa) devem ser  verdadeiras e consistentes com as informações obtidas pelas Instituições Financeiras Parceiras  e/ou pelo Originador, conforme o caso;\nXVII. não deve haver atos, eventos ou ocorrências que, de qualquer forma, prejudiquem a validade  ou a exigibilidade dos Direitos Creditórios ou de seus Documentos Comprobatórios ou, ainda,  causem uma redução nos valores a serem pagos em qualquer data programada para pagamento  (exceto em relação a pagamentos feitos ou a serem feitos pelos respectivos Devedores  decorrentes dos Direitos Creditórios);\nXVIII. não deve haver qualquer ação judicial ou outro procedimento judicial ou administrativo  aplicável perante qualquer autoridade governamental competente com relação aos Direitos  Creditórios ofertados ou a qualquer dos seus Documentos Comprobatórios;\nXIX. os Direitos Creditórios devem ter sido originados e sua cobrança deve ser feita de acordo com  as leis e normas aplicáveis relacionadas à não discriminação, à usura, à proteção ao consumidor,  às práticas de cobrança de dívidas e à proteção de dados;\nXX. os Direitos Creditórios e os seus Documentos Comprobatórios devem permitir (ou não proibir)  o endosso das respectivas CCB ou CPR-Financeiras pelas respectivas Cedentes ao Fundo e a  compra ou recompra dos Direitos Creditórios pelas Cedentes;\nXXI. os Devedores não devem ter nenhum outro endividamento, valor, operação ou Direito  Creditório cujo pagamento esteja em atraso e que tenha sido originado através da Plataforma;\nXXII. os Direitos Creditórios devem ter sido originados por meio da Plataforma e com a adoção da  política de crédito constante no Anexo II a este Regulamento;\nXXIII. os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus ou gravames de  qualquer natureza;",
+      "sha256": "3f1c21ae7126988c2db5a0426377c2e997d61518d03e1e68fe4b1854b8d503b9",
+      "verification": "primary_passage",
+      "list_recovery_complete": false
     }
   }
 }

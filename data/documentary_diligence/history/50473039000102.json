@@ -3,19 +3,6 @@
   "cnpj": "50473039000102",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "24b50a9a656725ab3914a462728d8bb94b2e9bb5c31b98354fa057c254790159",
-      "b37ac693dbf82f864fa35b99227456cb91d5b840bcf7b1806af5fc2dd8c1c0cd",
-      "6408e5db12fc02f3c195bff81f7dab40dc168586ee2ecdc8fc279881e8b21f8a",
-      "18b84e2ea9ae5daf5ce60e4075b155f9195b5f0a9ef9eae2bdbd36d1e3448081",
-      "f429e327e7af55e5f764146d156fa6e310fd00a29430aadf66c541ee16e49573",
-      "e5686057babb99cec2c64170fb2e7b3bcc9a79936c6e57f34a5fd7e286124c3a",
-      "c00b7123580d2ffc9c8f99d89c085cad56dfdc7ecbed90359f3c551c1813c524",
-      "e339b07da3634813d8353600fc5ed8704f4aaa0addb84fa8f8685cd275708fac",
-      "dbf2092741a4814087a9f85d5d5ff141631cdfcb6543c3ac697872645fc470d6",
-      "97fd8238ddad5078b6eff06829948e761aee5bdfc216ff5d3de41a11d81a04b4",
-      "72d526f6a42d15edc3b2447e2fad9821c3913ad065528e6089cfccc661a93286"
-    ],
     "term": [
       "f4d20e97b17d5ed7c082b285a4744ff89c4673761c1d0c888082cfb0370e8f65",
       "a4ffe4b89d2f109f05af949805f4c62b1a0d4ab894bfd8e06a5445984c067cb0",
@@ -411,25 +398,6 @@
       "fb45fc3dabc11faf9e3727bb885aa52708ac591e3f749cdc1a4ff7102c4990fd",
       "37647f3f716971c5969020c14af4fb3c3fb9cb2ea81f96629bb5c7b27ca35e4e"
     ],
-    "originator": [
-      "18e061afdfb69fbae8c7679ac01171734e102e4e68d7271405c3991a1cc05d5f",
-      "e0113c8ea841b64f41d1a8abc911bb05a039588a7f71ac5828094cefdf295530",
-      "71fffba1de0731f466d305e319f4171075102dcaf30b4f8f52b5ad972af6255d",
-      "87e274054517c4b405daefd3a9a0ad83fd0f8ea0b70048a1d46a5ce442d009a7",
-      "b5139828864a28a2c0eaac6bf14650e125cf7b78b3d3392a2787228cd7624627",
-      "08f5fa95959496571e998249ec3139594f7ad32ff2d09c48b1c10aba184b8490",
-      "fe7ace166535521dc33b2b3064bb2ef30e5d0ffdf8db5ef205dd7c364cf635f7",
-      "616a0048e02826442100cd02bd520ecff51348b1609dabc20dbc832cccf4f290"
-    ],
-    "debtor": [
-      "f0bd7405390e49d127214f55ab10b284f553a7ea49174e969aad711cb1b2dd8e",
-      "ee86af438635901c52b3b9b79bd8331958434b3d2a736260d11218b02a5a5450",
-      "abd402acbc5ed858b238881a6da28439c87ace44fe15d482111fa539082e41e1",
-      "9a33a5d9ce38ef6499076984af90399e7fb8145c663dcc71e169b180a1c97e5a",
-      "3b2f36f74dbc85c0f20bd73253660c90ec39bfb99b2676f112f5c00bb4e9dfcf",
-      "d9c9a3f14d91dfca3ac4ee9dfcf99a7b4028f6643cf806ce8ff640bbff554014",
-      "43b7888ed5ac144c295f82eac5ec1046f78da94d6d4166a9a61aa053b06b33e0"
-    ],
     "investee": [
       "87c1eb8516cdc8d1b2b2df733721353eba710d9c9c9d5526f4794e76ec23d0af",
       "ebaeda0da05c24046f5d8d2fae3a39ec66ece826fb8bbde97523f856004aac3b",
@@ -483,6 +451,34 @@
       "b92fd91f87303c34ebe01bc08831adcd553f78ee752e731be30d43d42b4174c9",
       "e53d686febeaf061351409c981c82a5e2f3791d8d007755f312fe828783e9617",
       "16ca80f00fd04c96582db165bfc7800c0e1d57ccd6ca07869f783ef15e3cdb83"
+    ],
+    "originator": [
+      "18e061afdfb69fbae8c7679ac01171734e102e4e68d7271405c3991a1cc05d5f",
+      "3e5acb5c984c899ea81ef8fc92ab3e3796e123c2ca623e9db53042e14f08181b",
+      "e0113c8ea841b64f41d1a8abc911bb05a039588a7f71ac5828094cefdf295530",
+      "749e35cf4354fec13438bac59731bd93ea1b3b6221a1423d7b0768eec2d7162d",
+      "71fffba1de0731f466d305e319f4171075102dcaf30b4f8f52b5ad972af6255d",
+      "87e274054517c4b405daefd3a9a0ad83fd0f8ea0b70048a1d46a5ce442d009a7",
+      "b5139828864a28a2c0eaac6bf14650e125cf7b78b3d3392a2787228cd7624627",
+      "08f5fa95959496571e998249ec3139594f7ad32ff2d09c48b1c10aba184b8490",
+      "fe7ace166535521dc33b2b3064bb2ef30e5d0ffdf8db5ef205dd7c364cf635f7",
+      "616a0048e02826442100cd02bd520ecff51348b1609dabc20dbc832cccf4f290"
+    ],
+    "eligibility": [
+      "24b50a9a656725ab3914a462728d8bb94b2e9bb5c31b98354fa057c254790159",
+      "b37ac693dbf82f864fa35b99227456cb91d5b840bcf7b1806af5fc2dd8c1c0cd",
+      "86eb5d50e510c19f06dd0647670a3ca55f48372b11a37cf29aed77cf193e5116",
+      "18b84e2ea9ae5daf5ce60e4075b155f9195b5f0a9ef9eae2bdbd36d1e3448081",
+      "f429e327e7af55e5f764146d156fa6e310fd00a29430aadf66c541ee16e49573",
+      "e5686057babb99cec2c64170fb2e7b3bcc9a79936c6e57f34a5fd7e286124c3a",
+      "4bbd5f7ca147bdc88820ead9ea099ce90defcdd71b7f67d7f0d5e8b887153669",
+      "e339b07da3634813d8353600fc5ed8704f4aaa0addb84fa8f8685cd275708fac",
+      "9a19be3bcac7b5d96128f46ff8a1eaecefb22850c59227fdaaf94504402f3d88",
+      "97fd8238ddad5078b6eff06829948e761aee5bdfc216ff5d3de41a11d81a04b4",
+      "72d526f6a42d15edc3b2447e2fad9821c3913ad065528e6089cfccc661a93286"
+    ],
+    "debtor": [
+      "f0bd7405390e49d127214f55ab10b284f553a7ea49174e969aad711cb1b2dd8e"
     ]
   },
   "entries": {
@@ -679,15 +675,6 @@
         "a69199c76109d11230051f422868be288a2fea34fec434b01a311178bbc4ed4d"
       ]
     },
-    "6408e5db12fc02f3c195bff81f7dab40dc168586ee2ecdc8fc279881e8b21f8a": {
-      "reference_date": "2025-03-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "354b0ae7924dc19e83b5291bd3ba7b9667d50ba55bfdf1b00028c99d40dff5f6"
-      ]
-    },
     "18b84e2ea9ae5daf5ce60e4075b155f9195b5f0a9ef9eae2bdbd36d1e3448081": {
       "reference_date": "2025-02-26",
       "value": "",
@@ -715,15 +702,6 @@
         "51ce3592e6da2f9bd14013a31effa68672e5504c01828c6885477278bb6c4604"
       ]
     },
-    "c00b7123580d2ffc9c8f99d89c085cad56dfdc7ecbed90359f3c551c1813c524": {
-      "reference_date": "2024-03-31",
-      "value": "Com relação especificamente aos direitos creditórios do mercado crédito, o Fundo somente poderá adquirir direitos creditórios do mercado crédito, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (...) (v) Os direitos creditórios do mercado crédito ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva data de aquisição e pagamento; e (...)”.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "b61b478984ce1bd2c56d389c8f62a60ceccf0bba378f63e2124b0c3be16dbf91"
-      ]
-    },
     "e339b07da3634813d8353600fc5ed8704f4aaa0addb84fa8f8685cd275708fac": {
       "reference_date": "2024-02-07",
       "value": "",
@@ -731,15 +709,6 @@
       "provenance": "primary_passage",
       "sources": [
         "75488f560fe9efe5010c876b417ff3dc0b304df6b577ec2833de96fa3d00adee"
-      ]
-    },
-    "dbf2092741a4814087a9f85d5d5ff141631cdfcb6543c3ac697872645fc470d6": {
-      "reference_date": "2023-11-23",
-      "value": "Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (...) (v) os Direitos Creditórios do Mercado Crédito ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (...)”.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "1b4dba2c62e274276554eb16164c6069a497d80e2b6b778aa5b6b87687b711e9"
       ]
     },
     "97fd8238ddad5078b6eff06829948e761aee5bdfc216ff5d3de41a11d81a04b4": {
@@ -3509,6 +3478,51 @@
       "sources": [
         "3bf95216bcdc3293b32bec2273d998fa1195f80fd6b10db81d0472421fe257a4"
       ]
+    },
+    "86eb5d50e510c19f06dd0647670a3ca55f48372b11a37cf29aed77cf193e5116": {
+      "reference_date": "2025-03-31",
+      "value": "Com relação especificamente aos direitos creditórios dos estabelecimentos comerciais, o Fundo somente poderá adquirir direitos creditórios dos estabelecimentos comerciais, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade: (i) Os direitos creditórios dos estabelecimentos comerciais deverão ser expressos em moeda corrente nacional; (ii) O Devedor não poderá estar inadimplente em relação ao Fundo na respectiva data de aquisição e pagamento; (iii) Os direitos creditórios dos Estabelecimentos Comerciais não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) Os direitos creditórios dos Estabelecimentos Comerciais a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo grupo econômico da Administradora, do Gestor e/ou do custodiante; (v) Os direitos creditórios dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 365 dias, contados da respectiva data de aquisição e pagamento; e (vi) Os direitos creditórios dos Estabelecimentos Comerciais deverão ser provenientes de transações de pagamento realizadas por usuários-finais que utilizam os instrumentos de pagamento operacionalizados pelo sistema Mercado Pago para a aquisição de bens, produtos e serviços nos estabelecimentos comerciais formalizados através de U.Rs registradas junto à entidade registradora.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "354b0ae7924dc19e83b5291bd3ba7b9667d50ba55bfdf1b00028c99d40dff5f6"
+      ]
+    },
+    "4bbd5f7ca147bdc88820ead9ea099ce90defcdd71b7f67d7f0d5e8b887153669": {
+      "reference_date": "2024-03-31",
+      "value": "Com relação especificamente aos direitos creditórios do mercado crédito, o Fundo somente poderá adquirir direitos creditórios do mercado crédito, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade: (i) Os direitos creditórios do mercado crédito deverão ser expressos em moeda corrente nacional; (ii) O devedor não poderá estar inadimplente em relação ao Fundo na respectiva data de aquisição e pagamento; (iii) Os direitos creditórios do mercado crédito não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) Os direitos creditórios do mercado crédito a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que sejam integrantes do mesmo grupo econômico da administradora, da gestora e/ou do custodiante; (v) Os direitos creditórios do mercado crédito ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva data de aquisição e pagamento; e (vi) Os direitos creditórios do mercado crédito deverão ser provenientes da operação de pagamento com sub-rogação, na qual o mercado crédito tem como propósito (a) viabilizar o pagamento antecipado de determinadas U.Rs associadas às dívidas do devedor a determinados estabelecimentos comerciais, nos termos solicitados por tais estabelecimentos comerciais, e (b) se sub-rogar nos direitos de tais estabelecimentos comerciais de receber o valor devido pelo devedor pela transação de pagamento. e) Composição da carteira Em 31 de março de 2024, os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte forma: 2024 Parcelas Contratos A vencer Até 30 dias 867.073 De 31 e 60 dias 635.034 De 61 e 90 dias 340.310 De 91 e 120 dias 174.170 De 121 a 150 dias 84.567 De 151 a 180 dias 43.864 Acima de 180 23.314 Totais 2.168.332",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "461da6ed1b0fe78d0e03194bcc928ae5388574054bc3dc5d8b99ecdf35706c1c"
+      ]
+    },
+    "9a19be3bcac7b5d96128f46ff8a1eaecefb22850c59227fdaaf94504402f3d88": {
+      "reference_date": "2023-11-23",
+      "value": "4.1.2. Critério de Elegibilidade dos Direitos Creditórios do Mercado Crédito. Com relação especificamente aos Direitos Creditórios do Mercado Crédito, o Fundo somente poderá adquirir Direitos Creditórios do Mercado Crédito, caso sejam atendidos, nas respectivas Datas de Aquisição e Pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito”): (...) (v) os Direitos Creditórios do Mercado Crédito ofertados deverão ter prazo final de vencimento de, no máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva Data de Aquisição e Pagamento; e (...)”",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1b4dba2c62e274276554eb16164c6069a497d80e2b6b778aa5b6b87687b711e9"
+      ]
+    },
+    "3e5acb5c984c899ea81ef8fc92ab3e3796e123c2ca623e9db53042e14f08181b": {
+      "reference_date": "2025-03-31",
+      "value": "a) Descrição Representado por direitos creditórios performados, vincendos, por meio dos quais o Mercado Crédito Sociedade de Crédito, Financiamento e Investimento S.A. (“Mercado Crédito” ou “Cedente”) tem como propósito de: (i) viabilizar o pagamento antecipado de determinadas unidades de recebível composta por recebíveis de arranjo de pagamento, caracterizados, nos termos das normas regulamentares do BACEN (“U.Rs”) associadas às dívidas de determinados estabelecimentos comerciais ou profissionais autônomos (“Estabelecimentos Comerciais”), localizados no Brasil, devidamente credenciados pelo Mercado Pago Instituição de Pagamento Ltda.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3161b39637dfe4f217605c70010d561aba7ed142e34def6464b1f112b6108dc6"
+      ]
+    },
+    "749e35cf4354fec13438bac59731bd93ea1b3b6221a1423d7b0768eec2d7162d": {
+      "reference_date": "2024-03-31",
+      "value": "a) Descrição Representado por direitos creditórios direitos creditórios performados, vincendos, por meio dos quais o Mercado Crédito Sociedade de Crédito, Financiamento e Investimento S.A. (“Mercado Crédito” ou “Cedente”) Crédito tem como propósito (i) viabilizar o pagamento antecipado de determinadas unidades de recebível composta por recebíveis de arranjo de pagamento, caracterizados, nos termos das normas regulamentares do BACEN (“U.Rs”) associadas às dívidas de determinados estabelecimentos comerciais ou profissionais autônomos (“Estabelecimentos Comerciais”), localizados no Brasil, devidamente credenciados pelo Mercado Pago Instituição de Pagamento Ltda.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3c5e7b29432187a9fbabea945dfeee1cb640d53b30c33e92720f5ea5ddae3c9d"
+      ]
     }
   },
   "passages": {
@@ -3801,18 +3815,6 @@
       "clause": "",
       "excerpt": "O Fundo somente poderá adquirir Direitos Creditórios que atendam, nas respectivas Datas de Aquisição e Pagamento,  individualmente e de forma cumulativa, aos seguintes critérios de elegibilidade, conforme o respectivo Direito Creditório a ser  adquirido pelo Fundo:\n Critérios de Elegibilidade dos Direitos Creditórios dos Estabelecimentos Comerciais: (i) os Direitos Creditórios dos  Estabelecimentos Comerciais deverão ser expressos em moeda corrente nacional; (ii) o Devedor não poderá estar  inadimplente em relação ao Fundo na respectiva Data de Aquisição e Pagamento; (iii) os Direitos Creditórios dos  Estabelecimentos Comerciais não poderão estar vencidos, quando de sua aquisição pelo Fundo; (iv) os Direitos Creditórios  dos Estabelecimentos Comerciais a serem adquiridos não poderão ser devidos por partes relacionadas e sociedades que  sejam integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do Custodiante; (v) os Direitos Creditórios  dos Estabelecimentos Comerciais ofertados deverão ter prazo final de vencimento de, no máximo, 275 dias, contados da  respectiva Data de Aquisição e Pagamento; e (vi) os Direitos Creditórios dos Estabelecimentos Comerciais deverão ser  provenientes de Transações de Pagamento realizadas por Usuários-Finais que utilizam os Instrumentos de Pagamento  Critérios de  operacionalizados pelo Sistema Mercado Pago para a aquisição de bens, produtos e serviços nos Estabelecimentos  Elegibilidade:\n Comerciais formalizados através de U.R.s registradas junto à Entidade Registradora;\n Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito: (i) os Direitos Creditórios do Mercado Crédito deverão  ser expressos em moeda corrente nacional; (ii) o Devedor não poderá estar inadimplente em relação ao Fundo na respectiva  Data de Aquisição e Pagamento; (iii) os Direitos Creditórios do Mercado Crédito não poderão estar vencidos, quando de sua  aquisição pelo Fundo; (iv) os Direitos Creditórios do Mercado Crédito a serem adquiridos não poderão ser devidos por partes  relacionadas e sociedades que sejam integrantes do mesmo Grupo Econômico da Administradora, da Gestora e/ou do  Custodiante; (v) os Direitos Creditórios do Mercado Crédito ofertados deverão ter prazo final de vencimento de, no máximo,  275 dias, contados da respectiva Data de Aquisição e Pagamento; e (vi) os Direitos Creditórios do Mercado Crédito deverão  ser provenientes da operação de pagamento com sub-rogação, na qual o Mercado Crédito tem como propósito: (a) viabilizar  o pagamento antecipado de determinadas U.R.s associadas às Dívidas do Devedor a determinados Estabelecimentos  Comerciais, nos termos solicitados por tais Estabelecimentos Comerciais; e (b) se sub-rogar nos direitos de tais  Estabelecimentos Comerciais de receber o valor devido pelo Devedor pela Transação de Pagamento.",
       "sha256": "40cc45cee1dd4a87e506672d5900427ebf6b89a6661832846e82fbf260bc3fad",
-      "verification": "primary_passage"
-    },
-    "b61b478984ce1bd2c56d389c8f62a60ceccf0bba378f63e2124b0c3be16dbf91": {
-      "document_id": "675897",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675897",
-      "reference_date": "2024-03-31",
-      "version": "1",
-      "page": 29,
-      "clause": "4.1.2",
-      "excerpt": "4.1.2. Critério de elegibilidade dos direitos creditórios do mercado crédito. Com relação especificamente aos  direitos creditórios do mercado crédito, o Fundo somente poderá adquirir direitos creditórios do mercado  crédito, caso sejam atendidos, nas respectivas datas de aquisição e pagamento, individualmente e de forma  cumulativa, os seguintes critérios de elegibilidade (“Critérios de Elegibilidade dos Direitos Creditórios do  Mercado Crédito”):\n (...)\n (v) Os direitos creditórios do mercado crédito ofertados deverão ter prazo final de vencimento de, no  máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva data de aquisição e pagamento; e  (...)”",
-      "sha256": "0e4fd148e6547dd3475e58efbabceb5b0615a6985556c128514d07deb7f0e58c",
       "verification": "primary_passage"
     },
     "75488f560fe9efe5010c876b417ff3dc0b304df6b577ec2833de96fa3d00adee": {
@@ -6889,6 +6891,43 @@
       "clause": "",
       "excerpt": "“Termos e Condições” significa o “Termos e Condições gerais do Mercado Pago”,  conforme aditado e/ou substituído de tempos em tempos,  por meio do qual os Estabelecimentos Comerciais (i)  aderem aos termos e condições gerais de prestação de  serviços pelo Devedor, passando a ser credenciados pelo  Devedor no âmbito de seu Arranjo de Pagamento  Fechado, bem como (ii) concordam com o Acordo  Operacional e (iii) outorgam poderes ao Mercado Pago  para que, na qualidade de representante dos  Estabelecimentos Comerciais, formalize a cessão de  Direitos Creditórios Elegíveis ao Fundo.",
       "sha256": "023e8ea00b64cd8c1c8719d1be67f6f84b59ffd67101567bd4c00054bdaa29c7",
+      "verification": "primary_passage"
+    },
+    "461da6ed1b0fe78d0e03194bcc928ae5388574054bc3dc5d8b99ecdf35706c1c": {
+      "document_id": "675897",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675897",
+      "reference_date": "2024-03-31",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "Com relação especificamente aos direitos creditórios do mercado crédito, o Fundo somente poderá adquirir  direitos creditórios do mercado crédito, caso sejam atendidos, nas respectivas datas de aquisição e  pagamento, individualmente e de forma cumulativa, os seguintes critérios de elegibilidade:\n(i) Os direitos creditórios do mercado crédito deverão ser expressos em moeda corrente nacional;\n(ii) O devedor não poderá estar inadimplente em relação ao Fundo na respectiva data de aquisição e  pagamento;\n(iii) Os direitos creditórios do mercado crédito não poderão estar vencidos, quando de sua aquisição pelo  Fundo;\n(iv) Os direitos creditórios do mercado crédito a serem adquiridos não poderão ser devidos por partes  relacionadas e sociedades que sejam integrantes do mesmo grupo econômico da administradora, da  gestora e/ou do custodiante;\n(v) Os direitos creditórios do mercado crédito ofertados deverão ter prazo final de vencimento de, no  máximo, 365 (trezentos e sessenta e cinco) dias, contados da respectiva data de aquisição e  pagamento; e\n(vi) Os direitos creditórios do mercado crédito deverão ser provenientes da operação de pagamento com  sub-rogação, na qual o mercado crédito tem como propósito (a) viabilizar o pagamento antecipado  de determinadas U.Rs associadas às dívidas do devedor a determinados estabelecimentos  comerciais, nos termos solicitados por tais estabelecimentos comerciais, e (b) se sub-rogar nos  direitos de tais estabelecimentos comerciais de receber o valor devido pelo devedor pela transação  de pagamento.\ne) Composição da carteira  Em 31 de março de 2024, os direitos creditórios integrantes da carteira do Fundo se encontram na seguinte  forma:\n 2024  Parcelas  Contratos A vencer  Até 30 dias 867.073  De 31 e 60 dias 635.034  De 61 e 90 dias 340.310  De 91 e 120 dias 174.170  De 121 a 150 dias 84.567  De 151 a 180 dias 43.864  Acima de 180 23.314  Totais 2.168.332",
+      "sha256": "0e4fd148e6547dd3475e58efbabceb5b0615a6985556c128514d07deb7f0e58c",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "3161b39637dfe4f217605c70010d561aba7ed142e34def6464b1f112b6108dc6": {
+      "document_id": "936462",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=936462",
+      "reference_date": "2025-03-31",
+      "version": "1",
+      "page": 15,
+      "clause": "",
+      "excerpt": "a) Descrição  Representado por direitos creditórios performados, vincendos, por meio dos quais o Mercado Crédito  Sociedade de Crédito, Financiamento e Investimento S.A. (“Mercado Crédito” ou “Cedente”) tem como  propósito de: (i) viabilizar o pagamento antecipado de determinadas unidades de recebível composta  por recebíveis de arranjo de pagamento, caracterizados, nos termos das normas regulamentares do  BACEN (“U.Rs”) associadas às dívidas de determinados estabelecimentos comerciais ou profissionais  autônomos (“Estabelecimentos Comerciais”), localizados no Brasil, devidamente credenciados pelo  Mercado Pago Instituição de Pagamento Ltda. (“Mercado Pago” ou “Devedor”), e (ii) se sub-rogar nos  direitos de tais de receber o valor devido pelo Devedor pela respectiva Transação de Pagamento¹.",
+      "sha256": "55a9debcb77577d21d53f387468a85be9fb60103181e4eb659cbe55c2539beac",
+      "verification": "primary_passage"
+    },
+    "3c5e7b29432187a9fbabea945dfeee1cb640d53b30c33e92720f5ea5ddae3c9d": {
+      "document_id": "675897",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675897",
+      "reference_date": "2024-03-31",
+      "version": "1",
+      "page": 13,
+      "clause": "",
+      "excerpt": "a) Descrição  Representado por direitos creditórios direitos creditórios performados, vincendos, por meio dos quais o  Mercado Crédito Sociedade de Crédito, Financiamento e Investimento S.A. (“Mercado Crédito” ou  “Cedente”) Crédito tem como propósito (i) viabilizar o pagamento antecipado de determinadas unidades de  recebível composta por recebíveis de arranjo de pagamento, caracterizados, nos termos das normas  regulamentares do BACEN (“U.Rs”) associadas às dívidas de determinados estabelecimentos comerciais ou  profissionais autônomos (“Estabelecimentos Comerciais”), localizados no Brasil, devidamente credenciados  pelo Mercado Pago Instituição de Pagamento Ltda. (“Mercado Pago” ou “Devedor”), e (ii) se sub-rogar nos  direitos de tais de receber o valor devido pelo Devedor pela respectiva Transação de Pagamento¹.",
+      "sha256": "0e4fd148e6547dd3475e58efbabceb5b0615a6985556c128514d07deb7f0e58c",
       "verification": "primary_passage"
     }
   }

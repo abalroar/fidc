@@ -3,11 +3,6 @@
   "cnpj": "55374251000128",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "cfb886e13dd71a6617d028f398bd16a73390ffec97465935786246c6d67fda33",
-      "a1807d4c9821647c624984f6887b17be6080e0c36614f1508252b0342246cfc9",
-      "93879b995b1b9bcaa92b2dcb869a61f60c595457e99b3ef177dd70e1c4fe77c0"
-    ],
     "term": [
       "3b1ee9b5f1eb7d783ea3141c713f67e468b05d57bf14ba4702ff4d4d5b2bc0ae",
       "4808b3c95f8c4befb5cfa9ec8fa9db63199cc34be93720b6f423b53ca898c2fe",
@@ -233,14 +228,6 @@
       "8e6c0b452d53556b018df7522078c3ee3fc674a1d6f0ce0ce40eaa33b341959d",
       "a42108835990bcd95cf4c7f4c3c96ad45a7774db5222dc31292136b8da668a54"
     ],
-    "originator": [
-      "3b1ee9b5f1eb7d783ea3141c713f67e468b05d57bf14ba4702ff4d4d5b2bc0ae",
-      "4808b3c95f8c4befb5cfa9ec8fa9db63199cc34be93720b6f423b53ca898c2fe",
-      "31c40e3528b09a34efe26b5185eed062a4bfe51d6f834f95f994a005855bd799"
-    ],
-    "debtor": [
-      "39d528557d357d7fa62f160bd474aa1b813e3c1ce4c5e0c60bb538c35c52b66c"
-    ],
     "investee": [
       "760934652685857bc2c07e5f32f4a5e2bbd8cf76e62676907474b087846b8832",
       "dbb52c043578e81a13adbd4680f53edd47741dd4d807d6e2d63fda71ddebeba8",
@@ -275,6 +262,19 @@
       "a9f09abdb3efda43fa2339fb086b6af50ef361d1bbeae13cebb75ad566881456",
       "6d731c7cd86a7b8c295ba7e0d0c83e8c930bea29f7f4f7050a5d9003c8a133db",
       "900501568b8e2e8d194570cb682b97a558ef504c5928d071e3abc21b945ac684"
+    ],
+    "originator": [
+      "3b1ee9b5f1eb7d783ea3141c713f67e468b05d57bf14ba4702ff4d4d5b2bc0ae",
+      "4808b3c95f8c4befb5cfa9ec8fa9db63199cc34be93720b6f423b53ca898c2fe",
+      "31c40e3528b09a34efe26b5185eed062a4bfe51d6f834f95f994a005855bd799"
+    ],
+    "eligibility": [
+      "fdcc3449b3a8cdede00a8350f454aaba50e18e48908a3ac459752a9ed85c23a9",
+      "66c5531a1e766ae5ad9437903a4afaa104c53e22b94d3a4959031000559d8baa",
+      "3c9a200eba39a25ba9b334fa39df12b1ae12502a1488af4d535b1dc38095a1b1"
+    ],
+    "debtor": [
+      "39d528557d357d7fa62f160bd474aa1b813e3c1ce4c5e0c60bb538c35c52b66c"
     ]
   },
   "entries": {
@@ -323,33 +323,6 @@
       "risk_note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios.",
       "sources": [
         "903c1c62f16cdda143fa87cebe5239e7ea8c0936fbd30790bc6ac943f40d380f"
-      ]
-    },
-    "cfb886e13dd71a6617d028f398bd16a73390ffec97465935786246c6d67fda33": {
-      "reference_date": "2024-06-21",
-      "value": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios de composição de Carteira estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "240784d07e509feebec21464533b97716b75475ebb5d8376c8b146d4d179e3f0"
-      ]
-    },
-    "a1807d4c9821647c624984f6887b17be6080e0c36614f1508252b0342246cfc9": {
-      "reference_date": "2024-06-20",
-      "value": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios de composição de Carteira estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0360547e24bc94cd4450b2ddef48327a265f6cd9f2dc69a2810e25a8ff3c1d80"
-      ]
-    },
-    "93879b995b1b9bcaa92b2dcb869a61f60c595457e99b3ef177dd70e1c4fe77c0": {
-      "reference_date": "2024-06-03",
-      "value": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios de composição de Carteira estabelecidos neste Regulamento e na regulamentação aplicável.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "9544a998f9576834ca37a8a8365ea74f888ebd769185933d55ba0298272c2ad9"
       ]
     },
     "f3e4786cf5692461131a59d8dfc930b5bc00d372d7d2b601ce7ac77de5ae9541": {
@@ -1802,6 +1775,33 @@
       "sources": [
         "6c957aa085375cb2e1b547e941c6ecdb1782992ac686ea0c34a1a62e08be598a"
       ]
+    },
+    "fdcc3449b3a8cdede00a8350f454aaba50e18e48908a3ac459752a9ed85c23a9": {
+      "reference_date": "2024-06-21",
+      "value": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional; (b) sejam representados por Dívidas Corporativas da Devedora; e (c) não estejam vencidos, no momento de sua cessão para o Fundo. 11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ecd6ce5935213227ba478d3283ffa9c143c2b025795a3fa012e6aaf804dacad8"
+      ]
+    },
+    "66c5531a1e766ae5ad9437903a4afaa104c53e22b94d3a4959031000559d8baa": {
+      "reference_date": "2024-06-20",
+      "value": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional; (b) sejam representados por Dívidas Corporativas da Devedora; e (c) não estejam vencidos, no momento de sua cessão para o Fundo. 11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "949393539752bd3e962a57ae05873391ba7818386ca9e9c0c28fb628a7d9661f"
+      ]
+    },
+    "3c9a200eba39a25ba9b334fa39df12b1ae12502a1488af4d535b1dc38095a1b1": {
+      "reference_date": "2024-06-03",
+      "value": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na Data de Aquisição e Pagamento: (a) sejam representados em moeda corrente nacional; (b) sejam representados por Dívidas Corporativas da Devedora; e (c) não estejam vencidos, no momento de sua cessão para o Fundo. 11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante, a Administradora e/ou a Gestora.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5d8532b94d02b952a650016e9e5b96318d4092cf58a7622c1948bdd4cdf16883"
+      ]
     }
   },
   "passages": {
@@ -1851,42 +1851,6 @@
       "page": 11,
       "clause": "6.3",
       "excerpt": "6.3. O Custodiante, além das atribuições dispostas no item 6.1 acima, deverá contratar  terceiro devidamente habilitado para verificar, trimestralmente ou em periodicidade  compatível com o prazo médio ponderado dos Direitos Creditórios da Carteira, o que for  maior, a existência, integridade e titularidade do lastro dos Direitos Creditórios que  ingressaram na carteira da Classe no período a título de substituição, assim como o lastro  dos Direitos Creditórios vencidos e não pagos no mesmo período, nos termos do artigo 38  da Resolução CVM 175. Tal prestador de serviço eventualmente subcontratados pelo  Custodiante não pode ser, em relação à Classe, a originadora dos Direitos Creditórios, a  Gestora, ou respectivas partes relacionadas.",
-      "sha256": "3fbb5740c4b0b01fde09454b61510416210ed46e1a61f1537aa2f21afdea10ab",
-      "verification": "primary_passage"
-    },
-    "240784d07e509feebec21464533b97716b75475ebb5d8376c8b146d4d179e3f0": {
-      "document_id": "684546",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684546",
-      "reference_date": "2024-06-21",
-      "version": "1",
-      "page": 14,
-      "clause": "9.1",
-      "excerpt": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição  de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente,  sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios  de composição de Carteira estabelecidos neste Regulamento e na regulamentação  aplicável.",
-      "sha256": "759f749b18d3f62146aab8d371d5e49ddf1b105d841ccabfe2a56b3e6b877560",
-      "verification": "primary_passage"
-    },
-    "0360547e24bc94cd4450b2ddef48327a265f6cd9f2dc69a2810e25a8ff3c1d80": {
-      "document_id": "683808",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683808",
-      "reference_date": "2024-06-20",
-      "version": "1",
-      "page": 14,
-      "clause": "9.1",
-      "excerpt": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição  de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente,  sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios  de composição de Carteira estabelecidos neste Regulamento e na regulamentação  aplicável.",
-      "sha256": "6b5a6fd35b7cfaf62fd884735c3c913e70b76a9a84c73902e06626ec5e6bfaba",
-      "verification": "primary_passage"
-    },
-    "9544a998f9576834ca37a8a8365ea74f888ebd769185933d55ba0298272c2ad9": {
-      "document_id": "674800",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674800",
-      "reference_date": "2024-06-03",
-      "version": "1",
-      "page": 14,
-      "clause": "9.1",
-      "excerpt": "9.1. O Fundo é uma comunhão de recursos destinada, preponderantemente, à aquisição  de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente,  sempre de acordo com a Política de Investimentos, os Critérios de Elegibilidade e os critérios  de composição de Carteira estabelecidos neste Regulamento e na regulamentação  aplicável.",
       "sha256": "3fbb5740c4b0b01fde09454b61510416210ed46e1a61f1537aa2f21afdea10ab",
       "verification": "primary_passage"
     },
@@ -3743,6 +3707,45 @@
       "excerpt": "12.9.1. As Cotas Seniores, as Cotas Subordinadas Mezanino I e as Cotas Subordinadas  Mezanino II da primeira emissão serão objeto de Oferta Pública, a ser realizada mediante  registro automático de distribuição perante a CVM, nos termos do art. 26, VI, “a” da  Resolução CVM 160. As Cotas Subordinadas Júnior, por sua vez, serão objeto de Colocação  Privada.",
       "sha256": "759f749b18d3f62146aab8d371d5e49ddf1b105d841ccabfe2a56b3e6b877560",
       "verification": "primary_passage"
+    },
+    "ecd6ce5935213227ba478d3283ffa9c143c2b025795a3fa012e6aaf804dacad8": {
+      "document_id": "684546",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=684546",
+      "reference_date": "2024-06-21",
+      "version": "1",
+      "page": 16,
+      "clause": "11.1",
+      "excerpt": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam  cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados  pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de  modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na  Data de Aquisição e Pagamento:\n(a) sejam representados em moeda corrente nacional;\n(b) sejam representados por Dívidas Corporativas da Devedora; e\n(c) não estejam vencidos, no momento de sua cessão para o Fundo.\n11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de  Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um  desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante,  a Administradora e/ou a Gestora.",
+      "sha256": "759f749b18d3f62146aab8d371d5e49ddf1b105d841ccabfe2a56b3e6b877560",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "949393539752bd3e962a57ae05873391ba7818386ca9e9c0c28fb628a7d9661f": {
+      "document_id": "683808",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=683808",
+      "reference_date": "2024-06-20",
+      "version": "1",
+      "page": 16,
+      "clause": "11.1",
+      "excerpt": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam  cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados  pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de  modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na  Data de Aquisição e Pagamento:\n(a) sejam representados em moeda corrente nacional;\n(b) sejam representados por Dívidas Corporativas da Devedora; e\n(c) não estejam vencidos, no momento de sua cessão para o Fundo.\n11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de  Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um  desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante,  a Administradora e/ou a Gestora.",
+      "sha256": "6b5a6fd35b7cfaf62fd884735c3c913e70b76a9a84c73902e06626ec5e6bfaba",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "5d8532b94d02b952a650016e9e5b96318d4092cf58a7622c1948bdd4cdf16883": {
+      "document_id": "674800",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674800",
+      "reference_date": "2024-06-03",
+      "version": "1",
+      "page": 16,
+      "clause": "11.1",
+      "excerpt": "11.1. A Classe somente poderá adquirir os Direitos Creditórios que atendam  cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados  pela Gestora, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de  modo que apenas são passíveis de aquisição pelo Fundo os Direitos Creditórios que, na  Data de Aquisição e Pagamento:\n(a) sejam representados em moeda corrente nacional;\n(b) sejam representados por Dívidas Corporativas da Devedora; e\n(c) não estejam vencidos, no momento de sua cessão para o Fundo.\n11.1.2. Na hipótese de o Direito Creditório elegível deixar de atender a qualquer Critério de  Elegibilidade após sua aquisição pelo Fundo tal fato não será entendido como um  desenquadramento da Carteira, tampouco haverá direito de regresso contra o Custodiante,  a Administradora e/ou a Gestora.",
+      "sha256": "3fbb5740c4b0b01fde09454b61510416210ed46e1a61f1537aa2f21afdea10ab",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

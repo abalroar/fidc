@@ -3,10 +3,6 @@
   "cnpj": "54559035000194",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ae2aae5af3fa7bac50083d392ba7f9d618b83d6f908246fc47ee8740b74eab02",
-      "cf8a848986ec4b263706f9ac77dd98516151d709aeb1b4e369ed9616f8f94c94"
-    ],
     "term": [
       "943d895dad9417474e1105e2b9892da87594855b7bcdb9fdeacc9ff631b9853a"
     ],
@@ -157,13 +153,6 @@
     "quota_grace": [
       "8d33b44f93aefe4bfb353a14911164b08994fc927ba34f69b8c47bcec0626eae"
     ],
-    "originator": [
-      "bf5d547244cf919faa02dc686dd0c221969bdd0ce98e12cc2edd430ff544e634",
-      "9de4cdbfbeff8bc67115d34dc18c3b0af62936d7a82148308254c5f2acea588c"
-    ],
-    "debtor": [
-      "d2118be89666cf9a8c4f09dac0a9981ffe42ca387cbd74b44a446da285f2e53f"
-    ],
     "investee": [
       "a742ba3b2d7bbc7a4d79df38f4b9da978fec6c51cdf7ed22c67f28a9b5571e58",
       "0f428a4e15cfbb50afc581ecc7e1a9fe195f390f44fce5f9dc76e0c6158632c7"
@@ -180,6 +169,17 @@
     "allocation": [
       "a155ddb4dad24c3678a57de2c9abf5eb790a4160dac8bd05485522a875a92556",
       "e6652f5b4c2cd47f5f449d9a38592e9c70827e0821e234a6339d2bfd90c2dbbd"
+    ],
+    "originator": [
+      "bf5d547244cf919faa02dc686dd0c221969bdd0ce98e12cc2edd430ff544e634",
+      "9de4cdbfbeff8bc67115d34dc18c3b0af62936d7a82148308254c5f2acea588c"
+    ],
+    "eligibility": [
+      "ae2aae5af3fa7bac50083d392ba7f9d618b83d6f908246fc47ee8740b74eab02",
+      "86a737e51f62b00ec9ffec20fd60c50ae7842b4b14a55786564e9cb3a4a2e4fd"
+    ],
+    "debtor": [
+      "d2118be89666cf9a8c4f09dac0a9981ffe42ca387cbd74b44a446da285f2e53f"
     ]
   },
   "entries": {
@@ -230,15 +230,6 @@
       "risk_note": "Lista integral e vínculo do CDB-V dependem do Contrato CDB. Redação de elegibilidade usa termo CCB em passagens do anexo, divergente da definição de CDB-V; não altera o ativo por inferência.",
       "sources": [
         "3aba19d967b085ab2aa7031ff00aa887417d47098fe31b06ad867f098fefe078"
-      ]
-    },
-    "cf8a848986ec4b263706f9ac77dd98516151d709aeb1b4e369ed9616f8f94c94": {
-      "reference_date": "2024-04-01",
-      "value": "3.2.2. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "25849c9de0a5ab326a480a8fe608b44cfcecd60ea78d03252249afde007308d0"
       ]
     },
     "943d895dad9417474e1105e2b9892da87594855b7bcdb9fdeacc9ff631b9853a": {
@@ -935,6 +926,15 @@
       "sources": [
         "3614a7a7cb47d87f8b597ae93c7598d963bfe1f395a72d3eec6cccbff0b6c0bb"
       ]
+    },
+    "86a737e51f62b00ec9ffec20fd60c50ae7842b4b14a55786564e9cb3a4a2e4fd": {
+      "reference_date": "2024-04-01",
+      "value": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os seguintes Critérios de Elegibilidade: (i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM e adquiridas pelo Fundo no âmbito do Contrato CDB; (ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando, mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas respectivas partes dos Contrato CDB; (iii) deverão ser representados em moeda corrente nacional;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ee5ff92c29dfc543dcda51b2c0e260d8346ebf94ce9bfd517f4caa20bde0728d"
+      ]
     }
   },
   "passages": {
@@ -975,18 +975,6 @@
       "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
       "verification": "previous_review",
       "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 60-61 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
-    },
-    "25849c9de0a5ab326a480a8fe608b44cfcecd60ea78d03252249afde007308d0": {
-      "document_id": "634435",
-      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
-      "reference_date": "2024-04-01",
-      "version": "1",
-      "page": 59,
-      "clause": "3.2.2",
-      "excerpt": "3.2.2. A Classe somente poderá adquirir Direitos Creditórios que atendam à  Política de Investimento e aos respectivos Critérios de Elegibilidade, verificados em  cada respectiva Data de Aquisição.",
-      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
-      "verification": "primary_passage"
     },
     "74fcf43ce30b81386a6742ffb5e34f46d94b017b795a1b6bcaf49ec8bb793318": {
       "document_id": "634435",
@@ -1779,6 +1767,19 @@
       "excerpt": "10.6. Na hipótese de não instalação da Assembleia Especial, em segunda  convocação, por falta de quórum, o Evento de Avaliação constituirá um Evento de  Liquidação Antecipada, devendo, nesta hipótese, ser convocada Assembleia Especial para  deliberar a respeito do Evento de Liquidação Antecipada, na forma das disposições abaixo  deste Capítulo 10.",
       "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
       "verification": "primary_passage"
+    },
+    "ee5ff92c29dfc543dcda51b2c0e260d8346ebf94ce9bfd517f4caa20bde0728d": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 60,
+      "clause": "4.1",
+      "excerpt": "4.1. A Classe somente poderá adquirir Direitos Creditórios que atendam,  cumulativamente, na respectiva Data da Oferta, individualmente e de forma cumulativa, os  seguintes Critérios de Elegibilidade:\n(i) deverão ser cédulas de crédito bancário vinculadas emitidas pelo Banco IBM  e adquiridas pelo Fundo no âmbito do Contrato CDB;\n(ii) deverão estar perfeitamente formalizados, incluindo, mas não se limitando,  mediante recebimento, pelo Gestor, das vias em PDF, devidamente assinadas pelas  respectivas partes dos Contrato CDB;\n(iii) deverão ser representados em moeda corrente nacional;",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }

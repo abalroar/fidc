@@ -3,10 +3,6 @@
   "cnpj": "62838025000116",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "c33010e263bdffd6e8e665519b6309e149ec23ee922e1945f8dc4050bbbc72c7",
-      "5b6a7d718b1ffcf084ca68bf9bc9aad9e924f2cecb50bb36beab335286b22759"
-    ],
     "perimeter": [
       "4a2c9b8b2026f3e790a20406bb04899b9bdcbe567325b906ac2734dac2d1e522",
       "fc9af72ce7864ac41194990d025b9a229879cb4c228378bdc0f1413147cd84ab",
@@ -125,14 +121,6 @@
     "quota_grace": [
       "d91cfad184de9908208cc77c21abb04b9bed1e0a89c5a854053cdb1b89c1062c"
     ],
-    "originator": [
-      "946649818fd290c8cc5d1757d7a0d23a46f14842c3a39f6a8e9f60e23c90c02d",
-      "2c2ec02d6b1fe1a55df03a21647f9718646b78dbbcc927a18de5b3afffe9af58"
-    ],
-    "debtor": [
-      "c7847e4bbc20377be8db7e020191c595118480981ffe87af0662c09185e1ed00",
-      "bff8870f187cc3c29066911190c188f58539e1dcccb9852f53b4eb020945b2f6"
-    ],
     "investee": [
       "266b5dba70f50579369805627fbb8e08568eb43d11a34f258e677dfaaf2e008e",
       "84f569f0e4c2007aa1d8dc645ae7a88d927791d7644ee1b30e4b5be561fe2803",
@@ -153,6 +141,17 @@
     "allocation": [
       "604e2dd20929effabdf971000efa185caed28eaeb06dab6f402f4663ebf82461",
       "7c6b5e446ce3ad9bb55f261ea64a057f42aa892cb585ad35e915ac3bb0f3a3cc"
+    ],
+    "originator": [
+      "946649818fd290c8cc5d1757d7a0d23a46f14842c3a39f6a8e9f60e23c90c02d",
+      "49858e97b014834a73003231ddd0645fce098d627c538860be99ccfdbd0c6c6b"
+    ],
+    "eligibility": [
+      "c33010e263bdffd6e8e665519b6309e149ec23ee922e1945f8dc4050bbbc72c7",
+      "27d1625a8a474c204fb7df9599bd39332e6e765ad607f2ad43a1e6092f3b7f91"
+    ],
+    "debtor": [
+      "c7847e4bbc20377be8db7e020191c595118480981ffe87af0662c09185e1ed00"
     ]
   },
   "entries": {
@@ -176,15 +175,6 @@
         "6cd8e104a35a85650a20e4302025297450828ae348141beef5bb65f9dfba71a5"
       ]
     },
-    "2c2ec02d6b1fe1a55df03a21647f9718646b78dbbcc927a18de5b3afffe9af58": {
-      "reference_date": "2025-09-22",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos trimestrais;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "c5ed1249e32c7829159c4a6b392f14393d4c0dde9ae91558d91a26f079cfbccb"
-      ]
-    },
     "c7847e4bbc20377be8db7e020191c595118480981ffe87af0662c09185e1ed00": {
       "reference_date": "2025-12-10",
       "value": "Credenciadoras Cielo, Redecard, PagSeguro e Getnet; lista exclusiva do regulamento",
@@ -195,15 +185,6 @@
         "513f9480e529c43f8795aebc76f12acd463a055aa07230522c2ae64d1cd89c2b"
       ]
     },
-    "bff8870f187cc3c29066911190c188f58539e1dcccb9852f53b4eb020945b2f6": {
-      "reference_date": "2025-09-22",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "2c0dbc3469ea54f14af3b737b45e83173f38f16e215060ee8deac3fa23f3e994"
-      ]
-    },
     "c33010e263bdffd6e8e665519b6309e149ec23ee922e1945f8dc4050bbbc72c7": {
       "reference_date": "2025-12-10",
       "value": "URs e contratos/termos de cessão; lastro integral validado antes da aquisição",
@@ -212,15 +193,6 @@
       "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
       "sources": [
         "049d61ef938252b8030253436e90cc6de07ea8d15aea3f5dfdf6af3511480247"
-      ]
-    },
-    "5b6a7d718b1ffcf084ca68bf9bc9aad9e924f2cecb50bb36beab335286b22759": {
-      "reference_date": "2025-09-22",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5179945250de3788713cfb3f737b936dc68ae9dedbfac74f9a0eaf59e26bb0e2"
       ]
     },
     "604e2dd20929effabdf971000efa185caed28eaeb06dab6f402f4663ebf82461": {
@@ -723,6 +695,24 @@
       "sources": [
         "4d63369708a4245fa46e95d2c5c789df98723f2bec56727c377a43c7249a857f"
       ]
+    },
+    "27d1625a8a474c204fb7df9599bd39332e6e765ad607f2ad43a1e6092f3b7f91": {
+      "reference_date": "2025-09-22",
+      "value": "3.1.7 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por ele contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, do regulamento do Fundo, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e da legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos direitos creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos critérios de elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos direitos creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas no regulamento do Fundo e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de direitos creditórios e aos ativos financeiros de liquidez e modalidades operacionais, para o Fundo com identificação, dados, características e valores precisos; (e) no âmbito de suas diligências relacionadas à aquisição de direitos creditórios, o Gestor deve verificar a possibilidade de ineficácia da cessão ao Fundo em virtude de riscos de natureza fiscal, alcançando direitos creditórios que tenham representatividade no patrimônio do Fundo, assim como dar ciência",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5179945250de3788713cfb3f737b936dc68ae9dedbfac74f9a0eaf59e26bb0e2"
+      ]
+    },
+    "49858e97b014834a73003231ddd0645fce098d627c538860be99ccfdbd0c6c6b": {
+      "reference_date": "2025-09-22",
+      "value": "5.14. Em linha com o disposto no art. 45, §7º da Resolução CVM 175, considerando que o Fundo é destinado exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração máxima por Devedor, cedente ou originador.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "75b9bbda3363e6bc0abcf74139fbd6173787cb0ba5353e46abed1d5536717c21"
+      ]
     }
   },
   "passages": {
@@ -751,18 +741,6 @@
       "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
       "verification": "previous_review",
       "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 3 · Definição Cedentes · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
-    },
-    "c5ed1249e32c7829159c4a6b392f14393d4c0dde9ae91558d91a26f079cfbccb": {
-      "document_id": "1056018",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
-      "reference_date": "2025-09-22",
-      "version": "1",
-      "page": 11,
-      "clause": "",
-      "excerpt": "voltadas para mitigar eventuais impactos ambientais ocasionados pelas atividades por eles  desenvolvidas;\n (t) registrar os Direitos Creditórios na entidade registradora da classe ou entregá-los ao Custodiante  dos Direitos Creditórios ou ao Administrador, conforme o caso;\n (u) na hipótese de ocorrer substituição de Direitos Creditórios, por qualquer motivo, diligenciar para que  a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da  política de investimentos;\n (v) efetuar a correta formalização dos documentos relativos à cessão dos direitos creditórios;\n (w) sem prejuízo de outros parâmetros eventualmente definidos no regulamento, monitorar:\n (i) a adimplência da carteira de Direitos Creditórios e, em relação aos Direitos Creditórios vencidos  e não pagos, diligenciar para que sejam adotados os procedimentos de cobrança, observado que  essa última obrigação inexiste no caso de hipóteses de dispensa previstas no regulamento; e\n (ii) a taxa de retorno dos Direitos Creditórios, considerando, no mínimo, pagamentos, pré-  pagamentos e inadimplência; e\n (x) elaborar e encaminhar ao administrador, em até 40 (quarenta) dias após o encerramento do  trimestre civil a que se referir, relatório contendo:\n (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de  ativos;\n (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da  carteira de Direitos Creditórios no trimestre:\n (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não  tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e\n (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores,  caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos  trimestrais;\n (iii) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n (iv) forma como se operou a cessão dos direitos creditórios, incluindo:\n (a) descrição de contratos relevantes firmados com esse propósito, se houver; e\n (b) indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n (v) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da  carteira;\n (vi) condições de alienação, a qualquer título, de direitos creditórios, incluindo:\n (a) momento da alienação (antes ou depois do vencimento); e\n (b) motivação da alienação;",
-      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
-      "verification": "primary_passage"
     },
     "513f9480e529c43f8795aebc76f12acd463a055aa07230522c2ae64d1cd89c2b": {
       "document_id": "1058234",
@@ -1364,6 +1342,18 @@
       "clause": "",
       "excerpt": "Pelo presente Instrumento Particular, a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sediada na Av. Brigadeiro Faria Lima, nº 3.500, 4º andar, Itaim Bibi, São Paulo – SP, inscrito no CNPJ nº 62.418.140/0001-31, ato declaratório CVM n.º 2528, (“Administrador”), neste ato representado por seus procuradores, vem:",
       "sha256": "ca32ce1b3e069c7f0b0c1cecfd0a868627a4ab3def9103810c039e079c41e3c0",
+      "verification": "primary_passage"
+    },
+    "75b9bbda3363e6bc0abcf74139fbd6173787cb0ba5353e46abed1d5536717c21": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 19,
+      "clause": "5.14",
+      "excerpt": "5.14. Em linha com o disposto no art. 45, §7º da Resolução CVM 175, considerando que o Fundo é destinado  exclusivamente a investidores profissionais, o Fundo não observará nenhum critério de concentração  máxima por Devedor, cedente ou originador.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
       "verification": "primary_passage"
     }
   }

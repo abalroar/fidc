@@ -3,17 +3,6 @@
   "cnpj": "49113994000141",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "224cc11fa6ad867bf0b355bbfbd37b79c70bd5b8705a9239a164a903534b5cdc",
-      "ca5f354b3687f652713267b9c8fb6238726abd46b53a83ede9432101c7ca09e2",
-      "265171d30a7b5596b00239fea08089c645362d6ebf3dab574ffb7291af5a18d1",
-      "ce84b9c9d2a7982176450d229b4efb54c5eb4bc0250754c7bbb338f826535d78",
-      "a40bd701dd47378dc358e19ef0fc0fca4c23d3793143e73b05e0643444275f4a",
-      "e19f68c86078cecae6eaedcccfefaad368ef2a76dd78b76748e05c103507cf2e",
-      "d67de6d28a2d30892b4f888f73a302cfe08841fec4dfa2d9e086a0d5c80c457b",
-      "37fb87ffc1783abaaff27c6618b2eadb75f6015f57631fe836921d0a124054c4",
-      "a7ad9988e4b35cb8e4c8d0623794f0d76feae6be9bd67d4c8cb0715c5e8921c6"
-    ],
     "term": [
       "d43c085d2b2146a49cbb722bf4c64212e972ac4020314d26350a054115d90867",
       "01268b28d935dffdbcb85b66c6ec77fc112bc5d2eb4727ee3cbbac5a7f2f28bf",
@@ -386,26 +375,6 @@
       "b77b51f9488f38baa7bc40780cf33dd71476bb7a42a6cc1a9ba8bded801db97e",
       "302a45cdef1103b4dd96ec7e65471d16534e431cc691615adcc694b4c2a2b2f6"
     ],
-    "originator": [
-      "dec933c2f8d595c476cd860f390e40309106de7fcd555e4b2277ef4f9a2f260f",
-      "81765ee8b9ade4f33e4062bb64ee3d8bd728bf34dd2cbc9d9f7321e5e5064fe7",
-      "265171d30a7b5596b00239fea08089c645362d6ebf3dab574ffb7291af5a18d1",
-      "60ffc10610facbc03e82b286e575e9c794ce44377d28301b9ea4c5e8efdf9a7f",
-      "16f1434e75901776b35a629e697ae143c285e29f6b4627bfa81c1b3060397ece",
-      "9e9bf386925971b3faba41880ff63b9616fcd71beaf5a102574ca61f51c8149d",
-      "e19f68c86078cecae6eaedcccfefaad368ef2a76dd78b76748e05c103507cf2e"
-    ],
-    "debtor": [
-      "f623bfcb9065ff8078644ef4b630ed36221dd6bba6c29df52e2ca62b3caeba23",
-      "460c66d23b64fc9b6da722f3100692d1e1bb21f080909a38d44da10f8c4e1586",
-      "7c736a606dee14f780b0c859c12f995cd11f32c6b83fd4abc722ac8a9d7c067b",
-      "cedcb481b2e9e07c121b44516e4358ccae9707f84c167438d6bd943affb0bf58",
-      "0f0cea3295a7a5a04a9a79198c2788063cfdcc8913e6ba5d2dea867f0bfab9cb",
-      "6afbb775f50b64d768670237041b5115deec6173670bb7f7802b90cc12271674",
-      "715bd7fd411abaf96a06cb2c0927a76a7fa4e34fd207196f3b6dcd9fddec5807",
-      "d67de6d28a2d30892b4f888f73a302cfe08841fec4dfa2d9e086a0d5c80c457b",
-      "27c61ecef2dc2d36eaa680dff188d748466fbbd7d91403cad53b596454d196eb"
-    ],
     "investee": [
       "899f214b07a3dd82a8281e7acb70f43cfa68f7b2f2c68ae24fe5b88d149db9bb",
       "ccad3f1c0ab276f59da85523316b641bf062c06acd13c333100db46de176aae9",
@@ -455,6 +424,46 @@
       "c4d815787f884144ef47ebb20bd4185ddc9f43b57e681b6bfdf91a0917b37df8",
       "60db6ab3d701270c9086c5a0cfd2d189d1016191d50bf81f786d4fb32a46d470",
       "117190bf3bbcb7e7d781ac4abc7bbb91c752c875eb0772d6a19b54ba60a2974c"
+    ],
+    "originator": [
+      "dec933c2f8d595c476cd860f390e40309106de7fcd555e4b2277ef4f9a2f260f",
+      "81765ee8b9ade4f33e4062bb64ee3d8bd728bf34dd2cbc9d9f7321e5e5064fe7",
+      "265171d30a7b5596b00239fea08089c645362d6ebf3dab574ffb7291af5a18d1",
+      "60ffc10610facbc03e82b286e575e9c794ce44377d28301b9ea4c5e8efdf9a7f",
+      "16f1434e75901776b35a629e697ae143c285e29f6b4627bfa81c1b3060397ece",
+      "9e9bf386925971b3faba41880ff63b9616fcd71beaf5a102574ca61f51c8149d",
+      "bf5f0690a0cc46dbaba7200f1370174ae39b84854529385fb8ef32fcc0575874"
+    ],
+    "eligibility": [
+      "8b4060f3382d6e2d91120dfa24714bc9ca524ba34cdcdff74f2b320824d2b7fa",
+      "19cf8ff6c77c9ede317bc26c8d95511cc627e590763e429ee313b4ad70e0148d",
+      "5099af1523c1418f3d5f2c61f5154a18fdbc639809c5550d2ebc875695e1d042",
+      "a2aaa1bd03cad026baa945147b69b78e4f15b8334906d050ef18739172cb7afd",
+      "96da48abeadf1661bc4579037709fbbb0240649aeb9260b780150fca270a94bf",
+      "31e5635735f3fbd9962423ba041c78190b5e041199d145b4d8cf0c8b29380b0f",
+      "e9be7ec396c76be4fb092a791e0f281e9fd1376511d17127aa7b7673ffbf6fbb",
+      "d67de6d28a2d30892b4f888f73a302cfe08841fec4dfa2d9e086a0d5c80c457b",
+      "978c8a32da9bece3c39a901870b01ba4e771babc1ebeb0ddd4b7f37ccc2472ac",
+      "8877c39df2ca694147a45490c18c02223f5bd5a51cf502cc3688bc7459a23e43",
+      "91ee68d461a460451e3119fb1fb7d504f7c9e732e0c706a6dbdee9c3206ea880"
+    ],
+    "debtor": [
+      "f623bfcb9065ff8078644ef4b630ed36221dd6bba6c29df52e2ca62b3caeba23",
+      "460c66d23b64fc9b6da722f3100692d1e1bb21f080909a38d44da10f8c4e1586",
+      "7c736a606dee14f780b0c859c12f995cd11f32c6b83fd4abc722ac8a9d7c067b",
+      "171fba019708adc82b72817075ffce95a5bf3d65b74fc6b8fcfb72a2006a03d2",
+      "0f0cea3295a7a5a04a9a79198c2788063cfdcc8913e6ba5d2dea867f0bfab9cb",
+      "6afbb775f50b64d768670237041b5115deec6173670bb7f7802b90cc12271674",
+      "d49ede77dab2c9d3150e3724fcd55588e761e0d00cf33be3e7d36588e7405af8",
+      "d67de6d28a2d30892b4f888f73a302cfe08841fec4dfa2d9e086a0d5c80c457b",
+      "9eab9a2d94129537e2b1c8a018fdb5926e6329154093ef740840f7c2a9f71a01",
+      "b348704c6f5e57cf5626fb0b8c9778e4e229f9c3a9696a4c4f378d23fcb814e0",
+      "4c4044190f287cae17f07b3cf9fd3c5132cd640478f9b6830d8ae2e260923580",
+      "13b45755cf2baa72b931b2b0fc036ce872e205c6270a7b8618b666ca28dc13d2",
+      "d16850b9ad00b97d327f64844d7f00a8bc843f4fc587583930750eeb0521b39d",
+      "0a267c49cca7850b911622a08f9b6ef07d59d583b9ee23b00ac0f7d9746d0e06",
+      "89129b59814012d1b7e9e1c9340cb72d75e52ff4ddba5dbe44a38b8721e86bb9",
+      "ede349c617f2aa7826db9c3284a045e93d3ff8676ce08048f300b567cf61b869"
     ]
   },
   "entries": {
@@ -657,15 +666,6 @@
         "3877b28ff05a98a9d3fe1622171cf204abb6c40342ebebdd798b7af145395e90"
       ]
     },
-    "e19f68c86078cecae6eaedcccfefaad368ef2a76dd78b76748e05c103507cf2e": {
-      "reference_date": "2023-10-03",
-      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dbf7fb9b0e2eb00d75c578c294f07fabcdc79165d082a70c6a2e83d5e69d5275"
-      ]
-    },
     "f623bfcb9065ff8078644ef4b630ed36221dd6bba6c29df52e2ca62b3caeba23": {
       "reference_date": "2024-11-22",
       "value": "Pessoas físicas; financiamento de saúde/bem-estar",
@@ -694,15 +694,6 @@
         "336484816b81a966ebeb0d696eccc0a1b7612acf09a6aaefa8406d1b4c1daf16"
       ]
     },
-    "cedcb481b2e9e07c121b44516e4358ccae9707f84c167438d6bd943affb0bf58": {
-      "reference_date": "2024-07-15",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "47a82c567ce6ec079d864d9de6dd8994db466199d591713167ff522c06ee9fd9"
-      ]
-    },
     "0f0cea3295a7a5a04a9a79198c2788063cfdcc8913e6ba5d2dea867f0bfab9cb": {
       "reference_date": "2024-05-27",
       "value": "Os Devedores são pessoas físicas, que contraem as operações de crédito e se tornam responsáveis pelos Direitos Creditórios endossados ao Fundo, conforme as regras do Regulamento e do respectivo termo de endosso.",
@@ -721,51 +712,6 @@
         "fc82623f1f23525fe4f4579dfbf9f6887a9fa974768178e1c2bfd8d43adca794"
       ]
     },
-    "715bd7fd411abaf96a06cb2c0927a76a7fa4e34fd207196f3b6dcd9fddec5807": {
-      "reference_date": "2023-10-03",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "97069c699a64d2b2258364cde016122b93b1300647496b6099158249adf6b3c1"
-      ]
-    },
-    "27c61ecef2dc2d36eaa680dff188d748466fbbd7d91403cad53b596454d196eb": {
-      "reference_date": "2023-05-26",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6c92fc7b24c33da6e28d99a470285e9e26318a2b5e85d3143092c1662760e328"
-      ]
-    },
-    "224cc11fa6ad867bf0b355bbfbd37b79c70bd5b8705a9239a164a903534b5cdc": {
-      "reference_date": "2024-09-06",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "42df017d8225e1906373d5c8da183f3582c7826618f3c6e387f7de5a19fd7ca6"
-      ]
-    },
-    "ca5f354b3687f652713267b9c8fb6238726abd46b53a83ede9432101c7ca09e2": {
-      "reference_date": "2024-08-12",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "e656431b727f995af2b10a74bb0b5524776dbde678c8b8f299144d2559d90791"
-      ]
-    },
-    "ce84b9c9d2a7982176450d229b4efb54c5eb4bc0250754c7bbb338f826535d78": {
-      "reference_date": "2024-05-27",
-      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês;.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5dd8a97bf48d5dc107b072f2eb90e89046871dd42ad1e69e9933dcd3f5c92508"
-      ]
-    },
     "a40bd701dd47378dc358e19ef0fc0fca4c23d3793143e73b05e0643444275f4a": {
       "reference_date": "2024-03-06",
       "value": "",
@@ -773,24 +719,6 @@
       "provenance": "primary_passage",
       "sources": [
         "b372efaa71645806f92f31612ee3b53d43d12356ddb61dac42327645522cc647"
-      ]
-    },
-    "37fb87ffc1783abaaff27c6618b2eadb75f6015f57631fe836921d0a124054c4": {
-      "reference_date": "2023-05-26",
-      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais);.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "933fdc87a713349b8b0fb691d9d239fbdb3fbbb8760e089defbc8a8ab83d9f65"
-      ]
-    },
-    "a7ad9988e4b35cb8e4c8d0623794f0d76feae6be9bd67d4c8cb0715c5e8921c6": {
-      "reference_date": "2024-07-15",
-      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais);.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "93a95bc0e804722bc3943a6e0eb77cd4bcca1a682eef6da0ea1876691ff15705"
       ]
     },
     "d43c085d2b2146a49cbb722bf4c64212e972ac4020314d26350a054115d90867": {
@@ -3509,6 +3437,195 @@
       "sources": [
         "cd796064dfdb749e7f8dfea9748100a5595f43b6f61065cec9f48633c6c725ab"
       ]
+    },
+    "bf5f0690a0cc46dbaba7200f1370174ae39b84854529385fb8ef32fcc0575874": {
+      "reference_date": "2023-10-03",
+      "value": "3.7. Não obstante o disposto no item 3.6 acima, os Endossantes serão responsáveis, civil e criminalmente, pela existência, certeza, exigibilidade e a correta formalização dos Direitos Creditórios, de acordo com o previsto no presente Regulamento, no Contrato de Endosso e na legislação vigente, ficando responsáveis por eventuais oposições ou exceções que forem apresentadas pelos Devedores dos Direitos Creditórios em relação a estas, enquanto a Originadora será responsável (i) pela legalidade, legitimidade, veracidade e correta formalização dos Direitos Creditórios ofertados ao FUNDO;.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fd98a435752bd37e27e30390e104aa589364145d1cbd3490b3e21b37126ffcd0"
+      ]
+    },
+    "8b4060f3382d6e2d91120dfa24714bc9ca524ba34cdcdff74f2b320824d2b7fa": {
+      "reference_date": "2024-09-06",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês; Critérios de iv) a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 dias corridos após a data de aquisição pelo Fundo; Elegibilidade: v) os Devedores não poderão estar inadimplentes em relação ao Fundo; vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve corresponder a, no mínimo, 2,39% ao mês; e vii) as CCBs deverão apresentar prazo máximo de 37 meses, contados da Data de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série de Cotas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "42df017d8225e1906373d5c8da183f3582c7826618f3c6e387f7de5a19fd7ca6"
+      ]
+    },
+    "19cf8ff6c77c9ede317bc26c8d95511cc627e590763e429ee313b4ad70e0148d": {
+      "reference_date": "2024-08-12",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês; Critérios de iv) a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 dias corridos após a data de aquisição pelo Fundo; Elegibilidade: v) os Devedores não poderão estar inadimplentes em relação ao Fundo; vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve corresponder a, no mínimo, 2,39% ao mês; e vii) as CCBs deverão apresentar prazo máximo de 37 meses, contados da Data de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série de Cotas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e656431b727f995af2b10a74bb0b5524776dbde678c8b8f299144d2559d90791"
+      ]
+    },
+    "5099af1523c1418f3d5f2c61f5154a18fdbc639809c5550d2ebc875695e1d042": {
+      "reference_date": "2024-07-15",
+      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "314e3e08a367b3c1a9de4a765e9a2359786c031852fdbab8fac563ed8af87df8"
+      ]
+    },
+    "a2aaa1bd03cad026baa945147b69b78e4f15b8334906d050ef18739172cb7afd": {
+      "reference_date": "2024-05-27",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês; Critérios de iv) a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 dias corridos após a data de aquisição pelo Fundo; Elegibilidade: v) os Devedores não poderão estar inadimplentes em relação ao Fundo; vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve corresponder a, no mínimo, 2,39% ao mês; e vii) as CCBs deverão apresentar prazo máximo de 37 meses, contados da Data de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série de Cotas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5dd8a97bf48d5dc107b072f2eb90e89046871dd42ad1e69e9933dcd3f5c92508"
+      ]
+    },
+    "96da48abeadf1661bc4579037709fbbb0240649aeb9260b780150fca270a94bf": {
+      "reference_date": "2024-03-06",
+      "value": "O Fundo somente poderá adquirir Direitos Creditórios que atendam e estejam em consonância, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição e Pagamento: i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00; ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00; iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% ao mês; iv) Critérios de a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 dias corridos após a data de aquisição pelo Fundo; v) Elegibilidade: os Devedores não poderão estar inadimplentes em relação ao Fundo; vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve corresponder a, no mínimo, 2,39% ao mês; e vii) as CCBs deverão apresentar prazo máximo de 37 meses, contados da Data de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série de Cotas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b372efaa71645806f92f31612ee3b53d43d12356ddb61dac42327645522cc647"
+      ]
+    },
+    "31e5635735f3fbd9962423ba041c78190b5e041199d145b4d8cf0c8b29380b0f": {
+      "reference_date": "2023-11-30",
+      "value": "Adicionalmente às condições de endosso previstas acima, todo e qualquer direito creditório originado pela originadora, ofertados pelos endossantes e a ser adquirido pelo Fundo deverá atender cumulativamente, na data de aquisição, aos seguintes critérios de elegibilidade, que deverão ser validados pelo custodiante previamente à cada endosso de direitos creditórios ao Fundo, com base no arquivo eletrônico a ser enviado pela gestora, após a verificação das condições de cessão pela originadora e pela gestora, conforme aplicável: i. O saldo devedor total da CCB devida por um único devedor não poderá ultrapassar o montante de R$ 35 (trinta e cinco mil reais); ii. O saldo devedor total da CCB devida por um único devedor não poderá ser inferior a R$ 0,2 (duzentos reais); iii. A taxa mínima de endosso dos direitos creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês; iv. A primeira parcela da CCB em questão não poderá ter vencimento superior a 45 (quarenta e cinco) dias corridos após a data de aquisição pelo Fundo; v. Os devedores não poderão estar inadimplentes em relação ao Fundo; vi. Considerada pro forma a aquisição dos direitos creditórios ofertados, a taxa média ponderada de endosso dos direitos creditórios integrantes da carteira do Fundo deve corresponder a, no mínimo, 2,39% (dois inteiros e trinta e nove centésimos por cento) ao mês; e vii. As CCBs deverão apresentar prazo máximo de 37(trinta e sete) meses, contados da data de aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da série de cotas seniores ou da emissão de cotas subordinadas mezanino mais longa, o que for menor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d4b1edd3c31a01458616fcac30979e6147dd9d0ad58b070fcd3f309d5bd2ba55"
+      ]
+    },
+    "e9be7ec396c76be4fb092a791e0f281e9fd1376511d17127aa7b7673ffbf6fbb": {
+      "reference_date": "2023-10-03",
+      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "dbf7fb9b0e2eb00d75c578c294f07fabcdc79165d082a70c6a2e83d5e69d5275"
+      ]
+    },
+    "978c8a32da9bece3c39a901870b01ba4e771babc1ebeb0ddd4b7f37ccc2472ac": {
+      "reference_date": "2023-05-26",
+      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "933fdc87a713349b8b0fb691d9d239fbdb3fbbb8760e089defbc8a8ab83d9f65"
+      ]
+    },
+    "8877c39df2ca694147a45490c18c02223f5bd5a51cf502cc3688bc7459a23e43": {
+      "reference_date": "2024-07-15",
+      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais);",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "93a95bc0e804722bc3943a6e0eb77cd4bcca1a682eef6da0ea1876691ff15705"
+      ]
+    },
+    "91ee68d461a460451e3119fb1fb7d504f7c9e732e0c706a6dbdee9c3206ea880": {
+      "reference_date": "2023-10-30",
+      "value": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável: (i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o montante de R$ 35.000,00 (trinta e cinco mil reais); (ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$ 200,00 (duzentos reais); (iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79% (um inteiro e setenta e nove centésimos por cento) ao mês; (iv) a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 (quarenta e cinco) dias corridos após a data de aquisição pelo FUNDO; (v) os Devedores não poderão estar inadimplentes em relação ao FUNDO; (vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve corresponder a, no mínimo, 2,39% (dois inteiros e trinta e nove centésimos por cento) ao mês; e (vii) as CCBs deverão apresentar prazo máximo de 37(trinta e sete) meses, contados da Data de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série de Cotas Seniores ou da emissão de Cotas subordinadas Mezanino mais longa, o que for menor. 4.3.1. A totalidade dos Documentos Representativos dos Créditos será disponibilizada pelos Endossantes e/ou pela Originadora ao CUSTODIANTE, ou terceiro por este indicado, na respectiva Data de Aquisição do Direito Creditório. 4.3.2. Na hipótese de o Direito Creditório Elegível perder qualquer Condição de Endosso e/ou Critério de Elegibilidade após sua aquisição pelo FUNDO, o FUNDO e seus Cotistas não terão qualquer direito de regresso contra a ADMINISTRADORA, a GESTORA, o CUSTODIANTE, os Endossantes e/ou a Originadora, salvo na existência comprovada de má-fé, culpa ou dolo contra quem o motivou.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "03eac6b6a407c85421ca06f1f4ad587fc48dd8e31a3fe8758a865b0405413cd2"
+      ]
+    },
+    "171fba019708adc82b72817075ffce95a5bf3d65b74fc6b8fcfb72a2006a03d2": {
+      "reference_date": "2024-07-15",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1f8c0d2d55a0939d2ab577693459c87a8f37d93ff09c3cb2f8d33abb6ade7330"
+      ]
+    },
+    "d49ede77dab2c9d3150e3724fcd55588e761e0d00cf33be3e7d36588e7405af8": {
+      "reference_date": "2023-10-03",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "decb0fedd635370c01be209d884d5edea19a41646c7cfd5d45479c76aad19d05"
+      ]
+    },
+    "9eab9a2d94129537e2b1c8a018fdb5926e6329154093ef740840f7c2a9f71a01": {
+      "reference_date": "2023-05-26",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "993ca7465a5fb0d495fb6fd7d94d3eebb4486dd22e83ef8d58a866cfd186b615"
+      ]
+    },
+    "b348704c6f5e57cf5626fb0b8c9778e4e229f9c3a9696a4c4f378d23fcb814e0": {
+      "reference_date": "2024-07-15",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "57a342322dc6de5f5744b431abcbfda7ceb2b2007c0ed832a1462100c3845fd7"
+      ]
+    },
+    "4c4044190f287cae17f07b3cf9fd3c5132cd640478f9b6830d8ae2e260923580": {
+      "reference_date": "2023-10-30",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4e69c2ea63c6020f0cd4a428e1ed564c7a06ba26428cc4a003c467eae0670d23"
+      ]
+    },
+    "13b45755cf2baa72b931b2b0fc036ce872e205c6270a7b8618b666ca28dc13d2": {
+      "reference_date": "2023-10-16",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "954ad0393ccbdccf2034464b3750abd5262fee9b166ba3f7001942839bcda53a"
+      ]
+    },
+    "d16850b9ad00b97d327f64844d7f00a8bc843f4fc587583930750eeb0521b39d": {
+      "reference_date": "2023-10-03",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ae1d6490fd6a1154155bc9b519ae69f7d13a40c0b6c6ff9aa26c44a20b109845"
+      ]
+    },
+    "0a267c49cca7850b911622a08f9b6ef07d59d583b9ee23b00ac0f7d9746d0e06": {
+      "reference_date": "2023-05-26",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ce96080c923569bacebe159cbc9af4b3eb595053c5e8c22a1ed79601170255f7"
+      ]
+    },
+    "89129b59814012d1b7e9e1c9340cb72d75e52ff4ddba5dbe44a38b8721e86bb9": {
+      "reference_date": "2023-03-07",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4c01c0138d395598b58a972ab75eb5e0f244ed71a44ff38950ab0f43d4382a64"
+      ]
+    },
+    "ede349c617f2aa7826db9c3284a045e93d3ff8676ce08048f300b567cf61b869": {
+      "reference_date": "2023-01-09",
+      "value": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "835c3301d3c8c4142628d61c4418d6907dd88c59f90e1616bc78b15a3df46d15"
+      ]
     }
   },
   "passages": {
@@ -3739,42 +3856,6 @@
       "clause": "4.3",
       "excerpt": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório  originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá  atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão  ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO,  com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de  Cessão pela Originadora e pela Gestora, conforme aplicável:\n(i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o  montante de R$ 35.000,00 (trinta e cinco mil reais);\n(ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$  200,00 (duzentos reais);",
       "sha256": "06b23ce8e44fa08c9b85f40a793111da36bc00f1f1237e3ce80daece84082c01",
-      "verification": "primary_passage"
-    },
-    "47a82c567ce6ec079d864d9de6dd8994db466199d591713167ff522c06ee9fd9": {
-      "document_id": "701052",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701052",
-      "reference_date": "2024-07-15",
-      "version": "1",
-      "page": 12,
-      "clause": "",
-      "excerpt": "a) aplicar recursos em ativos financeiros de renda variável ou atrelados à variação cambial;\n b) realizar operações de “day-trade”, assim consideradas aquelas iniciadas e encerradas  no mesmo dia, independentemente de o FUNDO possuir estoque ou posição anterior  do mesmo ativo;\n c) realizar operações com warrants;\n d) realizar operações com derivativos;\n e) realizar aplicações em ativos de emissão ou que envolvam coobrigação da  ADMINISTRADORA, da GESTORA do CUSTODIANTE e Partes Relacionadas;\n f) adquirir Direitos Creditórios de cedentes e/ou Devedores que estejam em processo de  falência, recuperação judicial e/ou extrajudicial, liquidação extrajudicial, intervenção do  BACEN ou regime de administração especial temporária pelo BACEN, conforme  aplicável;\n g) adquirir Direitos Creditórios decorrentes de receitas públicas originárias ou derivadas  da União, dos Estados, do Distrito Federal e dos Municípios, bem como de suas  autarquias e fundações; e\n h) adquirir Direitos Creditórios cedidos ou originados por empresas controladas pelo poder  público.",
-      "sha256": "d7723e65c962a38005108efa9fe1473fc22450f4a5170ca1bd8de633b3f17c33",
-      "verification": "primary_passage"
-    },
-    "97069c699a64d2b2258364cde016122b93b1300647496b6099158249adf6b3c1": {
-      "document_id": "533558",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=533558",
-      "reference_date": "2023-10-03",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "a) aplicar recursos em ativos financeiros de renda variável ou atrelados à variação cambial;\n b) realizar operações de “day-trade”, assim consideradas aquelas iniciadas e encerradas  no mesmo dia, independentemente de o FUNDO possuir estoque ou posição anterior  do mesmo ativo;\n c) realizar operações com warrants;\n d) realizar operações com derivativos;\n e) realizar aplicações em ativos de emissão ou que envolvam coobrigação da  ADMINISTRADORA, da GESTORA do CUSTODIANTE e Partes Relacionadas;\n f) adquirir Direitos Creditórios de cedentes e/ou Devedores que estejam em processo de  falência, recuperação judicial e/ou extrajudicial, liquidação extrajudicial, intervenção do  BACEN ou regime de administração especial temporária pelo BACEN, conforme  aplicável;\n g) adquirir Direitos Creditórios decorrentes de receitas públicas originárias ou derivadas  da União, dos Estados, do Distrito Federal e dos Municípios, bem como de suas  autarquias e fundações; e\n h) adquirir Direitos Creditórios cedidos ou originados por empresas controladas pelo poder  público.",
-      "sha256": "06b23ce8e44fa08c9b85f40a793111da36bc00f1f1237e3ce80daece84082c01",
-      "verification": "primary_passage"
-    },
-    "6c92fc7b24c33da6e28d99a470285e9e26318a2b5e85d3143092c1662760e328": {
-      "document_id": "486449",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486449",
-      "reference_date": "2023-05-26",
-      "version": "1",
-      "page": 9,
-      "clause": "",
-      "excerpt": "a) aplicar recursos em ativos financeiros de renda variável ou atrelados à variação cambial;\n b) realizar operações de “day-trade”, assim consideradas aquelas iniciadas e encerradas  no mesmo dia, independentemente de o FUNDO possuir estoque ou posição anterior  do mesmo ativo;\n c) realizar operações com warrants;\n d) realizar operações com derivativos;\n e) realizar aplicações em ativos de emissão ou que envolvam coobrigação da  ADMINISTRADORA, da GESTORA do CUSTODIANTE e Partes Relacionadas;\n f) adquirir Direitos Creditórios de cedentes e/ou Devedores que estejam em processo de  falência, recuperação judicial e/ou extrajudicial, liquidação extrajudicial, intervenção do  BACEN ou regime de administração especial temporária pelo BACEN, conforme  aplicável;\n g) adquirir Direitos Creditórios decorrentes de receitas públicas originárias ou derivadas  da União, dos Estados, do Distrito Federal e dos Municípios, bem como de suas  autarquias e fundações; e\n h) adquirir Direitos Creditórios cedidos ou originados por empresas controladas pelo poder  público.",
-      "sha256": "f9e72e7acd270bf763044cd64c598a0eae2d680c27d2d9eef2213eb9e7e0301e",
       "verification": "primary_passage"
     },
     "42df017d8225e1906373d5c8da183f3582c7826618f3c6e387f7de5a19fd7ca6": {
@@ -7273,6 +7354,164 @@
       "clause": "",
       "excerpt": "3. PRESENÇA: Presentes (i) os cotistas titulares de 100% das Cotas Seniores em circulação do Fundo; (ii) os  Cotistas titulares de 87% das Cotas Subordinadas Mezanino em circulação do Fundo; (iii) os Cotistas titulares  de 100% das Cotas Subordinadas Júnior em circulação do Fundo, conforme os votos enviados para o  Administrador; (iv) representantes legais da Administradora; e (v) representantes legais da da VERT GESTORA  DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua  Cardeal Arcoverde, nº 2.365, 11º andar, , Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº\n 31.636.333/0001-35, na qualidade de gestora do Fundo (“Gestora”).",
       "sha256": "f3544a6726886aba8a0e67eba713e557d4540c0c86dbc985e88af5f4ee69fb32",
+      "verification": "primary_passage"
+    },
+    "fd98a435752bd37e27e30390e104aa589364145d1cbd3490b3e21b37126ffcd0": {
+      "document_id": "533558",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=533558",
+      "reference_date": "2023-10-03",
+      "version": "1",
+      "page": 8,
+      "clause": "3.7",
+      "excerpt": "3.7. Não obstante o disposto no item 3.6 acima, os Endossantes serão responsáveis, civil e  criminalmente, pela existência, certeza, exigibilidade e a correta formalização dos Direitos Creditórios,  de acordo com o previsto no presente Regulamento, no Contrato de Endosso e na legislação vigente,  ficando responsáveis por eventuais oposições ou exceções que forem apresentadas pelos Devedores  dos Direitos Creditórios em relação a estas, enquanto a Originadora será responsável (i) pela  legalidade, legitimidade, veracidade e correta formalização dos Direitos Creditórios ofertados ao  FUNDO; (ii) por eventuais oposições ou exceções apresentadas pelos Devedores relacionadas às  características indicadas no inciso (i); (iii) por prejuízos comprovadamente sofridos pelo FUNDO em  razão de impossibilidade de cobrança de Direitos Creditórios decorrentes de vício em sua formação,  não havendo por parte do CUSTODIANTE, da ADMINISTRADORA, da GESTORA, qualquer  responsabilidade a esse respeito, mantidas, contudo, as responsabilidades do CUSTODIANTE  previstas na Instrução CVM 356, no Contrato de Endosso e nos demais documentos relacionados ao  FUNDO.",
+      "sha256": "06b23ce8e44fa08c9b85f40a793111da36bc00f1f1237e3ce80daece84082c01",
+      "verification": "primary_passage"
+    },
+    "d4b1edd3c31a01458616fcac30979e6147dd9d0ad58b070fcd3f309d5bd2ba55": {
+      "document_id": "611510",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=611510",
+      "reference_date": "2023-11-30",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Adicionalmente às condições de endosso previstas acima, todo e qualquer direito creditório originado pela  originadora, ofertados pelos endossantes e a ser adquirido pelo Fundo deverá atender cumulativamente, na  data de aquisição, aos seguintes critérios de elegibilidade, que deverão ser validados pelo custodiante  previamente à cada endosso de direitos creditórios ao Fundo, com base no arquivo eletrônico a ser enviado  pela gestora, após a verificação das condições de cessão pela originadora e pela gestora, conforme aplicável:\ni. O saldo devedor total da CCB devida por um único devedor não poderá ultrapassar o montante de R$ 35  (trinta e cinco mil reais);\nii. O saldo devedor total da CCB devida por um único devedor não poderá ser inferior a R$ 0,2 (duzentos  reais);\niii. A taxa mínima de endosso dos direitos creditórios deverá ser correspondente a 1,79% (um inteiro e  setenta e nove centésimos por cento) ao mês;\niv. A primeira parcela da CCB em questão não poderá ter vencimento superior a 45 (quarenta e cinco) dias  corridos após a data de aquisição pelo Fundo;\nv. Os devedores não poderão estar inadimplentes em relação ao Fundo;\nvi. Considerada pro forma a aquisição dos direitos creditórios ofertados, a taxa média ponderada de endosso  dos direitos creditórios integrantes da carteira do Fundo deve corresponder a, no mínimo, 2,39% (dois  inteiros e trinta e nove centésimos por cento) ao mês; e\nvii. As CCBs deverão apresentar prazo máximo de 37(trinta e sete) meses, contados da data de aquisição pelo  Fundo ou correspondente ao vencimento do prazo de duração da série de cotas seniores ou da emissão  de cotas subordinadas mezanino mais longa, o que for menor.",
+      "sha256": "9ed2383f3123928b6901076b84f0c395424fb1183c606f126050d31e30a12fa9",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "03eac6b6a407c85421ca06f1f4ad587fc48dd8e31a3fe8758a865b0405413cd2": {
+      "document_id": "557776",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557776",
+      "reference_date": "2023-10-30",
+      "version": "1",
+      "page": "6–7",
+      "clause": "4.3",
+      "excerpt": "4.3. Adicionalmente às Condições de Endosso previstas acima, todo e qualquer Direito Creditório originado pela Originadora, ofertados pelos Endossantes e a ser adquirido pelo FUNDO deverá atender cumulativamente, na Data de Aquisição, aos seguintes Critérios de Elegibilidade, que deverão ser validados pelo CUSTODIANTE previamente à cada endosso de Direitos Creditórios ao FUNDO, com base no arquivo eletrônico a ser enviado pela Gestora, após a verificação das Condições de Cessão pela Originadora e pela Gestora, conforme aplicável:\n(i) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ultrapassar o  montante de R$ 35.000,00 (trinta e cinco mil reais);\n(ii) o Saldo Devedor Total da CCB devida por um único Devedor não poderá ser inferior a R$  200,00 (duzentos reais);\n(iii) a Taxa Mínima de Endosso dos Direitos Creditórios deverá ser correspondente a 1,79%  (um inteiro e setenta e nove centésimos por cento) ao mês;\n(iv) a primeira parcela da CCB em questão não poderá ter vencimento superior a 45 (quarenta  e cinco) dias corridos após a data de aquisição pelo FUNDO;\n(v) os Devedores não poderão estar inadimplentes em relação ao FUNDO;\n(vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, a Taxa Média  Ponderada de Endosso dos Direitos Creditórios integrantes da carteira do FUNDO deve  corresponder a, no mínimo, 2,39% (dois inteiros e trinta e nove centésimos por cento) ao  mês; e\n(vii) as CCBs deverão apresentar prazo máximo de 37(trinta e sete) meses, contados da Data  de Aquisição pelo Fundo ou correspondente ao vencimento do prazo de duração da Série  de Cotas Seniores ou da emissão de Cotas subordinadas Mezanino mais longa, o que for  menor.\n4.3.1. A totalidade dos Documentos Representativos dos Créditos será disponibilizada pelos Endossantes e/ou pela Originadora ao CUSTODIANTE, ou terceiro por este indicado, na respectiva Data de Aquisição do Direito Creditório.\n4.3.2. Na hipótese de o Direito Creditório Elegível perder qualquer Condição de Endosso e/ou Critério de Elegibilidade após sua aquisição pelo FUNDO, o FUNDO e seus Cotistas não terão qualquer direito de regresso contra a ADMINISTRADORA, a GESTORA, o CUSTODIANTE, os Endossantes e/ou a Originadora, salvo na existência comprovada de má-fé, culpa ou dolo contra quem o motivou.",
+      "sha256": "287a6a8bcb459d56735fd1c08bc1f7d35941814c93d24dba62a17ba2f6fde865",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "1f8c0d2d55a0939d2ab577693459c87a8f37d93ff09c3cb2f8d33abb6ade7330": {
+      "document_id": "701052",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701052",
+      "reference_date": "2024-07-15",
+      "version": "1",
+      "page": 61,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "d7723e65c962a38005108efa9fe1473fc22450f4a5170ca1bd8de633b3f17c33",
+      "verification": "primary_passage"
+    },
+    "decb0fedd635370c01be209d884d5edea19a41646c7cfd5d45479c76aad19d05": {
+      "document_id": "533558",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=533558",
+      "reference_date": "2023-10-03",
+      "version": "1",
+      "page": 58,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "06b23ce8e44fa08c9b85f40a793111da36bc00f1f1237e3ce80daece84082c01",
+      "verification": "primary_passage"
+    },
+    "993ca7465a5fb0d495fb6fd7d94d3eebb4486dd22e83ef8d58a866cfd186b615": {
+      "document_id": "486449",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486449",
+      "reference_date": "2023-05-26",
+      "version": "1",
+      "page": 58,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "f9e72e7acd270bf763044cd64c598a0eae2d680c27d2d9eef2213eb9e7e0301e",
+      "verification": "primary_passage"
+    },
+    "57a342322dc6de5f5744b431abcbfda7ceb2b2007c0ed832a1462100c3845fd7": {
+      "document_id": "701054",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=701054",
+      "reference_date": "2024-07-15",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "da5049b033f31b3ec191f94534ff7d4887091ac9259c03591153d29d93d30200",
+      "verification": "primary_passage"
+    },
+    "4e69c2ea63c6020f0cd4a428e1ed564c7a06ba26428cc4a003c467eae0670d23": {
+      "document_id": "557776",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557776",
+      "reference_date": "2023-10-30",
+      "version": "1",
+      "page": 54,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "287a6a8bcb459d56735fd1c08bc1f7d35941814c93d24dba62a17ba2f6fde865",
+      "verification": "primary_passage"
+    },
+    "954ad0393ccbdccf2034464b3750abd5262fee9b166ba3f7001942839bcda53a": {
+      "document_id": "537771",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=537771",
+      "reference_date": "2023-10-16",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "5b6f142de3ec01fae455fea37b07a42c7e286cacfc099d4d45d60712fa7a8f5b",
+      "verification": "primary_passage"
+    },
+    "ae1d6490fd6a1154155bc9b519ae69f7d13a40c0b6c6ff9aa26c44a20b109845": {
+      "document_id": "533559",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=533559",
+      "reference_date": "2023-10-03",
+      "version": "1",
+      "page": 54,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "e83076818ea2bb8da5e0101afb2ba3430ed346b7d494302882591275dcb27e64",
+      "verification": "primary_passage"
+    },
+    "ce96080c923569bacebe159cbc9af4b3eb595053c5e8c22a1ed79601170255f7": {
+      "document_id": "486452",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=486452",
+      "reference_date": "2023-05-26",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "82b79c7bfe94660a2cf25466422769e5facd6e268507d0518eb9e0adbbf08d88",
+      "verification": "primary_passage"
+    },
+    "4c01c0138d395598b58a972ab75eb5e0f244ed71a44ff38950ab0f43d4382a64": {
+      "document_id": "428793",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=428793",
+      "reference_date": "2023-03-07",
+      "version": "1",
+      "page": 56,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "4584466a80f2e23fcd2c254d81b6784c17b1149f2cbcf102f0fb2974ae76bc47",
+      "verification": "primary_passage"
+    },
+    "835c3301d3c8c4142628d61c4418d6907dd88c59f90e1616bc78b15a3df46d15": {
+      "document_id": "428788",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=428788",
+      "reference_date": "2023-01-09",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "Devedores: as pessoas físicas que são devedoras dos Direitos Creditórios;",
+      "sha256": "c1feddb90498f1edbe81a30452e74e1eb0aa3e7af961fd46149ffdc14763a787",
       "verification": "primary_passage"
     }
   }

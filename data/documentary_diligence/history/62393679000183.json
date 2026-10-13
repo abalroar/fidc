@@ -3,28 +3,6 @@
   "cnpj": "62393679000183",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "originator": [
-      "c2c199e0974d6c302cf83614ed03fd56c28e3b432f25a310ee3c726da036aa96",
-      "7c9899c8466dfa5b2343c56c0b1400746a9b564e9791b80ea2a20b3b4d148622",
-      "a1dad4d08dfaded774141e56dfc65cdef1b8efaf287d8b57bb42f6b742bff840",
-      "a3fb07ecdca5e2ebbd832bb22a5f34aa77afa6a2dcc084e0051acd43fda4bfbe",
-      "7717328927b8275a9be74cf81e14a9a4c65b446150d1c4158c8dadf42391c79a",
-      "b45387b2ce15a2940eacdd711abd9d3a45c07e839bbad7a73cd493a22021f55a",
-      "be31813d25400408fda41d917c5c59019f3447789a404416a9380e34beb0fbbc"
-    ],
-    "debtor": [
-      "ed3537ff5b257a273c14f9a2b1e4413d032aec887f0a2a69fea44d1e66635fc2",
-      "b9481f24808ec4597043c20b487411ad2d8492b08dd1e91399abafd29bb6e4a6",
-      "4a88558315f9bc0f90f385ddb3c3e57384db295cc768fad12d3ae70c6549f9f2",
-      "5ec05e677e2e6ed558293c010896e3d2deff2f7262ff31290dc1a63340d8b5d5",
-      "e6035d722c5a03b1db1cc5b09e1d24844f79b23edb8798bc14b272ad593ad283"
-    ],
-    "eligibility": [
-      "ceeb0958cbeeb1f4be4383fb92daf7f6c43ea5bfe87fb1513d06f2f45ec86dbb",
-      "f95634b335f0792f019203ffb6d0fbcf26ac49fe21d9b8c487e19d21804672b4",
-      "c6495f391bd1cf3d6f3c79a5bd8507158f9549ee234ab6acb1de5483a6340d26",
-      "a08a4262a8d72d79fa2e358620fc699423f14afe7414e645b092637caa57869a"
-    ],
     "concentration": [
       "fc01257cd15214e4aa8b40659b69c6e981276b9cf97a0bacfe79365715225591",
       "4a88558315f9bc0f90f385ddb3c3e57384db295cc768fad12d3ae70c6549f9f2"
@@ -311,6 +289,23 @@
       "6284784af707eb7554f7d77015ecc904329fa47e7a69245a8df5f701f8547da9",
       "94d506b4b56c361655966e07b808e9887a6aaeb10cc2e9ab580983d071832212",
       "97479d4557b2bb371a3c143286af819527df2d09c8c3f77ffe9d048271c34959"
+    ],
+    "originator": [
+      "f8132d71812bd98236be19c49feaab5bc909ff7825d24b830b66c6f1e368a9a2",
+      "7c9899c8466dfa5b2343c56c0b1400746a9b564e9791b80ea2a20b3b4d148622",
+      "a1dad4d08dfaded774141e56dfc65cdef1b8efaf287d8b57bb42f6b742bff840",
+      "a3fb07ecdca5e2ebbd832bb22a5f34aa77afa6a2dcc084e0051acd43fda4bfbe"
+    ],
+    "eligibility": [
+      "ceeb0958cbeeb1f4be4383fb92daf7f6c43ea5bfe87fb1513d06f2f45ec86dbb",
+      "4028bd25d1445347fa86045b75ad071c0715a1b8774711e981cf0ca48f411ddd",
+      "0bbc7df34d3929e96c338b7c01fbaea8f434603cb278f9dbd4bd719eb114b2fe",
+      "910cc682c5aa6d37eb93acb731f0dac1fa569c00c95e93f799daf452fda0d330",
+      "bdb42812bba661e364f939837182e9a7f4f4c5a52b89e7f9b8c9ab386ccd0276"
+    ],
+    "debtor": [
+      "c4d33907437e703b2418acbfcb04cab34b1571f36f47b6cffde1e31f29390dc6",
+      "ad28222fceca9ebfafbee13eba36668831eee3578ec98b6d587695565ad59db6"
     ]
   },
   "entries": {
@@ -330,15 +325,6 @@
       "provenance": "primary_passage",
       "sources": [
         "e666c32ca8cc3a5cc0364ff7df4c57a9edc30cb9223e1a1830b6a41bece0152b"
-      ]
-    },
-    "c2c199e0974d6c302cf83614ed03fd56c28e3b432f25a310ee3c726da036aa96": {
-      "reference_date": "2026-03-31",
-      "value": "2. Em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de direitos creditórios no trimestre.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "76ff36a29b2e69d01f9cffa2fea1e4702d243b2dbe569c85625b6159c4a1ba71"
       ]
     },
     "7c9899c8466dfa5b2343c56c0b1400746a9b564e9791b80ea2a20b3b4d148622": {
@@ -368,51 +354,6 @@
         "e00b91a8a6633e00ce34a173f320b084a8c4252ceb066e04bd18706afff60d0c"
       ]
     },
-    "7717328927b8275a9be74cf81e14a9a4c65b446150d1c4158c8dadf42391c79a": {
-      "reference_date": "2025-09-09",
-      "value": "2.5. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados ou cedidos pela Administradora, pelo Gestor ou partes a eles relacionadas, exceto se (i) a Administradora, Gestor, a Entidade Registradora e o Custodiante de Direitos Creditórios não forem partes relacionadas entre si; e (ii) a Entidade Registradora e o Custodiante não sejam partes relacionadas ao originador ou Cedente.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "04c87e6f4c3a15fe4a67c0311096ff3dd30402f93fded7a214d261837906d3e8"
-      ]
-    },
-    "b45387b2ce15a2940eacdd711abd9d3a45c07e839bbad7a73cd493a22021f55a": {
-      "reference_date": "2025-09-02",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos trimestrais;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "dbb006af78feaedd10f0698e57232f1a5558f7f1cc80e04142f293fab49979d9"
-      ]
-    },
-    "be31813d25400408fda41d917c5c59019f3447789a404416a9380e34beb0fbbc": {
-      "reference_date": "2025-08-25",
-      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos trimestrais;.",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0cc1eeda1f9f60a454ed8337a1642f3ae3e1089de6b620cffcd51da935b52609"
-      ]
-    },
-    "ed3537ff5b257a273c14f9a2b1e4413d032aec887f0a2a69fea44d1e66635fc2": {
-      "reference_date": "2025-12-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "48336864633295b25d88f0c7545e10fa5fa9176282e1efa7815628f9408d0531"
-      ]
-    },
-    "b9481f24808ec4597043c20b487411ad2d8492b08dd1e91399abafd29bb6e4a6": {
-      "reference_date": "2025-09-05",
-      "value": "Considerando-se que o Fundo somente procederá à amortização das Cotas na medida em que os Direitos Creditórios sejam pagos pelos Devedores e/ou os Ativos Financeiros sejam devidamente liquidados pelas respectivas contrapartes, o Administrador, o Gestor, o Custodiante dos Direitos Creditórios e o Custodiante, bem como suas respectivas Partes Relacionadas, encontram-se impossibilitados de assegurar que a amortização das Cotas ocorrerão conforme solicitado, não sendo devido pelo Fundo ou qualquer pessoa, incluindo o Administrador, o Gestor, o Custodiante dos Direitos Creditórios ou o Custodiante, qualquer multa ou penalidade, de qualquer natureza.",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "97ca7d8567812d690cc52c980a48738d2556632ec9160e11994e4c5e8a6249d0"
-      ]
-    },
     "4a88558315f9bc0f90f385ddb3c3e57384db295cc768fad12d3ae70c6549f9f2": {
       "reference_date": "2025-09-09",
       "value": "2.11. Limite de Concentração por Devedor. A Classe A poderá adquirir Direitos Creditórios Elegíveis e Ativos Financeiros dos Devedores, ou de coobrigação de uma mesma Pessoa, até o limite de 100% (cem por cento) de seu Patrimônio Líquido caso os Devedores sejam instituições financeiras, nos termos do §3º, I, (b), artigo 45, do Anexo Normativo II, da Resolução CVM 175.",
@@ -422,24 +363,6 @@
         "aeef0dbd1c4507225c5056ad2192628976d19c9dd1e3aeff1f37e3cc31fe5306"
       ]
     },
-    "5ec05e677e2e6ed558293c010896e3d2deff2f7262ff31290dc1a63340d8b5d5": {
-      "reference_date": "2025-09-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "5e5553639974d69d3e5a13c1ba73b4d6fcac69e17a9cb6f33f68578c37972fd7"
-      ]
-    },
-    "e6035d722c5a03b1db1cc5b09e1d24844f79b23edb8798bc14b272ad593ad283": {
-      "reference_date": "2025-08-25",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "793306f9d55d93b46e854d4f3b385cb6169616bacd7b24e9f7b91a990086cdde"
-      ]
-    },
     "ceeb0958cbeeb1f4be4383fb92daf7f6c43ea5bfe87fb1513d06f2f45ec86dbb": {
       "reference_date": "2025-12-31",
       "value": "(v) Critérios de Elegibilidade e Condições de Cessão. Os Critérios de Elegibilidade e as Condições de Cessão têm a finalidade de selecionar e definir o tipo de Direitos Creditórios passíveis de aquisição pela Classe A. O adimplemento dos Direitos Creditórios depende, dentre outros fatores, da situação econômico-financeira dos Devedores. A observância, na data de aquisição dos Direitos Creditórios pela Classe A, dos Critérios de Elegibilidade e das Condições de Cessão não constitui garantia de adimplência dos respectivos devedores dos Direitos Creditórios de titularidade da Classe.",
@@ -447,33 +370,6 @@
       "provenance": "primary_passage",
       "sources": [
         "ab833278dbd9f7ad29e746cf1f7f055d276ad84b151e8f5f041d295ed4788b72"
-      ]
-    },
-    "f95634b335f0792f019203ffb6d0fbcf26ac49fe21d9b8c487e19d21804672b4": {
-      "reference_date": "2025-09-09",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "160de4a0d04617588f1e8b670d08cb3d71c528597ca86424e7a7cc27caf8b1d0"
-      ]
-    },
-    "c6495f391bd1cf3d6f3c79a5bd8507158f9549ee234ab6acb1de5483a6340d26": {
-      "reference_date": "2025-09-02",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "af594c273ff806165681b884a55c4e1caec0c26529ade6e6bb00bf56b4b0dce6"
-      ]
-    },
-    "a08a4262a8d72d79fa2e358620fc699423f14afe7414e645b092637caa57869a": {
-      "reference_date": "2025-08-25",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0abb3ee63252080cc62e8bf03a646a9ccb9beea03247408282f0294213ddb24c"
       ]
     },
     "fc01257cd15214e4aa8b40659b69c6e981276b9cf97a0bacfe79365715225591": {
@@ -1943,6 +1839,69 @@
       "sources": [
         "c4ad56336ed8b8aeeb652aceef4b3eec273d24faf0cc48b985907e3acee67abc"
       ]
+    },
+    "4028bd25d1445347fa86045b75ad071c0715a1b8774711e981cf0ca48f411ddd": {
+      "reference_date": "2025-09-05",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "1ad117540105eb5869c7d88ef0f61d96f414a35f2097dcff9ce4613c125f502e"
+      ]
+    },
+    "0bbc7df34d3929e96c338b7c01fbaea8f434603cb278f9dbd4bd719eb114b2fe": {
+      "reference_date": "2025-09-09",
+      "value": "3.1. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pela Cedente à Classe A deverão observar, cumulativamente, as seguintes Condições de Cessão, as quais deverão ser verificadas pela Cedente e validadas pela Administradora em cada formalização de Termo de Cessão, na Data de Oferta, na forma prevista abaixo: (i) a Cedente não poderá estar inadimplente perante a Classe A; (ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza na data da respectiva cessão à Classe A; (iii) os Devedores não poderão estar inadimplentes perante a Cedente; (iv) a Administradora e a Cedente não poderão ter tido conhecimento da ocorrência de eventos de liquidação, dissolução, intervenção, decretação de falência ou decretação de Regime de Administração Especial Temporária (RAET), ou, ainda, regimes similares referentes aos Devedores ou à Cedente; e (v) até o 105º (centésimo quinto) dia (exclusive) a contar da Data de Referência, em relação ao Banco Master S.A. e Entidades do Respectivo Grupo, deverá ser observado o limite equivalente a razão entre o somatório do valor das Cotas Subordinadas Júnior em circulação da Classe A e o Patrimônio Líquido da Classe A subtraído de 1% (um inteiro por cento), respeitado o limite máximo de 2% (dois por cento). 3.1.1. Para fins da verificação do cumprimento, pela Cedente, das Condições de Cessão, a Administradora deverá basear-se: (i) nos Documentos Comprobatórios; e (ii) em declarações da Cedente. 3.1.1.1. Caso o Gestor ou a Administradora identifiquem, após a cessão de Direitos Creditórios, qualquer erro nos arquivos eletrônicos trocados no processo de oferecimento e aquisição dos Direitos Creditórios, a Administradora ou o Gestor, conforme o caso, deverá tomar as medidas que entender necessárias junto à Cedente para confirmar que os Direitos Creditórios Elegíveis adquiridos pela Classe A atenderam às Condições de Cessão previstas nos itens 3.1(ii) e (iii), sendo certo que, caso a Administradora ou o Gestor, conforme o caso, chegue à conclusão que a Classe A adquiriu qualquer Direito Creditório Elegível em desacordo com as Condições de Cessão,",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0db253f72f209a7f04908f7ddb454c140f5866d3131aa8582b1ad30c736256aa"
+      ]
+    },
+    "910cc682c5aa6d37eb93acb731f0dac1fa569c00c95e93f799daf452fda0d330": {
+      "reference_date": "2025-09-02",
+      "value": "3.1.7 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por ele contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, do regulamento do Fundo, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e da legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos direitos creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos critérios de elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos direitos creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas no regulamento do Fundo e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de direitos creditórios e aos ativos financeiros de liquidez e modalidades operacionais, para o Fundo com identificação, dados, características e valores precisos; (e) no âmbito de suas diligências relacionadas à aquisição de direitos creditórios, o Gestor deve verificar a possibilidade de ineficácia da cessão ao Fundo em virtude de riscos de natureza fiscal, alcançando direitos creditórios que tenham representatividade no patrimônio do Fundo, assim como dar ciência",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "af594c273ff806165681b884a55c4e1caec0c26529ade6e6bb00bf56b4b0dce6"
+      ]
+    },
+    "bdb42812bba661e364f939837182e9a7f4f4c5a52b89e7f9b8c9ab386ccd0276": {
+      "reference_date": "2025-08-25",
+      "value": "3.1.7 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de serviços por este contratados nos termos deste Regulamento, independentemente de qualquer procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se: (a) cumprir fielmente as disposições do Acordo Operacional, do regulamento do Fundo, do Código de Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e da legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários; (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar o enquadramento dos direitos creditórios à política de investimento, compreendendo, no mínimo, a validação dos direitos creditórios quanto aos critérios de elegibilidade e a observância aos requisitos de composição e diversificação, de forma individualizada; e (ii) avaliar a aderência do risco de performance dos direitos creditórios, se houver, à política de investimento; (c) desempenhar as atividades que lhe sejam atribuídas no regulamento do Fundo e no Acordo Operacional na respectiva forma e prazos ajustados; (d) fornecer instruções para a negociação de direitos creditórios e aos ativos financeiros de liquidez e modalidades operacionais, para o Fundo com identificação, dados, características e valores precisos; (e) No âmbito de suas diligências relacionadas à aquisição de direitos creditórios, o Gestor deve verificar a possibilidade de ineficácia da cessão ao Fundo em virtude de riscos de natureza fiscal,",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0abb3ee63252080cc62e8bf03a646a9ccb9beea03247408282f0294213ddb24c"
+      ]
+    },
+    "f8132d71812bd98236be19c49feaab5bc909ff7825d24b830b66c6f1e368a9a2": {
+      "reference_date": "2025-12-31",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "11df582eaa25f585242610e2b759be8e96388951363dbcb92e3b725a7313242b"
+      ]
+    },
+    "c4d33907437e703b2418acbfcb04cab34b1571f36f47b6cffde1e31f29390dc6": {
+      "reference_date": "2025-12-31",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c8deadbc7b1c39eefb37b826b8f28c130239d4712d6809fbae92d6aa004c77e6"
+      ]
+    },
+    "ad28222fceca9ebfafbee13eba36668831eee3578ec98b6d587695565ad59db6": {
+      "reference_date": "2025-09-09",
+      "value": "Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "685671b9775a9e0581c4b6eeec4d11ee3682fcb893ad729d2d5f49ec52a81529"
+      ]
     }
   },
   "passages": {
@@ -2013,18 +1972,6 @@
       "sha256": "5126f44e3fad6479db25b30d2c4c1af2d1cae56abe284f04bc610a1ca33e9839",
       "verification": "primary_passage"
     },
-    "76ff36a29b2e69d01f9cffa2fea1e4702d243b2dbe569c85625b6159c4a1ba71": {
-      "document_id": "1195791",
-      "title": "Outros Relatórios",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1195791",
-      "reference_date": "2026-03-31",
-      "version": "1",
-      "page": 1,
-      "clause": "",
-      "excerpt": "2. Em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira  de direitos creditórios no trimestre.",
-      "sha256": "04e3804a81b8356de41597b39ad6a5c420ba6795586774714d490804de9df5ac",
-      "verification": "primary_passage"
-    },
     "233c0d02d360399aa257dbb6e356f042688ced9e754705c39bb5a6eb96b2bee4": {
       "document_id": "1116644",
       "title": "Outros Relatórios",
@@ -2059,109 +2006,6 @@
       "clause": "",
       "excerpt": "2. Em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira  de direitos creditórios no trimestre.",
       "sha256": "0cf6959151d8678d307f9d33fb615acc9618cf97bed89fabf942cdd668ee9ba2",
-      "verification": "primary_passage"
-    },
-    "04c87e6f4c3a15fe4a67c0311096ff3dd30402f93fded7a214d261837906d3e8": {
-      "document_id": "988401",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988401",
-      "reference_date": "2025-09-09",
-      "version": "1",
-      "page": 38,
-      "clause": "2.5",
-      "excerpt": "2.5. É vedada a aquisição de Direitos Creditórios, direta ou indiretamente originados  ou cedidos pela Administradora, pelo Gestor ou partes a eles relacionadas, exceto se (i)  a Administradora, Gestor, a Entidade Registradora e o Custodiante de Direitos Creditórios  não forem partes relacionadas entre si; e (ii) a Entidade Registradora e o Custodiante não  sejam partes relacionadas ao originador ou Cedente.",
-      "sha256": "5126f44e3fad6479db25b30d2c4c1af2d1cae56abe284f04bc610a1ca33e9839",
-      "verification": "primary_passage"
-    },
-    "dbb006af78feaedd10f0698e57232f1a5558f7f1cc80e04142f293fab49979d9": {
-      "document_id": "983002",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=983002",
-      "reference_date": "2025-09-02",
-      "version": "1",
-      "page": 11,
-      "clause": "",
-      "excerpt": "voltadas para mitigar eventuais impactos ambientais ocasionados pelas atividades por eles  desenvolvidas;\n (t) registrar os Direitos Creditórios na entidade registradora da classe ou entregá-los ao Custodiante  dos Direitos Creditórios ou ao Administrador, conforme o caso;\n (u) na hipótese de ocorrer substituição de Direitos Creditórios, por qualquer motivo, diligenciar para que  a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da  política de investimentos;\n (v) efetuar a correta formalização dos documentos relativos à cessão dos direitos creditórios;\n (w) sem prejuízo de outros parâmetros eventualmente definidos no regulamento, monitorar:\n (i) a adimplência da carteira de Direitos Creditórios e, em relação aos Direitos Creditórios vencidos  e não pagos, diligenciar para que sejam adotados os procedimentos de cobrança, observado que  essa última obrigação inexiste no caso de hipóteses de dispensa previstas no regulamento; e\n (ii) a taxa de retorno dos Direitos Creditórios, considerando, no mínimo, pagamentos, pré-  pagamentos e inadimplência; e\n (x) elaborar e encaminhar ao administrador, em até 40 (quarenta) dias após o encerramento do  trimestre civil a que se referir, relatório contendo:\n (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de  ativos;\n (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da  carteira de Direitos Creditórios no trimestre:\n (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não  tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e\n (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores,  caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos  trimestrais;\n (iii) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n (iv) forma como se operou a cessão dos direitos creditórios, incluindo:\n (a) descrição de contratos relevantes firmados com esse propósito, se houver; e\n (b) indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n (v) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da  carteira;\n (vi) condições de alienação, a qualquer título, de direitos creditórios, incluindo:\n (a) momento da alienação (antes ou depois do vencimento); e\n (b) motivação da alienação;",
-      "sha256": "cf4c4a83ff0bdeb2043c88fc72353ef1ebeb2e8134b74d04ae6548a5e0df1180",
-      "verification": "primary_passage"
-    },
-    "0cc1eeda1f9f60a454ed8337a1642f3ae3e1089de6b620cffcd51da935b52609": {
-      "document_id": "978252",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=978252",
-      "reference_date": "2025-08-25",
-      "version": "1",
-      "page": 11,
-      "clause": "",
-      "excerpt": "Fundo possuam uma política socioambiental, contendo inclusive, quando aplicável, disposições  voltadas para mitigar eventuais impactos ambientais ocasionados pelas atividades por eles  desenvolvidas.\n(t) registrar os Direitos Creditórios na entidade registradora da classe ou entregá-los ao Custodiante  dos Direitos Creditórios ou ao Administrador, conforme o caso;\n(u) na hipótese de ocorrer substituição de Direitos Creditórios, por qualquer motivo, diligenciar para que  a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da  política de investimentos;\n(v) efetuar a correta formalização dos documentos relativos à cessão dos direitos creditórios;\n(w) sem prejuízo de outros parâmetros eventualmente definidos no regulamento, monitorar:\n (i) a adimplência da carteira de Direitos Creditórios e, em relação aos Direitos Creditórios vencidos  e não pagos, diligenciar para que sejam adotados os procedimentos de cobrança, observado que  essa última obrigação inexiste no caso de hipóteses de dispensa previstas no regulamento; e\n (ii) a taxa de retorno dos Direitos Creditórios, considerando, no mínimo, pagamentos, pré-  pagamentos e inadimplência; e\n(x) elaborar e encaminhar ao administrador, em até 40 (quarenta) dias após o encerramento do  trimestre civil a que se referir, relatório contendo:\n (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de  ativos;\n (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da  carteira de Direitos Creditórios no trimestre:\n (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não  tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e\n (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores,  caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos  trimestrais;\n (iii) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n (iv) forma como se operou a cessão dos direitos creditórios, incluindo:\n (a) descrição de contratos relevantes firmados com esse propósito, se houver; e\n (b) indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n (v) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da  carteira;\n (vi) condições de alienação, a qualquer título, de direitos creditórios, incluindo:\n (a) momento da alienação (antes ou depois do vencimento); e",
-      "sha256": "7205c5f131e3e05e15ff51949b25ee1ebc224ecd1090584189ede185de78ca81",
-      "verification": "primary_passage"
-    },
-    "48336864633295b25d88f0c7545e10fa5fa9176282e1efa7815628f9408d0531": {
-      "document_id": "1151276",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151276",
-      "reference_date": "2025-12-31",
-      "version": "1",
-      "page": 49,
-      "clause": "",
-      "excerpt": "integrantes de sua carteira e, conforme o caso, aos mercados em que são negociados, incluindo a existência de vedações e/ou eventual impossibilidade da Administradora alienar os Direitos Creditórios Cedidos de titularidade da Classe A. Em decorrência do risco acima identificado e considerando-se que a Classe A somente procederá à amortização ou ao resgate das Cotas, em moeda corrente nacional, na medida em que (i) os Direitos Creditórios Cedidos de titularidade da Classe A sejam devidamente pagos pelos Devedores; (ii) os Ativos Financeiros integrantes de sua carteira sejam liquidados por suas respectivas contrapartes; e (iii) as verbas recebidas sejam depositadas na Conta da Classe, a Administradora, o Gestor, o Custodiante, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas encontram-se impossibilitados de determinar o intervalo de tempo necessário para a amortização ou o resgate integral das Cotas. O valor de amortização e, conforme o caso, do resgate das Cotas Seniores e das Cotas Subordinadas Mezanino continuará a ser atualizado até a data de seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido pela Classe A ou por qualquer pessoa, inclusive a Cedente, a Administradora, o Gestor, o Custodiante, o Agente de Cobrança Extraordinária, o distribuidor líder de qualquer oferta de Cotas da Classe A e/ou suas afiliadas, todavia, qualquer multa ou penalidade, de qualquer natureza, caso o referido evento prolonguese por prazo indeterminado ou não possa, por qualquer motivo, ser realizado. Ademais, o resgate das Cotas poderá ser realizado mediante a dação em pagamento de Direitos Creditórios, observados os procedimentos definidos neste Regulamento. Nessa hipótese, os Cotistas poderão encontrar dificuldades para alienar os Direitos Creditórios recebidos em dação e/ou cobrar os valores devidos pelos Devedores.",
-      "sha256": "c8c5e55b02177552eae49f68b4212914327284d5413210d90435f4b6e714e915",
-      "verification": "ocr_primary_passage",
-      "parse_method": "apple_vision_ocr",
-      "ocr_excluded_pages": [
-        1,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        16,
-        17,
-        18,
-        19,
-        27,
-        34,
-        41,
-        51,
-        53
-      ],
-      "ocr_quality": {
-        "page": 49,
-        "page_quality": {
-          "page": 49,
-          "body_lines": 46,
-          "mean_confidence": 1,
-          "minimum_confidence": 1,
-          "automatic_use_excluded": false
-        },
-        "aggregate": {
-          "engine": "Apple Vision, local CPU",
-          "dpi": 150,
-          "color": "grayscale",
-          "recognition_started_at": "2026-10-13T06:22:13.200037+00:00",
-          "recognized_at": "2026-10-13T06:24:06.577135+00:00",
-          "confidence_threshold_mean": 0.96,
-          "confidence_threshold_minimum": 0.85,
-          "human_review": "not_certified",
-          "text_sha256": "c2cab0d56949ea04cb60eda6e0eaae7b46e77dc3bd6b50f1fcc1b0b263b94dc9"
-        }
-      },
-      "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número."
-    },
-    "97ca7d8567812d690cc52c980a48738d2556632ec9160e11994e4c5e8a6249d0": {
-      "document_id": "1026126",
-      "title": "Demonstrações Financeiras - Substituição de administrador",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1026126",
-      "reference_date": "2025-09-05",
-      "version": "1",
-      "page": 17,
-      "clause": "",
-      "excerpt": "(Valores expressos em milhares de reais, exceto o valor unitário das cotas)  inerentes aos Direitos Creditórios e aos Ativos Financeiros que compõem o seu patrimônio e  aos mercados em que os mesmos são negociados, incluindo a eventual impossibilidade de o  Gestor alienar os respectivos ativos em caso de necessidade, especialmente os Direitos  Creditórios, devido à inexistência de mercado secundário ativo e organizado para a negociação  deste tipo de ativo. Considerando-se que o Fundo somente procederá à amortização das Cotas  na medida em que os Direitos Creditórios sejam pagos pelos Devedores e/ou os Ativos  Financeiros sejam devidamente liquidados pelas respectivas contrapartes, o Administrador, o  Gestor, o Custodiante dos Direitos Creditórios e o Custodiante, bem como suas respectivas  Partes Relacionadas, encontram-se impossibilitados de assegurar que a amortização das Cotas  ocorrerão conforme solicitado, não sendo devido pelo Fundo ou qualquer pessoa, incluindo o  Administrador, o Gestor, o Custodiante dos Direitos Creditórios ou o Custodiante, qualquer  multa ou penalidade, de qualquer natureza.",
-      "sha256": "489a81845a8a577a59690bb39a0e536a2aff037a8c4133affd475894ea5165b7",
       "verification": "primary_passage"
     },
     "aeef0dbd1c4507225c5056ad2192628976d19c9dd1e3aeff1f37e3cc31fe5306": {
@@ -4947,6 +4791,154 @@
         }
       },
       "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número."
+    },
+    "1ad117540105eb5869c7d88ef0f61d96f414a35f2097dcff9ce4613c125f502e": {
+      "document_id": "1026126",
+      "title": "Demonstrações Financeiras - Substituição de administrador",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1026126",
+      "reference_date": "2025-09-05",
+      "version": "1",
+      "page": 19,
+      "clause": "",
+      "excerpt": "I. Riscos Operacionais:\n(a) Guarda dos Documentos Comprobatórios. O Administrador contratou o Custodiante  dos Direitos Creditórios para realizar a guarda dos Documentos Comprobatórios. O  Custodiante dos Direitos Creditórios tem a faculdade de contratar terceiro para a prestação  de serviços de guarda dos Documentos Comprobatórios, desde que o Custodiante dos  Direitos Creditórios se mantenha responsável por esse terceiro. Ainda que o Custodiante  dos Direitos Creditórios continue responsável pela guarda dos Documentos  Comprobatórios, a contratação de eventual terceiro para a prestação de tais serviços poderá  representar dificuldade adicional à verificação do lastro dos Direitos Creditórios ou, até  mesmo, à sua cobrança, podendo gerar perdas ao Fundo e, consequentemente, aos Cotistas;\n(b) Troca de Informações. Dada a complexidade operacional própria dos fundos de  investimento em direitos creditórios, não há garantia de que as trocas de informações entre  o Administrador, o Gestor, o Custodiante, o Custodiante dos Direitos Creditórios e  terceiros ocorrerão livre de erros. Caso esse risco venha a se materializar, os processos de  aquisição, monitoramento e cobrança dos Direitos Creditórios, inclusive dos Direitos  Creditórios vencidos e não pagos, poderão ser adversamente afetados, prejudicando o  desempenho do Fundo;\n(c) Verificação dos Critérios de Elegibilidade. O Fundo adquirirá apenas Direitos  Creditórios que atendam aos Critérios de Elegibilidade, na respectiva data de aquisição,  nos termos do Regulamento. Na hipótese de, após a sua aquisição pelo Fundo, os Direitos  Creditórios deixarem, por qualquer motivo, de atender aos Critérios de Elegibilidade,  nenhuma medida a esse respeito será tomada pelo Administrador, pelo Gestor, pelo  Custodiante dos Direitos Creditórios, ou pelo Custodiante em relação a referidos Direitos  Creditórios, que permanecerão na carteira do Fundo. O não atendimento dos Direitos  Creditórios aos Critérios de Elegibilidade, após a respectiva data de aquisição, não ensejará  qualquer direito de indenização do Fundo contra o Administrador, o Gestor, o Custodiante  dos Direitos Creditórios, ou o Custodiante em relação aos Direitos Creditórios que tenham  sido regularmente adquiridos, nos termos do Regulamento;\n(d) Falhas ou Interrupção da Prestação de Serviços pela Instituição Financeira na qual o  Fundo Mantém Conta. Qualquer falha ou eventual interrupção da prestação de serviços  pela instituição financeira na qual o Fundo mantém a Conta Corrente Autorizada do Fundo,  inclusive no caso de sua substituição, poderá afetar a cobrança dos Direitos Creditórios e  o recebimento dos recursos devidos pelos Devedores. Isso pode levar à queda da  rentabilidade ou à perda patrimonial do Fundo;\n(e) Falhas ou Interrupção da Prestação de Serviços de Cobrança. A cobrança dos Direitos  Creditórios inadimplidos depende da atuação diligente do Agente de Cobrança  10",
+      "sha256": "489a81845a8a577a59690bb39a0e536a2aff037a8c4133affd475894ea5165b7",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "0db253f72f209a7f04908f7ddb454c140f5866d3131aa8582b1ad30c736256aa": {
+      "document_id": "988401",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988401",
+      "reference_date": "2025-09-09",
+      "version": "1",
+      "page": 40,
+      "clause": "3.1",
+      "excerpt": "3.1. Condições de Cessão. Todos e quaisquer Direitos Creditórios oferecidos pela  Cedente à Classe A deverão observar, cumulativamente, as seguintes Condições de  Cessão, as quais deverão ser verificadas pela Cedente e validadas pela Administradora  em cada formalização de Termo de Cessão, na Data de Oferta, na forma prevista abaixo:\n(i) a Cedente não poderá estar inadimplente perante a Classe A;\n(ii) os Direitos Creditórios devem estar livres e desembaraçados de quaisquer  ônus, gravames ou restrições de qualquer natureza na data da respectiva  cessão à Classe A;\n(iii) os Devedores não poderão estar inadimplentes perante a Cedente;\n(iv) a Administradora e a Cedente não poderão ter tido conhecimento da  ocorrência de eventos de liquidação, dissolução, intervenção, decretação  de falência ou decretação de Regime de Administração Especial  Temporária (RAET), ou, ainda, regimes similares referentes aos Devedores  ou à Cedente; e\n(v) até o 105º (centésimo quinto) dia (exclusive) a contar da Data de  Referência, em relação ao Banco Master S.A. e Entidades do Respectivo  Grupo, deverá ser observado o limite equivalente a razão entre o  somatório do valor das Cotas Subordinadas Júnior em circulação da Classe  A e o Patrimônio Líquido da Classe A subtraído de 1% (um inteiro por cento),  respeitado o limite máximo de 2% (dois por cento).\n3.1.1. Para fins da verificação do cumprimento, pela Cedente, das Condições de Cessão,  a Administradora deverá basear-se:\n(i) nos Documentos Comprobatórios; e\n(ii) em declarações da Cedente.\n3.1.1.1. Caso o Gestor ou a Administradora identifiquem, após a cessão de Direitos  Creditórios, qualquer erro nos arquivos eletrônicos trocados no processo de  oferecimento e aquisição dos Direitos Creditórios, a Administradora ou o Gestor,  conforme o caso, deverá tomar as medidas que entender necessárias junto à Cedente  para confirmar que os Direitos Creditórios Elegíveis adquiridos pela Classe A atenderam  às Condições de Cessão previstas nos itens 3.1(ii) e (iii), sendo certo que, caso a  Administradora ou o Gestor, conforme o caso, chegue à conclusão que a Classe A  adquiriu qualquer Direito Creditório Elegível em desacordo com as Condições de Cessão,",
+      "sha256": "5126f44e3fad6479db25b30d2c4c1af2d1cae56abe284f04bc610a1ca33e9839",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
+    },
+    "11df582eaa25f585242610e2b759be8e96388951363dbcb92e3b725a7313242b": {
+      "document_id": "1151276",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151276",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 43,
+      "clause": "",
+      "excerpt": "(ix). Leis e regulamentos que vierem a ser editados para alterar a Regulamentação de Meios Eletrônicos de Pagamento no Brasil e/ou o desenvolvimento de interpretações diversas a respeito destes podem causar um efeito adverso na Cedente e na Classe A. Podem ser editadas normas que alterem a Regulamentação de Meios Eletrônicos de Pagamento, assim como podem ser desenvolvidas interpretações diversas a respeito destas, que podem afetar as atividades da Cedente de forma adversa e relevante, afetando, por consequência, a originação de Direitos Creditórios Elegíveis, especialmente tendo em vista que a Regulamentação de Meios Eletrônicos de Pagamento vem sendo discutida pelo BACEN e pelo governo brasileiro. A alteração da regulamentação e/ou da interpretação desta poderá restringir a originação dos Direitos Creditórios Elegíveis, alterar as características dos Direitos Creditórios Cedidos ou a serem originados, de forma a criar obstáculos ao seu atendimento aos Critérios de Elegibilidade e/ou restringir a possibilidade de sua cessão à Classe A, impactando negativamente os resultados da Classe A e a rentabilidade de suas Cotas.",
+      "sha256": "c8c5e55b02177552eae49f68b4212914327284d5413210d90435f4b6e714e915",
+      "verification": "ocr_primary_passage",
+      "parse_method": "apple_vision_ocr",
+      "ocr_excluded_pages": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        16,
+        17,
+        18,
+        19,
+        27,
+        34,
+        41,
+        51,
+        53
+      ],
+      "ocr_quality": {
+        "page": 43,
+        "page_quality": {
+          "page": 43,
+          "body_lines": 42,
+          "mean_confidence": 1,
+          "minimum_confidence": 1,
+          "automatic_use_excluded": false
+        },
+        "aggregate": {
+          "engine": "Apple Vision, local CPU",
+          "dpi": 150,
+          "color": "grayscale",
+          "recognition_started_at": "2026-10-13T06:22:13.200037+00:00",
+          "recognized_at": "2026-10-13T06:24:06.577135+00:00",
+          "confidence_threshold_mean": 0.96,
+          "confidence_threshold_minimum": 0.85,
+          "human_review": "not_certified",
+          "text_sha256": "c2cab0d56949ea04cb60eda6e0eaae7b46e77dc3bd6b50f1fcc1b0b263b94dc9"
+        }
+      },
+      "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número."
+    },
+    "c8deadbc7b1c39eefb37b826b8f28c130239d4712d6809fbae92d6aa004c77e6": {
+      "document_id": "1151276",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151276",
+      "reference_date": "2025-12-31",
+      "version": "1",
+      "page": 31,
+      "clause": "",
+      "excerpt": "(vi) Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii) cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias;\n(vi) limites e outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo brasileiro pode implementar regramentos que afetem negativamente instituições financeiras, inclusive para implementação de política econômica específica ou em decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil não passam pelo processo legislativo, de forma que sua promulgação e",
+      "sha256": "c8c5e55b02177552eae49f68b4212914327284d5413210d90435f4b6e714e915",
+      "verification": "ocr_primary_passage",
+      "parse_method": "apple_vision_ocr",
+      "ocr_excluded_pages": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        16,
+        17,
+        18,
+        19,
+        27,
+        34,
+        41,
+        51,
+        53
+      ],
+      "ocr_quality": {
+        "page": 31,
+        "page_quality": {
+          "page": 31,
+          "body_lines": 46,
+          "mean_confidence": 1,
+          "minimum_confidence": 1,
+          "automatic_use_excluded": false
+        },
+        "aggregate": {
+          "engine": "Apple Vision, local CPU",
+          "dpi": 150,
+          "color": "grayscale",
+          "recognition_started_at": "2026-10-13T06:22:13.200037+00:00",
+          "recognized_at": "2026-10-13T06:24:06.577135+00:00",
+          "confidence_threshold_mean": 0.96,
+          "confidence_threshold_minimum": 0.85,
+          "human_review": "not_certified",
+          "text_sha256": "c2cab0d56949ea04cb60eda6e0eaae7b46e77dc3bd6b50f1fcc1b0b263b94dc9"
+        }
+      },
+      "review_scope": "Texto reconhecido por OCR da página física; não certifica conferência humana de cada número."
+    },
+    "685671b9775a9e0581c4b6eeec4d11ee3682fcb893ad729d2d5f49ec52a81529": {
+      "document_id": "988401",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988401",
+      "reference_date": "2025-09-09",
+      "version": "1",
+      "page": 94,
+      "clause": "20.1.11",
+      "excerpt": "20.1.11. Risco do Setor Financeiro. Os Devedores são instituições financeiras, e  estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo  brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que  monitoram o setor bancário e podem impor sanções disciplinares. Estas regulações são  relacionadas com as seguintes áreas, entre outras: (i) exigências de capital mínimo; (ii)  cobertura mínima; (iii) depósitos compulsórios; (iv) exigências relativas a investimentos  em renda fixa; (v) restrições de crédito, incluindo alocações compulsórias; (vi) limites e  outras restrições relacionadas a tarifas; e (vii) políticas de provisionamento. O governo  brasileiro pode implementar regramentos que afetem negativamente instituições  financeiras, inclusive para implementação de política econômica específica ou em  decorrência de eventos extraordinários, tais como a pandemia de COVID-19. Como  resultado, o governo brasileiro pode mudar leis e regulamentos de forma a afetar  adversamente a liquidez, a solvência, estratégia de captação, o crédito, os custos ou  outros aspectos do negócio. Ainda, regramentos emitidos pelo Banco Central do Brasil  não passam pelo processo legislativo, de forma que sua promulgação e implementação  pode ocorrer em um espaço muito curto de tempo, afetando as atividades dos  Devedores de maneira imprevista e repentina. Por fim, o setor financeiro é altamente  competitivo, enfrenta significativa competição de outros grandes bancos e seguradoras  brasileiras e estrangeiras, públicas e privadas, em todas as principais áreas de operação,  já que a regulamentação brasileira não faz clara distinção entre bancos comerciais e de  investimento, nacionais ou estrangeiros, e seguradoras, podendo, assim, ocorrer impacto  adverso relevante na capacidade de pagamento, pelos Devedores, dos Direitos  Creditórios.",
+      "sha256": "5126f44e3fad6479db25b30d2c4c1af2d1cae56abe284f04bc610a1ca33e9839",
+      "verification": "primary_passage"
     }
   }
 }

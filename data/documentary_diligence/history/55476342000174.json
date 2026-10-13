@@ -3,16 +3,6 @@
   "cnpj": "55476342000174",
   "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
   "criteria": {
-    "eligibility": [
-      "ddb62268793abe2da2a059fc867d8063f49cbe3e6ec488a52584e22aaff3c185",
-      "68972452010cb9e4944672d80f2a189452053339335a1e0632206d81ca9736ff",
-      "40a19b8f50d4e3c41af19f1590b663636b9d45ce8c4f604cc8f74db76fdab8f8",
-      "88ea1c07a9bf7744c80560158ec85484b6c9a6a1175a4ca6daba3fe31ca2fd25",
-      "1f49fef116ea97daa04e6064e43fea53d0e2c35e7d33cd9bd3a9b436b6d4b888",
-      "29f37ddd6af203d03f8385a9ed1a9a2372c66824c3107917bc4ba6f94112a2c7",
-      "87390433bed2a23e342c90ac79663816992a99e54bc502b103c93ad0ee568300",
-      "3c702095cda0e38b340c46f820852d1220f5bfc7fa082b2e9b93e968a3302d58"
-    ],
     "term": [
       "c10d824b537f6548ce7fda44a066c5fd0731704284585cb7c3b8cb13c247491f",
       "bb7d6922b9e6dd82d0008db570ecf69da61c11630ce7395afbcd08ed06ecc873",
@@ -473,26 +463,6 @@
       "24b8a68b20ebd1aa626493d8f14cdf6f73fd984fd97d15cc994095c233811344",
       "a408ee746c6dd58b9276a04279aac5e2587dfd65860a57a942f2fa81d9039689"
     ],
-    "originator": [
-      "5e0be4defae4929495d762ab2d0abf7880f2dc1373127ff39f04a752b0a8cd6f",
-      "af318df64c9bf40a743790fadad27e07c3836ddf55fe78db39b8345c7cdc88ad",
-      "ce43a5e861dfed91793631f21351cfa079fe7575318a68ce7fe19e1bb67f90fc",
-      "2fb9c1cc993e850666faf50a624fc9def67bfba78373193da5cac8b4749aca77",
-      "6151d54d39872650200d67288bbc6ac862d4a51e75de233d511faed5267b7c3f",
-      "4ef5f09762725128fa36deecf31c42deef17249fbd70fc3352efa77b2fb613b9",
-      "4ffbe6de1de0459e9f6fb8f5fa10d967e1470fce5c36894c0186eb8548509dcd",
-      "3ff798da691dc5d6c3662dad4a4d7a4ffb67c41559f9e5b4c76c36213f31e32e"
-    ],
-    "debtor": [
-      "eca3c5cd1463df91ab8f989092229efbf91d14f2708ff9ef6d0aa0c0731594a5",
-      "ece7bfbb4a1ea49aaec7645a7696cab6e12c684bfefd53f6ce366852d4d9e8cb",
-      "17f241cec78423075a5125276feb74a20b1e42f9da335c17d113e970bbb4d63a",
-      "df230b4c412fc402a13d56088994ca6348d577b2fb0afe4adb4ed2bfab76542b",
-      "3e54b28a71bb4adbff094d0a47ad018e1c05a0587e01668007e35cab1e6a2561",
-      "563453949c7f44c4079f1af46872ccbdc7ae33a017f4782347537b0a6aa947e5",
-      "a62aa13330de8a53660eeb304148cb6f6caabd9a074103d91e2778261e39f49b",
-      "5414573cd55462e0937ee7a08b15eca7e086c4f5254c6636866692f2d7721126"
-    ],
     "investee": [
       "cc3c25b023b9b98e9086c1519626fa91122c3ae03ca4e1946a69cfbcc09655f5",
       "84e641b9cbbf91907933a3937933e9225f1eccb8a3d830c2fede63d7c02256e4",
@@ -569,6 +539,27 @@
       "fa8b198e4782a90575de0f5c538a3d7e6b66cf4a04cf1db0a1df424929eab928",
       "41478b374988c4d70f17c37505c0272ac5897d7f69b0f8361dd192631c5a431e",
       "d37b4cc40b0b2153bfef7d6948cbf664d36bfc5356452bca367c5ebcdf374f98"
+    ],
+    "originator": [
+      "5e0be4defae4929495d762ab2d0abf7880f2dc1373127ff39f04a752b0a8cd6f",
+      "af318df64c9bf40a743790fadad27e07c3836ddf55fe78db39b8345c7cdc88ad",
+      "932c57bdc267c5fafc1b0e6b9d2df052e311d1763a0416366dd8aeface71c125",
+      "ce43a5e861dfed91793631f21351cfa079fe7575318a68ce7fe19e1bb67f90fc",
+      "2fb9c1cc993e850666faf50a624fc9def67bfba78373193da5cac8b4749aca77",
+      "6151d54d39872650200d67288bbc6ac862d4a51e75de233d511faed5267b7c3f",
+      "4ef5f09762725128fa36deecf31c42deef17249fbd70fc3352efa77b2fb613b9",
+      "4ffbe6de1de0459e9f6fb8f5fa10d967e1470fce5c36894c0186eb8548509dcd",
+      "3ff798da691dc5d6c3662dad4a4d7a4ffb67c41559f9e5b4c76c36213f31e32e"
+    ],
+    "eligibility": [
+      "ddb62268793abe2da2a059fc867d8063f49cbe3e6ec488a52584e22aaff3c185",
+      "68972452010cb9e4944672d80f2a189452053339335a1e0632206d81ca9736ff",
+      "40a19b8f50d4e3c41af19f1590b663636b9d45ce8c4f604cc8f74db76fdab8f8",
+      "88ea1c07a9bf7744c80560158ec85484b6c9a6a1175a4ca6daba3fe31ca2fd25",
+      "1f49fef116ea97daa04e6064e43fea53d0e2c35e7d33cd9bd3a9b436b6d4b888",
+      "29f37ddd6af203d03f8385a9ed1a9a2372c66824c3107917bc4ba6f94112a2c7",
+      "07c1c40b0c268b807dc7ba546d4afb08002c6ec27fb7621b93a31ce0bb806896",
+      "3c702095cda0e38b340c46f820852d1220f5bfc7fa082b2e9b93e968a3302d58"
     ]
   },
   "entries": {
@@ -654,15 +645,6 @@
         "7f29f8332ef574145bea8b1c21fb62c14f1c82a5ae07db6af2c6d2e6a3124b86"
       ]
     },
-    "eca3c5cd1463df91ab8f989092229efbf91d14f2708ff9ef6d0aa0c0731594a5": {
-      "reference_date": "2025-05-16",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "7dfa39ea3e4bcff4f22f69956c6d31bde90233e2dd1a0092d0aef58e3965a3df"
-      ]
-    },
     "ece7bfbb4a1ea49aaec7645a7696cab6e12c684bfefd53f6ce366852d4d9e8cb": {
       "reference_date": "2025-01-31",
       "value": "",
@@ -690,15 +672,6 @@
         "78f17a9541ef453dc84b7f58ade945fece262015a47fc868076667c729b704ca"
       ]
     },
-    "3e54b28a71bb4adbff094d0a47ad018e1c05a0587e01668007e35cab1e6a2561": {
-      "reference_date": "2025-01-31",
-      "value": "",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "6bdd16cb32836e8da8a46cf2449137a7fac3c67570e80bbebc3a216dc374a3b1"
-      ]
-    },
     "563453949c7f44c4079f1af46872ccbdc7ae33a017f4782347537b0a6aa947e5": {
       "reference_date": "2025-01-24",
       "value": "",
@@ -706,15 +679,6 @@
       "provenance": "primary_passage",
       "sources": [
         "316c5712ed77eabe0a9d17f90814bbcf265b651b0830c3f26dc8264c5fcfc99f"
-      ]
-    },
-    "5414573cd55462e0937ee7a08b15eca7e086c4f5254c6636866692f2d7721126": {
-      "reference_date": "2025-05-19",
-      "value": "",
-      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
-      "provenance": "primary_passage",
-      "sources": [
-        "0aa6f88240c7ef419d9e2364738405895120c157e76f842dadded7976657f2d7"
       ]
     },
     "ddb62268793abe2da2a059fc867d8063f49cbe3e6ec488a52584e22aaff3c185": {
@@ -770,15 +734,6 @@
       "provenance": "primary_passage",
       "sources": [
         "cccb5b7525b320edc3b1ca88cc3e78a70749a262a0beb0c042eb46aee90c1171"
-      ]
-    },
-    "87390433bed2a23e342c90ac79663816992a99e54bc502b103c93ad0ee568300": {
-      "reference_date": "2025-01-31",
-      "value": "A remuneração pela prestação dos serviços de gestão da Classe deverá ser paga pela Classe ao Gestor mensalmente, sob a porcentagem do Patrimônio Líquido da Classe ao ano conforme estabelecido na tabela abaixo, somado aos custos mensais comprovadamente advindos da contratação de plataformas de birôs de crédito e de validação de Notas Fiscais, utilizadas para validação das Condições de Cessão sendo assegurado ao Gestor uma remuneração mínima mensal equivalente a R$13 (treze mil reais) contados da Data da Primeira Integralização:",
-      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
-      "provenance": "primary_passage",
-      "sources": [
-        "65c8eb2052c2498680245b87dd2de73e37269a0ee2c852234dc2cb37a40a8f5a"
       ]
     },
     "3c702095cda0e38b340c46f820852d1220f5bfc7fa082b2e9b93e968a3302d58": {
@@ -4233,13 +4188,13 @@
         "62e1f81b6fb0d071a312e752f1aa3df0ff501c993c3c4fbc09e3a14a86109ef7"
       ]
     },
-    "a62aa13330de8a53660eeb304148cb6f6caabd9a074103d91e2778261e39f49b": {
-      "reference_date": "2024-10-22",
+    "07c1c40b0c268b807dc7ba546d4afb08002c6ec27fb7621b93a31ce0bb806896": {
+      "reference_date": "2025-01-31",
       "value": "",
       "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
       "provenance": "primary_passage",
       "sources": [
-        "0494c6f26abd3cfc7a9137381549c25fe4d7c71330b0e76e39ae8174f1e0842b"
+        "9bb594502ebb62ac5e1cfe5b106c1b08d2c2e25e3e1ee449fc49d5d92981b134"
       ]
     }
   },
@@ -4353,18 +4308,6 @@
       "sha256": "33adfe3bbae1e5ed85871ec5005174f3374f94d5fedb5ffe154effd54179f349",
       "verification": "primary_passage"
     },
-    "7dfa39ea3e4bcff4f22f69956c6d31bde90233e2dd1a0092d0aef58e3965a3df": {
-      "document_id": "894804",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=894804",
-      "reference_date": "2025-05-16",
-      "version": "1",
-      "page": 104,
-      "clause": "13.46",
-      "excerpt": "13.46 Risco relacionado à Ausência de Regulação Específica para o Fiagro. A Classe está sujeita à regulamentação da CVM. Em 13 de julho de 2021, a CVM publicou a Resolução CVM 39, que regulamenta, em caráter provisório e experimental, os fundos de investimentos nas cadeias produtivas do agronegócio.\nDessa forma, por se tratar de um fundo de investimento recém-criado pela Lei nº\n14.130, de 29 de março de 2021, e ainda não possuir uma norma específica expedida pela CVM para regulamentá-lo, adotando-se, provisoriamente, a Resolução CVM 175, as regras e procedimentos atualmente adotado para o presente Fundo poderá vir a ser alterada e, consequentemente, afetar negativamente os Cotistas. Além disso, por se tratar de um mercado recente no Brasil, o Fiagro ainda não se encontra totalmente regulamentado e com jurisprudência pacífica, podendo ocorrer situações em que ainda não existam regras que o direcione, gerando assim uma insegurança jurídica e um risco ao investimento em Fiagro, uma vez que os órgãos reguladores e o Poder Judiciário poderão, ao analisar a Oferta e o Fiagro e/ou em um eventual cenário de discussão e/ou de identificação de lacuna na regulamentação existente, (i) editar normas que regem o assunto e/ou interpretá-las de forma a provocar um efeito adverso sobre os Fiagro, bem como (ii) proferir decisões que podem ser desfavoráveis aos interesses ao investimento em Fiagro, o que em qualquer das hipóteses, poderá afetar adversamente o investimento em Fiagro, e consequentemente afetar negativamente as Cotas do Fundo e consequentemente afetar de modo adverso ao Cotista. Riscos Relacionados ao Setor de Atuação das Cedentes e dos Devedores 23.39. Instabilidades e crises no setor agrícola. Eventuais situações de crise e de insolvência de revendedores, indústrias, cooperativas e produtores rurais, pessoas físicas e/ou jurídicas e sociedades atuantes no setor poderiam afetar negativamente a produção dos Devedores, e, consequentemente, impactar os pagamentos das Cotas.",
-      "sha256": "041dbc0dbd7b4b792c5eaf1a15b2ba80ebe521c6ab3d6012087d3ff54de15ff4",
-      "verification": "primary_passage"
-    },
     "6c243ff69bb471cf9d121b1b45a9b198c78e6b9bd793415ae81e7f78c0eae09f": {
       "document_id": "824461",
       "title": "AGE",
@@ -4401,18 +4344,6 @@
       "sha256": "c5410e79362abb62a6c38d9289cac4a3f325d64bbdb89f3c13bc0d639b52ef2f",
       "verification": "primary_passage"
     },
-    "6bdd16cb32836e8da8a46cf2449137a7fac3c67570e80bbebc3a216dc374a3b1": {
-      "document_id": "831106",
-      "title": "AGE",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=831106",
-      "reference_date": "2025-01-31",
-      "version": "3",
-      "page": 103,
-      "clause": "13.46",
-      "excerpt": "13.46 Risco relacionado à Ausência de Regulação Específica para o Fiagro. A Classe está sujeita à regulamentação da CVM. Em 13 de julho de 2021, a CVM publicou a Resolução CVM 39, que regulamenta, em caráter provisório e experimental, os fundos de investimentos nas cadeias produtivas do agronegócio.\nDessa forma, por se tratar de um fundo de investimento recém-criado pela Lei nº\n14.130, de 29 de março de 2021, e ainda não possuir uma norma específica expedida pela CVM para regulamentá-lo, adotando-se, provisoriamente, a Resolução CVM 175, as regras e procedimentos atualmente adotado para o presente Fundo poderá vir a ser alterada e, consequentemente, afetar negativamente os Cotistas. Além disso, por se tratar de um mercado recente no Brasil, o Fiagro ainda não se encontra totalmente regulamentado e com jurisprudência pacífica, podendo ocorrer situações em que ainda não existam regras que o direcione, gerando assim uma insegurança jurídica e um risco ao investimento em Fiagro, uma vez que os órgãos reguladores e o Poder Judiciário poderão, ao analisar a Oferta e o Fiagro e/ou em um eventual cenário de discussão e/ou de identificação de lacuna na regulamentação existente, (i) editar normas que regem o assunto e/ou interpretá-las de forma a provocar um efeito adverso sobre os Fiagro, bem como (ii) proferir decisões que podem ser desfavoráveis aos interesses ao investimento em Fiagro, o que em qualquer das hipóteses, poderá afetar adversamente o investimento em Fiagro, e consequentemente afetar negativamente as Cotas do Fundo e consequentemente afetar de modo adverso ao Cotista. Riscos Relacionados ao Setor de Atuação das Cedentes e dos Devedores 23.39. Instabilidades e crises no setor agrícola. Eventuais situações de crise e de insolvência de revendedores, indústrias, cooperativas e produtores rurais, pessoas físicas e/ou jurídicas e sociedades atuantes no setor poderiam afetar negativamente a produção dos Devedores, e, consequentemente, impactar os pagamentos das Cotas.",
-      "sha256": "ebcffefe64efdf1b6118d655ed2a2d185717e1182fa43bc3a1075bd54f4c2029",
-      "verification": "primary_passage"
-    },
     "316c5712ed77eabe0a9d17f90814bbcf265b651b0830c3f26dc8264c5fcfc99f": {
       "document_id": "819148",
       "title": "AGE",
@@ -4423,18 +4354,6 @@
       "clause": "",
       "excerpt": "de acordo com a fórmula constante da Cláusula 6.1  do Contrato de Cessão.\n é a 1ª (primeira) emissão de série de Cotas,  conforme aplicável, incluindo as Cotas da Primeira Emissão  Subclasse Sênior e as Cotas da Subclasse  Subordinadas.\n PRODUTEC COMÉRCIO S.A., sociedade anônima  fechada, com sede na cidade de Ponta Grossa,  Estado do Paraná, na Avenida Senador Flavio Produtec  Carvalho Guimarães, nº 1111, BRCAO 01, Boa  Vista, CEP 84070-460, inscrita no CNPJ sob o nº\n 82.069.113/0001-08  são os produtos distribuídos ou fornecidos pelas  respectivas Cedentes aos Devedores, dentre os Produto quais defensivos agrícolas, adubos, corretivos,  fertilizantes, biofertilizantes, sementes e outros  insumos agrícolas comercializados.\n são reservas constituídas para arcar com os Reserva de Encargos encargos e despesas da Classe a cada 6 (seis)  meses e pelos próximos 6 (seis) meses.\n significa a parcela do Patrimônio Líquido da Classe  equivalente a (i) 50% (cinquenta por cento) do  valor do próximo pagamento de Remuneração e/ou  Amortização e/ou resgate das Cotas de cada  subclasse, a ser acumulada com, no mínimo, 60\n (sessenta) dias de antecedência em relação à Reserva de Remuneração, próxima Data de Pagamento da Remuneração, de Amortização e Resgate Amortização e/ou resgate das Cotas de cada das Cotas subclasse, conforme aplicável e previsto nos  respectivos Apêndices e (ii) 100% (cem por cento)  do valor do próximo pagamento de Remuneração  e/ou Amortização e/ou resgate das Cotas de cada  subclasse, conforme aplicável, a ser acumulada  com, no mínimo, 30 (trinta) dias de antecedência  em relação à próxima Data de Pagamento da  Remuneração, de Amortização e/ou resgate das",
       "sha256": "ba948c19fd0a8db789f972d4bf69b5515c40a8ed5e39542c4ee89a418433a802",
-      "verification": "primary_passage"
-    },
-    "0aa6f88240c7ef419d9e2364738405895120c157e76f842dadded7976657f2d7": {
-      "document_id": "908314",
-      "title": "Regulamento",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=908314",
-      "reference_date": "2025-05-19",
-      "version": "1",
-      "page": 97,
-      "clause": "13.46",
-      "excerpt": "13.46 Risco relacionado à Ausência de Regulação Específica para o Fiagro. A Classe está sujeita à regulamentação da CVM. Em 13 de julho de 2021, a CVM publicou a Resolução CVM 39, que regulamenta, em caráter provisório e experimental, os fundos de investimentos nas cadeias produtivas do agronegócio.\nDessa forma, por se tratar de um fundo de investimento recém-criado pela Lei nº\n14.130, de 29 de março de 2021, e ainda não possuir uma norma específica expedida pela CVM para regulamentá-lo, adotando-se, provisoriamente, a Resolução CVM 175, as regras e procedimentos atualmente adotado para o presente Fundo poderá vir a ser alterada e, consequentemente, afetar negativamente os Cotistas. Além disso, por se tratar de um mercado recente no Brasil, o Fiagro ainda não se encontra totalmente regulamentado e com jurisprudência pacífica, podendo ocorrer situações em que ainda não existam regras que o direcione, gerando assim uma insegurança jurídica e um risco ao investimento em Fiagro, uma vez que os órgãos reguladores e o Poder Judiciário poderão, ao analisar a Oferta e o Fiagro e/ou em um eventual cenário de discussão e/ou de identificação de lacuna na regulamentação existente, (i) editar normas que regem o assunto e/ou interpretá-las de forma a provocar um efeito adverso sobre os Fiagro, bem como (ii) proferir decisões que podem ser desfavoráveis aos interesses ao investimento em Fiagro, o que em qualquer das hipóteses, poderá afetar adversamente o investimento em Fiagro, e consequentemente afetar negativamente as Cotas do Fundo e consequentemente afetar de modo adverso ao Cotista. Riscos Relacionados ao Setor de Atuação das Cedentes e dos Devedores 23.39. Instabilidades e crises no setor agrícola. Eventuais situações de crise e de insolvência de revendedores, indústrias, cooperativas e produtores rurais, pessoas físicas e/ou jurídicas e sociedades atuantes no setor poderiam afetar negativamente a produção dos Devedores, e, consequentemente, impactar os pagamentos das Cotas.",
-      "sha256": "67f1fb17ff8cdb1d02483ac3a971006c80ee70e19d3234b4699a1b546a6425db",
       "verification": "primary_passage"
     },
     "310fd60641aeecc17c98d5ec4794aaab662d5ebcae956c92337e1b804a93b112": {
@@ -4508,18 +4427,6 @@
       "clause": "6.2",
       "excerpt": "6.2 A remuneração pela prestação dos serviços de gestão da Classe deverá ser paga pela Classe ao Gestor mensalmente, sob a porcentagem do Patrimônio Líquido da Classe ao ano conforme estabelecido na tabela abaixo, somado aos custos mensais comprovadamente advindos da contratação de plataformas de birôs de crédito e de validação de Notas Fiscais, utilizadas para validação das Condições de Cessão sendo assegurado ao Gestor uma remuneração mínima mensal equivalentea R$13.000,00 (treze mil reais) contados da Data da Primeira Integralização:",
       "sha256": "ebcffefe64efdf1b6118d655ed2a2d185717e1182fa43bc3a1075bd54f4c2029",
-      "verification": "primary_passage"
-    },
-    "65c8eb2052c2498680245b87dd2de73e37269a0ee2c852234dc2cb37a40a8f5a": {
-      "document_id": "892697",
-      "title": "Demonstrações Financeiras",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=892697",
-      "reference_date": "2025-01-31",
-      "version": "1",
-      "page": 26,
-      "clause": "",
-      "excerpt": "A remuneração pela prestação dos serviços de gestão da Classe deverá ser paga pela Classe ao  Gestor mensalmente, sob a porcentagem do Patrimônio Líquido da Classe ao ano conforme  estabelecido na tabela abaixo, somado aos custos mensais comprovadamente advindos da  contratação de plataformas de birôs de crédito e de validação de Notas Fiscais, utilizadas para  validação das Condições de Cessão sendo assegurado ao Gestor uma remuneração mínima mensal  equivalente a R$13 (treze mil reais) contados da Data da Primeira Integralização:",
-      "sha256": "33adfe3bbae1e5ed85871ec5005174f3374f94d5fedb5ffe154effd54179f349",
       "verification": "primary_passage"
     },
     "8e3cc4f8bd55a5fe8a03ade81ac3d30a1d5a9069e854da35cd64cf90d8ae3262": {
@@ -8995,17 +8902,18 @@
       "sha256": "33adfe3bbae1e5ed85871ec5005174f3374f94d5fedb5ffe154effd54179f349",
       "verification": "primary_passage"
     },
-    "0494c6f26abd3cfc7a9137381549c25fe4d7c71330b0e76e39ae8174f1e0842b": {
-      "document_id": "767190",
-      "title": "Instrumento Particular de Emissão de Cotas",
-      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=767190",
-      "reference_date": "2024-10-22",
+    "9bb594502ebb62ac5e1cfe5b106c1b08d2c2e25e3e1ee449fc49d5d92981b134": {
+      "document_id": "892697",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=892697",
+      "reference_date": "2025-01-31",
       "version": "1",
-      "page": 116,
-      "clause": "13.10",
-      "excerpt": "13.10 Acontecimentos e a percepção de riscos em outros países, especialmente os Estados Unidos e países de economia emergente, podem prejudicar o preço de mercado dos valores mobiliários brasileiros. Os investidores internacionais consideram, geralmente, o Brasil como um mercado emergente. Historicamente, a ocorrência de fatos adversos em economias em desenvolvimento resulta na percepção de um maior risco pelos investidores do mundo, incluindo investidores dos Estados Unidos e de países europeus. Tais percepções em relação aos países de mercados emergentes afetam significativamente o Brasil, o mercado de capitais brasileiro e a disponibilidade de crédito no Brasil, tanto de fontes de capital nacionais como internacionais, afetando a capacidade de pagamento e que podem afetar negativamente a situação financeira dos Devedores e das Cedentes, e, consequentemente, o fluxo de pagamento dos Direitos Creditórios Adquiridos.\nAdicionalmente, a economia brasileira e o valor de mercado de valores mobiliários de emissão de companhias brasileiras são influenciados, em diferentes graus, pelas condições econômicas e de mercado do Brasil e de outros países, inclusive Estados Unidos, países da Europa e de economias emergentes. Ainda que as condições econômicas nesses países possam diferir consideravelmente das condições econômicas no Brasil, as reações dos investidores aos acontecimentos nesses outros países podem ter um efeito adverso na economia brasileira e no valor de mercado dos títulos e valores mobiliários de emissores brasileiros. No passado, o desenvolvimento de condições econômicas adversas em outros países resultou, em geral, na saída de investimentos e, consequentemente, na redução de recursos externos investidos no Brasil. O Brasil está sujeito à acontecimentos que incluem, por exemplo, (i) a crise financeira e a instabilidade política nos Estados Unidos, (ii) o conflito entre a Ucrânia e a Rússia, que desencadeou a invasão pela Rússia em determinadas áreas do território ucraniano, dando início a uma crise militar e geopolítica com reflexos mundiais, (iii) a guerra comercial entre os Estados Unidos e a China, e (iv) crises na Europa e em outros países, que afetam a economia global, que estão produzindo e/ou poderão produzir uma série de efeitos que afetam, direta ou indiretamente, os mercados de capitais e a economia brasileira, incluindo as flutuações de preços de títulos de empresas cotadas, menor disponibilidade de crédito, deterioração da economia global, flutuação em taxas de câmbio e inflação, impactar negativamente a cadeia de fornecimento de suprimentos de matéria-prima primordial aos Devedores e/ou às Cedentes, com consequente aumento inflacionários  63",
-      "sha256": "d9bb45f315d409964f17ae43d8542bb416432645322b1ac86d1a3938646cef23",
-      "verification": "primary_passage"
+      "page": 16,
+      "clause": "",
+      "excerpt": "Supletivamente, após a validação dos Critérios de Elegibilidade, previstos acima e a subsequente formalização da aquisição dos Direitos Creditórios Adquiridos, compete ao Gestor verificar, no prazo de 15 (quinze) Dias Úteis, contados da data do integral recebimento dos Documentos Comprobatórios, a serem enviados pelas respectivas Cedentes nos termos e nos prazos previstos neste Anexo Descritivo, se as Condições de Cessão adiante listadas foram atendidas, de forma cumulativa, em cada Data de Aquisição:\n(a) as Cedentes deverão declarar que não estão, bem como que cada Devedor não está, conforme aplicável, em processo de (i) falência, ou (ii) recuperação judicial e/ou extrajudicial, (iii) insolvência civil, (iv) intervenção ou liquidação extrajudicial, conforme aplicável e/ou (v) em procedimento similar que venha a ser definido por lei; e\n(b) deverão contar com declaração prestada pelas respectivas Cedentes, em cada Termo de Cessão, atestando que, na Data de Oferta de Direitos Creditórios e na Data de Aquisição dos Direitos Creditórios, pela Classe: (i) os Direitos Creditórios ofertados e adquiridos pela Classe são performados, existentes, válidos, eficazes e exequíveis, estando livres e desembaraçados de quaisquer Ônus, de qualquer tipo ou natureza, bem como a inexistência de qualquer vedação e/ou impedimento para oferta e cessão dos Direitos Creditórios à Classe; (ii) os Devedores dos Direitos Creditórios ofertados e adquiridos pela Classe tem sede ou domicílio no Brasil e, conforme aplicável, são constituídos de acordo com a legislação brasileira; (iii) os Devedores dos Direitos Creditórios ofertados e adquiridos pela Classe estão adimplentes no cumprimento de suas obrigações perante as Cedentes; (iv) os Direitos Creditórios ofertados e adquiridos pela Classe decorrem de operações de distribuição ou fornecimento de Produtos celebradas pelas respectivas Cedentes com os respectivos Devedores, exclusivamente no mercado local e em moeda nacional, em observância a Política de Crédito; (v) cada Devedor dos Direitos Creditórios Adquiridos possui, pelo menos, 2 (dois) anos de relacionamento comercial prévio com as respectivas Cedentes; (vi) não ter sido atribuída aos Devedores dos Direitos Creditórios ofertados, pelas respectivas Cedentes, no momento da aquisição dos Direitos Creditórios, classificação de risco de crédito igual ou inferior à “D”, conforme Política de Crédito; (vii) não há qualquer tipo de crédito pertencente ao Devedor e a ele oponível e/ou passível de compensação de dívidas contra as respectivas Cedentes que possa afetar os Direitos Creditórios Adquiridos; (viii) todos os Produtos objeto das Notas Fiscais vinculadas aos Direitos Creditórios Adquiridos são destinados à aplicação exclusiva por produtor rural, em sua produção; (ix) que as atividades de comercialização e/ou fornecimento dos Produtos, em especial os fertilizantes, adubos, agrotóxicos, defensivos agrícolas, bactericidas e sementes, pelas Cedentes, são realizadas de acordo com a legislação e regulamentação aplicável; (x) os Produtos comercializados e/ou fornecidos pelas Cedentes não contêm substâncias proibidas por organismos  16",
+      "sha256": "33adfe3bbae1e5ed85871ec5005174f3374f94d5fedb5ffe154effd54179f349",
+      "verification": "primary_passage",
+      "list_recovery_complete": true
     }
   }
 }
