@@ -1,0 +1,723 @@
+{
+ "schema_version": 1,
+ "cnpj": "44302374000137",
+ "name": "CREDILOG - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO-PADRONIZADOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:34:19Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1033262",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "11/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262"
+  },
+  "D2": {
+   "document_id": "299193",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "16/11/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299193"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de cedentes do agro, indústria e comércio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 34,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "cterísticas dos Direitos Creditórios 9.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de 12 Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 9.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos de cedentes agro/indústria/comércio, conforme política multissetorial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 34,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "cterísticas dos Direitos Creditórios 9.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de 12 Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 9.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 34,
+     "clause": "cl. 9.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "cterísticas dos Direitos Creditórios 9.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de 12 Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 9.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos títulos cedidos, adimplentes perante o fundo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 36,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "dos Direitos Creditórios Cedidos, podendo subcontratar prestadores de serviços. 10. CRITÉRIOS DE ELEGIBILIDADE 10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; 10.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pela Classe, não obrigará a sua alienação pela Classe nem dará à Classe qualquer pretensão, recurso ou direito de regresso contra os Prestadores de Serviços Essenciais ou os Demais Prestadores de Serviços. 11. PROCEDIMENTOS E CUSTOS DE COBRANÇA 11.1 Os Direitos Creditórios serão pagos, em moeda corrente nacional, por meio de transferência eletrônica disponível (TED) ou outra forma de transferência de recursos autorizada pelo BACEN, (a) na conta de titularidade do Fundo; (b) em uma Conta Vinculada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cessão definitiva; cedente responde pela existência do crédito",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 35,
+     "clause": "cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "elementos da relação obrigacional. (a) Os Direitos Creditórios poderão ser adquiridos pela Classe com ou sem Coobrigação dos respectivos Cedentes ou de terceiros. (b) Cada Cedente será responsável pela existência dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil. 9.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação de Recursos prevista neste Anexo. Verificação e guarda dos Documentos Comprobatórios 9.4 Os Documentos Comprobatórios compreenderão a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Cedidos, tais como o protesto, a cobrança ou a execução judicial, sendo capazes de comprovar a origem, a existência e a exigibilidade dos Direitos Creditórios Cedido. 9.5 Os Documentos Comprobatórios serão recebidos e verificados pela Gestora em até 05(cinco) dias após a respectiva Data de Aquisição."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Em reais; válidos e não vencidos; devedor adimplente; documentação",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 36,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "dos Direitos Creditórios Cedidos, podendo subcontratar prestadores de serviços. 10. CRITÉRIOS DE ELEGIBILIDADE 10.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; 10.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pela Classe, não obrigará a sua alienação pela Classe nem dará à Classe qualquer pretensão, recurso ou direito de regresso contra os Prestadores de Serviços Essenciais ou os Demais Prestadores de Serviços. 11. PROCEDIMENTOS E CUSTOS DE COBRANÇA 11.1 Os Direitos Creditórios serão pagos, em moeda corrente nacional, por meio de transferência eletrônica disponível (TED) ou outra forma de transferência de recursos autorizada pelo BACEN, (a) na conta de titularidade do Fundo; (b) em uma Conta Vinculada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 36,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "érios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; 10.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pela Classe, não obrigará a sua alienação pela Classe nem dará à Classe qualquer pretensão, recurso ou direito de regresso contra os Prestadores de Serviços Essenciais ou os Demais Prestadores de Serviços. 11. PROCEDIMENTOS E CUSTOS DE COBRANÇA 11.1 Os Direitos Creditórios serão pagos, em moeda corrente nacional, por meio de transferência eletrônica disponível (TED) ou outra forma de transferência de recursos autorizada pelo BACEN, (a) na conta de titularidade do Fundo; (b) em uma Conta Vinculada;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite de concentração por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não fixa prazo máximo dos créditos",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos cedidos após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "a prestar os serviços de cobrança de Direitos Creditórios Cedidos vencidos e não pagos. “Alocação Mínima” Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios cedidos). “ANBIMA” Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo” Anexo descritivo da Classe e Subclasses, o qual é parte integrante do Regulamento. “Assembleia” Assembleia geral ou especial de cotistas, ordinária ou extraordinária. 1 Regulamento Parte Geral CREDILOG FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS “Assembleia Especial de Assembleia de Cotistas para a qual são convocados somente os Cotistas¨ Cotistas de determinada Subclasse de Cotas. “Ativos Financeiros de Ativos financeiros que poderão integrar a carteira da Classe, Liquidez” conforme definidos no Anexo I. “Auditor Independente” Empresa de auditoria independente registrada na CVM cont"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 33,
+     "clause": "cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "a, o disposto nas cláusulas ¨Direitos Creditórios¨ e ¨Critérios de Elegibilidade¨ do presente Anexo. 8.2 Após 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe deverá observar a Alocação Mínima. 8.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição. 8.3 O remanescente do Patrimônio Líquido que não for aplicado em Direitos Creditórios Cedidos poderá ser mantido em moeda corrente nacional ou aplicado nos seguintes Ativos Financeiros de Liquidez: (a) títulos públicos federais; (b) ativos financeiros de renda fixa de emissão ou Coobrigação de instituições financeiras; (c) operações compromissadas com lastro nos Ativos Financeiros de Liquidez referidos nas alíneas (a) e (b) acima;"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "Reserva para pagamento dos encargos do Fundo e da Classe, nos termos do Anexo. “Subclasses” Cotas Seniores, Cotas Subordinadas e Cotas Mezanino que integram a Classe. “Taxa de Administração” Remuneração devida pelo Fundo à Administradora nos termos no Anexo. “Taxa de Gestão” Remuneração devida pelo Fundo à Gestora nos termos no Anexo. “Taxa Máxima de Remuneração máxima devida pelo Fundo aos distribuidores de Distribuição” Cotas contratados, nos termos do Anexo da Classe Única. 2."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/11/2025, p. 5"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · (mez.+jr.)/PL (relação mínima)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 31,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "de, no mínimo, 30% (trinta por cento) (“Relação Mínima”). 6.4 A Relação Mínima deve ser apurada todo Dia Útil pela Administradora, devendo ser informada aos Cotistas mensalmente. 6.5 Caso haja desenquadramento da Relação Mínima, os Cotistas Subordinados serão imediatamente informados pela Administradora (“Aviso de Desenquadramento”)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; apuração diária",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Regulamento não fixa índice próprio para a mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Diária pela administradora; cotistas informados mensalmente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 31,
+     "clause": "cl. 6.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "de, no mínimo, 30% (trinta por cento) (“Relação Mínima”). 6.4 A Relação Mínima deve ser apurada todo Dia Útil pela Administradora, devendo ser informada aos Cotistas mensalmente. 6.5 Caso haja desenquadramento da Relação Mínima, os Cotistas Subordinados serão imediatamente informados pela Administradora (“Aviso de Desenquadramento”)."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; apuração diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/11/2025, cl. 6.3"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de encargos: 6 meses de despesas estimadas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 43,
+     "clause": "cl. 13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "gates em ativos da carteira, mesmo fora do contexto de liquidação, mediante deliberação da Assembleia. 13. RESERVA DE PAGAMENTO DE RESGATE E RESERVA DE CAIXA 13.1 Observada a Ordem de Alocação de Recursos prevista abaixo neste Anexo, a Administradora deverá manter a Reserva de Encargos, por conta e ordem da Classe, desde a Data de Início do Fundo até a liquidação, equivalente à estimativa do valor necessário para o pagamento dos encargos do Fundo, referente aos 6 (seis) meses subsequentes. 13.2 Os procedimentos descritos nesta cláusula não constituem promessa ou garantia, por parte da Administradora, de que haverá recursos suficientes para a constituição ou a recomposição da Reserva de Encargos, representando apenas um objetivo a ser perseguido. 13.3 Os recursos da Reserva de Encargos serão mantidos contabilizados em conta Disponibilidades. 21 14."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 14,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "idez integrantes da carteira da Classe serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. 8.4 A constatação de Patrimônio Líquido Negativo de Classe será considerada Evento de Avaliação, devendo a Administradora, se for o caso, divulgar tal constatação aos Cotistas da respectiva Classe imediatamente, na forma do Anexo. 8.5 O Patrimônio Líquido será equivalente ao valor das Disponibilidades, acrescido do valor dos Direitos Creditórios Cedidos, deduzidas as exigibilidades e as provisões do Fundo. 8.6 As Cotas terão o seu valor calculado, todo Dia Útil, nos termos do Anexo. 14 Regulamento Parte Geral CREDILOG FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS Da Responsabilidade dos Cotistas e Patrimônio Líquido Negativo 8.7 A Classe não limita a responsabilidade dos Cotistas ao valor das respectivas Cotas subscritas. 8.8 Observada a Ordem de Alocação de Recursos prevista no Anexo, o descumprimento de qualquer obrigação originária dos Direitos Creditórios e demais ativos componentes da carteira da Classe será"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating sênior rebaixado 3 níveis; desenquadramento > 15 DU, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 44,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "IAÇÃO E EVENTOS DE LIQUIDAÇÃO 15.1 A Classe poderá ser liquidada por deliberação da Assembleia. 15.2 São considerados Eventos de Avaliação: (a) rebaixamento da classificação de risco das Cotas Seniores em circulação a qualquer tempo, em 03(três) níveis abaixo da classificação de risco originalmente atribuída; (b) desenquadramento da carteira de Ativos por mais de 15(quinze) Dias Úteis consecutivos nos termos deste Regulamento; (c) verificação de Patrimônio Líquido Negativo; ou (d) desenquadramento de Índice de Subordinação por prazo superior a 15(quinze) Dias Úteis consecutivos 22 15.3 Na ocorrência de qualquer Evento de Avaliação, a Administradora imediatamente (a) suspenderá o pagamento de amortizações ou resgate de Cotas, se houver;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Assembleia ou impossibilidade de comprar créditos elegíveis",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 45,
+     "clause": "cl. 15.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "nforme o caso, sem prejuízo da implementação de eventuais ajustes pelos Cotistas na Assembleia Geral de Cotistas. 15.6 São considerados Eventos de Liquidação Antecipada: (a) Deliberação da Assembleia Geral de Cotistas pela liquidação da Classe; (b) impossibilidade de aquisição de Direitos Creditórios que atendam à Política de Investimento da Classe, incluindo os Critérios de Elegibilidade; e (c) renúncia da Administradora, sem que uma nova instituição assuma suas funções no prazo de até 60(sessenta) dias. 15.7 Na ocorrência de qualquer Evento de Liquidação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida durante todo o prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 35,
+     "clause": "cl. 9.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "erá responsável pela existência dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil. 9.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação de Recursos prevista neste Anexo. Verificação e guarda dos Documentos Comprobatórios 9.4 Os Documentos Comprobatórios compreenderão a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Cedidos, tais como o protesto, a cobrança ou a execução judicial, sendo capazes de comprovar a origem, a existência e a exigibilidade dos Direitos Creditórios Cedido. 9.5 Os Documentos Comprobatórios serão recebidos e verificados pela Gestora em até 05(cinco) dias após a respectiva Data de Aquisição."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Resgates suspensos em evento de avaliação ou liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 44,
+     "clause": "cl. 15.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "IAÇÃO E EVENTOS DE LIQUIDAÇÃO 15.1 A Classe poderá ser liquidada por deliberação da Assembleia. 15.2 São considerados Eventos de Avaliação: (a) rebaixamento da classificação de risco das Cotas Seniores em circulação a qualquer tempo, em 03(três) níveis abaixo da classificação de risco originalmente atribuída; (b) desenquadramento da carteira de Ativos por mais de 15(quinze) Dias Úteis consecutivos nos termos deste Regulamento; (c) verificação de Patrimônio Líquido Negativo; ou (d) desenquadramento de Índice de Subordinação por prazo superior a 15(quinze) Dias Úteis consecutivos 22 15.3 Na ocorrência de qualquer Evento de Avaliação, a Administradora imediatamente (a) suspenderá o pagamento de amortizações ou resgate de Cotas, se houver;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 45,
+     "clause": "cl. 15.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "nforme o caso, sem prejuízo da implementação de eventuais ajustes pelos Cotistas na Assembleia Geral de Cotistas. 15.6 São considerados Eventos de Liquidação Antecipada: (a) Deliberação da Assembleia Geral de Cotistas pela liquidação da Classe; (b) impossibilidade de aquisição de Direitos Creditórios que atendam à Política de Investimento da Classe, incluindo os Critérios de Elegibilidade; e (c) renúncia da Administradora, sem que uma nova instituição assuma suas funções no prazo de até 60(sessenta) dias. 15.7 Na ocorrência de qualquer Evento de Liquidação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,24% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 31,
+     "clause": "cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "AXAS Taxa de Administração 7.1 Pela prestação dos serviços de administração fiduciária, o Fundo pagará à Administradora Taxa de Administração mensal, calculada utilizando o percentual indicado de 0,24%, sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente. 7.1.1 Será observado um valor mensal mínimo devido a título de Taxa de Administração de abaixo R$7.500,00 (sete mil e quinhentos reais), com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. Taxa de Gestão 7.2 Pelos serviços de gestão da carteira de Direitos de Crédito e Ativos Financeiros, o Fundo pagará à Gestora Taxa de Gestão mensal calculada utilizando o percentual indicado de 1,2% ao ano sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente. 9 7.2.1 Será observado um valor mensal mínimo devido a título de Taxa de Gestão de abaixo"
+    }
+   ],
+   "legacy": {
+    "value": "0,24% PL; mínimo R$ 7,5 mil/mês; base temporal com redação ambígua",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/11/2025, cl. 7.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "1,2% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 31,
+     "clause": "cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "e Gestão 7.2 Pelos serviços de gestão da carteira de Direitos de Crédito e Ativos Financeiros, o Fundo pagará à Gestora Taxa de Gestão mensal calculada utilizando o percentual indicado de 1,2% ao ano sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente. 9 7.2.1 Será observado um valor mensal mínimo devido a título de Taxa de Gestão de abaixo $15.500,00 (quinze mil e quinhentos reais), com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. Taxa de Custódia 7.3 Pela prestação dos serviços de custódia, escrituração e controladoria o Fundo pagará ao Custodiante, Taxa de Custódia, calculada e paga em valor equivalente a 0,06% (seis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observando um valor mínimo devido de R$ 7.000,00 (sete mil reais), a ser pago até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços;"
+    }
+   ],
+   "legacy": {
+    "value": "1,20% a.a. PL; mínimo não individualizado nas cláusulas revisadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "CDI + 4,75% a.a.",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 29,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "ta de Emissão: R$1.000,00 (mil reais); c) Data de Emissão: data do primeiro aporte d) Data de Resgate: indeterminado e) Rentabilidade: CDI + 4,75% a.a. f) Valor unitário de cada Cota Sênior: A partir da Data de Emissão, o valor unitário de cada Cota Sênior será calculado todo Dia Útil, para efeito de determinação de seu valor de integralização ou resgate, sendo que este será equivalente ao menor dos seguintes valores: (i) valor do saldo do valor unitário de cada Cota Senior atualizado pela Rentabilidade Senior na data “t”; e (ii) o valor do Patrimônio Líquido do Fundo dividido pelo número de Cotas Seniores. 6.1.1 Cada Cota Sênior possui como característica e confere a seu titular as seguintes vantagens, direitos e obrigações comuns: a) tem prioridade e goza de preferência em relação às Cotas Subordinadas na hipótese de seu resgate, observado o disposto neste Regulamento; b) após a Data de Emissão, terá seu valor de integralização ou resgate, calculado no fechamento de todo Dia Útil pela Administradora;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Catálise DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "do entre os Prestadores de Serviços Essenciais (a Administradora e a Gestora do Fundo). “Administradora” CATALISE DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 21.245, de 25 de setembro de 2023, com sede na cidade de Curitiba, estado do Paraná, na Rua Doutor Manoel Pedro, nº 365, cj. 302, Cabral, CEP 80.035- 030, inscrita no CNPJ sob o nº 47.215.387/0001-67, ou a sua sucessora a qualquer título. Canal de atendimento: contato@catalisedtvm.com."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Catálise Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "” verificação, pela Administradora, se o Patrimônio Líquido está negativo. “Gestora” CATÁLISE INVESTIMENTOS LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 14.818, de 8 de janeiro de 2016, com sede na cidade de Curitiba, estado do Paraná, na Rua Dr. Manoel Pedro, nº 365, cj. 302, Cabral, CEP 80035-030, inscrita no CNPJ sob o nº 18.223.260/0001-91, e filial no endereço na Rua Gumercindo Saraiva, 96, na cidade de São Paulo, estado de São Paulo, CEP 01.449-070, inscrita no CNPJ sob o nº 18.223.26, ou a sua sucessora a qualquer título."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval (0,06% a.a.; mín. R$ 7 mil/mês)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "ibilidade” Critérios de elegibilidade dos Direitos Creditórios, definidos no Anexo. “Custodiante” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer título. “CVM” Comissão de Valores Mobiliários. “Data da 1ª Integralização ou Data da 1ª (primeira) integralização de Cotas da Classe. Data da Subscrição Inicial” “Data de Aquisição” Cada data em que ocorrer a aquisição dos Direitos Creditórios pelo Fundo. “Data de Conversão” Data de apuração do valor das Cotas para fins do seu resgate, correspondente ao Dia Útil imediatamente anterior à respectiva Data"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 32,
+     "clause": "cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "xa de Custódia 7.3 Pela prestação dos serviços de custódia, escrituração e controladoria o Fundo pagará ao Custodiante, Taxa de Custódia, calculada e paga em valor equivalente a 0,06% (seis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observando um valor mínimo devido de R$ 7.000,00 (sete mil reais), a ser pago até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços; 7.4 A Taxa de Administração, a Taxa de Gestão e a Taxa de Custódia serão calculadas e provisionadas diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior. 7.5 O valor para contratação de empresas terceiras para prestação dos serviços de verificação do lastro dos Direitos Creditórios, serão custeadas diretamente pelo Fundo e não deduzida das Taxas de Administração, Gestão e Custódia. 7.6 A Administradora e a Gestora poderão estabelecer que parcelas da Taxa de Administração e da Taxa de Gestão, respectivamente, sejam pagas diretamente pelo Fundo aos Demais Prestadores de Serviços, desde que o somatório dessas parcelas não exceda o valor total da Taxa de Administração ou da Taxa de Gestão, conforme o caso. 7.7 A Taxa de Administração e a Taxa de gestão não inclu"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Não nomeado; agente de cobrança a ser contratado",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 23,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos nos artigos 11, da Resolução CVM nº 30, de 11 de maio de 2021. 4. DEMAIS PRESTADORES DE SERVIÇOS 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro dos Direitos Creditórios Cedidos; (e) custódia dos Direitos Creditórios Cedidos, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 23,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "ocedimento definido neste Anexo ou, ainda, em caso de liquidação da Classe. 2. PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos nos artigos 11, da Resolução CVM nº 30, de 11 de maio de 2021. 4. DEMAIS PRESTADORES DE SERVIÇOS 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro dos Direitos Creditórios Cedidos; (e) custódia dos Direitos Creditórios Cedidos, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedor ≤ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1033262",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/11/2025",
+     "page": 36,
+     "clause": "cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1033262",
+     "excerpt": "érios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) a soma dos direitos creditórios por Devedor não poderá ser superior a 20% (vinte por cento) do Patrimônio Líquido; 10.2 O desenquadramento de qualquer Direito Creditório Cedido com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua aquisição pela Classe, não obrigará a sua alienação pela Classe nem dará à Classe qualquer pretensão, recurso ou direito de regresso contra os Prestadores de Serviços Essenciais ou os Demais Prestadores de Serviços. 11. PROCEDIMENTOS E CUSTOS DE COBRANÇA 11.1 Os Direitos Creditórios serão pagos, em moeda corrente nacional, por meio de transferência eletrônica disponível (TED) ou outra forma de transferência de recursos autorizada pelo BACEN, (a) na conta de titularidade do Fundo; (b) em uma Conta Vinculada;"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Multicedente para profissionais com 30% de subordinação, sênior a CDI + 4,75% e devedor ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

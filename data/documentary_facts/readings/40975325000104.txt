@@ -1,0 +1,57 @@
+# portado de 35689601000138 (40975325000104)
+type: Duplicatas/multicedente
+q9: * "Taxa de Custódia, calculada e paga após 1 ano da data em que ocorrer a transferência de administração"
+q24: * "tenham prazo mínimo de vencimento igual a 5 (cinco) dias úteis"
+q23: * "Remuneração Alvo: 105% CDI"
+q22: * "o Fundo pagará uma taxa fixa mensal no valor de R$22.000,00 no período de 1 ano"
+q21: * "Os Índices de Subordinação deverão ser apurados em todo Dia Útil pela Administradora"
+q20: * "O Índice de Subordinação Junior será a relação mínima a ser observada entre o valor das Cotas Subordinadas Junior e o Patrimônio Líquido da Classe"
+q1: * "títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio"
+q2: * "A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora"
+q3: * "“Subclasses” Cotas Seniores, Cotas Subordinadas e Cotas Mezanino"
+q4: * "São considerados Eventos de Avaliação: (a) rebaixamento"
+q5: * "São considerados Eventos de Liquidação Antecipada: (a)"
+q6: * "Será permitida a revolvência da carteira da Classe"
+q7: * "Taxa de Administração mensal, calculada utilizando o(s) percentual indicado de 0,24%"
+q8: * "Taxa de Gestão mensal calculada utilizando o percentual indicado de 0,40%"
+q10: * "“Administradora” CATÁLISE DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q11: * "“Gestora” CATÁLISE INVESTIMENTOS LTDA"
+q12: * "“Custodiante” BANCO DAYCOVAL S.A."
+q14: * "As Cotas serão destinadas exclusivamente a investidores profissionais"
+q15: * "A Classe terá prazo de duração indeterminado"
+q16: * "metodologia descrita no manual de provisão para perdas da Administradora"
+q18: * "Após 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe deverá observar a Alocação Mínima"
+q19: * "“Alocação Mínima” Percentual mínimo de 67%"
+receivables: Recebíveis de cedentes do agro, indústria e comércio | q1
+originator: Cedentes diversos | q1
+assignor: Cedentes diversos | q1
+debtor: Devedores dos títulos cedidos, adimplentes perante o fundo | q2
+recourse: Cessão definitiva; cedente responde pela existência do crédito | o10
+eligibility: Em reais; não vencidos; devedor adimplente; vencimento ≥ 5 DU | q2,q24
+debtor_limit: Não previsto | Anexo não fixa limite de concentração por devedor
+assignor_limit: Não previsto | Anexo não fixa limite de concentração por cedente
+term_max: Não previsto | Anexo não fixa prazo máximo dos créditos
+allocation: ≥ 67% do PL em direitos cedidos após 180 dias | q19,q18 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q3
+sub_senior: 10% · jr/PL | q20 | basis=jr/PL
+sub_mezz: 10% · jr/PL (mesmo índice júnior) | q20 | basis=jr/PL
+sub_check: Diária pela administradora; cotistas informados mensalmente | q21
+reserve: Reserva de encargos: 6 meses de despesas estimadas | o35
+pdd: Manual de provisão para perdas da administradora | q16
+eval_triggers: Rating sênior rebaixado 3 níveis; desenquadramento > 15 DU, entre outros | q4
+liquidation: Assembleia ou impossibilidade de comprar créditos elegíveis | q5
+revolving: Revolvência permitida durante todo o prazo | q6
+amortization: Resgates suspensos em evento de avaliação ou liquidação | q4,q5
+admin_fee: 0,24% do PL, mín. R$ 7 mil/mês (fixo de R$ 7 mil no 1º ano) | q7,q22
+mgmt_fee: 0,40% do PL, mín. R$ 8 mil/mês (fixo no 1º ano) | q8,q22
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: 105% do CDI (modelo de suplemento) | q23
+target_mezz: — | Sem cota mezanino
+administrator: Catálise DTVM | q10
+manager: Catálise Investimentos | q11
+custodian: Banco Daycoval (0,06% a.a. após o 1º ano; R$ 7 mil/mês antes) | q12,q9,q22
+servicer: Não nomeado; agente de cobrança a ser contratado
+investors: Investidores profissionais | q14
+duration: Indeterminado | q15
+sacado_limit: Não previsto | Anexo não fixa limite por sacado
+leitura: Multicedente com júnior mínima de 10% do PL; sênior a 105% do CDI; sem limites de concentração (profissionais).

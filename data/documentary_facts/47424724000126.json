@@ -1,0 +1,628 @@
+{
+ "schema_version": 1,
+ "cnpj": "47424724000126",
+ "name": "MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:32:22Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "917703",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703"
+  },
+  "D2": {
+   "document_id": "353843",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "28/07/2022",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=353843"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de cedentes do agro, indústria e comércio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "cterísticas dos Direitos Creditórios 7.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 7.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados os demais elementos da relação obrigacional. (a) Os Direitos Creditórios poder"
+    }
+   ],
+   "legacy": {
+    "value": "Títulos de agro, indústria e comércio; não padronizados e não performados vedados.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "cterísticas dos Direitos Creditórios 7.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 7.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados os demais elementos da relação obrigacional. (a) Os Direitos Creditórios poder"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "cterísticas dos Direitos Creditórios 7.1 Os Direitos Creditórios a serem adquiridos pela Classe serão representados por títulos oriundos da atuação de Cedentes nos segmentos Agro, Indústria ou Comércio, com foco em carteira de recebíveis, nos termos das “Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros” da Anbima para Classificação de FIDCs. (a) A Classe não poderá adquirir direitos creditórios não-padronizados, conforme definidos no artigo 2º, caput, XIII, do Anexo Normativo II à Resolução CVM nº 175/22. (b) Não é permitido à Classe adquirir Direitos Creditórios não performados, ou seja, Direitos Creditórios cuja exigibilidade ainda dependa de contraprestação pelos respectivos Cedentes. (c) Os Direitos Creditórios a serem adquiridos pela Classe poderão contar com garantias reais ou fidejussórias, prestadas pelos respectivos Devedores ou por terceiros. 7.2 A cessão dos Direitos Creditórios à Classe será definitiva, irrevogável e irretratável e transferirá à Classe todos os direitos, garantias, privilégios, preferências, prerrogativas e ações relacionados aos Direitos Creditórios Cedidos, mantendo-se inalterados os demais elementos da relação obrigacional. (a) Os Direitos Creditórios poder"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos títulos cedidos, adimplentes perante o fundo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 29,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "dos Direitos Creditórios Cedidos, podendo subcontratar prestadores de serviços. 8. CRITÉRIOS DE ELEGIBILIDADE 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada contrato de cessão, sem regra no anexo",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Em reais; válidos e não vencidos; devedor adimplente; documentação",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 29,
+     "clause": "Anexo, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "dos Direitos Creditórios Cedidos, podendo subcontratar prestadores de serviços. 8. CRITÉRIOS DE ELEGIBILIDADE 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora, de forma definitiva, na respectiva Data de Aquisição: (a) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (b) tenham sido legalmente constituídos, sejam certos, válidos, exigíveis e líquidos no vencimento; (c) não estejam vencidos e/ou pendentes de pagamento na respectiva Data de Aquisição; (d) não sejam devidos por Devedores que estejam inadimplentes perante o Fundo; (e) estejam amparados pelos respectivos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Adimplentes; devedor sem atraso no fundo; lastro; vencimento mínimo 2 DU.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2025, Anexo, cl. 8.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite de concentração por devedor",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite de concentração por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não fixa prazo máximo dos créditos",
+   "sources": [],
+   "legacy": {
+    "value": "Adimplentes; devedor sem atraso no fundo; lastro; vencimento mínimo 2 DU.",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos cedidos após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "ra prestar os serviços de cobrança de Direitos Creditórios Cedidos vencidos e não pagos. “Alocação Mínima” Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido em Direitos Creditórios cedidos). “ANBIMA” Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo” Anexo descritivo da Classe, o qual é parte integrante do Regulamento. “Assembleia” Assembleia geral ou especial de cotistas, ordinária ou extraordinária. “Ativos Financeiros de Ativos financeiros que poderão integrar a carteira da Classe, Liquidez” conforme definidos no Anexo. 1 Regulamento Parte Geral MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS “Auditor Independente” Empresa de auditoria independente registrada na CVM contratada pela Administradora, em nome do Fundo, para prestar os serviços de auditoria das demonstrações contábeis do Fundo. “B3” B3 S.A."
+    },
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 26,
+     "clause": "Anexo, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "o disposto nas cláusulas ¨Direitos Creditórios¨ e ¨Critérios de Elegibilidade¨ do presente Anexo. 6.2 Após 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe deverá observar a Alocação Mínima. 6.2.1 A Classe somente poderá adquirir os Direitos Creditórios que atendam, cumulativamente, aos Critérios de Elegibilidade, na respectiva Data de Aquisição. 6.3 O remanescente do Patrimônio Líquido que não for aplicado em Direitos Creditórios Cedidos poderá ser mantido em moeda corrente nacional ou aplicado nos seguintes Ativos Financeiros de Liquidez: (a) títulos públicos federais; (b) ativos financeiros de renda fixa de emissão ou Coobrigação de instituições financeiras; (c) operações compromissadas com lastro nos Ativos Financeiros de Liquidez referidos nas alíneas (a) e (b) acima;"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "67%/PL em DC após 180 dias do início.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Classe única de cotas",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "nos termos do respectivo Contrato de Cessão. “Classe” Classe única de Cotas. Uma vez que o Fundo é constituído com classe única de Cotas, todas as referências à Classe no Regulamento serão entendidas como referências ao Fundo e vice-versa. “Consultoria Especializada” Consultoria a que venha a ser pela Gestora, em nome do Fundo, para realizar atividades relacionadas à análise, seleção, aquisição e substituição de Direitos Creditórios que comporão a carteira do Fundo. “Conta Vinculada” Conta especial de titularidade de cada Cedente, movimentada pelo Custodiante, na qual serão recebidos os recursos decorrentes do pagamento dos Direitos Creditórios Cedidos. “Contrato de Cessão” Contrato celebrado entre o Fundo e cada Cedente, no qual serão estabelecidos os termos e condições para a cessão dos Direitos Creditórios, incluindo a eventual Coobrigação. “Coobrigação” (e termos Obrigação contratual ou qualquer outro mecanismo por meio do qual corre"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Classe única, sem cotas subordinadas",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Classe única, sem cotas subordinadas",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Classe única, sem índice de subordinação",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Reserva de encargos; desenquadramento é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 40,
+     "clause": "Anexo, cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 16.1 A Classe poderá ser liquidada por deliberação da Assembleia. 16.2 São considerados Eventos de Avaliação: (a) rebaixamento da classificação de risco das Cotas ou mais níveis abaixo da classificação de risco originalmente atribuída pela Agência Classificadora de Risco, se houver; (b) desenquadramento da Reserva de Encargos; e 20 Anexo MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (c) aquisição de Direitos Creditórios em desacordo com a política de investimento da Classe, incluindo os Critérios de Elegibilidade. 16.2.1 Na ocorrência de qualquer Evento de Avaliação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 13,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "idez integrantes da carteira da Classe serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. 8.4 O Patrimônio Líquido será equivalente ao valor das Disponibilidades, acrescido do valor dos Direitos Creditórios Cedidos, deduzidas as exigibilidades e as provisões do Fundo. 8.5 As Cotas terão o seu valor calculado, todo Dia Útil, nos termos do Anexo. Patrimônio Líquido Negativo 8.6 Caso verifique, a qualquer tempo, que o Patrimônio Líquido está negativo, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará a verificação do Patrimônio Líquido negativo à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating rebaixado, reserva de encargos desenquadrada, compra fora da política",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 40,
+     "clause": "Anexo, cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 16.1 A Classe poderá ser liquidada por deliberação da Assembleia. 16.2 São considerados Eventos de Avaliação: (a) rebaixamento da classificação de risco das Cotas ou mais níveis abaixo da classificação de risco originalmente atribuída pela Agência Classificadora de Risco, se houver; (b) desenquadramento da Reserva de Encargos; e 20 Anexo MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (c) aquisição de Direitos Creditórios em desacordo com a política de investimento da Classe, incluindo os Critérios de Elegibilidade. 16.2.1 Na ocorrência de qualquer Evento de Avaliação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Impossibilidade de compras elegíveis ou deliberação em assembleia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 41,
+     "clause": "Anexo, cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "ela Assembleia, as medidas previstas nas alíneas (a) e (b) do item ¨16.2.1¨ acima deverão ser cessadas. 16.3 São considerados Eventos de Liquidação: (a) impossibilidade de aquisição de Direitos Creditórios que atendam à política de investimento da Classe, incluindo os Critérios de Elegibilidade; e (b) caso seja deliberado na Assembleia que um Evento de Avaliação constitui um Evento de Liquidação. 16.3.1 Na ocorrência de qualquer Evento de Liquidação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida durante todo o prazo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 28,
+     "clause": "Anexo, cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "rá responsável pela existência dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil. 7.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação de Recursos prevista no Anexo. Verificação e guarda dos Documentos Comprobatórios 7.4 Os Documentos Comprobatórios compreenderão a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Cedidos, tais como o protesto, a cobrança ou a execução judicial, sendo capazes de comprovar a origem, a existência e a exigibilidade dos Direitos Creditórios Cedido. 8 Anexo MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS 7.5 Os Documentos Comprobatórios serão recebidos e verificados pela Gestora em até 05(cinco) dias após a respectiva Data de Aquisição."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Resgates suspensos em evento de avaliação ou liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 40,
+     "clause": "Anexo, cl. 16.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 16.1 A Classe poderá ser liquidada por deliberação da Assembleia. 16.2 São considerados Eventos de Avaliação: (a) rebaixamento da classificação de risco das Cotas ou mais níveis abaixo da classificação de risco originalmente atribuída pela Agência Classificadora de Risco, se houver; (b) desenquadramento da Reserva de Encargos; e 20 Anexo MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (c) aquisição de Direitos Creditórios em desacordo com a política de investimento da Classe, incluindo os Critérios de Elegibilidade. 16.2.1 Na ocorrência de qualquer Evento de Avaliação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 41,
+     "clause": "Anexo, cl. 16.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "ela Assembleia, as medidas previstas nas alíneas (a) e (b) do item ¨16.2.1¨ acima deverão ser cessadas. 16.3 São considerados Eventos de Liquidação: (a) impossibilidade de aquisição de Direitos Creditórios que atendam à política de investimento da Classe, incluindo os Critérios de Elegibilidade; e (b) caso seja deliberado na Assembleia que um Evento de Avaliação constitui um Evento de Liquidação. 16.3.1 Na ocorrência de qualquer Evento de Liquidação, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento do resgate das Cotas; (b) comunicará tal fato à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,04% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 24,
+     "clause": "Anexo, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "o 5.1 Pela prestação dos serviços de administração fiduciária e distribuição das Cotas, o Fundo pagará à Administradora Taxa de Administração mensal, calculada utilizando o percentual de 0,04%, sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente. 5.1.1 Será observado um valor mensal mínimo devido a título de Taxa de Administração de R$13.000,00 (treze mil reais), sendo estes valores atualizados pela variação positiva do IGP-M, ou seu sucedâneo legal, a cada intervalo de 12 (doze) meses, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. Taxa de Gestão 5.2 Pelos serviços de gestão da carteira de Direitos de Crédito e Ativos Financeiros, o Fundo pagará à Gestora Taxa de Gestão mensal calculada utilizando o percentual indicado de 0,21%, sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente."
+    }
+   ],
+   "legacy": {
+    "value": "Percentual 0,04%/PL; mínimo R$ 13 mil/mês, IGP-M; periodicidade da taxa exige validação.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2025, Anexo, cl. 5.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,21% do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 24,
+     "clause": "Anexo, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "e Gestão 5.2 Pelos serviços de gestão da carteira de Direitos de Crédito e Ativos Financeiros, o Fundo pagará à Gestora Taxa de Gestão mensal calculada utilizando o percentual indicado de 0,21%, sobre o Patrimônio Líquido do Fundo, a ser paga por período vencido a contar da data em que ocorrer a primeira integralização de Cotas, até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços, e assim sucessivamente. 4 Anexo MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS 5.2.1 Será observado um valor mensal mínimo devido a título de Taxa de Gestão de R$7.000,00 (sete mil reais) , sendo estes valores atualizados pela variação positiva do IGP-M, ou seu sucedâneo legal, a cada intervalo de 12 (doze) meses, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis. Taxa de Custódia 5.3 Pela prestação dos serviços de custódia, escrituração e controladoria o Fundo pagará ao Custodiante, Taxa de Custódia, calculada e paga em valor equivalente a 0,06%% (seis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observando um valor mínimo devido de R$ 7.000,00 (sete mil reais)), a ser pago até o 5°(quinto) Dia Útil"
+    }
+   ],
+   "legacy": {
+    "value": "Percentual 0,21%/PL; mínimo R$ 7 mil/mês, IGP-M; periodicidade da taxa exige validação.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/06/2025, Anexo, cl. 5.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Classe única, sem cota sênior com meta",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Catálise DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "ado entre os Prestadores de Serviços Essenciais (a Administradora e a Gestora do Fundo). “Administradora” CATÁLISE DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 21.245, de 25 de setembro de 2023, com sede na cidade de Curitiba, estado do Paraná, na Rua Doutor Manoel Pedro, nº 365, cj."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Catálise Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "íquido” verificação, pela Administradora, se o Patrimônio Líquido está negativo. “Gestora” CATÁLISE INVESTIMENTOS LTDA, sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 14.818, de 8 de janeiro de 2016, com sede na cidade de Curitiba, estado do Paraná, na Rua Dr. Manoel Pedro, nº 365, cj. 302, Cabral, CEP 80035-030, inscrita no CNPJ sob o nº 18.223.260/0001-91, e filial no endereço na Rua Gumercindo Saraiva, 96, na cidade de São Paulo, estado de São Paulo, 3 Regulamento Parte Geral MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CEP 01.449-070, inscrita no CNPJ sob o nº 18.223.26, ou a sua sucessora a qualquer título."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval (0,06% a.a.; mín. R$ 7 mil/mês)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 2,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "egibilidade” Critérios de elegibilidade dos Direitos Creditórios, definidos no Anexo. “Custodiante” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer título. “CVM” Comissão de Valores Mobiliários. “Data da 1ª Integralização” Data da 1ª (primeira) integralização de Cotas da Classe. “Data de Aquisição” Cada data em que ocorrer a aquisição dos Direitos Creditórios pelo Fundo. 2 Regulamento Parte Geral MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS “Data de Conversão” Data de apuração do valo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 25,
+     "clause": "Anexo, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "xa de Custódia 5.3 Pela prestação dos serviços de custódia, escrituração e controladoria o Fundo pagará ao Custodiante, Taxa de Custódia, calculada e paga em valor equivalente a 0,06%% (seis centésimos por cento) ao ano, sobre o Patrimônio Líquido do Fundo, observando um valor mínimo devido de R$ 7.000,00 (sete mil reais)), a ser pago até o 5°(quinto) Dia Útil do mês subsequente ao da prestação dos serviços; 5.4.1 Os valores fixos indicados acima serão atualizados pelo IGP-M positivo a cada intervalo de 12(doze) meses, com base em um ano de 252(duzentos e cinquenta e dois) Dias Úteis. 5.4 A Taxa de Administração, a Taxa de Gestão e a Taxa de Custódia serão calculadas e provisionadas diariamente, à base de 1/252 (um duzentos e cinquenta e dois avos) por Dia Útil, sobre o Patrimônio Líquido do Fundo do Dia Útil imediatamente anterior. 5.5 O valor para contratação de empresas terceiras para prestação dos serviços de verificação do lastro dos Direitos Creditórios, serão custeadas diretamente pelo Fundo e não deduzida das Taxas de Administração, Gestão e Custódia. 5.6 A Administradora e a Gestora poderão estabelecer que parcelas da Taxa de Administração e da Taxa de Gestão, respectivamente, sejam pagas diretamente pelo Fundo aos Demais Pres"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Não nomeado; agente de cobrança a ser contratado",
+   "status": "not_named",
+   "unit": "entity",
+   "reason": "",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 21,
+     "clause": "Anexo, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos nos artigos 11, da Resolução CVM nº 30, de 11 de maio de 2021. 4. DEMAIS PRESTADORES DE SERVIÇOS 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro dos Direitos Creditórios Cedidos; (e) custódia dos Direitos Creditórios Cedidos, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "917703",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/06/2025",
+     "page": 21,
+     "clause": "Anexo, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917703",
+     "excerpt": "tos definidos no presente Anexo ou, ainda, em caso de liquidação da Classe. 2. PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente a investidores profissionais, conforme definidos nos artigos 11, da Resolução CVM nº 30, de 11 de maio de 2021. 4. DEMAIS PRESTADORES DE SERVIÇOS 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro dos Direitos Creditórios Cedidos; (e) custódia dos Direitos Creditórios Cedidos, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Anexo não fixa limite por sacado",
+   "sources": []
+  }
+ },
+ "leitura": "Classe única para profissionais, sem subordinação nem limites de concentração; taxas de 0,04% + 0,21% + 0,06%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
