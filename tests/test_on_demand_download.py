@@ -343,13 +343,7 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
 
     def test_partial_source_scope_preserves_requested_basket_and_warns_on_omitted_blocks(self) -> None:
         from pptx import Presentation
-        from pptx.util import Inches
-        native = Presentation()
-        native.slide_width = Inches(13.333)
-        native.slide_height = Inches(7.5)
-        native.slides.add_slide(native.slide_layouts[6])
-        stream = BytesIO()
-        native.save(stream)
+        from services.fidc_analytical_slide import FidcSlideData
         cnpj = self.portfolio.funds[0].cnpj
         analysis = replace(
             self.analysis,
@@ -359,81 +353,107 @@ class PortfolioDemandDownloadTests(unittest.TestCase):
         with (
             patch("services.fundonet_ppt_export.build_dashboard_pptx_bytes") as dashboard,
             patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as monthly,
-            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=stream.getvalue()) as analytical,
-            patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=None),
+            patch("services.fidc_analytical_slide.build_slide_data", return_value=(FidcSlideData(name=self.portfolio.funds[0].display_name,cnpj=cnpj),)) as analytical,
+            patch("tabs.portfolio_page._documentary_portfolio_content", return_value=(None,())),
             patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs") as cdi,
         ):
             prepared = portfolio_page._prepare_complete_portfolio_pptx(
                 analysis=analysis, selected_portfolio=self.portfolio, period=self.period,
             )
-        analytical.assert_called_once_with(self.portfolio.funds, portfolio_name=self.portfolio.name, compact=True)
+        analytical.assert_called_once_with(self.portfolio.funds)
         dashboard.assert_not_called()
         monthly.assert_not_called()
         cdi.assert_not_called()
         finalized = Presentation(BytesIO(prepared.data))
-        self.assertEqual(3, len(finalized.slides))  # Cover, available block, references.
+        self.assertGreaterEqual(len(finalized.slides),3)
         self.assertIn(self.portfolio.name, finalized.slides[0].shapes[0].text)
-        self.assertIn("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.", prepared.warnings)
+        full_text='\n'.join([shape.text for slide in finalized.slides for shape in slide.shapes if shape.has_text_frame]
+                           +[slide.notes_slide.notes_text_frame.text for slide in finalized.slides]
+                           +[cell.text for slide in finalized.slides for shape in slide.shapes if shape.has_table for row in shape.table.rows for cell in row.cells])
+        self.assertIn(cnpj,full_text)
+        self.assertIn('Cobertura parcial',full_text)
+        self.assertIn("Base mensal: fundos inconsistentes entre as fontes carregadas. Ausências não são zero.", prepared.warnings)
         self.assertIn("Curadoria documental: pacote comparativo não localizado para esta cesta.", prepared.warnings)
 
-    def test_native_ppt_composition_matches_previous_pipeline(self) -> None:
-        from pptx import Presentation
-        from pptx.util import Inches
+    def test_conclusions_option_invalidates_prepared_ppt_and_is_forwarded_on_request(self) -> None:
+        state={}
+        with (
+            patch('tabs.portfolio_page.st.session_state',state),
+            patch('tabs.portfolio_page.st.checkbox',side_effect=[False,False,True,True]),
+            patch('tabs.portfolio_page.st.expander',return_value=nullcontext()),
+            patch('services.on_demand_download.st.spinner',return_value=nullcontext()),
+            patch('tabs.portfolio_page._portfolio_download_context_signature',return_value='same-inputs'),
+            patch('tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs',return_value=({},{})),
+            patch('services.on_demand_download.st.download_button') as download,
+            patch('services.on_demand_download.st.button',side_effect=lambda *a,**kw:kw['key'].endswith('::complete_pptx')),
+            patch('tabs.portfolio_page._prepare_complete_portfolio_pptx',return_value=PreparedDownload(b'without-conclusions')) as prepare,
+        ):
+            portfolio_page._render_unified_portfolio_download(analysis=self.analysis,selected_portfolio=self.portfolio,period=self.period)
+            self.assertFalse(prepare.call_args.kwargs['include_conclusions'])
+            with patch('services.on_demand_download.st.button',return_value=False):
+                download.reset_mock()
+                portfolio_page._render_unified_portfolio_download(analysis=self.analysis,selected_portfolio=self.portfolio,period=self.period)
+                self.assertEqual(b'without-conclusions',download.call_args.kwargs['data'])
+                download.reset_mock()
+                portfolio_page._render_unified_portfolio_download(analysis=self.analysis,selected_portfolio=self.portfolio,period=self.period)
+                download.assert_not_called()
+                prepare.assert_called_once()
+            prepare.return_value=PreparedDownload(b'with-conclusions')
+            portfolio_page._render_unified_portfolio_download(analysis=self.analysis,selected_portfolio=self.portfolio,period=self.period)
+            self.assertTrue(prepare.call_args.kwargs['include_conclusions'])
+            self.assertEqual(2,prepare.call_count)
+            self.assertEqual(b'with-conclusions',download.call_args.kwargs['data'])
 
-        def native_deck(title: str, value: str) -> bytes:
-            deck = Presentation()
-            deck.slide_width = Inches(13.333)
-            deck.slide_height = Inches(7.5)
-            slide = deck.slides.add_slide(deck.slide_layouts[6])
-            table = slide.shapes.add_table(2, 2, Inches(1), Inches(1), Inches(6), Inches(2)).table
-            table.cell(0, 0).text = title
-            table.cell(1, 1).text = value
-            slide.notes_slide.notes_text_frame.text = "Fonte documental · 02/2026 · R$"
-            stream = BytesIO()
-            deck.save(stream)
-            return stream.getvalue()
+    def test_native_compositor_preserves_original_values_sources_and_reuses_resolved_inputs(self) -> None:
+        from pptx import Presentation
+        from services.fidc_analytical_slide import FidcSlideData
+        from services.document_curation_comparison import DocumentComparisonPage
 
         cnpj = self.portfolio.funds[0].cnpj
+        monthly = pd.DataFrame({'competencia':['01/2026','02/2026'],
+            'competencia_dt':pd.to_datetime(['2026-01-01','2026-02-01']),
+            'pl_total':[100_000_000.0,0.0], 'pl_senior':[75_000_000.0,0.0],
+            'pl_subordinada_mezz_ex360':[25_000_000.0,float('nan')],
+            'subordinacao_total_ex360_pct':[25.0,float('nan')]})
+        outputs=SimpleNamespace(fund_monthly={cnpj:monthly}, consolidated_monthly=monthly,
+            fund_return_history={},fund_return_summary={},metadata={},warnings_df=pd.DataFrame())
         analysis = replace(self.analysis,
-            outputs=SimpleNamespace(fund_monthly={cnpj: pd.DataFrame()}),
+            outputs=outputs,
+            monitor_outputs=SimpleNamespace(fund_monitor={cnpj:monthly},consolidated_monitor=monthly),
+            research_outputs=None,
             scopes=(portfolio_page.PortfolioAnalysisScope(
                 value=cnpj, label="Cloudwalk", kind="fund", cnpj=cnpj, dashboard=SimpleNamespace(),
             ),),
         )
+        page = DocumentComparisonPage('Regulamento', pd.DataFrame({'Critério':['Quantidade','Remuneração'],
+            self.portfolio.funds[0].display_name:[0,None]},dtype=object),
+            sources=('Regulamento ID CVM 123, página 18, leitura 02/2026.',))
         with (
             patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs", return_value=({}, {})) as resolver,
-            patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes", return_value=native_deck("Base mensal", "100.000.000")),
-            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=native_deck("Emissões", "N/D")),
-            patch("services.fidc_analytical_slide.build_fidc_analytical_xlsx_bytes", return_value=b"xlsx"),
-            patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=native_deck("Regulamento", "0")),
-            patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"xlsx"),
-            patch("tabs.portfolio_page.build_full_variable_excel_export_bytes", return_value=b"xlsx"),
-            patch("tabs.portfolio_page.build_full_variable_csv_zip_bytes", return_value=b"csv"),
-            patch("tabs.portfolio_page.st.expander", return_value=nullcontext()),
-            patch("tabs.portfolio_page.st.download_button") as download,
+            patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as legacy,
+            patch("services.fidc_analytical_slide.build_slide_data",return_value=(FidcSlideData(name=self.portfolio.funds[0].display_name,cnpj=cnpj),)),
+            patch("tabs.portfolio_page._documentary_portfolio_content",return_value=(None,(page,))),
         ):
-            portfolio_page._render_legacy_portfolio_download(
-                analysis=analysis, selected_portfolio=self.portfolio, period=self.period,
-            )
-            baseline = next(call.kwargs["data"] for call in download.call_args_list
-                if call.kwargs["mime"] == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
             prepared = portfolio_page._prepare_complete_portfolio_pptx(
                 analysis=analysis, selected_portfolio=self.portfolio, period=self.period,
                 return_inputs=({}, {}),
             )
-            resolver.assert_called_once()  # Baseline only; the requested PPT reuses resolved inputs.
-        before = Presentation(BytesIO(baseline))
+            resolver.assert_not_called()
+            legacy.assert_not_called()
         after = Presentation(BytesIO(prepared.data))
-        self.assertEqual(3, len(before.slides))
-        self.assertEqual(5, len(after.slides))  # Native blocks plus portfolio cover and references.
-        for left, right in zip(before.slides, list(after.slides)[1:-1], strict=True):
-            self.assertIn(left.notes_slide.notes_text_frame.text, right.notes_slide.notes_text_frame.text)
-            left_tables = [shape.table for shape in left.shapes if shape.has_table]
-            right_tables = [shape.table for shape in right.shapes if shape.has_table]
-            self.assertEqual(len(left_tables), len(right_tables))
-            for old, new in zip(left_tables, right_tables, strict=True):
-                self.assertEqual([[cell.text for cell in row.cells] for row in old.rows],
-                                 [[cell.text for cell in row.cells] for row in new.rows])
+        self.assertGreaterEqual(len(after.slides),3)
+        tables=[shape.table for slide in after.slides for shape in slide.shapes if shape.has_table]
+        cells=[cell.text for table in tables for row in table.rows for cell in row.cells]
+        money_cells={value.removeprefix('R$ ').removesuffix(' mm') for value in cells}
+        self.assertIn('100,00',money_cells)
+        self.assertIn('0,00',money_cells)
+        self.assertIn('N/D',cells)
+        self.assertIn('0',cells)
+        self.assertIn('jan/26',cells)
+        self.assertIn('fev/26',cells)
+        self.assertTrue(any(shape.has_chart for slide in after.slides for shape in slide.shapes))
+        self.assertIn(page.sources[0],'\n'.join(slide.notes_slide.notes_text_frame.text for slide in after.slides))
+        pd.testing.assert_frame_equal(monthly,outputs.fund_monthly[cnpj])
 
     def test_snapshot_values_types_charts_and_missing_values_are_preserved(self) -> None:
         monthly = pd.DataFrame({

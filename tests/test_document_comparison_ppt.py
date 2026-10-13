@@ -180,8 +180,8 @@ def test_prepared_portfolio_download_contains_comparison_and_documentary_notes()
     manifest = replace(_manifest(), portfolio_signature=portfolio_basket_signature(portfolio.funds))
     with (
         patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs", return_value=({}, {})),
-        patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes", return_value=_blank_deck("IME")),
-        patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=_blank_deck("Estrutura")),
+        patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as legacy,
+        patch("services.fidc_analytical_slide.build_slide_data", return_value=()),
         patch("services.deep_dive_store.list_deep_dives", return_value=[manifest]),
         patch("services.document_curation_comparison.build_document_comparison_pages", return_value=[_page()]),
     ):
@@ -190,7 +190,12 @@ def test_prepared_portfolio_download_contains_comparison_and_documentary_notes()
             period=SimpleNamespace(label="09/2026"),
         )
     assert prepared.warnings == ()
+    legacy.assert_not_called()
     presentation = Presentation(BytesIO(prepared.data))
-    assert len(presentation.slides) == 5  # Portfolio cover and references surround the three fixture blocks.
-    assert _native_tables(presentation)[0].cell(2, 1).text == "≤ 5%"
-    assert any(_page().sources[0] in slide.notes_slide.notes_text_frame.text for slide in presentation.slides if slide.has_notes_slide)
+    assert len(presentation.slides) >= 3
+    rows=[[cell.text for cell in row.cells] for table in _native_tables(presentation) for row in table.rows]
+    assert any('LTV individual' in row and '≤ 80%' in row for row in rows)
+    assert any('Índice de perdas 90' in row and '≤ 5%' in row for row in rows)
+    notes='\n'.join(slide.notes_slide.notes_text_frame.text for slide in presentation.slides if slide.has_notes_slide)
+    assert _page().sources[0] in notes
+    assert cnpj in notes

@@ -232,12 +232,12 @@ class PortfolioPageTests(unittest.TestCase):
                 return_value=(cdi_by_fund, benchmark_by_fund),
             ) as resolve_inputs,
             patch(
-                "services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes",
+                "services.portfolio_ppt_export.build_portfolio_pptx_bytes",
                 return_value=fixture_pptx,
             ) as build_pptx,
-            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=fixture_pptx),
+            patch("services.fidc_analytical_slide.build_slide_data", return_value=()) as analytical,
             patch("services.fidc_analytical_slide.build_fidc_analytical_xlsx_bytes", return_value=b"xlsx"),
-            patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=None),
+            patch("tabs.portfolio_page._documentary_portfolio_content", return_value=(None, ())),
             patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"xlsx"),
             patch("tabs.portfolio_page.build_full_variable_excel_export_bytes", return_value=b"xlsx"),
             patch("tabs.portfolio_page.build_full_variable_csv_zip_bytes", return_value=b"zip"),
@@ -251,23 +251,25 @@ class PortfolioPageTests(unittest.TestCase):
             )
 
         resolve_inputs.assert_called_once_with(outputs=outputs, cnpjs=[cnpj])
-        build_pptx.assert_called_once_with(
-            outputs=outputs,
-            monitor_outputs=analysis.monitor_outputs,
-            research_outputs=analysis.research_outputs,
-            monthly_cdi_rates_by_fund=cdi_by_fund,
-            benchmark_spreads_by_fund=benchmark_by_fund,
-            portfolio_mode=True,
-            portfolio_name=portfolio.name,
-            compact=True,
-        )
+        analytical.assert_called_once_with(portfolio.funds)
+        build_pptx.assert_called_once()
+        forwarded = build_pptx.call_args.kwargs
+        self.assertIs(outputs, forwarded['outputs'])
+        self.assertIs(analysis.monitor_outputs, forwarded['monitor_outputs'])
+        self.assertIs(analysis.research_outputs, forwarded['research_outputs'])
+        self.assertEqual(cdi_by_fund, forwarded['monthly_cdi_rates_by_fund'])
+        self.assertEqual(benchmark_by_fund, forwarded['benchmark_spreads_by_fund'])
+        self.assertEqual(portfolio.funds, forwarded['funds'])
+        self.assertEqual(portfolio.name, forwarded['portfolio_name'])
+        self.assertEqual(period.label, forwarded['requested_period_label'])
+        self.assertEqual(portfolio.name, forwarded['presentation_context'].name)
+        self.assertFalse(forwarded['include_conclusions'])
+        self.assertIn('Curadoria documental: pacote comparativo não localizado para esta cesta.', forwarded['export_warnings'])
         exported = next(call.kwargs["data"] for call in download_button.call_args_list
                         if call.kwargs.get("mime") == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
         document = Presentation(BytesIO(exported))
-        self.assertEqual(len(document.slides), 4)  # Partial fixture gains cover + references.
-        self.assertIn(portfolio.name, document.slides[0].shapes[0].text)
-        self.assertIn("Referências da análise", "\n".join(shape.text for shape in document.slides[-1].shapes if shape.has_text_frame))
-        self.assertIn("Curadoria documental", document.slides[-1].notes_slide.notes_text_frame.text)
+        self.assertEqual(exported, fixture_pptx)
+        self.assertEqual(len(document.slides), 1)
 
     def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
         fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
