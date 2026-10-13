@@ -1,0 +1,56 @@
+# portado de 47640584000123 (58510255000184)
+type: Energia solar
+q1: * "“Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor"
+q2: * "“Devedores” significam pessoas físicas ou jurídicas que obtenham um financiamento de Projetos de Geração"
+q3: * "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "se pessoa jurídica, R$850.000,00"
+q5: * "Sênior” pela Administradora em cada Dia Útil, equivalente a, no mínimo"
+q6: * "Mezanino” apurada pela Administradora em cada Dia Útil, equivalente a, no mínimo"
+q7: * "Taxa de Administração equivalente ao percentual ao ano, calculado e apropriado sobre o Patrimônio Líquido"
+q8: * "0,12% a.a. De R$ 500.000.000,01"
+q9: * "0,30% a.a. Acima de R$ 500.000.000,00"
+q10: * "gestão fiduciária, conforme montante constante da tabela abaixo, observado o valor mínimo mensal de R$18.500,00"
+q12: * "“Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A."
+q13: * "“Gestora” significa a RÉGIA CAPITAL LTDA."
+q14: * "“Custodiante” significa a Administradora, atuando na qualidade de custodiante"
+q15: * "18.1. São Eventos de Avaliação"
+q16: * "19.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q17: * "a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento"
+q18: * "Política de Provisão para Devedores Duvidosos constante do Complemento III"
+q19: * "taxa de performance. 9. SUBSTITUIÇÃO E RENÚNCIA"
+q20: * "O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino"
+q21: * "Equipamentos. Nos termos do artigo 1.361"
+q22: * "os Direitos Creditórios devidos por Devedores pessoas físicas com idade igual ou superior a 60 (sessenta) anos não deverão representar mais que 10%"
+receivables: CCBs de financiamento de projetos de geração solar | q2,q3
+originator: Instituição Financeira Parceira de cada financiamento | q1
+assignor: Instituição Financeira Parceira (endossante) | q1
+debtor: PF e PJ que financiam projetos de geração de energia | q2
+recourse: Endossante responde só por existência e formalização do crédito | q1
+eligibility: CCB formalizada com a parceira; ofertada integralmente; filtros do anexo | q3
+debtor_limit: PJ até R$ 850 mil por grupo; exceções até 1% do PL; PF 60+ ≤ 10% | q4,q22
+assignor_limit: Não previsto | Anexo limita por devedor, não por instituição parceira
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q20
+sub_senior: 23,5% na carência, depois 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL | value=25
+sub_mezz: 10% na carência, depois 12,5% · jr/PL | q6 | basis=jr/PL | value=12.5
+sub_check: Diária pela administradora sobre o PL ajustado | q5
+reserve: Reserva de despesas e encargos calculada pela administradora | q7
+pdd: Política de provisão do complemento III | q18
+eval_triggers: Relatório de monitoramento não enviado em 15 DU; rating sem atualização | q15
+liquidation: Evento de insolvência e demais itens do capítulo 19 | q16
+revolving: Revolvência permitida | q17
+amortization: n/d | Cronograma definido nos apêndices de cada série
+admin_fee: 0,12% a.a. até R$ 500 mi, regressiva; mín. R$ 13,5 mil, depois R$ 20 mil | q7,q8
+mgmt_fee: 0,30% a.a. até R$ 500 mi; 0,20% acima; mín. R$ 18,5 mil/mês | q9,q10
+perf_fee: Não prevista | Regulamento veda taxa de performance | q19
+target_senior: n/d | Meta de remuneração definida nos apêndices, fora do acervo
+target_mezz: n/d | Meta de remuneração definida nos apêndices, fora do acervo
+administrator: Genial Investimentos CVM | q12
+manager: Régia Capital | q13
+custodian: Genial Investimentos (a própria administradora) | q14,q12
+servicer: n/d | Consultor de cobrança sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo por série | q20
+real_collateral: Alienação fiduciária dos equipamentos solares, registrada em cartório | q21
+leitura: Financiamento solar com subordinação de 23,5% na carência e 25% depois; PJ até R$ 850 mil por grupo.

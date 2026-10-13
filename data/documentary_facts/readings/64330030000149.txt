@@ -1,0 +1,54 @@
+# portado de 65473122000140 (64330030000149)
+type: Energia solar
+q28: * "A Remuneração de Performance corresponderá a todo o resultado e/ou posição patrimonial da Cota Subordinada Júnior"
+q1: * "“Endossante” significa cada Instituição Financeira Parceira que tenha concedido um empréstimo a um Devedor CCB"
+q2: * "“Devedores” significamos Devedores CCB e Devedores Banco Emissor"
+q3: * "O Fundo somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "se pessoa física, R$400.000,00 (quatrocentos mil reais), e (b), se pessoa jurídica, R$600.000,00"
+q5: * "Sênior” Administradora em cada Dia Útil, equivalente a, no mínimo"
+q6: * "Mezanino” Administradora em cada Dia Útil, equivalente a, no mínimo"
+q7: * "8.1. O Fundo pagará, pelos serviços de administração do Fundo, uma Taxa de Administração equivalente a 0,09%"
+q9: * "O Fundo apurará e pagará a Taxa de Gestão como remuneração à Gestora pelos serviços de gestão fiduciária, equivalente a 0,20%"
+q11: * "Custódia equivalente a 0,02% (dois centésimos por cento) ao ano"
+q12: * "“Administradora” significa a GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIARIOS S.A."
+q13: * "4.2.1. O Fundo é gerido pela AUGME CAPITAL GESTÃO DE RECURSOS LTDA."
+q14: * "“Custodiante” significa a Administradora, que poderá contratar terceiros"
+q15: * "18.1. São Eventos de Avaliação"
+q16: * "19.1. São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências"
+q17: * "a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento"
+q18: * "manual de provisão para perdas da Administradora, disponível em seu site"
+q20: * "O Fundo terá prazo de duração indeterminado, sendo que cada Série de Cotas Seniores e de Cotas Subordinadas Mezanino"
+q21: * "Equipamentos. Nos termos do artigo 1.361"
+receivables: CCBs de financiamento de projetos de geração solar | q2,q3
+originator: Instituição Financeira Parceira da plataforma Sol Agora | q1
+assignor: Instituição Financeira Parceira (endossante) | q1
+debtor: Devedores de CCB e bancos emissores | q2
+recourse: n/d | Responsabilidade do endossante não localizada no texto extraído
+eligibility: CCB formalizada com a parceira; ofertada integralmente; filtros do anexo | q3
+debtor_limit: PF até R$ 400 mil e PJ até R$ 600 mil por grupo, com exceções | q4
+assignor_limit: Não previsto | Anexo limita por devedor, não por instituição parceira
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 23,5% na carência, depois 25% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL | value=25
+sub_mezz: 10% na carência, depois 12,5% · jr/PL | q6 | basis=jr/PL | value=12.5
+sub_check: Diária pela administradora sobre o PL ajustado | q5
+reserve: n/d | Valor da reserva de despesas não localizado no texto extraído
+pdd: Manual de provisão para perdas da administradora | q18
+eval_triggers: Relatório de monitoramento não enviado em 15 DU; rating sem atualização | q15
+liquidation: Evento de insolvência e demais itens do capítulo 19 | q16
+revolving: Revolvência permitida | q17
+amortization: n/d | Cronograma remetido aos apêndices; principal não amortiza na carência | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,09% a.a. do PL; mín. R$ 15 mil/mês nos 6 primeiros meses | q7
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 18,5 mil/mês | q9
+perf_fee: Na venda de carteira, excedente da júnior acima de 12,5% de subordinação | q28
+target_senior: n/d | Benchmark não definido nos apêndices disponíveis | why=Resposta anterior também não localizou o benchmark
+target_mezz: n/d | Benchmark não definido nos apêndices disponíveis | why=Resposta anterior também não localizou o benchmark
+administrator: Genial Investimentos CVM | q12
+manager: Augme Capital Gestão de Recursos | q13
+custodian: Genial Investimentos (a administradora); 0,02% a.a., mín. R$ 2 mil | q14,q11,q12
+servicer: n/d | Consultor de cobrança sem nome no trecho lido
+investors: n/d | Público-alvo não localizado no texto extraído | why=Resposta anterior trata de prazo das séries, não do público
+duration: Indeterminado; prazo por série | q20
+real_collateral: Alienação fiduciária dos equipamentos solares, registrada em cartório | q21
+leitura: Warehouse solar com 25% de subordinação após a carência; venda de carteira paga performance acima de 12,5% da júnior.
