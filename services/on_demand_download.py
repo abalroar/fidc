@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, is_dataclass
 import hashlib
+from io import BytesIO
 import logging
 import pickle
 from pathlib import Path
@@ -20,6 +21,28 @@ logger = logging.getLogger(__name__)
 class PreparedDownload:
     data: bytes
     warnings: tuple[str, ...] = ()
+
+
+class _DownloadContextPickler(pickle.Pickler):
+    """Describe dataclass values without depending on a live class identity.
+
+    Streamlit can keep cached instances after reloading their defining module.
+    Ordinary pickle rejects those instances because the module now exposes a
+    different class object. This representation is only hashed, never loaded.
+    The builtin tuple reducer also visits nested dataclasses in tables/metadata.
+    """
+
+    def reducer_override(self, value: Any) -> Any:
+        if isinstance(value, type) or not is_dataclass(value):
+            return NotImplemented
+        cls = type(value)
+        field_values = tuple((field.name, getattr(value, field.name)) for field in fields(value))
+        field_names = {name for name, _ in field_values}
+        extra_values = {
+            name: item for name, item in getattr(value, "__dict__", {}).items()
+            if name not in field_names
+        }
+        return tuple, (("dataclass", cls.__module__, cls.__qualname__, field_values, extra_values),)
 
 
 def download_context_signature(*values: Any, source_paths: tuple[Path, ...] = ()) -> str:
@@ -39,8 +62,9 @@ def download_context_signature(*values: Any, source_paths: tuple[Path, ...] = ()
         else:
             version = (info.st_size, info.st_mtime_ns, info.st_ctime_ns)
         source_versions.append((str(path), version))
-    payload = pickle.dumps((values, source_versions), protocol=5)
-    return hashlib.sha256(payload).hexdigest()
+    payload = BytesIO()
+    _DownloadContextPickler(payload, protocol=5).dump((values, source_versions))
+    return hashlib.sha256(payload.getvalue()).hexdigest()
 
 
 def current_download_store(
