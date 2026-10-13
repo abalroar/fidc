@@ -203,7 +203,8 @@ def test_structure_reuses_approved_components_and_order_for_each_portfolio(monke
         analysis=analysis, selected_scopes=(scope,), selected_portfolio=portfolio, period=period,
     )
 
-    assert [call[0] for call in components.mock_calls] == ["cockpit", "cards", "chart", "table", "memory"]
+    assert [call[0] for call in components.mock_calls] == ["cockpit", "cards", "chart", "table"]
+    components.memory.assert_not_called()  # Available through the shared audit footer.
     components.cockpit.assert_called_once_with(
         period=period, selected_portfolio=portfolio, selected_cnpjs={scope.cnpj},
         context_items=(), portfolio_mode=True,
@@ -213,5 +214,5 @@ def test_structure_reuses_approved_components_and_order_for_each_portfolio(monke
         dashboard, slot_key=f"portfolio_structure::{portfolio_id}::{scope.value}",
         show_return_section=False, responsive_labels=True, portfolio_mode=True,
     )
-    components.table.assert_called_once_with(base, accessible=True)
+    components.table.assert_called_once_with(base, accessible=True, portfolio_mode=True)
     assert portfolio_page.st.session_state[f"portfolio_structure_scope::{portfolio_id}::selection"] == "Seller"

@@ -26,7 +26,7 @@ def render_portfolio_series(
     if state.status == "observed":
         st.altair_chart(chart_factory(frame), use_container_width=True)
         if state.has_gaps:
-            st.caption("Cobertura parcial; lacunas permanecem na série.")
+            st.caption("Série parcial · lacunas preservadas.")
         return state.status
     if state.status == "absent":
         partial = comparable_frame is not None and visible.empty and not frame.empty
@@ -41,8 +41,8 @@ def render_portfolio_series(
     gap_note = "; lacunas marcadas como N/D" if state.has_gaps else ""
     partial = comparable_frame is not None and len(visible) < len(frame)
     scope_note = " na base comparável" if comparable_frame is not None else ""
-    partial_note = " Observações fora do recorte do gráfico incluídas no detalhe." if partial else ""
-    st.caption(f"{title}: zero nos {state.finite_count} valores observados{scope_note}{gap_note}. Gráfico compactado.{partial_note}")
+    partial_note = " Observações fora do recorte no detalhe." if partial else ""
+    st.caption(f"{title}: zero nos {state.finite_count} valores observados{scope_note}{gap_note}.{partial_note}")
     detailed = frame if partial else visible
     identity = [name for name in ("competencia", "cohort", "mes_ciclo", "universe_complete") if name in detailed]
     shown = detailed.reindex(columns=list(dict.fromkeys([*identity, *columns]))).copy()

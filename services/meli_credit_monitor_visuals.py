@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import pandas as pd
 import altair as alt
+from collections import Counter
+from math import isfinite
+import json
 
 from services.mercado_livre_dashboard import PT_MONTH_ABBR
 from services.mercado_livre_visuals import CORES_MELI
@@ -19,7 +22,7 @@ SPLIT_PANEL_SPACING = 8
 COHORT_COLORS = ["#D9D9D9", "#BDBDBD", "#A0A0A0", "#838383", "#666666", "#4A4A4A", "#242424", "#000000"]
 
 
-def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+def roll_rates_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = False) -> alt.Chart:
     if monitor_df is None or monitor_df.empty:
         return _empty_chart()
     df = _chart_base(monitor_df)
@@ -42,13 +45,16 @@ def roll_rates_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         chart_df,
         y_title="Roll rate",
         color_domain=color_domain,
+        portfolio_mode=portfolio_mode,
     )
 
 
-def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+def npl_severity_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = False) -> alt.Chart:
     if monitor_df is None or monitor_df.empty:
         return _empty_chart()
     df = _chart_base(monitor_df)
+    if df.empty:
+        return _empty_chart()
     rows: list[dict[str, object]] = []
     for _, row in df.iterrows():
         rows.append(
@@ -70,18 +76,20 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             }
         )
     chart_df = pd.DataFrame(rows)
+    if portfolio_mode and not chart_df["valor"].notna().any():
+        return _empty_chart()
     x_sort = df["competencia_label"].tolist()
     bars = (
         alt.Chart(chart_df)
         .mark_bar()
         .encode(
-            x=alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis()),
+            x=alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode)),
             y=alt.Y("valor:Q", title="% da carteira bruta ex-360", stack="zero", axis=_percent_axis()),
             color=alt.Color(
                 "serie:N",
                 title="NPL",
                 scale=alt.Scale(domain=["NPL 1-90d", "NPL 91-360d"], range=[PRIMARY, SECONDARY]),
-                legend=alt.Legend(orient="bottom"),
+                legend=None if portfolio_mode and chart_df.loc[chart_df["valor"].notna(), "serie"].nunique() <= 1 else alt.Legend(orient="bottom"),
             ),
             order=alt.Order("stack_order:Q", sort="ascending"),
             tooltip=[
@@ -92,29 +100,37 @@ def npl_severity_chart(monitor_df: pd.DataFrame) -> alt.Chart:
         )
     )
     label_layers = _bar_label_layers(
-        _stacked_bar_edge_labels(chart_df, x_sort=x_sort),
-        x=alt.X("competencia:N", sort=x_sort, axis=_category_axis()),
+        _stacked_bar_edge_labels(chart_df, x_sort=x_sort[-1:] if portfolio_mode else x_sort),
+        x=alt.X("competencia:N", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode)),
     )
-    return _style_chart(alt.layer(bars, *label_layers).properties(height=STANDARD_CHART_HEIGHT, padding={"left": 96, "right": 112}))
+    return _style_chart(alt.layer(bars, *label_layers).properties(height=STANDARD_CHART_HEIGHT,
+        padding={"left": 12, "right": 88} if portfolio_mode else {"left": 96, "right": 112}))
 
 
-def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
+def portfolio_growth_chart(monitor_df: pd.DataFrame, *, portfolio_mode: bool = False) -> alt.Chart:
     if monitor_df is None or monitor_df.empty:
         return _empty_chart()
     df = _chart_base(monitor_df)
+    if df.empty:
+        return _empty_chart()
     divisor, label = _money_scale(df["carteira_ex360"])
     df["carteira_scaled"] = pd.to_numeric(df["carteira_ex360"], errors="coerce") / divisor
     df["carteira_fmt"] = df["carteira_ex360"].map(lambda value: _format_money(value, divisor=divisor, label=label))
     df["carteira_label"] = df["carteira_ex360"].map(lambda value: _format_money_label(value, divisor=divisor, label=label))
-    df["yoy_fmt"] = df["carteira_ex360_yoy_pct"].map(_format_percent)
+    yoy = pd.to_numeric(df.get("carteira_ex360_yoy_pct", pd.Series(index=df.index, dtype=float)), errors="coerce")
+    has_yoy = yoy.map(lambda value: pd.notna(value) and isfinite(float(value))).any()
+    df["carteira_ex360_yoy_pct"] = yoy
+    df["yoy_fmt"] = yoy.map(_format_percent)
+    if portfolio_mode:
+        df["_path_segment"] = yoy.isna().cumsum()
     x_sort = df["competencia_label"].tolist()
-    x = alt.X("competencia_label:N", title="Competência", sort=x_sort, axis=_category_axis())
+    x = alt.X("competencia_label:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode))
     bars = (
         alt.Chart(df)
         .mark_bar(color=PRIMARY)
         .encode(
             x=x,
-            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
+            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis(portfolio_mode=portfolio_mode)),
             tooltip=[
                 alt.Tooltip("competencia_label:N", title="Competência"),
                 alt.Tooltip("carteira_fmt:N", title="Carteira Bruta ex-360"),
@@ -123,20 +139,24 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     )
     bar_label_df = df[["competencia_label", "carteira_scaled", "carteira_label"]].copy()
     bar_label_df = bar_label_df[pd.to_numeric(bar_label_df["carteira_scaled"], errors="coerce").notna()]
+    if portfolio_mode:
+        bar_label_df = bar_label_df.tail(1)
     bar_label = (
         alt.Chart(bar_label_df)
         .mark_text(align="right", baseline="middle", dx=-8, dy=-8, color=PRIMARY, fontSize=11, fontWeight=600)
         .encode(
             x=alt.X("competencia_label:N", title="Competência", sort=x_sort),
-            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis()),
+            y=alt.Y("carteira_scaled:Q", title=label, axis=_decimal_axis(portfolio_mode=portfolio_mode)),
             text=alt.Text("carteira_label:N"),
         )
     )
     bar_chart = alt.layer(bars, bar_label).properties(
         width="container",
-        height=SPLIT_PANEL_HEIGHT,
-        title=_panel_title("Carteira Bruta ex-360"),
+        height=STANDARD_CHART_HEIGHT if portfolio_mode and not has_yoy else SPLIT_PANEL_HEIGHT,
+        **({} if portfolio_mode else {"title": _panel_title("Carteira Bruta ex-360")}),
     )
+    if portfolio_mode and not has_yoy:
+        return _style_chart(bar_chart)
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, fill=SECONDARY, color=SECONDARY, size=42), color=SECONDARY, strokeWidth=2)
@@ -149,6 +169,8 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
             ],
         )
     )
+    if portfolio_mode:
+        line = line.encode(detail=alt.Detail("_path_segment:N"))
     line_label_df = _last_point_label_df(
         df[["competencia_label", "carteira_ex360_yoy_pct", "yoy_fmt"]],
         value_column="carteira_ex360_yoy_pct",
@@ -178,29 +200,37 @@ def portfolio_growth_chart(monitor_df: pd.DataFrame) -> alt.Chart:
     )
 
 
-def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame]) -> alt.Chart:
+def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, pd.DataFrame], *, portfolio_mode: bool = False) -> alt.Chart:
     frames: list[pd.DataFrame] = []
     if consolidated_monitor is not None and not consolidated_monitor.empty:
-        frames.append(_duration_series(consolidated_monitor, "Consolidado"))
-    for _, frame in fund_monitor.items():
+        frames.append(_duration_series(consolidated_monitor, "Consolidado", portfolio_mode=portfolio_mode))
+    names = {key: (short_fund_name(str(frame["fund_name"].dropna().iloc[0]))
+                  if frame is not None and not frame.empty and "fund_name" in frame and frame["fund_name"].notna().any() else "FIDC")
+             for key, frame in fund_monitor.items()}
+    counts = Counter(names.values())
+    for key, frame in fund_monitor.items():
         if frame is None or frame.empty:
             continue
         name = str(frame["fund_name"].dropna().iloc[0]) if "fund_name" in frame.columns and frame["fund_name"].notna().any() else "FIDC"
-        frames.append(_duration_series(frame, short_fund_name(name)))
+        label = f"{names[key]} · {key}" if portfolio_mode and counts[names[key]] > 1 else short_fund_name(name)
+        frames.append(_duration_series(frame, label, portfolio_mode=portfolio_mode))
     chart_df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     if chart_df.empty:
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
     color_domain = chart_df["serie"].drop_duplicates().tolist()
     color_range = _palette_for_domain(color_domain)
-    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis())
+    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode))
+    value_field = "duration_days" if portfolio_mode else "duration_months"
+    if portfolio_mode:
+        chart_df = _gap_segments(chart_df, value_column=value_field)
     line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=36), strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("duration_months:Q", title="Duration (meses)", scale=alt.Scale(zero=False, nice=True), axis=_decimal_axis()),
-            color=alt.Color("serie:N", title="FIDC", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
+            y=alt.Y(f"{value_field}:Q", title="Dias" if portfolio_mode else "Duration (meses)", scale=alt.Scale(zero=False, nice=True), axis=_decimal_axis(portfolio_mode=portfolio_mode)),
+            color=alt.Color("serie:N", title="FIDC", scale=alt.Scale(domain=color_domain, range=color_range), legend=None if portfolio_mode and len(color_domain) <= 1 else alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
                 alt.Tooltip("serie:N", title="FIDC"),
@@ -208,36 +238,43 @@ def duration_chart(consolidated_monitor: pd.DataFrame, fund_monitor: dict[str, p
             ],
         )
     )
-    label_df = _assign_label_offsets(_last_point_labels(chart_df, value_column="duration_months"), value_column="duration_months")
+    if portfolio_mode:
+        line = line.encode(detail=alt.Detail("_path_segment:N"))
+    label_df = _assign_label_offsets(_last_point_labels(chart_df, value_column=value_field), value_column=value_field)
     label_layers = _line_label_layers(
         label_df,
         x=x,
-        y_field="duration_months",
+        y_field=value_field,
         text_field="duration_fmt",
         color_map=dict(zip(color_domain, color_range, strict=False)),
+        portfolio_mode=portfolio_mode,
     )
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
-def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
+def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8, portfolio_mode: bool = False) -> alt.Chart:
     if cohort_df is None or cohort_df.empty:
         return _empty_chart()
     df = cohort_df.copy()
     df["cohort_dt"] = pd.to_datetime(df["cohort_dt"], errors="coerce")
     recent = df[["cohort", "cohort_dt"]].drop_duplicates().sort_values("cohort_dt").tail(max_cohorts)["cohort"].tolist()
     df = df[df["cohort"].isin(recent)].copy()
+    if df.empty:
+        return _empty_chart()
     df["valor_fmt"] = df["valor_pct"].map(_format_percent)
     color_domain = recent
     color_range = _cohort_color_range(color_domain)
-    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"], axis=_category_axis())
+    x = alt.X("mes_ciclo:N", title="Mês de maturação", sort=["M1", "M2", "M3", "M4", "M5", "M6"], axis=_category_axis(portfolio_mode=portfolio_mode))
     y_scale = _tight_percent_scale(df["valor_pct"])
+    if portfolio_mode:
+        df = _gap_segments(df, value_column="valor_pct", series_column="cohort")
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
             x=x,
             y=alt.Y("valor_pct:Q", title="% do saldo a vencer em 30d", axis=_percent_axis(), scale=y_scale),
-            color=alt.Color("cohort:N", title="Safra", scale=alt.Scale(domain=color_domain, range=color_range), legend=alt.Legend(orient="bottom")),
+            color=alt.Color("cohort:N", title="Safra", scale=alt.Scale(domain=color_domain, range=color_range), legend=None if portfolio_mode and len(color_domain) <= 1 else alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("cohort:N", title="Safra"),
                 alt.Tooltip("mes_ciclo:N", title="Mês"),
@@ -245,6 +282,8 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
             ],
         )
     )
+    if portfolio_mode:
+        line = line.encode(detail=alt.Detail("_path_segment:N"))
     label_base = _last_point_labels(df.rename(columns={"cohort": "serie"}), value_column="valor_pct")
     label_df = _assign_label_offsets(label_base, value_column="valor_pct").rename(columns={"serie": "cohort"})
     label_layers = _line_label_layers(
@@ -254,11 +293,12 @@ def cohort_chart(cohort_df: pd.DataFrame, *, max_cohorts: int = 8) -> alt.Chart:
         text_field="valor_fmt",
         color_map=dict(zip(color_domain, color_range, strict=False)),
         series_column="cohort",
+        portfolio_mode=portfolio_mode,
     )
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
-def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str) -> alt.Chart:
+def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str, portfolio_mode: bool = False) -> alt.Chart:
     if roll_df is None or roll_df.empty:
         return _empty_chart()
     df = roll_df[roll_df["metric_id"].eq(metric_id)].copy()
@@ -269,17 +309,25 @@ def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str) ->
     df["series_name"] = df.get("series_name", pd.Series(dtype="object")).astype(str)
     df["valor_fmt"] = df["value_pct"].map(_format_percent)
     df = df.sort_values(["year", "month"]).reset_index(drop=True)
+    if portfolio_mode:
+        df["source_series_name"] = df["series_name"]
+        # In a single-scope, single-metric chart, each year is one series.
+        # Keep the original identity in the tooltip/data and do not merge
+        # ambiguous series that happen to share a year.
+        if df.groupby("year", dropna=False)["series_name"].nunique().le(1).all():
+            df["series_name"] = df["year"].map(lambda value: str(int(value)) if pd.notna(value) else "N/D")
+        df = _gap_segments(df, value_column="value_pct", series_column="series_name")
     month_domain = [PT_MONTH_ABBR[month].title() for month in range(1, 13)]
     series_domain = sorted(df["series_name"].dropna().unique().tolist())
     colors = _seasonality_colors(series_domain)
-    x = alt.X("month_label:N", title="Mês do ano", sort=month_domain, axis=_category_axis())
+    x = alt.X("month_label:N", title="Mês do ano", sort=month_domain, axis=_category_axis(portfolio_mode=portfolio_mode))
     line = (
         alt.Chart(df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
             x=x,
             y=alt.Y("value_pct:Q", title="Roll rate", axis=_percent_axis(), scale=alt.Scale(zero=False, nice=True)),
-            color=alt.Color("series_name:N", title="Ano", scale=alt.Scale(domain=series_domain, range=colors), legend=alt.Legend(orient="bottom")),
+            color=alt.Color("series_name:N", title="Ano", scale=alt.Scale(domain=series_domain, range=colors), legend=None if portfolio_mode and len(series_domain) <= 1 else alt.Legend(orient="bottom")),
             tooltip=[
                 alt.Tooltip("series_name:N", title="Ano"),
                 alt.Tooltip("month_label:N", title="Mês"),
@@ -288,6 +336,12 @@ def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str) ->
             ],
         )
     )
+    if portfolio_mode:
+        line = line.encode(detail=alt.Detail("_path_segment:N"), tooltip=[
+            alt.Tooltip("series_name:N", title="Ano"), alt.Tooltip("month_label:N", title="Mês"),
+            alt.Tooltip("valor_fmt:N", title="Valor"), alt.Tooltip("formula:N", title="Fórmula"),
+            alt.Tooltip("source_series_name:N", title="Identificação original"),
+        ])
     label_base = _last_point_labels(df.rename(columns={"series_name": "serie"}), value_column="value_pct")
     label_df = _assign_label_offsets(label_base, value_column="value_pct")
     label_layers = _line_label_layers(
@@ -296,6 +350,7 @@ def research_roll_seasonality_chart(roll_df: pd.DataFrame, *, metric_id: str) ->
         y_field="value_pct",
         text_field="valor_fmt",
         color_map=dict(zip(series_domain, colors, strict=False)),
+        portfolio_mode=portfolio_mode,
     )
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
@@ -343,23 +398,27 @@ def research_cohort_chart(cohort_df: pd.DataFrame) -> alt.Chart:
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
 
-def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]) -> alt.Chart:
+def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str], portfolio_mode: bool = False) -> alt.Chart:
     if chart_df.empty:
         return _empty_chart()
     x_sort = chart_df.drop_duplicates("competencia")["competencia"].tolist()
     color_range = _palette_for_domain(color_domain)
-    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis())
+    x = alt.X("competencia:N", title="Competência", sort=x_sort, axis=_category_axis(portfolio_mode=portfolio_mode))
+    observed_series = chart_df.loc[chart_df["valor"].notna(), "serie"].drop_duplicates().tolist()
+    if portfolio_mode:
+        chart_df = _gap_segments(chart_df, value_column="valor")
     line = (
         alt.Chart(chart_df)
         .mark_line(point=alt.OverlayMarkDef(filled=True, size=42), strokeWidth=2)
         .encode(
             x=x,
-            y=alt.Y("valor:Q", title=y_title, axis=_percent_axis()),
+            y=alt.Y("valor:Q", title=y_title, axis=_percent_axis(),
+                      **({"scale": _tight_percent_scale(chart_df["valor"])} if portfolio_mode else {})),
             color=alt.Color(
                 "serie:N",
                 title="Séries",
                 scale=alt.Scale(domain=color_domain, range=color_range),
-                legend=alt.Legend(orient="bottom"),
+                legend=(None if len(observed_series) <= 1 else alt.Legend(orient="bottom", values=observed_series)) if portfolio_mode else alt.Legend(orient="bottom"),
             ),
             tooltip=[
                 alt.Tooltip("competencia:N", title="Competência"),
@@ -368,6 +427,8 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
             ],
         )
     )
+    if portfolio_mode:
+        line = line.encode(detail=alt.Detail("_path_segment:N"))
     label_df = _assign_label_offsets(_last_point_labels(chart_df, value_column="valor"), value_column="valor")
     label_layers = _line_label_layers(
         label_df,
@@ -375,6 +436,7 @@ def _line_chart(chart_df: pd.DataFrame, *, y_title: str, color_domain: list[str]
         y_field="valor",
         text_field="valor_fmt",
         color_map=dict(zip(color_domain, color_range, strict=False)),
+        portfolio_mode=portfolio_mode,
     )
     return _style_chart(alt.layer(line, *label_layers).properties(height=STANDARD_CHART_HEIGHT))
 
@@ -393,17 +455,25 @@ def _line_series(df: pd.DataFrame, column: str, label: str) -> pd.DataFrame:
     return out
 
 
-def _duration_series(df: pd.DataFrame, label: str) -> pd.DataFrame:
+def _duration_series(df: pd.DataFrame, label: str, *, portfolio_mode: bool = False) -> pd.DataFrame:
     base = _chart_base(df)
+    field = "duration_days" if portfolio_mode else "duration_months"
     out = pd.DataFrame(
         {
             "competencia": base["competencia_label"],
             "serie": label,
-            "duration_months": pd.to_numeric(base.get("duration_months"), errors="coerce"),
+            field: pd.to_numeric(base.get(field, pd.Series(index=base.index, dtype=float)), errors="coerce"),
         }
     )
-    out["duration_fmt"] = out["duration_months"].map(lambda value: f"{_format_decimal(value, 1)} meses")
+    out["duration_fmt"] = out[field].map(lambda value: f"{_format_decimal(value, 1)} {'dias' if portfolio_mode else 'meses'}")
     return out
+
+
+def _gap_segments(frame: pd.DataFrame, *, value_column: str, series_column: str = "serie") -> pd.DataFrame:
+    """Visual path groups break at supplied gaps; balances and periods stay whole."""
+    output = frame.copy()
+    output["_path_segment"] = output.groupby(series_column, sort=False)[value_column].transform(lambda values: values.isna().cumsum())
+    return output
 
 
 def _last_point_label_df(df: pd.DataFrame, *, value_column: str) -> pd.DataFrame:
@@ -455,20 +525,41 @@ def _line_label_layers(
     text_field: str,
     color_map: dict[str, str],
     series_column: str = "serie",
+    portfolio_mode: bool = False,
 ) -> list[alt.Chart]:
     layers: list[alt.Chart] = []
     if label_df.empty or series_column not in label_df.columns:
         return layers
-    for _, row in label_df.iterrows():
+    if portfolio_mode and len(label_df) > 4:
+        return layers
+    ordered_labels = label_df
+    if portfolio_mode:
+        ordered_labels = label_df.sort_values(y_field, ascending=False, kind="stable")
+    prior_positions: list[str] = []
+    for _, row in ordered_labels.iterrows():
         series = str(row.get(series_column) or "")
         dy = int(row.get("label_dy") or -12)
+        mark_options: dict[str, object] = {}
+        if portfolio_mode:
+            # The y scale still encodes the original value. Only text is
+            # bounded inside the viewport; dense labels remain in tooltips.
+            anchor = f"scale('y', datum[{json.dumps(y_field)}])"
+            position = f"max(8, min(height - 8, {anchor} + ({dy})))"
+            mark_options["dy"] = alt.ExprRef(expr=f"{position} - {anchor}")
+            if prior_positions:
+                separation = " && ".join(f"abs(({position}) - ({prior})) >= 15" for prior in prior_positions)
+                mark_options["opacity"] = alt.ExprRef(expr=f"{separation} ? 1 : 0")
+            point = json.dumps(float(row[y_field]))
+            prior_positions.append(f"max(8, min(height - 8, scale('y', {point}) + ({dy})))")
+        else:
+            mark_options["dy"] = dy
         layers.append(
             alt.Chart(pd.DataFrame([row]))
             .mark_text(
-                align="left",
+                align="right" if portfolio_mode else "left",
                 baseline="middle",
-                dx=8,
-                dy=dy,
+                dx=-6 if portfolio_mode else 8,
+                **mark_options,
                 color=color_map.get(series, AUX),
                 fontSize=11,
                 fontWeight=600,
@@ -679,7 +770,7 @@ def _percent_axis(*, orient: str | None = None, grid: bool = True) -> alt.Axis:
     return alt.Axis(**kwargs)
 
 
-def _category_axis() -> alt.Axis:
+def _category_axis(*, portfolio_mode: bool = False) -> alt.Axis:
     return alt.Axis(
         domain=True,
         ticks=True,
@@ -689,10 +780,11 @@ def _category_axis() -> alt.Axis:
         labelPadding=8,
         titlePadding=12,
         labelAngle=0,
+        **({"labelOverlap": "greedy", "labelLimit": 80} if portfolio_mode else {}),
     )
 
 
-def _decimal_axis(*, grid: bool = True, orient: str | None = None) -> alt.Axis:
+def _decimal_axis(*, grid: bool = True, orient: str | None = None, portfolio_mode: bool = False) -> alt.Axis:
     kwargs: dict[str, object] = {
         "grid": grid,
         "domain": True,
@@ -701,7 +793,7 @@ def _decimal_axis(*, grid: bool = True, orient: str | None = None) -> alt.Axis:
         "domainColor": AXIS,
         "tickColor": AXIS,
         "tickCount": 6,
-        "labelExpr": "replace(format(datum.value, ',.1f'), '.', ',')",
+        "labelExpr": "replace(format(datum.value, '.1f'), '.', ',')" if portfolio_mode else "replace(format(datum.value, ',.1f'), '.', ',')",
         "labelPadding": 8,
         "titlePadding": 12,
     }

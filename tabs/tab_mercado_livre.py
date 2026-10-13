@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from datetime import date, datetime, timezone
+from decimal import Decimal, InvalidOperation
+from functools import lru_cache
 from html import escape
+import re
 import uuid
 from typing import Any
 
@@ -32,6 +35,7 @@ from services.mercado_livre_dashboard import (
     order_period_columns_desc,
     portfolio_identity_key,
     save_outputs_to_cache,
+    _wide_metric_specs,
 )
 from services.meli_credit_monitor import MeliMonitorOutputs, build_meli_monitor_outputs
 from services.meli_credit_research import build_meli_research_outputs
@@ -1434,7 +1438,12 @@ def _build_mercado_livre_guide_markdown() -> str:
     return _build_somatorio_fidcs_guide_markdown()
 
 
-def _render_wide_table_html(df_wide: pd.DataFrame, *, accessible: bool = False) -> str:
+def _render_wide_table_html(
+    df_wide: pd.DataFrame, *, accessible: bool = False,
+    compact: bool = False, portfolio_mode: bool = False,
+) -> str:
+    if compact or portfolio_mode:
+        return _render_portfolio_wide_table_html(df_wide)
     if df_wide.empty:
         return "<p class='chart-subtitle'>Sem dados para a base analítica consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
@@ -1482,6 +1491,195 @@ def _render_wide_table_html(df_wide: pd.DataFrame, *, accessible: bool = False) 
     flush_section()
     html.append("</div>")
     return "\n".join(html)
+
+
+def _original_wide_value(value: object) -> str:
+    """Keep the producer's precision in the disclosure, including valid zero."""
+    if value is None or pd.isna(value):
+        return "N/D"
+    text = str(value).strip()
+    return text if text else "N/D"
+
+
+@lru_cache(maxsize=1)
+def _portfolio_metric_units() -> dict[str, str]:
+    return {spec["metric"]: spec["unit"] for spec in _wide_metric_specs()}
+
+
+def _portfolio_metric_unit(row: pd.Series) -> str:
+    metric = str(row.get("Métrica") or "").strip()
+    specs = _portfolio_metric_units()
+    if metric in specs:
+        return specs[metric]
+    # Unknown rows are preserved. Infer only an explicit display unit, not a formula.
+    values = [_original_wide_value(row.get(column)) for column in order_period_columns_desc(row.index)]
+    if any(value.startswith("R$ ") for value in values):
+        return "money"
+    if any(value.endswith("%") for value in values) or metric.startswith("%") or "(%)" in metric:
+        return "percent"
+    return "text"
+
+
+def _decimal_br(value: str) -> Decimal | None:
+    try:
+        number = Decimal(value.strip().replace(".", "").replace(",", "."))
+        return number if number.is_finite() else None
+    except (InvalidOperation, ValueError):
+        return None
+
+
+def _portfolio_wide_value(value: object, unit: str) -> str:
+    """Presentation units only; the source value remains available alongside it."""
+    text = _original_wide_value(value)
+    if text.upper() == "N/D" or text == "-":
+        return "N/D"
+    numeric_text = text
+    factor = Decimal(1)
+    if unit == "money":
+        for prefix, divisor in (
+            ("R$ bi ", Decimal(1000)), ("R$ mm ", Decimal(1)),
+            ("R$ mil ", Decimal("0.001")), ("R$ ", Decimal("0.000001")),
+        ):
+            if text.startswith(prefix):
+                numeric_text = text.removeprefix(prefix)
+                factor = divisor
+                break
+        else:
+            # Numeric cells supplied directly represent reais, as in the source schema.
+            if isinstance(value, (int, float, Decimal)):
+                numeric_text = str(value).replace(".", ",")
+                factor = Decimal("0.000001")
+            else:
+                return text
+    elif unit == "percent":
+        numeric_text = text.removesuffix("%")
+        if isinstance(value, (int, float, Decimal)):
+            numeric_text = str(value).replace(".", ",")
+    else:
+        return text
+    number = _decimal_br(numeric_text)
+    if number is None:
+        return text
+    number *= factor
+    # A nonzero value cannot disappear into a displayed zero after changing scale.
+    if 0 < abs(number) < Decimal("0.01"):
+        return "<0,01" if number > 0 else "−<0,01"
+    decimals = 2 if unit == "percent" or abs(number) < 1 else 1
+    formatted = f"{number:,.{decimals}f}"
+    return formatted.replace(",", "_").replace(".", ",").replace("_", ".")
+
+
+def _portfolio_wide_rows(rows: list[pd.Series]) -> list[list[pd.Series]]:
+    """Pair only unique, already reported NPL amount/ratio rows in this block."""
+    metric_indices: dict[str, list[int]] = {}
+    for index, row in enumerate(rows):
+        metric_indices.setdefault(str(row.get("Métrica") or "").strip(), []).append(index)
+    pairs: dict[int, list[int]] = {}
+    for metric, indices in metric_indices.items():
+        if len(indices) != 1 or not re.fullmatch(r"NPL Over \d+d(?: Ex 360)?", metric):
+            continue
+        ratio = metric + (" / Carteira Ex 360" if metric.endswith(" Ex 360") else " / Carteira")
+        ratio_indices = metric_indices.get(ratio, [])
+        if len(ratio_indices) == 1:
+            first, second = indices[0], ratio_indices[0]
+            pairs[min(first, second)] = [first, second]
+    paired_indices = {index for pair in pairs.values() for index in pair}
+    result: list[list[pd.Series]] = []
+    for index, row in enumerate(rows):
+        if index in pairs:
+            result.append([rows[item] for item in pairs[index]])
+        elif index not in paired_indices:
+            result.append([row])
+    return result
+
+
+def _portfolio_metric_help_html(rows: list[pd.Series], periods: list[str]) -> str:
+    label = str(rows[0].get("Métrica") or "Métrica").strip()
+    parts = [
+        '<details class="financial-metric-help">',
+        f'<summary aria-label="Fórmula e valores originais de {escape(label, quote=True)}"><span aria-hidden="true">i</span></summary>',
+        '<div class="financial-metric-help-body" tabindex="0">',
+    ]
+    for row in rows:
+        metric = str(row.get("Métrica") or "").strip()
+        formula = _original_wide_value(row.get("Memória / fórmula"))
+        parts.append(f'<p><b>{escape(metric)}</b><br>Fórmula: {escape(formula)}</p>')
+        parts.append('<dl aria-label="Valores originais da base">')
+        for period in periods:
+            original = _original_wide_value(row.get(period))
+            parts.append(f'<dt>{escape(period)}</dt><dd>{escape(original)}</dd>')
+        parts.append('</dl>')
+    parts.extend(['</div>', '</details>'])
+    return "".join(parts)
+
+
+def _render_portfolio_wide_table_html(df_wide: pd.DataFrame) -> str:
+    if df_wide.empty:
+        return "<p class='chart-subtitle'>Base analítica N/D — sem dados no período.</p>"
+    periods = order_period_columns_desc(df_wide.columns)
+    sections: list[tuple[str, list[pd.Series]]] = []
+    for _, row in df_wide.iterrows():
+        block = str(row.get("Bloco") or "").strip() or "Base analítica"
+        if not sections or sections[-1][0] != block:
+            sections.append((block, []))
+        sections[-1][1].append(row)
+    parts = ['<div class="portfolio-wide-tables">']
+    for section, source_rows in sections:
+        rows = _portfolio_wide_rows(source_rows)
+        paired = any(len(row) == 2 for row in rows)
+        multiplier = 2 if paired else 1
+        table_min_width = 280 + len(periods) * (156 if paired else 104)
+        parts.append('<details class="portfolio-wide-section">')
+        parts.append(f'<summary>{escape(_section_label(section))}</summary>')
+        parts.append(
+            '<div class="wide-table-wrapper financial-table-region" tabindex="0" role="region" '
+            f'aria-label="{escape(_section_label(section), quote=True)}; use as setas para rolar">'
+        )
+        parts.append(f'<table class="wide-table portfolio-wide-table" style="min-width: {table_min_width}px;">')
+        parts.append('<colgroup><col class="label-col-width" style="width: 280px;">')
+        for _ in periods:
+            parts.extend(f'<col style="width: {78 if paired else 104}px;">' for _ in range(multiplier))
+        parts.append('</colgroup><thead><tr>')
+        label_span = ' rowspan="2"' if paired else ''
+        parts.append(f'<th class="label-col" scope="col"{label_span}>Métrica</th>')
+        for period in periods:
+            parts.append(f'<th scope="colgroup" colspan="{multiplier}">{escape(period)}</th>')
+        parts.append('</tr>')
+        if paired:
+            parts.append('<tr>')
+            for _ in periods:
+                parts.extend(['<th scope="col">R$ mm</th>', '<th scope="col">%</th>'])
+            parts.append('</tr>')
+        parts.append('</thead><tbody>')
+        for group in rows:
+            row = group[0]
+            metric = str(row.get("Métrica") or "").strip()
+            unit = _portfolio_metric_unit(row)
+            unit_label = {"money": "R$ mm", "percent": "%", "count": "quantidade"}.get(unit, "")
+            unit_html = f' <span class="financial-metric-unit">({unit_label})</span>' if len(group) == 1 and unit_label else ''
+            parts.append(f'<tr class="{_wide_table_metric_class(metric)}">')
+            parts.append(
+                '<td class="label"><div class="financial-metric-cell">'
+                f'<div class="financial-metric-heading"><span>{escape(metric)}{unit_html}</span></div>'
+                + _portfolio_metric_help_html(group, periods) + '</div></td>'
+            )
+            for period in periods:
+                for source in group:
+                    original = _original_wide_value(source.get(period))
+                    source_unit = _portfolio_metric_unit(source)
+                    displayed = _portfolio_wide_value(source.get(period), source_unit)
+                    metric_attr = escape(str(source.get("Métrica") or ""), quote=True)
+                    original_attr = escape(original, quote=True)
+                    cell_span = f' colspan="{multiplier}"' if len(group) == 1 else ''
+                    state_class = ' class="missing"' if displayed == "N/D" else ''
+                    parts.append(
+                        f'<td{cell_span}{state_class} data-metric="{metric_attr}" '
+                        f'data-period="{escape(period, quote=True)}" data-unit="{source_unit}" data-original="{original_attr}">{escape(displayed)}</td>'
+                    )
+            parts.append('</tr>')
+        parts.append('</tbody></table></div></details>')
+    parts.append('</div>')
+    return "\n".join(parts)
 
 
 def _display_wide_table(df_wide: pd.DataFrame, *, compact: bool = False) -> pd.DataFrame:

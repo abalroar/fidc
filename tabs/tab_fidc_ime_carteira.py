@@ -75,6 +75,7 @@ def render_portfolio_control_panel(
     load_button_label: str,
     load_button_key: str,
     show_load_button: bool = True,
+    compact: bool = False,
 ) -> tuple[PortfolioRecord | None, bool]:
     _apply_pending_portfolio_selection()
 
@@ -99,8 +100,6 @@ def render_portfolio_control_panel(
             portfolio_store_error=portfolio_store_error,
         )
         return None, False
-
-    _render_active_analysis_bar(selected_portfolio)
 
     editor_mode = _normalize_portfolio_editor_mode(
         st.session_state.get("ime_portfolio_editor_mode"),
@@ -147,6 +146,19 @@ def render_portfolio_control_panel(
                 st.session_state[editor_open_key] = True
                 st.rerun()
 
+    def manage_portfolios() -> None:
+        render_saved_portfolio_delete_manager(
+            portfolios=portfolios, key_prefix="ime_portfolio",
+            selected_portfolio_id=selected_saved_portfolio.id if selected_saved_portfolio is not None else None,
+            on_delete=_handle_deleted_portfolio,
+            render_actions=_render_portfolio_management_actions,
+            embedded=compact,
+        )
+
+    _render_active_analysis_bar(
+        selected_portfolio, compact=compact,
+        management_renderer=manage_portfolios if compact and portfolios else None,
+    )
     if st.session_state.get(editor_open_key, False):
         st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
         _render_portfolio_editor(
@@ -156,14 +168,8 @@ def render_portfolio_control_panel(
             editor_mode=editor_mode,
             activate_on_save=editor_mode == "create",
         )
-    if portfolios:
-        render_saved_portfolio_delete_manager(
-            portfolios=portfolios,
-            key_prefix="ime_portfolio",
-            selected_portfolio_id=selected_saved_portfolio.id if selected_saved_portfolio is not None else None,
-            on_delete=_handle_deleted_portfolio,
-            render_actions=_render_portfolio_management_actions,
-        )
+    if portfolios and not compact:
+        manage_portfolios()
 
     if not _is_temporary_portfolio(selected_portfolio):
         selected_portfolio = _enrich_portfolio_record(selected_portfolio=selected_portfolio, catalog_df=catalog_df)
@@ -312,23 +318,27 @@ def _render_direct_cnpj_entry(catalog_df: pd.DataFrame) -> None:
     st.rerun()
 
 
-def _render_active_analysis_bar(selected_portfolio: PortfolioRecord) -> None:
+def _render_active_analysis_bar(selected_portfolio: PortfolioRecord, *, compact: bool = False, management_renderer=None) -> None:
     kind_label = "CNPJ específico" if _is_temporary_portfolio(selected_portfolio) else "Carteira salva"
     fund_count = len(selected_portfolio.funds)
-    with st.container(border=True):
-        detail_col, action_col = st.columns([5.0, 1.2], vertical_alignment="center")
+    with st.container(border=not compact, key="portfolio_active_analysis"):
+        columns = st.columns([5.0, 1.2, 1.2] if management_renderer else [5.0, 1.2], vertical_alignment="center")
+        detail_col, action_col = columns[:2]
         with detail_col:
             st.markdown(f"**{selected_portfolio.name}**")
-            st.caption(f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
+            st.caption(f"{fund_count} fundo{'s' if fund_count != 1 else ''}" if compact else f"{kind_label} | {fund_count} fundo{'s' if fund_count != 1 else ''}")
         with action_col:
             if st.button(
-                "Trocar análise",
+                "Trocar" if compact else "Trocar análise",
                 key="ime_portfolio_change_analysis",
                 icon=":material/swap_horiz:",
                 width="stretch",
             ):
                 _clear_active_analysis_context()
                 st.rerun()
+        if management_renderer:
+            with columns[2], st.popover("Gerenciar", type="tertiary"):
+                management_renderer()
 
 
 def build_temporary_portfolio_from_cnpj(

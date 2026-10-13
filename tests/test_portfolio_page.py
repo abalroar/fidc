@@ -18,7 +18,7 @@ class PortfolioPageTests(unittest.TestCase):
                 "Crédito e prazo",
                 "Inadimplência",
                 "Rentabilidade",
-                "Curadoria de Leitura (Documentos)",
+                "Documentos",
             ),
             portfolio_page.PORTFOLIO_VIEW_TABS,
         )

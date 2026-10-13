@@ -477,9 +477,9 @@ with dashboard_page(selected_section):
     if selected_section == "industria":
         render_tab_industry_study()
     elif selected_section == "carteira":
-        render_page_header("Dados de Carteira", "Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.")
+        render_page_header("Dados de Carteira")
         _render_period_selector = getattr(ime_tab, "render_period_selector", None) or getattr(ime_tab, "_render_period_selector")
-        period = _render_period_selector(state_prefix="ime_global")
+        period = _render_period_selector(state_prefix="ime_global", context_label="Selecionado")
         render_portfolio_center_page(period=period)
     elif selected_section == "estimativas":
         render_tab_estimativas_modelagem()
