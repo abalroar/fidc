@@ -171,6 +171,9 @@ def observe(row_id: str, fact: Mapping, values: Mapping, fund_type: str) -> Obse
         else:
             observed, basis = _ratio(values, "credit_rights", subtract="pdd"), "DC líquidos de PDD / PL"
         upper = 110.0
+    elif row_id == "sub_senior" and fact.get("basis") == "PL/sr":
+        observed, basis = _ratio(values, "net_asset_value", "senior_quotas"), "PL / cotas sênior"
+        upper = 10000.0
     elif row_id == "sub_senior" and str(fact.get("basis", "")).startswith("cobertura"):
         return Observation(note="cobertura por camada exige valor presente dos créditos, ausente no IME")
     elif row_id == "sub_senior":

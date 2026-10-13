@@ -1,0 +1,794 @@
+{
+ "schema_version": 1,
+ "cnpj": "62626887000185",
+ "name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-13T16:14:08Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1152823",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "31/03/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823"
+  },
+  "D2": {
+   "document_id": "995526",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "09/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995526"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Recebíveis de transações de cartão cedidos pela SumUp",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 49,
+     "clause": "Apêndice B, cl. 11.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "portanto, concessão de crédito pelo Cedente aos Devedores. Os Direitos Creditórios serão originados pelo Cedente e devidos pelos Devedores, em observância às regras dos Arranjos de Pagamento. 11.2.5. Tendo em vista que o Fundo adquirirá apenas direitos creditórios que sejam os Direitos Creditórios, originados nos termos do item 11.2.4 acima, o Fundo não exigirá a observância de qualquer outra regra pelo Cedente para concessão de crédito aos Devedores, de modo que não consta deste Regulamento uma política de concessão de crédito específica adotada pelo Cedente. 11.2.6."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 89,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "SumUp Instituição de Pagamento Brasil (credenciadora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 89,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "SumUp Instituição de Pagamento Brasil (cedente único)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 89,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Emissores de cartão (instituições financeiras)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 92,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Devedores” significam os Emissores. 8 COMPLEMENTO I DO REGULAMENTO DO SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.887/0001-85- DATADO DE 31 DE MARÇO DE 2026 “Dia Útil” ou “Dias Úteis” significam qualquer dia em que haja expediente comercial ou banc"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 24,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "(viii) Risco do Setor Financeiro. Os Devedores são instituições financeiras, e estão sujeitos à extensa e contínua fiscalização regulamentar por parte do governo brasileiro. Esta regulação é exercida, principalmente, pelo BACEN, CVM e pelo CMN, que monitoram o setor bancário e podem impor sanções disciplinares."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Sem coobrigação do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 23,
+     "clause": "Apêndice B, cl. 10.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "(ii) Ausência de coobrigação do Cedente ou de terceiros. O Cedente não responde pelo pagamento dos Direitos Creditórios Cedidos ou pela solvência dos Devedores. O pagamento dos Direitos Creditórios Cedidos não conta com coobrigação ou garantia de quaisquer terceiros. Na hipótese de inadimplemento dos Direitos Creditórios Cedidos, portanto, poderá haver um impacto negativo no patrimônio e na rentabilidade do Fundo. (iii) Fatores macroeconômicos."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "Emissor adimplente e sem insolvência; créditos livres de ônus",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 50,
+     "clause": "Apêndice B, cl. 11.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "(ii) os Devedores não poderão estar inadimplentes perante (a) o Cedente, conforme informado pelo Cedente à Administradora; e/ou (b) o Fundo; (iii) a Administradora não poderá ter tido conhecimento de um Evento de Insolvência referente aos Devedores ou ao Cedente; e (iv) os Direitos Creditórios deverão estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza, conforme verificado por meio de declaração do Cedente à Administradora. 11.5.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por emissor não localizado no regulamento",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Cedente único (SumUp)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 89,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo dos recebíveis não localizado no regulamento",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 67% do PL após 180 dias",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 85,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Alocação Mínima” significa o percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe a ser mantido em Direitos Creditórios Cedidos, a ser observado a partir do 180º (centésimo octogésimo) dia, contado da Data de Início do Fundo."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 101,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Subclasse” significam as subclasses de Cotas da Classe do Fundo, as quais são divididas em Cotas Seniores e Cotas Subordinadas Juniores."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_senior": {
+   "display": "2,9% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 96,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Índice de Subordinação” significa a relação mínima admitida entre o somatório do valor das Cotas Subordinadas Juniores em circulação e o Patrimônio Líquido, equivalente a 2,90% (dois inteiros e noventa centésimos por cento)."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 2.9,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Júnior tem 5 DU para reenquadrar",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 53,
+     "clause": "Apêndice B, cl. 12.4.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "integralizarem novas Cotas Subordinadas Juniores em montante suficiente para o reenquadramento do Índice de Subordinação em até 5 (cinco) Dias Úteis contados do recebimento de tal notificação. Caso os Cotistas detentores das Cotas Subordinadas Juniores (ii) informem à Administradora que não pretendem subscrever e integralizar tais novas Cotas Subordinadas Juniores, (ii) não realizem a subscrição e integralização das novas Cotas Subordinadas Juniores no prazo acima indicado, mesmo tendo confirmado sua intenção de fazê-lo ou (iii) não responda a solicitação da Administradora no prazo indicado acima, tal evento constituirá um Evento de Avaliação do Fundo. 12.4.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "Reservas de amortização e de despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 99,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Reserva de Amortização” significa com relação a cada Data de Cálculo, a reserva, a ser constituída em Disponibilidades pelo Gestor, para o pagamento da 15 COMPLEMENTO I DO REGULAMENTO DO SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.887/0001-85- DATADO DE 31 DE MARÇO DE 2026 Remuneração e da Amortização de Principal, conforme descrito no item 22.2 deste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 100,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Reserva de Despesas e significa a reserva, a ser constituída em Disponibilidades pelo Encargos” Gestor, para o pagamento dos encargos do Fundo, nos termos previstos no item 22.1 deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisionamento da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 61,
+     "clause": "Apêndice B, cl. 16.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "16.4. O manual de precificação e provisionamento da Administradora pode ser consultado no seu site: https://bemdtvm.bradesco/html/bemdtvm/general-information.shtm. 16.5. O Patrimônio Líquido, a ser apurado pela Administradora, equivale ao valor das Disponibilidades acrescido do Valor dos Direitos Creditórios, deduzidas as exigibilidades e as provisões do Fundo. 16.6. As Cotas terão seu valor calculado, em toda Data de Cálculo, nos termos descritos no Capítulo 13 deste Regulamento e das disposições regulamentares pertinentes. 17. DA ASSEMBLEIA GERAL 17.1. Competência da Assembleia 17.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating sênior sem atualização por 90 dias ou rebaixado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 68,
+     "clause": "Apêndice B, cl. 18",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "asse dos respectivos valores da Conta Centralizadora do Cedente à Conta do Fundo. 18. DOS EVENTOS DE AVALIAÇÃO 18.1. São Eventos de Avaliação: (i) caso a Agência Classificadora de Risco não divulgue a atualização trimestral da classificação de risco das Cotas Seniores, por prazo igual ou superior a 90 (noventa) dias; 68 REGULAMENTO DO SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA, CNPJ/MF 62.626.887/0001-85- DATADO DE 31 DE MARÇO DE 2026 (ii) não obtenção da classificação de risco prevista no Apêndice e/ou rebaixamento da classificação de risco de qualquer Série das Cotas Seniores em 3 (três) níveis, ou mais, abaixo da classificação de risco originalmente atribuída à respectiva Série de Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "AGC; insolvência; CVM; fim da prestação de serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 72,
+     "clause": "Apêndice B, cl. 19",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "as providências previstas nos itens18.2 (ii) a (iv) acima deverão ser cessadas. 19. DOS EVENTOS DE LIQUIDAÇÃO 19.1. São Eventos de Liquidação: (i) caso seja deliberado, em Assembleia Geral, que um Evento de Avaliação configura um Evento de Liquidação; (ii) caso seja declarada a insolvência do Fundo, nos termos do Código Civil; (iii) determinação da CVM, nos termos previstos na Resolução CVM nº 175; (iv) cessação definitiva, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pelo Gestor ou pelo Custodiante, sem que tenha havido sua efetiva substituição por outro prestador de serviços, observados os procedimentos e prazos descritos no Capítulo 9 deste Regulamento; (v) constatação, a qualquer tempo, do descredenciamento do Cedente dos Arranjos de Pagamento; (vi) resilição ou rescisão do Contrato de Cessão; (vii) ciência do questionamento judicial, por terceiros ou pelo Cedente, sobre a validade, eficácia e/ou a exequibilidade de qualquer dos Documentos do Fundo, desde que, na hipótese de questionamento judicial realizado por terceiros, esta não seja sanada em até 30 (trinta) Dias Úteis;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 45,
+     "clause": "Apêndice B, cl. 11.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "Anexo Normativo II da Resolução CVM nº 175, a revolvência dos Direitos Creditórios, desde que respeitado o disposto neste Regulamento. 11.1.4. No prazo de até 180 (cento e oitenta) dias contados da Data de Início do Fundo, a Classe do Fundo deverá observar a Alocação Mínima. 11.1.5. Caso a Classe do Fundo não consiga atender à Alocação Mínima em até 180 (cento e oitenta) dias contados da Data de Início do Fundo, o Gestor, por conta e ordem do Fundo, poderá solicitar à CVM a prorrogação do prazo, apresentando os motivos que justifiquem tal prorrogação."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Por metas da série; sequencial após evento de liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 86,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Amortização Sequencial” significa o critério de alocação dos recursos do Fundo para amortização das Cotas Seniores, adotado pela Administradora, após a eventual ocorrência de um Evento de Liquidação, nos termos do Capítulo 15 deste Regulamento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "admin_fee": {
+   "display": "0,039% a.a. do PL (administração e escrituração)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 17,
+     "clause": "Apêndice B, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "8.1. O Fundo apurará e pagará a Taxa de Administração, em montante equivalente à soma dos seguintes valores: 8.1.1. Pelos serviços de administração fiduciária, controladoria e escrituração, será cobrada do Fundo, a partir de 06 de outubro de 2025, como remuneração à Administradora, a remuneração de 0,039% (trinta e nove milésimos por cento) ao ano sobre o Patrimônio Líquido, respeitando o valor mínimo mensal de R$ 11.375,00 (onze mil trezentos e setenta e cinco reais). 8.1.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,016% a.a. do PL; mín. R$ 4.666,67/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 18,
+     "clause": "Apêndice B, cl. 8.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "8.2. O Fundo apurará e pagará, a partir de 06 de outubro de 2025, a Taxa de Gestão como remuneração ao Gestor pelos serviços de gestão fiduciária equivalente a 0,016% (dezesseis milésimos por cento) ao ano sobre o Patrimônio Líquido, respeitando o valor mínimo mensal de R$ 4.666,67 (quatro mil seiscentos e sessenta e seis reais e sessenta e sete centavos). 8.2.1. A Taxa de Gestão prevista neste Capítulo 8 será apurada diariamente, à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos), com base no valor do Patrimônio Líquido verificado no Dia Útil anterior à realização do referido cálculo, sendo as parcelas devidas no 5º (quinto) Dia Útil de cada mês. 8.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não há taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta de cada série definida no apêndice; não localizada no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "BEM DTVM (Bradesco)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 85,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Administradora” significa a BEM DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade regularmente constituída e em funcionamento no Brasil, devidamente autorizada e habilitada pela CVM a administrar carteiras de valores mobiliários,"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 95,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Gestor” significa o BANCO BRADESCO S.A., instituição financeira participante aderente ao Foreign Account Tax Compliance Act (FATCA) com Global Intermediary Identification Number (GIIN) VWBCS9.00000.SP.076, devidamente autorizada pela CVM p"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Banco Bradesco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 95,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Gestor” significa o BANCO BRADESCO S.A., instituição financeira participante aderente ao Foreign Account Tax Compliance Act (FATCA) com Global Intermediary Identification Number (GIIN) VWBCS9.00000.SP.076, devidamente autorizada pela CVM p"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Bradesco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 91,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Custodiante” significa a o BANCO BRADESCO S.A., instituição financeira com sede social no Núcleo Cidade de Deus, s/nº, Vila Yara, CEP 06.029- 900, na cidade de Osasco, Estado de São Paulo, inscrito no CNPJ/MF sob"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "SumUp ou terceiro contratado pelo gestor",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 85,
+     "clause": "Apêndice B, cl. 28.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Agente de Cobrança significa o Cedente ou terceiro contratado pelo Gestor, em nome do Extraordinária” Fundo, para realizar a cobrança dos Direitos Creditórios Inadimplidos, observado o disposto na Política de Cobrança, no Contrato de Cobrança e neste Regulamento."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 89,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Cedente” significa a SUMUP INSTITUIÇÃO DE PAGAMENTO BRASIL LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 10º andar, Pinheiros, CEP: 05425-020, inscrita no CNPJ/MF sob o nº 16.668.076/0001-20."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 97,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Investidores Qualificados” significam os investidores considerados qualificados, conforme definidos no artigo 12 da Resolução CVM 30."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Por série, até a amortização final",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 99,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Prazo de Duração” significa o prazo de duração de cada Série ou Classe de Cotas, compreendido entre a respectiva Data de Contagem e a respectiva Data de Amortização Final."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_receivables": {
+   "display": "Transações em arranjos de pagamento, com registro",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 87,
+     "clause": "Apêndice B",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "“Arranjo de Pagamento” significa cada conjunto de regras e procedimentos estabelecidos pela respectiva Bandeira, que disciplina a prestação de determinados serviços de pagamento ao público, tais como a emissão de Instrumentos de Pagamento aos Usuários Finais e o credenciamento de Clientes e Estabelecimentos Comerciais, bem como que define o uso de padrões operacionais e de segurança associados a essas atividades, nos termos da Regulamentação de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 5,
+     "clause": "Apêndice B, cl. 4.1.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "(e) registro dos Direitos Creditórios em Entidade Registradora, se necessário; (f) custódia para os Direitos Creditórios que não sejam passíveis de registro em Entidade Registradora; (g) custódia de valores mobiliários, se for o caso; (h) guarda da documentação que constitui o lastro dos Direitos Creditórios, a qual pode se dar por meio físico ou eletrônico; e (i) liquidação física ou eletrônica e financeira dos Direitos Creditórios. (ii) solicitar, se for o caso, a admissão à negociação das Cotas em mercado organizado;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "card_lock": {
+   "display": "Domicílio bancário na conta do fundo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 106,
+     "clause": "Apêndice B, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "entidade registradora, diretamente no domicílio bancário do titular do respectivo Direito Creditório ou Direito Creditório Cedido, o qual, no caso do Direito Creditório Cedido, deverá ser a Conta do Fundo. 3. Procedimentos de cobrança extraordinária dos Direitos Creditórios Inadimplidos 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "dilution": {
+   "display": "Cancelamentos e chargebacks cobertos por depósito do cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1152823",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "31/03/2026",
+     "page": 23,
+     "clause": "Apêndice B, cl. 10.3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152823",
+     "excerpt": "Obrigatório. Nos termos do Contrato de Cessão, em caso de Cancelamento e Chargeback haverá a obrigação do Cedente de pagar ao Fundo o Depósito Complementar Obrigatório. Na ocorrência de tais eventos, é possível que o Cedente não cumpra, por qualquer motivo, a sua obrigação de pagamento do valor acordado, o que poderá afetar negativamente os resultados do Fundo e provocar perdas patrimoniais ao Fundo e aos Cotistas. (v) Risco de Originação; Modificação de Créditos por Decisão Judicial."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis de cartão da SumUp com júnior de 2,9% do PL e estrutura do Bradesco.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

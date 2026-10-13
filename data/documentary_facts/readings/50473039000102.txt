@@ -1,0 +1,37 @@
+# Seller FIDC (Mercado Pago)
+type: Cartão/adquirência
+receivables: Recebíveis de vendas no Mercado Pago e créditos sub-rogados do Mercado Crédito | c2,c5
+originator: Estabelecimentos comerciais do Mercado Pago e Mercado Crédito | o7,c5
+assignor: Estabelecimentos comerciais e Mercado Crédito | o7
+debtor: Mercado Pago Instituição de Pagamento | c10
+recourse: Sem coobrigação dos cedentes | o12
+eligibility: Devedor adimplente; créditos não vencidos; prazo ≤ 365 dias | c20,o25
+debtor_limit: Sem limite de 20% do PL (cotistas profissionais) | o18
+assignor_limit: Não previsto | Regulamento não limita concentração por cedente
+term_max: Até 365 dias da aquisição | o25
+allocation: ≥ 50% do PL em direitos elegíveis (67% para fins tributários) | o28,c30 | value=50
+quota_structure: Sênior / Mezanino / Júnior | c36,c80
+sub_senior: 10% · júnior/PL | o32 | basis=jr/PL
+sub_mezz: n/d | Índice próprio da mezanino não localizado no regulamento
+sub_check: Diária; 10 dias de desenquadramento geram avaliação | c43,c44
+reserve: Liquidez de 3 meses de despesas; caixa para a próxima amortização | o46,o45
+pdd: n/d | Critério de PDD remetido à regulamentação e ao manual; sem regra própria localizada | why=O "100%" da leitura anterior não tem fonte localizável
+eval_triggers: Índice de subordinação desenquadrado por 10 dias, entre outros | c44
+liquidation: Pagamento das cotas não feito em 2 DU; avaliação convertida pela AGC | o56
+revolving: Revolvência permitida, conforme ordem de alocação | c61
+amortization: Encargos e reservas → sênior → mezanino → júnior | o62
+admin_fee: 0,075% a.a. até R$ 200 mi; 0,05% acima | o67
+mgmt_fee: 0,02% a.a. sobre o PL acima de R$ 1 bi (faixas) | o72
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: DI + spread da série (5ª série) | c77
+target_mezz: n/d | Índice referencial da mezanino definido no apêndice; taxa não localizada
+administrator: Oliveira Trust DTVM | c83
+manager: Oliveira Trust Servicer | c84
+custodian: Oliveira Trust DTVM | c85
+servicer: n/d | Agente de cobrança não nomeado no regulamento
+investors: Profissionais | c66
+duration: Indeterminado | c93
+card_receivables: Transações no arranjo fechado do Mercado Pago, com registro | c2,c95
+card_lock: Liquidação na conta arrecadação da classe | c98
+dilution: Cancelamentos e chargebacks dos lojistas definidos em contrato | c99,c100
+leitura: Recebíveis de lojistas do Mercado Pago, devedor único Mercado Pago, com júnior mínima de 10% do PL.

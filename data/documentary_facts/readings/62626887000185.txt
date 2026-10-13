@@ -1,0 +1,39 @@
+# SumUp Smart IV
+type: Cartão/adquirência
+q1: D1 "18.1. São Eventos de Avaliação"
+q2: D1 "19.1. São Eventos de Liquidação"
+receivables: Recebíveis de transações de cartão cedidos pela SumUp | c3,c7
+originator: SumUp Instituição de Pagamento Brasil (credenciadora) | c7
+assignor: SumUp Instituição de Pagamento Brasil (cedente único) | c7
+debtor: Emissores de cartão (instituições financeiras) | c10,c11
+recourse: Sem coobrigação do cedente | c12
+eligibility: Emissor adimplente e sem insolvência; créditos livres de ônus | c18
+debtor_limit: n/d | Limite por emissor não localizado no regulamento
+assignor_limit: Cedente único (SumUp) | c7
+term_max: n/d | Prazo máximo dos recebíveis não localizado no regulamento
+allocation: ≥ 67% do PL após 180 dias | c22 | value=67
+quota_structure: Sênior / Júnior | c25
+sub_senior: 2,9% · júnior/PL | c28 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Júnior tem 5 DU para reenquadrar | c33
+reserve: Reservas de amortização e de despesas e encargos | c34,c35
+pdd: Manual de provisionamento da administradora | c38
+eval_triggers: Rating sênior sem atualização por 90 dias ou rebaixado | q1
+liquidation: AGC; insolvência; CVM; fim da prestação de serviços | q2
+revolving: Revolvência permitida | c46
+amortization: Por metas da série; sequencial após evento de liquidação | c49
+admin_fee: 0,039% a.a. do PL (administração e escrituração) | c53
+mgmt_fee: 0,016% a.a. do PL; mín. R$ 4.666,67/mês | c56
+perf_fee: Não prevista | Regulamento: não há taxa de performance
+target_senior: n/d | Meta de cada série definida no apêndice; não localizada no acervo
+target_mezz: — | Sem cota mezanino
+administrator: BEM DTVM (Bradesco) | c62,c63
+manager: Banco Bradesco | c63
+custodian: Banco Bradesco | c64
+servicer: SumUp ou terceiro contratado pelo gestor | c65,c7
+investors: Qualificados | c68
+duration: Por série, até a amortização final | c69
+card_receivables: Transações em arranjos de pagamento, com registro | c70,c71
+card_lock: Domicílio bancário na conta do fundo | c74
+dilution: Cancelamentos e chargebacks cobertos por depósito do cedente | c78
+leitura: Recebíveis de cartão da SumUp com júnior de 2,9% do PL e estrutura do Bradesco.
