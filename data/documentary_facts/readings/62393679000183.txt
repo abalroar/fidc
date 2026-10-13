@@ -1,0 +1,58 @@
+# CloudWalk Bela FIDC (sênior / mezanino A e B / júnior; BEM DTVM e Bradesco)
+type: Cartão/adquirência
+q1: D1 "Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente"
+q2: D1 "Grupo 1” Significam (i) o Itaú Unibanco S.A. e Entidades do Respectivo Grupo"
+q3: D1 "a) ao menos 52,5% (cinquenta e dois inteiros e cinco décimos por cento)"
+q4: D1 "c) os Direitos Creditórios devidos por Devedores Grupo 3 não poderão representar mais do que"
+q5: D1 "Cotas Seniores em circulação ou a 365 (trezentos e sessenta e cinco) dias"
+q6: D1 "Índices de Subordinação Mínimos sejam descumpridos e não saneados pelos Cotistas Subordinados Júnior"
+q7: D1 "(xviii) Índice de Subordinação Sênior Mínimo"
+q8: D1 "no mínimo 7% (sete inteiros por cento) até o 180º (centésimo octogésimo) dia (exclusive) a contar da data de encerramento da oferta das Cotas Subordinadas Mezanino da 2ª Série"
+q9: D1 "(xviii) Índice de Subordinação Mezanino B Mínimo"
+q10: D1 "(Taxa DI) acrescida de 0,75%"
+q11: D1 "(Taxa DI) acrescida de 1,35%"
+q12: D1 "(Taxa DI) acrescida de 4,20%"
+q13: D1 "Taxa de Administração equivalente a 0,021%"
+q14: D1 "Taxa de Gestão equivalente a 0,023%"
+q15: D1 "A Classe A é destinada a Investidores Autorizados"
+q16: D1 "no mínimo 30 (trinta) dias de antecedência em relação à próxima Data de Amortização Programada"
+q17: D1 "Será considerado Evento de Avaliação da Classe A qualquer dos seguintes eventos"
+q18: D1 "Será considerado Evento de Liquidação da Classe A qualquer dos seguintes eventos"
+q19: D1 "no mínimo 1,00% (um inteiro por cento)"
+q21: D1 "tas taxas de performance, de ingresso ou de saída"
+q20: D1 "no mínimo, 2,5% (dois"
+receivables: Recebíveis de transações de cartão do sistema CloudWalk | q1
+originator: CloudWalk (credenciadora) | c5
+assignor: CloudWalk (cedente única) | c5
+debtor: Emissores em 4 grupos; Grupo 1 com Itaú, Bradesco e outros grandes | c8,q2
+recourse: Sem regresso nem coobrigação da cedente | c10
+eligibility: Moeda nacional; devedor adimplente; vencimento ≥ 7 dias | c23,q5
+debtor_limit: G1+caixa ≥ 52,5% do PL; G2 ≤ 15% cada; G3 ≤ 4%; G4 ≤ 2% | q3,c17,q4
+assignor_limit: Cedente única (CloudWalk) | c5
+term_max: Mínimo 7 dias; máximo de 365 dias ou vencimento da sênior | q5,c23
+allocation: ≥ 50% do PL em direitos creditórios | c22 | value=50
+quota_structure: Sênior / Mezanino A e B / Júnior (Grupo CloudWalk) | c26,c63
+sub_senior: 14% até 180 dias da 2ª série; depois 15,5% · (mez.+jr.)/PL | q7 | basis=mez+jr/PL | value=15.5
+sub_mezz: Mez. A: 7% → 8,5% (mez. B+jr.)/PL; Mez. B: 1% → 2,5% jr/PL | q8,q19,q20 | basis=jr/PL | value=2.5
+sub_check: Diária pelo custodiante; júnior tem 11 DU para recompor | q7,q6
+reserve: Amortização 30 dias antes; reservas de caixa, aquisição e despesas | q16,c37,c38
+pdd: Manual de provisão para perdas da administradora | c41
+eval_triggers: Falhas de pagamento, reservas, subordinação e prestadores | q17
+liquidation: Compras inviáveis, subordinação não recomposta, prestadores e insolvência | q18,q6
+revolving: Revolvência permitida | c49
+amortization: Sênior e mezanino por cronograma dos apêndices | c54
+admin_fee: 0,021% a.a. do PL; mín. R$ 8.450/mês | q13
+mgmt_fee: 0,023% a.a. do PL; mín. R$ 9.100/mês | q14
+perf_fee: Não prevista | Regulamento veda cobrança de taxa de performance da classe | q21
+target_senior: DI + 0,75% a.a. (1ª e 2ª séries) | q10
+target_mezz: Mez. A: DI + 1,35%; Mez. B: DI + 4,20% | q11,q12
+administrator: BEM DTVM | c67
+manager: Banco Bradesco | c68
+custodian: Banco Bradesco | c69
+servicer: CloudWalk (cobrança extraordinária) | c70
+investors: Investidores autorizados | q15
+duration: Indeterminado; séries com prazo próprio | c74
+card_receivables: Transações em arranjos de pagamento das bandeiras | q1,c75
+card_lock: Conta centralizadora da cedente, de movimentação restrita | c78
+dilution: Cancelamentos e chargebacks; gestor monitora o índice | c81,c83
+leitura: Cartão CloudWalk com gestão Bradesco; sênior a DI + 0,75% sobre 14%→15,5% de mez.+jr.; mez. B a DI + 4,20%.

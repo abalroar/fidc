@@ -251,7 +251,7 @@ def _parse_facts(text: str) -> dict:
             out["leitura"] = rest
         elif re.fullmatch(r"q\d+", key):
             # q1: D2 "exact passage from the document"
-            m = re.match(r"(D\d+)\s+[\"“](.+)[\"”]\s*$", rest)
+            m = re.match(r"((?:D|id)\d+)\s+[\"“](.+)[\"”]\s*$", rest)
             if not m:
                 raise ValueError(f"Citação mal formada: {line}")
             out["quotes"][key] = (m.group(1), m.group(2))
@@ -294,7 +294,7 @@ def compile_facts(cnpj: str, facts_path: Path, work: Path) -> dict:
         issues.append(f"Tipo de fundo fora da lista: {fund_type!r}")
     quotes = {}
     for key, (label, quote) in parsed["quotes"].items():
-        doc = by_label.get(label)
+        doc = every.get(label[2:]) if label.startswith("id") else by_label.get(label)
         if not doc:
             issues.append(f"{key}: documento {label} inexistente")
             continue

@@ -1,0 +1,64 @@
+# derivado de 42085816000105 (54218941000125)
+type: Cartão/adquirência
+q1: D1 "Os Direitos Creditórios são oriundos do pagamento devido pelos Devedores à Cedente"
+q2: D1 "Significa a CloudWalk que, de tempos em tempos, nos termos do Contrato de Cessão"
+q3: D1 "Significam (i) o Banco Itaú Unibanco S.A e Entidades do Respectivo Grupo"
+q4: D1 "em caráter definitivo e sem"
+q5: D1 "os Direitos Creditórios deverão ter vencimento de, no mínimo, 7 (sete) dias"
+q6: D1 "Limite de Concentração por Devedor"
+q7: D1 "deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios Elegíveis"
+q8: D1 "Significa a razão mínima admitida entre o somatório do valor das Cotas Subordinadas em circulação"
+q9: D1 "caso o desenquadramento passivo se prolongue por 15 (quinze) Dias"
+q10: D1 "no mínimo 30 (trinta) dias de antecedência em relação à próxima Data de Amortização Programada"
+q11: D1 "metodologia de provisão para perdas (PDD)"
+q12: D1 "Será considerado Evento de Avaliação da Classe A qualquer dos seguintes eventos"
+q13: D1 "Revolvência. Será permitida a aquisição de novos Direitos Creditórios"
+q14: D1 "As Cotas Seniores da Classe A deverão ser amortizadas em cada Data de Amortização Programada"
+q15: D1 "equivalente a 0,04% (quatro centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe A"
+q16: D1 "assegurado um valor mínimo mensal de R$ 12.000"
+q17: D1 "Significa a BTG PACTUAL SERVIÇOS FINANCEIROS S.A."
+q18: D1 "Significa a BTG PACTUAL ASSET"
+q19: D1 "Significa o Banco BTG Pactual S.A., instituição financeira"
+q20: D1 "Significa a CloudWalk, na qualidade de prestador"
+q21: D1 "é destinada a Investidores Autorizados"
+q22: D1 "O Fundo terá prazo de duração indeterminado"
+q23: D1 "Significa a conta de titularidade da Cedente, de movimentação restrita"
+q24: D1 "Significa a parcela do Patrimônio Líquido da Classe A equivalente ao valor projetado pela Administradora"
+receivables: Recebíveis de transações de cartão do sistema CloudWalk (InfinitePay) | q1
+originator: CloudWalk (credenciadora) | q2
+assignor: CloudWalk (cedente única) | q2
+debtor: Itaú, Bradesco, BB, Santander e Caixa (e respectivos grupos) | q3
+recourse: Sem regresso nem coobrigação da cedente | q4
+eligibility: Modalidade crédito; devedor adimplente; vencimento ≥ 7 dias | q27,q5
+debtor_limit: Sem limite de 20% do PL quando o devedor é instituição financeira | q6
+assignor_limit: Cedente única (CloudWalk) | q2
+term_max: Mínimo de 7 dias; máximo limitado ao vencimento das cotas | q5
+allocation: ≥ 50% do PL em direitos elegíveis | q7 | value=50
+quota_structure: Sênior / Subordinada (Grupo CloudWalk) | q8
+sub_senior: 3% · subord./PL | q8 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Diária pelo custodiante; desenquadramento passivo de até 15 DU | q8,q9
+reserve: Reserva de caixa para a sênior, além de reservas de aquisição e despesas | q24,q10
+pdd: Metodologia de provisão para perdas (PDD) da administradora | q11
+eval_triggers: Falhas de pagamento, reservas, subordinação e prestadores | q12
+liquidation: n/d | Lista de eventos de liquidação não localizada no texto extraído | why=A leitura anterior descreve gatilhos de avaliação, registrados na linha própria
+revolving: Revolvência permitida | q13
+amortization: Sênior por cronograma do apêndice; subordinadas depois | q14
+admin_fee: 0,04% a.a. do PL; mín. R$ 12.000/mês | q15,q16
+mgmt_fee: 10% a.a. sobre o PL (redação literal); teto R$ 4 mil/mês | q25
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: CDI + 1,50% a.a. (série sênior em suplemento) | q26
+target_mezz: — | Sem cota mezanino
+administrator: BTG Pactual Serviços Financeiros DTVM | q17
+manager: BTG Pactual Asset Management | q18
+custodian: Banco BTG Pactual | q19
+servicer: CloudWalk (cobrança extraordinária) | q20
+investors: Investidores autorizados | q21
+duration: Indeterminado; séries com prazo próprio | q22
+card_receivables: Transações em arranjos de pagamento, com registro | q1
+card_lock: Conta centralizadora da cedente, de movimentação restrita | q23
+dilution: Cancelamentos e chargebacks tratados no contrato de cessão | q2
+leitura: Recebíveis de cartão da CloudWalk contra cinco grandes bancos, cedente única; subordinação mínima de 3% do PL e sênior a CDI + 1,50%.
+q25: D1 "uma Taxa de Gestão equivalente a 10% (dez por cento) ao ano sobre o Patrimônio Líquido"
+q26: D1 "spread equivalente a 1,50%"
+q27: D1 "os Devedores deverão estar adimplentes com relação a todos os pagamentos"
