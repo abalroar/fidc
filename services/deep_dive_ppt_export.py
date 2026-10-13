@@ -3,6 +3,10 @@ from __future__ import annotations
 from datetime import datetime
 from dataclasses import replace
 from io import BytesIO
+import gc
+from pathlib import Path
+import shutil
+from tempfile import TemporaryDirectory
 import re
 import textwrap
 from typing import TYPE_CHECKING, Sequence
@@ -48,6 +52,71 @@ DOCUMENT_FONT_SIZE = 13.0
 DOCUMENT_LINE_HEIGHT = 0.205
 DOCUMENT_CELL_PADDING = 0.10
 DOCUMENT_MAX_FUNDS = 4
+_DOCUMENT_SLIDE_BATCH_SIZE = 32
+_DOCUMENT_TEMP_BYTES = 512 * 1024 * 1024
+_DOCUMENT_DISK_FLOOR = 64 * 1024 * 1024
+
+_DOCUMENT_CNPJ = re.compile(r"(?<!\d)(?:\d{14}|\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2})(?!\d)")
+_DOCUMENT_SOURCE_OWNER = re.compile(r"^\s*CNPJ\s+(\d{14}|\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2})(?!\d)")
+
+
+def _document_segment_metadata(columns, funds, sources, group_notes=()):
+    """Scope explicitly owned references to the exact fund columns shown.
+
+    Generic references and investment-link provenance remain available. An
+    ambiguous legacy label keeps its references: identity is never guessed.
+    """
+    records = {re.sub(r"\D", "", str(fund.get("cnpj") or "")): fund for fund in funds}
+    selected = []
+    selected_labels = []
+    resolved = True
+    scoped_groups = []
+    for column in columns:
+        label = str(column)
+        group = next((note for note in group_notes if str(note).startswith(label + " → ")), None)
+        if group:
+            scoped_groups.append(group)
+        identities = [re.sub(r"\D", "", match.group()) for match in _DOCUMENT_CNPJ.finditer(str(group or label))]
+        if not identities:
+            matches = [cnpj for cnpj, fund in records.items() if label in {str(fund.get("name") or ""), str(fund.get("short_name") or ""), cnpj}]
+            identities = matches if len(matches) == 1 else []
+        if not identities:
+            resolved = False
+            selected_labels.append(label)
+        for cnpj in identities:
+            if cnpj not in selected:
+                selected.append(cnpj)
+    selected_set = set(selected)
+    scoped_sources = []
+    for source in sources:
+        owner = _DOCUMENT_SOURCE_OWNER.match(str(source))
+        if resolved and owner and re.sub(r"\D", "", owner.group(1)) not in selected_set:
+            continue
+        scoped_sources.append(source)
+    identities = []
+    for cnpj in selected:
+        fund = records.get(cnpj)
+        if fund:
+            identities.append(f"{fund.get('short_name') or fund.get('name')} · {fund.get('name') or 'razão social não informada'} · CNPJ {cnpj}")
+        else:
+            identities.append(next((str(column) for column in columns if cnpj in re.sub(r"\D", "", str(column))), f"CNPJ {cnpj}"))
+    identities.extend(selected_labels)
+    return tuple(scoped_sources), tuple(identities), tuple(scoped_groups)
+
+
+def _document_sources_for_rows(page, segment):
+    """Keep exact, explicitly tagged criterion references with their rows."""
+    normalize = lambda text: " ".join(str(text).split())
+    known = {normalize(value) for value in page.frame.iloc[:, 0]}
+    visible = {re.sub(r"\s*\(continuação\)\s*$", "", normalize(value)) for value in segment.iloc[:, 0]}
+    sources = []
+    for source in page.sources:
+        parts = str(source).split(" · ", 2)
+        tagged_label = normalize(parts[1]) if len(parts) == 3 and _DOCUMENT_SOURCE_OWNER.match(parts[0]) else None
+        if tagged_label in known and tagged_label not in visible:
+            continue
+        sources.append(source)
+    return tuple(sources)
 
 
 def build_document_comparison_pptx_bytes(
@@ -72,9 +141,6 @@ def build_document_comparison_pptx_bytes(
 
     from services.document_curation_comparison import comparison_column_chunks
 
-    prs = Presentation()
-    prs.slide_width = Inches(SLIDE_W)
-    prs.slide_height = Inches(SLIDE_H)
     jobs = []
     for page in pages:
         page = replace(page,
@@ -99,12 +165,15 @@ def build_document_comparison_pptx_bytes(
         note_lines = [line for note in page.notes if (clean := public_document_text(note)) for line in textwrap.wrap(clean, width=165)]
         note_groups = [note_lines[start : start + 8] for start in range(0, len(note_lines), 8)] or [[]]
         for selected in comparison_column_chunks(frame, max_funds=DOCUMENT_MAX_FUNDS):
+            segment_sources, identities, segment_groups = _document_segment_metadata(selected.columns[1:], manifest.funds, page.sources, group_notes)
+            segment_page = replace(page, sources=segment_sources)
             widths = _document_column_widths(len(selected.columns))
             header_height = max(0.43, _document_row_height(pd.Series(selected.columns), widths))
             for visible_notes in note_groups:
                 notes_height = len(visible_notes) * 0.155 + 0.15 if visible_notes else 0
                 for segment, heights in _document_row_pages(selected, widths, header_height, notes_height=notes_height, table_top=table_top):
-                    jobs.append((page, segment, widths, header_height, heights, visible_notes, notes_height, group_notes, grouped, table_top))
+                    row_page = replace(segment_page, sources=_document_sources_for_rows(segment_page, segment))
+                    jobs.append((row_page, segment, widths, header_height, heights, visible_notes, notes_height, segment_groups, grouped, table_top, identities))
 
     if not jobs:
         raise ValueError("Não há tabelas documentais disponíveis para exportação.")
@@ -129,85 +198,127 @@ def build_document_comparison_pptx_bytes(
         run.font.color.rgb = rgb(color)
         return shape
 
-    for index, (page, frame, widths, header_height, row_heights, visible_notes, notes_height, group_notes, grouped, table_top) in enumerate(jobs, start=1):
-        slide = prs.slides.add_slide(prs.slide_layouts[6])
-        slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = rgb(WHITE)
-        title = page.title if portfolio_mode else f"{manifest.title} – {page.title}"
-        title_size = 23 if len(title) <= 95 else 20
-        text_box(slide, title, DOCUMENT_LEFT, 0.32, DOCUMENT_WIDTH, 0.61, title_size, bold=True, color=ORANGE)
-        if grouped:
-            from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION
-            text_box(slide, DOCUMENT_GROUPING_CAPTION, DOCUMENT_LEFT, 1.00, DOCUMENT_WIDTH, .18, 10, color=MID)
-        height = header_height + sum(row_heights)
-        table = slide.shapes.add_table(
-            len(frame) + 1, len(frame.columns),
-            Inches(DOCUMENT_LEFT), Inches(table_top),
-            Inches(DOCUMENT_WIDTH), Inches(height),
-        ).table
-        table.first_row = False
-        table.horz_banding = False
-        table.vert_banding = False
-        for col_index, width in enumerate(widths):
-            table.columns[col_index].width = Inches(width)
-        table.rows[0].height = Inches(header_height)
-        for row_index, row_height in enumerate(row_heights, start=1):
-            table.rows[row_index].height = Inches(row_height)
-        values = [list(frame.columns), *frame.values.tolist()]
-        for row_index, row in enumerate(values):
-            for col_index, value in enumerate(row):
-                cell = table.cell(row_index, col_index)
-                cell.text = "\n".join(_document_wrapped_lines(value, widths[col_index]))
-                cell.fill.solid()
-                cell.fill.fore_color.rgb = rgb(SOFT if row_index == 0 and portfolio_mode else HEADER_ORANGE if row_index == 0 else WHITE)
-                cell.margin_left = cell.margin_right = Inches(DOCUMENT_CELL_PADDING)
-                cell.margin_top = cell.margin_bottom = Inches(0.045)
-                cell.vertical_anchor = MSO_ANCHOR.MIDDLE
-                cell.text_frame.word_wrap = True
-                cell.text_frame.auto_size = MSO_AUTO_SIZE.NONE
-                for paragraph in cell.text_frame.paragraphs:
-                    paragraph.alignment = PP_ALIGN.LEFT if portfolio_mode or col_index == 0 else PP_ALIGN.CENTER
-                    paragraph.space_before = paragraph.space_after = Pt(0)
-                    paragraph.line_spacing = 1.0
-                    for run in paragraph.runs:
-                        run.font.name = FONT
-                        run.font.size = Pt(DOCUMENT_FONT_SIZE)
-                        run.font.bold = row_index == 0 or col_index == 0
-                        run.font.color.rgb = rgb(WHITE if row_index == 0 and not portfolio_mode else BLACK)
-                _document_cell_borders(cell, header=row_index == 0, last=row_index == len(frame))
+    def render_batch(batch_jobs, start_index):
+        prs = Presentation()
+        prs.slide_width = Inches(SLIDE_W)
+        prs.slide_height = Inches(SLIDE_H)
+        for index, (page, frame, widths, header_height, row_heights, visible_notes, notes_height, group_notes, grouped, table_top, identities) in enumerate(batch_jobs, start=start_index):
+            slide = prs.slides.add_slide(prs.slide_layouts[6])
+            slide.background.fill.solid()
+            slide.background.fill.fore_color.rgb = rgb(WHITE)
+            title = page.title if portfolio_mode else f"{manifest.title} – {page.title}"
+            title_size = 23 if len(title) <= 95 else 20
+            text_box(slide, title, DOCUMENT_LEFT, 0.32, DOCUMENT_WIDTH, 0.61, title_size, bold=True, color=ORANGE)
+            if grouped:
+                from services.portfolio_document_display import DOCUMENT_GROUPING_CAPTION
+                text_box(slide, DOCUMENT_GROUPING_CAPTION, DOCUMENT_LEFT, 1.00, DOCUMENT_WIDTH, .18, 10, color=MID)
+            height = header_height + sum(row_heights)
+            table = slide.shapes.add_table(
+                len(frame) + 1, len(frame.columns),
+                Inches(DOCUMENT_LEFT), Inches(table_top),
+                Inches(DOCUMENT_WIDTH), Inches(height),
+            ).table
+            table.first_row = False
+            table.horz_banding = False
+            table.vert_banding = False
+            for col_index, width in enumerate(widths):
+                table.columns[col_index].width = Inches(width)
+            table.rows[0].height = Inches(header_height)
+            for row_index, row_height in enumerate(row_heights, start=1):
+                table.rows[row_index].height = Inches(row_height)
+            values = [list(frame.columns), *frame.values.tolist()]
+            for row_index, row in enumerate(values):
+                for col_index, value in enumerate(row):
+                    cell = table.cell(row_index, col_index)
+                    cell.text = "\n".join(_document_wrapped_lines(value, widths[col_index]))
+                    cell.fill.solid()
+                    cell.fill.fore_color.rgb = rgb(SOFT if row_index == 0 and portfolio_mode else HEADER_ORANGE if row_index == 0 else WHITE)
+                    cell.margin_left = cell.margin_right = Inches(DOCUMENT_CELL_PADDING)
+                    cell.margin_top = cell.margin_bottom = Inches(0.045)
+                    cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+                    cell.text_frame.word_wrap = True
+                    cell.text_frame.auto_size = MSO_AUTO_SIZE.NONE
+                    for paragraph in cell.text_frame.paragraphs:
+                        paragraph.alignment = PP_ALIGN.LEFT if portfolio_mode or col_index == 0 else PP_ALIGN.CENTER
+                        paragraph.space_before = paragraph.space_after = Pt(0)
+                        paragraph.line_spacing = 1.0
+                        for run in paragraph.runs:
+                            run.font.name = FONT
+                            run.font.size = Pt(DOCUMENT_FONT_SIZE)
+                            run.font.bold = row_index == 0 or col_index == 0
+                            run.font.color.rgb = rgb(WHITE if row_index == 0 and not portfolio_mode else BLACK)
+                    _document_cell_borders(cell, header=row_index == 0, last=row_index == len(frame))
 
-        if visible_notes:
-            text_box(slide, "\n".join(visible_notes), DOCUMENT_LEFT, DOCUMENT_TABLE_BOTTOM - notes_height + 0.1, DOCUMENT_WIDTH, notes_height, 10, color=MID)
+            if visible_notes:
+                text_box(slide, "\n".join(visible_notes), DOCUMENT_LEFT, DOCUMENT_TABLE_BOTTOM - notes_height + 0.1, DOCUMENT_WIDTH, notes_height, 10, color=MID)
 
-        reading_date = _document_reading_date(manifest.generated_at)
-        footer = (
-            f"Documentos · Leitura: {reading_date} · Fontes nas notas"
-            if portfolio_mode else
-            f"Leitura documental: {reading_date}. Fontes e referências nas notas do slide."
-        )
-        text_box(slide, footer, DOCUMENT_LEFT, 7.03, DOCUMENT_WIDTH - 1, 0.18, 8.5, color=MID)
-        text_box(slide, f"{index}/{len(jobs)}", SLIDE_W - DOCUMENT_LEFT - 0.7, 7.03, 0.7, 0.18, 8.5, color=MID, align=PP_ALIGN.RIGHT)
-        notes = [page.title, f"Leitura documental: {manifest.generated_at or 'data não informada'}"]
-        if portfolio_mode:
-            notes.append(f"Documento: {manifest.title}")
-            notes.extend(f"{fund.get('short_name') or fund.get('name')} · {fund.get('name') or 'razão social não informada'} · CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
-            if index == 1:
-                from services.portfolio_document_display import portfolio_document_warnings
-                warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
-                if warnings:
-                    notes.extend(["Ressalvas da leitura:", *warnings])
-        else:
-            notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
-        if page.notes:
-            notes.extend(["Observações:", *page.notes])
-        if group_notes:
-            notes.extend(["Composição das colunas (valores documentais idênticos):", *group_notes])
-        notes.extend(["Fontes:", *(page.sources or (manifest.source or "Fonte documental não localizada",))])
-        slide.notes_slide.notes_text_frame.text = "\n".join(notes)
+            reading_date = _document_reading_date(manifest.generated_at)
+            footer = (
+                f"Documentos · Leitura: {reading_date} · Fontes nas notas"
+                if portfolio_mode else
+                f"Leitura documental: {reading_date}. Fontes e referências nas notas do slide."
+            )
+            text_box(slide, footer, DOCUMENT_LEFT, 7.03, DOCUMENT_WIDTH - 1, 0.18, 8.5, color=MID)
+            text_box(slide, f"{index}/{len(jobs)}", SLIDE_W - DOCUMENT_LEFT - 0.7, 7.03, 0.7, 0.18, 8.5, color=MID, align=PP_ALIGN.RIGHT)
+            notes = [page.title, f"Leitura documental: {manifest.generated_at or 'data não informada'}"]
+            if portfolio_mode:
+                notes.append(f"Documento: {manifest.title}")
+                notes.extend(identities)
+                if index == 1:
+                    from services.portfolio_document_display import portfolio_document_warnings
+                    warnings = portfolio_document_warnings(getattr(manifest, "warnings", ()) or ())
+                    if warnings:
+                        notes.extend(["Ressalvas da leitura:", *warnings])
+            else:
+                notes.extend(identities)
+            if page.notes:
+                notes.extend(["Observações:", *page.notes])
+            if group_notes:
+                notes.extend(["Composição das colunas (valores documentais idênticos):", *group_notes])
+            notes.extend(["Fontes:", *(page.sources or (manifest.source or "Fonte documental não localizada",))])
+            slide.notes_slide.notes_text_frame.text = "\n".join(notes)
+        return prs
 
-    output = BytesIO()
-    prs.save(output)
-    return public_pptx_bytes(output.getvalue())
+    if len(jobs) <= _DOCUMENT_SLIDE_BATCH_SIZE:
+        prs = render_batch(jobs, 1)
+        output = BytesIO()
+        prs.save(output)
+        return public_pptx_bytes(output.getvalue())
+
+    from services.pptx_merge import merge_pptx_files_serial
+
+    # A deck is released after each small batch. The serial merger reads only
+    # one package member at a time; the final bytes are read after generation.
+    with TemporaryDirectory(prefix="fidc-documentary-ppt-") as temporary:
+        folder = Path(temporary)
+        paths = []
+        total_bytes = 0
+        for offset in range(0, len(jobs), _DOCUMENT_SLIDE_BATCH_SIZE):
+            if shutil.disk_usage(folder).free < _DOCUMENT_DISK_FLOOR:
+                raise RuntimeError("Espaço insuficiente para preparar a apresentação documental.")
+            path = folder / f"batch-{len(paths):05d}.pptx"
+            prs = render_batch(jobs[offset:offset + _DOCUMENT_SLIDE_BATCH_SIZE], offset + 1)
+            prs.save(path)
+            del prs
+            gc.collect()
+            if path.stat().st_size + total_bytes > _DOCUMENT_TEMP_BYTES:
+                raise RuntimeError("A apresentação excedeu o limite de arquivos temporários.")
+            # Sanitize each bounded package, preserving the public boundary
+            # without rebuilding the complete merged deck in memory.
+            sanitized = public_pptx_bytes(path.read_bytes())
+            path.write_bytes(sanitized)
+            del sanitized
+            total_bytes += path.stat().st_size
+            paths.append(path)
+        if total_bytes * 2 > _DOCUMENT_TEMP_BYTES:
+            raise RuntimeError("A apresentação excedeu o limite de arquivos temporários.")
+        if shutil.disk_usage(folder).free < total_bytes + _DOCUMENT_DISK_FLOOR:
+            raise RuntimeError("Espaço insuficiente para reunir a apresentação documental.")
+        output = folder / "documentary.pptx"
+        merge_pptx_files_serial(paths, output)
+        if output.stat().st_size + total_bytes > _DOCUMENT_TEMP_BYTES:
+            raise RuntimeError("A apresentação excedeu o limite de arquivos temporários.")
+        return output.read_bytes()
 
 
 def _document_cell_text(value: object) -> str:

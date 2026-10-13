@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-13T12:29:37+00:00",
+  "status": "passed",
+  "scope": {
+    "portfolio_id": "carteira1_fidc_industry_20260731",
+    "portfolio_name": "Carteira 1",
+    "fund_count": 101,
+    "reference_competence": null,
+    "reference_reason": "No common competence in the published baseline; no private IME caches consulted.",
+    "producer": "Exact documentary UI PPT producer, with portable published inputs and no network/app server."
+  },
+  "source_baseline": {
+    "expected_head": "4935d33515475d94fd5d6e5e24e25a034c37a899",
+    "generation_head": "4e24d5664ff568f3974a6a850ce2a04d7431d13e",
+    "baseline_portfolio_sha256": "9cd3ae27b97bd0c7739b9d799028cd4d8e134c6f3b3d2c49bdd2a18df3658c6c",
+    "basket_matches_baseline": true,
+    "portfolio_difference_note": "Current head includes timestamp-only portfolio changes; exact declared basket matches baseline.",
+    "expected_manifest_sha256": "0d58709a3dad3f57e8c0255b0cc36b81336fa607bf3999852a366fc8546a614c",
+    "portfolios_sha256": "20e1e060ac6526ae7e010bf7eb4d57a84e56f03996b658192c1a012df611a295"
+  },
+  "code_sha256": {
+    "services/documentary_diligence.py": "643d42306e7d808613edb84e4ec49d978a192e4dd91050f0718230abe50eaa22",
+    "services/deep_dive_ppt_export.py": "3af31a23d09bd3758815729900cf8096050679ea1e94881624dfb0c1041c3bde",
+    "services/on_demand_download.py": "51fff046a556f422f31fa05888e9a16079b35d9016ddf07da6dbbbc3e95971c5",
+    "services/documentary_ime_comparison.py": "2e63391b906e184ee642de6f8c803f9d28981c99bab72c8259348f1e6b95ae05",
+    "services/pptx_merge.py": "241c505062d5a45fbdc4899285421b922e07fde07275977afb5b709695d853ef"
+  },
+  "child_self_peak_rss_bytes": 381239296,
+  "wall_seconds": 129.794,
+  "ppt_generation_seconds": 87.229,
+  "output": {
+    "sha256": "7816e1b1d2e1e53c038d87a3c72e6aa366a65cf74fe3dfe24680c66afd071c2f",
+    "size_bytes": 28953874,
+    "slides": 3883,
+    "notes_slides": 3883,
+    "uncompressed_package_bytes": 170302466,
+    "temporary_removed_after_inspection": true
+  },
+  "inspection": {
+    "members_checked": 15571,
+    "native_table_count": 3883,
+    "maximum_funds_per_slide": 4,
+    "declared_funds_seen": 101,
+    "expected_cell_values": 6565,
+    "expected_sources": 34841,
+    "source_owner_lines_checked": 104023,
+    "missing_values": [],
+    "missing_sources": [],
+    "source_scope_errors": [],
+    "private_members": [],
+    "method": "ZIP members read sequentially; XML sources scoped to exact visible CNPJ columns. Complete cell characters retained in order after removing presentation line breaks and spacing. No whole-deck Office reload."
+  },
+  "monitor": {
+    "peak_sampled_rss_bytes": 381190144,
+    "sample_interval_seconds": 1,
+    "samples": 129,
+    "total_wall_seconds": 129.983,
+    "free_disk_start_bytes": 28102029312,
+    "free_disk_end_bytes": 28065902592,
+    "abort_reason": null,
+    "child_exit_code": 0,
+    "last_batch_progress": {
+      "completed_batches": 0,
+      "batch_bytes": 0
+    },
+    "free_disk_after_cleanup_bytes": 28094861312
+  },
+  "limits": {
+    "rss_bytes": 943718400,
+    "elapsed_seconds": 180,
+    "disk_floor_bytes": 10737418240,
+    "maximum_temporary_output_bytes": 536870912,
+    "parallel_exports": 1
+  },
+  "attempts": [
+    {
+      "schema_version": 1,
+      "generated_at": "2026-10-13T12:08:39+00:00",
+      "status": "aborted",
+      "source_baseline": {
+        "expected_head": "4935d33515475d94fd5d6e5e24e25a034c37a899",
+        "expected_manifest_sha256": "0d58709a3dad3f57e8c0255b0cc36b81336fa607bf3999852a366fc8546a614c",
+        "portfolios_sha256": "9cd3ae27b97bd0c7739b9d799028cd4d8e134c6f3b3d2c49bdd2a18df3658c6c"
+      },
+      "monitor": {
+        "peak_sampled_rss_bytes": 950796288,
+        "sample_interval_seconds": 1,
+        "samples": 60,
+        "total_wall_seconds": 60.57,
+        "free_disk_start_bytes": 28171644928,
+        "free_disk_end_bytes": 28167094272,
+        "abort_reason": "rss_limit",
+        "child_exit_code": -15,
+        "free_disk_after_cleanup_bytes": 28167094272
+      },
+      "limits": {
+        "rss_bytes": 943718400,
+        "elapsed_seconds": 180,
+        "disk_floor_bytes": 10737418240,
+        "maximum_temporary_output_bytes": 536870912,
+        "parallel_exports": 1
+      },
+      "scope": {
+        "portfolio_id": "carteira1_fidc_industry_20260731",
+        "portfolio_name": "Carteira 1",
+        "fund_count": 101,
+        "reference_competence": null,
+        "reference_reason": "Published baseline has no common competence among92eligibleCNPJs; no private IME caches consulted.",
+        "producer": "Exact documentary UI PPT producer in a single isolated offline child; network disabled; no app server or collectors."
+      },
+      "code_sha256": {
+        "services/documentary_diligence.py": "643d42306e7d808613edb84e4ec49d978a192e4dd91050f0718230abe50eaa22",
+        "services/deep_dive_ppt_export.py": "713df698b39b3806c330383e7e13a4ba943c1c6be7d70ee8eca1f3f340dc5aa3",
+        "services/on_demand_download.py": "51fff046a556f422f31fa05888e9a16079b35d9016ddf07da6dbbbc3e95971c5",
+        "services/documentary_ime_comparison.py": "2e63391b906e184ee642de6f8c803f9d28981c99bab72c8259348f1e6b95ae05"
+      },
+      "output": {
+        "status": "not_created",
+        "sha256": null,
+        "size_bytes": null,
+        "slides": null,
+        "temporary_removed_after_inspection": null,
+        "reason": "The child crossed900MiB RSS during deck construction and was terminated before an output file existed."
+      },
+      "inspection": {
+        "status": "not_run",
+        "reason": "No completed PPTX available after bounded termination.",
+        "planned_method": "Sequential ZIP/XML member inspection without loading a second whole-deck Office object."
+      },
+      "limitations": [
+        "This is a resource-budget failure of the101fund export. No completed artifact was inspected.",
+        "The single-fund and8fund regression suites passed before this benchmark; they do not certify a101fund export.",
+        "The code retains the in-memory python-pptx deck and repeats every selected fund source across its theme continuations; the dominant allocation was not profiled before the bounded stop."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "generated_at": "2026-10-13T12:14:05+00:00",
+      "status": "aborted",
+      "source_baseline": {
+        "expected_head": "4935d33515475d94fd5d6e5e24e25a034c37a899",
+        "expected_manifest_sha256": "0d58709a3dad3f57e8c0255b0cc36b81336fa607bf3999852a366fc8546a614c",
+        "portfolios_sha256": "9cd3ae27b97bd0c7739b9d799028cd4d8e134c6f3b3d2c49bdd2a18df3658c6c"
+      },
+      "monitor": {
+        "peak_sampled_rss_bytes": 1205370880,
+        "sample_interval_seconds": 1,
+        "samples": 108,
+        "total_wall_seconds": 108.869,
+        "free_disk_start_bytes": 28171407360,
+        "free_disk_end_bytes": 28140904448,
+        "abort_reason": "rss_limit",
+        "child_exit_code": -15,
+        "free_disk_after_cleanup_bytes": 28140904448
+      },
+      "limits": {
+        "rss_bytes": 943718400,
+        "elapsed_seconds": 180,
+        "disk_floor_bytes": 10737418240,
+        "maximum_temporary_output_bytes": 536870912,
+        "parallel_exports": 1
+      },
+      "scope": {
+        "portfolio_id": "carteira1_fidc_industry_20260731",
+        "portfolio_name": "Carteira 1",
+        "fund_count": 101,
+        "reference_competence": null,
+        "reference_reason": "Published baseline has no common competence among 92 eligible CNPJs; no private IME caches consulted.",
+        "producer": "Exact documentary UI PPT producer, single isolated offline child; socket network disabled; no app server or collectors."
+      },
+      "code_sha256": {
+        "services/documentary_diligence.py": "643d42306e7d808613edb84e4ec49d978a192e4dd91050f0718230abe50eaa22",
+        "services/deep_dive_ppt_export.py": "9a6f372b13739738d569859384f3eb2b31800cec42e3b467141695be0bcff70e",
+        "services/on_demand_download.py": "51fff046a556f422f31fa05888e9a16079b35d9016ddf07da6dbbbc3e95971c5",
+        "services/documentary_ime_comparison.py": "2e63391b906e184ee642de6f8c803f9d28981c99bab72c8259348f1e6b95ae05"
+      },
+      "output": {
+        "status": "not_created",
+        "sha256": null,
+        "size_bytes": null,
+        "slides": null,
+        "reason": "Child terminated after crossing the 900MiB RSS limit before the PPTX bytes were returned and written."
+      },
+      "inspection": {
+        "status": "not_run",
+        "reason": "No completed PPTX available after bounded termination."
+      },
+      "limitations": [
+        "Two bounded attempts exceeded the 900MiB RSS budget. No101fund artifact has passed inspection.",
+        "Current source filtering preserves exact CNPJs and visible criterion rows; complete in-memory deck construction and final serialization remain unbounded. The dominant allocation was not profiled before termination.",
+        "No third export benchmark was started. A bounded package writer must be evaluated before another run."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "generated_at": "2026-10-13T12:29:37+00:00",
+      "status": "passed",
+      "scope": {
+        "portfolio_id": "carteira1_fidc_industry_20260731",
+        "portfolio_name": "Carteira 1",
+        "fund_count": 101,
+        "reference_competence": null,
+        "reference_reason": "No common competence in the published baseline; no private IME caches consulted.",
+        "producer": "Exact documentary UI PPT producer, with portable published inputs and no network/app server."
+      },
+      "source_baseline": {
+        "expected_head": "4935d33515475d94fd5d6e5e24e25a034c37a899",
+        "generation_head": "4e24d5664ff568f3974a6a850ce2a04d7431d13e",
+        "baseline_portfolio_sha256": "9cd3ae27b97bd0c7739b9d799028cd4d8e134c6f3b3d2c49bdd2a18df3658c6c",
+        "basket_matches_baseline": true,
+        "portfolio_difference_note": "Current head includes timestamp-only portfolio changes; exact declared basket matches baseline.",
+        "expected_manifest_sha256": "0d58709a3dad3f57e8c0255b0cc36b81336fa607bf3999852a366fc8546a614c",
+        "portfolios_sha256": "20e1e060ac6526ae7e010bf7eb4d57a84e56f03996b658192c1a012df611a295"
+      },
+      "code_sha256": {
+        "services/documentary_diligence.py": "643d42306e7d808613edb84e4ec49d978a192e4dd91050f0718230abe50eaa22",
+        "services/deep_dive_ppt_export.py": "3af31a23d09bd3758815729900cf8096050679ea1e94881624dfb0c1041c3bde",
+        "services/on_demand_download.py": "51fff046a556f422f31fa05888e9a16079b35d9016ddf07da6dbbbc3e95971c5",
+        "services/documentary_ime_comparison.py": "2e63391b906e184ee642de6f8c803f9d28981c99bab72c8259348f1e6b95ae05",
+        "services/pptx_merge.py": "241c505062d5a45fbdc4899285421b922e07fde07275977afb5b709695d853ef"
+      },
+      "child_self_peak_rss_bytes": 381239296,
+      "wall_seconds": 129.794,
+      "ppt_generation_seconds": 87.229,
+      "output": {
+        "sha256": "7816e1b1d2e1e53c038d87a3c72e6aa366a65cf74fe3dfe24680c66afd071c2f",
+        "size_bytes": 28953874,
+        "slides": 3883,
+        "notes_slides": 3883,
+        "uncompressed_package_bytes": 170302466,
+        "temporary_removed_after_inspection": true
+      },
+      "inspection": {
+        "members_checked": 15571,
+        "native_table_count": 3883,
+        "maximum_funds_per_slide": 4,
+        "declared_funds_seen": 101,
+        "expected_cell_values": 6565,
+        "expected_sources": 34841,
+        "source_owner_lines_checked": 104023,
+        "missing_values": [],
+        "missing_sources": [],
+        "source_scope_errors": [],
+        "private_members": [],
+        "method": "ZIP members read sequentially; XML sources scoped to exact visible CNPJ columns. Complete cell characters retained in order after removing presentation line breaks and spacing. No whole-deck Office reload."
+      },
+      "monitor": {
+        "peak_sampled_rss_bytes": 381190144,
+        "sample_interval_seconds": 1,
+        "samples": 129,
+        "total_wall_seconds": 129.983,
+        "free_disk_start_bytes": 28102029312,
+        "free_disk_end_bytes": 28065902592,
+        "abort_reason": null,
+        "child_exit_code": 0,
+        "last_batch_progress": {
+          "completed_batches": 0,
+          "batch_bytes": 0
+        },
+        "free_disk_after_cleanup_bytes": 28094861312
+      },
+      "limits": {
+        "rss_bytes": 943718400,
+        "elapsed_seconds": 180,
+        "disk_floor_bytes": 10737418240,
+        "maximum_temporary_output_bytes": 536870912,
+        "parallel_exports": 1
+      }
+    }
+  ]
+}

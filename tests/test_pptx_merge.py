@@ -12,7 +12,7 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.util import Inches
 import pytest
 
-from services.pptx_merge import PptxMergeError, merge_pptx_bytes
+from services.pptx_merge import PptxMergeError, merge_pptx_bytes, merge_pptx_files_serial
 
 
 def _native_deck_bytes(
@@ -337,3 +337,104 @@ def test_merger_can_normalize_compatible_legacy_duplicates_without_appendices():
     result = merge_pptx_bytes(legacy)
     _assert_single_notes_master(result)
     assert Presentation(BytesIO(result)).slides[0].notes_slide.notes_text_frame.text == Presentation(BytesIO(primary)).slides[0].notes_slide.notes_text_frame.text
+
+
+def _serial_batch_fixture(title: str, image_path) -> bytes:
+    prs = Presentation(BytesIO(_noted_deck(title)))
+    first = prs.slides[0]
+    first.shapes.add_picture(str(image_path), Inches(11.8), Inches(5.8), width=Inches(0.4))
+    link = first.shapes.add_textbox(Inches(0.5), Inches(6.8), Inches(6), Inches(0.3))
+    run = link.text_frame.paragraphs[0].add_run()
+    run.text = f"Fonte externa {title} · 7/99 · taxa 12,3%"
+    run.hyperlink.address = f"https://example.com/primary/{title}"
+    second = prs.slides.add_slide(prs.slide_layouts[6])
+    second.shapes.add_textbox(Inches(0.5), Inches(0.5), Inches(6), Inches(0.4)).text = f"Continuação {title}"
+    second.notes_slide.notes_text_frame.text = f"Vínculo FIC {title}\nCompetência 08/2026\nPágina 12 · fonte integral\n7/99 · taxa 12,3%"
+    first.shapes.add_textbox(Inches(7), Inches(6.8), Inches(2), Inches(0.3)).click_action.target_slide = second
+    out = BytesIO(); prs.save(out)
+    return out.getvalue()
+
+
+def test_serial_file_merge_keeps_native_parts_notes_links_images_and_order_without_final_presentation(tmp_path, monkeypatch):
+    import hashlib
+    import pptx
+    from PIL import Image
+    import services.pptx_merge as merger
+
+    image_path = tmp_path / "source.png"
+    Image.new("RGB", (12, 12), "orange").save(image_path)
+    payloads = [_serial_batch_fixture(title, image_path) for title in ("A", "B", "C")]
+    paths = []
+    for index, payload in enumerate(payloads):
+        path = tmp_path / f"batch{index}.pptx"; path.write_bytes(payload); paths.append(path)
+
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError("Serial merge must not materialize a complete package/Presentation")
+
+    with monkeypatch.context() as isolated:
+        isolated.setattr(merger, "_read_package", forbidden)
+        isolated.setattr(merger, "_validate_openable_presentation", forbidden)
+        isolated.setattr(pptx, "Presentation", forbidden)
+        output = merger.merge_pptx_files_serial(paths, tmp_path / "combined.pptx")
+
+    result = output.read_bytes()  # Full reopening belongs only to this small test.
+    _assert_single_notes_master(result)
+    presentation = Presentation(BytesIO(result))
+    assert len(presentation.slides) == 6
+    assert [slide.notes_slide.notes_text_frame.text for slide in presentation.slides] == [
+        slide.notes_slide.notes_text_frame.text for payload in payloads for slide in Presentation(BytesIO(payload)).slides
+    ]
+    assert [shape.table.cell(1, 1).text for slide in presentation.slides for shape in slide.shapes if shape.has_table] == ["12,34%"] * 3
+    assert [list(shape.chart.series[0].values) for slide in presentation.slides for shape in slide.shapes if shape.has_chart] == [[0.0, 12.3]] * 3
+    expected_parts = {prefix: [] for prefix in ("ppt/slides/slide", "ppt/notesSlides/notesSlide", "ppt/charts/", "ppt/embeddings/", "ppt/media/")}
+    for payload in payloads:
+        with ZipFile(BytesIO(payload)) as source:
+            for prefix in expected_parts:
+                expected_parts[prefix].extend(hashlib.sha256(source.read(name)).hexdigest() for name in source.namelist() if name.startswith(prefix) and not name.endswith(".rels"))
+    with ZipFile(output) as destination:
+        for prefix, hashes in expected_parts.items():
+            assert sorted(hashes) == sorted(hashlib.sha256(destination.read(name)).hexdigest() for name in destination.namelist() if name.startswith(prefix) and not name.endswith(".rels"))
+        properties = etree.fromstring(destination.read("docProps/app.xml"))
+        ep = "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"
+        assert properties.find(f"{{{ep}}}Slides").text == "6"
+        assert properties.find(f"{{{ep}}}Notes").text == "6"
+        external = []
+        for name in destination.namelist():
+            if name.endswith(".rels"):
+                external.extend(node.get("Target") for node in etree.fromstring(destination.read(name)) if node.get("TargetMode") == "External")
+        assert sorted(external) == [f"https://example.com/primary/{title}" for title in ("A", "B", "C")]
+        assert "7/99 · taxa 12,3%" in presentation.slides[1].notes_slide.notes_text_frame.text
+        slide_three_links = etree.fromstring(destination.read("ppt/slides/_rels/slide3.xml.rels"))
+        assert any(node.get("Type") == f"{_R}/slide" and node.get("Target") == "slide4.xml" for node in slide_three_links)
+
+
+def test_serial_merge_rejects_incompatible_batches_atomically(tmp_path):
+    first = tmp_path / "first.pptx"; first.write_bytes(_noted_deck("A"))
+    second = tmp_path / "second.pptx"; second.write_bytes(_native_deck_bytes(slide_title="B", chart_title="B", chart_values=(1, 2), width_inches=10))
+    output = tmp_path / "result.pptx"; output.write_bytes(b"existing output")
+    with pytest.raises(PptxMergeError, match="tamanho"):
+        merge_pptx_files_serial([first, second], output)
+    assert output.read_bytes() == b"existing output"
+    assert not list(tmp_path.glob("*.partial"))
+
+
+def test_serial_merge_rejects_more_than_32_slides_per_batch(tmp_path):
+    prs = Presentation()
+    for _ in range(33):
+        prs.slides.add_slide(prs.slide_layouts[6])
+    path = tmp_path / "oversized.pptx"; prs.save(path)
+    with pytest.raises(PptxMergeError, match="32 slides"):
+        merge_pptx_files_serial([path], tmp_path / "result.pptx")
+
+
+def test_serial_merge_cleans_partial_output_after_dangling_relationship(tmp_path):
+    def missing_part(files):
+        relations = etree.fromstring(files["ppt/slides/_rels/slide1.xml.rels"])
+        etree.SubElement(relations, f"{{{_REL}}}Relationship", Id="rIdMissing", Type=f"{_R}/image", Target="../media/absent.png")
+        files["ppt/slides/_rels/slide1.xml.rels"] = etree.tostring(relations)
+    path = tmp_path / "invalid.pptx"; path.write_bytes(_rewrite_package(_noted_deck("A"), missing_part))
+    output = tmp_path / "result.pptx"; output.write_bytes(b"old result")
+    with pytest.raises(PptxMergeError, match="destino"):
+        merge_pptx_files_serial([path], output)
+    assert output.read_bytes() == b"old result"
+    assert not list(tmp_path.glob("*.partial"))

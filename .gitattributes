@@ -10,3 +10,4 @@ data/documentary_diligence/ime/** linguist-generated=true
 data/documentary_diligence/source_routes/** linguist-generated=true
 # Python's CSV writer preserves standard CRLF records, including quoted excerpts.
 reports/documentary_diligence_*/*.csv whitespace=cr-at-eol
+reports/documentary_public_validation_*/*.csv whitespace=cr-at-eol

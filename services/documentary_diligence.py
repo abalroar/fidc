@@ -795,7 +795,10 @@ def render_documentary_diligence(portfolio: Any, reference_competence: str | Non
             st.html(documentary_corpus_html(audit_funds[audit_selection], load_documentary_corpus(audit_selection)))
         from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
         from services.on_demand_download import current_download_store, download_context_signature, render_native_deferred_download
-        namespace = f"documentary_v2::{token}"
+        # The signature carries the exact basket, portfolio ID and source
+        # versions. A single documentary slot releases previous exports on
+        # basket changes without touching the financial session caches.
+        namespace = "documentary_v2"
         source_paths = [Path(__file__), SOURCE_ROOT / "services/deep_dive_ppt_export.py", SOURCE_ROOT / "services/documentary_ime_comparison.py"]
         for cnpj in audit_funds:
             source_paths.extend(SOURCE_ROOT / "data/documentary_diligence" / directory / f"{cnpj}.json" for directory in ("funds", "history", "corpus", "audit_corpus"))

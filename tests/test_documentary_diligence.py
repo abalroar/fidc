@@ -3,7 +3,7 @@ from io import BytesIO, StringIO
 import json
 from hashlib import sha256
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 from zipfile import ZipFile
 
 from pptx import Presentation
@@ -111,6 +111,53 @@ def test_default_loader_prunes_history_and_zip_preserves_complete_evidence(tmp_p
         assert f"history/{fund['cnpj']}.json" in archive.namelist()
         assert sha256(archive.read(f"history/{fund['cnpj']}.json")).hexdigest() == expected_hash
         assert b"/Users/" not in archive.read(f"funds/{fund['cnpj']}.json")
+
+
+def test_renderer_releases_prior_basket_downloads_without_clearing_financial_cache():
+    from dataclasses import replace
+    from services import documentary_diligence as diligence
+    from services.on_demand_download import PreparedDownload
+
+    first = portfolio()
+    second = replace(first, id="other", name="Outra carteira")
+    baskets = [funds(), funds()]
+    baskets[1][0]["criteria"][0]["value"] = "99% do PL"
+    financial_cache = {"loaded": object()}
+    state = {"ime_portfolio_runtime_store": financial_cache}
+    ui = MagicMock()
+    ui.session_state = state
+    ui.selectbox.return_value = None
+    requests = []
+
+    def clicked_csv(**kwargs):
+        assert kwargs["namespace"] == "documentary_v2"
+        if kwargs["artifact"] != "documentary_csv":
+            return
+        store = kwargs["store"]
+        if kwargs["artifact"] not in store:
+            requests.append(kwargs["producer"]())
+            store[kwargs["artifact"]] = PreparedDownload(requests[-1])
+
+    with (
+        patch.dict("sys.modules", {"streamlit": ui}),
+        patch.object(diligence, "load_documentary_portfolio", side_effect=[baskets[0], baskets[1], baskets[1]]),
+        patch("services.documentary_ime_comparison.resolve_documentary_reference", return_value={"reference_competence": "08/2026", "common_competences": ["08/2026"], "warnings": []}),
+        patch("services.documentary_ime_comparison.build_documentary_observations", return_value=[]),
+        patch("services.on_demand_download.render_native_deferred_download", side_effect=clicked_csv),
+    ):
+        diligence.render_documentary_diligence(first)
+        initial = state["prepared_downloads::documentary_v2"]
+        diligence.render_documentary_diligence(second)
+        current = state["prepared_downloads::documentary_v2"]
+        diligence.render_documentary_diligence(second)
+
+    assert current is not initial
+    assert state["prepared_downloads::documentary_v2"] is current
+    assert len(requests) == 2
+    assert requests[0] != requests[1]
+    assert "99% do PL".encode() in current["files"]["documentary_csv"].data
+    assert [key for key in state if key.startswith("prepared_downloads::")] == ["prepared_downloads::documentary_v2"]
+    assert state["ime_portfolio_runtime_store"] is financial_cache
 
 
 def test_corrupt_json_is_visible_as_parse_failure(tmp_path):
