@@ -873,6 +873,12 @@ def _render_unified_portfolio_download(
     signature = _portfolio_download_context_signature(
         analysis=analysis, selected_portfolio=selected_portfolio, period=period,
     )
+    include_conclusions = st.checkbox(
+        "Incluir sumário de conclusões no PowerPoint",
+        value=False, key=f"portfolio_ppt_conclusions::{selected_portfolio.id}",
+        help="Inclui a síntese já calculada pelo app antes dos slides temáticos.",
+    )
+    signature = download_context_signature(signature, include_conclusions)
     namespace = f"portfolio::{selected_portfolio.id}"
     store = current_download_store(st.session_state, namespace=namespace, signature=signature)
     # Rentabilidade uses this same cached resolver. Its realized CDI rates and
@@ -908,6 +914,7 @@ def _render_unified_portfolio_download(
         return _prepare_complete_portfolio_pptx(
             analysis=analysis, selected_portfolio=selected_portfolio, period=period,
             return_inputs=return_inputs, return_inputs_error=return_inputs_error,
+            include_conclusions=include_conclusions,
         )
 
     render_on_demand_download(
@@ -1059,6 +1066,8 @@ def _portfolio_download_context_signature(
         "services/portfolio_presentation_context.py", "services/pptx_merge.py",
         "services/portfolio_ppt_presentation.py", "services/portfolio_document_display.py",
         "services/portfolio_presentation_state.py", "services/portfolio_export_metadata.py",
+        "services/portfolio_ppt_export.py", "services/portfolio_ppt_content.py",
+        "services/portfolio_ppt_style.py",
     ))
     for directory in ("data/regulatory_profiles", "data/regulatory_knowledge", "data/deep_dives"):
         source_paths.update(path for path in (root / directory).rglob("*") if path.is_file())
@@ -1092,96 +1101,62 @@ def _portfolio_ppt_return_inputs(analysis: PortfolioAnalysisData) -> tuple[Any, 
 def _prepare_complete_portfolio_pptx(
     *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection, return_inputs: Any = None,
-    return_inputs_error: str | None = None,
+    return_inputs_error: str | None = None, include_conclusions: bool = False,
 ):
-    """Preserve the existing deck composition and producer inputs on request."""
-    from services.fundonet_ppt_export import build_dashboard_pptx_bytes
-    from services.fidc_analytical_slide import build_fidc_analytical_pptx_bytes
-    from services.pptx_merge import merge_pptx_bytes
-    from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+    """Compose the requested portfolio once, using the existing analytical results."""
+    from services.fidc_analytical_slide import build_slide_data
+    from services.portfolio_ppt_export import build_portfolio_pptx_bytes
     from services.on_demand_download import PreparedDownload
 
     dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
     output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
-    ppt_scope_consistent = dashboard_cnpjs == output_cnpjs and not analysis.load_errors
-    decks: list[bytes] = []
-    blocks: list[tuple[str, int]] = []
-
-    def append_block(name: str, payload: bytes) -> None:
-        from io import BytesIO
-        from pptx import Presentation
-        count = len(Presentation(BytesIO(payload)).slides)
-        if not count:
-            raise ValueError("Bloco sem slides.")
-        decks.append(payload)
-        blocks.append((name, count))
-
+    consistent = dashboard_cnpjs == output_cnpjs and not analysis.load_errors
     warnings: list[str] = []
-    if analysis.aggregate_bundle is not None and ppt_scope_consistent:
+    if consistent and return_inputs_error is None and return_inputs is None:
         try:
-            append_block("A", build_dashboard_pptx_bytes(
-                analysis.aggregate_bundle.dashboard, requested_period_label=period.label,
-                portfolio_mode=True,
-            ))
+            return_inputs = credit_tab.resolve_fund_return_export_inputs(
+                outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
+            )
         except Exception as exc:  # noqa: BLE001
-            warnings.append(f"Visão Fundos.NET: {exc}")
-    if ppt_scope_consistent:
-        try:
-            if return_inputs_error is not None:
-                raise RuntimeError(return_inputs_error)
-            if return_inputs is None:
-                return_inputs = credit_tab.resolve_fund_return_export_inputs(
-                    outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
-                )
-            monthly_cdi_rates_by_fund, benchmark_spreads_by_fund = return_inputs
-            append_block("B", build_somatorio_fidcs_pptx_bytes(
-                outputs=analysis.outputs, monitor_outputs=analysis.monitor_outputs,
-                research_outputs=analysis.research_outputs,
-                monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
-                benchmark_spreads_by_fund=benchmark_spreads_by_fund,
-                portfolio_mode=True,
-                portfolio_name=selected_portfolio.name,
-                compact=True,
-            ))
-        except Exception as exc:  # noqa: BLE001
-            warnings.append(f"Base analítica: {exc}")
-    else:
-        warnings.append("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.")
+            return_inputs_error = f"{type(exc).__name__}: {exc}"
+    if return_inputs_error:
+        warnings.append(f"CDI e remuneração de emissão: {return_inputs_error}")
+    if not consistent:
+        warnings.append("Base mensal: fundos inconsistentes entre as fontes carregadas. Ausências não são zero.")
     try:
-        append_block("C", build_fidc_analytical_pptx_bytes(
-            selected_portfolio.funds, portfolio_name=selected_portfolio.name,
-            compact=True,
-        ))
+        analytical_data = build_slide_data(selected_portfolio.funds)
     except Exception as exc:  # noqa: BLE001
+        analytical_data = ()
         warnings.append(f"Estrutura, emissões e RDB: {exc}")
     try:
-        documentary_deck = _build_documentary_portfolio_deck(selected_portfolio, portfolio_mode=True)
-        if documentary_deck is not None:
-            append_block("D", documentary_deck)
-        else:
+        documentary_manifest, documentary_pages = _documentary_portfolio_content(selected_portfolio)
+        if not documentary_pages:
             warnings.append("Curadoria documental: pacote comparativo não localizado para esta cesta.")
     except Exception as exc:  # noqa: BLE001
+        documentary_manifest, documentary_pages = None, ()
         warnings.append(f"Curadoria documental: {exc}")
-    if not decks:
-        raise ValueError("Nenhuma parte da apresentação pôde ser preparada.")
-    data = decks[0] if len(decks) == 1 else merge_pptx_bytes(decks[0], *decks[1:])
-    from services.portfolio_ppt_presentation import finalize_portfolio_pptx
+    bundle = analysis.aggregate_bundle
+    dashboard = getattr(bundle, "dashboard", None) if consistent else None
+    if dashboard is None and consistent and len(selected_portfolio.funds) == 1:
+        scope = next((scope for scope in analysis.scopes if scope.kind == "fund"), None)
+        dashboard = getattr(scope, "dashboard", None)
     context = analysis.reference_context or build_portfolio_presentation_context(
         analysis=analysis, portfolio=selected_portfolio, period=period,
     )
-    identities = []
-    for fund in selected_portfolio.funds:
-        scope = next((item for item in analysis.scopes if item.cnpj == fund.cnpj), None)
-        dashboard = (scope.snapshot_dashboard or scope.dashboard) if scope is not None else None
-        info = getattr(dashboard, "fund_info", {}) or {}
-        legal_name = next((value for value in (info.get("nome_fundo"), info.get("nome_classe"), info.get("denominacao"))
-                           if value and str(value).strip() not in {"N/D", "-"}), fund.display_name)
-        identities.append({"name": legal_name, "display_name": fund.display_name, "cnpj": fund.cnpj})
-    data = finalize_portfolio_pptx(
-        data, context=context, blocks=blocks,
-        funds=identities, warnings=tuple(warnings),
+    monthly_cdi, spreads = return_inputs or (None, None)
+    payload = build_portfolio_pptx_bytes(
+        portfolio_name=selected_portfolio.name, funds=selected_portfolio.funds,
+        outputs=analysis.outputs if consistent else None,
+        monitor_outputs=analysis.monitor_outputs if consistent else None,
+        research_outputs=analysis.research_outputs if consistent else None,
+        dashboard=dashboard, analytical_data=analytical_data,
+        documentary_pages=documentary_pages, documentary_manifest=documentary_manifest,
+        requested_period_label=period.label,
+        monthly_cdi_rates_by_fund=monthly_cdi, benchmark_spreads_by_fund=spreads,
+        presentation_context=context, export_warnings=tuple(warnings),
+        include_conclusions=include_conclusions,
     )
-    return PreparedDownload(data=data, warnings=tuple(warnings))
+    return PreparedDownload(data=payload, warnings=tuple(warnings))
 
 
 def _render_legacy_portfolio_download(
@@ -1324,26 +1299,29 @@ def _render_legacy_portfolio_download(
             st.caption(f"Parte não incluída no PPT: {warning}")
 
 
-def _build_documentary_portfolio_deck(portfolio: PortfolioRecord, *, portfolio_mode: bool = False) -> bytes | None:
-    from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
+def _documentary_portfolio_content(portfolio: PortfolioRecord):
     from services.deep_dive_store import deep_dive_portfolio_match_rank, list_deep_dives
     from services.document_curation_comparison import build_document_comparison_pages
 
     signature = portfolio_basket_signature(portfolio.funds)
-    matches = [
-        manifest for manifest in list_deep_dives()
-        if deep_dive_portfolio_match_rank(manifest, portfolio.id, signature) > 0
-    ]
+    matches = [manifest for manifest in list_deep_dives()
+               if deep_dive_portfolio_match_rank(manifest, portfolio.id, signature) > 0]
     if not matches:
-        return None
-    manifest = max(
-        matches,
-        key=lambda item: (deep_dive_portfolio_match_rank(item, portfolio.id, signature), item.generated_at or ""),
-    )
-    pages = build_document_comparison_pages(manifest)
+        return None, ()
+    manifest = max(matches, key=lambda item: (
+        deep_dive_portfolio_match_rank(item, portfolio.id, signature), item.generated_at or "",
+    ))
+    return manifest, tuple(build_document_comparison_pages(manifest))
+
+
+def _build_documentary_portfolio_deck(portfolio: PortfolioRecord, *, portfolio_mode: bool = False) -> bytes | None:
+    from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
+
+    manifest, pages = _documentary_portfolio_content(portfolio)
     if not pages:
         return None
-    return build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True) if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages)
+    return (build_document_comparison_pptx_bytes(manifest, pages, portfolio_mode=True, compact=True)
+            if portfolio_mode else build_document_comparison_pptx_bytes(manifest, pages))
 
 
 def _safe_file_token(value: object) -> str:
