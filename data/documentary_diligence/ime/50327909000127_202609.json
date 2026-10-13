@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50327909000127",
+  "competence": "09/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 958539348.91,
+    "credit_rights": 786646432.52,
+    "overdue_credit": 24153316.92,
+    "cash": 0.0,
+    "pdd": 1312454.8599999999,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 958539348.9087297,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 958539348.9087297
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50327909000127",
+    "competence": "09/2026",
+    "path": "data/documentary_diligence/ime/50327909000127_202609.json",
+    "reported_fund_cnpj": "50327909000127",
+    "reported_class_cnpj": "50327909000127",
+    "reported_fund_cnpj_raw": "50327909000127",
+    "reported_class_cnpj_raw": "50327909000127",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1338594",
+    "version": 1,
+    "delivered_at": "02/10/2026 11:56",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1338594",
+    "declared_fields_sha256": "9d7f0801eaebd145a06d696629998a3813a9323df7026352d7e31226cf234f0c"
+  },
+  "error": ""
+}

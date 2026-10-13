@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "cnpj": "52343195000176",
+  "name": "FARMTECH SYNGENTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:12Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:37Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 695723,
+          "reference_date": "10/07/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695723",
+          "source_excerpt": "ta Fiscal Eletrônica e faculta a\n                                                verificação da sua autorização e do seu conteúdo no ambiente\n                                                nacional (http://www.nfe.fazenda.gov.br) ou no site da\n                                                Secretaria de Fazenda    SEFAZ da circunscrição da Cedente.\n\n\n                Cliente(s)                      Significa determinadas pess"
+        },
+        {
+          "document_id": 597415,
+          "reference_date": "27/09/2023",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=597415",
+          "source_excerpt": "Nota Fiscal Eletrônica e faculta a\n                                               verificação da sua autorização e do seu conteúdo no ambiente\n                                               nacional (http://www.nfe.fazenda.gov.br) ou no site da\n                                               Secretaria de Fazenda – SEFAZ da circunscrição da Cedente.\n\n\n               “Cliente(s)”                    Significa determinadas pessoas"
+        },
+        {
+          "document_id": 791944,
+          "reference_date": "27/11/2024",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+          "source_excerpt": "Nota Fiscal Eletrônica e faculta a\n                                               verificação da sua autorização e do seu conteúdo no\n                                               ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site\n                                               da Secretaria de Fazenda             SEFAZ da circunscrição da\n                                               Cedente.\n\n\n                 Cla"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 695723,
+          "reference_date": "10/07/2024",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695723",
+          "source_excerpt": "lgada pela B3 no informativo\n                                                diário       disponível     em     sua       página      na      Internet\n                                                (http://www.b3.com.br).\n\n\n                Termo de Adesão                 Significa o      Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do Farmtech Syngenta Fundo de Inve"
+        },
+        {
+          "document_id": 597415,
+          "reference_date": "27/09/2023",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=597415",
+          "source_excerpt": "ulgada pela B3 no informativo\n                                               diário        disponível    em     sua       página      na       Internet\n                                               (http://www.b3.com.br).\n\n\n               “Termo de Adesão”               Significa o “Termo de Ciência de Risco e Adesão ao\n                                               Regulamento do Farmtech Syngenta Fundo de Investimen"
+        },
+        {
+          "document_id": 791944,
+          "reference_date": "27/11/2024",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+          "source_excerpt": "is) Dias Úteis, calculada e divulgada pela B3\n                                               no informativo diário disponível em sua página na Internet\n                                               (http://www.b3.com.br).\n\n\n                 Taxa Máxima de                Significa a taxa a que o Custodiante terá direito pela\n                Custódia                       prestação de seus serviços de custódia."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 695723,
+          "reference_date": "10/07/2024",
+          "page": 127,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695723",
+          "source_excerpt": "bre o Auditor Independente contratado para auditoria do\n                        Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                        Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                        na empresa de auditoria contratada será comunicada por meio de carta simples\n                        endereçada aos Cotistas e, quando for o caso, publicada"
+        },
+        {
+          "document_id": 597415,
+          "reference_date": "27/09/2023",
+          "page": 126,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=597415",
+          "source_excerpt": "ign Envelope ID: 3B6AFA3C-1CAD-458B-B184-3A7CFC87E4CB\n\n\n\n\n                       Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                       Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                       na empresa de auditoria contratada será comunicada por meio de carta simples\n                       endereçada aos Cotistas e, quando for o caso, publicada n"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:29Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 695723,
+          "reference_date": "10/07/2024",
+          "page": 139,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=695723",
+          "source_excerpt": "s Creditórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n                perdas      em       Ativos      de      Crédito    do      Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        },
+        {
+          "document_id": 597415,
+          "reference_date": "27/09/2023",
+          "page": 138,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=597415",
+          "source_excerpt": "itos Creditórios Adquiridos Agro do Fundo com base no Manual de Provisão para\n               perdas       em      Ativos      de     Crédito    do      Administrador    disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n               pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n               comportamento de atrasos substancialment"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 597415,
+          "reference_date": "27/09/2023",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=597415",
+          "source_excerpt": "amentação em vigor (tais como o critério de marcação a mercado) e no manual de\n               precificação               do                 Administrador      disponível            em\n               “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n               os Direitos Creditórios Adquiridos Agro serão contabilizados e registrados com base em\n               seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, co"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791944,
+          "reference_date": "27/11/2024",
+          "page": 150,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791944",
+          "source_excerpt": "eitos Creditórios Adquiridos da Classe Única com base no Manual de Provisão\n                para     perdas     em     Ativos     de     Crédito   do   Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n                89.pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira da Classe Única possui\n                um comportamento de atrasos su"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:30Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

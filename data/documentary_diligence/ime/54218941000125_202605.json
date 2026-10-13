@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "54218941000125",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 302082480.67,
+    "credit_rights": 270808200.59,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 292383630.64077,
+    "subordinated_quotas": 9698850.029976398,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 9698850.029976398
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "54218941000125",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/54218941000125_202605.json",
+    "reported_fund_cnpj": "54218941000125",
+    "reported_class_cnpj": "54218941000125",
+    "reported_fund_cnpj_raw": "54218941000125",
+    "reported_class_cnpj_raw": "54218941000125",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1301472",
+    "version": 2,
+    "delivered_at": "26/08/2026 19:48",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1301472",
+    "declared_fields_sha256": "56c9286b46dc3b79c7b8898330e670aac06413c7c8bd5b69aa596c65d76de8aa"
+  },
+  "error": ""
+}

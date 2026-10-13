@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "29492605000129",
+  "name": "GAZIN FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISSEGMENTOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:53Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:04Z",
+  "routes": [
+    {
+      "url": "https://www.liberumratings.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 321587,
+          "reference_date": "30/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=321587",
+          "source_excerpt": "sta(s) classe(s) de ativo(s) é descrita na Metodologia de Ratings de Finanças Estruturadas\n                                                                      disponível no site da Liberum Ratings. www.liberumratings.com.br\nRodrigo Indiani\nRomulo Belmok Charbel\n                                                                      PROCESSO DE DILIGÊNCIA SOBRE OS ATIVOS DE FINANÇAS ESTRUTURADAS"
+        },
+        {
+          "document_id": 321587,
+          "reference_date": "30/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=321587",
+          "source_excerpt": "anuncia, em conformidade com a sua metodologia, o encerramento do(s) Rating(s) listado(s) acima.\n\n\n\n\nEsta classificação é sujeita a alterações. Para verificar a última classificação disponível acesse www.liberumratings.com.br\nLIBERUM RATINGS\nTel: 55 11 3165-4222\nSão Paulo - Brasil\nEm caso de dúvidas, entre em contato conosco:\ncontato@liberumratings.com.br\nwww.liberumratings.com.br\n\n       24760974512645327"
+        },
+        {
+          "document_id": 321587,
+          "reference_date": "30/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=321587",
+          "source_excerpt": "a última classificação disponível acesse www.liberumratings.com.br\nLIBERUM RATINGS\nTel: 55 11 3165-4222\nSão Paulo - Brasil\nEm caso de dúvidas, entre em contato conosco:\ncontato@liberumratings.com.br\nwww.liberumratings.com.br\n\n       24760974512645327\n                                                                                    Finanças Estruturadas / Fundos de Investimentos em Direitos Creditórios"
+        },
+        {
+          "document_id": 321587,
+          "reference_date": "30/06/2022",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=321587",
+          "source_excerpt": "a anual da Liberum Ratings? Não. A Liberum Ratings publica anualmente a lista\nde entidades que representam mais do que 5% do seu faturamento em seu Formulário do Anexo 13. Acesse o formulário no site www.liberumratings.com.br.\nA Liberum Ratings, seus analistas de classificação de risco de crédito ou demais pessoas envolvidas no processo de emissão de uma determinada classificação de\nrisco, seus cônjuges, dependentes ou com"
+        },
+        {
+          "document_id": 321587,
+          "reference_date": "30/06/2022",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=321587",
+          "source_excerpt": "informações contidas e/ou disseminadas pelo website da Liberum Ratings.\nOs ratings e quaisquer outras opiniões emitidas pela Liberum Ratings, ou outros materiais, são disponibilizados em seu website (www.liberumratings.com.br). Tais\npublicações são meras opiniões e devem ser interpretadas como tal. De nenhum modo e sob nenhuma circunstância devem ser consideradas como fatos ou\nverdades sobre a capacidade de crédito do emiss"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

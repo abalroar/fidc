@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "28472333000132",
+  "competence": "08/2024",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 1249395.58,
+    "credit_rights": 151274845.48,
+    "overdue_credit": 151274845.48,
+    "cash": 137443.91,
+    "pdd": 151274845.48,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 1249395.579987899,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1249395.579987899
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "28472333000132",
+    "competence": "08/2024",
+    "path": "data/documentary_diligence/ime/28472333000132_202408.json",
+    "reported_fund_cnpj": "28472333000132",
+    "reported_class_cnpj": "28472333000132",
+    "reported_fund_cnpj_raw": "28472333000132",
+    "reported_class_cnpj_raw": "28472333000132",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "739757",
+    "version": 1,
+    "delivered_at": "16/09/2024 17:56",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=739757",
+    "declared_fields_sha256": "bf89c040baa75b14e872793af5c9fe63d1f6304645bd5be68befcb18b586c8fc"
+  },
+  "error": ""
+}

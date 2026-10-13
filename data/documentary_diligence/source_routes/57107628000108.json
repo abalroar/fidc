@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "cnpj": "57107628000108",
+  "name": "GTCS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:08:14Z",
+  "routes": [
+    {
+      "url": "https://www.singulare.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 910187,
+          "reference_date": "16/05/2025",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+          "source_excerpt": "bem como para\ndiligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais\nregras e procedimentos permanecerão disponíveis e atualizados para consulta no\nwebsite da Administradora (https://www.singulare.com.br/).\n\n\n6.3.2. A nomeação de qualquer terceiro responsável pela guarda dos Direitos\nCreditórios Elegíveis transferidos à Classe Única não exclui a responsabilidade da\nAdministradora.\n\n\n               GESTO"
+        },
+        {
+          "document_id": 910187,
+          "reference_date": "16/05/2025",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=910187",
+          "source_excerpt": "cação da Administradora.\n\n\n10.3. A valorização dos demais Ativos Financeiros que compõem a carteira da Classe\nÚnica será efetuada com base nas regras descritas no manual do Custodiante\n(disponível no https://www.singulare.com.br/), bem como nas regras aplicáveis do\nBACEN e da CVM.\n\n\n                     REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO\n\n\n11.1. A Taxa de Administração Custódia e controladoria da Classe corresponderá a\n0,20"
+        },
+        {
+          "document_id": 811082,
+          "reference_date": "30/12/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
+          "source_excerpt": "nciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais\n          regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n          website da Administradora (https://www.singulare.com.br/).\n\n\n          6.3.2. A nomeação de qualquer terceiro responsável pela guarda dos Direitos\n          Creditórios Elegíveis transferidos à Classe Única não exclui a responsabilidade da\n          Administ"
+        },
+        {
+          "document_id": 811082,
+          "reference_date": "30/12/2024",
+          "page": 61,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=811082",
+          "source_excerpt": "10.3.   A valorização dos demais Ativos Financeiros que compõem a carteira da Classe\n          Única será efetuada com base nas regras descritas no manual do Custodiante\n          (disponível no https://www.singulare.com.br/), bem como nas regras aplicáveis do\n          BACEN e da CVM.\n\n\n          CAPÍTULO 11.          REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO\n\n\n          11.1. A Taxa de Administração Custódia e controladoria"
+        },
+        {
+          "document_id": 732918,
+          "reference_date": "02/09/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732918",
+          "source_excerpt": "bem como para\ndiligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais\nregras e procedimentos permanecerão disponíveis e atualizados para consulta no\nwebsite da Administradora (https://www.singulare.com.br/).\n\n\n6.3.2. A nomeação de qualquer terceiro responsável pela guarda dos Direitos\nCreditórios Elegíveis transferidos à Classe Única não exclui a responsabilidade da\nAdministradora.\n\n\n               GESTO"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "cnpj": "38376526000143",
+  "name": "HOTFUND FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDAD",
+  "generated_at": "2026-10-13T05:29:57Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:33Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1337664,
+          "reference_date": "01/10/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337664",
+          "source_excerpt": "regulamentação aplicável.\n\n  O Novo Regulamento estará à disposição dos Cotistas e de quem mais possa interessar no website da CVM\n  (www.cvm.gov.br). O Novo Regulamento será encaminhado à CVM, por meio de sistema eletrônico\n  disponível na rede mundial de computadores, e, se for o caso, à entidade administradora do mercado\n  organizado em que as c"
+        },
+        {
+          "document_id": 769778,
+          "reference_date": "29/10/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=769778",
+          "source_excerpt": "to terá eficácia a\n          partir da abertura do dia 30 de outubro de 2024.\n\n          O Novo Regulamento está à disposição dos Cotistas e de quem mais possa interessar no website da CVM\n          (www.cvm.gov.br).\n\n\n\n                                                São Paulo, 29 de outubro de 2024.\n\n\n\n\n                                                        BANCO GENIAL S.A."
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1337960,
+          "reference_date": "01/10/2026",
+          "page": 73,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337960",
+          "source_excerpt": "pela B3, no Informativo Diário, disponível em\n                                                                         sua página na Internet (http://www.b3.com.br),\n                                                                         base 252 (duzentos e cinquenta e dois) Dias\n                                                                         Úteis, ex"
+        },
+        {
+          "document_id": 948252,
+          "reference_date": "02/07/2025",
+          "page": 73,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=948252",
+          "source_excerpt": "iamente\n                                                             pela B3, no Informativo Diário, disponível em\n                                                             sua página na Internet (http://www.b3.com.br),\n                                                             base 252 (duzentos e cinquenta e dois) Dias\n                                                             Úteis, expressa na forma percentu"
+        },
+        {
+          "document_id": 180263,
+          "reference_date": "28/05/2021",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=180263",
+          "source_excerpt": "641\n\n\n\n\n                                                             pela B3, no Informativo Diário, disponível em\n                                                             sua página na Internet (http://www.b3.com.br),\n                                                             base 252 (duzentos e cinquenta e dois) Dias\n                                                             Úteis, expressa na forma percentu"
+        },
+        {
+          "document_id": 184004,
+          "reference_date": "10/06/2021",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=184004",
+          "source_excerpt": "mente\n                                                              pela B3, no Informativo Diário, disponível em\n                                                              sua página na Internet (http://www.b3.com.br),\n                                                              base 252 (duzentos e cinquenta e dois) Dias\n                                                              Úteis, expressa na forma percen"
+        },
+        {
+          "document_id": 387211,
+          "reference_date": "08/12/2022",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=387211",
+          "source_excerpt": "iamente\n                                                             pela B3, no Informativo Diário, disponível em\n                                                             sua página na Internet (http://www.b3.com.br),\n                                                             base 252 (duzentos e cinquenta e dois) Dias\n                                                             Úteis, expressa na forma percentu"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

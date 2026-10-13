@@ -1,0 +1,2780 @@
+{
+  "schema_version": 2,
+  "build_revision": 6,
+  "corpus_revision": "b1f87b8959dc1bff6287669e30f5163b34f89456ced4522d3a13f451cf6cda41",
+  "override_revision": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "quarterly_revision": "596db2a1363d8b26d46451c7ff9aeb7c81b17b4ef8f95d9957921ff79785baf1",
+  "cnpj": "60598366000136",
+  "name": "FIDC BV AUTO II SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA",
+  "reviewed_at": "2026-10-13T03:57:49-03:00",
+  "corpus_status": {
+    "inventoried": 35,
+    "readable": 7,
+    "searches": [
+      {
+        "source": "fundosnet",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=60598366000136",
+        "queried_at": "2026-10-13T04:41:52Z",
+        "status": "found",
+        "error": "",
+        "document_count": 34
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_knowledge/60598366000136.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/923892.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/1158588.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/928236.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/1117718.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/928235.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_extractions/60598366000136/1069231.local.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "data/regulatory_knowledge/60598366000136.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "local_metadata",
+        "url": "60598366000136.json",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "indexed",
+        "error": ""
+      },
+      {
+        "source": "fundosnet",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=60598366000136",
+        "queried_at": "2026-10-13T05:10:13Z",
+        "status": "found",
+        "error": "",
+        "scope": "cnpj_all_fund_types",
+        "tipo_fundo": "all",
+        "cnpj_filter": "60598366000136",
+        "document_count": 34
+      },
+      {
+        "source": "local_corpus",
+        "url": "fidc; fidc",
+        "queried_at": "2026-10-13T05:10:14Z",
+        "status": "indexed",
+        "error": "",
+        "note": "No local document does not establish absence from the public sources."
+      }
+    ],
+    "limitations": [],
+    "pending_sources": [
+      {
+        "source": "administrator_and_manager",
+        "status": "not_searched",
+        "queried_at": null,
+        "reason": "source_adapter_not_executed"
+      },
+      {
+        "source": "rating_agencies",
+        "status": "not_searched",
+        "queried_at": null,
+        "reason": "source_adapter_not_executed"
+      },
+      {
+        "source": "anbima_and_offer_documents",
+        "status": "not_searched",
+        "queried_at": null,
+        "reason": "source_adapter_not_executed"
+      },
+      {
+        "source": "lastro_verifier",
+        "status": "not_searched",
+        "queried_at": null,
+        "reason": "source_adapter_not_executed"
+      }
+    ]
+  },
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "originator",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "debtor",
+      "label": "Devedor e consignação",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "5.5. Sem prejuízo dos Critérios de Elegibilidade, o Emitente deverá declarar, na data de emissão de cada CCCB, que os Direitos Creditórios atendem aos seguintes critérios para vinculação, os quais também serão objeto de declaração pelo Emitente na Data de Endosso (em conjunto, “Critérios para Vinculação”): (i) os Devedores são pessoas físicas;.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 32,
+          "clause": "5.5",
+          "excerpt": "5.5. Sem prejuízo dos Critérios de Elegibilidade, o Emitente deverá declarar, na data de  emissão de cada CCCB, que os Direitos Creditórios atendem aos seguintes critérios para  vinculação, os quais também serão objeto de declaração pelo Emitente na Data de Endosso  (em conjunto, “Critérios para Vinculação”):\n(i) os Devedores são pessoas físicas;\n(ii) os Direitos Creditórios são (i) decorrentes de recebíveis futuros, ou seja,  operações de financiamento concedidas pelo Emitente a Devedores para aquisição de  Veículos Automotores, que não sejam classificados como “elétrico” ou “híbrido”, e para  pagamento dos prêmios de seguros conforme descritos no respectivo CCCB; e (ii)  devidamente formalizados mediante a emissão de CCBs pelos Devedores em favor do  Emitente destinadas ao financiamento de veículos leves, excluídos os veículos leves  classificados como “elétrico” ou “híbrido”, a serem adquiridos pelos Devedores;\n(iii) as CCBs atendem aos requisitos legais da Lei 10.931, bem como à legislação  e normas aplicáveis para a formalização de CCBs e manifestação de vontade do  Devedor por meio eletrônico;\n(iv) o Emitente é o exclusivo e legítimo proprietário dos respectivos Direitos  Creditórios;\n(v) os Direitos Creditórios são garantidos por Alienação Fiduciária dos Veículos  Automotores, a qual deverá ter sido devidamente registrada perante o Departamento  de Trânsito;\n(vi) a relação entre (a) o saldo de cada CCB (somatório dos valores das parcelas  vincendas a valor presente) no momento da emissão da CCB; e (b) o valor de avaliação  do Veículo Automotor por ela financiado e objeto de Alienação Fiduciária, medido por  meio da Tabela Molicar, no momento da emissão da CCB, deverá ser igual ou inferior",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 75,
+          "clause": "",
+          "excerpt": "(xxxiii) Risco de Amortização de Cotas na Medida da Liquidação dos Ativos Integrantes  da Carteira e da Inexistência de Mercado Secundário para os Direitos Creditórios. A Classe A  está exposta a determinados riscos inerentes aos Direitos Creditórios e aos Ativos Financeiros  de Liquidez integrantes de sua Carteira e, conforme o caso, aos mercados em que são  negociados, incluindo eventual impossibilidade de a Gestora alienar os Direitos Creditórios de  titularidade da Classe A. Em decorrência do risco acima identificado e considerando-se que a  Classe A somente procederá à amortização das Cotas, em moeda corrente nacional, na medida  em que os Direitos Creditórios de titularidade da Classe A sejam devidamente pagos, e que as  verbas recebidas sejam depositadas na Conta da Classe A, a Administradora encontra-se  impossibilitada de determinar o intervalo de tempo necessário para a amortização integral das  Cotas. O valor de amortização das Cotas Seniores continuará a ser atualizado até a data de  seu efetivo pagamento, sempre até o limite do Patrimônio Líquido, não sendo devido pela  Classe A ou por qualquer pessoa, inclusive o Emitente, a Administradora, a Gestora e o  Custodiante, todavia, qualquer multa ou penalidade caso o referido evento prolongue-se por  prazo indeterminado ou não possa, por qualquer motivo, ser realizado. Ademais, a amortização  das Cotas poderá ser realizada mediante a dação em pagamento de Direitos Creditórios,  observados os procedimentos definidos no Regulamento e neste Anexo Descritivo e as vedações  constantes da Resolução CVM 175. Nessa hipótese, os Cotistas poderão encontrar dificuldades  para alienar os Direitos Creditórios recebidos em dação e/ou cobrar os valores devidos pelos  Devedores.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 72,
+          "clause": "",
+          "excerpt": "(xxiii) Risco de Portabilidade. Nos termos da Resolução CMN 4.292, de 20 de dezembro de  2013, as operações de crédito entre instituições financeiras e pessoas naturais podem, por  solicitação do Devedor, ser transferidas da instituição financeira credora original para a  instituição financeira proponente (“Portabilidade”). De acordo com o previsto no artigo 12 da  referida Resolução, a Portabilidade é aplicável mesmo nos casos que o crédito foi  cedido/alienado para entidades não integrantes do Sistema Financeiro Nacional. Desta forma,  não há como impedir que os Devedores dos Direitos Creditórios alienados à Classe A solicitem  a Portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos,  a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no  momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem  distribuídos aos Cotistas.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”): (i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de pagamento das Cotas emitidas;.\n\n3.1.1. A Classe A adquirirá apenas CCCBs que atendam, na respectiva Data de Endosso, aos Critérios de Elegibilidade, conforme verificados pela Gestora, nos termos do item 5.1 deste Anexo Descritivo, bem como aos Critérios para Vinculação, os quais serão declarados pelo Emitente no respectivo CCCB.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 31,
+          "clause": "5.1",
+          "excerpt": "5.1. A Classe A somente poderá adquirir CCCBs que atendam, exclusiva e  cumulativamente, aos seguintes critérios de elegibilidade, a serem verificados e confirmados  pela Gestora, na Data de Endosso (em conjunto, “Critérios de Elegibilidade”):\n(i) as CCBs Vinculadas tenham prazo de vencimento anterior à última data de  pagamento das Cotas emitidas;\n(ii) considerando-se pro forma a aquisição pretendida, a soma do valor presente  das 100 (cem) maiores CCBs Vinculadas, considerando-se todos os CCCBs adquiridos  pela Classe A, não poderá exceder R$17.500.000,00 (dezessete milhões e quinhentos  mil reais); e\n(iii) o valor presente de cada CCB Vinculada não poderá ter valor superior a  R$175.000,00 (cento e setenta e cinco mil reais).",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 5,
+          "clause": "2.3",
+          "excerpt": "2.3. O Anexo Descritivo dispõe, sem prejuízo de outros requisitos e informações previstos  na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais  prestadores de serviços da Classe ; (ii) responsabilidade dos Cotistas e regime de insolvência  da Classe ; (iii) condições de amortização das Cotas da Classe ; (iv) ordem de alocação de  recursos; (v) Assembleia de Cotistas e demais procedimentos aplicáveis às manifestações de  vontade dos Cotistas da Classe ; (vi) remuneração dos prestadores de serviços da Classe ;\n (vii) política de investimento e composição e diversificação da carteira da Classe; (viii)  Eventos de Avaliação, Eventos de Liquidação e liquidação antecipada da Classe ; (ix) origem  dos Direitos Creditórios; (x) Critérios de Elegibilidade e Critérios para Vinculação; (xi) custos  referentes à defesa dos interesses dos Cotistas da Classe ; e (xii) fatores de risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 25,
+          "clause": "3.1.1",
+          "excerpt": "3.1.1. A Classe A adquirirá apenas CCCBs que atendam, na respectiva Data de  Endosso, aos Critérios de Elegibilidade, conforme verificados pela Gestora, nos termos  do item 5.1 deste Anexo Descritivo, bem como aos Critérios para Vinculação, os quais  serão declarados pelo Emitente no respectivo CCCB.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "ticket",
+      "label": "Limites por contrato e devedor",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "term",
+      "label": "Prazo dos créditos e carência",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(vi) verificação trimestral ou em periodicidade compatível com o prazo médio ponderado dos Direitos Creditórios, o que for maior, da existência, da integridade e da titularidade dos Documentos Representativos do Crédito dos Direitos Creditórios substituídos ou inadimplidos no respectivo período, nos termos do artigo 38 do Anexo Normativo II à Resolução CVM 175 e observadas as disposições deste Anexo Descritivo, a qual, considerando que, no âmbito.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 43,
+          "clause": "6.4",
+          "excerpt": "6.4. Sem prejuízo dos demais deveres e obrigações definidos na legislação aplicável e neste  Anexo Descritivo, o Custodiante, no âmbito das atividades de custódia, é responsável  pelas seguintes atividades:\n(i) receber, em nome da Classe A, pagamentos, resgate de títulos ou  qualquer outro rendimento relativo aos Ativos da Carteira, recebendo tais  valores diretamente na Conta da Classe A;\n(ii) operacionalizar procedimentos e rotinas definidos neste Anexo  Descritivo e documentos relacionados ao Endosso de CCCBs, à aquisição e/ou  subscrição de Ativos Financeiros de Liquidez pela Classe A, conforme  aplicáveis, e que sejam de sua responsabilidade;\n(iii) custódia dos Ativos Financeiros de Liquidez;\n(iv) realizar a liquidação física ou eletrônica e financeira dos Direitos  Creditórios;\n(v) acolher, na Conta Arrecadadora da Classe A, os valores relativos aos  bens e direitos integrantes da Carteira pagos pelos Devedores, transferindo  tais recursos da Conta Arrecadadora da Classe A para a Conta da Classe A;\n(vi) verificação trimestral ou em periodicidade compatível com o prazo  médio ponderado dos Direitos Creditórios, o que for maior, da existência, da  integridade e da titularidade dos Documentos Representativos do Crédito dos  Direitos Creditórios substituídos ou inadimplidos no respectivo período, nos  termos do artigo 38 do Anexo Normativo II à Resolução CVM 175 e observadas  as disposições deste Anexo Descritivo, a qual, considerando que, no âmbito",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "6.2. Nos termos da legislação aplicável, a Classe A e/ou o Fundo será considerado como Entidade de Investimento caso, em até 180 (cento e oitenta) dias, contados da Data de Subscrição Inicial de suas Cotas, a Carteira da Classe A seja composta de, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em Direitos Creditórios.\n\n“Alocação Mínima”: Significa a alocação de, ao menos, 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, nos termos da Resolução CVM nº 175;",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 40,
+          "clause": "6.2",
+          "excerpt": "6.2. Nos termos da legislação aplicável, a Classe A e/ou o Fundo será considerado como  Entidade de Investimento caso, em até 180 (cento e oitenta) dias, contados da Data de  Subscrição Inicial de suas Cotas, a Carteira da Classe A seja composta de, no mínimo, 67%  (sessenta e sete por cento) de seu Patrimônio Líquido em Direitos Creditórios.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 12,
+          "clause": "",
+          "excerpt": "“Alocação Mínima”: Significa a alocação de, ao menos, 50% (cinquenta por cento)  do Patrimônio Líquido em Direitos Creditórios, nos termos da  Resolução CVM nº 175;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "tax_allocation",
+      "label": "Alocação para tratamento tributário",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(li) Risco de Desenquadramento para Fins Tributários. Caso as condições previstas na Alocação Mínima Tributária deixem de satisfazer qualquer uma das condições previstas na Lei 14.754, de 12 de dezembro de 2023, tais como percentual mínimo de 67% (sessenta e sete por cento) em Direitos Creditórios e ausência de discricionariedade do Gestor na aquisição e venda dos ativos, não é possível garantir que estes ativos e, consequentemente, o Fundo/a Classe A continuarão a receber o tratamento tributário destinado ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica, considerando a hipótese prevista no capítulo de tributação.\n\nAdicionalmente, caso a Carteira deixe de ser composta por, no mínimo, 67% (sessenta e sete por cento) em Direitos Creditórios, após o prazo de 180 (cento e oitenta dias) contados da data da 1ª (primeira) integralização de Cotas da Classe A, e tal situação não seja sanada nos prazos previstos na legislação aplicável, a Classe A estará sujeita ao regime geral de tributação de fundos previsto no art. 17 e seguintes da Lei 14.754, de 12 de dezembro de 2023, conforme alterada, que prevê o pagamento de imposto de renda retido na fonte sobre os rendimentos das aplicações em fundos de investimento no último dia útil dos meses de maio e novembro de cada ano, segundo uma tabela regressiva que vai de 22,5% (vinte e dois inteiros e cinco décimos por cento) a 15% (quinze por cento) (“come-cotas”), o que irá significar uma antecipação de recolhimento de impostos ao Cotista e, conforme o caso, a sujeição a uma alíquota maior.\n\n6.2. Nos termos da legislação aplicável, a Classe A e/ou o Fundo será considerado como Entidade de Investimento caso, em até 180 (cento e oitenta) dias, contados da Data de Subscrição Inicial de suas Cotas, a Carteira da Classe A seja composta de, no mínimo, 67% (sessenta e sete por cento) de seu Patrimônio Líquido em Direitos Creditórios.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 79,
+          "clause": "",
+          "excerpt": "(li) Risco de Desenquadramento para Fins Tributários. Caso as condições previstas na  Alocação Mínima Tributária deixem de satisfazer qualquer uma das condições previstas na Lei\n 14.754, de 12 de dezembro de 2023, tais como percentual mínimo de 67% (sessenta e sete  por cento) em Direitos Creditórios e ausência de discricionariedade do Gestor na aquisição e  venda dos ativos, não é possível garantir que estes ativos e, consequentemente, o Fundo/a  Classe A continuarão a receber o tratamento tributário destinado ao Regime Específico dos  Fundos Não Sujeitos à Tributação Periódica, considerando a hipótese prevista no capítulo de  tributação.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 74,
+          "clause": "",
+          "excerpt": "antecipadamente aos Cotistas, que poderão sofrer perdas patrimoniais. Adicionalmente, caso  a Carteira deixe de ser composta por, no mínimo, 67% (sessenta e sete por cento) em Direitos  Creditórios, após o prazo de 180 (cento e oitenta dias) contados da data da 1ª (primeira)  integralização de Cotas da Classe A, e tal situação não seja sanada nos prazos previstos na  legislação aplicável, a Classe A estará sujeita ao regime geral de tributação de fundos previsto  no art. 17 e seguintes da Lei 14.754, de 12 de dezembro de 2023, conforme alterada, que  prevê o pagamento de imposto de renda retido na fonte sobre os rendimentos das aplicações  em fundos de investimento no último dia útil dos meses de maio e novembro de cada ano,  segundo uma tabela regressiva que vai de 22,5% (vinte e dois inteiros e cinco décimos por  cento) a 15% (quinze por cento) (“come-cotas”), o que irá significar uma antecipação de  recolhimento de impostos ao Cotista e, conforme o caso, a sujeição a uma alíquota maior.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 40,
+          "clause": "6.2",
+          "excerpt": "6.2. Nos termos da legislação aplicável, a Classe A e/ou o Fundo será considerado como  Entidade de Investimento caso, em até 180 (cento e oitenta) dias, contados da Data de  Subscrição Inicial de suas Cotas, a Carteira da Classe A seja composta de, no mínimo, 67%  (sessenta e sete por cento) de seu Patrimônio Líquido em Direitos Creditórios.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "investee",
+      "label": "Classes investidas e limites do FIC",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "O Anexo Normativo II da Resolução CVM nº 175/2022, em seu artigo 44, determina que em até 180 dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu patrimônio líquido representada por direitos creditórios, sendo que a classe de investimento em cotas, quando existir, nesse mesmo prazo, deve possuir no mínimo 67% (sessenta e sete por cento) de seu patrimônio líquido representado por cotas de outros fundos de investimento em direitos creditórios.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 24,
+          "clause": "",
+          "excerpt": "O Anexo Normativo II da Resolução CVM nº 175/2022, em seu artigo 44, determina que em até 180  dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento)  de seu patrimônio líquido representada por direitos creditórios, sendo que a classe de investimento  em cotas, quando existir, nesse mesmo prazo, deve possuir no mínimo 67% (sessenta e sete por  cento) de seu patrimônio líquido representado por cotas de outros fundos de investimento em  direitos creditórios. A parcela do patrimônio não investida em direitos creditórios ou cotas deve ser  aplicada em ativos financeiros de liquidez, conforme definidos no artigo 2º, inciso II, do referido  Normativo.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "provenance": "primary_passage",
+      "precedence": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "history": [
+        {
+          "history_id": "add7d5442a5a84e54b0b2ec04513eecbf8d865b67cf11ea026171eb322996b8f",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "O Anexo Normativo II da Resolução CVM nº 175/2022, em seu artigo 44, determina que em até 180 dias do início de suas atividades, a Classe deve possuir parcela superior a 50% (cinquenta por cento) de seu patrimônio líquido representada por direitos creditórios, sendo que a classe de investimento em cotas, quando existir…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 22,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "4dc49f515c979772c1c86dcdc1a66ce6fd74f63443df2628883fa6de89f01113",
+              "excerpt_sha256": "f45c131f4bceb0ee97341ca51cfbff98dc95c216845910b6d81e15c3674ef992"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      },
+      "history_count": 1,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "investee",
+        "total_count": 1,
+        "preview_count": 1,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      }
+    },
+    {
+      "criterion_id": "perimeter",
+      "label": "Classe, subclasse e responsabilidade",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "3.13. A Classe A somente poderá transferir os Direitos Creditórios a terceiros mediante aprovação da Assembleia de Cotistas, observado o disposto no item 5.5.1 deste Anexo Descritivo, excetuadas as hipóteses em que o somatório do valor das Cotas Seniores em circulação, calculado nos termos deste Anexo Descritivo, venha a ser inferior a (i) 2,5% (dois e meio por cento) do somatório do valor integralizado das Cotas Seniores ou (ii) R$75.000.000,00 (setenta e cinco milhões de reais), o que for maior, e desde que o preço de transferência dos Direitos Creditórios seja, ao menos, equivalente ao seu valor contábil.\n\nDenominação da Classe Anexo Classe A – Responsabilidade Limitada do Fundo de Investimento em Direitos Anexo Descritivo da Classe A Creditórios BV Auto II Segmento Financeiro – Responsabilidade Limitada\n\nANEXO DESCRITIVO DA CLASSE A DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 29,
+          "clause": "3.13",
+          "excerpt": "3.13. A Classe A somente poderá transferir os Direitos Creditórios a terceiros mediante  aprovação da Assembleia de Cotistas, observado o disposto no item 5.5.1 deste Anexo  Descritivo, excetuadas as hipóteses em que o somatório do valor das Cotas Seniores em  circulação, calculado nos termos deste Anexo Descritivo, venha a ser inferior a (i) 2,5% (dois  e meio por cento) do somatório do valor integralizado das Cotas Seniores ou (ii)  R$75.000.000,00 (setenta e cinco milhões de reais), o que for maior, e desde que o preço de  transferência dos Direitos Creditórios seja, ao menos, equivalente ao seu valor contábil. Neste  caso, a Gestora terá a prerrogativa de transferir os Direitos Creditórios a terceiros, sem a  necessidade de aprovação prévia da Assembleia de Cotistas, observado o direito de preferência  para o Emitente adquirir tais Direitos Creditórios.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 5,
+          "clause": "",
+          "excerpt": "Denominação da Classe Anexo  Classe A – Responsabilidade Limitada do  Fundo de Investimento em Direitos  Anexo Descritivo da Classe A  Creditórios BV Auto II Segmento Financeiro  – Responsabilidade Limitada",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 12,
+          "clause": "",
+          "excerpt": "ANEXO DESCRITIVO DA CLASSE A DO  FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO  FINANCEIRO – RESPONSABILIDADE LIMITADA",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à Resolução CVM 175",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "dos CCCBs, não haverá a transferência dos Direitos Creditórios à Classe A, mas somente do fluxo de pagamento a eles relacionados, estará limitada à verificação dos CCCBs adquiridos pela Classe A. Desse modo, resta definido que os CCCBs serão entendidos como lastro da operação para fins regulatórios, inclusive para fins de atendimento ao disposto no artigo 38 do Anexo Normativo II da Resolução CVM 175.\n\n(xx) Riscos Operacionais oriundos dos Processos de Verificação dos CCCBs para fins de cumprimento da obrigação constante no artigo 38 do Anexo Normativo II da Resolução CVM 175. Dado que os CCCBs são considerados lastro das operações e que não haverá, no âmbito dos CCCBs, a transferência dos Direitos Creditórios à Classe A, mas somente do fluxo de pagamento a eles relacionados, a verificação trimestral, a ser realizada pelo Custodiante, nos termos do artigo 38 do Anexo Normativo II da Resolução CVM 175, estará limitada à verificação dos CCCBs adquiridos pela Classe A. Desta forma, eventuais falhas operacionais ou sistêmicas na Registradora B3, na qual estarão registrados os CCCBs adquiridos pela Classe A, poderão.\n\n2.1. O FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA, regido pelo Código Civil, pela parte geral e pelo Anexo Normativo II da Resolução CVM 175, terá como principais características:",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 44,
+          "clause": "",
+          "excerpt": "dos CCCBs, não haverá a transferência dos Direitos Creditórios à Classe A, mas  somente do fluxo de pagamento a eles relacionados, estará limitada à  verificação dos CCCBs adquiridos pela Classe A. Desse modo, resta definido  que os CCCBs serão entendidos como lastro da operação para fins regulatórios,  inclusive para fins de atendimento ao disposto no artigo 38 do Anexo  Normativo II da Resolução CVM 175.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 71,
+          "clause": "",
+          "excerpt": "(xx) Riscos Operacionais oriundos dos Processos de Verificação dos CCCBs para fins de  cumprimento da obrigação constante no artigo 38 do Anexo Normativo II da Resolução CVM  175. Dado que os CCCBs são considerados lastro das operações e que não haverá, no âmbito  dos CCCBs, a transferência dos Direitos Creditórios à Classe A, mas somente do fluxo de  pagamento a eles relacionados, a verificação trimestral, a ser realizada pelo Custodiante, nos  termos do artigo 38 do Anexo Normativo II da Resolução CVM 175, estará limitada à verificação  dos CCCBs adquiridos pela Classe A. Desta forma, eventuais falhas operacionais ou sistêmicas  na Registradora B3, na qual estarão registrados os CCCBs adquiridos pela Classe A, poderão",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 4,
+          "clause": "2.1",
+          "excerpt": "2.1. O FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II  SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA, regido pelo Código Civil,  pela parte geral e pelo Anexo Normativo II da Resolução CVM 175, terá como principais  características:",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "2.4 Ressalvado o disposto no item 2.5 do Apêndice das Cotas Seniores, desde que todas as condições abaixo sejam cumulativamente e integralmente observadas, as Cotas Subordinadas Júnior deverão ser amortizadas se: (i) tiver ocorrido a totalidade da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino prevista para aquele mês; e (ii) considerada pro forma a amortização das Cotas Subordinadas Júnior, as Cotas Subordinadas Júnior, representem, no mínimo, na data da amortização, o equivalente a 5,10% (cinco inteiros e dez centésimos por cento) do Patrimônio Líquido da Classe A, e desde que sejam observados o Índice de Subordinação Sênior, o Índice de Subordinação Mezanino A, o Índice de Subordinação Mezanino B e a Reserva de Caixa.\n\n“Índice de Subordinação Significa a razão entre (a) o somatório do valor total das Cotas Mezanino A”: Mezanino B e das Cotas Subordinadas Júnior em circulação; e (b) o Patrimônio Líquido, o qual será verificado todo Dia Útil pela Administradora e não poderá ser inferior a 10% (dez por cento);\n\n“Índice de Subordinação Significa a razão entre (a) o somatório do valor total das Cotas Mezanino B”: Subordinadas Júnior em circulação; e (b) o Patrimônio Líquido, o qual será verificado todo Dia Útil pela Administradora e não poderá ser inferior a 5% (cinco por cento);",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 108,
+          "clause": "2.4",
+          "excerpt": "2.4 Ressalvado o disposto no item 2.5 do Apêndice das Cotas Seniores, desde que todas  as condições abaixo sejam cumulativamente e integralmente observadas, as Cotas  Subordinadas Júnior deverão ser amortizadas se:\n(i) tiver ocorrido a totalidade da amortização das Cotas Seniores e das Cotas  Subordinadas Mezanino prevista para aquele mês; e\n(ii) considerada pro forma a amortização das Cotas Subordinadas Júnior, as Cotas  Subordinadas Júnior, representem, no mínimo, na data da amortização, o equivalente  a 5,10% (cinco inteiros e dez centésimos por cento) do Patrimônio Líquido da Classe  A, e desde que sejam observados o Índice de Subordinação Sênior, o Índice de  Subordinação Mezanino A, o Índice de Subordinação Mezanino B e a Reserva de Caixa.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 18,
+          "clause": "",
+          "excerpt": "“Índice de Subordinação Significa a razão entre (a) o somatório do valor total das Cotas  Mezanino A”: Mezanino B e das Cotas Subordinadas Júnior em circulação; e\n (b) o Patrimônio Líquido, o qual será verificado todo Dia Útil  pela Administradora e não poderá ser inferior a 10% (dez por  cento);",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 18,
+          "clause": "",
+          "excerpt": "“Índice de Subordinação Significa a razão entre (a) o somatório do valor total das Cotas  Mezanino B”: Subordinadas Júnior em circulação; e (b) o Patrimônio Líquido,  o qual será verificado todo Dia Útil pela Administradora e não  poderá ser inferior a 5% (cinco por cento);",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "coverage",
+      "label": "Razões de cobertura por camada",
+      "theme": "Proteção por camada",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "junior_release",
+      "label": "Liberação e amortização da júnior",
+      "theme": "Proteção por camada",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "2.7 Não será realizada a amortização das Cotas Subordinadas Mezanino A caso esteja em curso qualquer Evento de Avaliação ou Evento de Liquidação, e/ou caso esteja em curso a liquidação antecipada da Classe A.\n\n2.7 Não será realizada a amortização das Cotas Subordinadas Mezanino B caso esteja em curso qualquer Evento de Avaliação ou Evento de Liquidação, e/ou caso esteja em curso a liquidação antecipada da Classe A.\n\n2.4 Ressalvado o disposto no item 2.5 do Apêndice das Cotas Seniores, desde que todas as condições abaixo sejam cumulativamente e integralmente observadas, as Cotas Subordinadas Júnior deverão ser amortizadas se: (i) tiver ocorrido a totalidade da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino prevista para aquele mês; e (ii) considerada pro forma a amortização das Cotas Subordinadas Júnior, as Cotas Subordinadas Júnior, representem, no mínimo, na data da amortização, o equivalente a 5,10% (cinco inteiros e dez centésimos por cento) do Patrimônio Líquido da Classe A, e desde que sejam observados o Índice de Subordinação Sênior, o Índice de Subordinação Mezanino A, o Índice de Subordinação Mezanino B e a Reserva de Caixa.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 91,
+          "clause": "2.7",
+          "excerpt": "2.7 Não será realizada a amortização das Cotas Subordinadas Mezanino A caso esteja em  curso qualquer Evento de Avaliação ou Evento de Liquidação, e/ou caso esteja em curso a  liquidação antecipada da Classe A.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 100,
+          "clause": "2.7",
+          "excerpt": "2.7 Não será realizada a amortização das Cotas Subordinadas Mezanino B caso esteja em  curso qualquer Evento de Avaliação ou Evento de Liquidação, e/ou caso esteja em curso a  liquidação antecipada da Classe A.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 108,
+          "clause": "2.4",
+          "excerpt": "2.4 Ressalvado o disposto no item 2.5 do Apêndice das Cotas Seniores, desde que todas  as condições abaixo sejam cumulativamente e integralmente observadas, as Cotas  Subordinadas Júnior deverão ser amortizadas se:\n(i) tiver ocorrido a totalidade da amortização das Cotas Seniores e das Cotas  Subordinadas Mezanino prevista para aquele mês; e\n(ii) considerada pro forma a amortização das Cotas Subordinadas Júnior, as Cotas  Subordinadas Júnior, representem, no mínimo, na data da amortização, o equivalente  a 5,10% (cinco inteiros e dez centésimos por cento) do Patrimônio Líquido da Classe  A, e desde que sejam observados o Índice de Subordinação Sênior, o Índice de  Subordinação Mezanino A, o Índice de Subordinação Mezanino B e a Reserva de Caixa.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "liquidity_reserve",
+      "label": "Reserva de liquidez",
+      "theme": "Proteção por camada",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "expense_reserve",
+      "label": "Reserva de despesas",
+      "theme": "Proteção por camada",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "aging_trigger",
+      "label": "Gatilhos de atraso e rolagem",
+      "theme": "Qualidade da carteira",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "dilution",
+      "label": "Diluição, cancelamento e chargeback",
+      "theme": "Qualidade da carteira",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "repurchase",
+      "label": "Recompra e indenização",
+      "theme": "Qualidade da carteira",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "coobligation",
+      "label": "Coobrigação e retenção de risco",
+      "theme": "Qualidade da carteira",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(xxxii) Risco de Amortização Condicionada. As principais fontes de recursos da Classe A para efetuar a amortização de suas Cotas decorrem da liquidação (i) dos Direitos Creditórios, ou (ii) dos Ativos Financeiros de Liquidez integrantes da Carteira. Assim, tendo em vista a inexistência de coobrigação ou direito de regresso contra quaisquer terceiros com relação ao\n\n(vii) aplicar em títulos e valores mobiliários que ente federativo (União, Estados, Distrito Federal e Municípios) figure como devedor ou preste fiança, aval, aceite ou seja coobrigado sob qualquer outra forma;",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 74,
+          "clause": "",
+          "excerpt": "(xxxii) Risco de Amortização Condicionada. As principais fontes de recursos da Classe A para  efetuar a amortização de suas Cotas decorrem da liquidação (i) dos Direitos Creditórios, ou\n (ii) dos Ativos Financeiros de Liquidez integrantes da Carteira. Assim, tendo em vista a  inexistência de coobrigação ou direito de regresso contra quaisquer terceiros com relação ao",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 26,
+          "clause": "3.4",
+          "excerpt": "3.4. A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios poderá  ser aplicada, isolada ou cumulativamente, em moeda corrente nacional e/ou nos ativos  financeiros de liquidez descritos abaixo (“Ativos Financeiros de Liquidez”):\n(i) títulos públicos exclusivamente de emissão do Tesouro Nacional pós-fixados;\n(ii) ativos financeiros de renda fixa com liquidez diária de emissão ou coobrigação  de Instituições Autorizadas;\n(iii) operações compromissadas com lastro nos ativos mencionados nos subitens\n (i) e (ii) acima junto a Instituições Autorizadas; e\n(iv) cotas de fundos de investimento indexados à Taxa DI que apliquem seu  patrimônio em títulos públicos de Emissão do Tesouro Nacional pós-fixados, com  liquidez diária e de baixo risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 28,
+          "clause": "",
+          "excerpt": "(vii) aplicar em títulos e valores mobiliários que ente federativo (União, Estados,  Distrito Federal e Municípios) figure como devedor ou preste fiança, aval, aceite ou  seja coobrigado sob qualquer outra forma;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "10.1. Os seguintes eventos serão considerados como eventos de avaliação, a partir do momento que a Administradora e/ou a Gestora tomem conhecimento de sua ocorrência (cada um, um “Evento de Avaliação”): (i) caso haja descumprimento pelo Emitente de qualquer de suas obrigações estabelecidas em um CCCB e/ou no Contrato de Endosso, desde que tal descumprimento não seja devidamente regularizado dentro do prazo de 20 (vinte) Dias Úteis contado do recebimento pelo Emitente, conforme o caso, de aviso, por\n\n14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido da Classe A está negativo: (i) qualquer pedido de declaração judicial de insolvência da Classe A; (ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e (iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos Apêndices.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 51,
+          "clause": "10.1",
+          "excerpt": "10.1. Os seguintes eventos serão considerados como eventos de avaliação, a partir do  momento que a Administradora e/ou a Gestora tomem conhecimento de sua ocorrência (cada  um, um “Evento de Avaliação”):\n(i) caso haja descumprimento pelo Emitente de qualquer de suas obrigações  estabelecidas em um CCCB e/ou no Contrato de Endosso, desde que tal  descumprimento não seja devidamente regularizado dentro do prazo de 20 (vinte)  Dias Úteis contado do recebimento pelo Emitente, conforme o caso, de aviso, por",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 5,
+          "clause": "2.3",
+          "excerpt": "2.3. O Anexo Descritivo dispõe, sem prejuízo de outros requisitos e informações previstos  na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais  prestadores de serviços da Classe ; (ii) responsabilidade dos Cotistas e regime de insolvência  da Classe ; (iii) condições de amortização das Cotas da Classe ; (iv) ordem de alocação de  recursos; (v) Assembleia de Cotistas e demais procedimentos aplicáveis às manifestações de  vontade dos Cotistas da Classe ; (vi) remuneração dos prestadores de serviços da Classe ;\n (vii) política de investimento e composição e diversificação da carteira da Classe; (viii)  Eventos de Avaliação, Eventos de Liquidação e liquidação antecipada da Classe ; (ix) origem  dos Direitos Creditórios; (x) Critérios de Elegibilidade e Critérios para Vinculação; (xi) custos  referentes à defesa dos interesses dos Cotistas da Classe ; e (xii) fatores de risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 59,
+          "clause": "14.2",
+          "excerpt": "14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido  da Classe A está negativo:\n(i) qualquer pedido de declaração judicial de insolvência da Classe A;\n(ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e\n(iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores  ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos  Apêndices.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido da Classe A está negativo: (i) qualquer pedido de declaração judicial de insolvência da Classe A; (ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e (iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos Apêndices.\n\nEvento de liquidação: (xv) Insuficiência de Recursos no Momento da Liquidação da Classe A. A Classe A poderá ser liquidada antecipadamente conforme o disposto no Capítulo 13 do presente Anexo Descritivo. Ocorrendo a liquidação, a Classe A pode não dispor de recursos para pagamento aos Cotistas em hipótese de, por exemplo, o adimplemento dos Direitos Creditórios da Classe A ainda não ser exigível dos Devedores. Neste caso, o pagamento aos Cotistas ficaria condicionado:",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 5,
+          "clause": "2.3",
+          "excerpt": "2.3. O Anexo Descritivo dispõe, sem prejuízo de outros requisitos e informações previstos  na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais  prestadores de serviços da Classe ; (ii) responsabilidade dos Cotistas e regime de insolvência  da Classe ; (iii) condições de amortização das Cotas da Classe ; (iv) ordem de alocação de  recursos; (v) Assembleia de Cotistas e demais procedimentos aplicáveis às manifestações de  vontade dos Cotistas da Classe ; (vi) remuneração dos prestadores de serviços da Classe ;\n (vii) política de investimento e composição e diversificação da carteira da Classe; (viii)  Eventos de Avaliação, Eventos de Liquidação e liquidação antecipada da Classe ; (ix) origem  dos Direitos Creditórios; (x) Critérios de Elegibilidade e Critérios para Vinculação; (xi) custos  referentes à defesa dos interesses dos Cotistas da Classe ; e (xii) fatores de risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 59,
+          "clause": "14.2",
+          "excerpt": "14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido  da Classe A está negativo:\n(i) qualquer pedido de declaração judicial de insolvência da Classe A;\n(ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e\n(iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores  ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos  Apêndices.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 70,
+          "clause": "",
+          "excerpt": "(xv) Insuficiência de Recursos no Momento da Liquidação da Classe A. A Classe A poderá  ser liquidada antecipadamente conforme o disposto no Capítulo 13 do presente Anexo  Descritivo. Ocorrendo a liquidação, a Classe A pode não dispor de recursos para pagamento  aos Cotistas em hipótese de, por exemplo, o adimplemento dos Direitos Creditórios da Classe  A ainda não ser exigível dos Devedores. Neste caso, o pagamento aos Cotistas ficaria  condicionado: (i) ao vencimento e pagamento pelos Devedores; (ii) à transferência dos  Direitos Creditórios a terceiros, com risco de deságio capaz de comprometer a rentabilidade da  Classe A; ou (iii) à amortização de Cotas Seniores em Direitos Creditórios, exclusivamente nas  hipóteses de liquidação antecipada da Classe A. Nas três situações, os Cotistas podem sofrer  prejuízos patrimoniais.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "escrito, enviado pela Administradora, pelo Cotista, pelo Custodiante ou pela Gestora, informando-a da ocorrência do respectivo evento, sendo que este prazo de cura não se aplica às obrigações para as quais tenha sido estipulado prazo de cura específico;",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 52,
+          "clause": "",
+          "excerpt": "escrito, enviado pela Administradora, pelo Cotista, pelo Custodiante ou pela Gestora,  informando-a da ocorrência do respectivo evento, sendo que este prazo de cura não  se aplica às obrigações para as quais tenha sido estipulado prazo de cura específico;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "cross_default",
+      "label": "Cross default e insolvência",
+      "theme": "Eventos e cura",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "sequential",
+      "label": "Pró-rata, sequencial e aceleração",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "revolving",
+      "label": "Revolvência e desinvestimento",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "sale",
+      "label": "Cessões, preço e carteira residual",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "payments",
+      "label": "Juros, amortização e vencimento",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias e constituição",
+      "theme": "Garantias e operação",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "3.11.2. Considerando que, no âmbito dos CCCBs, não haverá a transferência dos Direitos Creditórios à Classe A, mas somente do fluxo de pagamento a eles relacionados, permanecendo o Emitente como custodiante dos Direitos Creditórios, não será realizado o registro da cessão dos Direitos Creditórios perante a Central de Cessão de Créditos, operada pela CIP, observados os termos da Resolução CMN nº 3.998. Da mesma forma, a Alienação Fiduciária constituída sobre os Veículos Automotores permanecerá registrada em nome do Emitente.\n\n4.3. O Endosso de CCCBs Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade do respectivo CCCB para a Classe A, em caráter definitivo, juntamente com todos os fluxos de Direitos Creditórios de cada CCB Vinculada, direitos, privilégios, garantias, preferências, prerrogativas e ações a estas relacionadas, bem como juros e encargos, incluindo, sem limitação, a Alienação Fiduciária.\n\n(v) os Direitos Creditórios são garantidos por Alienação Fiduciária dos Veículos Automotores, a qual deverá ter sido devidamente registrada perante o Departamento de Trânsito;.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 29,
+          "clause": "3.11.2",
+          "excerpt": "3.11.2. Considerando que, no âmbito dos CCCBs, não haverá a transferência dos Direitos  Creditórios à Classe A, mas somente do fluxo de pagamento a eles relacionados,  permanecendo o Emitente como custodiante dos Direitos Creditórios, não será realizado  o registro da cessão dos Direitos Creditórios perante a Central de Cessão de Créditos,  operada pela CIP, observados os termos da Resolução CMN nº 3.998. Da mesma forma,  a Alienação Fiduciária constituída sobre os Veículos Automotores permanecerá registrada  em nome do Emitente.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 30,
+          "clause": "4.3",
+          "excerpt": "4.3. O Endosso de CCCBs Elegíveis será irrevogável e irretratável, com a transferência da  plena titularidade do respectivo CCCB para a Classe A, em caráter definitivo, juntamente com  todos os fluxos de Direitos Creditórios de cada CCB Vinculada, direitos, privilégios, garantias,  preferências, prerrogativas e ações a estas relacionadas, bem como juros e encargos,  incluindo, sem limitação, a Alienação Fiduciária.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 32,
+          "clause": "5.5",
+          "excerpt": "5.5. Sem prejuízo dos Critérios de Elegibilidade, o Emitente deverá declarar, na data de  emissão de cada CCCB, que os Direitos Creditórios atendem aos seguintes critérios para  vinculação, os quais também serão objeto de declaração pelo Emitente na Data de Endosso  (em conjunto, “Critérios para Vinculação”):\n(i) os Devedores são pessoas físicas;\n(ii) os Direitos Creditórios são (i) decorrentes de recebíveis futuros, ou seja,  operações de financiamento concedidas pelo Emitente a Devedores para aquisição de  Veículos Automotores, que não sejam classificados como “elétrico” ou “híbrido”, e para  pagamento dos prêmios de seguros conforme descritos no respectivo CCCB; e (ii)  devidamente formalizados mediante a emissão de CCBs pelos Devedores em favor do  Emitente destinadas ao financiamento de veículos leves, excluídos os veículos leves  classificados como “elétrico” ou “híbrido”, a serem adquiridos pelos Devedores;\n(iii) as CCBs atendem aos requisitos legais da Lei 10.931, bem como à legislação  e normas aplicáveis para a formalização de CCBs e manifestação de vontade do  Devedor por meio eletrônico;\n(iv) o Emitente é o exclusivo e legítimo proprietário dos respectivos Direitos  Creditórios;\n(v) os Direitos Creditórios são garantidos por Alienação Fiduciária dos Veículos  Automotores, a qual deverá ter sido devidamente registrada perante o Departamento  de Trânsito;\n(vi) a relação entre (a) o saldo de cada CCB (somatório dos valores das parcelas  vincendas a valor presente) no momento da emissão da CCB; e (b) o valor de avaliação  do Veículo Automotor por ela financiado e objeto de Alienação Fiduciária, medido por  meio da Tabela Molicar, no momento da emissão da CCB, deverá ser igual ou inferior",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "enforcement",
+      "label": "Registro, execução e recuperação",
+      "theme": "Garantias e operação",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "garantidos pelas respectivas Alienações Fiduciárias. Havendo o inadimplemento dos Direitos Creditórios, os Devedores serão executados extrajudicial ou judicialmente, sendo possível, dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que a Classe A não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será afetado negativamente e a Classe A poderá não ter recursos suficientes para efetuar o pagamento das Cotas.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 70,
+          "clause": "",
+          "excerpt": "garantidos pelas respectivas Alienações Fiduciárias. Havendo o inadimplemento dos Direitos  Creditórios, os Devedores serão executados extrajudicial ou judicialmente, sendo possível,  dentre outros, que a execução das garantias seja morosa, insuficiente ou, ainda, que a Classe  A não consiga executá-las, por qualquer motivo. Nesses casos, o Patrimônio Líquido será  afetado negativamente e a Classe A poderá não ter recursos suficientes para efetuar o  pagamento das Cotas.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "servicing",
+      "label": "Cobrança e servicing",
+      "theme": "Garantias e operação",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "4.6. O Emitente, na qualidade e com as responsabilidades de custodiante das CCBs Vinculadas, nos termos do artigo 43, inciso VI, da Lei 10.931, e, após o Endosso de CCCB Elegível à Classe A, na qualidade de mandatário da Classe A, realizará a cobrança dos Direitos Creditórios, incluindo de eventuais Direitos Creditórios Inadimplidos, observados os termos e condições previstos no respectivo CCCB, inclusive quanto à sua remuneração. A cobrança dos Direitos Creditórios Inadimplidos será realizada pelo Emitente nos termos da Política de Cobrança descrita no Adendo II a este Anexo Descritivo.\n\n6.5. A cobrança ordinária dos Direitos Creditórios, bem como a cobrança dos Direitos Creditórios Inadimplidos, será realizada pelo Emitente, nos termos do artigo 43, inciso VI, da Lei 10.931, na qualidade de custodiante e emitente dos CCCBs, observada a Política de Cobrança descrita constante do respectivo CCCB e replicada no Adendo II a este Anexo Descritivo, o que incluirá a arrecadação, o recebimento ordinário e extraordinário, a cobrança judicial e extrajudicial destes, em conformidade com as fases de cobrança e recuperação de crédito constantes no respectivo CCCB.\n\n6.6. Os serviços a serem prestados pelo Emitente, para fins do disposto no item 6.4 acima, estão detalhados na Política de Cobrança, sendo no mínimo: (i) monitorar a cobrança, quando houver, dos Direitos Creditórios Inadimplidos;.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 31,
+          "clause": "4.6",
+          "excerpt": "4.6. O Emitente, na qualidade e com as responsabilidades de custodiante das CCBs  Vinculadas, nos termos do artigo 43, inciso VI, da Lei 10.931, e, após o Endosso de CCCB  Elegível à Classe A, na qualidade de mandatário da Classe A, realizará a cobrança dos Direitos  Creditórios, incluindo de eventuais Direitos Creditórios Inadimplidos, observados os termos e  condições previstos no respectivo CCCB, inclusive quanto à sua remuneração. A cobrança dos  Direitos Creditórios Inadimplidos será realizada pelo Emitente nos termos da Política de  Cobrança descrita no Adendo II a este Anexo Descritivo.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 44,
+          "clause": "6.5",
+          "excerpt": "6.5. A cobrança ordinária dos Direitos Creditórios, bem como a cobrança dos Direitos  Creditórios Inadimplidos, será realizada pelo Emitente, nos termos do artigo 43, inciso VI, da  Lei 10.931, na qualidade de custodiante e emitente dos CCCBs, observada a Política de  Cobrança descrita constante do respectivo CCCB e replicada no Adendo II a este Anexo  Descritivo, o que incluirá a arrecadação, o recebimento ordinário e extraordinário, a cobrança  judicial e extrajudicial destes, em conformidade com as fases de cobrança e recuperação de  crédito constantes no respectivo CCCB.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 44,
+          "clause": "6.6",
+          "excerpt": "6.6. Os serviços a serem prestados pelo Emitente, para fins do disposto no item 6.4 acima,  estão detalhados na Política de Cobrança, sendo no mínimo:\n(i) monitorar a cobrança, quando houver, dos Direitos Creditórios Inadimplidos;\n(ii) elaborar e fornecer para a Gestora e para a Administradora, na forma e nos  prazos especificados no CCCB e/ou sempre que por qualquer uma delas solicitado,  relatórios gerenciais (analíticos e sintéticos) relativos ao monitoramento da cobrança  dos Direitos Creditórios Inadimplidos;\n(iii) prestar atendimento aos Devedores acerca dos Direitos Creditórios para fins  de cobrança dos Direitos Creditórios Inadimplidos, esclarecimentos ou informações  sobre prestações, saldo devedor e amortizações; e\n(iv) realizar a cobrança dos Direitos Creditórios Inadimplidos, nos termos do  respectivo CCCB e do Adendo II a este Anexo Descritivo.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "collection_account",
+      "label": "Conta de arrecadação e risco de trânsito",
+      "theme": "Garantias e operação",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro e amostragem",
+      "theme": "Garantias e operação",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(h) executar a política de investimentos da Classe A, prevista neste Anexo Descritivo, devendo: (a) verificar o enquadramento dos Direitos Creditórios à política de investimento da Classe A, conforme este Anexo Descritivo, compreendendo, no mínimo, a validação dos Direitos Creditórios quanto aos Critérios de Elegibilidade e a observância aos requisitos de composição e diversificação, por amostragem, utilizando modelo estatístico consistente e passível de verificação; e (b) avaliar a aderência do risco de performance dos Direitos Creditórios, se houver, à política de investimento;",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 71,
+          "clause": "",
+          "excerpt": "(xix) Riscos Operacionais oriundos dos Processos de Verificação dos Documentos  Representativos do Crédito. A Gestora realizará a verificação integral dos Documentos  Representativos do Crédito no momento da aquisição dos CCCBs, o que, todavia, não  compreende a verificação individual de cada uma das CCBs Vinculadas. Sendo assim, não há  qualquer garantia de que as CCBs Vinculadas aos CCCBs: (i) não serão eivados de vícios ou  defeitos que prejudiquem a sua cobrança em face do respectivo Devedor; (ii) não serão objeto  de ônus, gravames ou encargos constituídos previamente à aquisição dos mesmos pela Classe  A; (iii) atenderão às obrigações dos Contratos de Endosso; e/ou (iv) encontrar-se-ão  lastreados por documentos comprobatórios aptos a instrumentalizar a sua efetiva cobrança,  judicial ou extrajudicial, em face dos respectivos Devedores. A inexistência, indisponibilidade  e/ou a ocorrência de vícios ou defeitos que impactem negativamente a existência, validade e  eficácia de quaisquer dos documentos comprobatórios do crédito formalizados por meio das  CCBs Vinculadas, incluindo, sem limitação, a falta legitimidade dos signatários dos referidos  documentos, e a ocorrência de qualquer dos eventos acima referidos poderá prejudicar a  cobrança judicial e/ou extrajudicial dos Direitos Creditórios Inadimplidos, o que poderá resultar  em redução no valor do Patrimônio Líquido da Classe A e, consequentemente, em perdas para  os Cotistas.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 38,
+          "clause": "",
+          "excerpt": "(h) executar a política de investimentos da Classe A, prevista neste Anexo  Descritivo, devendo: (a) verificar o enquadramento dos Direitos Creditórios à  política de investimento da Classe A, conforme este Anexo Descritivo,  compreendendo, no mínimo, a validação dos Direitos Creditórios quanto aos  Critérios de Elegibilidade e a observância aos requisitos de composição e  diversificação, por amostragem, utilizando modelo estatístico consistente e  passível de verificação; e (b) avaliar a aderência do risco de performance dos  Direitos Creditórios, se houver, à política de investimento;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade e limites de derivativos",
+      "theme": "Hedge e prestadores",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "3.5.1. Para o efeito do disposto no item 3.5 acima, as operações contratadas pela Classe A com instrumentos derivativos somente poderão ser realizadas (a) em mercado de balcão, tendo como contraparte, necessariamente, Instituições Autorizadas pela Gestora, sendo que tais operações deverão ser necessariamente registradas na B3;e/ou (b) diretamente na B3.\n\n3.5.2. É expressamente vedada a realização de operações com instrumentos derivativos a descoberto, alavancadas, ou que de qualquer forma não se destinem à simples proteção de posições detidas à vista.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 27,
+          "clause": "3.5.1",
+          "excerpt": "3.5.1. Para o efeito do disposto no item 3.5 acima, as operações contratadas pela  Classe A com instrumentos derivativos somente poderão ser realizadas (a) em  mercado de balcão, tendo como contraparte, necessariamente, Instituições  Autorizadas pela Gestora, sendo que tais operações deverão ser necessariamente  registradas na B3;e/ou (b) diretamente na B3.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 27,
+          "clause": "3.5.2",
+          "excerpt": "3.5.2. É expressamente vedada a realização de operações com instrumentos  derivativos a descoberto, alavancadas, ou que de qualquer forma não se destinem à  simples proteção de posições detidas à vista.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "hedge_priority",
+      "label": "Prioridade do hedge e reserva de MTM",
+      "theme": "Hedge e prestadores",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "providers",
+      "label": "Administrador, gestor e custodiante",
+      "theme": "Hedge e prestadores",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "“Administradora”: Significa o BANCO DAYCOVAL S.A., instituição financeira autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, por meio do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001- 90, ou seu sucessor a qualquer título;\n\nBANCO DAYCOVAL S.A. Administradora do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928235",
+          "title": "Instrumento Particular de Alteração do Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928235",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 1,
+          "clause": "",
+          "excerpt": "Pelo presente instrumento particular, BANCO DAYCOVAL S.A., instituição financeira  devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício  profissional de administração de carteiras de valores mobiliários, na categoria de administrador  fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com  sede na cidade de São Paulo, estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01.311-  200, inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda (“CNPJ”) sob o  nº 62.232.889/0001-90, neste ato representada na forma de seu estatuto social  (“Administradora”); e DAYCOVAL ASSET MANAGEMENT ADMINISTRAÇÃO DE  RECURSOS LTDA., sociedade devidamente autorizada pela CVM para o exercício profissional  de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos  termos do Ato Declaratório CVM nº 8.056, de 02 de dezembro de 2004, com sede na cidade  de São Paulo, estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01.311-200, neste ato  representada na forma de seu contrato social (“Gestora” e, em conjunto com a Administradora,  “Prestadores de Serviços Essenciais”), na qualidade de Prestadores de Serviços Essenciais do  DAYCOVAL D263 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“Fundo”),  resolvem conjuntamente:",
+          "sha256": "2bde513cda442b03a18c50a07282dc878c321d8c6251aedb56ba39c77c9afc4e",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 2,
+          "clause": "",
+          "excerpt": "“Administradora”: Significa o BANCO DAYCOVAL S.A., instituição financeira  autorizada pela CVM para o exercício profissional de  administração de carteiras de valores mobiliários, na categoria  de administrador fiduciário, por meio do Ato Declaratório CVM  nº 17.552, de 5 de dezembro de 2019, com sede na cidade de  São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793,  CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-  90, ou seu sucessor a qualquer título;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 87,
+          "clause": "",
+          "excerpt": "BANCO DAYCOVAL S.A.\n Administradora do  FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO  FINANCEIRO – RESPONSABILIDADE LIMITADA",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "replacement",
+      "label": "Substituição de prestadores",
+      "theme": "Hedge e prestadores",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "rating",
+      "label": "Rating por subclasse e downgrade",
+      "theme": "Hedge e prestadores",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "6.1.5. Além dos demais prestadores de serviços já mencionados neste Anexo Descritivo, a Gestora poderá contratar em nome da Classe A, na forma prevista neste Anexo Descritivo, sem prejuízo das vedações previstas na Resolução CVM 175, os serviços de: (iii) classificação de risco das Cotas por Agência de Classificação de Risco; (iv) intermediação de operações da Carteira; (vii) verificação dos Documentos Representativos do Crédito;\n\n(ff) providenciar junto à Agência de Classificação de Risco, trimestralmente, no mínimo, a atualização da classificação de risco das Cotas, quando aplicável.\n\n(xviii) rebaixamento em mais de 2 (dois) subníveis da nota da classificação de risco das Subclasses de Cotas Seniores ou das Cotas Subordinadas Mezanino em relação à nota da classificação de risco originalmente atribuída, considerando-se a tabela da Agência de Classificação de Risco.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 40,
+          "clause": "6.1.5",
+          "excerpt": "6.1.5. Além dos demais prestadores de serviços já mencionados neste Anexo  Descritivo, a Gestora poderá contratar em nome da Classe A, na forma prevista neste  Anexo Descritivo, sem prejuízo das vedações previstas na Resolução CVM 175, os  serviços de:\n(iii) classificação de risco das Cotas por Agência de Classificação de Risco;\n(iv) intermediação de operações da Carteira;\n(vii) verificação dos Documentos Representativos do Crédito;",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 40,
+          "clause": "",
+          "excerpt": "(ff) providenciar junto à Agência de Classificação de Risco,  trimestralmente, no mínimo, a atualização da classificação de risco das Cotas,  quando aplicável.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 53,
+          "clause": "",
+          "excerpt": "(xviii) rebaixamento em mais de 2 (dois) subníveis da nota da classificação de risco  das Subclasses de Cotas Seniores ou das Cotas Subordinadas Mezanino em relação à  nota da classificação de risco originalmente atribuída, considerando-se a tabela da  Agência de Classificação de Risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "remuneration",
+      "label": "Remuneração por subclasse e série",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "Valor da Rentabilidade da Data cota sênior cota sênior Benchmark R$ % Período findo em 30 de setembro de 2025 (*) 963,1672 (3,68) 100% CDI + 1,00% a.a.\n\nRentabilidade Valor da teórica da cota Data cota teórica sênior (**) sênior (**) Benchmark R$ % Período findo em 30 de setembro de 2025 (*) 1.012,4624 1,25 100% CDI + 1,00% a.a.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 34,
+          "clause": "",
+          "excerpt": "Valor da Rentabilidade da  Data cota sênior cota sênior Benchmark  R$ %  Período findo em 30 de setembro de 2025 (*) 963,1672 (3,68) 100% CDI + 1,00% a.a.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 34,
+          "clause": "",
+          "excerpt": "Rentabilidade  Valor da teórica da cota  Data cota teórica sênior (**) sênior (**) Benchmark  R$ %  Período findo em 30 de setembro de 2025 (*) 1.012,4624 1,25 100% CDI + 1,00% a.a.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "de7ee2141e623ea36b1bb7c764401c20d82cd02ddb9633384fea8e394025c7bd",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "Valor da Rentabilidade da Data cota sênior cota sênior Benchmark R$ % Período findo em 30 de setembro de 2025 (*) 963,1672 (3,68) 100% CDI + 1,00% a.a.",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 32,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "49546204d87a44b8d5bed7b9e703c781661ac46d9c118c70c06a4805ea2e98f9",
+              "excerpt_sha256": "b14cc204925362f5f9c3df8367e6778c7a3e7fb797db4681e38d5ccce30af684"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "f5f84fea2395b23931d687dd044a06ef902dca846375e510fa82dccbbd6a3f98",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "2. Benchmark (Meta de rentabilidade). As Cotas Seniores da 1ª Série possuirão uma meta de rentabilidade (benchmark) equivalente à variação da taxa média referencial dos depósitos interfinanceiros (CDI Extra-grupo) apurada pela B3 e divulgada no informativo diário disponível em sua página na rede mundial de computadores…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 88,
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "8ca4b988b5d88b909a4c5bf7e4630cbcacf0d2d6f0f7a42a19a6f45e427a3495",
+              "excerpt_sha256": "86f763690ea6d43f6ed9e227e921e973ffc587e01077bb004849909bbe3a3b10"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "66d4e50070f8397d5a7732a14e8e7238aab4f0a6350099f6ffaa6b3c452df9dd",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "2. Benchmark (Meta de rentabilidade). As Cotas Seniores da 1ª Série possuirão uma meta de rentabilidade (benchmark) equivalente à variação da taxa média referencial dos depósitos interfinanceiros (CDI Extra-grupo) apurada pela B3 e divulgada no informativo diário disponível em sua página na rede mundial de computadores…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928235",
+              "title": "Instrumento Particular de Alteração do Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928235",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 3,
+              "sha256": "2bde513cda442b03a18c50a07282dc878c321d8c6251aedb56ba39c77c9afc4e",
+              "verification": "primary_passage",
+              "passage_id": "996b55ad8f95398f21de5a5eadd76435bc618ccfdb21384f483f0fb4032abf50",
+              "excerpt_sha256": "ae68dd6a5c0ca5b727df875b539874c8dcec23ba538a685fe77ea616d8689ec8"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 3,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "remuneration",
+        "total_count": 3,
+        "preview_count": 3,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "issue_volume",
+      "label": "Volume, VNU e emissão",
+      "theme": "Emissões e custos",
+      "applicability": "unresolved",
+      "status": "extraction_pending",
+      "value": "",
+      "reason": "Cláusula primária localizada e citada, mas sua lista/condições extensas não admitem uma síntese literal curta confirmada. O trecho integral permanece nas fontes.",
+      "sources": [
+        {
+          "document_id": "923892",
+          "title": "Anúncio de Início",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+          "reference_date": "2025-06-12",
+          "version": "1",
+          "page": 2,
+          "clause": "",
+          "excerpt": "dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90 (“Administradora”); e a ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Magalhães de Castro, nº 4.800, conjunto 174, Cidade Jardim, CEP 05676-120, inscrita no CNPJ sob o nº\n09.452.272/0001-05 (“Gestora”), comunicam, por meio deste anúncio, o início da oferta pública de distribuição primária, sob o regime de melhores esforços de colocação, registrada pelo rito de registro automático perante a CVM, nos termos do artigo 26, inciso VI, alínea “a” da Resolução CVM 160 (“Oferta”), de (i) até 1.275.000 (um milhão, duzentas e setenta e cinco mil) cotas seniores da 1ª (primeira) série (“Cotas Seniores da 1ª Série”), com valor nominal unitário de R$ 1.000,00 (mil reais), na 1ª (primeira) data de integralização (“1ª Data de Integralização”) das Cotas Seniores da 1ª Série, totalizando o montante de até R$1.275.000.000,00 (um bilhão, duzentos e setenta e cinco milhões reais); (ii) até 75.000 (setenta e cinco mil) cotas subordinadas mezanino A (“Cotas Subordinadas Mezanino A”), com valor nominal unitário de R$ 1.000,00 (mil reais), na 1ª Data de Integralização das Cotas Subordinadas Mezanino A, totalizando o montante de até R$75.000.000,00 (setenta e cinco milhões de reais); (iii) até 75.000 (setenta e cinco mil) cotas subordinadas mezanino B (“Cotas Subordinadas Mezanino B”), com valor unitário de R$ 1.000,00 (mil reais), na 1ª Data Integralização, totalizando o montante de até R$ 75.000.000,00 (setenta e cinco milhões de reais), e (iv) até 75.000 (setenta e cinco mil) cotas subordinadas juniores (“Cotas Subordinadas Juniores” e, em conjunto com as Cotas Seniores da 1ª Série, com as Cotas Subordinadas Mezanino A e com as Cotas Subordinadas Mezanino B, “Cotas”), com valor nominal unitário de R$\n1.000,00 (mil reais), na 1ª Data de Integralização, totalizando o montante de até R$\n75.000.000,00 (setenta e cinco milhões de reais), perfazendo a Oferta o montante de até R$1.500.000.000,00 (um bilhão e quinhentos milhões de reais).",
+          "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "c01095b815a752b3f1e7ac1160dcb8d2ef333f00f95220d75c6973d6867ad2a7",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "5.1.1. Para os efeitos de cômputo de quórum e manifestações de voto, a cada Cotista cabe uma quantidade de votos correspondente à quantidade de Cotas detidas por tal Cotista, ou seja, cada Cota será equivalente a 1 (um) voto nas deliberações de Assembleia Geral.",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 7,
+              "clause": "5.1.1",
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "197712c0c3090ad952ace66a990a5a3d89be862a6345a85851e43b6fc6327956",
+              "excerpt_sha256": "edb93e3e6059aa62df00f3e8d720ecbaf0da9f6e7e3cec38928230f08f1f90bf"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 1,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "issue_volume",
+        "total_count": 1,
+        "preview_count": 1,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      }
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "Em contraprestação aos serviços de administração fiduciária, tesouraria, controladoria e escrituração do Fundo, a Classe pagará ao Administrador uma taxa de administração de acordo com as respectivas faixas de patrimônio líquido da Classe, conforme tabela abaixo, observado o montante mínimo mensal de R$ 9,00 (nove mil reais):",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 31,
+          "clause": "",
+          "excerpt": "Em contraprestação aos serviços de administração fiduciária, tesouraria, controladoria e  escrituração do Fundo, a Classe pagará ao Administrador uma taxa de administração de acordo com  as respectivas faixas de patrimônio líquido da Classe, conforme tabela abaixo, observado o  montante mínimo mensal de R$ 9,00 (nove mil reais):",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "provenance": "primary_passage",
+      "precedence": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "history": [
+        {
+          "history_id": "91d033321c2130327e22717e8ed08ab779b66c380ff11bd0a8ae53585e10e260",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "Em contraprestação aos serviços de administração fiduciária, tesouraria, controladoria e escrituração do Fundo, a Classe pagará ao Administrador uma taxa de administração de acordo com as respectivas faixas de patrimônio líquido da Classe, conforme tabela abaixo, observado o montante mínimo mensal de R$ 9,00 (nove mil …",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 29,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "eb0c131e7229ffdf97522a5f1abc334a883ddcee5888047db01cd6e4ea82fad3",
+              "excerpt_sha256": "2e5e866fdbd5b1ca08091f76574f4fbfa2e2563979016fe3fd3ae38e4df5e400"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 1,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "admin_fee",
+        "total_count": 1,
+        "preview_count": 1,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "7.2. Em contraprestação aos serviços de gestão profissional da Carteira, a Classe A pagará à Gestora uma taxa de gestão de 0,25% (vinte e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe A, com mínimo mensal de R$30.000,00 (trinta mil reais) (“Taxa de Gestão”).",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 46,
+          "clause": "7.2",
+          "excerpt": "7.2. Em contraprestação aos serviços de gestão profissional da Carteira, a Classe A pagará  à Gestora uma taxa de gestão de 0,25% (vinte e cinco centésimos por cento) ao ano sobre o  Patrimônio Líquido da Classe A, com mínimo mensal de R$30.000,00 (trinta mil reais) (“Taxa  de Gestão”).",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "custody_fee",
+      "label": "Custódia, escrituração e encargos",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "7.4. Em contraprestação aos serviços de custódia da Carteira, excetuada a custódia dos CCCBs adquiridos pela Classe A, a Classe A pagará ao Custodiante uma taxa de custódia de acordo com as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo, observado o montante mínimo mensal de R$3.000,00 (três mil reais) (“Taxa de Custódia”).",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 47,
+          "clause": "7.4",
+          "excerpt": "7.4. Em contraprestação aos serviços de custódia da Carteira, excetuada a custódia dos  CCCBs adquiridos pela Classe A, a Classe A pagará ao Custodiante uma taxa de custódia de  acordo com as respectivas faixas de Patrimônio Líquido da Classe A, conforme tabela abaixo,  observado o montante mínimo mensal de R$3.000,00 (três mil reais) (“Taxa de Custódia”).",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "5.1.1. Para os efeitos de cômputo de quórum e manifestações de voto, a cada Cotista cabe uma quantidade de votos correspondente à quantidade de Cotas detidas por tal Cotista, ou seja, cada Cota será equivalente a 1 (um) voto nas deliberações de Assembleia Geral.\n\n(iii) liquidar a Classe A, desde que não remanesçam obrigações a serem honradas pelo seu patrimônio; ou (iv) determinar que a Administradora entre com pedido de declaração judicial de insolvência da Classe A, ficando a Administradora obrigada a ingressar com o pedido de declaração judicial de insolvência da Classe A caso a Assembleia de Cotistas mencionada acima não seja instalada por falta de quórum ou os Cotistas não deliberem a favor de qualquer possibilidade prevista acima.\n\n(ii) alterar este Anexo Descritivo 75% (setenta e maioria das Cotas e seus Apêndices e Adendos, exceto cinco por cento) Subordinadas Júnior se outro quórum específico por dos votos dos em circulação previsto abaixo; titulares das Cotas presentes maioria das Cotas na Assembleia Subordinadas Especial Mezanino em circulação",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 7,
+          "clause": "5.1.1",
+          "excerpt": "5.1.1. Para os efeitos de cômputo de quórum e manifestações de voto, a cada Cotista  cabe uma quantidade de votos correspondente à quantidade de Cotas detidas por tal  Cotista, ou seja, cada Cota será equivalente a 1 (um) voto nas deliberações de  Assembleia Geral.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 60,
+          "clause": "14.6",
+          "excerpt": "14.6. Ocorrendo a Assembleia de Cotistas mencionada no item 14.3 acima e, em caso de  não aprovação do plano de resolução do Patrimônio Líquido negativo, os Cotistas deverão  deliberar sobre (i) cobrir o Patrimônio Líquido negativo, mediante aporte de recursos, próprios  ou de terceiros, em montante e prazo condizentes com as obrigações da Classe A; (ii) cindir,  fundir ou incorporar a Classe A outra classe que tenha apresentado proposta já analisada pelos  Prestadores de Serviços Essenciais; (iii) liquidar a Classe A, desde que não remanesçam  obrigações a serem honradas pelo seu patrimônio; ou (iv) determinar que a Administradora  entre com pedido de declaração judicial de insolvência da Classe A, ficando a Administradora  obrigada a ingressar com o pedido de declaração judicial de insolvência da Classe A caso a  Assembleia de Cotistas mencionada acima não seja instalada por falta de quórum ou os  Cotistas não deliberem a favor de qualquer possibilidade prevista acima.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 61,
+          "clause": "",
+          "excerpt": "(ii) alterar este Anexo Descritivo 75% (setenta e maioria das Cotas  e seus Apêndices e Adendos, exceto cinco por cento) Subordinadas Júnior  se outro quórum específico por dos votos dos em circulação  previsto abaixo; titulares das  Cotas presentes maioria das Cotas  na Assembleia Subordinadas  Especial Mezanino em  circulação",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "related_parties",
+      "label": "Partes relacionadas e conflitos",
+      "theme": "Governança e alterações",
+      "applicability": "unresolved",
+      "status": "clause_not_found",
+      "value": "",
+      "reason": "Não localizada uma cláusula material para este critério nos textos identificados e processados. A ausência de resultado não comprova inexistência da regra.",
+      "sources": [],
+      "rule": {},
+      "risk_note": "",
+      "provenance": "",
+      "precedence": "",
+      "history": []
+    },
+    {
+      "criterion_id": "changes",
+      "label": "Histórico de alterações materiais",
+      "theme": "Governança e alterações",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(l) Risco de Alteração do Regulamento. O Regulamento e este Anexo Descritivo, em consequência de normas legais ou regulamentares ou de determinação da CVM, pode ser alterado independentemente da realização de Assembleia de Cotistas. Tais alterações poderão afetar o modo de operação da Classe A e acarretar perdas patrimoniais aos Cotistas.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 79,
+          "clause": "",
+          "excerpt": "(l) Risco de Alteração do Regulamento. O Regulamento e este Anexo Descritivo, em  consequência de normas legais ou regulamentares ou de determinação da CVM, pode ser  alterado independentemente da realização de Assembleia de Cotistas. Tais alterações poderão  afetar o modo de operação da Classe A e acarretar perdas patrimoniais aos Cotistas.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "audit",
+      "label": "Auditor independente e DFs",
+      "theme": "Governança e alterações",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "Classe A do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada (CNPJ no 60.598.366/0001-36) (Administrado pelo Banco Daycoval S.A.) Demonstrações contábeis em 30 de setembro de 2025 e relatório do auditor independente\n\nBANCO DAYCOVAL S.A., na qualidade de Administrador do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada, inscrito no CNPJ sob o n.º 60.598.366/0001-36 (“Fundo”), em cumprimento ao disposto no artigo 71 da Resolução CVM n.º 175, de 23 de dezembro de 2022, comunica aos cotistas do Fundo, que houve quórum para instalação da Assembleia Geral Ordinária do Fundo, programada para o dia 20 de fevereiro de 2026, às 15:00. Em virtude do comparecimento do(s) Cotista(s), foi lavrada a ata da Assembleia Geral Ordinária, na qual constou a aprovação das Demonstrações Contábeis devidamente auditadas do exercício social findo em 30 de setembro de 2025, nos termos do artigo 71 da Resolução CVM n.º 175, de 23 de dezembro de 2022.\n\nExaminamos as demonstrações contábeis do Classe A do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada (\"Fundo\"), que compreendem a demonstração da posição financeira em 30 de setembro de 2025 e as respectivas demonstrações do resultado, das mutações do patrimônio líquido e dos fluxos de caixa para período de 2 de julho a 30 de setembro de 2025, bem como as correspondentes notas explicativas, incluindo as políticas contábeis materiais e outras informações elucidativas.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 3,
+          "clause": "",
+          "excerpt": "Classe A do Fundo de  Investimento em Direitos  Creditórios BV Auto II Segmento  Financeiro - Responsabilidade  Limitada  (CNPJ no 60.598.366/0001-36)  (Administrado pelo  Banco Daycoval S.A.)  Demonstrações contábeis em  30 de setembro de 2025  e relatório do auditor independente",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1158588",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1158588",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 1,
+          "clause": "",
+          "excerpt": "BANCO DAYCOVAL S.A., na qualidade de Administrador do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada, inscrito no CNPJ sob o n.º 60.598.366/0001-36 (“Fundo”), em cumprimento ao disposto no artigo 71 da Resolução CVM n.º 175, de 23 de dezembro de 2022, comunica aos cotistas do Fundo, que houve quórum para instalação da Assembleia Geral Ordinária do Fundo, programada para o dia 20 de fevereiro de 2026, às 15:00. Em virtude do comparecimento do(s) Cotista(s), foi lavrada a ata da Assembleia Geral Ordinária, na qual constou a aprovação das Demonstrações Contábeis devidamente auditadas do exercício social findo em 30 de setembro de 2025, nos termos do artigo 71 da Resolução CVM n.º 175, de 23 de dezembro de 2022.",
+          "sha256": "8f3013279a8b7237e08f289624279554d3b06aed57bd0f91dcb6b776ee372603",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 4,
+          "clause": "",
+          "excerpt": "Examinamos as demonstrações contábeis do Classe A do Fundo de Investimento em Direitos  Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada (\"Fundo\"), que  compreendem a demonstração da posição financeira em 30 de setembro de 2025 e as  respectivas demonstrações do resultado, das mutações do patrimônio líquido e dos fluxos de  caixa para período de 2 de julho a 30 de setembro de 2025, bem como as correspondentes  notas explicativas, incluindo as políticas contábeis materiais e outras informações  elucidativas.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "37cfd895064cc1d0454cbd514da7dacb35d0d87b2bfed723954ce8590146a1f9",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "Classe A do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada (CNPJ no 60.598.366/0001-36) (Administrado pelo Banco Daycoval S.A.) Demonstrações contábeis em 30 de setembro de 2025 e relatório do auditor independente",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 1,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "0e720ef2d61fcd572536bcd0ce23e0aefb316786b6d19edb9eadc98043b4c788",
+              "excerpt_sha256": "da83debfaf361b8941c36f9c852de83908eeb0a3a4c04d818e6f95d27b201cff"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "d5c64f9cce5efd9ab703bb8a98a293b169f72f015f2e9edcdc7aebaa87f7cf92",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "5.6. Os Prestadores de Serviços Essenciais e/ou os Cotistas que detenham, no mínimo, 5% (cinco por cento) das Cotas em circulação poderão convocar representantes do Custodiante, do Auditor Independente ou quaisquer terceiros que prestem serviços ao Fundo ou à Classe para participar das Assembleias Gerais, sempre que, a…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 9,
+              "clause": "5.6",
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "09ffbdd0faf7776bb8fe255f106ebcdc6cfeba8e5be8aa1d99b546bd2796a08d",
+              "excerpt_sha256": "ea36c801d8357ccaa522a646d6fafaefb968fffea4527ac23f857bb541d87ce2"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 2,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "audit",
+        "total_count": 2,
+        "preview_count": 2,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "legacy_events",
+      "label": "Gatilhos de avaliação e liquidação",
+      "theme": "Eventos e cura",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido da Classe A está negativo: (i) qualquer pedido de declaração judicial de insolvência da Classe A; (ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e (iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos Apêndices.\n\n10.1. Os seguintes eventos serão considerados como eventos de avaliação, a partir do momento que a Administradora e/ou a Gestora tomem conhecimento de sua ocorrência (cada um, um “Evento de Avaliação”): (i) caso haja descumprimento pelo Emitente de qualquer de suas obrigações estabelecidas em um CCCB e/ou no Contrato de Endosso, desde que tal descumprimento não seja devidamente regularizado dentro do prazo de 20 (vinte) Dias Úteis contado do recebimento pelo Emitente, conforme o caso, de aviso, por",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 5,
+          "clause": "2.3",
+          "excerpt": "2.3. O Anexo Descritivo dispõe, sem prejuízo de outros requisitos e informações previstos  na regulamentação, sobre: (i) características gerais, incluindo a indicação dos demais  prestadores de serviços da Classe ; (ii) responsabilidade dos Cotistas e regime de insolvência  da Classe ; (iii) condições de amortização das Cotas da Classe ; (iv) ordem de alocação de  recursos; (v) Assembleia de Cotistas e demais procedimentos aplicáveis às manifestações de  vontade dos Cotistas da Classe ; (vi) remuneração dos prestadores de serviços da Classe ;\n (vii) política de investimento e composição e diversificação da carteira da Classe; (viii)  Eventos de Avaliação, Eventos de Liquidação e liquidação antecipada da Classe ; (ix) origem  dos Direitos Creditórios; (x) Critérios de Elegibilidade e Critérios para Vinculação; (xi) custos  referentes à defesa dos interesses dos Cotistas da Classe ; e (xii) fatores de risco.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 59,
+          "clause": "14.2",
+          "excerpt": "14.2. Os seguintes eventos obrigarão a Administradora a verificar se o Patrimônio Líquido  da Classe A está negativo:\n(i) qualquer pedido de declaração judicial de insolvência da Classe A;\n(ii) a ocorrência de Eventos de Avaliação e Eventos de Liquidação; e\n(iii) em caso de impossibilidade de pagamento de amortização de Cotas Seniores  ou de Cotas Subordinadas Mezanino no valor e prazos previstos nos respectivos  Apêndices.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 51,
+          "clause": "10.1",
+          "excerpt": "10.1. Os seguintes eventos serão considerados como eventos de avaliação, a partir do  momento que a Administradora e/ou a Gestora tomem conhecimento de sua ocorrência (cada  um, um “Evento de Avaliação”):\n(i) caso haja descumprimento pelo Emitente de qualquer de suas obrigações  estabelecidas em um CCCB e/ou no Contrato de Endosso, desde que tal  descumprimento não seja devidamente regularizado dentro do prazo de 20 (vinte)  Dias Úteis contado do recebimento pelo Emitente, conforme o caso, de aviso, por",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "duration_investors",
+      "label": "Duração e público-alvo",
+      "theme": "Alocação e perímetro",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "O Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada foi constituído em 29 de abril de 2025, sob a forma de condomínio de natureza especial fechado, e iniciou suas atividades em 02 de julho do mesmo ano, com prazo de duração indeterminado. Destina-se a investidores qualificados, nos termos do artigo 12 da Resolução CVM nº 30/2021 e alterações posteriores.\n\nA Classe A do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada (“Classe” ou “Fundo”) se enquadra na categoria de fundo de investimento em direitos creditórios, conforme o Anexo Normativo II à Resolução CVM nº 175/2022, com responsabilidade limitada dos cotistas e com classe única de cotas, destinada a investidores qualificados, constituída em regime fechado, sendo vedada a afetação ou a vinculação, a qualquer título, de parcela do patrimônio a qualquer subclasse de cotas.\n\nA Classe é constituída em regime fechado, de modo que as cotas somente serão resgatadas ao término do prazo de duração da respectiva subclasse ou série ou, ainda, em caso de liquidação da Classe. Será permitida a amortização das cotas nos termos do regulamento e, de forma resumida, dos parágrafos abaixo.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 12,
+          "clause": "",
+          "excerpt": "O Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade  Limitada foi constituído em 29 de abril de 2025, sob a forma de condomínio de natureza especial  fechado, e iniciou suas atividades em 02 de julho do mesmo ano, com prazo de duração  indeterminado. Destina-se a investidores qualificados, nos termos do artigo 12 da Resolução CVM  nº 30/2021 e alterações posteriores.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 12,
+          "clause": "",
+          "excerpt": "A Classe A do Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro -  Responsabilidade Limitada (“Classe” ou “Fundo”) se enquadra na categoria de fundo de  investimento em direitos creditórios, conforme o Anexo Normativo II à Resolução CVM nº  175/2022, com responsabilidade limitada dos cotistas e com classe única de cotas, destinada a  investidores qualificados, constituída em regime fechado, sendo vedada a afetação ou a vinculação,  a qualquer título, de parcela do patrimônio a qualquer subclasse de cotas.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 29,
+          "clause": "",
+          "excerpt": "A Classe é constituída em regime fechado, de modo que as cotas somente serão resgatadas ao  término do prazo de duração da respectiva subclasse ou série ou, ainda, em caso de liquidação da  Classe. Será permitida a amortização das cotas nos termos do regulamento e, de forma resumida,  dos parágrafos abaixo.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "122484badd5c22cce28728cbcc81cba3f67b4a8cbe98c79d619fdf2cddc16aae",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "O Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro - Responsabilidade Limitada foi constituído em 29 de abril de 2025, sob a forma de condomínio de natureza especial fechado, e iniciou suas atividades em 02 de julho do mesmo ano, com prazo de duração indeterminado. Destina-se a investidores …",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 10,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "bdcb7c0a3f5b33bdaa53e124e7470db36a30ddf0a4d7ccd7d12750ea8ca4e4f5",
+              "excerpt_sha256": "8d16e2e3c0c1190304a2f11551ac4a88407264eacac65c36fb2b36b06095ebb4"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "a3cf24caea60b974766d8d9541c3220434f63f2d6bfebca5ed2a80a6f2a1438a",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-12",
+          "value": "As Cotas serão distribuídas pelo Coordenador Líder e serão destinadas exclusivamente a investidores profissionais, assim definidos nos termos do artigo 11 da Resolução da CVM n° 30, de 11 de maio de 2021, conforme alterada (“Investidores Profissionais” e “Resolução CVM nº 30”, respectivamente).",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "923892",
+              "title": "Anúncio de Início",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+              "reference_date": "2025-06-12",
+              "version": "1",
+              "page": 2,
+              "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+              "verification": "primary_passage",
+              "passage_id": "ff7540958d54fd08f81d76efa388cf3b5b346a96887038087366d2f23e8f6d2e",
+              "excerpt_sha256": "6c8012a4916ccf032b796110ab4c53113bf7ee77b7ea5efe6b56d417c331132b"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "e2df4abc9b3d66fb22ef7ab6aaa3a2c0554c5543b55a7f54366a78d388e6436a",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "6.1. A Oferta será destinada exclusivamente a [Investidores Qualificados / Investidores Profissionais], conforme definidos no [artigo 12 / artigo 11] da Resolução CVM nº 30.",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 86,
+              "clause": "6.1",
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "7ac4b11e2b04d2d89f01a0c549d9ad47ec60764bad0fdab5760f02dfa454af7d",
+              "excerpt_sha256": "ee719acc02cd9f064deb7c3e4027769b3cdd4086e1ed7538a66ea58879cd6647"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 4,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "duration_investors",
+        "total_count": 4,
+        "preview_count": 3,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "quota_classes",
+      "label": "Classes e séries de cotas",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "O patrimônio da Classe é formado por diferentes subclasses de cotas, quais sejam, cotas seniores, cotas subordinadas mezanino e cotas subordinadas júnior. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate das cotas encontram-se descritas na íntegra no regulamento da Classe.\n\nPatrimônio líquido no início do período - Representado por 0,0000 cotas seniores a R$ - cada - Representado por 0,0000 cotas subordinadas mezanino A a R$ - cada - Representado por 0,0000 cotas subordinadas mezanino B a R$ - cada - Representado por 0,0000 cotas subordinadas júnior a R$ - cada -\n\nPatrimônio líquido no final do período 11 963.614 Representado por 850.000,0000 cotas seniores a R$ 963,1672 cada 818.692 Representado por 50.376,0000 cotas subordinadas júnior a R$ 960,3639 cada 48.379 Representado por 50.000,0000 cotas subordinadas mezanino B a R$ 965,9886 cada 48.299 Representado por 50.000,0000 cotas subordinadas mezanino A a R$ 964,8691 cada 48.243",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 30,
+          "clause": "",
+          "excerpt": "O patrimônio da Classe é formado por diferentes subclasses de cotas, quais sejam, cotas seniores,  cotas subordinadas mezanino e cotas subordinadas júnior. As características e os direitos, assim  como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate das  cotas encontram-se descritas na íntegra no regulamento da Classe.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 10,
+          "clause": "",
+          "excerpt": "Patrimônio líquido no início do período -  Representado por 0,0000 cotas seniores a R$ - cada -  Representado por 0,0000 cotas subordinadas mezanino A a R$ - cada -  Representado por 0,0000 cotas subordinadas mezanino B a R$ - cada -  Representado por 0,0000 cotas subordinadas júnior a R$ - cada -",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 10,
+          "clause": "",
+          "excerpt": "Patrimônio líquido no final do período 11 963.614  Representado por 850.000,0000 cotas seniores a R$ 963,1672 cada 818.692  Representado por 50.376,0000 cotas subordinadas júnior a R$ 960,3639 cada 48.379  Representado por 50.000,0000 cotas subordinadas mezanino B a R$ 965,9886 cada 48.299  Representado por 50.000,0000 cotas subordinadas mezanino A a R$ 964,8691 cada 48.243",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "e24e1210988ca3c82a335949b43332977d0516b8ee9a36cb464aa5b3f629c6a2",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "O patrimônio da Classe é formado por diferentes subclasses de cotas, quais sejam, cotas seniores, cotas subordinadas mezanino e cotas subordinadas júnior. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate das cotas encontram-se descritas…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 28,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "b8d8c2b606dea998baabe0c7d1f951871b52b76ffce072a70488f8a991d0e301",
+              "excerpt_sha256": "72d09703bf8b6934a981d9e716672b95569e48f52feb1b2ea4453afc35db1efa"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "82a9effb1c3702c846aef8096b63e3aede5482b424381c3ab4684c2e955e5a46",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-12",
+          "value": "",
+          "value_truncated": false,
+          "sources": [
+            {
+              "document_id": "923892",
+              "title": "Anúncio de Início",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+              "reference_date": "2025-06-12",
+              "version": "1",
+              "page": 2,
+              "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+              "verification": "primary_passage",
+              "passage_id": "55ffcda401850bed2c0803beda65774c78c3d44cd5dd34f1a5f0888c58a8cbee",
+              "excerpt_sha256": "c748957c1029c33622cd8d9d54e23e40e39befd8ede6374300bd163f4509bfbe"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "19ae161e98a60be84464cde1863ec2b39838979773e3604db294f88cdee202c0",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "2.4 Ressalvado o disposto no item 2.5 do Apêndice das Cotas Seniores, desde que todas as condições abaixo sejam cumulativamente e integralmente observadas, as Cotas Subordinadas Júnior deverão ser amortizadas se: (i) tiver ocorrido a totalidade da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino previst…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 108,
+              "clause": "2.4",
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "3cea880c3fde369884168cca2610c4d04bbb1ddfcbc3a1b85dfed64ad6399fe3",
+              "excerpt_sha256": "7d1c707c6c0fa3285513f5a689cbc8cf4fe0b619a87cd2e1672a8bf3107bce07"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 4,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "quota_classes",
+        "total_count": 4,
+        "preview_count": 3,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "offers",
+      "label": "Ofertas e colocação",
+      "theme": "Emissões e custos",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "Neste site, clicar em “Principais Consultas” – “Fundos de Investimento” - “Consulta por tipo de documento” – “Fundo de Investimento em Direitos Creditórios – FIDC” - “Documentos Eventuais (assembleias, fato relevante, prospecto distribuição, regulamento, relatório classificação risco, etc.)”, inserir “Fundo de Investimento em Direitos Creditórios BV Auto II Segmento Financeiro – Responsabilidade Limitada”, em seguida selecionar o documento desejado na aba “Tipo de Documento”, indicar a respectiva data na aba “Data”, clicar em “Exibir” e, então, no link do ”Anúncio de Início”, “Anúncio de Encerramento” ou na opção desejada.\n\n(v) B3: B3 S.A. – BRASIL, BOLSA, BALCÃO Endereço: Praça Antônio Prado, n° 48, 7° andar São Paulo – SP, CEP 01010-901 Página na rede mundial de computadores: www.b3.com.br (nesse website e clicar em “Home”, depois clicar em “Produtos e Serviços”, depois clicar “Solução para Emissores”, depois clicar em “Ofertas Públicas”, depois clicar em “Oferta em Andamento”, depois clicar em “Fundos”, e depois selecionar “Fundo de Investimento em Direitos Creditórios Auto BV Auto II Segmento Financeiro – Responsabilidade Limitada”, “Anúncio de Início”, “Anúncio de Encerramento” ou\n\nDA OFERTA PÚBLICA, SOB O RITO DE REGISTRO AUTOMÁTICO, DE COTAS DA 1ª (PRIMEIRA) EMISSÃO DA CLASSE A DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA CNPJ nº 60.598.366/0001-36",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "923892",
+          "title": "Anúncio de Início",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+          "reference_date": "2025-06-12",
+          "version": "1",
+          "page": 4,
+          "clause": "",
+          "excerpt": "(iv) CVM:\n COMISSÃO DE VALORES MOBILIÁRIOS  Endereço: Rua Sete de Setembro, nº 111  Rio de Janeiro – RJ  ou  Rua Cincinato Braga, nº 340, 2º, 3º e 4º andares  São Paulo – SP  Página na rede mundial de computadores: www.cvm.gov.br. Neste site, clicar em  “Principais Consultas” – “Fundos de Investimento” - “Consulta por tipo de  documento” – “Fundo de Investimento em Direitos Creditórios – FIDC” -  “Documentos Eventuais (assembleias, fato relevante, prospecto distribuição,  regulamento, relatório classificação risco, etc.)”, inserir “Fundo de Investimento  em Direitos Creditórios BV Auto II Segmento Financeiro – Responsabilidade  Limitada”, em seguida selecionar o documento desejado na aba “Tipo de  Documento”, indicar a respectiva data na aba “Data”, clicar em “Exibir” e, então,  no link do ”Anúncio de Início”, “Anúncio de Encerramento” ou na opção  desejada.",
+          "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "923892",
+          "title": "Anúncio de Início",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+          "reference_date": "2025-06-12",
+          "version": "1",
+          "page": 4,
+          "clause": "",
+          "excerpt": "(v) B3:\n B3 S.A. – BRASIL, BOLSA, BALCÃO  Endereço: Praça Antônio Prado, n° 48, 7° andar  São Paulo – SP, CEP 01010-901  Página na rede mundial de computadores: www.b3.com.br (nesse website e  clicar em “Home”, depois clicar em “Produtos e Serviços”, depois clicar “Solução  para Emissores”, depois clicar em “Ofertas Públicas”, depois clicar em “Oferta  em Andamento”, depois clicar em “Fundos”, e depois selecionar “Fundo de  Investimento em Direitos Creditórios Auto BV Auto II Segmento Financeiro –  Responsabilidade Limitada”, “Anúncio de Início”, “Anúncio de Encerramento” ou",
+          "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "923892",
+          "title": "Anúncio de Início",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=923892",
+          "reference_date": "2025-06-12",
+          "version": "1",
+          "page": 1,
+          "clause": "",
+          "excerpt": "DA OFERTA PÚBLICA, SOB O RITO DE REGISTRO AUTOMÁTICO, DE COTAS DA 1ª  (PRIMEIRA) EMISSÃO DA CLASSE A DO FUNDO DE INVESTIMENTO EM DIREITOS  CREDITÓRIOS BV AUTO II SEGMENTO FINANCEIRO – RESPONSABILIDADE LIMITADA  CNPJ nº 60.598.366/0001-36",
+          "sha256": "9d796d08754ef563c5150943e881dd368df8950c842775e80401bad0f74875eb",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [
+        {
+          "history_id": "85a2a59a618ef62e7ffc39c81eea014130e067529f7ad8425b0353d3d6f06106",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "6. Distribuição. As Cotas Seniores da 1ª Série serão objeto de distribuição por oferta pública, observado o rito de registro automático previsto na Resolução CVM nº 160 (“Oferta”), a ser liderada pelo BANCO VOTORANTIM S.A., inscrito no CNPJ/MF sob o nº 59.588.111/0001-03 (“Coordenador Líder”), em regime de melhores esf…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928236",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 88,
+              "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+              "verification": "primary_passage",
+              "passage_id": "3fee67ea0bea8a41e6ec2472a139d0e02d9b0c117d7305675ec2d260d5401e41",
+              "excerpt_sha256": "5ed2ae69368a99152e81b1eccf6a128fb55160ba96c0d3f4c9bf82621e33db15"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        },
+        {
+          "history_id": "68fcd73b0423ca072063b70686d0bb57ce75b2b7c023714c19b9e973563701e5",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-06-11",
+          "value": "IV. aprovar a realização da oferta pública de (a) até 1.275.000 (um milhão duzentas e setenta e cinco mil) Cotas Seniores da 1ª Série; (b) até 75.000 (setenta e cinco mil) Cotas Subordinadas Mezanino A; (c) até 75.000 (setenta e cinco mil) Cotas Subordinadas Mezanino B; e (d) até 75.000 (setenta e cinco mil) Cotas Subo…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "928235",
+              "title": "Instrumento Particular de Alteração do Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928235",
+              "reference_date": "2025-06-11",
+              "version": "1",
+              "page": 1,
+              "sha256": "2bde513cda442b03a18c50a07282dc878c321d8c6251aedb56ba39c77c9afc4e",
+              "verification": "primary_passage",
+              "passage_id": "7196be13d574a4067687555fb407af53fc5ad272676942515d243c213dd7c3bc",
+              "excerpt_sha256": "5346a20638dfe12bd5846dfe482218f671ef0ecb3c744fdac25d0816d1d3a081"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "history_count": 2,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "offers",
+        "total_count": 2,
+        "preview_count": 2,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      },
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    },
+    {
+      "criterion_id": "quota_grace",
+      "label": "Carência das cotas",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "(*) Em 30 de setembro de 2025, a Classe possui o montante de R$ 1 representado por depósitos à vista no Banco Daycoval S.A. (Administrador e Custodiante); (**) Refere-se ao investimento no Daycoval Títulos Públicos I Fundo de Investimento Financeiro inscrito no CNPJ nº 34.658.789/0001-94. O investimento não possui prazo de carência para resgate e conversibilidade das cotas, tanto para aplicação quanto para resgate é imediata, ocorrendo a liquidação financeira no mesmo dia; (***) Refere-se ao investimento no Daycoval Títulos Públicos II Fundo de Investimento Financeiro inscrito no CNPJ nº 34.658.859/0001-04. O investimento não possui prazo de carência para resgate e conversibilidade das cotas, tanto para aplicação quanto para resgate é imediata, ocorrendo a liquidação financeira no mesmo dia.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "1117718",
+          "title": "AGO",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117718",
+          "reference_date": "2026-02-20",
+          "version": "1",
+          "page": 17,
+          "clause": "",
+          "excerpt": "(*) Em 30 de setembro de 2025, a Classe possui o montante de R$ 1 representado por depósitos à vista no Banco  Daycoval S.A. (Administrador e Custodiante);\n (**) Refere-se ao investimento no Daycoval Títulos Públicos I Fundo de Investimento Financeiro inscrito no CNPJ  nº 34.658.789/0001-94. O investimento não possui prazo de carência para resgate e conversibilidade das cotas, tanto  para aplicação quanto para resgate é imediata, ocorrendo a liquidação financeira no mesmo dia;\n (***) Refere-se ao investimento no Daycoval Títulos Públicos II Fundo de Investimento Financeiro inscrito no CNPJ  nº 34.658.859/0001-04. O investimento não possui prazo de carência para resgate e conversibilidade das cotas, tanto  para aplicação quanto para resgate é imediata, ocorrendo a liquidação financeira no mesmo dia.",
+          "sha256": "108782ca7dfed8d1d20a6f415f2a853eecf46e8668fdcae7e14dbf3d80411bef",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "provenance": "primary_passage",
+      "precedence": "Trechos do documento específico identificado com data mais recente; vigência jurídica não inferida.",
+      "history": [
+        {
+          "history_id": "f12b8bc154045e8be26555ddbd53b0334fb3a6ad1077f2391f49b9f709bcbb03",
+          "history_path": "history/60598366000136.json",
+          "reference_date": "2025-09-30",
+          "value": "(*) Em 30 de setembro de 2025, a Classe possui o montante de R$ 1 representado por depósitos à vista no Banco Daycoval S.A. (Administrador e Custodiante); (**) Refere-se ao investimento no Daycoval Títulos Públicos I Fundo de Investimento Financeiro inscrito no CNPJ nº 34.658.789/0001-94. O investimento não possui praz…",
+          "value_truncated": true,
+          "sources": [
+            {
+              "document_id": "1069231",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069231",
+              "reference_date": "2025-09-30",
+              "version": "1",
+              "page": 15,
+              "sha256": "214bb86c09c42a88d588a9ff890abeac0586d389deb25dfdd7413c555c612cac",
+              "verification": "primary_passage",
+              "passage_id": "a1579529809a29951b67a72376d07df641c9cbe7da7a581f18ffb1175ab94248",
+              "excerpt_sha256": "00c5c2887b1a8a92a9ea279edbfacb3b36f897f5fd0867c4dbf8dabf5e470b77"
+            }
+          ],
+          "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+          "provenance": "primary_passage"
+        }
+      ],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      },
+      "history_count": 1,
+      "history_ref": {
+        "path": "history/60598366000136.json",
+        "criterion_id": "quota_grace",
+        "total_count": 1,
+        "preview_count": 1,
+        "full_text_deferred": true,
+        "sha256": "84e8e9848c3a02b511c5359a2809895d7f4e04b34b6fdc53b7f050b38bd9b580"
+      }
+    },
+    {
+      "criterion_id": "quota_maturity",
+      "label": "Vencimento das cotas",
+      "theme": "Fluxo de caixa e prazo",
+      "applicability": "applicable",
+      "status": "confirmed",
+      "value": "7.2. Considerando que a amortização das Cotas Seniores da 1ª Série ocorrerá em Regime de Caixa, a Administradora fica autorizada a, independentemente de aprovação em Assembleia Especial, realizar todos os atos necessários para a amortização das Cotas Seniores da 1ª Série, incluindo, sem limitação, informar a B3 - Balcão B3 sobre a nova data de vencimento das Cotas Seniores da 1ª Série.\n\n7.2. Considerando que a amortização das Cotas Subordinadas Mezanino A da 1ª Série ocorrerá em Regime de Caixa, a Administradora fica autorizada a, independentemente de aprovação em Assembleia Especial, realizar todos os atos necessários para a amortização das Cotas Subordinadas Mezanino A da 1ª Série, incluindo, sem limitação, informar a B3 - Balcão B3 sobre a nova data de vencimento das Cotas Subordinadas Mezanino A da 1ª Série.\n\n7.2. Considerando que a amortização das Cotas Subordinadas Mezanino B da 1ª Série ocorrerá em Regime de Caixa, a Administradora fica autorizada a, independentemente de aprovação em Assembleia Especial, realizar todos os atos necessários para a amortização das Cotas Subordinadas Mezanino B da 1ª Série, incluindo, sem limitação, informar a B3 - Balcão B3 sobre a nova data de vencimento das Cotas Subordinadas Mezanino B da 1ª Série.",
+      "reason": "",
+      "sources": [
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 89,
+          "clause": "7.2",
+          "excerpt": "7.2. Considerando que a amortização das Cotas Seniores da 1ª Série ocorrerá em  Regime de Caixa, a Administradora fica autorizada a, independentemente de aprovação em  Assembleia Especial, realizar todos os atos necessários para a amortização das Cotas Seniores  da 1ª Série, incluindo, sem limitação, informar a B3 - Balcão B3 sobre a nova data de  vencimento das Cotas Seniores da 1ª Série.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 97,
+          "clause": "7.2",
+          "excerpt": "7.2. Considerando que a amortização das Cotas Subordinadas Mezanino A da 1ª  Série ocorrerá em Regime de Caixa, a Administradora fica autorizada a, independentemente  de aprovação em Assembleia Especial, realizar todos os atos necessários para a amortização  das Cotas Subordinadas Mezanino A da 1ª Série, incluindo, sem limitação, informar a B3 -  Balcão B3 sobre a nova data de vencimento das Cotas Subordinadas Mezanino A da 1ª Série.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "928236",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928236",
+          "reference_date": "2025-06-11",
+          "version": "1",
+          "page": 106,
+          "clause": "7.2",
+          "excerpt": "7.2. Considerando que a amortização das Cotas Subordinadas Mezanino B da 1ª  Série ocorrerá em Regime de Caixa, a Administradora fica autorizada a, independentemente  de aprovação em Assembleia Especial, realizar todos os atos necessários para a amortização  das Cotas Subordinadas Mezanino B da 1ª Série, incluindo, sem limitação, informar a B3 -  Balcão B3 sobre a nova data de vencimento das Cotas Subordinadas Mezanino B da 1ª Série.",
+          "sha256": "f92c4a0c3f199d11905bdf72f710e47119ed9c7a31d3746738fe9b3b09fa2a2f",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "provenance": "primary_passage",
+      "precedence": "Documentos atuais selecionados no inventário por categoria/escopo; a data documental isolada não comprova vigência jurídica.",
+      "history": [],
+      "semantic_validation": {
+        "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+        "basis": "Fontes e resposta publicadas revalidadas; não houve nova extração para esta conferência.",
+        "valid": true
+      }
+    }
+  ],
+  "lookthrough": [],
+  "quarterly_observations": {
+    "status": "reported",
+    "quarter": "2026-Q2",
+    "competence": "06/2026",
+    "document_id": "1284487",
+    "source": {
+      "type": "quarterly_pdf",
+      "document_id": "1284487",
+      "reference_date": "06/2026",
+      "delivered_at": "11/08/2026 23:11",
+      "version": 1,
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1284487",
+      "sha256": "05c9fa29c8442fedd99933938dbd70b97d78a69c330c826c7fde9593edad270d",
+      "identity_verified": true
+    },
+    "records": [
+      {
+        "criterion_id": "cession",
+        "label": "Cessões no trimestre",
+        "status": "reported",
+        "value": "VII – impacto no valor do patrimônio líquido e na rentabilidade da carteira de ativos de uma possível descontinuidade, a qualquer título, da originação ou cessão de direitos creditórios; e Não são esperados impactos na rentabilidade da carteira em caso de descontinuidade das cessões ou originação dos direitos creditórios. VIII – informações sobre fatos ocorridos que afetaram a regularidade dos fluxos financeiros oriundos dos direitos creditórios, incluindo, mas não se limitando, a quaisquer eventos que acarretem na liquidação ou amortização antecipada de direitos creditórios. Não foram identificados fatos que afetem a regularidade dos fluxos financeiros oriundos dos direitos creditórios",
+        "source": {
+          "type": "quarterly_pdf",
+          "document_id": "1284487",
+          "reference_date": "06/2026",
+          "delivered_at": "11/08/2026 23:11",
+          "version": 1,
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1284487",
+          "sha256": "05c9fa29c8442fedd99933938dbd70b97d78a69c330c826c7fde9593edad270d",
+          "identity_verified": true,
+          "page": "4",
+          "clause": "Cessão de direitos creditórios do cedente ao FIDC.",
+          "excerpt": "Cessão de direitos creditórios do cedente ao FIDC. VII – impacto no valor do patrimônio líquido e na rentabilidade da carteira de ativos de uma possível descontinuidade, a qualquer título, da originação ou cessão de direitos creditórios; e Não são esperados impactos na rentabilidade da carteira em caso de descontinuidade das cessões ou originação dos direitos creditórios. VIII – informações sobre fatos ocorridos que afetaram a regularidade dos fluxos financeiros oriundos dos direitos creditórios, incluindo, mas não se limitando, a quaisquer eventos que acarretem na liquidação ou amortização antecipada de direitos creditórios. Não foram identificados fatos que afetem a regularidade dos fluxos financeiros oriundos dos direitos creditórios"
+        },
+        "risk_note": ""
+      }
+    ],
+    "identity": {
+      "status": "verified",
+      "expected_cnpj": "60598366000136",
+      "cnpj_fundo": "",
+      "cnpj_classe": "",
+      "header_fields": [
+        {
+          "cnpj": "62232889000190",
+          "page": 1,
+          "text": "DEMONSTRATIVO TRIMESTRAL\nRelatório Trimestral – 30/06/2026\n\nÀ Comissão de Valores Mobiliários - CVM\n\nPrezados senhores,\n\nO Banco Daycoval S.A. (“Administrador”), CNPJ 62.232.889/0001-90, na qualidade de administrador do FIDC BV AUTO II SEGMENTO\nFINANCEIRO - RESPONSABILIDADE LIMITADA, CNPJ/ME Nº 60598366000136, disciplinado pela Resol"
+        },
+        {
+          "cnpj": "60598366000136",
+          "page": 1,
+          "text": "– 30/06/2026\n\nÀ Comissão de Valores Mobiliários - CVM\n\nPrezados senhores,\n\nO Banco Daycoval S.A. (“Administrador”), CNPJ 62.232.889/0001-90, na qualidade de administrador do FIDC BV AUTO II SEGMENTO\nFINANCEIRO - RESPONSABILIDADE LIMITADA, CNPJ/ME Nº 60598366000136, disciplinado pela Resolução CMN 2.907, pela Instrução\nCVM 175 e alterações posteriores, apresenta as informações relativas ao 2º trimestre de 2026:"
+        }
+      ],
+      "header_cnpj": "60598366000136",
+      "basis": "exact requested CNPJ in first physical page",
+      "page": 1
+    },
+    "reason": "",
+    "evidence_basis": "Declarações do informe trimestral; não substituem o regulamento nem comprovam verificação independente.",
+    "record_count_available": 1,
+    "records_limit": 32
+  },
+  "document_selection": {
+    "current_document_ids": [
+      "928235",
+      "928236"
+    ],
+    "basis": "Inventário por categoria/escopo; não certifica vigência jurídica por data isolada."
+  },
+  "excluded_relationship_candidates": [],
+  "lookthrough_provenance": "primary_passage",
+  "criterion_revisions": {
+    "receivables": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "investee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "pdd": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
+    "evaluation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "liquidation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "guarantee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "collection_account": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129",
+    "providers": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "legacy_events": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "quota_grace": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "debtor": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "eligibility": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "term": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "tax_allocation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "perimeter": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "res175": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "subordination": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "junior_release": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "coobligation": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "cure": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "enforcement": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "servicing": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "collateral_check": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "hedge": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "rating": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "remuneration": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "admin_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "management_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "custody_fee": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "quorum": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "changes": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "audit": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "duration_investors": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "quota_classes": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "offers": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "quota_maturity": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "originator": "b07e84eeb5c285b65eb7a3597f07c3ceed9dbaf0cd028919c0ba7098534a5129"
+  },
+  "semantic_validation_receipt": {
+    "validator_fingerprint": "94d3c5ee93a87db2cd109ff242ac7303ba633403238e839faed9463c0cd21b98",
+    "confirmed_primary_checked": 34,
+    "rejected": 0,
+    "basis": "Relevância das fontes e valores disponíveis; não certifica vigência jurídica, números ou interpretação de leituras manuais."
+  },
+  "criterion_extractor_revisions": {
+    "receivables": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "originator": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "debtor": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "investee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "guarantee": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "providers": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f",
+    "allocation": "80c766c95a02095d4bd00a37db0916270d7da42b4d8127c050ed1cf10cdab28f"
+  }
+}

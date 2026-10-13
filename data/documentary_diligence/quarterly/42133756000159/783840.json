@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "42133756000159",
+  "quarter": "2024-Q3",
+  "competence": "09/2024",
+  "quarter_source": "document_catalog",
+  "status": "no_text",
+  "parse_status": "no_text",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": ""
+    },
+    {
+      "page": 2,
+      "text": ""
+    },
+    {
+      "page": 3,
+      "text": ""
+    }
+  ],
+  "pages_total": 3,
+  "pages_extracted": 0,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "783840",
+    "reference_date": "09/2024",
+    "delivered_at": "19/11/2024 11:34",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=783840",
+    "sha256": "04bd9ad8846c6700d406f9b3794c9294d886d6a52d1cbd8ad37b188e7f4a718b",
+    "identity_verified": false
+  },
+  "identity": {
+    "status": "not_verified",
+    "expected_cnpj": "42133756000159",
+    "cnpj_fundo": "",
+    "cnpj_classe": "",
+    "header_fields": []
+  },
+  "parsed_at": "2026-10-13T05:31:50Z",
+  "error": "PDF has no extractable text; OCR not performed"
+}

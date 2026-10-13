@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50473039000102",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 3633849616.56,
+    "credit_rights": 3585296832.0,
+    "overdue_credit": 0.0,
+    "cash": 1015.01,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 1810315949.4955013,
+    "subordinated_quotas": 1823533667.0607982,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1823533667.0607982
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50473039000102",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/50473039000102_202605.json",
+    "reported_fund_cnpj": "50473039000102",
+    "reported_class_cnpj": "50473039000102",
+    "reported_fund_cnpj_raw": "50473039000102",
+    "reported_class_cnpj_raw": "50473039000102",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1220439",
+    "version": 1,
+    "delivered_at": "15/06/2026 13:23",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1220439",
+    "declared_fields_sha256": "a3b10cd2930d2c003228edf9db7d690f6cff537709e1be56dc29690acfccfa51"
+  },
+  "error": ""
+}

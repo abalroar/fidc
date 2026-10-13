@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "48313595000161",
+  "name": "IBBA AGRO BR FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:07Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:00:39Z",
+  "routes": [
+    {
+      "url": "https://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 839465,
+          "reference_date": "12/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839465",
+          "source_excerpt": "ocamente uma nota fiscal eletrônica e faculta a\n                                            verificação da sua autorização e conteúdo no ambiente\n                                            nacional (www.nfe.fazenda.gov.br) ou no site da\n                                            Secretaria de Fazenda - SEFAZ da circunscrição do\n                                            respectivo Cedente.\n\n            “Classe “"
+        },
+        {
+          "document_id": 976737,
+          "reference_date": "22/08/2025",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=976737",
+          "source_excerpt": "ivocamente uma nota fiscal eletrônica e faculta a\n                                           verificação da sua autorização e conteúdo no ambiente\n                                           nacional (www.nfe.fazenda.gov.br) ou no site da\n                                           Secretaria de Fazenda - SEFAZ da circunscrição do\n                                           respectivo Cedente.\n\n           “Classe “"
+        },
+        {
+          "document_id": 429000,
+          "reference_date": "03/11/2022",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=429000",
+          "source_excerpt": "univocamente uma nota fiscal eletrônica e faculta a\n                                verificação da sua autorização e conteúdo no ambiente\n                                nacional (www.nfe.fazenda.gov.br) ou no site da\n                                Secretaria de Fazenda - SEFAZ da circunscrição do\n                                respectivo Cedente.\n\n“CMN”                           Significa o CONSEL"
+        },
+        {
+          "document_id": 526648,
+          "reference_date": "25/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526648",
+          "source_excerpt": "univocamente uma nota fiscal eletrônica e faculta a\n                                verificação da sua autorização e conteúdo no ambiente\n                                nacional (www.nfe.fazenda.gov.br) ou no site da\n                                Secretaria de Fazenda - SEFAZ da circunscrição do\n                                respectivo Cedente.\n\n“CMN”                           Significa o CONSEL"
+        },
+        {
+          "document_id": 579402,
+          "reference_date": "26/12/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=579402",
+          "source_excerpt": "univocamente uma nota fiscal eletrônica e faculta a\n                              verificação da sua autorização e conteúdo no ambiente\n                              nacional (www.nfe.fazenda.gov.br) ou no site da\n                              Secretaria de Fazenda - SEFAZ da circunscrição do\n                              respectivo Cedente.\n\nCMN                           Significa o CONSELHO MON"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:51Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "https://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

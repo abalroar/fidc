@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "cnpj": "61927592000186",
+  "name": "WELLGROW FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:26Z",
+  "routes": [
+    {
+      "url": "http://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1281031,
+          "reference_date": "10/08/2026",
+          "page": 28,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1281031",
+          "source_excerpt": "Atendimento ao Cotista e não\ntenha se sentido satisfeito com a solução apresentada, com o número do protocolo de\natendimento em mãos, o Cotista deve acessar o canal da ouvidoria, por meio do website\nhttp://www.singulare.com.br ou ligar para 0800.773.2009.\n\n\n                                *          *         *\n\n\n\n\n                                          28\nDOCS-5762695v11"
+        },
+        {
+          "document_id": 1237737,
+          "reference_date": "01/07/2026",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1237737",
+          "source_excerpt": "Atendimento ao Cotista e não\ntenha se sentido satisfeito com a solução apresentada, com o número do protocolo de\natendimento em mãos, o Cotista deve acessar o canal da ouvidoria, por meio do website\nhttp://www.singulare.com.br ou ligar para 0800.773.2009.\n\n                                           21\nErro! Nome de propriedade do documento desconhecido."
+        },
+        {
+          "document_id": 954932,
+          "reference_date": "25/07/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=954932",
+          "source_excerpt": "Atendimento ao Cotista e não tenha se\nsentido satisfeito com a solução apresentada, com o número do protocolo de atendimento em mãos,\no Cotista deve acessar o canal da ouvidoria, por meio do website http://www.singulare.com.br ou ligar\npara 0800.773.2009.\n                                             *      *         *\n\n\n    21 de 110"
+        },
+        {
+          "document_id": 1213807,
+          "reference_date": "12/02/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1213807",
+          "source_excerpt": "tenha se sentido satisfeito com a solução apresentada, com o número do protocolo de\n          atendimento em mãos, o Cotista deve acessar o canal da ouvidoria, por meio do website\n          http://www.singulare.com.br ou ligar para 0800.773.2009.\n\n                                                     24\n          Erro! Nome de propriedade do documento desconhecido.\n\n\n990b7b40-a5a2-4b47-872a-fdc31e45e5f4"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalas-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1323972,
+          "reference_date": "02/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323972",
+          "source_excerpt": "ongo de sua\nDez/25: Atribuição: ‘brB(sf)’\n                                     vigência, a subordinação disponível às Cotas Seniores, em relação ao PL da Classe Única,\nEscala de rating disponível em:\nhttp://www.austin.com.br/Escalas-\n                                     deverá ser de, no mínimo, 30,0% representado por Cotas Subordinadas (Mezanino + Júnior).\nde-Rating.html                       O Regulamento não estabelece, contud"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1323972,
+          "reference_date": "02/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323972",
+          "source_excerpt": "vamente a outros emissores e emissões nacionais (Brasil), de que\nFax: 55 11 3377 0739\n                                     o Fundo não devolva aos Cotistas Seniores e Subordinados Mezanino os valores\nwww.austin.com.br                    correspondentes ao principal investido, acrescidos das remunerações propostas (CDI + 4,8%"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1323972,
+          "reference_date": "02/12/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323972",
+          "source_excerpt": "5. Esta reunião de Comitê está registrada na\n    Ata Nº 20251202-1.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: h"
+        },
+        {
+          "document_id": 1323975,
+          "reference_date": "10/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323975",
+          "source_excerpt": "2026. Esta reunião de Comitê está registrada na Ata Nº 20260610-14.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 1323981,
+          "reference_date": "16/09/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323981",
+          "source_excerpt": "e 2026. Esta reunião de Comitê está registrada na Ata Nº 20260916-7.\n2. As classificações atribuídas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: ht"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1323972,
+          "reference_date": "02/12/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323972",
+          "source_excerpt": ".\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito da Austin Rating estão sujeitas a diversas limitações,"
+        },
+        {
+          "document_id": 1323975,
+          "reference_date": "10/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323975",
+          "source_excerpt": "l.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito da Austin Rating estão sujeitas a diversas limitações,"
+        },
+        {
+          "document_id": 1323981,
+          "reference_date": "16/09/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323981",
+          "source_excerpt": "l.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em\n   suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito da Austin Rating estão sujeitas a diversas limitações,"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

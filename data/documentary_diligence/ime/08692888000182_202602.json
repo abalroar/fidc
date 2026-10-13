@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "08692888000182",
+  "competence": "02/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 1613485.02,
+    "credit_rights": 169675453.47,
+    "overdue_credit": 169486353.71,
+    "cash": 165331.93,
+    "pdd": 169210183.23,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 1613485.0200010403,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1613485.0200010403
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "08692888000182",
+    "competence": "02/2026",
+    "path": "data/documentary_diligence/ime/08692888000182_202602.json",
+    "reported_fund_cnpj": "08692888000182",
+    "reported_class_cnpj": "08692888000182",
+    "reported_fund_cnpj_raw": "8692888000182",
+    "reported_class_cnpj_raw": "8692888000182",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1136204",
+    "version": 1,
+    "delivered_at": "13/03/2026 14:15",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1136204",
+    "declared_fields_sha256": "cffd57ea8193fc2a0d8988e7f9c6b57b290e021581775f37af5bb2044245842a"
+  },
+  "error": ""
+}

@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "cnpj": "52100879000147",
+  "name": "SOTREQ FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:11Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:00Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1117315,
+          "reference_date": "06/02/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+          "source_excerpt": "Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                                 disponível em sua página na Internet (http://www.b3.com.br).\n\n\n        “Termo de Adesão”                        Significa o “Termo de Ciência de Risco e Adesão ao\n                                                 Regulamento do SOTREQ FUNDO DE INVESTIMENTO EM"
+        },
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 31,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "vulgada pela B3 no informativo\n                                                 diário      disponível   em      sua     página      na      Internet\n                                                 (http://www.b3.com.br).\n\n\n               “Termo de Adesão”                 Significa o “Termo de Ciência de Risco e Adesão ao\n                                                 Regulamento do Sotreq Fundo de Investimento em D"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "96CE-CEAA-496F-95E4-A1E403272491\n\n\n\n\n                                                 diário      disponível   em      sua   página   na     Internet\n                                                 (http://www.b3.com.br).\n\n\n                “Termo de Adesão”                Significa o “Termo de Ciência de Risco e Adesão ao\n                                                 Regulamento do Sotreq Fundo de Investimento em D"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "FD08-9E6B-4FE5-9E14-991562601737\n\n\n\n\n                                                 diário      disponível   em      sua   página   na     Internet\n                                                 (http://www.b3.com.br).\n\n\n                “Termo de Adesão”                Significa o “Termo de Ciência de Risco e Adesão ao\n                                                 Regulamento do Sotreq Fundo de Investimento em D"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "11F95E-102D-4C4F-A5CC-81F3CEA219F5\n\n\n\n\n                                                diário       disponível   em     sua   página   na     Internet\n                                                (http://www.b3.com.br).\n\n\n               “Termo de Adesão”                Significa o “Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do Sotreq Fundo de Investimento em Dir"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1117315,
+          "reference_date": "06/02/2026",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+          "source_excerpt": "a CVM. Informações sobre o Auditor Independente contratado para auditoria doFundo e das\n       Classes encontram-se disponíveis para acesso pelos Cotistas na página do Administrador no\n       website https://www.oliveiratrust.com.br. Qualquer alteração na empresa de auditoria\n       contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for\n       o caso, publicada nas páginas na rede mundial de co"
+        },
+        {
+          "document_id": 618275,
+          "reference_date": "04/03/2024",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618275",
+          "source_excerpt": "s sobre o Auditor Independente contratado para auditoria do\n               Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas na página do\n               Administrador no website https://www.oliveiratrust.com.br. Qualquer alteração na empresa\n               de auditoria contratada será comunicada por meio de carta simples endereçada aos\n               Cotistas e, quando for o caso, publicada nas páginas na re"
+        },
+        {
+          "document_id": 618514,
+          "reference_date": "04/03/2024",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618514",
+          "source_excerpt": "s sobre o Auditor Independente contratado para auditoria do\n               Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas na página do\n               Administrador no website https://www.oliveiratrust.com.br. Qualquer alteração na empresa\n               de auditoria contratada será comunicada por meio de carta simples endereçada aos\n               Cotistas e, quando for o caso, publicada nas páginas na re"
+        },
+        {
+          "document_id": 740367,
+          "reference_date": "17/09/2024",
+          "page": 36,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740367",
+          "source_excerpt": "ormações sobre o Auditor Independente contratado para auditoria doFundo e das\n            Classes encontram-se disponíveis para acesso pelos Cotistas na página do Administrador no\n            website https://www.oliveiratrust.com.br. Qualquer alteração na empresa de auditoria\n            contratada será comunicada por meio de carta simples endereçada aos Cotistas e, quando for\n            o caso, publicada nas páginas na rede mun"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1117315,
+          "reference_date": "06/02/2026",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+          "source_excerpt": "Eletrônica e\n                                                     faculta a verificação da sua autorização e do seu conteúdo\n                                                     no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no\n                                                     site da Secretaria de Fazenda – SEFAZ da circunscriçãodas\n                                                     Cedentes.\n\n\n             “Cla"
+        },
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "ta a verificação da sua autorização\n                                                 e     do        seu     conteúdo   no        ambiente   nacional\n                                                 (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                                                 Fazenda – SEFAZ da circunscrição das Cedentes.\n\n\n               “CMN”                             Significa o Conselho Mon"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "erificação da sua autorização\n                                                 e     do        seu     conteúdo   no        ambiente         nacional\n                                                 (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                                                 Fazenda – SEFAZ da circunscrição das Cedentes.\n\n\n                “CMN”                            Significa o Conselho Mon"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "erificação da sua autorização\n                                                 e      do       seu     conteúdo   no        ambiente         nacional\n                                                 (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                                                 Fazenda – SEFAZ da circunscrição das Cedentes.\n\n\n                “CMN”                            Significa o Conselho Mon"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "verificação da sua autorização\n                                                e     do        seu     conteúdo   no        ambiente         nacional\n                                                (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de\n                                                Fazenda – SEFAZ da circunscrição das Cedentes.\n\n\n               “CMN”                            Significa o Conselho Monet"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1117315,
+          "reference_date": "06/02/2026",
+          "page": 125,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+          "source_excerpt": "regulamentação em vigor (tais como o critério de marcação a mercado) e no manual de\n           precificação        do           Administrador disponível                              em\n           “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n\n\n\n\n                                                                   - 83 -\nD4Sign a8769ed2-e606-4c73-9a53-64f76888084a - Para conﬁrmar as assinaturas acesse https://secure.d4sign.com.br/ver"
+        },
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "em vigor (tais como o critério de marcação a mercado) e no manual de\n                precificação               do                Administrador               disponível            em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos Cessão serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "o em vigor (tais como o critério de marcação a mercado) e no manual de\n                precificação               do                Administrador              disponível           em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos Cessão serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "o em vigor (tais como o critério de marcação a mercado) e no manual de\n                precificação                do               Administrador              disponível           em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos Cessão serão contabilizados e registrados com base em\n                seu Preço de Aquisição, com apropriação de seus respectivos rendimentos"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "ão em vigor (tais como o critério de marcação a mercado) e no manual de\n               precificação                do                Administrador              disponível           em\n               “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n               os Direitos Creditórios Adquiridos Cessão serão contabilizados e registrados com base em\n               seu Preço de Aquisição, com apropriação de seus respectivos rendimentos,"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1117315,
+          "reference_date": "06/02/2026",
+          "page": 179,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117315",
+          "source_excerpt": "quiridos do Fundo com base no Manual de Provisão para perdas em\n           Ativos            de            Crédito            do            Administrador               disponível        em\n           http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n           pdf, observado o disposto acima., observado o disposto acima.\n\n\n           Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n           comportamento de atraso"
+        },
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 137,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "Creditórios Adquiridos Cessão do Fundo com base no Manual de Provisão para\n                perdas      em       Ativos      de      Crédito    do      Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 137,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "Creditórios Adquiridos Cessão do Fundo com base no Manual de Provisão para\n                perdas      em       Ativos      de      Crédito    do      Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 137,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "itórios Adquiridos Cessão do Fundo com base no Manual de Provisão para\n                perdas       em       Ativos      de         Crédito    do      Administrador    disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n                pdf, observado o disposto acima.\n\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                comportamento de atrasos substancialm"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 137,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "s Creditórios Adquiridos Cessão do Fundo com base no Manual de Provisão para\n               perdas       em      Ativos      de      Crédito    do      Administrador    disponível   em\n               http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n               pdf, observado o disposto acima.\n\n\n               Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n               comportamento de atrasos substancialment"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "sembleias Gerais de Cotistas dos\n                fundos investidos de acordo com a sua “Política de Exercício de Direito de Voto em\n                Assembleias Gerais”, disponível no seu website, em: www.angaasset.com.br.\n\n\n                CAPÍTULO 7 - CRITÉRIOS DE AVALIAÇÃO DOS ATIVOS FINANCEIROS E DIREITOS\n                                       CREDITÓRIOS INTEGRANTES DA CARTEIRA\n\n                JUR_SP - 49454187v6"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "sembleias Gerais de Cotistas dos\n                fundos investidos de acordo com a sua “Política de Exercício de Direito de Voto em\n                Assembleias Gerais”, disponível no seu website, em: www.angaasset.com.br.\n\n\n                CAPÍTULO 7 - CRITÉRIOS DE AVALIAÇÃO DOS ATIVOS FINANCEIROS E DIREITOS\n                                        CREDITÓRIOS INTEGRANTES DA CARTEIRA\n\n\n                7.1.    Serão obs"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "sembleias Gerais de Cotistas dos\n                fundos investidos de acordo com a sua “Política de Exercício de Direito de Voto em\n                Assembleias Gerais”, disponível no seu website, em: www.angaasset.com.br.\n\n\n                CAPÍTULO 7 - CRITÉRIOS DE AVALIAÇÃO DOS ATIVOS FINANCEIROS E DIREITOS\n                                        CREDITÓRIOS INTEGRANTES DA CARTEIRA\n\n\n                7.1.    Serão obs"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "Assembleias Gerais de Cotistas dos\n               fundos investidos de acordo com a sua “Política de Exercício de Direito de Voto em\n               Assembleias Gerais”, disponível no seu website, em: www.angaasset.com.br.\n\n\n                CAPÍTULO 7 - CRITÉRIOS DE AVALIAÇÃO DOS ATIVOS FINANCEIROS E DIREITOS\n                                       CREDITÓRIOS INTEGRANTES DA CARTEIRA\n\n\n               7.1.     Serão obse"
+        },
+        {
+          "document_id": 608488,
+          "reference_date": "05/02/2024",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=608488",
+          "source_excerpt": "or participará ativamente das Assembleias Gerais de Cotistas dos\nfundos investidos de acordo com a sua “Política de Exercício de Direito de Voto em\nAssembleias Gerais”, disponível no seu website, em: www.angaasset.com.br.\n\n\nCAPÍTULO 7 - CRITÉRIOS DE AVALIAÇÃO DOS ATIVOS FINANCEIROS E DIREITOS\n                     CREDITÓRIOS INTEGRANTES DA CARTEIRA\n\n\n7.1.   Serão observados os seguintes critérios para o cálculo do val"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 529169,
+          "reference_date": "01/09/2023",
+          "page": 123,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529169",
+          "source_excerpt": "bre o Auditor Independente contratado para auditoria do\n                        Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                        Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                        na empresa de auditoria contratada será comunicada por meio de carta simples\n                        endereçada aos Cotistas e, quando for o caso, publicada"
+        },
+        {
+          "document_id": 526936,
+          "reference_date": "20/09/2023",
+          "page": 125,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526936",
+          "source_excerpt": "bre o Auditor Independente contratado para auditoria do\n                        Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                        Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                        na empresa de auditoria contratada será comunicada por meio de carta simples\n                        endereçada aos Cotistas e, quando for o caso, publicada"
+        },
+        {
+          "document_id": 529167,
+          "reference_date": "29/09/2023",
+          "page": 125,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=529167",
+          "source_excerpt": "bre o Auditor Independente contratado para auditoria do\n                        Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                        Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                        na empresa de auditoria contratada será comunicada por meio de carta simples\n                        endereçada aos Cotistas e, quando for o caso, publicada"
+        },
+        {
+          "document_id": 548322,
+          "reference_date": "06/11/2023",
+          "page": 125,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=548322",
+          "source_excerpt": "bre o Auditor Independente contratado para auditoria do\n                        Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                        Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n                        na empresa de auditoria contratada será comunicada por meio de carta simples\n                        endereçada aos Cotistas e, quando for o caso, publicada"
+        },
+        {
+          "document_id": 608488,
+          "reference_date": "05/02/2024",
+          "page": 125,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=608488",
+          "source_excerpt": "rado\n       na CVM. Informações sobre o Auditor Independente contratado para auditoria do\n       Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n       Administrador no website http://www.oliveiratrust.com.br/portal/. Qualquer alteração\n       na empresa de auditoria contratada será comunicada por meio de carta simples\n       endereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede\n       mundia"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:29Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

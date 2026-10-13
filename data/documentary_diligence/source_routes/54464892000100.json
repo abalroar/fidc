@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "cnpj": "54464892000100",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II",
+  "generated_at": "2026-10-13T05:30:14Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:06:16Z",
+  "routes": [
+    {
+      "url": "https://www.vortx.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 674760,
+          "reference_date": "23/05/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674760",
+          "source_excerpt": "dimento ao cotista, responsável pelo\n                  esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado nos\n                  meios abaixo:\n                 Website: https://www.vortx.com.br/\n                 SAC: (11)3030-7177\n                 Ouvidoria: 0800 887 0456\n\n\n\n\n                                            São Paulo, 23 de maio de 2024.\n\n\n                        VÓRTX DISTRIBUID"
+        },
+        {
+          "document_id": 690443,
+          "reference_date": "21/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690443",
+          "source_excerpt": "tendimento ao cotista, responsável pelo\n                 esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado nos\n                 meios abaixo:\n                Website: https://www.vortx.com.br/\n                SAC: (11)3030-7177\n                Ouvidoria: 0800 887 0456\n\n\n\n\n                                                  São Paulo, 21 de junho de 2024.\n\n\n                    VÓRTX DISTRIBUI"
+        },
+        {
+          "document_id": 715869,
+          "reference_date": "08/08/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715869",
+          "source_excerpt": "dimento ao cotista, responsável pelo\n                  esclarecimento de dúvidas e pelo recebimento de reclamações, que pode ser acessado nos\n                  meios abaixo:\n                 Website: https://www.vortx.com.br/\n                 SAC: (11)3030-7177\n                 Ouvidoria: 0800 887 0456\n\n\n\n\n                                         São Paulo, 8 de agosto de 2024.\n\n\n                VÓRTX DISTRIBUIDORA DE TÍT"
+        },
+        {
+          "document_id": 760641,
+          "reference_date": "15/10/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760641",
+          "source_excerpt": "O ADMINISTRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n      dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n\n      Website: https://www.vortx.com.br/\n\n      SAC: (11)3030-7177\n\n      Ouvidoria: 0800 887 0456\n\n\n\n\n                                     São Paulo, 16 de outubro de 2024.\n\n\n\n              VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁR"
+        },
+        {
+          "document_id": 804654,
+          "reference_date": "16/10/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=804654",
+          "source_excerpt": "O ADMINISTRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n      dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n\n      Website: https://www.vortx.com.br/\n\n      SAC: (11)3030-7177\n\n      Ouvidoria: 0800 887 0456\n\n\n\n\n                                     São Paulo, 16 de outubro de 2024.\n\n\n\n              VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁR"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "263951",
+        "final_url": "https://www.vortx.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.vortx.com.br/ri",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 674760,
+          "reference_date": "23/05/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674760",
+          "source_excerpt": "orme a metodologia de avaliação descrita\n                  no manual do ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos\n                  seus respectivos websites, nos endereços https://www.vortx.com.br/ri.\n         9.2      As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos\n                  Financeiros de Liquidez integrantes da Carteira serão, respectivamente, efet"
+        },
+        {
+          "document_id": 674760,
+          "reference_date": "23/05/2024",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674760",
+          "source_excerpt": "atos da Classe das funções para os quais foram contratados, sendo certo que tais\n              regras e procedimentos disponibilizados e mantidos atualizados em seu website, no\n              endereço https://www.vortx.com.br/ri.\n         Gestão\n         12.8 O GESTOR, observadas as limitações legais e as previstas na regulamentação aplicável,\n              tem poderes para praticar os atos necessários à gestão da Carteira de"
+        },
+        {
+          "document_id": 690443,
+          "reference_date": "21/06/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690443",
+          "source_excerpt": "nforme a metodologia de avaliação descrita\n                 no manual do ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos\n                 seus respectivos websites, nos endereços https://www.vortx.com.br/ri.\n        9.2      As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos\n                 Financeiros de Liquidez integrantes da Carteira serão, respectivamente, efetua"
+        },
+        {
+          "document_id": 690443,
+          "reference_date": "21/06/2024",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690443",
+          "source_excerpt": "tratos da Classe das funções para os quais foram contratados, sendo certo que tais\n             regras e procedimentos disponibilizados e mantidos atualizados em seu website, no\n             endereço https://www.vortx.com.br/ri.\n        Gestão\n        12.8 O GESTOR, observadas as limitações legais e as previstas na regulamentação aplicável,\n             tem poderes para praticar os atos necessários à gestão da Carteira de at"
+        },
+        {
+          "document_id": 715869,
+          "reference_date": "08/08/2024",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715869",
+          "source_excerpt": "orme a metodologia de avaliação descrita\n                  no manual do ADMINISTRADOR ou, ainda, nos manuais do CUSTODIANTE, disponíveis nos\n                  seus respectivos websites, nos endereços https://www.vortx.com.br/ri.\n         9.2      As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos\n                  Financeiros de Liquidez integrantes da Carteira serão, respectivamente, efet"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 674760,
+          "reference_date": "23/05/2024",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=674760",
+          "source_excerpt": "expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis,\n         calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet\n         (www.b3.com.br);\n         “Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, por\n         meio do qual o Cotista adere a este Regulamento e que deve ser firmado quando de seu ingresso"
+        },
+        {
+          "document_id": 690443,
+          "reference_date": "21/06/2024",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690443",
+          "source_excerpt": ", expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis,\n        calculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet\n        (www.b3.com.br);\n        “Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, por\n        meio do qual o Cotista adere a este Regulamento e que deve ser firmado quando de seu ingresso"
+        },
+        {
+          "document_id": 715869,
+          "reference_date": "08/08/2024",
+          "page": 65,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=715869",
+          "source_excerpt": "expressas na forma percentual ao ano, base 252 (duzentos e cinquenta e\n         dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo diário disponível em\n         sua página na internet (www.b3.com.br);\n         “Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução\n         CVM 175, por meio do qual o Cotista adere a este Regulamento e que deve ser firmado\n         quando de seu"
+        },
+        {
+          "document_id": 759523,
+          "reference_date": "15/10/2024",
+          "page": 74,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759523",
+          "source_excerpt": "e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\n          diário disponível em sua página na internet (www.b3.com.br);\n\nXCVIII.   “Taxa Máxima de Custódia”: signiﬁca a taxa cobrada do Fundo, representativa do\n          montante total para remuneração do Custodiante, conforme prevista neste Anexo;\n\nXCIX.     “Taxa Máx"
+        },
+        {
+          "document_id": 760641,
+          "reference_date": "15/10/2024",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760641",
+          "source_excerpt": "over extra grupo,\nexpressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis,\ncalculadas e divulgadas pela B3, no informativo diário disponível em sua página na internet\n(www.b3.com.br);\n\n“Taxa Máxima de Distribuição”: a taxa devida ao distribuidor das Cotas, nos termos do item 13.7\ndeste Anexo;\n\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, por m"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/investidor/fundos-investimento",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 759523,
+          "reference_date": "15/10/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=759523",
+          "source_excerpt": "e 23 de dezembro de 2022,\n          conforme alterada;\n\nXXVII. “Resolução CVM 30”: signiﬁca a resolução CVM nº 30, de 13 de julho de 2021, conforme\n       alterada;\n\nXXVIII. “Site da Administradora”: https://vortx.com.br/investidor/fundos-investimento\n\nXXIX.     “Site da Gestora”: https://ceresasset.com.br/\n\nXXX.      “Taxa Máxima de Distribuição”: signiﬁca a taxa cobrada do Fundo, representativa do\n          montante total para remuneração dos di"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:25Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

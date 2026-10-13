@@ -1,0 +1,1784 @@
+{
+  "schema_version": 1,
+  "cnpj": "54559035000194",
+  "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
+  "criteria": {
+    "eligibility": [
+      "ae2aae5af3fa7bac50083d392ba7f9d618b83d6f908246fc47ee8740b74eab02",
+      "cf8a848986ec4b263706f9ac77dd98516151d709aeb1b4e369ed9616f8f94c94"
+    ],
+    "term": [
+      "943d895dad9417474e1105e2b9892da87594855b7bcdb9fdeacc9ff631b9853a"
+    ],
+    "concentration": [
+      "e3611f2503167f419378f8a77b24fb62f264f4a0dbe91dd434e53bd0cb66b325"
+    ],
+    "tax_allocation": [
+      "596ab55e2490386271a5b0d0a57321c18aac5780921b4a85f7946bda066bd330"
+    ],
+    "perimeter": [
+      "8d721bbac86d254899a6b995a2b8630839f9edd64b56a6a427a3e716ae995cca"
+    ],
+    "res175": [
+      "a595e9318f284fac50deaccc07b00df8e01ad7faee9851c5a148a9976d814fea"
+    ],
+    "subordination": [
+      "214c966ae91402d9de1b9e3ac25f17ba15f49d94e2fc1c2d871328cd60d08478",
+      "ac09e14b43874824b44d707f94320f3b1b3492a50084b2f6ce9ee5f64c7da0f4"
+    ],
+    "junior_release": [
+      "3122bd80454d9581462d8fb7b799ca6ce8c0b29b258006f1c68d3c84c651d7ca"
+    ],
+    "liquidity_reserve": [
+      "ee2d1c7a929c16217f65d84867cb291638533d97511d0bc1f0736373f3436107"
+    ],
+    "expense_reserve": [
+      "bef84abd689bebcafb747d89147ba8b9dbf82bbe397dc7d4a7ac6f69961e8463"
+    ],
+    "repurchase": [
+      "6118be8281d2e98d723038bc6b5eb507938deb131dfc9d567dc987f782c54da1"
+    ],
+    "coobligation": [
+      "b6e0edfe22c3d2b78ca0068a71665e6e9ceec9180a39a5c327271e4cea8f1640"
+    ],
+    "cure": [
+      "a8d6348b0f9b11978542e4d42d2ac1363cd0df27d20baf5c9510a4c0f965cd25"
+    ],
+    "cross_default": [
+      "4b447022e0554ce14ccfe93d8ca4f51bd66dd86dba4bdcdd76361d301a007480"
+    ],
+    "waterfall": [
+      "a5fe1343cb907774d936f35f4881c58b6951cd14dd441529a6a5c5776968226d"
+    ],
+    "sequential": [
+      "79b2e3ae9f319333c39458e948d13d3116e08e6d0edc0190f921b0a1d12e0219"
+    ],
+    "payments": [
+      "806357e100d7b4eae084f80637b237ffa4d276381a3430935f485b5d646c84ff",
+      "bc93c1c1a9bb06fe8674318d7be1811db8fdf69a597445119bb64806a6997a89"
+    ],
+    "servicing": [
+      "115b988206a4682cc7a388d9950a7c50917b0b79ccd9a3fec20ed88ca5889b67"
+    ],
+    "collateral_check": [
+      "30d35eb4582e3748cf832ebd64df0da3e997e4083f06e5bfb5243d0a854450d7"
+    ],
+    "replacement": [
+      "772a69637503ad203a9c357e7ef9c8fb2ff553753597c3537fc9f5dfa513da4e"
+    ],
+    "rating": [
+      "a797dee5d089c0971f7c926fc5d78781b84ceb4d77d1186ada3663bf7c68821c",
+      "9253917da49cab5e115fcc30e242f1fd3d97a1287372c93fc0be2c5326b2a00b",
+      "ada1b888be53ff4201b7627de0ec0ff2f1cb301b5af6a266f4b1eea0ef19be16",
+      "2fabcdc3abf31c94801124378678f739e5d2942bf4da096c4431fb74f82017f1",
+      "f1cec818b3d7643c1c84db8bf6582dc6e32aced5b151eb90e8fc8871eca72b27"
+    ],
+    "remuneration": [
+      "b11d7c91ab66d69420a9e6243f5d7d855a1815119ec8d86285508b884c8f7d78",
+      "921cc39488a303457c2b49b2de207299cc48448f165039ade052fccb2e7cc3d1",
+      "8c5a890901b782dd61b134d8897472cb9055e12e2e44025a3b27e5d9342ca74f"
+    ],
+    "issue_volume": [
+      "ee2c0781e14a6218d608f7704d8a962e37d483446057b2e131da6f4a660de133"
+    ],
+    "admin_fee": [
+      "7ce627f76ec349274aaa533ce52f92b01414a0c1c8aee7970dfb1a9e2f64dda9",
+      "8cda90ca2e03fdf9a84b28777556dde60c79c47849aaa98e6b9d7932803d25af"
+    ],
+    "management_fee": [
+      "62152ca09e969d400d28d3422bbab4a5aad021ddd3ef5ee29572c8e6ed5b326f",
+      "8cda90ca2e03fdf9a84b28777556dde60c79c47849aaa98e6b9d7932803d25af"
+    ],
+    "custody_fee": [
+      "85f151a7e9aae2a5c0804e2c992c23431e73bd1c512f53e1bc7ad3aa21b3fda7",
+      "83a9c4670bda6fdf52ca6d2752daf8b6f5d751ab0c767c16866ed1dfbdb26402"
+    ],
+    "quorum": [
+      "0c0de56026387c04771ba6583521074469f2994f67f8507803a920f04e0d4fd4"
+    ],
+    "related_parties": [
+      "8c254cbd2812238da5d0428658d1262ebc0ecc8696b0e00e5e9bdd7e1127ff1f"
+    ],
+    "changes": [
+      "99f1d742c1f62c24ccd3b75e345ddf881aa5dd9188c5b5ed1ce7af651e29590e"
+    ],
+    "audit": [
+      "9503846b145bd29a89e503ca9ae19806c6ecc935fb5493138f9893154bf70d70",
+      "f5409e12fc4fd2318651c31fadc9bf6b052fda0d15394f327cf1bebac93b852d",
+      "8cef4efb2014586f93d37ce5f47ddf3b0b511171e610c428d2fead218df39eef",
+      "c3f1f461b45c07a99a750119e20054c940e89a06541060d327ea0e04b3c6e9f0",
+      "1d2f1ccb1725541ba46b526fac5041c092fa6f691ba73fe4cf787137a22ce4dc",
+      "637aa1f9f12fb6318618f1910a7e843db584b807dbe997912b05f19472ba97da"
+    ],
+    "duration_investors": [
+      "49e5d87f4f8d188d3155eab0344623e58f00e320c157cdf11fd99b84a1217102",
+      "0b4e00f9faf16afd21baf679f25fbc628b9515aeebca748ecd5ade6252f153e6",
+      "cbd581c94ec3840755fa822ce9ae8eba8760b29b9b8351c535e66c657091187e",
+      "76cd206e3ba4406a268c44fbc12c53608b003cb959e8fcc69dac35461db2aa92",
+      "61bc2f626c98558cb7b5347766761e848e26a2d1e055d0fabc741f03719b6d77",
+      "11b4cddd10a04d3002ec38d24cdb8503f35c5371857165cd2bd496ddd55fe61b",
+      "7373d3aedb304f8a383236fc194c652db1399d69ecc5ee9093ee966f194f1215",
+      "180d860f2ab40b45f1d855f58cb74f46bb9d085023bdc5a90d44bb2a604d7a9e"
+    ],
+    "quota_classes": [
+      "00a48c8f96623e0c351bc9275941536efe2f127d71c91a05d4418db1cbbb49d9",
+      "4a010a8743a7e5cabea7db719ea40fcecf7a65b1125c8b7c4eb2faf0fa1aee47",
+      "bf3578474f97a2837300e96eaecb5857f4dc589f4069d65576389c027b461d10",
+      "088eef5cd89d92ea2f99c0f39326ce21120ec2d1c551754b6f8fa7e408f0b743",
+      "6fe74a1716b765e6c57b2e712bbf69e921e28e551ee3c68205a980d101d65ef1",
+      "1b81ccce9a1a2a0d3477bb364d5c9a96e7257d1b68f9b026983784c8d386a7bb",
+      "11b4cddd10a04d3002ec38d24cdb8503f35c5371857165cd2bd496ddd55fe61b",
+      "7373d3aedb304f8a383236fc194c652db1399d69ecc5ee9093ee966f194f1215",
+      "a4d7f207f714db6e562824212b835f83f2147588a6ce0b373f40da620acf731d"
+    ],
+    "offers": [
+      "b0178626b229f4284270d7c4bc6c2b154c1361543cf240a6fef263ffd616a51c",
+      "0c2a071fca5f4570ee105b3064bfce6fad9015a666a453e4503e32c7dd480efa",
+      "c7804ce085a408d98998bb1c1b7559b415e8633e26dd783f703d4859480183e3",
+      "686e2f75f0521a328b7b5ceebc8cc38687b11fce3a075addbef9956056ff3a60",
+      "132d1bd229ebc5017687784f7041bde60ed40a66d9de37ddd03bc507e31979cb"
+    ],
+    "quota_maturity": [
+      "e2bdb426f642a0a428fd11abe4dfa6c9b1faf7803b5c7aad7d52c39493c89079"
+    ],
+    "pdd": [
+      "6d65a9331177874881c6246fac6de98528d64477b05eb8d6fb6895b909dcafee"
+    ],
+    "evaluation": [
+      "4b447022e0554ce14ccfe93d8ca4f51bd66dd86dba4bdcdd76361d301a007480"
+    ],
+    "liquidation": [
+      "a516733cf7fb7334562c4eba354b56e239735647a3095bdb66e8feac8b4319ea"
+    ],
+    "legacy_events": [
+      "c7fae768b2c673f77aa2abe1ce1b9f02828f388e3c4f48d464e0e9af38750918",
+      "08dcb404f583f1401f0e4f8e19eb8556ffeed093967b9b3c6d40f9bbef534b29"
+    ],
+    "quota_grace": [
+      "8d33b44f93aefe4bfb353a14911164b08994fc927ba34f69b8c47bcec0626eae"
+    ],
+    "originator": [
+      "bf5d547244cf919faa02dc686dd0c221969bdd0ce98e12cc2edd430ff544e634",
+      "9de4cdbfbeff8bc67115d34dc18c3b0af62936d7a82148308254c5f2acea588c"
+    ],
+    "debtor": [
+      "d2118be89666cf9a8c4f09dac0a9981ffe42ca387cbd74b44a446da285f2e53f"
+    ],
+    "investee": [
+      "a742ba3b2d7bbc7a4d79df38f4b9da978fec6c51cdf7ed22c67f28a9b5571e58",
+      "0f428a4e15cfbb50afc581ecc7e1a9fe195f390f44fce5f9dc76e0c6158632c7"
+    ],
+    "guarantee": [
+      "da91bfd211612ecc2ad7a389c7ac807bdc38d7e707046c7b5519f29bd4ffe3ff"
+    ],
+    "providers": [
+      "115b988206a4682cc7a388d9950a7c50917b0b79ccd9a3fec20ed88ca5889b67"
+    ],
+    "receivables": [
+      "39f207aa410121a1a232ad706509e1e74885ad83680e25a1dc28e11ab43db38a"
+    ],
+    "allocation": [
+      "a155ddb4dad24c3678a57de2c9abf5eb790a4160dac8bd05485522a875a92556",
+      "e6652f5b4c2cd47f5f449d9a38592e9c70827e0821e234a6339d2bfd90c2dbbd"
+    ]
+  },
+  "entries": {
+    "39f207aa410121a1a232ad706509e1e74885ad83680e25a1dc28e11ab43db38a": {
+      "reference_date": "2024-04-05",
+      "value": "CDBs vinculados do Banco IBM a contratos de arrendamento mercantil",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9"
+      ]
+    },
+    "bf5d547244cf919faa02dc686dd0c221969bdd0ce98e12cc2edd430ff544e634": {
+      "reference_date": "2024-04-05",
+      "value": "Banco IBM; arrendamentos vinculados no contrato de CDB",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9"
+      ]
+    },
+    "9de4cdbfbeff8bc67115d34dc18c3b0af62936d7a82148308254c5f2acea588c": {
+      "reference_date": "2024-04-01",
+      "value": "(c) apresentação pelo Banco IBM ou por qualquer das suas Controladas de proposta de conciliações e mediações antecedentes ou incidentais nos termos do artigo 20- B da Lei 11.101, ou, ainda, realize quaisquer medidas judiciais antecipatórias (ou de qualquer processo similar em outra jurisdição);.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "eb123ac88341405c3396b4d2f9009807f03c21b9ed86b3b2a3e78fc3d79dba4e"
+      ]
+    },
+    "d2118be89666cf9a8c4f09dac0a9981ffe42ca387cbd74b44a446da285f2e53f": {
+      "reference_date": "2024-04-05",
+      "value": "Banco IBM; pagamento dos CDB-V condicionado aos fluxos de leasing vinculados",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Risco de fluxo dos arrendatários e de operacionalização/insolvência do banco; não converter em empréstimo consignado.",
+      "sources": [
+        "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9"
+      ]
+    },
+    "ae2aae5af3fa7bac50083d392ba7f9d618b83d6f908246fc47ee8740b74eab02": {
+      "reference_date": "2024-04-05",
+      "value": "Emissão Banco IBM; reais; formalização integral; sem ônus, atraso prévio ou repactuação",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Lista integral e vínculo do CDB-V dependem do Contrato CDB. Redação de elegibilidade usa termo CCB em passagens do anexo, divergente da definição de CDB-V; não altera o ativo por inferência.",
+      "sources": [
+        "3aba19d967b085ab2aa7031ff00aa887417d47098fe31b06ad867f098fefe078"
+      ]
+    },
+    "cf8a848986ec4b263706f9ac77dd98516151d709aeb1b4e369ed9616f8f94c94": {
+      "reference_date": "2024-04-01",
+      "value": "3.2.2. A Classe somente poderá adquirir Direitos Creditórios que atendam à Política de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "25849c9de0a5ab326a480a8fe608b44cfcecd60ea78d03252249afde007308d0"
+      ]
+    },
+    "943d895dad9417474e1105e2b9892da87594855b7bcdb9fdeacc9ff631b9853a": {
+      "reference_date": "2024-04-01",
+      "value": "(x) estruturar o Fundo, em conjunto com o Administrador, devendo, no mínimo: (a) estabelecer a Política de Investimento das Classes; (b) estimar a inadimplência da Carteira de direitos creditórios e, se for o caso, estabelecer um índice de subordinação (c) estimar o prazo médio ponderado da Carteira de direitos creditórios; (d) estabelecer como se darão os fluxos financeiros derivados dos direitos creditórios; e (e) estabelecer hipóteses de liquidação antecipada.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "74fcf43ce30b81386a6742ffb5e34f46d94b017b795a1b6bcaf49ec8bb793318"
+      ]
+    },
+    "e3611f2503167f419378f8a77b24fb62f264f4a0dbe91dd434e53bd0cb66b325": {
+      "reference_date": "2024-04-05",
+      "value": "Exposição vinculada ao Banco IBM e aos contratos indicados; limite por arrendatário não localizado",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9"
+      ]
+    },
+    "a155ddb4dad24c3678a57de2c9abf5eb790a4160dac8bd05485522a875a92556": {
+      "reference_date": "2024-04-05",
+      "value": "≥ 50% do PL após 180 dias; percentual tributário com divergência numérico/extenso",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "A definição tributária registra 67% por número e 50% por extenso. Não harmonizar por hipótese; distinguir alocação contratual do objetivo fiscal.",
+      "sources": [
+        "d7c8bf2875d156a6e8ca56a2abc715a32c14d3dcd93c943b7bd42fa8b59ac3e3"
+      ]
+    },
+    "e6652f5b4c2cd47f5f449d9a38592e9c70827e0821e234a6339d2bfd90c2dbbd": {
+      "reference_date": "2024-04-01",
+      "value": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por Investimento” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos do artigo 44 do Anexo Normativo II.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "95c4d8783b33c428a7d4969d92b2a645200e79041f092432c09344d86bb3f785"
+      ]
+    },
+    "596ab55e2490386271a5b0d0a57321c18aac5780921b4a85f7946bda066bd330": {
+      "reference_date": "2024-04-01",
+      "value": "“Alocação Mínima de Significa a alocação de, pelo menos, 67% (cinquenta por Investimento Tributária” cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754/23, para fins de enquadramento do Fundo e da Classe como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ff91e6fb50844998c31be457e79fdf267e68f9e226ed6801a26e0c6ce387ff00"
+      ]
+    },
+    "8d721bbac86d254899a6b995a2b8630839f9edd64b56a6a427a3e716ae995cca": {
+      "reference_date": "2024-04-01",
+      "value": "2.1. A presente Classe Única foi constituída sob a forma de classe fechada, de responsabilidade limitada, com prazo de duração de 37 (trinta e sete) meses, integrante do Fundo e disciplinada pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, e será regida pelo presente Anexo Descritivo da Classe Única.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0e4f2a631eee07493821617a0843c2cc90c637cef25c1d90808e746c30636ee0"
+      ]
+    },
+    "a595e9318f284fac50deaccc07b00df8e01ad7faee9851c5a148a9976d814fea": {
+      "reference_date": "2024-04-01",
+      "value": "13.4.2. Quando da publicação do demonstrativo trimestral a que se refere o artigo 27, inciso V, do Anexo Normativo II da Resolução CVM 175/22, caso o somatório dos valores de face dos Direitos Creditórios Adquiridos em relação aos quais sejam verificadas irregularidades e/ou inconsistências, na verificação realizada nos termos do item 13.3 acima, seja superior a 10% (dez por cento) do Patrimônio Líquido no Dia Útil anterior à data- base do respectivo demonstrativo trimestral, o Custodiante deverá comunicar o Gestor e o Administrador para que este prontamente convoque a Assembleia Especial para deliberar sobre as providências a serem tomadas.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0dbaa28845f9132efa11e09821aebb2e10cb19458c024479fa261cbe6b8b2940"
+      ]
+    },
+    "214c966ae91402d9de1b9e3ac25f17ba15f49d94e2fc1c2d871328cd60d08478": {
+      "reference_date": "2024-04-05",
+      "value": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "2b87e9e0548345dd991fa887b2d02ea583e56899d460b7f6a6c9d7a4fd17a3b3"
+      ]
+    },
+    "ac09e14b43874824b44d707f94320f3b1b3492a50084b2f6ce9ee5f64c7da0f4": {
+      "reference_date": "2024-04-01",
+      "value": "“Relação Mínima” Significa a relação mínima admitida entre o valor total das Cotas Subordinadas e o Patrimônio Líquido do Fundo, a qual deverá ser apurada pelo Gestor e deve corresponder a, no mínimo, 10% (dez por cento). Isso significa que a razão do Patrimônio Líquido dividido pelo valor total das Cotas Seniores em circulação deve ser, no mínimo, 111,11% (cento e onze inteiros e onze centésimos por cento).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8561b2f5f63cb26eee1e2577fb503923079fb3a7cbe8fabb8cb925a19eb1afc5"
+      ]
+    },
+    "3122bd80454d9581462d8fb7b799ca6ce8c0b29b258006f1c68d3c84c651d7ca": {
+      "reference_date": "2024-04-01",
+      "value": "8.20. A Ordem de Alocação de Recursos, caso Amortização Pro Rata esteja em curso, ocorrerá da seguinte forma (observado, ainda, o disposto na Cláusula 8.26): (i) caso aplicável, pagamento do Prêmio de Amortização Extraordinária; (ii) pagamento da Meta de Remuneração com referência às Cotas Seniores em circulação; (iii) pagamento da Meta de Remuneração com referência às Cotas Subordinadas Júnior em circulação; (iv) pagamento da Meta de Amortização com referência às Cotas Seniores em circulação; (v) caso aplicável, pagamento do Prêmio de Saldo Remanescente; e",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6913f18c3596098c06f545bb0ff335fa6901f2b3e066f41d4a9cde68b2a1c15e"
+      ]
+    },
+    "ee2d1c7a929c16217f65d84867cb291638533d97511d0bc1f0736373f3436107": {
+      "reference_date": "2024-04-05",
+      "value": "R$ 4.000.031 para custos e despesas estimadas",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "20104f6fab9ac7c9456c064efb2668cc313c8f773432ab0e16d10c3cc6732fb6"
+      ]
+    },
+    "bef84abd689bebcafb747d89147ba8b9dbf82bbe397dc7d4a7ac6f69961e8463": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6012a1b8d1b5233844ff0ed529afabed9aa481883d61271b5a0318560293ca51"
+      ]
+    },
+    "6d65a9331177874881c6246fac6de98528d64477b05eb8d6fb6895b909dcafee": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e13f1c36cb3a615b7fc3814eea57b3649f0b334aeaf519298c0fd23ce3f8f985"
+      ]
+    },
+    "6118be8281d2e98d723038bc6b5eb507938deb131dfc9d567dc987f782c54da1": {
+      "reference_date": "2024-04-05",
+      "value": "CDB-V e dação em pagamento de créditos de leasing conforme Contrato CDB",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Contrato CDB integral não obtido; condições finais de recompra, substituição e indenização permanecem lacuna.",
+      "sources": [
+        "fa825112f85e2c39c6a89fc3bab2fe4fb0ca1749d24d21615ca88a0b79ee7154"
+      ]
+    },
+    "b6e0edfe22c3d2b78ca0068a71665e6e9ceec9180a39a5c327271e4cea8f1640": {
+      "reference_date": "2024-04-05",
+      "value": "Garantia de solvência/coobrigação adicional não localizada; CDB-V dependente dos fluxos",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9"
+      ]
+    },
+    "0c0de56026387c04771ba6583521074469f2994f67f8507803a920f04e0d4fd4": {
+      "reference_date": "2024-04-01",
+      "value": "10.4. Sem prejuízo do disposto nos itens 10.2 e 10.3 acima, ao tomar conhecimento de qualquer dos Eventos de Avaliação, o Administrador e o Gestor suspenderão imediatamente o pagamento de Remuneração e de Amortização de Principal de todas as Cotas e convocará imediatamente uma Assembleia Especial, a qual decidirá, observado o quórum de deliberação de que trata o Capítulo 7 deste Anexo Descritivo, se o referido Evento de Avaliação deve ser ou não considerado um Evento de Liquidação Antecipada e (a) caso a Assembleia Especial delibere que qualquer dos Eventos de Avaliação constitui um Evento de Liquidação Antecipada, não será necessária a convocação de nova Assembleia Especial para deliberação do Evento de Liquidação Antecipada; ou (b) caso a Assembleia Especial delibere que qualquer dos Eventos de Avaliação não constitui um Evento de Liquidação Antecipada, deverão ser também deliberadas as medidas adicionais a serem tomadas pela Classe quanto aos.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb4fb00a3b8bf0be06421d2f3c5cb771e3aa44cd73c6593c79d1c138d05324b6"
+      ]
+    },
+    "a8d6348b0f9b11978542e4d42d2ac1363cd0df27d20baf5c9510a4c0f965cd25": {
+      "reference_date": "2024-04-01",
+      "value": "(ix) não pagamento de (a) Remuneração às Cotas Seniores na respectiva Data de Pagamento; (b) da totalidade da Meta de Amortização referente à respectiva série e/ou classe de Cotas que não tenha sido integralmente paga até a Data de Resgate; e (c) de quaisquer outras obrigações pecuniárias, e desde que tal inadimplemento não seja sanado em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura (observado o disposto no item (vii), abaixo);",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ea1fd6340227edbd84796da513045545db8d4bbc6e8d22a1abd4cda01aa2150c"
+      ]
+    },
+    "4b447022e0554ce14ccfe93d8ca4f51bd66dd86dba4bdcdd76361d301a007480": {
+      "reference_date": "2024-04-01",
+      "value": "10.1. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) (a) pedido de recuperação judicial e/ou extrajudicial (independentemente de deferimento por autoridade competente) pelo Banco IBM; (b) a apresentação pelo Banco IBM de requerimento de antecipação de efeitos do deferimento do processamento de",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3b94ddc3dce08b8363204f3b8ed5c5a760795603c8e3df385b91e5d29da9e443"
+      ]
+    },
+    "a5fe1343cb907774d936f35f4881c58b6951cd14dd441529a6a5c5776968226d": {
+      "reference_date": "2024-04-05",
+      "value": "Amortização pro rata ordinária; evento de liquidação aciona regime sequencial",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3fee07246cff798ad8fd40ed7cad8294fc75d4ab088c3c9502dc180097b9cad3"
+      ]
+    },
+    "79b2e3ae9f319333c39458e948d13d3116e08e6d0edc0190f921b0a1d12e0219": {
+      "reference_date": "2024-04-01",
+      "value": "8.14. As Cotas Subordinadas Júnior de determinada Subclasse somente poderão ser amortizadas ou resgatadas (a) de forma pro rata com as Cotas Seniores, caso esteja em vigor a Amortização Pro Rata, ou (b) após a amortização ou o resgate integral das Cotas Seniores, caso esteja em vigor a Amortização Sequencial, observada a Ordem de Alocação de Recursos e o disposto neste Anexo Descritivo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0814ca34c44fce69dfbc191d50ab4be15249dad1b3e3f87788f0cd608cb6996c"
+      ]
+    },
+    "806357e100d7b4eae084f80637b237ffa4d276381a3430935f485b5d646c84ff": {
+      "reference_date": "2024-04-05",
+      "value": "Mensal; cronograma de principal e remuneração no suplemento",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "95e8b239acc2d02d610b061f512f8a67a8a961a5ddb710ea8d88d823fac61c33"
+      ]
+    },
+    "bc93c1c1a9bb06fe8674318d7be1811db8fdf69a597445119bb64806a6997a89": {
+      "reference_date": "2024-04-01",
+      "value": "O Prêmio para cada cota será o valor equivalente a diferença positiva entre: a(s) parcela(s) ou a totalidade de principal resgatado ou amortizado dos CDB-V correspondente a parcela ou totalidade de principal das cotas seniores ou subordinadas levado a valor futuro até a data de amortização programada de cada cota, trazido a valor presente utilizando como taxa de desconto 100% do da Taxa DI projetada para cada data de resgate programado, conforme o caso, e o valor de principal programado correspondente, conforme estabelecido no Contrato CDB.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f601c75c46d1d68e8ccd8ae959c4bc0d864c45266b38596a630bf801c5b8c84c"
+      ]
+    },
+    "da91bfd211612ecc2ad7a389c7ac807bdc38d7e707046c7b5519f29bd4ffe3ff": {
+      "reference_date": "2024-04-05",
+      "value": "Vinculação contratual a operações de leasing; sem garantia do FGC",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "caca2c50a4d42543d6a3759d35384dbdf0c1e2238719ff39df41447da6e6027e"
+      ]
+    },
+    "115b988206a4682cc7a388d9950a7c50917b0b79ccd9a3fec20ed88ca5889b67": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fe2713d329e2a3e95f82d854a0b886f5aa269edd330c9606f234e8b18a796691"
+      ]
+    },
+    "30d35eb4582e3748cf832ebd64df0da3e997e4083f06e5bfb5243d0a854450d7": {
+      "reference_date": "2024-04-01",
+      "value": "7.9. O Gestor poderá contratar, sem prejuízo de sua responsabilidade, terceiro para realizar a verificação do lastro dos direitos creditórios adquiridos pelo Fundo, inclusive a Entidade Registradora, desde que o referido terceiro não seja sua parte relacionada, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verificação de tais documentos comprobatórios.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e5ca7e18df67b25d1d451bbd2d83541b7671f23c30f1f2ff16e96ddc4becf1e9"
+      ]
+    },
+    "772a69637503ad203a9c357e7ef9c8fb2ff553753597c3537fc9f5dfa513da4e": {
+      "reference_date": "2024-04-01",
+      "value": "7.15. Renúncia do Administrador e/ou do Gestor. O Administrador e/ou o Gestor, mediante correspondência por meio eletrônico ou carta com aviso de recebimento endereçada aos Cotistas, poderão renunciar à administração e/ou à gestão do Fundo, conforme aplicável, devendo o Administrador convocar, imediatamente, Assembleia Geral ou da Assembleia Especial (enquanto o Fundo tiver apenas a Classe Única) para decidir sobre a substituição do respectivo prestador de serviço ou sobre a liquidação antecipada do Fundo, sendo que tal assembleia deverá ser realizada no prazo de até 15 (quinze) dias contados da convocação, nos termos da legislação em vigor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "252b2ec3f37a2bf448e4dc7a13124a38860476b38b8e46df9f2d86c2e74d0f17"
+      ]
+    },
+    "a797dee5d089c0971f7c926fc5d78781b84ceb4d77d1186ada3663bf7c68821c": {
+      "reference_date": "2024-04-05",
+      "value": "(xx) deliberar sobre a alteração dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas dos Eventos de Liquidação presentes em primeira e em segunda convocações Antecipada; e (xxi) deliberar sobre eventual contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas Classificação de Risco e sobre a presentes em primeira e em segunda Agência de Classificação de convocações.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d10de12590b93a68729332c52b3d062c5a70da97a799c57356f49034af772a8a"
+      ]
+    },
+    "9253917da49cab5e115fcc30e242f1fd3d97a1287372c93fc0be2c5326b2a00b": {
+      "reference_date": "2024-04-05",
+      "value": "(xx) deliberar sobre a alteração dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas dos Eventos de Liquidação presentes em primeira e em segunda convocações Antecipada; e (xxi) deliberar sobre eventual contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas Classificação de Risco e sobre a presentes em primeira e em segunda Agência de Classificação de convocações.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "210d060f8dae01427097235f3d233c182ae171477625de4ac8f4df31416f7bf0"
+      ]
+    },
+    "ada1b888be53ff4201b7627de0ec0ff2f1cb301b5af6a266f4b1eea0ef19be16": {
+      "reference_date": "2025-05-31",
+      "value": "b) Classificação de risco Nos termos do Art. 13, inciso V, da Seção II da Resolução CVM nº 175, a obrigatoriedade de classificação de risco aplica-se exclusivamente às cotas de subclasse sênior distribuídas ao público em geral. No caso do Fundo, conforme descrito na nota explicativa 1, a distribuição de cotas está restrita a investidores qualificados. Dessa forma, o Fundo está dispensado da contratação de agência classificadora de risco para atribuição de rating às cotas, uma vez que não se enquadra na exigência prevista na referida norma.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "96f1d194d3a8b40670c6389c6f04b63000e0aa46fad63c4911cad5c3a342df58"
+      ]
+    },
+    "2fabcdc3abf31c94801124378678f739e5d2942bf4da096c4431fb74f82017f1": {
+      "reference_date": "2024-05-31",
+      "value": "4 Rating Os cotistas das subclasses sênior e subordinada júnior poderão, a qualquer tempo, solicitar que seja contratada agência classificadora de risco, a fim de atribuição de rating às respectivas cotas, devendo tal matéria ser submetida à assembleia.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fec390ed1386c9d0d7bf20d7929684b9aa769baea814fbd7fcb646c9c266f2e7"
+      ]
+    },
+    "f1cec818b3d7643c1c84db8bf6582dc6e32aced5b151eb90e8fc8871eca72b27": {
+      "reference_date": "2024-04-01",
+      "value": "(xx) deliberar sobre a alteração dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas dos Eventos de Liquidação presentes em primeira e em segunda convocações Antecipada; e (xxi) deliberar sobre eventual contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas Classificação de Risco e sobre a presentes em primeira e em segunda Agência de Classificação de convocações.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3614a7a7cb47d87f8b597ae93c7598d963bfe1f395a72d3eec6cccbff0b6c0bb"
+      ]
+    },
+    "b11d7c91ab66d69420a9e6243f5d7d855a1815119ec8d86285508b884c8f7d78": {
+      "reference_date": "2024-04-05",
+      "value": "Sênior: DI + 1,10% a.a.; júnior: DI + 2,80% a.a. + prêmio residual",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3c603027d02b8faae95a25569b342f60f23ebdf2f5ca22170b6754922b8c929d"
+      ]
+    },
+    "921cc39488a303457c2b49b2de207299cc48448f165039ade052fccb2e7cc3d1": {
+      "reference_date": "2025-05-31",
+      "value": "Patrimônio líquido 188.297 100,00 250.677 111,54 Total de 224.292.564 cotas de subclasse sênior a R$ 0,7342 164.679 87,46 - - Total de 28.921.427 cotas de subclasse subordinada júnior a R$ 0,8166 23.618 12,54 - - Atribuível à parcela do benchmark subordinada júnior 22.680 12,04 - - Atribuível ao excesso de spread subordinada júnior 938 0,50 - -",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c438bf238fe19353638fb24f2c524921d3723db6a0d2946d83797e3bd289a2a1"
+      ]
+    },
+    "8c5a890901b782dd61b134d8897472cb9055e12e2e44025a3b27e5d9342ca74f": {
+      "reference_date": "2024-05-31",
+      "value": "Período de Subclasse Valor da cota Rentabilidade (*) Benchmark 05 de abril (início das atividades) Sênior 0,9887 1,69% CDI+1,10% a 31 de maio de 2024 Subordinada júnior 1,0002 2,48% CDI+-2,80%",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2a0c4342b63cca46ba69e3b1b303031cc7e71e6bd16e2c22312fe7b1ee6974be"
+      ]
+    },
+    "ee2c0781e14a6218d608f7704d8a962e37d483446057b2e131da6f4a660de133": {
+      "reference_date": "2024-04-05",
+      "value": "R$ 224,29 mi sênior + R$ 28,92 mi júnior; VNU R$ 1",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3c603027d02b8faae95a25569b342f60f23ebdf2f5ca22170b6754922b8c929d"
+      ]
+    },
+    "7ce627f76ec349274aaa533ce52f92b01414a0c1c8aee7970dfb1a9e2f64dda9": {
+      "reference_date": "2024-04-05",
+      "value": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; mínimo não localizado",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Cláusula usa taxa de administração e de gestão em redação conjunta. Confirmar rateio/aplicação antes de somar duas taxas; pagamento antecipado 1 DU após primeira integralização pelo prazo de duração.",
+      "sources": [
+        "fbbf4c5ac55e452a896d4e1bc3d5be0d41919281e64dd0ee0a222788f4868cd5"
+      ]
+    },
+    "8cda90ca2e03fdf9a84b28777556dde60c79c47849aaa98e6b9d7932803d25af": {
+      "reference_date": "2024-04-01",
+      "value": "13.7. Taxa de Administração e Gestão. A taxa de administração e de gestão do Fundo, devidas em decorrência dos serviços de administração, custódia e escrituração das Cotas, bem como dos serviços de gestão e controladoria dos ativos do Fundo serão equivalentes a 0,175% (cento e setenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo (“Taxa de Administração” e “Taxa de Gestão”, respectivamente). A Taxa de Administração e a Taxa de Gestão serão pagas de maneira proporcional ao patrimônio líquido de cada Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4696af9ca55f08850a699e57ce7c02be95c55436d5977b1ee616b1ae36545b89"
+      ]
+    },
+    "62152ca09e969d400d28d3422bbab4a5aad021ddd3ef5ee29572c8e6ed5b326f": {
+      "reference_date": "2024-04-05",
+      "value": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; adicional único R$ 40 mil",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Não duplicar automaticamente a taxa conjunta. Adicional na primeira integralização; AG R$700/hora ao administrador.",
+      "sources": [
+        "fbbf4c5ac55e452a896d4e1bc3d5be0d41919281e64dd0ee0a222788f4868cd5"
+      ]
+    },
+    "85f151a7e9aae2a5c0804e2c992c23431e73bd1c512f53e1bc7ad3aa21b3fda7": {
+      "reference_date": "2024-04-05",
+      "value": "Custódia, escrituração e controladoria incluídas na cláusula conjunta de taxas",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "fbbf4c5ac55e452a896d4e1bc3d5be0d41919281e64dd0ee0a222788f4868cd5"
+      ]
+    },
+    "83a9c4670bda6fdf52ca6d2752daf8b6f5d751ab0c767c16866ed1dfbdb26402": {
+      "reference_date": "2024-04-01",
+      "value": "7.3.1. Taxa de Custódia do Fundo. Os serviços de custódia qualificada dos direitos creditórios do Fundo serão exercidos pelo Custodiante, pelos quais fará jus à parcela da Taxa de Administração, conforme o previsto no Anexo Descritivo da Classe e no respectivo Contrato de Custódia.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "38961fda0d4999415761339fea5478c62d78b238669977e61eeb29fbeec4a34b"
+      ]
+    },
+    "8c254cbd2812238da5d0428658d1262ebc0ecc8696b0e00e5e9bdd7e1127ff1f": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b490899a89ef75e7829b94da735bb98f4b250318a231f3554a5ee31061a80140"
+      ]
+    },
+    "99f1d742c1f62c24ccd3b75e345ddf881aa5dd9188c5b5ed1ce7af651e29590e": {
+      "reference_date": "2024-04-01",
+      "value": "(xxiv) aprovar as novas condições e aditamento do Contrato CDB, 51% das Cotas Sêniores emitidas em primeira caso haja repactuação, resgate convocação e maioria simples das Cotas Sêniores antecipado ou amortização dos Cotistas presentes em segunda convocação. extraordinária deste.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3614a7a7cb47d87f8b597ae93c7598d963bfe1f395a72d3eec6cccbff0b6c0bb"
+      ]
+    },
+    "9503846b145bd29a89e503ca9ae19806c6ecc935fb5493138f9893154bf70d70": {
+      "reference_date": "2024-04-05",
+      "value": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá escrituração contábil própria. As demonstrações contábeis anuais da Classe serão auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente, observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ef555f978562beafae193a3256ba10da981ec6036f8258b93cf6c4b9c92577b8"
+      ]
+    },
+    "f5409e12fc4fd2318651c31fadc9bf6b052fda0d15394f327cf1bebac93b852d": {
+      "reference_date": "2024-04-05",
+      "value": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá escrituração contábil própria. As demonstrações contábeis anuais da Classe serão auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente, observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "6c15a7471f2576460f191019cfe95fd11e234e9018269b6d39813f1b31a8b1a9"
+      ]
+    },
+    "8cef4efb2014586f93d37ce5f47ddf3b0b511171e610c428d2fead218df39eef": {
+      "reference_date": "2025-10-28",
+      "value": "V. ORDEM DO DIA: Deliberar (i) as Demonstrações Financeiras, acerca dos exercícios sociais findos em 31 de maio de 2024 e 31 de março de 2025, na forma do item 5.1, inciso (i) do Regulamento do Fundo; (ii) autorizar o Administrador e a Gestora",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "52b1c87912f6a3c87f3dde27249b428850aec90c7dc1abc77b74b35cc08069ba"
+      ]
+    },
+    "c3f1f461b45c07a99a750119e20054c940e89a06541060d327ea0e04b3c6e9f0": {
+      "reference_date": "2025-05-31",
+      "value": "Estratégia Vinculada I Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada (CNPJ no 54.559.035/0001-94) (Administrado pela Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A.) Demonstrações financeiras em 31 de maio de 2025 e relatório do auditor independente",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "a3bc64e69f65cbceb5d9d7ba27021b32736278ee8d4f38ecc99ade84986a9a8e"
+      ]
+    },
+    "1d2f1ccb1725541ba46b526fac5041c092fa6f691ba73fe4cf787137a22ce4dc": {
+      "reference_date": "2024-05-31",
+      "value": "Para o período de 05 de abril (início das atividades) a 31 de maio de 2024, as demonstrações financeiras do fundo não foram submetidas a auditoria tendo em vista que o Fundo estava em atividade há menos de 90 dias na data base do encerramento do exercício social. A decisão da não contratação de auditoria tem como objetivo evitar gastos desnecessários para o fundo e está amparado no parágrafo único do art. 69 da ICVM 175 que prevê a dispensa para auditoria dos fundos com menos de 90 dias de atividade.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fa2cc7abca6f459ecff701f9aeb4c362486c236e85e41b2b82d4f06d709182bb"
+      ]
+    },
+    "637aa1f9f12fb6318618f1910a7e843db584b807dbe997912b05f19472ba97da": {
+      "reference_date": "2024-04-01",
+      "value": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá escrituração contábil própria. As demonstrações contábeis anuais da Classe serão auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente, observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4f3763548bfc275e07baab72d9324cfac5f6b2c66159a8600909339878e65a2a"
+      ]
+    },
+    "c7fae768b2c673f77aa2abe1ce1b9f02828f388e3c4f48d464e0e9af38750918": {
+      "reference_date": "2024-04-05",
+      "value": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva em 10 DU; falha de pagamentos",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Eventos/documentos do Banco IBM e dos prestadores exigem controle manual; consultar hipóteses de liquidação e prioridades contratuais.",
+      "sources": [
+        "71f3e5b776cbe7f218d8418c2daa8c51223be52f77264bf34f30a8c2ffd623fd"
+      ]
+    },
+    "49e5d87f4f8d188d3155eab0344623e58f00e320c157cdf11fd99b84a1217102": {
+      "reference_date": "2024-04-05",
+      "value": "Classe fechada; profissionais; prazo de 37 meses",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "1608edc5238d42025bf7a29ec00506ef8f2a65a019c264998c1bd55450dbddc0"
+      ]
+    },
+    "0b4e00f9faf16afd21baf679f25fbc628b9515aeebca748ecd5ade6252f153e6": {
+      "reference_date": "2024-04-05",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7bb89f03dcdf355ed3f3b57af57738b5b8258c3b8371fb70770c226ef4cbc707"
+      ]
+    },
+    "cbd581c94ec3840755fa822ce9ae8eba8760b29b9b8351c535e66c657091187e": {
+      "reference_date": "2024-04-05",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "37907f56774579b01a31eddb5b7967328468ea027248bdc43bc6f74203b0726d"
+      ]
+    },
+    "76cd206e3ba4406a268c44fbc12c53608b003cb959e8fcc69dac35461db2aa92": {
+      "reference_date": "2025-05-31",
+      "value": "1 Contexto operacional O Estratégia Vinculada I Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada (“Fundo”), regulamentado pela resolução 175, de 23 de dezembro de 2022, da Comissão de Valores Mobiliários (“CVM”), teve início em 05 de abril de 2024, com classe única de cotas (“Classe”), sob a forma de condomínio fechado e destina-se, exclusivamente, a investidores qualificados, tal como definidos pela legislação vigente. Inicialmente, o prazo de duração é de 37 meses.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b0050abd870fdfd13188fafe9fd4b32061c2e307f23aac05197af83547ceab6b"
+      ]
+    },
+    "61bc2f626c98558cb7b5347766761e848e26a2d1e055d0fabc741f03719b6d77": {
+      "reference_date": "2024-05-31",
+      "value": "1 Contexto operacional O Fundo Estratégia Vinculada I Fundo de Investimento em Direitos Creditórios Responsabilidade Limitada - Fundo de Investimento em Direitos Creditórios (“Fundo”) foi constituído e teve início em 05 de abril de 2024, com classe única de cotas (“Classe”), sob a forma de condomínio fechado e destina-se, exclusivamente, a investidores qualificados, tal como definidos pela legislação vigente. Inicialmente, o prazo de duração é indeterminado ou é de 37 meses.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8205c892e476516b09101a56916c6d038056c6026db9ccb59d051577f22e5347"
+      ]
+    },
+    "11b4cddd10a04d3002ec38d24cdb8503f35c5371857165cd2bd496ddd55fe61b": {
+      "reference_date": "2024-04-05",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "49ff556ee3c8b0fc2e9473ae4e6a59713fac4f21470eebd86998c9905f5da833"
+      ]
+    },
+    "7373d3aedb304f8a383236fc194c652db1399d69ecc5ee9093ee966f194f1215": {
+      "reference_date": "2024-04-05",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "bb7a4bb2752f325df1060e126111d92d2d165ef2ab78995a2fc6265880e2c962"
+      ]
+    },
+    "180d860f2ab40b45f1d855f58cb74f46bb9d085023bdc5a90d44bb2a604d7a9e": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0589aec6b408e8fbfc690fd65a792dcb6b38038475028df434ab7bd28b107a4e"
+      ]
+    },
+    "00a48c8f96623e0c351bc9275941536efe2f127d71c91a05d4418db1cbbb49d9": {
+      "reference_date": "2024-04-05",
+      "value": "1ª série sênior e subclasse subordinada júnior",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "95e8b239acc2d02d610b061f512f8a67a8a961a5ddb710ea8d88d823fac61c33"
+      ]
+    },
+    "4a010a8743a7e5cabea7db719ea40fcecf7a65b1125c8b7c4eb2faf0fa1aee47": {
+      "reference_date": "2024-04-05",
+      "value": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, Amortização e resgate das Cotas seguem descritos no Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na forma dos Anexos II e III do Regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e044fda31a3a9c560ebfc58b5dc2e3465370b03f1e24a566b5367bf4067a0901"
+      ]
+    },
+    "bf3578474f97a2837300e96eaecb5857f4dc589f4069d65576389c027b461d10": {
+      "reference_date": "2024-04-05",
+      "value": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, Amortização e resgate das Cotas seguem descritos no Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na forma dos Anexos II e III do Regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "65b672dccda5814d48244908b203b798dd93392b96fd1839489d2e6823d7801f"
+      ]
+    },
+    "088eef5cd89d92ea2f99c0f39326ce21120ec2d1c551754b6f8fa7e408f0b743": {
+      "reference_date": "2025-05-31",
+      "value": "A distribuição das cotas sêniores de qualquer série e de cotas subordinadas júnior de qualquer subclasse deverá observar os normativos em vigor à época editados pela CVM, bem como o regime de distribuição estabelecido no respectivo apêndice.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "fefd8c694256a0503d54f7b17b6c31868a9ba9b055f34ea440a94d7477686aaa"
+      ]
+    },
+    "6fe74a1716b765e6c57b2e712bbf69e921e28e551ee3c68205a980d101d65ef1": {
+      "reference_date": "2024-05-31",
+      "value": "Subclasse de cotas seniores: As cotas de subclasse sênior são aquelas que não se subordinam às demais subclasses de cotas ou entre si para efeito de amortização de principal e pagamentos de remuneração e resgate. As cotas de subclasse sênior poderão ser emitidas em múltiplas séries.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "d8e380c5da70259d8efdaa51e643d33bdc767fa0cb4c09bdf1383a1c165bb9b6"
+      ]
+    },
+    "1b81ccce9a1a2a0d3477bb364d5c9a96e7257d1b68f9b026983784c8d386a7bb": {
+      "reference_date": "2024-05-08",
+      "value": "4. Ordem do Dia e Deliberações: A totalidade dos Cotistas presentes, representando 100% (cem por cento) das Cotas Seniores e das Cotas Subordinadas Júnior decidiram, por unanimidade, sem quaisquer restrições ou ressalvas, deliberar sobre e aprovar, nos termos da Cláusula 5 do Regulamento, as seguintes matérias: (i) aprovar a alteração da cláusula 7.1 do Anexo I ao Regulamento para alterar os quóruns de aprovação em Assembleia Especial (conforme definido no Regulamento), que passará a vigorar na forma do documento constante no Anexo II ao presente instrumento;",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "77006eadd17001c2a50d7f4d54aaa0841c0f2db342d4a406a60bbf7d1cc96c5b"
+      ]
+    },
+    "a4d7f207f714db6e562824212b835f83f2147588a6ce0b373f40da620acf731d": {
+      "reference_date": "2024-04-01",
+      "value": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, Amortização e resgate das Cotas seguem descritos no Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na forma dos Anexos II e III do Regulamento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "b3b79d9833e87947e9698e7025bf5f398c1f7a19c5770b9a3d6f589c4382013d"
+      ]
+    },
+    "b0178626b229f4284270d7c4bc6c2b154c1361543cf240a6fef263ffd616a51c": {
+      "reference_date": "2024-04-23",
+      "value": "Início 05/04/2024; encerramento 23/04/2024; R$ 253,21 mi distribuídos",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "ID 664160 usa cabeçalho de início, mas comunica encerramento no corpo. Início comprovado no ID634469. Não usar cronograma estimado como fato realizado.",
+      "sources": [
+        "76db545621d3ff00b02e5126123a35b887ee09df353aab3b2cbfd984abdff078"
+      ]
+    },
+    "0c2a071fca5f4570ee105b3064bfce6fad9015a666a453e4503e32c7dd480efa": {
+      "reference_date": "2024-04-05",
+      "value": "Prazo para Distribuição: 180 (cento e oitenta) dias. 0,8857 (oito mil, oitocentos e cinquenta e sete décimos de Fator de Ponderação Sênior: milésimos) Coordenador Líder: Banco Itaú BBA S.A. Tipo de Oferta: Oferta Pública sujeita ao rito automático de registro na CVM Regime de Distribuição Melhores Esforços Data de Resgate: 23/04/2027 Sobretaxa Sênior: 1,10% (um inteiro e dez centésimos por cento).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "74da560044fbe26b044749579b3fcd6c1b3e0edc2ae4f74e1306af7a032e7cb4"
+      ]
+    },
+    "c7804ce085a408d98998bb1c1b7559b415e8633e26dd783f703d4859480183e3": {
+      "reference_date": "2024-04-05",
+      "value": "Prazo para Distribuição: 180 (cento e oitenta) dias. 0,8857 (oito mil, oitocentos e cinquenta e sete décimos de Fator de Ponderação Sênior: milésimos) Coordenador Líder: Banco Itaú BBA S.A. Tipo de Oferta: Oferta Pública sujeita ao rito automático de registro na CVM Regime de Distribuição Melhores Esforços Data de Resgate: 23/04/2027 Sobretaxa Sênior: 1,10% (um inteiro e dez centésimos por cento).",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c4dab73b16b0ac4e5b8628a9e5e394a5e71b5409b52c8c020bd4f8bf679c9c17"
+      ]
+    },
+    "686e2f75f0521a328b7b5ceebc8cc38687b11fce3a075addbef9956056ff3a60": {
+      "reference_date": "2024-04-05",
+      "value": "ANÚNCIO DE INÍCIO DA OFERTA PÚBLICA DE DISTRIBUIÇÃO DA 1ª (PRIMEIRA) EMISSÃO DE COTAS DA SUBCLASSE SÊNIOR E DA SUBCLASSE SUBORDINADA JÚNIOR DO ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS– RESPONSABILIDADE LIMITADA, DE CLASSE ÚNICA",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "8d66909cbc07c2484c8566236d1fd884c7b807f7fd012830332926f4cb907e1f"
+      ]
+    },
+    "132d1bd229ebc5017687784f7041bde60ed40a66d9de37ddd03bc507e31979cb": {
+      "reference_date": "2024-04-01",
+      "value": "3.1. Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores Autorizados, respeitado que, no âmbito de uma Oferta Pública, as Cotas serão subscritas e integralizadas exclusivamente por Investidores Profissionais, nos termos da Resolução CVM 160/22. Nos termos do artigo 45, §7º, II, do Anexo Normativo II da Resolução CVM 175/23, as Cotas objeto de Oferta Pública somente poderão ser negociadas a Investidores Profissionais.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0c29de23f5a640c711e7ab172c75ccca582a09be16a02c698db8d7320c303c7b"
+      ]
+    },
+    "8d33b44f93aefe4bfb353a14911164b08994fc927ba34f69b8c47bcec0626eae": {
+      "reference_date": "2024-04-05",
+      "value": "Primeiro pagamento 23/05/2024",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Cronograma documental; não presumir adimplemento dos eventos previstos.",
+      "sources": [
+        "95e8b239acc2d02d610b061f512f8a67a8a961a5ddb710ea8d88d823fac61c33"
+      ]
+    },
+    "e2bdb426f642a0a428fd11abe4dfa6c9b1faf7803b5c7aad7d52c39493c89079": {
+      "reference_date": "2024-04-05",
+      "value": "Resgate contratual em 23/04/2027 para sênior e júnior",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conclusão documental; preservar versão, condições e denominador.",
+      "sources": [
+        "3c603027d02b8faae95a25569b342f60f23ebdf2f5ca22170b6754922b8c929d"
+      ]
+    },
+    "a742ba3b2d7bbc7a4d79df38f4b9da978fec6c51cdf7ed22c67f28a9b5571e58": {
+      "reference_date": "2025-05-31",
+      "value": "a) Cotas de fundos de investimento com liquidez imediata As cotas de fundo de investimento são atualizadas ao valor justo por meio do resultado, diariamente, com base no valor da cota divulgado pelas instituições financeiras custodiantes dos fundos onde os recursos são aplicados. Na hipótese de não divulgação das cotas, serão utilizadas as cotas do dia imediatamente anterior. A seguir, apresentamos a composição do saldo detido pelo Fundo referente a outras cotas de fundos de investimento.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5329f5e0455c0bed8010ae0f272f794f75d523ecaeb39a3a0bde67d2ef8ef164"
+      ]
+    },
+    "0f428a4e15cfbb50afc581ecc7e1a9fe195f390f44fce5f9dc76e0c6158632c7": {
+      "reference_date": "2024-05-31",
+      "value": "As cotas de fundo de investimento são atualizadas, diariamente, com base no valor da cota divulgado pelas Instituições Financeiras custodiantes dos fundos onde os recursos são aplicados. Na hipótese de não divulgação das cotas, serão utilizadas as cotas do dia imediatamente anterior.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "ec2e86f73c680a50784b5fef168145271693c086b4230bbda1badfdf36524a27"
+      ]
+    },
+    "a516733cf7fb7334562c4eba354b56e239735647a3095bdb66e8feac8b4319ea": {
+      "reference_date": "2024-04-01",
+      "value": "10.6. Na hipótese de não instalação da Assembleia Especial, em segunda convocação, por falta de quórum, o Evento de Avaliação constituirá um Evento de Liquidação Antecipada, devendo, nesta hipótese, ser convocada Assembleia Especial para deliberar a respeito do Evento de Liquidação Antecipada, na forma das disposições abaixo deste Capítulo 10.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e6bbd18ece24bb27e06fb38496249969c6c861982aee6b2a2c5b571945a8ff1b"
+      ]
+    },
+    "08dcb404f583f1401f0e4f8e19eb8556ffeed093967b9b3c6d40f9bbef534b29": {
+      "reference_date": "2024-04-01",
+      "value": "",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3614a7a7cb47d87f8b597ae93c7598d963bfe1f395a72d3eec6cccbff0b6c0bb"
+      ]
+    }
+  },
+  "passages": {
+    "3057d974d73aca01e8fe4d6b50a3e7e9666c6e67e7e2a3d7f7230cd556a20ea9": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "46-48",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 46-48 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "eb123ac88341405c3396b4d2f9009807f03c21b9ed86b3b2a3e78fc3d79dba4e": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 86,
+      "clause": "",
+      "excerpt": "recuperação extrajudicial ou de recuperação judicial prevista no parágrafo 12º do artigo 6º  da Lei 11.101; (c) apresentação pelo Banco IBM ou por qualquer das suas Controladas de  proposta de conciliações e mediações antecedentes ou incidentais nos termos do artigo 20-  B da Lei 11.101, ou, ainda, realize quaisquer medidas judiciais antecipatórias (ou de  qualquer processo similar em outra jurisdição); (d) decretação de falência, pedido de  falência formulado por terceiros e não elidido no prazo legal (inclusive mediante depósito  elisivo nos termos do parágrafo único do art. 98 da Lei nº 11.101, de 9 de fevereiro de 2005,  conforme alterada) ou pedido de autofalência, independentemente de sua concessão pelo  juiz competente, formulado pelo ou em face do Banco IBM; (e) ocorrência de evento que,  para os fins da legislação aplicável à época na qual ocorrer o evento, torne o Banco IBM  insolvente; (f) submissão a qualquer credor ou classe de credores de pedido de negociação  de plano de recuperação extrajudicial ou pedido de recuperação extrajudicial ou judicial  independentemente de deferimento do processamento da recuperação ou de sua  concessão pelo juiz competente, formulado pelo ou em face do Banco IBM; (g) qualquer  procedimento análogo de insolvência, formulado pela Devedora e/ou por qualquer das suas  Controladas, independentemente de ter sido requerida ou obtida homologação judicial do  referido plano, de deferimento do processamento da recuperação ou de sua concessão  pelo juiz competente; (h) qualquer intervenção, Regime de Administração Temporária  (RAET) e/ou liquidação extrajudicial do Banco IBM;",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "3aba19d967b085ab2aa7031ff00aa887417d47098fe31b06ad867f098fefe078": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "60-61",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 60-61 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "25849c9de0a5ab326a480a8fe608b44cfcecd60ea78d03252249afde007308d0": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 59,
+      "clause": "3.2.2",
+      "excerpt": "3.2.2. A Classe somente poderá adquirir Direitos Creditórios que atendam à  Política de Investimento e aos respectivos Critérios de Elegibilidade, verificados em  cada respectiva Data de Aquisição.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "74fcf43ce30b81386a6742ffb5e34f46d94b017b795a1b6bcaf49ec8bb793318": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 29,
+      "clause": "",
+      "excerpt": "(x) estruturar o Fundo, em conjunto com o Administrador, devendo, no mínimo: (a)  estabelecer a Política de Investimento das Classes; (b) estimar a inadimplência da  Carteira de direitos creditórios e, se for o caso, estabelecer um índice de  subordinação (c) estimar o prazo médio ponderado da Carteira de direitos  creditórios; (d) estabelecer como se darão os fluxos financeiros derivados dos  direitos creditórios; e (e) estabelecer hipóteses de liquidação antecipada.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "d7c8bf2875d156a6e8ca56a2abc715a32c14d3dcd93c943b7bd42fa8b59ac3e3": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "44, 62, 84",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 44, 62, 84 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "95c4d8783b33c428a7d4969d92b2a645200e79041f092432c09344d86bb3f785": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 44,
+      "clause": "",
+      "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por  Investimento” cento) do Patrimônio Líquido em Direitos Creditórios  Elegíveis, nos termos do artigo 44 do Anexo Normativo II.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "ff91e6fb50844998c31be457e79fdf267e68f9e226ed6801a26e0c6ce387ff00": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 44,
+      "clause": "",
+      "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 67% (cinquenta por  Investimento Tributária” cento) do Patrimônio Líquido em Direitos Creditórios  Elegíveis, nos termos dos artigos 18, 19 e 24 da Lei nº\n 14.754/23, para fins de enquadramento do Fundo e da  Classe como Entidade de Investimento sujeita ao Regime  Específico dos Fundos Não Sujeitos à Tributação  Periódica.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "0e4f2a631eee07493821617a0843c2cc90c637cef25c1d90808e746c30636ee0": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 57,
+      "clause": "2.1",
+      "excerpt": "2.1. A presente Classe Única foi constituída sob a forma de classe fechada, de  responsabilidade limitada, com prazo de duração de 37 (trinta e sete) meses, integrante do  Fundo e disciplinada pela Resolução CVM 175/22 e demais disposições legais e  regulamentares aplicáveis, e será regida pelo presente Anexo Descritivo da Classe Única.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "0dbaa28845f9132efa11e09821aebb2e10cb19458c024479fa261cbe6b8b2940": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 112,
+      "clause": "13.4.2",
+      "excerpt": "13.4.2. Quando da publicação do demonstrativo trimestral a que se refere o artigo  27, inciso V, do Anexo Normativo II da Resolução CVM 175/22, caso o somatório dos  valores de face dos Direitos Creditórios Adquiridos em relação aos quais sejam verificadas  irregularidades e/ou inconsistências, na verificação realizada nos termos do item 13.3  acima, seja superior a 10% (dez por cento) do Patrimônio Líquido no Dia Útil anterior à data-  base do respectivo demonstrativo trimestral, o Custodiante deverá comunicar o Gestor e o  Administrador para que este prontamente convoque a Assembleia Especial para deliberar  sobre as providências a serem tomadas.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "2b87e9e0548345dd991fa887b2d02ea583e56899d460b7f6a6c9d7a4fd17a3b3": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "54",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 54 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "8561b2f5f63cb26eee1e2577fb503923079fb3a7cbe8fabb8cb925a19eb1afc5": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 54,
+      "clause": "",
+      "excerpt": "“Relação Mínima” Significa a relação mínima admitida entre o valor total das  Cotas Subordinadas e o Patrimônio Líquido do Fundo, a  qual deverá ser apurada pelo Gestor e deve corresponder  a, no mínimo, 10% (dez por cento). Isso significa que a  razão do Patrimônio Líquido dividido pelo valor total das  Cotas Seniores em circulação deve ser, no mínimo,  111,11% (cento e onze inteiros e onze centésimos por  cento).",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "6913f18c3596098c06f545bb0ff335fa6901f2b3e066f41d4a9cde68b2a1c15e": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 79,
+      "clause": "8.20",
+      "excerpt": "8.20. A Ordem de Alocação de Recursos, caso Amortização Pro Rata esteja em  curso, ocorrerá da seguinte forma (observado, ainda, o disposto na Cláusula 8.26):\n(i) caso aplicável, pagamento do Prêmio de Amortização Extraordinária;\n(ii) pagamento da Meta de Remuneração com referência às Cotas Seniores em  circulação;\n(iii) pagamento da Meta de Remuneração com referência às Cotas  Subordinadas Júnior em circulação;\n(iv) pagamento da Meta de Amortização com referência às Cotas Seniores em  circulação;\n(v) caso aplicável, pagamento do Prêmio de Saldo Remanescente; e",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "20104f6fab9ac7c9456c064efb2668cc313c8f773432ab0e16d10c3cc6732fb6": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "84",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 84 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "6012a1b8d1b5233844ff0ed529afabed9aa481883d61271b5a0318560293ca51": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 84,
+      "clause": "9.1",
+      "excerpt": "9.1. Reserva de Despesas. A Classe estabelecerá Reserva de Despesas com o  intuito de cobrir as despesas do Fundo, cujo valor será equivalente às Despesas da Classe  Única a R$ 3.999.884,00 (três milhões, novecentos e noventa e nove mil, oitocentos e  oitenta e quatro reais). A Reserva de Despesas será constituída quando da integralização  das Cotas da Classe, e será custeada pelos recursos recebidos pelo Fundo no limite das  Despesas da Classe estimadas no momento da constituição do Fundo. Os recursos  mantidos na Reserva de Despesas serão investidos em Ativos Financeiros. A Classe Única  deterá todos os direitos em relação aos Ativos Financeiros e a todos os valores em dinheiro  mantidos na Reserva de Despesas, sendo que os rendimentos dos Ativos Financeiros  reverterão em benefício dos Cotistas.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "e13f1c36cb3a615b7fc3814eea57b3649f0b334aeaf519298c0fd23ce3f8f985": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 123,
+      "clause": "",
+      "excerpt": "O Administrador constituirá provisão para créditos de liquidação duvidosa para Direitos  Creditórios Adquiridos de modo a refletir a probabilidade de perda sobre o atraso histórico  medido em determinados períodos. Fica desde já certo de que o Administrador realizará o  provisionamento dos Direitos Creditórios com base no disposto no seu Manual de Provisão  para Perdas em Ativos de Crédito.\n Considera-se a seguinte formula para cálculo da provisão em momentos diversos do  momento de perda: perda esperada no momento da perda / atraso histórico em cada janela  de mensuração. Para o caso de Direitos Creditórios Adquiridos adimplentes, será utilizado  o percentual de perda esperada suavizado pelo prazo de cada direito creditório. As  provisões serão calculadas e ajustadas mensalmente e abrangerão toda a carteira de  Direitos Creditórios Adquiridos do Fundo com base no Manual de Provisão para perdas em  Ativos de Crédito do Administrador disponível em  http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_489.\n pdf, observado o disposto acima., observado o disposto acima.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "fa825112f85e2c39c6a89fc3bab2fe4fb0ca1749d24d21615ca88a0b79ee7154": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "112, 46-48",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 112, 46-48 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "bb4fb00a3b8bf0be06421d2f3c5cb771e3aa44cd73c6593c79d1c138d05324b6": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 88,
+      "clause": "10.4",
+      "excerpt": "10.4. Sem prejuízo do disposto nos itens 10.2 e 10.3 acima, ao tomar  conhecimento de qualquer dos Eventos de Avaliação, o Administrador e o Gestor  suspenderão imediatamente o pagamento de Remuneração e de Amortização de Principal  de todas as Cotas e convocará imediatamente uma Assembleia Especial, a qual decidirá,  observado o quórum de deliberação de que trata o Capítulo 7 deste Anexo Descritivo, se o  referido Evento de Avaliação deve ser ou não considerado um Evento de Liquidação  Antecipada e (a) caso a Assembleia Especial delibere que qualquer dos Eventos de  Avaliação constitui um Evento de Liquidação Antecipada, não será necessária a  convocação de nova Assembleia Especial para deliberação do Evento de Liquidação  Antecipada; ou (b) caso a Assembleia Especial delibere que qualquer dos Eventos de  Avaliação não constitui um Evento de Liquidação Antecipada, deverão ser também  deliberadas as medidas adicionais a serem tomadas pela Classe quanto aos",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "ea1fd6340227edbd84796da513045545db8d4bbc6e8d22a1abd4cda01aa2150c": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 87,
+      "clause": "",
+      "excerpt": "(ix) não pagamento de (a) Remuneração às Cotas Seniores na respectiva Data de  Pagamento; (b) da totalidade da Meta de Amortização referente à respectiva série e/ou  classe de Cotas que não tenha sido integralmente paga até a Data de Resgate; e (c) de  quaisquer outras obrigações pecuniárias, e desde que tal inadimplemento não seja sanado  em até 2 (dois) Dias Úteis da Data de Pagamento, exceto para a respectiva Data de  Resgate, período que não estará sujeito a prazo de cura (observado o disposto no item (vii),  abaixo);",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "3b94ddc3dce08b8363204f3b8ed5c5a760795603c8e3df385b91e5d29da9e443": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 85,
+      "clause": "10.1",
+      "excerpt": "10.1. Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um  Evento de Avaliação:\n(i) (a) pedido de recuperação judicial e/ou extrajudicial (independentemente de  deferimento por autoridade competente) pelo Banco IBM; (b) a apresentação pelo Banco  IBM de requerimento de antecipação de efeitos do deferimento do processamento de",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "3fee07246cff798ad8fd40ed7cad8294fc75d4ab088c3c9502dc180097b9cad3": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "82-83",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 82-83 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "0814ca34c44fce69dfbc191d50ab4be15249dad1b3e3f87788f0cd608cb6996c": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 78,
+      "clause": "8.14",
+      "excerpt": "8.14. As Cotas Subordinadas Júnior de determinada Subclasse somente poderão  ser amortizadas ou resgatadas (a) de forma pro rata com as Cotas Seniores, caso esteja  em vigor a Amortização Pro Rata, ou (b) após a amortização ou o resgate integral das Cotas  Seniores, caso esteja em vigor a Amortização Sequencial, observada a Ordem de Alocação  de Recursos e o disposto neste Anexo Descritivo.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "95e8b239acc2d02d610b061f512f8a67a8a961a5ddb710ea8d88d823fac61c33": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "126-130",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 126-130 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "f601c75c46d1d68e8ccd8ae959c4bc0d864c45266b38596a630bf801c5b8c84c": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "O Prêmio para cada cota será o valor equivalente a  diferença positiva entre: a(s) parcela(s) ou a totalidade de  principal resgatado ou amortizado dos CDB-V  correspondente a parcela ou totalidade de principal das  cotas seniores ou subordinadas levado a valor futuro até a  data de amortização programada de cada cota, trazido a  valor presente utilizando como taxa de desconto 100% do  da Taxa DI projetada para cada data de resgate  programado, conforme o caso, e o valor de principal  programado correspondente, conforme estabelecido no  Contrato CDB.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "caca2c50a4d42543d6a3759d35384dbdf0c1e2238719ff39df41447da6e6027e": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "46-48, 62",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 46-48, 62 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "fe2713d329e2a3e95f82d854a0b886f5aa269edd330c9606f234e8b18a796691": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "Pelo presente instrumento particular, a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E  VALORES MOBILIÁRIOS S.A., instituição com sede na Cidade de São Paulo, Estado de São Paulo,  na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco  07, Sala 201, Centro Empresarial Mario Henrique Simonsen, CEP 22.640-102, inscrita no Cadastro  Nacional da Pessoa Jurídica do Ministério da Fazenda (“CNPJ/MF”) sob o nº 36.113.876/0001-91,  autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional de  administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório nº 6.696,  expedido em 21 de fevereiro de 2002, neste ato representada nos termos do seu contrato social  (“Administrador”) em conjunto com a OLIVEIRA TRUST SERVICER S.A., sociedade por ações  devidamente autorizada pela CVM para o exercício profissional de administração de fundos de  investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 2003,  com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº\n 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ/MF sob o nº\n 02.150.453/0001-20, neste ato representada nos termos do seu estatuto social (“Gestor” e, quando  em conjunto ao Administrador, os “Prestadores de Serviços Essenciais”):",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "e5ca7e18df67b25d1d451bbd2d83541b7671f23c30f1f2ff16e96ddc4becf1e9": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 31,
+      "clause": "7.9",
+      "excerpt": "7.9. O Gestor poderá contratar, sem prejuízo de sua responsabilidade, terceiro  para realizar a verificação do lastro dos direitos creditórios adquiridos pelo Fundo, inclusive  a Entidade Registradora, desde que o referido terceiro não seja sua parte relacionada,  devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis  à verificação de tais documentos comprobatórios.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "252b2ec3f37a2bf448e4dc7a13124a38860476b38b8e46df9f2d86c2e74d0f17": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 33,
+      "clause": "7.15",
+      "excerpt": "7.15. Renúncia do Administrador e/ou do Gestor. O Administrador e/ou o Gestor,  mediante correspondência por meio eletrônico ou carta com aviso de recebimento  endereçada aos Cotistas, poderão renunciar à administração e/ou à gestão do Fundo,  conforme aplicável, devendo o Administrador convocar, imediatamente, Assembleia Geral  ou da Assembleia Especial (enquanto o Fundo tiver apenas a Classe Única) para decidir  sobre a substituição do respectivo prestador de serviço ou sobre a liquidação antecipada  do Fundo, sendo que tal assembleia deverá ser realizada no prazo de até 15 (quinze) dias  contados da convocação, nos termos da legislação em vigor.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "d10de12590b93a68729332c52b3d062c5a70da97a799c57356f49034af772a8a": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 72,
+      "clause": "",
+      "excerpt": "de competência privativa da  Assembleia Especial, conforme  previsto nesta Cláusula;\n (xx) deliberar sobre a alteração  dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas  dos Eventos de Liquidação presentes em primeira e em segunda convocações  Antecipada; e\n (xxi) deliberar sobre eventual  contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas  Classificação de Risco e sobre a presentes em primeira e em segunda  Agência de Classificação de convocações.\n Risco a ser contratada.\n (xxii) definição sobre a eventual  venda ou forma de cobrança das  Operações Inadimplidas,  conforme definido no Contrato Maioria simples das Cotas Sêniores dos Cotistas  CDB, incluindo, mas não se presentes em primeira e em segunda convocações  limitando à contratação de  assessor para realizar a cobrança  de valores inadimplidos;\n (xxiii) definição sobre a eventual  alteração no fluxo de pagamento  51% das Cotas Sêniores emitidas em primeira  dos Certificados de Depósito  convocação e maioria simples das Cotas Sêniores  Bancário Vinculados, nos termos  dos Cotistas presentes em segunda convocação.\n da Cláusula 6.8.1. do Contrato  CDB;\n (xxiv) aprovar as novas condições  e aditamento do Contrato CDB, 51% das Cotas Sêniores emitidas em primeira  caso haja repactuação, resgate convocação e maioria simples das Cotas Sêniores  antecipado ou amortização dos Cotistas presentes em segunda convocação.\n extraordinária deste.",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "primary_passage"
+    },
+    "210d060f8dae01427097235f3d233c182ae171477625de4ac8f4df31416f7bf0": {
+      "document_id": "634463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 68,
+      "clause": "",
+      "excerpt": "de competência privativa da  Assembleia Especial, conforme  previsto nesta Cláusula;\n (xx) deliberar sobre a alteração  dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas  dos Eventos de Liquidação presentes em primeira e em segunda convocações  Antecipada; e\n (xxi) deliberar sobre eventual  contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas  Classificação de Risco e sobre a presentes em primeira e em segunda  Agência de Classificação de convocações.\n Risco a ser contratada.\n (xxii) definição sobre a eventual  venda ou forma de cobrança das  Operações Inadimplidas,  conforme definido no Contrato Maioria simples das Cotas Sêniores dos Cotistas  CDB, incluindo, mas não se presentes em primeira e em segunda convocações  limitando à contratação de  assessor para realizar a cobrança  de valores inadimplidos;\n (xxiii) definição sobre a eventual  alteração no fluxo de pagamento  51% das Cotas Sêniores emitidas em primeira  dos Certificados de Depósito  convocação e maioria simples das Cotas Sêniores  Bancário Vinculados, nos termos  dos Cotistas presentes em segunda convocação.\n da Cláusula 6.8.1. do Contrato  CDB;\n (xxiv) aprovar as novas condições  e aditamento do Contrato CDB, 51% das Cotas Sêniores emitidas em primeira  caso haja repactuação, resgate convocação e maioria simples das Cotas Sêniores  antecipado ou amortização dos Cotistas presentes em segunda convocação.\n extraordinária deste.",
+      "sha256": "894bd0c5ce682a872a265645d751489c8289e87da4137e86dc6b7335e754286e",
+      "verification": "primary_passage"
+    },
+    "96f1d194d3a8b40670c6389c6f04b63000e0aa46fad63c4911cad5c3a342df58": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 24,
+      "clause": "",
+      "excerpt": "b) Classificação de risco  Nos termos do Art. 13, inciso V, da Seção II da Resolução CVM nº 175, a obrigatoriedade de classificação  de risco aplica-se exclusivamente às cotas de subclasse sênior distribuídas ao público em geral. No caso  do Fundo, conforme descrito na nota explicativa 1, a distribuição de cotas está restrita a investidores  qualificados. Dessa forma, o Fundo está dispensado da contratação de agência classificadora de risco  para atribuição de rating às cotas, uma vez que não se enquadra na exigência prevista na referida norma.",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "fec390ed1386c9d0d7bf20d7929684b9aa769baea814fbd7fcb646c9c266f2e7": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 9,
+      "clause": "",
+      "excerpt": "4 Rating  Os cotistas das subclasses sênior e subordinada júnior poderão, a qualquer tempo, solicitar que seja  contratada agência classificadora de risco, a fim de atribuição de rating às respectivas cotas, devendo tal  matéria ser submetida à assembleia.",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "3614a7a7cb47d87f8b597ae93c7598d963bfe1f395a72d3eec6cccbff0b6c0bb": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 72,
+      "clause": "",
+      "excerpt": "de competência privativa da  Assembleia Especial, conforme  previsto nesta Cláusula;\n (xx) deliberar sobre a alteração  dos Eventos de Avaliação e/ou Maioria simples das Cotas Sêniores dos Cotistas  dos Eventos de Liquidação presentes em primeira e em segunda convocações  Antecipada; e\n (xxi) deliberar sobre eventual  contratação de Agência de Maioria simples das Cotas Sêniores dos Cotistas  Classificação de Risco e sobre a presentes em primeira e em segunda  Agência de Classificação de convocações.\n Risco a ser contratada.\n (xxii) definição sobre a eventual  venda ou forma de cobrança das  Operações Inadimplidas,  conforme definido no Contrato Maioria simples das Cotas Sêniores dos Cotistas  CDB, incluindo, mas não se presentes em primeira e em segunda convocações  limitando à contratação de  assessor para realizar a cobrança  de valores inadimplidos;\n (xxiii) definição sobre a eventual  alteração no fluxo de pagamento  51% das Cotas Sêniores emitidas em primeira  dos Certificados de Depósito  convocação e maioria simples das Cotas Sêniores  Bancário Vinculados, nos termos  dos Cotistas presentes em segunda convocação.\n da Cláusula 6.8.1. do Contrato  CDB;\n (xxiv) aprovar as novas condições  e aditamento do Contrato CDB, 51% das Cotas Sêniores emitidas em primeira  caso haja repactuação, resgate convocação e maioria simples das Cotas Sêniores  antecipado ou amortização dos Cotistas presentes em segunda convocação.\n extraordinária deste.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "3c603027d02b8faae95a25569b342f60f23ebdf2f5ca22170b6754922b8c929d": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "126, 129",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 126, 129 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "c438bf238fe19353638fb24f2c524921d3723db6a0d2946d83797e3bd289a2a1": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "Patrimônio líquido 188.297 100,00 250.677 111,54  Total de 224.292.564 cotas de subclasse sênior a R$ 0,7342 164.679 87,46 - -  Total de 28.921.427 cotas de subclasse subordinada júnior a R$ 0,8166 23.618 12,54 - -  Atribuível à parcela do benchmark subordinada júnior 22.680 12,04 - -  Atribuível ao excesso de spread subordinada júnior 938 0,50 - -",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "2a0c4342b63cca46ba69e3b1b303031cc7e71e6bd16e2c22312fe7b1ee6974be": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 18,
+      "clause": "",
+      "excerpt": "Período de Subclasse Valor da cota Rentabilidade (*) Benchmark  05 de abril (início das atividades) Sênior 0,9887 1,69% CDI+1,10%  a 31 de maio de 2024 Subordinada júnior 1,0002 2,48% CDI+-2,80%",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "fbbf4c5ac55e452a896d4e1bc3d5be0d41919281e64dd0ee0a222788f4868cd5": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "112",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 112 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "4696af9ca55f08850a699e57ce7c02be95c55436d5977b1ee616b1ae36545b89": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 112,
+      "clause": "13.7",
+      "excerpt": "13.7. Taxa de Administração e Gestão. A taxa de administração e de gestão do  Fundo, devidas em decorrência dos serviços de administração, custódia e escrituração das  Cotas, bem como dos serviços de gestão e controladoria dos ativos do Fundo serão  equivalentes a 0,175% (cento e setenta e cinco milésimos por cento) ao ano, incidente  sobre o Patrimônio Líquido do Fundo (“Taxa de Administração” e “Taxa de Gestão”,  respectivamente). A Taxa de Administração e a Taxa de Gestão serão pagas de maneira  proporcional ao patrimônio líquido de cada Classe.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "38961fda0d4999415761339fea5478c62d78b238669977e61eeb29fbeec4a34b": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 26,
+      "clause": "7.3.1",
+      "excerpt": "7.3.1. Taxa de Custódia do Fundo. Os serviços de custódia qualificada dos direitos  creditórios do Fundo serão exercidos pelo Custodiante, pelos quais fará jus à parcela da  Taxa de Administração, conforme o previsto no Anexo Descritivo da Classe e no respectivo  Contrato de Custódia.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "b490899a89ef75e7829b94da735bb98f4b250318a231f3554a5ee31061a80140": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 99,
+      "clause": "",
+      "excerpt": "Caso a Classe não disponha de recursos necessários para cobrir os custos e despesas que  eventualmente venham a ser incorridos pela Classe para salvaguarda de seus direitos e  prerrogativas e/ou com a cobrança judicial e/ou extrajudicial de Direitos Creditórios  inadimplidos, os Cotistas poderão ter que aportar recursos adicionais para a Classe, na  proporção de suas Cotas. O Administrador e/ou suas respectivas partes relacionadas não  estão obrigados de qualquer forma pelo adiantamento ou pagamento ao Fundo dos valores  necessários à cobrança de tais Direitos Creditórios inadimplidos. O Administrador e/ou suas  respectivas partes relacionadas não serão responsáveis por quaisquer custos, taxas,  despesas, emolumentos, honorários advocatícios e periciais ou quaisquer outros encargos  relacionados aos procedimentos de cobrança. Na hipótese de ocorrência de tais custos  adicionais, poderá haver perdas patrimoniais aos Cotistas.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "ef555f978562beafae193a3256ba10da981ec6036f8258b93cf6c4b9c92577b8": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 115,
+      "clause": "16.1",
+      "excerpt": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá  escrituração contábil própria. As demonstrações contábeis anuais da Classe serão  auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações  financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente,  observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "primary_passage"
+    },
+    "6c15a7471f2576460f191019cfe95fd11e234e9018269b6d39813f1b31a8b1a9": {
+      "document_id": "634463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 111,
+      "clause": "16.1",
+      "excerpt": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá  escrituração contábil própria. As demonstrações contábeis anuais da Classe serão  auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações  financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente,  observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "sha256": "894bd0c5ce682a872a265645d751489c8289e87da4137e86dc6b7335e754286e",
+      "verification": "primary_passage"
+    },
+    "52b1c87912f6a3c87f3dde27249b428850aec90c7dc1abc77b74b35cc08069ba": {
+      "document_id": "1027103",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1027103",
+      "reference_date": "2025-10-28",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "V. ORDEM DO DIA: Deliberar (i) as Demonstrações Financeiras, acerca dos  exercícios sociais findos em 31 de maio de 2024 e 31 de março de 2025, na forma do  item 5.1, inciso (i) do Regulamento do Fundo; (ii) autorizar o Administrador e a Gestora",
+      "sha256": "e0b4867d93f02456241e09d96e9ad31f2769b4af3d7319d9a94093d28b3ba09e",
+      "verification": "primary_passage"
+    },
+    "a3bc64e69f65cbceb5d9d7ba27021b32736278ee8d4f38ecc99ade84986a9a8e": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "Estratégia Vinculada I Fundo de  Investimento em Direitos Creditórios  – Responsabilidade Limitada  (CNPJ no 54.559.035/0001-94)  (Administrado pela Oliveira Trust Distribuidora de  Títulos e Valores Mobiliários S.A.)  Demonstrações financeiras em  31 de maio de 2025  e relatório do auditor independente",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "fa2cc7abca6f459ecff701f9aeb4c362486c236e85e41b2b82d4f06d709182bb": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "Para o período de 05 de abril (início das atividades) a 31 de maio de 2024, as demonstrações financeiras do  fundo não foram submetidas a auditoria tendo em vista que o Fundo estava em atividade há menos de 90  dias na data base do encerramento do exercício social. A decisão da não contratação de auditoria tem como  objetivo evitar gastos desnecessários para o fundo e está amparado no parágrafo único do art. 69 da ICVM  175 que prevê a dispensa para auditoria dos fundos com menos de 90 dias de atividade.",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "4f3763548bfc275e07baab72d9324cfac5f6b2c66159a8600909339878e65a2a": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 116,
+      "clause": "16.1",
+      "excerpt": "16.1. Escrituração Contábil e Demonstrações Contábeis. A Classe terá  escrituração contábil própria. As demonstrações contábeis anuais da Classe serão  auditadas por Auditor Independente registrado na CVM em conjunto com as demonstrações  financeiras gerais do Fundo e estarão sujeitas ao disposto na legislação vigente,  observadas as disposições dos artigos 66 e seguintes da Resolução CVM 175/22.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "71f3e5b776cbe7f218d8418c2daa8c51223be52f77264bf34f30a8c2ffd623fd": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "85-87",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 85-87 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "1608edc5238d42025bf7a29ec00506ef8f2a65a019c264998c1bd55450dbddc0": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": "57-58",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 634437 · 05/04/2024 · regulamento · p. 57-58 · data/raw/54559035000194/634437_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=634437"
+    },
+    "7bb89f03dcdf355ed3f3b57af57738b5b8258c3b8371fb70770c226ef4cbc707": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 6,
+      "clause": "",
+      "excerpt": "1. DEFINIÇÕES _______________________________________________________ 4  2. DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO  PATRIMÔNIO DO FUNDO ______________________________________________ 11  3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO _______________ 12  4. CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO  E INTEGRALIZAÇÃO DAS COTAS ______________________________________ 13  5. ASSEMBLEIAS GERAIS ____________________________________________ 14  6. FATORES DE RISCO _______________________________________________ 19  7. ADMINISTRADOR, CUSTODIANTE, AGENTE DE CONTROLADORIA E O  GESTOR ______________________________________________________________ 19  8. ENCARGOS DO FUNDO ____________________________________________ 31  10. DIVULGAÇÃO DE INFORMAÇÕES __________________________________ 33  11. DEMONSTRAÇÕES FINANCEIRAS __________________________________ 35  12. DISPOSIÇÕES DIVERSAS __________________________________________ 37  ANEXO I ______________________________________________________________ 38  ANEXO II_____________________________________________________________ 115  ANEXO III ____________________________________________________________ 117  ANEXO IV ____________________________________________________________ 119  ANEXO V ____________________________________________________________ 120",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "primary_passage"
+    },
+    "37907f56774579b01a31eddb5b7967328468ea027248bdc43bc6f74203b0726d": {
+      "document_id": "634463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "1. DEFINIÇÕES _______________________________________________________ 4  2. DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO  PATRIMÔNIO DO FUNDO ______________________________________________ 11  3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO _______________ 12  4. CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO  E INTEGRALIZAÇÃO DAS COTAS ______________________________________ 13  5. ASSEMBLEIAS GERAIS ____________________________________________ 14  6. FATORES DE RISCO _______________________________________________ 19  7. ADMINISTRADOR, CUSTODIANTE, AGENTE DE CONTROLADORIA E O  GESTOR ______________________________________________________________ 19  8. ENCARGOS DO FUNDO ____________________________________________ 31  10. DIVULGAÇÃO DE INFORMAÇÕES __________________________________ 33  11. DEMONSTRAÇÕES FINANCEIRAS __________________________________ 35  12. DISPOSIÇÕES DIVERSAS __________________________________________ 37  ANEXO I ______________________________________________________________ 38  ANEXO II_____________________________________________________________ 115  ANEXO III ____________________________________________________________ 117  ANEXO IV ____________________________________________________________ 119  ANEXO V ____________________________________________________________ 120",
+      "sha256": "894bd0c5ce682a872a265645d751489c8289e87da4137e86dc6b7335e754286e",
+      "verification": "primary_passage"
+    },
+    "b0050abd870fdfd13188fafe9fd4b32061c2e307f23aac05197af83547ceab6b": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "1 Contexto operacional  O Estratégia Vinculada I Fundo de Investimento em Direitos Creditórios – Responsabilidade Limitada  (“Fundo”), regulamentado pela resolução 175, de 23 de dezembro de 2022, da Comissão de Valores  Mobiliários (“CVM”), teve início em 05 de abril de 2024, com classe única de cotas (“Classe”), sob a forma de  condomínio fechado e destina-se, exclusivamente, a investidores qualificados, tal como definidos pela  legislação vigente. Inicialmente, o prazo de duração é de 37 meses.",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "8205c892e476516b09101a56916c6d038056c6026db9ccb59d051577f22e5347": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 7,
+      "clause": "",
+      "excerpt": "1 Contexto operacional  O Fundo Estratégia Vinculada I Fundo de Investimento em Direitos Creditórios Responsabilidade Limitada -  Fundo de Investimento em Direitos Creditórios (“Fundo”) foi constituído e teve início em 05 de abril de 2024,  com classe única de cotas (“Classe”), sob a forma de condomínio fechado e destina-se, exclusivamente, a  investidores qualificados, tal como definidos pela legislação vigente. Inicialmente, o prazo de duração é  indeterminado ou é de 37 meses.",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "49ff556ee3c8b0fc2e9473ae4e6a59713fac4f21470eebd86998c9905f5da833": {
+      "document_id": "634469",
+      "title": "Anúncio de Início",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634469",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "DIREITOS CREDITÓRIOS – RESPOSABILIDADE LIMITADA (\"Fundo\"), compreendendo\n224.292.564 (duzentos e vinte e quatro milhões, duzentos e noventa e dois mil e quinhentos e sessenta e quatro) Cotas Seniores, e 28.921.427 (vinte e oito milhões, novecentas e vinte e uma mil, quatrocentas e vinte e sete) Cotas Subordinadas Júnior, com valor unitário de emissão equivalente a R$ 1,00 (um real) (\"Cotas Seniores\", “Cotas Subordinadas Júnior”, em conjunto, “Cotas” e “Valor Unitário de Emissão”, respectivamente), no montante total de R$ 253.213.991,00 (duzentos e cinquenta e três milhões, duzentos e treze mil, novecentos e noventa e um reais), sendo todas nominativas e escriturais, destinadas exclusivamente a investidores profissionais, assim definidos nos termos do artigo 11 da Resolução CVM nº 30, de 11 de maio de 2021, conforme alterada, estando sujeita ao rito automático de distribuição, nos termos do artigo 26, inciso VI, alínea “a”, da Resolução CVM 160, sendo que as Cotas serão objeto de oferta pública de distribuição sob regime de melhores esforços (“Oferta”).",
+      "sha256": "670813f83e7728b471778b731c110e4cef42c1457f30dc1dffe219892a6d5279",
+      "verification": "primary_passage"
+    },
+    "bb7a4bb2752f325df1060e126111d92d2d165ef2ab78995a2fc6265880e2c962": {
+      "document_id": "634466",
+      "title": "Outros Documentos",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634466",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 3,
+      "clause": "",
+      "excerpt": "23/09/2026 R$ 6.230.349,00 Sim  23/10/2026 R$ 6.230.349,00 Sim  24/11/2026 R$ 6.230.349,00 Sim  23/12/2026 R$ 6.230.349,00 Sim  25/01/2027 R$ 6.230.349,00 Sim  23/02/2027 R$ 6.230.349,00 Sim  23/03/2027 R$ 6.230.349,00 Sim  23/04/2027 R$ 6.230.349,00 Sim  As Cotas Seniores da 1ª Série serão registradas e  depositadas para distribuição primária por meio do MDA  – Módulo de Distribuição de Ativos, operacionalizado e  administrado pela B3, sendo a distribuição liquidada e as  Cotas Seniores depositadas eletronicamente na B3. As  Cotas Seniores da 1ª Série poderão ser depositadas  para negociação secundária por meio do FUNDOS21,  observados os requisitos previstos no Regulamento e no  Registro e Negociação das  Anexo Descritivo, sendo a distribuição e as negociações  Cotas Seniores da 1ª Série:\n liquidadas e as Cotas Seniores depositadas  eletronicamente pela B3. Quando da negociação das  Cotas Seniores no âmbito do mercado secundário,  deverão se enquadrar no conceito de Investidores  Profissionais, observados os prazos e restrições de  negociação previstos na Resolução CVM 160/22, na  Resolução CVM 175/23, e demais regulamentações  aplicáveis.",
+      "sha256": "6f6f8a831d8537901280f767713e68a0c39a943f7f745a951a16071be0d067f7",
+      "verification": "primary_passage"
+    },
+    "0589aec6b408e8fbfc690fd65a792dcb6b38038475028df434ab7bd28b107a4e": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 6,
+      "clause": "",
+      "excerpt": "1. DEFINIÇÕES _______________________________________________________ 3  2. DENOMINAÇÃO, FORMA, PRAZO DE DURAÇÃO E COMPOSIÇÃO DO  PATRIMÔNIO DO FUNDO ______________________________________________ 11  3. PÚBLICO-ALVO DO FUNDO E INVESTIMENTO MÍNIMO _______________ 12  4. CARACTERÍSTICAS, DIREITOS, CONDIÇÕES DE EMISSÃO, SUBSCRIÇÃO  E INTEGRALIZAÇÃO DAS COTAS ______________________________________ 13  5. ASSEMBLEIAS GERAIS ____________________________________________ 14  6. FATORES DE RISCO _______________________________________________ 19  7. ADMINISTRADOR, CUSTODIANTE, AGENTE DE CONTROLADORIA E O  GESTOR ______________________________________________________________ 19  8. ENCARGOS DO FUNDO ____________________________________________ 31  10. DIVULGAÇÃO DE INFORMAÇÕES __________________________________ 33  11. DEMONSTRAÇÕES FINANCEIRAS __________________________________ 35  12. DISPOSIÇÕES DIVERSAS __________________________________________ 37  ANEXO I ______________________________________________________________ 38  ANEXO II_____________________________________________________________ 115  ANEXO III ____________________________________________________________ 117  ANEXO IV ____________________________________________________________ 119  ANEXO V ____________________________________________________________ 120",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "e044fda31a3a9c560ebfc58b5dc2e3465370b03f1e24a566b5367bf4067a0901": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 58,
+      "clause": "2.3",
+      "excerpt": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado  por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse  Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas  Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As  características e os direitos, assim como as condições de emissão, subscrição,  integralização, remuneração, Amortização e resgate das Cotas seguem descritos no  Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na  forma dos Anexos II e III do Regulamento.",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "primary_passage"
+    },
+    "65b672dccda5814d48244908b203b798dd93392b96fd1839489d2e6823d7801f": {
+      "document_id": "634463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 54,
+      "clause": "2.3",
+      "excerpt": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado  por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse  Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas  Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As  características e os direitos, assim como as condições de emissão, subscrição,  integralização, remuneração, Amortização e resgate das Cotas seguem descritos no  Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na  forma dos Anexos II e III do Regulamento.",
+      "sha256": "894bd0c5ce682a872a265645d751489c8289e87da4137e86dc6b7335e754286e",
+      "verification": "primary_passage"
+    },
+    "fefd8c694256a0503d54f7b17b6c31868a9ba9b055f34ea440a94d7477686aaa": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 22,
+      "clause": "",
+      "excerpt": "A distribuição das cotas sêniores de qualquer série e de cotas subordinadas júnior de qualquer  subclasse deverá observar os normativos em vigor à época editados pela CVM, bem como o regime  de distribuição estabelecido no respectivo apêndice.",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "d8e380c5da70259d8efdaa51e643d33bdc767fa0cb4c09bdf1383a1c165bb9b6": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 16,
+      "clause": "",
+      "excerpt": "Subclasse de cotas seniores:\n As cotas de subclasse sênior são aquelas que não se subordinam às demais subclasses de cotas ou entre  si para efeito de amortização de principal e pagamentos de remuneração e resgate. As cotas de subclasse  sênior poderão ser emitidas em múltiplas séries.",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "77006eadd17001c2a50d7f4d54aaa0841c0f2db342d4a406a60bbf7d1cc96c5b": {
+      "document_id": "672167",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=672167",
+      "reference_date": "2024-05-08",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "4. Ordem do Dia e Deliberações: A totalidade dos Cotistas presentes, representando  100% (cem por cento) das Cotas Seniores e das Cotas Subordinadas Júnior decidiram,  por unanimidade, sem quaisquer restrições ou ressalvas, deliberar sobre e aprovar, nos  termos da Cláusula 5 do Regulamento, as seguintes matérias:\n(i) aprovar a alteração da cláusula 7.1 do Anexo I ao Regulamento para alterar os quóruns  de aprovação em Assembleia Especial (conforme definido no Regulamento), que passará  a vigorar na forma do documento constante no Anexo II ao presente instrumento;",
+      "sha256": "e34e58b9004d02798a42d8bed42f3c245ac71b4c1281faca7ae4e75e54c4285e",
+      "verification": "primary_passage"
+    },
+    "b3b79d9833e87947e9698e7025bf5f398c1f7a19c5770b9a3d6f589c4382013d": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 58,
+      "clause": "2.3",
+      "excerpt": "2.3. Composição do Patrimônio da Classe. O patrimônio da Classe será formado  por 2 (duas) Subclasses de Cotas, quais sejam, a Subclasse Sênior e a Subclasse  Subordinada Júnior, das quais decorrerão, respectivamente, as Cotas Seniores e as Cotas  Subordinadas Júnior, na forma da Resolução CVM 175/22, conforme descritas abaixo. As  características e os direitos, assim como as condições de emissão, subscrição,  integralização, remuneração, Amortização e resgate das Cotas seguem descritos no  Capítulo 8 deste Anexo Descritivo da Classe Única e em seus respectivos Apêndices, na  forma dos Anexos II e III do Regulamento.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "76db545621d3ff00b02e5126123a35b887ee09df353aab3b2cbfd984abdff078": {
+      "document_id": "664160",
+      "title": "Anúncio de Encerramento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664160",
+      "reference_date": "2024-04-23",
+      "version": "1",
+      "page": "1-3",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "4d8962edae5d6b274565a6de86236636cb3d4c32d22b2ed4ee595d7b4d7356ef",
+      "verification": "previous_review",
+      "citation_original": "Fundos.NET ID 664160 · 23/04/2024 · emissao · p. 1-3 · data/raw/54559035000194/664160_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=664160"
+    },
+    "74da560044fbe26b044749579b3fcd6c1b3e0edc2ae4f74e1306af7a032e7cb4": {
+      "document_id": "634437",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634437",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 126,
+      "clause": "",
+      "excerpt": "Valor Unitário de Emissão: R$ 1,00 (um real).\n Forma de Integralização: À vista, na data de subscrição.\n Prazo para Distribuição: 180 (cento e oitenta) dias.\n 0,8857 (oito mil, oitocentos e cinquenta e sete décimos de  Fator de Ponderação Sênior:\n milésimos)  Coordenador Líder: Banco Itaú BBA S.A.\n Tipo de Oferta: Oferta Pública sujeita ao rito automático de registro na CVM  Regime de Distribuição Melhores Esforços  Data de Resgate: 23/04/2027  Sobretaxa Sênior: 1,10% (um inteiro e dez centésimos por cento).\n As Cotas Seniores serão valoradas diariamente, a partir do  Dia Útil seguinte à 1ª Data de Integralização de Cotas até a  Data de Resgate das Cotas Seniores, nos termos do Capítulo  8 do Regulamento. A Meta de Remuneração será  Meta de Remuneração:\n determinada por meio da apropriação diária, sob forma de  capitalização composta, com base em um ano de 252  (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI,  acrescida de Sobretaxa Sênior.\n Com relação a cada Data de Pagamento, caso o regime de  amortização seja a:\n (i) Amortização Sequencial: Valor Principal de Referência  Anterior; e\n (ii) Amortização Pro Rata: conforme tabela abaixo.\n Meta de Amortização e Datas de Pagamento  Pagamento: Remuneração Pari  Vencimento Amortização  Passu Parcela de  Principal  23/05/2024 R$ 6.230.349,00 Sim  24/06/2024 R$ 6.230.349,00 Sim",
+      "sha256": "aa5d5f00d62938b9b302e246c1f2745a6216b6d4ee8f191218f7d1bec9c419c4",
+      "verification": "primary_passage"
+    },
+    "c4dab73b16b0ac4e5b8628a9e5e394a5e71b5409b52c8c020bd4f8bf679c9c17": {
+      "document_id": "634463",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634463",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 122,
+      "clause": "",
+      "excerpt": "Valor Unitário de Emissão: R$ 1,00 (um real).\n Forma de Integralização: À vista, na data de subscrição.\n Prazo para Distribuição: 180 (cento e oitenta) dias.\n 0,8857 (oito mil, oitocentos e cinquenta e sete décimos de  Fator de Ponderação Sênior:\n milésimos)  Coordenador Líder: Banco Itaú BBA S.A.\n Tipo de Oferta: Oferta Pública sujeita ao rito automático de registro na CVM  Regime de Distribuição Melhores Esforços  Data de Resgate: 23/04/2027  Sobretaxa Sênior: 1,10% (um inteiro e dez centésimos por cento).\n As Cotas Seniores serão valoradas diariamente, a partir do  Dia Útil seguinte à 1ª Data de Integralização de Cotas até a  Data de Resgate das Cotas Seniores, nos termos do Capítulo  8 do Regulamento. A Meta de Remuneração será  Meta de Remuneração:\n determinada por meio da apropriação diária, sob forma de  capitalização composta, com base em um ano de 252  (duzentos e cinquenta e dois) Dias Úteis, da Taxa DI,  acrescida de Sobretaxa Sênior.\n Com relação a cada Data de Pagamento, caso o regime de  amortização seja a:\n (i) Amortização Sequencial: Valor Principal de Referência  Anterior; e\n (ii) Amortização Pro Rata: conforme tabela abaixo.\n Meta de Amortização e Datas de Pagamento  Pagamento: Remuneração Pari  Vencimento Amortização  Passu Parcela de  Principal  23/05/2024 R$ 6.230.349,00 Sim  24/06/2024 R$ 6.230.349,00 Sim",
+      "sha256": "894bd0c5ce682a872a265645d751489c8289e87da4137e86dc6b7335e754286e",
+      "verification": "primary_passage"
+    },
+    "8d66909cbc07c2484c8566236d1fd884c7b807f7fd012830332926f4cb907e1f": {
+      "document_id": "634469",
+      "title": "Anúncio de Início",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634469",
+      "reference_date": "2024-04-05",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "ANÚNCIO DE INÍCIO DA OFERTA PÚBLICA DE DISTRIBUIÇÃO DA 1ª (PRIMEIRA) EMISSÃO DE COTAS DA SUBCLASSE SÊNIOR E DA SUBCLASSE SUBORDINADA JÚNIOR DO ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS– RESPONSABILIDADE LIMITADA, DE CLASSE ÚNICA",
+      "sha256": "670813f83e7728b471778b731c110e4cef42c1457f30dc1dffe219892a6d5279",
+      "verification": "primary_passage"
+    },
+    "0c29de23f5a640c711e7ab172c75ccca582a09be16a02c698db8d7320c303c7b": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 16,
+      "clause": "3.1",
+      "excerpt": "3.1. Podem participar do Fundo, na qualidade de Cotistas, apenas Investidores  Autorizados, respeitado que, no âmbito de uma Oferta Pública, as Cotas serão subscritas  e integralizadas exclusivamente por Investidores Profissionais, nos termos da Resolução  CVM 160/22. Nos termos do artigo 45, §7º, II, do Anexo Normativo II da Resolução CVM  175/23, as Cotas objeto de Oferta Pública somente poderão ser negociadas a Investidores  Profissionais.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    },
+    "5329f5e0455c0bed8010ae0f272f794f75d523ecaeb39a3a0bde67d2ef8ef164": {
+      "document_id": "968565",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=968565",
+      "reference_date": "2025-05-31",
+      "version": "1",
+      "page": 14,
+      "clause": "",
+      "excerpt": "a) Cotas de fundos de investimento com liquidez imediata  As cotas de fundo de investimento são atualizadas ao valor justo por meio do resultado, diariamente,  com base no valor da cota divulgado pelas instituições financeiras custodiantes dos fundos onde os  recursos são aplicados. Na hipótese de não divulgação das cotas, serão utilizadas as cotas do dia  imediatamente anterior. A seguir, apresentamos a composição do saldo detido pelo Fundo referente a  outras cotas de fundos de investimento.",
+      "sha256": "b340435784254856c0cf6dc8be7c800105eb8dc4f49a6314e57e5589e229b8bf",
+      "verification": "primary_passage"
+    },
+    "ec2e86f73c680a50784b5fef168145271693c086b4230bbda1badfdf36524a27": {
+      "document_id": "727013",
+      "title": "Demonstrações Financeiras",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=727013",
+      "reference_date": "2024-05-31",
+      "version": "1",
+      "page": 10,
+      "clause": "",
+      "excerpt": "As cotas de fundo de investimento são atualizadas, diariamente, com base no valor da cota divulgado pelas  Instituições Financeiras custodiantes dos fundos onde os recursos são aplicados. Na hipótese de não  divulgação das cotas, serão utilizadas as cotas do dia imediatamente anterior.",
+      "sha256": "4cbd0854432759c3bd165a9fadde302ef7298b421abed1b163541f22592577b9",
+      "verification": "primary_passage"
+    },
+    "e6bbd18ece24bb27e06fb38496249969c6c861982aee6b2a2c5b571945a8ff1b": {
+      "document_id": "634435",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634435",
+      "reference_date": "2024-04-01",
+      "version": "1",
+      "page": 89,
+      "clause": "10.6",
+      "excerpt": "10.6. Na hipótese de não instalação da Assembleia Especial, em segunda  convocação, por falta de quórum, o Evento de Avaliação constituirá um Evento de  Liquidação Antecipada, devendo, nesta hipótese, ser convocada Assembleia Especial para  deliberar a respeito do Evento de Liquidação Antecipada, na forma das disposições abaixo  deste Capítulo 10.",
+      "sha256": "ff12d4a397675b23f8f46ba3c65022d06b71d04d00f55f71da85fd4a785b6bed",
+      "verification": "primary_passage"
+    }
+  }
+}

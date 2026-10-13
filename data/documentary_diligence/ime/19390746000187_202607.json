@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "19390746000187",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 53062379.12,
+    "credit_rights": 46738979.89,
+    "overdue_credit": 1876405.68,
+    "cash": 775.28,
+    "pdd": 189762.05,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 53062379.12766615,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 53062379.12766615
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "19390746000187",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/19390746000187_202607.json",
+    "reported_fund_cnpj": "19390746000187",
+    "reported_class_cnpj": "19390746000187",
+    "reported_fund_cnpj_raw": "19390746000187",
+    "reported_class_cnpj_raw": "19390746000187",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1298671",
+    "version": 2,
+    "delivered_at": "21/08/2026 21:36",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1298671",
+    "declared_fields_sha256": "d79e22d447832f40e6f0f438bf0dcfe78558d59c59d6305aa774432d038de6f5"
+  },
+  "error": ""
+}

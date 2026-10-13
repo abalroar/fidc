@@ -425,7 +425,7 @@ class PortfolioPageTests(unittest.TestCase):
         rerun.assert_called_once_with()
 
     def test_document_curation_remains_available_when_analytics_raise(self) -> None:
-        portfolio = Mock()
+        portfolio = Mock(funds=())
         period = Mock()
 
         with (

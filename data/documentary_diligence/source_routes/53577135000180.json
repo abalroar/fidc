@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "53577135000180",
+  "name": "ANGÁ FGTS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:12Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:05:12Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1224059,
+          "reference_date": "18/06/2026",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                           diariamente pela B3, disponível em sua página na Internet\n                           (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                           dois) Dias Úteis, expressa na forma percentual ao ano;\n\n“Taxa de Aquisição”:       Significa a taxa de retorno de cada Direito Creditório c"
+        },
+        {
+          "document_id": 1051704,
+          "reference_date": "01/12/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051704",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                           diariamente pela B3, disponível em sua página na Internet\n                           (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                           dois) Dias Úteis, expressa na forma percentual ao ano;\n\n“Taxa de Aquisição”:       Significa a taxa de retorno de cada Direito Creditório c"
+        },
+        {
+          "document_id": 588329,
+          "reference_date": "19/01/2024",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588329",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                             diariamente pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano;\n\n “Termo de Endosso”:         Documento pelo qual será formalizado o endosso dos D"
+        },
+        {
+          "document_id": 634212,
+          "reference_date": "15/02/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634212",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                             diariamente pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano;\n\n “Termo de Endosso”:         Documento pelo qual será formalizado o endosso dos D"
+        },
+        {
+          "document_id": 675236,
+          "reference_date": "28/05/2024",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675236",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                             diariamente pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano;\n\n “Taxa de Aquisição”:        Significa a taxa de retorno de cada Direito Creditór"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1224059,
+          "reference_date": "18/06/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224059",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                               disponível em seu website, no seguinte endereço:\n                               www.angaasset.com.br\n\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos"
+        },
+        {
+          "document_id": 1051704,
+          "reference_date": "01/12/2025",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051704",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                               disponível em seu website, no seguinte endereço:\n                               www.angaasset.com.br\n\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos"
+        },
+        {
+          "document_id": 588329,
+          "reference_date": "19/01/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=588329",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                               disponível em seu website, no seguinte endereço:\n                               www.angaasset.com.br\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos"
+        },
+        {
+          "document_id": 634212,
+          "reference_date": "15/02/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=634212",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                               disponível em seu website, no seguinte endereço:\n                               www.angaasset.com.br\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos"
+        },
+        {
+          "document_id": 675236,
+          "reference_date": "28/05/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=675236",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                               disponível em seu website, no seguinte endereço:\n                               www.angaasset.com.br\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

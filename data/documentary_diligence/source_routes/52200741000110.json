@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "cnpj": "52200741000110",
+  "name": "NORDE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:11Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:11Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 641139,
+          "reference_date": "11/04/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=641139",
+          "source_excerpt": "cinquenta e\n                    dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                    diário   disponível    em      sua    página     na    Internet\n                    (http://www.b3.com.br).\n\n\n“Termo de Adesão”   Significa o “Termo de Ciência        de Risco   e Adesão ao\n                    Regulamento do NORDE FUNDO DE INVESTIMENTO EM\n                    DIREITOS CREDITÓRIOS”, a ser as"
+        },
+        {
+          "document_id": 1078995,
+          "reference_date": "07/01/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+          "source_excerpt": "a e divulgada pela B3 no informativo\n                                                 diário   disponível    em      sua    página     na    Internet\n                                                 (http://www.b3.com.br).\n\n\n          “Termo de Adesão”                      Significa o “Termo de Ciência de Risco          e Adesão ao\n                                                 Regulamento do NORDE FUNDO DE INVESTIME"
+        },
+        {
+          "document_id": 691467,
+          "reference_date": "01/07/2024",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=691467",
+          "source_excerpt": "e\n                    dois) Dias Úteis, calculada e divulgada pela B3 no inf ormativo\n                    diário       disponível     em      sua      página      na     Internet\n                    (http://www.b3.com.br).\n\n\n“Termo de Adesão”   Signif ica    o   “Termo    de    Ciência   de   Risco   e    Adesão   ao\n                    Regulamento        do     NORDE    FUNDO DE       INVESTIMENTO         EM"
+        },
+        {
+          "document_id": 641169,
+          "reference_date": "11/04/2024",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=641169",
+          "source_excerpt": "cinquenta e\n                    dois) Dias Úteis, calculada e divulgada pela B3 no informativo\n                    diário   disponível    em      sua    página     na    Internet\n                    (http://www.b3.com.br).\n\n\n“Termo de Adesão”   Significa o “Termo de Ciência        de Risco   e Adesão ao\n                    Regulamento do NORDE FUNDO DE INVESTIMENTO EM\n                    DIREITOS CREDITÓRIOS”, a ser as"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

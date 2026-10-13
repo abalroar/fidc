@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "cnpj": "34408539000104",
+  "name": "CREDITO UNIVERSITARIO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:55Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:15Z",
+  "routes": [
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 417671,
+          "reference_date": "14/02/2023",
+          "page": 96,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=417671",
+          "source_excerpt": "adas diariamente pela B3 S.A. – Brasil, Bolsa, Balcão, no\n                                     informativo     diário   disponível   em   sua   página   Internet\n                                     (www.b3.com.br).\n“Taxa de Gestão”                     Remuneração devida nos termos do Capítulo III do Regulamento.\n\n\n“Taxa Interna de Retorno da          Com relação a um mês calendário e aos Direitos Creditórios do"
+        },
+        {
+          "document_id": 424681,
+          "reference_date": "28/02/2023",
+          "page": 100,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=424681",
+          "source_excerpt": "adas diariamente pela B3 S.A. – Brasil, Bolsa, Balcão, no\n                                     informativo     diário   disponível   em   sua   página   Internet\n                                     (www.b3.com.br).\n“Taxa de Gestão”                     Remuneração devida nos termos do Capítulo III do Regulamento.\n\n\n“Taxa Interna de Retorno da          Com relação a um mês calendário e aos Direitos Creditórios do"
+        },
+        {
+          "document_id": 424683,
+          "reference_date": "01/03/2023",
+          "page": 95,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=424683",
+          "source_excerpt": "adas diariamente pela B3 S.A. – Brasil, Bolsa, Balcão, no\n                                     informativo     diário   disponível   em   sua   página   Internet\n                                     (www.b3.com.br).\n“Taxa de Gestão”                     Remuneração devida nos termos do Capítulo III do Regulamento.\n\n\n“Taxa Interna de Retorno da          Com relação a um mês calendário e aos Direitos Creditórios do"
+        },
+        {
+          "document_id": 448021,
+          "reference_date": "18/04/2023",
+          "page": 96,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448021",
+          "source_excerpt": "asil, Bolsa, Balcão, no\n                                                      informativo    diário   disponível   em    sua   página   Internet\n                                                      (www.b3.com.br).\n          “Taxa de Gestão”                            Remuneração devida nos termos do Capítulo III do Regulamento.\n\n\n          “Taxa Interna de Retorno da                 Com relação a um mês calend"
+        },
+        {
+          "document_id": 508204,
+          "reference_date": "28/07/2023",
+          "page": 94,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=508204",
+          "source_excerpt": "– Brasil, Bolsa, Balcão, no\n                                                   informativo     diário   disponível   em   sua   página    Internet\n                                                   (www.b3.com.br).\n         “Taxa de Gestão”                          Remuneração devida nos termos do Capítulo III do Regulamento.\n\n\n         “Taxa Interna de Retorno da\n         Carteira de Direitos Creditórios”"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 939590,
+          "reference_date": "15/04/2025",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=939590",
+          "source_excerpt": "ções nos termos deste Regulamento. Tais regras e procedimentos\n               permanecerão       disponíveis   e   atualizados        para   consulta   no   website   do   Custodiante\n               (https://www.oliveiratrust.com.br/).\n\n\n               9.7.     Nos termos do artigo 37 do Anexo Normativo II, caso o Fundo adquira Direitos Creditórios que\n               não sejam passíveis de registro em Entidade Registradora, o Custo"
+        },
+        {
+          "document_id": 1203913,
+          "reference_date": "25/05/2026",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1203913",
+          "source_excerpt": "ar o cumprimento de suas obrigações nos termos\n             deste Regulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no\n             website do Custodiante (https://www.oliveiratrust.com.br/).\n\n             9.7.    Nos termos do artigo 37 do Anexo Normativo II, caso o Fundo adquira Direitos Creditórios que não sejam\n             passíveis de registro em entidade registradora, o Custodiante"
+        },
+        {
+          "document_id": 1299384,
+          "reference_date": "24/08/2026",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1299384",
+          "source_excerpt": "car as assinaturas vá ao site http://assinaturas.certisign.com.br e utilize o código EEDF-1AA6-B501-0861.\n       permanecerão disponíveis e atualizados para consulta no website do Custodiante\n       (https://www.oliveiratrust.com.br/).\n\n       9.7.    Nos termos do artigo 37 do Anexo Normativo II, caso o Fundo adquira Direitos Creditórios que\n       não sejam passíveis de registro em entidade registradora, o Custodiante deverá real"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "NRsf                  New Rating                 NR(EXP)sf(br\n                                                                                                                    a)\n\n\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026             1/14"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "l da transação.\n\n\n Risco de Revolvência Atenuado Pela Existência de Carteira Prévia: Embora a transação\n seja revolvente até o seu vencimento final, a existência de uma carteira já constituída mitiga\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026   2/14"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "reservas de\n caixa mínimas exigidas na estrutura, os ratings das cotas seniores e mezanino\n permaneceram compatíveis com ‘AAAsf(bra)’ e ‘AA+sf(bra)’, respectivamente, em todos os\n cenários testados.\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026   3/14"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "dução de 25% da taxa-base de recuperação: ‘AAAsf(bra)’;\n\n\n -- Redução de 50% da taxa-base de recuperação: ‘AAAsf(bra)’.\n\n\n Sensibilidade do Rating a Mudanças em Múltiplos Fatores:\n\n\n Estresse Baixo\n\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026   4/14"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "a taxa de perda; taxa de recuperação reduzida em 10%: ‘AA+sf(bra)’.\n\n\n Estresse Moderado\n\n\n -- Aumento de 25% da taxa de perda; taxa de recuperação reduzida em 25%: ‘AA+sf(bra)’.\n\n\n Estresse Elevado\n\nhttps://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026   5/14"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:03Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1789017",
+        "final_url": "https://www.fitchratings.com/research/pt/structured-finance/fitch-assigns-final-ratings-to-credito-universitario-iii-fidc-quotas-18-06-2026",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/brasil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "Os ratings atribuídos pela Fitch são revisados, pelo menos, anualmente.\n\n\n A Fitch publica a lista de conflitos de interesse reais e potenciais no Anexo X do Formulário\n de Referência, disponível em www.fitchratings.com/brasil\n\n\n Para informações sobre possíveis alterações na classificação de risco de crédito veja o item:\n Sensibilidade dos Ratings.\n\n\n Conforme a classe de ativo da emissão, a Fitch poderá realizar análise"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "ersitario III FIDC Quotas\n\n Para esclarecimentos quanto à diferenciação dos símbolos de produtos estruturados e\n aqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\n www.fitchratings.com/brasil.\n\n\n Informações adicionais estão disponíveis em 'www.fitchratings.com' e em\n 'www.fitchratings.com/brasil'.\n\n\n A Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros ser"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "dos e\n aqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\n www.fitchratings.com/brasil.\n\n\n Informações adicionais estão disponíveis em 'www.fitchratings.com' e em\n 'www.fitchratings.com/brasil'.\n\n\n A Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\n à entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\n A lis"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:21Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "ímbolos de produtos estruturados e\n aqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings” em\n www.fitchratings.com/brasil.\n\n\n Informações adicionais estão disponíveis em 'www.fitchratings.com' e em\n 'www.fitchratings.com/brasil'.\n\n\n A Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\n à entidade classificada no período de 12 meses que antecede es"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "52 55 5955 1630\n juanpablo.gillira@fitchratings.com\n\n MEDIA CONTACTS\n\n Maggie Guimaraes\n São Paulo\n +55 11 4504 2207\n maggie.guimaraes@thefitchgroup.com\n\n\n Informações adicionais estão disponíveis em www.fitchratings.com\n\n PARTICIPATION STATUS\n\n The rated entity (and/or its agents) or, in the case of structured finance, one or more of the\n transaction parties participated in the rating process except that the followi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:22Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1804808",
+        "final_url": "https://www.fitchratings.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "ecido outros serviços\n à entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\n A lista de outros serviços prestados às entidades classificadas está disponível em\n https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos. A\n prestação deste serviço não configura, em nossa opinião, conflito de interesses em face da\n classificação de risco de crédito.\n\n\n A Fitch Ratings foi paga para determinar cada rating de crédito li"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:31Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1790885",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://fitchratings.com/understandingcreditratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "s ratings de crédito da Fitch estão sujeitos a algumas limitações e termos de isenção\n de responsabilidade. Por favor, veja no link a seguir essas limitações e termos de isenção de\n responsabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\n definições de cada escala e categoria de rating, incluindo definições referentes a\n inadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\n definições"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1797245",
+        "final_url": "https://www.fitchratings.com/products/rating-definitions",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "bilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\n definições de cada escala e categoria de rating, incluindo definições referentes a\n inadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\n definições de ratings, na seção de exigências regulatórias. Os ratings públicos, critérios e\n metodologias publicados estão permanentemente disponíveis neste website. O código de\n conduta da Fitc"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/regulatory",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "inal Ratings to Credito Universitario III FIDC Quotas\n\n também estão disponíveis neste website, na seção \"código de conduta\". Os interesses\n relevantes de diretores e acionistas estão disponíveis em\n https://www.fitchratings.com/site/regulatory. A Fitch pode ter fornecido outro serviço\n autorizado ou complementar à entidade classificada ou a partes relacionadas. Detalhes\n sobre serviço autorizado, para o qual o analista principal está basead"
+        },
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "stico Reconhecida Nacionalmente). Algumas subsidiárias de ratings de crédito\n de NRSROs são listadas no Item 3 do NRSRO Form e, portanto, podem atribuir ratings de\n crédito em nome da NRSRO (consulte https://www.fitchratings.com/site/regulatory), mas\n outras subsidiárias de ratings de crédito não estão listadas no NRSRO Form (as “não-\n NRSROs”). Logo, ratings de crédito destas subsidiárias não são atribuídos em nome da\n NRSRO. Porém, funcioná"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778014",
+        "final_url": "https://www.fitchratings.com/regulatory",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/re/10238496",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "s no melhor cenário de\n elevação e de oito graduações no pior cenário de rebaixamento no 99º percentil. Os\n melhores e piores cenários de rating específicos do setor estão listados detalhadamente em\n https://www.fitchratings.com/site/re/10238496\n\n\n As informações neste relatório são fornecidas \"tais como se apresentam\", sem que\n ofereçam qualquer tipo de garantia, e a Fitch não garante ou atesta que um relatório ou seu\n conteúdo atenderá qua"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778013",
+        "final_url": "https://www.fitchratings.com/redirect/?q=/site/re/10238496",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/ethics",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1276049,
+          "reference_date": "18/06/2026",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276049",
+          "source_excerpt": "above were solicited and assigned or maintained at the request of the rated\n entity/issuer or a related third party. Any exceptions follow below.\n\n\n Fitch's solicitation status policy can be found at www.fitchratings.com/ethics.\n\n ENDORSEMENT POLICY\n\n Os ratings de crédito internacionais da Fitch produzidos fora da União Europeia (UE)ou do\n Reino Unido, conforme o caso, são endossados para uso por entidades reguladas na UE o"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1794780",
+        "final_url": "https://www.fitchratings.com/ethics",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

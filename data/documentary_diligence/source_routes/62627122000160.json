@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "cnpj": "62627122000160",
+  "name": "SUMUP SMART III FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:19Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:10Z",
+  "routes": [
+    {
+      "url": "https://www.kanastra.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 995541,
+          "reference_date": "09/09/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995541",
+          "source_excerpt": "ndo.\n                  3.1.5.2           A íntegra da Política de Voto encontra-se registrada na ANBIMA e está disponível na\n                                    sede do Gestor e no website do Gestor (www.kanastra.com.br).\n        3.1.6     Dentre suas atribuições, o Gestor será responsável, para todos os fins de direito, pela seleção dos\n                  Direitos Creditórios a serem adquiridos pelo Fundo, bem como o"
+        },
+        {
+          "document_id": 995541,
+          "reference_date": "09/09/2025",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995541",
+          "source_excerpt": "PARA O EXERCÍCIO DO DIREITO DE VOTO. TAL POLÍTICA\nORIENTA AS DECISÕES DO GESTOR EM ASSEMBLEIAS DE DETENTORES DE ATIVOS QUE CONFIRAM\nAOS SEUS TITULARES O DIREITO DE VOTO E PODE SER ENCONTRADA NO SITE\n(www.kanastra.com.br).\n\n\n24. LIQUIDAÇÃO\n24.1.    O Fundo será liquidado:\n        (a) por deliberação da assembleia geral de Cotistas especialmente convocada para esse fim;\n        (b) na ocorrência dos eventos de liquidaçã"
+        },
+        {
+          "document_id": 1006005,
+          "reference_date": "01/10/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1006005",
+          "source_excerpt": "ndo.\n                  3.1.5.2           A íntegra da Política de Voto encontra-se registrada na ANBIMA e está disponível na\n                                    sede do Gestor e no website do Gestor (www.kanastra.com.br).\n        3.1.6     Dentre suas atribuições, o Gestor será responsável, para todos os fins de direito, pela seleção dos\n                  Direitos Creditórios a serem adquiridos pelo Fundo, bem como o"
+        },
+        {
+          "document_id": 1006005,
+          "reference_date": "01/10/2025",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1006005",
+          "source_excerpt": "PARA O EXERCÍCIO DO DIREITO DE VOTO. TAL POLÍTICA\nORIENTA AS DECISÕES DO GESTOR EM ASSEMBLEIAS DE DETENTORES DE ATIVOS QUE CONFIRAM\nAOS SEUS TITULARES O DIREITO DE VOTO E PODE SER ENCONTRADA NO SITE\n(www.kanastra.com.br).\n\n\n24. LIQUIDAÇÃO\n24.1.    O Fundo será liquidado:\n        (a) por deliberação da assembleia geral de Cotistas especialmente convocada para esse fim;\n        (b) na ocorrência dos eventos de liquidaçã"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:19Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.kanastra.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://brazil.ratings.spglobal.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1115918,
+          "reference_date": "31/12/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115918",
+          "source_excerpt": "lquer momento.\n\n\nTabela 1\n\nPeríodo de acompanhamento do FIDC\nPeríodo de acompanhamento do FIDC               Novembro de 2025 a dezembro de 2025\n\nObservações mensais disponíveis                 2\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 1115918,
+          "reference_date": "31/12/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115918",
+          "source_excerpt": "ões estruturadas na Escala Nacional Brasil,\n     18 de agosto de 2025\n\n\nArtigo\n•    Rating ‘brAA+ (sf)’ atribuído à 1ª série de cotas seniores do FIDC SumUp Smart III, 24 de\n     novembro de 2025\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                              2"
+        },
+        {
+          "document_id": 1115918,
+          "reference_date": "31/12/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115918",
+          "source_excerpt": "sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                                                         3"
+        },
+        {
+          "document_id": 1192937,
+          "reference_date": "31/03/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192937",
+          "source_excerpt": "qualquer momento.\n\n\nTabela 1\n\nPeríodo de acompanhamento do FIDC\nPeríodo de acompanhamento do FIDC               Novembro de 2025 a março de 2026\n\nObservações mensais disponíveis                 5\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 1192937,
+          "reference_date": "31/03/2026",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192937",
+          "source_excerpt": "ões estruturadas na Escala Nacional Brasil,\n     18 de agosto de 2025\n\n\nArtigo\n•    Rating ‘brAA+ (sf)’ atribuído à 1ª série de cotas seniores do FIDC SumUp Smart III, 24 de\n     novembro de 2025\n\n\n\n\nbrazil.ratings.spglobal.com                                                                                                2"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://brazil.ratings.spglobal.com/pt",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/ratings/pt/",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1115918,
+          "reference_date": "31/12/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115918",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A\nS&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites\nwww.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicion"
+        },
+        {
+          "document_id": 1192937,
+          "reference_date": "31/03/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192937",
+          "source_excerpt": "nte dos emissores ou subscritores dos títulos ou dos devedores. A\nS&P reserva-se o direito de divulgar seus pareceres e análises. A S&P disponibiliza suas análises e ratings públicos em seus websites\nwww.spglobal.com/ratings/pt/ (gratuito) e www.ratingsdirect.com (por assinatura), e pode distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicion"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.spglobal.com/usratingsfees",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1115918,
+          "reference_date": "31/12/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1115918",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicionais sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com"
+        },
+        {
+          "document_id": 1192937,
+          "reference_date": "31/03/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1192937",
+          "source_excerpt": "e distribuí-los por outros meios, inclusive em suas próprias\npublicações ou por intermédio de terceiros redistribuidores. Informações adicionais sobre nossos honorários de rating estão disponíveis em\nwww.spglobal.com/usratingsfees.\n\nSTANDARD & POOR'S, S&P e RATINGSDIRECT são marcas registradas da Standard & Poor's Financial Services LLC.\n\n\n\n\nbrazil.ratings.spglobal.com"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:20Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "28472333000132",
+  "competence": "06/2024",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 1191312.56,
+    "credit_rights": 169108773.48,
+    "overdue_credit": 169108773.48,
+    "cash": 12487.46,
+    "pdd": 169108773.48,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 1191312.5600558636,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1191312.5600558636
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "28472333000132",
+    "competence": "06/2024",
+    "path": "data/documentary_diligence/ime/28472333000132_202406.json",
+    "reported_fund_cnpj": "28472333000132",
+    "reported_class_cnpj": "28472333000132",
+    "reported_fund_cnpj_raw": "28472333000132",
+    "reported_class_cnpj_raw": "28472333000132",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "698070",
+    "version": 1,
+    "delivered_at": "15/07/2024 15:29",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=698070",
+    "declared_fields_sha256": "c5036931ff8771163037f62a4ca182335e735bb8cc75d9d94dd088be70abd95b"
+  },
+  "error": ""
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "37645459000152",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 261886471.83,
+    "credit_rights": 205399829.03,
+    "overdue_credit": 247438.12,
+    "cash": 0.0,
+    "pdd": 271957.15,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 261886471.82924134,
+    "subordinated_quotas": 0.0,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 0.0
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "37645459000152",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/37645459000152_202607.json",
+    "reported_fund_cnpj": "37645459000152",
+    "reported_class_cnpj": "37645459000152",
+    "reported_fund_cnpj_raw": "37645459000152",
+    "reported_class_cnpj_raw": "37645459000152",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1285971",
+    "version": 1,
+    "delivered_at": "12/08/2026 17:13",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1285971",
+    "declared_fields_sha256": "aa3e098ed013196ba09ed09e36976188c5e1d81423b6d0c27a21dba8aba3ae30"
+  },
+  "error": ""
+}

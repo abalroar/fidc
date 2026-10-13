@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50473039000102",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 2641955191.86,
+    "credit_rights": 2512916522.9,
+    "overdue_credit": 0.0,
+    "cash": 1447.1,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 1719079090.6148548,
+    "subordinated_quotas": 922876101.2415354,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 922876101.2415354
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50473039000102",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/50473039000102_202608.json",
+    "reported_fund_cnpj": "50473039000102",
+    "reported_class_cnpj": "50473039000102",
+    "reported_fund_cnpj_raw": "50473039000102",
+    "reported_class_cnpj_raw": "50473039000102",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1320520",
+    "version": 1,
+    "delivered_at": "15/09/2026 16:39",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1320520",
+    "declared_fields_sha256": "33f2af7f2b5e0f6677d78bd22dadb84250b50448054d4e9257eee30c24c61438"
+  },
+  "error": ""
+}

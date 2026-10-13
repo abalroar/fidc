@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "29492605000129",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 2403162273.62,
+    "credit_rights": 2377934814.69,
+    "overdue_credit": 484573.95,
+    "cash": 0.0,
+    "pdd": 262205.56,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 798743391.605425,
+    "subordinated_quotas": 1604418882.0194998,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1604418882.0194998
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "29492605000129",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/29492605000129_202605.json",
+    "reported_fund_cnpj": "29492605000129",
+    "reported_class_cnpj": "29492605000129",
+    "reported_fund_cnpj_raw": "29492605000129",
+    "reported_class_cnpj_raw": "29492605000129",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1222771",
+    "version": 2,
+    "delivered_at": "16/06/2026 15:40",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1222771",
+    "declared_fields_sha256": "42a6651eb5096e79d61b97e3cd1ab3baa9d19c0ae7fd5db72120604d4e24278f"
+  },
+  "error": ""
+}

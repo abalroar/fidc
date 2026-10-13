@@ -1,0 +1,7282 @@
+{
+  "schema_version": 1,
+  "cnpjs": {
+    "62696791000193": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62696791000193_202608.json",
+        "07/2026": "ime/62696791000193_202607.json",
+        "06/2026": "ime/62696791000193_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1245415,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1289030,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320183,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "08417544000165": {
+      "competences": [
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/08417544000165_202605.json",
+        "06/2026": "ime/08417544000165_202606.json",
+        "07/2026": "ime/08417544000165_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1341030,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1220498,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249010,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1299860,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "fresh_fundosnet_query",
+      "searched_at": "2026-10-13"
+    },
+    "08692888000182": {
+      "competences": [
+        "01/2026",
+        "02/2026",
+        "03/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "01/2026": "ime/08692888000182_202601.json",
+        "02/2026": "ime/08692888000182_202602.json",
+        "03/2026": "ime/08692888000182_202603.json",
+        "04/2026": "ime/08692888000182_202604.json"
+      },
+      "attempts": [
+        {
+          "competence": "01/2026",
+          "document_id": 1114171,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1136204,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "03/2026",
+          "document_id": 1163156,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "04/2026",
+          "document_id": 1189730,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "11468186000124": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/11468186000124_202607.json",
+        "09/2026": "ime/11468186000124_202609.json",
+        "08/2026": "ime/11468186000124_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1296673,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314435,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345399,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "12167116000107": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/12167116000107_202606.json",
+        "08/2026": "ime/12167116000107_202608.json",
+        "09/2026": "ime/12167116000107_202609.json",
+        "07/2026": "ime/12167116000107_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1313503,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279313,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314449,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345403,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "17468142000180": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/17468142000180_202607.json",
+        "08/2026": "ime/17468142000180_202608.json",
+        "09/2026": "ime/17468142000180_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279537,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314451,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345449,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "18185812000114": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/18185812000114_202606.json",
+        "08/2026": "ime/18185812000114_202608.json",
+        "09/2026": "ime/18185812000114_202609.json",
+        "07/2026": "ime/18185812000114_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1313517,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279319,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314447,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345451,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "19388423000159": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/19388423000159_202605.json",
+        "06/2026": "ime/19388423000159_202606.json",
+        "08/2026": "ime/19388423000159_202608.json",
+        "07/2026": "ime/19388423000159_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1212901,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1313524,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279544,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311324,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "19390746000187": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/19390746000187_202609.json",
+        "08/2026": "ime/19390746000187_202608.json",
+        "07/2026": "ime/19390746000187_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1298671,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314444,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345465,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "21093180000173": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/21093180000173_202605.json",
+        "07/2026": "ime/21093180000173_202607.json",
+        "08/2026": "ime/21093180000173_202608.json",
+        "06/2026": "ime/21093180000173_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220396,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248888,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292359,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320464,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "22175345000119": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/22175345000119_202605.json",
+        "06/2026": "ime/22175345000119_202606.json",
+        "08/2026": "ime/22175345000119_202608.json",
+        "07/2026": "ime/22175345000119_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1270190,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1270288,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286937,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317979,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "23956882000169": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/23956882000169_202606.json",
+        "07/2026": "ime/23956882000169_202607.json",
+        "09/2026": "ime/23956882000169_202609.json",
+        "08/2026": "ime/23956882000169_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1313535,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279333,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311355,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345154,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "26749095000134": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/26749095000134_202606.json",
+        "07/2026": "ime/26749095000134_202607.json",
+        "08/2026": "ime/26749095000134_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1280222,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292387,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1341027,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "26756137000164": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/26756137000164_202604.json",
+        "08/2026": "ime/26756137000164_202608.json",
+        "09/2026": "ime/26756137000164_202609.json",
+        "07/2026": "ime/26756137000164_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1185087,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279592,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314472,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345175,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "28169275000172": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/28169275000172_202607.json",
+        "08/2026": "ime/28169275000172_202608.json",
+        "09/2026": "ime/28169275000172_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1294450,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316070,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344931,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "28472333000132": {
+      "competences": [
+        "08/2024",
+        "07/2024",
+        "06/2024",
+        "05/2024"
+      ],
+      "snapshots": {
+        "08/2024": "ime/28472333000132_202408.json",
+        "07/2024": "ime/28472333000132_202407.json",
+        "05/2024": "ime/28472333000132_202405.json",
+        "06/2024": "ime/28472333000132_202406.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2024",
+          "document_id": 679949,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2024",
+          "document_id": 698070,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2024",
+          "document_id": 721958,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2024",
+          "document_id": 739757,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "29226654000110": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/29226654000110_202605.json",
+        "07/2026": "ime/29226654000110_202607.json",
+        "08/2026": "ime/29226654000110_202608.json",
+        "06/2026": "ime/29226654000110_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220016,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246940,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1298677,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320163,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "29492605000129": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/29492605000129_202605.json",
+        "07/2026": "ime/29492605000129_202607.json",
+        "08/2026": "ime/29492605000129_202608.json",
+        "06/2026": "ime/29492605000129_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222771,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1250338,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1307122,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320695,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "30035329000159": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/30035329000159_202605.json",
+        "07/2026": "ime/30035329000159_202607.json",
+        "08/2026": "ime/30035329000159_202608.json",
+        "06/2026": "ime/30035329000159_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1218395,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1241310,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1285400,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311172,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "30659408000130": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/30659408000130_202609.json",
+        "08/2026": "ime/30659408000130_202608.json",
+        "07/2026": "ime/30659408000130_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279625,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314468,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345575,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "31570767000180": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/31570767000180_202604.json",
+        "07/2026": "ime/31570767000180_202607.json",
+        "08/2026": "ime/31570767000180_202608.json",
+        "06/2026": "ime/31570767000180_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1182607,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246510,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286316,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315212,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "31739396000117": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/31739396000117_202607.json",
+        "08/2026": "ime/31739396000117_202608.json",
+        "09/2026": "ime/31739396000117_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1281419,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312925,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344043,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "32526025000110": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/32526025000110_202607.json",
+        "08/2026": "ime/32526025000110_202608.json",
+        "09/2026": "ime/32526025000110_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279641,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311690,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1346384,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "33076242000118": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/33076242000118_202607.json",
+        "08/2026": "ime/33076242000118_202608.json",
+        "09/2026": "ime/33076242000118_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1289151,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317403,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1343397,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "33254370000104": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/33254370000104_202605.json",
+        "08/2026": "ime/33254370000104_202608.json",
+        "07/2026": "ime/33254370000104_202607.json",
+        "06/2026": "ime/33254370000104_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217285,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249736,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287387,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1345956,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "34408539000104": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/34408539000104_202605.json",
+        "07/2026": "ime/34408539000104_202607.json",
+        "08/2026": "ime/34408539000104_202608.json",
+        "06/2026": "ime/34408539000104_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220352,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248926,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1299861,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1341032,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "34850088000152": {
+      "competences": [
+        "11/2025",
+        "10/2025",
+        "09/2025",
+        "08/2025"
+      ],
+      "snapshots": {
+        "08/2025": "ime/34850088000152_202508.json",
+        "10/2025": "ime/34850088000152_202510.json",
+        "11/2025": "ime/34850088000152_202511.json",
+        "09/2025": "ime/34850088000152_202509.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2025",
+          "document_id": 991066,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2025",
+          "document_id": 1012804,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "10/2025",
+          "document_id": 1041105,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "11/2025",
+          "document_id": 1059385,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "35689601000138": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/35689601000138_202608.json",
+        "07/2026": "ime/35689601000138_202607.json",
+        "09/2026": "ime/35689601000138_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286165,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315950,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345704,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "35868110000154": {
+      "competences": [
+        "09/2025",
+        "08/2025",
+        "07/2025",
+        "05/2025"
+      ],
+      "snapshots": {
+        "08/2025": "ime/35868110000154_202508.json",
+        "07/2025": "ime/35868110000154_202507.json",
+        "05/2025": "ime/35868110000154_202505.json",
+        "09/2025": "ime/35868110000154_202509.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2025",
+          "document_id": 925467,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2025",
+          "document_id": 972163,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2025",
+          "document_id": 991097,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2025",
+          "document_id": 1014801,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "36083634000100": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/36083634000100_202608.json",
+        "07/2026": "ime/36083634000100_202607.json",
+        "09/2026": "ime/36083634000100_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1285611,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312185,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342722,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "36643621000130": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/36643621000130_202607.json",
+        "09/2026": "ime/36643621000130_202609.json",
+        "08/2026": "ime/36643621000130_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1285085,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313208,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344825,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "36771685000117": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/36771685000117_202604.json",
+        "07/2026": "ime/36771685000117_202607.json",
+        "08/2026": "ime/36771685000117_202608.json",
+        "06/2026": "ime/36771685000117_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1188883,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249362,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284099,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313838,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "37035970000132": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/37035970000132_202609.json",
+        "08/2026": "ime/37035970000132_202608.json",
+        "07/2026": "ime/37035970000132_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279663,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314478,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345398,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "37294759000134": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/37294759000134_202605.json",
+        "07/2026": "ime/37294759000134_202607.json",
+        "08/2026": "ime/37294759000134_202608.json",
+        "06/2026": "ime/37294759000134_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1215759,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248183,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291485,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315278,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "37511828000114": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/37511828000114_202605.json",
+        "07/2026": "ime/37511828000114_202607.json",
+        "08/2026": "ime/37511828000114_202608.json",
+        "06/2026": "ime/37511828000114_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217455,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1241876,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287937,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311183,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "37645417000111": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/37645417000111_202608.json",
+        "07/2026": "ime/37645417000111_202607.json",
+        "05/2026": "ime/37645417000111_202605.json",
+        "06/2026": "ime/37645417000111_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1239479,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248153,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1289769,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318938,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "37645459000152": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/37645459000152_202609.json",
+        "08/2026": "ime/37645459000152_202608.json",
+        "07/2026": "ime/37645459000152_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1285971,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313269,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345464,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "38376526000143": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/38376526000143_202609.json",
+        "05/2026": "ime/38376526000143_202605.json",
+        "07/2026": "ime/38376526000143_202607.json",
+        "08/2026": "ime/38376526000143_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217696,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1289091,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312571,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344923,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "38385876000176": {
+      "competences": [
+        "10/2025",
+        "09/2025",
+        "08/2025",
+        "07/2025"
+      ],
+      "snapshots": {
+        "07/2025": "ime/38385876000176_202507.json",
+        "08/2025": "ime/38385876000176_202508.json",
+        "10/2025": "ime/38385876000176_202510.json",
+        "09/2025": "ime/38385876000176_202509.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2025",
+          "document_id": 967491,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2025",
+          "document_id": 989113,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2025",
+          "document_id": 1007261,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "10/2025",
+          "document_id": 1030236,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "38658727000133": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/38658727000133_202607.json",
+        "08/2026": "ime/38658727000133_202608.json",
+        "09/2026": "ime/38658727000133_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1284532,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315899,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342720,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "39669950000149": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/39669950000149_202605.json",
+        "07/2026": "ime/39669950000149_202607.json",
+        "08/2026": "ime/39669950000149_202608.json",
+        "06/2026": "ime/39669950000149_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217161,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1280424,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292539,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1319958,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "40752367000186": {
+      "competences": [
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/40752367000186_202607.json",
+        "04/2026": "ime/40752367000186_202604.json",
+        "06/2026": "ime/40752367000186_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1315450,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "04/2026",
+          "document_id": 1191761,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246856,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287077,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "40919667000107": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/40919667000107_202605.json",
+        "07/2026": "ime/40919667000107_202607.json",
+        "08/2026": "ime/40919667000107_202608.json",
+        "06/2026": "ime/40919667000107_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217785,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1242752,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1289266,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312577,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "40975325000104": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/40975325000104_202609.json",
+        "08/2026": "ime/40975325000104_202608.json",
+        "07/2026": "ime/40975325000104_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286169,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315954,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345708,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "41114564000132": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/41114564000132_202606.json",
+        "08/2026": "ime/41114564000132_202608.json",
+        "09/2026": "ime/41114564000132_202609.json",
+        "07/2026": "ime/41114564000132_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1267661,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279681,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311731,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1346400,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "41197066000109": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/41197066000109_202606.json",
+        "07/2026": "ime/41197066000109_202607.json",
+        "08/2026": "ime/41197066000109_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1266326,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1295689,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312595,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "41351629000163": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/41351629000163_202605.json",
+        "08/2026": "ime/41351629000163_202608.json",
+        "09/2026": "ime/41351629000163_202609.json",
+        "07/2026": "ime/41351629000163_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1210688,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279683,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311733,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345088,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "41970012000126": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/41970012000126_202605.json",
+        "07/2026": "ime/41970012000126_202607.json",
+        "08/2026": "ime/41970012000126_202608.json",
+        "06/2026": "ime/41970012000126_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217124,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1245001,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287050,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318098,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42085816000105": {
+      "competences": [
+        "02/2026",
+        "01/2026",
+        "12/2025"
+      ],
+      "snapshots": {
+        "02/2026": "ime/42085816000105_202602.json",
+        "01/2026": "ime/42085816000105_202601.json",
+        "12/2025": "ime/42085816000105_202512.json"
+      },
+      "attempts": [
+        {
+          "competence": "12/2025",
+          "document_id": 1085982,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "01/2026",
+          "document_id": 1105219,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1135595,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42085830000109": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/42085830000109_202608.json",
+        "07/2026": "ime/42085830000109_202607.json",
+        "05/2026": "ime/42085830000109_202605.json",
+        "06/2026": "ime/42085830000109_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1218868,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248185,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292155,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317652,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42102603000144": {
+      "competences": [
+        "02/2025",
+        "01/2025",
+        "12/2024"
+      ],
+      "snapshots": {
+        "12/2024": "ime/42102603000144_202412.json",
+        "01/2025": "ime/42102603000144_202501.json",
+        "02/2025": "ime/42102603000144_202502.json"
+      },
+      "attempts": [
+        {
+          "competence": "12/2024",
+          "document_id": 820949,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "01/2025",
+          "document_id": 841807,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2025",
+          "document_id": 859093,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42133756000159": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/42133756000159_202608.json",
+        "07/2026": "ime/42133756000159_202607.json",
+        "05/2026": "ime/42133756000159_202605.json",
+        "06/2026": "ime/42133756000159_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222035,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249113,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292592,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318942,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42154687000160": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/42154687000160_202607.json",
+        "08/2026": "ime/42154687000160_202608.json",
+        "09/2026": "ime/42154687000160_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279926,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314488,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345370,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42462306000100": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/42462306000100_202607.json",
+        "08/2026": "ime/42462306000100_202608.json",
+        "09/2026": "ime/42462306000100_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291546,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312705,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344370,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "42922136000107": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/42922136000107_202608.json",
+        "05/2026": "ime/42922136000107_202605.json",
+        "04/2026": "ime/42922136000107_202604.json",
+        "07/2026": "ime/42922136000107_202607.json",
+        "06/2026": "ime/42922136000107_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1193605,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1222090,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246974,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1296739,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320063,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "43193260000133": {
+      "competences": [
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/43193260000133_202607.json",
+        "08/2026": "ime/43193260000133_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "09/2026",
+          "document_id": 1340994,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1280382,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1309378,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "43309233000183": {
+      "competences": [
+        "02/2026",
+        "01/2026",
+        "12/2025",
+        "11/2025"
+      ],
+      "snapshots": {
+        "02/2026": "ime/43309233000183_202602.json",
+        "01/2026": "ime/43309233000183_202601.json",
+        "11/2025": "ime/43309233000183_202511.json",
+        "12/2025": "ime/43309233000183_202512.json"
+      },
+      "attempts": [
+        {
+          "competence": "11/2025",
+          "document_id": 1061986,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "12/2025",
+          "document_id": 1079675,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "01/2026",
+          "document_id": 1114013,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1136038,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "43616659000180": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/43616659000180_202608.json",
+        "07/2026": "ime/43616659000180_202607.json",
+        "05/2026": "ime/43616659000180_202605.json",
+        "06/2026": "ime/43616659000180_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220496,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248936,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292397,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320525,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "43866348000179": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/43866348000179_202605.json",
+        "07/2026": "ime/43866348000179_202607.json",
+        "06/2026": "ime/43866348000179_202606.json",
+        "08/2026": "ime/43866348000179_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1221240,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1250579,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282940,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317789,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "44124465000120": {
+      "competences": [
+        "03/2026",
+        "02/2026",
+        "01/2026",
+        "12/2025"
+      ],
+      "snapshots": {
+        "12/2025": "ime/44124465000120_202512.json",
+        "01/2026": "ime/44124465000120_202601.json",
+        "02/2026": "ime/44124465000120_202602.json",
+        "03/2026": "ime/44124465000120_202603.json"
+      },
+      "attempts": [
+        {
+          "competence": "12/2025",
+          "document_id": 1085991,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "01/2026",
+          "document_id": 1108168,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1136900,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "03/2026",
+          "document_id": 1160002,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "44124617000194": {
+      "competences": [
+        "02/2026",
+        "01/2026",
+        "12/2025"
+      ],
+      "snapshots": {
+        "02/2026": "ime/44124617000194_202602.json",
+        "01/2026": "ime/44124617000194_202601.json",
+        "12/2025": "ime/44124617000194_202512.json"
+      },
+      "attempts": [
+        {
+          "competence": "12/2025",
+          "document_id": 1085992,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "01/2026",
+          "document_id": 1105153,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1135801,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "44173467000109": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/44173467000109_202605.json",
+        "07/2026": "ime/44173467000109_202607.json",
+        "08/2026": "ime/44173467000109_202608.json",
+        "06/2026": "ime/44173467000109_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217674,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1247514,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287076,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315505,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "44272584000120": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/44272584000120_202608.json",
+        "07/2026": "ime/44272584000120_202607.json",
+        "05/2026": "ime/44272584000120_202605.json",
+        "06/2026": "ime/44272584000120_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222135,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248156,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287483,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318943,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "44302374000137": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/44302374000137_202608.json",
+        "07/2026": "ime/44302374000137_202607.json",
+        "09/2026": "ime/44302374000137_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286175,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315960,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345714,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "44574361000117": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/44574361000117_202608.json",
+        "07/2026": "ime/44574361000117_202607.json",
+        "04/2026": "ime/44574361000117_202604.json",
+        "06/2026": "ime/44574361000117_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1189739,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248885,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292734,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320461,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "44909456000144": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/44909456000144_202608.json",
+        "07/2026": "ime/44909456000144_202607.json",
+        "09/2026": "ime/44909456000144_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1292628,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312908,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344535,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "45123558000100": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/45123558000100_202608.json",
+        "07/2026": "ime/45123558000100_202607.json",
+        "05/2026": "ime/45123558000100_202605.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1250637,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1222358,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1294053,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1321664,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "45523699000102": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/45523699000102_202606.json",
+        "07/2026": "ime/45523699000102_202607.json",
+        "09/2026": "ime/45523699000102_202609.json",
+        "08/2026": "ime/45523699000102_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1313577,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279403,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311422,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345603,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "45598747000121": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/45598747000121_202607.json",
+        "08/2026": "ime/45598747000121_202608.json",
+        "09/2026": "ime/45598747000121_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1293193,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312965,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1343065,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47117685000114": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/47117685000114_202605.json",
+        "07/2026": "ime/47117685000114_202607.json",
+        "08/2026": "ime/47117685000114_202608.json",
+        "06/2026": "ime/47117685000114_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1213876,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1244583,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284423,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320119,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47151680000108": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/47151680000108_202605.json",
+        "07/2026": "ime/47151680000108_202607.json",
+        "08/2026": "ime/47151680000108_202608.json",
+        "06/2026": "ime/47151680000108_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220361,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248854,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292335,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320425,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47240785000133": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/47240785000133_202607.json",
+        "08/2026": "ime/47240785000133_202608.json",
+        "09/2026": "ime/47240785000133_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1284100,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313839,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342863,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47280025000150": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/47280025000150_202605.json",
+        "07/2026": "ime/47280025000150_202607.json",
+        "08/2026": "ime/47280025000150_202608.json",
+        "06/2026": "ime/47280025000150_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1219998,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1240985,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1278262,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1307181,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "47424724000126": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/47424724000126_202609.json",
+        "08/2026": "ime/47424724000126_202608.json",
+        "07/2026": "ime/47424724000126_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286177,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315962,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345716,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47425750000179": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/47425750000179_202606.json",
+        "07/2026": "ime/47425750000179_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1311759,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1313586,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279709,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "47640584000123": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/47640584000123_202605.json",
+        "08/2026": "ime/47640584000123_202608.json",
+        "07/2026": "ime/47640584000123_202607.json",
+        "06/2026": "ime/47640584000123_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1219006,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1242936,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291690,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313991,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47669476000183": {
+      "competences": [],
+      "snapshots": {},
+      "attempts": [],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47669805000196": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/47669805000196_202609.json",
+        "08/2026": "ime/47669805000196_202608.json",
+        "07/2026": "ime/47669805000196_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291558,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314082,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344265,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47862139000108": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/47862139000108_202609.json",
+        "08/2026": "ime/47862139000108_202608.json",
+        "07/2026": "ime/47862139000108_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286178,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315963,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345717,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "47936340000192": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/47936340000192_202608.json",
+        "07/2026": "ime/47936340000192_202607.json",
+        "05/2026": "ime/47936340000192_202605.json",
+        "06/2026": "ime/47936340000192_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222023,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248155,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287486,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318939,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "48313595000161": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/48313595000161_202606.json",
+        "07/2026": "ime/48313595000161_202607.json",
+        "08/2026": "ime/48313595000161_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1239124,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1294007,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317876,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "48946335000123": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/48946335000123_202608.json",
+        "07/2026": "ime/48946335000123_202607.json",
+        "05/2026": "ime/48946335000123_202605.json",
+        "06/2026": "ime/48946335000123_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222044,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248146,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287484,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318940,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "48953864000154": {
+      "competences": [
+        "06/2025",
+        "05/2025",
+        "04/2025",
+        "02/2025"
+      ],
+      "snapshots": {
+        "05/2025": "ime/48953864000154_202505.json",
+        "04/2025": "ime/48953864000154_202504.json",
+        "02/2025": "ime/48953864000154_202502.json",
+        "06/2025": "ime/48953864000154_202506.json"
+      },
+      "attempts": [
+        {
+          "competence": "02/2025",
+          "document_id": 859444,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "04/2025",
+          "document_id": 904726,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2025",
+          "document_id": 925464,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2025",
+          "document_id": 946586,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "48967719000122": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/48967719000122_202607.json",
+        "08/2026": "ime/48967719000122_202608.json",
+        "09/2026": "ime/48967719000122_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279722,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311465,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345624,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "49113994000141": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/49113994000141_202604.json",
+        "07/2026": "ime/49113994000141_202607.json",
+        "08/2026": "ime/49113994000141_202608.json",
+        "06/2026": "ime/49113994000141_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1189327,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248863,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292343,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320435,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "49920525000134": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/49920525000134_202604.json",
+        "07/2026": "ime/49920525000134_202607.json",
+        "08/2026": "ime/49920525000134_202608.json",
+        "06/2026": "ime/49920525000134_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1188882,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249361,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284098,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313837,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "49936440000144": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/49936440000144_202607.json",
+        "08/2026": "ime/49936440000144_202608.json",
+        "09/2026": "ime/49936440000144_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291972,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314519,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342093,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50059866000146": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/50059866000146_202606.json",
+        "07/2026": "ime/50059866000146_202607.json",
+        "08/2026": "ime/50059866000146_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1337255,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292478,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316054,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50089559000108": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/50089559000108_202608.json",
+        "07/2026": "ime/50089559000108_202607.json",
+        "06/2026": "ime/50089559000108_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1245606,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1290271,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320644,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50098465000103": {
+      "competences": [
+        "05/2025",
+        "04/2025",
+        "03/2025",
+        "01/2025"
+      ],
+      "snapshots": {
+        "01/2025": "ime/50098465000103_202501.json",
+        "04/2025": "ime/50098465000103_202504.json",
+        "05/2025": "ime/50098465000103_202505.json",
+        "03/2025": "ime/50098465000103_202503.json"
+      },
+      "attempts": [
+        {
+          "competence": "01/2025",
+          "document_id": 843992,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "03/2025",
+          "document_id": 878355,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "04/2025",
+          "document_id": 907199,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2025",
+          "document_id": 924494,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50327909000127": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/50327909000127_202609.json",
+        "08/2026": "ime/50327909000127_202608.json",
+        "07/2026": "ime/50327909000127_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291280,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1308721,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338594,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50473039000102": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/50473039000102_202605.json",
+        "07/2026": "ime/50473039000102_202607.json",
+        "08/2026": "ime/50473039000102_202608.json",
+        "06/2026": "ime/50473039000102_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220439,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248932,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292393,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320520,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "50536324000117": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/50536324000117_202604.json",
+        "07/2026": "ime/50536324000117_202607.json",
+        "08/2026": "ime/50536324000117_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248908,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "04/2026",
+          "document_id": 1189372,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292374,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320488,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "50832746000130": {
+      "competences": [
+        "07/2025",
+        "06/2025",
+        "05/2025",
+        "04/2025"
+      ],
+      "snapshots": {
+        "04/2025": "ime/50832746000130_202504.json",
+        "05/2025": "ime/50832746000130_202505.json",
+        "07/2025": "ime/50832746000130_202507.json",
+        "06/2025": "ime/50832746000130_202506.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2025",
+          "document_id": 904701,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2025",
+          "document_id": 925442,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2025",
+          "document_id": 946562,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2025",
+          "document_id": 972131,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "50857998000113": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/50857998000113_202605.json",
+        "07/2026": "ime/50857998000113_202607.json",
+        "08/2026": "ime/50857998000113_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1242710,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1219264,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291466,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314159,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "50988212000105": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/50988212000105_202605.json",
+        "08/2026": "ime/50988212000105_202608.json",
+        "07/2026": "ime/50988212000105_202607.json",
+        "06/2026": "ime/50988212000105_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220346,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248841,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292324,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320411,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51290497000160": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/51290497000160_202605.json",
+        "07/2026": "ime/51290497000160_202607.json",
+        "08/2026": "ime/51290497000160_202608.json",
+        "06/2026": "ime/51290497000160_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220509,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248913,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292379,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320494,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51326028000154": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/51326028000154_202607.json",
+        "08/2026": "ime/51326028000154_202608.json",
+        "09/2026": "ime/51326028000154_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1284048,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313810,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345671,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51430054000128": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/51430054000128_202609.json",
+        "08/2026": "ime/51430054000128_202608.json",
+        "07/2026": "ime/51430054000128_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286183,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315968,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345722,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51554551000138": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/51554551000138_202605.json",
+        "07/2026": "ime/51554551000138_202607.json",
+        "08/2026": "ime/51554551000138_202608.json",
+        "06/2026": "ime/51554551000138_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222088,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1245906,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282140,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317794,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51655558000146": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/51655558000146_202609.json",
+        "08/2026": "ime/51655558000146_202608.json",
+        "07/2026": "ime/51655558000146_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286184,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315969,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345723,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "51957370000152": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/51957370000152_202607.json",
+        "08/2026": "ime/51957370000152_202608.json",
+        "09/2026": "ime/51957370000152_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1283967,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313779,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342869,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52100879000147": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/52100879000147_202604.json",
+        "07/2026": "ime/52100879000147_202607.json",
+        "08/2026": "ime/52100879000147_202608.json",
+        "06/2026": "ime/52100879000147_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1189399,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248934,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292395,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320522,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "52200741000110": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/52200741000110_202609.json",
+        "08/2026": "ime/52200741000110_202608.json",
+        "07/2026": "ime/52200741000110_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1277072,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1307996,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338707,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52271464000136": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/52271464000136_202606.json",
+        "07/2026": "ime/52271464000136_202607.json",
+        "08/2026": "ime/52271464000136_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1300516,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291388,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314344,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52298532000150": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/52298532000150_202607.json",
+        "08/2026": "ime/52298532000150_202608.json",
+        "09/2026": "ime/52298532000150_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279750,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311329,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345223,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52340225000190": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/52340225000190_202605.json",
+        "07/2026": "ime/52340225000190_202607.json",
+        "08/2026": "ime/52340225000190_202608.json",
+        "06/2026": "ime/52340225000190_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220956,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246924,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1277635,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313191,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52343195000176": {
+      "competences": [
+        "09/2025",
+        "08/2025",
+        "07/2025",
+        "05/2025"
+      ],
+      "snapshots": {
+        "08/2025": "ime/52343195000176_202508.json",
+        "05/2025": "ime/52343195000176_202505.json",
+        "07/2025": "ime/52343195000176_202507.json",
+        "09/2025": "ime/52343195000176_202509.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2025",
+          "document_id": 925456,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2025",
+          "document_id": 972152,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2025",
+          "document_id": 991259,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2025",
+          "document_id": 1014573,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "52968533000165": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/52968533000165_202605.json",
+        "07/2026": "ime/52968533000165_202607.json",
+        "06/2026": "ime/52968533000165_202606.json",
+        "08/2026": "ime/52968533000165_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220418,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248909,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292375,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320489,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "53164652000128": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/53164652000128_202605.json",
+        "07/2026": "ime/53164652000128_202607.json",
+        "08/2026": "ime/53164652000128_202608.json",
+        "06/2026": "ime/53164652000128_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1219075,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1242206,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291521,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314637,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "53179862000190": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/53179862000190_202607.json",
+        "08/2026": "ime/53179862000190_202608.json",
+        "09/2026": "ime/53179862000190_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1284020,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313800,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1344003,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "53270983000142": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/53270983000142_202605.json",
+        "07/2026": "ime/53270983000142_202607.json",
+        "08/2026": "ime/53270983000142_202608.json",
+        "06/2026": "ime/53270983000142_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1218071,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249235,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1283964,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313777,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "53577135000180": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/53577135000180_202607.json",
+        "08/2026": "ime/53577135000180_202608.json",
+        "09/2026": "ime/53577135000180_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291193,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1309076,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1336451,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "53662209000187": {
+      "competences": [
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/53662209000187_202605.json",
+        "07/2026": "ime/53662209000187_202607.json",
+        "06/2026": "ime/53662209000187_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1320503,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1220427,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249022,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292385,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "54083697000130": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54083697000130_202608.json",
+        "07/2026": "ime/54083697000130_202607.json",
+        "05/2026": "ime/54083697000130_202605.json",
+        "06/2026": "ime/54083697000130_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1218185,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249338,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284073,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313823,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54218673000141": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54218673000141_202608.json",
+        "07/2026": "ime/54218673000141_202607.json",
+        "05/2026": "ime/54218673000141_202605.json",
+        "06/2026": "ime/54218673000141_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1301470,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1241953,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286909,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315538,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54218941000125": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54218941000125_202608.json",
+        "07/2026": "ime/54218941000125_202607.json",
+        "05/2026": "ime/54218941000125_202605.json",
+        "06/2026": "ime/54218941000125_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1301472,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1242076,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286910,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315463,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54219179000100": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54219179000100_202608.json",
+        "07/2026": "ime/54219179000100_202607.json",
+        "05/2026": "ime/54219179000100_202605.json",
+        "06/2026": "ime/54219179000100_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1303166,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1242136,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286911,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315309,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54248022000102": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54248022000102_202608.json",
+        "07/2026": "ime/54248022000102_202607.json",
+        "06/2026": "ime/54248022000102_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1301477,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286912,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315324,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54252144000164": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/54252144000164_202607.json",
+        "09/2026": "ime/54252144000164_202609.json",
+        "08/2026": "ime/54252144000164_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279277,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1308421,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1341837,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54464892000100": {
+      "competences": [
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/54464892000100_202605.json",
+        "07/2026": "ime/54464892000100_202607.json",
+        "06/2026": "ime/54464892000100_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1319089,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1225492,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1250506,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291483,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "54559035000194": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54559035000194_202608.json",
+        "07/2026": "ime/54559035000194_202607.json",
+        "04/2026": "ime/54559035000194_202604.json",
+        "06/2026": "ime/54559035000194_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1189314,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248850,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292332,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320421,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54634742000106": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54634742000106_202608.json",
+        "07/2026": "ime/54634742000106_202607.json",
+        "09/2026": "ime/54634742000106_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1284049,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313811,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345672,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "54810968000102": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/54810968000102_202608.json",
+        "07/2026": "ime/54810968000102_202607.json",
+        "09/2026": "ime/54810968000102_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1283965,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1313778,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1343990,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "54857414000160": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/54857414000160_202607.json",
+        "08/2026": "ime/54857414000160_202608.json",
+        "09/2026": "ime/54857414000160_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279037,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1307912,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338856,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "54871427000194": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/54871427000194_202607.json",
+        "05/2026": "ime/54871427000194_202605.json",
+        "08/2026": "ime/54871427000194_202608.json",
+        "06/2026": "ime/54871427000194_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1217668,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246835,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286902,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315514,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "55070804000159": {
+      "competences": [
+        "05/2026",
+        "04/2026",
+        "03/2026",
+        "02/2026",
+        "01/2026"
+      ],
+      "snapshots": {
+        "02/2026": "ime/55070804000159_202602.json",
+        "01/2026": "ime/55070804000159_202601.json",
+        "03/2026": "ime/55070804000159_202603.json",
+        "05/2026": "ime/55070804000159_202605.json",
+        "04/2026": "ime/55070804000159_202604.json"
+      },
+      "attempts": [
+        {
+          "competence": "01/2026",
+          "document_id": 1114006,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "02/2026",
+          "document_id": 1136030,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "03/2026",
+          "document_id": 1162745,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "04/2026",
+          "document_id": 1189315,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1220357,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "55374251000128": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "04/2026": "ime/55374251000128_202604.json",
+        "07/2026": "ime/55374251000128_202607.json",
+        "08/2026": "ime/55374251000128_202608.json",
+        "06/2026": "ime/55374251000128_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1189325,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248861,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292740,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320876,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "55401645000128": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/55401645000128_202607.json",
+        "09/2026": "ime/55401645000128_202609.json",
+        "08/2026": "ime/55401645000128_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291309,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1309088,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1336458,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "55471753000177": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/55471753000177_202607.json",
+        "05/2026": "ime/55471753000177_202605.json",
+        "06/2026": "ime/55471753000177_202606.json",
+        "08/2026": "ime/55471753000177_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220440,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248933,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292394,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320521,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "55476342000174": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/55476342000174_202607.json",
+        "05/2026": "ime/55476342000174_202605.json",
+        "08/2026": "ime/55476342000174_202608.json",
+        "06/2026": "ime/55476342000174_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222132,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248608,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287482,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318944,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "55563624000109": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026",
+        "02/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/55563624000109_202605.json",
+        "02/2026": "ime/55563624000109_202602.json",
+        "07/2026": "ime/55563624000109_202607.json",
+        "08/2026": "ime/55563624000109_202608.json",
+        "06/2026": "ime/55563624000109_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "02/2026",
+          "document_id": 1138107,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1218244,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1245069,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287106,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315359,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "55983705000168": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/55983705000168_202606.json",
+        "07/2026": "ime/55983705000168_202607.json",
+        "08/2026": "ime/55983705000168_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1280209,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1299862,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1341029,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "56936116000191": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/56936116000191_202607.json",
+        "06/2026": "ime/56936116000191_202606.json",
+        "08/2026": "ime/56936116000191_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1245618,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1290257,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320030,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57028406000108": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/57028406000108_202607.json",
+        "08/2026": "ime/57028406000108_202608.json",
+        "09/2026": "ime/57028406000108_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1280367,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1310080,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1342749,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57107628000108": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/57107628000108_202607.json",
+        "08/2026": "ime/57107628000108_202608.json",
+        "09/2026": "ime/57107628000108_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279456,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311461,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345371,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57131490000182": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/57131490000182_202608.json",
+        "07/2026": "ime/57131490000182_202607.json",
+        "06/2026": "ime/57131490000182_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1245662,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1290262,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320025,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57259989000170": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/57259989000170_202608.json",
+        "07/2026": "ime/57259989000170_202607.json",
+        "05/2026": "ime/57259989000170_202605.json",
+        "06/2026": "ime/57259989000170_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1224110,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1247148,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1288261,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1319584,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57270666000187": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/57270666000187_202607.json",
+        "09/2026": "ime/57270666000187_202609.json",
+        "08/2026": "ime/57270666000187_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1277444,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1307810,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338688,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57532556000146": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/57532556000146_202605.json",
+        "07/2026": "ime/57532556000146_202607.json",
+        "08/2026": "ime/57532556000146_202608.json",
+        "06/2026": "ime/57532556000146_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1218091,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249251,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1283983,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316307,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57609282000146": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/57609282000146_202605.json",
+        "07/2026": "ime/57609282000146_202607.json",
+        "08/2026": "ime/57609282000146_202608.json",
+        "06/2026": "ime/57609282000146_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1222674,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246833,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286899,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315357,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57752597000148": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/57752597000148_202607.json",
+        "08/2026": "ime/57752597000148_202608.json",
+        "09/2026": "ime/57752597000148_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1277696,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1307296,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338567,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "57816252000100": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/57816252000100_202605.json",
+        "07/2026": "ime/57816252000100_202607.json",
+        "06/2026": "ime/57816252000100_202606.json",
+        "08/2026": "ime/57816252000100_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220423,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248916,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292381,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320497,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "58152340000118": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026",
+        "04/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/58152340000118_202608.json",
+        "05/2026": "ime/58152340000118_202605.json",
+        "04/2026": "ime/58152340000118_202604.json",
+        "07/2026": "ime/58152340000118_202607.json",
+        "06/2026": "ime/58152340000118_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "04/2026",
+          "document_id": 1194378,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "05/2026",
+          "document_id": 1217163,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248038,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1296742,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320062,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58154011000106": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/58154011000106_202605.json",
+        "07/2026": "ime/58154011000106_202607.json",
+        "08/2026": "ime/58154011000106_202608.json",
+        "06/2026": "ime/58154011000106_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1220500,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248856,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292337,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320427,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58171340000165": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026",
+        "05/2026"
+      ],
+      "snapshots": {
+        "05/2026": "ime/58171340000165_202605.json",
+        "07/2026": "ime/58171340000165_202607.json",
+        "08/2026": "ime/58171340000165_202608.json",
+        "06/2026": "ime/58171340000165_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "05/2026",
+          "document_id": 1221251,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1245900,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282111,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317828,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "58288437000152": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/58288437000152_202608.json",
+        "07/2026": "ime/58288437000152_202607.json",
+        "06/2026": "ime/58288437000152_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248823,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292313,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320541,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58291962000127": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/58291962000127_202608.json",
+        "07/2026": "ime/58291962000127_202607.json",
+        "06/2026": "ime/58291962000127_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248562,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287481,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318945,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58349979000198": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/58349979000198_202608.json",
+        "07/2026": "ime/58349979000198_202607.json",
+        "06/2026": "ime/58349979000198_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248946,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292403,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320536,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58458416000138": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/58458416000138_202607.json",
+        "06/2026": "ime/58458416000138_202606.json",
+        "08/2026": "ime/58458416000138_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249329,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284065,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316278,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "58476088000100": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/58476088000100_202608.json",
+        "07/2026": "ime/58476088000100_202607.json",
+        "06/2026": "ime/58476088000100_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249008,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292390,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320516,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "58510255000184": {
+      "competences": [
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/58510255000184_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1315562,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287602,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1241968,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "59357545000100": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/59357545000100_202609.json",
+        "08/2026": "ime/59357545000100_202608.json",
+        "07/2026": "ime/59357545000100_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1275562,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1312570,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338437,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "59602002000101": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/59602002000101_202608.json",
+        "07/2026": "ime/59602002000101_202607.json",
+        "06/2026": "ime/59602002000101_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248905,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292372,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320485,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "59699204000105": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/59699204000105_202609.json",
+        "08/2026": "ime/59699204000105_202608.json",
+        "07/2026": "ime/59699204000105_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1286218,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316004,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345756,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "60010416000112": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/60010416000112_202607.json",
+        "06/2026": "ime/60010416000112_202606.json",
+        "08/2026": "ime/60010416000112_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1246854,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287074,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315533,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "60043514000156": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/60043514000156_202608.json",
+        "07/2026": "ime/60043514000156_202607.json",
+        "09/2026": "ime/60043514000156_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1278469,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1308094,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1338988,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "60356171000180": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/60356171000180_202608.json",
+        "07/2026": "ime/60356171000180_202607.json",
+        "06/2026": "ime/60356171000180_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1246834,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1286900,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315311,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "60598366000136": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/60598366000136_202606.json",
+        "08/2026": "ime/60598366000136_202608.json",
+        "07/2026": "ime/60598366000136_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249250,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1283981,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316306,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "61271310000135": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/61271310000135_202607.json",
+        "06/2026": "ime/61271310000135_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1319549,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1247112,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1288268,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "61288838000117": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/61288838000117_202607.json",
+        "06/2026": "ime/61288838000117_202606.json",
+        "08/2026": "ime/61288838000117_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1266862,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284533,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1310806,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "61927592000186": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/61927592000186_202608.json",
+        "07/2026": "ime/61927592000186_202607.json",
+        "06/2026": "ime/61927592000186_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248040,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291265,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1309092,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62010175000137": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62010175000137_202608.json",
+        "07/2026": "ime/62010175000137_202607.json",
+        "06/2026": "ime/62010175000137_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1250342,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282117,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318702,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62310468000130": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/62310468000130_202606.json",
+        "07/2026": "ime/62310468000130_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1315400,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1246857,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287078,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "62393679000183": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/62393679000183_202607.json",
+        "06/2026": "ime/62393679000183_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1312518,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1249886,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1299430,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "62393829000159": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62393829000159_202608.json",
+        "07/2026": "ime/62393829000159_202607.json",
+        "06/2026": "ime/62393829000159_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1243395,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291195,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1308717,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62552447000120": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/62552447000120_202606.json",
+        "07/2026": "ime/62552447000120_202607.json",
+        "08/2026": "ime/62552447000120_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1246925,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287192,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315500,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "62588266000154": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/62588266000154_202607.json",
+        "06/2026": "ime/62588266000154_202606.json",
+        "08/2026": "ime/62588266000154_202608.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248947,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292404,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320537,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "62626409000175": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62626409000175_202608.json",
+        "07/2026": "ime/62626409000175_202607.json",
+        "06/2026": "ime/62626409000175_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1247327,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1293731,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315775,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62626887000185": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "06/2026": "ime/62626887000185_202606.json",
+        "08/2026": "ime/62626887000185_202608.json",
+        "07/2026": "ime/62626887000185_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1247328,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1293782,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315777,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "62627051000103": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62627051000103_202608.json",
+        "07/2026": "ime/62627051000103_202607.json",
+        "06/2026": "ime/62627051000103_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1247329,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1293732,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316394,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62627122000160": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62627122000160_202608.json",
+        "07/2026": "ime/62627122000160_202607.json",
+        "06/2026": "ime/62627122000160_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1247330,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1293733,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315776,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62627243000101": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/62627243000101_202609.json",
+        "08/2026": "ime/62627243000101_202608.json",
+        "07/2026": "ime/62627243000101_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1291504,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1309059,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1336609,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62690693000149": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62690693000149_202608.json",
+        "07/2026": "ime/62690693000149_202607.json",
+        "06/2026": "ime/62690693000149_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249044,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291664,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1319542,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "62838025000116": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/62838025000116_202608.json",
+        "07/2026": "ime/62838025000116_202607.json",
+        "06/2026": "ime/62838025000116_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1240267,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1279115,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1310374,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63066147000102": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63066147000102_202608.json",
+        "07/2026": "ime/63066147000102_202607.json",
+        "06/2026": "ime/63066147000102_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1268468,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1293860,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1319100,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63168433000170": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63168433000170_202608.json",
+        "07/2026": "ime/63168433000170_202607.json",
+        "06/2026": "ime/63168433000170_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1244597,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292764,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1310822,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63505455000189": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/63505455000189_202607.json",
+        "06/2026": "ime/63505455000189_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1317826,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1241376,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1283232,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "63546406000194": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63546406000194_202608.json",
+        "07/2026": "ime/63546406000194_202607.json",
+        "06/2026": "ime/63546406000194_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1244608,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1302803,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1335837,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63572282000111": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/63572282000111_202607.json",
+        "06/2026": "ime/63572282000111_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1320519,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248931,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292392,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "63615161000100": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63615161000100_202608.json",
+        "07/2026": "ime/63615161000100_202607.json",
+        "06/2026": "ime/63615161000100_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249354,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284092,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317458,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63622842000103": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63622842000103_202608.json",
+        "07/2026": "ime/63622842000103_202607.json",
+        "06/2026": "ime/63622842000103_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249386,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291838,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320355,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63657457000193": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/63657457000193_202609.json",
+        "08/2026": "ime/63657457000193_202608.json",
+        "07/2026": "ime/63657457000193_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1282957,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1311785,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345487,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63679792000192": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63679792000192_202608.json",
+        "07/2026": "ime/63679792000192_202607.json",
+        "06/2026": "ime/63679792000192_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248838,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292322,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320409,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "63953620000165": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/63953620000165_202608.json",
+        "07/2026": "ime/63953620000165_202607.json",
+        "06/2026": "ime/63953620000165_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1298576,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1287296,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316675,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "63977188000142": {
+      "competences": [
+        "09/2026",
+        "08/2026",
+        "07/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/63977188000142_202609.json",
+        "08/2026": "ime/63977188000142_202608.json",
+        "07/2026": "ime/63977188000142_202607.json"
+      },
+      "attempts": [
+        {
+          "competence": "07/2026",
+          "document_id": 1279823,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1314515,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "09/2026",
+          "document_id": 1345149,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "64330030000149": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/64330030000149_202608.json",
+        "07/2026": "ime/64330030000149_202607.json",
+        "06/2026": "ime/64330030000149_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1241319,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282660,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318298,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65327006000113": {
+      "competences": [
+        "09/2026"
+      ],
+      "snapshots": {
+        "09/2026": "ime/65327006000113_202609.json"
+      },
+      "attempts": [
+        {
+          "competence": "09/2026",
+          "document_id": 1342185,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65347578000164": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/65347578000164_202608.json",
+        "07/2026": "ime/65347578000164_202607.json",
+        "06/2026": "ime/65347578000164_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1244600,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1291639,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1315170,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65473122000140": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/65473122000140_202608.json",
+        "07/2026": "ime/65473122000140_202607.json",
+        "06/2026": "ime/65473122000140_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1240954,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1282351,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1318544,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65836995000170": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/65836995000170_202608.json",
+        "07/2026": "ime/65836995000170_202607.json",
+        "06/2026": "ime/65836995000170_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249341,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1284076,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1316332,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65873297000145": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/65873297000145_202608.json",
+        "07/2026": "ime/65873297000145_202607.json",
+        "06/2026": "ime/65873297000145_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1248830,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292318,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1320401,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    },
+    "65976848000104": {
+      "competences": [
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "07/2026": "ime/65976848000104_202607.json",
+        "06/2026": "ime/65976848000104_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "08/2026",
+          "document_id": 1320431,
+          "status": "failed",
+          "error": "TimeoutError: The read operation timed out"
+        },
+        {
+          "competence": "06/2026",
+          "document_id": 1248860,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1292341,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "catalog_basis": "same_day_all_type_documentary_corpus",
+      "searched_at": "2026-10-13"
+    },
+    "66929956000180": {
+      "competences": [
+        "08/2026",
+        "07/2026",
+        "06/2026"
+      ],
+      "snapshots": {
+        "08/2026": "ime/66929956000180_202608.json",
+        "07/2026": "ime/66929956000180_202607.json",
+        "06/2026": "ime/66929956000180_202606.json"
+      },
+      "attempts": [
+        {
+          "competence": "06/2026",
+          "document_id": 1249957,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "07/2026",
+          "document_id": 1283982,
+          "status": "parsed",
+          "error": ""
+        },
+        {
+          "competence": "08/2026",
+          "document_id": 1317451,
+          "status": "parsed",
+          "error": ""
+        }
+      ],
+      "catalog_scope": "cnpj_all_fund_types",
+      "searched_at": "2026-10-13"
+    }
+  }
+}

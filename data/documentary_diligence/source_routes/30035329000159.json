@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "cnpj": "30035329000159",
+  "name": "VIA INVEST II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:53Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:05Z",
+  "routes": [
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 155757,
+          "reference_date": "04/03/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=155757",
+          "source_excerpt": "Esta reunião de Comitê\n   está registrada na ata nº 20210304-5.\n\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponíve"
+        },
+        {
+          "document_id": 177806,
+          "reference_date": "14/05/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177806",
+          "source_excerpt": "sta reunião de Comitê\n   está registrada na ata nº 20210514-30.\n\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponíve"
+        },
+        {
+          "document_id": 221401,
+          "reference_date": "16/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=221401",
+          "source_excerpt": "sta reunião de\n   Comitê está registrada na ata nº 20210916-11.\n\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponíve"
+        },
+        {
+          "document_id": 285930,
+          "reference_date": "30/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285930",
+          "source_excerpt": "sta reunião de\n   Comitê está registrada na ata nº 20211230-23.\n\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n   em: http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponíve"
+        },
+        {
+          "document_id": 285929,
+          "reference_date": "17/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285929",
+          "source_excerpt": "sta reunião\n   de Comitê está registrada na ata nº 20220317-11.\n\n2. A presente classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de Securitização de Recebíveis, disponíve"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 155757,
+          "reference_date": "04/03/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=155757",
+          "source_excerpt": "classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 177806,
+          "reference_date": "14/05/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177806",
+          "source_excerpt": "classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 221401,
+          "reference_date": "16/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=221401",
+          "source_excerpt": "classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 285930,
+          "reference_date": "30/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285930",
+          "source_excerpt": "classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 285929,
+          "reference_date": "17/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285929",
+          "source_excerpt": "classificação de risco de crédito das Cotas decorre da utilização da metodologia genérica comumente aplicada por essa agência\n   em suas classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 155757,
+          "reference_date": "04/03/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=155757",
+          "source_excerpt": "direto para a HOD Asset Management Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating possui classificação de\n    qualidade de gestão para a área de gestão de recursos da Singulare Corretora de Títulos e Valores Mobiliários S/A, mas não\n    para às áreas de"
+        },
+        {
+          "document_id": 177806,
+          "reference_date": "14/05/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=177806",
+          "source_excerpt": "direto para a HOD Asset Management Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating possui classificação de\n    qualidade de gestão para a área de gestão de recursos da Singulare Corretora de Títulos e Valores Mobiliários S/A, mas não\n    para às áreas de"
+        },
+        {
+          "document_id": 221401,
+          "reference_date": "16/09/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=221401",
+          "source_excerpt": "direto para a HOD Asset Management Ltda., porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating possui classificação de\n    qualidade de gestão para a área de gestão de recursos da Singulare Corretora de Títulos e Valores Mobiliários S/A, mas não\n    para às áreas de"
+        },
+        {
+          "document_id": 285930,
+          "reference_date": "30/12/2021",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285930",
+          "source_excerpt": "ultiplica Capital Asset Management\n    Ltda.., porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados\n    no website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating possui classificação\n    de qualidade de gestão para a área de gestão de recursos da Singulare Corretora de Títulos e Valores Mobiliários S/A, mas\n    não para às áreas de"
+        },
+        {
+          "document_id": 285929,
+          "reference_date": "17/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=285929",
+          "source_excerpt": "Multiplica Capital Asset Management Ltda.,\n    porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a Austin Rating possui classificação de qualidade de\n    gestão para a área de gestão de recursos da Singulare Corretora de Títulos e Valores Mobiliários S/A, mas não para às áreas de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://moodyslocal.com.br/relatorios/metodologias-estruturas-analiticas-de-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "Metodologia de Rating para Operações Estruturadas - (25/oct/2023)\n                                                                                                  .\nVisite a seção de metodologias em https://moodyslocal.com.br/relatorios/metodologias-estruturas-analiticas-de-\navaliacao/ para consultá-la.\n\nOutras divulgações regulatórias\n\n\n Classificação solicitada\n\n\n\nO presente Comunicado de Ação de Rating é um Relatório de Classificação de Risco de Crédito, nos termos do"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:50Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br/regulatory-disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "s por reguladores, associações setoriais, institutos de\npesquisa, agentes setoriais ou de governo, e autarquias e órgãos públicos. Consulte a “Lista de Fontes de Informações\nPúblicas” através do link www.moodyslocal.com/country/br/regulatory-disclosures.\nA Moody’s Local Brasil adota todas as medidas necessárias para que as informações utilizadas na atribuição de ratings\nsejam de qualidade suficiente e provenientes de fontes que a Moody’s Local Brasil"
+        },
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "ente(s) designado(s) previamente a\nsua publicação ou distribuição, e atribuído(s) sem alterações decorrentes dessa divulgação.\nAcesse o Formulário de Referência da Moody’s Local Brasil, disponível em\nwww.moodyslocal.com/country/br/regulatory-disclosures, para consultar as circunstâncias que, no entender da\nMoody’s Local Brasil, podem gerar real ou potencial conflito de interesses, ou a percepção de conflito de interesses\n(item 9 do Formulário de Refe"
+        },
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "tecedeu esta Ação de Rating. Consulte o relatório \"Lista de Serviços Auxiliares e Outros Serviços\nPermitidos, Prestados pela Moody’s Local BR Agência de Classificação de Risco Ltda.”, através do link\nwww.moodyslocal.com/country/br/regulatory-disclosures, para mais informações.\nAlgumas entidades classificadas pela Moody’s Local Brasil possuíram ou possuem ratings atribuídos e/ou monitorados\npor outras agências de rating consideradas partes relacionada"
+        },
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "eu esta Ação de Rating. Consulte o relatório \"Serviços Prestados às Entidades com Rating Atribuído por Partes\nRelacionadas à Moody’s Local BR Agência de Classificação de Risco Ltda.”, através do link\nwww.moodyslocal.com/country/br/regulatory-disclosures, para mais informações em relação a eventuais serviços\nprestados à(s) entidade(s) classificada(s).\nAs datas de atribuição do(s) rating(s) inicial(is) e da última Ação de Rating encontram-se indicadas"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:50Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br/regulatory-disclosure",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "s Local Brasil são monitorados constantemente. Todos os ratings da Moody's Local Brasil são\nrevisados pelo menos uma vez a cada período de 12 meses, e atualizados quando necessário.\nConsulte a página www.moodyslocal.com/country/br/regulatory-disclosure para saber se a(s) entidade(s)\nclassificada(s) ou parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis) por mais de 5% da receita anual da Moody's\nLocal Brasil no exercício anterior.\nConsulte"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:52Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://moodyslocal.com.br/",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "(s) foi(foram) responsável(eis) por mais de 5% da receita anual da Moody's\nLocal Brasil no exercício anterior.\nConsulte o documento Escalas de Rating do Brasil, da Moody's Local Brasil, disponível em https://moodyslocal.com.br/\n, para mais informações sobre o significado de cada categoria de rating e a definição de default e de recuperação,\ndentre outras.\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rati"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:53Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "http://www.moodyslocal.com/country/br/regulatory-disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "de Ação de Rating são aplicáveis ao(s) rating(s) e, quando\nhouver, também à perspectiva ou à revisão do(s) respectivo(s) rating(s).\nPara consultar divulgações regulatórias adicionais, acesse a página\nhttp://www.moodyslocal.com/country/br/regulatory-disclosures.\n\n\n\n\n                                                                                                                        5"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:53Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://ir.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1017147,
+          "reference_date": "20/10/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1017147",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de crédito e processos de ratings de crédito da Moody’s Ratings.\nSão incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de certas\nrelações que possam existir entre administrado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ir.moodys.com/investor-relations/default.aspx",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

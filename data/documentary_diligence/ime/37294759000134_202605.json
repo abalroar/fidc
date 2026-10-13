@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "37294759000134",
+  "competence": "05/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 519270257.77,
+    "credit_rights": 409067547.32,
+    "overdue_credit": 7413354.57,
+    "cash": 7863282.29,
+    "pdd": 30874769.08,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 350373489.7264928,
+    "subordinated_quotas": 100022748.44260454,
+    "mezzanine_quotas": 68874020.3985088,
+    "subordinated_and_mezzanine_quotas": 168896768.84111333
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "37294759000134",
+    "competence": "05/2026",
+    "path": "data/documentary_diligence/ime/37294759000134_202605.json",
+    "reported_fund_cnpj": "37294759000134",
+    "reported_class_cnpj": "37294759000134",
+    "reported_fund_cnpj_raw": "37294759000134",
+    "reported_class_cnpj_raw": "37294759000134",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1215759",
+    "version": 1,
+    "delivered_at": "10/06/2026 01:20",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1215759",
+    "declared_fields_sha256": "266f0ed80590df46178e0bfbce3a4e9d6844102a52c67d59f49d49c4389f3d96"
+  },
+  "error": ""
+}

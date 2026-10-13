@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "64330030000149",
+  "quarter": "2026-Q2",
+  "competence": "06/2026",
+  "quarter_source": "pdf_header",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "Demonstrativo Trimestral De FIDC 2º Trimestre 2026\n\nÀ\nComissão de Valores Mobiliários – CVM\n\nEm atendimento ao disposto no art. 27 do Anexo Normativo II da Resolução CVM 175\n(“Resolução 175”), apresentamos as informações referentes ao Demonstrativo Trimestral\ndo WAREHOUSE SOL AGORA FUNDO DE INVESTIMENTO EM DIREITOS\nCREDITÓRIOS SEGMENTO FINANCEIRO RESP LIMITADA, CNPJ\n64.330.030/0001-49 (“Classe”) relativo ao 2º Trimestre 2026:\n\n\n 1.   Resultado da verificação de lastro dos direitos creditórios realizados pelo custodiante,\n      nos termos do art. 38 do Anexo Normativo II da Resolução 175.\n\nConforme previsto no art. 38 do Anexo II da Resolução 175, o custodiante deve verificar a\nexistência, integridade e titularidade do lastro dos direitos creditórios que ingressaram na\ncarteira do Fundo a título de substituição, assim como o lastro dos direitos creditórios vencidos\ne não pagos no trimestre. Quando aplicável, os procedimentos de verificação foram concluídos\nsatisfatoriamente em atendimento à norma vigente e não foram identificadas inconsistências\nsignificativas no trimestre em referência.\n\n\n 2. Resultado do registro dos direitos creditórios no que se refere à origem, existência e\n    exigibilidade desses ativos.\n\nForam observados os requisitos de registro dos direitos creditórios em atendimento à norma\nvigente, se aplicável.\n\n 3. Existência de processos judiciais envolvendo o FIDC.\n\nA Classe não tem conhecimento de ações judiciais.\n\n 4. Informações referentes a aquisição de precatórios federais em fundos destinados ao\n    público geral.\n\nA Classe não se destina ao público geral.\n\n\n\nAs informações adicionais deste Demonstrativo são referentes ao relatório trimestral do\ngestor, conforme disposto no § 3º do art. 27 do Anexo Normativo II da Resolução 175.\n\n\n\n\n                                       Atenciosamente,"
+    }
+  ],
+  "pages_total": 1,
+  "pages_extracted": 1,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "1277428",
+    "reference_date": "06/2026",
+    "delivered_at": "05/08/2026 12:29",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1277428",
+    "sha256": "216bb37ffec30397d76710d8dc069dfc73ba27d8632aeb51240ba8be2ad4efcb",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "64330030000149",
+    "cnpj_fundo": "64330030000149",
+    "cnpj_classe": "64330030000149",
+    "header_fields": [
+      {
+        "cnpj": "64330030000149",
+        "page": 1,
+        "text": "no art. 27 do Anexo Normativo II da Resolução CVM 175\n(“Resolução 175”), apresentamos as informações referentes ao Demonstrativo Trimestral\ndo WAREHOUSE SOL AGORA FUNDO DE INVESTIMENTO EM DIREITOS\nCREDITÓRIOS SEGMENTO FINANCEIRO RESP LIMITADA, CNPJ\n64.330.030/0001-49 (“Classe”) relativo ao 2º Trimestre 2026:\n\n\n 1.   Resultado da verificação de lastro dos direitos creditórios realizados pelo custodiante,\n      nos"
+      }
+    ],
+    "header_cnpj": "64330030000149",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:35:16Z",
+  "error": ""
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "62838025000116",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 1999981369.56,
+    "credit_rights": 2021901387.54,
+    "overdue_credit": 0.0,
+    "cash": 13718.72,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 1813805283.5039258,
+    "subordinated_quotas": 186176086.06043836,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 186176086.06043836
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "62838025000116",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/62838025000116_202608.json",
+    "reported_fund_cnpj": "62838025000116",
+    "reported_class_cnpj": "62838025000116",
+    "reported_fund_cnpj_raw": "62838025000116",
+    "reported_class_cnpj_raw": "62838025000116",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1310374",
+    "version": 1,
+    "delivered_at": "04/09/2026 16:05",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1310374",
+    "declared_fields_sha256": "00b573e9e00ad5774da179ee5d9811aad984bc219fa0e0dedaa70b850e35d408"
+  },
+  "error": ""
+}

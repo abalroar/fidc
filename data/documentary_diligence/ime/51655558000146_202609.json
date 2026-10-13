@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "51655558000146",
+  "competence": "09/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 95739740.93,
+    "credit_rights": 95795008.08,
+    "overdue_credit": 228694.38,
+    "cash": 1000.0,
+    "pdd": 395034.47000000003,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 27278162.55007864,
+    "subordinated_quotas": 68461578.37997289,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 68461578.37997289
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "51655558000146",
+    "competence": "09/2026",
+    "path": "data/documentary_diligence/ime/51655558000146_202609.json",
+    "reported_fund_cnpj": "51655558000146",
+    "reported_class_cnpj": "51655558000146",
+    "reported_fund_cnpj_raw": "51655558000146",
+    "reported_class_cnpj_raw": "51655558000146",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1345723",
+    "version": 1,
+    "delivered_at": "09/10/2026 18:43",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1345723",
+    "declared_fields_sha256": "3ca3d49faa26637c633c925325951ea76b901574708733dadcafa884c6399607"
+  },
+  "error": ""
+}

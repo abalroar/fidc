@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "cnpj": "52271464000136",
+  "name": "KIWIFY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE",
+  "generated_at": "2026-10-13T05:30:11Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:04:14Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1007659,
+          "reference_date": "02/10/2025",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1007659",
+          "source_excerpt": "81601810B\n\n\n\n\n                                                             disponível        em      sua     página        na    Internet\n                                                             (http://www.b3.com.br ), base 252 (duzentos\n                                                             e cinquenta e dois) Dias Úteis, expressa na\n                                                             forma perce"
+        },
+        {
+          "document_id": 1155755,
+          "reference_date": "18/03/2026",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+          "source_excerpt": "mativo Diário,\n                                                             disponível       em     sua     página         na    Internet\n                                                             (http://www.b3.com.br ), base 252 (duzentos\n                                                             e cinquenta e dois) Dias Úteis, expressa na\n                                                             forma perce"
+        },
+        {
+          "document_id": 526477,
+          "reference_date": "20/09/2023",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=526477",
+          "source_excerpt": "ormativo Diário,\n                                                             disponível       em      sua    página       na    Internet\n                                                             (http://www.b3.com.br), base 252 (duzentos\n                                                             e cinquenta e dois) Dias Úteis, expressa na\n                                                             forma percentu"
+        },
+        {
+          "document_id": 642758,
+          "reference_date": "19/04/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=642758",
+          "source_excerpt": "mativo Diário,\n                                                             disponível         em     sua     página       na    Internet\n                                                             (http://www.b3.com.br), base 252 (duzentos\n                                                             e cinquenta e dois) Dias Úteis, expressa na\n                                                             forma percentu"
+        },
+        {
+          "document_id": 676385,
+          "reference_date": "28/05/2024",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=676385",
+          "source_excerpt": "formativo Diário,\n                                                             disponível         em   sua     página       na   Internet\n                                                             (http://www.b3.com.br), base 252 (duzentos\n                                                             e cinquenta e dois) Dias Úteis, expressa na\n                                                             forma percentu"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.bancogenial.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1007659,
+          "reference_date": "02/10/2025",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1007659",
+          "source_excerpt": "Cotista, responsável pelo esclarecimento\n                        de dúvidas e pelo recebimento de reclamações, cujas informações encontram-\n                        se no seguinte endereço eletrônico: www.bancogenial.com.br;\n\n\n\n                (i)     realizar, por conta e em nome do Fundo, (a) o pagamento da taxa de\n                        fiscalização devida na data de encerramento de cada oferta, conforme"
+        },
+        {
+          "document_id": 1155755,
+          "reference_date": "18/03/2026",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1155755",
+          "source_excerpt": "Cotista, responsável pelo esclarecimento\n                        de dúvidas e pelo recebimento de reclamações, cujas informações encontram-\n                        se no seguinte endereço eletrônico: www.bancogenial.com.br;\n\n\n               (i)      realizar, por conta e em nome do Fundo, (a) o pagamento da taxa de\n                        fiscalização devida na data de encerramento de cada oferta, conforme"
+        },
+        {
+          "document_id": 835901,
+          "reference_date": "07/02/2025",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=835901",
+          "source_excerpt": "manter serviço de atendimento ao Cotista, responsável pelo esclarecimento\n      de dúvidas e pelo recebimento de reclamações, cujas informações encontram-\n      se no seguinte endereço eletrônico: www.bancogenial.com.br;\n\n\n\n(i)   realizar, por conta e em nome do Fundo, (a) o pagamento da taxa de\n      fiscalização devida na data de encerramento de cada oferta, conforme\n      aplicável, nos termos do artigo 5º, II, “b"
+        },
+        {
+          "document_id": 883860,
+          "reference_date": "16/04/2025",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=883860",
+          "source_excerpt": "o Cotista, responsável pelo esclarecimento\n                       de dúvidas e pelo recebimento de reclamações, cujas informações encontram-\n                       se no seguinte endereço eletrônico: www.bancogenial.com.br;\n\n\n\n               (i)     realizar, por conta e em nome do Fundo, (a) o pagamento da taxa de\n                       fiscalização devida na data de encerramento de cada oferta, conforme"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791522,
+          "reference_date": "26/11/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791522",
+          "source_excerpt": "de quem mais possa interessar no website do\n          Administrador (https://www.bancogenial.com), do Gestora (https://www.h2kapital.com.br/), do\n          distribuidor das cotas da CLASSE e da CVM (www.cvm.gov.br).\n\n\n\n                                              São Paulo, 26 de novembro de 2024.\n\n\n\n                                                        BANCO GENIAL S.A."
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "cnpj": "33076242000118",
+  "name": "WORKCAP AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:54Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:13Z",
+  "routes": [
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1060211,
+          "reference_date": "12/12/2025",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060211",
+          "source_excerpt": "over extra grupo,\nexpressas na forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas\ne divulgadas pela B3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos\nserviços de custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 973849,
+          "reference_date": "14/08/2025",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=973849",
+          "source_excerpt": "over extra grupo, expressas na forma\npercentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\ndiário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços de custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 44,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "over extra grupo, expressas\nna forma percentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela\nB3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços\nde custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 871889,
+          "reference_date": "18/03/2025",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=871889",
+          "source_excerpt": "over extra grupo, expressas na forma\npercentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\ndiário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços de custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 895164,
+          "reference_date": "05/05/2025",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=895164",
+          "source_excerpt": "over extra grupo, expressas na forma\npercentual ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\ndiário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços de custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 134329,
+          "reference_date": "10/12/2020",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=134329",
+          "source_excerpt": "conforme estabelecido na regulamentação em vigor, bem como de acordo com o Manual\n               de Marcação a Mercado do Custodiante, o qual se encontra disponibilizado no website\n               www.oliveiratrust.com.br e de acordo com o Contrato de Custódia; e (ii) os Direitos\n               Creditórios Cedidos ao Fundo serão contabilizados e registrados, todo Dia Útil, com base\n               em seu custo de aquis"
+        },
+        {
+          "document_id": 175461,
+          "reference_date": "11/05/2021",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=175461",
+          "source_excerpt": "de títulos e valores mobiliários\nconforme estabelecido na regulamentação em vigor, bem como de acordo com o Manual\nde Marcação a Mercado do Custodiante, o qual se encontra disponibilizado no website\nwww.oliveiratrust.com.br e de acordo com o Contrato de Custódia; e (ii) os Direitos\nCreditórios Cedidos ao Fundo serão contabilizados e registrados, todo Dia Útil, com base\nem seu custo de aquisição, com apropriação de seus"
+        },
+        {
+          "document_id": 244061,
+          "reference_date": "21/10/2021",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=244061",
+          "source_excerpt": "stabelecido na regulamentação em vigor, bem como de acordo com o Manual\n                      de Marcação a Mercado do Custodiante, o qual se encontra disponibilizado no website\n                      www.oliveiratrust.com.br e de acordo com o Contrato de Custódia; e (ii) os Direitos\n                      Creditórios Cedidos ao Fundo serão contabilizados e registrados, todo Dia Útil, com base\n                      em seu"
+        },
+        {
+          "document_id": 353700,
+          "reference_date": "05/09/2022",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=353700",
+          "source_excerpt": "www.oliveiratrust.com.br e de acordo com o Contrato de Custódia; e (ii) os Direitos\n                        Creditórios Cedidos ao Fundo serão contabilizados e registrados, todo Dia Útil, com base\n                        em"
+        },
+        {
+          "document_id": 448020,
+          "reference_date": "17/04/2023",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=448020",
+          "source_excerpt": "de títulos e valores mobiliários conforme estabelecido na\nregulamentação em vigor, bem como de acordo com o Manual de Marcação a Mercado do\nCustodiante, o qual se encontra disponibilizado no website www.oliveiratrust.com.br e de acordo\ncom o Contrato de Custódia; e (ii) os Direitos Creditórios Cedidos ao Fundo serão contabilizados e\nregistrados, todo Dia Útil, com base em seu custo de aquisição, com apropriação de seus"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 339704,
+          "reference_date": "12/08/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339704",
+          "source_excerpt": "de 2022. Esta reunião de comitê está registrada\n   na Ata Nº 20220812-33.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 353697,
+          "reference_date": "29/08/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=353697",
+          "source_excerpt": "de 2022. Esta reunião de comitê está registrada na Ata Nº 20220829-\n   8.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 419480,
+          "reference_date": "09/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419480",
+          "source_excerpt": "de 2022. Esta reunião de comitê está registrada\n   na Ata Nº 20230209-19.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 664288,
+          "reference_date": "10/05/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664288",
+          "source_excerpt": "de 2024. Esta reunião de\n   comitê está registrada na Ata Nº 20240510-11.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 844110,
+          "reference_date": "10/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=844110",
+          "source_excerpt": "o de 2025. Esta reunião de comitê está\n   registrada na Ata Nº 20250210-1.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 339704,
+          "reference_date": "12/08/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339704",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 353697,
+          "reference_date": "29/08/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=353697",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 419480,
+          "reference_date": "09/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419480",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 664288,
+          "reference_date": "10/05/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664288",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 844110,
+          "reference_date": "10/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=844110",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 339704,
+          "reference_date": "12/08/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339704",
+          "source_excerpt": "ireto para o BTG Pactual Asset Management S.A.\n    DTVM, porém atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para o\n    Administrador e para o Custodiante do Fundo limita-se a outros fundos dos quais são partes relacionadas, dando-se, assim,\n    apenas de"
+        },
+        {
+          "document_id": 353697,
+          "reference_date": "29/08/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=353697",
+          "source_excerpt": "ireto para o BTG Pactual Asset Management S.A. DTVM,\n    porém atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para o Administrador\n    e para o Custodiante do Fundo limita-se a outros fundos dos quais são partes relacionadas, dando-se, assim, apenas de for"
+        },
+        {
+          "document_id": 419480,
+          "reference_date": "09/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419480",
+          "source_excerpt": "ireto para o BTG Pactual Asset Management S.A.\n    DTVM, porém atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para o\n    Administrador e para o Custodiante do Fundo limita-se a outros fundos dos quais são partes relacionadas, dando-se, assim,\n    apenas de"
+        },
+        {
+          "document_id": 664288,
+          "reference_date": "10/05/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=664288",
+          "source_excerpt": "ireto para o BTG Pactual Asset Management S.A.\n    DTVM, porém atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para o\n    Administrador e para o Custodiante do Fundo limita-se a outros fundos dos quais são partes relacionadas, dando-se, assim,\n    apenas de"
+        },
+        {
+          "document_id": 844110,
+          "reference_date": "10/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=844110",
+          "source_excerpt": "ireto para o BTG Pactual Asset Management S.A.\n    DTVM, porém atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Nesta data, a prestação de serviços da Austin Rating para o\n    Administrador e para o Custodiante do Fundo limita-se a outros fundos dos quais são partes relacionadas, dando-se, assim,\n    apenas de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "de\n         elegibilidade; (xi) custos referentes à defesa dos interesses de cada classe de cotas; e (xii) fatores de\n         risco.\n\n\n\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                 1"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "O 4 – ASSEMBLEIA GERAL DE COTISTAS\n4.1     A assembleia geral de cotistas é responsável por deliberar sobre as matérias comuns a todas as\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                      2"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "stidor) e tributos adicionais que\n        podem ser aplicados, motivo pelo qual os cotistas devem consultar seus assessores jurídicos com\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                             3"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "no momento da na data da distribuição de rendimentos ou da amortização\n                                    do FUNDO, caso ocorra antes.\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                  4"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "0 772 2827\n            Ouvidoria: 0800 722 0048\n                          Rio de Janeiro, 28 de novembro de 202427 de novembro de 2024.\n\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com\n                                                                                                                    5"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "TRADOR mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n            dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n            Website: www.btgpactual.com\n            SAC: 0800 772 2827\n            Ouvidoria: 0800 722 0048\n                          Rio de Janeiro, 28 de novembro de 202427 de novembro de 2024.\n\n\nBTG Pactual\nSAC: 0800 772 28 27 - Ouvidor"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:48Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "seus valores\n        calculados todo Dia Útil conforme a metodologia de avaliação descrita no manual do ADMINISTRADOR\n        disponível    no     seu     respectivo   website,    no     endereço     www.btgpactual.com/asset-\n        management/administracao-fiduciaria.\n9.2     As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros\n        integrantes da Carteira serão, respecti"
+        },
+        {
+          "document_id": 791096,
+          "reference_date": "29/11/2024",
+          "page": 29,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791096",
+          "source_excerpt": "CLASSE ÚNICA DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALBAUGH\nRESPONSABILIDADE LIMITADA\nCNPJ nº 33.076.242/0001-18\n         disponibilizados e mantidos atualizados em seu website, no endereço www.btgpactual.com/asset-\n         management/administracao-fiduciaria.\nGestão\n12.10 O GESTOR, observadas as limitações legais e as previstas na regulamentação aplicável, tem poderes\n      para praticar os atos necessários à"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -181,22 +181,14 @@ Informe de forma objetiva:
 
 Se for pedido commit/push: adicione somente arquivos rastreados e relevantes; não adicione PDFs soltos, outputs temporários ou arquivos não relacionados; faça commit objetivo e push."""
 
-_REVERSE_ENGINEERING_PROMPT = """Atualize a Curadoria de Leitura de uma única carteira.
+_REVERSE_ENGINEERING_PROMPT = """Atualize a curadoria documental usando o schema v2.
 
-1. Confirme a carteira, os CNPJs e a assinatura atual da cesta de fundos.
-2. Leia todos os documentos CVM/Fundos.NET incorporados e acessíveis para esses CNPJs.
-3. Registre lacunas, documentos inacessíveis e conflitos sem completar dados por inferência.
-4. Atualize `manifest.generated_at` com a data efetiva da leitura.
-5. Grave `tables/key_findings.csv` com as colunas `Tema` e `Conclusão` e 3 a 5 fatos materiais.
-6. Inclua `key_findings` em `manifest.tables`, apontando para o CSV e usando `Tema` como primeira coluna.
-7. Priorize elegibilidade, alocação, subordinação, gatilhos, reservas, concentração e derivativos.
-8. Não exponha contagens técnicas, nomes internos de tabelas ou classificações intermediárias.
-9. Preserve as fontes auditáveis nos artefatos internos e valide a leitura pelo app.
-10. Gere os sete quadros comparativos (elegibilidade, proteções, mecânica, emissões, pagamentos, custos e monitoramento), com `Critério` e uma coluna por fundo, sem dropdown.
-11. Registre fontes por célula em `evidence/comparison_sources.csv` e a correspondência coluna/CNPJ em `manifest.comparison_columns`.
-12. Execute `scripts/finalize_document_curation.py --portfolio-id <portfolio_id> --reading-at <data_hora_ISO_com_fuso>` após a revisão documental. O finalizador valida os quadros e gera `exports/documentary_comparison.pptx`, com tabelas editáveis e fontes nas notas, usando os mesmos dados da tela.
-13. Na tela e no PPTX, exiba `-` para células sem resposta apurada ou que apenas remetam a suplemento, bookbuilding, ato ou outro documento. Preserve regras, fontes e lacunas detalhadas nos CSVs e JSONs de auditoria.
-14. Use cabeçalho com fundo laranja vivo `#FF6200` e letras brancas `#FFFFFF`.
+Consulte `docs/documentary_diligence.md` e execute o processo serial
+`scripts/refresh_all_documentary_diligence.py --resume` para o escopo global.
+A carteira [NOME_OU_ID_DA_CARTEIRA_EXISTENTE] (<portfolio_id>) define a inspeção.
+Preserve CNPJs e colunas, fontes por célula, ausência com motivo, versões e
+competência comum. Meça cobertura antes/depois e liste pendências individualmente.
+Use limites de memória, disco e download; PDFs e textos permanecem no acervo local.
 """
 
 
@@ -309,6 +301,8 @@ def render_tab_deep_dive(
     show_curation_tools: bool = True,
     compact: bool = False,
     portfolio_mode: bool = False,
+    reference_competence: str | None = None,
+    dashboards: Any = None,
 ) -> None:
     _ = show_curation_tools
     manifests = list_deep_dives()
@@ -317,11 +311,6 @@ def render_tab_deep_dive(
             "Curadoria de Leitura (Documentos)",
             "Síntese dos documentos públicos associados à carteira.",
         )
-
-    if not manifests:
-        st.info("Ainda não há curadoria documental disponível.")
-        _render_update_prompt(selected_portfolio=selected_portfolio, portfolio_mode=portfolio_mode)
-        return
 
     if show_portfolio_selector:
         portfolios = list_saved_portfolios()
@@ -337,6 +326,15 @@ def render_tab_deep_dive(
     else:
         selected_portfolio_id = selected_portfolio.id if selected_portfolio is not None else "Todos"
     selected_signature = portfolio_basket_signature(selected_portfolio.funds) if selected_portfolio else ""
+    if selected_portfolio is not None:
+        from services.documentary_diligence import has_documentary_diligence, render_documentary_diligence
+        if has_documentary_diligence(selected_portfolio):
+            render_documentary_diligence(selected_portfolio, reference_competence=reference_competence, dashboards=dashboards)
+            return
+    if not manifests:
+        st.info("Ainda não há curadoria documental disponível.")
+        _render_update_prompt(selected_portfolio=selected_portfolio, portfolio_mode=portfolio_mode)
+        return
     available = [
         manifest
         for manifest in manifests

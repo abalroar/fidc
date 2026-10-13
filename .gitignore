@@ -22,6 +22,7 @@ wheels/
 
 # Virtual environments
 venv/
+.venv
 ENV/
 env/
 
@@ -45,6 +46,15 @@ env/
 data/dev_hours_cache.json
 data/raw/
 data/regulatory_extractions/
+data/documentary_diligence/raw/
+data/documentary_diligence/text/
+data/documentary_diligence/corpus/
+data/documentary_diligence/quarterly_index.json
+data/documentary_diligence/.global-refresh.lock
+data/documentary_diligence/refresh_runs/
+data/documentary_diligence/run_status.json
+data/documentary_diligence/logs/
+output/playwright/
 data/fidc_credit_strategy/*.sqlite
 data/industry_study/.taxonomy_review_*.lock
 outputs/fidc_credit_strategy_study_*/

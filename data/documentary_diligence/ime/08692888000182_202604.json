@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "08692888000182",
+  "competence": "04/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 1926597.36,
+    "credit_rights": 168878023.47,
+    "overdue_credit": 168873304.0,
+    "cash": 855.86,
+    "pdd": 168776360.95,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 1926597.3600016157,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 1926597.3600016157
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "08692888000182",
+    "competence": "04/2026",
+    "path": "data/documentary_diligence/ime/08692888000182_202604.json",
+    "reported_fund_cnpj": "08692888000182",
+    "reported_class_cnpj": "08692888000182",
+    "reported_fund_cnpj_raw": "8692888000182",
+    "reported_class_cnpj_raw": "8692888000182",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1189730",
+    "version": 1,
+    "delivered_at": "13/05/2026 18:51",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1189730",
+    "declared_fields_sha256": "a12579d8b8b08cca3e9c8fe649b283c37964249eeafa3c8a7d353e103164e94f"
+  },
+  "error": ""
+}

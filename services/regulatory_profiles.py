@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import json
 import re
 from typing import Any
 
@@ -17,6 +18,7 @@ from services.regulatory_knowledge import (
 
 
 REGULATORY_PROFILES_DIR = Path("data/regulatory_profiles")
+DOCUMENTARY_DILIGENCE_DIR = Path(__file__).resolve().parents[1] / "data/documentary_diligence/funds"
 
 
 @dataclass(frozen=True)
@@ -78,6 +80,13 @@ def load_curated_regulatory_profile(
     sources = reviewed_sources or manual_sources or triage_sources
     emissions_df = _concat_or_empty(emissions_frames)
     criteria_df = _concat_or_empty(criteria_frames)
+    # The typed documentary corpus supersedes old heuristic criteria. Emission
+    # calendars keep their independently curated provenance and consumer rules.
+    if base_dir == REGULATORY_PROFILES_DIR:
+        documentary = _documentary_criteria(digits)
+        if documentary is not None:
+            criteria_df, documentary_path = documentary
+            sources = [*sources, documentary_path]
     if emissions_df.empty and criteria_df.empty:
         return None
     return CuratedRegulatoryProfile(
@@ -87,6 +96,42 @@ def load_curated_regulatory_profile(
         source_files=tuple(dict.fromkeys(sources)),
         profile_type=_profile_type_from_sources(sources),
     )
+
+
+def _documentary_criteria(cnpj: str) -> tuple[pd.DataFrame, Path] | None:
+    path = DOCUMENTARY_DILIGENCE_DIR / f"{cnpj}.json"
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if payload.get("schema_version") != 2 or payload.get("cnpj") != cnpj:
+        return None
+    rows = []
+    for criterion in payload.get("criteria", []):
+        sources = criterion.get("sources", [])
+        source_text = "; ".join(
+            f'{source.get("title") or "Documento"} ID {source.get("document_id")}, '
+            f'{source.get("reference_date")}, '
+            f'cláusula {source.get("clause") or "—"}, página {source.get("page") or "—"}; '
+            f'{source.get("url") or ""}'
+            for source in sources
+        )
+        rows.append({
+            "Fundo": payload.get("fund_name") or payload.get("name", cnpj), "CNPJ": _format_cnpj(cnpj),
+            "Critério": criterion.get("label", criterion.get("criterion_id", "")),
+            "Chave": criterion.get("criterion_id", ""),
+            "Limite/regra": criterion.get("value", ""),
+            # The old checker uses the first percentage and has no effective-date
+            # or quota-layer guard. Typed rules use the dedicated v2 comparator.
+            "Monitorabilidade IME": "Comparação documental na aba Documentos",
+            "Métrica IME / proxy": "", "Condição de alerta sugerida": "",
+            "Observação técnica": criterion.get("risk_note") or criterion.get("reason", ""),
+            "Fonte": source_text,
+            "Status curadoria": criterion.get("status", "extraction_pending"),
+        })
+    return pd.DataFrame(rows), path
 
 
 def load_regulatory_profile(

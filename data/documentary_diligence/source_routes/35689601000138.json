@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "cnpj": "35689601000138",
+  "name": "ÁGIS - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS",
+  "generated_at": "2026-10-13T05:29:55Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:17Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br/pt_br/",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 394685,
+          "reference_date": "23/12/2022",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=394685",
+          "source_excerpt": "diariamente pela B3, no informativo diário\n                                                        disponível em sua página na Internet\n                                                        (http://www.b3.com.br/pt_br/);\n\n                       “B3”:                            B³ S.A. – BRASIL, BOLSA, BALCÃO, entidade\n                                                        administradora de mercados organizados de va"
+        },
+        {
+          "document_id": 420713,
+          "reference_date": "16/02/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420713",
+          "source_excerpt": "riamente pela B3, no informativo diário\n                                                             disponível em sua página na Internet\n                                                             (http://www.b3.com.br/pt_br/);\n\n                       “B3”:                                 B³ S.A. – BRASIL, BOLSA, BALCÃO, entidade\n                                                             administradora de mercados organiz"
+        },
+        {
+          "document_id": 444159,
+          "reference_date": "06/04/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=444159",
+          "source_excerpt": "diariamente pela B3, no informativo diário\n                                                        disponível  em    sua página na Internet\n                                                        (http://www.b3.com.br/pt_br/);\n\n                       “B3”:                            B³ S.A. – BRASIL, BOLSA, BALCÃO, entidade\n                                                        administradora de mercados organizados de va"
+        },
+        {
+          "document_id": 450190,
+          "reference_date": "24/04/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=450190",
+          "source_excerpt": "diariamente pela B3, no informativo diário\n                                                         disponível em sua página na Internet\n                                                         (http://www.b3.com.br/pt_br/);\n\n                       “B3”:                             B³ S.A. – BRASIL, BOLSA, BALCÃO, entidade\n                                                         administradora de mercados organizados de"
+        },
+        {
+          "document_id": 556552,
+          "reference_date": "14/11/2023",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=556552",
+          "source_excerpt": "diariamente pela B3, no informativo diário\n                                                         disponível em sua página na Internet\n                                                         (http://www.b3.com.br/pt_br/);\n\n                       “B3”:                             B³ S.A. – BRASIL, BOLSA, BALCÃO, entidade\n                                                         administradora de mercados organizados de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/pt_br/para-voce",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

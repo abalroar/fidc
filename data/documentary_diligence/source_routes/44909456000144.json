@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "cnpj": "44909456000144",
+  "name": "SOLFÁCIL IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:05Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:58:22Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 299030,
+          "reference_date": "19/04/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299030",
+          "source_excerpt": "Fundo estão devidamente qualificados no Formulário de\n    Informações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\n    Valores Mobiliários – CVM (www.cvm.gov.br).\n\n    CAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n\n    Artigo 10       Para efeito da regulamentação em vigor, o FUNDO, em função da composição de sua carteira de\n    investimento"
+        },
+        {
+          "document_id": 299030,
+          "reference_date": "19/04/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299030",
+          "source_excerpt": "8      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\n    do Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\n    Artigo 49      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\n    como o dia em que não houver expediente bancário, em virtude de determinações de ór"
+        },
+        {
+          "document_id": 299030,
+          "reference_date": "19/04/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=299030",
+          "source_excerpt": "o relevante será divulgado, ampla, obrigatória e imediatamente a todos os cotistas,\n    por meio de da website do Administrador (www.gerafuturo.com.br) e na Comissão de Valores Mobiliários – CVM\n    (www.cvm.gov.br), através do Sistema de Envio de Documentos.\n    Artigo 54        O Administrador, desde que previamente solicitado pelo cotista, poderá disponibilizar informações\n    adicionais sobre o Fundo, inclusi"
+        },
+        {
+          "document_id": 298991,
+          "reference_date": "12/01/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298991",
+          "source_excerpt": "Fundo estão devidamente qualificados no Formulário de\n    Informações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\n    Valores Mobiliários – CVM (www.cvm.gov.br).\n\n    CAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n\n    Artigo 10       Para efeito da regulamentação em vigor, o FUNDO, em função da composição de sua carteira de\n    investimento"
+        },
+        {
+          "document_id": 298991,
+          "reference_date": "12/01/2022",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298991",
+          "source_excerpt": "8      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\n    do Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\n    Artigo 49      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\n    como o dia em que não houver expediente bancário, em virtude de determinações de ór"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.bcb.gov.br/estabilidadefinanceira/scr",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 318582,
+          "reference_date": "23/06/2022",
+          "page": 28,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=318582",
+          "source_excerpt": "tiva Data de Cálculo.\n\n                  “SCR”                              Significa   o   Sistema    de   Informações      de   Créditos   (SCR)\n                                                     https://www.bcb.gov.br/estabilidadefinanceira/scr\n\n                  “Senioridade Máxima”               Significa, a partir de cada Data de Cálculo, o valor máximo das Cotas\n                                                     Seniores subscritas e"
+        },
+        {
+          "document_id": 788829,
+          "reference_date": "25/11/2024",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=788829",
+          "source_excerpt": "da respectiva Data de Cálculo.\n\n             “SCR”                              Significa    o   Sistema   de   Informações      de   Créditos   (SCR)\n                                                https://www.bcb.gov.br/estabilidadefinanceira/scr\n\n             “Senioridade Máxima”               Significa, a partir de cada Data de Cálculo, o valor máximo das Cotas\n                                                Seniores subscritas e integraliz"
+        },
+        {
+          "document_id": 557987,
+          "reference_date": "21/11/2023",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=557987",
+          "source_excerpt": "da respectiva Data de Cálculo.\n\n             “SCR”                              Significa   o   Sistema    de    Informações     de   Créditos    (SCR)\n                                                https://www.bcb.gov.br/estabilidadefinanceira/scr\n\n             “Senioridade Máxima”               Significa, a partir de cada Data de Cálculo, o valor máximo das Cotas\n                                                Seniores subscritas e integraliz"
+        },
+        {
+          "document_id": 474583,
+          "reference_date": "05/06/2023",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=474583",
+          "source_excerpt": "cia da respectiva Data de Cálculo.\n\n             “SCR”                            Significa      o   Sistema   de   Informações    de   Créditos    (SCR)\n                                              https://www.bcb.gov.br/estabilidadefinanceira/scr\n\n             “Senioridade Máxima”             Significa, a partir de cada Data de Cálculo, o valor máximo das Cotas\n                                              Seniores subscritas e integralizadas"
+        },
+        {
+          "document_id": 809237,
+          "reference_date": "23/12/2024",
+          "page": 29,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=809237",
+          "source_excerpt": "antecedência da respectiva Data de Cálculo.\n\n“SCR”                              Significa   o   Sistema   de   Informações       de   Créditos   (SCR)\n                                   https://www.bcb.gov.br/estabilidadefinanceira/scr\n\n“Senioridade Máxima”               Significa, a partir de cada Data de Cálculo, a soma entre: (a) 75%\n                                   (setenta e cinco por centro) da Base de Captação para Cotista"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:43Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "2871",
+        "final_url": "https://www.bcb.gov.br/estabilidadefinanceira/scr",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalasd",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "o Genial / Administrador / Custodiante)\nEscala de rating disponível em:\n                                     e a gestão da Genial Gestão Ltda. (Genial Gestão / Gestora). A estrutura do Fundo contará,\nhttp://www.austin.com.br/Escalasd    ainda, com a Solfácil Energia Solar e Serviços Financeiros Ltda. (Solfácil Energia / Agente de\ne-Rating.html\n                                     Cobrança / Originador / Companhia) como prestador"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "data da oferta da respectiva CCB.\nCEP 04542-000\nTel.: 55 11 3377 0707\nFax: 55 11 3377 0739                 Do ponto de vista da estrutura de capital, o Green Solfácil IV FIDC está autorizado a emitir\nwww.austin.com.br                    Cotas Seniores, Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior. A participação\n                                     das Cotas Subordinadas Júnior deverá representar, no mí"
+        },
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 11,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "ar a opinião ora indicada.\n12. A eventual entrada destas classificações preliminares em processo de revisão será notificada pela Austin Rating ao lado do anúncio da\n     própria classificação no site www.austin.com.br, na seção específica “Ratings Preliminares”, com a inscrição “EM REVISÃO”.\n13. As eventuais alterações decorrentes de processos de revisão ou de início de novos processos analíticos serão sempre relat"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "l de 2022. Esta reunião de comitê está registrada na Ata\n   Nº 20220427-4.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 378283,
+          "reference_date": "30/09/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=378283",
+          "source_excerpt": "o de 2022. Esta reunião de comitê está\n   registrada na Ata Nº 20221109-9.\n2. A classificação afirmada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 419108,
+          "reference_date": "31/12/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419108",
+          "source_excerpt": "de 2023. Esta reunião de comitê está\n   registrada na Ata Nº 20230209-24.\n2. A classificação afirmada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 466478,
+          "reference_date": "31/03/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=466478",
+          "source_excerpt": "o de 2023. Esta reunião de comitê está registrada\n   na Ata Nº 20230517-7.\n2. A classificação afirmada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        },
+        {
+          "document_id": 509428,
+          "reference_date": "30/06/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=509428",
+          "source_excerpt": "de 2023. Esta reunião de comitê está\n   registrada na Ata Nº 20230808-18.\n2. A classificação afirmada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http:"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n   classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 378283,
+          "reference_date": "30/09/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=378283",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 419108,
+          "reference_date": "31/12/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419108",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 466478,
+          "reference_date": "31/03/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=466478",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 509428,
+          "reference_date": "30/06/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=509428",
+          "source_excerpt": "alas.\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 340836,
+          "reference_date": "30/06/2022",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340836",
+          "source_excerpt": "serviço direto para a Genial Gestão Ltda, porém, atribui ratings de crédito\n    para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e Serviços\n    Financeiros Ltda (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, com"
+        },
+        {
+          "document_id": 378283,
+          "reference_date": "30/09/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=378283",
+          "source_excerpt": "serviço direto para a Genial Gestão Ltda, porém, atribui ratings\n    de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e Serviços\n    Financeiros Ltda (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, com"
+        },
+        {
+          "document_id": 419108,
+          "reference_date": "31/12/2022",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=419108",
+          "source_excerpt": "serviço direto para a Genial Gestão Ltda, porém, atribui ratings\n    de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e Serviços\n    Financeiros Ltda (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, com"
+        },
+        {
+          "document_id": 466478,
+          "reference_date": "31/03/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=466478",
+          "source_excerpt": "serviço direto para a Genial Gestão Ltda, porém, atribui ratings\n    de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e Serviços\n    Financeiros Ltda (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, com"
+        },
+        {
+          "document_id": 509428,
+          "reference_date": "30/06/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=509428",
+          "source_excerpt": "serviço direto para a Genial Gestão Ltda, porém, atribui ratings\n    de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e Serviços\n    Financeiros Ltda (Contratante) na forma de avaliação de risco para outros veículos de captação de recursos, com"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 665314,
+          "reference_date": "31/03/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=665314",
+          "source_excerpt": "de 2024. Esta reunião de comitê está registrada\n   na Ata Nº 20240517-7.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https"
+        },
+        {
+          "document_id": 845642,
+          "reference_date": "26/06/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845642",
+          "source_excerpt": "de 2024. Esta reunião de comitê está\n   registrada na Ata Nº 20240812-3.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 665314,
+          "reference_date": "31/03/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=665314",
+          "source_excerpt": ".html\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de"
+        },
+        {
+          "document_id": 845642,
+          "reference_date": "26/06/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845642",
+          "source_excerpt": ".html\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-Rating-\n   Securiticacao_Recebiveis.html.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

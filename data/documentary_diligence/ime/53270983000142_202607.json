@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "53270983000142",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 70660715.97,
+    "credit_rights": 68711521.68,
+    "overdue_credit": 14083.18,
+    "cash": 1000.01,
+    "pdd": 34159.87,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 56387036.1,
+    "subordinated_quotas": 5733026.87,
+    "mezzanine_quotas": 8540653.00005,
+    "subordinated_and_mezzanine_quotas": 14273679.870050002
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "53270983000142",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/53270983000142_202607.json",
+    "reported_fund_cnpj": "53270983000142",
+    "reported_class_cnpj": "53270983000142",
+    "reported_fund_cnpj_raw": "53270983000142",
+    "reported_class_cnpj_raw": "53270983000142",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1283964",
+    "version": 1,
+    "delivered_at": "11/08/2026 19:51",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1283964",
+    "declared_fields_sha256": "36ff0d8bd3b276a0f24b4420fd11004e47029886bfb039c518bb7726365ef709"
+  },
+  "error": ""
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "44909456000144",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 17499900.91,
+    "credit_rights": 24727983.720000003,
+    "overdue_credit": 3829986.94,
+    "cash": 10950.45,
+    "pdd": 10175273.97,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 17499900.909322884,
+    "subordinated_quotas": 0.0,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 0.0
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "44909456000144",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/44909456000144_202607.json",
+    "reported_fund_cnpj": "44909456000144",
+    "reported_class_cnpj": "44909456000144",
+    "reported_fund_cnpj_raw": "44909456000144",
+    "reported_class_cnpj_raw": "44909456000144",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1292628",
+    "version": 1,
+    "delivered_at": "14/08/2026 15:25",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1292628",
+    "declared_fields_sha256": "fb918c4de3a48114b0bb8f3b4be91669ddbb57f2cbcb10b7592afc21ed352149"
+  },
+  "error": ""
+}

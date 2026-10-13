@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "36643621000130",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRINDADE - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:56Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:19Z",
+  "routes": [
+    {
+      "url": "https://www.brltrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 786319,
+          "reference_date": "19/11/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786319",
+          "source_excerpt": "A ADMINISTRADORA mantém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n      dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n      Website: www.brltrust.com.br\n\n      SAC: 0800 466 0200\n      Ouvidoria: ouvidoria.bra@apexgroup.com\n\n\n                                                   ***\n                            São Paulo, 19 de novembro de 2024.\n BRL TRU"
+        },
+        {
+          "document_id": 826314,
+          "reference_date": "13/01/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+          "source_excerpt": "antém serviço de atendimento ao cotista, responsável pelo esclarecimento de\n                dúvidas e pelo recebimento de reclamações, que pode ser acessado nos meios abaixo:\n                Website: www.brltrust.com.br\n\n                SAC: 0800 466 0200\n                Ouvidoria: ouvidoria.bra@apexgroup.com\n\n\n                                                             ***\n                                      São"
+        },
+        {
+          "document_id": 185850,
+          "reference_date": "02/03/2020",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185850",
+          "source_excerpt": "ções que entender serem benéficas ou que agregarem\nvalor para os Cotistas. O inteiro teor da política de exercício do direito de voto da Gestora\nencontra-se disponível para consulta no seguinte site: www.brltrust.com.br.\n\n       10.13.1        A Gestora adota política de exercício de direito de voto em\n       assembleias, que disciplina os princípios gerais, o processo decisório e quais são as\n       matérias relevan"
+        },
+        {
+          "document_id": 185852,
+          "reference_date": "09/06/2021",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185852",
+          "source_excerpt": "neste Regulamento e nos respectivos\ninstrumentos que formalizam sua contratação pelo Fundo. Tais regras e procedimentos encontram-se\ndisponíveis para consulta no website da Instituição Administradora www.brltrust.com.br.\n\n\n7.12          O Custodiante dispõe de regras e procedimentos adequados, por escrito e passíveis de\nverificação, que lhe permitirão diligenciar o cumprimento pelos depositários e empresas terceiras"
+        },
+        {
+          "document_id": 185852,
+          "reference_date": "09/06/2021",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185852",
+          "source_excerpt": "escritas neste Regulamento e nos\nrespectivos instrumentos que formalizam sua contratação pelo Custodiante. Tais regras e procedimentos\nencontram-se disponíveis para consulta no website do Custodiante www.brltrust.com.br.\n\n\n7.13          A remuneração pelos serviços prestados pela Gestora e pelo Custodiante ao Fundo será paga\npela Instituição Administradora e descontada da Taxa de Administração.\n\n\n7.14         O Fundo"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 786319,
+          "reference_date": "19/11/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786319",
+          "source_excerpt": "GLOSSÁRIO\n\n\n\n\nB3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n“Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços\nde custódia;\n“Termo de Adesão”: documento elaborado nos termos do Art. 29 da Resolução CVM 175, po"
+        },
+        {
+          "document_id": 826314,
+          "reference_date": "13/01/2025",
+          "page": 39,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=826314",
+          "source_excerpt": "Docusign Envelope ID: D3905119-62FD-4AC9-A601-090BF95D4457\n\n\n\n\n        B3, no informativo diário disponível em sua página na internet (www.b3.com.br);\n        “Taxa Máxima de Custódia”: a remuneração paga pela Classe ao CUSTODIANTE pela prestação dos serviços\n        de custódia;\n        “Termo de Adesão”: documento elaborado nos termos do Art. 29"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 185850,
+          "reference_date": "02/03/2020",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=185850",
+          "source_excerpt": "(duzentos e cinquenta e dois) dias úteis, calculadas e divulgadas\ndiariamente pelo segmento CETIP UTVM da B3 S.A. – Brasil, Bolsa, Balcão, no informativo\ndiário disponível em sua página na internet (http://www.b3.com.br) (”Taxa de\nPerformance”).\n\n7.7            A Taxa de Performance será paga à Gestora sempre que houver amortização\nde Cotas, ou outros pagamentos aos Cotistas autorizados por este Regulamento, bem como"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

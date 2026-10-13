@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "cnpj": "57532556000146",
+  "name": "FIDC BV AUTO I SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:08:41Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 966587,
+          "reference_date": "04/08/2025",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=966587",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia, calculadas e\n                                 divulgadas diariamente pela B3, disponível em sua página\n                                 na Internet (http://www.b3.com.br), base 252 (duzentos e\n                                 cinquenta e dois) Dias Úteis, expressa na forma percentual\n                                 ao ano;\n\n         “Termo de Endosso”:     Significa o"
+        },
+        {
+          "document_id": 796044,
+          "reference_date": "06/12/2024",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=796044",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia, calculadas e\n                                 divulgadas diariamente pela B3, disponível em sua página\n                                 na Internet (http://www.b3.com.br), base 252 (duzentos e\n                                 cinquenta e dois) Dias Úteis, expressa na forma percentual\n                                 ao ano;\n\n         “Termo de Endosso”:     Significa o"
+        },
+        {
+          "document_id": 786912,
+          "reference_date": "25/11/2024",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786912",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia, calculadas e\n                                 divulgadas diariamente pela B3, disponível em sua página\n                                 na Internet (http://www.b3.com.br), base 252 (duzentos e\n                                 cinquenta e dois) Dias Úteis, expressa na forma percentual\n                                 ao ano;\n\n         “Termo de Endosso”:     Significa o"
+        },
+        {
+          "document_id": 774873,
+          "reference_date": "08/11/2024",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774873",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia, calculadas e\n                                 divulgadas diariamente pela B3, disponível em sua página\n                                 na Internet (http://www.b3.com.br), base 252 (duzentos e\n                                 cinquenta e dois) Dias Úteis, expressa na forma percentual\n                                 ao ano;\n\n         “Termo de Endosso”:     Significa o"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 966587,
+          "reference_date": "04/08/2025",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=966587",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                                    se disponível em seu website, no seguinte endereço:\n                                    www.angaasset.com.br\n\n       3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n       3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\n       aquisição de Direitos Creditórios ori"
+        },
+        {
+          "document_id": 796044,
+          "reference_date": "06/12/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=796044",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                                    se disponível em seu website, no seguinte endereço:\n                                    www.angaasset.com.br\n\n       3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n       3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\n       aquisição de Direitos Creditórios ori"
+        },
+        {
+          "document_id": 786912,
+          "reference_date": "25/11/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=786912",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                                    se disponível em seu website, no seguinte endereço:\n                                    www.angaasset.com.br\n\n       3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n       3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\n       aquisição de Direitos Creditórios ori"
+        },
+        {
+          "document_id": 774873,
+          "reference_date": "08/11/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774873",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-\n                                    se disponível em seu website, no seguinte endereço:\n                                    www.angaasset.com.br\n\n       3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n       3.1. Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na\n       aquisição de Direitos Creditórios ori"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

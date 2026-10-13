@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "47936340000192",
+  "quarter": "2024-Q2",
+  "competence": "06/2024",
+  "quarter_source": "document_catalog",
+  "status": "no_text",
+  "parse_status": "no_text",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": ""
+    },
+    {
+      "page": 2,
+      "text": ""
+    },
+    {
+      "page": 3,
+      "text": ""
+    },
+    {
+      "page": 4,
+      "text": ""
+    },
+    {
+      "page": 5,
+      "text": ""
+    }
+  ],
+  "pages_total": 5,
+  "pages_extracted": 0,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "716956",
+    "reference_date": "06/2024",
+    "delivered_at": "13/08/2024 17:55",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=716956",
+    "sha256": "86875b7f39915af393341b0f517bd852d0ed13b49263a48219b9fca9533bca47",
+    "identity_verified": false
+  },
+  "identity": {
+    "status": "not_verified",
+    "expected_cnpj": "47936340000192",
+    "cnpj_fundo": "",
+    "cnpj_classe": "",
+    "header_fields": []
+  },
+  "parsed_at": "2026-10-13T05:32:57Z",
+  "error": "PDF has no extractable text; OCR not performed"
+}

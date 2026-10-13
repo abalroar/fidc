@@ -1,0 +1,1140 @@
+{
+  "cnpj": "62696791000193",
+  "verified_at": "2026-10-13T04:50:59.030894+00:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Títulos e direitos creditórios do agronegócio, CRA e securitizações lastreadas em ativos financeiros do agronegócio. Admite também imóveis rurais, participações societárias e outros ativos ligados às cadeias produtivas do agronegócio; liquidez em fundos/títulos de renda fixa.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "6",
+          "clause": "Anexo I, 1.1, Objetivo",
+          "excerpt": "A Classe tem por objetivo proporcionar aos Cotistas a valorização e a rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos def inida no Capítulo IV abaixo (“Política de Investimentos”), por meio de aplicação do seu Patrimônio Líquido (conforme def inido abaixo) nos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Direitos Creditórios do Agronegócio”): (i) títulos de crédito emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do agronegócio; (ii) direitos creditórios do agronegócio; (iii) certificados de recebíveis do agronegócio e outros títulos de securitização emitidos com lastro em direitos creditórios do agronegócio; e (iv) certificados de recebíveis e outro",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "7",
+          "clause": "Anexo I, 1.1, Objetivo",
+          "excerpt": "(i) participações em sociedades que explorem atividades integrantes das cadeias produtivas do agronegócio. (C) Categoria “Financeiro” (“Ativos Financeiros do Agronegócio Financeiros”): (i) ativos f inanceiros e valores mobiliários emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do agronegócio. (D) Categoria “Geral” (“Ativos em Geral do Agronegócio”): (i) cotas de classes que apliquem mais de 50% (cinquenta por cento) de seu patrimônio líquido nos ativos referidos nos incisos “A” a “D” acima, o que inclui cotas de outros FIAGRO, mas não se limita a essa categoria de f undos. Os Ativos Imobiliários do Agronegócio, Participações do Agronegócio,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "originator",
+      "label": "Originador e endossante",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Cedentes, endossantes e devedores podem variar por operação. O regulamento declara que a amplitude dos direitos impede precisar processos de originação/políticas de concessão e exige análise cadastral e de crédito antes da aquisição.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "10",
+          "clause": "Anexo I, 4.4 e 4.6",
+          "excerpt": "4.4 Tendo em vista (i) a natureza variada dos Direitos Creditórios do Agronegócio passíveis de aquisição pela Classe; (ii) a amplitude da Política de Investimentos; e (iii) a potencial diversificação de Cedentes/Endossantes e Devedores, não é possível precisar os processos de origem dos Direitos Creditórios do Agronegócio e as políticas de concessão de crédito adotadas pelos Cedentes/Endossantes. 4.5 Os Direitos Creditórios do Agronegócio deverão contar com toda a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos ativos, e capaz de comprovar a origem, a existência e a exigibilidade dos Direitos Creditórios do Agronegócio (“Documentos Comprobatórios”) que evidenciem sua existência, validade e exequibilidade perante os respectivos Devedores. 4.5.1 Os Direitos Creditórios do Agronegócio serão adquiridos pela Classe por meio: (i) de contratos de cessão e/ou termos de cessão (“Contratos de Cessão”), contratos de promessa de endosso e/ou termos de endosso (“Contratos de Endosso”) firmados entre a Classe e os respectivos cedentes (“Cedentes”) / endossantes (“Endossantes”), acompanhados de todos os direitos, pri",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "A afirmação descreve um mandato amplo; não identifica contrapartes efetivamente presentes no IME."
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Critérios cumulativos: moeda nacional, registro contábil/custódia ou entidade registradora, origem vinculada ao agronegócio e direitos/títulos de crédito com ou sem garantias. Gestor verifica por amostragem antes e na aquisição; usa PL e valor dos créditos do dia útil anterior. Perda posterior de elegibilidade não constitui desenquadramento nem regresso contra administrador/gestor.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "11",
+          "clause": "Anexo I, 4.7–4.7.3",
+          "excerpt": "4.7 A Classe somente poderá adquirir os Direitos Creditórios do Agronegócio que atendam cumulativamente aos seguintes critérios de elegibilidade, a serem verificados e validados pelo Gestor, por amostragem, previamente à cessão e na respectiva data de aquisição dos Direitos Creditórios do Agronegócio (“Data de Aquisição”), de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios do Agronegócio que, na Data de Aquisição (“Critérios de Elegibilidade”): (i) sejam representados em moeda corrente nacional; (ii) a natureza ou característica essencial dos Direitos Creditórios do Agronegócio deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, ou seu registro em entidade registradora; (iii) sejam ativos de origem vinculada às cadeias produtivas do agronegócio ; e (iv) sejam representados por direitos e/ou títulos representativos de crédito, com ou sem garantias reais ou pessoais a eles atreladas, incluindo, sem limitação, duplicatas, debêntures, contratos de locação e contratos mercantis de compra e venda de produtos",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Direitos creditórios do agronegócio ≥51% do PL após 180 dias do início das atividades. Os 49% remanescentes podem ser Outros Ativos ou ativos de liquidez.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "10",
+          "clause": "Anexo I, 4.2",
+          "excerpt": "4.2 Decorridos 180 (cento e oitenta) dias do início de suas atividades, a Classe deverá possuir parcela mínima de 51% (cinquenta e um por cento) de seu Patrimônio Líquido representados por Direitos Creditórios do Agronegócio, enquanto a parcela de 49% (quarenta e nove por cento) remanescente deverá ser alocada em Outros Ativos ou Ativos Financeiros de Liquidez. 4.3 Os Direitos Creditórios do Agronegócio serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos. 4.4 Tendo em vista (i) a natureza variada dos Direitos Creditórios do Agronegócio passíveis de aquisição pela Classe; (ii) a amplitude da Política de Investimentos; e (iii) a potencial diversificação de Cedentes/Endossantes e Devedores, não é possível precisar os processos de origem dos Direitos Creditórios do Agronegócio e as políticas de concessão de crédito adotadas pelos Cedentes/Endossantes. 4.5 Os Direitos Creditórios do Agronegócio deverão contar com toda a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos ativos, e capaz de comprovar a origem, a existência e a exigibilidade dos Direitos Creditórios do Agronegócio (“Documentos Comprobatórios”)",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "3",
+          "clause": "AGC 20/03/2026, 4.1(j)–(k)",
+          "excerpt": "j. Tendo em vista as deliberações acima, bem como as alterações realizadas no Regulamento para sua implementação, aprovar o Regulamento consolidado, que passará a vigorar na forma do Complemento I à presente ata, o qual se encontra arquivado e à disposição dos quotistas na sede e dependências da Administradora. k. O Regulamento consolidado passará a vigorar a partir do fechamento do dia 23 de março de 2026. 5. ENCERRAMENTO: Em virtude da deliberação aprovada no item acima, os Cotistas da Classe: (i) autorizam a Administradora, na qualidade de representante legal da Classe, a realizar todas as atividades necessárias; (ii) declaram-se cientes das deliberações acima aprovadas; e (iii) dispensam a Administradora do envio do resumo das deliberações aprovadas nesta assembleia. Os termos constantes desta ata iniciados em letra maiúscula, senão de outra maneira definidos na presente ata, terão o significado que lhes foram atribuídos no Anexo e/ou no Regulamento. Nada mais havendo a tratar, a reunião foi encerrada. Confere com a original. Tais Calou Secretár",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Vigente a partir do fechamento de 23/03/2026. O agregado genérico de direitos do IME não comprova, sozinho, a natureza agronegócio de todos os ativos nem a conclusão da carência inicial.",
+      "rule": {
+        "operator": ">=",
+        "limit": 51.0,
+        "unit": "percent",
+        "numerator": "agribusiness_credit_rights",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "62696791000193",
+        "effective_from": "2026-03-23",
+        "effective_status": "explicit_assembly_effective_date",
+        "initial_days": 180,
+        "initial_date": null
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Até 100% do PL por devedor/grupo e em cotas de uma mesma classe. Direitos de partes relacionadas podem chegar a 100%, sujeitos à independência entre gestor, registradora/custodiante e originador/cedente. Limite de 49% do PL em cada categoria: imóveis, participações, ativos financeiros e ativos em geral do agronegócio.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "11",
+          "clause": "Anexo I, 4.8–4.9",
+          "excerpt": "4.8 A Classe não possui limites para a alocação em Direitos Creditórios do Agronegócio devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado. Caso a Classe adquira cotas de f undos de investimento em Direitos Creditórios do Agronegócio no âmbito dos outros f undos investidos, para f ins de apuração do limite previsto neste item, o Gestor deverá assegurar que, na consolidação das aplicações da Classe com as dos f undos investidos, o limite permanece observado, f icando dispensada a consolidação no caso de aplicações em fundos investidos geridos por terceiros que não sejam partes relacionadas ao Gestor. 4.8.1 As aplicações em Direitos Creditórios do Agronegócio decorrentes de receitas públicas originárias ou derivadas da União, dos Estados, do Distrito Federal e dos Municípios ou de suas autarquias e f undações, assim como em Direitos Creditórios do Agronegócio cedidos ou originados por empresas controladas pelo poder público, não estão submetidas ao limite de concentração por emissor previsto no caput. 4.9 Nos termos do Art. 45 do Anexo",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "12",
+          "clause": "Anexo I, 4.10(i)–(ix)",
+          "excerpt": "4.10 Sem prejuízo de limites mais restritivos definidos neste Anexo, o Gestor deverá observar, ainda, os seguintes limites de concentração: (i) A Classe poderá, direta ou indiretamente, ter até 100% (cem por cento) do Patrimônio Líquido representado por Direitos Creditórios do Agronegócio originados ou cedidos pelo Administrador, Gestor e/ou suas partes relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto, desde que (a) o Gest or, a entidade registradora e o Custodiante dos Direitos Creditórios do Agronegócio não sejam partes relacionadas entre si; e (b) a entidade registradora e o Custodiante dos Direitos Creditórios do Agronegócio não sejam partes relacionadas ao originador ou Cedente. (ii) No máximo, 100% (cem por cento) do Patrimônio Líquido investido em Ativos Financeiros de Liquidez de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor, e/ou suas partes relacionadas, observado ainda o disposto no item Error! Reference source not found.;",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Liquidez/derivativos relacionados também têm permissivos de 100%, mas remissões internas aparecem como “Error! Reference source not found.”."
+    },
+    {
+      "criterion_id": "investee",
+      "label": "Classes investidas e limites do FIC",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "O mandato permite cotas de classes com mais de 50% do PL em ativos vinculados ao agronegócio, inclusive FIAGRO. Consolida concentração de fundos relacionados; dispensa consolidação de investidos geridos por terceiros sem relação com o gestor.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "7",
+          "clause": "Anexo I, 1.1, Objetivo, categoria Geral",
+          "excerpt": "(D) Categoria “Geral” (“Ativos em Geral do Agronegócio”): (i) cotas de classes que apliquem mais de 50% (cinquenta por cento) de seu patrimônio líquido nos ativos referidos nos incisos “A” a “D” acima, o que inclui cotas de outros FIAGRO, mas não se limita a essa categoria de f undos. Os Ativos Imobiliários do Agronegócio, Participações do Agronegócio, Ativos Financeiros do Agronegócio e Ativos em Geral do Agronegócio, quando ref eridos em conjunto, os “Outros Ativos”. Não há limites máximos de aplicação por emissor ou devedor, em função de um percentual do Patrimônio Líquido. O objetivo da Classe não representa, sob qualquer hipótese, garantia da Classe ou de seus Prestadores de Serviços Essenciais e/ou da Cogestora quanto à segurança, rentabilidade e liquidez dos títu",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "11",
+          "clause": "Anexo I, 4.8–4.9",
+          "excerpt": "4.8 A Classe não possui limites para a alocação em Direitos Creditórios do Agronegócio devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado. Caso a Classe adquira cotas de f undos de investimento em Direitos Creditórios do Agronegócio no âmbito dos outros f undos investidos, para f ins de apuração do limite previsto neste item, o Gestor deverá assegurar que, na consolidação das aplicações da Classe com as dos f undos investidos, o limite permanece observado, f icando dispensada a consolidação no caso de aplicações em fundos investidos geridos por terceiros que não sejam partes relacionadas ao Gestor. 4.8.1 As aplicações em Direitos Creditórios do Agronegócio decorrentes de receitas públicas originárias ou derivadas da União, dos Estados, do Distrito Federal e dos Municípios ou de suas autarquias e f undações, assim como em Direitos Creditórios do Agronegócio cedidos ou originados por empresas controladas pelo poder público, não estão submetidas ao limite de concentração por emissor previsto no caput. 4.9 Nos termos do Art. 45 do Anexo",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "O regulamento não identifica CNPJs de classes efetivamente investidas. Permissão de investimento não comprova posição."
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após a primeira integralização sênior: (valor das mezanino + subordinadas júnior)/PL ≥5%, apurado a cada dia útil.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "34",
+          "clause": "Apêndice Sênior, 4.1–4.1.1",
+          "excerpt": "4.1. Após a Data da 1ª Integralização de Cotas Seniores, o Índice de Subordinação Sênior deverá ser igual ou superior a 5% (cinco por cento) (“Índice de Subordinação”). 4.1.1. O Índice de Subordinação Sênior corresponde ao resultado mínimo obrigatório da divisão de (a) o somatório do valor de todas as Cotas Mezanino e das Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na f orma percentual, e será apurado todo Dia Útil pelo Administrador. 5. Negociação das Cotas 5.1. As Cotas Seniores não poderão ser negociadas no mercado secundário. 6. Amortização e Resgate das Cotas Seniores 6.1. Desde que o Patrimônio Líquido da Classe assim permita, a partir de janeiro de 2026, as Cotas Seniores f arão jus à Amortização semestral do Benchmark, a ser realizada no último Dia Útil dos meses de janeiro e de julho de cada ano (“Amortização Programada de Cotas Seniores” e “Data de Amortização Programada de Cotas Seniores”, respectivamente), observada a Ordem de Alocação de Recursos prevista no Anexo. 6.1.1. Caso, em uma Data de Amortização Programa de Cotas Seniores, a Classe não tenha recursos disponíveis suficientes para o seu pagamento integral a diferença entre (i) o Benchmark Sênior apurad",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "3",
+          "clause": "AGC 20/03/2026, 4.1(j)–(k)",
+          "excerpt": "j. Tendo em vista as deliberações acima, bem como as alterações realizadas no Regulamento para sua implementação, aprovar o Regulamento consolidado, que passará a vigorar na forma do Complemento I à presente ata, o qual se encontra arquivado e à disposição dos quotistas na sede e dependências da Administradora. k. O Regulamento consolidado passará a vigorar a partir do fechamento do dia 23 de março de 2026. 5. ENCERRAMENTO: Em virtude da deliberação aprovada no item acima, os Cotistas da Classe: (i) autorizam a Administradora, na qualidade de representante legal da Classe, a realizar todas as atividades necessárias; (ii) declaram-se cientes das deliberações acima aprovadas; e (iii) dispensam a Administradora do envio do resumo das deliberações aprovadas nesta assembleia. Os termos constantes desta ata iniciados em letra maiúscula, senão de outra maneira definidos na presente ata, terão o significado que lhes foram atribuídos no Anexo e/ou no Regulamento. Nada mais havendo a tratar, a reunião foi encerrada. Confere com a original. Tais Calou Secretár",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "A fórmula soma mezanino e júnior. Não deve ser substituída apenas por júnior/PL nem por PL/sênior.",
+      "rule": {
+        "operator": ">=",
+        "limit": 5.0,
+        "unit": "percent",
+        "numerator": "subordinated_and_mezzanine_quotas",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "62696791000193",
+        "effective_from": "2026-03-23",
+        "effective_status": "explicit_assembly_effective_date",
+        "requires_senior_outstanding": true
+      }
+    },
+    {
+      "criterion_id": "junior_release",
+      "label": "Liberação e amortização da júnior",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Excesso de júnior/PL acima do índice de subordinação pode ser amortizado com maioria da júnior e da sênior, respeitando waterfall, ausência de obrigações vencidas/eventos, liquidez suficiente e índices. Júnior também participa em 50% do excesso previsto após sua amortização programada.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "37",
+          "clause": "Apêndice Júnior, 4.1–4.2 e 5.1",
+          "excerpt": "4.1. Caso o Patrimônio Líquido da Classe assim permita, as Cotas Subordinadas f arão jus à amortização semestral, no último Dia Útil dos meses de janeiro e julho de cada ano, de valor equivalente ao excedente do valor de integralização das Cotas Subordinadas em circulação, limitado ao percentual de 100% (cem por cento) da variação positiva do CDI acrescida de 4,50% (quatro inteiros e cinco décimos por cento) ao ano, considerando, para tanto a razão entre (i) o valor de integralização das Cotas Subordinadas Júnior em circulação e (ii) o valor de cada uma das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização das Cotas Subordinadas”). 4.2. Em complemento às Amortizações das Cotas Subordinadas, os Cotistas Subordinados farão jus, sempre que o Patrimônio Líquido da Classe assim permita e desde que o Valor Unitário das Cotas Subordinadas esteja superior ao valor de integralização das Cotas Subordinadas em circulação, a 50% (cinquenta por cento) de qualquer valor que exceder a Amortização das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização Extraordinária de Cotas Seniores”). 5. Excesso de Subordinação 5.1. Verif icado excesso de subordinação,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "O piso sênior usa MZ+júnior; a liberação extraordinária citada compara júnior/PL. São bases distintas. Os “Eventos de Avaliação” usados como condição não estão definidos no consolidado obtido."
+    },
+    {
+      "criterion_id": "expense_reserve",
+      "label": "Reserva de despesas",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Ao final de cada dia útil, reserva igual aos encargos estimados dos seis meses calendário imediatamente seguintes. A reserva é o segundo item de prioridade, depois dos encargos correntes.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "16",
+          "clause": "Anexo I, 6.1(ii)",
+          "excerpt": "6.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação, de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvada a ocorrência de eventos extraordinários que afetem o funcionamento regular do Fundo e/ou da Classe: (i) pagamento dos encargos do Fundo e/ou da Classe; (ii) constituição e/ou recomposição da reserva de despesas de modo que esta, ao final de cada Dia Útil, seja equivalente ao montante estimado dos encargos, a serem incorridos nos 6 (seis) meses calendário imediatamente subsequentes pelo Fundo e/ou a Classe (“Reserva de Despesas”); (iii) pagamento de Amortização ou resgate de Cotas Seniores, se houver; (iv) pagamento de Amortização ou resgate de Cotas Mezanino, se houver; (v) aquisição pela Cla",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Saldo agregado de caixa/liquidez do IME não identifica a reserva constituída nem a estimativa futura de encargos."
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Diariamente: encargos → reserva de seis meses → amortização/resgate sênior → mezanino → compra de direitos/outros ativos → amortização/resgate júnior → ativos de liquidez.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "16",
+          "clause": "Anexo I, 6.1(i)–(vii)",
+          "excerpt": "6.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação, de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvada a ocorrência de eventos extraordinários que afetem o funcionamento regular do Fundo e/ou da Classe: (i) pagamento dos encargos do Fundo e/ou da Classe; (ii) constituição e/ou recomposição da reserva de despesas de modo que esta, ao final de cada Dia Útil, seja equivalente ao montante estimado dos encargos, a serem incorridos nos 6 (seis) meses calendário imediatamente subsequentes pelo Fundo e/ou a Classe (“Reserva de Despesas”); (iii) pagamento de Amortização ou resgate de Cotas Seniores, se houver; (iv) pagamento de Amortização ou resgate de Cotas Mezanino, se houver; (v) aquisição pela Classe de Direitos Creditórios do Agronegócio e/ou Outros Ativos, observando-se a Política de Investimentos; e (vi) pagamento de Amortização ou resgate de Cotas Subordinadas, se houver (vii) aquisição pela Classe de Ativos Financeiros de Liquidez, observando-se a Política de Investimentos.",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "A ordem diária contém ressalva para eventos extraordinários que afetem o funcionamento regular do fundo ou da classe. Na liquidação, aplicar a partilha específica do Anexo I 11.2.1."
+    },
+    {
+      "criterion_id": "sequential",
+      "label": "Pró-rata, sequencial e aceleração",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Resgate sênior precede o da júnior, com exceção expressa para o que o Anexo I permitir. Na liquidação da classe, Anexo I 11.2.1 determina partilha proporcional ao número de cotas, deduzidas despesas, sem preferência, prioridade ou subordinação entre cotistas.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "23",
+          "clause": "Anexo I, 11.2.1",
+          "excerpt": "11.2.1 No caso de Liquidação da Classe, os Cotistas terão o direito de partilhar o Patrimônio Líquido em igualdade de condições e na proporção de suas Cotas, deduzidas as despesas necessárias para a liquidação da Classe. Não haverá qualquer tipo de pref erência, p rioridade ou subordinação entre os Cotistas.",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "35",
+          "clause": "Apêndice Sênior, 7.1",
+          "excerpt": "7.1. Prioridade de Recebimento das Cotas Seniores. As Cotas Seniores terão prioridade no pagamento de resgate sobre todas as Cotas Subordinadas Juniores, observado que as Cotas Subordinadas Juniores somente serão resgatadas após o pagamento integral das Cotas Seniores (exceto se de outra forma permitido no Anexo I).",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Apêndice Sênior 7.1 remete expressamente à exceção do Anexo I. A partilha da liquidação segue 11.2.1; a proteção sênior prevista para resgate não assegura prioridade nesse cenário.",
+      "precedence": "A ressalva expressa do Apêndice Sênior 7.1 autoriza a disposição diferente do Anexo I 11.2.1 na liquidação.",
+      "rule": {}
+    },
+    {
+      "criterion_id": "revolving",
+      "label": "Revolvência e desinvestimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Gestor pode reinvestir recebimentos, inclusive recuperações/excussão/alienação/recompra, em novos direitos ou Outros Ativos, ou direcioná-los ao resgate, respeitando a waterfall.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "16",
+          "clause": "Anexo I, 5.1",
+          "excerpt": "5.1 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios do Agronegócio e/ou dos Outros Ativos, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo cedente e/ou desinvestimento de Direitos Creditórios do Agronegócio e/ou dos Outros Ativos, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios do Agronegócio e/ou dos Outros Ativos e/ou destinados ao resgate das Cotas, conf orme decisão do Gestor e desde que observada a ordem de alocação de recursos. 6 ORDEM DE ALOCAÇÃO DE RECURSOS 6.1 O Administrador e o Gestor obrigam-se a, a partir da data da primeira integralização de Cotas até a liquidação integral das obrigações da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação, de modo que cada item abaixo listado apenas será contemplado após o direcionamento do montante total necessário para a satisfação dos itens anteriores, ressalvada a ocorrência de eventos extraordinários que afetem o funcionamento regular do Fundo e/ou da Classe: (i",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "remuneration",
+      "label": "Remuneração por subclasse e série",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Sênior: 100% da variação positiva do CDI +4, 5% a.a., teto de sua remuneração. Júnior: amortização programada semestral limitada ao CDI positivo +4, 50% a.a. nos termos da fórmula do apêndice; excesso remanescente é dividido 50% para sênior e 50% para júnior nas condições previstas.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "33",
+          "clause": "Apêndice Sênior, 1.2 e 1.4",
+          "excerpt": "1.2. As Cotas Seniores poderão ser divididas em séries com valores e prazos diferenciados para amortização, resgate e remuneração, sendo que cada série terá as mesmas características e conf erirá a seus titulares iguais direitos e obrigações nos termos deste Reg ulamento e do Apêndice ref erente a cada emissão/série de Cotas Seniores. 1.2. Benchmark. A Classe buscará atingir, para as Cotas Seniores, o “Benchmark”, correspondente à 100% (cem por cento) da variação positiva do CDI acrescida de 4,5% (quatro inteiros e cinco décimos por cento) ao ano. 1.3. O Benchmark não representa e nem devem ser considerados uma promessa, garantia ou sugestão de rentabilidade aos Cotistas Seniores, por parte da Classe, do Administrador, do Gestor e/ou do Cedente. 1.4. Independentemente do valor do Patrimônio Líquido da Classe, os Cotistas detentores de Cotas Seniores não f arão jus a uma rentabilidade superior ao Benchmark, o qual representará o limite máximo de remuneração possível para as Cotas Seniores. 2. Emissão, Subscrição e Integralização das Cotas 2.1. A Classe poderá emitir múltiplas Séries de Cotas Seniores, ficando ressalvado, no entanto, que cada nova Série de Cotas Seniores a ser emitida pela Classe",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "34",
+          "clause": "Apêndice Sênior, 6.2",
+          "excerpt": "6.2. Em complemento às Amortizações Programadas de Cotas Seniores, os Cotistas Seniores f arão jus, sempre que o Patrimônio Líquido da Classe assim permita e desde que o Valor Unitário das Cotas Seniores esteja superior ao valor de integralização das Cotas Seniores em circulação, a 50% (cinquenta por cento) de qualquer valor que exceder a Amortização das Cotas Subordinadas, conforme prevista no Apêndice da Subclasse Subordinada, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização Extraordinária de Cotas Seniores”). 6.3. Os pagamentos das parcelas de Amortização e/ou de resgate das Cotas Seniores serão ef etuados, em moeda corrente nacional, pelo Valor Unitário das Cotas Seniores no dia do pagamento, calculado na forma descrita neste Apêndice e no Anexo I, por meio de depósito em conta de titularidade dos Cotistas titulares BTG Pactual 2 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "37",
+          "clause": "Apêndice Júnior, 4.1–4.2",
+          "excerpt": "4.1. Caso o Patrimônio Líquido da Classe assim permita, as Cotas Subordinadas f arão jus à amortização semestral, no último Dia Útil dos meses de janeiro e julho de cada ano, de valor equivalente ao excedente do valor de integralização das Cotas Subordinadas em circulação, limitado ao percentual de 100% (cem por cento) da variação positiva do CDI acrescida de 4,50% (quatro inteiros e cinco décimos por cento) ao ano, considerando, para tanto a razão entre (i) o valor de integralização das Cotas Subordinadas Júnior em circulação e (ii) o valor de cada uma das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização das Cotas Subordinadas”). 4.2. Em complemento às Amortizações das Cotas Subordinadas, os Cotistas Subordinados farão jus, sempre que o Patrimônio Líquido da Classe assim permita e desde que o Valor Unitário das Cotas Subordinadas esteja superior ao valor de integralização das Cotas Subordinadas em circulação, a 50% (cinquenta por cento) de qualquer valor que exceder a Amortização das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização Extraordinária de Cotas Seniores”). 5. Excesso de Subordinação 5.1. Verif icado excesso de subordinação,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Benchmark é regra de atribuição, condicionado ao PL/resultados, sem garantia de rentabilidade. A subclasse mezanino é autorizada, mas não há apêndice mezanino no PDF consolidado obtido."
+    },
+    {
+      "criterion_id": "payments",
+      "label": "Juros, amortização e vencimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Desde janeiro/2026, benchmark sênior amortizado semestralmente no último dia útil de janeiro e julho; insuficiência acumula para a data seguinte. Júnior amortizada nas mesmas datas nas condições do apêndice. Classe fechada, com prazo indeterminado.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "34",
+          "clause": "Apêndice Sênior, 6.1–6.1.1",
+          "excerpt": "6.1. Desde que o Patrimônio Líquido da Classe assim permita, a partir de janeiro de 2026, as Cotas Seniores f arão jus à Amortização semestral do Benchmark, a ser realizada no último Dia Útil dos meses de janeiro e de julho de cada ano (“Amortização Programada de Cotas Seniores” e “Data de Amortização Programada de Cotas Seniores”, respectivamente), observada a Ordem de Alocação de Recursos prevista no Anexo. 6.1.1. Caso, em uma Data de Amortização Programa de Cotas Seniores, a Classe não tenha recursos disponíveis suficientes para o seu pagamento integral a diferença entre (i) o Benchmark Sênior apurado e (ii) os valores ef etivamente Amortizados aos Cotistas Seniores será automaticamente acumulada para pagamento na próxima Data de Amortização Programa de Cotas Seniores , e assim subsequentemente quando não for possível o pagamento total da diferença na Data de Amortização Programa de Cotas Seniores seguinte, até o pagamento integral do Benchmark Sênior apurado e devido no respectivo período. 6.2. Em complemento às Amortizações Programadas de Cotas Seniores, os Cotistas Seniores f arão jus, sempre que o Patrimônio Líquido da Classe assim permita e desde que o Valor Unitário das Cotas Seniores e",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "37",
+          "clause": "Apêndice Júnior, 4.1",
+          "excerpt": "4.1. Caso o Patrimônio Líquido da Classe assim permita, as Cotas Subordinadas f arão jus à amortização semestral, no último Dia Útil dos meses de janeiro e julho de cada ano, de valor equivalente ao excedente do valor de integralização das Cotas Subordinadas em circulação, limitado ao percentual de 100% (cem por cento) da variação positiva do CDI acrescida de 4,50% (quatro inteiros e cinco décimos por cento) ao ano, considerando, para tanto a razão entre (i) o valor de integralização das Cotas Subordinadas Júnior em circulação e (ii) o valor de cada uma das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização das Cotas Subordinadas”). 4.2. Em complemento às Amortizações das Cotas Subordinadas, os Cotistas Subordinados farão jus, sempre que o Patrimônio Líquido da Classe assim permita e desde que o Valor Unitário das Cotas Subordinadas esteja superior ao valor de integralização das Cotas Subordinadas em circulação, a 50% (cinquenta por cento) de qualquer valor que exceder a Amortização das Cotas Subordinadas, a ser paga na Data de Amortização Programada de Cotas Seniores (“Amortização Extraordinária de Cotas Seniores”). 5. Excesso de Subordinação 5.1. Verif icado excesso de subordinação,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "6",
+          "clause": "Anexo I, 1.1, Condomínio e Prazo",
+          "excerpt": "Tipo de Condomínio Fechado. Indeterminado, exceto se de outra f orma vier a ser deliberado pelos Prazo de Duração cotistas da Classe (“Cotistas”) reunidos em assembleia geral de Cotistas. A Classe tem por objetivo proporcionar aos Cotistas a valorização e a rentabilidade de suas cotas (“Cotas”), conforme a política de investimentos def inida no Capítulo IV abaixo (“Política de Investimentos”), por meio de aplicação do seu Patrimônio Líquido (conforme def inido abaixo) nos seguintes ativos de origem vinculada às cadeias produtivas do agronegócio (“Direitos Creditórios do Agronegócio”): (i) títulos de crédito emitidos por pessoas naturais e jurídicas que integrem as cadeias produtivas do agronegócio; (ii) direitos creditórios do agronegócio; (iii) certificados d",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "A agenda começa em janeiro/2026 dentro de consolidado vigente apenas no fechamento de 23/03/2026. O documento anterior não foi obtido para reconstruir a regra de janeiro/fevereiro."
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Liquidação por decisão da AGC ou término do prazo da classe. Venda dos ativos e amortização até recursos disponíveis; pode haver dação em pagamento/condomínio. Divisão do patrimônio em até 180 dias corridos da decisão ou término.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "23",
+          "clause": "Anexo I, 11.1–11.3",
+          "excerpt": "11.1 A Classe será liquidada (i) em caso da liquidação antecipada deliberada em Assembleia Especial de Cotistas; ou (ii) pelo encerramento do Prazo de Duração da Classe. 11.2 Na ocorrência da liquidação da Classe, o Administrador: (i) liquidará todos os investimentos da Classe em Ativos Financeiros de Liquidez, conforme orientação do Gestor, transferindo todos os recursos daí resultantes para a Conta da Classe; (ii) realizará, de acordo com as orientações e instruções do Gestor, a alienação dos investimentos nos Direitos Creditórios do Agronegócio e nos Outros Ativos integrantes da carteira de investimentos da Classe; e (iii) realizará o pagamento dos encargos da Classe e a amortização das Cotas, até o limite dos recursos disponíveis na Conta da Classe. 11.2.1 No caso de Liquidação da Classe, os Cotistas terão o direito de partilhar o Patrimônio Líquido em igualdade de condições e na proporção de suas Cotas, deduzidas as despesas necessárias para a liquidação da Classe. Não haverá qualquer tipo de pref erência, p rioridade ou subordinação entre os Cotistas. 11.3 Caso a Classe não possua recursos suficientes para o pagamento de todas as Cotas no momento de",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "24",
+          "clause": "Anexo I, 11.7",
+          "excerpt": "11.7 A liquidação da Classe e a divisão de seu patrimônio entre os Cotistas deverão ocorrer no prazo de até 180 (cento e oitenta) dias corridos contados (i) do encerramento do Prazo de Duração ou (ii) da data da realização da Assembleia Especial de Cotistas que deliberar sobre a liquidação da Classe. BTG Pactual SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.co m 19",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "O capítulo não fornece gatilho automático de PL <R$ 1 milhão por 90 dias; essa cláusula presente em outros FIDCs não pode ser transferida para Ceres."
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "referenced_document_missing",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "37",
+          "clause": "Apêndice Júnior, 5.1(iii)",
+          "excerpt": "5.1. Verif icado excesso de subordinação, ou seja, que a representatividade de Cotas Júnior em relação ao Patrimônio Líquido da Classe é superior ao Índice de Subordinação (“Excesso de Subordinação”), desde que assim seja deliberado por maioria dos votos de seus titulares e da maioria dos titulares de Cotas Seniores, as Cotas Juniores poderão ser objeto de Amortização Extraordinária até o limite do respectivos Excesso de Subordinação– ainda que tal Amortização Extraordinária ocorra antes do resgate integral das Cotas Seniores– desde que: (i) seja observada a ordem de alocação de recursos definida no item 6.1 acima Anexo; (ii) não existam Obrigações da Classe vencidas e não pagas; (iii) não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação; (iv) existam suficientes Ativos Financeiros e/ou recursos disponíveis; e (vii) permaneçam atendidas todos os Índices de Subordinação. 6. Negociação das Cotas 6.1. As Cotas Subordinadas Juniores não poderão ser negociadas no mercado secundário. 7. Resgate 7.1. As Cotas Subordinadas Juniores apenas serão resgatadas após o resgate integral das Cotas Seniores da Classe, na respectiva Data de Resgate ou em caso de liquidação antecipada da Classe. BTG Pactual",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Referência preservada como ausência específica; não importar gatilhos de outros fundos.",
+      "reason": "O apêndice condiciona amortização à ausência de Eventos de Avaliação e de Liquidação, mas o PDF consolidado de 48 páginas não define a lista de Eventos de Avaliação nem seus prazos de cura. O regulamento FIDC anterior à transformação não foi obtido."
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "clause_not_found",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "11",
+          "clause": "Anexo I, 4.7.3",
+          "excerpt": "4.7.3 Na hipótese de eventuais Direitos Creditórios do Agronegócio elegíveis deixarem de atender a qualquer Critério de Elegibilidade após sua aquisição pela Classe, tal f ato não será entendido como um desenquadramento da carteira, tampouco haverá direito de regresso contra o Administrador e/ou o Gestor. Limites de concentração aplicáveis aos Direitos Creditórios do Agronegócio e fundos de investimento em Direitos Creditórios do Agronegócio investidos pela Classe 4.8 A Classe não possui limites para a alocação em Direitos Creditórios do Agronegócio devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo grupo econômico e/ou de um mesmo Devedor, individualmente considerado. Caso a Classe adquira cotas de f undos de investimento em Direitos Creditórios do Agronegócio no âmbito dos outros f undos investidos, para f ins de apuração do limite previsto neste item, o Gestor deverá assegurar que, na consolidação das aplicações da Classe com as dos f undos investidos, o limite permanece observado, f icando dispensada a consolidação no caso de aplicações em fundos investidos geridos por terceiros que não sejam partes relacionad",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "PDD mensal observada e metodologia contratual são evidências separadas.",
+      "reason": "Leitura do consolidado de 48 páginas não localizou metodologia de PDD/curva por atraso. A cláusula 4.7.3 trata de perda posterior de elegibilidade; não estabelece provisionamento."
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro e amostragem",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Custodiante pode verificar lastro por amostragem; inadimplidos/substituídos têm verificação individual e integral no trimestre. Comunica vícios em até 5 dias úteis. A amostragem remete ao Complemento II.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "13",
+          "clause": "Anexo I, 4.15–4.19",
+          "excerpt": "4.15 Os serviços de custódia qualif icada dos Direitos Creditórios do Agronegócio não registrados em entidade registradora, bem como a guarda física dos originais dos Direitos Creditórios do Agronegócio e dos Documentos Comprobatórios, serão prestados pelo Custodiante. 4.16 São atribuições do Custodiante, observado o disposto neste Regulamento e na regulamentação aplicável: (i) realizar a liquidação física ou eletrônica e financeira dos Direitos Creditórios do Agronegócio; (ii) cobrar e receber, em nome da classe, pagamentos, resgate de títulos ou qualquer outro rendimento relativo aos ativos da Carteira, depositando os valores recebidos diretamente em conta de titularidade da classe ou, se f or o caso, em conta vinculada; e (iii) realizar a guarda da documentação relativa ao lastro dos Direitos Creditórios do Agronegócio. 4.17 Em razão de a Classe possuir significativa quantidade de Direitos Creditórios do Agronegócio cedidos e expressiva diversificação de devedores e de Cedentes, além de atuar em vários segmentos, o Custodiante está autorizado a ef etuar a verif icação do lastro dos Direitos Creditórios do Agronegócio por amostragem, sempre que permitido pel",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "O PDF obtido termina no Complemento I (Fatores de Risco); Complemento II, referenciado para parâmetros de amostragem, não está incluído. Não atribuir confiança 95%/erro 5% por analogia."
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade e limites de derivativos",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Derivativos somente para proteção patrimonial; exposição máxima igual ao PL. Aplicação de recursos no exterior é vedada.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "15",
+          "clause": "Anexo I, 4.28 e 4.30(i)",
+          "excerpt": "4.28 A Classe pode aplicar recursos em instrumentos financeiros derivativos, exclusivamente para fins de proteção patrimonial, cuja exposição seja sempre, no máximo, o valor do Patrimônio Líquido. 4.29 A Classe pode emprestar ativos f inanceiros e valores mobiliários, desde que tais operações de empréstimo sejam cursadas exclusivamente por meio de serviço autorizado pelo Banco Central do Brasil ou pela CVM. 4.30 É vedado à Classe: (i) aplicar no exterior recursos captados no País; (ii) salvo aprovação em assembleia de Cotistas, a realização de operações quando caracterizada situação de conf lito de interesses entre: (a) a Classe, o Administrador ou o Gestor ou a Consultoria Especializada; (b) a Classe e os Cotistas que detenham participação correspondente a, no mínimo, 10% (dez por cento) do patrimônio da Classe; e (c) a Classe e o representante dos Cotistas; (iii) a aplicação de recursos em sociedades nas quais participem o Administrador, o Gestor, os consultores, os membros de comitês ou conselhos e os Cotistas titulares de Cotas representativas de 5% (cinco por cento) do patri",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "27",
+          "clause": "Anexo I, 12.11(x)",
+          "excerpt": "(x) realizar operações com derivativos, exceto quando tais operações f orem realizadas exclusivamente para f ins de proteção patrimonial e desde que a exposição seja sempre, no máximo, o valor do Patrimônio Líquido. 12.11.1 A vedação prevista no item (v) acima não impede a aquisição de imóveis sobre os quais tenham sido constituídos ônus reais anteriormente ao seu ingresso no patrimônio . 12.12 É vedado ao Gestor o recebimento de qualquer remuneração, benefício ou vantagem, direta ou indiretamente, que potencialmente prejudique sua independência na tomada de decisão. Consultoria Especializada 12.13 O Gestor, conforme disposto no Anexo Normativo VI da Resolução 175, poderá contratar Consultoria Especializada para que preste os seguintes serviços (“Consultoria Especializada”): (i) Analisar, selecionar, avaliar e acompanhar, de acordo com a Política de Investimentos deste Anexo, os ativos integrantes ou que possam vir a integrar a carteira da classe do Fundo; (ii) Participar de negociações e propor negócios à classe, observada a Política de Investimentos constante deste Anexo;",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "guarantee",
+      "label": "Garantias e constituição",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Direitos podem possuir ou não garantias reais/pessoais. Imóveis rurais podem ingressar onerados; classe pode prestar fiança/aval/aceite ou onerar imóveis para obrigações ligadas à sua carteira. Não há garantia do administrador, gestor, custodiante ou FGC para as cotas.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "11",
+          "clause": "Anexo I, 4.7(iv)",
+          "excerpt": "(iv) sejam representados por direitos e/ou títulos representativos de crédito, com ou sem garantias reais ou pessoais a eles atreladas, incluindo, sem limitação, duplicatas, debêntures, contratos de locação e contratos mercantis de compra e venda de produtos e/ ou mercadorias perf ormados e/ou para entrega ou prestação f utura, bem como títulos ou certificados representativos desses contratos, decorrentes de operações nos segmentos f inanceiro, comercial, industrial, imobiliário, de hipotecas, de arrendamento mercantil e de prestação de serviços, observadas as vedações do item 4.28 abaixo deste Anexo. 4.7.2 Para f ins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios do Agronegócio integrantes da carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.7.3 Na hipótese de eventuais Direitos Creditórios do Agronegócio elegíveis deixarem de atender a qualquer Critério de Elegibilidade após sua aquisição pela Classe, tal f ato não será entendido como um desenquadramento da carteira, tampouco haverá direito de regresso contra",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "14",
+          "clause": "Anexo I, 4.24",
+          "excerpt": "4.24 A Classe poderá adquirir imóveis rurais sobre os quais tenham sido constituídos ônus reais anteriormente ao seu ingresso no patrimônio da Classe. Ainda, posteriormente ao seu ingresso no patrimônio da Classe, poderá o Gestor, em nome da Classe, prestar fiança, aval, aceite ou coobrigar- se sob qualquer f orma, relativamente a operações relacionadas à carteira de ativos da Classe, bem como constituir ônus reais sobre imóveis rurais integrantes do patrimônio da Classe para garantir obrigações por ela assumidas. 4.25 O Administrador, conforme orientação do Gestor, poderá utilizar recursos da classe para recomprar suas próprias cotas, com a f inalidade exclusiva de cancelamento, seja por meio de programa de recompra ou por meio de Of erta Pública Voluntária de Aquisição d e suas próprias cotas (“OPAC”), observados os procedimentos eventualmente previstos nos manuais ou regras da B3, bem como o disposto no Art. 56 e seguintes do Anexo Normativo I da Resolução CVM 175. Participações do Agronegócio 4.26 As seguintes regras são aplicáveis aos investimentos em Participações do Agronegócio realizados pela Classe. 4.26.1 Deverão ser asseguradas à Classe (i) a participação no processo deci",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "48",
+          "clause": "Complemento I, 11.6",
+          "excerpt": "11.6. Ausência de garantia. As aplicações realizadas na Classe não contam com garantia do Cedente, do ADMINISTRADOR, do GESTOR, do CUSTODIANTE ou da Classe Garantidor de Créditos – FGC, de modo que é possível a perda total do capital investido pelos Cotistas ou mesmo a necessidade de os Cotistas realizarem aportes adicionais de recursos para a cobertura de eventuais prejuízos. 11.7. Limitação do gerenciamento de riscos. A realização de investimentos na Classe expõe o investidor a riscos a que a Classe está sujeita, os quais poderão acarretar perdas para os Cotistas. Não há qualquer garantia de completa eliminação da possibilidade de perdas para a Classe e para os Cotistas. Em condições adversas de mercado, esses sistemas de gerenciamento de riscos poderão ter sua ef iciência reduzida. A Classe também poderá estar sujeita a outros riscos advindos de motivos alheios ou exógenos ao controle do Administrador, tais como moratória, inadimplemento de pagamentos, mudança nas regras aplicáveis aos Ativos-Alvo e Ativos Financeiros de Liquidez, alteração na política monetária, alteração da política fiscal aplicável à Classe, os quais poderão causar preju",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 10% a.a.; mínimo R$ 10 mil/mês, corrigido anualmente em janeiro pela variação positiva do IGP-M. Pagamento até o 5º dia útil do mês seguinte; base 1/12 prevista na tabela.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "28",
+          "clause": "Anexo I, 13.1, Taxa de Administração",
+          "excerpt": "Taxa de Administração 0,10% (um décimo por cento) ao ano com um mínimo mensal de R$ 10.000,00 (dez mil reais), pagos mensalmente até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, a ser corrigida anualmente, em janeiro de cada ano, pela variação positiva do Índice Geral de Preços – Mercado, divulgado pela Fundação Getúlio Vargas (“Taxa de Administração” e “IGP-M”, respectivamente). Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na f alta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. T",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "A linha da tabela não explicita novamente a base de PL para administração; conservar essa limitação em vez de completar a frase por analogia."
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0% a.a. sobre PL, apropriada diariamente na base 252 e paga mensalmente até o 5º dia útil seguinte.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "28",
+          "clause": "Anexo I, 13.1, Taxa de Gestão",
+          "excerpt": "Taxa de Gestão 0% (zero por cento) ao ano apropriada diariamente na base de 252 (duzentos e cinquenta e dois) Dias Úteis, e paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês que se ref ere, incidente sobre o Patrimônio Líquido da Classe (“Taxa de Gestão”). Taxa Máxima de Custódia 0,00% (zero por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe (“Taxa Máxima de Custódia”). Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Perf ormance. Taxa Máxima de Distribuição A remuneração da instituição intermediária líder e de eventuais distribuidores contratados para os serviços de distribuição das Cotas da Classe será prevista nos documentos da respectiva of erta, conforme estabelecido na Resolução CVM 160 e deverá observar uma taxa máxima de distribuição equivale",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Taxa de performance não devida. Taxa de ingresso também não cobrada.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "28",
+          "clause": "Anexo I, 13.1, Taxa de Performance",
+          "excerpt": "Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Perf ormance. Taxa Máxima de Distribuição A remuneração da instituição intermediária líder e de eventuais distribuidores contratados para os serviços de distribuição das Cotas da Classe será prevista nos documentos da respectiva of erta, conforme estabelecido na Resolução CVM 160 e deverá observar uma taxa máxima de distribuição equivalente a 0,9% (nove décimos por cento) ao ano aplicado sobre o Patrimônio Anexo I ao Regulamento Líquido, observado o limite máximo de 4,5% (quatro inteiros e cinquenta centésimos por cento) do volume captado na respectiva oferta (“Taxa Máxima de Distribuição”).A Taxa Máxima de BTG Pactual SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.co m 23",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "29",
+          "clause": "Anexo I, 13.1, Taxa de Ingresso",
+          "excerpt": "Taxa de Ingresso Não será cobrada dos Cotistas Taxa de Ingresso. 14 TRIBUTAÇÃO 14.1 O disposto neste Capítulo f oi elaborado com base na legislação e regulamentação em vigor produzindo ef eitos, tem por objetivo descrever de f orma sumária o tratamento tributário aplicável em regra aos cotistas, ao Fundo e à Classe, não se aplicando aos cotistas sujeitos a regras de tributação específicas, na f orma da legislação e regulamentação em vigor. 14.2 Há exceções (inclusive relativas à natureza ou ao domicílio do investidor para fins fiscais) em relação ao tratamento tributário descrito abaixo e tributos adicionais que podem ser aplicados, motivo pelo qual os cotistas devem consultar seus assessores jurídicos com relação à tributação aplicável nos investimentos realizados na Classe. Tributação da Classe / Operações da carteira: Como regra geral, os rendimentos auferidos pela carteira da Classe não estão sujeitos à incidência do imposto de renda, exceto ganhos auferidos em aplicações financeiras de renda fixa ou variável, que se sujeitam à incidência do Imposto de Renda Retido na Fonte (“IRF”) de acordo com as mesmas regras de tributação aplic",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "custody_fee",
+      "label": "Custódia, escrituração e encargos",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Custódia máxima 0% a.a. sobre PL. Distribuição máxima 0, 9% a.a. sobre PL, limitada a 4, 5% do captado na oferta; provisionamento diário 1/252 e pagamento até o 10º dia útil do mês seguinte.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "28",
+          "clause": "Anexo I, 13.1, Custódia e Distribuição",
+          "excerpt": "Taxa Máxima de Custódia 0,00% (zero por cento) ao ano, incidente sobre o Patrimônio Líquido da Classe (“Taxa Máxima de Custódia”). Taxa de Performance Não será devido pela Classe o pagamento de Taxa de Perf ormance. Taxa Máxima de Distribuição A remuneração da instituição intermediária líder e de eventuais distribuidores contratados para os serviços de distribuição das Cotas da Classe será prevista nos documentos da respectiva of erta, conforme estabelecido na Resolução CVM 160 e deverá observar uma taxa máxima de distribuição equivalente a 0,9% (nove décimos por cento) ao ano aplicado sobre o Patrimônio Anexo I ao Regulamento Líquido, observado o limite máximo de 4,5% (quatro inteiros e cinquenta centésimos por cento) do volume captado na respectiva oferta (“Taxa Máxima de Distribuição”).A",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "29",
+          "clause": "Anexo I, 13.1, Distribuição",
+          "excerpt": "Distribuição será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. Nos termos da Resolução CVM 160, o coordenador líder poderá destinar parte ou a totalidade da sua remuneração, à vista ou a prazo, aos distribuidores contratados, conforme previsto no contrato de distribuição da oferta e/ou nos termos de adesão ao contrato de distribuição. A Taxa Máxima de Distribuição será paga mensalmente por período vencido, até o 10º (décimo) Dia Útil do mês subsequente à prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas da Classe Taxa de Ingresso Não será cobrada dos Cotistas Taxa de Ingresso. 14 TRIBUTAÇÃO 14.1 O disposto neste Capítulo f oi elaborado co",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Alteração do Anexo, substituição de administrador/gestor/cogestora, reorganização/liquidação, laudos, conflitos e taxas: maioria das cotas subscritas e voto afirmativo da maioria da sênior subscrita. Novas emissões acima do capital autorizado e plano de PL negativo/insolvência: maioria simples com maioria sênior. Benchmark exige maioria da camada afetada e subordinadas; aumento do índice depende da maioria simples das subordinadas; diminuição exige também maioria das séries seniores.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "20",
+          "clause": "Anexo I, 10.2, tabela",
+          "excerpt": "10.2 Os seguintes quóruns deverão ser observados pela Assembleia Especial de Cotistas ao deliberar as matérias abaixo: Matéria Quórum I – alterar o presente Anexo; Maioria das Cotas Subscritas (“Quórum Qualificado”), observada BTG Pactual SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.co m 15",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "21",
+          "clause": "Anexo I, 10.2, tabela",
+          "excerpt": "Matéria Quórum a necessidade de voto afirmativo da Maioria das Cotas Seniores subscritas da Classe Quórum Qualif icado observada a necessidade de voto af irmativo da II – substituição do Administrador, do Gestor e da Cogestora; Maioria das Cotas Seniores subscritas da Classe Maioria Simples, observada a III – Emissão e distribuição de novas Cotas em quantidade necessidade de voto af irmativo da superior ao Capital Autorizado da Classe ; Maioria das Cotas Seniores subscritas da Classe",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "22",
+          "clause": "Anexo I, 10.2(XI) e 10.5–10.7",
+          "excerpt": "10.5 As deliberações que tenham por objeto alterações de Benchmark apenas serão aprovadas se assim deliberado: (i) pelos votos dos titulares da maioria das Cotas em circulação da Série ou Subclasse cujo Benchmark é alterado; e (ii) pelos votos dos titulares da maioria das Cotas Mezanino que se subordinem a ela e/ou das Cotas Subordinadas em circulação. 10.6 As deliberações que tenham por objeto o aumento do Índice de Subordinação estão sujeitas à aprovação da maioria simples dos votos dos titulares das Cotas Mezanino que se subordinem a ela e/ou das Cotas Subordinadas em circulação. 10.7 As deliberações que tenham por objeto a diminuição do Índice de Subordinação apenas serão aprovadas se assim deliberado: (i) pelos votos dos titulares da maioria das Cotas em circulação de cada uma das Séries de Cotas Seniores e/ou dos titulares das Cotas Mezanino que tenham o Benchmark alterado; e (ii) pelo voto dos titulares da maioria das Cotas Mezanino que se subordinem a ela e/ou Cotas Subordinadas Júnior em circulação . Representante de Cotistas 10.8 A Assembleia de Cotistas pode, a qualquer momento, eleger até 3 (três) representantes de cotistas, a serem eleitos e nomeados pela assembleia especial,",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "perimeter",
+      "label": "Classe, subclasse e responsabilidade",
+      "theme": "Alocação e perímetro",
+      "status": "version_conflict",
+      "applicability": "applicable",
+      "value": "Parte Geral e Anexo limitam responsabilidade ao valor subscrito. Anexo I 8.8.1, contudo, permite chamadas para despesas/encargos acima do capital subscrito; investimentos permanecem limitados. Há três subclasses autorizadas: sênior, mezanino e júnior.",
+      "sources": [
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "9",
+          "clause": "Anexo I, 2.1",
+          "excerpt": "2.1 A responsabilidade do Cotista está limitada ao valor por ele subscrito. 2.2 Os seguintes eventos obrigarão o Administrador a verif icar se o Patrimônio Líquido está negativo: (i) qualquer pedido de declaração judicial de insolvência de Classe; (ii) inadimplência de obrigações financeiras de devedor e/ou emissor de ativos detidos pela Classe que representem mais de 10% (dez por cento) de seu Patrimônio Líquido, naquela data de ref erência; (iii) pedido de recuperação extrajudicial, proposta de recuperação judicial, f alência, intervenção, liquidação extrajudicial e/ou regime de administração temporária de devedor e/ou emissor de ativos detidos pela Classe; e (iv) condenação da Classe, de natureza judicial e/ou arbitral e/ou administrativa e/ou outras similares, ao pagamento de mais de 10% (dez por cento) de seu Patrimônio Líquido. 2.3 Caso o Administrador verifique que o Patrimônio Líquido está negativo, ou tenha ciência de pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175. 2.4 Serão aplicáveis as disp",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "18",
+          "clause": "Anexo I, 8.8.1",
+          "excerpt": "8.8.1 As Chamadas de Capital para a realização de investimentos serão realizadas a qualquer momento durante o Período de Investimento e estarão limitadas ao valor do capital subscrito de cada Cotista. As Chamadas de Capital para o pagamento de despesas e encargos do Fundo poderão ser realizadas a qualquer momento durante o Prazo de Duração, mas não estarão limitadas ao valor do capital subscrito de cada Cotista. 8.8.2 Ao receber uma Chamada de Capital, os Cotistas serão obrigados a integralizar parte ou a totalidade de suas Cotas no prazo previsto na ref erida Chamada de Capital, o qual não poderá ser inf erior a 5 (cinco) Dias Úteis contados do recebimento da Chamada de Capital, conforme solicitado pelo Administrador em observância às instruções do Gestor e de acordo com o disposto nos respectivos Compromissos de Investimento. 8.8.3 O Administrador poderá, eventualmente, realizar Chamadas de Capital aos Cotistas de forma desproporcional entre Cotistas, de modo que um ou mais Cotista venha a integralizar, em uma ou mais Chamadas de Capital, uma parcela maior ou menor, conforme o caso, das Cotas por",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "16",
+          "clause": "Anexo I, 7.2",
+          "excerpt": "7.2 A Classe possui 3 (três) Subclasses de Cotas, quais sejam, a subclasse sênior (“Subclasse Sênior” e “Cotas Seniores”), a subclasse mezanino (“Subclasse Mezanino” e “Cotas Mezanino”) e a subclasse subordinada (“Subclasse Subordinada” e “Cotas Subordinadas” – as Cotas Subordinadas, Cotas Seniores e Cotas Mezanino, quando ref eridas em conjunto, “Cotas”), admitindo ainda a emissão de novas séries (“Séries”) de Cotas Seniores, nos termos do seu respectivo Apêndice. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo e nos respectivos Apêndices. 7.3 As Cotas são escriturais, nominativas e correspondem a f rações ideais do patrimônio da Classe, cuja propriedade presume-se: (i) pelo registro do nome do Cotista no livro de registro de Cotistas, enquanto mantidas em conta de depósito mantidas junto ao Escriturador em nome dos respectivos Cotistas, nos termos do Art. 15 da Resolução CVM 175; (ii) pelos controles de titularidade mantidos pelo depositário BTG Pactual SAC: 0800 772 2827 | Ouvidoria: 0800 722 0048 | btgpactual.co m 11",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Contradição interna no alcance da responsabilidade limitada. Não apresentar a cláusula de despesas como obrigação irrestrita pacificada."
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à Resolução CVM 175",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "AGC de 20/03/2026 transformou FIDC em FIAGRO, sob Parte Geral e Anexo Normativo VI da Resolução CVM 175, com aplicação subsidiária do Anexo II. Consolidado vigente no fechamento de 23/03/2026; mesmo CNPJ 62.696.791/0001-93.",
+      "sources": [
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "1",
+          "clause": "AGC, 4.1(a)–(b)",
+          "excerpt": "4.1. Aprovar a transformação do Fundo, bem como de sua Classe única, em um fundo de investimento nas cadeias produtivas do agronegócio (“Transformação”), nos termos da parte geral e do Anexo Normativo VI da Resolução nº 175 da CVM, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”). a. Aprovar a alteração da denominação do Fundo, que passará a vigorar como BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA, e de sua Classe única, que passará a vigorar como CLASSE ÚNICA DO BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA (“Classe”); b. Aprovar a reforma integral do Regulamento do Fundo, bem como do Anexo descritivo da Classe, para realizar todos os ajustes necessários à implementação da Transformação, incluindo, mas não se limitando, a política de investimentos, o regime tributário e os fatores de risco aplicáveis, conforme itens abaixo; c. Aprovar a alteração do quadro de características gerais do Fundo, considerando a contratação do Cogestor pelo Gestor, nos termos do artigo 52, II, da parte geral da Resolução CVM 175 e no co",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "3",
+          "clause": "AGC 20/03/2026, 4.1(j)–(k)",
+          "excerpt": "j. Tendo em vista as deliberações acima, bem como as alterações realizadas no Regulamento para sua implementação, aprovar o Regulamento consolidado, que passará a vigorar na forma do Complemento I à presente ata, o qual se encontra arquivado e à disposição dos quotistas na sede e dependências da Administradora. k. O Regulamento consolidado passará a vigorar a partir do fechamento do dia 23 de março de 2026. 5. ENCERRAMENTO: Em virtude da deliberação aprovada no item acima, os Cotistas da Classe: (i) autorizam a Administradora, na qualidade de representante legal da Classe, a realizar todas as atividades necessárias; (ii) declaram-se cientes das deliberações acima aprovadas; e (iii) dispensam a Administradora do envio do resumo das deliberações aprovadas nesta assembleia. Os termos constantes desta ata iniciados em letra maiúscula, senão de outra maneira definidos na presente ata, terão o significado que lhes foram atribuídos no Anexo e/ou no Regulamento. Nada mais havendo a tratar, a reunião foi encerrada. Confere com a original. Tais Calou Secretár",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143317,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143317",
+          "reference_date": "20/03/2026",
+          "version": "Regulamento — referência 20/03/2026",
+          "page": "1",
+          "clause": "Parte Geral, 1.1",
+          "excerpt": "1.1 BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA (“Fundo”), regido pela Lei nº 10.406, de 10 de janeiro de 2002, conf orme alterada (“Código Civil”), pela Lei n.º 8.668, de 25 de junho de 1993, conf orme alterada (“Lei 8.668”), pela parte geral, Anexo Normativo VI e, subsidiariamente, Anexo Normativo II da Resolução nº 175, de 23 de dezembro de 2022, conforme alterada, da Comissão de Valores Mobiliários (respectivamente, “Resolução CVM 175” e “CVM”), terá como principais características: Classe Classe única. Indeterminado, exceto se de outra f orma vier a ser deliberado pelos Cotistas Prazo de Duração reunidos em assembleia geral de Cotistas (“Prazo de Duração”). BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Administrador Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143317_regulamento.pdf",
+          "sha256": "32f62818d51c3ebeaf9ec012d3d7867f15c1aed6d10f0867c157a290df1cea48",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Posição comumfev/26 é anterior à transformação e demanda o regime/regulamento anterior."
+    },
+    {
+      "criterion_id": "changes",
+      "label": "Histórico de alterações materiais",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "20/03/2026: reforma integral para FIAGRO; amplia mandato para direitos, imóveis, participações e ativos financeiros do agronegócio, inclui cogestora e recompra de cotas. Vigência no fechamento de 23/03/2026. Em 27/03/2026, nova emissão privada sênior de até R$ 150 milhões e júnior de até R$ 20 milhões; saldos não colocados anteriores cancelados.",
+      "sources": [
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "1",
+          "clause": "AGC, 4.1(a)–(c)",
+          "excerpt": "4.1. Aprovar a transformação do Fundo, bem como de sua Classe única, em um fundo de investimento nas cadeias produtivas do agronegócio (“Transformação”), nos termos da parte geral e do Anexo Normativo VI da Resolução nº 175 da CVM, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”). a. Aprovar a alteração da denominação do Fundo, que passará a vigorar como BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA, e de sua Classe única, que passará a vigorar como CLASSE ÚNICA DO BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA (“Classe”); b. Aprovar a reforma integral do Regulamento do Fundo, bem como do Anexo descritivo da Classe, para realizar todos os ajustes necessários à implementação da Transformação, incluindo, mas não se limitando, a política de investimentos, o regime tributário e os fatores de risco aplicáveis, conforme itens abaixo; c. Aprovar a alteração do quadro de características gerais do Fundo, considerando a contratação do Cogestor pelo Gestor, nos termos do artigo 52, II, da parte geral da Resolução CVM 175 e no co",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1143319,
+          "title": "AGE",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+          "reference_date": "20/03/2026 10:00",
+          "version": "AGE — referência 20/03/2026 10:00",
+          "page": "3",
+          "clause": "AGC, 4.1(j)–(k)",
+          "excerpt": "j. Tendo em vista as deliberações acima, bem como as alterações realizadas no Regulamento para sua implementação, aprovar o Regulamento consolidado, que passará a vigorar na forma do Complemento I à presente ata, o qual se encontra arquivado e à disposição dos quotistas na sede e dependências da Administradora. k. O Regulamento consolidado passará a vigorar a partir do fechamento do dia 23 de março de 2026. 5. ENCERRAMENTO: Em virtude da deliberação aprovada no item acima, os Cotistas da Classe: (i) autorizam a Administradora, na qualidade de representante legal da Classe, a realizar todas as atividades necessárias; (ii) declaram-se cientes das deliberações acima aprovadas; e (iii) dispensam a Administradora do envio do resumo das deliberações aprovadas nesta assembleia. Os termos constantes desta ata iniciados em letra maiúscula, senão de outra maneira definidos na presente ata, terão o significado que lhes foram atribuídos no Anexo e/ou no Regulamento. Nada mais havendo a tratar, a reunião foi encerrada. Confere com a original. Tais Calou Secretár",
+          "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+          "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1148821,
+          "title": "Instrumento Particular de Emissão de Cotas",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148821",
+          "reference_date": "27/03/2026",
+          "version": "Instrumento Particular de Emissão de Cotas — referência 27/03/2026",
+          "page": "1",
+          "clause": "Deliberação Conjunta27/03/2026, item1",
+          "excerpt": "1. Aprovar a 2ª (segunda) emissão da Subclasse Subordinada Júnior da Classe, composta por até 20.000 (vinte mil) Cotas Subordinadas Júnior, com valor nominal unitário de R$ 1.000,00 (mil reais), perfazendo o montante total de R$ 20.000.000,00 (vinte milhões de reais), as quais serão objeto de colocação privada, de acordo com os termos e condições definidos no Apêndice da Subclasse Subordinada Júnior constante do Anexo I Regulamento e descritas abaixo (“2ª Emissão da Subclasse Subordinada Júnior”): a) Rito: as Cotas Subordinadas Júnior objeto da 2ª Emissão da Subclasse Subordinada Júnior não estão sujeitas a regulamentação de oferta de valores mobiliários, conforme facultado pelo Art. 8º, II, da Resolução CVM nº 160, de 13 de julho de 2022; b) Preço de Emissão por Cota: R$ 1.000,00 (mil reais), nos termos do respectivo boletim de subscrição; c) Preço de Integralização: o valor unitário da Cota Subordinada Júnior na data de integralização, calculado na forma prevista no respectivo Apêndice; BTG Pactual 1 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/62696791000193/1148821_documentary_review.pdf",
+          "sha256": "86900e9dd498403696bfffbd4196443c83ec4d51ff21135e073c1966e1adf4c0",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1148821,
+          "title": "Instrumento Particular de Emissão de Cotas",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148821",
+          "reference_date": "27/03/2026",
+          "version": "Instrumento Particular de Emissão de Cotas — referência 27/03/2026",
+          "page": "2",
+          "clause": "Deliberação Conjunta, itens2–3",
+          "excerpt": "2. Aprovar a 2ª (segunda) emissão da Subclasse Sênior da Classe, composta por até 150.000 (cento e cinquenta mil) Cotas Seniores, com valor nominal unitário de R$ 1.000,00 (mil reais), perfazendo o montante total de R$ 150.000.000,00 (cento e cinquenta milhões de reais), as quais serão objeto de colocação privada, de acordo com os termos e condições descritos no Apêndice da Subclasse Sênior constante do Anexo I Regulamento e descritas abaixo (“2ª Emissão da Subclasse Sênior”): a) Rito: as Cotas Seniores objeto da 2ª Emissão da Subclasse Sênior não estão sujeitas a regulamentação de oferta de valores mobiliários, conforme facultado pelo Art. 8º, II, da Resolução CVM nº 160, de 13 de julho de 2022; b) Preço de Emissão por Cota: R$ 1.000,00 (mil reais), nos termos do respectivo boletim de subscrição; c) Preço de Integralização: o valor unitário da Cota Sênior na data de integralização, calculado na forma prevista no respectivo Apêndice; d) Forma de Integralização: as Cotas Seniores serão integralizadas mediante chamadas de capital, junto ao seu respectivo agente de custódia e/ou da Administradora na qualidade de escriturador das cotas, nos termos d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/62696791000193/1148821_documentary_review.pdf",
+          "sha256": "86900e9dd498403696bfffbd4196443c83ec4d51ff21135e073c1966e1adf4c0",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "issue_volume",
+      "label": "Volume, VNU e emissão",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "2ª emissão de 27/03/2026: até 150.000 cotas seniores×R$ 1.000=R$ 150 milhões; até 20.000 cotas júnior×R$ 1.000=R$ 20 milhões. Colocação privada, subscrição até 180 dias; sênior integralizada via chamadas de capital, júnior à vista.",
+      "sources": [
+        {
+          "document_id": 1148821,
+          "title": "Instrumento Particular de Emissão de Cotas",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148821",
+          "reference_date": "27/03/2026",
+          "version": "Instrumento Particular de Emissão de Cotas — referência 27/03/2026",
+          "page": "1",
+          "clause": "Deliberação Conjunta, item1",
+          "excerpt": "1. Aprovar a 2ª (segunda) emissão da Subclasse Subordinada Júnior da Classe, composta por até 20.000 (vinte mil) Cotas Subordinadas Júnior, com valor nominal unitário de R$ 1.000,00 (mil reais), perfazendo o montante total de R$ 20.000.000,00 (vinte milhões de reais), as quais serão objeto de colocação privada, de acordo com os termos e condições definidos no Apêndice da Subclasse Subordinada Júnior constante do Anexo I Regulamento e descritas abaixo (“2ª Emissão da Subclasse Subordinada Júnior”): a) Rito: as Cotas Subordinadas Júnior objeto da 2ª Emissão da Subclasse Subordinada Júnior não estão sujeitas a regulamentação de oferta de valores mobiliários, conforme facultado pelo Art. 8º, II, da Resolução CVM nº 160, de 13 de julho de 2022; b) Preço de Emissão por Cota: R$ 1.000,00 (mil reais), nos termos do respectivo boletim de subscrição; c) Preço de Integralização: o valor unitário da Cota Subordinada Júnior na data de integralização, calculado na forma prevista no respectivo Apêndice; BTG Pactual 1 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/62696791000193/1148821_documentary_review.pdf",
+          "sha256": "86900e9dd498403696bfffbd4196443c83ec4d51ff21135e073c1966e1adf4c0",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        },
+        {
+          "document_id": 1148821,
+          "title": "Instrumento Particular de Emissão de Cotas",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1148821",
+          "reference_date": "27/03/2026",
+          "version": "Instrumento Particular de Emissão de Cotas — referência 27/03/2026",
+          "page": "2",
+          "clause": "Deliberação Conjunta, item2",
+          "excerpt": "2. Aprovar a 2ª (segunda) emissão da Subclasse Sênior da Classe, composta por até 150.000 (cento e cinquenta mil) Cotas Seniores, com valor nominal unitário de R$ 1.000,00 (mil reais), perfazendo o montante total de R$ 150.000.000,00 (cento e cinquenta milhões de reais), as quais serão objeto de colocação privada, de acordo com os termos e condições descritos no Apêndice da Subclasse Sênior constante do Anexo I Regulamento e descritas abaixo (“2ª Emissão da Subclasse Sênior”): a) Rito: as Cotas Seniores objeto da 2ª Emissão da Subclasse Sênior não estão sujeitas a regulamentação de oferta de valores mobiliários, conforme facultado pelo Art. 8º, II, da Resolução CVM nº 160, de 13 de julho de 2022; b) Preço de Emissão por Cota: R$ 1.000,00 (mil reais), nos termos do respectivo boletim de subscrição; c) Preço de Integralização: o valor unitário da Cota Sênior na data de integralização, calculado na forma prevista no respectivo Apêndice; d) Forma de Integralização: as Cotas Seniores serão integralizadas mediante chamadas de capital, junto ao seu respectivo agente de custódia e/ou da Administradora na qualidade de escriturador das cotas, nos termos d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/62696791000193/1148821_documentary_review.pdf",
+          "sha256": "86900e9dd498403696bfffbd4196443c83ec4d51ff21135e073c1966e1adf4c0",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+        }
+      ],
+      "risk_note": "Volumes autorizados de emissão não comprovam captação ou integralização observada."
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": [],
+  "identity_evidence": {
+    "document_id": 1143319,
+    "title": "AGE",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1143319",
+    "reference_date": "20/03/2026 10:00",
+    "version": "AGE — referência 20/03/2026 10:00",
+    "page": "1",
+    "clause": "AGC, cabeçalho e4.1",
+    "excerpt": "CNPJ: 62.696.791/0001-93 (“Classe”) 1. DATA, HORÁRIO E LOCAL: Às 10:00 horas do dia 20 de março de 2026, realizada remotamente a partir da sede da BTG PACTUAL SERVIÇOS FINANCEIROS S.A. DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS, sociedade por ações, com sede no município e estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ”) sob o nº 59.281.253/0001-23 e devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declaratório nº 8.695, de 20 de março de 2006, neste ato representada na forma do seu estatuto social (\"Administradora\"). 2. PRESENÇA: Cotistas detentores da totalidade das cotas de emissão da Classe, de forma que restou dispensada a convocação da presente Assembleia. 3. MESA: Presidente: Bárbara Kjaer; e Secretária: Tais Calou. 4. DELIBERAÇÕES POR UNANIMIDADE: Os Cotistas deliberaram, por unanimidade, sem quaisquer reservas ou restrições: 4.1. Aprovar a transformação do Fundo, bem como de sua Classe única, em um fundo de investimento nas cadeias produtivas do agronegócio (“Transformaç",
+    "local_path": "/Users/matheusjprates/.codex/worktrees/curadoria-documental-completa/fidc/data/documentary_diligence/raw/62696791000193/1143319_assembleia.pdf",
+    "sha256": "9f85107df59eee9a6a3c244169a4d5e09cb37f4109e0ef832406c46ce5bc7155",
+    "identity_verified": true,
+    "identity_verification": "Nome exato da classe no regulamento; AGC 1143319 e emissão 1148821 identificam CNPJ 62.696.791/0001-93 e a transformação em FIAGRO"
+  }
+}

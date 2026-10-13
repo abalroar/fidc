@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "57752597000148",
+  "name": "AGROMERCANTIL CRÉDITO AGRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:16Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:08:47Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200681,
+          "reference_date": "21/05/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+          "source_excerpt": ", base de 252\n      (duzentos e cinquenta e dois) Dias Úteis, calculada e divulgada diariamente pela\n      B3,    no       informativo   diário   disponível   em   sua   página   na   Internet\n      (http://www.b3.com.br);\n\n\n17.   “Cedente”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de\n      Uberlândia, estado de Minas Gerais, na Rua Beijos Brancos, 374 - Cidade Jardim -\n      Uberlândia-MG; CEP: 384"
+        },
+        {
+          "document_id": 1100627,
+          "reference_date": "21/01/2026",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1100627",
+          "source_excerpt": "no, base de 252\n      (duzentos e cinquenta e dois) Dias Úteis, calculada e divulgada diariamente pela\n      B3,   no    informativo   diário   disponível   em    sua   página    na   Internet\n      (http://www.b3.com.br);\n\n\n17.   “Cedente”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de\n      Uberlândia, estado de Minas Gerais, na Rua General Osório, nº 243, Fundinho, CEP\n      38400-158, inscrita no"
+        },
+        {
+          "document_id": 839563,
+          "reference_date": "17/10/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839563",
+          "source_excerpt": "nquenta e dois) Dias Úteis, calculada e divulgada diariamente pela\n                       B3,     no      informativo   diário   disponível   em   sua   página   na   Internet\n                       (http://www.b3.com.br);\n\n\n\n\nClicksign f554f74f-470c-4a8c-8488-6643f3eb5cd2"
+        },
+        {
+          "document_id": 845327,
+          "reference_date": "06/02/2025",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845327",
+          "source_excerpt": "base de 252 (duzentos e cinquenta e dois) Dias Úteis, calculada e divulgada\n                  diariamente pela B3, no informativo diário disponível em sua página na\n                  Internet (http://www.b3.com.br);\n\n\n        19.       “Cedente”: a AGROMERCANTIL S/A, sociedade por ações, com sede na\n                  cidade de Uberlândia, estado de Minas Gerais, na Rua General Osório, nº 243,\n                  F"
+        },
+        {
+          "document_id": 934846,
+          "reference_date": "27/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=934846",
+          "source_excerpt": "B3,     no     informativo        diário     disponível     em    sua   página     na     Internet\n                      (http://www.b3.com.br);\n\n\n             19.      “Cedente”: a AGROMERCANTIL S/A, sociedade por ações, com sede na cidade de\n                      Uberlândia, estado de Minas Gerais, na Rua General Osório, nº 243, Fundinho, C"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200681,
+          "reference_date": "21/05/2026",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200681",
+          "source_excerpt": "e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no\n      site da Secretaria de Fazenda SEFAZ da circunscrição do Cedente;\n\n\n6.    “Conta da Classe”: a conta corrente mantida pela Classe Única do Fundo, junto ao\n      Custodiante, que será utili"
+        },
+        {
+          "document_id": 1100627,
+          "reference_date": "21/01/2026",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1100627",
+          "source_excerpt": "e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no\n      site da Secretaria de Fazenda SEFAZ da circunscrição do Cedente;\n\n\n6.    “Conta da Classe”: a conta mantida pela Classe Única do Fundo, junto ao\n      Custodiante, que será utilizada para"
+        },
+        {
+          "document_id": 839563,
+          "reference_date": "17/10/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=839563",
+          "source_excerpt": "e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no\n                       site da Secretaria de Fazenda SEFAZ da circunscrição do Cedente;\n\n\n             5.        “Conta da Classe”: a conta corrente mantida pela Classe Única do Fundo, junto ao"
+        },
+        {
+          "document_id": 845327,
+          "reference_date": "06/02/2025",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=845327",
+          "source_excerpt": "univocamente uma Nota Fiscal e faculta a verificação da\n                  sua      autorização          e      do      seu       conteúdo         no      ambiente          nacional\n                  (http://www.nfe.fazenda.gov.br) ou no site da Secretaria de Fazenda SEFAZ\n                  da circunscrição do Cedente;\n\n\n        6.        “Conta da Classe”: a conta corrente mantida pela Classe Única do Fundo, junto"
+        },
+        {
+          "document_id": 934846,
+          "reference_date": "27/06/2025",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=934846",
+          "source_excerpt": "e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no\n                      site da Secretaria de Fazenda SEFAZ da circunscrição do Cedente;\n\n\n             6.       “Conta da Classe”: a conta corrente mantida pela Classe Única do Fundo, junto ao"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

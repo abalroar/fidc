@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "cnpj": "59602002000101",
+  "name": "LARCA CONSIGNADO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:17Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:09:53Z",
+  "routes": [
+    {
+      "url": "https://www.daycoval.com.br/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1044672,
+          "reference_date": "17/11/2025",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044672",
+          "source_excerpt": "serviço de atendimento aos Cotistas,\n                responsável pelo esclarecimento de dúvidas e pelo recebimento de reclamações, por meio\n                do telefone: (11) 0800 775 0500, do e-mail: https://www.daycoval.com.br/) e do\n                endereço físico: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, cidade de São\n                Paulo, Estado de São Paulo.\n\n                13.              FORO"
+        },
+        {
+          "document_id": 1181571,
+          "reference_date": "27/04/2026",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1181571",
+          "source_excerpt": "serviço de atendimento aos Cotistas,\n                responsável pelo esclarecimento de dúvidas e pelo recebimento de reclamações, por meio\n                do telefone: (11) 0800 775 0500, do e-mail: https://www.daycoval.com.br/) e do\n                endereço físico: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, cidade de São\n                Paulo, Estado de São Paulo.\n\n                13.             FORO"
+        },
+        {
+          "document_id": 864138,
+          "reference_date": "14/03/2025",
+          "page": 38,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864138",
+          "source_excerpt": "iliza o serviço de atendimento aos Cotistas, responsável\n            pelo esclarecimento de dúvidas e pelo recebimento de reclamações, por meio do telefone:\n            (11) 0800 775 0500, do e-mail: https://www.daycoval.com.br/) e do endereço físico:\n            Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, cidade de São Paulo, Estado de\n            São Paulo.\n\n\n            13.              FORO\n\n\n            13.1."
+        },
+        {
+          "document_id": 913144,
+          "reference_date": "27/05/2025",
+          "page": 32,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=913144",
+          "source_excerpt": "serviço de atendimento aos Cotistas,\n                responsável pelo esclarecimento de dúvidas e pelo recebimento de reclamações, por meio\n                do telefone: (11) 0800 775 0500, do e-mail: https://www.daycoval.com.br/) e do\n                endereço físico: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, cidade de São\n                Paulo, Estado de São Paulo.\n\n                13.              FORO"
+        },
+        {
+          "document_id": 952485,
+          "reference_date": "21/07/2025",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952485",
+          "source_excerpt": "serviço de atendimento aos Cotistas,\n                responsável pelo esclarecimento de dúvidas e pelo recebimento de reclamações, por meio\n                do telefone: (11) 0800 775 0500, do e-mail: https://www.daycoval.com.br/) e do\n                endereço físico: Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, cidade de São\n                Paulo, Estado de São Paulo.\n\n                13.             FORO"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:07Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "retrizes e boas\n                                             práticas estabelecidas para o processo de avaliação. A política completa\n                                             pode ser acessada em www.liberumratings.com.br.\n\n\n\n\nID 1739220339833                                                                                                               Página 2 de 18"
+        },
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "s para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas disponível no\n                               site da Liberum Ratings. www.liberumratings.com.br\n\nPROCESSO DE DILIGÊNCIA         A presente avaliação se apoiou, entre outros, no uso de bases de dados\nSOBRE OS ATIVOS DE FINANÇAS    históricas e comparativas para este tipo de ativo e o uso de mode"
+        },
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "ta anual da Liberum Ratings?\nNão.A Liberum Ratings publica anualmente a lista de entidades que representam mais do que 5% do seu\nfaturamento em seu Formulário do Anexo 13. Acesse o formulário no site www.liberumratings.com.br.\n\nA Liberum Ratings, seus analistas de classificação de risco de crédito ou demais pessoas envolvidas no processo\nde emissão de uma determinada classificação de risco, seus cônjuges, dependentes ou co"
+        },
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "nformações contidas e/ou\ndisseminadas pelo website da Liberum Ratings.\n\nOs ratings e quaisquer outras opiniões emitidas pela Liberum Ratings, ou outros materiais, são disponibilizados em\nseu website (www.liberumratings.com.br). Tais publicações são meras opiniões e devem ser interpretadas como tal.\nDe nenhum modo e sob nenhuma circunstância devem ser consideradas como fatos ou verdades sobre a capacidade\nde crédito do emiss"
+        },
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "classificações de risco\nemitidas pela Liberum Ratings podem ser alteradas, suspensas ou retiradas a qualquer momento. Os ratings públicos\nemitidos pela Liberum Ratings são atualizados em seu website (www.liberumratings.com.br).\n\nNa maior parte dos casos, os trabalhos realizados pela Liberum Ratings são remunerados pelos emissores,\nestruturadores ou garantidores dos ativos avaliados.\n\n\n\n\ncontato@liberumratings.com.br\n+55 (11"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br/pt/publications-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "LIMITADA\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        },
+        {
+          "document_id": 1037286,
+          "reference_date": "07/11/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1037286",
+          "source_excerpt": "LIMITADA\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        },
+        {
+          "document_id": 1186616,
+          "reference_date": "24/03/2026",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186616",
+          "source_excerpt": "LIMITADA\n\n\n\n\nCRITÉRIOS DA ANÁLISE\nMETODOLOGIA UTILIZADA          Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                               Monitoramento. Saiba mais em: www.liberumratings.com.br/pt/publications-\n                               methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais e"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-scales.php",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 916960,
+          "reference_date": "13/05/2025",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=916960",
+          "source_excerpt": "methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        },
+        {
+          "document_id": 1037286,
+          "reference_date": "07/11/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1037286",
+          "source_excerpt": "methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        },
+        {
+          "document_id": 1186616,
+          "reference_date": "24/03/2026",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1186616",
+          "source_excerpt": "methodologies.php\n\nESCALAS DE AVALIAÇÃO           Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                               Saiba mais em: http://www.liberumratings.com.br/pt/publications-scales.php\n\nFREQUÊNCIA DE                  A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                  descrita na Metodologia de Ratings de Finanças Estruturadas"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:45Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-scales.php",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.liberumratings.com.br/pt/publications-methodologies.php",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 917114,
+          "reference_date": "29/05/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917114",
+          "source_excerpt": "NÁLISE\nMETODOLOGIA UTILIZADA         Metodologia(s) Liberum Ratings de Finanças Estruturadas e Metodologia de\n                              Monitoramento. Saiba mais em:\n                              www.liberumratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO          Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                              Saiba mais em: http://www.liberumratings.com.br/pt/publications"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:19Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-methodologies.php",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.liberumratings.com.br/pt/publications-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 917114,
+          "reference_date": "29/05/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=917114",
+          "source_excerpt": "ratings.com.br/pt/publications-methodologies.php\n\nESCALAS DE AVALIAÇÃO          Escala(s) Liberum Ratings de Crédito - Longo Prazo / Crédito - Curto Prazo\n                              Saiba mais em: http://www.liberumratings.com.br/pt/publications-\n                              scales.php\n\nFREQUÊNCIA DE                 A política de monitoramento de ratings para esta(s) classe(s) de ativo(s) é\nMONITORAMENTO                 descrita na Metodolog"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:45Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "517",
+        "final_url": "https://www.liberumratings.com.br/pt/publications-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

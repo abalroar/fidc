@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "cnpj": "48946335000123",
+  "name": "NAGRO OIKOS FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO",
+  "generated_at": "2026-10-13T05:30:08Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:00:44Z",
+  "routes": [
+    {
+      "url": "https://vortx.com.br/investidor/fundos-investimento",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 881378,
+          "reference_date": "15/04/2025",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=881378",
+          "source_excerpt": "XXI.     “Site da Administradora”: https://vortx.com.br/investidor/fundos-investimento\n\nXXII.    “Site da Gestora”: https://oikoswm.com/\n\nXXIII.   “Taxa Máxima de Distribuição”: signiﬁca a taxa cobrada do Fundo, representativa do\n         montante total para remuneração dos distribuido"
+        },
+        {
+          "document_id": 792046,
+          "reference_date": "29/11/2024",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792046",
+          "source_excerpt": "ezembro de 2022,\n          conforme alterada;\n\nXXII.     “Resolução CVM 30”: significa a resolução CVM nº 30, de 13 de julho de 2021, conforme\n          alterada;\n\nXXIII.    “Site da Administradora”: https://vortx.com.br/investidor/fundos-investimento\n\nXXIV.     “Site da Gestora”: https://oikoswm.com/\n\nXXV.      “Taxa Máxima de Distribuição”: significa a taxa cobrada do Fundo, representativa do\n          montante total para remuneração dos distrib"
+        },
+        {
+          "document_id": 863905,
+          "reference_date": "29/11/2024",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863905",
+          "source_excerpt": "ezembro de 2022,\n          conforme alterada;\n\nXXII.     “Resolução CVM 30”: significa a resolução CVM nº 30, de 13 de julho de 2021, conforme\n          alterada;\n\nXXIII.    “Site da Administradora”: https://vortx.com.br/investidor/fundos-investimento\n\nXXIV.     “Site da Gestora”: https://oikoswm.com/\n\nXXV.      “Taxa Máxima de Distribuição”: significa a taxa cobrada do Fundo, representativa do\n          montante total para remuneração dos distrib"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:25Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.vortx.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 881378,
+          "reference_date": "15/04/2025",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=881378",
+          "source_excerpt": "nte a utilização de\nmetodologia de apuração do valor dos Direitos Creditórios e dos demais ativos ﬁnanceiros\nintegrantes da respectiva carteira, disponível para consulta no website da Administradora\n(www.vortx.com.br).\n\n10.2.2. O Administrador constituirá provisão para perdas com devedores duvidosos (“PDD”) para\nDireitos Creditórios Adquiridos de acordo com a seguinte metodologia:\n\n\n           I. Até 60 (sessenta)"
+        },
+        {
+          "document_id": 881378,
+          "reference_date": "15/04/2025",
+          "page": 76,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=881378",
+          "source_excerpt": "o, pelo Agente de Depósito, de suas obrigações nos termos deste\nRegulamento e do Contrato de Depósito. Tais regras e procedimentos encontram-se disponíveis\npara consulta no website da Administradora (www.vortx.com.br).\n\n17.7.   Cobrança Judicial e Extrajudicial\n\n17.7.1.  O Gestor, em nome da Classe, poderá contratar o Agente de Cobrança para cobrar\nextrajudicialmente e judicialmente, em nome na Classe, os Direitos"
+        },
+        {
+          "document_id": 1000248,
+          "reference_date": "29/09/2025",
+          "page": 45,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+          "source_excerpt": "nte a utilização de\nmetodologia de apuração do valor dos Direitos Creditórios e dos demais ativos ﬁnanceiros\nintegrantes da respectiva carteira, disponível para consulta no website da Administradora\n(www.vortx.com.br).\n\n10.2.2. A Administradora constituirá provisão para perdas com devedores duvidosos (“PDD”)\npara Direitos Creditórios Adquiridos de acordo com a seguinte metodologia:\n\n   i.     até 60 (sessenta) dias"
+        },
+        {
+          "document_id": 1000248,
+          "reference_date": "29/09/2025",
+          "page": 79,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+          "source_excerpt": "o, pelo Agente de Depósito, de suas obrigações nos termos deste\nRegulamento e do Contrato de Depósito. Tais regras e procedimentos encontram-se disponíveis\npara consulta no website da Administradora (www.vortx.com.br).\n\n19.7.   Cobrança Judicial e Extrajudicial\n\n19.7.1.  A Gestora, em nome da Classe, poderá contratar o Agente de Cobrança para cobrar\nextrajudicialmente e judicialmente, em nome na Classe, os Direitos"
+        },
+        {
+          "document_id": 420419,
+          "reference_date": "22/02/2023",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=420419",
+          "source_excerpt": "suas\nobrigações descritas neste Regulamento e no Contrato de Gestão. Tais regras e procedimentos\nencontram-se descritos no Contrato de Gestão e disponíveis para consulta no website da\nAdministradora (https://www.vortx.com.br).\n\n\nParágrafo Sexto – Não há cobrança de taxa de ingresso e de saída do Fundo.\n\n\nArtigo 16 – Sem prejuízo do Artigo 14 acima, o Fundo pagará mensalmente, a cada um dos\nAgentes de Cobrança Extrajudicial"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:16Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "263951",
+        "final_url": "https://www.vortx.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 881378,
+          "reference_date": "15/04/2025",
+          "page": 107,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=881378",
+          "source_excerpt": "sas na forma percentual ao ano, base 252 (duzentos\n            e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\n            diário disponível em sua página na internet (www.b3.com.br);\n\nCL.         “Taxa Máxima de Custódia”: signiﬁca a taxa cobrada do Fundo, representativa do\n            montante total para remuneração do Custodiante, conforme prevista neste Anexo;"
+        },
+        {
+          "document_id": 1000248,
+          "reference_date": "29/09/2025",
+          "page": 116,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+          "source_excerpt": "pressas na forma percentual ao ano, base 252 (duzentos e\n          cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo diário\n          disponível em sua página na internet (www.b3.com.br);\n\nCLIX.     “Taxa de Gestão”: signiﬁca a taxa semestral que é devida à Gestora, nos termos do\n          item 8.3 deste Regulamento;\n\nCLX.      “Taxa Máxima de Custódia”: signiﬁca a taxa cobrada da Cla"
+        },
+        {
+          "document_id": 792046,
+          "reference_date": "29/11/2024",
+          "page": 108,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=792046",
+          "source_excerpt": "essas na forma percentual ao ano, base 252 (duzentos\n           e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\n           diário disponível em sua página na internet (www.b3.com.br);\n\nCLII.      “Taxa Máxima de Custódia”: significa a taxa cobrada do Fundo, representativa do\n           montante total para remuneração do Custodiante, conforme prevista neste Anexo;"
+        },
+        {
+          "document_id": 863905,
+          "reference_date": "29/11/2024",
+          "page": 106,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863905",
+          "source_excerpt": "essas na forma percentual ao ano, base 252 (duzentos\n           e cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo\n           diário disponível em sua página na internet (www.b3.com.br);\n\nCLII.      “Taxa Máxima de Custódia”: significa a taxa cobrada do Fundo, representativa do\n           montante total para remuneração do Custodiante, conforme prevista neste Anexo;"
+        },
+        {
+          "document_id": 1276588,
+          "reference_date": "04/08/2026",
+          "page": 116,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+          "source_excerpt": "sas na forma percentual ao ano, base 252 (duzentos e\n            cinquenta e dois) Dias Úteis, calculadas e divulgadas pela B3, no informativo diário\n            disponível em sua página na internet (www.b3.com.br);\n\nCLIX.       “Taxa de Gestão”: signiﬁca a taxa semestral que é devida à Gestora, nos termos do\n             item 8.3 deste Regulamento;\n\nCLX.      “Taxa Máxima de Custódia”: signiﬁca a taxa cobrada d"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://vortx.com.br/static/assets/manuais/Z4%20-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 436803,
+          "reference_date": "28/03/2023",
+          "page": 41,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=436803",
+          "source_excerpt": "acordo com os termos estabelecidos no manual de provisão\n       para perdas por redução no valor de recuperação ou provisão para perdas com devedores\n       duvidosos,        disponível      em       https://vortx.com.br/static/assets/manuais/Z4%20-\n       %20GERENCIAMENTO%20DE%20RISCOS%20-%20PDD.v6.pdf.\n\n       Artigo 119 - As Cotas devem ser registradas pelo valor respectivo para amortização ou\n       resgate, respeitadas as características de"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:32Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 545638,
+          "reference_date": "30/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545638",
+          "source_excerpt": "e setembro de 2023. Essa reunião foi registrada na Ata Nº 20230929-3.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n    em: http://www.austin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 589986,
+          "reference_date": "29/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=589986",
+          "source_excerpt": "dezembro de 2023. Essa reunião foi registrada na Ata Nº 20231229-19.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n    em: http://www.austin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 686001,
+          "reference_date": "29/12/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686001",
+          "source_excerpt": "2 de abril de 2024. Essa reunião foi registrada na Ata Nº 20240402-3.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n    em: http://www.austin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        },
+        {
+          "document_id": 686064,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686064",
+          "source_excerpt": "23 de maio de 2024. Essa reunião foi registrada na Ata Nº 20240523-2.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n    em: http://www.austin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 545638,
+          "reference_date": "30/06/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545638",
+          "source_excerpt": "ustin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pela Austin Rating estão sujeitas a diversa"
+        },
+        {
+          "document_id": 589986,
+          "reference_date": "29/09/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=589986",
+          "source_excerpt": "ustin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pela Austin Rating estão sujeitas a diversa"
+        },
+        {
+          "document_id": 686001,
+          "reference_date": "29/12/2023",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686001",
+          "source_excerpt": "ustin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pela Austin Rating estão sujeitas a diversa"
+        },
+        {
+          "document_id": 686064,
+          "reference_date": "28/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=686064",
+          "source_excerpt": "ustin.com.br/escalas.\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pela Austin Rating estão sujeitas a diversa"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 975244,
+          "reference_date": "25/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975244",
+          "source_excerpt": "fevereiro de 2025. Essa reunião foi registrada na Ata Nº 20250225-5.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível\n    em: https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: https://www.austin.co"
+        },
+        {
+          "document_id": 983730,
+          "reference_date": "24/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=983730",
+          "source_excerpt": "4 de junho de 2025. Essa reunião foi registrada na Ata Nº 20250624-2.\n2. As classificações atribuídas às Cotas integram a “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações de\n    Securitização       de       Recebíveis,        disponível      e"
+        }
+      ],
+      "probe": {
+        "status": "reachable_candidate_document",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:40Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "content_length": "78238",
+        "final_url": "https://www.austin.com.br/Documentos/Escalas-Rating-FIDCs_FICFIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      },
+      "document_scope": "generic_rating_scale",
+      "fund_binding_verified": false,
+      "note": "Escala genérica da agência; não constitui relatório ou rating deste fundo."
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 975244,
+          "reference_date": "25/02/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=975244",
+          "source_excerpt": "g-FIDCs_FICFIDCs.html\n3. As classificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: https://www.austin.com.br/Documentos/Metodologia-\n    Rating-Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pe"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Documentos/Metodologia-Rating-",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 983730,
+          "reference_date": "24/06/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=983730",
+          "source_excerpt": "ssificações decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas classificações de\n    Securitização       de       Recebíveis,        disponível      em:        https://www.austin.com.br/Documentos/Metodologia-Rating-\n    Securiticacao_Recebiveis.html\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes.\n5. As classificações de risco de crédito atribuídas pela Aust"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:41Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

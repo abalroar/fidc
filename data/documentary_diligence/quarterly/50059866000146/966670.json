@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "50059866000146",
+  "quarter": "2025-Q2",
+  "competence": "06/2025",
+  "quarter_source": "document_catalog",
+  "status": "parsed",
+  "parse_status": "complete",
+  "fields": [],
+  "pages": [
+    {
+      "page": 1,
+      "text": "DEMONSTRATIVO TRIMESTRAL\n\n                                          PAGALEVE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS DE RESPONSABILIDADE\nFundo:                                                                                                                    LIMITADA\nCNPJ:                                                                                                            50.059.866/0001-46\nPeríodo de Referência:                                                                                            2º Trimestre/2025\nData Base:                                                                                                               30/06/2025\n\nI. Composição da Carteira\n\nA seguir segue a composição da Carteira em 30/06/2025\n\n                                                        Descrição                  Valor (R$)        % sob PL\n                                          Disponibilidades                            993.499,82            2,35%\n                                          Títulos Públicos Federais                   100.560,85            0,24%\n                                          Cotas de Fundo                                  100,00            0,00%\n                                          Operações de Crédito                     46.823.579,63         110,54%\n                                          Provisão para Perdas (PDD)               (1.729.729,63)          -4,08%\n                                          Valores a Receber                            11.693,55            0,03%\n                                          Contas a Pagar                           (3.840.527,61)          -9,07%\n                                          Patrimônio Líquido                       42.359.176,61         100,00%\n\n\n\nIV. Processos Judiciais e/ou Administrativos:\n\nO Fundo apresenta os seguintes processos judiciais e/ou administrativos:\n\n\nNão existe ação judicial de cobrança ou propositura de processo administrativo, judicial ou arbitral, envolvendo a Classe de Cotas.\n\n\nV. Informações do Gestor:\n\na) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de ativos;\n\n\nNão houve alteração na politica de investimento no período de referencia\n\n\nb) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de direitos creditórios no trimestre:\n\n  i. critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros\n  demonstrativos trimestrais; e\n\nNão ocorreram alterações quanto aos critérios de concessão de crédito da Classe no trimestre analisado.\n\n\n\n  ii. eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido\n  descritos no regulamento ou em outros demonstrativos trimestrais;\n\nNão ocorreram alterações quanto aos critérios de concessão de crédito da Classe no trimestre analisado.\n\n\n\nc) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n\nNão ocorreram alterações nas garantias com impacto relevante na carteira\n\n\n\nd) forma como se operou a cessão dos direitos creditórios, incluindo:\n\n  a) descrição de contratos relevantes firmados com esse propósito, se houver; e\n\nNão houve contratos relevantes firmados no período do trimestre analisado\n\n\n\n  b) indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n\n\nNão houve contratos relevantes firmados no período do trimestre analisado"
+    },
+    {
+      "page": 2,
+      "text": "e) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da carteira;\n\n\nNão houveram pré-pagamentos\n\n\nf) condições de alienação, a qualquer título, de direitos creditórios, incluindo: a) momento da alienação (antes ou depois do vencimento); e, b)\nmotivação da alienação;\n\n\nNão houve alienação no trimestre\n\n\ng) impacto no valor do patrimônio líquido e na rentabilidade da carteira de ativos de uma possível descontinuidade, a qualquer título, da\noriginação ou cessão de direitos creditórios; e\n\n\nNão houve alienação no período.\n\n\nh) informações sobre fatos ocorridos que afetaram a regularidade dos fluxos financeiros oriundos dos direitos creditórios, incluindo, mas não se\nlimitando, a quaisquer eventos que acarretem na liquidação ou amortização antecipada de direitos creditórios.\n\n\nNão houve ocorrências que afetaram a regularidade dos fluxos de pagamentos previstos.\n\n\n\nLimine Trust DTVM Ltda."
+    }
+  ],
+  "pages_total": 2,
+  "pages_extracted": 2,
+  "source": {
+    "type": "quarterly_pdf",
+    "document_id": "966670",
+    "reference_date": "06/2025",
+    "delivered_at": "12/08/2025 21:15",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=966670",
+    "sha256": "4feaabb04bb1a4050928c8a82935f24ce126916258e4e97cc0d31895a1fe44c2",
+    "identity_verified": true
+  },
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "50059866000146",
+    "cnpj_fundo": "50059866000146",
+    "cnpj_classe": "",
+    "header_fields": [
+      {
+        "cnpj": "50059866000146",
+        "page": 1,
+        "text": "IDADE\nFundo:                                                                                                                    LIMITADA\nCNPJ:                                                                                                            50.059.866/0001-46\nPeríodo de Referência:                                                                                            2º Trimestre/2025\nData Base:"
+      }
+    ],
+    "header_cnpj": "50059866000146",
+    "basis": "exact requested CNPJ in first physical page",
+    "page": 1
+  },
+  "parsed_at": "2026-10-13T05:33:11Z",
+  "error": ""
+}

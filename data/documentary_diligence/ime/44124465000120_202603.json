@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "44124465000120",
+  "competence": "03/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 360892.59,
+    "credit_rights": 0.0,
+    "overdue_credit": 0.0,
+    "cash": 5600.9,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 360892.59001119557,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 360892.59001119557
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "44124465000120",
+    "competence": "03/2026",
+    "path": "data/documentary_diligence/ime/44124465000120_202603.json",
+    "reported_fund_cnpj": "44124465000120",
+    "reported_class_cnpj": "44124465000120",
+    "reported_fund_cnpj_raw": "44124465000120",
+    "reported_class_cnpj_raw": "44124465000120",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1160002",
+    "version": 1,
+    "delivered_at": "13/04/2026 14:33",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160002",
+    "declared_fields_sha256": "88656cd8ee03d7a4c337d9269f3d4e1e5294aedfe4f287723d0565d65b46d418"
+  },
+  "error": ""
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "cnpj": "63953620000165",
+  "relationship": "class_of_fund",
+  "status": "verified",
+  "fund_cnpj": "63953619000130",
+  "class_cnpj": "63953620000165",
+  "class_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+  "effective_from": "2025-12-05",
+  "registry_fund_id": "15695",
+  "registry_class_id": "33546",
+  "allowed_header_layout": "fund_class_inverted",
+  "allowed_header_pair": {
+    "NR_CNPJ_FUNDO": "63953620000165",
+    "NR_CNPJ_CLASSE": "63953619000130"
+  },
+  "sources": [
+    {
+      "document_id": "cvm-registro-fundo-15695-classe-33546",
+      "title": "Cadastro CVM de fundos e classes: vínculo por ID_Registro_Fundo",
+      "url": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
+      "reference_date": "2025-12-05",
+      "version": "Registro Fundo15695; Classe33546; snapshot local identificado por SHA256",
+      "clause": "registro_fundo.csv: ID_Registro_Fundo=15695; registro_classe.csv: ID_Registro_Classe=33546, ID_Registro_Fundo=15695",
+      "sha256": "177485618af2239f2b451972fb6e46b217580b50a3bf70cdf01938882e415f93",
+      "identity_verified": true,
+      "excerpt": "{\"CNPJ_Fundo\": \"63953619000130\", \"ID_Registro_Fundo\": \"15695\", \"CNPJ_Classe\": \"63953620000165\", \"ID_Registro_Classe\": \"33546\", \"Denominacao_Classe\": \"CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA\", \"Data_Registro_Classe\": \"2025-12-05\"}"
+    },
+    {
+      "document_id": 1222863,
+      "title": "Anexo ao Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222863",
+      "reference_date": "02/06/2026",
+      "version": "AnexoI específico da Classe Consignado Privado",
+      "page": "1",
+      "clause": "AnexoI,1.1",
+      "sha256": "71399bc1b41829bdfa10310500cada714a9f517b1440504ba7dc647dbefafdc9",
+      "identity_verified": true,
+      "excerpt": "Anexo I ao Regulamento CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ANEXO I MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 As principais características da Classe Consignado Privado (para fins deste Anexo, “Classe”) estão descritas abaixo:"
+    },
+    {
+      "document_id": 1222860,
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1222860",
+      "reference_date": "2026-06-12",
+      "version": "AGC de 12/06/2026; efeitos das taxas no fechamento de 01/06/2026",
+      "page": "1",
+      "clause": "Cabeçalho e deliberação4(i)(a)–(d)",
+      "sha256": "7b23ee63cd7e3df39fb0ddd1eba37277dea6600d607a6c77022ae4452f74240c",
+      "identity_verified": true,
+      "excerpt": "ATA DA ASSEMBLEIA GERAL DE COTISTAS DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CNPJ: 63.953.619/0001-30 (“Fundo”) Os Cotistas deliberaram, por unanimidade, sem quaisquer reservas ou restrições: (i) Aprovar a alteração do Regulamento do Fundo, de forma que passe a vigorar na forma do Anexo I à presente ata, contemplando: (a) A alteração da Taxa de Gestão prevista no Anexo I – Classe Consignado Privado; (b) A alteração da Taxa de Gestão prevista no Anexo II – Classe INSS ; (c) A alteração da Taxa de Gestão prevista no Anexo III – Classe Cartão Benefício; e (d) A alteração da Taxa de Gestão prevista no Anexo IV – Classe FGTS. (ii) As deliberações aprovadas nesta Assembleia Geral passarão a ter efeito no fechamento do dia 01 de junho de 2026.",
+      "metadata_reference_date": "02/06/2026 10:00"
+    }
+  ],
+  "reason": "Cadastro CVM vincula os CNPJs por ID_Registro_Fundo, independentemente dos nomes. Layout permitido somente para esta dupla exata: campo de fundo contém CNPJ da classe CP e campo de classe contém CNPJ do respectivo fundo. Existem várias classes; não usar class_unique nem nome para ampliar a correspondência."
+}

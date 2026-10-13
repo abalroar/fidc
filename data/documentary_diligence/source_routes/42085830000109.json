@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "cnpj": "42085830000109",
+  "name": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+  "generated_at": "2026-10-13T05:30:00Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:46Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 966441,
+          "reference_date": "24/07/2025",
+          "page": 103,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=966441",
+          "source_excerpt": "e pela B3, no Informativo Diário,\n                                                  disponível       em       sua      página        na     internet\n                                                  (http://www.b3.com.br),           base    252     (duzentos     e\n                                                  cinquenta e dois) Dias Úteis, expressa na forma\n                                                  percentua"
+        },
+        {
+          "document_id": 259045,
+          "reference_date": "21/01/2022",
+          "page": 72,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=259045",
+          "source_excerpt": "ulgadas\n                                                  diariamente pela B3, no Informativo Diário, disponível em sua\n                                                  página     na    internet    (http://www.b3.com.br),        base   252\n\n\n\n                                                                                                        Página 72 de 78"
+        },
+        {
+          "document_id": 513483,
+          "reference_date": "28/08/2023",
+          "page": 73,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=513483",
+          "source_excerpt": "lgadas\n                                                  diariamente pela B3, no Informativo Diário, disponível em sua\n                                                  página      na    internet    (http://www.b3.com.br),          base   252\n                                                  (duzentos e cinquenta e dois) Dias Úteis, expressa na forma\n                                                  percentual ao ano."
+        },
+        {
+          "document_id": 733255,
+          "reference_date": "05/09/2024",
+          "page": 105,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=733255",
+          "source_excerpt": "iamente pela B3, no Informativo Diário,\n                                                  disponível    em      sua      página      na     internet\n                                                  (http://www.b3.com.br),     base    252     (duzentos   e\n                                                  cinquenta e dois) Dias Úteis, expressa na forma\n                                                  percentual ao ano"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 257875,
+          "reference_date": "20/05/2021",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=257875",
+          "source_excerpt": "viços do Fundo estão devidamente qualificados no Formulário de\nInformações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\nValores Mobiliários – CVM (www.cvm.gov.br).\n\nCAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n\nArtigo 10       Para efeito da regulamentação em vigor, o FUNDO, em função da composição de sua carteira de\ninvestimentos, classific"
+        },
+        {
+          "document_id": 257875,
+          "reference_date": "20/05/2021",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=257875",
+          "source_excerpt": "go 48      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\ndo Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\nArtigo 49      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\ncomo o dia em que não houver expediente bancário, em virtude de determinações de órgãos com"
+        },
+        {
+          "document_id": 257875,
+          "reference_date": "20/05/2021",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=257875",
+          "source_excerpt": "o ou fato relevante será divulgado, ampla, obrigatória e imediatamente a todos os cotistas,\npor meio de da website do Administrador (www.gerafuturo.com.br) e na Comissão de Valores Mobiliários – CVM\n(www.cvm.gov.br), através do Sistema de Envio de Documentos.\nArtigo 54        O Administrador, desde que previamente solicitado pelo cotista, poderá disponibilizar informações\nadicionais sobre o Fundo, inclusive infor"
+        },
+        {
+          "document_id": 257877,
+          "reference_date": "12/01/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=257877",
+          "source_excerpt": "Fundo estão devidamente qualificados no Formulário de\n    Informações Complementares disponíveis nos websites do Administrador (www.gerafuturo.com.br) e da Comissão de\n    Valores Mobiliários – CVM (www.cvm.gov.br).\n\n    CAPÍTULO IV - DO OBJETIVO E DA POLÍTICA DE INVESTIMENTO DO FUNDO\n\n    Artigo 10       Para efeito da regulamentação em vigor, o FUNDO, em função da composição de sua carteira de\n    investimento"
+        },
+        {
+          "document_id": 257877,
+          "reference_date": "12/01/2022",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=257877",
+          "source_excerpt": "9      As regras de movimentação do Fundo estão descritas no Formulário de Informações Complementares\n    do Fundo, disponível no website do Administrador (www.gerafuturo.com.br) e no website da CVM (www.cvm.gov.br).\n\n    Artigo 50      Todo e qualquer feriado no âmbito estadual ou municipal na praça sede do ADMINISTRADOR, bem\n    como o dia em que não houver expediente bancário, em virtude de determinações de ór"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

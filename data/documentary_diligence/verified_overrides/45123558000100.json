@@ -1,0 +1,52 @@
+{
+  "cnpj": "45123558000100",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "extraction_pending",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": "1337333",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+          "reference_date": "2026-10-01",
+          "version": "1",
+          "page": 24,
+          "clause": "",
+          "excerpt": "(ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável;\n(b) certificados de recebíveis imobiliários lastreados em créditos imobiliários das cadeias produtivas do agronegócio (“CRI”); (c) Letras de Crédito do Agronegócio (“LCA”); (d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”); (e) cotas de outros Fiagros-Imobiliário cuja política de investimento seja compatível com a desta Classe Este I; (f)foi cotas  documento assinado de outros por  eletronicamente fundos de e Rodrigo  Cintia Santanainvestimento  Godoy. imobiliários, Fiagro ou fundos de  Para verificar as assinaturas investimento vá ao site  em direitos http://assinaturas.certisign.com.br  creditórios que apliquem emais utilize ode  código  50% 3099-DA21-87B8-AAC9.\n (cinquenta por cento) do seu",
+          "sha256": "ccf132e11f62eb022dff9a79eaa9e5671c1f1ff43170bc20c830800f2f2ce90a",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "reason": "Documento 1337333,p24 contém lista material de CRA/CRI/LCA/LCI,mas a passagem selecionada começa no item(d) e intercala rodapé de assinatura. A enumeração completa e sua delimitação não foram confirmadas nesta extração; fonte preservada para revisão dirigida.",
+      "risk_note": "Resposta anterior não conta como regra confirmada.",
+      "history": [
+        {
+          "reference_date": "2026-10-01",
+          "value": "(d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”); (e) cotas de outros Fiagros-Imobiliário cuja política de investimento seja compatível com a desta Classe Este I; (f)foi cotas documento assinado de outros por eletronicamente fundos de e Rodrigo Cintia Santanainvestimento Godoy. imobiliários, Fiagro ou fundos de Para verificar as assinaturas investimento vá ao site em direitos http://assinaturas.certisign.com.br creditórios que apliquem emais utilize ode código 50% 3099-DA21-87B8-AAC9. (cinquenta por cento) do seu.",
+          "sources": [
+            {
+              "document_id": "1337333",
+              "title": "Regulamento",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+              "reference_date": "2026-10-01",
+              "version": "1",
+              "page": 24,
+              "clause": "",
+              "excerpt": "(ii) (a) certificados de recebíveis do agronegócio (“CRA”), emitidos por companhias securitizadoras, observados os limites de concentração previstos na regulamentação aplicável;\n(b) certificados de recebíveis imobiliários lastreados em créditos imobiliários das cadeias produtivas do agronegócio (“CRI”); (c) Letras de Crédito do Agronegócio (“LCA”); (d) Letras de Credito Imobiliário lastreadas em créditos das cadeias produtivas do agronegócio (“LCI”); (e) cotas de outros Fiagros-Imobiliário cuja política de investimento seja compatível com a desta Classe Este I; (f)foi cotas  documento assinado de outros por  eletronicamente fundos de e Rodrigo  Cintia Santanainvestimento  Godoy. imobiliários, Fiagro ou fundos de  Para verificar as assinaturas investimento vá ao site  em direitos http://assinaturas.certisign.com.br  creditórios que apliquem emais utilize ode  código  50% 3099-DA21-87B8-AAC9.\n (cinquenta por cento) do seu",
+              "sha256": "ccf132e11f62eb022dff9a79eaa9e5671c1f1ff43170bc20c830800f2f2ce90a",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Trecho anterior rejeitado no QA; descrição incidental, enumeração interrompida ou tabela não recuperada.",
+          "provenance": "published_primary_answer_rejected"
+        }
+      ]
+    }
+  ]
+}

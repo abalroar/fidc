@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "cnpj": "65347578000164",
+  "name": "ICRED INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:20Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:12:18Z",
+  "routes": [
+    {
+      "url": "https://www.b3.com.br/pt_br/market-",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1324295,
+          "reference_date": "15/09/2026",
+          "page": 148,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324295",
+          "source_excerpt": "dois) Dias Úteis,\n                                                             divulgadas pela B3, disponibilizadas por meio do\n                                                             link:     https://www.b3.com.br/pt_br/market-\n                                                             data-e-indices/servicos-de-dados/market-\n                                                             data/consultas/mercado-de-derivativo"
+        },
+        {
+          "document_id": 1302835,
+          "reference_date": "20/08/2026",
+          "page": 148,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1302835",
+          "source_excerpt": "(duzentos e cinquenta e dois) Dias Úteis,\n                                           divulgadas pela B3, disponibilizadas por meio do\n                                           link:     https://www.b3.com.br/pt_br/market-\n                                           data-e-indices/servicos-de-dados/market-\n                                           data/consultas/mercado-de-derivativos/precos-"
+        },
+        {
+          "document_id": 1211821,
+          "reference_date": "25/05/2026",
+          "page": 148,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1211821",
+          "source_excerpt": "(duzentos e cinquenta e dois) Dias Úteis,\n                                           divulgadas pela B3, disponibilizadas por meio do\n                                           link:     https://www.b3.com.br/pt_br/market-\n                                           data-e-indices/servicos-de-dados/market-\n                                           data/consultas/mercado-de-derivativos/precos-"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:23Z",
+        "error": "TimeoutError: The read operation timed out"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br/pt_br/market-data-e-",
+      "source_type": "exchange",
+      "candidate_type": "assembleia",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1135444,
+          "reference_date": "12/03/2026",
+          "page": 124,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1135444",
+          "source_excerpt": "ta e dois) Dias Úteis,\n                                                             divulgadas pela B3, disponibilizadas por meio do link:\n                                                             https://www.b3.com.br/pt_br/market-data-e-\n                                                             indices/servicos-de-dados/market-\n                                                             data/consultas/mercado-de-derivativos/preco"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:38Z",
+        "error": "TimeoutError: The read operation timed out"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

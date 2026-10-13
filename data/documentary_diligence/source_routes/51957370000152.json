@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "cnpj": "51957370000152",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:10Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:03:52Z",
+  "routes": [
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-capitais",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 863171,
+          "reference_date": "21/03/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+          "source_excerpt": "os ativos\nintegrantes das respectivas carteiras deve ser: (i) divulgado por meio do Sistema de Envio de\nDocumentos disponível na página da CVM; e (ii) mantido na página da Administradora na\nInternet (https://www.daycoval.com.br/investimentos/mercado-capitais) e, enquanto a\ndistribuição estiver em curso, na página do distribuidor na Internet.\n\n5.3.    O correio eletrônico é admitido como forma de correspondência válida entre a\nAdministradora, a Gestora, o"
+        },
+        {
+          "document_id": 1025473,
+          "reference_date": "03/04/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+          "source_excerpt": "vas carteiras deve ser: (i) divulgado por meio do Sistema de Envio de\n                 Documentos disponível na página da CVM; e (ii) mantido na página da Administradora na\n                 Internet (https://www.daycoval.com.br/investimentos/mercado-capitais) e, enquanto a\n                 distribuição estiver em curso, na página do distribuidor na Internet.\n\n                 5.3.    O correio eletrônico é admitido como forma de correspondência válida ent"
+        },
+        {
+          "document_id": 731787,
+          "reference_date": "04/09/2024",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731787",
+          "source_excerpt": "os ativos\nintegrantes das respectivas carteiras deve ser: (i) divulgado por meio do Sistema de Envio de\nDocumentos disponível na página da CVM; e (ii) mantido na página da Administradora na\nInternet (https://www.daycoval.com.br/investimentos/mercado-capitais) e, enquanto a\ndistribuição estiver em curso, na página do distribuidor na Internet.\n\n5.3.    O correio eletrônico é admitido como forma de correspondência válida entre a\nAdministradora, a Gestora, o"
+        },
+        {
+          "document_id": 753152,
+          "reference_date": "07/10/2024",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=753152",
+          "source_excerpt": "os ativos\nintegrantes das respectivas carteiras deve ser: (i) divulgado por meio do Sistema de Envio de\nDocumentos disponível na página da CVM; e (ii) mantido na página da Administradora na\nInternet (https://www.daycoval.com.br/investimentos/mercado-capitais) e, enquanto a\ndistribuição estiver em curso, na página do distribuidor na Internet.\n\n5.3.   O correio eletrônico é admitido como forma de correspondência válida entre a\nAdministradora, a Gestora, o c"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-capitais",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 863171,
+          "reference_date": "21/03/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+          "source_excerpt": "s\n                             interfinanceiros de um dia, calculadas e divulgadas diariamente\n                             pela B3, disponível em sua página na Internet\n                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                             Dias Úteis, expressa na forma percentual ao ano; e\n “Termo de Cessão”:          O documento pelo qual será formalizado o endosso do"
+        },
+        {
+          "document_id": 1025473,
+          "reference_date": "03/04/2025",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+          "source_excerpt": "erfinanceiros de um dia, calculadas e divulgadas diariamente\n                                              pela B3, disponível em sua página na Internet\n                                              (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                                              Dias Úteis, expressa na forma percentual ao ano; e\n                  “Termo de Cessão”:          O documento pelo"
+        },
+        {
+          "document_id": 520822,
+          "reference_date": "14/09/2023",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520822",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia,\n                           calculadas e divulgadas diariamente pela B3, disponível\n                           em sua página na Internet (http://www.b3.com.br),\n                           base 252 (duzentos e cinquenta e dois) Dias Úteis,\n                           expressa na forma percentual ao ano;\n\n“Termo de Cessão”:         Documento pelo qual será form"
+        },
+        {
+          "document_id": 525691,
+          "reference_date": "22/09/2023",
+          "page": 62,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+          "source_excerpt": "grupo – depósitos interfinanceiros de um dia,\n                           calculadas e divulgadas diariamente pela B3, disponível\n                           em sua página na Internet (http://www.b3.com.br),\n                           base 252 (duzentos e cinquenta e dois) Dias Úteis,\n                           expressa na forma percentual ao ano;\n\n\n\n\n                                 - 62 -"
+        },
+        {
+          "document_id": 731787,
+          "reference_date": "04/09/2024",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731787",
+          "source_excerpt": "depósitos interfinanceiros de um dia, calculadas e divulgadas\n                           diariamente pela B3, disponível em sua página na Internet\n                           (http://www.b3.com.br), base 252 (duzentos e cinquenta e dois)\n                           Dias Úteis, expressa na forma percentual ao ano;\n\n\n\n\n                                          15/93"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 863171,
+          "reference_date": "21/03/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=863171",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                              disponível em seu website, no seguinte endereço:\n                              www.angaasset.com.br\n\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n\n\n                                           18/88\n                                                                                  [ CLA"
+        },
+        {
+          "document_id": 1025473,
+          "reference_date": "03/04/2025",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1025473",
+          "source_excerpt": "rsão integral da política de voto da Gestora encontra-se\n                                               disponível em seu website, no seguinte endereço:\n                                               www.angaasset.com.br\n\n\n                 3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n\n\n                                                            18/88\nCorporativo | Interno"
+        },
+        {
+          "document_id": 520822,
+          "reference_date": "14/09/2023",
+          "page": 18,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520822",
+          "source_excerpt": "as matérias\nrelevantes obrigatórias para o exercício do direito de voto. A política de voto de que trata este\nitem ficará disponível para consulta pública na rede mundial de computadores no endereço\nwww.angaasset.com.br.\n\n1.71. A Gestora envidará seus melhores esforços a fim de que seja aplicado ao Fundo e aos\nCotistas o tratamento tributário aplicável aos Fundos de longo prazo. Entretanto, não há\ngarantia de que o t"
+        },
+        {
+          "document_id": 525691,
+          "reference_date": "22/09/2023",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+          "source_excerpt": "as matérias\nrelevantes obrigatórias para o exercício do direito de voto. A política de voto de que trata este\nitem ficará disponível para consulta pública na rede mundial de computadores no endereço\nwww.angaasset.com.br.\n\n10.3. A Gestora envidará seus melhores esforços a fim de que seja aplicado ao Fundo e aos\nCotistas o tratamento tributário aplicável aos Fundos de longo prazo. Entretanto, não há\ngarantia de que o t"
+        },
+        {
+          "document_id": 731787,
+          "reference_date": "04/09/2024",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=731787",
+          "source_excerpt": "A versão integral da política de voto da Gestora encontra-se\n                              disponível em seu website, no seguinte endereço:\n                              www.angaasset.com.br\n\n3.     POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n3.1.    Visando a atingir o objetivo proposto, a Classe A aloca seus recursos na aquisição de\nDireitos Creditórios Elegíveis e/ou Ativos Fi"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 520822,
+          "reference_date": "14/09/2023",
+          "page": 17,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520822",
+          "source_excerpt": "r dos\n         respectivos contratos de prestação de serviços, devendo ainda ser disponibilizados e\n         mantidos atualizados na página da Administradora na rede mundial de computadores\n         (https://www.daycoval.com.br).\n\n  CAPÍTULO X – DA GESTÃO E DA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO DA GESTORA\n\n1.69. As atividades de gestão da carteira do Fundo serão exercidas pela Gestora, que terá\npoderes para praticar tod"
+        },
+        {
+          "document_id": 525691,
+          "reference_date": "22/09/2023",
+          "page": 16,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+          "source_excerpt": "constar dos\n       respectivos contratos de prestação de serviços, devendo ainda ser disponibilizados e\n       mantidos atualizados na página da Administradora na rede mundial de computadores\n       (https://www.daycoval.com.br).\n\n CAPÍTULO X – DA GESTÃO E DA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO DA GESTORA\n\n10.1. As atividades de gestão da carteira do Fundo serão exercidas pela Gestora, que terá\npoderes para praticar todo"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:05Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.daycoval.com.br/investimentos/mercado-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 520822,
+          "reference_date": "14/09/2023",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=520822",
+          "source_excerpt": "tivos integrantes de sua carteira deve ser: (i) divulgado por meio do Sistema de Envio\n       de Documentos disponível na página da CVM; e (ii) mantido na página da\n       Administradora na Internet (https://www.daycoval.com.br/investimentos/mercado-\n       capitais) e, enquanto a distribuição estiver em curso, na página do distribuidor na\n       Internet.\n\n3.13. A Administradora deve colocar as demonstrações financeiras do Fundo à disposição de"
+        },
+        {
+          "document_id": 525691,
+          "reference_date": "22/09/2023",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=525691",
+          "source_excerpt": "tivos integrantes de sua carteira deve ser: (i) divulgado por meio do Sistema de Envio\n       de Documentos disponível na página da CVM; e (ii) mantido na página da\n       Administradora na Internet (https://www.daycoval.com.br/investimentos/mercado-\n       capitais) e, enquanto a distribuição estiver em curso, na página do distribuidor na\n       Internet.\n\n24.3. A Administradora deve colocar as demonstrações financeiras do Fundo à disposição de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:59Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "121745",
+        "final_url": "https://www.daycoval.com.br/investimentos/mercado-",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalas-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 586375,
+          "reference_date": "29/12/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+          "source_excerpt": "traordinária), de modo que, as instituições atuam no auxílio à cobrança ordinária dos Direitos\nEscala de rating disponível em:      Creditórios cedidos, e na cobrança extraordinária dos Inadimplidos.\nhttp://www.austin.com.br/Escalas-\nde-Rating.html                       O Fundo tem por objetivo proporcionar aos Cotistas a valorização de suas Cotas, por meio da\n                                     aplicação de seus recursos na aqu"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:46Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 586375,
+          "reference_date": "29/12/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+          "source_excerpt": "de até R$ 5.983.250,00. As\nTel.: 55 11 3377 0707\nFax: 55 11 3377 0739\n                                     Cotas Seniores terão meta de rentabilidade igual a variação do CDI, acrescida de sobre taxa\nwww.austin.com.br                    de 1,67% ao ano, e seu resgate ocorrerá em novembro de 2033. Para as Cotas Subordinadas"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.austin.com.br/Escalas-de-Rating.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 586375,
+          "reference_date": "29/12/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+          "source_excerpt": "de 2023. Esta reunião de comitê está\n    registrada na Ata Nº 20231214-2.\n2. A classificação atribuída está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Escalas-de-Rating.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em"
+        },
+        {
+          "document_id": 760358,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760358",
+          "source_excerpt": "sto de 2024. Esta reunião de comitê está registrada na Ata Nº 20240827-10.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Escalas-de-Rating.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de risco de crédito de Cotas de Fundos de Investimento em D"
+        },
+        {
+          "document_id": 862398,
+          "reference_date": "30/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=862398",
+          "source_excerpt": "bro de 2024. Esta reunião de comitê está registrada na Ata Nº 20241106-17.\n2. A classificação indicada está contemplada na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   https://www.austin.com.br/Escalas-de-Rating.html.\n3. As classificações das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de risco de crédito de Cotas de Fundos de Investimento em D"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Escalas-de-Rating.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 586375,
+          "reference_date": "29/12/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+          "source_excerpt": "zação da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Fundos de In"
+        },
+        {
+          "document_id": 760358,
+          "reference_date": "28/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=760358",
+          "source_excerpt": "ização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Fundos de In"
+        },
+        {
+          "document_id": 862398,
+          "reference_date": "30/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=862398",
+          "source_excerpt": "ização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível em:\n    http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Fundos de In"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 586375,
+          "reference_date": "29/12/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=586375",
+          "source_excerpt": "ara empresas de controle co mum,\n    sócios e funcionários destas, porém, atribui ratings de crédito para outros Fundos de sua Gestão, os quais podem ser consultados no\n    website dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Essa agência também não presta qualquer serviço de rating\n    direto para Banco Daycoval S.A., Administrador e Custodiante, e tampouco para partes a esta relacionadas.\n13. A Austin Rating e as partes"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

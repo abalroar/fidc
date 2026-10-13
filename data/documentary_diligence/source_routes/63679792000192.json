@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "cnpj": "63679792000192",
+  "name": "BLUE HEALTH FIDC RECEBÍVEIS COMERCIAIS DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:20Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:11:49Z",
+  "routes": [
+    {
+      "url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1278972,
+          "reference_date": "27/07/2026",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+          "source_excerpt": "nte a utilização de metodologia de apuração do seu valor de\n            mercado, em conformidade com o manual de marcação a mercado da Administradora, disponível\n            em sua página eletrônica: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos\n            e%20politicassubsidiaria.\n\n\n            11.1.2. A Administradora constituirá provisão para créditos de liquidação duvidosa, correspondente\n            a um percentual do saldo total dos D"
+        },
+        {
+          "document_id": 1060920,
+          "reference_date": "14/11/2025",
+          "page": 34,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
+          "source_excerpt": "e a utilização de metodologia de apuração do seu valor de\n             mercado, em conformidade com o manual de marcação a mercado da Administradora, disponível\n             em sua página eletrônica: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos\n             e%20politicassubsidiaria .\n\n\n             11.1.2. A Administradora constituirá Provisão para Devedores Duvidosos referente aos Direitos\n             Creditórios adquiridos a partir do cá"
+        },
+        {
+          "document_id": 1069084,
+          "reference_date": "18/12/2025",
+          "page": 35,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069084",
+          "source_excerpt": "e a utilização de metodologia de apuração do seu valor de\n             mercado, em conformidade com o manual de marcação a mercado da Administradora, disponível\n             em sua página eletrônica: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos\n             e%20politicassubsidiaria.\n\n\n             11.1.2. A Administradora constituirá provisão para créditos de liquidação duvidosa, correspondente\n             a um percentual do saldo total do"
+        },
+        {
+          "document_id": 1069086,
+          "reference_date": "19/12/2025",
+          "page": 33,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069086",
+          "source_excerpt": "e a utilização de metodologia de apuração do seu valor de\n             mercado, em conformidade com o manual de marcação a mercado da Administradora, disponível\n             em sua página eletrônica: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos\n             e%20politicassubsidiaria.\n\n\n             11.1.2. A Administradora constituirá provisão para créditos de liquidação duvidosa, correspondente\n             a um percentual do saldo total do"
+        },
+        {
+          "document_id": 1101558,
+          "reference_date": "26/01/2026",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1101558",
+          "source_excerpt": "e a utilização de metodologia de apuração do seu valor de\n             mercado, em conformidade com o manual de marcação a mercado da Administradora, disponível\n             em sua página eletrônica: https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos\n             e%20politicassubsidiaria.\n\n\n             11.1.2. A Administradora constituirá provisão para créditos de liquidação duvidosa, correspondente\n             a um percentual do saldo total do"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:21Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ri.oliveiratrust.com.br/governanca-corporativa/estatuto-codigos-e-politicas/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br/pt_br/institucional",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1278972,
+          "reference_date": "27/07/2026",
+          "page": 95,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+          "source_excerpt": "ariamente pela B3, no informativo diário\n                                           disponível        em        sua        página        na        internet\n                                           (https://www.b3.com.br/pt_br/institucional).\n              “Valor Presente dos          significa o valor presente das projeções de fluxos de caixa dos Direitos\n              Direitos Creditórios”        Creditórios, calculado considerando pré-"
+        },
+        {
+          "document_id": 1060920,
+          "reference_date": "14/11/2025",
+          "page": 98,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
+          "source_excerpt": "amente pela B3, no informativo diário\n                                            disponível       em         sua        página        na         internet\n                                            (https://www.b3.com.br/pt_br/institucional).\n              “Valor Presente dos           significa o valor presente das projeções de fluxos de caixa dos Direitos\n              Direitos Creditórios”         Creditórios, calculado considerando pr"
+        },
+        {
+          "document_id": 1069084,
+          "reference_date": "18/12/2025",
+          "page": 100,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069084",
+          "source_excerpt": "riamente pela B3, no informativo diário\n                                           disponível        em        sua        página        na         internet\n                                           (https://www.b3.com.br/pt_br/institucional).\n              “Valor Presente dos          significa o valor presente das projeções de fluxos de caixa dos Direitos\n              Direitos Creditórios”        Creditórios, calculado considerando pré-"
+        },
+        {
+          "document_id": 1069086,
+          "reference_date": "19/12/2025",
+          "page": 98,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069086",
+          "source_excerpt": "riamente pela B3, no informativo diário\n                                           disponível        em        sua        página        na         internet\n                                           (https://www.b3.com.br/pt_br/institucional).\n              “Valor Presente dos          significa o valor presente das projeções de fluxos de caixa dos Direitos\n              Direitos Creditórios”        Creditórios, calculado considerando pré-"
+        },
+        {
+          "document_id": 1101558,
+          "reference_date": "26/01/2026",
+          "page": 95,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1101558",
+          "source_excerpt": "iamente pela B3, no informativo diário\n                                           disponível        em        sua        página        na          internet\n                                           (https://www.b3.com.br/pt_br/institucional).\n              “Valor Presente dos          significa o valor presente das projeções de fluxos de caixa dos Direitos\n              Direitos Creditórios”        Creditórios, calculado considerando pré-"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:17Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/pt_br/institucional",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1278972,
+          "reference_date": "27/07/2026",
+          "page": 105,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1278972",
+          "source_excerpt": "calculadas e divulgadas\n                                               diariamente pela B3, no informativo diário disponível em sua\n                                               página de internet (www.b3.com.br), acrescida de sobretaxa\n                                               equivalente a 2,00% (dois inteiros por cento) ao ano.\n\n\n              Classificação de Risco           Não aplicável."
+        },
+        {
+          "document_id": 1069084,
+          "reference_date": "18/12/2025",
+          "page": 109,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069084",
+          "source_excerpt": "alculadas e divulgadas\n                                                diariamente pela B3, no informativo diário disponível em sua\n                                                página de internet (www.b3.com.br), acrescida de sobretaxa\n                                                equivalente a 2,00% (dois inteiros por cento) ao ano.\n\n\n              Classificação de Risco            Não aplicável."
+        },
+        {
+          "document_id": 1069086,
+          "reference_date": "19/12/2025",
+          "page": 107,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069086",
+          "source_excerpt": "alculadas e divulgadas\n                                                diariamente pela B3, no informativo diário disponível em sua\n                                                página de internet (www.b3.com.br), acrescida de sobretaxa\n                                                equivalente a 2,00% (dois inteiros por cento) ao ano.\n\n\n              Classificação de Risco            Não aplicável."
+        },
+        {
+          "document_id": 1101558,
+          "reference_date": "26/01/2026",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1101558",
+          "source_excerpt": "alculadas e divulgadas\n                                                diariamente pela B3, no informativo diário disponível em sua\n                                                página de internet (www.b3.com.br), acrescida de sobretaxa\n                                                equivalente a 2,00% (dois inteiros por cento) ao ano.\n\n\n              Classificação de Risco            Não aplicável."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.jgp.com.br/wp-content/uploads/2023/08/politica-de-voto-gestoras-",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1060920,
+          "reference_date": "14/11/2025",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1060920",
+          "source_excerpt": "liários que confiram aos seus titulares o direito de voto.\n\n\n             24.1.1. A versão integral da política de voto da Gestora encontra-se disponível em sua página\n             eletrônica:        https://www.jgp.com.br/wp-content/uploads/2023/08/politica-de-voto-gestoras-\n             marco-2022pdf-202301241955.pdf\n\n\n\n\n             24.1.2. A GESTORA DESTE FUNDO ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n             ASSEMBLEIAS, QUE DISCIPLINA OS PRINCÍPIOS GER"
+        },
+        {
+          "document_id": 1069084,
+          "reference_date": "18/12/2025",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069084",
+          "source_excerpt": "liários que confiram aos seus titulares o direito de voto.\n\n\n             24.1.1. A versão integral da política de voto da Gestora encontra-se disponível em sua página\n             eletrônica:        https://www.jgp.com.br/wp-content/uploads/2023/08/politica-de-voto-gestoras-\n             marco-2022pdf-202301241955.pdf\n\n\n             24.1.2. A GESTORA DESTE FUNDO ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n             ASSEMBLEIAS, QUE DISCIPLINA OS PRINCÍPIOS GERAI"
+        },
+        {
+          "document_id": 1069086,
+          "reference_date": "19/12/2025",
+          "page": 85,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1069086",
+          "source_excerpt": "liários que confiram aos seus titulares o direito de voto.\n\n\n             24.1.1. A versão integral da política de voto da Gestora encontra-se disponível em sua página\n             eletrônica:        https://www.jgp.com.br/wp-content/uploads/2023/08/politica-de-voto-gestoras-\n             marco-2022pdf-202301241955.pdf\n\n\n             24.1.2. A GESTORA DESTE FUNDO ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n             ASSEMBLEIAS, QUE DISCIPLINA OS PRINCÍPIOS GERAI"
+        },
+        {
+          "document_id": 1101558,
+          "reference_date": "26/01/2026",
+          "page": 82,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1101558",
+          "source_excerpt": "liários que confiram aos seus titulares o direito de voto.\n\n\n             24.1.1. A versão integral da política de voto da Gestora encontra-se disponível em sua página\n             eletrônica:        https://www.jgp.com.br/wp-content/uploads/2023/08/politica-de-voto-gestoras-\n             marco-2022pdf-202301241955.pdf\n\n\n             24.1.2. A GESTORA DESTE FUNDO ADOTA POLÍTICA DE EXERCÍCIO DE DIREITO DE VOTO EM\n             ASSEMBLEIAS, QUE DISCIPLINA OS PRINCÍPIOS GERAI"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:23Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "cnpj": "58476088000100",
+  "name": "SAGA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PRIVADO - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:17Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:09:46Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 24,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                  Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                               do SAGAFUNDO DE INVESTIMENTO EM DIREITOS"
+        },
+        {
+          "document_id": 830535,
+          "reference_date": "03/02/2025",
+          "page": 30,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830535",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                  Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                               do SAGAFUNDO DE INVESTIMENTO EM DIREITOS"
+        },
+        {
+          "document_id": 830535,
+          "reference_date": "03/02/2025",
+          "page": 144,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830535",
+          "source_excerpt": ") Dias Úteis, calculadas e\n                divulgadas diariamente pela B3 S.A. – Brasil, Bolsa, Balcão, no informativo diário\n                disponível em sua página na rede mundial de computadores (http://www.b3.com.br) (“Taxa\n                DI”), acrescida de sobretaxa (spread) de 1,45% (um inteiro e quarenta e cinco centésimos)\n                ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis (“Remuneraçã"
+        },
+        {
+          "document_id": 830535,
+          "reference_date": "03/02/2025",
+          "page": 228,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830535",
+          "source_excerpt": "uladas e divulgadas diariamente pela\n                         B3 S.A. – Brasil, Bolsa, Balcão, no informativo diário disponível em sua página\n                         na rede mundial de computadores (http://www.b3.com.br) (“Taxa DI”), acrescida\n                         de sobretaxa (spread) de 1,45% (um inteiro e quarenta e cinco centésimos) ao ano,\n                         base 252 (duzentos e cinquenta e dois) Dias"
+        },
+        {
+          "document_id": 830536,
+          "reference_date": "03/02/2025",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=830536",
+          "source_excerpt": "is)\n                                               Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                               disponível em sua página na Internet (http://www.b3.com.br).\n\n            “Termo de Adesão”                  Significa o “Termo de Ciência de Risco e Adesão ao Regulamento\n                                               do SAGAFUNDO DE INVESTIMENTO EM DIREITOS"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "o seu valor apurado todo Dia Útil, observado o disposto\n            na Instrução CVM nº 489, de 14 de janeiro de 2011, e o manual de precificação do Administrador,\n            disponível em seu site (www.oliveiratrust.com.br).\n            4.2.          Os Ativos Financeiros integrantes da carteira do Fundo terão seu valor de mercado\n            apurado conforme a metodologia descrita no manual de precificação de ativos do"
+        },
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "tegrantes da carteira do Fundo terão seu valor de mercado\n            apurado conforme a metodologia descrita no manual de precificação de ativos do Administrador,\n            disponível em seu site (www.oliveiratrust.com.br).\n\n\n\n\n                                                             26\n\nConfidencial | Compartilhamento Interno"
+        },
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "dimplidos integrantes da carteira do Fundo, observados, em todos os casos, a metodologia\n            descrita no manual de precificação de ativos do Administrador, disponível em seu site\n            (www.oliveiratrust.com.br). Os Direitos Creditórios Inadimplidos não terão seu valor corrigido\n            pela respectiva taxa utilizada na aquisição após seu inadimplemento.\n\n            4.4.          As provisões e as perdas"
+        },
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 27,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "lculadas pelo Administrador, de acordo com a\n            regulamentação vigente e a metodologia descrita no manual de provisão para perdas do\n            Administrador, também disponível em seu site (www.oliveiratrust.com.br).\n\n            4.5.          As demonstrações financeiras anuais do Fundo serão elaboradas conforme definido\n            na Resolução CVM 175/22 e na Instrução CVM 489/11 e os valores de cada Direito C"
+        },
+        {
+          "document_id": 852325,
+          "reference_date": "25/02/2025",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=852325",
+          "source_excerpt": "ões sobre o Auditor\n            Independente contratado para auditoria do Fundo e da Classe Única encontram-se disponíveis para\n            acesso pelos Cotistas na página do Administrador no website www.oliveiratrust.com.br. Qualquer\n            alteração na empresa de auditoria contratada será comunicada por meio de carta simples\n            endereçada aos Cotistas e, quando for o caso, publicada nas páginas na rede mun"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

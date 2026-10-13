@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "42085830000109",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 267022638.13,
+    "credit_rights": 197782651.06,
+    "overdue_credit": 0.0,
+    "cash": 876.34,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 250570804.21,
+    "subordinated_quotas": 16451833.919960711,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 16451833.919960711
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "42085830000109",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/42085830000109_202607.json",
+    "reported_fund_cnpj": "42085830000109",
+    "reported_class_cnpj": "42085830000109",
+    "reported_fund_cnpj_raw": "42085830000109",
+    "reported_class_cnpj_raw": "42085830000109",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1292155",
+    "version": 1,
+    "delivered_at": "14/08/2026 13:44",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1292155",
+    "declared_fields_sha256": "d2a789aa7c402a057fe49911da1b51cca1bde73cd5c083eac4d6a1130a4b4766"
+  },
+  "error": ""
+}

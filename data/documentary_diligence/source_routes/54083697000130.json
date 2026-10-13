@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "cnpj": "54083697000130",
+  "name": "PERNAMBUCANAS FIDC DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:13Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:05:33Z",
+  "routes": [
+    {
+      "url": "https://www.daycoval.com.br/asset/",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 624962,
+          "reference_date": "22/03/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624962",
+          "source_excerpt": "A política de exercício de direito de voto da Gestora está disponível\n                      na página da Gestora na rede mundial de computadores, no seguinte endereço:\n                      https://www.daycoval.com.br/asset/#/.\n\n\n            6.19               Considerando a Alocação Mínima, as quais a Gestora de forma\n            discricionária busca perseguir, os Cotistas passarão a se sujeitar ao Regime Específico"
+        },
+        {
+          "document_id": 625542,
+          "reference_date": "25/03/2024",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=625542",
+          "source_excerpt": "política de exercício de direito de voto da Gestora está disponível na página da\n       Gestora       na      rede     mundial       de     computadores,        no      seguinte      endereço:\n       https://www.daycoval.com.br/asset/#/."
+        },
+        {
+          "document_id": 628851,
+          "reference_date": "27/03/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=628851",
+          "source_excerpt": "REITO DE VOTO.\n\n\n       6.18.1          A política de exercício de direito de voto da Gestora está disponível\n       na página da Gestora na rede mundial de computadores, no seguinte endereço:\n       https://www.daycoval.com.br/asset/#/.\n\n\n6.19            Considerando a Alocação Mínima, as quais a Gestora de forma\ndiscricionária busca perseguir, os Cotistas passarão a se sujeitar ao Regime Específico\ndos Fundos Não Sujeitos à Tributa"
+        },
+        {
+          "document_id": 640301,
+          "reference_date": "12/04/2024",
+          "page": 63,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=640301",
+          "source_excerpt": "A política de exercício de direito de voto da Gestora está disponível\n                         na página da Gestora na rede mundial de computadores, no seguinte endereço:\n                         https://www.daycoval.com.br/asset/#/.\n\n\n                6.19               Considerando a Alocação Mínima, as quais a Gestora de forma\n                discricionária busca perseguir, os Cotistas passarão a se sujeitar ao Regime Específic"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "79733",
+        "final_url": "https://www.daycoval.com.br/asset/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

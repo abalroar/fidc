@@ -1,0 +1,1370 @@
+{
+  "schema_version": 1,
+  "cnpj": "62838025000116",
+  "scope": "Material histórico preservado; não houve revisão retrospectiva integral nem certificação de vigência jurídica.",
+  "criteria": {
+    "eligibility": [
+      "c33010e263bdffd6e8e665519b6309e149ec23ee922e1945f8dc4050bbbc72c7",
+      "5b6a7d718b1ffcf084ca68bf9bc9aad9e924f2cecb50bb36beab335286b22759"
+    ],
+    "perimeter": [
+      "4a2c9b8b2026f3e790a20406bb04899b9bdcbe567325b906ac2734dac2d1e522",
+      "fc9af72ce7864ac41194990d025b9a229879cb4c228378bdc0f1413147cd84ab",
+      "d53fae919c81edd12a17ff749a1f922059f89fa698920955a952d2681fab3aa9",
+      "3b5219fe30248ddd47831f45305d5f66356d30536fbd08acfa3cfe09844faacd",
+      "12e78c15f3aea411b455e83ebe557ce70cc998b4b84f017fcd53553380fe01ab"
+    ],
+    "res175": [
+      "df3ab148de510110e5e3bc2b6fe52c24cfc0dea1fd730803e552814c11c5536d",
+      "ccd937d0e3abc21f856dc79890b26a90f7892ee607dfcb667b1d6b1d1257783a"
+    ],
+    "subordination": [
+      "ae5d631b92aeee692e6b590d4d7369e83d8f122084f73acb2c7e2a26868ae827"
+    ],
+    "repurchase": [
+      "a13c686a2fd234d2862d10205001ba9cf43ab4255c58e716a8c999a72ac69c3d"
+    ],
+    "coobligation": [
+      "213d99d7af0312e2a82b3c9eb6a1d7ed56779b0f0da5c242efcf07d4ed2c065a"
+    ],
+    "cross_default": [
+      "97f51df61948cf1c9a47310d669bdc89aa490d24e98c74793a480895ff5fefae"
+    ],
+    "waterfall": [
+      "8ca95c6a9ff0931a729aeaeacad3dcce7f794be97138b3901a2efa3ec7c11288"
+    ],
+    "revolving": [
+      "20ed178f8e203cd032bdcbe2e62df401e31307494634957e5cf4a3e799d8bd02"
+    ],
+    "sale": [
+      "dccf7fc821b06af3d3d664fcaf0b0987d521ad438d73ab051c18f7e17c7308a5"
+    ],
+    "payments": [
+      "1acc8b35466ea23ef153326ce9646cd319534aeaa27a748c9d4be9f1f9c12895"
+    ],
+    "enforcement": [
+      "5a8dd94929d63c0d7e0bc1b57e1f673dc55388fadad34f127c9093fe0c357a9f"
+    ],
+    "servicing": [
+      "9bc28559116e97576938fa375efa0ad4ac8cd411927e2d361c4df995b257a3fb"
+    ],
+    "collateral_check": [
+      "335177249e0f9e74d382a71673369e524a783bd22401b32488e357134b1852b3"
+    ],
+    "hedge": [
+      "d870aa162fdf9e69b53e1e2af1aaa365640766621258f8644f73b533e217f1a2",
+      "79e445ca123be37ef9f127dd4e62cee6cf03a9fa5cde41702eb9f7b7e76f9f27"
+    ],
+    "hedge_priority": [
+      "15b4bf5fa38b059862bbf29ef20ae0940554de5991c1037a9b3d5341a3ca2bfe"
+    ],
+    "replacement": [
+      "1d32472ec838889fef3e9d4a61e0d667b3f9e2ca204fda73b4baeb275565c015"
+    ],
+    "rating": [
+      "ed974bc662af1f512699527275264734b851367643f27d535b1998b8bb9e988c",
+      "b6845b1e635134eba2d885aa64f97adec34f973877e653219dacf532f2e9484e"
+    ],
+    "remuneration": [
+      "ce520061f2158c724a1aafef75d95e0ae7c75047f87b52a0889f504533c3a46d",
+      "15b4bf5fa38b059862bbf29ef20ae0940554de5991c1037a9b3d5341a3ca2bfe"
+    ],
+    "issue_volume": [
+      "29174a42cccb6acf1fccb0c9c878aa4c0a759f60ee9451d1e84c4e84c00d882a"
+    ],
+    "admin_fee": [
+      "2d73407ec51497be4bc8028a054531b9ef334a5f119ac5bb620e923cef4dde38",
+      "3b5219fe30248ddd47831f45305d5f66356d30536fbd08acfa3cfe09844faacd"
+    ],
+    "management_fee": [
+      "5700ab233eda255ad5245a844c033f809f06f271549ab33cb0a77335db0fe268",
+      "ebe821673c4d90c4bb58442fb9f5220dd223acf4a2c53b11b5d7b42124ffedc2"
+    ],
+    "custody_fee": [
+      "6de506c50cd9a7e270b0db90afbd6fc415bcaacf1d1a4ee1e42f62a32e2fcf6a"
+    ],
+    "quorum": [
+      "8c4cac7ffed56f6651cd3378cb23e767ae6f22b61a395af6e13eacea8741996f"
+    ],
+    "related_parties": [
+      "0fef3c1e1c18292628c864f650cd8d36509a7c26c81c2bfa2ef33f50b1e009dc"
+    ],
+    "audit": [
+      "fa148921b8e786cafab34956dabf803414671a710cd19ccdcbe500c135c8106b",
+      "a37e395fe8b8efe6e9d51a2bee8c08b0c354d2223da64ae23866d563ff263679"
+    ],
+    "duration_investors": [
+      "0620db54a961be647ad67fe277248c4b1db1ab47a0ba42e565f3f8e6b6c23bdb",
+      "f8101536c7c6caa3bc38a78fcce593a720db19301b06c60ae1476864958c76d6"
+    ],
+    "quota_classes": [
+      "4ee81ea2286f59e7fc77077c3e8df16ceb13f6f4e45170b6b4c3806ffe01b93c",
+      "465dd9ecc1c5cde69ab7cb799f1dfe93604da4f82ddfa61e5e2a35ee5e002c0f",
+      "0b73ed3359dc2dd109943a9c5b843f18200be3a3384aa2876426b41a6a2e69cd"
+    ],
+    "offers": [
+      "0fef3c1e1c18292628c864f650cd8d36509a7c26c81c2bfa2ef33f50b1e009dc"
+    ],
+    "quota_maturity": [
+      "a6e327a13fb94b7809841ee610909ac0dc2a7906dad6b55e4a417f1d262fea96",
+      "213d99d7af0312e2a82b3c9eb6a1d7ed56779b0f0da5c242efcf07d4ed2c065a"
+    ],
+    "pdd": [
+      "358aedda784e440530dcdd28e89442dc62552ba0c78845fd69f7663cf946ef7c"
+    ],
+    "evaluation": [
+      "97f51df61948cf1c9a47310d669bdc89aa490d24e98c74793a480895ff5fefae"
+    ],
+    "liquidation": [
+      "c310f31fc2ec2bc47d8ab910878120538cfb3f35b3080f1cf59821171bdd56e5"
+    ],
+    "legacy_events": [
+      "96582c654881089e8c05ce7ff54ff76fba300a898ba24aedda7fb7e69161914b",
+      "c310f31fc2ec2bc47d8ab910878120538cfb3f35b3080f1cf59821171bdd56e5"
+    ],
+    "quota_grace": [
+      "d91cfad184de9908208cc77c21abb04b9bed1e0a89c5a854053cdb1b89c1062c"
+    ],
+    "originator": [
+      "946649818fd290c8cc5d1757d7a0d23a46f14842c3a39f6a8e9f60e23c90c02d",
+      "2c2ec02d6b1fe1a55df03a21647f9718646b78dbbcc927a18de5b3afffe9af58"
+    ],
+    "debtor": [
+      "c7847e4bbc20377be8db7e020191c595118480981ffe87af0662c09185e1ed00",
+      "bff8870f187cc3c29066911190c188f58539e1dcccb9852f53b4eb020945b2f6"
+    ],
+    "investee": [
+      "266b5dba70f50579369805627fbb8e08568eb43d11a34f258e677dfaaf2e008e",
+      "84f569f0e4c2007aa1d8dc645ae7a88d927791d7644ee1b30e4b5be561fe2803",
+      "408ef5e2c612968d1fb9f445d4099294bdda6b31bf8cb71ca591080cdfa229e4"
+    ],
+    "guarantee": [
+      "b6e2e2aa85029a81eadb37022fa467a2a3b30b40e3e9347047cf56b677194148",
+      "029a4ad66762da46b118d07fa7549bed11848d79fa16de52f4d7f10d23f095b3"
+    ],
+    "providers": [
+      "ca349104bcdf59cea9c64375513a8e666355c578ec12b2202627a87062708af8",
+      "78af9d8f5117b83b164f3c29df2ada6be05e34de312f38818d31bbd3f9826376",
+      "1229f44b84818d9206cfad7574afcc54982cf2a683ac9df0deb89194c67b5d95"
+    ],
+    "receivables": [
+      "cc4713b9e2d30fab7d345bb59f58f941b393504c085e2a08e45fbfade4e05bb4"
+    ],
+    "allocation": [
+      "604e2dd20929effabdf971000efa185caed28eaeb06dab6f402f4663ebf82461",
+      "7c6b5e446ce3ad9bb55f261ea64a057f42aa892cb585ad35e915ac3bb0f3a3cc"
+    ]
+  },
+  "entries": {
+    "cc4713b9e2d30fab7d345bb59f58f941b393504c085e2a08e45fbfade4e05bb4": {
+      "reference_date": "2025-12-10",
+      "value": "Recebíveis performados de cartões representados por URs",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "1bafa1c6703288c8bbdd9ff064f581ba2b222300190a1eaccf486b21f9c384c8"
+      ]
+    },
+    "946649818fd290c8cc5d1757d7a0d23a46f14842c3a39f6a8e9f60e23c90c02d": {
+      "reference_date": "2025-12-10",
+      "value": "Cedentes exclusivos: PagueVeloz IP (03.816.413/0001-37) e Serasa (62.173.620/0133-20)",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Controle documental; IME agregado não comprova a hipótese contratual.",
+      "sources": [
+        "6cd8e104a35a85650a20e4302025297450828ae348141beef5bb65f9dfba71a5"
+      ]
+    },
+    "2c2ec02d6b1fe1a55df03a21647f9718646b78dbbcc927a18de5b3afffe9af58": {
+      "reference_date": "2025-09-22",
+      "value": "(ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da carteira de Direitos Creditórios no trimestre: (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores, caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos trimestrais;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c5ed1249e32c7829159c4a6b392f14393d4c0dde9ae91558d91a26f079cfbccb"
+      ]
+    },
+    "c7847e4bbc20377be8db7e020191c595118480981ffe87af0662c09185e1ed00": {
+      "reference_date": "2025-12-10",
+      "value": "Credenciadoras Cielo, Redecard, PagSeguro e Getnet; lista exclusiva do regulamento",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Não substituir pela marca do cedente; contratante e emissor/credenciadora têm papéis diferentes.",
+      "sources": [
+        "513f9480e529c43f8795aebc76f12acd463a055aa07230522c2ae64d1cd89c2b"
+      ]
+    },
+    "bff8870f187cc3c29066911190c188f58539e1dcccb9852f53b4eb020945b2f6": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2c0dbc3469ea54f14af3b737b45e83173f38f16e215060ee8deac3fa23f3e994"
+      ]
+    },
+    "c33010e263bdffd6e8e665519b6309e149ec23ee922e1945f8dc4050bbbc72c7": {
+      "reference_date": "2025-12-10",
+      "value": "URs e contratos/termos de cessão; lastro integral validado antes da aquisição",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "049d61ef938252b8030253436e90cc6de07ea8d15aea3f5dfdf6af3511480247"
+      ]
+    },
+    "5b6a7d718b1ffcf084ca68bf9bc9aad9e924f2cecb50bb36beab335286b22759": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5179945250de3788713cfb3f737b936dc68ae9dedbfac74f9a0eaf59e26bb0e2"
+      ]
+    },
+    "604e2dd20929effabdf971000efa185caed28eaeb06dab6f402f4663ebf82461": {
+      "reference_date": "2025-12-10",
+      "value": "50% PL; gestor busca 67% para enquadramento tributário",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "bf23d9b13475b564e82ea90579ab4099872a923175a89f5551af13b31b1b1eb3"
+      ]
+    },
+    "7c6b5e446ce3ad9bb55f261ea64a057f42aa892cb585ad35e915ac3bb0f3a3cc": {
+      "reference_date": "2025-09-22",
+      "value": "“Alocação Mínima”: é o percentual mínimo de 67% (sessenta e sete por cento) do patrimônio líquido da Classe que deverá ser alocado em Direitos Creditórios.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "516bd11c3da16121f6c5defdfaf1e3bee60a08b0395f0e84974bdb1fb104476a"
+      ]
+    },
+    "266b5dba70f50579369805627fbb8e08568eb43d11a34f258e677dfaaf2e008e": {
+      "reference_date": "2025-12-10",
+      "value": "19.1.1 Considerando que a Classe não poderá realizar investimentos em cotas de outros fundos de investimento, a Taxa de Administração aplicável à Classe corresponderá ao limite máximo da taxa de administração (“Taxa Máxima de Administração”) previsto para esta, nos termos da regulamentação aplicável.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "491fa0fba8deff2165b7c2b8313aa1dd523a55e0689d78e4c93fa92578d4315a"
+      ]
+    },
+    "408ef5e2c612968d1fb9f445d4099294bdda6b31bf8cb71ca591080cdfa229e4": {
+      "reference_date": "2025-12-04",
+      "value": "(ii) Como resultado da Incorporação, haverá transferência de parcela dos ativos integrantes da carteira do FIDC NC 2025 para o Fundo composta exclusivamente pelos ativos discriminados no Anexo I, e o consequente cancelamento proporcional das cotas do FIDC NC 2025 registradas em nome de seus cotistas. Em substituição, o Fundo emitirá novas cotas, que serão atribuídas aos",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2e44be251ec2e343ea740d62d0dfcd7e96a84cf4c60443736496868a2b72dfb7"
+      ]
+    },
+    "4a2c9b8b2026f3e790a20406bb04899b9bdcbe567325b906ac2734dac2d1e522": {
+      "reference_date": "2025-12-02",
+      "value": "INSTRUMENTO PARTICULAR DE RETIFICAÇÃO E RATIFICAÇÃO DO ATO DO ADMINISTRADOR PARA APROVAÇÃO DA OFERTA PRIVADA DE COTAS DA 2ª EMISSÃO DA CLASSE ÚNICA DO TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CNPJ 62.838.025/0001-16",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "53550ebcf5dcac09dc4ab138845d5c5ee63cd3570aa664c62a09d7656b2d0c26"
+      ]
+    },
+    "fc9af72ce7864ac41194990d025b9a229879cb4c228378bdc0f1413147cd84ab": {
+      "reference_date": "2025-11-10",
+      "value": "ATO DO ADMINISTRADOR PARA APROVAÇÃO DA OFERTA PRIVADA DE COTAS DA 2ª EMISSÃO DA CLASSE ÚNICA DO TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CNPJ 62.838.025/0001-16",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "760d29b24d0a2db776fe576f9d57410e4399587c54261e84ae10948ca4aa80ef"
+      ]
+    },
+    "d53fae919c81edd12a17ff749a1f922059f89fa698920955a952d2681fab3aa9": {
+      "reference_date": "2025-09-22",
+      "value": "INSTRUMENTO PARTICULAR DE CONSTITUIÇÃO TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA (“FUNDO”)",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4a0554fccdbeee7e5e8c1a7ab6f2f8be645224f935997cadb4e5864df71d4d47"
+      ]
+    },
+    "3b5219fe30248ddd47831f45305d5f66356d30536fbd08acfa3cfe09844faacd": {
+      "reference_date": "2025-09-22",
+      "value": "19.1. Pela administração do Fundo, nela compreendida as atividades do Administrador, o Fundo pagará ao Administrador uma taxa de administração (“Taxa de Administração”) equivalente a 0,0825% (zero vírgula zero oitocentos e vinte e cinco por cento) ao ano incidente sobre o patrimônio líquido do Classe calculado conforme item 19.3 deste Anexo Descritivo, observado o valor mínimo mensal de R$ 10.000,00 (dez mil reais), corrigido anualmente, a contar da data de início do Fundo, pela variação do IPCA/IBGE ou por qualquer outro índice que venha a substituí-lo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0044ec5c9bc492e983af952ecc1d2de10d7f005ba08d3e530a16e212ca059a00"
+      ]
+    },
+    "12e78c15f3aea411b455e83ebe557ce70cc998b4b84f017fcd53553380fe01ab": {
+      "reference_date": "2025-12-04",
+      "value": "INSTRUMENTO PARTICULAR DE DELIBERAÇÃO CONJUNTA DO TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA (“Fundo”)",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "77bae71fd26515735c07579ea30bb51094f69523eb23301f13fb4f9081926361"
+      ]
+    },
+    "df3ab148de510110e5e3bc2b6fe52c24cfc0dea1fd730803e552814c11c5536d": {
+      "reference_date": "2025-09-22",
+      "value": "VIII- aquisição de Direitos Creditórios originados ou cedidos pelo Administrador, Gestor ou partes a eles relacionadas, nos termos do art. 42, do Anexo Normativo II da Resolução CVM 175/22; e IX-aceitar que as garantias em favor da Classe sejam formalizadas em nome de terceiros que não representem o Fundo, ressalvada a possibilidade de formalização de garantias em favor do Administrador, Gestor ou terceiros que representem o Fundo como titular da garantia, que devem diligenciar para segrega-las adequadamente dos seus próprios patrimônios, nos termos do art. 43, do Anexo Normativo II da Resolução CVM 175/22.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e54b39490ff709c23d30cfc579ab930bd669a6f37480844c3936f77edab14a6e"
+      ]
+    },
+    "ccd937d0e3abc21f856dc79890b26a90f7892ee607dfcb667b1d6b1d1257783a": {
+      "reference_date": "2025-12-04",
+      "value": "(i) em 2 de dezembro de 2025, o NC 2025 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA, fundo de investimento em direitos creditórios, constituído nos termos do Anexo Normativo II da Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme alterada (respectivamente, “FIDC NC 2025” e “Resolução CVM 175”), inscrito no CNPJ sob o nº 61.285.603/0001-71, a partir de deliberação em assembleia geral de cotistas realizada, aprovou a realização da cisão parcial de seu patrimônio líquido (“Cisão”); e",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "478581778d300aa285496be68ef613636a5c286db5c6334fa62114732399f77e"
+      ]
+    },
+    "ae5d631b92aeee692e6b590d4d7369e83d8f122084f73acb2c7e2a26868ae827": {
+      "reference_date": "2025-12-10",
+      "value": "Júnior ≥ 10% PL; excepcionalmente 9% nos primeiros 30 dias",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Texto e página cotejados com a versão integral. Divergências requerem esclarecimento antes de alertas automáticos.",
+      "sources": [
+        "2171cf51efa144b161c4da3269aa2cf95c7f5d9f31af7e8095df8e5125626fce"
+      ]
+    },
+    "358aedda784e440530dcdd28e89442dc62552ba0c78845fd69f7663cf946ef7c": {
+      "reference_date": "2025-12-10",
+      "value": "Fluxos de DC do índice de liquidez são líquidos de PDD; limite percentual próprio não localizado",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Fórmula desconta fluxos a DI e inclui ponderação, despesas e MTM; PDD/crédito não replica o teste.",
+      "sources": [
+        "8bb17ede04b408fa5fec07338c78ee5b45c271942ca5b2a71460c6e8c30b2ca2"
+      ]
+    },
+    "a13c686a2fd234d2862d10205001ba9cf43ab4255c58e716a8c999a72ac69c3d": {
+      "reference_date": "2025-09-22",
+      "value": "O não atendimento dos Direitos Creditórios aos Critérios de Elegibilidade, após a respectiva data de aquisição, não ensejará qualquer direito de indenização do Fundo contra o Administrador, o Gestor, o Custodiante dos Direitos Creditórios, ou o Custodiante em relação aos Direitos Creditórios que tenham sido regularmente adquiridos, nos termos do Regulamento.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "34f612b75f9e482827d824ca7e13b59077fa94ce7f9638ec4e80e3a8bfc2cbe0"
+      ]
+    },
+    "213d99d7af0312e2a82b3c9eb6a1d7ed56779b0f0da5c242efcf07d4ed2c065a": {
+      "reference_date": "2025-09-22",
+      "value": "18.4. Caso 60 (sessenta) dias após a última data de vencimento de Direitos Creditórios integrantes da carteira do Fundo, e observadas as deliberações da Assembleia Geral referida no subitem 18.2.2 acima, o Fundo não disponha de recursos para o resgate integral das Cotas, o Administrador realizará o resgate do saldo das Cotas mediante dação em pagamento dos Direitos Creditórios e dos Ativos Financeiros integrantes da carteira do Fundo (bem como de eventuais bens recebidos em decorrência da execução ou excussão das garantias vinculadas a esses ativos), em caráter definitivo e sem direito de regresso contra o Fundo ou coobrigação deste, sempre considerando o valor da participação de cada Cotista no valor total das Cotas em circulação.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9cb3ee55c577b704b93b91846283e8a4969917e4b013820f27447dd482eb54b4"
+      ]
+    },
+    "c310f31fc2ec2bc47d8ab910878120538cfb3f35b3080f1cf59821171bdd56e5": {
+      "reference_date": "2025-09-22",
+      "value": "18.2. São considerados eventos de liquidação do Fundo (“Eventos de Liquidação”), quaisquer das seguintes ocorrências: I. se após 90 (noventa) dias do início de atividades, a classe de cotas mantiver, a qualquer tempo, Patrimônio Líquido diário inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias; consecutivos;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9c910b18f7a1fb4035a2f6c365d3cddf697b90ccaddcb126a8bceaa7fda71f39"
+      ]
+    },
+    "97f51df61948cf1c9a47310d669bdc89aa490d24e98c74793a480895ff5fefae": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9c910b18f7a1fb4035a2f6c365d3cddf697b90ccaddcb126a8bceaa7fda71f39"
+      ]
+    },
+    "8ca95c6a9ff0931a729aeaeacad3dcce7f794be97138b3901a2efa3ec7c11288": {
+      "reference_date": "2025-09-22",
+      "value": "14.1. Diariamente, a partir da primeira data de integralização de Cotas do Fundo, o Administrador obriga-se a utilizar as Disponibilidades para atender às exigibilidades do Fundo, obrigatoriamente, na seguinte ordem de preferência: (i) pagamento dos Encargos do Fundo; (ii) formação de reserva equivalente ao montante estimado dos Encargos do Fundo a serem incorridos no mês calendário imediatamente subsequente àquele em que for efetuado o respectivo provisionamento; (iii) conforme o caso, devolução aos titulares de Cotas dos valores aportados ao Fundo, por meio da amortização das Cotas, na proporção de suas respectivas contribuições; (iv) pagamento do Preço de Aquisição; (v) se aplicável, formação de reserva para pagamento das despesas relacionadas à liquidação e extinção do Fundo, ainda que exigíveis em data posterior ao encerramento de suas atividades; e (vi) se aplicável, pagamento dos valores referentes ao resgate das Cotas em caso de liquidação do Fundo por decisão da Assembleia Geral, hipótese em que não se observará o item “iii” para efeito de ordem de alocação de recursos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "f21557518942e6663a6e9dc00378f16938825ccb23c2a7fc81b30d4723561f87"
+      ]
+    },
+    "20ed178f8e203cd032bdcbe2e62df401e31307494634957e5cf4a3e799d8bd02": {
+      "reference_date": "2025-12-10",
+      "value": "Reinvestimento permitido, observada ordem de pagamentos",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "1bafa1c6703288c8bbdd9ff064f581ba2b222300190a1eaccf486b21f9c384c8"
+      ]
+    },
+    "dccf7fc821b06af3d3d664fcaf0b0987d521ad438d73ab051c18f7e17c7308a5": {
+      "reference_date": "2025-09-22",
+      "value": "24.3.1. Para o pagamento do resgate será utilizado o valor do quociente obtido com a divisão do montante obtido com a alienação dos Direitos Creditórios e/ou dos Ativos Financeiros do Fundo, deduzido das despesas e demais exigibilidades do Fundo, pelo número de Cotas emitidas pelo Fundo;",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "c65912d9fb2ae7b767ed52493270db2050c8ff45362061b3af58afbada111a6a"
+      ]
+    },
+    "1acc8b35466ea23ef153326ce9646cd319534aeaa27a748c9d4be9f1f9c12895": {
+      "reference_date": "2025-12-10",
+      "value": "Remuneração mensal de 15/01/2026 a 15/12/2029; seis parcelas de principal em julho–dezembro/2029",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos.",
+      "sources": [
+        "6714eac6576ec001516c587778a044d3e160b2b04a44d0dadbc1583e5e6fd5eb"
+      ]
+    },
+    "b6e2e2aa85029a81eadb37022fa467a2a3b30b40e3e9347047cf56b677194148": {
+      "reference_date": "2025-12-10",
+      "value": "Aplicações sem garantia de prestadores, terceiros, seguros ou FGC",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Cláusula descreve ausência de garantia das aplicações; não invalida acessórios de crédito previstos em cada cessão.",
+      "sources": [
+        "92f9b737254b91e908a0c7800ab6543da8a49754999f48b7915e63bba1df855a"
+      ]
+    },
+    "029a4ad66762da46b118d07fa7549bed11848d79fa16de52f4d7f10d23f095b3": {
+      "reference_date": "2025-09-22",
+      "value": "Uma parcela ou a totalidade dos Direitos Creditórios poderá contar com garantias reais ou fidejussórias.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2c0dbc3469ea54f14af3b737b45e83173f38f16e215060ee8deac3fa23f3e994"
+      ]
+    },
+    "5a8dd94929d63c0d7e0bc1b57e1f673dc55388fadad34f127c9093fe0c357a9f": {
+      "reference_date": "2025-09-22",
+      "value": "O Fundo ou terceiro por ele contratado poderá ajuizar ação de cobrança dos Direitos Creditórios vencidos e não pagos ou ação de execução das garantias referentes a tais Direitos Creditórios.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2c0dbc3469ea54f14af3b737b45e83173f38f16e215060ee8deac3fa23f3e994"
+      ]
+    },
+    "9bc28559116e97576938fa375efa0ad4ac8cd411927e2d361c4df995b257a3fb": {
+      "reference_date": "2025-09-22",
+      "value": "8.5. O Custodiante dos Direitos Creditórios, durante o exercício de suas atividades, não será o responsável pela indicação dos títulos representativos dos Direitos Creditórios vencidos e não pagos a protesto, ou pela inserção dos Devedores inadimplentes em órgãos responsáveis pelo apontamento de descumprimento de obrigações pecuniárias, cabendo ao Fundo, representado por seu Agente de Cobrança Extraordinária, realizar tais atividades e assumir a integral responsabilidade e os eventuais ônus dessa decisão.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9cc70a0cc671b82ab7af342084824f08cbc7c6d5f2dc01a91684d41cecfccc2c"
+      ]
+    },
+    "335177249e0f9e74d382a71673369e524a783bd22401b32488e357134b1852b3": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "34f612b75f9e482827d824ca7e13b59077fa94ce7f9638ec4e80e3a8bfc2cbe0"
+      ]
+    },
+    "d870aa162fdf9e69b53e1e2af1aaa365640766621258f8644f73b533e217f1a2": {
+      "reference_date": "2025-12-10",
+      "value": "Somente proteção da carteira; exposição limitada ao PL",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "00ad398bd95f7667b54bf2be58e60abfe059628b44706d88ee89223925b598e8"
+      ]
+    },
+    "79e445ca123be37ef9f127dd4e62cee6cf03a9fa5cde41702eb9f7b7e76f9f27": {
+      "reference_date": "2025-09-22",
+      "value": "O Fundo poderá contratar instrumentos derivativos para fins de proteção patrimonial, desde que a exposição seja sempre, no máximo, o valor do Patrimônio Líquido do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "586f4d4a2b46ffd1a17ed7e6643e41ecc08dc12a033928d21780afcda421b8ad"
+      ]
+    },
+    "15b4bf5fa38b059862bbf29ef20ae0940554de5991c1037a9b3d5341a3ca2bfe": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "586f4d4a2b46ffd1a17ed7e6643e41ecc08dc12a033928d21780afcda421b8ad"
+      ]
+    },
+    "78af9d8f5117b83b164f3c29df2ada6be05e34de312f38818d31bbd3f9826376": {
+      "reference_date": "2025-09-22",
+      "value": "“Administrador”: é a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 4º andar, inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda (“CNPJ”) sob o nº 62.418.140/0001-31, habilitada para a administração de fundos de investimento conforme Ato Declaratório expedido pela Comissão de Valores Mobiliários (“CVM”) nº 2.528, de 29 de julho de 1993. “Agente de Cobrança Extraordinária” é o prestador de serviços contratado pelo Gestor para a cobrança dos Direitos Creditórios vencidos e não pagos.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2377bbc198496c5355c5cf61774df0b433b2c76de233d9c01ac4daaef9f626ed"
+      ]
+    },
+    "1229f44b84818d9206cfad7574afcc54982cf2a683ac9df0deb89194c67b5d95": {
+      "reference_date": "2025-12-04",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "693986c4f3f096550ab97db5f3200f74c6506f68b2d8b4c94ccfb87f0cc08971"
+      ]
+    },
+    "1d32472ec838889fef3e9d4a61e0d667b3f9e2ca204fda73b4baeb275565c015": {
+      "reference_date": "2025-09-22",
+      "value": "3.2.2 Nas hipóteses de descredenciamento ou renúncia, fica o administrador obrigado a convocar imediatamente assembleia geral de Cotistas para eleger um substituto, a se realizar no prazo de até 15 (quinze) dias, sendo facultada a convocação da assembleia a cotistas que detenham cotas representativas de ao menos 5% (cinco por cento) do patrimônio líquido do FUNDO.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "7ced2ee3cc862b93d929e142a2417ff87cc9e9273052396ae25a730766cec714"
+      ]
+    },
+    "ed974bc662af1f512699527275264734b851367643f27d535b1998b8bb9e988c": {
+      "reference_date": "2025-12-10",
+      "value": "10.2 As Cotas não serão objeto de classificação de risco a ser realizada pela Agência de Classificação de Risco, observada a exceção prevista no item 10.2.1 deste Anexo, abaixo.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "0fccb71aee8cd4e06518b7845b6fbfa2a513b59e267733c17dfcbe5a1f63b885"
+      ]
+    },
+    "b6845b1e635134eba2d885aa64f97adec34f973877e653219dacf532f2e9484e": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e091368cb1f50b9dd90eb22f0fed8c398c015f55934f92fde4705eb5ed69dfa1"
+      ]
+    },
+    "ce520061f2158c724a1aafef75d95e0ae7c75047f87b52a0889f504533c3a46d": {
+      "reference_date": "2025-12-10",
+      "value": "Sênior CDI + 0,80% a.a.",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "728b7d3230f9cc4349e3a2c5acd05343bdc1af6073f11596d12b67537f879955"
+      ]
+    },
+    "29174a42cccb6acf1fccb0c9c878aa4c0a759f60ee9451d1e84c4e84c00d882a": {
+      "reference_date": "2025-09-22",
+      "value": "9.5.5. Satisfeitos os requisitos necessários para ser Cotista do Fundo nos termos da legislação e da regulamentação em vigor, será admitida a integralização por um mesmo investidor de qualquer quantidade de cotas, observado o valor mínimo para aplicação inicial, conforme item 9.9 abaixo. Não haverá, portanto, requisitos de concentração das Cotas de emissão do Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "87e1d94b69828dff4c44354cc4a6fba1d45cfb44e50026df590a43e8e62527c7"
+      ]
+    },
+    "2d73407ec51497be4bc8028a054531b9ef334a5f119ac5bb620e923cef4dde38": {
+      "reference_date": "2025-12-10",
+      "value": "0,033% a.a. PL; mínimo R$ 15 mil/mês; IPC/FIPE",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Texto e página cotejados com a versão integral. Divergências requerem esclarecimento antes de alertas automáticos.",
+      "sources": [
+        "fe3dbc25d9545067efb302bb53bffa4229f54650e82062ba59112aaa602dc70b"
+      ]
+    },
+    "5700ab233eda255ad5245a844c033f809f06f271549ab33cb0a77335db0fe268": {
+      "reference_date": "2025-12-10",
+      "value": "0,030% a.a. até R$ 500 mi; 0,025% acima; mínimo R$ 15 mil/mês; implementação R$ 45 mil",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "b6df510d3a38fe0debb511fabd91fb883cd75962e4ba18f2288dca5022ac6e30"
+      ]
+    },
+    "ebe821673c4d90c4bb58442fb9f5220dd223acf4a2c53b11b5d7b42124ffedc2": {
+      "reference_date": "2025-09-22",
+      "value": "19.2. Pela prestação dos serviços de gestão o Fundo pagará ao Gestor uma taxa de gestão (“Taxa de Gestão”) equivalente a 0,05% (zero vírgula zero cinco por cento) ao ano incidente sobre o Patrimônio Líquido da Classe e do Fundo calculado conforme item 19.3 deste Anexo Descritivo, sem prejuízo de ser observado o valor mínimo mensal de R$ 24.000,00 (vinte e quatro mil reais), corrigido anualmente, a contar da data de início do Fundo, pela variação do IPCA/IBGE ou por qualquer outro índice que venha a substituí-lo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e3e1e0851495fba89bde801446b7a85758201c9cb751178804f37c7629e5c51e"
+      ]
+    },
+    "6de506c50cd9a7e270b0db90afbd6fc415bcaacf1d1a4ee1e42f62a32e2fcf6a": {
+      "reference_date": "2025-12-10",
+      "value": "Máximo agregado 0,027% do PL; mínimo R$ 15 mil/mês",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Preservada redação e base do documento; conferir periodicidade nos contratos dos prestadores.",
+      "sources": [
+        "6282cf86c42733ddc47faae2cb0c293d1b3bcacdc3fb0f4927ff62713672b2e8"
+      ]
+    },
+    "8c4cac7ffed56f6651cd3378cb23e767ae6f22b61a395af6e13eacea8741996f": {
+      "reference_date": "2025-09-22",
+      "value": "A deliberação da liquidação do Fundo deverá observar o quórum estabelecido no subitem Erro! Fonte de referência não encontrada.. abaixo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "9abf1fb6beced6b6bade20b57f5163862a66a2516ec98aa9bf0230662e77e618"
+      ]
+    },
+    "0fef3c1e1c18292628c864f650cd8d36509a7c26c81c2bfa2ef33f50b1e009dc": {
+      "reference_date": "2025-09-22",
+      "value": "5.13.2. É vedado ao Fundo realizar aplicações em Direitos Creditórios originados ou cedidos, direta ou indiretamente, pelo Administrador, pelo Gestor, ou de suas respectivas Partes Relacionadas. A vedação de que trata este dispositivo não implica em vedação à aquisição, pelo Fundo, de Direitos Creditórios cuja respectiva oferta pública de distribuição ou negociação no mercado secundário seja estruturada e/ou intermediada por quaisquer Partes Relacionadas do Administrador, do Gestor, do Custodiante ou do Custodiante dos Direitos Creditórios.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "db48737e2b9067d7635c9081b932953102b8c0e5389b2d1b90e57ff5dfaf785c"
+      ]
+    },
+    "fa148921b8e786cafab34956dabf803414671a710cd19ccdcbe500c135c8106b": {
+      "reference_date": "2025-12-10",
+      "value": "13.4 As demonstrações financeiras anuais da Classe terão notas explicativas divulgando informações que abranjam, no mínimo, o montante, a natureza e o vencimento dos Direitos Creditórios que integrem a carteira da Classe.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e3903694c0b9bfeaf621c385a1808bfca7de8f1e102631b341d917843cb5f482"
+      ]
+    },
+    "a37e395fe8b8efe6e9d51a2bee8c08b0c354d2223da64ae23866d563ff263679": {
+      "reference_date": "2025-09-22",
+      "value": "",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "2e97b8763ed7fb299a56c5b201bee7f689d9bc99b3756748b19ebdcd93bcd38d"
+      ]
+    },
+    "96582c654881089e8c05ce7ff54ff76fba300a898ba24aedda7fb7e69161914b": {
+      "reference_date": "2025-12-10",
+      "value": "DC/PL < 50% por > 15 dias após 180 dias; insolvência, trocas de prestadores e descumprimentos sem cura",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos.",
+      "sources": [
+        "51e79f853c9ab774c7defcc8077651ec19367bc8c00dd923d86c5421cee8c0e0"
+      ]
+    },
+    "0620db54a961be647ad67fe277248c4b1db1ab47a0ba42e565f3f8e6b6c23bdb": {
+      "reference_date": "2025-12-10",
+      "value": "6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo grupo econômico, conforme facultado pelo art. 52, I, do Anexo Normativo II da Resolução CVM nº 175, devendo observar o seguinte limite de concentração (“Limites de Concentração”): (i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto por Direitos Creditórios de um único Devedor.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "deef618366a3caa6324ca5890183cd832f221d3cf6ec88881836b96264370bd3"
+      ]
+    },
+    "f8101536c7c6caa3bc38a78fcce593a720db19301b06c60ae1476864958c76d6": {
+      "reference_date": "2025-09-22",
+      "value": "6.1. O Fundo iniciará suas atividades na 1ª Data de Emissão de Cotas e terá prazo de duração indeterminado, sendo que a sua eventual liquidação: (i) deverá ser objeto de prévia deliberação em Assembleia Geral; ou (ii) ocorrerá por ato do administrador, mediante termo de encerramento firmado pelo Administrador, em razão do resgate da totalidade das Cotas emitidas pelo Fundo.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "3db3cf9e88bba6759dc635fc0ef570f7c398654028cc4867404fc909ad959cb2"
+      ]
+    },
+    "4ee81ea2286f59e7fc77077c3e8df16ceb13f6f4e45170b6b4c3806ffe01b93c": {
+      "reference_date": "2025-12-10",
+      "value": "Sênior e subordinada júnior",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "728b7d3230f9cc4349e3a2c5acd05343bdc1af6073f11596d12b67537f879955"
+      ]
+    },
+    "465dd9ecc1c5cde69ab7cb799f1dfe93604da4f82ddfa61e5e2a35ee5e002c0f": {
+      "reference_date": "2025-12-10",
+      "value": "10.1 As Cotas de emissão da Classe do Fundo correspondem a frações ideais de seu Patrimônio Líquido e serão divididas em 2 (duas) Subclasses, sendo denominadas (i) Subclasse de Cotas Sênior; e (ii) Subclasse de Cotas Subordinadas Júnior, que terão suas características descritas nos respectivos Apêndices.",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "aa952cb18a9070f662b5a71d0745c86d30a4a9512063412cfd9ae9fa29dbca44"
+      ]
+    },
+    "0b73ed3359dc2dd109943a9c5b843f18200be3a3384aa2876426b41a6a2e69cd": {
+      "reference_date": "2026-02-06",
+      "value": "5 ORDEM DO DIA: Deliberar sobre as seguintes matérias: (i) A aprovação de waiver pelo desenquadramento do Índice de Subordinação pelo prazo de 02 (dois) meses a contar da presente data, sem que o desenquadramento seja considerado um Evento de Avaliação, desde que limitado a 9%, e sem a necessidade da realização de Amortização Extraordinária ou integralização de novas Cotas Subordinadas Júnior até 31 de março de 2026; (ii) Com a aprovação do item “i” acima, a autorização para que os Prestadores de Serviços Essenciais possam praticar todos e quaisquer atos necessários à formalização, efetivação e administração das deliberações desta Assembleia",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "5717092333629243e2351be179588611d810b8b490d3b06844f8f14bbe290a9b"
+      ]
+    },
+    "d91cfad184de9908208cc77c21abb04b9bed1e0a89c5a854053cdb1b89c1062c": {
+      "reference_date": "2025-12-10",
+      "value": "Principal somente a partir do 43º mês",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos.",
+      "sources": [
+        "728b7d3230f9cc4349e3a2c5acd05343bdc1af6073f11596d12b67537f879955"
+      ]
+    },
+    "a6e327a13fb94b7809841ee610909ac0dc2a7906dad6b55e4a417f1d262fea96": {
+      "reference_date": "2025-12-10",
+      "value": "Última amortização sênior: 15/12/2029",
+      "assessment": "Revisão anterior arquivada. Localizador textual e frase material não validam sua semântica, números ou base; não promovida à resposta atual.",
+      "provenance": "previous_review_with_primary_locator",
+      "risk_note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "sources": [
+        "89e582d56750cc85e9d03038dcef366ce7e335058f91063ccd0c7947bddd60f2"
+      ]
+    },
+    "84f569f0e4c2007aa1d8dc645ae7a88d927791d7644ee1b30e4b5be561fe2803": {
+      "reference_date": "2025-09-22",
+      "value": "XIV. montantes devidos a fundos investidores na hipótese de acordo de remuneração com base na taxa de administração ou gestão, observado que o valor das correspondentes parcelas das taxas de administração ou gestão deve ser subtraído e limitado aos valores destinados pela classe investida ao provisionamento ou pagamento das despesas com as referidas taxas;.",
+      "assessment": "Documento anterior do mesmo escopo; não promovido à resposta atual. A vigência jurídica e eventual continuidade da cláusula não são inferidas.",
+      "provenance": "primary_passage",
+      "sources": [
+        "e091368cb1f50b9dd90eb22f0fed8c398c015f55934f92fde4705eb5ed69dfa1"
+      ]
+    },
+    "ca349104bcdf59cea9c64375513a8e666355c578ec12b2202627a87062708af8": {
+      "reference_date": "2025-09-22",
+      "value": "Pelo presente Instrumento Particular, a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sediada na Av. Brigadeiro Faria Lima, nº 3.500, 4º andar, Itaim Bibi, São Paulo – SP, inscrito no CNPJ nº 62.418.140/0001-31, ato declaratório CVM n.º 2528, (“Administrador”), neste ato representado por seus procuradores, vem:",
+      "assessment": "Trecho anterior preservado sem inferir a vigência jurídica.",
+      "provenance": "primary_passage",
+      "sources": [
+        "4d63369708a4245fa46e95d2c5c789df98723f2bec56727c377a43c7249a857f"
+      ]
+    }
+  },
+  "passages": {
+    "1bafa1c6703288c8bbdd9ff064f581ba2b222300190a1eaccf486b21f9c384c8": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "25",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 25 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "6cd8e104a35a85650a20e4302025297450828ae348141beef5bb65f9dfba71a5": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "3",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 3 · Definição Cedentes · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "c5ed1249e32c7829159c4a6b392f14393d4c0dde9ae91558d91a26f079cfbccb": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 11,
+      "clause": "",
+      "excerpt": "voltadas para mitigar eventuais impactos ambientais ocasionados pelas atividades por eles  desenvolvidas;\n (t) registrar os Direitos Creditórios na entidade registradora da classe ou entregá-los ao Custodiante  dos Direitos Creditórios ou ao Administrador, conforme o caso;\n (u) na hipótese de ocorrer substituição de Direitos Creditórios, por qualquer motivo, diligenciar para que  a relação entre risco e retorno da carteira de Direitos Creditórios não seja alterada, nos termos da  política de investimentos;\n (v) efetuar a correta formalização dos documentos relativos à cessão dos direitos creditórios;\n (w) sem prejuízo de outros parâmetros eventualmente definidos no regulamento, monitorar:\n (i) a adimplência da carteira de Direitos Creditórios e, em relação aos Direitos Creditórios vencidos  e não pagos, diligenciar para que sejam adotados os procedimentos de cobrança, observado que  essa última obrigação inexiste no caso de hipóteses de dispensa previstas no regulamento; e\n (ii) a taxa de retorno dos Direitos Creditórios, considerando, no mínimo, pagamentos, pré-  pagamentos e inadimplência; e\n (x) elaborar e encaminhar ao administrador, em até 40 (quarenta) dias após o encerramento do  trimestre civil a que se referir, relatório contendo:\n (i) os efeitos de eventual alteração na política de investimento sobre a rentabilidade da carteira de  ativos;\n (ii) em relação aos originadores que representem individualmente 10% (dez por cento) ou mais da  carteira de Direitos Creditórios no trimestre:\n (a) critérios para a concessão de crédito adotados pelos originadores, caso tais critérios não  tenham sido descritos no regulamento ou em outros demonstrativos trimestrais; e\n (b) eventuais alterações nos critérios para a concessão de crédito adotados por tais originadores,  caso os critérios adotados já tenham sido descritos no regulamento ou em outros demonstrativos  trimestrais;\n (iii) eventuais alterações nas garantias existentes para o conjunto de direitos creditórios;\n (iv) forma como se operou a cessão dos direitos creditórios, incluindo:\n (a) descrição de contratos relevantes firmados com esse propósito, se houver; e\n (b) indicação do caráter definitivo, ou não, da cessão de direitos creditórios;\n (v) impacto dos eventos de pré-pagamento no valor do patrimônio líquido e na rentabilidade da  carteira;\n (vi) condições de alienação, a qualquer título, de direitos creditórios, incluindo:\n (a) momento da alienação (antes ou depois do vencimento); e\n (b) motivação da alienação;",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "513f9480e529c43f8795aebc76f12acd463a055aa07230522c2ae64d1cd89c2b": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "5",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 5 · Definição Devedores · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "2c0dbc3469ea54f14af3b737b45e83173f38f16e215060ee8deac3fa23f3e994": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 53,
+      "clause": "",
+      "excerpt": "necessários para a sua adoção e/ou manutenção, o que será deliberado em Assembleia Geral.\n Caso quaisquer dos titulares das Cotas não aportem os recursos suficientes para tanto, na forma  prevista neste Regulamento, o Administrador, o Gestor, o Custodiante dos Direitos Creditórios,  e o Custodiante, seus administradores, empregados e demais prepostos não serão responsáveis  por eventuais danos ou prejuízos, de qualquer natureza, sofridos pelo Fundo e por seus Cotistas  em decorrência da não propositura ou manutenção de medidas judiciais e/ou extrajudiciais  necessárias à Cobrança Judicial e Extrajudicial dos Direitos Creditórios vencidos e não pagos  ou à salvaguarda de seus direitos e prerrogativas.\n(ix) Cobrança Judicial e Extrajudicial dos Direitos Creditórios Vencidos e Não Pagos. O Agente de  Cobrança Extraordinária poderá celebrar, em nome do Fundo, acordos com os Devedores para  a liquidação dos seus débitos, sendo que tais acordos poderão incluir descontos no valor total  devido pelo respectivo Devedor, ou extensão do respectivo prazo de vencimento. Não há  garantias de que o Agente de Cobrança Extraordinária consiga receber dos Devedores, em  nome do Fundo, a totalidade ou qualquer parte dos Direitos Creditórios vencidos e não pagos.\n O insucesso na cobrança dos Direitos Creditórios vencidos e não pagos pode acarretar perdas  para o Fundo e seus Cotistas.\n(x) Risco de Insuficiência das Garantias. Uma parcela ou a totalidade dos Direitos Creditórios  poderá contar com garantias reais ou fidejussórias. Havendo inadimplemento dos Direitos  Creditórios, os Devedores e os respectivos garantidores, se houver, serão executados, conforme  o caso, extrajudicialmente ou judicialmente. No entanto, dependendo da garantia prestada, é  possível que o objeto que garante a dívida não seja encontrado, que o preço obtido na venda  do objeto seja insuficiente para cobrir o débito com o Fundo, que a execução da garantia seja  morosa ou, ainda, que o Fundo não consiga executar a garantia. Nesses casos, o Patrimônio  Líquido do Fundo poderá ser afetado negativamente e o Fundo pode não ter recursos suficientes  para efetuar os pagamentos previstos neste Regulamento.\n(xi) Demora na Obtenção de Decisão Judicial em Ações de Cobrança ou Ações de Execução. O  Fundo ou terceiro por ele contratado poderá ajuizar ação de cobrança dos Direitos Creditórios  vencidos e não pagos ou ação de execução das garantias referentes a tais Direitos Creditórios.\n É possível que tais ações se estendam por um período de tempo excessivamente superior ao  estimado e que o Fundo demore ou não consiga recuperar os valores devidos. Ademais, em um  eventual processo de execução das garantias (se houver) dos Direitos Creditórios vencidos e  não pagos, poderá haver a necessidade de contratação de consultores, dentre outros custos,  que deverão ser suportados pelo Fundo, na qualidade de investidor de tais Direitos Creditórios.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "049d61ef938252b8030253436e90cc6de07ea8d15aea3f5dfdf6af3511480247": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "27–29",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 27–29 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "5179945250de3788713cfb3f737b936dc68ae9dedbfac74f9a0eaf59e26bb0e2": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 9,
+      "clause": "3.1.7",
+      "excerpt": "3.1.7 Observados os termos e as condições estabelecidos neste Regulamento e no Acordo Operacional, e  observada a regulamentação aplicável, o Gestor, por meios próprios ou por meio de prestadores de  serviços por ele contratados nos termos deste Regulamento, independentemente de qualquer  procedimento adicional, incluindo, mas não se limitando, às Assembleias Gerais, obriga-se:\n (a) cumprir fielmente as disposições do Acordo Operacional, do regulamento do Fundo, do Código de  Administração e Gestão de Recursos de Terceiros da Associação Brasileira das Entidades dos  Mercados Financeiro e de Capitais – ANBIMA, assim como suas regras e procedimentos, e da  legislação aplicável ao Fundo e à atividade de administração de carteiras de valores mobiliários;\n (b) executar a política de investimentos, devendo analisar e selecionar os direitos creditórios para a  carteira de ativos, o que inclui, no mínimo:\n (i) verificar o enquadramento dos direitos creditórios à política de investimento, compreendendo, no  mínimo, a validação dos direitos creditórios quanto aos critérios de elegibilidade e a observância  aos requisitos de composição e diversificação, de forma individualizada; e\n (ii) avaliar a aderência do risco de performance dos direitos creditórios, se houver, à política de  investimento;\n (c) desempenhar as atividades que lhe sejam atribuídas no regulamento do Fundo e no Acordo  Operacional na respectiva forma e prazos ajustados;\n (d) fornecer instruções para a negociação de direitos creditórios e aos ativos financeiros de liquidez e  modalidades operacionais, para o Fundo com identificação, dados, características e valores  precisos;\n (e) no âmbito de suas diligências relacionadas à aquisição de direitos creditórios, o Gestor deve verificar  a possibilidade de ineficácia da cessão ao Fundo em virtude de riscos de natureza fiscal, alcançando  direitos creditórios que tenham representatividade no patrimônio do Fundo, assim como dar ciência",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "bf23d9b13475b564e82ea90579ab4099872a923175a89f5551af13b31b1b1eb3": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "2",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 2 e 25 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "516bd11c3da16121f6c5defdfaf1e3bee60a08b0395f0e84974bdb1fb104476a": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Alocação Mínima”: é o percentual mínimo de 67% (sessenta e sete por cento) do patrimônio líquido da Classe  que deverá ser alocado em Direitos Creditórios.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "491fa0fba8deff2165b7c2b8313aa1dd523a55e0689d78e4c93fa92578d4315a": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": 47,
+      "clause": "19.1.1",
+      "excerpt": "19.1.1 Considerando que a Classe não poderá realizar investimentos em cotas de outros fundos de  investimento, a Taxa de Administração aplicável à Classe corresponderá ao limite máximo da  taxa de administração (“Taxa Máxima de Administração”) previsto para esta, nos termos da  regulamentação aplicável.",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "primary_passage"
+    },
+    "2e44be251ec2e343ea740d62d0dfcd7e96a84cf4c60443736496868a2b72dfb7": {
+      "document_id": "1054472",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1054472",
+      "reference_date": "2025-12-04",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "(ii) Como resultado da Incorporação, haverá transferência de parcela dos ativos integrantes da  carteira do FIDC NC 2025 para o Fundo composta exclusivamente pelos ativos discriminados no  Anexo I, e o consequente cancelamento proporcional das cotas do FIDC NC 2025 registradas em  nome de seus cotistas. Em substituição, o Fundo emitirá novas cotas, que serão atribuídas aos",
+      "sha256": "4d4777aade496dbda650cd91280e97e0fe7b31fb250d32d5a2d7365f1d7204ff",
+      "verification": "primary_passage"
+    },
+    "53550ebcf5dcac09dc4ab138845d5c5ee63cd3570aa664c62a09d7656b2d0c26": {
+      "document_id": "1052452",
+      "title": "Instrumento Particular de Emissão de Cotas",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1052452",
+      "reference_date": "2025-12-02",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "INSTRUMENTO PARTICULAR DE RETIFICAÇÃO E RATIFICAÇÃO DO ATO DO  ADMINISTRADOR PARA APROVAÇÃO DA OFERTA PRIVADA DE COTAS DA 2ª  EMISSÃO DA CLASSE ÚNICA DO TOP 2025 J FUNDO DE INVESTIMENTO EM  DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA  CNPJ 62.838.025/0001-16",
+      "sha256": "87e653eb449d3849d2a775ac7e79c56fdd4baabf57f4a74dcc191df033bfe459",
+      "verification": "primary_passage"
+    },
+    "760d29b24d0a2db776fe576f9d57410e4399587c54261e84ae10948ca4aa80ef": {
+      "document_id": "1032846",
+      "title": "Instrumento Particular de Emissão de Cotas",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1032846",
+      "reference_date": "2025-11-10",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "ATO DO ADMINISTRADOR PARA APROVAÇÃO DA OFERTA PRIVADA DE COTAS DA 2ª EMISSÃO DA  CLASSE ÚNICA DO TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS  RESPONSABILIDADE LIMITADA  CNPJ 62.838.025/0001-16",
+      "sha256": "6992da81ef0b102b225efcc035f9486bcaa912950bf9f4b76045a09ce7e880ad",
+      "verification": "primary_passage"
+    },
+    "4a0554fccdbeee7e5e8c1a7ab6f2f8be645224f935997cadb4e5864df71d4d47": {
+      "document_id": "1056017",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056017",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "INSTRUMENTO PARTICULAR DE CONSTITUIÇÃO  TOP 2025 J FUNDO DE INVESTIMENTO EM DIREITOS  CREDITÓRIOS RESPONSABILIDADE LIMITADA  (“FUNDO”)",
+      "sha256": "ca32ce1b3e069c7f0b0c1cecfd0a868627a4ab3def9103810c039e079c41e3c0",
+      "verification": "primary_passage"
+    },
+    "0044ec5c9bc492e983af952ecc1d2de10d7f005ba08d3e530a16e212ca059a00": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 32,
+      "clause": "19.1",
+      "excerpt": "19.1. Pela administração do Fundo, nela compreendida as atividades do Administrador, o Fundo pagará ao Administrador uma taxa de administração (“Taxa de Administração”) equivalente a 0,0825% (zero vírgula zero oitocentos e vinte e cinco por cento) ao ano incidente sobre o patrimônio líquido do Classe calculado conforme item 19.3 deste Anexo Descritivo, observado o valor mínimo mensal de R$ 10.000,00 (dez mil reais), corrigido anualmente, a contar da data de início do Fundo, pela variação do IPCA/IBGE ou por qualquer outro índice que venha a substituí-lo.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "77bae71fd26515735c07579ea30bb51094f69523eb23301f13fb4f9081926361": {
+      "document_id": "1054472",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1054472",
+      "reference_date": "2025-12-04",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "INSTRUMENTO PARTICULAR DE DELIBERAÇÃO CONJUNTA DO TOP 2025 J FUNDO DE  INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA  (“Fundo”)",
+      "sha256": "4d4777aade496dbda650cd91280e97e0fe7b31fb250d32d5a2d7365f1d7204ff",
+      "verification": "primary_passage"
+    },
+    "e54b39490ff709c23d30cfc579ab930bd669a6f37480844c3936f77edab14a6e": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 14,
+      "clause": "4.1",
+      "excerpt": "4.1 É vedado aos prestadores de serviços essenciais, em suas respectivas esferas de atuação, praticar os  seguintes atos em nome do fundo, sem prejuízo das demais vedações previstas na legislação e  regulamentação aplicáveis e neste Regulamento:\n I – receber depósito em conta corrente;\n II – contrair ou efetuar empréstimos, salvo nas hipóteses previstas nos termos da regulamentação  aplicável;\n III – vender cotas à prestação, sem prejuízo da possibilidade de integralização a prazo de cotas  subscritas;\n IV – garantir rendimento predeterminado aos cotistas;\n V – utilizar recursos da classe para pagamento de seguro contra perdas financeiras de cotistas;\n VI – praticar qualquer ato de liberalidade, exceto pelas doações que o FUNDO estiver autorizado a fazer  nos termos deste Regulamento;\n VII - receber ou orientar o recebimento de depósito em conta corrente que não seja de titularidade da  classe de cotas ou não seja conta-vinculada;\n VIII- aquisição de Direitos Creditórios originados ou cedidos pelo Administrador, Gestor ou partes a eles  relacionadas, nos termos do art. 42, do Anexo Normativo II da Resolução CVM 175/22; e  IX-aceitar que as garantias em favor da Classe sejam formalizadas em nome de terceiros que não  representem o Fundo, ressalvada a possibilidade de formalização de garantias em favor do  Administrador, Gestor ou terceiros que representem o Fundo como titular da garantia, que devem  diligenciar para segrega-las adequadamente dos seus próprios patrimônios, nos termos do art. 43, do  Anexo Normativo II da Resolução CVM 175/22.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "478581778d300aa285496be68ef613636a5c286db5c6334fa62114732399f77e": {
+      "document_id": "1054472",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1054472",
+      "reference_date": "2025-12-04",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "(i) em 2 de dezembro de 2025, o NC 2025 FUNDO DE INVESTIMENTO EM DIREITOS  CREDITÓRIOS RESPONSABILIDADE LIMITADA, fundo de investimento em direitos creditórios,  constituído nos termos do Anexo Normativo II da Resolução da CVM nº 175, de 23 de dezembro de  2022, conforme alterada (respectivamente, “FIDC NC 2025” e “Resolução CVM 175”), inscrito no  CNPJ sob o nº 61.285.603/0001-71, a partir de deliberação em assembleia geral de cotistas realizada,  aprovou a realização da cisão parcial de seu patrimônio líquido (“Cisão”); e",
+      "sha256": "4d4777aade496dbda650cd91280e97e0fe7b31fb250d32d5a2d7365f1d7204ff",
+      "verification": "primary_passage"
+    },
+    "2171cf51efa144b161c4da3269aa2cf95c7f5d9f31af7e8095df8e5125626fce": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "39",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 39 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "8bb17ede04b408fa5fec07338c78ee5b45c271942ca5b2a71460c6e8c30b2ca2": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "7",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 7 · Definição Índice de Liquidez · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "34f612b75f9e482827d824ca7e13b59077fa94ce7f9638ec4e80e3a8bfc2cbe0": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 50,
+      "clause": "",
+      "excerpt": "do Fundo seja consistente com essas perspectivas. os eventos futuros poderão diferir  sensivelmente das tendências aqui indicadas.\nII - Quanto aos riscos associados aos Direitos Creditórios:\n (i) Riscos Operacionais.\n (a) Guarda dos Documentos Comprobatórios. O Administrador contratou o Custodiante dos  Direitos Creditórios para realizar a guarda dos Documentos Comprobatórios. O  Custodiante dos Direitos Creditórios tem a faculdade de contratar terceiro para a  prestação de serviços de guarda dos Documentos Comprobatórios, desde que o  Custodiante dos Direitos Creditórios se mantenha responsável por esse terceiro. Ainda  que o Custodiante dos Direitos Creditórios continue responsável pela guarda dos  Documentos Comprobatórios, a contratação de eventual terceiro para a prestação de  tais serviços poderá representar dificuldade adicional à verificação do lastro dos Direitos  Creditórios ou, até mesmo, à sua cobrança, podendo gerar perdas ao Fundo e,  consequentemente, aos Cotistas.\n (b) Troca de Informações. Dada a complexidade operacional própria dos fundos de  investimento em direitos creditórios, não há garantia de que as trocas de informações  entre o Administrador, o Gestor, o Custodiante, o Custodiante dos Direitos Creditórios e  terceiros ocorrerão livre de erros. Caso esse risco venha a se materializar, os processos  de aquisição, monitoramento e cobrança dos Direitos Creditórios, inclusive dos Direitos  Creditórios vencidos e não pagos, poderão ser adversamente afetados, prejudicando o  desempenho do Fundo.\n (c) Verificação dos Critérios de Elegibilidade. O Fundo adquirirá apenas Direitos Creditórios  que atendam aos Critérios de Elegibilidade, na respectiva data de aquisição, nos termos  do Regulamento. Na hipótese de, após a sua aquisição pelo Fundo, os Direitos  Creditórios deixarem, por qualquer motivo, de atender aos Critérios de Elegibilidade,  nenhuma medida a esse respeito será tomada pelo Administrador, pelo Gestor, pelo  Custodiante dos Direitos Creditórios, ou pelo Custodiante em relação a referidos Direitos  Creditórios, que permanecerão na carteira do Fundo. O não atendimento dos Direitos  Creditórios aos Critérios de Elegibilidade, após a respectiva data de aquisição, não  ensejará qualquer direito de indenização do Fundo contra o Administrador, o Gestor, o  Custodiante dos Direitos Creditórios, ou o Custodiante em relação aos Direitos  Creditórios que tenham sido regularmente adquiridos, nos termos do Regulamento.\n (d) Falhas ou Interrupção da Prestação de Serviços pela Instituição Financeira na qual o  Fundo Mantém Conta. Qualquer falha ou eventual interrupção da prestação de serviços",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "9cb3ee55c577b704b93b91846283e8a4969917e4b013820f27447dd482eb54b4": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 31,
+      "clause": "18.4",
+      "excerpt": "18.4. Caso 60 (sessenta) dias após a última data de vencimento de Direitos Creditórios integrantes da carteira  do Fundo, e observadas as deliberações da Assembleia Geral referida no subitem 18.2.2 acima, o Fundo  não disponha de recursos para o resgate integral das Cotas, o Administrador realizará o resgate do saldo  das Cotas mediante dação em pagamento dos Direitos Creditórios e dos Ativos Financeiros integrantes da  carteira do Fundo (bem como de eventuais bens recebidos em decorrência da execução ou excussão das  garantias vinculadas a esses ativos), em caráter definitivo e sem direito de regresso contra o Fundo ou  coobrigação deste, sempre considerando o valor da participação de cada Cotista no valor total das Cotas  em circulação.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "9c910b18f7a1fb4035a2f6c365d3cddf697b90ccaddcb126a8bceaa7fda71f39": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 30,
+      "clause": "18.2",
+      "excerpt": "18.2. São considerados eventos de liquidação do Fundo (“Eventos de Liquidação”), quaisquer das seguintes  ocorrências:\n I. se após 90 (noventa) dias do início de atividades, a classe de cotas mantiver, a qualquer tempo,  Patrimônio Líquido diário inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90\n (noventa) dias; consecutivos;\n II. caso os Cotistas, observado o disposto no Capítulo 18 deste Regulamento, venham a deliberar  que um Evento de Avaliação constitui um Evento de Liquidação nos termos do item 18.1.2  acima;\n III. decretação de falência, intervenção, liquidação, recuperação judicial ou extrajudicial do  Administrador, do Gestor, do Custodiante, do Custodiante dos Direitos Creditórios ou do  Escriturador, sem que tenha sido convocada Assembleia Geral para, conforme o caso, nomear  representante dos Cotistas e decidir sobre a sua substituição; ou  IV. cessação pelo Custodiante ou do Custodiante dos Direitos Creditórios, a qualquer tempo até a  data de liquidação do Fundo, por qualquer motivo, da prestação dos serviços objeto do Contrato  de Custódia, sem que tenha havido sua substituição por outra instituição, de acordo com o  procedimento estabelecido no Contrato de Custódia.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "f21557518942e6663a6e9dc00378f16938825ccb23c2a7fc81b30d4723561f87": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 26,
+      "clause": "14.1",
+      "excerpt": "14.1. Diariamente, a partir da primeira data de integralização de Cotas do Fundo, o Administrador obriga-se a  utilizar as Disponibilidades para atender às exigibilidades do Fundo, obrigatoriamente, na seguinte ordem  de preferência:\n (i) pagamento dos Encargos do Fundo;\n (ii) formação de reserva equivalente ao montante estimado dos Encargos do Fundo a serem  incorridos no mês calendário imediatamente subsequente àquele em que for efetuado o  respectivo provisionamento;\n (iii) conforme o caso, devolução aos titulares de Cotas dos valores aportados ao Fundo, por meio  da amortização das Cotas, na proporção de suas respectivas contribuições;\n (iv) pagamento do Preço de Aquisição;\n (v) se aplicável, formação de reserva para pagamento das despesas relacionadas à liquidação e  extinção do Fundo, ainda que exigíveis em data posterior ao encerramento de suas atividades;\n e\n (vi) se aplicável, pagamento dos valores referentes ao resgate das Cotas em caso de liquidação do  Fundo por decisão da Assembleia Geral, hipótese em que não se observará o item “iii” para  efeito de ordem de alocação de recursos.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "c65912d9fb2ae7b767ed52493270db2050c8ff45362061b3af58afbada111a6a": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 39,
+      "clause": "24.3.1",
+      "excerpt": "24.3.1. Para o pagamento do resgate será utilizado o valor do quociente obtido com a divisão do montante obtido com a alienação dos Direitos Creditórios e/ou dos Ativos Financeiros do Fundo, deduzido das despesas e demais exigibilidades do Fundo, pelo número de Cotas emitidas pelo Fundo;",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "6714eac6576ec001516c587778a044d3e160b2b04a44d0dadbc1583e5e6fd5eb": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "56–57",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 56–57 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "92f9b737254b91e908a0c7800ab6543da8a49754999f48b7915e63bba1df855a": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "64–65",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 64–65 · Fatores de risco 1.11 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "9cc70a0cc671b82ab7af342084824f08cbc7c6d5f2dc01a91684d41cecfccc2c": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 22,
+      "clause": "8.5",
+      "excerpt": "8.5. O Custodiante dos Direitos Creditórios, durante o exercício de suas atividades, não será o responsável  pela indicação dos títulos representativos dos Direitos Creditórios vencidos e não pagos a protesto, ou pela  inserção dos Devedores inadimplentes em órgãos responsáveis pelo apontamento de descumprimento de  obrigações pecuniárias, cabendo ao Fundo, representado por seu Agente de Cobrança Extraordinária,  realizar tais atividades e assumir a integral responsabilidade e os eventuais ônus dessa decisão.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "00ad398bd95f7667b54bf2be58e60abfe059628b44706d88ee89223925b598e8": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "26",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 26 e 62 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "586f4d4a2b46ffd1a17ed7e6643e41ecc08dc12a033928d21780afcda421b8ad": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 45,
+      "clause": "",
+      "excerpt": "da qualidade dos créditos dos devedores ou contrapartes poderão também trazer  impactos nos preços e na liquidez dos Ativos Financeiros.\n (e) O Fundo poderá incorrer em risco de crédito em caso de não liquidação das operações  realizadas por meio de corretoras e distribuidoras de valores mobiliários que venham a  intermediar as operações de compra e venda de Ativos Financeiros em nome do Fundo.\n Na hipótese de falta de capacidade e/ou falta de disposição de pagamento de qualquer  dos devedores de Ativos Financeiros ou das contrapartes nas operações integrantes da  carteira do Fundo, o Fundo poderá sofrer perdas, podendo inclusive incorrer em custos  para conseguir recuperar os seus créditos.\n(iii) Riscos de Precificação dos Investimentos. A precificação dos Direitos Creditórios e Ativos  Financeiros integrantes da carteira do Fundo deverá ser realizada de acordo com os critérios e  procedimentos para registro e avaliação de títulos, valores mobiliários e demais operações  estabelecidas na regulamentação em vigor. Referidos critérios de avaliação de ativos, tais como  os de marcação a mercado (mark-to-market), poderão ocasionar variações nos valores dos  Direitos Creditórios e Ativos Financeiros integrantes da carteira do Fundo, resultando em  aumento ou redução no valor das Cotas.\n(iv) Riscos do Uso de Derivativos. O Fundo poderá contratar instrumentos derivativos para fins de  proteção patrimonial, desde que a exposição seja sempre, no máximo, o valor do Patrimônio  Líquido do Fundo. A contratação, pelo Fundo, dos referidos instrumentos de derivativos poderá  acarretar oscilações negativas no valor de seu Patrimônio Líquido superiores àquelas que  ocorreriam se tais instrumentos não fossem utilizados. A contratação deste tipo de operação não  deve ser entendida como uma garantia do Administrador, do Gestor, do Custodiante, do  Custodiante dos Direitos Creditórios, de qualquer mecanismo de seguro ou do Fundo Garantidor  de Créditos – FGC de remuneração das Cotas do Fundo. A contratação de operações com  derivativos poderá resultar em perdas para o Fundo e para os Cotistas.\n(v) Risco de Ausência de Classificação de Risco dos Direitos Creditórios. O Fundo poderá adquirir  Direitos Creditórios em relação aos quais não tenha sido atribuída classificação de risco por  agência classificadora em funcionamento no Brasil. A ausência de classificação de risco dos  Direitos Creditórios integrantes da carteira do Fundo poderá dificultar a avaliação e o  monitoramento do risco de crédito dos referidos ativos.\n(vi) Risco de Liquidez.\n (a) Risco de Liquidez Relativo aos Ativos Financeiros. Diversos motivos podem ocasionar  a falta de liquidez dos mercados nos quais os títulos e valores mobiliários integrantes da  carteira do Fundo são negociados e/ou outras condições atípicas de mercado. Caso isso",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "2377bbc198496c5355c5cf61774df0b433b2c76de233d9c01ac4daaef9f626ed": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 2,
+      "clause": "",
+      "excerpt": "“Administrador”: é a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade  empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima,  nº 3.500, 4º andar, inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Fazenda (“CNPJ”) sob o  nº 62.418.140/0001-31, habilitada para a administração de fundos de investimento conforme Ato Declaratório  expedido pela Comissão de Valores Mobiliários (“CVM”) nº 2.528, de 29 de julho de 1993.\n “Agente de Cobrança Extraordinária” é o prestador de serviços contratado pelo Gestor para a cobrança dos  Direitos Creditórios vencidos e não pagos.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "693986c4f3f096550ab97db5f3200f74c6506f68b2d8b4c94ccfb87f0cc08971": {
+      "document_id": "1054472",
+      "title": "Instrumento Particular de Alteração do Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1054472",
+      "reference_date": "2025-12-04",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "Por este instrumento conjunto de deliberação (“Instrumento Conjunto de Deliberação”), a INTRAG  DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade limitada, com sede na  Avenida Brigadeiro Faria Lima, nº 3.500, 4º andar, Itaim Bibi, CEP 04.538-132, Cidade de São Paulo,  Estado de São Paulo, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ\") sob o nº\n 62.418.140/0001-31, autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício  profissional de administração de carteiras de valores mobiliários, conforme Ato Declaratório CVM nº\n 2.528, de 29 de julho de 1993 (“Administrador”), em conjunto com a KANASTRA  ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade limitada, com sede na Avenida dos Vinhedos,  nº 71, Torre Empresarial Sul, 8º andar, sala 802, Jardim Sul, CEP 38411-848, Cidade de Uberlândia,  Estado de Minas Gerais, inscrita no CNPJ sob o nº 44.870.662/0001-98, autorizada pela CVM a prestar  o serviço de gestão de carteira de valores mobiliários por meio do Ato Declaratório da CVM nº\n 19.724, de 07 de abril de 2022 (“Gestor” e, em conjunto com o Administrador, “Prestadores de  Serviços Essenciais”),",
+      "sha256": "4d4777aade496dbda650cd91280e97e0fe7b31fb250d32d5a2d7365f1d7204ff",
+      "verification": "primary_passage"
+    },
+    "7ced2ee3cc862b93d929e142a2417ff87cc9e9273052396ae25a730766cec714": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 12,
+      "clause": "3.2.2",
+      "excerpt": "3.2.2 Nas hipóteses de descredenciamento ou renúncia, fica o administrador obrigado a convocar  imediatamente assembleia geral de Cotistas para eleger um substituto, a se realizar no prazo de até 15\n (quinze) dias, sendo facultada a convocação da assembleia a cotistas que detenham cotas  representativas de ao menos 5% (cinco por cento) do patrimônio líquido do FUNDO.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "0fccb71aee8cd4e06518b7845b6fbfa2a513b59e267733c17dfcbe5a1f63b885": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": 31,
+      "clause": "10.2",
+      "excerpt": "10.2 As Cotas não serão objeto de classificação de risco a ser realizada pela Agência de Classificação de  Risco, observada a exceção prevista no item 10.2.1 deste Anexo, abaixo.",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "primary_passage"
+    },
+    "e091368cb1f50b9dd90eb22f0fed8c398c015f55934f92fde4705eb5ed69dfa1": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 34,
+      "clause": "",
+      "excerpt": "X. despesas com a realização de assembleia de cotistas;\n XI. despesas inerentes à constituição, fusão, incorporação, cisão, transformação ou liquidação do  Fundo;\n XII. despesas com liquidação, registro e custódia de operações com ativos da carteira;\n XIII. taxas de administração e de gestão;\n XIV. montantes devidos a fundos investidores na hipótese de acordo de remuneração com base na  taxa de administração ou gestão, observado que o valor das correspondentes parcelas das taxas  de administração ou gestão deve ser subtraído e limitado aos valores destinados pela classe  investida ao provisionamento ou pagamento das despesas com as referidas taxas;\n XV. taxa máxima de distribuição;\n XVI. taxa máxima de custódia;\n XVII. despesas relacionadas ao serviço de formação de mercado;\n XVIII. despesas decorrentes de empréstimos contraídos em nome da classe de cotas, desde que de  acordo com as hipóteses previstas nesta Resolução;\n XIX. contratação da agência de classificação de risco de crédito;\n XX. registro de direitos creditórios;\n XXI. despesas com a contratação do Agente de Cobrança Extraordinária.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "728b7d3230f9cc4349e3a2c5acd05343bdc1af6073f11596d12b67537f879955": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "56",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 56 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "87e1d94b69828dff4c44354cc4a6fba1d45cfb44e50026df590a43e8e62527c7": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 23,
+      "clause": "9.5.5",
+      "excerpt": "9.5.5. Satisfeitos os requisitos necessários para ser Cotista do Fundo nos termos da legislação e da  regulamentação em vigor, será admitida a integralização por um mesmo investidor de qualquer  quantidade de cotas, observado o valor mínimo para aplicação inicial, conforme item 9.9 abaixo. Não  haverá, portanto, requisitos de concentração das Cotas de emissão do Fundo.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "fe3dbc25d9545067efb302bb53bffa4229f54650e82062ba59112aaa602dc70b": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "46–47",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 46–47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "b6df510d3a38fe0debb511fabd91fb883cd75962e4ba18f2288dca5022ac6e30": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "47",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "e3e1e0851495fba89bde801446b7a85758201c9cb751178804f37c7629e5c51e": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 32,
+      "clause": "19.2",
+      "excerpt": "19.2. Pela prestação dos serviços de gestão o Fundo pagará ao Gestor uma taxa de gestão (“Taxa de Gestão”) equivalente a 0,05% (zero vírgula zero cinco por cento) ao ano incidente sobre o Patrimônio Líquido da Classe e do Fundo calculado conforme item 19.3 deste Anexo Descritivo, sem prejuízo de ser observado o valor mínimo mensal de R$ 24.000,00 (vinte e quatro mil reais), corrigido anualmente, a contar da data de início do Fundo, pela variação do IPCA/IBGE ou por qualquer outro índice que venha a substituí-lo.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "6282cf86c42733ddc47faae2cb0c293d1b3bcacdc3fb0f4927ff62713672b2e8": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "48",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "9abf1fb6beced6b6bade20b57f5163862a66a2516ec98aa9bf0230662e77e618": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 30,
+      "clause": "18.2.2",
+      "excerpt": "18.2.2. Na ocorrência da hipótese prevista no subitem 18.2.1 acima, o Administrador deverá convocar  imediatamente uma Assembleia Geral, a fim de que os Cotistas deliberem acerca da liquidação do  Fundo. A deliberação da liquidação do Fundo deverá observar o quórum estabelecido no subitem Erro!  Fonte de referência não encontrada.. abaixo. Na hipótese de não ser aprovada a liquidação do Fundo,  os Cotistas deverão deliberar, na mesma assembleia, os procedimentos que serão adotados para  preservar seus direitos, interesses e prerrogativas. É assegurado aos Cotistas, no caso de decisão pela  não liquidação do Fundo, o resgate das Cotas detidas pelos titulares de Cotas dissidentes, pelo seu  respectivo valor patrimonial, conforme apurado na data da deliberação pela não liquidação do Fundo.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "db48737e2b9067d7635c9081b932953102b8c0e5389b2d1b90e57ff5dfaf785c": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 19,
+      "clause": "5.13.2",
+      "excerpt": "5.13.2. É vedado ao Fundo realizar aplicações em Direitos Creditórios originados ou cedidos, direta ou  indiretamente, pelo Administrador, pelo Gestor, ou de suas respectivas Partes Relacionadas. A vedação  de que trata este dispositivo não implica em vedação à aquisição, pelo Fundo, de Direitos Creditórios  cuja respectiva oferta pública de distribuição ou negociação no mercado secundário seja estruturada  e/ou intermediada por quaisquer Partes Relacionadas do Administrador, do Gestor, do Custodiante ou  do Custodiante dos Direitos Creditórios.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "e3903694c0b9bfeaf621c385a1808bfca7de8f1e102631b341d917843cb5f482": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": 36,
+      "clause": "13.4",
+      "excerpt": "13.4 As demonstrações financeiras anuais da Classe terão notas explicativas divulgando informações que  abranjam, no mínimo, o montante, a natureza e o vencimento dos Direitos Creditórios que integrem a  carteira da Classe.",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "primary_passage"
+    },
+    "2e97b8763ed7fb299a56c5b201bee7f689d9bc99b3756748b19ebdcd93bcd38d": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 6,
+      "clause": "3.1.3",
+      "excerpt": "3.1.3 O Administrador, observadas as limitações deste Regulamento e da regulamentação aplicável, tem  poderes para praticar todos os atos necessários à administração do Fundo, cabendo-lhe, sem prejuízo  das demais obrigações previstas na legislação e regulamentação aplicável e neste Regulamento:\n (i) contratar em nome do Fundo, comunicando o Gestor a respeito dessa contratação, os seguintes  serviços:\n (a) registro de direitos creditórios em entidade registradora autorizada pelo Banco Central do Brasil;\n (b)custódia de direitos creditórios, alcançando os serviços previstos na Seção IV do Capítulo VIII  do Anexo Normativo II;\n (c) custódia e/ou controladoria dos ativos integrantes da Carteira, que deverá ser prestado por  prestador habilitado e autorizado para a prestação dos referidos serviços;\n (d) guarda da documentação que constitui o lastro dos direitos creditórios, a qual pode se dar por  meio físico ou eletrônico; e\n (e) liquidação física ou eletrônica e financeira dos direitos creditórios.\n (ii) fiscalizar os serviços prestados por terceiros contratados pelo Administrador em nome do Fundo,  caso o prestador de serviço não seja um participante de mercado regulado pela Comissão de  Valores Mobiliários;\n (iii) diligenciar para que os prestadores de serviços contratados possuam regras e procedimentos  adequados, por escrito e passíveis de verificação, para permitir o efetivo controle sobre a  movimentação da documentação relativa aos direitos creditórios;\n (iv) prestar, no limite de sua competência, informações às autoridades fiscalizadoras, sendo que,  neste caso, havendo necessidade de acesso a informações que sejam de competência dos  prestadores de serviços contratados pelo Administrador e/ou pelo Gestor em nome do Fundo,  referidos prestadores de serviços deverão enviá-las ao Administrador tempestivamente;\n (v) diligenciar para que sejam mantidos atualizados e em perfeita ordem:\n (a) o registro de cotistas;\n (b) o livro de atas das assembleias gerais;\n (c) o livro ou lista de presença de cotistas;\n (d) os pareceres do auditor independente; e",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "51e79f853c9ab774c7defcc8077651ec19367bc8c00dd923d86c5421cee8c0e0": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "42",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 42 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "deef618366a3caa6324ca5890183cd832f221d3cf6ec88881836b96264370bd3": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": 25,
+      "clause": "6.5",
+      "excerpt": "6.5 Considerando que a Classe é destinada exclusivamente a Investidores Profissionais, a Classe poderá  adquirir Direitos Creditórios de um único Devedor ou de empresas pertencentes ao mesmo grupo  econômico, conforme facultado pelo art. 52, I, do Anexo Normativo II da Resolução CVM nº 175,  devendo observar o seguinte limite de concentração (“Limites de Concentração”):\n(i) No máximo, 60% (sessenta por cento) do Patrimônio Líquido da Classe deverá ser composto  por Direitos Creditórios de um único Devedor. Em caráter excepcional, o Limite de  Concentração previsto neste item 6.5(i) não se aplicará quando o Devedor for a Redecard,  hipótese em que a concentração poderá ultrapassar o referido percentual até a totalidade do  Patrimônio Líquido da Classe.",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "primary_passage"
+    },
+    "3db3cf9e88bba6759dc635fc0ef570f7c398654028cc4867404fc909ad959cb2": {
+      "document_id": "1056018",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056018",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 15,
+      "clause": "6.1",
+      "excerpt": "6.1. O Fundo iniciará suas atividades na 1ª Data de Emissão de Cotas e terá prazo de duração indeterminado,  sendo que a sua eventual liquidação: (i) deverá ser objeto de prévia deliberação em Assembleia Geral; ou (ii)  ocorrerá por ato do administrador, mediante termo de encerramento firmado pelo Administrador, em razão do  resgate da totalidade das Cotas emitidas pelo Fundo.",
+      "sha256": "bce380562db2a45289e2de613085393a974ec48c60306546cf25a9ef0ab0e2e1",
+      "verification": "primary_passage"
+    },
+    "aa952cb18a9070f662b5a71d0745c86d30a4a9512063412cfd9ae9fa29dbca44": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": 31,
+      "clause": "10.1",
+      "excerpt": "10.1 As Cotas de emissão da Classe do Fundo correspondem a frações ideais de seu Patrimônio Líquido e  serão divididas em 2 (duas) Subclasses, sendo denominadas (i) Subclasse de Cotas Sênior; e (ii)  Subclasse de Cotas Subordinadas Júnior, que terão suas características descritas nos respectivos  Apêndices.",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "primary_passage"
+    },
+    "5717092333629243e2351be179588611d810b8b490d3b06844f8f14bbe290a9b": {
+      "document_id": "1171493",
+      "title": "AGE",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1171493",
+      "reference_date": "2026-02-06",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "5 ORDEM DO DIA: Deliberar sobre as seguintes matérias:\n(i) A aprovação de waiver pelo desenquadramento do Índice de Subordinação pelo prazo  de 02 (dois) meses a contar da presente data, sem que o desenquadramento seja  considerado um Evento de Avaliação, desde que limitado a 9%, e sem a necessidade  da realização de Amortização Extraordinária ou integralização de novas Cotas  Subordinadas Júnior até 31 de março de 2026;\n(ii) Com a aprovação do item “i” acima, a autorização para que os Prestadores de  Serviços Essenciais possam praticar todos e quaisquer atos necessários à  formalização, efetivação e administração das deliberações desta Assembleia",
+      "sha256": "0015200baf660e2b9f203d0722d781a9e9bc06986fceb9906138e69a70bff62d",
+      "verification": "primary_passage"
+    },
+    "89e582d56750cc85e9d03038dcef366ce7e335058f91063ccd0c7947bddd60f2": {
+      "document_id": "1058234",
+      "title": "Regulamento",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "reference_date": "2025-12-10",
+      "version": "1",
+      "page": "57",
+      "clause": "",
+      "excerpt": "",
+      "sha256": "cf18f74d97f5165a4d89a429529425367d37feb5ccf2fcabaf0e4e9916cde722",
+      "verification": "previous_review",
+      "citation_original": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 57 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234"
+    },
+    "4d63369708a4245fa46e95d2c5c789df98723f2bec56727c377a43c7249a857f": {
+      "document_id": "1056017",
+      "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1056017",
+      "reference_date": "2025-09-22",
+      "version": "1",
+      "page": 1,
+      "clause": "",
+      "excerpt": "Pelo presente Instrumento Particular, a INTRAG DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sediada na Av. Brigadeiro Faria Lima, nº 3.500, 4º andar, Itaim Bibi, São Paulo – SP, inscrito no CNPJ nº 62.418.140/0001-31, ato declaratório CVM n.º 2528, (“Administrador”), neste ato representado por seus procuradores, vem:",
+      "sha256": "ca32ce1b3e069c7f0b0c1cecfd0a868627a4ab3def9103810c039e079c41e3c0",
+      "verification": "primary_passage"
+    }
+  }
+}

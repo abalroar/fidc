@@ -1,0 +1,478 @@
+{
+  "schema_version": 1,
+  "cnpj": "53662209000187",
+  "name": "PNEUCASH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA FECHADA - RESP LTDA",
+  "generated_at": "2026-10-13T05:30:13Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:05:19Z",
+  "routes": [
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1239751,
+          "reference_date": "30/06/2026",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+          "source_excerpt": "verificação da sua autorização e do seu conteúdo no\n                      “Chave de Acesso da NFe”\n                                                                  ambiente nacional (http://www.nfe.fazenda.gov.br) ou\n                                                                  no site da Secretaria de Fazenda – SEFAZ da\n                                                                  circunscrição do Ced"
+        },
+        {
+          "document_id": 911129,
+          "reference_date": "21/05/2025",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=911129",
+          "source_excerpt": "verificação da sua autorização e do seu conteúdo no\n                         “Chave de Acesso da NFe”\n                                                             ambiente nacional (http://www.nfe.fazenda.gov.br) ou\n                                                             no site da Secretaria de Fazenda – SEFAZ da\n                                                             circunscrição do Cedente."
+        },
+        {
+          "document_id": 592190,
+          "reference_date": "23/01/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=592190",
+          "source_excerpt": "zação e do seu conteúdo\n                                                             no                ambiente                  nacional\n                                                             (http://www.nfe.fazenda.gov.br) ou no site da\n                                                             Secretaria de Fazenda – SEFAZ da circunscrição\n                                                             do Cedente."
+        },
+        {
+          "document_id": 618985,
+          "reference_date": "19/02/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618985",
+          "source_excerpt": "zação e do seu conteúdo\n                                                             no               ambiente                   nacional\n                                                             (http://www.nfe.fazenda.gov.br) ou no site da\n                                                             Secretaria de Fazenda – SEFAZ da circunscrição\n                                                             do Cedente."
+        },
+        {
+          "document_id": 624930,
+          "reference_date": "21/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624930",
+          "source_excerpt": "zação e do seu conteúdo\n                                                             no               ambiente                   nacional\n                                                             (http://www.nfe.fazenda.gov.br) ou no site da\n                                                             Secretaria de Fazenda – SEFAZ da circunscrição\n                                                             do Cedente."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1239751,
+          "reference_date": "30/06/2026",
+          "page": 20,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+          "source_excerpt": "s\n                                     integrantes da Carteira que configuram aos seus titulares o direito de voto, nos\n                                     termos da política de voto estabelecida em www.angaasset.com.br;\n\n                            (xiii)   tomar suas decisões de gestão da carteira da Classe Única em consonância\n                                     com as normas aplicáveis às operações nos mercados"
+        },
+        {
+          "document_id": 911129,
+          "reference_date": "21/05/2025",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=911129",
+          "source_excerpt": "integrantes da Carteira que configuram aos seus titulares o direito de voto, nos\n                                       termos da política de voto estabelecida em www.angaasset.com.br;\n\n                              (xiii)   tomar suas decisões de gestão da carteira da Classe Única em consonância\n                                       com as normas aplicáveis às operações nos merca"
+        },
+        {
+          "document_id": 592190,
+          "reference_date": "23/01/2024",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=592190",
+          "source_excerpt": "grantes da Carteira que configuram aos seus titulares o direito\n                                        de voto, nos termos da política de voto estabelecida em\n                                        www.angaasset.com.br;\n\n                               (xiii)   tomar suas decisões de gestão da carteira da Classe Única em\n                                        consonância com as normas aplicáveis às operações nos mer"
+        },
+        {
+          "document_id": 618985,
+          "reference_date": "19/02/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618985",
+          "source_excerpt": "grantes da Carteira que configuram aos seus titulares o direito\n                                        de voto, nos termos da política de voto estabelecida em\n                                        www.angaasset.com.br;\n\n                               (xiii)   tomar suas decisões de gestão da carteira da Classe Única em\n                                        consonância com as normas aplicáveis às operações nos mer"
+        },
+        {
+          "document_id": 624930,
+          "reference_date": "21/03/2024",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624930",
+          "source_excerpt": "antes da Carteira que configuram aos seus titulares o direito\n                                         de voto, nos termos da política de voto estabelecida em\n                                         www.angaasset.com.br;\n\n                               (xiii)    tomar suas decisões de gestão da carteira da Classe Única em\n                                         consonância com as normas aplicáveis às operações nos m"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1239751,
+          "reference_date": "30/06/2026",
+          "page": 48,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+          "source_excerpt": "s seu inadimplemento. Deverá ser\n                  observado, em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                  Administrador, disponível em seu site (www.oliveiratrust.com.br).\n\n         4.31     Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que compõem a\n                  carteira do Fundo será efetuada com base nas regras descritas no manua"
+        },
+        {
+          "document_id": 911129,
+          "reference_date": "21/05/2025",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=911129",
+          "source_excerpt": "adimplemento. Deverá ser\n                      observado, em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                      Administrador, disponível em seu site (www.oliveiratrust.com.br).\n\n              4.31    Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que compõem a\n                      carteira do Fundo será efetuada com base nas regras descritas"
+        },
+        {
+          "document_id": 592190,
+          "reference_date": "23/01/2024",
+          "page": 47,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=592190",
+          "source_excerpt": "após seu inadimplemento. Deverá ser\n                observado, em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                Administrador, disponível em seu site (www.oliveiratrust.com.br).\n\n                4.27. Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                compõem a carteira do Fundo será efetuada com base nas regras descritas no man"
+        },
+        {
+          "document_id": 618985,
+          "reference_date": "19/02/2024",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618985",
+          "source_excerpt": "após seu inadimplemento. Deverá ser\n                observado, em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                Administrador, disponível em seu site (www.oliveiratrust.com.br).\n\n                4.28. Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                compõem a carteira do Fundo será efetuada com base nas regras descritas no man"
+        },
+        {
+          "document_id": 624930,
+          "reference_date": "21/03/2024",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624930",
+          "source_excerpt": "após seu inadimplemento. Deverá ser\n                observado, em todos os casos, a metodologia descrita no manual de precificação de ativos do\n                Administrador, disponível em seu site (www.oliveiratrust.com.br).\n\n                4.28. Cálculo do Valor dos Ativos Financeiros. A valorização dos Ativos Financeiros que\n                compõem a carteira do Fundo será efetuada com base nas regras descritas no man"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1239751,
+          "reference_date": "30/06/2026",
+          "page": 55,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239751",
+          "source_excerpt": "voto.\n\n         7.18      A política de exercício de direito de voto adotada pelo Gestor pode ser obtida na página do\n                   Gestor na rede mundial de computadores, no seguinte endereço: http://www.angaasset.com.br\n\n         7.19      Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                   composição e diversificação da carteira da Classe prevista no presente Reg"
+        },
+        {
+          "document_id": 911129,
+          "reference_date": "21/05/2025",
+          "page": 53,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=911129",
+          "source_excerpt": "7.18     A política de exercício de direito de voto adotada pelo Gestor pode ser obtida na página do\n                       Gestor na rede mundial de computadores, no seguinte endereço: http://www.angaasset.com.br\n\n              7.19     Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                       composição e diversificação da carteira da Classe prevista no pres"
+        },
+        {
+          "document_id": 592190,
+          "reference_date": "23/01/2024",
+          "page": 52,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=592190",
+          "source_excerpt": "ercício de direito de voto adotada pelo Gestor pode ser obtida na página\n                do     Gestor   na    rede    mundial      de    computadores,    no    seguinte     endereço:\n                http://www.angaasset.com.br\n\n                7.19. Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                composição e diversificação da carteira da Classe prevista no presente Reg"
+        },
+        {
+          "document_id": 618985,
+          "reference_date": "19/02/2024",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=618985",
+          "source_excerpt": "ercício de direito de voto adotada pelo Gestor pode ser obtida na página\n                do     Gestor   na    rede    mundial      de    computadores,    no    seguinte     endereço:\n                http://www.angaasset.com.br\n\n                7.19. Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                composição e diversificação da carteira da Classe prevista no presente Reg"
+        },
+        {
+          "document_id": 624930,
+          "reference_date": "21/03/2024",
+          "page": 54,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=624930",
+          "source_excerpt": "ercício de direito de voto adotada pelo Gestor pode ser obtida na página\n                do     Gestor   na    rede    mundial      de    computadores,    no    seguinte     endereço:\n                http://www.angaasset.com.br\n\n                7.19. Não obstante a diligência do Gestor em colocar em prática a Política de Investimento,\n                composição e diversificação da carteira da Classe prevista no presente Reg"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:09Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/brasil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "Os ratings atribuídos pela Fitch são revisados, pelo menos, anualmente.\n\n\nA Fitch publica a lista de conflitos de interesse reais e potenciais no Anexo X do Formulário\nde Referência, disponível em www.fitchratings.com/brasil\n\n\nPara informações sobre possíveis alterações na classificação de risco de crédito veja o item:\nSensibilidade dos Ratings.\n\n\nConforme a classe de ativo da emissão, a Fitch poderá realizar análise da"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:21Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://fitchratings.com/brasil’",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "nflação e taxas de juros.\n\n\nPara esclarecimentos quanto à diferenciação dos símbolos de produtos estruturados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings”, em\n‘fitchratings.com/brasil’.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com /brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros servi"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:09Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u2019' in position 12: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "os símbolos de produtos estruturados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings”, em\n‘fitchratings.com/brasil’.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com /brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta"
+        },
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "uturados e\naqueles destinados aos demais ativos financeiros, consulte “Definições de Ratings”, em\n‘fitchratings.com/brasil’.\n\n\nInformações adicionais estão disponíveis em 'www.fitchratings.com' e em\n'www.fitchratings.com /brasil'.\n\n\nA Fitch Ratings Brasil Ltda., ou partes a ela relacionadas, pode ter fornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta ação de rating de crédito."
+        },
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "omitê\n+55 11 3957 3658\ncarolina.yaginuma@fitchratings.com\n\nMEDIA CONTACTS\n\nMaggie Guimaraes\nSão Paulo\n+55 11 4504 2207\nmaggie.guimaraes@thefitchgroup.com\n\n\nInformações adicionais estão disponíveis em www.fitchratings.com\n\n\nPARTICIPATION STATUS\n\nThe rated entity (and/or its agents) or, in the case of structured finance, one or more of the\ntransaction parties participated in the rating process except that the following"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:22Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1804808",
+        "final_url": "https://www.fitchratings.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "ornecido outros serviços\nà entidade classificada no período de 12 meses que antecede esta ação de rating de crédito.\nA lista de outros serviços prestados às entidades classificadas está disponível em\nhttps://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos. A\nprestação deste serviço não configura, em nossa opinião, conflito de interesses em face da\nclassificação de risco de crédito.\n\n\nA Fitch Ratings foi paga para determinar cada rating de crédito lista"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:31Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1790885",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil/exigencias-regulatorias/outros-servicos",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://fitchratings.com/understandingcreditratings",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "os ratings de crédito da Fitch estão sujeitos a algumas limitações e termos de isenção\nde responsabilidade. Por favor, veja no link a seguir essas limitações e termos de isenção de\nresponsabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\ndefinições de cada escala e categoria de rating, incluindo definições referentes a\ninadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\ndefinições de"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:26Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1797245",
+        "final_url": "https://www.fitchratings.com/products/rating-definitions",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/pt/region/brazil",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "sabilidade: http://fitchratings.com/understandingcreditratings. Além disso, as\ndefinições de cada escala e categoria de rating, incluindo definições referentes a\ninadimplência, podem ser acessadas em https://www.fitchratings.com/pt/region/brazil, em\ndefinições de ratings, na seção de exigências regulatórias. Os ratings públicos, critérios e\nmetodologias publicados estão permanentemente disponíveis neste website. O código de\nconduta da Fitch e"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1802639",
+        "final_url": "https://www.fitchratings.com/pt/region/brazil",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/regulatory",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "compliance e outras políticas e procedimentos relevantes\ntambém estão disponíveis neste website, na seção \"código de conduta\". Os interesses\nrelevantes de diretores e acionistas estão disponíveis em\nhttps://www.fitchratings.com/site/regulatory. A Fitch pode ter fornecido outro serviço\nautorizado ou complementar à entidade classificada ou a partes relacionadas. Detalhes\nsobre serviço autorizado, para o qual o analista principal está baseado"
+        },
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "tístico Reconhecida Nacionalmente). Algumas subsidiárias de ratings de crédito\nde NRSROs são listadas no Item 3 do NRSRO Form e, portanto, podem atribuir ratings de\ncrédito em nome da NRSRO (consulte https://www.fitchratings.com/site/regulatory), mas\noutras subsidiárias de ratings de crédito não estão listadas no NRSRO Form (as “não-\nNRSROs”). Logo, ratings de crédito destas subsidiárias não são atribuídos em nome da\nNRSRO. Porém, funcionário"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:25Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778014",
+        "final_url": "https://www.fitchratings.com/regulatory",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/site/re/10238496",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "ções no melhor cenário de\nelevação e de oito graduações no pior cenário de rebaixamento no 99º percentil. Os\nmelhores e piores cenários de rating específicos do setor estão listados detalhadamente em\nhttps://www.fitchratings.com/site/re/10238496\n\n\nAs informações neste relatório são fornecidas \"tais como se apresentam\", sem que\nofereçam qualquer tipo de garantia, e a Fitch não garante ou atesta que um relatório ou seu\nconteúdo atenderá qualqu"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:27Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1778013",
+        "final_url": "https://www.fitchratings.com/redirect/?q=/site/re/10238496",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.fitchratings.com/ethics",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1200491,
+          "reference_date": "29/01/2026",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200491",
+          "source_excerpt": "s above were solicited and assigned or maintained at the request of the rated\nentity/issuer or a related third party. Any exceptions follow below.\n\n\nFitch's solicitation status policy can be found at www.fitchratings.com/ethics.\n\nENDORSEMENT POLICY\n\nOs ratings de crédito internacionais da Fitch produzidos fora da União Europeia (UE)ou do\nReino Unido, conforme o caso, são endossados para uso por entidades reguladas na UE ou\nn"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "1794780",
+        "final_url": "https://www.fitchratings.com/ethics",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

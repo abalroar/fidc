@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "cnpj": "50832746000130",
+  "name": "BOASAFRA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:09Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:27Z",
+  "routes": [
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 791780,
+          "reference_date": "28/11/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+          "source_excerpt": "ão as características dos Direitos Creditórios, sendo que a\n              Administradora deverá provisionar de acordo com a metodologia de provisão da\n              Administradora disponível do site: www.oliveiratrust.com.br.\n\n\n              9.4.1         Os Direitos Creditórios, em regra, serão avaliados de acordo com a taxa de\n              desconto aplicada na aquisição dos respectivos Direitos Creditórios. Os Direitos"
+        },
+        {
+          "document_id": 791780,
+          "reference_date": "28/11/2024",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+          "source_excerpt": "após seu inadimplemento. Deverá ser observado, em todos os casos, a\n              metodologia descrita no manual de precificação de ativos da Administradora, disponível em\n              seu website (www.oliveiratrust.com.br).\n\n\n              9.4.2         Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n              Financeiros que compõem a Carteira da Classe será efetuada com base nas regras des"
+        },
+        {
+          "document_id": 791780,
+          "reference_date": "28/11/2024",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+          "source_excerpt": "marcação a mercado, que se\n                                                             encontra        disponível       no      website:\n                                                             https://www.oliveiratrust.com.br.\n\n\n          “Manual de PDD”                                    Significa o manual de provisão para devedores\n                                                             duvidosos da Administradora,"
+        },
+        {
+          "document_id": 791780,
+          "reference_date": "28/11/2024",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+          "source_excerpt": "adora, o qual se encontra\n                                                             disponível               no                website:\n                                                             https://www.oliveiratrust.com.br.\n\n          “Notas Fiscais”                                    Significam     as    notas    fiscais   eletrônicas\n                                                             (consubstanciadas em arq"
+        },
+        {
+          "document_id": 791780,
+          "reference_date": "28/11/2024",
+          "page": 113,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+          "source_excerpt": "nexo Descritivo.\n\n\n              13.              INFORMAÇÕES\n\n              13.1.        As informações periódicas e eventuais da Classe serão divulgadas no website\n              da Administradora: (www.oliveiratrust.com.br).\n\n\n              13.2.         Para esclarecimento de dúvidas, recebimento de solicitações, sugestões e\n              reclamações e obtenção de informações da Classe, o Cotista deve entrar em contato"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.nfe.fazenda.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 545431,
+          "reference_date": "24/10/2023",
+          "page": 64,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
+          "source_excerpt": "ificação da sua autorização e do seu\n                                                       conteúdo         no       ambiente         nacional\n                                                       (http://www.nfe.fazenda.gov.br) ou no site da\n\n\n\n                                                                                                         64"
+        },
+        {
+          "document_id": 623230,
+          "reference_date": "25/07/2023",
+          "page": 74,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623230",
+          "source_excerpt": "erificação da sua autorização e do seu\n                                                      conteúdo          no      ambiente         nacional\n                                                      (http://www.nfe.fazenda.gov.br) ou no site da\n                                                      Secretaria de Fazenda – SEFAZ da circunscrição da\n                                                      Cedente."
+        },
+        {
+          "document_id": 541308,
+          "reference_date": "25/07/2023",
+          "page": 64,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=541308",
+          "source_excerpt": "erificação da sua autorização e do seu\n                                                      conteúdo         no       ambiente         nacional\n                                                      (http://www.nfe.fazenda.gov.br) ou no site da\n\n\n\n                                                                                                        64"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "300",
+        "final_url": "http://www.nfe.fazenda.gov.br/portal/?AspxAutoDetectCookieSupport=1",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br/wp-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 545431,
+          "reference_date": "24/10/2023",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=545431",
+          "source_excerpt": "traso acima será realizada de acordo com o\n                manual de provisão para perdas em ativos de crédito, disponível na página da\n                Administradora na rede mundial de computadores (https://www.oliveiratrust.com.br/wp-\n                content/uploads/2022/04/2022.1_Manual-deProvis%C3%A3o-para-Perdas-em-ativos-\n                de-cr%C3%A9dito_Final-Portal.pdf)."
+        },
+        {
+          "document_id": 623230,
+          "reference_date": "25/07/2023",
+          "page": 94,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623230",
+          "source_excerpt": "traso acima será realizada de acordo com o\n                manual de provisão para perdas em ativos de crédito, disponível na página da\n                Administradora na rede mundial de computadores (https://www.oliveiratrust.com.br/wp-\n                content/uploads/2022/04/2022.1_Manual-deProvis%C3%A3o-para-Perdas-em-ativos-\n                de-cr%C3%A9dito_Final-Portal.pdf)."
+        },
+        {
+          "document_id": 541308,
+          "reference_date": "25/07/2023",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=541308",
+          "source_excerpt": "traso acima será realizada de acordo com o\n                manual de provisão para perdas em ativos de crédito, disponível na página da\n                Administradora na rede mundial de computadores (https://www.oliveiratrust.com.br/wp-\n                content/uploads/2022/04/2022.1_Manual-deProvis%C3%A3o-para-Perdas-em-ativos-\n                de-cr%C3%A9dito_Final-Portal.pdf)."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:06Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalas-de-",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "al, o Boa Safra FIDC fará aquisição de Direitos Creditórios, performados,\nEscala de rating disponível em:        representados por Direitos Creditórios XML e Direitos Creditórios CPR-F, originados de\nhttp://www.austin.com.br/Escalas-de-\nRating.html                            operações realizadas no segmento do agronegócio.\n\n                                       A Boa Safra Comércio atua no segmento de insumos agrícolas, na região N"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "Regulamento e nos Suplementos específicos.\nCEP 04542-000\nTel.: 55 11 3377 0707\nFax: 55 11 3377 0739                   De acordo com o os Suplementos as Cotas Seniores contarão com meta de remuneração\nwww.austin.com.br                      equivalente ao CDI + 4,5% a.a., enquanto as Cotas Subordinadas Mezanino farão jus a uma"
+        },
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 9,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "bilizar a opinião ora indicada.\n12. A eventual entrada desta classificação preliminar em processo de revisão será notificada pela Austin Rating ao lado do anúncio da própria\n    classificação no site www.austin.com.br, na seção específica “Ratings Preliminares”, com a inscrição “EM REVISÃO”.\n13. As eventuais alterações decorrentes de processos de revisão ou de início de novos processos analíticos serão sempre relat"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "023. Esta reunião de comitê está registrada na\n   Ata Nº 20230815-06.\n2. As classificações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 697216,
+          "reference_date": "21/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697216",
+          "source_excerpt": "2024. Esta reunião de comitê está\n   registrada na Ata Nº 20240621-5.\n2. As classificações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 735513,
+          "reference_date": "02/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=735513",
+          "source_excerpt": "2024. Esta reunião de comitê está\n   registrada na Ata Nº 20240902-3.\n2. As classificações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: ht"
+        },
+        {
+          "document_id": 798094,
+          "reference_date": "09/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798094",
+          "source_excerpt": "24. Esta reunião de comitê está\n    registrada na Ata Nº 20241209-1.\n2. As classificações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n    http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em s uas\n    classificações de Securitização de Recebíveis, disponível em:"
+        },
+        {
+          "document_id": 864102,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864102",
+          "source_excerpt": "sta reunião de comitê está\n     registrada na Ata Nº 20250317-7.\n2.   As classif icações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n     http://www.austin.com.br/escalas.\n3.   As classif icações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em s uas\n     classif icações de Securitização de Recebíveis, disponível"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "s.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n   classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 697216,
+          "reference_date": "21/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697216",
+          "source_excerpt": "s.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 735513,
+          "reference_date": "02/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=735513",
+          "source_excerpt": "s.\n3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 798094,
+          "reference_date": "09/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798094",
+          "source_excerpt": "3. As classificações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em s uas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n    anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 864102,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864102",
+          "source_excerpt": "As classif icações de risco de crédito decorrem da utilização da metodologia genérica comumente aplicada por essa agência em s uas\n     classif icações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n4.   Não é a primeira vez que a Austin Rating classif ica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n     anteriormente classif icações de risco de crédito para Cotas d"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 522203,
+          "reference_date": "15/08/2023",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=522203",
+          "source_excerpt": "viço direto para a Brave Gestora de Recursos Ltda., porém, atribui\n    ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência, em:\n    http://www.austin.com.br/Ratings-FIDCs.html.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serviços\n    adicionais ao serviço de classificação de risco para o Fund"
+        },
+        {
+          "document_id": 697216,
+          "reference_date": "21/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=697216",
+          "source_excerpt": "viço direto para a Brave Gestora de Recursos Ltda., porém,\n    atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência,\n    em: http://www.austin.com.br/Ratings-FIDCs.html.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serviços\n    adicionais ao serviço de classificação de risco para o Fund"
+        },
+        {
+          "document_id": 735513,
+          "reference_date": "02/09/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=735513",
+          "source_excerpt": "viço direto para a Brave Gestora de Recursos Ltda., porém,\n    atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agência,\n    em: http://www.austin.com.br/Ratings-FIDCs.html.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram serviços\n    adicionais ao serviço de classificação de risco para o Fund"
+        },
+        {
+          "document_id": 798094,
+          "reference_date": "09/12/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=798094",
+          "source_excerpt": "ço direto para a Brave Gestora de Recursos Ltda., por ém,\n    atribui ratings de crédito para outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa agênc ia,\n    em: http://www.austin.com.br/Ratings-FIDCs.html.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e funcionários, não prestaram se rviços\n    adicionais ao serviço de classificação de risco para o Fun"
+        },
+        {
+          "document_id": 864102,
+          "reference_date": "17/03/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=864102",
+          "source_excerpt": "direto para a Brave Gestora de Recursos Ltda., por ém,\n     atribui ratings de crédito para outros f undos que estão sob sua gestão, os quais podem ser consultados no website dessa agênc ia,\n     em: http://www.austin.com.br/Ratings-FIDCs.html.\n13. A Austin Rating e as partes a ela relacionadas, incluindo empresas de controle comum, sócios e f uncionários, não prestaram se rviços\n     adicionais ao serviço de classif icação de risco para o"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

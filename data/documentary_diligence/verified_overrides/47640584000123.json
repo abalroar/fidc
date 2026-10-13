@@ -1,0 +1,100 @@
+{
+  "cnpj": "47640584000123",
+  "criteria": [
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "extraction_pending",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": "1152056",
+          "title": "Demonstrações Financeiras",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+          "reference_date": "2025-12-31",
+          "version": "1",
+          "page": 16,
+          "clause": "",
+          "excerpt": "O montante dos direitos creditórios é mensurado ao valor justo em seu reconhecimento  inicial. Posteriormente são apuradas as amortizações de principal, mais juros  acumulados calculados com base no método da taxa de juros efetiva menos qualquer  redução (direta ou por meio de conta de provisão) por ajuste ao valor recuperável ou  impossibilidade de recebimento. Uma provisão para perdas deve ser reconhecida  sempre que houver evidência de redução no valor recuperável dos ativos financeiros do  fundo avaliados pelo custo amortizado. Dado as características dos recebíveis, a  administração entende que o custo amortizado se aproxima do valor justo dos direitos  creditórios.",
+          "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1152056",
+          "title": "Demonstrações Financeiras",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+          "reference_date": "2025-12-31",
+          "version": "1",
+          "page": 17,
+          "clause": "",
+          "excerpt": "Para a provisão para redução ao valor recuperável são observados, no mínimo, os  percentuais de provisionamento constantes da tabela abaixo para as respectivas faixas de  atraso, conforme Manual do Administrador.",
+          "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1152056",
+          "title": "Demonstrações Financeiras",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+          "reference_date": "2025-12-31",
+          "version": "1",
+          "page": 17,
+          "clause": "",
+          "excerpt": "Em 31 de dezembro de 2025, a provisão para perdas por redução no valor de recuperação  dos direitos creditórios era de R$7.090 (2024: R$6.930).",
+          "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "reason": "Documento 1152056,p17 remete à tabela de provisão abaixo,mas as faixas/percentuais não foram recuperados na resposta e nos trechos selecionados. Impairment citado na p16 não confirma a curva contratual de atraso. Revisão dirigida da tabela pendente.",
+      "risk_note": "Resposta anterior não conta como regra confirmada.",
+      "history": [
+        {
+          "reference_date": "2025-12-31",
+          "value": "Uma provisão para perdas deve ser reconhecida sempre que houver evidência de redução no valor recuperável dos ativos financeiros do fundo avaliados pelo custo amortizado.\n\nPara a provisão para redução ao valor recuperável são observados, no mínimo, os percentuais de provisionamento constantes da tabela abaixo para as respectivas faixas de atraso, conforme Manual do Administrador.\n\nEm 31 de dezembro de 2025, a provisão para perdas por redução no valor de recuperação dos direitos creditórios era de R$7.090 (2024: R$6.930).",
+          "sources": [
+            {
+              "document_id": "1152056",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+              "reference_date": "2025-12-31",
+              "version": "1",
+              "page": 16,
+              "clause": "",
+              "excerpt": "O montante dos direitos creditórios é mensurado ao valor justo em seu reconhecimento  inicial. Posteriormente são apuradas as amortizações de principal, mais juros  acumulados calculados com base no método da taxa de juros efetiva menos qualquer  redução (direta ou por meio de conta de provisão) por ajuste ao valor recuperável ou  impossibilidade de recebimento. Uma provisão para perdas deve ser reconhecida  sempre que houver evidência de redução no valor recuperável dos ativos financeiros do  fundo avaliados pelo custo amortizado. Dado as características dos recebíveis, a  administração entende que o custo amortizado se aproxima do valor justo dos direitos  creditórios.",
+              "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1152056",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+              "reference_date": "2025-12-31",
+              "version": "1",
+              "page": 17,
+              "clause": "",
+              "excerpt": "Para a provisão para redução ao valor recuperável são observados, no mínimo, os  percentuais de provisionamento constantes da tabela abaixo para as respectivas faixas de  atraso, conforme Manual do Administrador.",
+              "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1152056",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1152056",
+              "reference_date": "2025-12-31",
+              "version": "1",
+              "page": 17,
+              "clause": "",
+              "excerpt": "Em 31 de dezembro de 2025, a provisão para perdas por redução no valor de recuperação  dos direitos creditórios era de R$7.090 (2024: R$6.930).",
+              "sha256": "3fc96bbae6b4e8054826fef15b029a99dc2b6fe615ae95b5b5460c79890f17d6",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Trecho anterior rejeitado no QA; descrição incidental, enumeração interrompida ou tabela não recuperada.",
+          "provenance": "published_primary_answer_rejected"
+        }
+      ]
+    }
+  ]
+}

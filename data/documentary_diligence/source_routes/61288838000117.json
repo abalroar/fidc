@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "cnpj": "61288838000117",
+  "name": "IFOOD PAGO CRÉDITO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO RESP. LIMITADA",
+  "generated_at": "2026-10-13T05:30:18Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:10:21Z",
+  "routes": [
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1240846,
+          "reference_date": "03/07/2026",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240846",
+          "source_excerpt": "website onde podem ser encontradas informações relativas ao Fundo, sobre a Taxa de Administração\n                 e sobre a Taxa de Gestão;\n\n        (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora\n                 (www.vert-capital.com), o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades"
+        },
+        {
+          "document_id": 1073756,
+          "reference_date": "29/12/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1073756",
+          "source_excerpt": "(xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora\n         (www.vert-capital.com), o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades\n         acumuladas no mês e no ano civil a que se referirem, e os re"
+        },
+        {
+          "document_id": 995605,
+          "reference_date": "22/09/2025",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=995605",
+          "source_excerpt": "Docusign Envelope ID: F73FE7C7-00CA-49A1-BC6D-E7BBCA747A4D\n\n\n\n\n            (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora\n                     (www.vert-capital.com), o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades\n                     acumuladas no mês e no ano civil a q"
+        },
+        {
+          "document_id": 1072389,
+          "reference_date": "29/12/2025",
+          "page": 10,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072389",
+          "source_excerpt": "Docusign Envelope ID: 0C618A6A-415D-447A-BE47-AAEBF9776F20\n\n\n\n\n             (xii)    divulgar anualmente, no website da CVM (www.cvm.gov.br), no website da Administradora (www.vert-\n                      capital.com), o valor do Patrimônio Líquido, o valor das Cotas, as rentabilidades acumuladas no mês e no\n                      ano civil"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

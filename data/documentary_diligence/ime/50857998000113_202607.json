@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50857998000113",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 171301441.89,
+    "credit_rights": 135896716.91,
+    "overdue_credit": 0.0,
+    "cash": 0.0,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 148387052.34033698,
+    "subordinated_quotas": 22914389.54985282,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 22914389.54985282
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50857998000113",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/50857998000113_202607.json",
+    "reported_fund_cnpj": "50857998000113",
+    "reported_class_cnpj": "50857998000113",
+    "reported_fund_cnpj_raw": "50857998000113",
+    "reported_class_cnpj_raw": "50857998000113",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1291466",
+    "version": 1,
+    "delivered_at": "14/08/2026 10:03",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1291466",
+    "declared_fields_sha256": "df1711e1e540b8c9fdbb9057c605b3bd05ce0dd4a4882776d07d317d9e710d9f"
+  },
+  "error": ""
+}

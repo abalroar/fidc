@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50327909000127",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 927222243.42,
+    "credit_rights": 817998931.6,
+    "overdue_credit": 64174225.36000001,
+    "cash": 0.0,
+    "pdd": 17586001.85,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 927222243.4208583,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 927222243.4208583
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50327909000127",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/50327909000127_202608.json",
+    "reported_fund_cnpj": "50327909000127",
+    "reported_class_cnpj": "50327909000127",
+    "reported_fund_cnpj_raw": "50327909000127",
+    "reported_class_cnpj_raw": "50327909000127",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1308721",
+    "version": 1,
+    "delivered_at": "03/09/2026 11:27",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1308721",
+    "declared_fields_sha256": "7a09e4ddd245c4fc1e8c49312a0a0f3f0b8799ac27fb9b257d060920f2e78f7e"
+  },
+  "error": ""
+}

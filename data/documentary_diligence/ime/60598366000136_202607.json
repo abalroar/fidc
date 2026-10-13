@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "60598366000136",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 960630767.21,
+    "credit_rights": 953451331.18,
+    "overdue_credit": 17075025.56,
+    "cash": 1000.11,
+    "pdd": 25850560.8,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 813105072.7965,
+    "subordinated_quotas": 51520869.42,
+    "mezzanine_quotas": 96004824.99,
+    "subordinated_and_mezzanine_quotas": 147525694.41
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "60598366000136",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/60598366000136_202607.json",
+    "reported_fund_cnpj": "60598366000136",
+    "reported_class_cnpj": "60598366000136",
+    "reported_fund_cnpj_raw": "60598366000136",
+    "reported_class_cnpj_raw": "60598366000136",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1283981",
+    "version": 1,
+    "delivered_at": "11/08/2026 19:51",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1283981",
+    "declared_fields_sha256": "53c29f99b689b0b8b45f25751c411ea6853014897ef88838d4bf9bed39448437"
+  },
+  "error": ""
+}

@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "cnpj": "37294759000134",
+  "name": "GALLERIA HOME EQUITY FIDC",
+  "generated_at": "2026-10-13T05:29:56Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:23Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 220759,
+          "reference_date": "12/05/2020",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220759",
+          "source_excerpt": "(duzentos e cinquenta e dois) dias úteis, calculadas e divulgadas\ndiariamente pelo segmento CETIP UTVM da B3 S.A. – Brasil, Bolsa, Balcão, no informativo\ndiário disponível em sua página na internet (http://www.b3.com.br) (”Taxa de\nPerformance”).\n\n7.7            A Taxa de Performance será paga à Gestora sempre que houver amortização\nde Cotas, ou outros pagamentos aos Cotistas autorizados por este Regulamento, bem como"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.brltrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 220759,
+          "reference_date": "12/05/2020",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220759",
+          "source_excerpt": "ções que entender serem benéficas ou que agregarem\nvalor para os Cotistas. O inteiro teor da política de exercício do direito de voto da Gestora\nencontra-se disponível para consulta no seguinte site: www.brltrust.com.br.\n\n       10.13.1        A Gestora adota política de exercício de direito de voto em\n       assembleias, que disciplina os princípios gerais, o processo decisório e quais são as\n       matérias relevan"
+        },
+        {
+          "document_id": 220760,
+          "reference_date": "20/09/2021",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220760",
+          "source_excerpt": "uSign Envelope ID: 0092B913-7A06-4D10-993D-523E2E2E2094\n\n\n\n\n                       sede da Administradora ou em sua página na rede mundial de computadores no seguinte\n                       endereço: www.brltrust.com.br;\n\n             (iii)     a realização da emissão da 1ª (primeira) série de cotas seniores do Fundo (“Primeira\n                       Emissão de Cotas Seniores” e “Cotas Seniores”, respectivamente) e a"
+        },
+        {
+          "document_id": 220761,
+          "reference_date": "20/09/2021",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220761",
+          "source_excerpt": "respectivos contratos de\n                prestação de serviços, devendo ainda ser disponibilizados e mantidos atualizados na página da\n                Administradora na rede mundial de computadores (www.brltrust.com.br).\n\n                8.2    A VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade autorizada pela\n                CVM para o exercício profissional de administração de carteiras de valores mobiliários,"
+        },
+        {
+          "document_id": 220761,
+          "reference_date": "20/09/2021",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220761",
+          "source_excerpt": "do respectivo contrato de prestação de\n                          serviços, bem como ser mantidos atualizados para consulta na sede e na página na\n                          internet da Administradora (www.brltrust.com.br).\n\n                          8.3.4         No exercício de suas funções, o Custodiante está autorizado, por conta\n                          e ordem do Fundo, a:\n\n                        (a)      confor"
+        },
+        {
+          "document_id": 229241,
+          "reference_date": "15/10/2021",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=229241",
+          "source_excerpt": "os respectivos contratos de\n               prestação de serviços, devendo ainda ser disponibilizados e mantidos atualizados na página da\n               Administradora na rede mundial de computadores (www.brltrust.com.br).\n\n               8.2    A VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade autorizada pela\n               CVM para o exercício profissional de administração de carteiras de valores mobiliários, p"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "url": "http://www.brltrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 220761,
+          "reference_date": "20/09/2021",
+          "page": 80,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=220761",
+          "source_excerpt": "17.5         O Manual de Precificação e Provisionamento do Custodiante poderá ser\n                consultado em sua página na rede mundial de computadores no endereço\n                http://www.brltrust.com.br.\n\n                18.              Assembleia Geral\n\n                18.1             Competência da Assembleia Geral e Processo de Deliberação\n\n                          18.1.1        Além das compet"
+        },
+        {
+          "document_id": 229241,
+          "reference_date": "15/10/2021",
+          "page": 79,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=229241",
+          "source_excerpt": "s.\n\n               17.5         O Manual de Precificação e Provisionamento do Custodiante poderá ser\n               consultado em sua página na rede mundial de computadores no endereço\n               http://www.brltrust.com.br.\n\n               18.              Assembleia Geral\n\n               18.1             Competência da Assembleia Geral e Processo de Deliberação\n\n                         18.1.1        Além das competênc"
+        },
+        {
+          "document_id": 243761,
+          "reference_date": "29/11/2021",
+          "page": 79,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=243761",
+          "source_excerpt": "17.5         O Manual de Precificação e Provisionamento do Custodiante poderá ser\n                consultado em sua página na rede mundial de computadores no endereço\n                http://www.brltrust.com.br.\n\n                18.             Assembleia Geral\n\n                18.1            Competência da Assembleia Geral e Processo de Deliberação\n\n                         18.1.1        Além das competênc"
+        },
+        {
+          "document_id": 333740,
+          "reference_date": "01/08/2022",
+          "page": 79,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=333740",
+          "source_excerpt": "17.5         O Manual de Precificação e Provisionamento do Custodiante poderá ser\n                consultado em sua página na rede mundial de computadores no endereço\n                http://www.brltrust.com.br.\n\n                18.             Assembleia Geral\n\n                18.1            Competência da Assembleia Geral e Processo de Deliberação\n\n\n\n                TEXT-100680682v13"
+        },
+        {
+          "document_id": 347073,
+          "reference_date": "31/08/2022",
+          "page": 80,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=347073",
+          "source_excerpt": "17.5         O Manual de Precificação e Provisionamento do Custodiante poderá ser\n                consultado em sua página na rede mundial de computadores no endereço\n                http://www.brltrust.com.br.\n\n                18.                Assembleia Geral\n\n                18.1               Competência da Assembleia Geral e Processo de Deliberação\n\n\n\n                TEXT-100724103v2"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:08Z",
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "url": "https://ww.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 322719,
+          "reference_date": "01/02/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=322719",
+          "source_excerpt": "JR), observando a Relação Mínima de 105,0% entre o Patrimônio Líquido (PL) e o somatório\nCEP 04542-000\nTel.: 55 11 3377 0707                do valor das Cotas Seniores.\nFax: 55 11 3377 0739\nww.austin.com.br"
+        },
+        {
+          "document_id": 339966,
+          "reference_date": "15/07/2022",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339966",
+          "source_excerpt": "pelo próprio Fundo.\nCEP 04542-000\nTel.: 55 11 3377 0707                Do ponto de vista da estrutura de capital, o Fundo está autorizado a emitir Cotas Seniores\nFax: 55 11 3377 0739\nww.austin.com.br\n                                     (Cotas SR), Cotas Subordinadas Mezanino (Cotas MZ) e Cotas Subordinadas Júnior (Cotas"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:12Z",
+        "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 322719,
+          "reference_date": "01/02/2022",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=322719",
+          "source_excerpt": "a\n   15 de fevereiro de 2022. Esta reunião foi registrada na Ata Nº 20220215-03.\n\n2. A classificação indicada faz parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http"
+        },
+        {
+          "document_id": 339966,
+          "reference_date": "15/07/2022",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339966",
+          "source_excerpt": "o dia 15 de julho de 2022.\n   Esta reunião foi registrada na Ata Nº 20220715-04.\n\n2. A classificação indicada faz parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: htt"
+        },
+        {
+          "document_id": 381575,
+          "reference_date": "22/11/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=381575",
+          "source_excerpt": "dia 22 de novembro de 2022. Esta reunião foi registrada na Ata Nº 20221122-04.\n\n2. A classificação atribuída faz parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http"
+        },
+        {
+          "document_id": 417119,
+          "reference_date": "14/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=417119",
+          "source_excerpt": "dia 24 de fevereiro de 2023. Esta reunião foi registrada na Ata Nº 20230214-01.\n\n2. A classificação atribuída faz parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http"
+        },
+        {
+          "document_id": 463868,
+          "reference_date": "15/05/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=463868",
+          "source_excerpt": "o no dia 15 de maio de 2023. Esta reunião foi registrada na Ata Nº 20230515-15.\n\n2. A classificação atribuída faz parte da “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 322719,
+          "reference_date": "01/02/2022",
+          "page": 12,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=322719",
+          "source_excerpt": "las.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n    classificações de risco de crédito para Cotas de Fu"
+        },
+        {
+          "document_id": 339966,
+          "reference_date": "15/07/2022",
+          "page": 15,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339966",
+          "source_excerpt": "as.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n    classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu anteriormente\n   classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 381575,
+          "reference_date": "22/11/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=381575",
+          "source_excerpt": "las.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 417119,
+          "reference_date": "14/02/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=417119",
+          "source_excerpt": "las.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        },
+        {
+          "document_id": 463868,
+          "reference_date": "15/05/2023",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=463868",
+          "source_excerpt": "las.\n\n3. A classificação de risco de crédito decorre da utilização da metodologia genérica comumente aplicada por essa agência em suas\n   classificações de Securitização de Recebíveis, disponível em: http://www.austin.com.br/metodologias.\n\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fun"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 339966,
+          "reference_date": "15/07/2022",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=339966",
+          "source_excerpt": "as opiniões ora indicadas.\n\n12. A eventual entrada das classificações preliminares em processo de revisão será notificada pela Austin Rating ao lado do anúncio das\n    próprias classificações no site www.austin.com.br, na seção específica “Ratings Preliminares”, com a inscrição “EM REVISÃO”.\n\n13. As eventuais alterações decorrentes de processos de revisão ou de início de novos processos analíticos serão sempre rela"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.anbima.com.br",
+      "source_type": "industry_association",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1071893,
+          "reference_date": "29/12/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1071893",
+          "source_excerpt": "de 2029, baseada na\n                                                        cotação indicativa divulgada pela ANBIMA em sua página na\n                                                        internet (http://www.anbima.com.br), apurada no fechamento\n                                                        do Dia Útil da 1ª Data de Integralização (\"Data de Apuração\"),\n                                                        ac"
+        },
+        {
+          "document_id": 1071893,
+          "reference_date": "29/12/2025",
+          "page": 8,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1071893",
+          "source_excerpt": "de 2029, baseada na\n                                                        cotação indicativa divulgada pela ANBIMA em sua página na\n                                                        internet (http://www.anbima.com.br), apurada no fechamento\n                                                        do Dia Útil da 1ª Data de Integralização (\"Data de Apuração\"),\n                                                        ac"
+        },
+        {
+          "document_id": 1271643,
+          "reference_date": "31/12/2025",
+          "page": 75,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1271643",
+          "source_excerpt": "etorno do Tesouro IPCA+ (nova denominação da Nota do Tesouro Nacional,\nSérie B – NTN-B), com vencimento em maio de 2029, baseada na cotação indicativa\ndivulgada pela Anbima em sua página na internet (http://www.anbima.com.br),\napurada no fechamento do dia útil da 1ª data de integralização (\"data de apuração\"),\nacrescida exponencialmente de spread equivalente a 3,00% (três por cento) ao ano,\nbase 252 (duzentos e cinquenta e"
+        },
+        {
+          "document_id": 1271643,
+          "reference_date": "31/12/2025",
+          "page": 80,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1271643",
+          "source_excerpt": "no do Tesouro IPCA+ (nova denominação da Nota do Tesouro Nacional, Série\n  B – NTN-B), com vencimento em maio de 2029, baseada na cotação indicativa\n  divulgada pela ANBIMA em sua página na internet (http://www.anbima.com.br),\n  apurada no fechamento do dia útil da 1ª data de integralização (\"Data de\n  Apuração\"), acrescida exponencialmente de spread equivalente a 6,00% (seis por\n  cento) ao ano, base 252 (duzentos e cinqu"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:12Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.anbima.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

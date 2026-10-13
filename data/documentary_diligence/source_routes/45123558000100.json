@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "cnpj": "45123558000100",
+  "name": "CANAÃ FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - FIAGRO - IMOBILIÁRIO - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:05Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:58:34Z",
+  "routes": [
+    {
+      "url": "https://www.gov.br/cvm/pt-br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 287656,
+          "reference_date": "08/04/2022",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=287656",
+          "source_excerpt": "ório nº 15.455, de 13 de janeiro de 2017 (“Administrador”). O nome do diretor\n                 responsável pela supervisão do Fundo pode ser encontrado no endereço eletrônico da\n                 CVM (https://www.gov.br/cvm/pt-br) e no endereço eletrônico do Administrador\n                 (www.bancogenial.com).\n\n                 1.5.            As atividades de gestão dos títulos e valores mobiliários que compõem"
+        },
+        {
+          "document_id": 575575,
+          "reference_date": "22/12/2023",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=575575",
+          "source_excerpt": "ório nº 15.455, de 13 de janeiro de 2017 (“Administrador”). O nome do diretor\n                 responsável pela supervisão do Fundo pode ser encontrado no endereço eletrônico da\n                 CVM (https://www.gov.br/cvm/pt-br) e no endereço eletrônico do Administrador\n                 (www.bancogenial.com).\n\n                 1.5.            As atividades de gestão dos títulos e valores mobiliários que compõem"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:44Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.genialinvestimentos.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 784673,
+          "reference_date": "19/11/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=784673",
+          "source_excerpt": "Administrador:\n\n\n        (i)      SAC: (21) 3923-3000 (11) 3206-8000;\n        (ii)     E-mail: middleadm@genial.com.vc\n        (iii)    Ouvidoria: ouvidoria@genial.com.vc\n        (iv)     Website: www.genialinvestimentos.com.br\n\n                                             9. SOLUÇÃO DE CONTROVÉRSIAS\n\n\n        9.1.  Fica eleito o foro da Comarca da Capital do Estado de São Paulo, comarca da filial do Administrador,"
+        },
+        {
+          "document_id": 794684,
+          "reference_date": "04/12/2024",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=794684",
+          "source_excerpt": "Administrador:\n\n\n        (i)      SAC: (21) 3923-3000 (11) 3206-8000;\n        (ii)     E-mail: middleadm@genial.com.vc\n        (iii)    Ouvidoria: ouvidoria@genial.com.vc\n        (iv)     Website: www.genialinvestimentos.com.br\n\n                                            9. SOLUÇÃO DE CONTROVÉRSIAS\n\n\n        9.1.  Fica eleito o foro da Comarca da Capital do Estado de São Paulo, comarca da filial do Administrador,\n        c"
+        },
+        {
+          "document_id": 1003219,
+          "reference_date": "30/09/2025",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003219",
+          "source_excerpt": "Administrador:\n\n\n        (i)      SAC: (21) 3923-3000 (11) 3206-8000;\n        (ii)     E-mail: middleadm@genial.com.vc\n        (iii)    Ouvidoria: ouvidoria@genial.com.vc\n        (iv)     Website: www.genialinvestimentos.com.br\n\n                                            9. SOLUÇÃO DE CONTROVÉRSIAS\n\n\n        9.1.     Fica eleito o foro da Comarca da Capital do Estado de São Paulo, comarca da filial do Administrador,"
+        },
+        {
+          "document_id": 1337333,
+          "reference_date": "01/10/2026",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337333",
+          "source_excerpt": "ra comunicações entre\nCotistas e o Administrador:\n\n\n(i)      SAC: (21) 3923-3000 (11) 3206-8000;\n(ii)     E-mail: middleadm@genial.com.vc\n(iii)    Ouvidoria: ouvidoria@genial.com.vc\n(iv)     Website: www.genialinvestimentos.com.br\n\n\n                                           9. SOLUÇÃO DE CONTROVÉRSIAS\n\n\n9.1.     Fica eleito o foro da Comarca da Capital do Estado de São Paulo, comarca da filial do"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:44Z",
+        "error": "TimeoutError: The read operation timed out"
+      }
+    },
+    {
+      "url": "https://www.cvm.gov.br",
+      "source_type": "regulator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1003216,
+          "reference_date": "30/09/2025",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1003216",
+          "source_excerpt": "nteressar no website do Administrador (https://www.bancogenial.com), do\n                       Gestor (https://www.genialgestao.com.br/), do distribuidor das cotas e/ou da CVM\n                       (www.cvm.gov.br).\n\n          O Novo Regulamento será consolidado de forma a contemplar as alterações informadas acima,\n          bem como os ajustes redacionais e a atualização às normas vigentes. O referido Novo"
+        },
+        {
+          "document_id": 1333590,
+          "reference_date": "29/09/2026",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333590",
+          "source_excerpt": "abilidades a ela inerentes, nos termos do Novo Regulamento e da\n  regulamentação aplicável.\n\n  O Novo Regulamento estará à disposição dos Cotistas e de quem mais possa interessar no website da CVM\n  (www.cvm.gov.br). O Novo Regulamento será encaminhado à CVM, por meio de sistema eletrônico\n  disponível na rede mundial de computadores, e, se for o caso, à entidade administradora do mercado\n  organizado em que as c"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

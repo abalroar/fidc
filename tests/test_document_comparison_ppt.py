@@ -157,13 +157,14 @@ def test_documentary_export_selects_exact_current_basket_before_newer_fallback()
     fallback = replace(exact, portfolio_id="outra-carteira", generated_at="2026-10-08")
     stale = replace(exact, portfolio_signature="99999999000199", generated_at="2026-10-09")
     with (
+        patch("services.documentary_diligence.has_documentary_diligence", return_value=False),
         patch("services.deep_dive_store.list_deep_dives", return_value=[stale, fallback, exact]),
         patch("services.document_curation_comparison.build_document_comparison_pages", return_value=[_page()]) as load,
     ):
         payload = portfolio_page._build_documentary_portfolio_deck(portfolio)
     load.assert_called_once_with(exact)
     assert _native_tables(Presentation(BytesIO(payload)))[0].cell(1, 1).text == "≤ 80%"
-    with patch("services.deep_dive_store.list_deep_dives", return_value=[stale]):
+    with patch("services.documentary_diligence.has_documentary_diligence", return_value=False), patch("services.deep_dive_store.list_deep_dives", return_value=[stale]):
         assert portfolio_page._build_documentary_portfolio_deck(portfolio) is None
 
 
@@ -179,6 +180,7 @@ def test_prepared_portfolio_download_contains_comparison_and_documentary_notes()
     )
     manifest = replace(_manifest(), portfolio_signature=portfolio_basket_signature(portfolio.funds))
     with (
+        patch("services.documentary_diligence.has_documentary_diligence", return_value=False),
         patch("tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs", return_value=({}, {})),
         patch("services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes") as legacy,
         patch("services.fidc_analytical_slide.build_slide_data", return_value=()),

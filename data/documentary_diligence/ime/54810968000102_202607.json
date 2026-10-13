@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "54810968000102",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 959017731.97,
+    "credit_rights": 928736508.0300001,
+    "overdue_credit": 116522.07,
+    "cash": 1000.0,
+    "pdd": 161918.99,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 801657003.2265,
+    "subordinated_quotas": 157360728.7395,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 157360728.7395
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "54810968000102",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/54810968000102_202607.json",
+    "reported_fund_cnpj": "54810968000102",
+    "reported_class_cnpj": "54810968000102",
+    "reported_fund_cnpj_raw": "54810968000102",
+    "reported_class_cnpj_raw": "54810968000102",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1283965",
+    "version": 1,
+    "delivered_at": "11/08/2026 19:51",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1283965",
+    "declared_fields_sha256": "7f44041cebed8a295984fd277e76ae223435263f23af5a715d35f7db800ce75c"
+  },
+  "error": ""
+}

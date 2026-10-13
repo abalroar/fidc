@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "cnpj": "36771685000117",
+  "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IS GREEN SOLFÁCIL I DE RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:29:56Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T04:56:20Z",
+  "routes": [
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 131322,
+          "reference_date": "09/12/2020",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=131322",
+          "source_excerpt": "Ativos Financeiros\nde titularidade do Fundo que confiram a este o direito de voto.\n\n25.2. A versão integral da política de voto do Gestor encontra-se disponível em seu website, no seguinte\nendereço: www.angaasset.com.br.\n\n\n\n\n                                                                                                     - 42 -"
+        },
+        {
+          "document_id": 138061,
+          "reference_date": "11/01/2021",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=138061",
+          "source_excerpt": "e do Fundo que confiram a este o direito de voto.\n\n                 25.2. A versão integral da política de voto do Gestor encontra-se disponível em seu website, no seguinte\n                 endereço: www.angaasset.com.br.\n\n\n\n\n                                                                                                                                   - 42 -\n\nEste documento foi assinado digitalmente por Sergio Henr"
+        },
+        {
+          "document_id": 152607,
+          "reference_date": "04/03/2021",
+          "page": 43,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=152607",
+          "source_excerpt": "Ativos Financeiros\nde titularidade do Fundo que confiram a este o direito de voto.\n\n25.2. A versão integral da política de voto do Gestor encontra-se disponível em seu website, no seguinte\nendereço: www.angaasset.com.br.\n\n26.     DO FORO\n\n26.1. Fica eleito o foro da Comarca de São Paulo, Estado de São Paulo, para dirimir quaisquer questões\noriundas do presente Regulamento e que envolvam o Fundo, com expressa renúncia"
+        },
+        {
+          "document_id": 317666,
+          "reference_date": "20/06/2022",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=317666",
+          "source_excerpt": "Ativos Financeiros\nde titularidade do Fundo que confiram a este o direito de voto.\n\n25.2. A versão integral da política de voto do Gestor encontra-se disponível em seu website, no seguinte\nendereço: www.angaasset.com.br.\n\n\n\n\n                                                                                                     - 46 -"
+        },
+        {
+          "document_id": 133943,
+          "reference_date": "16/12/2020",
+          "page": 42,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=133943",
+          "source_excerpt": "Ativos Financeiros\nde titularidade do Fundo que confiram a este o direito de voto.\n\n25.2. A versão integral da política de voto do Gestor encontra-se disponível em seu website, no seguinte\nendereço: www.angaasset.com.br.\n\n\n\n\n                                                                                                     - 42 -"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 131322,
+          "reference_date": "09/12/2020",
+          "page": 45,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=131322",
+          "source_excerpt": "”, expressa na forma de percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias\nÚteis, calculada e divulgada diariamente pela B3, no informativo diário disponível em sua página na\nInternet (http://www.b3.com.br);\n\n15.    “Cedentes”: as instituições financeiras credoras iniciais das Cédulas;\n\n16.    “Cédula”: tem o significado que lhe é atribuído no item 4.1;\n\n17.    “CMN”: o Conselho Monetário Nacional;\n\n18."
+        },
+        {
+          "document_id": 138061,
+          "reference_date": "11/01/2021",
+          "page": 45,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=138061",
+          "source_excerpt": "ao ano, base de 252 (duzentos e cinquenta e dois) Dias\n                 Úteis, calculada e divulgada diariamente pela B3, no informativo diário disponível em sua página na\n                 Internet (http://www.b3.com.br);\n\n                 15.       “Cedentes”: as instituições financeiras credoras iniciais das Cédulas;\n\n                 16.       “Cédula”: tem o significado que lhe é atribuído no item 4.1;"
+        },
+        {
+          "document_id": 152607,
+          "reference_date": "04/03/2021",
+          "page": 45,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=152607",
+          "source_excerpt": "”, expressa na forma de percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias\nÚteis, calculada e divulgada diariamente pela B3, no informativo diário disponível em sua página na\nInternet (http://www.b3.com.br);\n\n15.    “Cedentes”: as instituições financeiras credoras iniciais das Cédulas;\n\n16.    “Cédula”: tem o significado que lhe é atribuído no item 4.1;\n\n17.    “CMN”: o Conselho Monetário Nacional;\n\n18."
+        },
+        {
+          "document_id": 317666,
+          "reference_date": "20/06/2022",
+          "page": 49,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=317666",
+          "source_excerpt": "”, expressa na forma de percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias\nÚteis, calculada e divulgada diariamente pela B3, no informativo diário disponível em sua página na\nInternet (http://www.b3.com.br);\n\n16.    “Cedentes”: as instituições financeiras credoras iniciais das Cédulas;\n\n17.    “Cédula”: tem o significado que lhe é atribuído no item 4.1;\n\n18.    “CMN”: o Conselho Monetário Nacional;\n\n19."
+        },
+        {
+          "document_id": 133943,
+          "reference_date": "16/12/2020",
+          "page": 45,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=133943",
+          "source_excerpt": "”, expressa na forma de percentual ao ano, base de 252 (duzentos e cinquenta e dois) Dias\nÚteis, calculada e divulgada diariamente pela B3, no informativo diário disponível em sua página na\nInternet (http://www.b3.com.br);\n\n15.    “Cedentes”: as instituições financeiras credoras iniciais das Cédulas;\n\n16.    “Cédula”: tem o significado que lhe é atribuído no item 4.1;\n\n17.    “CMN”: o Conselho Monetário Nacional;\n\n18."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://angaasset.com.br/",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 790882,
+          "reference_date": "16/11/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=790882",
+          "source_excerpt": "ar e divulgar, nos termos do Código\nANBIMA, os resultados ESG da Classe, sempre referente ao exercício social anterior do Fundo\n(“Relatório de Ações Continuadas Angá”), o qual será divulgado no link:\nhttps://angaasset.com.br/.\n\n\n4.6             Além da obrigação acima, a Gestora manterá o formulário de metodologia ESG\natualizado, nos termos do Código da ANBIMA (“Formulário de Metodologia”), o qual será\ndisponibilizado no l"
+        },
+        {
+          "document_id": 790882,
+          "reference_date": "16/11/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=790882",
+          "source_excerpt": "6             Além da obrigação acima, a Gestora manterá o formulário de metodologia ESG\natualizado, nos termos do Código da ANBIMA (“Formulário de Metodologia”), o qual será\ndisponibilizado no link: https://angaasset.com.br/.\n\n\n\n\n                                                                                              14"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:05Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Escalasd",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "recompra pelo\nPreliminar” deste documento\n                                     Endossante, conforme algumas situações específicas, no Contrato de Endosso (item 7.1.).\nEscala de rating disponível em:\nhttp://www.austin.com.br/Escalasd    Os Direitos Creditórios serão originados através de plataforma eletrônica, operada pela\ne-Rating.html                        Solfácil Energia e deverão contar com os documentos comprobatórios, que"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:07Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "https://www.austin.com.br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "ordinadas Mezanino terão como remuneração alvo a variação do IPCA + 8,0% a.a.,\nFax: 55 11 3377 0739                 prazo alvo de duração de 90 meses com pagamento de amortizações a partir do 13º mês\nwww.austin.com.br\n                                     (Período de Carência), conforme descrito no regulamento.\n\n                                     Conforme Suplemento da 1ª Série de Cotas Seniores a oferta inicial"
+        },
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 13,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "zar a opinião ora indicada.\n12. A eventual entrada destas classificações preliminares em processo de revisão será notificada pela Austin Rating ao lado do anúncio da\n    própria classificação no site www.austin.com.br, na seção específica “Ratings Preliminares”, com a inscrição “EM REVISÃO”.\n13. As eventuais alterações decorrentes de processos de revisão ou de início de novos processos analíticos serão sempre relat"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:44Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/escalas",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "reunião de Comitê está\n   registrada na Ata Nº 20201222-9.\n2. As presentes classificações indicadas estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações preliminares de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por\n   essa agência em suas classificações de risco de crédito de Cot"
+        },
+        {
+          "document_id": 260245,
+          "reference_date": "30/09/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=260245",
+          "source_excerpt": "2021. Esta reunião de Comitê\n   está registrada na Ata Nº 20211110-2.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 298514,
+          "reference_date": "31/12/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298514",
+          "source_excerpt": "2022. Esta reunião de Comitê\n   está registrada na Ata Nº 20220211-7.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 310843,
+          "reference_date": "31/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=310843",
+          "source_excerpt": "2022. Esta reunião de Comitê está registrada na Ata Nº\n   20220524-3.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        },
+        {
+          "document_id": 340095,
+          "reference_date": "30/06/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340095",
+          "source_excerpt": "022. Esta reunião de Comitê está registrada na\n   Ata Nº 20220811-11.\n2. As presentes classificações estão contempladas na “Escala Nacional de Ratings de Crédito de Cotas de FIDCs”, disponível em:\n   http://www.austin.com.br/escalas.\n3. As classificações de risco de crédito das Cotas decorrem da utilização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:37Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/metodologias",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por\n   essa agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 260245,
+          "reference_date": "30/09/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=260245",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 298514,
+          "reference_date": "31/12/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298514",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 310843,
+          "reference_date": "31/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=310843",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        },
+        {
+          "document_id": 340095,
+          "reference_date": "30/06/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340095",
+          "source_excerpt": "lização da metodologia genérica comumente aplicada por essa\n   agência em suas classificações de risco de crédito de Cotas de Fundos de Investimento em Direitos Creditórios (FIDCs), disponível\n   em: http://www.austin.com.br/metodologias.\n4. Não é a primeira vez que a Austin Rating classifica esta espécie de ativo e seus ativos subjacentes. Essa agência já atribuiu\n   anteriormente classificações de risco de crédito para Cotas de Fund"
+        }
+      ],
+      "probe": {
+        "status": "not_found",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:38Z",
+        "error": "HTTP Error 404: Not Found",
+        "http_status": 404
+      }
+    },
+    {
+      "url": "http://www.austin.com.br/Ratings-FIDCs.html",
+      "source_type": "rating_agency",
+      "candidate_type": "rating",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 149540,
+          "reference_date": "22/12/2020",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=149540",
+          "source_excerpt": "ara a Angá Administração de Recursos Ltda, porém,\n    atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website dessa\n    agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil Energia Solar e\n    Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª Séries. Por"
+        },
+        {
+          "document_id": 260245,
+          "reference_date": "30/09/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=260245",
+          "source_excerpt": "ara a Angá Administração de Recursos Ltda,\n    porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil\n    Energia Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª\n    Séries."
+        },
+        {
+          "document_id": 298514,
+          "reference_date": "31/12/2021",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=298514",
+          "source_excerpt": "ara a Angá Administração de Recursos Ltda,\n    porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil\n    Energia Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª\n    Séries."
+        },
+        {
+          "document_id": 310843,
+          "reference_date": "31/03/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=310843",
+          "source_excerpt": "ara a Angá Administração de Recursos Ltda,\n    porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil\n    Energia Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª\n    Séries."
+        },
+        {
+          "document_id": 340095,
+          "reference_date": "30/06/2022",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=340095",
+          "source_excerpt": "ara a Angá Administração de Recursos Ltda,\n    porém, atribui ratings de crédito para diversos outros fundos que estão sob sua gestão, os quais podem ser consultados no website\n    dessa agência, em: http://www.austin.com.br/Ratings-FIDCs.html. Não obstante, essa agência presta serviços para a Solfácil\n    Energia Solar e Serviços Financeiros Ltda (Contratante) na forma de avaliação de risco para as Debêntures da 1ª, 2ª, 3ª e 4ª\n    Séries."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:36Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.austin.com.br/Ratings-FIDCs.html",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

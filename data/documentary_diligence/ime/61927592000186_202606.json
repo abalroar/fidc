@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "61927592000186",
+  "competence": "06/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 85543950.64,
+    "credit_rights": 0.0,
+    "overdue_credit": 0.0,
+    "cash": 223376.78,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 59863853.81678446,
+    "subordinated_quotas": 16986461.623819232,
+    "mezzanine_quotas": 8693635.19915534,
+    "subordinated_and_mezzanine_quotas": 25680096.82297457
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "61927592000186",
+    "competence": "06/2026",
+    "path": "data/documentary_diligence/ime/61927592000186_202606.json",
+    "reported_fund_cnpj": "61927592000186",
+    "reported_class_cnpj": "61927592000186",
+    "reported_fund_cnpj_raw": "61927592000186",
+    "reported_class_cnpj_raw": "61927592000186",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1248040",
+    "version": 1,
+    "delivered_at": "14/07/2026 20:34",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248040",
+    "declared_fields_sha256": "a9deb0c66ab137b8dcc58c88630fb9a576722652802349137560ecc678ddab69"
+  },
+  "error": ""
+}

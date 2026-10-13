@@ -1,0 +1,838 @@
+{
+  "cnpj": "54871427000194",
+  "verified_at": "2026-10-13T04:49:19.514486+00:00",
+  "criteria": [
+    {
+      "criterion_id": "receivables",
+      "label": "Natureza dos recebíveis",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Certificados de Cédulas de Crédito Bancário (CCCBs), que agrupam CCBs de empréstimos pessoais eletrônicos. O endossante deve manter convênio ativo com o órgão consignante para averbação e desconto em folha ou benefício.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "9",
+          "clause": "Anexo I, 4.2–4.2.1",
+          "excerpt": "4.2 Os Direitos Creditórios representados por Certif icados de Cédulas de Crédito Bancário (“CCCBs”), representativos de um agrupamento de determinadas CCBs, originadas no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, devidamente f ormalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. 4.2.1 Cada Endossante deve ter celebrado convênio com órgão consignante, previamente à cessão de Direitos Creditórios à Classe, que contemplam a obrigação da manutenção da consignação/averbação junto ao novo órgão, de modo a possibilitar o pagamento dos Direitos Creditórios por meio de consignação em f olha de pagamento ou de benef ício . 4.3 Os pagamentos relativos aos Direitos Creditórios de titularidade da Classe serão realizados mediante consignação em folha, débito em conta de titularidade dos Devedores e pagamentos de sinistros, para pagamento dos valores correspondentes às parcelas das CCBs representadas pelos CCCBs de titularidade da Classe, os quais serão conciliados e repassados pelo Endossan",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "collection_account",
+      "label": "Conta de arrecadação e risco de trânsito",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Folha, débito em conta do devedor e pagamentos de sinistros são conciliados e repassados pelo endossante para a conta corrente da classe. Gestor/custodiante monitoram Arquivo de Liquidação, Relatório de Repasse e sistema de consignação.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "9",
+          "clause": "Anexo I, 4.3 e 4.6",
+          "excerpt": "4.3 Os pagamentos relativos aos Direitos Creditórios de titularidade da Classe serão realizados mediante consignação em folha, débito em conta de titularidade dos Devedores e pagamentos de sinistros, para pagamento dos valores correspondentes às parcelas das CCBs representadas pelos CCCBs de titularidade da Classe, os quais serão conciliados e repassados pelo Endossante para a conta corrente da Classe. 4.4 Os Direitos Creditórios deverão contar com Documentos Comprobatórios que evidenciem sua existência, validade e exequibilidade perante os respectivos Devedores . 4.4.1 Os Direitos Creditórios serão adquiridos pela Classe por meio de Contrato de Endosso f irmados entre a Classe e o Endossante e os respectivos Termos de Endosso, acompanhados de todos os direitos, privilégios, preferências, prerrogativas, ações e garantias assegurados aos seus titulares, observada a Política de Investimentos e as demais disposições deste Regulamento e da legislação e regulamentação aplicáveis. 4.5 O Endossante deverá realizar análise cadastral e de crédito dos Devedores, previamente à aquisição de Direitos Creditórios pela Classe. O disposto neste item não impede o ADMINISTRAD",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "9",
+          "clause": "Anexo I, 4.6",
+          "excerpt": "4.6 A cobrança ordinária e recebimento de Direitos Creditórios pela Classe é realizada mediante a liquidação dos recursos através de débito dos salários a receber pelos Devedores do órgão consignante ou através da consignação direto da folha, sendo certo que o GESTOR e/ou o Custodiante f arão o monitoramento do pagamento dos Direitos Creditórios através da validação do Arquivo de Liquidação, do Relatório de Repasse, e consulta oriunda do sistema da processadora conveniada ao órgão consignante, responsável pela consignação em f olha de pagamento ou de benef ício dos Devedores (averbação, débito e repasse). Critérios de Elegibilidade 4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verif icados e validados pelo GESTOR, de f orma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) CCBs sem qualquer parcela cedida; (ii) CCBs com diferença menor que 60 (sessenta) dias entre a data provável do endosso e a próxima parcela a vencer;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "A mecânica prevê passagem dos recursos pelo endossante; o regulamento não estabelece, nesta cláusula, repasse direto automático pelo órgão consignante."
+    },
+    {
+      "criterion_id": "eligibility",
+      "label": "Elegibilidade",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Verificação individual e integral na aquisição: nenhuma parcela já cedida, próxima parcela em menos de 60 dias, prestação superior a R$ 30 e idade do devedor somada ao prazo remanescente ≤80 anos. Exige CCB e devedor adimplentes, convênio ativo e aquisição de todas as parcelas vincendas.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "9",
+          "clause": "Anexo I, 4.7(i)–(iv)",
+          "excerpt": "4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verif icados e validados pelo GESTOR, de f orma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: (i) CCBs sem qualquer parcela cedida; (ii) CCBs com diferença menor que 60 (sessenta) dias entre a data provável do endosso e a próxima parcela a vencer; (iii) CCBs cujo valor da prestação seja superior a R$ 30,00 (trinta reais); (iv) Idade do Devedor somada ao prazo remanescente da CCB deve ser igual ou inferior a 80 (oitenta) anos; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 3",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "10",
+          "clause": "Anexo I, 4.7(v)–(xi)",
+          "excerpt": "(v) CCBs que até a Data do Endosso não estejam pendentes de res olução em relação a uma comprovada reclamação do devedor junto ao Banco Central do Brasil ou ao Procon; (vi) CCBs que não sejam originadas por pessoa física condenada por terem submetido trabalhadores a condições análogas à de escravo – denominada “Lista Suja”; (vii) CCBs sem parcela em atraso; (viii) Aquisição de todas as parcelas vincendas das CCBs, não sendo possível a aquisição de fluxo parcial; (ix) CCBs vinculadas ao órgão convenente, desde que o convênio não se encontre na Data de Aquisição em situação de suspensão; (x) Devedores adimplentes junto ao Endossante com relação aos Direitos Creditórios endossados à Classe; CCB cuja amortização ordinária dos valores devidos, nos últimos 60 (sessenta) dias, tenha ocorrido de f orma integral e ordinária. Na primeira tranche de aquisição de Direitos Creditórios pelo Endossatário tal prazo poderá ser reduzido para 30 (trinta) dias nos casos de amortização extraordinária (via boleto) desde que o valor de aquisição dos ref eridos Direitos Creditórios não ultrapasse R$ 30.000,00 (trinta mil reais), exc",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "ticket",
+      "label": "Limites por contrato e devedor",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Exceção da primeira tranche: histórico de amortização pode cair de 60 para 30 dias nos casos previstos, com aquisição ≤R$ 30 mil e exclusivamente consignação em folha/benefício. Todas as CCBs de um mesmo devedor devem representar ≤20% do PL.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "10",
+          "clause": "Anexo I, 4.7, parágrafo anterior ao inciso (xi) e inciso (xi)",
+          "excerpt": "CCB cuja amortização ordinária dos valores devidos, nos últimos 60 (sessenta) dias, tenha ocorrido de f orma integral e ordinária. Na primeira tranche de aquisição de Direitos Creditórios pelo Endossatário tal prazo poderá ser reduzido para 30 (trinta) dias nos casos de amortização extraordinária (via boleto) desde que o valor de aquisição dos ref eridos Direitos Creditórios não ultrapasse R$ 30.000,00 (trinta mil reais), exclusivamente via consignação em f olha de pagamento ou de benef ício; e (xi) Endosso de todas as CCBs de um mesmo Devedor que não ultrapasse 20% (vinte por cento) do patrimônio líquido da Classe. 4.7.1 Os Documentos Comprobatórios deverão ser disponibilizados pelo respectivo Endossante (a) no prazo de 10 (dez) dias contados da Data de Aquisição dos 50 (cinquenta) casos que sejam solicitados pelo GESTOR, a seu exclusivo critério, (b) a totalidade dos demais Documentos Comprobatórios em f ormato digital em até 90 (noventa) dias a contar da Data de Aquisição, bem como dos Documentos Comprobatórios em formato físico relativos aos Direitos Creditórios que eventualmente estejam inadimplidos em ref erida da",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "R$ 30 mil é teto da exceção de aquisição da primeira tranche; não é teto geral de cada CCB."
+    },
+    {
+      "criterion_id": "allocation",
+      "label": "Alocação mínima",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Direitos creditórios ≥50% do PL após 180 dias da primeira integralização.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "11",
+          "clause": "Anexo I, 4.9",
+          "excerpt": "4.9 Decorridos 180 (cento e oitenta) dias da Data da 1ª Integralização de Cotas, a Classe deverá manter alocado, no mínimo, 50% (cinquenta por cento) do seu Patrimônio Líquido em Direitos Creditórios . 4.10 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto no item 4.15 abaixo e Ativos Financeiros de Liquidez devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.11 A Classe poderá, direta ou indiretamente e, nos termos da legislação aplicável: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR e/ou pelo GESTOR, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto; e (ii) ceder Direitos Creditórios a qualquer das pessoas, fundos de investimento ou entidades referidas n",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "",
+      "rule": {
+        "operator": ">=",
+        "limit": 50.0,
+        "unit": "percent",
+        "numerator": "credit_rights",
+        "denominator": "net_asset_value",
+        "frequency": "daily",
+        "layer": "54871427000194",
+        "document_date": "2024-04-28",
+        "effective_status": "document_date_only",
+        "initial_days": 180
+      }
+    },
+    {
+      "criterion_id": "concentration",
+      "label": "Concentração por devedor, cedente e grupo",
+      "theme": "Recebíveis e aquisição",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Até 100% do PL em direitos de um devedor/grupo ou originados/endossados por um mesmo endossante e suas partes relacionadas. A elegibilidade específica de todas as CCBs de um devedor limita a aquisição a 20% do PL. Direitos não padronizados são vedados.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "11",
+          "clause": "Anexo I, 4.10 e 4.11.2–4.11.4",
+          "excerpt": "4.10 Nos termos do Art. 45, §7º, inciso II, do Anexo Normativo II da Resolução CVM 175, a Classe poderá ter até 100% (cem por cento) de seu Patrimônio Líquido alocado em Direitos Creditórios, derivativos, observado o disposto no item 4.15 abaixo e Ativos Financeiros de Liquidez devidos por um mesmo Devedor e/ou de responsabilidade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado, ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.11 A Classe poderá, direta ou indiretamente e, nos termos da legislação aplicável: (i) adquirir Direitos Creditórios que sejam cedidos e/ou originados pelo ADMINISTRADOR e/ou pelo GESTOR, ou partes a eles relacionadas, tal como definidas pelas regras contábeis que tratam desse assunto; e (ii) ceder Direitos Creditórios a qualquer das pessoas, fundos de investimento ou entidades referidas no item (i) acima, desde que (i) o ADMINISTRADOR, GESTOR, a entidade registradora e o CUSTODIANTE de Direitos Creditórios não sejam partes relacionadas entre si; e (ii) a entidade registradora e o",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "10",
+          "clause": "Anexo I, 4.7(xi)",
+          "excerpt": "(xi) Endosso de todas as CCBs de um mesmo Devedor que não ultrapasse 20% (vinte por cento) do patrimônio líquido da Classe. 4.7.1 Os Documentos Comprobatórios deverão ser disponibilizados pelo respectivo Endossante (a) no prazo de 10 (dez) dias contados da Data de Aquisição dos 50 (cinquenta) casos que sejam solicitados pelo GESTOR, a seu exclusivo critério, (b) a totalidade dos demais Documentos Comprobatórios em f ormato digital em até 90 (noventa) dias a contar da Data de Aquisição, bem como dos Documentos Comprobatórios em formato físico relativos aos Direitos Creditórios que eventualmente estejam inadimplidos em ref erida data, e (c) a totalidade dos demais Documentos Comprobatórios em f ormato f ísico em até 180 (cento e oitenta) dias a contar da Data de Aquisição, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.7.2 Caso um Direito Creditório cedido à Classe deixe de atender quaisquer Critérios de Elegibilidade e/ou quaisquer declarações e garantias ref erentes a esse Direito Creditório, conf orme previsto no respectivo Contrato de Endosso, após seu endosso à",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "Na aquisição, o critério específico de 20% restringe o permissivo geral de 100%. Uma concentração observada no IME exige base e devedor identificados."
+    },
+    {
+      "criterion_id": "revolving",
+      "label": "Revolvência e desinvestimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Recebimentos podem comprar novos direitos até que as aquisições acumuladas atinjam R$ 250 milhões. Após esse montante, cessam novas aquisições.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "11",
+          "clause": "Anexo I, 4.12",
+          "excerpt": "4.12 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, serão destinados a aquisição de Direitos Creditórios até o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais), sendo certo que os recursos recebidos pela Classe após a aquisição em tal montante não poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios, aplicando-se, de resto, o disposto no item 8.1 abaixo no que se ref ere à ordem de alocação de tais recursos. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 5",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "O gatilho usa aquisições acumuladas, e não o saldo mensal de direitos creditórios."
+    },
+    {
+      "criterion_id": "subordination",
+      "label": "Subordinação mínima",
+      "theme": "Proteção por camada",
+      "status": "confirmed",
+      "applicability": "not_applicable",
+      "value": "Classe com subclasse e série únicas; todas as cotas são pari passu, sem preferência, prioridade ou subordinação entre titulares.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "13",
+          "clause": "Anexo I, 5.1",
+          "excerpt": "5.1 O patrimônio da Classe é representado por uma única subclasse e uma única série de Cotas. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, Amortização e resgate das Cotas estão descritos neste Capítulo. As características, os direitos e as condições de emissão, distribuição, subscrição, integralização, remuneração, amortização e resgate das Cotas estão descritos neste Capítulo. 5.2 As Cotas são escriturais, nominativas e correspondem a f rações ideais do patrimônio da Classe, cuja propriedade presume-se: (i) pelo registro do nome do Cotista no livro de registro de Cotistas, enquanto mantidas em conta de depósito mantidas junto ao Agente Escriturador em nome dos respectivos Cotistas, nos termos do Art. 15 da Resolução CVM 175; (ii) pelos controles de titularidade mantidos pelo depositário central junto ao qual as Cotas estejam depositadas, nos termos do Art. 25 da Lei nº 12.810, de 15 de maio de 2013, conf orme alterada. 5.3 As Cotas poderão ser objeto de resgate antecipado apenas na hipótese de ocorrência de Evento de Liquidação, observado o disposto neste Regulamento. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 7",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "14",
+          "clause": "Anexo I, 5.4(iv)",
+          "excerpt": "5.4 As Cotas possuem as seguintes características e atribuem os seguintes direitos e obrigações aos seus titulares: (i) conf erem direito de voto em todas e quaisquer matérias objeto de deliberação nas Assembleias Gerais, sendo que a cada Cota corresponderá 1 (um) voto. (ii) na Data da 1ª Integralização de Cotas, terão Valor Unitário de R$ 1.000,00 (mil reais), sendo que as Cotas distribuídas posteriormente terão seu Valor Unitário de Emissão calculado com base na alínea (iii) abaixo; (iii) seu Valor Unitário será calculado e divulgado na abertura de todo Dia Útil, para ef eito de def inição de seu valor de integralização, Amortização ou resgate, observado que tal valor será equivalente ao resultado da divisão do valor do Patrimônio Líquido pelo número de Cotas em circulação; e (iv) os direitos dos titulares das Cotas contra o Patrimônio Líquido nos termos deste Regulamento, são pari passu entre si, não havendo qualquer tipo de preferência, prioridade ou subordinação entre os titulares de Cotas. Emissão, Subscrição e Integralização das Cotas 5.5 Após a primeira emissão, eventuais nov",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "coobligation",
+      "label": "Coobrigação e retenção de risco",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Endosso irrevogável e definitivo sem coobrigação. Deterioração posterior da elegibilidade não gera regresso contra administrador, custodiante, gestor ou endossante. O endossante responde por existência e formalização, sem garantir o pagamento pelo devedor.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "10",
+          "clause": "Anexo I, 4.7.2 e 4.7.4",
+          "excerpt": "4.7.2 Caso um Direito Creditório cedido à Classe deixe de atender quaisquer Critérios de Elegibilidade e/ou quaisquer declarações e garantias ref erentes a esse Direito Creditório, conf orme previsto no respectivo Contrato de Endosso, após seu endosso à Classe, não haverá coobrigação nem direito de regresso da Classe contra o ADMINISTRADOR, o CUSTODIANTE o GESTOR e/ou o Endossante. 4.7.3 A f ormalização de cada aquisição de Direitos Creditórios pela Classe deverá incluir o endosso eletrônico em preto de cada CCB representativa do respectivo Direito Creditório em f avor da Classe, inclusive, mas não necessariamente, por meio d a celebração de Termos de Endosso (os quais, para f ins de esclarecimento, poderão ser levados a registro junto aos cartórios de Registro de Títulos e Documentos competentes, a exclusivo critério do GESTOR, em casos excepcionais em que tal registro possa ser considerado necessário para f ins de ef icácia das respectivas cessões perante terceiros, tendo em vista a transmiss ão das CCB mediante endosso em preto, nos termos deste Regulamento e da legislação aplicável). 4.7.4 Após a f ormalizaçã",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "13",
+          "clause": "Anexo I, 4.18",
+          "excerpt": "4.18 Exceto na medida em que eventualmente previsto nos Contratos de Cessão e/ou em instrumentos eventualmente celebrados entre a Classe e os Endossantes, os Endossantes não serão responsáveis em caso de eventual inadimplemento dos Direitos Creditórios por eles cedidos, sendo responsáveis, não obstante, apenas pela existência, certeza, conteúdo, exatidão, veracidade, legitimidade, validade e correta f ormalização dos Direitos Creditórios que cederem à Classe, nos termos da legislação aplicável. 4.19 A Classe, o ADMINISTRADOR e o GESTOR, bem como seus controladores, sociedades coligadas, controladas ou sob controle comum, e/ou subsidiárias, não respondem pela certeza, liquidez, exigibilidade, conteúdo, exatidão, veracidade, legitimidade, validade e/ou correta f ormalização dos Direitos Creditórios adquiridos pela Classe, tampouco pela solvência dos Devedores e/ou Endossantes dos respectivos Direitos Creditórios. 4.20 Sem prejuízo do disposto no item 4.19 acima e, observado o disposto no item Erro! Fonte de referência não encontrada., o CUSTODIANTE f oi contratado pelo GESTOR para verificar e validar, na Data de Aquisição dos Direitos Creditórios pela Classe, o atendimento dos Direitos",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "collateral_check",
+      "label": "Verificação de lastro e amostragem",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Verificação integral do lastro na aquisição e, trimestralmente, dos créditos inadimplidos ou substituídos. Entrega: 50 casos solicitados em 10 dias; restante digital e físico dos já inadimplidos em 90 dias; restante físico em 180 dias. Vícios de lastro são comunicados em até 5 dias úteis.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "10",
+          "clause": "Anexo I, 4.7.1",
+          "excerpt": "4.7.1 Os Documentos Comprobatórios deverão ser disponibilizados pelo respectivo Endossante (a) no prazo de 10 (dez) dias contados da Data de Aquisição dos 50 (cinquenta) casos que sejam solicitados pelo GESTOR, a seu exclusivo critério, (b) a totalidade dos demais Documentos Comprobatórios em f ormato digital em até 90 (noventa) dias a contar da Data de Aquisição, bem como dos Documentos Comprobatórios em formato físico relativos aos Direitos Creditórios que eventualmente estejam inadimplidos em ref erida data, e (c) a totalidade dos demais Documentos Comprobatórios em f ormato f ísico em até 180 (cento e oitenta) dias a contar da Data de Aquisição, sujeito à resolução do respectivo endosso, de acordo com os termos do Contrato de Endosso. 4.7.2 Caso um Direito Creditório cedido à Classe deixe de atender quaisquer Critérios de Elegibilidade e/ou quaisquer declarações e garantias ref erentes a esse Direito Creditório, conf orme previsto no respectivo Contrato de Endosso, após seu endosso à Classe, não haverá coobrigação nem direito de regresso da Classe contra o ADMINISTRADOR, o CUSTODIANTE o GESTOR e/ou o En",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "24",
+          "clause": "Anexo I, 12.15 e 12.19(iv)–(v)",
+          "excerpt": "12.15 No âmbito das diligências relacionadas à aquisição de Direitos Creditórios caracterizados como direitos e títulos representativos de crédito, conforme referidos na alínea “a” do inciso XII do art. 2º do Anexo Normativo II da Resolução CVM 175, o GESTOR deve verificar a existência, integridade e titularidade do lastro, de f orma integral, utilizando modelo estatístico consistente e passível de verif icação, 12.16 O GESTOR pode contratar terceiros para ef etuar a verif icação do lastro, inclusive a entidade registradora, o CUSTODIANTE ou consultoria especializada, caso aplicável, devendo constar do contrato de prestação de serviços as regras e procedimentos aplicáveis à verif icação, sendo que o GESTOR será responsável pela fiscalização da atuação do agente contratado no tocante à observância às regras e procedimentos aplicáveis à verif icação. Custódia e Verificação do Lastro quando do inadimplemento ou substituição dos Direitos Creditórios 12.17 Caso a classe aplique recursos em Direitos Creditórios que não sejam passíveis de registro em entidade registradora na data deste Regulamento, o ADMINISTRADOR deve contratar o serviço de custódia para a Carteira. 12.18 Os serviços de custódia qualificada dos Direitos Creditóri",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "A entrega escalonada dos comprovantes é distinta da verificação integral prevista. O Complemento 2 contém recuperação/cobrança; não contém uma amostragem estatística de lastro."
+    },
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "PDD/perdas conforme ICVM 489, reduzindo o saldo dos ativos. Créditos do mesmo devedor seguem o art. 13 e a metodologia dos manuais do administrador/custodiante. O regulamento não fornece uma curva percentual de PDD por dias de atraso.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "17",
+          "clause": "Anexo I, 9.2–9.2.1",
+          "excerpt": "9.2 As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os Ativos Financeiros de Liquidez integrantes da Carteira serão, respectivamente, efetuadas ou reconhecidas nos termos da Instrução CVM 489. Desta forma, o valor do saldo dos Direitos Creditórios e/ou Ativos Financeiros de Liquidez será reduzido pelo valor da provisão ef etuada ou perda reconhecida. 9.2.1 O ef eito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo f acultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual d o ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e inf ormações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "Os percentuais do Complemento 2 são descontos de cobrança e comissões; não são alíquotas de PDD. O manual operacional referenciado permanece uma fonte separada."
+    },
+    {
+      "criterion_id": "servicing",
+      "label": "Cobrança e servicing",
+      "theme": "Garantias e operação",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Após a comunicação da desaverbação: repescagem diária em conta. A partir de 31 dias: notificação, negativação SERASA e cobrança terceirizada; a partir de 60 dias: protesto. Desconto do principal: 0% até 180 dias, 20% em 181–270, 30% em 271–360 e 50% acima de 360 dias. Comissões por faixa: 12%, 15%, 20%, 25% e 35%.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "44",
+          "clause": "Complemento 2, Régua de Cobrança, Desconto e Comissão",
+          "excerpt": "Régua de Cobrança A partir da comunicação da desaverbação do a partir de 31 dias a partir de 60 dias contrato - Notificação (canais digitais) - Negativação SERASA - PROTESTO Repescagem diária na - Cobrança terceirizada - Repescagem diária na conta corrente - Repescagem diária na conta corrente conta corrente DESCONTO Normal Atraso Multa e Mora Principal 15 a 90 0% 0% 91 a 180 100% 0% 181 a 270 100% 20% 271 a 360 100% 30% Acima de 360 100% 50% COMISSÃO Faixa de Atraso % comissão De 15 a 90 dias 12% De 90 a 180 dias 15% De 181 a 270 dias 20%",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "A tabela de comissões se refere à cobrança/recuperação por faixa de atraso; a remuneração geral do agente está remetida ao contrato na cláusula 13.7."
+    },
+    {
+      "criterion_id": "evaluation",
+      "label": "Eventos de avaliação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "RAET/intervenção/liquidação do endossante ou agente de garantias; obrigações do endossante não sanadas em 10 dias úteis da notificação; comprovantes não entregues em 2 dias úteis; falha de prestador em 10 dias úteis; perda de validade do endosso/convênio e eventos de conduta. Interrompe imediatamente novas aquisições até cura ou decisão da AGC.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "17",
+          "clause": "Anexo I, 11.1(i)",
+          "excerpt": "11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária – RAET, intervenção ou liquidação extrajudicial do Endossante ou do Agente de Garantias; BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 11",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "18",
+          "clause": "Anexo I, 11.1(ii)–(viii)",
+          "excerpt": "(ii) não cumprimento, por qualquer dos Endossantes, de qualquer de suas obrigações estabelecidas em cada Contrato de Endosso ou neste Regulamento e Anexo, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, inf ormando-o da ocorrência do respectivo evento; (iii) não cumprimento, por qualquer dos Endossantes, de suas obrigações de entregar o Arquivo de Liquidação Antecipada e o Arquivo de Posição das CCBs ao CUSTODIANTE dentro do prazo estabelecido neste Regulamento, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro dos prazos acordados no respectivo Contrato de Endosso, a partir do recebimento, pelos Endossantes, de notificação, por escrito, enviada pelo CUSTODIANTE, inf ormando-o da ocorrência do respectivo evento; (iv) não cumprimento, por qualquer dos Endossantes, de qualquer de suas obrigações de entregar ao CUSTODIANTE, ou a terceiros por ele indicados, os Documentos Comprobatórios relativos",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "19",
+          "clause": "Anexo I, 11.1.1–11.1.3",
+          "excerpt": "11.1.1 Na ocorrência de qualquer Evento de Avaliação, será convocada Assembleia Especial de Cotistas, para avaliar o grau de comprometimento das atividades d a Classe em razão do Evento de Avaliação, podendo a Assembleia Especial de Cotistas deliberar: (i) pela continuidade das atividades da Classe; ou (ii) que o Evento de Avaliação que deu causa à Assembleia Especial de Cotistas constitui um Evento de Liquidação, hipótese em que deverão ser deliberadas as matérias ref eridas no item 11.4.1 abaixo e adotados os procedimentos previstos no item 11.4.3 abaixo. 11.1.2 No momento de verificação de qualquer Evento de Avaliação, os procedimentos de aquisição de novos Direitos Creditórios deverão ser imediatamente interrompidos, até que: (i) seja prof erida decisão final em Assembleia Especial de Cotistas, convocada especificamente para este f im, nos termos do item 11.1.1 acima, autorizando a retomada dos procedimentos de aquisição de novos Direitos Creditórios e resgate das Cotas; e/ou (ii) seja sanado o Evento de Avaliação. 11.1.3 Na hipótese de não instalação da Assembleia Especial de Cotistas por f alta d",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "cure",
+      "label": "Prazos de cura e reincidência",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Endossante: 10 dias úteis da notificação para obrigações gerais. Documentos comprobatórios: 2 dias úteis. Prestadores: 10 dias úteis. Arquivos de posição/liquidação: prazo do respectivo Contrato de Endosso, sem prazo numérico reproduzido no regulamento.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "18",
+          "clause": "Anexo I, 11.1(ii)–(v)",
+          "excerpt": "(ii) não cumprimento, por qualquer dos Endossantes, de qualquer de suas obrigações estabelecidas em cada Contrato de Endosso ou neste Regulamento e Anexo, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, inf ormando-o da ocorrência do respectivo evento; (iii) não cumprimento, por qualquer dos Endossantes, de suas obrigações de entregar o Arquivo de Liquidação Antecipada e o Arquivo de Posição das CCBs ao CUSTODIANTE dentro do prazo estabelecido neste Regulamento, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro dos prazos acordados no respectivo Contrato de Endosso, a partir do recebimento, pelos Endossantes, de notificação, por escrito, enviada pelo CUSTODIANTE, inf ormando-o da ocorrência do respectivo evento; (iv) não cumprimento, por qualquer dos Endossantes, de qualquer de suas obrigações de entregar ao CUSTODIANTE, ou a terceiros por ele indicados, os Documentos Comprobatórios relativos",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "liquidation",
+      "label": "Eventos de liquidação",
+      "theme": "Eventos e cura",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Liquidação se AGC converter evento de avaliação ou deliberar liquidação; renúncia/cessão de administrador, gestor ou custodiante sem substituto; ou PL diário <R$ 1 milhão por 90 dias consecutivos, após os primeiros 90 dias de atividade. AGC de avaliação não instalada também inicia liquidação.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "19",
+          "clause": "Anexo I, 11.1.3 e 11.3",
+          "excerpt": "11.1.3 Na hipótese de não instalação da Assembleia Especial de Cotistas por f alta de quórum, o ADMINISTRADOR dará início aos procedimentos ref erentes à liquidação d a Classe, com o consequente resgate das Cotas, nos termos do item 11.4 e seguintes, abaixo. Eventos de Verificação de Patrimônio Líquido Negativo 11.2 Os seguintes eventos obrigarão o ADMINISTRADOR a verificar se o Patrimônio Líquido da Classe está negativo: (i) qualquer pedido de declaração judicial de insolvência da Classe; e (ii) na ocorrência de quaisquer dos Eventos de Avaliação e/ou Eventos de Liquidação . Eventos de Liquidação 11.3 As seguintes hipóteses são consideradas Eventos de Liquidação: (i) caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; (ii) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal f im; (iii) cessão ou renúncia do ADMINISTRADOR, GESTOR ou CUSTODIANTE sem que a Assembleia de Cotistas ef icazmente nomeie instituição habilit ada para substituí-lo, nos termos estabelecidos neste Regulamento;",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "waterfall",
+      "label": "Ordem de alocação de recursos",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Diariamente: encargos → resgate de dissidentes → amortização/resgate de cotas → compra de direitos → ativos de liquidez. Na liquidação antecipada: encargos → resgate das cotas.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "16",
+          "clause": "Anexo I, 8.1–8.2",
+          "excerpt": "8.1 O Cotista que tenha apresentado documentação comprobatória de sua condição de imunidade ou isenção tributária, nos termos do item 7.7, e que tiver essa condição alterada ou revogada por disposição normativa, seja por deixar de atender às condições e requisitos prescritos no dispositivo legal aplicável, ou por ter tal condição questionada por autoridade judicial, fiscal ou regulamentar competente, ou, ainda, por ter tal condição alterada e/ou revogada por qualquer outra razão que não as mencionadas acima, deverá comunicar esse f ato, de f orma detalhada e por escrito, ao ADMINISTRADOR, com cópia para o CUSTODIANTE, bem como prestar qualquer inf ormação adicional em relação ao tema que lhe seja solicitada pelo ADMINISTRADOR e/ou pelo CUSTODIANTE. CAPÍTULO 8 – ORDEM DE ALOCAÇÃO DE RECURSOS 8.1 O ADMINISTRADOR e o GESTOR obrigam-se a, a partir da Data da 1ª Integralização de Cotas até a liquidação integral das Obrigações do da Classe, utilizar os recursos disponíveis na Conta da Classe e/ou mantidos em Ativos Financeiros de Liquidez, em cada Dia Útil, de acordo com a seguinte ordem de prioridade de alocação de modo que cada item abaixo listad",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "payments",
+      "label": "Juros, amortização e vencimento",
+      "theme": "Fluxo de caixa e prazo",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Amortizações a qualquer tempo, por orientação do gestor e/ou AGC e conforme recursos, proporcionais a todas as cotas. Resgate somente na liquidação da classe. Cota apurada no último dia útil de cada mês.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "15",
+          "clause": "Anexo I, 6.1–6.2 e 7.2–7.4",
+          "excerpt": "6.1 As Cotas terão seu Valor Unitário calculado e divulgado pelo ADMINISTRADOR mensalmente, no último Dia Útil de cada mês, no fechamento dos mercados, a partir do mês seguinte à Data da 1ª Integralização e até a data de resgate das Cotas ou na data de liquidação da Classe Única, conforme o caso. 6.2 A partir da Data da 1ª Integralização de Cotas, o Valor Unitário das Cotas s erá calculado no fechamento do último Dia Útil de cada mês, equivalerá ao resultado da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas em circulação na respectiva data de cálculo . CAPÍTULO 7 – AMORTIZAÇÃO E RESGATE DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos d a Classe aos Cotistas será f eita exclusivamente mediante a Amortização e/ou o resgate de Cotas, observado o disposto neste Capítulo. 7.2 As amortizações de Cotas serão realizadas a qualquer tempo, a critério do GESTOR, observada a disponibilidade de recursos da Classe Única e a ordem de alocação de recursos prevista neste Anexo Descritivo. 7.3 As Cotas serão amortizadas mediante orientação do GESTOR e/ou deliberação da Assembleia Especial de Cotistas, observada a ordem de alocação de recursos previ",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "hedge",
+      "label": "Finalidade e limites de derivativos",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Derivativos exclusivamente para proteção ou troca de indexador, sem aportes de capital adicionais. Day trade vedado.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "13",
+          "clause": "Anexo I, 4.15–4.16",
+          "excerpt": "4.15 A Classe poderá utilizar instrumentos derivativos, desde que com o objetivo de proteção patrimonial, ou, desde que não resulte em exposição a risco de capital, conforme definida no inciso XXIV Art. 3º da parte geral da Resolução CVM 175, troca de indexador a que os ativos estão indexados . 4.16 A Classe não realizará operações de day trade, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de a Classe possuir estoque ou posição anterior do mesmo Ativo Financeiro. 4.17 É vedada qualquer forma de antecipação de recursos aos Endossantes para posterior reembolso pela Classe, seja pelo ADMINISTRADOR, GESTOR, CUSTODIANTE, consultora ou Originadores. 4.18 Exceto na medida em que eventualmente previsto nos Contratos de Cessão e/ou em instrumentos eventualmente celebrados entre a Classe e os Endossantes, os Endossantes não serão responsáveis em caso de eventual inadimplemento dos Direitos Creditórios por eles cedidos, sendo responsáveis, não obstante, apenas pela existência, certeza, conteúdo, exatidão, veracidade, legitimidade, validade e correta f ormalização dos Direitos Creditórios que cederem à Classe, nos termos da",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "admin_fee",
+      "label": "Administração: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 10% a.a. sobre PL; mínimo R$ 10 mil/mês. Mínimo corrigido pela variação positiva do IGP-M a cada 12 meses desde o mês da primeira integralização. Apropriação diária 1/252 e pagamento até o 5º dia útil seguinte.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "25",
+          "clause": "Anexo I, 13.1",
+          "excerpt": "13.1 Pelos serviços de administração, tesouraria, controladoria e escrituração, a Classe pagará a Taxa de Administração nos seguintes moldes: o valor correspondente a 0,10% (dez centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 10.000,00 (dez mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive). 13.1.1 Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na f alta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 19",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "26",
+          "clause": "Anexo I, 13.1.2–13.1.3",
+          "excerpt": "13.1.2 A Taxa de Administração será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 13.1.3 A Taxa de Administração será paga mensalmente ao ADMINISTRADOR, observado o disposto no item 13.2 abaixo, por período vencido, até o 5º (quinto) Dia Útil do mês subsequente à prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas da Classe. 13.2 O ADMINISTRADOR poderá estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pela Classe aos prestadores de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 13.3 Não serão cobradas da Classe ou dos Cotistas taxas de perf ormance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos seguintes moldes: o valor correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 15.000,00 (quinze mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "management_fee",
+      "label": "Gestão: taxa, base e mínimo",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "0, 20% a.a. sobre PL; mínimo R$ 15 mil/mês, corrigido pela variação positiva do IGP-M a cada 12 meses desde a primeira integralização. Apropriação diária 1/252; pagamento até o 5º dia útil seguinte.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "26",
+          "clause": "Anexo I, 13.4–13.4.3",
+          "excerpt": "13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos seguintes moldes: o valor correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 15.000,00 (quinze mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive). 13.4.1 Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na f alta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 13.4.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 13.4.3 A Taxa de Gestão será paga mensalmente ao GESTOR, observado o disposto no item 13.5 abaixo, por período vencido, até o 5º (quinto) Dia Útil do mês subsequente à prestação dos ser",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "performance_fee",
+      "label": "Performance: benchmark e apuração",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Taxas de performance, ingresso e saída não cobradas.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "26",
+          "clause": "Anexo I, 13.3",
+          "excerpt": "13.3 Não serão cobradas da Classe ou dos Cotistas taxas de perf ormance, de ingresso ou de saída. Taxa de Gestão 13.4 Pelos serviços de gestão, a Classe pagará a Taxa de Gestão nos seguintes moldes: o valor correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido, observado o valor mínimo de R$ 15.000,00 (quinze mil reais) mensais atualizado pela variação positiva do IGP-M a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive). 13.4.1 Na hipótese de extinção do IGP-M, não divulgação ou impossibilidade de sua utilização, será utilizado o Índice Geral de Preços – Disponibilidade Interna, divulgado pela Fundação Getúlio Vargas, ou, na f alta de ambos, pela variação do IPC – Índice de Preços ao Consumidor, divulgado pela Fundação Instituto de Pesquisas Econômicas – FIPE. 13.4.2 A Taxa de Gestão será calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 13.4.3 A Taxa de Gestão será paga mensalmente ao GESTOR, observado o disposto no item 13.5",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "custody_fee",
+      "label": "Custódia, escrituração e encargos",
+      "theme": "Emissões e custos",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Taxa máxima de custódia de 0% a.a. Remuneração do agente de retenção/cobrança definida no respectivo contrato.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "26",
+          "clause": "Anexo I, 13.7–13.8",
+          "excerpt": "13.7 Pelos serviços de retenção e cobrança, prestada nos termos deste Anexo e do Contrato de Retenção/Cobrança, será devida pela Classe ao Agente de Retenção/Cobrança a remuneração prevista no respectivo Contrato de Retenção/Cobrança. Taxa Máxima de Custódia 13.8 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao CUSTODIANTE, de modo que taxa máxima de custódia a ser paga pela Classe ao CUSTODIANTE corresponde a 0% (zero por cento) ao ano. CAPÍTULO 14 – CUSTOS REFERENTES À DEFESA DOS INTERESSES DA CLASSE 14.1 Caso a Classe não possua recursos disponíveis, em moeda corrente nacional, suf icientes para a adoção e manutenção, direta ou indireta, dos procedimentos judiciais e extrajudiciais necessários à cobrança dos Direitos Creditórios e dos Ativos Financeiros de Liquidez de titularidade da Classe e à def esa dos direitos, interesses e prerrogativas da Classe, a maioria dos titulares das Cotas, reunidos em Assembleia Especial de Cotistas, poderá aprovar o aporte de recursos à Classe, por meio da integralização de novas Cotas, a ser realizada por todos os titulares das Cotas para assegurar, se for o caso, a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "rating",
+      "label": "Rating por subclasse e downgrade",
+      "theme": "Hedge e prestadores",
+      "status": "confirmed",
+      "applicability": "not_applicable",
+      "value": "Cotas não classificadas por agência de rating; classe não destinada ao público em geral.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "15",
+          "clause": "Anexo I, 5.12",
+          "excerpt": "5.12 As Cotas não serão classificadas por Agência Classificadora de Risco em funcionamento no País, uma vez que a Classe não será destinada ao público em geral. CAPÍTULO 6 – ATRIBUIÇÃO DE RESULTADO ÀS COTAS E CÁLCULO DO VALOR UNITÁRIO 6.1 As Cotas terão seu Valor Unitário calculado e divulgado pelo ADMINISTRADOR mensalmente, no último Dia Útil de cada mês, no fechamento dos mercados, a partir do mês seguinte à Data da 1ª Integralização e até a data de resgate das Cotas ou na data de liquidação da Classe Única, conforme o caso. 6.2 A partir da Data da 1ª Integralização de Cotas, o Valor Unitário das Cotas s erá calculado no fechamento do último Dia Útil de cada mês, equivalerá ao resultado da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas em circulação na respectiva data de cálculo . CAPÍTULO 7 – AMORTIZAÇÃO E RESGATE DAS COTAS 7.1 A distribuição de quaisquer ganhos e rendimentos d a Classe aos Cotistas será f eita exclusivamente mediante a Amortização e/ou o resgate de Cotas, observado o disposto neste Capítulo. 7.2 As amortizações de Cotas serão realizadas a qualquer tempo, a critério do GESTOR, observada a disponibilidade de recursos da Classe Única e a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "quorum",
+      "label": "Quóruns e matérias reservadas",
+      "theme": "Governança e alterações",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Regra geral: maioria dos votos presentes. DFs, alteração da Parte Geral, substituição dos essenciais, mudanças de quórum, novas cobranças, liquidação, plano de PL negativo e insolvência exigem maioria das cotas em circulação, na primeira ou segunda convocação. Regras procedimentais gerais aplicadas à AGC especial.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "4",
+          "clause": "Parte Geral, 4.4–4.4.1",
+          "excerpt": "4.4 Ressalvadas as exceções descritas neste Regulamento, toda e qualquer matéria submetida à deliberação dos cotistas deverá ser aprovada por maioria dos votos dos presentes. 4.4.1 As deliberações relativas às matérias elencadas nos incisos abaixo serão tomadas, em primeira convocação ou em segunda convocação, pelos votos dos titulares da maioria das cotas em circulação, em sede assembleia geral de cotistas ou de assembleia especial de cotistas, conf orme o caso: (i) aprovação das demonstrações contábeis do FUNDO; (ii) alteração da Parte Geral deste Regulamento; (iii) substituição ou remoção do Prestador de Serviços Essenciais do FUNDO, ressalvada a possibilidade prevista no Art. 70, §1º, da Parte Geral da Resolução CVM 175; (iv) alterações nos quóruns de deliberação def inidos neste Regulamento; (v) cobrança de taxas e encargos pelo ADMINISTRADOR, de qualquer natureza, que não estejam expressamente previstos neste Regulamento; (vi) liquidação do FUNDO. (vii) plano de resolu",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "17",
+          "clause": "Anexo I, 10.1",
+          "excerpt": "10.1 Sem prejuízo de outros requisitos e inf ormações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se limitando a: (i) deliberar sobre as demonstrações contábeis da Classe; (ii) deliberar sobre substituição de Prestadores de Serviços Essenciais, observado o disposto no art. 70, §1º da parte geral da Resolução CVM 175; (iii) deliberar sobre elevação da Taxa de Administração, inclusive na hipótese de restabelecimento de taxa que tenha sido objeto de redução; (iv) deliberar sobre incorporação, f usão, cisão total ou parcial, a transf ormação ou liquidação da Classe; (v) alterações das características, vantagens, direitos e obrigações das Cotas; (vi) alterar critérios e procedimentos para Amortização e/ou resgate de Cotas mediante dação em pagamento de Direitos Creditórios; (vii) a",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "res175",
+      "label": "Adaptação à Resolução CVM 175",
+      "theme": "Alocação e perímetro",
+      "status": "confirmed",
+      "applicability": "applicable",
+      "value": "Regulamento sob Parte Geral e Anexo Normativo II da Resolução CVM 175; classe única com responsabilidade limitada ao capital subscrito.",
+      "sources": [
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "1",
+          "clause": "Parte Geral, 1.1",
+          "excerpt": "1.1 CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS (“FUNDO”), regido pela Lei nº 10.406, de 10 de janeiro de 2002, conf orme alterada (“Código Civil”), pela parte geral e o Anexo Normativo II da Resolução nº 175, de 23 de dezembro de 2022, conforme alterada, da Comissão de Valores Mobiliários (respectivamente, “CVM” e “Resolução CVM 175”), terá como principais características: Classe de Cotas Classe única. Indeterminado, exceto se de outra f orma vier a ser deliberado pelos cotistas Prazo de Duração reunidos em assembleia geral de cotistas. BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, instituição f inanceira, com sede na Cidade e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, ADMINISTRADOR Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 59.281.253/0001-23 e credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "8",
+          "clause": "Anexo I, 2.1",
+          "excerpt": "2.1 A responsabilidade do Cotista está limitada ao valor por ele subscrito. 2.2 Caso o ADMINISTRADOR verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência de pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175. 2.3 Serão aplicáveis as disposições da Resolução CVM 175 no que se refere aos procedimentos a serem adotados pelo ADMINISTRADOR na hipótese de Patrimônio Líquido negativo da Classe. CAPÍTULO 3 – ENCARGOS DA CLASSE 3.1 A Classe terá Encargos que lhe poderão ser debitados diretamente, nos termos do art. 53 do Anexo Normativo II da Resolução CVM 175, além de encargos adicionais, e quaisquer despesas que não constituam Encargos correm por conta do Prestador de Serviço Essencial que a tiver contratado: (i) despesas com a contratação de consultoria especializada, conf orme o caso; (ii) despesas com a contratação do Agente de Cobrança, conf orme aplicável; (iii) Taxa Máxima de Custódia; (iv) despesas com registro de Direitos Creditórios; (v) despesas com serviços de originação, cobranças ordinária e/ou extraordinária dos D",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": ""
+    },
+    {
+      "criterion_id": "changes",
+      "label": "Histórico de alterações materiais",
+      "theme": "Governança e alterações",
+      "status": "version_conflict",
+      "applicability": "applicable",
+      "value": "AGC de 28/05/2024 reformou o Anexo I para CCCBs e alterou política, elegibilidade, endosso e lastro; aprovou consolidação com efeitos retroativos à abertura de 28/05/2024. O regulamento 670691 está catalogado com referência 28/04/2024, anterior ao ato que descreve sua reforma.",
+      "sources": [
+        {
+          "document_id": 670690,
+          "title": "Instrumento Particular de Alteração do Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670690",
+          "reference_date": "28/05/2024",
+          "version": "Instrumento Particular de Alteração do Regulamento — referência 28/05/2024",
+          "page": "1",
+          "clause": "AGC, 4.1–4.2",
+          "excerpt": "4.1. A alteração integral do anexo da Classe Única, que compõe o regulamento do Fundo (“Anexo da Classe Única” e “Regulamento”) e seus complementos, para de f orma a alterar a Política de Investimentos da Classe para aquisição de direitos creditórios representados por Certif icados de Cédulas de Crédito Bancário (“CCCBs” e “Direitos Creditórios”), bem como refletir os novos critérios de elegibilidade para aquisição dos Direitos Creditórios, os documentos comprobatórios do lastro e f atores de risco aplicáveis. 4.2. Tendo em vista a aprovação dos itens. acima, deliberaram por aprovar o novo Regulamento Consolidado, que vigorará na forma do Anexo I à presente Ata, o qual terá efeitos retroativos a abertura de 28 de maio de 2024. 4.3. Por f im, por aprovar a Administradora a adotar todas as medidas necessárias para implementação das deliberações acima. 5. ENCERRAMENTO Nada mais havendo a tratar, f oi a reunião encerrada. Rio de Janeiro, 28 de maio de 2024. Mesa: Diego Prado Tassiana Lima Presidente",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670690_regulamento.pdf",
+          "sha256": "394ca03bd81e4968a24cc9e5f65acc1635d9145ed330f1e04765ae58be290eb4",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        },
+        {
+          "document_id": 670691,
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=670691",
+          "reference_date": "28/04/2024",
+          "version": "Regulamento — referência 28/04/2024",
+          "page": "9",
+          "clause": "Regulamento 670691, Anexo I, 4.2",
+          "excerpt": "4.2 Os Direitos Creditórios representados por Certif icados de Cédulas de Crédito Bancário (“CCCBs”), representativos de um agrupamento de determinadas CCBs, originadas no âmbito de operações de empréstimos pessoais concedidos por um Endossante a um Devedor, devidamente f ormalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. 4.2.1 Cada Endossante deve ter celebrado convênio com órgão consignante, previamente à cessão de Direitos Creditórios à Classe, que contemplam a obrigação da manutenção da consignação/averbação junto ao novo órgão, de modo a possibilitar o pagamento dos Direitos Creditórios por meio de consignação em f olha de pagamento ou de benef ício . 4.3 Os pagamentos relativos aos Direitos Creditórios de titularidade da Classe serão realizados mediante consignação em folha, débito em conta de titularidade dos Devedores e pagamentos de sinistros, para pagamento dos valores correspondentes às parcelas das CCBs representadas pelos CCCBs de titularidade da Classe, os quais serão conciliados e repassados pelo Endossan",
+          "local_path": "/Users/matheusjprates/fidc/data/raw/glossario_100_fidcs_20260716/54871427000194/670691_regulamento.pdf",
+          "sha256": "bf16dd7f1a62d5cdbf2e2d54fef81783783f7310fbc99c3a8f00459bdf9d037b",
+          "identity_verified": true,
+          "identity_verification": "Nome exato da classe e vínculo com AGC de mesmo CNPJ no corpus FundosNet"
+        }
+      ],
+      "risk_note": "A classificação Fundos Net do documento 670690 é “regulamento”, mas seu conteúdo é uma AGC. A divergência de datas impede usar a referência do 670691 como prova autônoma de início de vigência."
+    }
+  ],
+  "lookthrough": [],
+  "excluded_candidates": []
+}

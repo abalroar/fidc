@@ -93,7 +93,8 @@ def build_document_comparison_pptx_bytes(
             grouped = len(frame.columns) < original_column_count
         else:
             for column in frame.columns[1:]:
-                frame[column] = frame[column].map(_document_cell_text)
+                cleaner = public_document_text if page.preserve_typed_statuses else _document_cell_text
+                frame[column] = frame[column].map(cleaner)
         table_top = DOCUMENT_TABLE_TOP + (.22 if grouped else 0)
         note_lines = [line for note in page.notes if (clean := public_document_text(note)) for line in textwrap.wrap(clean, width=165)]
         note_groups = [note_lines[start : start + 8] for start in range(0, len(note_lines), 8)] or [[]]

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "44124617000194",
+  "competence": "01/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 61373295.93,
+    "credit_rights": 42907843.97,
+    "overdue_credit": 0.0,
+    "cash": 5489.48,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 44157337.934999995,
+    "subordinated_quotas": 17215957.989925787,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 17215957.989925787
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "44124617000194",
+    "competence": "01/2026",
+    "path": "data/documentary_diligence/ime/44124617000194_202601.json",
+    "reported_fund_cnpj": "44124617000194",
+    "reported_class_cnpj": "44124617000194",
+    "reported_fund_cnpj_raw": "44124617000194",
+    "reported_class_cnpj_raw": "44124617000194",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1105153",
+    "version": 1,
+    "delivered_at": "09/02/2026 14:55",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1105153",
+    "declared_fields_sha256": "0b4330a46dc4f28fb6c84dca07352e0581b6d6f062f42b5e319b2e07b5006a90"
+  },
+  "error": ""
+}

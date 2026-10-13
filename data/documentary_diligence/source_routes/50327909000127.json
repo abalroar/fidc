@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cnpj": "50327909000127",
+  "name": "TAMBASA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:09Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:02:12Z",
+  "routes": [
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 616067,
+          "reference_date": "07/03/2024",
+          "page": 46,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616067",
+          "source_excerpt": "os\nseus titulares o direito de voto.\n\n6.17. A política de exercício de direito de voto adotada pela Gestora pode ser obtida\nna página da Gestora na rede mundial de computadores, no seguinte endereço:\nwww.singulare.com.br.\n\n6.18. Não obstante a diligência da Gestora em colocar em prática a Política de\nInvestimento, composição e diversificação da carteira da Classe prevista no presente\nRegulamento, os investimentos da C"
+        },
+        {
+          "document_id": 616263,
+          "reference_date": "07/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=616263",
+          "source_excerpt": "Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria: ouvidoria@singulare.com.br |\n                                                           www.singulare.com.br"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

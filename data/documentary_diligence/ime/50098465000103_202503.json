@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "50098465000103",
+  "competence": "03/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 238670123.8,
+    "credit_rights": 176449549.68,
+    "overdue_credit": 5221463.35,
+    "cash": 500.0,
+    "pdd": 310534.25,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 204999632.78652,
+    "subordinated_quotas": 17407201.7592,
+    "mezzanine_quotas": 16263289.17828,
+    "subordinated_and_mezzanine_quotas": 33670490.93748
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "50098465000103",
+    "competence": "03/2025",
+    "path": "data/documentary_diligence/ime/50098465000103_202503.json",
+    "reported_fund_cnpj": "50098465000103",
+    "reported_class_cnpj": "50098465000103",
+    "reported_fund_cnpj_raw": "50098465000103",
+    "reported_class_cnpj_raw": "50098465000103",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "878355",
+    "version": 1,
+    "delivered_at": "11/04/2025 15:42",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=878355",
+    "declared_fields_sha256": "4a7cedd90b972c6251458e73944c661a4bad106423f36f6010f256175fbbe5de"
+  },
+  "error": ""
+}

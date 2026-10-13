@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "48967719000122",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 79559182.08,
+    "credit_rights": 79429265.49,
+    "overdue_credit": 0.0,
+    "cash": 907.73,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 73857792.72976923,
+    "subordinated_quotas": 5701389.349998347,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 5701389.349998347
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "48967719000122",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/48967719000122_202607.json",
+    "reported_fund_cnpj": "48967719000122",
+    "reported_class_cnpj": "48967719000122",
+    "reported_fund_cnpj_raw": "48967719000122",
+    "reported_class_cnpj_raw": "48967719000122",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1279722",
+    "version": 1,
+    "delivered_at": "07/08/2026 10:23",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1279722",
+    "declared_fields_sha256": "9541f9ee40ca29e307955d22a7651d55d646731ef754c701636f792ab3a578e7"
+  },
+  "error": ""
+}

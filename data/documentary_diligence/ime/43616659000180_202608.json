@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "43616659000180",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 4084678.08,
+    "credit_rights": 4524517.07,
+    "overdue_credit": 2900687.18,
+    "cash": 1516.41,
+    "pdd": 2916925.48,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 4084678.080040646,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 4084678.080040646
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "43616659000180",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/43616659000180_202608.json",
+    "reported_fund_cnpj": "43616659000180",
+    "reported_class_cnpj": "43616659000180",
+    "reported_fund_cnpj_raw": "43616659000180",
+    "reported_class_cnpj_raw": "43616659000180",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1320525",
+    "version": 1,
+    "delivered_at": "15/09/2026 16:39",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1320525",
+    "declared_fields_sha256": "7da05d7bc90cc3b35a09c134cb16e186e8fa3685c86f2241d18ac69adbb9b3d4"
+  },
+  "error": ""
+}

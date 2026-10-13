@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "34850088000152",
+  "competence": "10/2025",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 363699010.06,
+    "credit_rights": 305480770.99,
+    "overdue_credit": 0.0,
+    "cash": 9226.76,
+    "pdd": 0.0,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 335767495.0,
+    "subordinated_quotas": 27931516.05290472,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 27931516.05290472
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "34850088000152",
+    "competence": "10/2025",
+    "path": "data/documentary_diligence/ime/34850088000152_202510.json",
+    "reported_fund_cnpj": "34850088000152",
+    "reported_class_cnpj": "34850088000152",
+    "reported_fund_cnpj_raw": "34850088000152",
+    "reported_class_cnpj_raw": "34850088000152",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1041105",
+    "version": 1,
+    "delivered_at": "15/11/2025 16:26",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1041105",
+    "declared_fields_sha256": "fcec66dd5c7f2765ab1e102abf31187033abd70eda97ed42f8abc4c05992c420"
+  },
+  "error": ""
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "cnpj": "66929956000180",
+  "name": "BV AUTO III SEGMENTO FINANCEIRO FIDC RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:20Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:12:40Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1225635,
+          "reference_date": "22/06/2026",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1225635",
+          "source_excerpt": "nterfinanceiros de um dia, calculadas e divulgadas\n                                             diariamente pela B3, disponível em sua página na Internet\n                                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                                             dois) Dias Úteis, expressa na forma percentual ao ano;\n\n\n                  “Termo de Endosso”:        Significa o documen"
+        },
+        {
+          "document_id": 1212166,
+          "reference_date": "01/06/2026",
+          "page": 22,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1212166",
+          "source_excerpt": "nterfinanceiros de um dia, calculadas e divulgadas\n                                             diariamente pela B3, disponível em sua página na Internet\n                                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                                             dois) Dias Úteis, expressa na forma percentual ao ano;\n\n\n                  “Termo de Endosso”:        Significa o documen"
+        },
+        {
+          "document_id": 1224880,
+          "reference_date": "17/06/2026",
+          "page": 23,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224880",
+          "source_excerpt": "nterfinanceiros de um dia, calculadas e divulgadas\n                                             diariamente pela B3, disponível em sua página na Internet\n                                             (http://www.b3.com.br), base 252 (duzentos e cinquenta e\n                                             dois) Dias Úteis, expressa na forma percentual ao ano;\n\n\n                  “Termo de Endosso”:        Significa o documen"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.angaasset.com.br",
+      "source_type": "manager",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1225635,
+          "reference_date": "22/06/2026",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1225635",
+          "source_excerpt": "política de voto da Gestora encontra-se\n                                                disponível    em    seu    website,   no   seguinte   endereço:\n                                                www.angaasset.com.br\n\n\n                 3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n\n                 3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição"
+        },
+        {
+          "document_id": 1212166,
+          "reference_date": "01/06/2026",
+          "page": 25,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1212166",
+          "source_excerpt": "política de voto da Gestora encontra-se\n                                                disponível    em    seu    website,   no   seguinte   endereço:\n                                                www.angaasset.com.br\n\n\n                 3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n\n                 3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição"
+        },
+        {
+          "document_id": 1224880,
+          "reference_date": "17/06/2026",
+          "page": 26,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1224880",
+          "source_excerpt": "política de voto da Gestora encontra-se\n                                                disponível    em    seu    website,   no   seguinte   endereço:\n                                                www.angaasset.com.br\n\n\n                 3.      POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA\n\n\n                 3.1.    Visando a atingir o objetivo proposto, a Classe A alocará seus recursos na aquisição"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:04Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.angaasset.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

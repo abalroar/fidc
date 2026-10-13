@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "19390746000187",
+  "competence": "08/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 27721513.24,
+    "credit_rights": 24538076.4,
+    "overdue_credit": 986536.75,
+    "cash": 443.6,
+    "pdd": 170266.37,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 27721513.23999964,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 27721513.23999964
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "19390746000187",
+    "competence": "08/2026",
+    "path": "data/documentary_diligence/ime/19390746000187_202608.json",
+    "reported_fund_cnpj": "19390746000187",
+    "reported_class_cnpj": "19390746000187",
+    "reported_fund_cnpj_raw": "19390746000187",
+    "reported_class_cnpj_raw": "19390746000187",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1314444",
+    "version": 2,
+    "delivered_at": "10/09/2026 14:42",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1314444",
+    "declared_fields_sha256": "3961cfdabfbe540572ac9a9386af5b5b1a50beba1f045f1fdf366f0d02efe8d5"
+  },
+  "error": ""
+}

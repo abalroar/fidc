@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "cnpj": "55070804000159",
+  "name": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "generated_at": "2026-10-13T05:30:14Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:07:00Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 667195,
+          "reference_date": "22/05/2024",
+          "page": 14,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=667195",
+          "source_excerpt": ")\n                                                Dias Úteis, calculada e divulgada pela B3 no informativo diário\n                                                disponível em sua página na Internet (http://www.b3.com.br).\n\n\n             “Termo de Adesão”                  Significa o “Termo de Ciência de Risco e Adesão ao\n                                                Regulamento do ESTRATÉGIA VINCULADA II FUNDO DE"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.oliveiratrust.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 667195,
+          "reference_date": "22/05/2024",
+          "page": 40,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=667195",
+          "source_excerpt": "sobre o Auditor Independente contratado para auditoria do\n                Fundo e das Classes encontram-se disponíveis para acesso pelos Cotistas na página do\n                Administrador no website https://www.oliveiratrust.com.br. Qualquer alteração na empresa\n                de auditoria contratada será comunicada por meio de carta simples endereçada aos\n                Cotistas e, quando for o caso, publicada nas páginas na"
+        },
+        {
+          "document_id": 667195,
+          "reference_date": "22/05/2024",
+          "page": 127,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=667195",
+          "source_excerpt": ". Informações sobre o Auditor Independente contratado\n                para auditoria do Fundo encontram-se disponíveis para acesso pelos Cotistas na página do\n                Administrador no website www.oliveiratrust.com.br. Qualquer alteração na empresa de\n                auditoria contratada será comunicada por meio de carta simples endereçada aos Cotistas\n                e, quando for o caso, publicada nas páginas na"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:47Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 667195,
+          "reference_date": "22/05/2024",
+          "page": 92,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=667195",
+          "source_excerpt": "(tais como o critério de marcação a mercado) e no manual de precificação do\n                Administrador                                  disponível                               em\n                “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii)\n                os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu\n                Preço de Aquisição, com apropriação de seus respectivos rendimentos, confo"
+        }
+      ],
+      "probe": {
+        "status": "error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:28Z",
+        "error": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u201d' in position 54: ordinal not in range(128)"
+      }
+    },
+    {
+      "url": "http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 667195,
+          "reference_date": "22/05/2024",
+          "page": 133,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=667195",
+          "source_excerpt": "Direitos Creditórios Adquiridos do Fundo com base no Manual de Provisão para\n                perdas        em        Ativos         de   Crédito   do   Administrador   disponível   em\n                http://www.oliveiratrust.com.br/downloads/Manual_de_Provisao_para_Perdas_ICVM_4\n                89.pdf, observado o disposto acima., observado o disposto acima.\n\n                Caso o Administrador e/ou o Gestor constatem que a carteira do Fundo possui um\n                compor"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:30Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.oliveiratrust.com.br:443/",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

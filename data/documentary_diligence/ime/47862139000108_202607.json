@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "transformation_version": 4,
+  "cnpj": "47862139000108",
+  "competence": "07/2026",
+  "status": "parsed",
+  "values": {
+    "net_asset_value": 131349726.83,
+    "credit_rights": 125878645.04,
+    "overdue_credit": 252938.64,
+    "cash": 1000.0,
+    "pdd": 3454074.71,
+    "fidc_quotas": 0.0,
+    "senior_quotas": 0.0,
+    "subordinated_quotas": 131349726.82986526,
+    "mezzanine_quotas": 0.0,
+    "subordinated_and_mezzanine_quotas": 131349726.82986526
+  },
+  "source": {
+    "type": "ime_document",
+    "cnpj": "47862139000108",
+    "competence": "07/2026",
+    "path": "data/documentary_diligence/ime/47862139000108_202607.json",
+    "reported_fund_cnpj": "47862139000108",
+    "reported_class_cnpj": "47862139000108",
+    "reported_fund_cnpj_raw": "47862139000108",
+    "reported_class_cnpj_raw": "47862139000108",
+    "identity_basis": "class",
+    "warnings": [],
+    "numeric_normalization": "FundosNet XML numeric parser; CNPJ strings preserved",
+    "fields": [
+      "net_asset_value",
+      "credit_rights",
+      "overdue_credit",
+      "cash",
+      "pdd",
+      "fidc_quotas",
+      "senior_quotas",
+      "subordinated_quotas",
+      "mezzanine_quotas",
+      "subordinated_and_mezzanine_quotas"
+    ],
+    "field_paths": {
+      "net_asset_value": [
+        "DOC_ARQ/LISTA_INFORM/PATRLIQ/VL_PATRIM_LIQ"
+      ],
+      "cash": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_DISPONIB"
+      ],
+      "fidc_quotas": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/VL_COTA_FIDC"
+      ],
+      "pdd": [
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/CRED_EXISTE/VL_PROVIS_REDUC_RECUP",
+        "DOC_ARQ/LISTA_INFORM/APLIC_ATIVO/DICRED/VL_DICRED_PROVIS_REDUC_RECUP"
+      ]
+    },
+    "document_id": "1286178",
+    "version": 1,
+    "delivered_at": "12/08/2026 18:09",
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1286178",
+    "declared_fields_sha256": "58b9e5c878195d39208d9e82cf0acfca9d80b1b900411298b718414381417ed6"
+  },
+  "error": ""
+}

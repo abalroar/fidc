@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "cnpj": "48967719000122",
+  "name": "SOULPAY FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+  "generated_at": "2026-10-13T05:30:08Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:01:05Z",
+  "routes": [
+    {
+      "url": "https://www.singulare.com.br",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 785770,
+          "reference_date": "22/11/2024",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=785770",
+          "source_excerpt": "tação vigentes, conforme descrição contida no Manual do Administrador de\n             Provisão para Perdas em Ativos de Crédito, disponível em sua página na rede mundial de\n             computadores: https://www.singulare.com.br.\n\n\n             13.3.1 Os Direitos Creditórios e Ativos Financeiros que compõem a Carteira do Fundo\n             terão seus valores de mercado calculados conforme a metodologia de avaliação e"
+        },
+        {
+          "document_id": 785770,
+          "reference_date": "22/11/2024",
+          "page": 86,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=785770",
+          "source_excerpt": "s conforme a metodologia de avaliação e\n             precificação descrita no Manual de Precificação de Ativos do Administrador, disponível\n             em sua página na rede mundial de computadores: https://www.singulare.com.br.\n\n\n             13.3.2 As provisões para perdas e as perdas havidas com Direitos Creditórios ou com os\n             Ativos Financeiros integrantes da Carteira serão, respectivamente, efetuadas ou"
+        },
+        {
+          "document_id": 785770,
+          "reference_date": "22/11/2024",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=785770",
+          "source_excerpt": "o com o disposto na regulamentação vigente e com o Manual de Provisão Para\n             Perdas em Ativos de Crédito da Administradora, disponível para consulta no site da\n             Administradora (https://www.singulare.com.br.).\n\n\n             13.3.5 Após materialização do inadimplemento de um Direito Creditório Cedido a\n             provisão será realizada com base na metodologia do Manual de Provisão Para Perdas em"
+        },
+        {
+          "document_id": 785770,
+          "reference_date": "22/11/2024",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=785770",
+          "source_excerpt": "provisão será realizada com base na metodologia do Manual de Provisão Para Perdas em\n             Ativos de Crédito da Administradora, disponível para consulta no site da Administradora\n             (https://www.singulare.com.br.).\n\n\n             13.3.6 Cálculo do Valor dos Ativos Financeiros. A valorização dos demais Ativos\n             Financeiros que compõem a carteira do Fundo será efetuada com base nas regras descritas"
+        },
+        {
+          "document_id": 785770,
+          "reference_date": "22/11/2024",
+          "page": 87,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=785770",
+          "source_excerpt": "dos Ativos Financeiros. A valorização dos demais Ativos\n             Financeiros que compõem a carteira do Fundo será efetuada com base nas regras descritas\n             no manual da Administradora (https://www.singulare.com.br.), bem como nas regras\n             aplicáveis do BACEN e da CVM.\n\n\n             13.4 Cálculo do Valor das Cotas Seniores. O preço unitário das Cotas Seniores\n             corresponderá ao menor dos seg"
+        }
+      ],
+      "probe": {
+        "status": "http_error",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:39Z",
+        "error": "HTTP Error 301: Redirect to unverified domain; provenance validation required",
+        "http_status": 301
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 2,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "d.\n\nMETODOLOGIA UTILIZADA\nA metodologia utilizada neste(s) rating(s) foi Metodologia de Rating para Operações\nEstruturadas, publicada em 25 de outubro de 2023 e disponível na seção de metodologias\nem www.moodyslocal.com/country/br.\n\nDIVULGAÇÕES REGULATÓRIAS\n\nO presente Comunicado de Ação de Rating é um Relatório de Classificação de Risco de\nCrédito, nos termos do disposto no artigo 16 da Resolução CVM no 9/2020.\n\nO presente Rel"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "e(s) classificada(s) ou seu(s)\nagente(s) designado(s) e atribuído(s) sem alterações decorrentes dessa divulgação.\n\nConsulte   o   Formulário    de     Referência   da     Moody’s,   disponível     em\nwww.moodyslocal.com/country/br, para divulgações gerais sobre potenciais conflitos de\ninteresse.\n\nA Moody's pode ter fornecido Outro(s) Serviço(s) Permitido(s) à(s) entidade(s)\nclassificada(s) no período de 12 meses que antecederam"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agências de rating relacionadas à Moody’s Local no\nperíodo de 12 meses que antecedeu esta Ação de Rating. Consulte a página\nwww.moodyslocal.com/country/br para maiores informações a respeito.\n\n\n\nSoulpay Fundo de Investimento em Direitos Creditórios\n\n                                                   Data de Atribuição do Rating Inicial               Da"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "u parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento Moody's Local Brazil Ratings Scale disponível em\nwww.moodyslocal.com/country/br para mais informações sobre o significado de cada\ncategoria de rating e a definição de default e recuperação.\n\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rating são aplicáveis\na"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "o.\n\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rating são aplicáveis\nao(s) Rating(s) e, quando houver, também à perspectiva ou à revisão do(s) respectivo(s)\nRating(s).\n\nConsulte www.moodyslocal.com/country/br para divulgações regulatórias adicionais.\n\n© 2024 Moody’s Corporation, Moody’s Investors Service, Inc., Moody’s Analytics, Inc. e/ou suas licenciadas e afiliadas (em conjunto, “MOODY’S”).\nTodos os di"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br/regulatory-disclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "s por reguladores, associações setoriais, institutos de pesquisa, agentes setoriais\nou de governo, e autarquias e órgãos públicos. Consulte a “Lista de Fontes de Informações\nPúblicas” através do link www.moodyslocal.com/country/br/regulatory-disclosures.\n\n\nA Moody’s adota todas as medidas necessárias para que as informações utilizadas na\natribuição de Ratings sejam de qualidade suficiente e proveniente de fontes que a Moody’s\nconsidera confiáveis inc"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "Moody's através do link www.moodyslocal.com/country/br/regulatory-disclosures                                                  para mais\ninformações.\n\nAlgumas entidades classificadas pela Moody’s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agência"
+        },
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "Não Aplicável\n\n\nOs Ratings da Moody's são monitorados constantemente. Todos os Ratings da Moody's são\nrevisados pelo menos uma vez a cada período de 12 meses.\n\nConsulte a página www.moodyslocal.com/country/br/regulatory-disclosures para saber se\na(s) entidade(s) classificada(s) ou parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:50Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 740805,
+          "reference_date": "20/06/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=740805",
+          "source_excerpt": "m políticas e procedimentos destinados a preservar a independência dos\nratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de crédito. São incluídas anualmente no website www.moodys.com,\nsob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca\nde certas relações que possam existir entre administrador"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.moodys.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

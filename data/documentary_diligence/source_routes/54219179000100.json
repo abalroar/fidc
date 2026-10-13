@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "cnpj": "54219179000100",
+  "name": "CLOUDWALK BIG PICTURE III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+  "generated_at": "2026-10-13T05:30:13Z",
+  "priority": "complementary_sources",
+  "corpus_snapshot_at": "2026-10-13T05:05:50Z",
+  "routes": [
+    {
+      "url": "http://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1072799,
+          "reference_date": "22/12/2025",
+          "page": 107,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1072799",
+          "source_excerpt": "ulgadas diariamente pela B3,\n                                                       no Informativo Diário, disponível em sua página\n                                                       na internet (http://www.b3.com.br), base 252\n                                                       (duzentos e cinquenta e dois) Dias Úteis, expressa\n                                                       na forma percentual ao ano."
+        },
+        {
+          "document_id": 615968,
+          "reference_date": "05/03/2024",
+          "page": 104,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=615968",
+          "source_excerpt": "ivulgadas diariamente pela B3,\n                                                      no Informativo Diário, disponível em sua página\n                                                      na internet (http://www.b3.com.br), base 252\n                                                      (duzentos e cinquenta e dois) Dias Úteis, expressa\n                                                      na forma percentual ao ano."
+        },
+        {
+          "document_id": 622664,
+          "reference_date": "14/03/2024",
+          "page": 106,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622664",
+          "source_excerpt": "lculadas e divulgadas diariamente pela B3,\n                                                no Informativo Diário, disponível em sua página\n                                                na internet (http://www.b3.com.br), base 252\n                                                (duzentos e cinquenta e dois) Dias Úteis, expressa\n                                                na forma percentual ao ano."
+        },
+        {
+          "document_id": 638457,
+          "reference_date": "11/04/2024",
+          "page": 111,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638457",
+          "source_excerpt": "ulgadas diariamente pela B3,\n                                                       no Informativo Diário, disponível em sua página\n                                                       na internet (http://www.b3.com.br), base 252\n                                                       (duzentos e cinquenta e dois) Dias Úteis, expressa\n                                                       na forma percentual ao ano."
+        },
+        {
+          "document_id": 638458,
+          "reference_date": "11/04/2024",
+          "page": 107,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=638458",
+          "source_excerpt": "ulgadas diariamente pela B3,\n                                                       no Informativo Diário, disponível em sua página\n                                                       na internet (http://www.b3.com.br), base 252\n                                                       (duzentos e cinquenta e dois) Dias Úteis, expressa\n                                                       na forma percentual ao ano."
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:42Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br/",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.b3.com.br",
+      "source_type": "exchange",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 622664,
+          "reference_date": "14/03/2024",
+          "page": 118,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622664",
+          "source_excerpt": "das Cotas;\n\n(xii)   Benchmark: 100% (cem por cento) da Taxa Média dos Depósitos Interfinanceiros DI de\n\n\n        e cinquenta e dois) dias, calculada e divulgada pela B3, disponível na página\n        www.b3.com.br, em seu informativo diário (Taxa DI), acrescida exponencialmente de\n        spread equivalente a 1,90% (um inteiro e noventa centésimos por cento) ao ano, calculado\n        por Dia Útil à base de 1/25"
+        },
+        {
+          "document_id": 1285601,
+          "reference_date": "11/08/2026",
+          "page": 121,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1285601",
+          "source_excerpt": "s\n         DI de um dia, “over extra grupo” expressa na forma percentual ao ano, com base\n         252 (duzentos e cinquenta e dois) dias, calculada e divulgada pela B3, disponível\n         na página www.b3.com.br, em seu informativo diário (Taxa DI), acrescida\n         exponencialmente de spread equivalente a 1,90% (um inteiro e noventa\n         centésimos por cento) ao ano, calculado por Dia Útil à base de 1/"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:49Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.b3.com.br",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": ").\n\nMETODOLOGIA UTILIZADA\nA metodologia utilizada neste(s) rating(s) foi Metodologia de Rating para Operações\nEstruturadas, publicada em 25 de outubro de 2023 e disponível na seção de metodologias\nem www.moodyslocal.com/country/br.\n\nDIVULGAÇÕES REGULATÓRIAS\n\nO presente Comunicado de Ação de Rating é um Relatório de Classificação de Risco de\nCrédito, nos termos do disposto no artigo 16 da Resolução CVM no 9/2020.\n\nO presente Rel"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "e(s) classificada(s) ou seu(s)\nagente(s) designado(s) e atribuído(s) sem alterações decorrentes dessa divulgação.\n\nConsulte   o   Formulário    de     Referência   da     Moody’s,   disponivel     em\nwww.moodyslocal.com/country/br, para divulgações gerais sobre potenciais conflitos de\ninteresse.\n\nA Moody's pode ter fornecido Outro(s) Serviço(s) Permitido(s) à(s) entidade(s)\nclassificada(s) no período de 12 meses que antecederam"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agências de rating relacionadas à Moody’s Local no\nperíodo de 12 meses que antecedeu esta Ação de Rating. Consulte a página\nwww.moodyslocal.com/country/br para maiores informações a respeito.\n\n\nCloudwalk Big Picture III Fundo de Investimento em Direitos Creditórios Segmento Meios de\nPagamento\n                                  Data de Atribuição do Rati"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "u parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento Moody's Local Brazil Ratings Scale disponível em\nwww.moodyslocal.com/country/br para mais informações sobre o significado de cada\ncategoria de rating e a definição de default e recuperação.\n\nAs divulgações regulatórias contidas neste Comunicado de Ação de Rating são aplicáveis\na"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 5,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "Consulte www.moodyslocal.com/country/br para divulgações regulatórias adicionais.\n\n© 2024 Moody’s Corporation, Moody’s Investors Service, Inc., Moody’s Analytics, Inc. e/ou suas licenciadas e afiliadas (em conjunto, “MOODY’S”).\nTodos os di"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com/country/br/regulatorydisclosures",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 3,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "s por reguladores, associações setoriais, institutos de pesquisa, agentes setoriais\nou de governo, e autarquias e órgãos públicos. Consulte a “Lista de Fontes de Informações\nPúblicas” através do link www.moodyslocal.com/country/br/regulatorydisclosures.\n\n\nA Moody’s adota todas as medidas necessárias para que as informações utilizadas na\natribuição de Ratings sejam de qualidade suficiente e proveniente de fontes que a Moody’s\nconsidera confiáveis inc"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "sificada(s) no período de 12 meses que antecederam esta Ação de Rating. Consulte o\nrelatório \"Lista de Serviços Auxiliares e Outros Serviços Providos a Entidades com Rating da\nMoody's através do link www.moodyslocal.com/country/br/regulatorydisclosures para mais\ninformações.\n\nAlgumas entidades classificadas pela Moody’s Local possuíram ou possuem ratings\natribuídos e/ou monitorados por outras agências de rating relacionadas à Moody’s Local no\nperío"
+        },
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 4,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "024                              NA\n\n\nOs Ratings da Moody's são monitorados constantemente. Todos os Ratings da Moody's são\nrevisados pelo menos uma vez a cada período de 12 meses.\n\nConsulte a página www.moodyslocal.com/country/br/regulatorydisclosures para saber se\na(s) entidade(s) classificada(s) ou parte(s) a ela(s) relacionada(s) foi(foram) responsável(eis)\npor mais de 5% da receita anual da agência no exercício anterior.\n\nConsulte o documento"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:32:10Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://www.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 663052,
+          "reference_date": "31/03/2024",
+          "page": 6,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=663052",
+          "source_excerpt": "m políticas e procedimentos destinados a preservar a independência dos\nratings de crédito da M Moody’s Invertors Sevices e de seus processos de ratings de crédito. São incluídas anualmente no website www.moodys.com,\nsob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca\nde certas relações que possam existir entre administrador"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://www.moodys.com",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.moodyslocal.com.br/",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1048512,
+          "reference_date": "26/11/2025",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048512",
+          "source_excerpt": "E III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 3T25\nvisualizar os Comunicados de Ações de Rating.            Resumo da Operação\nEsta publicação não deve ser cons"
+        },
+        {
+          "document_id": 1322676,
+          "reference_date": "15/09/2026",
+          "page": 1,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322676",
+          "source_excerpt": "E III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO\nde Classificação de Risco de Crédito, nos termos do\ndisposto no artigo 16 da Resolução CVM no 9/2020.\nConsulte a página https://www.moodyslocal.com.br/ para\n                                                         Relatório Trimestral | 2T26\nvisualizar os Comunicados de Ações de Rating.            Resumo da Operação\nEsta publicação não deve ser cons"
+        }
+      ],
+      "probe": {
+        "status": "blocked",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:00Z",
+        "error": "HTTP Error 403: Forbidden",
+        "http_status": 403
+      }
+    },
+    {
+      "url": "https://ir.moodys.com",
+      "source_type": "rating_agency",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1048512,
+          "reference_date": "26/11/2025",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048512",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        },
+        {
+          "document_id": 1322676,
+          "reference_date": "15/09/2026",
+          "page": 7,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322676",
+          "source_excerpt": "tings”) também mantêm políticas e procedimentos destinados a preservar a independência dos ratings de\ncrédito e processos de ratings de crédito da Moody’s Ratings. São incluídas anualmente no website ir.moodys.com, sob o título “Investor Relations — Corporate Governance — Charter Documents – Director and Shareholder Affiliation Policy” informações acerca de\ncertas relações que possam existir entre administrado"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:30:55Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": null,
+        "final_url": "https://ir.moodys.com/investor-relations/default.aspx",
+        "identity_validation": "not_performed_by_head"
+      }
+    },
+    {
+      "url": "https://www.btgpactual.com/asset-",
+      "source_type": "administrator",
+      "candidate_type": "portal",
+      "identity_status": "fund_corpus_route_requires_target_document_validation",
+      "evidence": [
+        {
+          "document_id": 1285601,
+          "reference_date": "11/08/2026",
+          "page": 19,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1285601",
+          "source_excerpt": "custos incorridos para\no envio de tais correspondências por meio físico.\n\n\n7.4. As informações periódicas e eventuais da Classe de Cotas serão disponibilizadas\nno site da Administradora, no endereço: https://www.btgpactual.com/asset-\nmanagement/administracao-fiduciaria#documentos.\n\n\n7.5. A Administradora preservará a correspondência devolvida ou seu registro\neletrônico enquanto o Cotista não efetuar o resgate ou amortização total"
+        },
+        {
+          "document_id": 1285601,
+          "reference_date": "11/08/2026",
+          "page": 21,
+          "source_url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1285601",
+          "source_excerpt": "antes obrigatórias para o exercício do direito de voto. A\npolítica de voto de que trata este item ficará disponível para consulta pública na rede\nmundial     de    computadores,    no    endereço:    https://www.btgpactual.com/asset-\nmanagement/download-documentos\n\n\n10.4. Este Regulamento deverá ser regido e interpretado de acordo com as leis da\nRepública Federativa do Brasil.\n\n10.4.1.       Fica eleito o foro da comarca da cidad"
+        }
+      ],
+      "probe": {
+        "status": "portal_reachable",
+        "method": "HEAD",
+        "queried_at": "2026-10-13T05:31:02Z",
+        "error": "",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "content_length": "5326",
+        "final_url": "https://www.btgpactual.com/asset-",
+        "identity_validation": "not_performed_by_head"
+      }
+    }
+  ],
+  "status": "routes_found",
+  "note": "Portal accessibility is not document acquisition; HEAD does not validate issuer/CNPJ or version."
+}

@@ -1,0 +1,100 @@
+{
+  "cnpj": "55374251000128",
+  "criteria": [
+    {
+      "criterion_id": "collection_account",
+      "label": "Conta de arrecadação e risco de trânsito",
+      "theme": "Garantias e operação",
+      "status": "extraction_pending",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": "1240760",
+          "title": "AGO/E",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+          "reference_date": "2026-07-16",
+          "version": "1",
+          "page": 6,
+          "clause": "",
+          "excerpt": "1. Comunicação aos Debenturistas e seus respectivos custodiantes/representantes legais, contendo a descrição das Despesas a serem incorridas, seu valor total estimado ou provisionamento total, ou de eventual Despesa extraordinária não prevista e o valor a ser aportado por Debênture, que baseará os valores que o respectivo Debenturista, na proporção da quantidade de Debêntures por ele detidas, deverá aportar na Conta Vinculada (respectivamente, “Comunicação de Aporte” e “Valor Proporcional do Aporte”, respectivamente).",
+          "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1240760",
+          "title": "AGO/E",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+          "reference_date": "2026-07-16",
+          "version": "1",
+          "page": 6,
+          "clause": "",
+          "excerpt": "4. Todos os valores aportados pelos Debenturistas ficarão depositados na Conta Vinculada e serão utilizados para suportar as Despesas que se façam necessárias no âmbito da Emissão e, em caso de sobejo, no momento em que ocorrerem os eventos de recuperação do crédito, juntamente com os valores recuperados, serão devolvidos proporcionalmente aos Debenturistas, conforme ordem de prioridade a seguir descrita, de forma que cada item somente será pago caso haja recursos disponíveis após o cumprimento integral do item anterior (“Ordem de Prioridade”):",
+          "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+          "verification": "primary_passage"
+        },
+        {
+          "document_id": "1240760",
+          "title": "AGO/E",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+          "reference_date": "2026-07-16",
+          "version": "1",
+          "page": 7,
+          "clause": "",
+          "excerpt": "(i) Todos os recursos levantados por meio do Mecanismo de Aporte deverão ser mantidos na Conta Vinculada.",
+          "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+          "verification": "primary_passage"
+        }
+      ],
+      "rule": {},
+      "reason": "Documento 1240760,p6–7 descreve aportes de debenturistas para despesas e recuperação de emissão. Não identifica titularidade ou fluxo da conta de arrecadação do FIDC. A mecânica específica da conta permanece em apuração.",
+      "risk_note": "Resposta anterior não conta como regra confirmada.",
+      "history": [
+        {
+          "reference_date": "2026-07-16",
+          "value": "1. Comunicação aos Debenturistas e seus respectivos custodiantes/representantes legais, contendo a descrição das Despesas a serem incorridas, seu valor total estimado ou provisionamento total, ou de eventual Despesa extraordinária não prevista e o valor a ser aportado por Debênture, que baseará os valores que o respectivo Debenturista, na proporção da quantidade de Debêntures por ele detidas, deverá aportar na Conta Vinculada (respectivamente, “Comunicação de Aporte” e “Valor Proporcional do Aporte”, respectivamente).\n\n4. Todos os valores aportados pelos Debenturistas ficarão depositados na Conta Vinculada e serão utilizados para suportar as Despesas que se façam necessárias no âmbito da Emissão e, em caso de sobejo, no momento em que ocorrerem os eventos de recuperação do crédito, juntamente com os valores recuperados, serão devolvidos proporcionalmente aos Debenturistas, conforme ordem de prioridade a seguir descrita, de forma que cada item somente será pago caso haja recursos disponíveis após o cumprimento integral do item anterior (“Ordem de Prioridade”):\n\n(i) Todos os recursos levantados por meio do Mecanismo de Aporte deverão ser mantidos na Conta Vinculada.",
+          "sources": [
+            {
+              "document_id": "1240760",
+              "title": "AGO/E",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+              "reference_date": "2026-07-16",
+              "version": "1",
+              "page": 6,
+              "clause": "",
+              "excerpt": "1. Comunicação aos Debenturistas e seus respectivos custodiantes/representantes legais, contendo a descrição das Despesas a serem incorridas, seu valor total estimado ou provisionamento total, ou de eventual Despesa extraordinária não prevista e o valor a ser aportado por Debênture, que baseará os valores que o respectivo Debenturista, na proporção da quantidade de Debêntures por ele detidas, deverá aportar na Conta Vinculada (respectivamente, “Comunicação de Aporte” e “Valor Proporcional do Aporte”, respectivamente).",
+              "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1240760",
+              "title": "AGO/E",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+              "reference_date": "2026-07-16",
+              "version": "1",
+              "page": 6,
+              "clause": "",
+              "excerpt": "4. Todos os valores aportados pelos Debenturistas ficarão depositados na Conta Vinculada e serão utilizados para suportar as Despesas que se façam necessárias no âmbito da Emissão e, em caso de sobejo, no momento em que ocorrerem os eventos de recuperação do crédito, juntamente com os valores recuperados, serão devolvidos proporcionalmente aos Debenturistas, conforme ordem de prioridade a seguir descrita, de forma que cada item somente será pago caso haja recursos disponíveis após o cumprimento integral do item anterior (“Ordem de Prioridade”):",
+              "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+              "verification": "primary_passage"
+            },
+            {
+              "document_id": "1240760",
+              "title": "AGO/E",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1240760",
+              "reference_date": "2026-07-16",
+              "version": "1",
+              "page": 7,
+              "clause": "",
+              "excerpt": "(i) Todos os recursos levantados por meio do Mecanismo de Aporte deverão ser mantidos na Conta Vinculada.",
+              "sha256": "de9171de599347159f2c43680adbf0f19449e22cd34682486801db245113bec0",
+              "verification": "primary_passage"
+            }
+          ],
+          "assessment": "Trecho anterior rejeitado no QA; descrição incidental, enumeração interrompida ou tabela não recuperada.",
+          "provenance": "published_primary_answer_rejected"
+        }
+      ]
+    }
+  ]
+}

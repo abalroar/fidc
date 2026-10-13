@@ -1,0 +1,2456 @@
+{
+  "schema_version": 1,
+  "transformation_version": 3,
+  "cnpj": "45123558000100",
+  "quarter": "2025-Q2",
+  "competence": "2025-06-30",
+  "identity": {
+    "status": "verified",
+    "expected_cnpj": "45123558000100",
+    "cnpj_fundo": "45123558000100",
+    "cnpj_classe": "",
+    "header_fields": [
+      {
+        "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/CNPJFundo[1]",
+        "tag": "CNPJFUNDO",
+        "value": "45123558000100",
+        "text": "45123558000100",
+        "namespace": ""
+      }
+    ]
+  },
+  "status": "parsed",
+  "fields": [
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/NomeFundo[1]",
+      "tag": "NOMEFUNDO",
+      "value": "CANAÃ FI NAS CADEIAS PRODUTIVAS AGROINDUSTRIAIS - FIAGRO",
+      "text": "CANAÃ FI NAS CADEIAS PRODUTIVAS AGROINDUSTRIAIS - FIAGRO",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/CNPJFundo[1]",
+      "tag": "CNPJFUNDO",
+      "value": "45123558000100",
+      "text": "45123558000100",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/DataFuncionamento[1]",
+      "tag": "DATAFUNCIONAMENTO",
+      "value": "2022-04-19",
+      "text": "2022-04-19",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/PublicoAlvo[1]",
+      "tag": "PUBLICOALVO",
+      "value": "Investidor Profissional",
+      "text": "Investidor Profissional",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/CodigoISIN[1]",
+      "tag": "CODIGOISIN",
+      "value": "BR0BVUCTF007",
+      "text": "BR0BVUCTF007",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/QtdCotasEmitidas[1]",
+      "tag": "QTDCOTASEMITIDAS",
+      "value": "284645.0415",
+      "text": "284645.0415",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/FundoExclusivo[1]",
+      "tag": "FUNDOEXCLUSIVO",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/EnquadraNotaSeis[1]",
+      "tag": "ENQUADRANOTASEIS",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/VinculoFamiliarCotistas[1]",
+      "tag": "VINCULOFAMILIARCOTISTAS",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Autorregulacao[1]/Mandato[1]",
+      "tag": "MANDATO",
+      "value": "Títulos e Valores Mobiliários",
+      "text": "Títulos e Valores Mobiliários",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Autorregulacao[1]/SegmentoAtuacao[1]",
+      "tag": "SEGMENTOATUACAO",
+      "value": "Outros",
+      "text": "Outros",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Autorregulacao[1]/TipoGestao[1]",
+      "tag": "TIPOGESTAO",
+      "value": "Ativa",
+      "text": "Ativa",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/PrazoDuracao[1]",
+      "tag": "PRAZODURACAO",
+      "value": "Indeterminado",
+      "text": "Indeterminado",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/DataPrazoDuracao[1]",
+      "tag": "DATAPRAZODURACAO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/DataPrazoDuracao[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/EncerramentoExercicio[1]",
+      "tag": "ENCERRAMENTOEXERCICIO",
+      "value": "30/06",
+      "text": "30/06",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/MercadoNegociacao[1]/Bolsa[1]",
+      "tag": "BOLSA",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/MercadoNegociacao[1]/MBO[1]",
+      "tag": "MBO",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/MercadoNegociacao[1]/MB[1]",
+      "tag": "MB",
+      "value": "true",
+      "text": "true",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/EntidadeAdministradora[1]/BVMF[1]",
+      "tag": "BVMF",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/EntidadeAdministradora[1]/CETIP[1]",
+      "tag": "CETIP",
+      "value": "false",
+      "text": "false",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/NomeAdministrador[1]",
+      "tag": "NOMEADMINISTRADOR",
+      "value": "BANCO GENIAL S.A.",
+      "text": "BANCO GENIAL S.A.",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/CNPJAdministrador[1]",
+      "tag": "CNPJADMINISTRADOR",
+      "value": "45123558000100",
+      "text": "45123558000100",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Logradouro[1]",
+      "tag": "LOGRADOURO",
+      "value": "PRAIA DE BOTAFOGO",
+      "text": "PRAIA DE BOTAFOGO",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Numero[1]",
+      "tag": "NUMERO",
+      "value": "228",
+      "text": "228",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Complemento[1]",
+      "tag": "COMPLEMENTO",
+      "value": "SL 907",
+      "text": "SL 907",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Bairro[1]",
+      "tag": "BAIRRO",
+      "value": "BOTAFOGO",
+      "text": "BOTAFOGO",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Cidade[1]",
+      "tag": "CIDADE",
+      "value": "RIO DE JANEIRO",
+      "text": "RIO DE JANEIRO",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Estado[1]",
+      "tag": "ESTADO",
+      "value": "RJ",
+      "text": "RJ",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/CEP[1]",
+      "tag": "CEP",
+      "value": "22250-906",
+      "text": "22250-906",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Telefone1[1]",
+      "tag": "TELEFONE1",
+      "value": "(21) 3923300",
+      "text": "(21) 3923300",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Telefone2[1]",
+      "tag": "TELEFONE2",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Telefone3[1]",
+      "tag": "TELEFONE3",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Telefone3[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Site[1]",
+      "tag": "SITE",
+      "value": "www.bancogenial.com",
+      "text": "www.bancogenial.com",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Email[1]",
+      "tag": "EMAIL",
+      "value": "middleadm@genialinvestimentos.com.br",
+      "text": "middleadm@genialinvestimentos.com.br",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/Competencia[1]",
+      "tag": "COMPETENCIA",
+      "value": "2/2025",
+      "text": "2/2025",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/DadosGerais[1]/DataEncerTrimestre[1]",
+      "tag": "DATAENCERTRIMESTRE",
+      "value": "2025-06-30",
+      "text": "2025-06-30",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Terrenos[1]",
+      "tag": "TERRENOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/LstImovRendaAcabados[1]",
+      "tag": "LSTIMOVRENDAACABADOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/AteTresMeses[1]",
+      "tag": "ATETRESMESES",
+      "value": "Até 3 meses",
+      "text": "Até 3 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/TresAteSeisMeses[1]",
+      "tag": "TRESATESEISMESES",
+      "value": "De 3 meses e 1 dia a 6 meses",
+      "text": "De 3 meses e 1 dia a 6 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/SeisAteNoveMeses[1]",
+      "tag": "SEISATENOVEMESES",
+      "value": "De 6 meses e 1 dia a 9 meses",
+      "text": "De 6 meses e 1 dia a 9 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/NoveAteDozeMeses[1]",
+      "tag": "NOVEATEDOZEMESES",
+      "value": "De 9 meses e 1 dia a 12 meses",
+      "text": "De 9 meses e 1 dia a 12 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/DozeAteQuinzeMeses[1]",
+      "tag": "DOZEATEQUINZEMESES",
+      "value": "De 12 meses e 1 dia a 15 meses",
+      "text": "De 12 meses e 1 dia a 15 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/QuinzeAteDezoitoMeses[1]",
+      "tag": "QUINZEATEDEZOITOMESES",
+      "value": "De 15 meses e 1 dia a 18 meses",
+      "text": "De 15 meses e 1 dia a 18 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/DezoitoAteVinteUmMeses[1]",
+      "tag": "DEZOITOATEVINTEUMMESES",
+      "value": "De 18 meses e 1 dia a 21 meses",
+      "text": "De 18 meses e 1 dia a 21 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/VinteUmAteVinteQuatroMeses[1]",
+      "tag": "VINTEUMATEVINTEQUATROMESES",
+      "value": "De 21 meses e 1 dia a 24 meses",
+      "text": "De 21 meses e 1 dia a 24 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/VinteQuatroAteVinteSeteMeses[1]",
+      "tag": "VINTEQUATROATEVINTESETEMESES",
+      "value": "De 24 meses e 1 dia a 27 meses",
+      "text": "De 24 meses e 1 dia a 27 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/VinteSeteAteTrintaMeses[1]",
+      "tag": "VINTESETEATETRINTAMESES",
+      "value": "De 27 meses e 1 dia a 30 meses",
+      "text": "De 27 meses e 1 dia a 30 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/TrintaAteTrintaTresMeses[1]",
+      "tag": "TRINTAATETRINTATRESMESES",
+      "value": "De 30 meses e 1 dia a 33 meses",
+      "text": "De 30 meses e 1 dia a 33 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/TrintaTresAteTrintaSeisMeses[1]",
+      "tag": "TRINTATRESATETRINTASEISMESES",
+      "value": "De 33 meses e 1 dia a 36 meses",
+      "text": "De 33 meses e 1 dia a 36 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/AcimaTrintaSeisMeses[1]",
+      "tag": "ACIMATRINTASEISMESES",
+      "value": "Acima de 36 meses",
+      "text": "Acima de 36 meses",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosPrazo[1]/PrazoIndeterminado[1]",
+      "tag": "PRAZOINDETERMINADO",
+      "value": "Prazo indeterminado",
+      "text": "Prazo indeterminado",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosIndexador[1]/IGPM[1]",
+      "tag": "IGPM",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosIndexador[1]/INPC[1]",
+      "tag": "INPC",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosIndexador[1]/IPCA[1]",
+      "tag": "IPCA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosIndexador[1]/INCC[1]",
+      "tag": "INCC",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/DistrContratosIndexador[1]/OutrosIndicadores[1]",
+      "tag": "OUTROSINDICADORES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/CaractContratuaisComuns[1]",
+      "tag": "CARACTCONTRATUAISCOMUNS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/CaractContratuaisComuns[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/CaractContratuaisIndividual[1]",
+      "tag": "CARACTCONTRATUAISINDIVIDUAL",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/PoliticaContratacaoSeguro[1]",
+      "tag": "POLITICACONTRATACAOSEGURO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaAcabados[1]/PoliticaContratacaoSeguro[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaConstrucao[1]/LstImovRendaConstrucao[1]",
+      "tag": "LSTIMOVRENDACONSTRUCAO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaConstrucao[1]/JustificativaDesempenho[1]",
+      "tag": "JUSTIFICATIVADESEMPENHO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaConstrucao[1]/PoliticaContratacaoSeguro[1]",
+      "tag": "POLITICACONTRATACAOSEGURO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisRendaConstrucao[1]/PoliticaContratacaoSeguro[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaAcabados[1]/LstImovVendaAcabados[1]",
+      "tag": "LSTIMOVVENDAACABADOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaAcabados[1]/PoliticaContratacaoSeguro[1]",
+      "tag": "POLITICACONTRATACAOSEGURO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaAcabados[1]/PoliticaContratacaoSeguro[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaConstrucao[1]/LstImovVendaConstrucao[1]",
+      "tag": "LSTIMOVVENDACONSTRUCAO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaConstrucao[1]/JustificativaDesempenho[1]",
+      "tag": "JUSTIFICATIVADESEMPENHO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaConstrucao[1]/PoliticaContratacaoSeguro[1]",
+      "tag": "POLITICACONTRATACAOSEGURO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/Imoveis[1]/ImoveisVendaConstrucao[1]/PoliticaContratacaoSeguro[1]/@nil",
+      "tag": "NIL",
+      "value": "true",
+      "text": "true"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/DireitosReaisImoveis[1]/OutrosDireitosReais[1]",
+      "tag": "OUTROSDIREITOSREAIS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/FII[1]",
+      "tag": "FII",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKQ Virgo Companhia de Sec",
+      "text": "CRA02400BKQ Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "233",
+      "text": "233",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[1]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKR Virgo Companhia de Sec",
+      "text": "CRA02400BKR Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "234",
+      "text": "234",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[2]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKS Virgo Companhia de Sec",
+      "text": "CRA02400BKS Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "235",
+      "text": "235",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[3]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKT Virgo Companhia de Sec",
+      "text": "CRA02400BKT Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "236",
+      "text": "236",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[4]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKU Virgo Companhia de Sec",
+      "text": "CRA02400BKU Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "237",
+      "text": "237",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[5]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKV Virgo Companhia de Sec",
+      "text": "CRA02400BKV Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "238",
+      "text": "238",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[6]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKW Virgo Companhia de Sec",
+      "text": "CRA02400BKW Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "239",
+      "text": "239",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[7]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKX Virgo Companhia de Sec",
+      "text": "CRA02400BKX Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "240",
+      "text": "240",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[8]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKY Virgo Companhia de Sec",
+      "text": "CRA02400BKY Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "241",
+      "text": "241",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[9]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400BKZ Virgo Companhia de Sec",
+      "text": "CRA02400BKZ Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "242",
+      "text": "242",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "74000",
+      "text": "74000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[10]/Valor[1]",
+      "tag": "VALOR",
+      "value": "76854148.72",
+      "text": "76854148.72",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CT6 Virgo Companhia de Sec",
+      "text": "CRA02400CT6 Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[11]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CT7 Virgo Companhia de Sec",
+      "text": "CRA02400CT7 Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[12]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CT8 Virgo Companhia de Sec",
+      "text": "CRA02400CT8 Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[13]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CT9 Virgo Companhia de Sec",
+      "text": "CRA02400CT9 Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[14]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTA Virgo Companhia de Sec",
+      "text": "CRA02400CTA Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[15]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTB Virgo Companhia de Sec",
+      "text": "CRA02400CTB Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[16]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTC Virgo Companhia de Sec",
+      "text": "CRA02400CTC Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[17]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTD Virgo Companhia de Sec",
+      "text": "CRA02400CTD Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[18]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTE Virgo Companhia de Sec",
+      "text": "CRA02400CTE Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[19]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/Companhia[1]",
+      "tag": "COMPANHIA",
+      "value": "CRA02400CTF Virgo Companhia de Sec",
+      "text": "CRA02400CTF Virgo Companhia de Sec",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "8769451000108",
+      "text": "8769451000108",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/Emissao[1]",
+      "tag": "EMISSAO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/Serie[1]",
+      "tag": "SERIE",
+      "value": "1",
+      "text": "1",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "50000",
+      "text": "50000",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CriCra[1]/Emissor[20]/Valor[1]",
+      "tag": "VALOR",
+      "value": "50112548.98",
+      "text": "50112548.98",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/LciLca[1]",
+      "tag": "LCILCA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/LIG[1]",
+      "tag": "LIG",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CEPAC[1]",
+      "tag": "CEPAC",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/Acoes[1]",
+      "tag": "ACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/AcoesSocFII[1]/Emissor[1]/Sociedade[1]",
+      "tag": "SOCIEDADE",
+      "value": "AGROFAZ 001 LTDA",
+      "text": "AGROFAZ 001 LTDA",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/AcoesSocFII[1]/Emissor[1]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "52406957000136",
+      "text": "52406957000136",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/AcoesSocFII[1]/Emissor[1]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "187621800",
+      "text": "187621800",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/AcoesSocFII[1]/Emissor[1]/Valor[1]",
+      "tag": "VALOR",
+      "value": "323120997.321009",
+      "text": "323120997.321009",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/CotasSocFII[1]",
+      "tag": "COTASSOCFII",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/FIA[1]",
+      "tag": "FIA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/FIP[1]",
+      "tag": "FIP",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/FIDC[1]",
+      "tag": "FIDC",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/OutrasCotasFI[1]/Emissor[1]/Fundo[1]",
+      "tag": "FUNDO",
+      "value": "ITAU SOBERANO RF SIMPLES LP",
+      "text": "ITAU SOBERANO RF SIMPLES LP",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/OutrasCotasFI[1]/Emissor[1]/CNPJ[1]",
+      "tag": "CNPJ",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/OutrasCotasFI[1]/Emissor[1]/Quantidade[1]",
+      "tag": "QUANTIDADE",
+      "value": "16308.0288636346",
+      "text": "16308.0288636346",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/OutrasCotasFI[1]/Emissor[1]/Valor[1]",
+      "tag": "VALOR",
+      "value": "37911894",
+      "text": "37911894",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosFinanceiros[1]/OutrosAtivosFinanceiros[1]",
+      "tag": "OUTROSATIVOSFINANCEIROS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosNecessidadeLiquidez[1]/Disponibilidades[1]",
+      "tag": "DISPONIBILIDADES",
+      "value": "398.35",
+      "text": "398.35",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosNecessidadeLiquidez[1]/TitulosPublicos[1]",
+      "tag": "TITULOSPUBLICOS",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosNecessidadeLiquidez[1]/TitulosPrivados[1]",
+      "tag": "TITULOSPRIVADOS",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/InfoTipoAtivo[1]/AtivosNecessidadeLiquidez[1]/FundosRendaFixa[1]",
+      "tag": "FUNDOSRENDAFIXA",
+      "value": "37911894",
+      "text": "37911894",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/AquisicoesAlienacoes[1]/Terrenos[1]/Aquisicoes[1]",
+      "tag": "AQUISICOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/AquisicoesAlienacoes[1]/Terrenos[1]/Alienacoes[1]",
+      "tag": "ALIENACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/AquisicoesAlienacoes[1]/Imoveis[1]/Aquisicoes[1]",
+      "tag": "AQUISICOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/AquisicoesAlienacoes[1]/Imoveis[1]/Alienacoes[1]",
+      "tag": "ALIENACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/OutrasInfo[1]/RentabilidadeGarantida[1]/AtivosGarantiaRent[1]",
+      "tag": "ATIVOSGARANTIARENT",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/OutrasInfo[1]/RentabilidadeGarantida[1]/RentEfetivaVigGarantia[1]",
+      "tag": "RENTEFETIVAVIGGARANTIA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ReceitasVenda[1]",
+      "tag": "RECEITASVENDA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ReceitasVenda[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ReceitasVenda[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/CustoImovEstoque[1]",
+      "tag": "CUSTOIMOVESTOQUE",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/CustoImovEstoque[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/CustoImovEstoque[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/AjusteValor[1]",
+      "tag": "AJUSTEVALOR",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/AjusteValor[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/AjusteValor[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/OutrasRecOuDesp[1]",
+      "tag": "OUTRASRECOUDESP",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/OutrasRecOuDesp[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/OutrasRecOuDesp[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ResultadoLiquido[1]",
+      "tag": "RESULTADOLIQUIDO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ResultadoLiquido[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/Estoques[1]/ResultadoLiquido[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasAlugueis[1]",
+      "tag": "RECEITASALUGUEIS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasAlugueis[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "6686.37",
+      "text": "6686.37"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasAlugueis[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "6686.37",
+      "text": "6686.37"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/DespManutencaoConservacao[1]",
+      "tag": "DESPMANUTENCAOCONSERVACAO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/DespManutencaoConservacao[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/DespManutencaoConservacao[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasVenda[1]",
+      "tag": "RECEITASVENDA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasVenda[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ReceitasVenda[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/CustoPropriedadesVendidas[1]",
+      "tag": "CUSTOPROPRIEDADESVENDIDAS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/CustoPropriedadesVendidas[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/CustoPropriedadesVendidas[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/AjusteValor[1]",
+      "tag": "AJUSTEVALOR",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/AjusteValor[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/AjusteValor[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/OutrasRecOuDesp[1]",
+      "tag": "OUTRASRECOUDESP",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/OutrasRecOuDesp[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-134822.9",
+      "text": "-134822.9"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/OutrasRecOuDesp[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-134822.9",
+      "text": "-134822.9"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ResultadoLiquido[1]",
+      "tag": "RESULTADOLIQUIDO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ResultadoLiquido[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-128136.53",
+      "text": "-128136.53"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/PropriedadesInvest[1]/ResultadoLiquido[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-128136.53",
+      "text": "-128136.53"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ReceitasJuros[1]",
+      "tag": "RECEITASJUROS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ReceitasJuros[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ReceitasJuros[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/AjusteValor[1]",
+      "tag": "AJUSTEVALOR",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/AjusteValor[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/AjusteValor[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoVenda[1]",
+      "tag": "RESULTADOVENDA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoVenda[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoVenda[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/OutrasRecOuDesp[1]",
+      "tag": "OUTRASRECOUDESP",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/OutrasRecOuDesp[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/OutrasRecOuDesp[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoLiquido[1]",
+      "tag": "RESULTADOLIQUIDO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoLiquido[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/TVM[1]/ResultadoLiquido[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/ResultadoLiquidoTotal[1]",
+      "tag": "RESULTADOLIQUIDOTOTAL",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/ResultadoLiquidoTotal[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-128136.53",
+      "text": "-128136.53"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/AtivosImobiliarios[1]/ResultadoLiquidoTotal[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-128136.53",
+      "text": "-128136.53"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ReceitasJurosAplicacoes[1]",
+      "tag": "RECEITASJUROSAPLICACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ReceitasJurosAplicacoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ReceitasJurosAplicacoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/AjusteValorAplicacoes[1]",
+      "tag": "AJUSTEVALORAPLICACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/AjusteValorAplicacoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0.65",
+      "text": "0.65"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/AjusteValorAplicacoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0.65",
+      "text": "0.65"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoVendaAplicacoes[1]",
+      "tag": "RESULTADOVENDAAPLICACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoVendaAplicacoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "278781.6",
+      "text": "278781.6"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoVendaAplicacoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "278781.6",
+      "text": "278781.6"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/OutrasRecOuDespAplicacoes[1]",
+      "tag": "OUTRASRECOUDESPAPLICACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/OutrasRecOuDespAplicacoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/OutrasRecOuDespAplicacoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoLiquido[1]",
+      "tag": "RESULTADOLIQUIDO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoLiquido[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "278782.25",
+      "text": "278782.25"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/RecursosLiquidez[1]/ResultadoLiquido[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "278782.25",
+      "text": "278782.25"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/ResultadoLiquidoDerivativos[1]",
+      "tag": "RESULTADOLIQUIDODERIVATIVOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaAdministracao[1]",
+      "tag": "TAXAADMINISTRACAO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaAdministracao[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-36000",
+      "text": "-36000"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaAdministracao[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-36000",
+      "text": "-36000"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaDesempenho[1]",
+      "tag": "TAXADESEMPENHO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaDesempenho[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxaDesempenho[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ConsultoriaEspecializada[1]",
+      "tag": "CONSULTORIAESPECIALIZADA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ConsultoriaEspecializada[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ConsultoriaEspecializada[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/EmpresaEspecializada[1]",
+      "tag": "EMPRESAESPECIALIZADA",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/EmpresaEspecializada[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/EmpresaEspecializada[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/FormadorMercado[1]",
+      "tag": "FORMADORMERCADO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/FormadorMercado[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/FormadorMercado[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/CustodiaTitulosValores[1]",
+      "tag": "CUSTODIATITULOSVALORES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/CustodiaTitulosValores[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-6000",
+      "text": "-6000"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/CustodiaTitulosValores[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-6000",
+      "text": "-6000"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/AuditoriaIndependente[1]",
+      "tag": "AUDITORIAINDEPENDENTE",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/AuditoriaIndependente[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/AuditoriaIndependente[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/RepresentantesCotistas[1]",
+      "tag": "REPRESENTANTESCOTISTAS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/RepresentantesCotistas[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/RepresentantesCotistas[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasImpostosContribuicoes[1]",
+      "tag": "TAXASIMPOSTOSCONTRIBUICOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasImpostosContribuicoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-3941.73",
+      "text": "-3941.73"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasImpostosContribuicoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-3941.73",
+      "text": "-3941.73"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ComissoesEmolumentos[1]",
+      "tag": "COMISSOESEMOLUMENTOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ComissoesEmolumentos[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/ComissoesEmolumentos[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/HonorariosDespesasDefesas[1]",
+      "tag": "HONORARIOSDESPESASDEFESAS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/HonorariosDespesasDefesas[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-62472.83",
+      "text": "-62472.83"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/HonorariosDespesasDefesas[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-62472.83",
+      "text": "-62472.83"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/GastosContratosSeguros[1]",
+      "tag": "GASTOSCONTRATOSSEGUROS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/GastosContratosSeguros[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/GastosContratosSeguros[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasAvaliacoes[1]",
+      "tag": "DESPESASAVALIACOES",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasAvaliacoes[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasAvaliacoes[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasIngressoSaidaFundos[1]",
+      "tag": "TAXASINGRESSOSAIDAFUNDOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasIngressoSaidaFundos[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/TaxasIngressoSaidaFundos[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "0",
+      "text": "0"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasRegistroCartorio[1]",
+      "tag": "DESPESASREGISTROCARTORIO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasRegistroCartorio[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-3154.08",
+      "text": "-3154.08"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/DespesasRegistroCartorio[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-3154.08",
+      "text": "-3154.08"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/OutrasRecOuDesp[1]",
+      "tag": "OUTRASRECOUDESP",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/OutrasRecOuDesp[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-216860.48",
+      "text": "-216860.48"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/OutrasRecOuDesp[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-216860.48",
+      "text": "-216860.48"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/Total[1]",
+      "tag": "TOTAL",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/Total[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-328429.12",
+      "text": "-328429.12"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/OutrasReceitasDespesas[1]/Total[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-328429.12",
+      "text": "-328429.12"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/ResultadoTrimestralLiquido[1]",
+      "tag": "RESULTADOTRIMESTRALLIQUIDO",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/ResultadoTrimestralLiquido[1]/@contabil",
+      "tag": "CONTABIL",
+      "value": "-177783.4",
+      "text": "-177783.4"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DemonstracoesContabilFinanc[1]/ResultadoTrimestralLiquido[1]/@financeiro",
+      "tag": "FINANCEIRO",
+      "value": "-177783.4",
+      "text": "-177783.4"
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/ResultadoFinanLiqAcumulado[1]",
+      "tag": "RESULTADOFINANLIQACUMULADO",
+      "value": "79157623.86",
+      "text": "79157623.86",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/PercentResultFinanLiqAcumulado[1]",
+      "tag": "PERCENTRESULTFINANLIQACUMULADO",
+      "value": "75199742.667",
+      "text": "75199742.667",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/ParcelaDistribuidaTriSeguinte[1]",
+      "tag": "PARCELADISTRIBUIDATRISEGUINTE",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/ParcelasRendimentosRetidos[1]",
+      "tag": "PARCELASRENDIMENTOSRETIDOS",
+      "value": "",
+      "text": "",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/LucroContabil[1]",
+      "tag": "LUCROCONTABIL",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/ResultadoFinanceiroExcedeMinimo[1]",
+      "tag": "RESULTADOFINANCEIROEXCEDEMINIMO",
+      "value": "0",
+      "text": "0",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/RendimentosDeclarados[1]",
+      "tag": "RENDIMENTOSDECLARADOS",
+      "value": "75199742.667",
+      "text": "75199742.667",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/RendimentosPagosAntec[1]",
+      "tag": "RENDIMENTOSPAGOSANTEC",
+      "value": "-42097707.78",
+      "text": "-42097707.78",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/RendimentoPagar[1]",
+      "tag": "RENDIMENTOPAGAR",
+      "value": "33102034.887",
+      "text": "33102034.887",
+      "namespace": ""
+    },
+    {
+      "xpath": "/DadosEconomicoFinanceiros[1]/InformeTrimestral[1]/DistrResultadoAcumulado[1]/ResultadoLiquidoDeclarado[1]",
+      "tag": "RESULTADOLIQUIDODECLARADO",
+      "value": "0.95",
+      "text": "0.95",
+      "namespace": ""
+    }
+  ],
+  "source": {
+    "type": "quarterly_xml",
+    "document_id": "971537",
+    "reference_date": "30/06/2025",
+    "delivered_at": "14/08/2025 21:12",
+    "version": 1,
+    "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=971537",
+    "sha256": "2d7027ab5657293b33540e4e945402919fd6e018f2a24675c0794ea274d7a9b9",
+    "xpath": null,
+    "xpath_syntax": "indexed local names preserving source case; namespace stored per field",
+    "identity_verified": true
+  },
+  "parsed_at": "2026-10-13T05:32:31Z",
+  "error": ""
+}

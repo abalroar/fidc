@@ -1,0 +1,56 @@
+{
+  "cnpj": "62393679000183",
+  "verified_at": "2026-10-13T03:00:49-03:00",
+  "criteria": [
+    {
+      "criterion_id": "pdd",
+      "label": "Metodologia de PDD e curva por atraso",
+      "theme": "Qualidade da carteira",
+      "status": "referenced_document_missing",
+      "applicability": "applicable",
+      "value": "",
+      "sources": [
+        {
+          "document_id": "1117954",
+          "title": "Regulamento",
+          "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1117954",
+          "reference_date": "19/02/2026",
+          "version": "1",
+          "page": "76",
+          "clause": "Anexo Classe A, 16.1.1",
+          "sha256": "0deee5b9516712e6d9403f74f13ad4bd8e788ca31e644024346bcc3a1c90b1f6",
+          "excerpt": "16.1.1. A partir do 2º (segundo) mês de funcionamento da Classe A, a Administradora verificará a ocorrência de inexistência de Direitos Creditórios Cedidos, em virtude de má- formalização ou vício dos respectivos Documentos Comprobatórios ou Documentos Adicionais, incluindo a hipótese de Chargebacks, e a ocorrência de Cancelamentos, com o intuito de apurar evidências de redução no valor dos Direitos Creditórios Cedidos em razão de tais fatos. A partir do término do 2º (segundo) mês de funcionamento da Classe A, a Administradora poderá realizar provisões para perdas em razão das aludidas situações (incluindo Cancelamentos e Chargebacks), se aplicável, em conformidade com os padrões contábeis pertinentes, levando em conta, ainda, o Manual de Provisão para Perdas em Ativos de Crédito da Administradora, observada, no entanto, a Resolução de Cessão relativa aos Direitos Creditórios Cedidos em razão de inexistência, conforme os termos e condições previstos no Contrato de Cessão.",
+          "verification": "analyst_primary_clause"
+        }
+      ],
+      "rule": {},
+      "risk_note": "Nota de 2025 conferida visualmente porque o texto extraído tem caracteres defeituosos. Regulamento atual também refere manual da administradora; curva percentual por faixa de atraso e continuidade automática após 2025 não foram comprovadas.",
+      "reason": "Regulamento 1117954, cláusula 16.1.1: examina má formalização, chargebacks e cancelamentos a partir do 2º mês e permite provisões após esse mês; remete a mensuração ao manual da administradora. Manual vigente e régua específica da classe não foram obtidos. A fórmula detalhada de 2025 permanece no histórico, sem presumir continuidade.",
+      "history": [
+        {
+          "reference_date": "2025-12-31",
+          "value": "DF 31/12/2025, Nota 3(e): provisão = valor contábil anterior − VP do novo fluxo esperado, quando piora a estimativa de perda; compara perda histórica à estimativa inicial e acompanha inadimplência, com complemento da provisão quando necessário.",
+          "sources": [
+            {
+              "document_id": "1151276",
+              "title": "Demonstrações Financeiras",
+              "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1151276",
+              "reference_date": "31/12/2025",
+              "version": "1",
+              "page": "13–14",
+              "clause": "Nota 3(e), Provisão para redução ao valor recuperável",
+              "sha256": "c8c5e55b02177552eae49f68b4212914327284d5413210d90435f4b6e714e915",
+              "excerpt": "(e) Provisão para redução ao valor recuperável. A provisão para créditos de liquidação duvidosa é calculada com base nas regras e procedimentos definidos na Instrução da Comissão de Valores Mobiliários nº 489 de 14 de janeiro de 2011, que dispõe sobre os critérios de provisionamento. A provisão é constituída quando há evidências de redução no valor recuperável dos ativos da Classe, avaliados pelo custo ou custo amortizado. Caso haja perda por redução no valor de recuperação, a provisão é mensurada e registrada pela diferença entre o valor contábil do ativo antes da mudança de estimativa e o valor presente do novo fluxo de caixa esperado calculado após a mudança de estimativa, desde que a mudança seja relacionada a uma deterioração da estimativa anterior de perdas de créditos esperadas. Para fins de apuração de indicativo de imparidade, a Administração avalia a expectativa de perda da carteira com base na análise do percentual de perda histórica calculado vis-à-vis a estimativa inicial das perdas de crédito. Adicionalmente, a Administração realiza um acompanhamento dos níveis de inadimplência da carteira da Classe, registrando, quando necessário, um complemento na provisão por redução ao valor recuperável.",
+              "verification": "visual_pdf_page_review",
+              "parse_limitation": "Texto extraído tem mapeamento de caracteres defeituoso; passagem conferida na página renderizada.",
+              "type": "audited_financial_statement"
+            }
+          ],
+          "document_type": "audited_method",
+          "assessment": "Método contábil auditado de 2025; continuidade após a data e régua atual não foram comprovadas.",
+          "provenance": "verified_override"
+        }
+      ]
+    }
+  ]
+}
