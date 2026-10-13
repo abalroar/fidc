@@ -1,0 +1,614 @@
+{
+ "schema_version": 1,
+ "cnpj": "52200741000110",
+ "name": "NORDE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:47:04Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1078995",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "07/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995"
+  },
+  "D2": {
+   "document_id": "641132",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "15/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=641132"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Multissetorial performado ou a performar: duplicatas, CCBs, CRI/CRA e outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 50,
+     "clause": "Anexo I, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "Creditórios Adquiridos, novos Direitos Creditórios serão adquiridos pela Classe. 5.2. Os Direitos Creditórios consistirão em direitos creditórios performados ou a performar, que poderão ser originados em diversos segmentos, sendo oriundos de operações de natureza industrial, comercial, financeira, agrícola, hipotecária e imobiliária, bem como de operações de arrendamento mercantil ou do segmento de prestação de serviços. 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos multissetoriais performados ou a performar; duplicatas, CCBs, CRI/CRA e outros títulos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos, PF ou PJ",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 42,
+     "clause": "Anexo I, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "S.A., Banco Safra S.A. e/ou Banco Santander (Brasil) S.A.. “Cedente” Significa todas as pessoas físicas ou jurídicas que cedem os Direitos Creditórios para a Classe. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas pelo Gestor, em cada Data de Aquisição, conforme descritas no Capítulo Quinto deste Anexo Descritivo “Conta de Escrow” é a conta especial instituída pelo Cedente junto a instituições financeiras ou instituições de pagamento, conforme o caso, sob contrato, destinada a acolher os pagamentos dos Direitos Creditórios Elegíveis a serem feitos pelos Devedores e ali mantidos em custódia, movimentada exclusivamente pelo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos; até 100% do PL em um único cedente",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 42,
+     "clause": "Anexo I, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "S.A., Banco Safra S.A. e/ou Banco Santander (Brasil) S.A.. “Cedente” Significa todas as pessoas físicas ou jurídicas que cedem os Direitos Creditórios para a Classe. “Classe” ou “Classe Única” Significa, quando utilizado neste Anexo Descritivo, a presente classe de Cotas do Fundo. “Condições de Cessão” Significam as condições de cessão a serem verificadas e validadas pelo Gestor, em cada Data de Aquisição, conforme descritas no Capítulo Quinto deste Anexo Descritivo “Conta de Escrow” é a conta especial instituída pelo Cedente junto a instituições financeiras ou instituições de pagamento, conforme o caso, sob contrato, destinada a acolher os pagamentos dos Direitos Creditórios Elegíveis a serem feitos pelos Devedores e ali mantidos em custódia, movimentada exclusivamente pelo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 54,
+     "clause": "Anexo I, cl. 5.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "57 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 5.15. A Classe poderá alocar até 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios cedidos por um único Cedente. 5.16. A Classe somente poderá realizar operações em que a Administradora, Gestora e o Custodiante atuem como contraparte da Classe, desde que com a finalidade exclusiva de realizar a gestão de caixa e liquidez da Classe. 5.17. É vedado a Classe: a) aplicar recursos em ativos financeiros de renda variável ou atrelados à variação cambial; b) realizar operações com derivativos para alavancagem; c) realizar operações de “day-trade”, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de a Classe possuir estoque ou posição anterior do mesmo ativo; e d) realizar operações com warrants. 5.18. Todos os resultados auferidos pela Classe serão incorporados ao seu patrimônio. 5.19."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Devedores não podem estar em recuperação judicial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 59,
+     "clause": "Anexo I, cl. 5.41",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "r de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.42. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) Os Direitos Creditórios deverão ter sido aprovados pela Gestora; (ii) Os Devedores não poderão estar em recuperação judicial; e (iii) Os Direitos Creditórios representados por duplicatas, não poderão ter prazo de vencimento superior a 365 (trezentos e sessenta e cinco) dias. 5.43. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na respectiva Data de Aquisição, nos termos da regulamentação vigente. A verificação pelo Gestor será considerada definitiva. 5.44. O Cedente deverá fornecer ao Gestor a documentação e informações necessárias à validação dos Critérios de Elegibilidade. 5.45."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cedentes podem assumir coobrigação conforme contrato de cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 53,
+     "clause": "Anexo I, cl. 5.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "5.8. Os Direitos Creditórios Elegíveis cedidos à Classe poderão contar com a coobrigação do Cedente. Na hipótese de haver coobrigação, o Cedente responderá solidariamente pela solvência dos Devedores dos Direitos Creditórios por eles cedidos. 5.9. A Administradora, a Gestora, o Custodiante, a Consultora ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios cedidos à Classe, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes podem assumir coobrigação conforme contrato de cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Aprovados pela gestora; devedor fora de RJ; duplicatas ≤ 365 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 59,
+     "clause": "Anexo I, cl. 5.41",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "r de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.42. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) Os Direitos Creditórios deverão ter sido aprovados pela Gestora; (ii) Os Devedores não poderão estar em recuperação judicial; e (iii) Os Direitos Creditórios representados por duplicatas, não poderão ter prazo de vencimento superior a 365 (trezentos e sessenta e cinco) dias. 5.43. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na respectiva Data de Aquisição, nos termos da regulamentação vigente. A verificação pelo Gestor será considerada definitiva. 5.44. O Cedente deverá fornecer ao Gestor a documentação e informações necessárias à validação dos Critérios de Elegibilidade. 5.45."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por devedor não localizado no regulamento vigente",
+   "sources": []
+  },
+  "assignor_limit": {
+   "display": "Sem limite: até 100% do PL em um único cedente",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 54,
+     "clause": "Anexo I, cl. 5.14",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "57 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 5.15. A Classe poderá alocar até 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios cedidos por um único Cedente. 5.16. A Classe somente poderá realizar operações em que a Administradora, Gestora e o Custodiante atuem como contraparte da Classe, desde que com a finalidade exclusiva de realizar a gestão de caixa e liquidez da Classe. 5.17. É vedado a Classe: a) aplicar recursos em ativos financeiros de renda variável ou atrelados à variação cambial; b) realizar operações com derivativos para alavancagem; c) realizar operações de “day-trade”, assim consideradas aquelas iniciadas e encerradas no mesmo dia, independentemente de a Classe possuir estoque ou posição anterior do mesmo ativo; e d) realizar operações com warrants. 5.18. Todos os resultados auferidos pela Classe serão incorporados ao seu patrimônio. 5.19."
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "term_max": {
+   "display": "Duplicatas até 365 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 59,
+     "clause": "Anexo I, cl. 5.41",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "r de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.42. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) Os Direitos Creditórios deverão ter sido aprovados pela Gestora; (ii) Os Devedores não poderão estar em recuperação judicial; e (iii) Os Direitos Creditórios representados por duplicatas, não poderão ter prazo de vencimento superior a 365 (trezentos e sessenta e cinco) dias. 5.43. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade na respectiva Data de Aquisição, nos termos da regulamentação vigente. A verificação pelo Gestor será considerada definitiva. 5.44. O Cedente deverá fornecer ao Gestor a documentação e informações necessárias à validação dos Critérios de Elegibilidade. 5.45."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "67% do PL em direitos creditórios (extenso diverge)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 75,
+     "clause": "Anexo I, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "(iii) se, após 180 (cento e oitenta) dias após o início das operações da Classe, a Classe possuir parcela inferior a 67% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios por 10 (dez) dias consecutivos; (iv) Descumprimento, pela Administradora, pela Gestora, pela Consultora, pelo Agente de Cobrança e/ou pelo Custodiante, de seus deveres e obrigações estabelecidos neste Regulamento e nos demais Documentos da Classe, desde que não sanado no prazo de 15 (quinze) Dias Úteis contado do recebimento da notificação. 79 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 10.2 Qualquer parte poderá notificar por escrito o Administrador, o Gestor e o Custodiante sobre a ocorrência de qualquer dos Eventos de Avaliação indicados no item 10.1 acima, que lhe chegar ao conhecimento."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Divergência documental: 67% numérico e 50% por extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/01/2026, Anexo I, cl. 10.1"
+   }
+  },
+  "quota_structure": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Subclasses previstas, sem índice de subordinação no anexo vigente",
+   "sources": []
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação monitorado, mas sem percentual no regulamento vigente",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Sem percentual de subordinação no regulamento vigente",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Sem percentual de subordinação a apurar",
+   "sources": []
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Reserva de caixa não localizada no texto extraído",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Provisão por devedor com efeito vagão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 96,
+     "clause": "Anexo I, cl. 13.8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "do respectivo Devedor, em decorrência da situação e monitoramento do crédito inadimplente. 13.8 A provisão para Devedores duvidosos atingirá os demais créditos do mesmo Devedor, ou seja, ocorrerá o chamado “efeito vagão”. CAPÍTULO DÉCIMO QUARTO – DIVULGAÇÃO DE INFORMAÇÕES 14.1 Divulgação de Fatos Relevantes. O Administrador é obrigada a divulgar, ampla e imediatamente, qualquer ato ou fato relevante relativo à Classe, por meio de comunicado enviado aos Cotistas da Classe Única, de modo a garantir aos Cotistas acesso às informações que possam, direta ou indiretamente, influir em suas decisões de adquirir, alienar ou manter suas Cotas, se for o caso, observado que é responsabilidade dos demais prestadores de serviços, especialmente do Gestor, informar imediatamente ao Administrador sobre os fatos relevantes que venham a ter conhecimento. Além do envio do comunicado aos Cotistas, qualquer fato relevante também deve ser (i) informado às entidades administradoras de mercados organizados onde as cotas estejam admitidas à negociação, se for o caso;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Rating rebaixado em 2 níveis; alocação < 67% por 10 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 75,
+     "clause": "Anexo I, cl. 9.23",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "artigo 334 do Código Civil. CAPÍTULO DÉCIMO – EVENTOS DE AVALIAÇÃO E LIQUIDAÇÃO DA CLASSE ÚNICA 10.1 Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação: (i) Rebaixamento da classificação de risco das Cotas em circulação em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída ou 01 (um) nível abaixo da classificação de risco em vigor caso nos últimos 12 (doze) meses já tenha ocorrido um rebaixamento; (ii) Renúncia de qualquer prestador de serviços contratado para prestar serviços para o Fundo, desde que não substituído no prazo de 30 (trinta) Dias Úteis contados da renúncia; (iii) se, após 180 (cento e oitenta) dias após o início das operações da Classe, a Classe possuir parcela inferior a 67% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios por 10 (dez) dias consecutivos;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 75,
+     "clause": "Anexo I, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "(iii) se, após 180 (cento e oitenta) dias após o início das operações da Classe, a Classe possuir parcela inferior a 67% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios por 10 (dez) dias consecutivos; (iv) Descumprimento, pela Administradora, pela Gestora, pela Consultora, pelo Agente de Cobrança e/ou pelo Custodiante, de seus deveres e obrigações estabelecidos neste Regulamento e nos demais Documentos da Classe, desde que não sanado no prazo de 15 (quinze) Dias Úteis contado do recebimento da notificação. 79 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 10.2 Qualquer parte poderá notificar por escrito o Administrador, o Gestor e o Custodiante sobre a ocorrência de qualquer dos Eventos de Avaliação indicados no item 10.1 acima, que lhe chegar ao conhecimento."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Revolvência durante o prazo indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 50,
+     "clause": "Anexo I, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "editórios Elegíveis e de Ativos Financeiros. 5.1. Considerando o prazo de duração indeterminado da Classe, a Classe adotará estratégia de revolvência dos Direitos Creditórios, de forma que, após a liquidação dos Direitos Creditórios Adquiridos, novos Direitos Creditórios serão adquiridos pela Classe. 5.2. Os Direitos Creditórios consistirão em direitos creditórios performados ou a performar, que poderão ser originados em diversos segmentos, sendo oriundos de operações de natureza industrial, comercial, financeira, agrícola, hipotecária e imobiliária, bem como de operações de arrendamento mercantil ou do segmento de prestação de serviços. 5.3."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência expressa; duração indeterminada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos apêndices das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 49,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "serem desempenhados pelo Administrador, de administração, distribuição, controladoria e escrituração, a Administradora receberá da Classe uma remuneração equivalente à 0,25% a.a. (vinte e cinco centésimos por cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 15.000,00 (quinze mil reais); (b) Taxa de Gestão. Pelos serviços a serem desempenhados pela Gestora, de gestão de ativos integrantes da carteira da Classe, a Gestora receberá da Classe uma remuneração equivalente à 0,30% a.a. (trinta centésimos por cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 10.000,00 (dez mil reais); (c) Taxa Máxima de Custódia. Pelos serviços a serem desempenhados pelo Custodiante, este receberá uma remuneração equivalente à 0,15% a.a."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 49,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "Classe uma remuneração equivalente à 0,25% a.a. (vinte e cinco centésimos por cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 15.000,00 (quinze mil reais); (b) Taxa de Gestão. Pelos serviços a serem desempenhados pela Gestora, de gestão de ativos integrantes da carteira da Classe, a Gestora receberá da Classe uma remuneração equivalente à 0,30% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. PL; mínimo R$ 15 mil/mês; inclui controladoria/escrituração",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 49,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "s serviços a serem desempenhados pela Gestora, de gestão de ativos integrantes da carteira da Classe, a Gestora receberá da Classe uma remuneração equivalente à 0,30% a.a. (trinta centésimos por cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 10.000,00 (dez mil reais); (c) Taxa Máxima de Custódia. Pelos serviços a serem desempenhados pelo Custodiante, este receberá uma remuneração equivalente à 0,15% a.a. (quinze centésimos por 53 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 10.000,00 (dez mil reais); 4.2. Os valores acima serão pagos mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil, em uma base de 252 dias. Os valores expressos em reais dispostos no item 4.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 49,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "remuneração equivalente à 0,30% a.a. (trinta centésimos por cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 10.000,00 (dez mil reais); (c) Taxa Máxima de Custódia. Pelos serviços a serem desempenhados pelo Custodiante, este receberá uma remuneração equivalente à 0,15% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. PL; mínimo R$ 10 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Rentabilidade alvo definida por série, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Rentabilidade alvo definida por série, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Limine Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 5,
+     "clause": "Anexo I, cl. 1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "de Serviço Essenciais do Fundo, assim como outras avenças. “Administrador” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, conjunto 91, 9º andar, inscrita no CNPJ sob o nº 24.361.690/0001-72, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários através do Ato Declaratório da CVM nº 16.206, de 08 de maio de 2018. “Agência de Classificação Significa a agência classificadora de risco que poderá ser de Risco” contratada para a classificação de risco das Cotas. “Anexo” Significa qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Real Investor Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 8,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "iação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a REAL INVESTOR ASSET MANAGEMENT LTDA.., sociedade empresária limitada, com sede na Avenida Ayrton Senna, nº 600, sala 2101, Cidade de Londrina, Estado do Paraná, CEP 86050-460, inscrita no CNPJ sob o nº 11.570.951/0001-12, devidamente autorizada pela CVM para 12 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 o exercício profissional de administração de carteira de títulos e valores mobiliários;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Limine Trust DTVM (0,15% a.a.)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 7,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "adendos aos Apêndices. “Cotista” Significam os titulares de Cotas. “Custodiante” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.., com sede na Cidade e Estado de São Paulo, na Avenida Doutor Cardoso de Melo, nº 1184, 9º andar, conjunto 91, inscrita no CNPJ sob o nº 24.361.690/0001-72. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Emissão” Significa a data em que ocorrer a subscrição e a primeira integralização das Cotas da respectiva Emissão, conforme 11 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 definida no respectivo Apêndice ou Suplemento, conforme aplicável. “Despesas do Fundo” Significa o somatório, em reais, de todos os custos, encargos"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 49,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "do o valor mínimo mensal de R$ 10.000,00 (dez mil reais); (c) Taxa Máxima de Custódia. Pelos serviços a serem desempenhados pelo Custodiante, este receberá uma remuneração equivalente à 0,15% a.a. (quinze centésimos por 53 Clicksign e8708ec3-e481-4674-825e-4962d7df1f80 cento ao ano) sobre o valor do Patrimônio Líquido, observando o valor mínimo mensal de R$ 10.000,00 (dez mil reais); 4.2. Os valores acima serão pagos mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil, em uma base de 252 dias. Os valores expressos em reais dispostos no item 4.1. acima serão atualizados a cada período de 12 (doze) meses, contado da data da primeira integralização de Cotas da Classe, ou na menor periodicidade admitida em lei, pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA divulgado pelo Instituto Brasileiro de Geografia e Estatística – IBGE ou, na sua falta, pelo índice que vier a substituí-lo. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no texto extraído",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1078995",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/01/2026",
+     "page": 12,
+     "clause": "Anexo I, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1078995",
+     "excerpt": "elo Código Civil, e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas possuirá prazo de duração próprio, conforme descrito no respectivo Anexo Descritivo, Apêndice e Suplemento, conforme o caso. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices e Suplementos, os quais integram o presente Regulamento. 2.3.1. As Classes possuem patrimônios segregados entre si, com direitos e obrigações distintos, nos termos da Lei de Liberdade Econômica (Lei n° 13.874/2019) conforme regulamentada pela Resolução."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sacado_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por sacado não localizado no regulamento vigente",
+   "sources": []
+  }
+ },
+ "leitura": "Multicedente sem limite por cedente (até 100% do PL em um só) e sem percentual de subordinação no regulamento.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

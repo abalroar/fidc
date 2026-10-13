@@ -1,0 +1,775 @@
+{
+ "schema_version": 1,
+ "cnpj": "26756137000164",
+ "name": "BASSO FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-13T20:46:20Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1280494",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "07/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494"
+  },
+  "D2": {
+   "document_id": "1323287",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "17/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323287"
+  },
+  "D3": {
+   "document_id": "1323285",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "11/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1323285"
+  },
+  "D4": {
+   "document_id": "1316687",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "11/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316687"
+  },
+  "D5": {
+   "document_id": "1220136",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1220136"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Multissetorial: títulos e contratos comerciais, industriais, agro e serviços",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 71,
+     "clause": "Anexo V, cl. 5.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "os Direitos Creditórios serão adquiridos pela Classe, por intermédio do Fundo, por meio da celebração de contrato de cessão e termos de cessão entre o fundo, em benefícioda Classe, e o Cedente, em caráter irrevogável e irretratável e incluirão todas as suas garantias e demais acessórios. 5.17.1."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "a Carteira, desde que o valor de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) O Fundo somente poderá adquirir Direitos Creditórios que não estejam vencidos e pendentes de pagamento na data da cessão; (ii) Ser representado por duplicatas, cheques, cédulas de crédito bancário, contratos de aluguel diversos, notas comerciais, notas promissórias com lastro em operações comerciais (contrato de compra e venda), recebíveis de cartão de crédito ou contratos de prestação de serviços, e de entrega futura de produtos e serviços; (iii) Ser originado de operações realizadas com Cedentes que tenham domicílio ou sede no país, nos segmentos industrial, comercial, imobiliário, agrícola, financeiro, hipotecário, de arrendamento mercantil e de serviços em geral; (iv) Ter valor mínimo de R$ 1,00 (um real); (v) Ter valor máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Multissetorial: títulos e contratos industriais, comerciais, imobiliários, agro e serviços; admite a performar",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "a Carteira, desde que o valor de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) O Fundo somente poderá adquirir Direitos Creditórios que não estejam vencidos e pendentes de pagamento na data da cessão; (ii) Ser representado por duplicatas, cheques, cédulas de crédito bancário, contratos de aluguel diversos, notas comerciais, notas promissórias com lastro em operações comerciais (contrato de compra e venda), recebíveis de cartão de crédito ou contratos de prestação de serviços, e de entrega futura de produtos e serviços; (iii) Ser originado de operações realizadas com Cedentes que tenham domicílio ou sede no país, nos segmentos industrial, comercial, imobiliário, agrícola, financeiro, hipotecário, de arrendamento mercantil e de serviços em geral; (iv) Ter valor mínimo de R$ 1,00 (um real); (v) Ter valor máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes diversos; originação e formalização a cargo de cada cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Cedentes diversos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "a Carteira, desde que o valor de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) O Fundo somente poderá adquirir Direitos Creditórios que não estejam vencidos e pendentes de pagamento na data da cessão; (ii) Ser representado por duplicatas, cheques, cédulas de crédito bancário, contratos de aluguel diversos, notas comerciais, notas promissórias com lastro em operações comerciais (contrato de compra e venda), recebíveis de cartão de crédito ou contratos de prestação de serviços, e de entrega futura de produtos e serviços; (iii) Ser originado de operações realizadas com Cedentes que tenham domicílio ou sede no país, nos segmentos industrial, comercial, imobiliário, agrícola, financeiro, hipotecário, de arrendamento mercantil e de serviços em geral; (iv) Ter valor mínimo de R$ 1,00 (um real); (v) Ter valor máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias;"
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes diversos; originação e formalização a cargo de cada cedente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Devedores dos títulos cedidos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 72,
+     "clause": "Anexo V, cl. 5.24",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "e Concentração estabelecido em contrário, os quais devem ser observados ao longo do prazo de duração da Classe. 5.24. O Limite de Concentração em Direitos Creditórios de um mesmo Devedor (incluindo- se seu respectivo Grupo Econômico) deverá ser de, no máximo, 7% (sete por cento) em relação ao Patrimônio Líquido da Classe. 5.24.1. O Limite de Concentração em Direitos Creditórios de uma mesma pessoa coobrigada (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 20% (vinte por cento) em relação ao Patrimônio Líquido da Classe. 5.24.2. O Limite de Concentração em Direitos Creditórios decorrentes de operações “a performar” de um mesmo originador (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 14% (quatorze por cento) em relação ao Patrimônio Líquido da Classe, sendo que até 100% (cem por cento) do Patrimônio Líquido da Classe poderá ser representado por operações “a performar”, ou seja, aquelas operações de compra e venda de produtos ou de prestação de serviços para entrega ou prestação futura. 5.25. Em razão da vedação prevista no item 5.5.1. acima, não há previsão de limite de concentração em Direitos Creditórios originados ou cedidos pelo Administrador, Custodiante, Gestor, Consultor Especializado e suas partes relacionadas. 5.26."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cedente pode responder com os devedores conforme cada cessão",
+   "sources": [],
+   "legacy": {
+    "value": "Cedente poderá responder solidariamente com devedores; validar contrato",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; prazo de 5 a 3.600 dias; duplicatas, cheques, CCBs e notas",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.29",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "a Carteira, desde que o valor de venda seja igual ou superior ao seu valor contabilizado. CRITÉRIOS DE ELEGIBILIDADE 5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente, na respectiva Data de Aquisição, sem prejuízo dos demais termos e condições previstos neste Anexo Descritivo, conforme aplicável, aos seguintes Critérios de Elegibilidade: (i) O Fundo somente poderá adquirir Direitos Creditórios que não estejam vencidos e pendentes de pagamento na data da cessão; (ii) Ser representado por duplicatas, cheques, cédulas de crédito bancário, contratos de aluguel diversos, notas comerciais, notas promissórias com lastro em operações comerciais (contrato de compra e venda), recebíveis de cartão de crédito ou contratos de prestação de serviços, e de entrega futura de produtos e serviços; (iii) Ser originado de operações realizadas com Cedentes que tenham domicílio ou sede no país, nos segmentos industrial, comercial, imobiliário, agrícola, financeiro, hipotecário, de arrendamento mercantil e de serviços em geral; (iv) Ter valor mínimo de R$ 1,00 (um real); (v) Ter valor máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias; e (vii) Ter prazo de vencimento máximo de 3.600 (três mil e seiscentos) dias. 5.31. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade até a Data de Aquisição, nos termos da regulamentação vigente, sendo que o Custodiante o auxiliará nesta verificação. A verificação pelo Gestor será considerada definitiva. CONDIÇÕES DE CESSÃO 5.32. A Classe somente poderá adquirir Direitos Creditórios que cumpram, cumulativamente, às seguintes Condições de Cessão na sua respectiva Data de Aquisição: (i) A carteira de Direitos Creditórios cedidos deverá observar um prazo médio máximo de 150 (cento e cinquenta) Dias Úteis; (ii) Até 10% (dez por cento) do Patrimônio Líquido do Fundo poderão ser representados por Direitos Creditórios de Cedentes pertencentes ao mesmo Grupo Econômico; (iii) A soma dos 10 (dez) maiores Cedentes e Grupos Econômicos de Cedentes poderá atingir o percentual máximo de 50% (cinquenta por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos não vencidos; R$ 1 aR$ 10 mi;5–3.600 dias; vedados não padronizados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 5.29"
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 7% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 72,
+     "clause": "Anexo V, cl. 5.24",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "e Concentração estabelecido em contrário, os quais devem ser observados ao longo do prazo de duração da Classe. 5.24. O Limite de Concentração em Direitos Creditórios de um mesmo Devedor (incluindo- se seu respectivo Grupo Econômico) deverá ser de, no máximo, 7% (sete por cento) em relação ao Patrimônio Líquido da Classe. 5.24.1. O Limite de Concentração em Direitos Creditórios de uma mesma pessoa coobrigada (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 20% (vinte por cento) em relação ao Patrimônio Líquido da Classe. 5.24.2. O Limite de Concentração em Direitos Creditórios decorrentes de operações “a performar” de um mesmo originador (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 14% (quatorze por cento) em relação ao Patrimônio Líquido da Classe, sendo que até 100% (cem por cento) do Patrimônio Líquido da Classe poderá ser representado por operações “a performar”, ou seja, aquelas operações de compra e venda de produtos ou de prestação de serviços para entrega ou prestação futura. 5.25. Em razão da vedação prevista no item 5.5.1. acima, não há previsão de limite de concentração em Direitos Creditórios originados ou cedidos pelo Administrador, Custodiante, Gestor, Consultor Especializado e suas partes relacionadas. 5.26."
+    }
+   ],
+   "value": 7.0,
+   "legacy": {
+    "value": "Cedente/grupo 10% e top 10:50%; devedor/grupo 7% e top 10:30% do PL; texto posterior repete 10% para devedor",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 5.24"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado no trecho lido",
+   "sources": [],
+   "legacy": {
+    "value": "Cedente/grupo 10% e top 10:50%; devedor/grupo 7% e top 10:30% do PL; texto posterior repete 10% para devedor",
+    "decision": "regression",
+    "why": "Números da resposta anterior não aparecem no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "Até 3.600 dias (mínimo de 5 dias)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 74,
+     "clause": "Anexo V, cl. 5.30",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "máximo de R$ 10.000.000,00 (dez milhões de reais); (vi) Ter prazo de vencimento mínimo de 5 (cinco) dias; e (vii) Ter prazo de vencimento máximo de 3.600 (três mil e seiscentos) dias. 5.31. O Gestor será responsável por verificar e validar os Critérios de Elegibilidade até a Data de Aquisição, nos termos da regulamentação vigente, sendo que o Custodiante o auxiliará nesta verificação. A verificação pelo Gestor será considerada definitiva. CONDIÇÕES DE CESSÃO 5.32. A Classe somente poderá adquirir Direitos Creditórios que cumpram, cumulativamente, às seguintes Condições de Cessão na sua respectiva Data de Aquisição: (i) A carteira de Direitos Creditórios cedidos deverá observar um prazo médio máximo de 150 (cento e cinquenta) Dias Úteis; (ii) Até 10% (dez por cento) do Patrimônio Líquido do Fundo poderão ser representados por Direitos Creditórios de Cedentes pertencentes ao mesmo Grupo Econômico; (iii) A soma dos 10 (dez) maiores Cedentes e Grupos Econômicos de Cedentes poderá atingir o percentual máximo de 50% (cinquenta por cento) do Patrimônio Líquido;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos não vencidos; R$ 1 aR$ 10 mi;5–3.600 dias; vedados não padronizados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 5.30"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 47,
+     "clause": "Anexo V, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "“Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta por cento) Investimento” do Patrimônio Líquido em Direitos Creditórios Elegíveis. “Amortização” Significa, com relação a cada Data de Pagamento, a amortização de parcela do valor das Cotas, englobando ou não a Amortização de Principal e o pagamento da Remuneração, calculado nos termos deste Anexo Descritivo e do respectivo Apêndice e Suplemento, conforme aplicável."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos elegíveis ≥50% do PL em até 180 dias da primeira emissão",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 67,
+     "clause": "Anexo V, cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "tas a valorização de suas Cotas, por meio da aquisição de Direitos Creditórios Elegíveis e de Ativos Financeiros. 5.1. A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores e para as Cotas Subordinadas Mezanino, conforme estabelecido nos respectivos Apêndices e/ou Suplementos, conforme o caso. 5.2. A Meta de Remuneração não representa e nem deve ser considerada como promessa, garantia ou sugestão de rentabilidade aos Cotistas por parte do Fundo, do Administrador, do Gestor e/ou do Custodiante. 5.3. Considerando o prazo de duração indeterminado da Classe, a Classe adotará estratégia de revolvência dos Direitos Creditórios, de forma que, após a liquidação dos Direitos Creditórios Adquiridos, novos Direitos Creditórios serão adquiridos pela Classe. 5.4. A Classe deverá, para fins da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da primeira Data de Emissão das Cotas. 5.5. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥50%; mezanino:(júnior+mezaninoIV eVI) / PL ≥30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 101,
+     "clause": "Anexo V, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "atrimônio Líquido da Classe) 10.1. Desde a data da primeira Emissão de Cotas Seniores até a última Data de Resgate, o Índice de Subordinação Sênior deverá ser igual ou superior a 50% (cinquenta por cento) de seu Patrimônio Líquido (“Índice de Subordinação Mínimo Sênior”). 10.2. Desde a data da primeira Emissão de Cotas Subordinadas Mezaninos até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 30% (trinta por cento) de seu Patrimônio Líquido (“Índice de Subordinação Mínimo Mezanino”). 10.2.1. As Cotas Subordinadas Mezanino IV e VI não possuem Índice de Subordinação Mínimo para proteção, subordinando-se às demais Cotas Subordinadas Mezanino para fins de distribuição de rendimentos, amortização e resgate. Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, a Administradora deverá comunicar aos titulares de Cotas Subordinadas para que decidam se realizarão aporte adicional de recursos para o reenquadramento da Classe ao Índice de Subordinação Mínimo, mediante a emissão, subscrição e integralização de novas Cotas Subordinadas. 10.2.1."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥50%; mezanino:(júnior+mezaninoIV eVI) / PL ≥30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 10.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "30% · (jr. + mezaninos subordinados)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 101,
+     "clause": "Anexo V, cl. 10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "nimo Sênior”). 10.2. Desde a data da primeira Emissão de Cotas Subordinadas Mezaninos até a última Data de Resgate, o Índice de Subordinação Mezanino deverá ser igual ou superior a 30% (trinta por cento) de seu Patrimônio Líquido (“Índice de Subordinação Mínimo Mezanino”). 10.2.1. As Cotas Subordinadas Mezanino IV e VI não possuem Índice de Subordinação Mínimo para proteção, subordinando-se às demais Cotas Subordinadas Mezanino para fins de distribuição de rendimentos, amortização e resgate. Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, a Administradora deverá comunicar aos titulares de Cotas Subordinadas para que decidam se realizarão aporte adicional de recursos para o reenquadramento da Classe ao Índice de Subordinação Mínimo, mediante a emissão, subscrição e integralização de novas Cotas Subordinadas. 10.2.1. Caso os titulares das Cotas Subordinadas decidam que não realizarão o aporte adicional de recursos indicado no caput deste Artigo, ou não enviem resposta à Administradora em 15 (quinze) dias contados da comunicação da Administradora prevista no caput deste Artigo, o Gestor poderá proceder com a Amortização Extraordinária das Cotas Seniores e/ou Mezaninos, conforme o caso, nostermos do Capítulo Nono acima."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Fora do mínimo por mais de 15 DU é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 102,
+     "clause": "Anexo V, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "Subordinadas Mezanino em mais de 2 (dois) degraus, conforme tabela da Agência Classificadora de Risco; (ii) inobservância, por mais de 15 (quinze) Dias Úteis consecutivos, dos Índices de subordinação Mínimos; (iii) inobservância dos limites previstos para a Reserva de Amortização ou para a Reserva de Despesas e Encargos por mais de 10 (dez) Dias Úteis consecutivos; (iv) crescimento do percentual de recompra acima de 25% (vinte e cinco por cento) do valor total da carteira do Fundo; (v) caso a amortização de qualquer Série ou Subclasse de Cotas Subordinadas Mezanino não seja realizada em até 5 (cinco) Dias Úteis após a data estabelecida no respectivo Suplemento; (vi) amortização de Cotas Subordinadas Juniores em desacordo com o disposto neste Regulamento; (vii) se por mais de 15 (quinze) dias consecutivos, os Direitos Creditórios vencidos há mais de 15 (quinze) dias representem mais de 10% (dez por cento) do Patrimônio Líquido do Fundo; (viii) quaisquer outros eventos que possam, na opinião da Administradora, impactar negativamente no desempenho do Fundo ou das Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: subordinadas / PL ≥50%; mezanino:(júnior+mezaninoIV eVI) / PL ≥30%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 11"
+   }
+  },
+  "reserve": {
+   "display": "Despesas: 80% de um mês; amortização: 30% do valor futuro antes do pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 99,
+     "clause": "Anexo V, cl. 9.14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "ncargo, o valor das disponibilidades segregadas na Reserva de Despesas e Encargos, projetado até tal data de pagamento, deverá ser equivalente a 80% (oitenta por cento) do valor estimado para as despesas e encargos referentes a 1 (um) mês de atividade do Fundo. 9.14.3. Na hipótese de a Reserva de Despesas e Encargos deixar de atender ao limite de enquadramento descrito no item 9.14.2. acima, o Administrador, por conta e ordem do Fundo, deverá destinar todos os recursos do Fundo, em moeda corrente nacional, para a recomposição da Reserva de Despesas e Encargos. 9.15. Dação em Pagamento de Direitos Creditórios e Ativos Financeiros. Caso a Classe não detenha, no caso de liquidação antecipada do Classe e/ou do Fundo, recursos em moeda corrente nacional suficientes para efetuar o pagamento do Resgate devido com relação às Cotas, as Cotas poderão ser resgatadas por meio de dação em pagamento de Direitos Creditórios Adquiridos e Ativos Financeiros em espécie aos Cotistas com a entrega da totalidade dos Direitos Creditórios Adquiridos e dos Ativos Financeiros integrantes da Carteira. 9.16."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 98,
+     "clause": "Anexo V, cl. 9.13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "º (sexagésimo) dia e até o 16º (décimo sexto) dia antes de cada Data de Amortização subsequente, o Fundo sempre mantenha em disponibilidades soma equivalente a no mínimo 30% (trinta por cento) do valor futuro estimado da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, conforme o caso, imediatamente subsequente; e (b) a partir do 15º (décimo quinto) dia antes de cada Data de Amortização subsequente e até a respectiva Data de Amortização, o Fundo sempre mantenha em disponibilidades soma equivalente a 100% (cem por cento) do valor futuro estimado da amortização das Cotas Seniores e das Cotas Subordinadas Mezanino, conforme o caso, imediatamente subsequente. 9.14. O Administrador deverá manter “Reserva de Despesas e Encargos do Fundo”, por conta e ordem deste, desde a primeira integralização de Cotas do Fundo até a liquidação do Fundo. A Reserva de Despesas e Encargos destinar-se-á exclusivamente ao pagamento dos montantes referentes às despesas e encargos do Fundo, incluindo-se a Taxa de Administração. 9.14.1. As disponibilidades segregadas na Reserva de Despesas e Encargos não poderão ser utilizadas na constituição da Reserva de Amortização. 9.14.2."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas:80% de um mês em D-5 DU; amortização:30% desde D-60 e 100% desde D-15",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 9.14.1"
+   }
+  },
+  "pdd": {
+   "display": "Provisão pode antecipar 100% do devedor; efeito vagão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 127,
+     "clause": "Anexo V, cl. 14.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "do de qualquer parcela de Direitos Creditórios, a Administradora poderá antecipar a alocação da provisão equivalente a 100% de perda do respectivo Devedor, em decorrência da situação e monitoramento do crédito inadimplente. 14.7. A provisão para Devedores duvidosos atingirá os demais créditos do mesmo Devedor, ou seja, ocorrerá o chamado “efeito vagão”. CAPÍTULO DÉCIMO QUINTO – DIVULGAÇÃO DE INFORMAÇÕES 15. Divulgação de Fatos Relevantes. O Administrador é obrigada a divulgar, ampla e imediatamente, qualquer ato ou fato relevante relativo à Classe, por meio de comunicado enviado aos Cotistas da Classe Única, de modo a garantir aos Cotistas acesso às informações que possam, direta ou indiretamente, influir em suas decisões de adquirir, alienar ou manter suas Cotas, se for o caso, observado que é responsabilidade dos demais prestadores de serviços, especialmente do Gestor, informar imediatamente ao Administrador sobre os fatos relevantes que venham a ter conhecimento. Além do envio do comunicado aos Cotistas, qualquer fato relevante também deve ser (i) informado às entidades administradoras de mercados organizados onde as cotas estejam admitidas à negociação, se for o caso;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Subordinação fora por 15 DU; reservas; recompras > 25%; atraso mezanino",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 102,
+     "clause": "Anexo V, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "Subordinadas Mezanino em mais de 2 (dois) degraus, conforme tabela da Agência Classificadora de Risco; (ii) inobservância, por mais de 15 (quinze) Dias Úteis consecutivos, dos Índices de subordinação Mínimos; (iii) inobservância dos limites previstos para a Reserva de Amortização ou para a Reserva de Despesas e Encargos por mais de 10 (dez) Dias Úteis consecutivos; (iv) crescimento do percentual de recompra acima de 25% (vinte e cinco por cento) do valor total da carteira do Fundo; (v) caso a amortização de qualquer Série ou Subclasse de Cotas Subordinadas Mezanino não seja realizada em até 5 (cinco) Dias Úteis após a data estabelecida no respectivo Suplemento; (vi) amortização de Cotas Subordinadas Juniores em desacordo com o disposto neste Regulamento; (vii) se por mais de 15 (quinze) dias consecutivos, os Direitos Creditórios vencidos há mais de 15 (quinze) dias representem mais de 10% (dez por cento) do Patrimônio Líquido do Fundo; (viii) quaisquer outros eventos que possam, na opinião da Administradora, impactar negativamente no desempenho do Fundo ou das Cotas;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 103,
+     "clause": "Anexo V, cl. 11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "de Despesas e Encargos por mais de 10 (dez) Dias Úteis consecutivos; (iv) crescimento do percentual de recompra acima de 25% (vinte e cinco por cento) do valor total da carteira do Fundo; (v) caso a amortização de qualquer Série ou Subclasse de Cotas Subordinadas Mezanino não seja realizada em até 5 (cinco) Dias Úteis após a data estabelecida no respectivo Suplemento; (vi) amortização de Cotas Subordinadas Juniores em desacordo com o disposto neste Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: reservas sem cura 10 DU, recompras>25% da carteira e atraso mezanino 5 DU; liquidação: atraso mezanino 20 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 11"
+   }
+  },
+  "liquidation": {
+   "display": "Lista do item 11.7, além das hipóteses legais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 105,
+     "clause": "Anexo V, cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "osições abaixo deste Capítulo. 11.7. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (ii) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (iii) caso a amortização de qualquer série ou subclasse de Cotas Subordinadas Mezanino não seja realizada em até 20 (vinte) Dias Úteis após a data estabelecida no respectivo Suplemento; e (iv) não substituição dos prestadores de serviço do Fundo e/ou da Classe, no caso de renúncia e/ou destituição do respectivo prestador de serviço, nos termos estipulados no Regulamento, neste Anexo Descritivo e nos respectivos contratos de prestação de serviço. 11.7.1. Na ocorrência de qualquer Evento de Liquidação Antecipada, o Gestor (i) suspenderá a aquisição de Direitos Creditórios, mediante notificação prévia por escrito ao Administrador, com antecedência de 2 (dois) Dias Úteis até a realização da Assembleia Especial mencionada que deliberará a respeito do Evento de Liquidação Antecipada; (ii) suspenderá o pagamento de Remuneração e de Amortização de Principal de todas as Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "Avaliação: reservas sem cura 10 DU, recompras>25% da carteira e atraso mezanino 5 DU; liquidação: atraso mezanino 20 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 11.6"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante o prazo indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 68,
+     "clause": "Anexo V, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "o, do Administrador, do Gestor e/ou do Custodiante. 5.3. Considerando o prazo de duração indeterminado da Classe, a Classe adotará estratégia de revolvência dos Direitos Creditórios, de forma que, após a liquidação dos Direitos Creditórios Adquiridos, novos Direitos Creditórios serão adquiridos pela Classe. 5.4. A Classe deverá, para fins da Resolução CVM 175/22, ter atingido a Alocação Mínima de Investimento até o final do prazo de 180 (cento e oitenta) dias corridos contados da primeira Data de Emissão das Cotas. 5.5. A parcela do Patrimônio Líquido que não seja alocada a Direitos Creditórios Elegíveis será mantida em moeda corrente nacional e/ou alocada a Ativos Financeiros, conforme decisão do Gestor, a seu exclusivo critério, observado o disposto neste Anexo Descritivo. Os investimentos da Classe em Ativos Financeiros serão realizados pelo Gestor durante todo o prazo de duração da Classe, não havendo critérios de concentração por emissor ou devedor em relação aos Ativos Financeiros, nos termos do inciso II, do §3º, do art. 45, do Anexo Normativo II da Resolução CVM 175/22. 5.5.1."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvente: novos direitos após liquidação dos adquiridos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,55% a.a. na 1ª faixa, regressiva por faixas de PL; mín. R$ 26.143,60/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 65,
+     "clause": "Anexo V, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "1+ V2 + V3 + V4 + V5+ V6+ REA onde: TA = Taxa de Administração; V1 = (tx1/252) x PL1(D-1) tx1: 0,55% a.a. ( cinquenta e cinco centésimos décimos por cento ao ano); PL1 = Patrimônio Líquido até R$20.000.000,00 (vinte milhões de reais); e PL1(D-1): Patrimônio Líquido (de acordo com o valor descrito no item PL1 acima) no Dia Útil imediatamente anterior à data de pagamento; V2 = (tx2/252) x PLE2(D-1) tx2 = 0 50% a.a. ( cinquenta centésimos por cento ao ano); PLE2 = parcela do Patrimônio Líquido entre R$20.000.000,01 (vinte milhões de reais e um centavo) e R$50.000.000,00 (cinquenta milhões de reais); e PLE2(D-1): Patrimônio Líquido (de acordo com os valores descritos no item PLE2 acima) no Dia Útil imediatamente anterior à data de pagamento; V3 = (tx3/252) x PLE3(D-1) tx3 = 0, 475% a.a. (quatrocentos e setenta e cinco milésimos por cento ao ano); PLE3 = parcela do Patrimônio Líquido entre R$50.000.000,01 (cinquenta milhões de reais e um centavo) e R$100.000.000,00 (cem milhões de reais);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 66,
+     "clause": "Anexo V, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "om os valores descritos no item PLE6 acima) no Dia Útil imediatamente anterior à data de pagamento; e (i) O valor mínimo mensal da Taxa de Administração será R$ 26.143,60 (vinte e seis mil cento e quarenta e três reais e sessenta centavos (ii) Os valores previstos acima serão reajustados anualmente de acordo com a variação positiva do IPCA (Índice Nacional de Preços ao Consumidor Amplo), a partir do primeiro Dia Útil do mês em que ocorrer a primeira Data de Subscrição Inicial do Fundo. (b) Taxa de Gestão. Pelos serviços a serem desempenhados pelo Gestor, será devido pela Classe Única taxa de gestão equivalente a 0,35% a.a. (trinta e cinco centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo, assegurado o pagamento mínimo mensal de R$ 4.000,00 (quatro mil reais), corrigido anualmente pela variação positiva do IGP-M; (c) Remuneração da Consultora Especializada. Pelos serviços a serem desempenhados pelos Consultores Especializados, será devida, pela Classe Única, a cada um dos referidos prestadores, uma remuneração equivalente a R$1.500.000,00 (um milhão e quinhentos mil reais); (d) Remuneração do Agente de Cobrança Extrajudicial."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais 0,55/0,50/0,475/0,45/0,425/0,40% a.a.; mínimoR$ 26.143,60/mês, IPCA positivo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,35% a.a. do PL; mín. R$ 4 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 66,
+     "clause": "Anexo V, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "Fundo. (b) Taxa de Gestão. Pelos serviços a serem desempenhados pelo Gestor, será devido pela Classe Única taxa de gestão equivalente a 0,35% a.a. (trinta e cinco centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo, assegurado o pagamento mínimo mensal de R$ 4.000,00 (quatro mil reais), corrigido anualmente pela variação positiva do IGP-M; (c) Remuneração da Consultora Especializada. Pelos serviços a serem desempenhados pelos Consultores Especializados, será devida, pela Classe Única, a cada um dos referidos prestadores, uma remuneração equivalente a R$1.500.000,00 (um milhão e quinhentos mil reais); (d) Remuneração do Agente de Cobrança Extrajudicial. Pelos serviços a serem desempenhados pelos Agentes de Cobrança Extrajudicial, será devida, pela Classe Única, a cada um dos referidos prestadores, uma remuneração equivalente a R$ 300.000,00 (trezentos mil reais). 4.2. Os valores acima serão pagos mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil, em uma base de 252 dias. Os valores expressos em reais dispostos no item 3.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,35% a.a. sobre PL; mínimoR$ 4 mil/mês, IGP-M positivo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Anexo não prevê taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da série sênior vigente não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da série mezanino vigente não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 5,
+     "clause": "Anexo V, cl. 1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "Prestadores de Serviço Essenciais do Fundo, assim como outras avenças. “Administrador” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada para tanto, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, CEP 05402-500, inscrita no CNPJ/MF sob o n.º 62.285.390/0001-40. “Agência de Classificação Significa a agência classificadora de risco que poderá ser de Risco” contratada para a classificação de risco das Cotas. “Anexo” Significa qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente Regulamento. “Anexo Descritivo” Significa o anexo descritivo das Classes, sendo este essencial à sua constituição, o qual constará anexo a este Regulamento, nos termos da Resolução CVM 175/22. “Anexo Normativo II” Significa o anexo normativo II da Resolução CVM 175/22, conforme em"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Ouro Preto Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 9,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "negociação secundária, administrado e operacionalizado pela B3. “Gestor” Significa a OURO PRETO GESTÃO DE RECURSOS S.A., inscrita no CNPJ sob o nº 11.916.849/0001-26, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, 1.600, 5º andar, conj. 51, Vila Nova Conceição, CEP 04543-000, credenciada pela CVM para gestão de carteiras pelo Ato Declaratório CVM nº 11.504, de 13/01/2011. “Instituições Financeiras Significam quaisquer instituições financeiras autorizadas a Autorizadas” funcionar pelo Banco Central. “Instrução CVM 489/11” Significa a Instrução CVM n° 489, de 14 de janeiro de 2011, conforme alterada e/ou qualquer normativo que venha a substitui-la. “Investidores Significam os investidores assim definidos de acordo com o Profissionais” artigo 11 da Resolução CVM 30/21. “Investidores Significam os investidores assim definidos de acordo com o Qualificados” artigo 12"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "QI CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 8,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "ubclasse e nos adendos aos Apêndices. “Cotista” Significam os titulares de Cotas. “Custodiante” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira devidamente autorizada para tanto, com sede na cidade de São Paulo, estado de São Paulo, na Avenida Rebouças, nº 2.942, 7º ao 12º andar, Parte I, CEP 05402-500, inscrita no CNPJ/MF sob o n.º 62.285.390/0001-40. “CVM” Significa a Comissão de Valores Mobiliários. “Data de Emissão” Significa a data em que ocorrer a subscrição e a primeira integralização das Cotas da respectiva Emissão, conforme definida no respectivo Apêndice ou Suplemento, conforme aplicável. “Despesas do Fundo” Significa o somatório, em reais, de todos os custos, encargos e despesas do Fundo estimados pelo Administrador a serem incorridos periodicamente. “Dia Útil” Significa qualquer dia que não seja sábado, domingo, feriado declarado nacional ou quaisquer dias em que, por qualquer motivo, não haja expediente banc"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Consultora especializada citada, sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 62,
+     "clause": "Anexo V",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "CLASSIFICAÇÃO, PÚBLICO-ALVO DA CLASSE, COMPOSIÇÃO DO PATRIMÔNIO, e RESPONSABILIDADE 2. A presente Classe Única foi constituída sob a forma de condomínio fechado, classificada como Classe de investimento em Direitos Creditórios, de responsabilidade ilimitada, com prazo de duração indeterminado, integrante do Fundo e disciplinada pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, e será regida pelo presente Anexo Descritivo da Classe Única. 2.1. Objeto."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores qualificados; classe com responsabilidade ilimitada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 13,
+     "clause": "Anexo V, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "ução CMN nº 2.907, pelo Código Civil, e pelas demais disposições legais e normativas que lhe forem aplicáveis. 2.2. O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas possuirá prazo de duração próprio, conforme descrito no respectivo Anexo Descritivo, Apêndice e Suplemento, conforme o caso. Não obstante o disposto acima, o Fundo será liquidado quando da amortização integral de todas as suas Cotas, podendo ainda ser liquidado por deliberação da Assembleia Geral em conformidade com o disposto neste Regulamento. 2.3. O patrimônio do Fundo será formado inicialmente pela Classe Única, na forma do §3º do artigo 5º da parte geral da Resolução CVM 175/22. As características e os direitos, assim como as condições de emissão, subscrição, integralização, remuneração, amortização e resgate da Classe Única serão descritos no Anexo Descritivo da Classe Única e em seus respectivos Apêndices e Suplementos, os quais integram o presente Regulamento. 2.3.1. As Classes possuem patrimônios segregados entre si, com direitos e obrigações distintos, nos termos da Lei de Liberdade Econômica (Lei n° 13.874/2019) conforme regulamentada pela Resolução."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores qualificados; classe com responsabilidade ilimitada",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sacado_limit": {
+   "display": "Devedor/grupo ≤ 7% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1280494",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "07/08/2026",
+     "page": 72,
+     "clause": "Anexo V, cl. 5.24",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1280494",
+     "excerpt": "e Concentração estabelecido em contrário, os quais devem ser observados ao longo do prazo de duração da Classe. 5.24. O Limite de Concentração em Direitos Creditórios de um mesmo Devedor (incluindo- se seu respectivo Grupo Econômico) deverá ser de, no máximo, 7% (sete por cento) em relação ao Patrimônio Líquido da Classe. 5.24.1. O Limite de Concentração em Direitos Creditórios de uma mesma pessoa coobrigada (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 20% (vinte por cento) em relação ao Patrimônio Líquido da Classe. 5.24.2. O Limite de Concentração em Direitos Creditórios decorrentes de operações “a performar” de um mesmo originador (incluindo-se seu respectivo Grupo Econômico) deverá ser de, no máximo, 14% (quatorze por cento) em relação ao Patrimônio Líquido da Classe, sendo que até 100% (cem por cento) do Patrimônio Líquido da Classe poderá ser representado por operações “a performar”, ou seja, aquelas operações de compra e venda de produtos ou de prestação de serviços para entrega ou prestação futura. 5.25. Em razão da vedação prevista no item 5.5.1. acima, não há previsão de limite de concentração em Direitos Creditórios originados ou cedidos pelo Administrador, Custodiante, Gestor, Consultor Especializado e suas partes relacionadas. 5.26."
+    }
+   ],
+   "value": 7.0,
+   "legacy": {
+    "value": "Cedente/grupo 10% e top 10:50%; devedor/grupo 7% e top 10:30% do PL; texto posterior repete 10% para devedor",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 07/08/2026, Anexo V, cl. 5.24"
+   }
+  }
+ },
+ "leitura": "Multicedente com 50% de subordinação para a sênior e 30% para a mezanino; devedor ≤ 7% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

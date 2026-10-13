@@ -1,0 +1,53 @@
+# Valorem FIDC Multissetorial (QI CTVM; Ouro Preto; Krones)
+type: Duplicatas/multicedente
+q18: * "A Administradora deverá manter no mínimo 0,50% (cinquenta centésimos por cento) do Patrimônio Líquido do Fundo alocado"
+q17: * "Significa a alocação de, pelo menos, 67% (sessenta e sete por"
+q1: * "“Cedente” Significa todas as pessoas físicas ou jurídicas que cedem os Direitos Creditórios para a Classe"
+q2: * "Consultor Especializado” Significa a KRONES CONSULTORIA DE CRÉDITO E COBRANÇA LTDA."
+q3: * "5.30. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q4: * "deverá ser de, no máximo, 4% (quatro por cento) em relação ao Patrimônio Líquido da Classe, exceto devedor Petrobrás"
+q5: * "Índice de Subordinação Sênior deverá ser igual ou superior a 45% (quarenta e cinco por cento)"
+q6: * "Índice de Subordinação Mezanino deverá ser igual ou superior a 15% (quinze por cento)"
+q7: * "taxa de administração equivalente a 0,25 % a.a."
+q8: * "taxa de gestão equivalente a 0,90% a.a."
+q9: * "“Administrador” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestor” Significa a OURO PRETO GESTÃO DE RECURSOS S.A."
+q11: * "“Custodiante” Significa a QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "a Classe adotará estratégia de revolvência dos Direitos Creditórios"
+q13: * "são considerados Eventos de Liquidação Antecipada"
+q14: * "O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas"
+q15: * "A Classe buscará atingir parâmetro de rentabilidade (Meta de Remuneração) para as Cotas Seniores e para as Cotas Subordinadas Mezanino"
+q16: * "Caso o Índice de Subordinação seja inferior ao Índice de Subordinação Mínimo, a Administradora deverá comunicar"
+receivables: Duplicatas, cheques, promissórias, contratos, CCBs e notas comerciais | o1
+originator: Cedentes diversos; Krones presta consultoria de crédito e cobrança | q1,q2
+assignor: Cedentes diversos, PF ou PJ | q1
+debtor: PF e PJ inscritas no CPF/CNPJ | q3
+recourse: n/d | Cedente pode responder com os devedores conforme cada cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Devedor com CPF/CNPJ; prazo ≤ 370 dias (CCB e NC ≤ 36 meses) | q3
+debtor_limit: Devedor/grupo ≤ 4% do PL, exceto Petrobras | q4
+assignor_limit: Cedente/grupo ≤ 4% do PL, com exceção para bancarizadora | o19
+term_max: Até 370 dias; CCBs e notas comerciais até 36 meses | q3
+allocation: ≥ 67% do PL em direitos creditórios elegíveis | q17 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q15
+sub_senior: 45% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 15% · jr/PL | q6 | basis=jr/PL
+sub_check: Desenquadramento leva a chamada de aporte aos subordinados | q16
+reserve: Reserva de liquidez ≥ 0,50% do PL; reservas de amortização escalonadas | q18,o43
+pdd: Provisão pode antecipar 100% do devedor; efeito vagão | o46
+eval_triggers: Alocação líquida de PDD abaixo de 67% por 60 dias, entre outros | o49
+liquidation: Lista do item 11.7, além das hipóteses legais | q13
+revolving: Revolvência durante o prazo indeterminado | q12
+amortization: n/d | Cronograma definido nos suplementos de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,25% a.a. do PL, inclui custódia; mín. R$ 4.813,51/mês | q7
+mgmt_fee: 0,90% a.a. até R$ 150 mi; 0,25% até 250 mi; 0,10% acima; mín. R$ 4 mil | q8,o65
+perf_fee: Não prevista | Anexo não prevê taxa de performance
+target_senior: n/d | Suplemento da série sênior vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Suplemento da série mezanino vigente não está no acervo | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: QI CTVM | q9
+manager: Ouro Preto Gestão de Recursos | q10
+custodian: QI CTVM | q11
+servicer: Krones Consultoria (crédito e cobrança) | q2
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo próprio por série | q14
+sacado_limit: Devedor/grupo ≤ 4% do PL, exceto Petrobras | q4
+leitura: Multicedente com 45% de subordinação (mezanino protegida por 15% de júnior) e devedor ≤ 4% do PL.

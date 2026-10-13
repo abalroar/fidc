@@ -1,0 +1,49 @@
+# Norde FIDC (Limine Trust; Real Investor)
+type: Duplicatas/multicedente
+q1: * "“Cedente” Significa todas as pessoas físicas ou jurídicas que cedem os Direitos Creditórios para a Classe"
+q2: * "5.42. A Classe somente poderá adquirir Direitos Creditórios que atendam, cumulativamente"
+q3: * "A Classe poderá alocar até 100% (cem por cento) de seu Patrimônio Líquido em Direitos Creditórios cedidos por um único Cedente"
+q4: * "possuir parcela inferior a 67% (cinquenta por cento) de seu Patrimônio Líquido representada por Direitos Creditórios"
+q5: * "10.1 Eventos de Avaliação. Qualquer dos seguintes eventos será considerado um Evento de Avaliação"
+q6: * "a Administradora receberá da Classe uma remuneração equivalente à 0,25% a.a."
+q7: * "a Gestora receberá da Classe uma remuneração equivalente à 0,30% a.a."
+q8: * "Pelos serviços a serem desempenhados pelo Custodiante, este receberá uma remuneração equivalente à 0,15% a.a."
+q9: * "“Administrador” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q10: * "“Gestor” Significa a REAL INVESTOR ASSET MANAGEMENT LTDA."
+q11: * "“Custodiante” Significa a LIMINE TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: * "a Classe adotará estratégia de revolvência dos Direitos Creditórios"
+q13: * "O Fundo terá prazo de duração indeterminado, sendo que cada Classe, Subclasse e série de Cotas"
+q14: * "A provisão para Devedores duvidosos atingirá os demais créditos do mesmo Devedor"
+receivables: Multissetorial performado ou a performar: duplicatas, CCBs, CRI/CRA e outros | o1
+originator: Cedentes diversos, PF ou PJ | q1
+assignor: Cedentes diversos; até 100% do PL em um único cedente | q1,q3
+debtor: Devedores não podem estar em recuperação judicial | q2
+recourse: Cedentes podem assumir coobrigação conforme contrato de cessão | o11
+eligibility: Aprovados pela gestora; devedor fora de RJ; duplicatas ≤ 365 dias | q2
+debtor_limit: n/d | Limite por devedor não localizado no regulamento vigente
+assignor_limit: Sem limite: até 100% do PL em um único cedente | q3
+term_max: Duplicatas até 365 dias | q2
+allocation: 67% do PL em direitos creditórios (extenso diverge) | q4 | value=67
+quota_structure: n/d | Subclasses previstas, sem índice de subordinação no anexo vigente
+sub_senior: n/d | Índice de subordinação monitorado, mas sem percentual no regulamento vigente
+sub_mezz: n/d | Sem percentual de subordinação no regulamento vigente
+sub_check: n/d | Sem percentual de subordinação a apurar
+reserve: n/d | Reserva de caixa não localizada no texto extraído
+pdd: Provisão por devedor com efeito vagão | q14
+eval_triggers: Rating rebaixado em 2 níveis; alocação < 67% por 10 dias, entre outros | q5,q4
+liquidation: n/d | Lista de eventos de liquidação não localizada no texto extraído
+revolving: Revolvência durante o prazo indeterminado | q12
+amortization: n/d | Cronograma definido nos apêndices das séries
+admin_fee: 0,25% a.a. do PL; mín. R$ 15 mil/mês | q6,o44
+mgmt_fee: 0,30% a.a. do PL; mín. R$ 10 mil/mês | q7,o47
+perf_fee: Não prevista | Regulamento não prevê taxa de performance
+target_senior: n/d | Rentabilidade alvo definida por série, fora do acervo
+target_mezz: n/d | Rentabilidade alvo definida por série, fora do acervo
+administrator: Limine Trust DTVM | q9
+manager: Real Investor Asset Management | q10
+custodian: Limine Trust DTVM (0,15% a.a.) | q11,q8
+servicer: n/d | Agente de cobrança não nomeado no texto extraído
+investors: n/d | Público-alvo não localizado no texto extraído
+duration: Indeterminado; prazo próprio por série | q13
+sacado_limit: n/d | Limite por sacado não localizado no regulamento vigente
+leitura: Multicedente sem limite por cedente (até 100% do PL em um só) e sem percentual de subordinação no regulamento.
