@@ -1,0 +1,812 @@
+{
+ "schema_version": 1,
+ "cnpj": "54634742000106",
+ "name": "LARCA CONSIGNADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado privado",
+ "reviewed_at": "2026-10-13T20:47:59Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1316627",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "11/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627"
+  },
+  "D2": {
+   "document_id": "1005796",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "30/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1005796"
+  },
+  "D3": {
+   "document_id": "945214",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "14/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=945214"
+  },
+  "D4": {
+   "document_id": "927240",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "13/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=927240"
+  },
+  "D5": {
+   "document_id": "820748",
+   "kind": "Instrumento de emissão",
+   "title": "Lâmina de Oferta de FIDC",
+   "date": "15/01/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=820748"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado privado",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Empréstimos consignados em folha/benefício e antecipação do FGTS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício. “Contrato de (i) os Instrumentos de concessão de créditos fornecidos Empréstimo” pela(s) Cedente(s) ao(s) Devedor(es), lastreados em Cédulas de Crédito Bancário, Cédulas de Crédito à Exportação e outros títulos de crédito, emitidos pelo(s) Devedor(es) em face da(s) Cedente(s);"
+    }
+   ],
+   "legacy": {
+    "value": "CCBs e contratos de assistência financeira: consignado em folha/benefício; regras próprias para FGTS",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "QI SCD (cedente) e canais parceiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 4,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "Medida Provisória 2.200-2/01 e artigo 219 do Código Civil Brasileiro. “Cedente” QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Economia (“CNPJ/ME”) sob o nº 32.402.502/0001-35, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino nº 215, 3º andar, Pinheiros (“QI”), e/ou Pessoas jurídicas que venham a ceder Direitos Creditórios ao Fundo. “Classe” Classe única de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "QI Sociedade de Crédito Direto",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 4,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "Medida Provisória 2.200-2/01 e artigo 219 do Código Civil Brasileiro. “Cedente” QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Economia (“CNPJ/ME”) sob o nº 32.402.502/0001-35, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino nº 215, 3º andar, Pinheiros (“QI”), e/ou Pessoas jurídicas que venham a ceder Direitos Creditórios ao Fundo. “Classe” Classe única de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Tomadores de 21 a 70 anos com consignação em folha ou benefício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 48,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "al, pelo Custodiante, nos termos do item 4.4(d) acima. 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 48 (i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na respectiva data de aquisição (não se aplica para os casos de antecipação do saque aniversário - FGTS); (ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício. “Contrato de (i) os Instrumentos de concessão de créditos fornecidos Empréstimo” pela(s) Cedente(s) ao(s) Devedor(es), lastreados em Cédulas de Crédito Bancário, Cédulas de Crédito à Exportação e outros títulos de crédito, emitidos pelo(s) Devedor(es) em face da(s) Cedente(s);"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas 21–70 anos; crédito presente por devedor≤R$ 220 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 8"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Até 96 parcelas (exceto FGTS); 21 a 70 anos; saldo ≤ R$ 220 mil; CCB ≥ R$ 100",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 48,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "al, pelo Custodiante, nos termos do item 4.4(d) acima. 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 48 (i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na respectiva data de aquisição (não se aplica para os casos de antecipação do saque aniversário - FGTS); (ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais);"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 49,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "em ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais); (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não poderá ser superior a 70 (setenta) dias contados da data de cessão a Classe (não se aplica aos casos de antecipação do saque aniversário - FGTS); (vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 49,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais); (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não poderá ser superior a 70 (setenta) dias contados da data de cessão a Classe (não se aplica aos casos de antecipação do saque aniversário - FGTS); (vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida;"
+    }
+   ],
+   "legacy": {
+    "value": "Até 96 parcelas (excetoFGTS); título≥R$ 100; primeira parcela≤70 dias (excetoFGTS); sem atraso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor ≤ R$ 220 mil; regra geral de 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 49,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "em ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais); (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não poderá ser superior a 70 (setenta) dias contados da data de cessão a Classe (não se aplica aos casos de antecipação do saque aniversário - FGTS); (vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 49,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais); (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não poderá ser superior a 70 (setenta) dias contados da data de cessão a Classe (não se aplica aos casos de antecipação do saque aniversário - FGTS); (vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 45,
+     "clause": "cl. 6.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "asse possuir estoque ou posição anterior do mesmo ativo. 6.6. A aplicação de recursos em Direitos Creditórios e em Ativos Financeiros de Liquidez de responsabilidade ou Coobrigação de um mesmo devedor estará limitada a 20% (vinte por cento) do Patrimônio Líquido. Para fins deste item , consideram-se de um mesmo devedor, os Direitos Creditórios e os Ativos Financeiros de Liquidez de responsabilidade ou Coobrigação de devedores integrantes de um mesmo grupo econômico. Uma vez que as Cotas serão destinadas exclusivamente a Investidores Autorizados, o limite previsto neste item 0 poderá ser aumentado nas hipóteses do artigo 45, §3º, do Anexo Normativo II à Resolução CVM nº 175/22. 6.6.1. A Gestora deverá assegurar que, na consolidação das aplicações da Classe com as das classes cujas cotas venham a ser adquiridas pela Classe, o limite previsto no item 0 acima seja observado. A consolidação de que trata este item será dispensada no caso de aplicações em cotas que sejam emitidas por fundos de investimento geridos por partes não relacionadas à Gestora. 6.7."
+    }
+   ],
+   "value": 220000.0,
+   "legacy": {
+    "value": "Devedor/grupo≤20% PL com exceções condicionadas; entes públicos conforme apenso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Cedente principal QI SCD; sem limite por cedente no anexo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 4,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "Medida Provisória 2.200-2/01 e artigo 219 do Código Civil Brasileiro. “Cedente” QI SOCIEDADE DE CRÉDITO DIRETO S.A., instituição financeira inscrita no Cadastro Nacional da Pessoa Jurídica do Ministério da Economia (“CNPJ/ME”) sob o nº 32.402.502/0001-35, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Gilberto Sabino nº 215, 3º andar, Pinheiros (“QI”), e/ou Pessoas jurídicas que venham a ceder Direitos Creditórios ao Fundo. “Classe” Classe única de Cotas."
+    }
+   ],
+   "legacy": {
+    "value": "Devedor/grupo≤20% PL com exceções condicionadas; entes públicos conforme apenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 1.1"
+   }
+  },
+  "term_max": {
+   "display": "Até 96 parcelas (exceto antecipação FGTS)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 48,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "al, pelo Custodiante, nos termos do item 4.4(d) acima. 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 48 (i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na respectiva data de aquisição (não se aplica para os casos de antecipação do saque aniversário - FGTS); (ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Até 96 parcelas (excetoFGTS); título≥R$ 100; primeira parcela≤70 dias (excetoFGTS); sem atraso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 8"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Percentual de alocação mínima não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos creditórios≥67% PL, conforme definição",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 73,
+     "clause": "cl. 11.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "u indiretamente, por cotistas que sejam sócios da(s) Consultoria(s) Especializada(s). Índices de Subordinação 11.5. O Índice de Subordinação será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe. 11.6. O Índice de Subordinação Juniores será a relação mínima a ser observada entre o valor das Cotas Subordinadas Juniores e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento) Patrimônio Líquido da Classe. 11.7. Os Índices de Subordinação acima devem ser apuradas todo Dia Útil pela Administradora, devendo ser informadas aos Cotistas mensalmente, caso haja desenquadramento. 73 11.8. Na hipótese de desenquadramento de algum dos Índices de Subordinação acima, os Cotistas titulares das Cotas Subordinadas Juniores, conforme o caso, serão imediatamente informados pela Administradora. 11.9."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 73,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "íquido da Classe. 11.6. O Índice de Subordinação Juniores será a relação mínima a ser observada entre o valor das Cotas Subordinadas Juniores e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento) Patrimônio Líquido da Classe. 11.7. Os Índices de Subordinação acima devem ser apuradas todo Dia Útil pela Administradora, devendo ser informadas aos Cotistas mensalmente, caso haja desenquadramento. 73 11.8. Na hipótese de desenquadramento de algum dos Índices de Subordinação acima, os Cotistas titulares das Cotas Subordinadas Juniores, conforme o caso, serão imediatamente informados pela Administradora. 11.9. Os Cotistas titulares das Cotas Subordinadas, conforme o caso, deverão responder à Administradora, impreterivelmente até o 10º (décimo) dia subsequente à data do recebimento da comunicação referida acima, informando por escrito se desejam integralizar ou não, conforme o caso, novas Cotas Subordinadas."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥20%; júnior / PL≥5%; amortização mezanino exige 25% ou 30% em gatilhos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 11.4.2"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · (mez.+jr.)/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 73,
+     "clause": "cl. 11.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "u indiretamente, por cotistas que sejam sócios da(s) Consultoria(s) Especializada(s). Índices de Subordinação 11.5. O Índice de Subordinação será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe. 11.6. O Índice de Subordinação Juniores será a relação mínima a ser observada entre o valor das Cotas Subordinadas Juniores e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento) Patrimônio Líquido da Classe. 11.7. Os Índices de Subordinação acima devem ser apuradas todo Dia Útil pela Administradora, devendo ser informadas aos Cotistas mensalmente, caso haja desenquadramento. 73 11.8. Na hipótese de desenquadramento de algum dos Índices de Subordinação acima, os Cotistas titulares das Cotas Subordinadas Juniores, conforme o caso, serão imediatamente informados pela Administradora. 11.9."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas / PL≥20%; júnior / PL≥5%; amortização mezanino exige 25% ou 30% em gatilhos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 11.4.2"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 73,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "íquido da Classe. 11.6. O Índice de Subordinação Juniores será a relação mínima a ser observada entre o valor das Cotas Subordinadas Juniores e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento) Patrimônio Líquido da Classe. 11.7. Os Índices de Subordinação acima devem ser apuradas todo Dia Útil pela Administradora, devendo ser informadas aos Cotistas mensalmente, caso haja desenquadramento. 73 11.8. Na hipótese de desenquadramento de algum dos Índices de Subordinação acima, os Cotistas titulares das Cotas Subordinadas Juniores, conforme o caso, serão imediatamente informados pela Administradora. 11.9. Os Cotistas titulares das Cotas Subordinadas, conforme o caso, deverão responder à Administradora, impreterivelmente até o 10º (décimo) dia subsequente à data do recebimento da comunicação referida acima, informando por escrito se desejam integralizar ou não, conforme o caso, novas Cotas Subordinadas."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 73,
+     "clause": "cl. 11.4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "u indiretamente, por cotistas que sejam sócios da(s) Consultoria(s) Especializada(s). Índices de Subordinação 11.5. O Índice de Subordinação será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 20% (vinte por cento) do Patrimônio Líquido da Classe. 11.6. O Índice de Subordinação Juniores será a relação mínima a ser observada entre o valor das Cotas Subordinadas Juniores e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5% (cinco por cento) Patrimônio Líquido da Classe. 11.7. Os Índices de Subordinação acima devem ser apuradas todo Dia Útil pela Administradora, devendo ser informadas aos Cotistas mensalmente, caso haja desenquadramento. 73 11.8. Na hipótese de desenquadramento de algum dos Índices de Subordinação acima, os Cotistas titulares das Cotas Subordinadas Juniores, conforme o caso, serão imediatamente informados pela Administradora. 11.9."
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥20%; júnior / PL≥5%; amortização mezanino exige 25% ou 30% em gatilhos",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 11.4.2"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de caixa não localizado no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Maior entre 90 dias de despesas e 0,5% PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 29,
+     "clause": "cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "idez integrantes da carteira da Classe serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. 8.4 O Patrimônio Líquido será equivalente ao valor das Disponibilidades, acrescido do valor dos Direitos Creditórios Cedidos, deduzidas as exigibilidades e as provisões do Fundo. 8.5 As Cotas terão o seu valor calculado, todo Dia Útil, nos termos da cláusula 11 do Anexo. 8.6 Uma vez excedido os valores referentes às Cotas Subordinadas, a inadimplência dos Direitos Creditórios Elegíveis de titularidade do Fundo será atribuída às Cotas Seniores. 8.6.1. Por outro lado, na hipótese de o Fundo atingir o benchmark das Cotas Seniores, toda a rentabilidade a ele excedente será atribuída somente às Cotas Subordinadas, razão pela qual estas cotas poderão apresentar valores diferentes das Cotas Seniores. 9. PATRIMÔNIO LÍQUIDO NEGATIVO 9.1 Caso verifique, a qualquer tempo, que o Patrimônio Líquido está negativo, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento da amortização e do resgate das Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Dívida ou mudança de controle da consultoria, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 82,
+     "clause": "cl. 17.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "ALIAÇÃO E EVENTOS DE LIQUIDAÇÃO ANTECIPADA 17.1 A Classe poderá ser liquidada por deliberação da Assembleia. 17.2 São considerados Eventos de Avaliação: (a) caso ocorra um Evento de Suspensão de Aquisição de Direitos Creditórios Elegíveis, que não os previstos nos incisos “e)”, “f)” e “g)” do item 8.2. deste Regulamento, por mais de 3 (três) meses consecutivos; (b) caso, em 3 (três) Datas de Verificação consecutivas ou 4 (quatro) não consecutivas, dentro de um período de 12 (doze) meses, o Índice de Pré- Pagamento seja superior a 8% (oito por cento); (c) caso, em 3 (três) Datas de Verificação consecutivas ou 4 (quatro) não consecutivas, dentro de um período de 12 (doze) meses, o Índice de Resolução de Cessão seja superior a 3% (três por cento); (d) caso, em 3 (três) Datas de Verificação consecutivas ou 4 (quatro) não consecutivas, dentro de um período de 6 (seis) meses, contados a partir da Data da 1ª Integralização de Cotas, o Índice de Excesso de Spread seja inferior a 0,50% (cinquenta centésimos por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação: F 30>25%,F 60>22%,F 90>18%,perda líquida>10%; pré-pagamento/resolução têm janelas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 17.1"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação da assembleia e demais itens do 17.3",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 86,
+     "clause": "cl. 17.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "Reserva de Caixa e o pagamento das despesas necessárias da Classe, nos termos do Regulamento e/ou neste Anexo. 17.3 São considerados Eventos de Liquidação Antecipada: (a) deliberação da Assembleia de Cotistas pela liquidação da Classe; (b) se o Fundo mantiver patrimônio líquido médio inferior a R$ 1.000.000,00 (um milhão de reais) (quinhentos mil reais), pelo período de 3 (três) meses consecutivos e não for incorporado a outro Fundo de Investimento em Direitos Creditórios; (c) caso seja deliberado em Assembleia de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação Antecipada; e (d) renúncia da Administradora, sem que uma nova instituição assuma suas funções no prazo de até 60 (sessenta) dias. (e) Decretação, sobre a(s) Consultoria(s) Especializada(s), de intervenção, liquidação extrajudicial, falência ou regime especial de fiscalização, cassação da autorização para funcionamento desta(s) e/ou evento equivalente; (f) caso o Índice de Atraso, referente à faixa de atraso F30, represente percentual superior a 25% (vinte e cinco por cento);"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação: F 30>25%,F 60>22%,F 90>18%,perda líquida>10%; pré-pagamento/resolução têm janelas",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 17.2.4"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência permitida durante toda a vigência",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 47,
+     "clause": "cl. 7.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "sável pela existência dos Direitos Creditórios Cedidos, nos termos do artigo 295 do Código Civil. 7.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do 47 pagamento dos Direitos Creditórios Cedidos, durante todo o prazo de duração da Classe, respeitada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo. 7.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, adotada para fins de análise dos Direitos Creditórios e dos respectivos Cedentes e Devedores, encontram-se descritos no Apenso B deste Anexo. 7.5 A cobrança dos Direitos Creditórios Cedidos inadimplidos será realizada pelo Agente de Cobrança nos termos da Política de Cobrança, constante no Apenso A do presente Anexo. Verificação e guarda dos Documentos Comprobatórios 7.6 Os Documentos Comprobatórios compreenderão a documentação necessária para o exercício das prerrogativas decorrentes da titularidade dos Direitos Creditórios Cedidos, tais como o protesto, a cobrança ou a execução judicial, sendo capazes d"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência conforme ordem de pagamentos; suspensa em gatilhos específicos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido nos suplementos das séries",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,15% a.a. do PL; mín. R$ 12 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 42,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "de administração fiduciária, controladoria e escrituração e distribuição das Cotas da Classe (“Taxa de Administração”), a Classe pagará à Administradora o equivalente a 0,15% a.a. (zero virgula quinze por cento ao ano) incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mínimo mensal de R$ 12.000,00 (doze mil reais) durante os 6 (seis) primeiros meses de funcionamento do Fundo/Classe, e de R$ 17.000,00 (dezessete mil reais) após o referido período. 5.2. Pela prestação dos serviços de gestão da Classe, a Gestora fará jus a uma remuneração com base na Taxa de Juros vigente, divulgada pelo Comitê de Política Monetária – Copom, do Banco Central do Brasil (\"Taxa Selic\"), conforme os critérios abaixo: • 0,50% a.a., incidente sobre o Patrimônio Líquido, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, com valor mínimo mensal de R$ 15.000,00 – aplicável enquanto a Taxa Selic for superior a 12,25% a.a.;"
+    }
+   ],
+   "legacy": {
+    "value": "0,15% a.a. PL; mínimo R$ 12 mil primeiros 6 meses e R$ 17 mil após",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 5.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "Faixa conforme Selic (> ou ≤ 12,25%), até 1,30% a.a.; mín. R$ 15 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 42,
+     "clause": "cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "olítica Monetária – Copom, do Banco Central do Brasil (\"Taxa Selic\"), conforme os critérios abaixo: • 0,50% a.a., incidente sobre o Patrimônio Líquido, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, com valor mínimo mensal de R$ 15.000,00 – aplicável enquanto a Taxa Selic for superior a 12,25% a.a.; e • 1,30% a.a., incidente sobre o Patrimônio Líquido, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, mantendo-se o valor mínimo mensal de R$ 15.000,00 – aplicável quando a Taxa Selic for igual ou inferior a 12,25% a.a. 5.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Selic>12,25%:0,50% a.a.PL; Selic≤12,25%:1,30%; mínimo R$ 15 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 5.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance citada entre encargos, sem regra no anexo extraído",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da série vigente não está no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Suplemento da série vigente não está no acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "atribuições e responsabilidades definidos pela Resolução CVM 175 e suas alterações. “Administradora” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título. “Agência Classificadora Agência classificadora de risco que vier a ser selecionada de Risco” para cada subclasse ou série de cotas, conforme previsão no artigo que indicar as características das referidas cotas ou no respectivo Suplemento. “Agente de Cobrança e"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "KP Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "LIMITADA., inscrito no CNPJ/MF sob o nº 54.634.742/0001-06 “Gestora” KP GESTÃO DE RECURSOS LTDA., inscrita no CNPJ/MF sob o nº 25.098.663/0001-11, com sede na Rua Mostardeiro nº 366, 15º Andar, Conj. 1502, na Cidade de Porto Alegre, Estado do Rio Grande do Sul, devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para o exercício profissional de administração de carteira de valores mobiliários pelo Ato Declaratório CVM nº 15.529, de 28 de março de 2017. “Índice de Arrecadação O índice de arrecadação das Contas Fiduciárias, a ser das Contas Fiduciárias” calculado pela Gestora no monitoramento do fluxo de créditos recebidos nas Contas Fiduciárias, que será calculado de acordo com a seguinte fórmula: onde: ArrecadaçãoICF: Índice de Arrecadação nas Contas Fiduciárias calculado na Data de Verificação. 𝑉𝑅: somatório dos va"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "e elegibilidade dos Direitos Creditórios Elegibilidade” cedidos a Classe, definidos no item 8.1 do Anexo. “Custodiante” BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer 6 título. 7 “CVM” Comissão de Valores Mobiliários. “Data da Data da 1ª (primeira) integralização de Cotas de uma 1ª Integralização” determinada subclasse ou série. “Data de Aquisição e Cada data do pagamento à respectiva Cedente do preço Pagamento” de aquisição dos Direitos Creditórios cedidos, nos termos do Contrato de Cessão. “Dat"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança e formalização sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 38,
+     "clause": "cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "e de Cotas será definido no respectivo Apêndice, caso aplicável. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 4. DEMAIS PRESTADORES DE SERVIÇOS Demais Prestadores de Serviços contratados pela Administradora, em nome do Fundo 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro, por Entidade Registradora, dos Direitos Creditórios Cedidos; 38 (e) custódia dos Direitos Creditórios Cedidos, que não sejam passiveis de registro por Entidade registradora, e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM nº 175/22; (f) guarda física ou eletrônica dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado; prazo por série",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 38,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "resente Anexo e/ou respectivo Suplemento, conforme aplicável. 2. PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. O prazo de duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice, caso aplicável. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 4. DEMAIS PRESTADORES DE SERVIÇOS Demais Prestadores de Serviços contratados pela Administradora, em nome do Fundo 4.1 A Administradora deverá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; (d) registro, por Entidade Registradora, dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Consignação em folha ou benefício, com repasse ao fundo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "de Crédito, conforme autorizado pela Circular SUSEP, consistentes de empréstimos conferidos pela Cedente aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício. “Contrato de (i) os Instrumentos de concessão de créditos fornecidos Empréstimo” pela(s) Cedente(s) ao(s) Devedor(es), lastreados em Cédulas de Crédito Bancário, Cédulas de Crédito à Exportação e outros títulos de crédito, emitidos pelo(s) Devedor(es) em face da(s) Cedente(s);"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Devedor de 21 a 70 anos na cessão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 48,
+     "clause": "cl. 8",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "al, pelo Custodiante, nos termos do item 4.4(d) acima. 8. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE CESSÃO 8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade, a serem verificados pela Gestora: 48 (i) devem possuir, individualmente, no máximo, 96 (noventa e seis) parcelas na respectiva data de aquisição (não se aplica para os casos de antecipação do saque aniversário - FGTS); (ii) devem ter como Devedores pessoas com idade entre 21 (vinte e um) anos e 70 (setenta) anos na data da cessão, inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Até 96 parcelas (excetoFGTS); título≥R$ 100; primeira parcela≤70 dias (excetoFGTS); sem atraso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 8"
+   }
+  },
+  "installment_min": {
+   "display": "CCB ou contrato com valor mínimo de R$ 100",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1316627",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2026",
+     "page": 49,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+     "excerpt": "junto ao Fundo, representado por um ou mais Direitos Creditórios em valor total presente superior a R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida; (iv) o valor mínimo de cada CCB e/ou Contrato de Assistência Financeira deve ser R$ 100 (cem reais); (v) a data do vencimento da primeira parcela vincenda da CCB e/ou do Contrato de Assistência Financeira, conforme aplicável, não poderá ser superior a 70 (setenta) dias contados da data de cessão a Classe (não se aplica aos casos de antecipação do saque aniversário - FGTS); (vi) a CCB e/ou do Contrato de Assistência Financeira não poderão ter parcela vencida e não paga perante o Fundo na data da cessão pretendida;"
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "Até 96 parcelas (excetoFGTS); título≥R$ 100; primeira parcela≤70 dias (excetoFGTS); sem atraso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2026, cl. 8.1"
+   }
+  }
+ },
+ "leitura": "Consignado da QI SCD com 20% de subordinação e júnior ≥ 5%; saldo por devedor ≤ R$ 220 mil e idade até 70 anos.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

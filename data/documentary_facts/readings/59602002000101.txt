@@ -1,0 +1,57 @@
+# portado de 51326028000154 (59602002000101)
+type: Consignado privado
+q20: * "observado o valor mínimo mensal de R$ 27.500,00"
+q1: * "Cedente/Endossante” UY3 SOCIEDADE DE CRÉDITO DIRETO S.A."
+q2: * "8.1 A Classe somente poderá adquirir Direitos Creditórios que atendam aos seguintes Critérios de Elegibilidade"
+q3: * "inclusive; (iii) o Devedor não deve ter, na Data de Aquisição e Pagamento, saldo devedor junto ao Fundo"
+q4: * "R$ 220.000,00 (duzentos e vinte mil reais), considerada pro forma a cessão pretendida"
+q5: * "11.5. O Índice de Subordinação será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe"
+q6: * "Cotas Subordinadas Junior e o Patrimônio Líquido da Classe, a qual deverá, diariamente, representar o percentual mínimo de 5%"
+q7: * "a Classe pagará à Administradora o equivalente a 0,275% a.a."
+q8: * "a Classe pagará à Gestora o equivalente a 0,50% a.a."
+q9: * "“Administradora” OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q10: * "“Gestora” KP GESTÃO DE RECURSOS LTDA."
+q11: * "“Custodiante” OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "Será permitida a revolvência da carteira da Classe"
+q13: * "17.2 São considerados Eventos de Avaliação"
+q14: * "17.3 São considerados Eventos de Liquidação Antecipada"
+q15: * "As Cotas serão destinadas exclusivamente aos Investidores Profissionais"
+q16: * "A Classe terá prazo de duração indeterminado. O prazo de duração de cada subclasse"
+q17: * "metodologia descrita no manual de provisão para perdas da Administradora"
+q18: * "Por ser destinada exclusivamente a Investidores Profissionais, a Classe não estará sujeita limites de concentração"
+q19: * "ndossante aos Devedores e pagos por meio de consignação nas respectivas folhas de pagamento/benefício"
+receivables: Empréstimos consignados em folha/benefício e antecipação do FGTS | q19
+originator: UY3 SCD (cedente/endossante) | q1
+assignor: UY3 Sociedade de Crédito Direto | q1
+debtor: Tomadores de 21 a 70 anos com consignação em folha ou benefício | q2,q19
+recourse: n/d | Coobrigação definida em cada contrato de cessão | why=Resposta anterior sem trecho localizável no regulamento vigente
+eligibility: Até 96 parcelas; 21 a 70 anos; saldo ≤ R$ 220 mil; título ≥ R$ 100 | q2,q3,q4
+debtor_limit: Saldo por devedor ≤ R$ 220 mil; sem limite % (profissionais) | q3,q4,q18
+assignor_limit: Cedente principal UY3 SCD; sem limite por cedente | q1,q18
+term_max: Até 96 parcelas (exceto antecipação FGTS) | q2
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 5% · jr/PL | q6 | basis=jr/PL
+sub_check: Diária | q5
+reserve: n/d | Valor da reserva de caixa não localizado no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+pdd: Manual de provisão para perdas da administradora | q17
+eval_triggers: Dívida ou mudança de controle da consultoria, entre outros | q13
+liquidation: Deliberação da assembleia e demais itens do 17.3 | q14
+revolving: Revolvência permitida durante toda a vigência | q12
+amortization: n/d | Cronograma definido nos suplementos das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,275% a.a. do PL; mín. R$ 27,5 mil/mês | q7,q20
+mgmt_fee: 0,50% a.a. do PL | q8
+perf_fee: n/d | Taxa de performance citada entre encargos, sem regra no anexo extraído
+target_senior: n/d | Suplemento da série vigente não está no acervo | why=Resposta anterior vem de lâmina antiga da 2ª emissão
+target_mezz: n/d | Suplemento da série vigente não está no acervo | why=Resposta anterior vem de lâmina antiga da 2ª emissão
+administrator: Oliveira Trust DTVM | q9
+manager: KP Gestão de Recursos | q10
+custodian: Oliveira Trust DTVM | q11
+servicer: n/d | Agente de cobrança e formalização sem nome no trecho lido
+investors: Investidores profissionais | q15
+duration: Indeterminado; prazo por série | q16
+payroll: Consignação em folha ou benefício, com repasse ao fundo | q19
+age_limit: Devedor de 21 a 70 anos na cessão | q2
+installment_min: CCB ou contrato com valor mínimo de R$ 100 | q4
+leitura: Consignado da UY3 SCD com 20% de subordinação e júnior ≥ 5%; saldo por devedor ≤ R$ 220 mil e idade até 70 anos.
