@@ -1,0 +1,665 @@
+{
+ "schema_version": 1,
+ "cnpj": "44574361000117",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS UPL 02 - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:23:47Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "928360",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "12/06/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360"
+  },
+  "D2": {
+   "document_id": "250443",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "06/12/2021",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=250443"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CDCA, CPR-F e direitos de revendas e da UPL do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "4.6. Os Direitos Creditórios serão adquiridos pela Classe, observada a Política de Crédito, Originação e Cobrança, (i) no caso dos CDCA e das CPR-F emitidas de forma física, eletrônica ou digital pelos Devedores indicados pelo Originador e/ou por clientes de Revendas Cedentes, conforme o caso, por meio da aquisição primária direta destes títulos; (ii) no caso dos Direitos Creditórios Revenda, por meio da celebração eletrônica ou digital, de"
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: CDCA, CPR-F, direitos Revenda e direitos UPL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "UPL do Brasil e revendas cedentes",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 140,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "Creditórios Revendas ou dos Direitos Creditórios UPL. UPL Significa a UPL DO BRASIL INDÚSTRIA E COMÉRCIO DE INSUMOS AGROPECUÁRIOS S.A., sociedade por ações com sede na Avenida Maeda, s/n, Térreo Prédio Comercial, Distrito Industrial, CEP 14500-000, na Cidade de Ituverava, no Estado de São Paulo, inscrita no CNPJ/ME sob o nº 02.974.733/0001- 52. Valor Disponível para Significa o montante em disponibilidades que poderá Pagamento de Prêmio ser pago ao Cotista Subordinado Mezanino a título de de Excesso de Spread Prêmio de Excesso de Spread, observado que (i) caso existam séries/classes de Cotas com Datas de Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 Resgate posteriores, pro fo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "4.3. Originação e Aquisição de Direitos Creditórios. O Originador celebrará com a Classe, ou o Fundo em benefício da Classe, o Acordo Operacional Originador, que regulará os termos e condições da indicação dos Devedores dos Direitos Creditórios, bem como os procedimentos operacionais de sua aquisição pela Classe. Adicionalmente, foram ou serão celebrados Contratos de Cessão entre os Cedentes e a Classe, regulando os termos e condições da cessão de Direitos Creditórios à Classe."
+    }
+   ],
+   "legacy": {
+    "value": "UPL e revendas cedentes; formalização e seleção regidas por acordo operacional",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "UPL do Brasil e revendas",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 140,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "Creditórios Revendas ou dos Direitos Creditórios UPL. UPL Significa a UPL DO BRASIL INDÚSTRIA E COMÉRCIO DE INSUMOS AGROPECUÁRIOS S.A., sociedade por ações com sede na Avenida Maeda, s/n, Térreo Prédio Comercial, Distrito Industrial, CEP 14500-000, na Cidade de Ituverava, no Estado de São Paulo, inscrita no CNPJ/ME sob o nº 02.974.733/0001- 52. Valor Disponível para Significa o montante em disponibilidades que poderá Pagamento de Prêmio ser pago ao Cotista Subordinado Mezanino a título de de Excesso de Spread Prêmio de Excesso de Spread, observado que (i) caso existam séries/classes de Cotas com Datas de Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 Resgate posteriores, pro fo"
+    },
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "da de titularidade da Revenda Cedente à Classe, sendo que referida cessão contará obrigatoriamente com coobrigação da Revenda; e (iii) no caso dos Direitos Creditórios UPL, por meio da celebração de Contrato de Cessão e Termos de Cessão entre o Fundo e a UPL, com a cessão do respectivo Direito Creditório UPL à Classe. 4.7. Formalização da Aquisição dos Direitos Creditórios Elegíveis. A aquisição primária pelo Fundo das CPR-F e dos CDCA emitidos pelos Devedores se dará pela subscrição pela Classe das CPR-F e dos CDCA, sendo a aquisição de referidos Direitos Creditórios Elegíveis considerada formalizada mediante a assinatura da CPR-F e/ou do CDCA pelo respectivo Devedor em benefício da Classe e o pagamento do respectivo Preço de Aquisição. 4.8. A cessão de Direitos Creditórios Elegíveis à Classe será considerada realizada após a formalização de cada Termo de Cessão ou Termo de Aquisição e o pagamento do respectivo Preço de Aquisição, nos termos deste Regulamento e de cada Contrato de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "UPL e revendas cedentes; formalização e seleção regidas por acordo operacional",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Produtores e clientes das revendas e da UPL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "4.6. Os Direitos Creditórios serão adquiridos pela Classe, observada a Política de Crédito, Originação e Cobrança, (i) no caso dos CDCA e das CPR-F emitidas de forma física, eletrônica ou digital pelos Devedores indicados pelo Originador e/ou por clientes de Revendas Cedentes, conforme o caso, por meio da aquisição primária direta destes títulos; (ii) no caso dos Direitos Creditórios Revenda, por meio da celebração eletrônica ou digital, de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Créditos de revenda com coobrigação obrigatória da revenda",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "da de titularidade da Revenda Cedente à Classe, sendo que referida cessão contará obrigatoriamente com coobrigação da Revenda; e (iii) no caso dos Direitos Creditórios UPL, por meio da celebração de Contrato de Cessão e Termos de Cessão entre o Fundo e a UPL, com a cessão do respectivo Direito Creditório UPL à Classe. 4.7. Formalização da Aquisição dos Direitos Creditórios Elegíveis. A aquisição primária pelo Fundo das CPR-F e dos CDCA emitidos pelos Devedores se dará pela subscrição pela Classe das CPR-F e dos CDCA, sendo a aquisição de referidos Direitos Creditórios Elegíveis considerada formalizada mediante a assinatura da CPR-F e/ou do CDCA pelo respectivo Devedor em benefício da Classe e o pagamento do respectivo Preço de Aquisição. 4.8. A cessão de Direitos Creditórios Elegíveis à Classe será considerada realizada após a formalização de cada Termo de Cessão ou Termo de Aquisição e o pagamento do respectivo Preço de Aquisição, nos termos deste Regulamento e de cada Contrato de Cessão."
+    },
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "cessão contará obrigatoriamente com coobrigação da Revenda; e (iii) no caso dos Direitos Creditórios UPL, por meio da celebração de Contrato de Cessão e Termos de Cessão entre o Fundo e a UPL, com a cessão do respectivo Direito Creditório UPL à Classe. 4.7. Formalização da Aquisição dos Direitos Creditórios Elegíveis."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos Revenda: coobrigação obrigatória da revenda; obrigações UPL não constituem coobrigação geral",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; valor fixo ou determinável; em reais",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "rá adquirir Direitos Creditórios que atendam, cumulativamente, até a respectiva Data de Aquisição, aos seguintes Critérios de Elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável; (b) os Direitos Creditórios deverão ser representados em moeda corrente nacional; (c) deverão ter prazo de vencimento de, no mínimo, 30 (trinta) dias corridos após a respectiva Data de Aquisição; (d) deverão ter data de vencimento anterior à última Data de Resgate Esperada das Cotas Seniores em circulação; (e) deverão ter prazo máximo de vencimento em até 12 (doze meses), com exceção de até 5% (cinco por cento) do Patrimônio Líquido que poderá aceitar Direitos Creditórios com prazo de até 18 (dezoito) meses, contados, em ambos os casos, a partir da respectiva Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou grupo: até 3% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "e pro forma a cessão pretendida, o valor de face dos Direitos Creditórios devidos de um mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderá representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente cadastrados junto ao Custodiante, com exceção de determinado Devedor integrante de Grupos Econômicos Especiais que, considerados individualmente e em conjunto com os demais integrantes de seu respectivo Grupo Econômico Especial, poderão representar concentração superior a 3% (três por cento) do Patrimônio Líquido, conforme previamente aprovados pelo Gestor conforme o disposto no Acordo de Prestadores Essenciais;"
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por cedente não localizado em trecho contínuo",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 109,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "Alocação Mínima de Significa a alocação de, pelo menos, 50% (cinquenta Investimento por cento) do Patrimônio Líquido em Direitos Creditórios Elegíveis."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos elegíveis≥50% do PL; critério tributário≥67% da carteira",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Subclasses descritas nos apêndices, sem trecho contínuo",
+   "sources": []
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação não localizado em trecho contínuo",
+   "sources": []
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Índice de subordinação não localizado em trecho contínuo",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": []
+  },
+  "reserve": {
+   "display": "Liquidez ≥ 1% do PL; reforço antes dos vencimentos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 66,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "mínimo, 1,0% (um por cento) do Patrimônio Líquido. 9.1.1. Especificamente nos períodos que antecedem qualquer Data de Amortização Total Esperada, com antecedência mínima de 12 (doze) meses mas não superior a 18 (dezoito) meses da respectiva Data de Resgate Esperada, o Fundo deverá acrescer ao montante da Reserva de Liquidez descrita no item 9.1 acima, o valor necessário para o pagamento da totalidade da"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidez≥1% do PL; reforço para vencimentos desde 12–18 meses antes da data",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Manual de provisão do administrador, sem trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Eventos convertidos em liquidação ou atraso da sênior sem cura, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "antecedência de 2 (dois) Dias Úteis até a realização da Assembleia mencionada que deliberará a respeito do Evento de Avaliação, e (ii) o pagamento de Remuneração e de Amortização de Principal de todas as Cotas Subordinadas e convocará imediatamente uma Assembleia de Cotistas, a qual decidirá, observado o quórum de deliberação de que trata este Anexo Descritivo, se o referido Evento de Avaliação deve ser ou não considerado um Evento de Liquidação An"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação por eventos convertidos em assembleia ou atraso remuneração sênior sem cura 2 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "Eventos de avaliação convertidos em liquidação, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 74,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "10.6. Eventos de Liquidação Antecipada. Além das hipóteses previstas na regulamentação, são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências: (a) se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação Antecipada; (b) não pagamento de Remuneração às Cotas Seniores na respectiva Data de Pagamento, e desde que tal inadimplemento não seja sanado em até 2 (dois) - 78 - Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 Dias Úteis da Data de Pagamento, exceto para a respectiva Data de Resgate, período que não estará sujeito a prazo de cura;"
+    }
+   ],
+   "legacy": {
+    "value": "Liquidação por eventos convertidos em assembleia ou atraso remuneração sênior sem cura 2 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência admitida, observada a ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 38,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "09DA54FC0 4.24. Segmento Econômico dos Direitos Creditórios: Agronegócio. 4.25. Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe. 4.26. É permitido ao Gestor vender Direitos Creditórios a terceiros por preço inferior ao Preço de Aquisição desembolsado pela Classe para a aquisição do respectivo Direito Creditório e atualizado pela taxa de desconto praticada pelo Fundo quando do investimento, calculado até a data da efetiva venda, observados os termos do Acordo de Prestadores Essenciais. 4.27. O Fundo, em benefício da Classe, poderá realizar operações com Derivativos exclusivamente com o objetivo de proteção patrimonial. O Gestor deverá observar a Política de Investimento em Derivativos para o investimento em Derivativos, observada a limitação acima. 4.27.1."
+    }
+   ],
+   "legacy": {
+    "value": "Aquisições durante período de investimento conforme elegibilidade; após cessão pode haver alienação/renegociação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Carência e metas no apêndice; cronograma fechado não identificado",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,085% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 100,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "correspondente a 0,085% (oitenta e cinco milésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) sobre o Patrimônio Líquido do Fundo em cada Dia Útil, observado o mínimo mensal de R$ 20.000,00 (vinte mil reais);"
+    }
+   ],
+   "legacy": {
+    "value": "0,085% a.a. sobre PL; mínimoR$ 20 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,36% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "de gestão profissional da carteira do Fundo, o valor correspondente a 0,36% (trinta e seis centésimos por cento) ao ano sobre o valor do Patrimônio Líquido, observado o valor mínimo mensal de R$180.000,00 (cento e oitenta mil reais). 12.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "0,36% a.a. sobre PL; mínimoR$ 180 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 12/06/2025, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance remetida ao anexo descritivo",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "DI +sobretaxa por subclasse; modelos sem spread final e datas preenchidos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "DI +sobretaxa por subclasse; modelos sem spread final e datas preenchidos",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 107,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "elo Fundo, assim como outras avenças. Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 instituição com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, Sala 201, CEP 22640-102, inscrita no CNPJ/ME sob o nº 36.113.876/0001-91, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários por meio do Ato Declaratório nº 6.696, expedido em 21 de fevereiro de 2002. Agência de Significa a agência classificadora de risco contratada Classificação de Ris"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Farmtech Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 127,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "reditórios Revendas, caso aplicáveis. Gestor Significa a FARMTECH GESTAO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 4.509, conjunto 91 e 94, CEP 04538-133, Itaim Bibi, inscrita no CNPJ sob o nº 20.043.909/0001-34, devidamente credenciada como administradora de carteira de valores mobiliários pela CVM pelo Ato Declaratório nº 13.185, de 13 de agosto de 2014, na qualidade de gestor de recursos. Grupo Econômico Significa cada conglomerado econômico de pessoas que controlem, sejam controladas por, ou estejam sob controle comum de determinada entidade ou que"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 29,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "3. PÚBLICO-ALVO DA CLASSE E INVESTIMENTO MÍNIMO 3.1. Público-Alvo. O público-alvo da Classe é composto exclusivamente por Investidores Autorizados. 3.2. Investimento Mínimo. Não há investimento inicial mínimo na Classe. 4."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores autorizados conforme definição da versão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "as disposições legais e normativas que lhe forem aplicáveis. 2.3. Prazo de Duração. O Fundo terá prazo de duração indeterminado. 2.4. Classe de Cota. Conforme disposições específicas da Resolução CVM 175/22, enquanto não estiver em vigor a possibilidade do Fundo possuir diferentes Classes, o Fundo deverá efetuar emissão de Cotas em Classe. Quando estiver em vigor a possibilidade do Fundo possuir diferentes Classes e houver deliberação conjunta do Administrador e do Gestor para a constituição de uma nova Classe com patrimônio -7- Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 segregado, o Fundo possuirá diferentes Classes, observadas as disposições da Resolução CVM 175/22. 3. PRESTADORES DE SERVIÇOS Prestadores de Serviços Essenciais 3.1. Administrador. O Fundo será administrado pelo Administrador."
+    }
+   ],
+   "legacy": {
+    "value": "Indeterminado; investidores autorizados conforme definição da versão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "CDCA, CPR-F e vendas de insumos da UPL e de revendas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo, cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "4.6. Os Direitos Creditórios serão adquiridos pela Classe, observada a Política de Crédito, Originação e Cobrança, (i) no caso dos CDCA e das CPR-F emitidas de forma física, eletrônica ou digital pelos Devedores indicados pelo Originador e/ou por clientes de Revendas Cedentes, conforme o caso, por meio da aquisição primária direta destes títulos; (ii) no caso dos Direitos Creditórios Revenda, por meio da celebração eletrônica ou digital, de"
+    },
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 140,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "Creditórios Revendas ou dos Direitos Creditórios UPL. UPL Significa a UPL DO BRASIL INDÚSTRIA E COMÉRCIO DE INSUMOS AGROPECUÁRIOS S.A., sociedade por ações com sede na Avenida Maeda, s/n, Térreo Prédio Comercial, Distrito Industrial, CEP 14500-000, na Cidade de Ituverava, no Estado de São Paulo, inscrita no CNPJ/ME sob o nº 02.974.733/0001- 52. Valor Disponível para Significa o montante em disponibilidades que poderá Pagamento de Prêmio ser pago ao Cotista Subordinado Mezanino a título de de Excesso de Spread Prêmio de Excesso de Spread, observado que (i) caso existam séries/classes de Cotas com Datas de Corporativo | Interno Docusign Envelope ID: 96B89750-D917-44F8-B5E5-4FD09DA54FC0 Resgate posteriores, pro fo"
+    }
+   ],
+   "legacy": {
+    "value": "Agronegócio: CDCA, CPR-F, direitos Revenda e direitos UPL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "Coobrigação das revendas nos créditos de revenda",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "928360",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "12/06/2025",
+     "page": 30,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=928360",
+     "excerpt": "da de titularidade da Revenda Cedente à Classe, sendo que referida cessão contará obrigatoriamente com coobrigação da Revenda; e (iii) no caso dos Direitos Creditórios UPL, por meio da celebração de Contrato de Cessão e Termos de Cessão entre o Fundo e a UPL, com a cessão do respectivo Direito Creditório UPL à Classe. 4.7. Formalização da Aquisição dos Direitos Creditórios Elegíveis. A aquisição primária pelo Fundo das CPR-F e dos CDCA emitidos pelos Devedores se dará pela subscrição pela Classe das CPR-F e dos CDCA, sendo a aquisição de referidos Direitos Creditórios Elegíveis considerada formalizada mediante a assinatura da CPR-F e/ou do CDCA pelo respectivo Devedor em benefício da Classe e o pagamento do respectivo Preço de Aquisição. 4.8. A cessão de Direitos Creditórios Elegíveis à Classe será considerada realizada após a formalização de cada Termo de Cessão ou Termo de Aquisição e o pagamento do respectivo Preço de Aquisição, nos termos deste Regulamento e de cada Contrato de Cessão."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis agro da UPL e de revendas com coobrigação destas; devedor ou grupo ≤ 3% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

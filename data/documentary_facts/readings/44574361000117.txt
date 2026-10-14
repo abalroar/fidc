@@ -1,0 +1,45 @@
+# FIDC UPL 02 (Oliveira Trust; Farmtech Gestão; UPL e revendas)
+type: Agro/FIAGRO
+q1: * "Administrador Significa a OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q2: * "Gestor Significa a FARMTECH GESTAO DE RECURSOS LTDA."
+q3: * "UPL Significa a UPL DO BRASIL INDÚSTRIA E COMÉRCIO DE INSUMOS AGROPECUÁRIOS S.A."
+q4: * "seguintes Critérios de Elegibilidade: (a) não poderão estar vencidos e devem possuir valor fixo e determinado ou determinável"
+q5: * "mesmo Devedor (considerado em conjunto com as demais integrantes do seu Grupo Econômico), não poderá representar concentração superior a 3%"
+q6: * "coobrigação da Revenda; e (iii) no caso dos Direitos Creditórios UPL, por meio da celebração de Contrato de Cessão"
+q7: * "são considerados Eventos de Liquidação Antecipada da Classe qualquer das seguintes ocorrências"
+q8: * "Revolvência: observada a Ordem de Alocação de Recursos, será admitida a revolvência dos Direitos Creditórios que compõe a carteira da Classe"
+q9: * "prazo de duração indeterminado. 2.4. Classe de Cota"
+receivables: CDCA, CPR-F e direitos de revendas e da UPL do agronegócio | o1
+agro_backing: CDCA, CPR-F e vendas de insumos da UPL e de revendas | o1,q3
+originator: UPL do Brasil e revendas cedentes | q3,o4
+assignor: UPL do Brasil e revendas | q3,q6
+debtor: Produtores e clientes das revendas e da UPL | o1
+recourse: Créditos de revenda com coobrigação obrigatória da revenda | q6,o12
+eligibility: Não vencidos; valor fixo ou determinável; em reais | q4
+debtor_limit: Por devedor ou grupo: até 3% do PL | q5 | value=3
+assignor_limit: n/d | Limite por cedente não localizado em trecho contínuo
+term_max: n/d | Prazo máximo não localizado em trecho contínuo
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | o24 | value=50
+quota_structure: n/d | Subclasses descritas nos apêndices, sem trecho contínuo
+sub_senior: n/d | Índice de subordinação não localizado em trecho contínuo
+sub_mezz: n/d | Índice de subordinação não localizado em trecho contínuo
+sub_check: n/d | Periodicidade de apuração não localizada
+reserve: Liquidez ≥ 1% do PL; reforço antes dos vencimentos | o37
+pdd: n/d | Manual de provisão do administrador, sem trecho contínuo
+eval_triggers: Eventos convertidos em liquidação ou atraso da sênior sem cura, entre outros | o43
+liquidation: Eventos de avaliação convertidos em liquidação, entre outros | q7
+revolving: Revolvência admitida, observada a ordem de alocação | q8
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,085% a.a. do PL, com mínimo mensal | o55
+mgmt_fee: 0,36% a.a. do PL, com mínimo mensal | o58
+perf_fee: n/d | Taxa de performance remetida ao anexo descritivo
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Oliveira Trust DTVM | q1
+manager: Farmtech Gestão de Recursos | q2
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: n/d | Agente de cobrança não nomeado em trecho contínuo
+investors: Investidores autorizados | o76
+duration: Indeterminado | q9
+collateral: Coobrigação das revendas nos créditos de revenda | q6
+leitura: Recebíveis agro da UPL e de revendas com coobrigação destas; devedor ou grupo ≤ 3% do PL.
