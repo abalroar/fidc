@@ -1,0 +1,862 @@
+{
+ "schema_version": 1,
+ "cnpj": "39669950000149",
+ "name": "Fundo de Investimento em Direitos Creditórios Somacred Bach - Responsabilidade Limitada",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T07:45:53Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1325583",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "21/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1325583"
+  },
+  "D2": {
+   "document_id": "1315007",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "10/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1315007"
+  },
+  "D3": {
+   "document_id": "1238679",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "30/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679"
+  },
+  "D4": {
+   "document_id": "1325707",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1325707"
+  },
+  "D5": {
+   "document_id": "1274911",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "31/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1274911"
+  },
+  "D6": {
+   "document_id": "1100611",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "03/02/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1100611"
+  },
+  "D7": {
+   "document_id": "952630",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "24/07/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=952630"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Empréstimos consignados de servidores e militares, via Sabemi",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "2004, emitidas pelos Devedores, através da Plataforma, em favor das Cedentes, cujas parcelas sejam pagas através de consignação realizada pelos Entes Públicos Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditó"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditórios devidos pelos variações Devedores, que consiste em consignação para desconto das parcelas vincendas"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito consignado: contratos de assistência financeira",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Sabemi Seguradora e Sabemi Previdência Privada",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditórios devidos pelos variações Devedores, que consiste em consignação para desconto das parcelas vincendas"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 108,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "ulamento contendo as características da Classe Única do Fundo. “Sabemi” a SABEMI SEGURADORA S.A., sociedade com sede na cidade de Porto Alegre, estado do Rio Grande do Sul, na Rua Sete de Setembro, nº 515, prédio 513, térreo, 5º e 9º andares, Centro Histórico, CEP 90010-190, inscrita no CNPJ sob o nº 87.163.234/0001-38. “Sabemi Previdência a SABEMI PREVIDÊNCIA PRIVADA, entidade aberta de previdência Privada” complementar com sede na cidade de Porto Alegre, estado do Rio Grande do Sul, na Rua Sete de Setembro, nº 515, prédio 513, 4º andar, Centro Histórico, CEP 90010-190, inscrita no CNPJ sob o nº 88.747.928/0001-85. \"Suplemento das Cotas O documento elaborado nos moldes do Anexo II ao Regulamento, contendo os Subordinadas Mezanino\" Parâmetros da Oferta, os Parâmetros de Pagamento, o Fator de Ponderação de Di"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Sabemi Seguradora e Sabemi Previdência Privada",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditórios devidos pelos variações Devedores, que consiste em consignação para desconto das parcelas vincendas"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 108,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "ulamento contendo as características da Classe Única do Fundo. “Sabemi” a SABEMI SEGURADORA S.A., sociedade com sede na cidade de Porto Alegre, estado do Rio Grande do Sul, na Rua Sete de Setembro, nº 515, prédio 513, térreo, 5º e 9º andares, Centro Histórico, CEP 90010-190, inscrita no CNPJ sob o nº 87.163.234/0001-38. “Sabemi Previdência a SABEMI PREVIDÊNCIA PRIVADA, entidade aberta de previdência Privada” complementar com sede na cidade de Porto Alegre, estado do Rio Grande do Sul, na Rua Sete de Setembro, nº 515, prédio 513, 4º andar, Centro Histórico, CEP 90010-190, inscrita no CNPJ sob o nº 88.747.928/0001-85. \"Suplemento das Cotas O documento elaborado nos moldes do Anexo II ao Regulamento, contendo os Subordinadas Mezanino\" Parâmetros da Oferta, os Parâmetros de Pagamento, o Fator de Ponderação de Di"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Servidores e militares com desconto em folha dos entes conveniados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "2004, emitidas pelos Devedores, através da Plataforma, em favor das Cedentes, cujas parcelas sejam pagas através de consignação realizada pelos Entes Públicos Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditó"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação não descritas em trecho localizável",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Até 120 parcelas; parcela ≥ R$ 30; todas as parcelas vincendas; não vencido",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "o 15º A Classe somente poderá adquirir os Direitos Creditórios que atendam exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, conforme a modalidade de Direito Creditório, na respectiva Data de Oferta de Direitos Creditórios: (i) os Contratos de Assistência Financeira correspondentes aos Direitos Creditórios a serem cedidos à Classe devem possuir, individualmente, no máximo, 120 (cento e vinte) parcelas na respectiva data de aquisição; (ii) cada parcela do Direito Creditório a ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais);"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "nte, no máximo, 120 (cento e vinte) parcelas na respectiva data de aquisição; (ii) cada parcela do Direito Creditório a ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais); (iii) o Devedor não deve ter, na data da cessão pretendida, saldo devedor junto à Classe, representado por um ou mais Direitos Creditório, considerada pro forma a cessão pretendida, em valor total presente, com base na taxa da cessão, superior aos seguintes valores: Idade do Devedor na data da Saldo devedor máximo cessão pretendida De 21 anos até 64 anos 11 meses e 29 R$ 350.000,00 dias De 65 anos até 66 anos 11 meses e 29 R$ 250.000,00 dias De 67 anos até 69 anos, 11 meses e 29 R$ 200.000,00 dias De 70 anos até 71 anos, 11 meses e 29 R$ 125.000,00"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 44,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "e sejam amortizadas mensalmente, representados por Documentos Comprobatórios; (iii) os Direitos Creditórios oferecidos em cessão à Classe deverão ter como objeto a totalidade das parcelas vincendas de um mesmo Contrato de Assistência Financeira; (iv) os Direitos Creditórios oferecidos em cessão à Classe e os respectivos Contratos de Assistência Financeira, no momento da aquisição pela Classe, não estão sob questionamentos ou discussões judiciais, parcial ou totalmente, de que qualquer das Cedentes seja parte; (v) os Direitos Creditórios oferecidos em cessão à Classe não poderão estar vencidos e devem necessariamente estar livres e desembaraçados de quaisquer ônus, gravames ou restrições de qualquer natureza, e o respectivo Contrato de Assistência Financeira não poderá ter parcela vencida e não paga, no momento da cessão à Classe, perante a Cedente ou fundos de investimento para os quais a respectiva Cedente tenha cedido recebíveis de mesmas características dos Direitos Creditórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Até 120parcelas; parcela≥R$ 30; saldo por devedor≤R$ 125 mil; adimplente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, Anexo VIII"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor de R$ 350 mil (até 64 anos) a R$ 125 mil (70–71 anos)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais); (iii) o Devedor não deve ter, na data da cessão pretendida, saldo devedor junto à Classe, representado por um ou mais Direitos Creditório, considerada pro forma a cessão pretendida, em valor total presente, com base na taxa da cessão, superior aos seguintes valores: Idade do Devedor na data da Saldo devedor máximo cessão pretendida De 21 anos até 64 anos 11 meses e 29 R$ 350.000,00 dias De 65 anos até 66 anos 11 meses e 29 R$ 250.000,00 dias De 67 anos até 69 anos, 11 meses e 29 R$ 200.000,00 dias De 70 anos até 71 anos, 11 meses e 29 R$ 125.000,00 dias (iv) os respectivos Devedores dos Contratos de Assistência Financeira n"
+    }
+   ],
+   "legacy": {
+    "value": "Exército Brasileiro:65%–100% PL; devedor/grupo≤20% PL com exceções legais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, Anexo VIII"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedentes do mesmo grupo Sabemi",
+   "sources": [],
+   "legacy": {
+    "value": "Exército Brasileiro:65%–100% PL; devedor/grupo≤20% PL com exceções legais",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 120 parcelas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "o 15º A Classe somente poderá adquirir os Direitos Creditórios que atendam exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, conforme a modalidade de Direito Creditório, na respectiva Data de Oferta de Direitos Creditórios: (i) os Contratos de Assistência Financeira correspondentes aos Direitos Creditórios a serem cedidos à Classe devem possuir, individualmente, no máximo, 120 (cento e vinte) parcelas na respectiva data de aquisição; (ii) cada parcela do Direito Creditório a ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais);"
+    }
+   ],
+   "legacy": {
+    "value": "Até 120parcelas; parcela≥R$ 30; saldo por devedor≤R$ 125 mil; adimplente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, Anexo VIII"
+   }
+  },
+  "allocation": {
+   "display": "Até 100% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 41,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "s nos termos da Circular SUSEP e na legislação e regulamentação aplicável. Parágrafo Primeiro O Patrimônio Líquido da Classe poderá ser composto por até 100% (cem por cento) de Direitos Creditórios. Página 50 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC Parágrafo Segundo As Cedentes mantêm Convênio com os Entes Públicos Conveniados para que os empréstimos consignados concedidos aos Devedores representativos dos Direitos Creditórios sejam objeto de Consignação. Parágrafo Terceiro A Classe poderá alocar até 100% (cem por cento) do seu Patrimônio Líquido, desde que observada a constituição da Reserva de Despesas e Encargos e Reserva de MtM, em Direitos Creditórios Elegíveis cedidos pelas Cedente, as quais também poderão prestar à Classe os serviços de cobrança dos Direitos Creditórios Inadimplidos. Parágrafo Quarto Os Direitos Creditórios serão sempre adquiridos pela Classe, nos termos do respectivo Contrato de Cessão, mediante a celebração, por via eletrônica, de Termo de Cessão e, se for o caso, Recibo de Cessão com as respectivas Cedentes, no"
+    }
+   ],
+   "legacy": {
+    "value": "Busca67% tributários após180 dias; glossário diverge67% numérico/50% extenso",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / B / C / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 127,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "na 135 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC “Índice de Subordinação É o resultado mínimo obrigatório, de 11,98% (onze inteiros e noventa e oito Sênior” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 15,98% (quinze inteiros e noventa e oito Sênior Ajustado” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposição Líquida Derivativo, caso a Classe seja devedora, por (b) o valor do Patrimônio Líquido subtraído da Exposição Líquida Derivativo,"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 125,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "do, quando referidos em conjunto. “Índice de Subordinação É o resultado mínimo obrigatório, de 4,98% (quatro inteiros e noventa e oito Mezanino A” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Mezanino B, Cotas Subordinadas Mezanino C e das Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 8,98% (oito inteiros e noventa e oito Mezanino A Ajustado” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Mezanino B, Cotas Subordinadas Mezanino C e das Cotas Subordinadas Júnior em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adiciona"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 126,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "elo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 1% (um por cento), calculado através da Mezanino C” divisão de (a) o somatório do valor de todas as Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 1,1% (um inteiro e um décimo por cento), Mezanino C Ajustado” calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Júnior em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposição Líquida Derivativo, caso a Classe seja devedora, por (b) o valor do Patrimônio Líquido subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposiç"
+    }
+   ],
+   "legacy": {
+    "value": "2ª emissão: sênior 5ª série e mezz A/B/C3ª série",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_senior": {
+   "display": "11,98% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 127,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "na 135 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC “Índice de Subordinação É o resultado mínimo obrigatório, de 11,98% (onze inteiros e noventa e oito Sênior” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 15,98% (quinze inteiros e noventa e oito Sênior Ajustado” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposição Líquida Derivativo, caso a Classe seja devedora, por (b) o valor do Patrimônio Líquido subtraído da Exposição Líquida Derivativo,"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 11.98,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A 4,98%; mezanino C (júnior) 1%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 125,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "do, quando referidos em conjunto. “Índice de Subordinação É o resultado mínimo obrigatório, de 4,98% (quatro inteiros e noventa e oito Mezanino A” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Mezanino B, Cotas Subordinadas Mezanino C e das Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 8,98% (oito inteiros e noventa e oito Mezanino A Ajustado” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Mezanino B, Cotas Subordinadas Mezanino C e das Cotas Subordinadas Júnior em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adiciona"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 126,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "elo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 1% (um por cento), calculado através da Mezanino C” divisão de (a) o somatório do valor de todas as Cotas Subordinadas Júnior em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 1,1% (um inteiro e um décimo por cento), Mezanino C Ajustado” calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas Júnior em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposição Líquida Derivativo, caso a Classe seja devedora, por (b) o valor do Patrimônio Líquido subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposiç"
+    }
+   ],
+   "basis": "jr/PL",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pelo custodiante",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 127,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "na 135 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC “Índice de Subordinação É o resultado mínimo obrigatório, de 11,98% (onze inteiros e noventa e oito Sênior” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação, por (b) o valor do Patrimônio Líquido, expresso na forma percentual, conforme apurada pelo Custodiante em cada Dia Útil. “Índice de Subordinação É o resultado mínimo obrigatório, de 15,98% (quinze inteiros e noventa e oito Sênior Ajustado” centésimos por cento), calculado através da divisão de (a) o somatório do valor de todas as Cotas Subordinadas em circulação subtraído da Exposição Líquida Derivativo, caso a Classe seja credora, ou adicionado da Exposição Líquida Derivativo, caso a Classe seja devedora, por (b) o valor do Patrimônio Líquido subtraído da Exposição Líquida Derivativo,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de despesas não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Reserva de despesas e MTM mensal negativo; também aquisição e liquidação",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito em trecho localizável",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Falta do relatório de gestão por 15 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 75,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "função. CAPÍTULO XVI – EVENTOS DE AVALIAÇÃO Artigo 74º São Eventos de Avaliação: I. não divulgação, pela Gestora, do Relatório de Gestão, desde que no prazo de 15 (quinze) Dias Úteis contados da respectiva Data de Envio do Relatório de Gestão e (1) o envio do referido relatório não seja sanado pela Gestora e (2) não seja encaminhado, pelo próprio Custodiante à Administradora, relatório contendo as informações previstas nos itens 1.1.1(a)(1), 1.1.1(a)(2) e 1.1.1(a)(7) a 1.1.1(a)(15) do Artigo 10º XXVII, da Parte Geral do Regulamento e, se disponibilizado pelo Custodiante, referido relatório não seja (a) validado e complementado pela Administradora, com as informações previstas no item 1.1.1(a)(3), Artigo 10º XXVII, da Parte Geral do Regulamento; e (b) disponibilizado, pela Administradora aos Cotistas, conforme item Artigo 7º XXI, da Parte Geral do Regulamento; II."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Eventos de insolvência ou determinação da CVM, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 79,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "interrompidas. CAPÍTULO XVII – EVENTOS DE LIQUIDAÇÃO ANTECIPADA E LIQUIDAÇÃO DA CLASSE Artigo 80º São Eventos de Liquidação Antecipada quaisquer das seguintes ocorrências: I. a ocorrência de Eventos de Insolvência; II. caso seja deliberado, em Assembleia Especial de Cotistas, que um Evento de Avaliação configura um Evento de Liquidação Antecipada; III. nos casos em que houver determinação da CVM, nos termos da regulamentação aplicável; IV. caso, na hipótese de renúncia da Administradora, da Gestora e/ou do Custodiante, em 120 (cento e vinte) dias contados da realização da Assembleia Geral de Cotistas para a deliberação sobre a sua substituição, não seja definido um substituto para o referido prestador de serviço, observados os procedimentos e prazos descritos no CAPÍTULO IV, o substituto escolhido não assuma efetivamente as funções da Administradora, da Gestora ou Custodiante, conforme o caso; ou V."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência no período de alocação, com índices enquadrados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 42,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "Financeiros poderão ser aplicados ou reinvestidos em novos Direitos Creditórios ou Ativos Financeiros (revolvência), observada a ordem de alocação de recursos e desde que: I. durante o Período de Alocação; II. os novos Direitos Creditórios a serem adquiridos se enquadrem na política de investimento descrita neste Anexo Descritivo; III. os Índices de Subordinação e Índices de Subordinação Ajustados e Índices de Cobertura sejam devidamente cumpridos; IV. não estejam em curso quaisquer Eventos de Avaliação e/ou Eventos de Liquidação. Artigo 13º Além das vedações previstas na Resolução CVM 175, é vedado à Classe: I. aplicar em Ativos Financeiros de emissão de pessoas físicas; II. aplicar recursos diretamente no exterior ou em cotas de fundos de investimento cuja política de investimento autorize a aquisição de ativos financeiros negociados no exterior; III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "Taxa global de 0,185% a.a. até R$ 300 mi de PL, regressiva; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 84,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, assegurado um mínimo mensal de R$ 20.000,00 (vinte mil reais) corrigido anualmente pelo IGP-M, divulgado pela FGV. Todos os valores deverão ser pagos até o 5º (quinto) Dia Útil do mês subsequente ao vencido Faixas Percentual (% a.a.) Até R$ 300.000.000,00 0,185% Entre R$ 300.000.000,01 a R$ 500.000.000,00 0,160% Entre R$ 500.000.000,01 a R$ 700.000.000,00 0,140% Página 93 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC Entre R$ 700.000.000,01 a R$ 1.000.000.000,00 0,120% Acima de R$ 1.000.000.000,01 0,100% Artigo 93º Para a participação e a implementação das decisões tomadas em reunião formal ou nas Assembleias, o Fundo pagará à Administradora uma remuneração adicional equivalente a R$ 700,00 (setecentos re"
+    }
+   ],
+   "legacy": {
+    "value": "Taxa global:0,185%/0,160%/0,140%/0,120%/0,100% a.a. por faixas PL",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "Incluída na taxa global dos prestadores essenciais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 84,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "DA ADMINISTRADORA E DA GESTORA E DEMAIS ENCARGOS DA CLASSE DE COTAS Artigo 92º Taxa Global dos Prestadores de Serviço Essenciais: Pelos serviços de administração, controladoria, custódia, escrituração e gestão será devida pela Classe aos Prestadores de Serviço Essenciais, uma remuneração , baseada em percentual ao ano sobre o Patrimônio Líquido da Classe, conforme as faixas estabelecidas abaixo, calculada e apropriada diariamente, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, assegurado um mínimo mensal de R$ 20.000,00 (vinte mil reais) corrigido anualmente pelo IGP-M, divulgado pela FGV."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento remete eventual performance ao anexo descritivo",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 19,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "da CVM, a Gestora deve fiscalizar as atividades do terceiro contratado relacionadas ao Fundo. Artigo 18º Adicionalmente à Taxa de Gestão, o Anexo Descritivo poderá prever que a Gestora fará jus a uma remuneração a título de performance pela valorização das Cotas do Fundo. Artigo 19º Eventual previsão de uma taxa máxima de distribuição que seja cobrada com base no Patrimônio Líquido do Fundo estará descrita no respectivo Anexo Descritivo. Artigo 20º Eventual previsão de remuneração aos distribuidores contratados pelo Fundo no âmbito da respectiva oferta pública de Cotas deverá ser prevista no respectivo Suplemento, observadas as condições para novas emissões de Cotas. Artigo 21º A Administradora e/ou a Gestora, conforme aplicável, podem estabelecer que parcelas da Taxa de Administração e/ou da Taxa de Gestão sejam pagas diretamente pelo Fundo aos prestadores de serviço contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração e/ou da Taxa de Gestão. CAPÍTULO VI – DA CONSULTORIA ESPECIALIZADA, CUSTÓDIA, CONTROLADORIA E ESCRITURAÇÃO Artigo 22º O"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada subclasse",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 6,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "de futuros. CAPÍTULO III – DOS PRESTADORES DE SERVIÇOS ESSENCIAIS Artigo 6º As atividades de administração do Fundo serão exercidas pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria administração fiduciária, conforme Ato Declaratório CVM nº 21.369 de 20/10/2023, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, n.º 2365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, na qualidade de Administradora, que terá poderes para praticar todos os atos necessários à administração do Fundo, na sua respectiva esfera de atuação. Parágrafo Primeiro A Administradora deverá exercer suas atividades buscando sempre as melhores condições para o Fundo, empregando o cuidado e a diligência que todo homem ativo e probo costuma dispensar à administração de seus próprios negócios, atuando com lealdade em relação aos interesses dos Cotistas, do Fundo e da Classe, evitando práticas que possam ferir a relação fiduciária e resp"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1325583",
+     "kind": "Regulamento",
+     "title": "Instrumento Particular de Alteração do Regulamento",
+     "date": "21/09/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1325583",
+     "excerpt": "M nº 21.369, de 20 de outubro de 2023, na qualidade de instituição administradora (“Administradora”), e a VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, devidamente autorizada pela CVM a prestar os serviços de administração de carteiras de títulos e valores mobiliários, na categoria gestor de recursos, nos termos do Ato Declaratório nº 17.249, de 11 de julho de 2019, na qualidade de gestora (“Gestora” e, em conjunto com a Administradora, “Prestadores de Serviços Essenciais”) do FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SOMACRED BACH – RESPONSABILIDADE LIMITADA, fundo de investimento em direitos creditórios constituído sob a forma de condomínio fechado, inscrito no CNPJ/MF sob o nº 39.669.950/0001-49, regido pela Resolução da CVM nº 175, de 23 de dezembro de 2022, conforme alterada (“Resolução CVM 175”), pelo seu regulamento em vigor (“Regulamento”), pelo anexo descritivo de sua classe única de cotas (“Anexo Descritivo” e “Classe”,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 115,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "DBBECE7AFC “CRTD” Cartório de Registro de Títulos e Documentos. “Custodiante” A VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada, devidamente autorizada pela CVM a prestar os serviços de custódia e escrituração de valores mobiliários para terceiros. “CVM” A Comissão de Valores Mobiliários. “Data de Aquisição e Cada data em que ocorra a celebração de Termo de Cessão e, conforme o caso, respectivo Recibo de Cessão, bem como o pagamento do respectivo Preço de Pagamento” Aquisição às respectivas Cedentes, com relação a cada aquisição de Direitos Creditórios pela Classe."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Sabemi (cedentes), como agentes de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 105,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "classificação de risco, ou sua sucessora a qualquer título. “Agentes de Cobrança” As Cedentes, ou seus respectivos sucessores a qualquer título, contratado para realizar a cobrança dos Direitos Creditórios Inadimplidos, nos termos do Contrato de Cobrança de Direitos Creditórios Inadimplidos. “Agente de Conta O BANCO SANTANDER (BRASIL) S.A., instituição financeira com sede na Cidade Fiduciária” ou “Banco de São Paulo, Estado de São Paulo, na Avenida Presidente Juscelino Kubitschek, Santander” nºs 2.041, Bloco A, Página 114 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC conjunto 281, Vila Nova Conceição, CEP 04543-011, inscrito no CNPJ sob o nº 90.400.888/0001-42, o qual poderá ser substituído por uma Instituição Autorizada uma ou mais vezes pela Administradora, por orientação da Gestora, sem"
+    },
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 111,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "Conveniados por meio de Consignação, nos termos da legislação aplicável. “Cedentes” em conjunto, a Sabemi e a Sabemi Previdência Privada. “Classe” ou “Classe A classe única de Cotas emitida pelo Fundo, cujas características estão descritas Única” no Anexo Descritivo. “Circular SUSEP” A Circular da Superintendência de Seguros Privados nº 600, de 13 de abril de 2020. “Código ANBIMA” O Código de Regulação e Melhores Práticas para Administração de Recursos de Terceiros da ANBIMA. “Condições de Cessão” As condições para seleção dos Direitos Creditórios a serem adquiridos pelo Fundo, a serem verificados pela Consultora Especializada, nos termos do CAPÍTULO IV do Anexo Descritivo. “Consignação” e suas A forma ordinária de recebimento dos Direitos Creditórios devidos pelos variações Devedores, que consiste em consignação para desconto das parcelas vincendas"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores autorizados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 36,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "de Duração estipulado no respectivo Suplemento. Parágrafo Quarto A Classe Única é destinada a Investidores Autorizados que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira da Classe, e aceitem os riscos associados aos investimentos da Classe, observado, contudo, que, na hipótese de determinada(s) Subclasse(s) de Cotas vir(em) a ser ofertada(s) publicamente por meio do rito de registro automático de distribuição previsto no Artigo 27, Inciso I, da Resolução CVM nº 160 será admitida, para os fins da oferta em questão, a participação exclusiva de Investidores Profissionais, assim definidos nos termos do Artigo 11 da Resolução CVM nº 30. Parágrafo Quinto Investidores não residentes poderão adquirir Cotas da Classe, desde que estejam devidamente registrados perante a CVM, nos termos da Resolução do CMN nº 4.373, de 29 de setembro de 2014, conforme alterada, e da Resolução da CVM nº 13, de 18 de novembro de 2020. Parágrafo Sexto A Classe Única se enquadra como classe restrita, nos termos do art. 111 da parte geral da Resolução CVM nº 175, para os f"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 5,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "e seguintes do Código Civil Brasileiro, da Lei nº 6.385, de 07 de dezembro de 1976, conforme alterada, com prazo de duração indeterminado, regido pelo presente Regulamento, que inclui esta Parte Geral, o Anexo Descritivo da Classe Única, os Suplementos e demais anexos, pela Resolução do Conselho Monetário Nacional nº 2.907, de 29 de novembro de 2001, conforme alterada, pela Resolução CVM nº 175 e pelas demais disposições legais e regulamentares aplicáveis. Artigo 2º Os termos e expressões utilizados neste Regulamento, quando iniciados por letra maiúscula, têm o significado a eles atribuídos no Anexo I ao presente Regulamento. Além disso, (a) sempre que exigido pelo contexto, as definições contidas neste Regulamento aplicar-se-ão tanto no singular quanto no plural e o gênero masculino incluirá o feminino e vice-versa; (b) referências a qualquer documento ou outros instrumentos incluem todas as suas alterações, substituições, consolidações e respectivas complementações, salvo se expressamente disposto de forma diferente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Exército Brasileiro de 65% a 100% do PL; SIAPE até 35%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "o deverão ser observados, considerando-se o valor total presente: Ente Público Limite mínimo de Limite máximo de Conveniado concentração em concentração em relação ao Patrimônio relação ao Patrimônio Líquido Líquido Exército Brasileiro 65% 100% Página 55 de 209 Docusign Envelope ID: 7EE4E9C1-3960-88C6-8231-49DBBECE7AFC SIAPE 0% 35% Aeronáutica 0% 12% Marinha 0% 5% (vi) considerada pro forma a aquisição dos Direitos Creditórios ofertados, o valor das Disponibilidades deverá ser igual ou superior ao va"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Limite de saldo cai com a idade, até a faixa de 70–71 anos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais); (iii) o Devedor não deve ter, na data da cessão pretendida, saldo devedor junto à Classe, representado por um ou mais Direitos Creditório, considerada pro forma a cessão pretendida, em valor total presente, com base na taxa da cessão, superior aos seguintes valores: Idade do Devedor na data da Saldo devedor máximo cessão pretendida De 21 anos até 64 anos 11 meses e 29 R$ 350.000,00 dias De 65 anos até 66 anos 11 meses e 29 R$ 250.000,00 dias De 67 anos até 69 anos, 11 meses e 29 R$ 200.000,00 dias De 70 anos até 71 anos, 11 meses e 29 R$ 125.000,00 dias (iv) os respectivos Devedores dos Contratos de Assistência Financeira n"
+    }
+   ],
+   "legacy": {
+    "value": "Até 120parcelas; parcela≥R$ 30; saldo por devedor≤R$ 125 mil; adimplente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, Anexo VIII"
+   }
+  },
+  "installment_min": {
+   "display": "Parcela mínima de R$ 30",
+   "status": "confirmed",
+   "unit": "brl",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D3",
+     "document_id": "1238679",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "30/06/2026",
+     "page": 46,
+     "clause": "Anexo VIII",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1238679",
+     "excerpt": "nte, no máximo, 120 (cento e vinte) parcelas na respectiva data de aquisição; (ii) cada parcela do Direito Creditório a ser cedido à Classe deve ter valor nominal mínimo de R$ 30,00 (trinta reais); (iii) o Devedor não deve ter, na data da cessão pretendida, saldo devedor junto à Classe, representado por um ou mais Direitos Creditório, considerada pro forma a cessão pretendida, em valor total presente, com base na taxa da cessão, superior aos seguintes valores: Idade do Devedor na data da Saldo devedor máximo cessão pretendida De 21 anos até 64 anos 11 meses e 29 R$ 350.000,00 dias De 65 anos até 66 anos 11 meses e 29 R$ 250.000,00 dias De 67 anos até 69 anos, 11 meses e 29 R$ 200.000,00 dias De 70 anos até 71 anos, 11 meses e 29 R$ 125.000,00"
+    }
+   ],
+   "value": 30.0,
+   "legacy": {
+    "value": "Até 120parcelas; parcela≥R$ 30; saldo por devedor≤R$ 125 mil; adimplente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 30/06/2026, Anexo VIII"
+   }
+  }
+ },
+ "leitura": "Consignado de militares do Exército via Sabemi; subordinação sênior de 11,98% e parcela mínima de R$ 30.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
