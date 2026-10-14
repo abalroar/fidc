@@ -1,0 +1,778 @@
+{
+ "schema_version": 1,
+ "cnpj": "63615161000100",
+ "name": "ROBBIN PAGAMENTOS I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+ "fund_type": "Outros",
+ "reviewed_at": "2026-10-14T01:47:52Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1333831",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "24/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831"
+  },
+  "D2": {
+   "document_id": "1324657",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "21/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324657"
+  },
+  "D3": {
+   "document_id": "1263726",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "24/07/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1263726"
+  },
+  "D4": {
+   "document_id": "1211290",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "01/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1211290"
+  },
+  "D5": {
+   "document_id": "1211287",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "02/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1211287"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Outros",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Parcelas de CCBs de clientes da Robbin endossadas à classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "de 2020. “Direitos Creditórios Os Direitos Creditórios integrantes da carteira da Classe. Endossados”: “Direitos Creditórios”: Os direitos creditórios oriundos de cada uma das parcelas das CCBs. Integram os Direitos Creditórios, para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. “Disponibilidades”: Recursos em caixa ou Ativos Financeiros de Liquidez. “Documentos Os seguintes documentos relativos a cada Direito Creditório: os Complementares”: Documentos de Identificação do(s) representante(s) legal(is) do Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "Parcelas de CCBs endossadas; fluxo de pagamentos e cobrança pelo originador",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Robbin Pagamentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "8 “MDA”: Módulo de Distribuição de Ativos. “Originador”: ROBBIN PAGAMENTOS LTDA., sociedade empresária limitada com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.811, CEP 01452-001, Jardim Paulistano, inscrita no CNPJ sob nº 54.095.386/0001-91. “Parceiro B2B”: Significam os parceiros comerciais do Originador, para os quais o Originador oferece solução financeira e de fidelização junto aos clientes dos referidos parceiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Robbin Pagamentos, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "8 “MDA”: Módulo de Distribuição de Ativos. “Originador”: ROBBIN PAGAMENTOS LTDA., sociedade empresária limitada com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.811, CEP 01452-001, Jardim Paulistano, inscrita no CNPJ sob nº 54.095.386/0001-91. “Parceiro B2B”: Significam os parceiros comerciais do Originador, para os quais o Originador oferece solução financeira e de fidelização junto aos clientes dos referidos parceiros;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 5,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "de 2020. “Direitos Creditórios Os Direitos Creditórios integrantes da carteira da Classe. Endossados”: “Direitos Creditórios”: Os direitos creditórios oriundos de cada uma das parcelas das CCBs. Integram os Direitos Creditórios, para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. “Disponibilidades”: Recursos em caixa ou Ativos Financeiros de Liquidez. “Documentos Os seguintes documentos relativos a cada Direito Creditório: os Complementares”: Documentos de Identificação do(s) representante(s) legal(is) do Devedor;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Emitentes das CCBs, constituídos há ao menos 6 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "dos pela Administradora ou pela de Serviços”: Gestora, em nome do Fundo, nos termos da cláusula 4 do Anexo. “Devedores”: Os emitentes das CCBs, na qualidade de devedores dos Direitos Creditórios. “Dia Útil”: Cada dia útil, para fins de operações praticadas no mercado financeiro, 4 conforme especificado na Resolução CMN nº 4.880, de 23 de dezembro de 2020. “Direitos Creditórios Os Direitos Creditórios integrantes da carteira da Classe. Endossados”: “Direitos Creditórios”: Os direitos creditórios oriundos de cada uma das parcelas das CCBs. Integram os Direitos Creditórios, para todos os fins, mas a tanto não se limitando, todos os direitos (inclusive direitos reais de garantia), privilégios, preferências, prerrogativas, seguros e ações a eles relacionados, bem como reajustes monetários, juros e encargos. “Disponibilidades”: Recursos em caixa ou Ativos Financeiros de Liquidez. “Documentos Os seguintes documentos relativos a cada Direito Creditório: os Complementares”: Documentos"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 44,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "reditórios deverá ser feito respeitando a fórmula do Preço de Aquisição definida no Contrato de Endosso; (c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na Data de Aquisição; (d) os Devedores dos Direitos Creditórios não poderão ter, na Data de Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe; (e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da emissão da respectiva CCB; (f) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar taxa média mínima de endosso de 2,30% a.m. (dois inteiros e trinta centésimos por cento ao mês), enquanto a subordinação em favor das Cotas Subordinadas Mezanino A for igual ou superior a 50% (cinquenta por cento); caso a subordinação em favor das Cotas Subordinadas Mezanino A seja inferior a 50% (cinquenta por cento), permanecerá aplicável a taxa média mínima de endosso de 2,49% a.m."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Recompra obrigatória pela originadora em até 5 dias úteis, nos eventos do contrato",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ompra Significa, em relação a Originadora, a obrigação de realizar a recompra Obrigatória”: compulsória, em até 5 (cinco) Dias Úteis, contados de notificação pelo Fundo, na ocorrência de um dos eventos de aquisição compulsória, em relação a determinado(s) Direito(s) Creditório(s), conforme descritos no Contrato de Endosso, de modo que a Originadora se obriga de forma definitiva, irrevogável e irretratável a pagar ao Fundo os valores devidos, independentemente de (i) eventuais prejuízos efetivamente incorridos pelo Fundo; (ii) culpa ou dolo por parte do Originador e/ou da Via Capital; ou (iii) da efetiva comprovação da existência, validade, eficácia ou exigibilidade dos Direitos Creditórios, quando do pagamento da Recompra Obrigatória. “Regulamento”: O regulamento do Fundo."
+    }
+   ],
+   "legacy": {
+    "value": "Inconsistência relevante do lastro gera recompra obrigatória pelo originador",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Sem parcela vencida; devedor sem atraso e com 6+ meses; taxa mínima de 2,30% a.m.",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 44,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "reditórios deverá ser feito respeitando a fórmula do Preço de Aquisição definida no Contrato de Endosso; (c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na Data de Aquisição; (d) os Devedores dos Direitos Creditórios não poderão ter, na Data de Aquisição, outros Direitos Creditórios vencidos e não pagos à Classe; (e) o Devedor deverá ter sido constituído pelo menos 6 (seis) meses antes da emissão da respectiva CCB; (f) considerada pro forma a aquisição pretendida, os Direitos Creditórios Endossados deverão observar taxa média mínima de endosso de 2,30% a.m. (dois inteiros e trinta centésimos por cento ao mês), enquanto a subordinação em favor das Cotas Subordinadas Mezanino A for igual ou superior a 50% (cinquenta por cento); caso a subordinação em favor das Cotas Subordinadas Mezanino A seja inferior a 50% (cinquenta por cento), permanecerá aplicável a taxa média mínima de endosso de 2,49% a.m."
+    }
+   ],
+   "legacy": {
+    "value": "BRL; sem vencidos; PJ constituída há≥6 meses; prazo≤12 meses; taxa de endosso 2,30%/2,49% a.m. conforme subordinação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 8.1"
+   }
+  },
+  "debtor_limit": {
+   "display": "Grupo econômico ≤ 20% do PL; limites menores conforme subordinação",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 39,
+     "clause": "cl. 6.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "epresentar até 100% (cem por cento) do Patrimônio Líquido. 6.5 A aplicação de recursos em Direitos Creditórios e em Ativos Financeiros de Liquidez de responsabilidade ou Coobrigação de um mesmo devedor estará limitada a 20% (vinte por cento) do Patrimônio Líquido. Para fins deste item 6.5, consideram-se de um mesmo devedor, os Direitos Creditórios e os Ativos Financeiros de Liquidez de responsabilidade ou Coobrigação de devedores integrantes de um mesmo grupo econômico. 6.5.1 A Gestora deverá assegurar que, na consolidação das aplicações da Classe com as das classes cujas cotas venham a ser adquiridas pela Classe, o limite 39 previsto no item 6.5 acima seja observado."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Grupo maior≤20% do PL quando proteção mezanino A≥50%; abaixo, maior entre 2,5% do PL/R$ 2,5 mi; demais grupos≤1% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 6.5"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente único: a originadora",
+   "sources": [],
+   "legacy": {
+    "value": "Grupo maior≤20% do PL quando proteção mezanino A≥50%; abaixo, maior entre 2,5% do PL/R$ 2,5 mi; demais grupos≤1% do PL",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo das CCBs não localizado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "BRL; sem vencidos; PJ constituída há≥6 meses; prazo≤12 meses; taxa de endosso 2,30%/2,49% a.m. conforme subordinação",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ços de classificação de risco das Cotas. “Agente de Cobrança”: O Originador, ou o seu sucessor a qualquer título. “Alocação Mínima”: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Endossados, conforme definido pelo Conselho Monetário Nacional e CVM. “ANBIMA”: Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo”: Anexo descritivo da Classe, o qual será parte integrante do Regulamento. “Apêndice”: Apêndice descritivo de cada subclasse ou série de Cotas, elaborado conforme um dos modelos constantes nos Suplementos E a H do Anexo. 1 “Assembleia”: Assembleia geral ou especial de Cotistas, ordinária ou extraordinária. “Ativos Financeiros de Ativos financeiros que poderão integrar a carteira da Classe, conforme Liquidez”: definidos no item 6.3 do Anexo. “Auditor Empresa de auditoria independente registrada na CVM contratada pela Independente”: Administradora, em nome do Fundo, para prestar os serviços de"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos endossados≥67% do PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 1.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / Mezanino B / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 57,
+     "clause": "cl. 11.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "s das Cotas Subordinadas Júnior serão estabelecidas no Apêndice da respectiva emissão. Índices de Subordinação 11.6 A Classe deverá observar (i) o Índice de Subordinação Sênior de 50% (cinquenta por cento); (ii) o Índice de Subordinação Mezanino A será de 35% (trinta e cinco por cento) enquanto o Patrimônio Líquido do Fundo for igual ou inferior a R$ 60.000.000,00 (sessenta milhões de reais), de 33% (trinta e três por cento) quando o Patrimônio Líquido 57 do Fundo for superior a R$ 60.000.000,00 (sessenta milhões de reais) e igual ou inferior a R$ 80.000.000,00 (oitenta milhões de reais), e de 30% (trinta por cento) quando o Patrimônio Líquido do Fundo for superior a R$ 80.000.000,00 (oitenta milhões de reais;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "otas Mezanino B e às Cotas Subordinadas Júnior para efeitos de amortização e resgate. “Cotas Mezanino B”: Cotas que se subordinam às Cotas Seniores e às Cotas Mezanino A para efeitos de amortização e resgate e que não se subordinam às Cotas Subordinadas Júnior para efeitos de amortização e resgate. “Cotas Mezanino”: Em conjunto, as Cotas Mezanino A e as Cotas Mezanino B. “Cotas Seniores”: Cotas que não se subordinam às Cotas Mezanino e às Cotas Subordinadas Júnior para efeitos de amortização e resgate. “Cotas Subordinada Cotas que se subordinam às Cotas Seniores e às Cotas Mezanino para Júnior”: efeitos de amortização e resgate. 3 “Cotas”: As Cotas Seniores, as Cotas Mezanino e as Cotas Subordinada, quando referidas em conjunto e indistintamente. “Cotista”: Titular das Cotas devidamente inscrito no registro de cotistas do Fundo e que farão jus ao recebimento de qualquer valor devido nos termos desse Regulamento, que seja(m) Cotista(s"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: todas subordinadas/PL≥50%; mezanino A: (B+júnior)/PL≥35%/33%/30% por faixasPL; júnior/PL≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 11.5.1"
+   }
+  },
+  "sub_senior": {
+   "display": "50% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 57,
+     "clause": "cl. 11.5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "s das Cotas Subordinadas Júnior serão estabelecidas no Apêndice da respectiva emissão. Índices de Subordinação 11.6 A Classe deverá observar (i) o Índice de Subordinação Sênior de 50% (cinquenta por cento); (ii) o Índice de Subordinação Mezanino A será de 35% (trinta e cinco por cento) enquanto o Patrimônio Líquido do Fundo for igual ou inferior a R$ 60.000.000,00 (sessenta milhões de reais), de 33% (trinta e três por cento) quando o Patrimônio Líquido 57 do Fundo for superior a R$ 60.000.000,00 (sessenta milhões de reais) e igual ou inferior a R$ 80.000.000,00 (oitenta milhões de reais), e de 30% (trinta por cento) quando o Patrimônio Líquido do Fundo for superior a R$ 80.000.000,00 (oitenta milhões de reais;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 50.0,
+   "legacy": {
+    "value": "Sênior: todas subordinadas/PL≥50%; mezanino A: (B+júnior)/PL≥35%/33%/30% por faixasPL; júnior/PL≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 11.5.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A: 35% a 30% conforme faixa de PL; mezanino B: 15%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 57,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ndices de Subordinação 11.6 A Classe deverá observar (i) o Índice de Subordinação Sênior de 50% (cinquenta por cento); (ii) o Índice de Subordinação Mezanino A será de 35% (trinta e cinco por cento) enquanto o Patrimônio Líquido do Fundo for igual ou inferior a R$ 60.000.000,00 (sessenta milhões de reais), de 33% (trinta e três por cento) quando o Patrimônio Líquido 57 do Fundo for superior a R$ 60.000.000,00 (sessenta milhões de reais) e igual ou inferior a R$ 80.000.000,00 (oitenta milhões de reais), e de 30% (trinta por cento) quando o Patrimônio Líquido do Fundo for superior a R$ 80.000.000,00 (oitenta milhões de reais; e (iii) o Índice de Subordinação Mezanino B de 15% (quinze por cento). 11.7 Na hipótese de desenquadramento de quaisquer Índices de Subordinação, os Cotistas titulares das Cotas Mezanino e/ou das Cotas Subordinadas Júnior, conforme o caso, serão prontamente comunicados pela Administradora. 11.7.1 Os Cotistas deverão responder à comunicação da Administradora, até o 1º (primeiro) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Mezanino ou Cotas Subordinada, conforme o caso."
+    }
+   ],
+   "basis": "jr/PL",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Desenquadramento comunicado aos cotistas, com prazo para aporte",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 58,
+     "clause": "cl. 11.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "r a R$ 80.000.000,00 (oitenta milhões de reais; e (iii) o Índice de Subordinação Mezanino B de 15% (quinze por cento). 11.7 Na hipótese de desenquadramento de quaisquer Índices de Subordinação, os Cotistas titulares das Cotas Mezanino e/ou das Cotas Subordinadas Júnior, conforme o caso, serão prontamente comunicados pela Administradora. 11.7.1 Os Cotistas deverão responder à comunicação da Administradora, até o 1º (primeiro) Dia Útil subsequente à data do seu recebimento, informando, por escrito, se desejam ou não integralizar novas Cotas Mezanino ou Cotas Subordinada, conforme o caso."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior: todas subordinadas/PL≥50%; mezanino A: (B+júnior)/PL≥35%/33%/30% por faixasPL; júnior/PL≥15%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 11.6"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de encargos para os 2 meses seguintes",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 65,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "liquidação da Classe, equivalente à estimativa do valor necessário para o pagamento dos encargos do Fundo e da Classe, referente aos 2 (dois) meses subsequentes (“Reserva de Encargos”). 14.2 Os procedimentos descritos nesta cláusula 14 não constituem promessa ou garantia, por parte da Administradora, de que haverá recursos suficientes para a constituição ou a recomposição da Reserva de Encargos, representando apenas um objetivo a ser perseguido. 14.3 Os recursos da Reserva de Encargos serão mantidos em Disponibilidades. 15. ORDEM DE ALOCAÇÃO DOS RECURSOS 15.1 A partir da Data de Início do Fundo e até a liquidação da Classe, os recursos decorrentes da integralização das Cotas e do pagamento dos ativos integrantes da carteira da Classe serão alocados na seguinte ordem (“Ordem de Alocação dos Recursos”): (a) em datas que não sejam Datas de Pagamento e desde que não esteja em curso a liquidação da Classe: (1) pagamento dos encargos do Fundo e da Classe, nos termos da cláusula 7 da parte geral do Regulamento e da regulamentação aplicável; (2) pagamento de operações com derivativos;"
+    }
+   ],
+   "legacy": {
+    "value": "2 meses de encargos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 67,
+     "clause": "cl. 16.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "eira da Classe serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. 16.4 O Patrimônio Líquido será equivalente ao valor das Disponibilidades, acrescido do valor dos Direitos Creditórios Endossados, deduzidas as exigibilidades e as provisões do Fundo. 16.5 As Cotas terão o seu valor calculado, todo Dia Útil, nos termos da cláusula 11 do Anexo. 17. PATRIMÔNIO LÍQUIDO NEGATIVO 17.1 Caso verifique, a qualquer tempo, que o Patrimônio Líquido está 67 negativo, a Administradora imediatamente (a) suspenderá a subscrição de novas Cotas e o pagamento da amortização e do resgate das Cotas; (b) comunicará a verificação do Patrimônio Líquido negativo à Gestora, que deverá interromper a aquisição de novos Direitos Creditórios; (c) divulgará fato relevante, nos termos do item 9.2 acima;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Recuperação judicial ou falência do originador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 70,
+     "clause": "cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ENTOS DE AVALIAÇÃO E EVENTOS DE LIQUIDAÇÃO 19.1 A Classe poderá ser liquidada por deliberação da Assembleia. 19.2 São considerados eventos de avaliação (“Eventos de Avaliação”): (a) (i) proposta pelo Originador ou pelo Agente de Cobrança, a qualquer credor ou classe de credores de plano de recuperação judicial ou extrajudicial, independentemente de ter sido requerida ou obtida homologação judicial do referido plano; ou (ii) requerimento pelo Originador ou pelo Agente de Cobrança de recuperação judicial, independentemente de deferimento do processamento da recuperação ou de sua concessão pelo juiz competente; ou, ainda, (iii) pedido de autofalência pelo Originador ou pelo Agente de Cobrança; ou (iv) caso o Originador ou o Agente de Cobrança seja submetido a processo de intervenção ou liquidação extrajudicial, inicie processo de renegociação de dívidas, ou outro procedimento de natureza similar, ou situação de endividamento que evidencie a iminência de que ocorra tal fato, conforme aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "FPD 30>8,50% por safra; recebimentos<90%; cobertura≤1; subordinação fora por 5 DU; originador deve reter≥67% das juniores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 19.1"
+   }
+  },
+  "liquidation": {
+   "display": "Falta de créditos elegíveis; PL < R$ 1 mi por 3 meses, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 74,
+     "clause": "cl. 19.2.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "b) acima deverão ser 73 cessadas. 19.3 São considerados eventos de liquidação (“Eventos de Liquidação”): (a) impossibilidade de aquisição de Direitos Creditórios que atendam à política de investimento da Classe, incluindo os Critérios de Elegibilidade e Condições de Endosso; (b) caso seja deliberado, em Assembleia de Cotistas, nos termos da Resolução 175; (c) manutenção do Patrimônio Líquido da Classe Única inferior a R$ 1.000.000,00 (um milhão de reais) por período de 3 (três) meses consecutivos; (d) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175; (e) caso, na hipótese de renúncia de qualquer dos Prestadores de Serviços Essenciais, em 180 (cento e oitenta) dias contados da realização da Assembleia Especial para a deliberação sobre a sua substituição, não seja definido um substituto para o referido prestador de serviço, observados os procedimentos descritos neste Anexo Descritivo;"
+    }
+   ],
+   "legacy": {
+    "value": "FPD 30>8,50% por safra; recebimentos<90%; cobertura≤1; subordinação fora por 5 DU; originador deve reter≥67% das juniores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 19.2.4"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante todo o prazo da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 42,
+     "clause": "cl. 7.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "egitimidade, pela validade, pela exigibilidade e pela correta formalização dos Direitos Creditórios Adquiridos. 7.3 Será permitida a revolvência da carteira da Classe, ou seja, a aquisição de novos Direitos Creditórios pela Classe com a utilização de recursos decorrentes do pagamento dos Direitos Creditórios Endossados, durante todo o prazo de duração da Classe, respeitada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo. 7.4 O processo de originação dos Direitos Creditórios e a Política de Crédito, adotada pelo Originador na análise dos Direitos Creditórios e dos respectivos Endossantes e Devedores, encontram-se descritos no Suplemento A deste Anexo. 7.5 Cada Parceiro B2B deverá ser previamente aprovado pela Gestora, como condição para que os respectivos Devedores sejam considerados elegíveis para endosso dos respectivos Direitos Creditórios à Classe."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "Conforme apêndice de cada série, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 64,
+     "clause": "cl. 13",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ÇÃO E RESGATE DAS COTAS 63 13.1 Observada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo, em cada Data de Pagamento, os Cotistas titulares das Cotas Seniores e das Cotas Mezanino de cada subclasse e série farão jus ao pagamento da amortização ou do resgate das suas Cotas, de acordo com o estabelecido no respectivo Apêndice, mediante (a) o pagamento da remuneração, equivalente à diferença positiva entre (1) o valor unitário das Cotas Seniores e das Cotas Mezanino, conforme o caso, da respectiva subclasse e série, calculado nos termos da cláusula 12 do presente Anexo, na respectiva Data de Pagamento; e (2) o valor unitário das Cotas Seniores e das Cotas Mezanino, conforme o caso, da respectiva subclasse e série, calculado nos termos da cláusula 12 deste Anexo, na respectiva data de integralização ou na Data de Pagamento imediatamente anterior, o que tiver ocorrido por último, após a dedução do valor pago a título de amortização;"
+    }
+   ],
+   "legacy": {
+    "value": "Encargos; derivativos; reserva; sênior; mezanino A; mezanino B; júnior; aquisições",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,12% a.a. do PL (mín. R$ 10 mil/mês) + 0,02% de custódia",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 37,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "o Fundo, a Classe pagará à Administradora uma taxa de administração, equivalente a (“Taxa de Administração”): (a) 0,12% (doze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de R$ 10.000,00 (dez mil reais) referente a administração fiduciária e controladoria; e (b) 0,02% (dois centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de R$ 2.800,00 (dois mil e oitocentos reais) referente a custódia e escrituração. 5.2 Pela prestação dos serviços de gestão do Fundo, a Classe pagará à Gestora uma taxa de gestão, equivalente a 0,60% (sessenta centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de (“Taxa de Gestão”): Período Valor mensal mínimo da Taxa de Gestão Da Data de Início do Fundo até o 6º (sexto) mês R$ 5.000,00"
+    }
+   ],
+   "legacy": {
+    "value": "0,12% a.a. sobre PL; mínimo R$ 10 mil/mês; IPCA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,60% a.a. do PL; mínimo mensal escalonado a partir de R$ 5 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 37,
+     "clause": "cl. 5.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "rvado o valor mensal mínimo de R$ 2.800,00 (dois mil e oitocentos reais) referente a custódia e escrituração. 5.2 Pela prestação dos serviços de gestão do Fundo, a Classe pagará à Gestora uma taxa de gestão, equivalente a 0,60% (sessenta centésimos por cento) ao ano incidente sobre o Patrimônio Líquido, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mensal mínimo de (“Taxa de Gestão”): Período Valor mensal mínimo da Taxa de Gestão Da Data de Início do Fundo até o 6º (sexto) mês R$ 5.000,00 (cinco mil reais) Do 7º (sétimo) ao 12º (décimo segundo) mês R$ 20.000,00 contados da Data de Início do Fundo (vinte mil reais) Após o 13º (décimo terceiro) mês contado da Data R$ 30.000,00 de Início do Fundo (trinta mil reais) 5.3 A Taxa de Administração e a Taxa de Gestão serão calculadas e provisionadas todo Dia Útil e pagas no 5º (quinto) Dia Útil do mês subsequente ao mês da prestação 37 d"
+    }
+   ],
+   "legacy": {
+    "value": "0,60% a.a. sobre PL; mínimo R$ 5 mil até 6º mês, R$ 20 mil 7º–12º, R$ 30 mil após 13º; IPCA",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 24/09/2026, cl. 5.1"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não menciona taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Índice referencial em branco no modelo de apêndice",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 79,
+     "clause": "cl. 21.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "realizadas pela Gestora, conforme os procedimentos definidos no boletim de subscrição das Cotas Seniores da 1ª Série]; (m) Índice Referencial: [=]% ([=] por cento) do [índice], acrescido de uma sobretaxa (spread) de [=]% ([=] por cento) ao ano; (n) meta de valorização: as Cotas Seniores da 1ª Série serão valorizadas todo Dia Útil, a partir do Dia Útil seguinte à Data da 1ª Integralização, sendo que a última valorização ocorrerá na respectiva data de resgate, nos termos da cláusula 12 do Anexo. A meta de valorização será calculada a partir da apropriação diária do Índice Referencial, sob a forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis; (o) período de carência para pagamento da remuneração: [não há // [=] ([=]) meses a contar da Data da 1ª Integralização]; (p) cronograma de pagamento da remuneração: a partir do 1º (primeiro) mês após o término do período de carência para pagamento da remuneração das Cotas Seniores da 1ª Série, [periodicidade]; (q) período de carência para amortização do principal: [não há // [=] ([=]) meses a contar da Data da 1ª Integralização];"
+    }
+   ]
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Índice referencial definido no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "ados a eles atribuídos nesta cláusula 1, aplicáveis tanto no singular quanto no plural: “Administradora”: BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 17.552, de 5 de dezembro de 2019, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou a sua sucessora a qualquer título. “Agência Classificadora Caso aplicável, qualquer agência classificadora de risco registrada na de Risco”: CVM, contratada pela Gestora, em nome do Fundo, para prestar os serviços de classificação de risco das Cotas. “Agente de Cobrança”: O Originador, ou o seu sucessor a qualquer título. “Alocação Mínima”: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Endossados, conforme definido pelo Conselho Monetário Nacional e CVM. “ANBIMA”: Associaç"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Augme Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "6 CREDITÓRIOS – RESPONSABILIDADE LIMITADA. “Gestora”: AUGME CAPITAL GESTÃO DE RECURSOS LTDA., sociedade devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de gestor de recursos, nos termos do Ato Declaratório CVM nº 16.559, de 20 de agosto de 2018, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Campos Bicudo, nº 98, conjunto 31, CEP 04536-010, inscrita no CNPJ sob o nº 23.360.896/0001-15, ou a sua sucessora a qualquer título. “Grupo Econômico”: Significa, em relação a cada Devedor, informações dos sócios (sejam eles pessoas físicas ou jurídicas) e de outras empresas nas quais tais sócios também participem, além dos sócios das empresas, os parentes próximos (mão, pai, irmãos) desses sócios até o 3º (terceiro) nível de relacionamento (“Níveis de Relacionamento”). Para fins do disposto acima, entende-se como Níveis de Relacionamento"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Daycoval",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "Critérios de elegibilidade dos Direitos Creditórios, definidos no item 8.1 Elegibilidade”: do Anexo. “Custodiante”: BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para a prestação de serviços de custódia de valores mobiliários, nos termos do Ato Declaratório CVM nº 1.085, de 30 de agosto de 1989, com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.793, Bela Vista, CEP 01311-200, inscrita no CNPJ sob o nº 62.232.889/0001-90, ou o seu sucessor a qualquer título. “CVM”: Comissão de Valores Mobiliários. “Data da Data da 1ª (primeira) integralização de Cotas de uma determinada 1ª Integralização”: subclasse ou série. “Data de Aquisição”: Cada data em que ocorrer a aquisição dos Direitos Creditórios pelo Fundo, por meio da celebração de Termo de Endosso. “Data de Início do Data da 1ª (primeira) integralização de Cotas, independentemente da Fundo”: subclasse ou série. “Data de Pagamento”: Cada data em que ocorrer a amortização ou o resgate das Cot"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Robbin Pagamentos (originador)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 1,
+     "clause": "cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "la Gestora, em nome do Fundo, para prestar os serviços de classificação de risco das Cotas. “Agente de Cobrança”: O Originador, ou o seu sucessor a qualquer título. “Alocação Mínima”: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios Endossados, conforme definido pelo Conselho Monetário Nacional e CVM. “ANBIMA”: Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo”: Anexo descritivo da Classe, o qual será parte integrante do Regulamento. “Apêndice”: Apêndice descritivo de cada subclasse ou série de Cotas, elaborado conforme um dos modelos constantes nos Suplementos E a H do Anexo. 1 “Assembleia”: Assembleia geral ou especial de Cotistas, ordinária ou extraordinária. “Ativos Financeiros de Ativos financeiros que poderão integrar a carteira da Classe, conforme Liquidez”: definidos no item 6.3 do Anexo. “Auditor Empresa de auditoria independente registrada na"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 9,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "8 “MDA”: Módulo de Distribuição de Ativos. “Originador”: ROBBIN PAGAMENTOS LTDA., sociedade empresária limitada com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.811, CEP 01452-001, Jardim Paulistano, inscrita no CNPJ sob nº 54.095.386/0001-91. “Parceiro B2B”: Significam os parceiros comerciais do Originador, para os quais o Originador oferece solução financeira e de fidelização junto aos clientes dos referidos parceiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "taú Unibanco S.A., (f) Banco XP S.A., e (g) Banco BTG Pactual S.A. “Investidores Investidores qualificados, conforme definidos no artigo 12 da Resolução Autorizados”: CVM nº 30, de 11 de maio de 2021. 8 “MDA”: Módulo de Distribuição de Ativos. “Originador”: ROBBIN PAGAMENTOS LTDA., sociedade empresária limitada com sede na cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 1.811, CEP 01452-001, Jardim Paulistano, inscrita no CNPJ sob nº 54.095.386/0001-91. “Parceiro B2B”: Significam os parceiros comerciais do Originador, para os quais o Originador oferece solução financeira e de fidelização junto aos clientes dos referidos parceiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1333831",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "24/09/2026",
+     "page": 33,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1333831",
+     "excerpt": "erá permitida a amortização das Cotas nos termos da cláusula 13 do presente Anexo. 2. PRAZO DE DURAÇÃO DA CLASSE 2.1 A Classe terá prazo de duração indeterminado. O prazo de duração de cada subclasse ou série de Cotas será definido no respectivo Apêndice. 3. PÚBLICO-ALVO DA CLASSE 3.1 As Cotas serão destinadas exclusivamente aos Investidores Autorizados. 4. DEMAIS PRESTADORES DE SERVIÇOS Demais Prestadores de Serviços contratados pela Administradora, em nome do Fundo 4.1 A Administradora poderá contratar, em nome do Fundo, com terceiros devidamente habilitados e autorizados, os serviços de: (a) tesouraria, controle e processamento dos ativos integrantes da carteira da Classe; (b) escrituração das Cotas; (c) auditoria independente; 33 (d) registro dos Direitos Creditórios Endossados na Entidade Registradora; (e) custódia dos Direitos Creditórios Endossados e dos Ativos Financeiros de Liquidez integrantes da carteira da Classe, incluindo os serviços previstos nos artigos 37 a 39 do Anexo Normativo II à Resolução CVM 175;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "CCBs de clientes empresariais da Robbin; sênior com 50% de subordinação e grupo econômico ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

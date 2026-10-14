@@ -1,0 +1,60 @@
+# Robbin Pagamentos I FIDC (Daycoval; Augme; originador Robbin)
+type: Outros
+q1: * "“Direitos Creditórios”: Os direitos creditórios oriundos de cada uma das parcelas das CCBs"
+q2: * "“Originador”: ROBBIN PAGAMENTOS LTDA."
+q3: * "“Devedores”: Os emitentes das CCBs, na qualidade de devedores dos Direitos Creditórios"
+q4: * "compulsória, em até 5 (cinco) Dias Úteis, contados de notificação pelo Fundo, na ocorrência de um dos eventos de aquisição compulsória"
+q5: * "(c) os Direitos Creditórios não poderão possuir parcela vencida e não paga na Data de Aquisição"
+q6: * "Ativos Financeiros de Liquidez de responsabilidade ou Coobrigação de um mesmo devedor estará limitada a 20% (vinte por cento) do Patrimônio Líquido"
+q7: * "“Alocação Mínima”: Percentual mínimo de 67% (sessenta e sete por cento) do Patrimônio Líquido"
+q8: * "11.6 A Classe deverá observar (i) o Índice de Subordinação Sênior de 50% (cinquenta por cento)"
+q9: * "(ii) o Índice de Subordinação Mezanino A será de 35% (trinta e cinco por cento)"
+q10: * "Mezanino B”: Cotas que se subordinam às Cotas Seniores e às Cotas Mezanino A"
+q11: * "11.7 Na hipótese de desenquadramento de quaisquer Índices de Subordinação"
+q12: * "referente aos 2 (dois) meses subsequentes (“Reserva de Encargos”)"
+q13: * "manual de provisão para perdas da Administradora, também disponível na sua página"
+q14: * "19.2 São considerados eventos de avaliação (“Eventos de Avaliação”): (a) (i) proposta pelo Originador"
+q15: * "19.3 São considerados eventos de liquidação (“Eventos de Liquidação”): (a) impossibilidade de aquisição"
+q16: * "7.3 Será permitida a revolvência da carteira da Classe"
+q17: * "13.1 Observada a ordem de alocação de recursos prevista na cláusula 15 do presente Anexo"
+q18: * "(a) 0,12% (doze centésimos por cento) ao ano incidente sobre o Patrimônio Líquido"
+q19: * "5.2 Pela prestação dos serviços de gestão do Fundo, a Classe pagará à Gestora uma taxa de gestão, equivalente a 0,60%"
+q20: * "BANCO DAYCOVAL S.A., instituição financeira devidamente autorizada pela CVM para o exercício profissional de administração de carteiras"
+q21: * "Gestora”: AUGME CAPITAL GESTÃO DE RECURSOS LTDA."
+q22: * "Custodiante”: BANCO DAYCOVAL S.A."
+q23: * "Agente de Cobrança”: O Originador, ou o seu sucessor a qualquer título"
+q24: * "Investidores qualificados, conforme definidos no artigo 12 da Resolução"
+q25: * "2.1 A Classe terá prazo de duração indeterminado"
+q26: * "(m) Índice Referencial: [=]% ([=] por cento) do [índice], acrescido de uma sobretaxa"
+receivables: Parcelas de CCBs de clientes da Robbin endossadas à classe | q1
+originator: Robbin Pagamentos | q2
+assignor: Robbin Pagamentos, por endosso das CCBs | q2,q1
+debtor: Emitentes das CCBs, constituídos há ao menos 6 meses | q3,q5
+recourse: Recompra obrigatória pela originadora em até 5 dias úteis, nos eventos do contrato | q4
+eligibility: Sem parcela vencida; devedor sem atraso e com 6+ meses; taxa mínima de 2,30% a.m. | q5
+debtor_limit: Grupo econômico ≤ 20% do PL; limites menores conforme subordinação | q6 | value=20
+assignor_limit: — | Cedente único: a originadora
+term_max: n/d | Prazo máximo das CCBs não localizado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% do PL em direitos creditórios | q7 | value=67
+quota_structure: Sênior / Mezanino A / Mezanino B / Subordinada júnior | q8,q10
+sub_senior: 50% · subord./PL | q8 | basis=mez+jr/PL | value=50
+sub_mezz: Mezanino A: 35% a 30% conforme faixa de PL; mezanino B: 15% | q9 | basis=jr/PL | value=none
+sub_check: Desenquadramento comunicado aos cotistas, com prazo para aporte | q11
+reserve: Reserva de encargos para os 2 meses seguintes | q12
+pdd: Manual de provisão para perdas da administradora | q13
+eval_triggers: Recuperação judicial ou falência do originador, entre outros | q14
+liquidation: Falta de créditos elegíveis; PL < R$ 1 mi por 3 meses, entre outros | q15
+revolving: Revolvência durante todo o prazo da classe | q16
+amortization: Conforme apêndice de cada série, pela ordem de alocação | q17
+admin_fee: 0,12% a.a. do PL (mín. R$ 10 mil/mês) + 0,02% de custódia | q18
+mgmt_fee: 0,60% a.a. do PL; mínimo mensal escalonado a partir de R$ 5 mil | q19
+perf_fee: n/d | Regulamento não menciona taxa de performance
+target_senior: n/d | Índice referencial em branco no modelo de apêndice | q26
+target_mezz: n/d | Índice referencial definido no apêndice de cada série
+administrator: Banco Daycoval | q20
+manager: Augme Capital | q21
+custodian: Banco Daycoval | q22
+servicer: Robbin Pagamentos (originador) | q23,q2
+investors: Investidores qualificados | q24
+duration: Indeterminado | q25
+leitura: CCBs de clientes empresariais da Robbin; sênior com 50% de subordinação e grupo econômico ≤ 20% do PL.
