@@ -293,3 +293,42 @@ def test_small_percent_axes_keep_neighbouring_ticks_distinct():
     spec = visuals.roll_rates_chart(frame, portfolio_mode=True).to_dict(validate=True)
     assert "',.2f'" in spec["layer"][0]["encoding"]["y"]["axis"]["labelExpr"]
     assert {row["valor_fmt"] for row in _rows(spec, spec["layer"][0]) if row["valor"] is not None} == {"0,08%", "0,10%", "0,13%"}
+
+
+def _quota_frame(percent: bool) -> pd.DataFrame:
+    dates = pd.to_datetime(["2026-08-01"] * 3 + ["2026-09-01"] * 3)
+    values = [82.6, 13.5, 3.9] * 2 if percent else [169_670_840.0, 27_790_667.0, 7_969_982.0] * 2
+    frame = pd.DataFrame({
+        "competencia": dates.strftime("%m/%Y"), "competencia_dt": dates,
+        "serie": ["Sênior", "Mezzanino", "Subordinada"] * 2,
+        "percentual" if percent else "valor": values,
+    })
+    return ime._portfolio_order_quota_frame(frame)
+
+
+def _layer_rows(spec: dict, layer: dict) -> list[dict]:
+    return spec["datasets"][layer["data"]["name"]]
+
+
+def test_quota_percent_chart_stays_within_100_without_total_labels_or_legend_title():
+    order, colors = ["Sênior", "Mezzanino", "Subordinada"], ["#6e6e6e", "#ff5a00", "#111111"]
+    spec = ime._portfolio_quota_stack_chart(_quota_frame(True), percent=True, series_order=order, colors=colors).to_dict(validate=True)
+    bars = spec["layer"][0]["encoding"]
+    assert bars["y"]["scale"]["domain"] == [0.0, 100.0]
+    assert bars["color"]["legend"]["title"] is None
+    assert bars["x"]["scale"]["paddingInner"] == 0.25
+    texts = [row["label_text"] for layer in spec["layer"][1:] for row in _layer_rows(spec, layer)]
+    assert "100%" not in texts
+    # Wide segments are labelled inside every bar; the narrow one only on the latest bar.
+    assert texts.count("83%") == 2 and texts.count("14%") == 2 and texts.count("3,9%") == 1
+
+
+def test_quota_value_chart_reads_in_mm_with_totals():
+    order, colors = ["Sênior", "Mezzanino", "Subordinada"], ["#6e6e6e", "#ff5a00", "#111111"]
+    spec = ime._portfolio_quota_stack_chart(_quota_frame(False), percent=False, series_order=order, colors=colors).to_dict(validate=True)
+    assert spec["layer"][0]["encoding"]["y"]["axis"]["title"] == "R$ mm"
+    totals = [row["total_text"] for row in _layer_rows(spec, spec["layer"][-1])]
+    assert totals == ["205,4", "205,4"]
+    assert ime._portfolio_money_label(255_690.66) == "R$ 0,26 mm"
+    assert ime._portfolio_money_label(1_000.0) == "R$ <0,01 mm"
+    assert ime._portfolio_money_label(206_300_000.0) == "R$ 206,3 mm"
