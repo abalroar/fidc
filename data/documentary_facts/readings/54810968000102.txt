@@ -1,0 +1,56 @@
+# portado de 53270983000142 (54810968000102)
+type: FGTS
+q1: * "Credor Original Significa a QI SOCIEDADE DE CRÉDITO DIRETO S.A."
+q2: * "stimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário"
+q3: * "5.1. Em cada cessão de Direitos Creditórios à Classe A, os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00"
+q5: * "A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior o valor das Cotas Subordinadas"
+q6: * "A relação equivalente a, no mínimo, 8% (oito por cento) entre: Mezanino (a) o valor das Cotas Subordinadas Jún"
+q7: * "Até R$ 500 milhões 0,10% De R$ 500 milhões a R$ 1 0,08% R$ 12.000,00 0,03% R$ 3.500,00"
+q8: * "Patrimônio Líquido da Classe A Taxa de Gestão (% a.a.) Até R$ 500 milhões 0,67%"
+q9: * "Não serão cobradas dos Cotistas taxas de performance, ingresso e saída"
+q10: * "Administradora Significa O BANCO DAYCOVAL S.A."
+q11: * "Custodiante É o BANCO DAYCOVAL S.A."
+q12: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo"
+q13: * "10.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à Administradora convocar uma Assembleia Especial"
+q14: * "Público-Alvo Investidores Profissionais"
+q15: * "Prazo de Duração Indeterminado"
+q16: * "ursos financeiros originados na carteira de Direitos Creditórios (revolvência)"
+q17: * "O cálculo da provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no Adendo IV"
+q18: * "contratos de correspondente bancário com a Originadora e sejam responsáveis por emitir as CCB endossá-las"
+q19: * "100% CDI + 1,80% a.a."
+receivables: CCBs de empréstimo pessoal garantidas pelo saque-aniversário FGTS | q2
+originator: QI SCD (credor original) e endossantes correspondentes | q1,q18
+assignor: endossantes ligados à originadora por correspondência bancária | q18
+debtor: Pessoas físicas titulares de FGTS com saque-aniversário | q2
+recourse: n/d | Recompra e resolução regidas pelos contratos de endosso
+eligibility: Devedor sem atraso no fundo; saldo ≤ R$ 120 mil por devedor | q3,q4
+debtor_limit: Saldo por devedor ≤ R$ 120 mil | q4
+assignor_limit: Não previsto | Regulamento limita por devedor, não por endossante
+term_max: n/d | Prazo máximo da CCB não localizado no texto extraído
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 8% · jr/PL | q6 | basis=jr/PL
+sub_check: Apuração conforme o anexo | q5
+reserve: n/d | Valor das reservas de caixa e liquidez não localizado no texto extraído
+pdd: Provisão conforme o adendo IV do anexo | q17
+eval_triggers: Intervenção ou falência de endossante ou do credor original, entre outros | q13
+liquidation: n/d | Eventos de liquidação não localizados separadamente no texto extraído
+revolving: Revolvência com recursos da carteira | q16
+amortization: n/d | Cronograma definido nos suplementos das séries
+admin_fee: 0,10% a.a. até R$ 500 mi, regressiva; mín. R$ 12 mil; custódia 0,03% | q7
+mgmt_fee: 0,67% a.a. até R$ 500 mi | q8
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: CDI + 1,80% a.a. (série sênior, nas demonstrações de 2024) | q19
+target_mezz: n/d | Suplemento da mezanino não está no acervo
+administrator: Banco Daycoval | q10
+manager: Angá Administração de Recursos | q12
+custodian: Banco Daycoval (0,03% a.a.; mín. R$ 3.500/mês) | q11,q7
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q14
+duration: Indeterminado | q15
+payroll: Cessão fiduciária do saque-aniversário FGTS | q2
+age_limit: n/d | Limite de idade não localizado no texto extraído
+installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído
+leitura: Antecipação de FGTS originada pela QI SCD com 20% de subordinação e júnior ≥ 8%; saldo por devedor ≤ R$ 120 mil.

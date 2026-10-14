@@ -1,0 +1,57 @@
+# Wellgrow FIDC (QI CTVM; Galapagos; rede Wellhub; cobrança Geru)
+type: Outros
+q1: * "Direitos Creditórios Os direitos creditórios a serem aquiridos ou subscritos, conforme o caso, pela Classe"
+q2: * "Devedores As sociedades atuantes no ramo de academias, estúdios e/ou serviços de bem-estar"
+q3: * "Cedentes, oriundas de operações de crédito e garantidas por Cessão Fiduciária"
+q4: * "(i) os Direitos Creditórios devem ser de legítima e exclusiva titularidade dos Cedentes"
+q5: * "mesmo Devedor (incluindo integrantes de seu respectivo grupo econômico), conforme aplicável, está limitada a 20%"
+q6: * "10 (dez) maiores Devedores poderão representar, no máximo, 30% (trinta por cento) do Patrimônio Líquido da Classe"
+q7: * "67% (sessenta e sete por cento) do Patrimônio Líquido da Classe a ser mantido em Direitos Creditórios"
+q8: * "significando que, no mínimo, 30% (trinta por cento) do Patrimônio Líquido da Classe deve ser representado por Cotas Subordinadas"
+q9: * "(i) o Índice de Subordinação Mezanino é a relação mínima a ser observada entre o valor das Cotas Mezanino"
+q10: * "15.2.1. O valor da Reserva de Caixa deverá ser apurado pela Administradora"
+q11: * "(i) não divulgação, pela Gestora, do Relatório de Gestão em até 10 (dez) Dias Úteis"
+q12: * "(i) deliberação da Assembleia Especial pela liquidação da Classe; (ii) caso seja deliberado em Assembleia Especial"
+q13: * "stradora fará jus a uma taxa de administração equivalente a 0,20% (vinte centésimos por cento) ao ano"
+q14: * "Patrimônio Líquido da Classe Até R$ 100.000.000,00 0,60% ao ano"
+q15: * "taxa de performance, taxa de ingresso ou taxa de saída"
+q16: * "3.1 Administradora. O Fundo é administrado pela QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q17: * "3.2 Gestora. A gestão da carteira do Fundo compete à GALAPAGOS CAPITAL INVESTIMENTOS E PARTICIPAÇÕES LTDA."
+q18: * "Custodiante A QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada"
+q19: * "Agente de Cobrança A GERU TECNOLOGIA LTDA."
+q20: * "1.2. A Classe é destinada a receber aplicações de Investidores Qualificados"
+q21: * "O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral"
+q22: * "ado dos Direitos Creditórios serão considerados líquidos de provisão para devedores duvidosos"
+q23: * "A originação dos Direitos Creditórios se dará por meio dos Parceiros de Originação"
+receivables: CCBs e notas comerciais de academias e estúdios da rede Wellhub | q1,q2
+originator: Parceiros de originação, via plataforma | q23
+assignor: Cedentes das CCBs; notas comerciais subscritas diretamente | q3
+debtor: Academias, estúdios e serviços de bem-estar da rede Wellhub | q2
+recourse: Créditos garantidos por cessão fiduciária de recebíveis | q3
+eligibility: Titularidade exclusiva dos cedentes, livres de ônus, não vencidos | q4
+debtor_limit: Por devedor ou grupo: 20% do PL; 10 maiores ≤ 30% | q5,q6 | value=20
+assignor_limit: n/d | Limite por cedente não fixado no regulamento
+term_max: n/d | Prazo máximo dos créditos não fixado no regulamento
+allocation: ≥ 67% do PL em direitos creditórios | q7 | value=67
+quota_structure: Sênior / Mezanino / Subordinada júnior | q8,q9
+sub_senior: 30% · subord./PL | q8 | basis=mez+jr/PL | value=30
+sub_mezz: Mezanino de até 10% do PL; restante em júnior | q9 | basis=jr/PL | value=none
+sub_check: n/d | Periodicidade de apuração do índice não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa para 90 dias de despesas | q10
+pdd: Índices calculados líquidos de PDD | q22
+eval_triggers: Atraso do relatório de gestão por 10 dias úteis, entre outros | q11
+liquidation: Deliberação da assembleia ou determinação da CVM, entre outros | q12
+revolving: n/d | Regulamento não trata de revolvência explicitamente
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,20% a.a. do PL; mín. R$ 17 mil, depois R$ 20 mil/mês | q13
+mgmt_fee: 0,60% a.a. até R$ 100 mi de PL, regressiva até 0,50% | q14
+perf_fee: Não prevista | Regulamento veda taxa de performance | q15
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: QI CTVM | q16
+manager: Galapagos Capital | q17
+custodian: QI CTVM | q18
+servicer: Geru Tecnologia (agente de cobrança) | q19
+investors: Investidores qualificados | q20
+duration: Indeterminado | q21
+leitura: Crédito a academias da rede Wellhub com cessão fiduciária; subordinação de 30% e devedor ≤ 20% do PL.
