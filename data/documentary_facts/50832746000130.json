@@ -1,0 +1,739 @@
+{
+ "schema_version": 1,
+ "cnpj": "50832746000130",
+ "name": "BOASAFRA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T08:19:15Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "791780",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "28/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780"
+  },
+  "D2": {
+   "document_id": "622509",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "18/03/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=622509"
+  },
+  "D3": {
+   "document_id": "542399",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "17/10/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=542399"
+  },
+  "D4": {
+   "document_id": "542384",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "18/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=542384"
+  },
+  "D5": {
+   "document_id": "521734",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=521734"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Créditos do agronegócio em notas fiscais (XML) e CPR-F",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 104,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "cados pelo Custodiante, deverão atender na respectiva Data de Aquisição e Pagamento, cumulativamente, aos seguintes Critérios de Elegibilidade: (i) para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser representados por arquivos XML e/ou por CPR-F e expressos em moeda corrente nacional; Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 (b) os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias contados da data de emissão do Direito Creditório/Direitos Creditórios adquiridos; (c) os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão do Direito Creditório; (d) os Direitos Creditórios deverão ter vencimento em, no máximo, 30 (trinta) dias antes da data máxima do Resgate das Cotas Seniores e/ou Cotas Subordinadas Mezanino em circulação com maior prazo de Resgate; (e) os Direitos Creditórios não poderão estar vencidos na Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agro representados por XML de notas fiscais e CPR-F",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Boasafra Comércio e Representações",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 77,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "o a Reserva de Caixa e a Reserva de Liquidez. “Cedentes” BOASAFRA COMÉRCIO E REPRESENTAÇÕES LTDA., sociedade om sede na cidade de Ji-Paraná, estado de Rondônia, à Av. Transcontinental, nº. 309, CEP:76.900-041, Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 bairro Centro, inscrita no CNPJ sob o nº 05.662.861/0001-59 e G.BORGIO E CIA LTDA., sociedade com sede na cidade de Auriquemes, estado de Rondônia, na Rua Dourados, nº 1.300, Apoio Rodoviário, CEP 76.870-184, inscrita no CNPJ sob o nº 39.938.829/0001-75, assim como suas filiais “Classe Única” A classe única de Cotas do Fundo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Boasafra Comércio e Representações",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 77,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "o a Reserva de Caixa e a Reserva de Liquidez. “Cedentes” BOASAFRA COMÉRCIO E REPRESENTAÇÕES LTDA., sociedade om sede na cidade de Ji-Paraná, estado de Rondônia, à Av. Transcontinental, nº. 309, CEP:76.900-041, Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 bairro Centro, inscrita no CNPJ sob o nº 05.662.861/0001-59 e G.BORGIO E CIA LTDA., sociedade com sede na cidade de Auriquemes, estado de Rondônia, na Rua Dourados, nº 1.300, Apoio Rodoviário, CEP 76.870-184, inscrita no CNPJ sob o nº 39.938.829/0001-75, assim como suas filiais “Classe Única” A classe única de Cotas do Fundo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes da Boasafra adimplentes com a cedente",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 107,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "ser registrados em entidade registradora, conforme aplicável; (k) os Direitos Creditórios são devidos por Devedores que não estejam inadimplentes com suas obrigações perante a Cedente, na Data de Aquisição e Pagamento conforme declaração das Cedentes; (l) os Direitos Creditórios deverão ter vencimento em, no máximo, 30 (trinta) dias antes do término do prazo de resgate das Cotas com vencimento mais antigo; (m) os Documentos Comprobatórios estão ou estarão, na data de pagamento do valor da cessão, sob a guarda e custódia eletrônica do Custodiante; (n) os Direitos Creditórios serão devidos por Devedores que devem cumprir (i) as normas aplicáveis que versam sobre atos de corrupção e atos lesivos contra a administração pública, na forma das Leis Anticorrupção e (ii) as normas aplicáveis que versam sobre danos ambientais na forma das Legislação Socioambiental;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "XML de notas fiscais ou CPR-F em reais; devedor adimplente",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 104,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "cados pelo Custodiante, deverão atender na respectiva Data de Aquisição e Pagamento, cumulativamente, aos seguintes Critérios de Elegibilidade: (i) para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser representados por arquivos XML e/ou por CPR-F e expressos em moeda corrente nacional; Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 (b) os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias contados da data de emissão do Direito Creditório/Direitos Creditórios adquiridos; (c) os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão do Direito Creditório; (d) os Direitos Creditórios deverão ter vencimento em, no máximo, 30 (trinta) dias antes da data máxima do Resgate das Cotas Seniores e/ou Cotas Subordinadas Mezanino em circulação com maior prazo de Resgate; (e) os Direitos Creditórios não poderão estar vencidos na Data de Aquisição;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 107,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "ser registrados em entidade registradora, conforme aplicável; (k) os Direitos Creditórios são devidos por Devedores que não estejam inadimplentes com suas obrigações perante a Cedente, na Data de Aquisição e Pagamento conforme declaração das Cedentes; (l) os Direitos Creditórios deverão ter vencimento em, no máximo, 30 (trinta) dias antes do término do prazo de resgate das Cotas com vencimento mais antigo; (m) os Documentos Comprobatórios estão ou estarão, na data de pagamento do valor da cessão, sob a guarda e custódia eletrônica do Custodiante; (n) os Direitos Creditórios serão devidos por Devedores que devem cumprir (i) as normas aplicáveis que versam sobre atos de corrupção e atos lesivos contra a administração pública, na forma das Leis Anticorrupção e (ii) as normas aplicáveis que versam sobre danos ambientais na forma das Legislação Socioambiental;"
+    }
+   ],
+   "legacy": {
+    "value": "Vincendos, sem litígio, ônus, recuperação do devedor ou existência futura; não padronizados vedados",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou grupo: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 26,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "3.5.2 A Classe Única poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor (incluindo integrantes de seu respectivo grupo econômico), ou de coobrigação de uma mesma pessoa ou entidade, desde que limitado a 20% (vinte por cento) do Patrimônio Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 Líquido da Classe Única, nos termos do artigo 45 do Anexo Normativo II da Resolução CVM 175, exceto nas hipóteses previstas no parágrafo 3º e seguintes de tal artigo, sem prejuízo dos Critérios de Elegibilidade e/ou das Condições de Cessão relacionados à concentração por Devedor de Direitos Creditórios do mesmo grupo econômico, conforme aplicável. 3.5.3 A Gestora e a Cogestora envidarão seus melhores esforços para que a Classe Única mantenha o prazo médio de sua carteira de Ativos Financeiros em níveis que possibilitem o enquadramento do Fundo, para fins tributários, como fundo de investimento de longo prazo. Não há garantia, contudo, de que a Classe Única terá o tratamento tributário aplicável aos fundos de investimento de longo prazo. 3.5.4 Exceto se de outra forma disposto no Anexo Definições Específicas da Classe,"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Boasafra",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Vincendos, sem litígio, ônus, recuperação do devedor ou existência futura; não padronizados vedados",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 75,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "título. “Agente de Cobrança” As Cedentes. “Alocação Mínima” O percentual mínimo superior a 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 “Alocação Minima Tributária” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “ANBIMA” A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo” Qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do presente Regulamento, incluindo o Anexo Descritivo, o Anexo Defi"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC >50% PL; objetivo tributário >67% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "Subordinadas Júnior. 9.12 Razão de Garantia 9.12.1 A Classe Única terá como razão de garantia o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento) (“Razão de Garantia”). Isso significa que, no mínimo, 30,00% (trinta por cento) do Patrimônio Líquido da Classe Única deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). A Classe Única terá como razão de garantia mezanino o percentual mínimo de 150,00% (cento e cinquenta por cento) (“Razão de Garantia Mezanino”)."
+    },
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "do da Classe Única deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). A Classe Única terá como razão de garantia mezanino o percentual mínimo de 150,00% (cento e cinquenta por cento) (“Razão de Garantia Mezanino”). Isso significa que, no mínimo, 20,00% (vinte por cento) do Patrimônio Líquido do Fundo deve ser representado por Cotas Subordinadas Junior (“Índice de Subordinação Junior”), sendo certo que as Cedentes e/ou sócios das Cedentes deverão deter, enquanto houver Cotas Seniores e/ou Cotas Mezanino em circulação, direta ou indiretamente, a totalidade das Cotas Subordinadas Junior. Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 9.12.2 A Razão de Garantia deve ser apurada todo Dia Útil pelo Cogestor, devendo ser informadas aos Cotistas semanalmente, mesmo quando não houver desenquadramento. 9.12.3 Na hipótese de desenquadramento da Razão de Garantia, os Cotistas titulares das Cotas Subordinadas, conforme o caso, serão imediatamente informados pela Administradora. 9.4.4 Os Cotistas titulares das Cotas Subordinadas deverão responder à"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; júnior/PL ≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL (razão de garantia de 142,85%)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "Subordinadas Júnior. 9.12 Razão de Garantia 9.12.1 A Classe Única terá como razão de garantia o percentual mínimo de 142,85% (cento e quarenta e dois inteiros e oitenta e cinco centésimos por cento) (“Razão de Garantia”). Isso significa que, no mínimo, 30,00% (trinta por cento) do Patrimônio Líquido da Classe Única deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). A Classe Única terá como razão de garantia mezanino o percentual mínimo de 150,00% (cento e cinquenta por cento) (“Razão de Garantia Mezanino”)."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; júnior/PL ≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "Razão de garantia mezanino ≥ 150%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 44,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "do da Classe Única deve ser representado por Cotas Subordinadas em circulação (“Índice de Subordinação”). A Classe Única terá como razão de garantia mezanino o percentual mínimo de 150,00% (cento e cinquenta por cento) (“Razão de Garantia Mezanino”). Isso significa que, no mínimo, 20,00% (vinte por cento) do Patrimônio Líquido do Fundo deve ser representado por Cotas Subordinadas Junior (“Índice de Subordinação Junior”), sendo certo que as Cedentes e/ou sócios das Cedentes deverão deter, enquanto houver Cotas Seniores e/ou Cotas Mezanino em circulação, direta ou indiretamente, a totalidade das Cotas Subordinadas Junior. Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 9.12.2 A Razão de Garantia deve ser apurada todo Dia Útil pelo Cogestor, devendo ser informadas aos Cotistas semanalmente, mesmo quando não houver desenquadramento. 9.12.3 Na hipótese de desenquadramento da Razão de Garantia, os Cotistas titulares das Cotas Subordinadas, conforme o caso, serão imediatamente informados pela Administradora. 9.4.4 Os Cotistas titulares das Cotas Subordinadas deverão responder à"
+    }
+   ],
+   "basis": "cobertura",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30%; júnior/PL ≥20%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de caixa para despesas e encargos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 89,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "ista no Capítulo 10, item 10.1 do Regulamento. “Reserva de Caixa” A reserva para pagamento de despesas e encargos do Fundo, conforme prevista no Capítulo 10, item 10.2do Regulamento. “Resolução CMN 2.907/01” Resolução do CMN n° 2.907, de 29 de novembro de 2001, conforme alterada, ou qualquer outra norma que vier a substitui-la. “Resolução CVM 30/21” A Resolução CVM nº 30, de 11 de maio de 2021, conforme em vigor. “Resolução CVM 160/22” A Resolução CVM nº 160, de 13 de julho de 2022, conforme em vigor. “Resolução CVM 175 A Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada. Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 “Resolução de Cessão”"
+    }
+   ],
+   "legacy": {
+    "value": "Maior entre despesas de 90 dias e 0,5% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "PDD pelo manual da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 87,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "https://www.oliveiratrust.com.br. “Manual de PDD” Significa o manual de provisão para devedores duvidosos da Administradora, o qual se encontra disponível no website: https://www.oliveiratrust.com.br. “Notas Fiscais” Significam as notas fiscais eletrônicas (consubstanciadas em arquivos XML certificados digitalmente das notas fiscais de remessa dos Produtos, que se encontrem registradas eletronicamente em sistema próprio da Secretaria da Fazenda Estadual e Receita Federal, nos termos da legislação vigente, individualizados pelas respectivas Chaves de Acesso da NFe), representativas de Operações de Compra a Prazo,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta de pagamento de amortizações programadas, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 52,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "o de não existam Cotas em circulação, por deliberação da Administradora. 14.2 São considerados Eventos de Avaliação da Classe Única quaisquer das seguintes hipóteses: (i) caso a Classe Única deixe de efetuar o pagamento, a qualquer tempo: (a) integral de qualquer das Amortizações Programadas das Cotas da Subclasse Seniores e Cotas da Subclasse Subordinadas Mezanino, na respectiva Data de Amortização Programada, (b) integral dos Resgates das Cotas da Subclasse Seniores e das Cotas da Subclasse Subordinadas Mezanino, na respectiva Data de Resgate de Cotas Seniores e de Cotas Subordinadas Mezanino, e/ou (c) do Benchmark Sênior e Mezanino nas respectivas datas; (ii) caso a BOASAFRA COMÉRCIO E REPRESENTAÇÕES LTDA., inscrita no CNPJ sob o nº 05.662.861/0001-59, deixe de ter suas demonstrações financeiras anuais auditadas e consolidadas por empresa de auditoria independente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação da assembleia, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "tação de eventuais ajustes aprovados pelos Cotistas na Assembleia Geral. 14.5 São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses (i) deliberação da Assembleia Geral de Cotistas pela liquidação da Classe Única; caso seja deliberado em Assembleia Geral que um Evento de Avaliação constitui um Evento de Liquidação Antecipada; (ii) renúncia ou destituição da Administradora e/ou Gestora e/ou Cogestora, sem que uma nova instituição assuma suas funções no prazo de até 60 (sessenta) dias; e (iii) caso haja determinação da CVM pela liquidação do Fundo, em virtude de descumprimento de disposição legal ou regulamentar; e 14.5.1 Na hipótese de ocorrência de qualquer Evento de Liquidação Antecipada, a Administradora, imediatamente, (a) suspenderá o pagamento de amortização e ou resgate das Cotas; (b) interromperá a aquisição de Direitos Creditórios e de Ativos Financeiros;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,14% a.a. do PL, com mínimo mensal (inclui custódia)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 100,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "istradora pela prestação dos serviços de administração fiduciária, custódia e será equivalente a 0,14% (quatorze centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$13.050, (treze mil e cinquenta reais) (a) ainda, será acrescido à remuneração da Administradora, em caso de participação e implementação das decisões tomadas em Assembleia Geral Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 extraordinária de Cotistas, o valor equivalente a R$700,00 (setecentos reais) por hora-homem de trabalho dedicada a tais atividades, a ser paga em até 5 (cinco) dias a contar da comprovação da entrega, pela Administradora, do relatório de horas enviado aos Cotistas. (ii) Taxa de Gestão: A taxa de gestão será devida pelo Fundo à Gestora e a Cogestora pela prestação dos serviços de gestão de carteira do Fundo, verificação do lastro no âmbito das diligências relacionadas à aquisição dos direitos creditórios e pela remuneração do"
+    }
+   ],
+   "legacy": {
+    "value": "0,14% a.a. PL; mínimo R$ 13.050/mês; inclui custódia",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "1,5% a.a. do PL, com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 101,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "s de serviço contratados pela Gestora e pela Cogestora e que não constituam encargos do fundo. A Taxa de Gestão será equivalente a 1,5% (um inteiro e cinquenta centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$55.000,00 (cinquenta e cinco mil reais) (“Taxa de Gestão”). (iii) Taxa Máxima de Distribuição: Parágrafo Segundo A taxa máxima de distribuição a ser cobrada pelos distribuidores das cotas da Classe Única de Cotas será pontualmente, a cada nova emissão de Cotas, prevista nos documentos da respectiva oferta, conforme a Resolução CVM nº 160 e 175.; (iv) Pela prestação dos serviços de verificação trimestral dos Documentos Comprobatórios dos Direitos Creditórios Cedidos substituídos ou inadimplidos, o Fundo pagará ao Custodiante uma remuneração equivalente a R$3.500,00 (três mil e quinhentos reais) por mês, acrescida dos eventuais custos incorridos para a guarda dos Documentos Comprobatórios dos Direitos Creditórios Cedidos;"
+    }
+   ],
+   "legacy": {
+    "value": "1,5% a.a. PL; mínimo R$ 55 mil/mês; IGP-M",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 28/11/2024, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 102,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "determinado no contrato de distribuição. 4.7. TAXA DE INGRESSO OU SAÍDA. TAXA DE PERFORMANCE. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. 5. DIREITOS CREDITÓRIOS, DOCUMENTOS COMPROBATÓRIOS E DOCUMENTOS COMPLEMENTARES 5.1. A Classe Única poderá adquirir Direitos Creditórios, representados Direitos Creditórios XML e Direitos Creditórios CPR-F originados de operações realizadas no segmento do agronegócio. 5.2. Adicionalmente os Direitos Creditórios não poderão: Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 (i) estar vencidos e pendentes de pagamento quando de sua cessão para a Classe Única; (ii) ser resultantes de ações judiciais em curso, constituir seu objeto de litígio, ou ter sido judicialmente penhorados ou dados em garantia; (iii) ser constituídos ou ter validade jurídica da cessão para a Classe Única considerada como um fator preponderante de risco;"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 98,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "m) ano e encerra-se em 31 de março de cada ano. 3. PRESTADORES DE SERVIÇOS 3.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora”). 3.2. Gestora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Brave Gestora de Recursos, com cogestão da Ceres Asset",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 84,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "mo pela legislação e regulamentação aplicável. “Gestora” BRAVE GESTORA DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo, estado de São Paulo, na Rua Olimpíadas, 194/200, Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 Edifício Aspen, 8º andar Vila Olímpia, inscrita no CNPJ sob nº 35.704.148/0001-91, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 17.918, de 16 de junho de 2020. “IGP-M” Índice Geral de Preços de Mercado, divulgado pela Fundação Getúlio Vargas. “Inconsistências Relevantes” Situação em que se"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 78,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "de 10 de janeiro de 2002, conforme alterada. “Cogestora” CERES ASSET GESTÃO DE INVESTIMENTOS LTDA., inscrita no CNPJ sob o nº 40.962.925/0001-38, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Dr. Renato Paes de Barros, 717, 4º andar, conjunto 43, Edifício Iracema, Itaim Bibi, CEP 04530-001, devidamente autorizada a administrar carteira de títulos e valores mobiliários pela CVM, por meio do Ato Declaratório nº 19.613, de 08 de março de 2022. “Conta de Cobrança” Conta de titularidade da Classe Única, mantida na Instituição Bancária Autorizada, movimentada por instruções do Custodiante, n"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 80,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "mente na forma prevista no Contrato de Cessão “Custodiante” OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., acima qualificada, na qualidade de custodiante dos ativos integrantes da carteira do Fundo, responsável Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 pela custódia qualificada dos ativos integrantes da carteira do Fundo, escrituração das Cotas, registro da titularidade das Cotas e guarda dos Documentos Comprobatórios dos Direitos Creditórios. “Data de Amortização” A respectiva data de amortização programada para a respectiva subclasse de Cotas, conforme cronograma definido no seu respectivo Apêndice e"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Boasafra (cedente), como agente de cobrança",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 75,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "53/0001 20, ou seu sucessor a qualquer título. “Agente de Cobrança” As Cedentes. “Alocação Mínima” O percentual mínimo superior a 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 “Alocação Minima Tributária” O percentual mínimo superior a 67% (sessenta e sete por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “ANBIMA” A Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. “Anexo” Qualquer anexo a este Regulamento, os quais constituem parte integrante e inseparável do"
+    },
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 77,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "o a Reserva de Caixa e a Reserva de Liquidez. “Cedentes” BOASAFRA COMÉRCIO E REPRESENTAÇÕES LTDA., sociedade om sede na cidade de Ji-Paraná, estado de Rondônia, à Av. Transcontinental, nº. 309, CEP:76.900-041, Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 bairro Centro, inscrita no CNPJ sob o nº 05.662.861/0001-59 e G.BORGIO E CIA LTDA., sociedade com sede na cidade de Auriquemes, estado de Rondônia, na Rua Dourados, nº 1.300, Apoio Rodoviário, CEP 76.870-184, inscrita no CNPJ sob o nº 39.938.829/0001-75, assim como suas filiais “Classe Única” A classe única de Cotas do Fundo"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 98,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "imentos de Administração e Gestão de Recursos de Terceiros. 2.2. PÚBLICO-ALVO. A Classe Única é destinada a Investidores Qualificados, que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceita os riscos associados aos investimentos da Classe Única. 2.3. PRAZO DE DURAÇÃO. A Classe Única terá prazo de duração indeterminado. 2.4. EXERCÍCIO SOCIAL. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 31 de março de cada ano. 3. PRESTADORES DE SERVIÇOS 3.1. Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 98,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "aos investimentos da Classe Única. 2.3. PRAZO DE DURAÇÃO. A Classe Única terá prazo de duração indeterminado. 2.4. EXERCÍCIO SOCIAL. O exercício social da Classe Única tem duração de 1 (um) ano e encerra-se em 31 de março de cada ano. 3. PRESTADORES DE SERVIÇOS 3.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada a funcionar pelo BACEN e devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, na categoria de administrador fiduciário, nos termos do Ato Declaratório CVM nº 6.696, de 21 de fevereiro de 2002, com sede na cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, bloco 7, segundo andar, CEP 22640-102, inscrita no CNPJ sob o nº 36.113.876/0001-91 (“Administradora”). 3.2. Gestora."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Notas fiscais eletrônicas de vendas agro e CPR financeiras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "791780",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "28/11/2024",
+     "page": 104,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=791780",
+     "excerpt": "cados pelo Custodiante, deverão atender na respectiva Data de Aquisição e Pagamento, cumulativamente, aos seguintes Critérios de Elegibilidade: (i) para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser representados por arquivos XML e/ou por CPR-F e expressos em moeda corrente nacional; Docusign Envelope ID: C7FB9112-ED5A-43D5-9A8A-6171FE91FF05 (b) os Direitos Creditórios deverão ter prazo de vencimento mínimo de 10 (dez) dias contados da data de emissão do Direito Creditório/Direitos Creditórios adquiridos; (c) os Direitos Creditórios deverão ter prazo de vencimento máximo de 360 (trezentos e sessenta) dias contados da data de emissão do Direito Creditório; (d) os Direitos Creditórios deverão ter vencimento em, no máximo, 30 (trinta) dias antes da data máxima do Resgate das Cotas Seniores e/ou Cotas Subordinadas Mezanino em circulação com maior prazo de Resgate; (e) os Direitos Creditórios não poderão estar vencidos na Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos agro representados por XML de notas fiscais e CPR-F",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Notas fiscais e CPR-F da Boasafra; subordinação de 30% e devedor ≤ 20% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

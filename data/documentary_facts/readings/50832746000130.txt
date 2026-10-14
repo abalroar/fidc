@@ -1,0 +1,57 @@
+# Boasafra FIDC Agro (Oliveira Trust; Brave e cogestora Ceres; cedente Boasafra)
+type: Agro/FIAGRO
+q1: * "Cedentes” BOASAFRA COMÉRCIO E REPRESENTAÇÕES LTDA"
+q2: * "seguintes Critérios de Elegibilidade: (i) para todos os Direitos Creditórios: (a) os Direitos Creditórios deverão ser representados por arquivos XML e/ou por CPR-F"
+q3: * "Direitos Creditórios são devidos por Devedores que não estejam inadimplentes com suas obrigações perante a Cedente"
+q4: * "mesmo Devedor (incluindo integrantes de seu respectivo grupo econômico), ou de coobrigação de uma mesma pessoa ou entidade, desde que limitado a 20%"
+q5: * "Alocação Mínima” O percentual mínimo superior a 50% (cinquenta por"
+q6: * "terá como razão de garantia o percentual mínimo de 142,85%"
+q7: * "A Classe Única terá como razão de garantia mezanino o percentual mínimo de 150,00%"
+q8: * "Reserva de Caixa” A reserva para pagamento de despesas e encargos do Fundo"
+q9: * "provisão para devedores duvidosos da Administradora, o qual se encontra disponível no website"
+q10: * "São considerados Eventos de Avaliação da Classe Única quaisquer das seguintes hipóteses"
+q11: * "São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses"
+q12: * "0,14% (quatorze centésimos por cento) ao ano, incidentes sobre o Patrimônio Líquido do Fundo"
+q13: * "Taxa de Gestão será equivalente a 1,5% (um inteiro e cinquenta centésimos por cento) ao ano"
+q14: * "Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas"
+q15: * "3.1. Administradora. O Fundo é administrado pela OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q16: * "“Gestora” BRAVE GESTORA DE RECURSOS LTDA."
+q17: * "Cogestora” CERES ASSET GESTÃO DE INVESTIMENTOS LTDA."
+q18: * "Custodiante” OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q19: * "Agente de Cobrança” As Cedentes"
+q20: * "destinada a Investidores Qualificados, que busquem rentabilidade, no longo prazo"
+q21: * "prazo de duração indeterminado. 2.4. EXERCÍCIO SOCIAL"
+receivables: Créditos do agronegócio em notas fiscais (XML) e CPR-F | q2
+agro_backing: Notas fiscais eletrônicas de vendas agro e CPR financeiras | q2
+originator: Boasafra Comércio e Representações | q1
+assignor: Boasafra Comércio e Representações | q1
+debtor: Clientes da Boasafra adimplentes com a cedente | q3
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão
+eligibility: XML de notas fiscais ou CPR-F em reais; devedor adimplente | q2,q3
+debtor_limit: Por devedor ou grupo: até 20% do PL | q4 | value=20
+assignor_limit: — | Cedente única: Boasafra
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: > 50% do PL em direitos creditórios | q5 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q6,q7
+sub_senior: 30% · subord./PL (razão de garantia de 142,85%) | q6 | basis=mez+jr/PL | value=30
+sub_mezz: Razão de garantia mezanino ≥ 150% | q7 | basis=cobertura | value=none
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Reserva de caixa para despesas e encargos | q8
+pdd: PDD pelo manual da administradora | q9
+eval_triggers: Falta de pagamento de amortizações programadas, entre outros | q10
+liquidation: Deliberação da assembleia, entre outros | q11
+revolving: n/d | Revolvência não tratada em trecho localizável
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,14% a.a. do PL, com mínimo mensal (inclui custódia) | q12
+mgmt_fee: 1,5% a.a. do PL, com mínimo mensal | q13
+perf_fee: Não prevista | Regulamento veda taxa de performance | q14
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada série
+administrator: Oliveira Trust DTVM | q15
+manager: Brave Gestora de Recursos, com cogestão da Ceres Asset | q16,q17
+custodian: Oliveira Trust DTVM | q18
+servicer: Boasafra (cedente), como agente de cobrança | q19,q1
+investors: Investidores qualificados | q20
+duration: Indeterminado | q21
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo
+leitura: Notas fiscais e CPR-F da Boasafra; subordinação de 30% e devedor ≤ 20% do PL.
