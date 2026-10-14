@@ -1,0 +1,668 @@
+{
+ "schema_version": 1,
+ "cnpj": "50988212000105",
+ "name": "CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS II-RESPONSABILIDADE LIMITADA",
+ "fund_type": "Cartão/adquirência",
+ "reviewed_at": "2026-10-14T08:07:06Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1013021",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "14/11/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021"
+  },
+  "D2": {
+   "document_id": "532694",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "06/10/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=532694"
+  },
+  "D3": {
+   "document_id": "530370",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "29/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=530370"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Cartão/adquirência",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Faturas do cartão de compra Supplier de titulares PF e PJ",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 30,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "tivo; 129) “Termo de Cessão Consolidado”: termo de cessão preparado e consolidado na forma do Contrato de Cessão; 130) “Titular”: pessoa física ou jurídica titular do Cartão, devidamente credenciada por um dos Cedentes ou, por delegação do respectivo Cedente e na hipótese de este não ser um Cedente, pela Supplier, com sede/domicílio no Brasil, que realiza transações mediante a utilização do Cartão; e 131) “Valor Referencial”: tem o significado que lhe é atribuído no item (24.1.) do Capítulo XXIV. CAPÍTULO III – PRAZO E NATUREZA DA CLASSE 30 3.1. A Classe tem prazo de duração de 30 (trinta) anos, o qual poderá ser prorrogado por decisão da Assembleia Especial, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação, conforme definidas no item 22.5 deste Anexo Descritivo, e observados os limites previstos no Regulamento e neste Anexo Descritivo (“Prazo de Duração”), sem prejuízo do estabelecimento de prazos distintos de duração para Cotas. 3.2. Os Direitos Creditórios Elegíveis serão adquiridos pela Classe Única de forma rotativa e de acordo com os critérios de composição de carteira estabelecidos na legislação e na regulamentação vigente, assim como neste Anexo Descritivo. 3.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 38,
+     "clause": "Anexo IV, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "tem os Cartões e contratam Operações Comerciais de Cartão de Crédito com os Titulares e os Estabelecimentos. 7.2. Os Direitos Creditórios são pagos pelos Titulares, no curso ordinário do Programa de Securitização, (a) por meio de Demonstrativos de Pagamento, os quais podem ser liquidados em instituições integrantes do sistema de compensação bancária brasileiro; ou (b) por meio de TED. 7.3. Os Direitos Creditórios poderão ser cedidos a Classe Única com coobrigação de pagamento dos Direitos Creditórios pelo Estabelecimento. 7.4. Os documentos representativos do lastro dos Direitos Creditórios são aqueles definidos como Documentos Comprobatórios. CAPÍTULO VIII – ADMINISTRAÇÃO E GESTÃO DA CLASSE ÚNICA 8.1. Administração da Classe Única: O Fundo é administrado pela Administradora, que será responsável pelas atividades de administração da carteira, nos termos dos artigos 101 seguintes da Resolução CVM 175. 8.2."
+    }
+   ],
+   "legacy": {
+    "value": "Financiamentos e operações comerciais de cartão de crédito Supplier",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Emissores do grupo Supplier (cedentes)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 20,
+     "clause": "Anexo IV, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "ra Supplier” emitido substancialmente nos termos do Contrato de Cartão de Crédito e do Contrato de CardMember; 21) “Cedente” ou “Cedentes”: significa o Emissor; 22) “Cédulas de Cartão de Compra”: documento emitido pela Supplier, que representa a transação realizada pelo Titular do Cartão; 23) “Cédulas de Crédito Bancário”: significam as cédulas de crédito bancário instituídas pela Lei n° 10.931, de 2 de agosto de 2004, emitidas em meio físico ou em meio eletrônico (com certificação digital), em nome dos Titulares, na forma prevista nas Cláusulas 9.3, 9.3.1, 9.3.2 e 9.3.3 do Contrato de CardMember, conforme definido neste Anexo Descritivo. Para fins do disposto no presente Anexo Descritivo e nos demais Documentos da Securitização, as Cédulas de Crédito Bancário não serão, necessariamente, registradas na B3 ou em qualquer outro sistema de registro e liquidação, nem serão objeto de endosso a Classe Única, o qual as adquirirá através do mecanismo disposto no art. 286 e seguintes do Código Civil; 24) “Circulação”: número de Cotas devidamente subscritas, integralizadas e não resgatadas, nos termos deste Anexo Descritivo, referente a cada subclasse de Cotas em cada ocasião ou evento a que se faça referência neste Anexo Descritivo;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 25,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "o Contrato de Distribuição; (vii) os Termos de Cessão Consolidados; e (viii) os Aceites Eletrônicos de Cessão; 71) “Emissor” ou “Emissores”: significa a Supplier, ou qualquer empresa pertencente ao mesmo grupo econômico da Supplier e que seja emissor de Cartão; 72) “Empresa de Auditoria”: auditor devidamente contratado pela Classe Única para a prestação de serviços de auditoria das suas demonstrações financeiras; 73) “Encargos”: é o somatório da taxa de juros, multas, impostos, taxas, contribuições e demais tributos incidentes; bem como outras despesas ou tarifas, indicadas no Demonstrativo de Pagamento, decorrentes de Operações de Financiamento efetuadas pelo Titular por meio da utilização do Cartão;"
+    }
+   ],
+   "legacy": {
+    "value": "Emissores/cedentes Supplier e seu grupo econômico",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Supplier ou empresas emissoras do mesmo grupo",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 25,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "o Contrato de Distribuição; (vii) os Termos de Cessão Consolidados; e (viii) os Aceites Eletrônicos de Cessão; 71) “Emissor” ou “Emissores”: significa a Supplier, ou qualquer empresa pertencente ao mesmo grupo econômico da Supplier e que seja emissor de Cartão; 72) “Empresa de Auditoria”: auditor devidamente contratado pela Classe Única para a prestação de serviços de auditoria das suas demonstrações financeiras; 73) “Encargos”: é o somatório da taxa de juros, multas, impostos, taxas, contribuições e demais tributos incidentes; bem como outras despesas ou tarifas, indicadas no Demonstrativo de Pagamento, decorrentes de Operações de Financiamento efetuadas pelo Titular por meio da utilização do Cartão;"
+    }
+   ],
+   "legacy": {
+    "value": "Emissores/cedentes Supplier e seu grupo econômico",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Titulares PF ou PJ do cartão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 30,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "tivo; 129) “Termo de Cessão Consolidado”: termo de cessão preparado e consolidado na forma do Contrato de Cessão; 130) “Titular”: pessoa física ou jurídica titular do Cartão, devidamente credenciada por um dos Cedentes ou, por delegação do respectivo Cedente e na hipótese de este não ser um Cedente, pela Supplier, com sede/domicílio no Brasil, que realiza transações mediante a utilização do Cartão; e 131) “Valor Referencial”: tem o significado que lhe é atribuído no item (24.1.) do Capítulo XXIV. CAPÍTULO III – PRAZO E NATUREZA DA CLASSE 30 3.1. A Classe tem prazo de duração de 30 (trinta) anos, o qual poderá ser prorrogado por decisão da Assembleia Especial, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação, conforme definidas no item 22.5 deste Anexo Descritivo, e observados os limites previstos no Regulamento e neste Anexo Descritivo (“Prazo de Duração”), sem prejuízo do estabelecimento de prazos distintos de duração para Cotas. 3.2. Os Direitos Creditórios Elegíveis serão adquiridos pela Classe Única de forma rotativa e de acordo com os critérios de composição de carteira estabelecidos na legislação e na regulamentação vigente, assim como neste Anexo Descritivo. 3.3."
+    }
+   ],
+   "legacy": {
+    "value": "Titulares de cartão vinculados às operações comerciais/financiamentos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação conforme contrato, sem trecho contínuo localizado",
+   "sources": [],
+   "legacy": {
+    "value": "Responsabilidade do cedente pela existência/formalização; regras completas no contrato de cessão",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Prazo médio da carteira ≤ 90 dias, entre outros critérios",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 34,
+     "clause": "Anexo IV, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "entual deverá ser, no máximo, 40% (quarenta por cento) ou R$ 80.000.000,00 (oitenta milhões de reais); d) o prazo médio de vencimento das parcelas dos Direitos Creditórios de propriedade da Classe Única, depois de computada, pro forma, a aquisição de Direitos Creditórios pretendida pela Classe Única, não poderá ser superior a 90 (noventa) dias, calculado conforme a fórmula abaixo: [∑𝑛1(𝑉𝑁𝑑 x 𝑁𝑑 )] + (𝑉𝑁𝐷 x 𝑁𝐷) 𝑃𝑀𝐶 = 𝑉𝑁𝑡 + 𝑉𝑁𝐷 onde: PMC é o prazo médio da carteira de Direitos Creditórios de propriedade da Classe Única, em número inteiro de dias, obtido pelo arredondamento do resultado da fórmula; VNd é o valor presente de cada parcela do Direito Creditório de propriedade da Classe Única na Data de Aquisição, exceto aqueles que, na Data de Aquisição, estejam vencidos e não pagos; Nd é o número de dias compreendidos entre a data do dia de apuração do saldo da carteira e a data de vencimento, inclusive, da respectiva parcela do Direito Creditório; VND é o valor presente da parcela do Direito Creditório a ser adquirido pela Classe Única; ND é o número de dias compreendidos entre a Data de Aquisição e a data de vencimento, inclusive, do Direito Creditório a ser adquirido;"
+    }
+   ],
+   "legacy": {
+    "value": "Direitos adimplentes; vencimento ≤ 180 dias; prazo médio ponderado ≤ 90 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV, cl. 5.2"
+   }
+  },
+  "debtor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por titular depende de seguro; trecho cruza páginas",
+   "sources": [],
+   "legacy": {
+    "value": "Titular/grupo sem seguro: maior de 1,25% PL e R$ 2,5 mi; com seguro: maior de 4%/2% PL e R$ 4 mi",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedentes do mesmo grupo Supplier",
+   "sources": [],
+   "legacy": {
+    "value": "Titular/grupo sem seguro: maior de 1,25% PL e R$ 2,5 mi; com seguro: maior de 4%/2% PL e R$ 4 mi",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo por crédito não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Direitos adimplentes; vencimento ≤ 180 dias; prazo médio ponderado ≤ 90 dias",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 19,
+     "clause": "Anexo IV, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "dio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao valor presente contábil dos Direitos Creditórios Elegíveis de titularidade da Classe Única e o denominador equivalente ao valor do Patrimônio Líquido da Classe Única, apurada diariamente pelo Custodiante (exemplo: se Alocação Mínima de Investimento = 0,50, então Alocação Mínima de Investimento = 50%); 11) “Anexo”: anexos a este Anexo Descritivo, cujos termos e condições são parte integrante e complementar deste instrumento; 12) “Apêndice”: significa o apêndice a este Anexo Descritivo referente a cada emissão de Cotas, a ser preparado substancialmente conforme o modelo previsto no Anexo I a este Anexo Descritivo e no Anexo II a este Anexo Descritivo, respectivamente. 13) “Apólice de Seguro”: apólice de seguro: (i) da Euler Hermes Seguros de Crédito S.A. inscrita no CNPJ sob o n° 04.573.811/0001-32; (ii) da Cescebrasil Seguros de Garantias e Crédito S.A."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos creditórios entre 67% e 100% do PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV, cl. 2.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada (razão de garantia sênior)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 62,
+     "clause": "Anexo IV, cl. 14.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "poderão votar em qualquer matéria nas Assembleias Especiais. 14.7. Enquanto existirem Cotas Seniores em Circulação, a Razão de Garantia Sênior deverá ser equivalente a, no máximo, 95,5% (noventa e cinco inteiros e cinco centésimos por cento), a Alocação Mínima de Investimento deverá ser, no mínimo, equivalente a 67% (sessenta e sete por cento) e o Excesso de Spread deverá ser, no mínimo, equivalente a 2,50% (dois inteiros e cinco décimos por cento) ao ano, todos calculados na periodicidade e na forma definidas neste Anexo Descritivo. 14.8. Na ocorrência de desenquadramento da Razão de Garantia, conforme os parâmetros dispostos na item (14.7 acima, a Administradora deverá notificar os Cotistas detentores de Cotas Subordinadas para que, caso queiram, subscrevam e integralizem novas Cotas Subordinadas. 14.8.1. O Cotista Subordinado deverá, no prazo máximo de 5 (cinco) Dias Úteis, contados do envio da notificação, manifestar a intenção de realizar a subscrição e integralização de novas Cotas Subordinadas, em montante suficiente para reenquadramento da Razão de Garantia, sendo a 62 ausência de resposta no prazo aqui determinado entendido como ausência de interesse em realizar a aquisição de novas Cotas Subordinadas. 14.8.2."
+    }
+   ],
+   "legacy": {
+    "value": "(Sênior − outros ativos)/(PL − outros ativos) ≤95,5% numérico; extenso divergente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV, cl. 14.7"
+   }
+  },
+  "sub_senior": {
+   "display": "Razão de garantia sênior de no máximo 95,5%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 62,
+     "clause": "Anexo IV, cl. 14.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "poderão votar em qualquer matéria nas Assembleias Especiais. 14.7. Enquanto existirem Cotas Seniores em Circulação, a Razão de Garantia Sênior deverá ser equivalente a, no máximo, 95,5% (noventa e cinco inteiros e cinco centésimos por cento), a Alocação Mínima de Investimento deverá ser, no mínimo, equivalente a 67% (sessenta e sete por cento) e o Excesso de Spread deverá ser, no mínimo, equivalente a 2,50% (dois inteiros e cinco décimos por cento) ao ano, todos calculados na periodicidade e na forma definidas neste Anexo Descritivo. 14.8. Na ocorrência de desenquadramento da Razão de Garantia, conforme os parâmetros dispostos na item (14.7 acima, a Administradora deverá notificar os Cotistas detentores de Cotas Subordinadas para que, caso queiram, subscrevam e integralizem novas Cotas Subordinadas. 14.8.1. O Cotista Subordinado deverá, no prazo máximo de 5 (cinco) Dias Úteis, contados do envio da notificação, manifestar a intenção de realizar a subscrição e integralização de novas Cotas Subordinadas, em montante suficiente para reenquadramento da Razão de Garantia, sendo a 62 ausência de resposta no prazo aqui determinado entendido como ausência de interesse em realizar a aquisição de novas Cotas Subordinadas. 14.8.2."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "legacy": {
+    "value": "(Sênior − outros ativos)/(PL − outros ativos) ≤95,5% numérico; extenso divergente",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem mezanino descrito no limite de garantia",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "(Sênior − outros ativos)/(PL − outros ativos) ≤95,5% numérico; extenso divergente",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez de 3% do valor presente dos créditos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 75,
+     "clause": "Anexo IV, cl. 21.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "nos 3 (três) meses calendários subsequentes à realização do respectivo provisionamento (“Reserva de Caixa”), e (b) uma reserva de liquidez equivalente a 3% (três por cento) do valor presente dos Direitos Creditórios integrantes da carteira da Classe Única (“Reserva de Liquidez”). CAPÍTULO XXII – EVENTOS DE AVALIAÇÃO E DOS EVENTOS DE LIQUIDAÇÃO 22.1. Sem prejuízo das disposições legais aplicáveis, são eventos que poderão ensejar a liquidação da Classe Única, a ser deliberada em Assembleia Especial qualquer das seguintes ocorrências (“Eventos de Avaliação”): a) inobservância por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 75 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditórios que não atendam às condições de cessão, se aplicável; c) resilição do Contrato de Custódia ou renúncia do Custodiante, com a não assunção de suas funções por uma nova instituição, nos termos ali definidos;"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de encargos estimados + reserva de liquidez de 3% do VP dos direitos",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito em trecho localizável",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Eventos listados no item 22.1 do anexo descritivo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 26,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "Cartão, e os documentos cadastrais do respectivo Estabelecimento deverão ser arquivados na sede da Supplier; 77) “Eventos de Avaliação”: são os eventos definidos e listados no item (22.1 abaixo deste Anexo Descritivo, que geram a necessidade de consulta aos Cotistas, por meio de Assembleia Especial de Cotistas, a respeito da continuidade ou não da Classe Única; 78) “Eventos de Liquidação”: eventos que ensejam a liquidação automática da Classe Única, descritos no item (22.5.) do Capítulo XXII; 79) “Evento de Revisão”: eventos descritos no Contrato de Cessão, cuja ocorrência poderá caracterizar um Evento Avaliação, nos termos do subitem “2” do item (22.1.) do Capítulo XXII deste Anexo Descritivo; 80) “FGC”: Fundo Garantidor de Créditos; 81) “Fundo”: tem o significado que lhe é atribuído no item (1.1) do Capítulo I;"
+    }
+   ],
+   "legacy": {
+    "value": "DCV > 15%; DCV30 > 10%; DCV120 > 6%; DCV180 > 7% em 2 meses seguidos ou 3 alternados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV"
+   }
+  },
+  "liquidation": {
+   "display": "Eventos de liquidação automática listados no regulamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 26,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "os Cotistas, por meio de Assembleia Especial de Cotistas, a respeito da continuidade ou não da Classe Única; 78) “Eventos de Liquidação”: eventos que ensejam a liquidação automática da Classe Única, descritos no item (22.5.) do Capítulo XXII; 79) “Evento de Revisão”: eventos descritos no Contrato de Cessão, cuja ocorrência poderá caracterizar um Evento Avaliação, nos termos do subitem “2” do item (22.1.) do Capítulo XXII deste Anexo Descritivo; 80) “FGC”: Fundo Garantidor de Créditos; 81) “Fundo”: tem o significado que lhe é atribuído no item (1.1) do Capítulo I; 82) “Gestora”: é a é a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de fundos de investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 26 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20, responsável pela gestão da carteira do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "DCV > 15%; DCV30 > 10%; DCV120 > 6%; DCV180 > 7% em 2 meses seguidos ou 3 alternados",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Aquisição rotativa sem regra localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Aquisições recorrentes pelo potencial de cessão e reenquadramento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos → reservas → remuneração/amortização sênior → subordinadas → aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de administração não localizada em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Faixas marginais PL: 0,13% / 0,10% / 0,074% / 0,060% / 0,030%; mínimo R$ 18 mil/mês",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,065% a.a. do PL na faixa inicial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 46,
+     "clause": "Anexo IV, cl. 9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "o dos Direitos Creditórios e pela remuneração dos prestadores de serviço contratados pela Gestora (“Taxa de Gestão”). A Taxa de Gestão será equivalente a (i) 0,065% (sessenta e cinco centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe de até R$70.000.000,00 (setenta milhões de reais); (a) acrescido de 0,05% cinco centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe Única que exceder R$70.000.000,00 (setenta milhões de reais) até R$300.000.000,00 (trezentos milhões de reais); (b) acrescido de 0,037% (trinta e sete centésimos por cento) ao ano sobre o Patrimônio Líquido da Classe Única que exceder R$300.000.000,00 (trezentos milhões de reais) até R$600.000.000,00 (seiscentos milhões de reais); (c) acrescido de 0,03% (três centésimos por cento) ao ano sobre o Patrimônio Líquido entre R$600.000.000,00 (seiscentos milhões de reais) até R$ 900.000.000,00 (novecentos milhões de reais); (d) acrescido de 0,015% (quinze centésimos por cento) ao ano sobre o Patrimônio Líquido que exceder R$900.000.000,00 (novecentos milhões de reais); e (ii) pelo serviço de verificação de lastro dos direitos creditórios, será devido ao Custodiante o valor fixo mensal correspondente a R$5.000,00 (cinco mil reais). 9.3."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas numéricas 0,065% / 0,05% / 0,037% / 0,03% / 0,015%; divergência com extenso",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV, cl. 9.2"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no suplemento de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 18,
+     "clause": "Anexo IV, cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "uais encontram-se definidas as condições aplicáveis a cada cessão, nos termos do respectivo Contrato de Cessão; 2) “Administradora”: é a Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., instituição financeira devidamente autorizada pela Comissão de Valores Mobiliários à prestação dos serviços de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 3) “Afiliada”: a(s) Pessoa(s), exceto pessoas físicas, direta ou indiretamente, controlada(s), ou sob controle de um mesmo controlador, direto ou indireto, bem como a(s) Pessoa(s) física(s) ou jurídica(s), direta ou indiretamente, controladora(s), ou, ainda, suas coligadas; 4) “Agência de Classificação de Risco”: a agência de classificação de risco a ser contratada pela Administradora, por conta e ordem da Classe Única, responsável pela classificação de risco das Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 26,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "o Garantidor de Créditos; 81) “Fundo”: tem o significado que lhe é atribuído no item (1.1) do Capítulo I; 82) “Gestora”: é a é a OLIVEIRA TRUST SERVICER S.A., sociedade por ações devidamente autorizada pela CVM para o exercício profissional de administração de fundos de investimento e gestão de carteiras por meio do Ato Declaratório nº 7.446, de 13 de outubro de 26 2003, com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3.434, Bloco 07, sala 202, CEP 22640-102, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20, responsável pela gestão da carteira do Fundo; 83) “Grau de Confiança”: percentual que confere ao auditor a certeza de que o número de erros na população analisada não ultrapassará o limite máximo tolerável; 84) “IGP-DI/FGV”: Índice Geral de Preços - Disponibilidade Interna, conforme calculado e divulgado pela Fundação Getúlio Vargas; 85) “IGP-M/FGV”: Índice Geral de Preços do Mercado, conforme calculado e divulgado pela Fundação Getúlio Vargas; 86) “Início das Atividades”: data da 1ª (primeira) integralização de Cotas;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 22,
+     "clause": "Anexo IV",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "item (5.2.) do Capítulo V, observada a subcontratação do Custodiante para verificação de referidos critérios; 49) “Custodiante”: é a Oliveira Trust Distribuidora de Títulos e Valores Mobiliários S.A., instituição financeira devidamente autorizada pela Comissão de Valores Mobiliários à prestação dos serviços de administração de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 22 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição”: data em que a Classe Única efetua o pagamento pela aquisição de Direitos Creditórios Elegíveis aos Cedentes (i) em moeda corrente nacional, ou (ii) mediante a entrega de Cotas Subordinadas, nos termos do Contrato de Cessão; 53) “Data de Emissão”: data em que ocorrer a subscrição e primeira integralização das Cotas de uma respectiva emissão, a qual deverá ser, necessariamente, um Dia Útil;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 31,
+     "clause": "Anexo IV, cl. 3.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "ção e na regulamentação vigente, assim como neste Anexo Descritivo. 3.3. A Classe é destinada única e exclusivamente a investidores profissionais, nos termos da Resolução CVM nº 30, de 11 de maio de 2021, conforme em vigor. CAPÍTULO IV – POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 4.1. É objetivo da Classe Única proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de recursos, preponderantemente, na aquisição de Direitos Creditórios originários de operações realizadas com o Cartão nos Estabelecimentos, desde que originados e cedidos pelos Cedentes, que atendam aos Critérios de Elegibilidade, observados todos os índices de composição e diversificação da carteira estabelecidos neste Anexo Descritivo. Em caráter complementar, a Classe Única aplicará seus recursos em Outros Ativos. 4.2. A Classe Única deverá ter alocado, no mínimo, 67% (sessenta e sete por cento), e, no máximo, 100% (cem por cento) de seu patrimônio em Direitos Creditórios, observada, ainda, a alocação de recursos para a Reserva de Liquidez e Reserva de Caixa. 4.3."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo de 30 anos; investidores profissionais",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 14/11/2024, Anexo IV, cl. 3.3"
+   }
+  },
+  "duration": {
+   "display": "30 anos, prorrogável",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 3,
+     "clause": "cl. 1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "olução CVM 175 e pelas demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo é constituído com prazo de duração de 30 (trinta) anos, o qual poderá ser prorrogado por decisão da Assembleia Geral, ressalvadas as hipóteses de ocorrência de qualquer Evento de Liquidação, conforme definidas no Artigo 15.1 do Anexo Descritivo, e observados os limites previstos no presente Regulamento (“Prazo de Duração”), sem prejuízo do estabelecimento de prazos distintos de duração para as Cotas Seniores, conforme determinado nos respectivos Apêndices. 1.2.1 O término do Prazo de Duração não afetará o cumprimento das obrigações do Fundo que tenham se tornado exigíveis até o último dia do Prazo de Duração, inclusive. 1.3 O Fundo possui uma única Classe de cotas, a qual é dividida em 3 (três) subclasses, conforme disposto no Anexo Descritivo que compõe o Anexo I a este Regulamento. 1.4 Todos os termos e expressões iniciados em letras maiúsculas, utilizados na parte geral do Regulamento e em seus Anexos têm o significado que lhes são atribuídos no Artigo 1.1 do Anexo Descritivo a este Regulamento, exceto se de outro modo expressamente especificado."
+    }
+   ],
+   "legacy": {
+    "value": "Prazo de 30 anos; investidores profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_receivables": {
+   "display": "Faturas do cartão de compra pagas pelos titulares por demonstrativos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 38,
+     "clause": "Anexo IV, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "tem os Cartões e contratam Operações Comerciais de Cartão de Crédito com os Titulares e os Estabelecimentos. 7.2. Os Direitos Creditórios são pagos pelos Titulares, no curso ordinário do Programa de Securitização, (a) por meio de Demonstrativos de Pagamento, os quais podem ser liquidados em instituições integrantes do sistema de compensação bancária brasileiro; ou (b) por meio de TED. 7.3. Os Direitos Creditórios poderão ser cedidos a Classe Única com coobrigação de pagamento dos Direitos Creditórios pelo Estabelecimento. 7.4. Os documentos representativos do lastro dos Direitos Creditórios são aqueles definidos como Documentos Comprobatórios. CAPÍTULO VIII – ADMINISTRAÇÃO E GESTÃO DA CLASSE ÚNICA 8.1. Administração da Classe Única: O Fundo é administrado pela Administradora, que será responsável pelas atividades de administração da carteira, nos termos dos artigos 101 seguintes da Resolução CVM 175. 8.2."
+    }
+   ],
+   "legacy": {
+    "value": "Financiamentos e operações comerciais de cartão de crédito Supplier",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "card_lock": {
+   "display": "Titulares pagam por demonstrativos de pagamento do programa",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1013021",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "14/11/2024",
+     "page": 38,
+     "clause": "Anexo IV, cl. 7.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1013021",
+     "excerpt": "tem os Cartões e contratam Operações Comerciais de Cartão de Crédito com os Titulares e os Estabelecimentos. 7.2. Os Direitos Creditórios são pagos pelos Titulares, no curso ordinário do Programa de Securitização, (a) por meio de Demonstrativos de Pagamento, os quais podem ser liquidados em instituições integrantes do sistema de compensação bancária brasileiro; ou (b) por meio de TED. 7.3. Os Direitos Creditórios poderão ser cedidos a Classe Única com coobrigação de pagamento dos Direitos Creditórios pelo Estabelecimento. 7.4. Os documentos representativos do lastro dos Direitos Creditórios são aqueles definidos como Documentos Comprobatórios. CAPÍTULO VIII – ADMINISTRAÇÃO E GESTÃO DA CLASSE ÚNICA 8.1. Administração da Classe Única: O Fundo é administrado pela Administradora, que será responsável pelas atividades de administração da carteira, nos termos dos artigos 101 seguintes da Resolução CVM 175. 8.2."
+    }
+   ],
+   "legacy": {
+    "value": "Seguro de crédito distingue limites; cobertura efetiva exige apólice/contrato",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "dilution": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Tratamento de cancelamentos não localizado em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Cartão de compra Supplier com razão de garantia sênior ≤ 95,5% e prazo médio da carteira ≤ 90 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
