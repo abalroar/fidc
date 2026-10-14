@@ -1,0 +1,678 @@
+{
+ "schema_version": 1,
+ "cnpj": "50098465000103",
+ "name": "CHEMICAL XIII - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - INDÚSTRIA PETROQUÍMICA",
+ "fund_type": "Duplicatas/multicedente",
+ "reviewed_at": "2026-10-14T08:17:43Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "690567",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/07/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567"
+  },
+  "D2": {
+   "document_id": "483238",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "27/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=483238"
+  },
+  "D3": {
+   "document_id": "481625",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481625"
+  },
+  "D4": {
+   "document_id": "481623",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "22/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=481623"
+  },
+  "D5": {
+   "document_id": "480752",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "20/06/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=480752"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Duplicatas/multicedente",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas mercantis a prazo de produtos da Braskem, com nota fiscal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 19,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "\"Direitos Creditórios\": são os direitos de crédito performados, livres e desembaraçados de quaisquer ônus, encargos ou gravames, que a Cedente detém e/ou venha a deter contra seus Clientes, advindos de operações de venda mercantil a prazo de Produtos aos Clientes pela Cedente, representados por Notas Fiscais Eletrônicas. \"Direitos Creditórios Elegíveis\": são Direitos Creditórios que, na Data de Aquisição, atendam, cumulativamente, a todos os Critérios de Elegibilidade."
+    },
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 16,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "rcunscrição da Cedente. “Classe” significa a Classe Única de Investimento em Direitos Creditórios do Fundo. \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes. \"Clientes Classe A\": são todos os Clientes que não sejam Clientes Classe B. 16 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 \"Clientes Classe B\": são os Clientes cuja receita bruta anual seja superior a R$ 2.000.000.000,00 (dois bilhões de reais), conforme verificado exclusivamente pela Cedente e por ela informado ao Gestor ou terceiro contratado até o 1º (primeiro) Dia Útil de junho de cada ano. Para a verificação referida acima, a Cedente deverá considerar: (i) as últimas demonstrações financeiras anuais divulgadas por tais Clientes Classe B; ou (ii) a declaração de faturamento anual assinada pelos representantes legais de tais Clientes Classe B."
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados de venda mercantil a prazo de produtos; lastro em notas fiscais eletrônicas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Braskem",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 16,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "idade de Camaçari, Estado da Bahia, na Rua Eteno, nº 1.561, inscrita no CNPJ/MF sob o nº 42.150.391/0001-70. \"Cedente\": é a Braskem e suas sucessoras, a qualquer título, e/ou qualquer nova cedente incluída na forma do item 8.1 abaixo. \"Chave de Acesso da NFe\": é um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da circunscrição da Cedente. “Classe” significa a Classe Única de Investimento em Direitos Creditórios do Fundo. \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes. \"Clientes Classe A\": são todos os Clientes que não sejam Clientes Classe B. 16 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Braskem e suas sucessoras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 16,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "idade de Camaçari, Estado da Bahia, na Rua Eteno, nº 1.561, inscrita no CNPJ/MF sob o nº 42.150.391/0001-70. \"Cedente\": é a Braskem e suas sucessoras, a qualquer título, e/ou qualquer nova cedente incluída na forma do item 8.1 abaixo. \"Chave de Acesso da NFe\": é um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da circunscrição da Cedente. “Classe” significa a Classe Única de Investimento em Direitos Creditórios do Fundo. \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes. \"Clientes Classe A\": são todos os Clientes que não sejam Clientes Classe B. 16 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes compradores cadastrados pela Braskem",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 16,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "rcunscrição da Cedente. “Classe” significa a Classe Única de Investimento em Direitos Creditórios do Fundo. \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes. \"Clientes Classe A\": são todos os Clientes que não sejam Clientes Classe B. 16 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 \"Clientes Classe B\": são os Clientes cuja receita bruta anual seja superior a R$ 2.000.000.000,00 (dois bilhões de reais), conforme verificado exclusivamente pela Cedente e por ela informado ao Gestor ou terceiro contratado até o 1º (primeiro) Dia Útil de junho de cada ano. Para a verificação referida acima, a Cedente deverá considerar: (i) as últimas demonstrações financeiras anuais divulgadas por tais Clientes Classe B; ou (ii) a declaração de faturamento anual assinada pelos representantes legais de tais Clientes Classe B."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "Cedente responde pela existência, formalização, liquidez e certeza",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 36,
+     "clause": "Anexo, cl. 5.12",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": ". 5.12 A Cedente, assim como suas respectivas Partes Relacionadas, não responde pela solvência dos Clientes. A Cedente é responsável pela originação, existência, correta constituição e formalização, liquidez e certeza dos Direitos Creditórios por ela cedidos, nos termos deste Anexo e do Contrato de Cessão. 5.13 Os Direitos Creditórios e os Ativos Financeiros devem ser custodiados, bem como registrados, quando aplicável, e/ou mantidos em conta de depósito diretamente em nome da Classe, em contas específicas abertas no SELIC, no sistema de liquidação financeira administrado pela B3 (segmento Balcão B3) ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM, excetuando-se as aplicações do Fundo em quotas de outros fundos de investimento. 5.14 Os Documentos Comprobatórios dos Direitos Creditórios adquiridos pela Classe, constituídos pelos arquivos XML e pelas Chaves de Acesso das NFe, serão enviados pela Cedente ao Gestor, em até 5 (cinco) Dias Úteis contados da respectiva Data de Aquisição, sendo que: (i) os dados das Chaves de Acesso das NFe serão transmitidos por meio eletrônico, nos termos do Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eligibility": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "list",
+   "reason": "Critérios de elegibilidade sem trecho contínuo localizado",
+   "sources": []
+  },
+  "debtor_limit": {
+   "display": "Por cliente: até 3% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ofrer perda patrimonial significativa que afete negativamente a rentabilidade das Quotas. Adicionalmente, o somatório de Direitos Creditórios devido por cada Cliente individualmente considerado, em cada Data de Aquisição, poderá representar uma concentração máxima de até 3% (três por cento) do Patrimônio Líquido, percentual esse superior ao nível de subordinação inicial para as Quotas Subordinadas Mezanino, de 2% (dois por cento). Assim, os titulares de Quotas Subordinadas Mezanino podem estar expostos a uma perda potencial em caso de inadimplência de um único Cliente que represente 3% (três por cento) do Patrimônio Líquido. XI. Risco de Pré-Pagamento. Os Clientes podem pagar antecipadamente os Direitos Creditórios. Caso tais pagamentos antecipados ocorram com descontos, pode haver redução do valor esperado dos Direitos Creditórios e trazer prejuízos à Classe e, consequentemente, aos Quotistas. XII. Critérios de Elegibilidade. Os Critérios de Elegibilidade têm a finalidade de selecionar os Direitos Creditórios passíveis de aquisição pela Classe. A seleção é baseada em critérios de frequência e regularidade dos Clientes, conforme o caso, na realização de compras de Produtos e em critérios de adimplência e pontualidade nos pagamentos dos Direitos Creditórios."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Braskem",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": []
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 33,
+     "clause": "Anexo, cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "atividades, no mínimo 50% (cinquenta por cento) do Patrimônio Líquido em Direitos Creditórios, observados os Critérios de Elegibilidade (\"Alocação Mínima\"). 5.4 O Gestor deverá executar a política de investimentos, devendo, no âmbito das diligências relacionadas à aquisição de Direitos Creditórios, analisar e selecionar os Direitos Creditórios para a carteira de ativos, o que inclui, no mínimo: (i) verificar a existência, integridade e titularidade do lastro dos Direitos Creditórios;"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios≥50% PL após 180 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/07/2024, Anexo, cl. 5.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 81,
+     "clause": "Anexo, cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "com o Índice de Cobertura Sênior, \"Índices de Cobertura\"), estabelecidos nas tabelas abaixo: Índice de Cobertura Média do Percentual de Inadimplência Sênior (MI(%))* 110% MI(%)  1,5% 112% 1,5%  MI(%)  2,0% 115% MI(%) ≥ 2,0% 81 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 *MI(%): é a média aritmética do Percentual de Inadimplência dos últimos 3 (três) meses. Índice de Cobertura Média do Percentual de Inadimplência Mezanino (MI(%))* 102,040% Não aplicável 19.1.1 A apuração do percentual de inadimplência"
+    },
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ofrer perda patrimonial significativa que afete negativamente a rentabilidade das Quotas. Adicionalmente, o somatório de Direitos Creditórios devido por cada Cliente individualmente considerado, em cada Data de Aquisição, poderá representar uma concentração máxima de até 3% (três por cento) do Patrimônio Líquido, percentual esse superior ao nível de subordinação inicial para as Quotas Subordinadas Mezanino, de 2% (dois por cento). Assim, os titulares de Quotas Subordinadas Mezanino podem estar expostos a uma perda potencial em caso de inadimplência de um único Cliente que represente 3% (três por cento) do Patrimônio Líquido. XI. Risco de Pré-Pagamento. Os Clientes podem pagar antecipadamente os Direitos Creditórios. Caso tais pagamentos antecipados ocorram com descontos, pode haver redução do valor esperado dos Direitos Creditórios e trazer prejuízos à Classe e, consequentemente, aos Quotistas. XII. Critérios de Elegibilidade. Os Critérios de Elegibilidade têm a finalidade de selecionar os Direitos Creditórios passíveis de aquisição pela Classe. A seleção é baseada em critérios de frequência e regularidade dos Clientes, conforme o caso, na realização de compras de Produtos e em critérios de adimplência e pontualidade nos pagamentos dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "Cobertura PL/sênior:110%,112% ou 115% conforme média 3 meses PDD/PL; PL/(sênior+mezanino)≥102,040%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/07/2024, Anexo, cl. 19.1"
+   }
+  },
+  "sub_senior": {
+   "display": "Cobertura PL/sênior de 110% a 115%, conforme inadimplência média",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 81,
+     "clause": "Anexo, cl. 19.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "com o Índice de Cobertura Sênior, \"Índices de Cobertura\"), estabelecidos nas tabelas abaixo: Índice de Cobertura Média do Percentual de Inadimplência Sênior (MI(%))* 110% MI(%)  1,5% 112% 1,5%  MI(%)  2,0% 115% MI(%) ≥ 2,0% 81 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 *MI(%): é a média aritmética do Percentual de Inadimplência dos últimos 3 (três) meses. Índice de Cobertura Média do Percentual de Inadimplência Mezanino (MI(%))* 102,040% Não aplicável 19.1.1 A apuração do percentual de inadimplência"
+    }
+   ],
+   "basis": "cobertura",
+   "legacy": {
+    "value": "Cobertura PL/sênior:110%,112% ou 115% conforme média 3 meses PDD/PL; PL/(sênior+mezanino)≥102,040%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/07/2024, Anexo, cl. 19.1"
+   }
+  },
+  "sub_mezz": {
+   "display": "Subordinação inicial da mezanino de 2%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ofrer perda patrimonial significativa que afete negativamente a rentabilidade das Quotas. Adicionalmente, o somatório de Direitos Creditórios devido por cada Cliente individualmente considerado, em cada Data de Aquisição, poderá representar uma concentração máxima de até 3% (três por cento) do Patrimônio Líquido, percentual esse superior ao nível de subordinação inicial para as Quotas Subordinadas Mezanino, de 2% (dois por cento). Assim, os titulares de Quotas Subordinadas Mezanino podem estar expostos a uma perda potencial em caso de inadimplência de um único Cliente que represente 3% (três por cento) do Patrimônio Líquido. XI. Risco de Pré-Pagamento. Os Clientes podem pagar antecipadamente os Direitos Creditórios. Caso tais pagamentos antecipados ocorram com descontos, pode haver redução do valor esperado dos Direitos Creditórios e trazer prejuízos à Classe e, consequentemente, aos Quotistas. XII. Critérios de Elegibilidade. Os Critérios de Elegibilidade têm a finalidade de selecionar os Direitos Creditórios passíveis de aquisição pela Classe. A seleção é baseada em critérios de frequência e regularidade dos Clientes, conforme o caso, na realização de compras de Produtos e em critérios de adimplência e pontualidade nos pagamentos dos Direitos Creditórios."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Cobertura PL/sênior:110%,112% ou 115% conforme média 3 meses PDD/PL; PL/(sênior+mezanino)≥102,040%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de pagamento e de despesas do mês seguinte",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 70,
+     "clause": "Anexo, cl. 13.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "equivalente a 30% (trinta por cento) do valor estimado da respectiva Amortização Periódica ou resgate das Quotas Seniores e das Quotas Subordinadas Mezanino; e II."
+    }
+   ],
+   "legacy": {
+    "value": "Pagamento:30% emD-30 DU e 100% emD-10 DU; despesas do mês seguinte",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/07/2024, Anexo, cl. 13.6"
+   }
+  },
+  "pdd": {
+   "display": "Provisão reduz o valor contábil dos créditos",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 74,
+     "clause": "Anexo, cl. 16.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "Classe, avaliados pelo custo ou custo amortizado. 16.6 Não obstante o disposto acima, na hipótese de constituição de provisão para perdas, o cálculo do valor contábil dos Direitos Creditórios cedidos também deverá levar em consideração tal provisão e, portanto, deverá ser reduzido pelo saldo do respectivo Direito Creditório cedido provisionado. É obrigatória a divulgação, em notas explicativas às demonstrações financeiras do Fundo e da Classe, conforme o caso, de informações que abranjam, além daqueles previstos na Resolução CVM 175/22 e nas demais legislação e regulamentação aplicáveis, os seguintes aspectos: I. atendimento, pela Classe, aos Índices de Cobertura, nos termos deste Anexo, e à Alocação Mínima, no período a que se referirem as respectivas demonstrações financeiras; e II. comportamento e perfil de inadimplência dos Direitos Creditórios de titularidade da Classe. 17. Eventos de Avaliação e Eventos de Liquidação 17.1 São considerados eventos de avaliação da Classe e, conforme o caso, do Fundo (\"Eventos de Avaliação\"), quaisquer das seguintes ocorrências: I."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Inobservância de deveres do administrador, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 74,
+     "clause": "Anexo, cl. 17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "dos Direitos Creditórios de titularidade da Classe. 17. Eventos de Avaliação e Eventos de Liquidação 17.1 São considerados eventos de avaliação da Classe e, conforme o caso, do Fundo (\"Eventos de Avaliação\"), quaisquer das seguintes ocorrências: I. inobservância, pelo Administrador, de seus deveres e obrigações previstos neste Anexo e no Regulamento, que não seja um Evento de Liquidação, verificada pelo Gestor ou pelo Custodiante, desde que, notificado por este para sanar ou justificar o descumprimento, não o faça no prazo de 5 (cinco) Dias Úteis contado do recebimento da referida notificação; 74 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 II."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Não pagamento à sênior em até 3 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 78,
+     "clause": "Anexo, cl. 17.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "STRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 17.2 São considerados eventos de liquidação da Classe e, conforme o caso, do Fundo, para efeitos do Anexo Normativo II, da Resolução CVM 175/22 (\"Eventos de Liquidação\"), quaisquer das seguintes ocorrências: I. não pagamento, em até 3 (três) Dias Úteis contados das respectivas Datas de Amortização e/ou Datas de Resgate, do valor da Amortização Periódica e/ou do valor de resgate das Quotas Seniores e/ou das Quotas Subordinadas Mezanino; II. cessação pelo Custodiante, a qualquer tempo até a data de liquidação da Classe e/ou do Fundo, por qualquer motivo, da prestação dos serviços objeto do Contrato de Custódia, sem que tenha havido sua substituição por outra instituição, observado o disposto no item 22.4 abaixo; III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Revolvência não tratada em trecho localizável",
+   "sources": []
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos; despesas seguintes; ressarcimento de aportes; reservas e pagamentos conforme prioridade",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,012% a.a. mais componente adicional, com mínimos mensais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 64,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "prestação dos serviços de administração, controladoria e gestão da Classe, serão cobradas as seguintes taxas: (i) Remuneração do Administrador: (a) 0,012% (doze milésimos por cento) ao ano, respeitando o valor mínimo mensal de R$ 2.450,00 (dois mil, quatrocentos e cinquenta reais); e (b) 0,108% (cento e oito milésimos por cento) ao ano, respeitando o valor mínimo mensal de R$22.050,00 (vinte e dois mil e cinquenta reais), ambas calculadas e provisionadas diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior, e o seu pagamento ocorrerá até o 5º (quinto) Dia Útil de cada mês calendário (“Taxa de Administração”);"
+    }
+   ],
+   "legacy": {
+    "value": "Componentes 0,012% +0,108% a.a. PL; mínimos R$ 2,45 mil +R$ 22,05 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/07/2024, Anexo, cl. 10.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,05% a.a. do PL; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 64,
+     "clause": "Anexo, cl. 10.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ior, e o seu pagamento ocorrerá até o 5º (quinto) Dia Útil de cada mês calendário (“Taxa de Administração”); e (ii) Remuneração do Gestor: 0,05% (cinco centésimos por cento) ao ano, respeitando o valor mínimo mensal de R$ 20.000,00 (vinte mil reais), calculada e provisionada diariamente, com base no Patrimônio Líquido do Dia Útil imediatamente anterior, e o seu pagamento ocorrerá até o 5º (quinto) Dia Útil de cada mês calendário (“Taxa de Gestão”). 10.1.1 O primeiro pagamento da Taxa de Administração e da Taxa de Gestão ocorrerá no 5º (quinto) Dia Útil do mês imediatamente subsequente à 1ª (primeira) Data de Emissão, e tal pagamento será proporcional ao número de dias efetivamente decorridos entre a 1ª (primeira) Data de Emissão e o último dia do mês a que se referir o pagamento da Taxa de Administração e da Taxa de Gestão. Não será cobrada taxa de performance. 10.2 As classes de fundos de investimento em que a Classe investe estão sujeitas a taxas de administração e gestão próprias. As efetivas Taxa de Administração e Taxa de Gestão da Classe compreendem também as taxas cobradas por classes investidas pela Classe em relação às quais a regulamentação em vigor exige consolidação."
+    }
+   ],
+   "legacy": {
+    "value": "0,05% a.a. PL, mínimo R$ 20 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "DI +2,00% a.a. sênior; DI +4,50% a.a. mezanino",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "DI +2,00% a.a. sênior; DI +4,50% a.a. mezanino",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "BEM DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 4,
+     "clause": "Apêndice, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ou Apêndice, conforme o caso, aplicáveis tanto às formas no singular quanto no plural: \"Administrador\": é a BEM - Distribuidora de Títulos e Valores Mobiliários Ltda., com sede social no Núcleo Cidade de Deus, s/nº, Prédio Prata, 4º andar, Vila Yara, na cidade de Osasco, Estado de São Paulo, inscrita no CNPJ/MF sob nº 00.066.670/0001-00, autorizada pela CVM para atuar como administradora de carteira de valores mobiliários na categoria “administrador fiduciário”, por meio do Ato Declaratório nº 3067, de 6 de setembro de 1994, ou quem vier a substitui- la na função de Administrador. \"ANBIMA\": Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais. \"Anexo(s)\": significa(m) o anexo da classe única de investimento do Fundo ou de outras classes que venham a ser criadas no futuro. \"Apêndice(s)\": significa cada um dos apêndices ao presente Anexo adotados para descrever informações específicas de cada Subclasse de Quotas relativas à presente Classe. \"Assembleia Geral\": é a assembleia geral de Quotistas do Fundo, ordinária e extraordinária, realizada nos termos deste Regulamento. \"Assembleia Especial\": é a assem"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BRAM – Bradesco Asset Management",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 5,
+     "clause": "Apêndice, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "STRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03, DE 01 DE JULHO DE 2024 \"Gestor\": é a BRAM – Bradesco Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, com sede social na Avenida Paulista, nº 1450, 6º andar, CEP 01310-917, na cidade de São Paulo, Estado de São Paulo, inscrita no CNPJ/MF sob o nº 62.375.134/0001-44, autorizada pela CVM para atuar como administradora de carteira de valores mobiliários na categoria “gestor de recursos”, por meio do Ato Declaratório nº 2.669, de 6 de dezembro de 1993, ou quem vier a substitui- la na função de Gestor. \"Instrução CVM 489/11\": é a Instrução nº 489, emitida pela CVM em 14 de janeiro de 2011, conforme alterada, que dispõe sobre a elaboração e a divulgação das demonstrações financeiras dos fundos de investimento em direitos creditórios e dos fundos de investimento em quotas de fundos de investimento em direitos creditórios. \"Prazo de Duração\": é o prazo de duração da Classe, conforme estabelecido na Cláusula 2.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco Bradesco",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 15,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "e, responsável pela prestação dos serviços de Cobrança Judicial e Extrajudicial. \"Agente Escriturador\": é o Banco Bradesco S.A., instituição financeira com sede na Cidade de Osasco, Estado de São Paulo, no Núcleo Cidade de Deus, S/N, Vila Yara, inscrito no CNPJ/MF sob o nº 60.746.948/0001-12, responsável pelos serviços de escrituração das Quotas. \"Alocação Mínima\": é a razão entre o valor contábil dos Direitos Creditórios de titularidade da Classe e o Patrimônio Líquido, que deverá ser igual ou superior a 50% (cinquenta por cento), nos termos do item 5.3 abaixo. \"Amortização Extraordinária\": tem o significado que lhe é atribuído no item 18.1 abaixo. \"Amortização Periódica\": é a amortização parcial das Quotas Seniores e das Quotas Subordinadas Mezanino promovida pela Classe nas respectivas Datas de Amortização, calculada na forma da Cláusula 13 abaixo e prevista nos respectivos Suplementos das Quotas Seniores e das Quotas Subordinadas Mezanino. \"Ativos Financeiros\": são os bens, ativos, direitos e investimentos financeiros, distintos dos Direitos Creditórios, que compõem o Patrimônio Líquido"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Braskem (cedente atua como agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 16,
+     "clause": "Anexo, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "idade de Camaçari, Estado da Bahia, na Rua Eteno, nº 1.561, inscrita no CNPJ/MF sob o nº 42.150.391/0001-70. \"Cedente\": é a Braskem e suas sucessoras, a qualquer título, e/ou qualquer nova cedente incluída na forma do item 8.1 abaixo. \"Chave de Acesso da NFe\": é um conjunto de 44 (quarenta e quatro) dígitos que identifica univocamente uma Nota Fiscal Eletrônica e faculta a verificação da sua autorização e do seu conteúdo no ambiente nacional (http://www.nfe.fazenda.gov.br) ou no site da Secretaria da Fazenda – SEFAZ da circunscrição da Cedente. “Classe” significa a Classe Única de Investimento em Direitos Creditórios do Fundo. \"Clientes\": são os compradores de Produtos cadastrados pela Cedente e constantes da Relação de Clientes. \"Clientes Classe A\": são todos os Clientes que não sejam Clientes Classe B. 16 ANEXO DA CLASSE ÚNICA DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DO CHEMICAL XIII – FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS – INDÚSTRIA PETROQUÍMICA, CNPJ/MF Nº 50.098.465/0001-03,"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido em cada oferta",
+   "sources": []
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo de duração não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "24 meses desde integralização sênior; data absoluta não reconciliada",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "sacado_limit": {
+   "display": "Por cliente: até 3% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "690567",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/07/2024",
+     "page": 53,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=690567",
+     "excerpt": "ofrer perda patrimonial significativa que afete negativamente a rentabilidade das Quotas. Adicionalmente, o somatório de Direitos Creditórios devido por cada Cliente individualmente considerado, em cada Data de Aquisição, poderá representar uma concentração máxima de até 3% (três por cento) do Patrimônio Líquido, percentual esse superior ao nível de subordinação inicial para as Quotas Subordinadas Mezanino, de 2% (dois por cento). Assim, os titulares de Quotas Subordinadas Mezanino podem estar expostos a uma perda potencial em caso de inadimplência de um único Cliente que represente 3% (três por cento) do Patrimônio Líquido. XI. Risco de Pré-Pagamento. Os Clientes podem pagar antecipadamente os Direitos Creditórios. Caso tais pagamentos antecipados ocorram com descontos, pode haver redução do valor esperado dos Direitos Creditórios e trazer prejuízos à Classe e, consequentemente, aos Quotistas. XII. Critérios de Elegibilidade. Os Critérios de Elegibilidade têm a finalidade de selecionar os Direitos Creditórios passíveis de aquisição pela Classe. A seleção é baseada em critérios de frequência e regularidade dos Clientes, conforme o caso, na realização de compras de Produtos e em critérios de adimplência e pontualidade nos pagamentos dos Direitos Creditórios."
+    }
+   ],
+   "value": 3.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  }
+ },
+ "leitura": "Recebíveis comerciais da Braskem com cliente ≤ 3% do PL; cobertura PL/sênior de 110% a 115%.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
