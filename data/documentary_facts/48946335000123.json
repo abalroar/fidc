@@ -1,0 +1,700 @@
+{
+ "schema_version": 1,
+ "cnpj": "48946335000123",
+ "name": "NAGRO OIKOS FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:13:15Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1276588",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "04/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588"
+  },
+  "D2": {
+   "document_id": "1217593",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1217593"
+  },
+  "D3": {
+   "document_id": "739535",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "12/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=739535"
+  },
+  "D4": {
+   "document_id": "737336",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "12/09/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=737336"
+  },
+  "D5": {
+   "document_id": "523841",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "19/09/2023",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=523841"
+  },
+  "D6": {
+   "document_id": "1000248",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "29/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Operações de crédito nas cadeias do agronegócio; imóveis rurais complementares",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1000248",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 29,
+     "clause": "Suplemento IX, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+     "excerpt": "5.2. Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos e desde que cumprindo integralmente os Critérios de Elegibilidade e os demais critérios de composição de Carteira estabelecidos neste Anexo e na regulamentação aplicável. 5.3. Os Direitos Creditórios serão originados no âmbito de operações de crédito relacionadas aos segmentos de Cadeias Produtivas do agronegócio."
+    }
+   ],
+   "legacy": {
+    "value": "Operações financeiras nas cadeias produtivas do agronegócio; imóveis rurais complementares",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Produtores e empresas do agro originados pela gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 38,
+     "clause": "Suplemento IX, cl. 8.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "e cinco por cento) do Patrimônio Líquido da Classe, somadas as faixas de rating AA, A, B e C, vi. Para originações e revolvências a partir de 04 de agosto de 2026, serão permitidas com devedores de rating AA, A, B e C, observados os limites e taxas mínimas por faixa do SUPLEMENTO IX - LIMITES DE EXPOSIÇÃO POR LINHA DE CRÉDITO, sendo vedadas originações e revolvências com devedores de rating D ou inferior.. 8.2.3. Em relação aos Direitos Creditórios oriundos de Operações de Giro Agro de Devedores Produtores Rurais Pessoas Físicas: i. Em caso de ativos registrados e custodiados por entidade autorizada pelo BACEN, o penhor se dará, quando da impossibilidade de penhor em favor da Classe, em favor da Administradora da Classe, na condição de administradora ﬁduciária dos bens de titularidade da Classe; ii. Devedores Produtores Rurais Pessoas Físicas deverão ter no mínimo 3 (três) anos de experiência na atividade; iii. Deverão conter comprovação da capacidade de que a área informada na CPR-F é coerente com a média da produtividade e do preço do produto rural informados para a região da lavoura, descontando a área de reserva legal e eventuais ônus; iv."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Cedentes não nomeados; originação conduzida pela gestora",
+   "sources": []
+  },
+  "debtor": {
+   "display": "Devedores do agro com rating AA a C; vedada cadeia do tabaco",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 38,
+     "clause": "Suplemento IX, cl. 8.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "e cinco por cento) do Patrimônio Líquido da Classe, somadas as faixas de rating AA, A, B e C, vi. Para originações e revolvências a partir de 04 de agosto de 2026, serão permitidas com devedores de rating AA, A, B e C, observados os limites e taxas mínimas por faixa do SUPLEMENTO IX - LIMITES DE EXPOSIÇÃO POR LINHA DE CRÉDITO, sendo vedadas originações e revolvências com devedores de rating D ou inferior.. 8.2.3. Em relação aos Direitos Creditórios oriundos de Operações de Giro Agro de Devedores Produtores Rurais Pessoas Físicas: i. Em caso de ativos registrados e custodiados por entidade autorizada pelo BACEN, o penhor se dará, quando da impossibilidade de penhor em favor da Classe, em favor da Administradora da Classe, na condição de administradora ﬁduciária dos bens de titularidade da Classe; ii. Devedores Produtores Rurais Pessoas Físicas deverão ter no mínimo 3 (três) anos de experiência na atividade; iii. Deverão conter comprovação da capacidade de que a área informada na CPR-F é coerente com a média da produtividade e do preço do produto rural informados para a região da lavoura, descontando a área de reserva legal e eventuais ônus; iv."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 37,
+     "clause": "Suplemento IX, cl. 8.2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "ios já cedidos à Classe e que ainda não tenham sido devidamente quitados pelos correspondentes Devedores; xxiv. Direitos Creditórios não poderão ser originados por Devedores que atuam na cadeia produtiva do tabaco, fumo e derivados; xxv. Direitos Creditórios de um único título poderão ser alocados em mais de um tipo de CNAE relacionado a atividades que integram a cadeia do agronegócio, ocupando, assim, limites de concentração por cultura diferentes, que serão identiﬁcados conforme o período do ano e prazo de vencimento dos Direitos Creditórios; xxvi. Deverão ser originados de acordo com a política de crédito da Nagro anexa ao Contrato de Cobrança Extrajudicial; xxvii. Após 150 (cento e cinquenta) dias corridos contados da data da primeira integralização de Cotas da Classe, os Direitos Creditórios deverão observar a Concentração Máxima por Estado, a Concentração Máxima por Cultura, e a Concentração Mínima por Linha de Crédito, observado o Fator Redutor dos Limites de Concentração por Cultura e Estado previsto no Anexo VIII, observadas as limitações previstas no Anexo IX; xxviii."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada operação",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Devedor com rating AA a C; limites e taxas mínimas por faixa",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 38,
+     "clause": "Suplemento IX, cl. 8.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "e cinco por cento) do Patrimônio Líquido da Classe, somadas as faixas de rating AA, A, B e C, vi. Para originações e revolvências a partir de 04 de agosto de 2026, serão permitidas com devedores de rating AA, A, B e C, observados os limites e taxas mínimas por faixa do SUPLEMENTO IX - LIMITES DE EXPOSIÇÃO POR LINHA DE CRÉDITO, sendo vedadas originações e revolvências com devedores de rating D ou inferior.. 8.2.3. Em relação aos Direitos Creditórios oriundos de Operações de Giro Agro de Devedores Produtores Rurais Pessoas Físicas: i. Em caso de ativos registrados e custodiados por entidade autorizada pelo BACEN, o penhor se dará, quando da impossibilidade de penhor em favor da Classe, em favor da Administradora da Classe, na condição de administradora ﬁduciária dos bens de titularidade da Classe; ii. Devedores Produtores Rurais Pessoas Físicas deverão ter no mínimo 3 (três) anos de experiência na atividade; iii. Deverão conter comprovação da capacidade de que a área informada na CPR-F é coerente com a média da produtividade e do preço do produto rural informados para a região da lavoura, descontando a área de reserva legal e eventuais ônus; iv."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Até 20% do PL por devedor, salvo exceções da norma",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 33,
+     "clause": "Suplemento IX, cl. 7.4.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "imônio Líquido da Classe. 7.4.3. Nos termos do § 3º e §7º do artigo 45 do Anexo Normativo II da Resolução CVM 175, a Classe poderá adquirir Direitos Creditórios e/ou Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, que excedam 20% (vinte por cento) de seu Patrimônio Líquido, desde que observadas as exigências abaixo: 33 i. Nas classes destinadas a Investidores Qualiﬁcados, quando: a. o Devedor ou coobrigado: a.1. tenha registro de companhia aberta; a.2. seja instituição ﬁnanceira ou equiparada; ou a.3. seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do Direito Creditório elaboradas em conformidade com o disposto na Lei 6.404, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM; b. se tratar de aplicações em: b.1. títulos públicos federais; b.2. operações compromissadas lastreadas em títulos públicos federais; e b.3."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor e rating, não por cedente",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado no trecho lido",
+   "sources": []
+  },
+  "allocation": {
+   "display": "> 50% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 33,
+     "clause": "Suplemento IX, cl. 7.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "7.4. Limites de Composição e Concentração 7.4.1. Em até 180 (cento e oitenta) dias da Data da 1ª Integralização, a Classe deverá possuir parcela superior a 50% (cinquenta por cento) do seu Patrimônio Líquido representada por Direitos Creditórios, podendo a CVM, a seu exclusivo critério, prorrogar tal prazo por igual período, desde que a Administradora e a Gestora apresentem motivos que justiﬁquem a prorrogação. 7.4.2. Para os ﬁns do artigo 15, IV, do Anexo Normativo VI à Resolução CVM 175, o prazo de que trata esta Cláusula poderá ser prorrogado por igual período uma única vez, caso a Alocação Mínima não seja atingida. Caso o prazo de que trata este item, considerando a prorrogação, não seja cumprido, a Administradora deverá convocar imediatamente a Assembleia Geral de Cotistas para deliberar sobre a prorrogação do referido prazo ou a amortização extraordinária de cotas para restituição aos Cotistas dos valores já aportados no Fundo. 7.4.2.1. Observado o disposto no item 7.4.1 acima, a parcela do Patrimônio Líquido da Classe deverá representada por Direitos Creditórios Elegíveis deverá ser de, no mínimo, mais de 50% (cinquenta por cento) e, no máximo, até 100% (cem por cento). 7.4.2.2."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "DC >50% PL em180 dias; prorrogação depende de autorização CVM",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior A e B / Mezanino / Júnior A e B",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 57,
+     "clause": "Suplemento IX, cl. 11.8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "Subordinadas Júnior não poderão ser transferidas ou negociadas no mercado, sem anuência prévia e expressa da Gestora. 11.9. Razões de Garantia 11.9.1. A Classe deverá ter, no máximo: i. 50% (cinquenta por cento) de seu patrimônio representado por Cotas Seniores da Série A (“Proporção Máxima Sênior Série A”); ii. 75% (setenta e cinco por cento) de seu patrimônio líquido representado por Cotas Seniores da Série A e Cotas Seniores da Série B (“Proporção Máxima Sênior Série B” e, em conjunto com a Proporção Máxima Sênior Série A, “Proporção Máxima Sênior”); 11.9.2. E no mínimo: i. 15% (quinze por cento) de seu patrimônio representado por Cotas Subordinadas Mezanino (“Subordinação Mínima Mezanino”); ii. 10% (dez por cento) de seu patrimônio representado por Cotas Subordinadas Júnior A e Júnior B (“Proporção Mínima da Subordinada Júnior A e B”). 11.9.3. As Razões de Garantia serão apuradas diariamente pela Gestora e Administradora. 11.10. Reenquadramento de Razão de Garantia 11.10.1. Caso as Razões de Garantia sejam inferiores aos percentuais deﬁnidos nos itens acima, serão adotados os seguintes procedimentos: 57 11.10.2."
+    }
+   ],
+   "legacy": {
+    "value": "SêniorA≤50% PL; sêniorA+B≤75%; mezanino≥15%; júniorA+B≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/08/2026, Suplemento IX, cl. 11.8.3"
+   }
+  },
+  "sub_senior": {
+   "display": "Sênior A ≤ 50% e sênior A+B ≤ 75% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 57,
+     "clause": "Suplemento IX, cl. 11.8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "Subordinadas Júnior não poderão ser transferidas ou negociadas no mercado, sem anuência prévia e expressa da Gestora. 11.9. Razões de Garantia 11.9.1. A Classe deverá ter, no máximo: i. 50% (cinquenta por cento) de seu patrimônio representado por Cotas Seniores da Série A (“Proporção Máxima Sênior Série A”); ii. 75% (setenta e cinco por cento) de seu patrimônio líquido representado por Cotas Seniores da Série A e Cotas Seniores da Série B (“Proporção Máxima Sênior Série B” e, em conjunto com a Proporção Máxima Sênior Série A, “Proporção Máxima Sênior”); 11.9.2. E no mínimo: i. 15% (quinze por cento) de seu patrimônio representado por Cotas Subordinadas Mezanino (“Subordinação Mínima Mezanino”); ii. 10% (dez por cento) de seu patrimônio representado por Cotas Subordinadas Júnior A e Júnior B (“Proporção Mínima da Subordinada Júnior A e B”). 11.9.3. As Razões de Garantia serão apuradas diariamente pela Gestora e Administradora. 11.10. Reenquadramento de Razão de Garantia 11.10.1. Caso as Razões de Garantia sejam inferiores aos percentuais deﬁnidos nos itens acima, serão adotados os seguintes procedimentos: 57 11.10.2."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 25.0,
+   "legacy": {
+    "value": "SêniorA≤50% PL; sêniorA+B≤75%; mezanino≥15%; júniorA+B≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/08/2026, Suplemento IX, cl. 11.8.3"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino ≥ 15% e júnior A+B ≥ 10% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 57,
+     "clause": "Suplemento IX, cl. 11.9.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "m conjunto com a Proporção Máxima Sênior Série A, “Proporção Máxima Sênior”); 11.9.2. E no mínimo: i. 15% (quinze por cento) de seu patrimônio representado por Cotas Subordinadas Mezanino (“Subordinação Mínima Mezanino”); ii. 10% (dez por cento) de seu patrimônio representado por Cotas Subordinadas Júnior A e Júnior B (“Proporção Mínima da Subordinada Júnior A e B”). 11.9.3. As Razões de Garantia serão apuradas diariamente pela Gestora e Administradora. 11.10. Reenquadramento de Razão de Garantia 11.10.1. Caso as Razões de Garantia sejam inferiores aos percentuais deﬁnidos nos itens acima, serão adotados os seguintes procedimentos: 57 11.10.2. A Gestora comunicará a Administradora via e-mail, no prazo máximo de 1 (um) Dia Útil após a veriﬁcação do desenquadramento da respectiva Razão de Garantia, indicando o percentual apurado e a relação de desenquadramento e com a indicação do procedimento de reenquadramento a ser adotado, quais sejam: (i) captação de recursos dos Cotistas por meio de uma nova emissão; ou (ii) amortização extraordinária de Cotas. 11.10.3."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 10.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 57,
+     "clause": "Suplemento IX, cl. 11.8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "Subordinadas Júnior não poderão ser transferidas ou negociadas no mercado, sem anuência prévia e expressa da Gestora. 11.9. Razões de Garantia 11.9.1. A Classe deverá ter, no máximo: i. 50% (cinquenta por cento) de seu patrimônio representado por Cotas Seniores da Série A (“Proporção Máxima Sênior Série A”); ii. 75% (setenta e cinco por cento) de seu patrimônio líquido representado por Cotas Seniores da Série A e Cotas Seniores da Série B (“Proporção Máxima Sênior Série B” e, em conjunto com a Proporção Máxima Sênior Série A, “Proporção Máxima Sênior”); 11.9.2. E no mínimo: i. 15% (quinze por cento) de seu patrimônio representado por Cotas Subordinadas Mezanino (“Subordinação Mínima Mezanino”); ii. 10% (dez por cento) de seu patrimônio representado por Cotas Subordinadas Júnior A e Júnior B (“Proporção Mínima da Subordinada Júnior A e B”). 11.9.3. As Razões de Garantia serão apuradas diariamente pela Gestora e Administradora. 11.10. Reenquadramento de Razão de Garantia 11.10.1. Caso as Razões de Garantia sejam inferiores aos percentuais deﬁnidos nos itens acima, serão adotados os seguintes procedimentos: 57 11.10.2."
+    }
+   ],
+   "legacy": {
+    "value": "SêniorA≤50% PL; sêniorA+B≤75%; mezanino≥15%; júniorA+B≥10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 04/08/2026, Suplemento IX, cl. 11.8.3"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas recomposta diariamente pelos encargos estimados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 64,
+     "clause": "Suplemento IX, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "m curso um Evento de Avaliação e/ou um Evento de Liquidação: i. pagamento dos Encargos da Classe; ii. constituição e/ou recomposição da Reserva de Despesas de modo que esta, ao ﬁnal de cada Dia Útil, seja equivalente ao montante estimado dos Encargos da Classe, a serem incorridos nos 3 (três) meses calendário imediatamente subsequentes; 64 iii. pagamento de resgate de Cotas aos Cotistas Dissidentes, nos termos do item 17.3.2; iv. constituição e/ou recomposição da Reserva de Amortização de modo que esta, no décimo dia anterior à Data de Amortização seja equivalente ao montante total das próximas 03 (três) Amortizações Programadas; v. aquisição pela Classe de Direitos Creditórios, observando-se a Política de Investimentos; vi. pagamento de Amortização ou resgate de Cotas Seniores; vii. pagamento de Amortização ou resgate de Cotas Subordinadas Mezanino; viii. aquisição de Ativos Financeiros; e ix. pagamento de Amortização ou resgate de Cotas Subordinadas Júnior, se houver. 14.2."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1000248",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 64,
+     "clause": "Suplemento IX, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+     "excerpt": "incorridos nos 3 (três) meses calendário imediatamente subsequentes; 64 iii. pagamento de resgate de Cotas aos Cotistas Dissidentes, nos termos do item 17.3.2; iv. constituição e/ou recomposição da Reserva de Amortização de modo que esta, no décimo dia anterior à Data de Amortização seja equivalente ao montante total das próximas 03 (três) Amortizações Programadas; v."
+    }
+   ],
+   "legacy": {
+    "value": "Despesas estimadas dos próximos3 meses",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "pdd": {
+   "display": "Sem provisão até 60 dias de atraso; provisão crescente depois",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 45,
+     "clause": "Suplemento IX, cl. 10.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "integrantes da respectiva carteira, disponível para consulta no website da Administradora (www.vortx.com.br). 10.2.2. A Administradora constituirá provisão para perdas com devedores duvidosos (“PDD”) para Direitos Creditórios Adquiridos de acordo com a seguinte metodologia: i. até 60 (sessenta) dias de atraso, o valor contabilizado da parcela do Direito Creditório Adquirido Inadimplido corresponderá ao valor corrente, não sendo realizada qualquer provisão; ii. para cada dia decorrido a partir de 61 (sessenta e um) dias de atraso, será provisionado o valor correspondente a 1/120 do valor presente da parcela do Direito Creditório Adquirido Inadimplido, até o 180º (centésimo octogésimo) dia (inclusive); e iii. ao ﬁnal dos 180 dias (cento e oitenta) doas (exclusive) contados do vencimento da parcela do Direito Creditório Adquirido Inadimplido, o valor da provisão corresponderá a 100% (cem por cento) do valor presente da parcela do Direito Creditório Adquirido Inadimplido. 10.2.3. A provisão para devedores duvidosos descrita neste artigo atingirá os demais Direitos Creditórios do mesmo Devedor, incluindo as parcelas vincendas do Direito Creditório Adquirido Inadimplido provisionado, ou seja, ocorrerá o chamado “efeito vagão”."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de avaliação não localizada no texto extraído",
+   "sources": []
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada no texto extraído",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Revolvência permitida com devedores de rating AA a C",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 38,
+     "clause": "Suplemento IX, cl. 8.2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "e cinco por cento) do Patrimônio Líquido da Classe, somadas as faixas de rating AA, A, B e C, vi. Para originações e revolvências a partir de 04 de agosto de 2026, serão permitidas com devedores de rating AA, A, B e C, observados os limites e taxas mínimas por faixa do SUPLEMENTO IX - LIMITES DE EXPOSIÇÃO POR LINHA DE CRÉDITO, sendo vedadas originações e revolvências com devedores de rating D ou inferior.. 8.2.3. Em relação aos Direitos Creditórios oriundos de Operações de Giro Agro de Devedores Produtores Rurais Pessoas Físicas: i. Em caso de ativos registrados e custodiados por entidade autorizada pelo BACEN, o penhor se dará, quando da impossibilidade de penhor em favor da Classe, em favor da Administradora da Classe, na condição de administradora ﬁduciária dos bens de titularidade da Classe; ii. Devedores Produtores Rurais Pessoas Físicas deverão ter no mínimo 3 (três) anos de experiência na atividade; iii. Deverão conter comprovação da capacidade de que a área informada na CPR-F é coerente com a média da produtividade e do preço do produto rural informados para a região da lavoura, descontando a área de reserva legal e eventuais ônus; iv."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazos por série definidos nos apêndices",
+   "sources": [],
+   "legacy": {
+    "value": "2ª emissão: A36 meses; B/mezz60 meses; júnior A72 meses desde26/08/2024",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,25% a.a. do PL; mín. R$ 20 mil/mês, mais adicionais",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 13,
+     "clause": "Suplemento IX, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "da Cota Sênior mais longa vigente, o que for menor. 8. DA TAXA DE ADMINISTRAÇÃO E DA TAXA DE GESTÃO 8.1. Será devido pelo Fundo à Administradora, a título de Taxa de Administração, uma remuneração equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). 8.2. Adicionalmente ao item 8.1, a taxa de administração será acrescida conforme os termos abaixo. I. custos associados ao envio de TED para pagamento de rendimentos e amortizações (custo unitário de R$ 5,00 (cinco reais) por evento, nos casos em que as Cotas forem escriturais e deixarem de ser negociadas no Fundos 21); II. cadastro de cotistas no sistema de escrituração da Administradora, custo unitário de R$ 5,00 por cadastro, nos casos em que as cotas forem escriturais; III. envio dos extratos e informe periódicos previstos na legislação vigente, custo individual de R$ 0,50, acrescido de custos de postagens; IV. custo adicional mensal de R$ 500,00 por cada carteira de cota (a partir da 4ª carteira); V."
+    },
+    {
+     "doc": "D6",
+     "document_id": "1000248",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 13,
+     "clause": "Suplemento IX, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+     "excerpt": "remuneração equivalente a 0,25% (vinte e cinco centésimos por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo, observado o valor mínimo mensal de R$ 20.000,00 (vinte mil reais). 8.2. Adicionalmente ao item 8.1, a taxa de administração será acrescida conforme os termos abaixo. I."
+    }
+   ],
+   "legacy": {
+    "value": "0,25% a.a. PL; mínimo R$ 20 mil/mês; despesas por evento adicionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "1,00% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 14,
+     "clause": "Suplemento IX, cl. 8.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": ".000,00 (dez mil reais) na Data da Primeira Integralização, pelos serviços de implantação do Fundo. 8.3. Pelo serviço de gestão do Fundo, será devido à Gestora Taxa de Gestão no valor de 1,00% (um por cento) ao ano, incidente sobre o Patrimônio Líquido do Fundo (“Taxa de Gestão”). 8.3.1. Não será devida à Gestora a Taxa de Gestão entre o período de 15 de abril de 2025 até 31 de dezembro de 2025. E pelo período adicional de 12 meses, se iniciando em 01 de julho de 2026 até 30 de junho de 2027. 8.4. Pelos serviços de custódia, o Custodiante fará jus à Taxa Máxima de Custódia disposta no Anexo Descritivo. 8.5. Não será cobrada taxas de entrada, saída ou performance do Fundo. 8.6. Todos os valores expressos em reais neste Regulamento serão atualizados pela variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas (inclusive). 8.7."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Taxa de performance citada como encargo, sem regra no texto lido",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "Sênior A: DI + 3,25%; Sênior B: DI + 4,5% (2ª emissão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "737336",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "12/09/2024",
+     "page": 4,
+     "clause": "Suplemento, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=737336",
+     "excerpt": "tidores Profissionais, nos termos da regulamentação aplicável e do Regulamento do Fundo. 3. Meta de Rentabilidade: 100% da variação da Taxa DI, acrescida de spread de 3,25 % (três e vinte e cinco por cento) ao ano. 4. Data de Emissão: 26/08/2024 5. Quantidade de cotas: 39.850 6. Valor Unitário de Emissão: O preço de emissão das Cotas será de R$ 1.000 (mil reais), podendo ser alterado considerando a cotização (“Preço de Emissão das Cotas”). 7. Valor Total da Emissão: R$ 39.850.000,00 (trinta e nove milhões oitocentos e cinquenta mil reais). 8. Distribuição e Negociação: As Cotas Seniores A serão colocadas sob o rito de registro automático de distribuição, nos termos da Resolução CVM 160, de 13 de julho de 2022, e posteriores alterações. Será admitida distribuição parcial das Cotas Seniores A objeto desta Oferta, sendo que a manutenção da Ofertas das Cotas Seniores A está condicionada à subscrição e integralização, na data de liquidação de Cotas Seniores A, de, no mínimo, 1.000 (um mil) Cotas objeto da Oferta, com valor total equivalente a R$1.000.000,00 (um milhão de reais) (“Montante Mínimo da Oferta”)."
+    },
+    {
+     "doc": "D4",
+     "document_id": "737336",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "12/09/2024",
+     "page": 8,
+     "clause": "Suplemento, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=737336",
+     "excerpt": "nvestidores Profissionais, nos termos da regulamentação aplicável e do Regulamento do Fundo. 3. Meta de Rentabilidade: 100% da variação da Taxa DI, acrescida de spread de 4,5 % (quatro e meio por cento) ao ano. 4. Data de Emissão: 26/08/2024 5. Quantidade de cotas: 20.700 6. Valor Unitário de Emissão: O preço de emissão das Cotas será de R$ 1.000 (mil reais), podendo ser alterado considerando a cotização (“Preço de Emissão das Cotas”). 7. Valor Total da Emissão: R$ 20.700.000,00 (vinte milhões e setecentos mil de reais). 8. Distribuição e Negociação: As Cotas Seniores B serão colocadas sob o rito de registro automático de distribuição, nos termos da Resolução CVM 160, de 13 de julho de 2022, e posteriores alterações. Será admitida distribuição parcial das Cotas Seniores B objeto desta Oferta, sendo que a manutenção da Ofertas das Cotas Seniores B está condicionada à subscrição e integralização, na data de liquidação de Cotas Seniores B, de, no mínimo, 1.000 (um mil) Cotas objeto da Oferta, com valor total equivalente a R$1.000.000,00 (um milhão de reais) (“Montante Mínimo da Oferta”). Caso ocorra a distribuição parcial aqui referida, as Cotas Seniores B que não forem efetivamente subscritas e integralizadas no prazo de colocação serão canceladas pela Administradora."
+    }
+   ],
+   "legacy": {
+    "value": "2ª emissão: DI +3,25% A; +4,50% B; +6% mezz; +10,75% júnior A",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Instrumento de emissão 12/09/2024, Suplemento, cl. 3"
+   }
+  },
+  "target_mezz": {
+   "display": "DI + 6% a.a. (2ª emissão)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D4",
+     "document_id": "737336",
+     "kind": "Instrumento de emissão",
+     "title": "Instrumento Particular de Emissão de Cotas",
+     "date": "12/09/2024",
+     "page": 13,
+     "clause": "Suplemento, cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=737336",
+     "excerpt": "idores Profissionais, nos termos da regulamentação aplicável e do Regulamento do Fundo. 3. Meta de Rentabilidade: 100% da variação da Taxa DI, acrescida de spread de 6 % (seis por cento). 4. Data de Emissão: 26/08/2024. 5. Quantidade de cotas: 7.400 6. Valor Unitário de Emissão: O preço de emissão das Cotas será de R$ 1.000 (mil reais), podendo ser alterado considerando a cotização (“Preço de Emissão das Cotas”). 7. Valor Total da Emissão: R$ 7.400.000,00 (sete milhões e quatrocentos mil reais) 8. Distribuição e Negociação: As Cotas Subordinadas Mezanino serão colocadas sob o rito de registro automático de distribuição, nos termos da Resolução CVM 160, de 13 de julho de 2022, e posteriores alterações. Será admitida distribuição parcial das Cotas Subordinadas Mezanino objeto desta Oferta, sendo que a manutenção da Ofertas das Cotas Subordinadas Mezanino está condicionada à subscrição e integralização, na data de liquidação de Cotas Subordinadas Mezanino, de, no mínimo, 1.000 (um mil) Cotas objeto da Oferta, com valor total equivalente a R$1.000.000,00 (um milhão de reais) (“Montante Mínimo da Oferta”)."
+    }
+   ],
+   "legacy": {
+    "value": "2ª emissão: DI +3,25% A; +4,50% B; +6% mezz; +10,75% júnior A",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Instrumento de emissão 12/09/2024, Suplemento, cl. 3"
+   }
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 101,
+     "clause": "Suplemento IX",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "do qual as respectivas partes estabelecem suas respectivas obrigações no âmbito da Classe e da Classe; III. “Administradora”: signiﬁca VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, n° 215, 4º andar, Pinheiros, inscrita no CNPJ sob n.º 22.610.500/0001-88, autorizada a prestar serviço de administração de carteiras de valores mobiliários pela CVM, de acordo com o Ato Declaratório CVM n.º 14.820, expedido em 8 de janeiro de 2016; IV. “Agência Classiﬁcadora de Risco”: signiﬁca a agência classiﬁcadora de risco contratada pela Classe para a classiﬁcação de risco das Cotas, conforme aplicável; V. “Agentes de Cobrança Extrajudicial” ou “Nagro”: signiﬁca a Nagro Crédito e a Nagro Securitizadora, em conjunto, contratadas para realizar a administração e cobrança dos Direitos Creditórios Adquiridos Inadimplidos, nos termos do Contrato de Cobrança Extrajudicial. VI. “Agentes de Cobrança Judicial”: Os escritórios de advocacia contratados pela Classe para realização da cobrança judicial dos Direitos Creditórios Adquiridos Inadimplidos. VII."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oikos Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 108,
+     "clause": "Suplemento IX",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "ão secundária de cotas de fundos de investimento, administrado e operacionalizado pela B3; LXXX. “Gestora”: signiﬁca a OIKOS GESTÃO DE RECURSOS LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Jeronimo da Veiga, nº 45, Conjunto 63, Jardim Europa, CEP 04536-000, inscrita no CNPJ sob o nº 23.313.334/0001-10, devidamente credenciada na CVM para o exercício da atividade de administração de carteiras de títulos e valores mobiliários, de acordo com o Ato Declaratório CVM nº 15.177, de 16 de agosto de 2016 ou sua sucessora a qualquer título. LXXXI. “Grupo Econômico”: signiﬁca o conjunto de entidades controladoras diretas ou indiretas, controladas, coligadas ou submetidas a controle comum, tendo “controle” o signiﬁcado previsto no artigo 116 da Lei 6.404; LXXXII. “ICP-Brasil” A Infraestrutura de Chaves Públicas Brasileira. LXXXIII. “Índices de Inadimplemento” São os limites de inadimplência por faixas de atraso, e calculados no 5º (quinto) Dia Útil de cada mês, pela Gestora, com base em relatórios analíticos disponibilizados pela Administradora; LXXXIV."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante citado sem nome no trecho lido",
+   "sources": []
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agentes de cobrança sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo não localizado no texto extraído",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado; prazo próprio por subclasse",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1276588",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "04/08/2026",
+     "page": 28,
+     "clause": "Suplemento IX, cl. 2.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1276588",
+     "excerpt": "mínimo da 1ª (primeira) emissão de Cotas do Fundo é de R$ 50.000.000,00 (cinquenta milhões reais). 2.2. A Classe terá prazo de duração indeterminado, sendo que cada Subclasse, conforme o caso, terá prazo de duração conforme descrito no correspondente Apêndice. 2.3. A Classe será liquidada quando houver o resgate de todas as suas Subclasses, observado o disposto neste Anexo e seu Regulamento. 2.4. A Classe pertence à categoria FIAGRO, e observará a Resolução CVM 175, este Anexo e seu Regulamento, além das demais disposições legais e normativas que lhe forem aplicáveis. 2.5. Até que sejam divulgadas regras de autorregulação especíﬁcas aos FIAGRO, a Classe será classiﬁcada, para os ﬁns da Seção II do Capítulo VII, das Regras e Procedimentos de Administração e Gestão de Recursos de Terceiros, de 1º de novembro de 2024, da ANBIMA, como Fundo “Agro, Indústria e Comércio”, com foco de atuação em “Recebíveis Comerciais”. Referida classiﬁcação somente poderá ser alterada por deliberação da Assembleia de Cotistas, nos termos deste Regulamento, salvo se a alteração decorrer da divulgação de regras de autorregulação da ANBIMA. 28 3."
+    }
+   ],
+   "legacy": {
+    "value": "2ª emissão: A36 meses; B/mezz60 meses; júnior A72 meses desde26/08/2024",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "agro_backing": {
+   "display": "Operações nas cadeias produtivas do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1000248",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "29/09/2025",
+     "page": 29,
+     "clause": "Suplemento IX, cl. 5.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000248",
+     "excerpt": "5.2. Os Direitos Creditórios serão adquiridos pela Classe sempre de acordo com a Política de Investimentos e desde que cumprindo integralmente os Critérios de Elegibilidade e os demais critérios de composição de Carteira estabelecidos neste Anexo e na regulamentação aplicável. 5.3. Os Direitos Creditórios serão originados no âmbito de operações de crédito relacionadas aos segmentos de Cadeias Produtivas do agronegócio."
+    }
+   ],
+   "legacy": {
+    "value": "Operações financeiras nas cadeias produtivas do agronegócio; imóveis rurais complementares",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias definidas por operação, não no regulamento",
+   "sources": []
+  }
+ },
+ "leitura": "Crédito agro com rating AA a C, sênior A ≤ 50% e A+B ≤ 75% do PL; sênior a DI + 3,25% e gestão de 1% a.a.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

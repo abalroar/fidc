@@ -1,0 +1,53 @@
+# Nagro Ghia FIAGRO-DC (Vórtx; Ghia Gestão)
+type: Agro/FIAGRO
+q6: * "do Patrimônio Líquido por Estado, com exceção dos Estados de Minas Gerais, Goiás e Mato Grosso"
+q1: * "4. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente"
+q2: * "deverão observar a exposição máxima de 0,25% (vinte e cinco centésimos por cento) do Patrimônio Líquido do Fundo OU R$ 160.000,00"
+q3: * "xx deverão observar o prazo máximo de vencimento de 26 (vinte e seis) meses"
+q4: * "os Devedores deverão apresentar a idade mínima de 25 (vinte e cinco) anos"
+q7: * "a Classe deverá possuir parcela superior a 67% (sessenta e sete por cento) do seu Patrimônio Líquido representada por Direitos Creditórios"
+q8: * "será cobrada do Fundo a Taxa de Administração de 0,30% (trinta centésimos por cento)"
+q9: * "Pelo serviço de gestão do Fundo, será devido à Gestora o valor de 0,70% a.a."
+q10: * "5. Taxa de Performance. Não há"
+q11: * "Administradora VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: * "Gestora GHIA GESTÃO DE RECURSOS LTDA."
+q13: * "O Fundo é destinado a receber, exclusivamente, aplicações de Investidores Qualificados"
+q14: * "seja equivalente ao montante estimado dos Encargos, a serem incorridos nos 6 (seis) meses calendário"
+q15: * "s Creditórios, poderá, a critério da Gestora, operar em regime de revolvência"
+q16: * "metodologia descrita no manual de provisão para perdas da Administradora"
+q17: * "O patrimônio da Classe será representado por até 3 (três) Subclasses de Cotas"
+q18: * "O Custodiante é o responsável legal pela guarda dos Documentos Comprobatórios"
+receivables: Crédito a produtor rural, giro e antecipação: CCB, CPR/CPR-F e CDA/WA | o1
+originator: Cedentes e tomadores do agronegócio selecionados pela gestora | q1
+assignor: Cedentes e emissores do agronegócio | q1
+debtor: Produtores rurais e empresas do agro com idade mínima de 25 anos (PF) | q4
+recourse: n/d | Coobrigação definida em cada operação
+eligibility: Devedor adimplente; prazo > 3 meses; até 26 meses; destinação agro | q1,q3
+debtor_limit: Devedor/grupo ≤ 0,25% do PL ou R$ 160 mil, o maior | q2
+assignor_limit: Estado ≤ 20% do PL (MG, GO e MT até 30%); limites por cultura | q6
+term_max: De 3 a 26 meses (ou vencimento da sênior mais longa) | q1,q3
+allocation: > 67% do PL em direitos creditórios | q7 | value=67
+quota_structure: Sênior / Mezanino / Júnior | q17
+sub_senior: n/d | Razão de garantia não localizada no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+sub_mezz: n/d | Razão de garantia não localizada no regulamento vigente
+sub_check: n/d | Razão de garantia não localizada no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+reserve: Reserva de despesas para 6 meses de encargos estimados | q14
+pdd: Manual de provisão para perdas da administradora | q16
+eval_triggers: n/d | Eventos de avaliação não localizados no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+liquidation: n/d | Eventos de liquidação não localizados no regulamento vigente | why=Resposta anterior vem de versão de 2025 do regulamento
+revolving: Revolvência a critério da gestora | q15
+amortization: n/d | Ordem de alocação e datas definidas nos apêndices | why=Resposta anterior vem de versão de 2025 do regulamento
+admin_fee: 0,30% a.a. do PL | q8
+mgmt_fee: 0,70% a.a. do PL | q9
+perf_fee: Não prevista | Regulamento: não há taxa de performance | q10
+target_senior: n/d | Benchmark sênior definido no apêndice, fora do acervo
+target_mezz: n/d | Benchmark mezanino definido no apêndice, fora do acervo
+administrator: Vórtx DTVM | q11
+manager: Ghia Gestão de Recursos | q12
+custodian: n/d | Custodiante citado sem nome no trecho lido | q18
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores qualificados | q13
+duration: n/d | Prazo da classe não localizado no texto extraído
+agro_backing: Títulos com destinação à atividade do agronegócio | q2
+collateral: n/d | Garantias definidas por operação, não no regulamento
+leitura: Crédito agro pulverizado: devedor ≤ 0,25% do PL ou R$ 160 mil; estado ≤ 20% (MG, GO, MT até 30%).

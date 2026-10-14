@@ -1,0 +1,688 @@
+{
+ "schema_version": 1,
+ "cnpj": "42133756000159",
+ "name": "NAGRO GHIA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - FIAGRO - DIREITOS CREDITÓRI",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T01:12:27Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1283048",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "05/08/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048"
+  },
+  "D2": {
+   "document_id": "1223375",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "16/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1223375"
+  },
+  "D3": {
+   "document_id": "1218332",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "10/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1218332"
+  },
+  "D4": {
+   "document_id": "1213113",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "03/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1213113"
+  },
+  "D5": {
+   "document_id": "623440",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "20/03/2024",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=623440"
+  },
+  "D6": {
+   "document_id": "1000165",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "25/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Crédito a produtor rural, giro e antecipação: CCB, CPR/CPR-F e CDA/WA",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D6",
+     "document_id": "1000165",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "25/09/2025",
+     "page": 33,
+     "clause": "Anexo VIIII, cl. 6.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+     "excerpt": "6.1.2. Os Direitos Creditórios serão de operações de natureza diversa, inclusive, mas não se limitando a, aqueles decorrentes das Operações de Crédito Produtor Rural, Operações de Giro e Operações para Antecipação de Recebíveis, sendo formalizados, de uma forma geral, pelos seguintes instrumentos: (a) CCB; (b) CPR/CPR-F; e (c) CDA/WA.. 6.1.3."
+    }
+   ],
+   "legacy": {
+    "value": "FIAGRO: crédito produtor rural, giro e antecipação de recebíveis; CCB, CPR/CPR-F e CDA/WA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Cedentes e tomadores do agronegócio selecionados pela gestora",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 19,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "titularidade, alienando e/ou renegociando tais Direitos Creditórios Adquiridos na forma do Regulamento e deste Anexo. 4. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente, na respectiva Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, conforme aplicável: i Os Devedores não poderão estar em atraso com nenhum Direito Creditório que integre o patrimônio do Fundo; ii Os Direitos Creditórios deverão observar o prazo mínimo de vencimento superior a 3 (três) meses; 4.1. A Gestora será a instituição responsável por verificar e validar até a Data de Aquisição e Pagamento o atendimento dos Direitos Creditórios pela Classe. 4.2. Para fins da verificação e validação dos Critérios de Elegibilidade pela Gestora, será considerado o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 4.3. Na hipótese de o Direito Creditório elegível perder quaisquer dos respectivos Critérios de Elegibilidade após sua aquisição pela Classe, não haverá direito de regresso contra o Custodiante, a Administradora, a Gestora e/ou a Consultoria Especializada. 4.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Cedentes e emissores do agronegócio",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 19,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "titularidade, alienando e/ou renegociando tais Direitos Creditórios Adquiridos na forma do Regulamento e deste Anexo. 4. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente, na respectiva Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, conforme aplicável: i Os Devedores não poderão estar em atraso com nenhum Direito Creditório que integre o patrimônio do Fundo; ii Os Direitos Creditórios deverão observar o prazo mínimo de vencimento superior a 3 (três) meses; 4.1. A Gestora será a instituição responsável por verificar e validar até a Data de Aquisição e Pagamento o atendimento dos Direitos Creditórios pela Classe. 4.2. Para fins da verificação e validação dos Critérios de Elegibilidade pela Gestora, será considerado o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 4.3. Na hipótese de o Direito Creditório elegível perder quaisquer dos respectivos Critérios de Elegibilidade após sua aquisição pela Classe, não haverá direito de regresso contra o Custodiante, a Administradora, a Gestora e/ou a Consultoria Especializada. 4.4."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Produtores rurais e empresas do agro com idade mínima de 25 anos (PF)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 20,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "verão observar o período mínimo de desempenho da atividade por produtor rural de 4 (quatro) anos; xvi os Devedores deverão apresentar a idade mínima de 25 (vinte e cinco) anos na data de emissão do respectivo Direito Creditório; xviii deverão ser representados por Ativos Financeiros com destinação de recursos à atividade do setor do agronegócio; xix deverão observar a exposição máxima de 0,25% (vinte e cinco centésimos por cento) do Patrimônio Líquido do Fundo OU R$ 160.000,00 (cento e sessenta mil reais), o que for maior, de principal e/ou valor de aquisição do título, por Devedor e/ou respectivo Grupo Econômico;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Coobrigação definida em cada operação",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Devedor adimplente; prazo > 3 meses; até 26 meses; destinação agro",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 19,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "titularidade, alienando e/ou renegociando tais Direitos Creditórios Adquiridos na forma do Regulamento e deste Anexo. 4. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente, na respectiva Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, conforme aplicável: i Os Devedores não poderão estar em atraso com nenhum Direito Creditório que integre o patrimônio do Fundo; ii Os Direitos Creditórios deverão observar o prazo mínimo de vencimento superior a 3 (três) meses; 4.1. A Gestora será a instituição responsável por verificar e validar até a Data de Aquisição e Pagamento o atendimento dos Direitos Creditórios pela Classe. 4.2. Para fins da verificação e validação dos Critérios de Elegibilidade pela Gestora, será considerado o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 4.3. Na hipótese de o Direito Creditório elegível perder quaisquer dos respectivos Critérios de Elegibilidade após sua aquisição pela Classe, não haverá direito de regresso contra o Custodiante, a Administradora, a Gestora e/ou a Consultoria Especializada. 4.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 20,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "for maior, de principal e/ou valor de aquisição do título, por Devedor e/ou respectivo Grupo Econômico; e xx deverão observar o prazo máximo de vencimento de 26 (vinte e seis) meses ou data de vencimento das Cotas Seniores com prazo de vencimento mais longo em circulação. 5.1 Após concluída a operação de cessão dos Direitos Creditórios, o cumprimento das Condições de Cessão será verificado e validado pela Gestora, sendo certo que essa verificação poderá ser realizada em conjunto com um terceiro contratado pelo Fundo para este fim, em até 15 (quinze) Dias Úteis, contados do recebimento dos Documentos de Cessão, sendo certo que o envio de tais documentos, se pela Cedente, deverá ser 20 realizado em até 5 (cinco) Dias Úteis, contados de cada Data de Aquisição e Pagamento dos Direitos Creditórios, e que o descumprimento do referido prazo representará um Evento de Venda de Direitos Creditórios. 6. É garantido ao Fundo exercer a Opção de Venda, mediante solicitação da Gestora, na ocorrência de quaisquer dos seguintes Evento de Venda de Direitos Creditórios: a."
+    }
+   ],
+   "legacy": {
+    "value": "Devedor sem atraso na carteira; prazo mínimo>3 meses; lastro e parecer de crédito; condições específicas por operação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Devedor/grupo ≤ 0,25% do PL ou R$ 160 mil, o maior",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 20,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "resentados por Ativos Financeiros com destinação de recursos à atividade do setor do agronegócio; xix deverão observar a exposição máxima de 0,25% (vinte e cinco centésimos por cento) do Patrimônio Líquido do Fundo OU R$ 160.000,00 (cento e sessenta mil reais), o que for maior, de principal e/ou valor de aquisição do título, por Devedor e/ou respectivo Grupo Econômico; e xx deverão observar o prazo máximo de vencimento de 26 (vinte e seis) meses ou data de vencimento das Cotas Seniores com prazo de vencimento mais longo em circulação. 5.1 Após concluída a operação de cessão dos Direitos Creditórios, o cumprimento das Condições de Cessão será verificado e validado pela Gestora, sendo certo que essa verificação poderá ser realizada em conjunto com um terceiro contratado pelo Fundo para este fim, em até 15 (quinze) Dias Úteis, contados do recebimento dos Documentos de Cessão, sendo certo que o envio de tais documentos, se pela Cedente, deverá ser 20 realizado em até 5 (cinco) Dias Úteis, contados de cada Data de Aquisição e Pagamento dos Direitos Creditórios, e que o descumprimento do referido prazo representará um Evento de Venda de Direitos Creditórios. 6."
+    }
+   ],
+   "value": 0.25,
+   "legacy": {
+    "value": "Exposição>20% por devedor/coobrigado permitida sob condições de registro/auditoria; conciliar exceções por ativo",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 5"
+   }
+  },
+  "assignor_limit": {
+   "display": "Estado ≤ 20% do PL (MG, GO e MT até 30%); limites por cultura",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 64,
+     "clause": "cl. 18.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "deverão 63 observar o máximo de concentração de 20% (vinte por cento) do Patrimônio Líquido por Estado, com exceção dos Estados de Minas Gerais, Goiás e Mato Grosso, os quais podem chegar, individualmente, a 30% (trinta por cento). 64 APÊNDICE II - LISTA DE CULTURAS COM CONCENTRAÇÃO MÁXIMA MAIOR QUE 20% (VINTE POR CENTO) Concentração Máxima em CNAE Atividade relação ao PL da Classe Pecuária 0151- Criação de bovinos para leite 25% 2/02 Agricultura 0111- Cultivo de milho 35% 3/02 0115- Cultivo de soja 35% 6/00 65 APÊNDICE III - LISTA DE CONCENTRAÇÃO MÁXIMA POR ESTADO Limite em"
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Exposição>20% por devedor/coobrigado permitida sob condições de registro/auditoria; conciliar exceções por ativo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "De 3 a 26 meses (ou vencimento da sênior mais longa)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 19,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "titularidade, alienando e/ou renegociando tais Direitos Creditórios Adquiridos na forma do Regulamento e deste Anexo. 4. A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente, na respectiva Data de Aquisição e Pagamento, aos seguintes Critérios de Elegibilidade, conforme aplicável: i Os Devedores não poderão estar em atraso com nenhum Direito Creditório que integre o patrimônio do Fundo; ii Os Direitos Creditórios deverão observar o prazo mínimo de vencimento superior a 3 (três) meses; 4.1. A Gestora será a instituição responsável por verificar e validar até a Data de Aquisição e Pagamento o atendimento dos Direitos Creditórios pela Classe. 4.2. Para fins da verificação e validação dos Critérios de Elegibilidade pela Gestora, será considerado o Patrimônio Líquido da Classe do Dia Útil imediatamente anterior à Data de Aquisição e Pagamento. 4.3. Na hipótese de o Direito Creditório elegível perder quaisquer dos respectivos Critérios de Elegibilidade após sua aquisição pela Classe, não haverá direito de regresso contra o Custodiante, a Administradora, a Gestora e/ou a Consultoria Especializada. 4.4."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 20,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "for maior, de principal e/ou valor de aquisição do título, por Devedor e/ou respectivo Grupo Econômico; e xx deverão observar o prazo máximo de vencimento de 26 (vinte e seis) meses ou data de vencimento das Cotas Seniores com prazo de vencimento mais longo em circulação. 5.1 Após concluída a operação de cessão dos Direitos Creditórios, o cumprimento das Condições de Cessão será verificado e validado pela Gestora, sendo certo que essa verificação poderá ser realizada em conjunto com um terceiro contratado pelo Fundo para este fim, em até 15 (quinze) Dias Úteis, contados do recebimento dos Documentos de Cessão, sendo certo que o envio de tais documentos, se pela Cedente, deverá ser 20 realizado em até 5 (cinco) Dias Úteis, contados de cada Data de Aquisição e Pagamento dos Direitos Creditórios, e que o descumprimento do referido prazo representará um Evento de Venda de Direitos Creditórios. 6. É garantido ao Fundo exercer a Opção de Venda, mediante solicitação da Gestora, na ocorrência de quaisquer dos seguintes Evento de Venda de Direitos Creditórios: a."
+    }
+   ],
+   "legacy": {
+    "value": "Devedor sem atraso na carteira; prazo mínimo>3 meses; lastro e parecer de crédito; condições específicas por operação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "allocation": {
+   "display": "> 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 17,
+     "clause": "cl. 19",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "tação desse serviço pelo BACEN ou pela CVM. 19. Em até 180 (cento e oitenta) dias da Data da 1ª Integralização, a Classe deverá possuir parcela superior a 67% (sessenta e sete por cento) do seu Patrimônio Líquido representada por Direitos Creditórios, podendo a CVM, a seu exclusivo critério, prorrogar tal prazo por igual período, desde que a Administradora e a Gestora apresentem motivos que justifiquem a prorrogação. 20. A Classe deverá observar o limite máximo de concentração de 20% (vinte por cento) de seu Patrimônio Líquido em Direitos Creditórios e/ou Ativos Financeiros de um mesmo Devedor. Nos termos do artigo, 14, §3º, I e II e artigo 29, IV, ambos do Anexo VI, da Resolução CVM 175 com cópia §3º e §7º do artigo 45 do Anexo Normativo II da Resolução CVM 175, a Classe poderá adquirir Direitos Creditórios e/ou Ativos Financeiros de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, que excedam 20% (vinte por cento) de seu Patrimônio Líquido, desde que observadas as exigências abaixo: i. Nas classes destinadas a Investidores Qualificados, quando: a) o Devedor ou coobrigado: a.1. tenha registro de companhia aberta; a.2. seja instituição financeira ou equiparada; ou a.3."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "Direitos creditórios>67% do PL em 180 dias; numeral diverge do extenso na cláusula",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 19"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 14,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "ente, aplicações de Investidores Qualificados. D. Subclasses 2. O patrimônio da Classe será representado por até 3 (três) Subclasses de Cotas, representativas de frações ideais do patrimônio da Classe (cada, uma “Subclasse”), quais sejam: (i) Cotas Seniores, (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Júnior, conforme características previstas no respectivo Apêndice de cada Subclasse. Todas as Cotas de uma mesma Subclasse terão iguais prioridades de amortização, resgate e distribuição dos rendimentos da carteira da Classe, bem como direitos de voto, observado o disposto neste Anexo e no Regulamento. Conforme detalhado em cada Apêndice, os direitos das Subclasses se diferenciarão em relação à prioridade nos pagamentos de resgate e amortização, bem como em relação à distribuição de rendimentos. E. Emissão e Regime de Distribuição de Cotas 1."
+    }
+   ],
+   "legacy": {
+    "value": "Razões de garantia: sênior≥35% e mezanino≥20% após 180 dias; fórmulas conflitantes no glossário",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 2"
+   }
+  },
+  "sub_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Razão de garantia não localizada no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Razões de garantia: sênior≥35% e mezanino≥20% após 180 dias; fórmulas conflitantes no glossário",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "sub_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Razão de garantia não localizada no regulamento vigente",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Razão de garantia não localizada no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Razões de garantia: sênior≥35% e mezanino≥20% após 180 dias; fórmulas conflitantes no glossário",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas para 6 meses de encargos estimados",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 32,
+     "clause": "cl. 10",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "constituição e/ou recomposição da Reserva de Despesas de modo que esta, ao final de cada Dia Útil, seja equivalente ao montante estimado dos Encargos, a serem incorridos nos 6 (seis) meses calendário imediatamente subsequentes; 3. pagamento de amortização ou resgate das Cotas Sênior, se houver; 4. pagamento de amortização ou resgate das Cotas Subordinadas Mezanino, se houver; 5. pagamento de amortização ou resgate das Cotas Subordinadas Júnior, se houver; 6. aquisição, pela Classe, dos Direitos Creditórios, observando-se a Política de Investimentos; e 7. aquisição, pela Classe, de Ativos Financeiros de Liquidez, observando-se a Política de Investimentos. 11. Não obstante o disposto acima, em caso de liquidação antecipada da Classe, os recursos provenientes do recebimento dos Ativos Financeiros de Liquidez e dos Direitos Creditórios que compõem a carteira da Classe serão alocados da seguinte forma: (i) pagamento dos Encargos; e 32 (ii) pagamento da amortização integral até o resgate das Cotas Sênior;"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses calendário de encargos estimados, recomposição diária",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 10"
+   }
+  },
+  "pdd": {
+   "display": "Manual de provisão para perdas da administradora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 14,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "iros integrantes da carteira da Classe serão calculadas pela Administradora, de acordo com a regulamentação vigente e a metodologia descrita no manual de provisão para perdas da Administradora, também disponível na sua página na rede mundial de computadores. G. Ordem de Alocação de Recursos 1. A partir da primeira integralização e até a liquidação da Classe, a Administradora, sob orientação da Gestora, deverá, em todo Dia Útil, alocar os recursos provenientes da integralização de Cotas, do recebimento de rendimentos ou da alienação de ativos da carteira, na seguinte ordem de prioridade: I. Pagamento de taxas, despesas e encargos da Classe, conforme descritos neste Regulamento; II. Pagamento de amortização e/ou resgate de Cotas Seniores, observando os prazos e condições estabelecidos neste Regulamento; III. Pagamento de amortização e/ou resgate de Cotas Subordinadas Mezanino, observando os prazos e condições estabelecidos neste Regulamento; IV. Pagamento de amortização e/ou resgate de Cotas Subordinadas Junior, observando os prazos e condições estabelecidos neste Regulamento; E 14 III."
+    }
+   ],
+   "legacy": {
+    "value": "61–180 dias: provisionar 1/120 do valor presente por dia; após 180 dias 100%; efeito vagão",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 2"
+   }
+  },
+  "eval_triggers": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de avaliação não localizados no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Avaliação: descumprimentos/prestadores; liquidação: PL médio<R$ 1 mi por 90 dias, entre outros eventos",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Avaliação: descumprimentos/prestadores; liquidação: PL médio<R$ 1 mi por 90 dias, entre outros eventos",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência a critério da gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 15,
+     "clause": "cl. 2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "Da Revolvência e a alienação das Cotas dos Fundos. A Carteira da Classe, que investe preponderantemente em Direitos Creditórios, poderá, a critério da Gestora, operar em regime de revolvência. Em um regime de revolvência, os recursos provenientes dos Direitos Creditórios investidos serão reinvestidos na aquisição de novos Direitos Creditórios, observando a Política de Investimento, sem a necessidade de resgate ou distribuição de tais valores aos Cotistas da Classe. 3. A Classe poderá alienar os Direitos Creditórios a quaisquer terceiros, a critério da Gestora, de forma em que os recursos provenientes da alienação serão reinvestidos na aquisição de novos Direitos Creditórios. 4. A partir da primeira integralização e até a liquidação da Classe, a Administradora, sob orientação da Gestora, deverá, em todo Dia Útil, alocar os recursos provenientes da integralização de Cotas, do recebimento de rendimentos ou da alienação de ativos da carteira, na seguinte ordem de prioridade: I. Pagamento de taxas, despesas e encargos da Classe, conforme descritos neste Regulamento; II. Pagamento dos resgates de Cotas, observando os prazos e condições estabelecidos neste Regulamento; III."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Ordem de alocação e datas definidas nos apêndices",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos; reserva despesas; aquisições; sênior; mezanino; ativos financeiros; júnior",
+    "decision": "regression",
+    "why": "Resposta anterior vem de versão de 2025 do regulamento"
+   }
+  },
+  "admin_fee": {
+   "display": "0,30% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 21,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "role e processamento dos ativos financeiros, a distribuição de cotas e a escrituração da emissão e do resgate de cotas, será cobrada do Fundo a Taxa de Administração de 0,30% (trinta centésimos por cento) sobre o valor do patrimônio líquido do Fundo ou a quantia mínima mensal de R$20.000,00 (vinte mil reais), o que for maior. 21 1.1. Adicionalmente, pela participação em Assembleias Gerais ou outros eventos do Fundo, a Classe pagará ao Administrador R$ 500,00 (quinhentos reais) por hora, por cada evento de Assembleia. 2. Taxa de Custódia. Pelos serviços de controladoria, custódia e escrituração, a Classe pagará ao Custodiante, diretamente pelo Fundo, a taxa máxima de custódia correspondente a 0,20% (vinte centésimos por cento) sobre o valor do patrimônio líquido da Classe, sendo certo que referida taxa já está inclusa na Taxa de Administração, e, portanto, não constitui encargo adicional ao Fundo. 3. Taxa de Gestão. Pelo serviço de gestão do Fundo, será devido à Gestora o valor de 0,70% a.a. (setenta centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo. 4."
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. sobre PL; mínimoR$ 20 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 05/08/2026, cl. 1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,70% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 22,
+     "clause": "cl. 3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "está inclusa na Taxa de Administração, e, portanto, não constitui encargo adicional ao Fundo. 3. Taxa de Gestão. Pelo serviço de gestão do Fundo, será devido à Gestora o valor de 0,70% a.a. (setenta centésimos por cento ao ano) incidente sobre o Patrimônio Líquido do Fundo. 4. A Taxa de Administração, Taxa de Gestão e a Taxa de Custódia serão calculadas e provisionadas à base de 1/252 (um duzentos e cinquenta e dois avos) e serão pagas pelo Fundo, mensalmente, por períodos vencidos, até o 5º (quinto) Dia Útil do mês subsequente. 5. Taxa de Performance. Não há. 6. Também incidirão sobre o Fundo as taxas de performance e de qualquer outra natureza cobradas pelos Fundos Investidos, sendo certo que tais taxas não incidirão sobre o Fundo, mas serão redutores do valor da cota dos Fundos Investidos e, consequentemente, da cota do Fundo para fins do cálculo da Taxa de Performance. 7. Taxa de Ingresso ou Saída. O Fundo não possui taxa de ingresso ou saída. 8."
+    }
+   ],
+   "legacy": {
+    "value": "0,70% a.a. sobre PL, pagamento mensal",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento: não há taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 22,
+     "clause": "cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "is avos) e serão pagas pelo Fundo, mensalmente, por períodos vencidos, até o 5º (quinto) Dia Útil do mês subsequente. 5. Taxa de Performance. Não há. 6. Também incidirão sobre o Fundo as taxas de performance e de qualquer outra natureza cobradas pelos Fundos Investidos, sendo certo que tais taxas não incidirão sobre o Fundo, mas serão redutores do valor da cota dos Fundos Investidos e, consequentemente, da cota do Fundo para fins do cálculo da Taxa de Performance. 7. Taxa de Ingresso ou Saída. O Fundo não possui taxa de ingresso ou saída. 8."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark sênior definido no apêndice, fora do acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark mezanino definido no apêndice, fora do acervo",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "Ato Declaratório: 18.295 de 07 de dezembro de 2020 Administradora VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de 2016 Outros Prestadores de Serviços Custódia VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de 2016 Distribuição VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de 2016 Agente de Cobrança Extrajudicial NAGRO SECURITIZADORA DE DIREITOS CREDITÓRIOS DO AGRONEGÓCIO S.A CNPJ: 37.763.917/0001-58 B) Das Características"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Ghia Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "Prestadores de Serviços Essenciais Gestora GHIA GESTÃO DE RECURSOS LTDA. CNPJ: 35.070.686/0001-71 Ato Declaratório: 18.295 de 07 de dezembro de 2020 Administradora VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de 2016 Outros Prestadores de Serviços Custódia VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de 2016 Distribuição VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA. CNPJ: 22.610.500/0001-88 Ato Declaratório: 14.820, expedido em 8 de janeiro de"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante citado sem nome no trecho lido",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 47,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "implidos, o que poderá implicar perdas patrimoniais à Classe e aos Cotistas. (iii) Documentos Comprobatórios. O Custodiante é o responsável legal pela guarda dos Documentos Comprobatórios dos Direitos Creditórios de titularidade da Classe. O descumprimento do dever de guarda e conservação poderá obstar o pleno exercício pela Classe das prerrogativas decorrentes da titularidade dos Direitos Creditórios. A verificação do lastro dos Direitos Creditórios pelo Custodiante é realizada após aquisição dos Direitos Creditórios pela Classe, de modo que a carteira da Classe poderá conter Direitos Creditórios cujos Documentos Comprobatórios apresentem irregularidades, que poderão obstar o pleno exercício, pela Classe, das prerrogativas decorrentes da titularidade dos Direitos Creditórios. Os Documentos Comprobatórios serão mantidos em uma única via, inexistindo cópias de segurança, de modo que, na hipótese de seu extravio ou destruição, a Classe poderá ter dificuldades para comprovar, perante os Devedores, e/ou ao judiciário, a existência dos Direitos Creditórios aos quais se referem."
+    }
+   ]
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 14,
+     "clause": "cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "s controladoras, controladas ou subsidiárias. C. Público-alvo 1. O Fundo é destinado a receber, exclusivamente, aplicações de Investidores Qualificados. D. Subclasses 2. O patrimônio da Classe será representado por até 3 (três) Subclasses de Cotas, representativas de frações ideais do patrimônio da Classe (cada, uma “Subclasse”), quais sejam: (i) Cotas Seniores, (ii) Cotas Subordinadas Mezanino; e (iii) Cotas Subordinadas Júnior, conforme características previstas no respectivo Apêndice de cada Subclasse. Todas as Cotas de uma mesma Subclasse terão iguais prioridades de amortização, resgate e distribuição dos rendimentos da carteira da Classe, bem como direitos de voto, observado o disposto neste Anexo e no Regulamento. Conforme detalhado em cada Apêndice, os direitos das Subclasses se diferenciarão em relação à prioridade nos pagamentos de resgate e amortização, bem como em relação à distribuição de rendimentos. E. Emissão e Regime de Distribuição de Cotas 1."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo da classe não localizado no texto extraído",
+   "sources": []
+  },
+  "agro_backing": {
+   "display": "Títulos com destinação à atividade do agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1283048",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "05/08/2026",
+     "page": 20,
+     "clause": "cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1283048",
+     "excerpt": "resentados por Ativos Financeiros com destinação de recursos à atividade do setor do agronegócio; xix deverão observar a exposição máxima de 0,25% (vinte e cinco centésimos por cento) do Patrimônio Líquido do Fundo OU R$ 160.000,00 (cento e sessenta mil reais), o que for maior, de principal e/ou valor de aquisição do título, por Devedor e/ou respectivo Grupo Econômico; e xx deverão observar o prazo máximo de vencimento de 26 (vinte e seis) meses ou data de vencimento das Cotas Seniores com prazo de vencimento mais longo em circulação. 5.1 Após concluída a operação de cessão dos Direitos Creditórios, o cumprimento das Condições de Cessão será verificado e validado pela Gestora, sendo certo que essa verificação poderá ser realizada em conjunto com um terceiro contratado pelo Fundo para este fim, em até 15 (quinze) Dias Úteis, contados do recebimento dos Documentos de Cessão, sendo certo que o envio de tais documentos, se pela Cedente, deverá ser 20 realizado em até 5 (cinco) Dias Úteis, contados de cada Data de Aquisição e Pagamento dos Direitos Creditórios, e que o descumprimento do referido prazo representará um Evento de Venda de Direitos Creditórios. 6."
+    }
+   ],
+   "legacy": {
+    "value": "FIAGRO: crédito produtor rural, giro e antecipação de recebíveis; CCB, CPR/CPR-F e CDA/WA",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias definidas por operação, não no regulamento",
+   "sources": []
+  }
+ },
+ "leitura": "Crédito agro pulverizado: devedor ≤ 0,25% do PL ou R$ 160 mil; estado ≤ 20% (MG, GO, MT até 30%).",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
