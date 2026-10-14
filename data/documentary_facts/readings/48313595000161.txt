@@ -1,0 +1,43 @@
+# IBBA Agro BR FIDC (Singulare; Buriti Investimentos; multicedente agro) — em liquidação aprovada em 13/11/2025
+type: Agro/FIAGRO
+q1: * "Administradora: SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Gestora: BURITI INVESTIMENTOS GESTORA DE RECURSOS LTDA."
+q2: * "Agente de Cobrança” Significa o Gestor, ou seu sucessor a qualquer título"
+q3: * "São considerados Eventos de Liquidação qualquer das seguintes ocorrências: (i) Se quaisquer Eventos de Avaliação forem considerados Eventos de Liquidação"
+q4: * "destinado a Investidores Profissionais, assim definidos nos termos do artigo 11 da Resolução CVM 30"
+q5: * "prazo de duração indeterminado, sendo que cada subsubclasse ou série de Cotas"
+q6: * "provisão para perdas. A perda por redução no valor de recuperação será mensurada"
+receivables: Vendas agro de produtos, insumos e máquinas; duplicatas e CPR-F | o1
+agro_backing: Duplicatas e CPR-F eletrônicas de vendas agro, performadas ou a performar | o1
+originator: Cedentes do agronegócio (multicedente) | o8
+assignor: Cedentes do agronegócio, com coobrigação total, parcial ou nenhuma | o10
+debtor: Clientes PF e PJ dos cedentes agro | o8
+recourse: Coobrigação total, parcial ou ausente, conforme cada contrato | o10
+eligibility: Adimplentes; duplicata ou CPR-F; prazo de até 540 dias | o13
+debtor_limit: Com PL ≥ R$ 100 mi: devedor ou grupo ≤ 10% do PL | o16 | value=10
+assignor_limit: n/d | Limite por cedente não fixado em trecho localizável | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: Prazo de até 540 dias; média ≤ 270 | o13
+allocation: ≥ 50% do PL em direitos creditórios (base anterior) | o25 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | o28
+sub_senior: n/d | Índice de subordinação excluído pela assembleia de agosto de 2025 | why=Resposta anterior registra exclusão do índice
+sub_mezz: n/d | Razão de garantia excluída pela assembleia de agosto de 2025
+sub_check: — | Índices excluídos
+reserve: ≥ 1% do PL para despesas | o39
+pdd: Perda por redução do valor de recuperação | q6
+eval_triggers: Liquidação aprovada após desenquadramento de inadimplência | o44
+liquidation: Eventos de avaliação convertidos em liquidação, entre outros | q3
+revolving: — | Novas aquisições suspensas na liquidação
+amortization: n/d | Plano de liquidação com prazo até 07/05/2027 | why=Resposta anterior refere-se a ata de assembleia
+admin_fee: 0,18% a.a. do PL; mín. R$ 16,2 mil/mês (IPCA) | o58
+mgmt_fee: 0,25% a.a. do PL; mín. R$ 8 mil/mês (IPCA) | o61
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Singulare CTVM | q1
+manager: Buriti Investimentos | q1
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: Buriti (gestora), como agente de cobrança | q2,q1
+investors: Investidores profissionais | q4
+duration: Indeterminado | q5
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+sacado_limit: Com PL ≥ R$ 100 mi: devedor ou grupo ≤ 10% do PL | o16 | value=10
+leitura: Multicedente agro em liquidação, com índices de subordinação excluídos e prazo de até 540 dias.
