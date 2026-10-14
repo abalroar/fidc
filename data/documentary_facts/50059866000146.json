@@ -1,0 +1,807 @@
+{
+ "schema_version": 1,
+ "cnpj": "50059866000146",
+ "name": "PAGALEVE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS DE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:16:42Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1337370",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/10/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370"
+  },
+  "D2": {
+   "document_id": "909437",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "21/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909437"
+  },
+  "D3": {
+   "document_id": "909370",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "21/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=909370"
+  },
+  "D4": {
+   "document_id": "897723",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "08/05/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=897723"
+  },
+  "D5": {
+   "document_id": "871477",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "01/04/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=871477"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Pagamentos parcelados (Pix) no sistema Pagaleve, via bancarizador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "significam os direitos creditórios originalmente detidos pela Direitos Creditórios Pagaleve Pagaleve contra os Devedores resultantes das Transações de Pagamento. são, em conjunto: (a) recursos em caixa; (b) depósitos bancários à Disponibilidades vista; e (c) os Ativos Financeiros. Documentos Adicionais tem o significado que lhe é atribuído na Cláusula 10 do Anexo I. significam, coletivamente, os Contratos de Cessão, os Termos de Documento de Aquisição Cessão e Instrumento de Aceite. significam as pessoas físicas ou jurídicas, residentes ou com sede Estabelecimento social no Brasil, que tiverem celebrado com a Pagaleve um Contrato de Prestação de Serviços de Pagamento – Estabelecimentos. Evento(s) de Avaliação tem o significado que lhe é atribuído na Cláusula"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 36,
+     "clause": "Anexo I, cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "âmbito do Arranjo de Pagamento Pagaleve, por meio do qual os Devedores adquirem produtos ou serviços de estabelecimentos comerciais. 8.2. Os Cedentes responderão pela existência, certeza, boa formalização e exigibilidade dos respectivos Direitos Creditórios Adquiridos, nos termos deste Regulamento. 9. POLÍTICA DE CRÉDITO 9.1."
+    }
+   ],
+   "legacy": {
+    "value": "Pagamentos parcelados no Sistema Pagaleve; créditos Pagaleve, Bancarizador e antecipação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Pagaleve e bancarizador, conforme a modalidade",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 9,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "significam os direitos creditórios originalmente detidos pela Direitos Creditórios Pagaleve Pagaleve contra os Devedores resultantes das Transações de Pagamento. são, em conjunto: (a) recursos em caixa; (b) depósitos bancários à Disponibilidades vista; e (c) os Ativos Financeiros. Documentos Adicionais tem o significado que lhe é atribuído na Cláusula 10 do Anexo I. significam, coletivamente, os Contratos de Cessão, os Termos de Documento de Aquisição Cessão e Instrumento de Aceite. significam as pessoas físicas ou jurídicas, residentes ou com sede Estabelecimento social no Brasil, que tiverem celebrado com a Pagaleve um Contrato de Prestação de Serviços de Pagamento – Estabelecimentos. Evento(s) de Avaliação tem o significado que lhe é atribuído na Cláusula"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 44,
+     "clause": "Anexo I, cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "ireitos Creditórios Antecipação e Direitos Creditórios Bancarizador; (c) a concentração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0% (dois por cento) do Patrimônio Líquido, para os 10 (dez) maiores Devedores; e (ii) 5,0% (cinco por cento) do Patrimônio Líquido, para os 100 (cem) maiores Devedores; (d) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios originados em Transações de Pagamento realizadas com Estabelecimentos que não estejam previamente aprovados, por email, deverá ser de até 20% (vinte por cento) da carteira; e, (e) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios Antecipação deverá ser de até 20% (vinte por cento) da carteira. 14.3. Não caberá qualquer tipo de reclamação, recurso ou pretensão de regresso pela Classe, em face dos Prestadores de Serviço, com relação aos Direitos Creditórios Adquiridos, exceto se houver falha comprovada no cumprimento de suas obrigações contratuais, regulatórias ou legais."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes Pagaleve, Bancarizador ou estabelecimentos, conforme modalidade",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Pagaleve, bancarizador ou estabelecimentos, conforme a modalidade",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 44,
+     "clause": "Anexo I, cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "ireitos Creditórios Antecipação e Direitos Creditórios Bancarizador; (c) a concentração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0% (dois por cento) do Patrimônio Líquido, para os 10 (dez) maiores Devedores; e (ii) 5,0% (cinco por cento) do Patrimônio Líquido, para os 100 (cem) maiores Devedores; (d) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios originados em Transações de Pagamento realizadas com Estabelecimentos que não estejam previamente aprovados, por email, deverá ser de até 20% (vinte por cento) da carteira; e, (e) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios Antecipação deverá ser de até 20% (vinte por cento) da carteira. 14.3. Não caberá qualquer tipo de reclamação, recurso ou pretensão de regresso pela Classe, em face dos Prestadores de Serviço, com relação aos Direitos Creditórios Adquiridos, exceto se houver falha comprovada no cumprimento de suas obrigações contratuais, regulatórias ou legais."
+    }
+   ],
+   "legacy": {
+    "value": "Cedentes Pagaleve, Bancarizador ou estabelecimentos, conforme modalidade",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas adultas que parcelam compras pela Pagaleve",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 43,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "de indicados abaixo, os quais serão verificados pelo Gestor, na Data de Aquisição: (a) o Devedor deverá ser pessoa física, ter 18 (dezoito) anos ou mais de idade, e ser legalmente capaz; (b) os Devedores dos Direitos Creditórios não poderão estar inadimplentes com a Classe há mais de 5 (cinco) dias, em relação a qualquer Direito Creditório Adquirido e, portanto, já integrante da carteira da Classe; (c) o Direito Creditório não deverá estar inadimplido no momento de sua aquisição; (d) o Direito Creditório e seus respectivos Arquivos de Direitos Creditórios Bancarizador, Arquivos de Direitos Creditórios Pagaleve e Direitos Creditórios Antecipação e Documentos Adicionais, eventualmente solicitados, não proíbem a cessão sem aviso prévio ou anuência do respectivo Cedente e/ou dos respectivos Devedores ou Devedora; (e) os Direitos Creditórios deverão ser prontamente identificáveis;"
+    }
+   ],
+   "legacy": {
+    "value": "Pagaleve/Bancarizador: PF adulta; antecipação liquidada pela Pagaleve",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Recompra por vício ou elegibilidade e por atraso médio acima do teto",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 43,
+     "clause": "Anexo I, cl. 13.17",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Direitos Creditórios Inadimplidos por mais de 30 (trinta) dias, líquidos de suas respectivas Provisões para Créditos de Liquidação Duvidosa (PCLD), ultrapassar 4% (quatro por cento) do valor do Patrimônio Líquido da Classe. 13.18.1."
+    }
+   ],
+   "legacy": {
+    "value": "Vício/elegibilidade e média 3 meses de atraso >30 dias líquida de PCLD >4% PL exigem recompra em 5 DU",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 13.17"
+   }
+  },
+  "eligibility": {
+   "display": "Adimplente; em reais; PF ≥ 18 anos; prazo até 50 ou 370 dias",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 43,
+     "clause": "Anexo I, cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "de indicados abaixo, os quais serão verificados pelo Gestor, na Data de Aquisição: (a) o Devedor deverá ser pessoa física, ter 18 (dezoito) anos ou mais de idade, e ser legalmente capaz; (b) os Devedores dos Direitos Creditórios não poderão estar inadimplentes com a Classe há mais de 5 (cinco) dias, em relação a qualquer Direito Creditório Adquirido e, portanto, já integrante da carteira da Classe; (c) o Direito Creditório não deverá estar inadimplido no momento de sua aquisição; (d) o Direito Creditório e seus respectivos Arquivos de Direitos Creditórios Bancarizador, Arquivos de Direitos Creditórios Pagaleve e Direitos Creditórios Antecipação e Documentos Adicionais, eventualmente solicitados, não proíbem a cessão sem aviso prévio ou anuência do respectivo Cedente e/ou dos respectivos Devedores ou Devedora; (e) os Direitos Creditórios deverão ser prontamente identificáveis;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 44,
+     "clause": "Anexo I, cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "mínimo, 2,00% (dois por cento) ao mês para os Direitos Creditórios Antecipação; (b) os Direitos Creditórios deverão ter um prazo máximo de: (i) 50 (cinquenta) dias a contar de sua respectiva aquisição pelo Fundo da Data de Aquisição, no caso dos Direitos Creditórios Pagaleve; (ii) 370 (trezentos e setenta) dias a contar de sua respectiva aquisição pelo Fundo da Data de Aquisição, no caso dos Direitos Creditórios Antecipação e Direitos Creditórios Bancarizador; (c) a concentração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0% (dois por cento) do Patrimônio Líquido, para os 10 (dez) maiores Devedores; e (ii) 5,0% (cinco por cento) do Patrimônio Líquido, para os 100 (cem) maiores Devedores; (d) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios originados em Transações de Pagamento realizadas com Estabelecimentos que não estejam previamente aprovados, por email, deverá ser de até 20% (vinte por cento) da carteira;"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito adimplente, em reais; PF ≥18 anos; prazos 50 dias Pagaleve e 370 dias demais modalidades",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "10 maiores ≤ 2% e 100 maiores ≤ 5% do PL por devedor; teto legal 20%",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 44,
+     "clause": "Anexo I, cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "ireitos Creditórios Antecipação e Direitos Creditórios Bancarizador; (c) a concentração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0% (dois por cento) do Patrimônio Líquido, para os 10 (dez) maiores Devedores; e (ii) 5,0% (cinco por cento) do Patrimônio Líquido, para os 100 (cem) maiores Devedores; (d) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios originados em Transações de Pagamento realizadas com Estabelecimentos que não estejam previamente aprovados, por email, deverá ser de até 20% (vinte por cento) da carteira; e, (e) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios Antecipação deverá ser de até 20% (vinte por cento) da carteira. 14.3. Não caberá qualquer tipo de reclamação, recurso ou pretensão de regresso pela Classe, em face dos Prestadores de Serviço, com relação aos Direitos Creditórios Adquiridos, exceto se houver falha comprovada no cumprimento de suas obrigações contratuais, regulatórias ou legais."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 35,
+     "clause": "Anexo I, cl. 7.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "vinte por cento) do Patrimônio Líquido. 7.6. A aplicação de recursos em Direitos Creditórios e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo devedor está limitada a 20% (vinte por cento) do Patrimônio Líquido. Nos termos do parágrafo 3º do artigo 45 do Anexo Normativo II da Resolução CVM 175, referido limite poderá ser aumentado quando: (i) o devedor ou coobrigado: (a) tenha registro de companhia aberta; (b) seja instituição financeira ou equiparada; ou (c) seja entidade que tenha suas demonstrações contábeis relativas ao exercício social imediatamente anterior à data de aquisição do direito creditório elaboradas em conformidade com o disposto na Lei nº 6.404, de 1976, e a regulamentação editada pela CVM, e auditadas por auditor independente registrado na CVM; ou (ii) se tratar de aplicações em (a) títulos públicos federais; (b) operações compromissadas lastreadas em títulos públicos federais; e (c) cotas de fundos que possuam como política de investimento a alocação exclusiva nos títulos a que se referem as alíneas “a” e “b” deste item (ii). 7.7."
+    }
+   ],
+   "value": 10.0,
+   "legacy": {
+    "value": "Top10/Top100 devedores: 2%/5% PL; antecipação ≤20% carteira",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor_limit": {
+   "display": "Não previsto",
+   "status": "absent",
+   "unit": "pct",
+   "reason": "Regulamento limita por devedor e modalidade",
+   "sources": [],
+   "legacy": {
+    "value": "Top10/Top100 devedores: 2%/5% PL; antecipação ≤20% carteira",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 50 dias (Pagaleve) e 370 dias (antecipação e bancarizador)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 44,
+     "clause": "Anexo I, cl. 14.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "mínimo, 2,00% (dois por cento) ao mês para os Direitos Creditórios Antecipação; (b) os Direitos Creditórios deverão ter um prazo máximo de: (i) 50 (cinquenta) dias a contar de sua respectiva aquisição pelo Fundo da Data de Aquisição, no caso dos Direitos Creditórios Pagaleve; (ii) 370 (trezentos e setenta) dias a contar de sua respectiva aquisição pelo Fundo da Data de Aquisição, no caso dos Direitos Creditórios Antecipação e Direitos Creditórios Bancarizador; (c) a concentração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0% (dois por cento) do Patrimônio Líquido, para os 10 (dez) maiores Devedores; e (ii) 5,0% (cinco por cento) do Patrimônio Líquido, para os 100 (cem) maiores Devedores; (d) considerada pro forma a aquisição pretendida, a concentração máxima de Direitos Creditórios originados em Transações de Pagamento realizadas com Estabelecimentos que não estejam previamente aprovados, por email, deverá ser de até 20% (vinte por cento) da carteira;"
+    }
+   ],
+   "legacy": {
+    "value": "Crédito adimplente, em reais; PF ≥18 anos; prazos 50 dias Pagaleve e 370 dias demais modalidades",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 14.2"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% do PL em direitos creditórios",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 5,
+     "clause": "Anexo I, cl. 1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "significa o enquadramento do percentual mínimo de 67% (sessenta Alocação Mínima e sete por cento) do Patrimônio Líquido que deverá ser alocado em Direitos Creditórios Elegíveis."
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "DC/PL ≥67% após 180 dias de operação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 1.1"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Júnior em circulação e (b) o Patrimônio Líquido da Classe, ambos Índice de Subordinação Sênior calculados na mesma data, que deve ser equivalente a, no Mínima mínimo 15,79% (quinze inteiros e setenta e nove centésimos por cento). são o Pix, o boleto bancário, TED – Transferência Eletrônica Disponível ou qualquer outro meio de transferência autorizada pelo Instrumentos de Cobrança BACEN, quando utilizados para a cobrança dos Direitos Creditórios, em face aos Devedores. Investidores Profissionais são os investidores assim definidos nos termos do artigo 11 da Resolução CVM 30. Investidores Qualificados são os investidores assim definidos nos termos do artigo 12 da Resolução CVM 30. são as diretrizes e regulamentos do “Know Your Client” para a KYC verificação da identidade"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥15,79%; amortização extraordinária condicionada a júnior >20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I"
+   }
+  },
+  "sub_senior": {
+   "display": "15,79% · jr/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 10,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Júnior em circulação e (b) o Patrimônio Líquido da Classe, ambos Índice de Subordinação Sênior calculados na mesma data, que deve ser equivalente a, no Mínima mínimo 15,79% (quinze inteiros e setenta e nove centésimos por cento). são o Pix, o boleto bancário, TED – Transferência Eletrônica Disponível ou qualquer outro meio de transferência autorizada pelo Instrumentos de Cobrança BACEN, quando utilizados para a cobrança dos Direitos Creditórios, em face aos Devedores. Investidores Profissionais são os investidores assim definidos nos termos do artigo 11 da Resolução CVM 30. Investidores Qualificados são os investidores assim definidos nos termos do artigo 12 da Resolução CVM 30. são as diretrizes e regulamentos do “Know Your Client” para a KYC verificação da identidade"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.79,
+   "legacy": {
+    "value": "Júnior/PL ≥15,79%; amortização extraordinária condicionada a júnior >20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "Amortização extraordinária da júnior só acima do mínimo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 57,
+     "clause": "Anexo I, cl. 19.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Amortização Extraordinária das Cotas da Subclasse Júnior 19.4. Observada a Ordem de Alocação, se o Índice de Subordinação Sênior Mínima for, em qualquer momento, superior a 15,79% (quinze inteiros e setenta e nove centésimos por cento) do Patrimônio Líquido da Classe, os Cotistas da Subclasse Júnior poderão solicitar a Amortização Extraordinária de suas Cotas, desde que atendidas, cumulativamente, as condições abaixo: (a) não tenha ocorrido e esteja em curso, um Evento de Avaliação, Evento de Liquidação ou pedido de declaração judicial de insolvência da Classe; (b) considerada pro forma a amortização das Cotas da Subclasse Júnior, se mantiverem enquadrados, o Índice de Subordinação Sênior Mínima, a Reserva de Encargos e a Reserva de Amortização, de acordo com o Anexo Normativo II à Resolução CVM 175; (c) considerada pro forma a amortização das Cotas da Subclasse Júnior, o Índice de Subordinação Sênior Mínima não se torne menor que 15,79% (quinze inteiros e setenta e nove centésimos por cento) do Patrimônio Líquido do Fundo;"
+    }
+   ],
+   "legacy": {
+    "value": "Júnior/PL ≥15,79%; amortização extraordinária condicionada a júnior >20% PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 19.4"
+   }
+  },
+  "reserve": {
+   "display": "Encargos de 3 meses; amortização com teto de R$ 250 mil",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 20.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "para o período de 3 (três) meses, incluindo o montante correspondente ao pagamento da Meta de Rentabilidade disposta nos Apêndices das Cotas de Subclasse Sênior, conforme estimativa do Administrador. A Reserva de Encargos será constituída quando da integralização das Cotas do Fundo, e será custeada pelos recursos recebidos pela Classe. Os recursos mantidos na Reserva de Encargos serão investidos em Ativos Financeiros."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 58,
+     "clause": "Anexo I, cl. 20.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "estimativa do valor necessário para a amortização ou o resgate das Cotas da Subclasse Sênior na Data de Amortização imediatamente subsequente, limitada ao valor de R$ 250.000,00 (duzentos e cinquenta mil reais), conforme estimativa do Administrador, por conta e ordem da respectiva Classe, desde a Data de Início do Fundo até a liquidação da Classe. 20.3. Os procedimentos descritos nesta Cláusula 20 não são garantia ou promessa de que haverá recursos suficientes para a constituição ou a recomposição da Reserva de Encargos ou da Reserva de Amortização, representando apenas um objetivo a ser perseguido. 20.4. Os recursos da Reserva de Encargos e da Reserva de Amortização serão mantidos em caixa ou Ativos Financeiros. A Classe deterá todos os direitos em relação aos Ativos Financeiros e a todos os valores em dinheiro mantidos na Reserva de Encargos e na Reserva de Amortização, sendo que os rendimentos dos Ativos Financeiros reverterão em benefício dos Cotistas. 21. ORDEM DE ALOCAÇÃO DOS RECURSOS 21.1."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos/operacionalização e remuneração sênior por 3 meses; amortização: 1% da próxima estimativa, limitada a R$ 250 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 20.1"
+   }
+  },
+  "pdd": {
+   "display": "PCLD por faixa de atraso, baixa acima de 120 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 60,
+     "clause": "Anexo I, cl. 22.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Em dia 2,5% Entre 1 e 15 dias 10% Entre 16 e 30 dias 40% Entre 31 e 90 dias 60% Entre 91 e 120 dias 90% Acima de 120 dias write-off Sem prejuízo da constituição de PCLD, o Administrador procederá ao write-off (baixa contábil do crédito) quando não houver expectativ"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 60,
+     "clause": "Anexo I, cl. 22.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "pelo Administrador, de acordo com a regulamentação vigente, a metodologia descrita no item 22.3.1 abaixo, e a metodologia descrita no manual de provisão para perdas do Administrador, também disponível na sua página na rede mundial de computadores, desde que não seja incompatível com o presente Regulamento. 22.3.1. O Administrador, de forma independente, realizará para os Direitos Creditórios Adquiridos, o cálculo de Provisões para Créditos de Liquidação Duvidosa – PCLD, baseado em metodologia descrita abaixo, seguindo critérios consistentes e passíveis de verificação, às normas e determinações vigentes, incluindo, mas não se limitando, à Instrução CVM nº 489: Atraso PCLD Em dia 2,5% Entre 1 e 15 dias 10% Entre 16 e 30 dias 40% Entre 31 e 90 dias 60% Entre 91 e 120 dias 90% Acima de 120 dias write-off Sem prejuízo da c"
+    }
+   ],
+   "legacy": {
+    "value": "PCLD por atraso: 2,5% em dia; 10% até 15 dias; 40% até 30; 60% até 90; 90% até 120; write-off >120",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 22.3"
+   }
+  },
+  "eval_triggers": {
+   "display": "Descumprimento de prestadores e índices de inadimplência, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 61,
+     "clause": "Anexo I, cl. 22.5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "4299-a37a-fc31f8f5ac06 23.1. A Classe poderá ser liquidada por deliberação da Assembleia. 23.2. São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências: (a) descumprimento, pelos Prestadores de Serviço Essenciais e/ou pelo Custodiante, de seus deveres e obrigações estabelecidos no Regulamento e nos demais documentos existentes referentes ao funcionamento do Fundo, desde que não sanado no prazo de 15 (quinze) Dias Úteis contado do recebimento da notificação; (b) desenquadramento do Índice de Subordinação Sênior Mínima, sem que ocorra o seu reenquadramento nos termos da Cláusula 17.5 deste Anexo I; (c) desenquadramento da Reserva de Encargos e/ou Reserva de Amortização por mais de 10 (dez) Dias Úteis consecutivos; (d) desenquadramento dos limites de concentração máxima de Direitos Creditórios Antecipação Devedor por um prazo superior a 10 (dez) Dias Úteis consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "Pagaleve: média ponderada de 4 meses >6%, ou índice >8% em 2 de 4 meses",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 22.5"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Eventos de liquidação não localizados no texto extraído",
+   "sources": [],
+   "legacy": {
+    "value": "Pagaleve: média ponderada de 4 meses >6%, ou índice >8% em 2 de 4 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência durante todo o prazo, pela ordem de alocação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 40,
+     "clause": "Anexo I, cl. 13.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "a, integridade e titularidade do lastro de tais Direitos Creditórios Adquiridos. 13.3. Será permitida a revolvência da carteira da Classe durante todo o prazo de duração da Classe, respeitada a Ordem de Alocação. 13.4. A originação dos Direitos Creditórios e a Política de Crédito, adotada pelo Gestor na análise dos Direitos Creditórios e dos respectivos Cedentes e Devedores, estão descritas neste Anexo I. 51 Clicksign db0b89fe-91ca-4299-a37a-fc31f8f5ac06 13.5. Os Direitos Creditórios Inadimplidos serão cobrados pelo Agente de Cobrança de acordo com a Política de Cobrança, constante na Cláusula 11 do presente Anexo I. 13.6. Não obstante o disposto na cláusula 13.7 abaixo, os Direitos Creditórios deverão (a) ser representados pelos Arquivos de Direitos Creditórios Bancarizador, Arquivos de Direitos Creditórios Pagaleve e Direitos Creditórios Antecipação; (b) ter como cedente um Estabelecimento, nos termos deste Anexo I, quando se tratar de Direitos Creditórios Antecipação;"
+    }
+   ],
+   "legacy": {
+    "value": "Aquisição de novos créditos prevista na ordem de alocação; suspensa em evento de avaliação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "Encargos, reservas, sênior, extraordinária júnior e reinvestimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 59,
+     "clause": "Anexo I, cl. 21.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "(6) pagamento da Amortização das Cotas da Subclasse Sênior das séries em circulação, nos termos do respectivo Apêndice; (7) pagamento da Amortização Extraordinária das Cotas da Subclasse Júnior em circulação, observada a Cláusula 19.4 deste Anexo I; (8) aquisição de novos Direitos Creditórios; e (9) aquisição de novos Ativos Financeiros."
+    }
+   ],
+   "legacy": {
+    "value": "Encargos/derivativos; reservas; remuneração e principal sênior; extraordinária júnior; reinvestimento",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "admin_fee": {
+   "display": "0,30% a.a. até R$ 150 mi, regressiva; mín. R$ 20 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 32,
+     "clause": "Anexo I, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "mônio Líquido, conforme a tabela a seguir, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mínimo mensal de R$20.000,00 (vinte mil reais), caso os percentuais da tabela subsequente não atinjam o valor mínimo. Faixa de Patrimônio Líquido do Fundo Remuneração Percentual a.a. Até R$ 150.000.000,00 (cento e cinquenta 0,30% a.a. milhões de reais) Entre R$ 150.000.000,01 (cento e cinquenta milhões de reais e um centavo) e R$ 300.000.000,00 0,20% a.a. (trezentos milhões de reais) Acima de R$ 300.000.000,01 (trezentos 0,10% a.a. milhões de reais e um centavo) 6.2."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 32,
+     "clause": "Anexo I, cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "0,30% a.a. milhões de reais) Entre R$ 150.000.000,01 (cento e cinquenta milhões de reais e um centavo) e R$ 300.000.000,00 0,20% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas 0,30%/0,20%/0,10% a.a. PL (R$ 150/R$ 300 mi); mínimo R$ 20 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 6.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,21% a.a. até R$ 150 mi, com faixas; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 33,
+     "clause": "Anexo I, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "Líquido, conforme a tabela a seguir, com base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, observado o valor mínimo mensal de R$10.000,00 (dez mil reais), caso os percentuais da tabela subsequente não atinjam o valor mínimo. Faixa de Patrimônio Líquido do Fundo Remuneração Percentual a.a. Até R$ 150.000.000,00 (cento e cinquenta 0,21% a.a. milhões de reais) Entre R$ 150.000.000,01 (cento e cinquenta milhões de reais e um centavo) e R$ 0,25% a.a. 300.000.000,00 (trezentos milhões de reais) Acima de R$ 300.000.000,01 (trezentos 0,30% a.a. milhões de reais e um centavo) 6.3."
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 33,
+     "clause": "Anexo I, cl. 6.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "0,21% a.a. milhões de reais) Entre R$ 150.000.000,01 (cento e cinquenta milhões de reais e um centavo) e R$ 0,25% a.a. 300.000.000,00 (trezentos milhões de reais) Acima de R$ 300.000.000,01 (trezentos 0,30% a.a."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas 0,21%/0,25%/0,30% a.a. PL (R$ 150/R$ 300 mi); mínimo R$ 10 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/10/2026, Anexo I, cl. 6.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 34,
+     "clause": "Anexo I, cl. 6.11",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "as respectivas ofertas, conforme a Resolução CVM 160/22, e alterações posteriores. 6.11. Não serão cobradas dos Cotistas quaisquer outras taxas, tais como taxa de performance, taxa de ingresso ou taxa de saída. 7. COMPOSIÇÃO DA CARTEIRA DO FUNDO E POLÍTICA DE INVESTIMENTO Composição da Carteira 7.1. A carteira será composta por (a) Direitos Creditórios Adquiridos e (b) Ativos Financeiros, de acordo com os índices de composição e diversificação da carteira estabelecidos neste Anexo I, e na legislação aplicável. A carteira e seus ativos estão sujeitos a diversos riscos, dentre os quais os especificados na Cláusula 16 deste Anexo I. Antes de adquirir as Cotas, o investidor deve ler atentamente os fatores de risco e fazer sua própria avaliação de investimento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 7.1.1. As aplicações no Fundo não contam com garantia (a) do Administrador, (b) do Gestor, (c) do Custodiante, (d) de qualquer mecanismo de seguro ou (e) do Fundo Garantidor de Créditos (FGC). Política de Investimento 7.2."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark definido nos apêndices, não preenchidos no acervo",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Vert DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "ndo terá prazo de duração indeterminado. 4. PRESTADORES DE SERVIÇOS 4.1 A administração fiduciária do Fundo será exercida pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade limitada empresária, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05.407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, autorizada para administração fiduciária conforme Ato Declaratório CVM nº 21.369, de 20 de outubro de 2023. 4.2 A gestão do Fundo será exercida pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, autorizada para gestão de recursos conforme Ato Declaratório CVM nº 17.249, de 11 de julho de 2019. 4.3 A relação completa dos demais prestadores de serviços do Fundo está à disposição dos Cotistas no site da CVM. 4.4 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e dever"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vert Gestora de Recursos Financeiros",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Anexo I, cl. 4.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "nistração fiduciária conforme Ato Declaratório CVM nº 21.369, de 20 de outubro de 2023. 4.2 A gestão do Fundo será exercida pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, autorizada para gestão de recursos conforme Ato Declaratório CVM nº 17.249, de 11 de julho de 2019. 4.3 A relação completa dos demais prestadores de serviços do Fundo está à disposição dos Cotistas no site da CVM. 4.4 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e deveres próprios relacionados à prestação dos serviços para os quais foram contratados pelo Fundo e/ou pela Classe, prestando tais serviços em regime de melhores esforços e como uma obrigação de meio. 4.5 A responsabilidade de cada Prestador de Serviços perante o Fundo, a Classe e demais Prestadores de Serviços é individual e limitada aos serviços por ele prestados. 4.6 Cada Prestador de Serviços responderá somente pelas perdas o"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vert DTVM (a administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 7,
+     "clause": "Anexo I",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "significa a VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., qualificada na definição de Administrador, Custodiante autorizada para custódia pelo Ato Declaratório CVM nº 23.049, de 10 de fevereiro de 2025, sendo responsável pelas funções designadas na Cláusula 5.3 do Anexo I. CVM é a Comissão de Valores Mobiliários. significa a data em que a Classe efetuar o pagamento do Valor de Data de Aquisição Aquisição ao Cedente em relação à aquisição dos Direitos Creditórios Elegíveis. significa a data da 1ª (primeira) integralização das Cotas de qualquer Data de Início do Fundo Subclasse. significa, em relação a cada Subclasse, a data em que ocorrer a sua Data da 1ª Integralização 1ª (primeira) integralização de Cotas. Data da 1ª Integra"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 14,
+     "clause": "Anexo I, cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "ndo terá prazo de duração indeterminado. 4. PRESTADORES DE SERVIÇOS 4.1 A administração fiduciária do Fundo será exercida pela VERT DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., sociedade limitada empresária, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05.407-003, inscrita no CNPJ sob o nº 48.967.968/0001-18, autorizada para administração fiduciária conforme Ato Declaratório CVM nº 21.369, de 20 de outubro de 2023. 4.2 A gestão do Fundo será exercida pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA., sociedade com sede na cidade de São Paulo, Estado de São Paulo, na Rua Cardeal Arcoverde, nº 2.365, 11º andar, Pinheiros, CEP 05407-003, inscrita no CNPJ sob o nº 31.636.333/0001-35, autorizada para gestão de recursos conforme Ato Declaratório CVM nº 17.249, de 11 de julho de 2019. 4.3 A relação completa dos demais prestadores de serviços do Fundo está à disposição dos Cotistas no site da CVM. 4.4 Os Prestadores de Serviços Essenciais, bem como os demais Prestadores de Serviços possuem, cada qual, atribuições e dever"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança sem nome no trecho lido",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 30,
+     "clause": "Anexo I, cl. 4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "4. PÚBLICO-ALVO DA CLASSE 4.1. As Cotas da Classe terão como destinação exclusiva os Investidores Qualificados, nos termos do Artigo 12 da Resolução CVM 30/21. 5. DEMAIS PRESTADORES DE SERVIÇOS Auditor Independente 5.1. O Auditor Independente deverá ser contratado, pelo Administrador, com a função de auditar, anualmente, as demonstrações contábeis do Fundo, respeitando o item 25.6.1 disposto neste Anexo I."
+    }
+   ],
+   "legacy": {
+    "value": "Duração indeterminada; qualificados na classe; oferta-modelo sênior para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1337370",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/10/2026",
+     "page": 30,
+     "clause": "Anexo I, cl. 3.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1337370",
+     "excerpt": "atuação em “Recebíveis Comerciais”. 3. PRAZO DE DURAÇÃO DA CLASSE 3.1. O prazo de duração da Classe será indeterminado, sendo que o prazo de duração de cada subclasse ou série de Cotas será definido nos Apêndices respectivos. 4. PÚBLICO-ALVO DA CLASSE 4.1. As Cotas da Classe terão como destinação exclusiva os Investidores Qualificados, nos termos do Artigo 12 da Resolução CVM 30/21. 5. DEMAIS PRESTADORES DE SERVIÇOS Auditor Independente 5.1. O Auditor Independente deverá ser contratado, pelo Administrador, com a função de auditar, anualmente, as demonstrações contábeis do Fundo, respeitando o item 25.6.1 disposto neste Anexo I. Entidade Registradora 5.2. Nas hipóteses em que o registro seja exigido pela regulamentação aplicável, a Entidade Registradora deverá ser contratada, pelo Administrador, para fazer o registro dos Direitos Creditórios Adquiridos à Classe em sistema eletrônico de registro autorizado pelo BACEN. 5.2.1."
+    }
+   ],
+   "legacy": {
+    "value": "Duração indeterminada; qualificados na classe; oferta-modelo sênior para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Pix parcelado da Pagaleve com júnior mínima de 15,79% do PL; 10 maiores devedores ≤ 2% do PL cada.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

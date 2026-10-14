@@ -1,0 +1,52 @@
+# Pagaleve FIDC Comerciais (Vert DTVM; Vert Gestora; Pix parcelado Pagaleve)
+type: Crédito pessoal
+q18: * "o Devedor deverá ser pessoa física, ter 18 (dezoito) anos ou mais de idade"
+q17: * "zação imediatamente subsequente, limitada ao valor de R$ 250.000,00"
+q16: * "os Direitos Creditórios deverão ter um prazo máximo de: (i) 50 (cinquenta) dias"
+q1: * "Pagaleve contra os Devedores resultantes das Transações de"
+q2: * "ntração máxima dos Direitos Creditórios Pagaleve e Bancarizador somados, por Devedor, deverá ser de até: (i) 2,0%"
+q3: * "s e Ativos Financeiros de responsabilidade ou coobrigação de um mesmo devedor está limitada a 20%"
+q4: * "Índice de Subordinação Sênior calculados na mesma data, que deve ser equivalente a, no Mínima mínimo 15,79%"
+q5: * "Será permitida a revolvência da carteira da Classe durante todo o prazo de duração da Classe"
+q6: * "23.2. São considerados Eventos de Avaliação do Fundo quaisquer das seguintes ocorrências"
+q7: * "observado o valor mínimo mensal de R$20.000,00 (vinte mil reais), caso os percentuais da tabela subsequente não atinjam"
+q8: * "observado o valor mínimo mensal de R$10.000,00 (dez mil reais), caso os percentuais da tabela subsequente não atinjam"
+q9: * "A gestão do Fundo será exercida pela VERT GESTORA DE RECURSOS FINANCEIROS LTDA."
+q10: * "A administração fiduciária do Fundo será exercida pela VERT DISTRIBUIDOR"
+q11: * "qualificada na definição de Administrador, Custodiante autorizada para custódia"
+q12: * "radas dos Cotistas quaisquer outras taxas, tais como taxa de performance"
+q13: * "metodologia descrita no manual de provisão para perdas do Administrador"
+q14: * "O prazo de duração da Classe será indeterminado"
+q15: * "se o Índice de Subordinação Sênior Mínima for, em qualquer momento, superior a 15,79%"
+receivables: Pagamentos parcelados (Pix) no sistema Pagaleve, via bancarizador | q1,o77
+originator: Pagaleve e bancarizador, conforme a modalidade | q1,q2
+assignor: Pagaleve, bancarizador ou estabelecimentos, conforme a modalidade | q2
+debtor: Pessoas físicas adultas que parcelam compras pela Pagaleve | q18
+recourse: Recompra por vício ou elegibilidade e por atraso médio acima do teto | o10
+eligibility: Adimplente; em reais; PF ≥ 18 anos; prazo até 50 ou 370 dias | q18,q16
+debtor_limit: 10 maiores ≤ 2% e 100 maiores ≤ 5% do PL por devedor; teto legal 20% | q2,q3
+assignor_limit: Não previsto | Regulamento limita por devedor e modalidade
+term_max: Até 50 dias (Pagaleve) e 370 dias (antecipação e bancarizador) | q16
+allocation: ≥ 67% do PL em direitos creditórios | o24 | value=67
+quota_structure: Sênior / Júnior | q4
+sub_senior: 15,79% · jr/PL | q4 | basis=jr/PL
+sub_mezz: — | Sem cota mezanino
+sub_check: Amortização extraordinária da júnior só acima do mínimo | q15
+reserve: Encargos de 3 meses; amortização com teto de R$ 250 mil | o37,q17
+pdd: PCLD por faixa de atraso, baixa acima de 120 dias | o40,q13
+eval_triggers: Descumprimento de prestadores e índices de inadimplência, entre outros | q6
+liquidation: n/d | Eventos de liquidação não localizados no texto extraído | why=Resposta anterior sem trecho localizável no regulamento vigente
+revolving: Revolvência durante todo o prazo, pela ordem de alocação | q5
+amortization: Encargos, reservas, sênior, extraordinária júnior e reinvestimento | o52
+admin_fee: 0,30% a.a. até R$ 150 mi, regressiva; mín. R$ 20 mil/mês | q7,o57
+mgmt_fee: 0,21% a.a. até R$ 150 mi, com faixas; mín. R$ 10 mil/mês | q8,o60
+perf_fee: Não prevista | Regulamento veda taxa de performance | q12
+target_senior: n/d | Benchmark definido nos apêndices, não preenchidos no acervo
+target_mezz: — | Sem cota mezanino
+administrator: Vert DTVM | q10
+manager: Vert Gestora de Recursos Financeiros | q9
+custodian: Vert DTVM (a administradora) | q11,q10
+servicer: n/d | Agente de cobrança sem nome no trecho lido
+investors: Investidores qualificados | o73
+duration: Indeterminado | q14
+leitura: Pix parcelado da Pagaleve com júnior mínima de 15,79% do PL; 10 maiores devedores ≤ 2% do PL cada.
