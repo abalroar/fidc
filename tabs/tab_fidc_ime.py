@@ -15,6 +15,7 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.chart_number_format import pt_br_number_expr
 from services.dashboard_ui import normalize_single_selection
 from services.fundonet_dashboard import (
     FundonetDashboardData,
@@ -4679,10 +4680,17 @@ def _maturity_horizontal_chart(maturity_latest_df: pd.DataFrame, *, title: str |
     if frame.empty:
         chart = alt.Chart(pd.DataFrame({"text": ["Vencimentos N/D — sem saldos por faixa."]})).mark_text(color="#66717d").encode(text="text:N")
         return _style_altair_chart(_chart_with_optional_title(chart, height=120, title=title))
+    # The total stays in the frame and in the chart title; drawn as a bar it
+    # would set the scale and flatten every bucket.
+    total = frame.loc[frame["tipo"].eq("Total")]
+    frame = frame.loc[frame["tipo"].eq("Faixa")].reset_index(drop=True)
+    total_text = (
+        f"{total.iloc[0]['faixa']}: R$ {total.iloc[0]['valor_fmt']} mm" if not total.empty else None
+    )
     order = frame["faixa"].tolist()
     values = frame["valor_mm"].dropna()
     extent = float(values.abs().max()) if not values.empty else 0.0
-    axis = alt.Axis(labelExpr=f"replace(format(datum.value, '.{2 if extent < 0.1 else 1}f'), '.', ',')", tickCount=3 if extent < 0.1 else 5)
+    axis = alt.Axis(labelExpr=pt_br_number_expr(2 if extent < 0.1 else 1 if extent < 100 else 0), tickCount=3 if extent < 0.1 else 5)
     minimum = min(0.0, float(values.min())) if not values.empty else 0.0
     maximum = max(0.0, float(values.max())) if not values.empty else 0.0
     pad = max(extent * 0.18, 0.01)
@@ -4696,7 +4704,15 @@ def _maturity_horizontal_chart(maturity_latest_df: pd.DataFrame, *, title: str |
     labels = alt.Chart(frame).mark_text(align="left", dx=6, fontSize=11, color="#202832").encode(
         x=alt.X("label_mm:Q", title="R$ mm", axis=axis, scale=x_scale), y=y, text="valor_fmt:N",
     )
-    return _style_altair_chart(_chart_with_optional_title(bars + labels, height=max(300, len(frame) * 29), title=title))
+    chart = (bars + labels).properties(height=max(300, len(frame) * 29))
+    if total_text is not None:
+        title_kwargs = {"text": title, "subtitle": total_text} if title else {"text": total_text}
+        chart = chart.properties(title=alt.TitleParams(
+            **title_kwargs, anchor="start", fontSize=12, fontWeight=600, color="#202832", offset=10,
+        ))
+    elif title is not None:
+        chart = chart.properties(title=title)
+    return _style_altair_chart(chart)
 
 
 def _maturity_waterfall_chart(maturity_latest_df: pd.DataFrame, *, title: str | None, portfolio_mode: bool = False) -> alt.Chart:

@@ -442,6 +442,9 @@ def _render_portfolio_analysis_content(
     # keeps documentary diligence usable for baskets without an IME cache and
     # avoids fetching 24 months merely to read a regulation.
     from services.documentary_diligence import has_documentary_diligence
+    # Scope, display window and coverage notes are filled after the data loads
+    # but must read above the tabs they govern.
+    header_slot = st.container()
     early_tabs = None
     if has_documentary_diligence(selected_portfolio):
         early_tabs = _render_portfolio_view_tabs(selected_portfolio)
@@ -488,7 +491,12 @@ def _render_portfolio_analysis_content(
     # from ``display_outputs`` discards the prior-year bases and leaves the YoY
     # panel empty even though the portfolio values themselves are available.
     calculation_outputs = analysis.outputs
-    context_column, history_column = st.columns([4, 1])
+    with header_slot:
+        # Scope picker, display window and settings share one control row.
+        multi_scope = len(analysis.scopes) > 1
+        header_columns = st.columns([2, 3, 1] if multi_scope else [5, 1], vertical_alignment="bottom")
+        scope_column = header_columns[0] if multi_scope else header_slot
+        context_column, history_column = header_columns[-2:]
     with history_column:
         display_settings = st.popover("Exibição", help="Meses e fundos exibidos; o período solicitado permanece selecionado.")
         with display_settings:
@@ -531,7 +539,8 @@ def _render_portfolio_analysis_content(
                 ("Exibido", re.sub(r"\b(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)-(\d{2})\b", r"\1/\2", context.historical_window, flags=re.IGNORECASE)),
                 ("Posição comum da cesta", context.common_position),
             )))
-    _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
+    with header_slot:
+        _render_analysis_coverage_alert(analysis=coverage_analysis, selected_portfolio=selected_portfolio)
 
     if len(analysis.scopes) > 1:
         with display_settings:
@@ -550,9 +559,11 @@ def _render_portfolio_analysis_content(
         )
         return False
 
-    active_scope = _render_active_portfolio_scope(selected_scopes, selected_portfolio.id)
+    with scope_column:
+        active_scope = _render_active_portfolio_scope(selected_scopes, selected_portfolio.id)
     if st.session_state.get(f"portfolio_analysis_view::{selected_portfolio.id}") not in {"Documentos", SECTION_DEEP_DIVE}:
-        _render_scope_header(active_scope, common_position=context.common_position, show_label=len(analysis.scopes) == 1)
+        with header_slot:
+            _render_scope_header(active_scope, common_position=context.common_position, show_label=len(analysis.scopes) == 1)
     visible_scopes = (active_scope,)
     structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = early_tabs or _render_portfolio_view_tabs(selected_portfolio)
     if curation_tab.open:
@@ -710,9 +721,9 @@ def _preload_portfolio_data(
     if SECTION_RETURNS in selected_sections:
         calculation_period = somatorio_tab._period_with_yoy_lookback(period)
         if not _returns_outputs_cached(selected_portfolio=selected_portfolio, period=calculation_period):
-            carteira_tab.ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=calculation_period)
+            carteira_tab.ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=calculation_period, show_spinner=False)
     if SECTION_AGING in selected_sections:
-        carteira_tab.ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
+        carteira_tab.ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period, show_spinner=False)
 
 
 def _returns_outputs_cached(*, selected_portfolio: PortfolioRecord, period: ImePeriodSelection) -> bool:
@@ -737,6 +748,7 @@ def _load_portfolio_analysis_data(
     runtime_state = carteira_tab.ensure_portfolio_ime_data(
         selected_portfolio=selected_portfolio,
         period=period,
+        show_spinner=False,
     )
     results = runtime_state.get("results") or {}
     load_errors = {
@@ -886,6 +898,9 @@ def _render_analysis_coverage_alert(
     analysis: PortfolioAnalysisData,
     selected_portfolio: PortfolioRecord,
 ) -> None:
+    # One notice carries every coverage caveat; the per-fund detail stays on demand.
+    notes: list[str] = []
+    coverage_detail = None
     if analysis.aggregate_bundle is not None:
         competence_coverage = analysis.aggregate_bundle.competence_coverage_df
         latest_incomplete = (
@@ -894,32 +909,36 @@ def _render_analysis_coverage_alert(
         )
         if latest_incomplete or analysis.aggregate_bundle.fund_scope_df["elegivel_competencia"].eq("Não").any():
             latest = competence_coverage.iloc[-1] if not competence_coverage.empty else {}
-            st.warning(
+            notes.append(
                 f"Última observada: {latest.get('competencia', 'N/D')} · "
                 f"{latest.get('fundos_reportantes', 'N/D')}/{latest.get('fundos_elegiveis', 'N/D')} elegíveis. "
                 "O comparativo conserva a posição comum."
             )
-            with st.expander("Competências e cobertura por fundo", expanded=False):
-                st.caption(analysis.aggregate_bundle.competence_note)
-                st.dataframe(analysis.aggregate_bundle.fund_scope_df, hide_index=True, width="stretch")
+            coverage_detail = analysis.aggregate_bundle
     if analysis.load_errors:
-        st.warning(
+        notes.append(
             f"Análise parcial · {len(analysis.load_errors)} fundo(s) não carregado(s). "
             "Ausências não são tratadas como zero."
         )
+    dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
+    output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
+    if dashboard_cnpjs != output_cnpjs:
+        notes.append(
+            "As fontes carregadas não cobrem o mesmo conjunto de fundos. "
+            "A apresentação pode conter apenas as partes disponíveis; confira as ressalvas do arquivo preparado."
+        )
+    if notes:
+        st.warning("  \n".join(notes))
+    if coverage_detail is not None:
+        with st.expander("Competências e cobertura por fundo", expanded=False):
+            st.caption(coverage_detail.competence_note)
+            st.dataframe(coverage_detail.fund_scope_df, hide_index=True, width="stretch")
+    if analysis.load_errors:
         with st.expander("Fundos não carregados", expanded=True):
             for fund in selected_portfolio.funds:
                 message = analysis.load_errors.get(fund.cnpj)
                 if message is not None:
                     st.caption(f"{fund.display_name} · {fund.cnpj} — {message}")
-
-    dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
-    output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
-    if dashboard_cnpjs != output_cnpjs:
-        st.warning(
-            "As fontes carregadas não cobrem o mesmo conjunto de fundos. "
-            "A apresentação pode conter apenas as partes disponíveis; confira as ressalvas do arquivo preparado."
-        )
 
 
 def _render_unified_portfolio_download(

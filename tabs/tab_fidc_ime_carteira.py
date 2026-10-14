@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from contextlib import nullcontext
 from datetime import datetime, timezone
 from html import escape
 import time
@@ -592,6 +593,7 @@ def ensure_portfolio_ime_data(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     force: bool = False,
+    show_spinner: bool = True,
 ) -> dict[str, Any]:
     runtime_state = _get_portfolio_runtime_state(selected_portfolio=selected_portfolio, period=period)
     current_results = dict(runtime_state.get("results") or {})
@@ -606,7 +608,12 @@ def ensure_portfolio_ime_data(
             or _portfolio_payload_needs_cache_refresh(current_results.get(fund.cnpj) or {}, period)
         )
     if funds_to_load:
-        with st.spinner(_autoload_spinner_label(selected_portfolio=selected_portfolio, period=period, funds=funds_to_load)):
+        # Pages with their own loading state keep only the progress bar.
+        spinner = (
+            st.spinner(_autoload_spinner_label(selected_portfolio=selected_portfolio, period=period, funds=funds_to_load))
+            if show_spinner else nullcontext()
+        )
+        with spinner:
             _execute_portfolio_load_for_funds(
                 selected_portfolio=selected_portfolio,
                 period=period,
