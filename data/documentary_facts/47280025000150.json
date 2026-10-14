@@ -1,0 +1,673 @@
+{
+ "schema_version": 1,
+ "cnpj": "47280025000150",
+ "name": "FIDC AGRO CAPITAL FINANCE RESPONSABILIDADE LIMITADA",
+ "fund_type": "Agro/FIAGRO",
+ "reviewed_at": "2026-10-14T12:52:56Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1324579",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "16/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579"
+  },
+  "D2": {
+   "document_id": "1322185",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "16/09/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1322185"
+  },
+  "D3": {
+   "document_id": "1053778",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "04/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1053778"
+  },
+  "D4": {
+   "document_id": "1053241",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "02/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1053241"
+  },
+  "D5": {
+   "document_id": "1051861",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "01/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1051861"
+  },
+  "D6": {
+   "document_id": "1048302",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "26/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1048302"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Agro/FIAGRO",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Vendas a prazo de defensivos e insumos agrícolas da Albaugh",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "a Resolução CMN nº 4.880, de 23 de dezembro de 2020. Direitos Creditórios são os direitos creditórios performados vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de venda e compra mercantil a prazo de Produtos, celebradas entre o Cedente e os Devedores, que sejam representados pelos Documentos Comprobatórios e Documentos Adicionais, conforme o caso, das respectivas transações, sempre no mercado local, denominados em moeda corrente nacional; Direitos Creditórios Cedidos são os Direitos Creditórios que cumulativamente: (i) atenderam aos Critérios de Elegibilidade;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Venda a prazo de defensivos agroquímicos e insumos agrícolas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Albaugh Agro Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "lasse, formada por Direitos Creditórios e Ativos Financeiros; Cedente é a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Luis Correia de Melo, nº 92, andar 23 conj 231 E 232, Vila Cruzeiro, CEP 04.726-220, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Albaugh Agro Brasil",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "lasse, formada por Direitos Creditórios e Ativos Financeiros; Cedente é a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Luis Correia de Melo, nº 92, andar 23 conj 231 E 232, Vila Cruzeiro, CEP 04.726-220, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Clientes da Albaugh no agronegócio",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "a Resolução CMN nº 4.880, de 23 de dezembro de 2020. Direitos Creditórios são os direitos creditórios performados vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de venda e compra mercantil a prazo de Produtos, celebradas entre o Cedente e os Devedores, que sejam representados pelos Documentos Comprobatórios e Documentos Adicionais, conforme o caso, das respectivas transações, sempre no mercado local, denominados em moeda corrente nacional; Direitos Creditórios Cedidos são os Direitos Creditórios que cumulativamente: (i) atenderam aos Critérios de Elegibilidade;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de cessão",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "Créditos performados, vincendos e livres de ônus",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "a Resolução CMN nº 4.880, de 23 de dezembro de 2020. Direitos Creditórios são os direitos creditórios performados vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente, originados no âmbito de operações de venda e compra mercantil a prazo de Produtos, celebradas entre o Cedente e os Devedores, que sejam representados pelos Documentos Comprobatórios e Documentos Adicionais, conforme o caso, das respectivas transações, sempre no mercado local, denominados em moeda corrente nacional; Direitos Creditórios Cedidos são os Direitos Creditórios que cumulativamente: (i) atenderam aos Critérios de Elegibilidade;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 24,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "4.5 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição e Pagamento, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição e Pagamento: (i) o respectivo Devedor, identificado por seu Grupo Econômico, não deverá apresentar na respectiva Data de Aquisição e Pagamento de Direitos Creditórios pela Classe, valores vencidos e não pagos referentes a Direitos Creditórios Cedidos; Corporativo | Interno (ii) o prazo de vencimento máximo dos Direitos Creditórios deverá ser de 360 (trezentos e sessenta) dias corridos, contados a partir da respectiva Data da Aquisição e Pagamento do Direito Creditório Elegível, ou correspondente ao período dos 30 (trinta) dias corridos que antecedem à Data de Resgate das Cotas Seniores de vencimento mais longo, o que for menor;"
+    }
+   ],
+   "legacy": {
+    "value": "Créditos performados, vincendos, existentes e livres de ônus; verificação integral na cessão",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor_limit": {
+   "display": "Por grupo econômico ou indivíduo: até 2% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "disponibilizados pelo Administrador; Limite de Concentração por Grupo é o limite máximo de 2% (dois por cento) de concentração Econômico e/ou indivíduo por Grupo Econômico e/ou Indivíduo devedor de Direito Creditório integrante da Carteira da Classe do Patrimônio Líquido da Classe, que deve ser observado pelo Custodiante, subcontratado pela Gestora, calculado de maneira pro forma, em cada Data de Aquisição e Pagamento,;"
+    }
+   ],
+   "value": 2.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Cedente única: Albaugh",
+   "sources": []
+  },
+  "term_max": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Prazo máximo não localizado em trecho contínuo",
+   "sources": [],
+   "legacy": {
+    "value": "Créditos performados, vincendos, existentes e livres de ônus; verificação integral na cessão",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "allocation": {
+   "display": "≥ 67% da carteira em direitos creditórios (fins tributários)",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "o, que deverá ser de 50% (cinquenta por cento); Alocação Mínima Tributária Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos Creditórios, nos termos dos artigos 18, 19 e 24 da Lei nº 14.754, de 12 de dezembro de 2023, para fins de enquadramento Corporativo | Interno como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Amortização Extraordinária é a amortização extraordinária das Cotas efetivamente subscritas e integralizadas exclusivamente para fins de enquadramento do patrimônio à Alocação Mínima de Investimento, ao Índice de Subordinação Sênior e/ou à observância da política de investimento da Classe conforme prevista no Capítulo 5 do Anexo"
+    }
+   ],
+   "value": 67.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "ara que a Gestora monitore o referido índice;; Índice de Subordinação Sênior significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 30% (trinta por cento) durante todo o prazo de duração das Cotas Seniores; Corporativo | Interno Índices de Monitoramento são a Alocação Mínima de Investimento, o Índice de Repasse, o Índice de Resolução, o Índice de Inadimplemento, o Índice de Renegociação, o Índice de Recompra Facultativa, o Prazo Médio dos Direitos Creditórios Cedidos e o Índice de Subordinação Sênior e outros índices os quais a Administradora e a Gestora deverão monitorar, nos termos do item 4.13 deste Anexo; Indivíduo significa qualquer pessoa física que seja Devedor do Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30% durante prazo das seniores",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/09/2026, p. 10"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "ara que a Gestora monitore o referido índice;; Índice de Subordinação Sênior significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 30% (trinta por cento) durante todo o prazo de duração das Cotas Seniores; Corporativo | Interno Índices de Monitoramento são a Alocação Mínima de Investimento, o Índice de Repasse, o Índice de Resolução, o Índice de Inadimplemento, o Índice de Renegociação, o Índice de Recompra Facultativa, o Prazo Médio dos Direitos Creditórios Cedidos e o Índice de Subordinação Sênior e outros índices os quais a Administradora e a Gestora deverão monitorar, nos termos do item 4.13 deste Anexo; Indivíduo significa qualquer pessoa física que seja Devedor do Cedente;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥30% durante prazo das seniores",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas/PL ≥30% durante prazo das seniores",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Aquisições param se a reserva não cobrir a próxima amortização",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 36,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "de Amortização, o ADMINISTRADOR deverá interromper a aquisição de Direitos Creditórios do Cedente, caso a Reserva de Caixa não possua saldo equivalente, no mínimo, ao valor da próxima Amortização Programada, devendo reiniciar os procedimentos de aquisição de Direitos Creditórios após o pagamento integral da respectiva Amortização Programada e a recomposição da Reserva de Caixa. 7.7 Em qualquer período de 3 (três) meses que anteceda qualquer Data de Resgate de Cotas Seniores, os recursos em caixa detidos pela Classe, inclusive os da Reserva de Caixa, deverão ser destinados para fins da amortização antecipada das Cotas Seniores."
+    }
+   ],
+   "legacy": {
+    "value": "Próxima amortização sênior acumulada com antecedência mínima 30 dias",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 16/09/2026, p. 36"
+   }
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 38,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "inanceiros será reduzido pelo valor da provisão efetuada ou perda reconhecida. 9.2.1 O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do ADMINISTRADOR ou, ainda, no manual do CUSTODIANTE. CAPÍTULO 10 – ASSEMBLEIA ESPECIAL DE COTISTAS 10.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 10.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se limitando a: (i) deliberar sobre as demonstrações contábeis da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Falta de pagamento de amortização programada, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 41,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "ão e de Liquidação da Classe Corporativo | Interno 11.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento, a qualquer tempo: (a) integral de qualquer das Amortizações Programadas das Cotas Seniores, na respectiva Data de Amortização Programada; (b) integral dos Resgates das Cotas Seniores, na respectiva Data de Resgate de Cotas Seniores; e/ou (c) do Benchmark Sênior nas respectivas datas; (ii) não observância, pelo CUSTODIANTE, ADMINISTRADOR, GESTOR e/ou pelo Cedente, dos deveres e obrigações dispostas abaixo e estabelecidos nos Documentos da Securitização, conforme o caso ou a ocorrência de qualquer dos seguintes eventos: a) resilição de qualquer dos Documentos da Securitização por qualquer pessoa, sem que outras pessoas assumam integralmente as atribuições ali estabelecidas no prazo de até 5 (cinco) dias, com exceção de rescisão de qualquer dos Documentos da Securitização pelo Cedente, hipótese na qual este item não estará sujeito a qualquer prazo de cura;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Lista de eventos de liquidação não localizada em trecho contínuo",
+   "sources": []
+  },
+  "revolving": {
+   "display": "Recursos dos créditos podem comprar novos direitos creditórios",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 28,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "ponibilizados pelo Custodiante diariamente. Revolvência da Carteira de Direitos Creditórios 4.16 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Cedente e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios e/ou destinados à Amortização das Cotas, conforme decisão do GESTOR e desde que observada a ordem de alocação de recursos definida no item Resolução da Cessão, dos Procedimentos de Cobrança e da Obrigação do Cedente de Recompra dos Direitos Creditórios 4.17 A resolução da cessão será obrigatória, e o Cedente terá a obrigação, de adquirir, em moeda corrente nacional, qualquer Direito Creditório Cedido à Classe ou Direito Creditório Inadimplido, nas hipóteses previstas abaixo: (i) da aquisição pela Classe de Direitos Creditórios que tenham sido cedidos em desacordo com os Critérios de Elegibilidade e Declarações do Cedente;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 45 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "ão das Cotas, custódia e controladoria dos ativos e passivos da Classe, a Classe pagará ao Administrador a Taxa de Administração no valor correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo de R$ 45.000,00 (quarenta e cinco mil reais) mensais (“Taxa de Administração”), ficando os serviços de custódia e controladoria dos ativos e passivos da Classe e de escrituração das Cotas remunerados dentro da própria Taxa de Administração, sem cobrança de taxa de custódia em separado,acrescidos das taxas por evento previstas no Complemento 1 deste Anexo 13.1.1 Pelos serviços de gestão, será devido pela Classe ao Gestor uma Taxa de Gestão equivalente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 45.000,00 (quarenta e cinco mil reais) (“Taxa de Gestão”). 13.1.2 A Taxa de Administração, Taxa Máxima de Custódia e a Taxa de Gestão serão atualizadas pela Corporativo | Interno variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA (“IPCA”), a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas, e serão calculadas e provisionadas"
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 45 mil/mês; inclui custódia/controladoria/escrituração",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,20% a.a. do PL; mín. R$ 45 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 50,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "tas no Complemento 1 deste Anexo 13.1.1 Pelos serviços de gestão, será devido pela Classe ao Gestor uma Taxa de Gestão equivalente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 45.000,00 (quarenta e cinco mil reais) (“Taxa de Gestão”). 13.1.2 A Taxa de Administração, Taxa Máxima de Custódia e a Taxa de Gestão serão atualizadas pela Corporativo | Interno variação positiva do Índice Nacional de Preços ao Consumidor Amplo – IPCA (“IPCA”), a cada período de 12 (doze) meses, contados a partir do mês em que ocorrer a primeira integralização de Cotas, e serão calculadas e provisionadas todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos) com base no valor do Patrimônio Líquido do Dia Útil anterior. 13.1.3 A Taxa de Administração e a Taxa de Gestão serão pagas mensalmente ao Administrador e ao Gestor, respectivamente, observado o disposto no item 13.2 abaixo, por período vencido, no quinto Dia Útil do mês subsequente à prestação dos serviços, a partir do mês em que ocorrer a primeira integralização de Cotas da Classe. 13.2 O Administrador e a Gestora podem estabelecer que parcelas da Taxa de Administração"
+    }
+   ],
+   "legacy": {
+    "value": "0,20% a.a. PL; mínimo R$ 45 mil/mês",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não fixa taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Finaxis CTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "as a quaisquer partes incluem seus sucessores, representantes e cessionários autorizados. Administrador FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Térreo, Torre Norte, Loja 8, CEP 01310-923, inscrita no CNPJ sob o nº 03.317.692/0001-94, instituição financeira devidamente autorizada pela CVM por meio do Ato Declaratório nº 6.547, de 18 de outubro de 2001; Afiliadas significa qualquer pessoa que, direta ou indiretamente, por meio de uma ou mais Pessoas, controla, é controlada por ou está sob Controle comum com a Pessoa em questão;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "B.OND Capital",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "de investimento, administrado e operacionalizado pela B3; GESTORA B.OND CAPITAL LTDA, pessoa jurídica de direito privado, com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Balthazar da Veiga, nº 634, 9º andar, Vila Nova Conceição, CEP 04510-001, inscrita no CNPJ sob o nº 54.641.866/0001-00, devidamente autorizada pela CVM para o exercício profissional de administração de carteiras de valores mobiliários, nos termos do Ato Declaratório nº 22.398, de 9 de agosto de 2024;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Custodiante não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "servicer": {
+   "display": "ACE – Agriculture Collateral Experts (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "de cada Subclasse e/ou Série, conforme o caso; Agente de Cobrança Extraordinária é a ACE – AGRICULTURE COLLATERAL EXPERTS LTDA., sociedade com sede na Cidade de Ribeirão Preto, Estado de São Paulo, na Rua General Augusto Soares dos Santos, 100, conjunto 103/104, bairro Lagoinha, CEP 14095-240, inscrita no CNPJ/MF sob o nº 26.512.328/0001-80. Agente de Controladoria FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Paulista, nº 1.842, Térreo, Torre Norte, Loja 8, CEP 01310-923, inscrita no CNPJ sob o nº 03.317.692/0001-94, instituição financeira devidamente autorizada pela CVM por meio do Ato Declaratório nº 6.5"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido em cada oferta",
+   "sources": []
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "á como principais características: Classe de Cotas Classe única. Prazo de Duração Indeterminado, tendo início na Data da 1ª Integralização, exceto se de outra forma vier a ser deliberado pelos cotistas reunidos em assembleia geral de cotistas. Administrador A partir da Data da Transferência (18 de setembro de 2026), FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., instituição financeira autorizada pela CVM conforme Ato Declaratório nº 6.547, de 18 de outubro de 2001, inscrita no CNPJ sob o nº 03.317.692/0001-94, em sua sede na Avenida Paulista, nº 1.842, Térreo, Torre Norte, Loja 8, São Paulo/SP, CEP 01310-923. Gestor B.OND CAPITAL LTDA, pessoa jurídica de direito privado, com sede na cidade de São Paulo, Estado de São Paulo, na Rua Balthazar da Veiga, nº 634, 9º andar, Vila Nova Conceição, CEP 0"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "agro_backing": {
+   "display": "Defensivos agroquímicos vendidos a prazo pela Albaugh",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "lasse, formada por Direitos Creditórios e Ativos Financeiros; Cedente é a ALBAUGH AGRO BRASIL LTDA., sociedade empresária limitada com sede na Cidade de São Paulo, Estado de São Paulo, na Rua Luis Correia de Melo, nº 92, andar 23 conj 231 E 232, Vila Cruzeiro, CEP 04.726-220, inscrita no CNPJ/MF sob o nº 01.789.121/0001-27, que cede e cederá para a Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1324579",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "16/09/2026",
+     "page": 4,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1324579",
+     "excerpt": "Classe, de acordo com os Critérios de Elegibilidade, Direitos Creditórios oriundos de operações de compra e venda mercantil a prazo de defensivos agroquímicos e insumos agrícolas aos Devedores, representadas pelos Documentos Comprobatórios;"
+    }
+   ],
+   "legacy": {
+    "value": "Venda a prazo de defensivos agroquímicos e insumos agrícolas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "collateral": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Garantias dos títulos não descritas em trecho contínuo",
+   "sources": []
+  }
+ },
+ "leitura": "Defensivos agrícolas da Albaugh com subordinação de 30% e grupo econômico ≤ 2% do PL.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

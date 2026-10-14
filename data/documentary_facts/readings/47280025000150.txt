@@ -1,0 +1,52 @@
+# FIDC Agro Capital Finance (Finaxis; B.OND Capital; cedente Albaugh Agro)
+type: Agro/FIAGRO
+q1: * "Cedente é a ALBAUGH AGRO BRASIL LTDA."
+q2: * "Direitos Creditórios são os direitos creditórios performados vincendos, existentes, livres e desimpedidos de quaisquer ônus ou gravame, de titularidade do Cedente"
+q3: * "seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral"
+q4: * "é o limite máximo de 2% (dois por cento) de concentração"
+q5: * "Subordinação Sênior significa o total de Cotas Subordinadas em relação ao Patrimônio Líquido da Classe, que deverá ser de, no mínimo, 30%"
+q6: * "Reserva de Caixa não possua saldo equivalente, no mínimo, ao valor da próxima Amortização Programada"
+q7: * "Eventos de Avaliação: (i) caso a Classe deixe de efetuar o pagamento, a qualquer tempo"
+q8: * "4.16 Os recursos recebidos pela Classe em razão da liquidação dos Direitos Creditórios, a qualquer título"
+q9: * "Taxa de Administração no valor correspondente a 0,20% (vinte centésimos por cento) ao ano aplicado sobre o Patrimônio Líquido do Fundo, observado o valor mínimo de R$ 45.000,00"
+q10: * "Taxa de Gestão equivalente a 0,20% (vinte centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo, observado o mínimo mensal de R$ 45.000,00"
+q11: * "Administrador FINAXIS CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q12: * "GESTORA B.OND CAPITAL LTDA"
+q13: * "Agente de Cobrança Extraordinária é a ACE – AGRICULTURE COLLATERAL EXPERTS LTDA."
+q14: * "Prazo de Duração Indeterminado, tendo início na Data da 1ª Integralização"
+q15: * "provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado"
+q16: * "Alocação Mínima Tributária Significa a alocação de, no mínimo, 67% (sessenta e sete por cento) da carteira em Direitos Creditórios"
+receivables: Vendas a prazo de defensivos e insumos agrícolas da Albaugh | q2,o1
+agro_backing: Defensivos agroquímicos vendidos a prazo pela Albaugh | q1,o1
+originator: Albaugh Agro Brasil | q1
+assignor: Albaugh Agro Brasil | q1
+debtor: Clientes da Albaugh no agronegócio | q2
+recourse: n/d | Recompra e coobrigação regidas pelo contrato de cessão
+eligibility: Créditos performados, vincendos e livres de ônus | q2,q3
+debtor_limit: Por grupo econômico ou indivíduo: até 2% do PL | q4 | value=2
+assignor_limit: — | Cedente única: Albaugh
+term_max: n/d | Prazo máximo não localizado em trecho contínuo | why=Resposta anterior sem trecho localizável no regulamento vigente
+allocation: ≥ 67% da carteira em direitos creditórios (fins tributários) | q16 | value=67
+quota_structure: Sênior / Subordinada | q5
+sub_senior: 30% · subord./PL | q5 | basis=jr/PL | value=30
+sub_mezz: — | Sem cota mezanino
+sub_check: n/d | Periodicidade de apuração não localizada | why=Resposta anterior sem trecho localizável no regulamento vigente
+reserve: Aquisições param se a reserva não cobrir a próxima amortização | q6
+pdd: PDD conforme Instrução CVM 489 | q15
+eval_triggers: Falta de pagamento de amortização programada, entre outros | q7
+liquidation: n/d | Lista de eventos de liquidação não localizada em trecho contínuo
+revolving: Recursos dos créditos podem comprar novos direitos creditórios | q8
+amortization: n/d | Cronograma definido no apêndice de cada série
+admin_fee: 0,20% a.a. do PL; mín. R$ 45 mil/mês | q9
+mgmt_fee: 0,20% a.a. do PL; mín. R$ 45 mil/mês | q10
+perf_fee: n/d | Regulamento não fixa taxa de performance
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: — | Sem cota mezanino
+administrator: Finaxis CTVM | q11
+manager: B.OND Capital | q12
+custodian: n/d | Custodiante não nomeado em trecho contínuo
+servicer: ACE – Agriculture Collateral Experts (cobrança extraordinária) | q13
+investors: n/d | Público-alvo definido em cada oferta
+duration: Indeterminado | q14
+collateral: n/d | Garantias dos títulos não descritas em trecho contínuo
+leitura: Defensivos agrícolas da Albaugh com subordinação de 30% e grupo econômico ≤ 2% do PL.
