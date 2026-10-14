@@ -1,0 +1,725 @@
+{
+ "schema_version": 1,
+ "cnpj": "65976848000104",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T12:56:23Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1239452",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "22/06/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452"
+  },
+  "D2": {
+   "document_id": "1170775",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "27/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1170775"
+  },
+  "D3": {
+   "document_id": "1168361",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "23/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1168361"
+  },
+  "D4": {
+   "document_id": "1167692",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "22/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1167692"
+  },
+  "D5": {
+   "document_id": "1166808",
+   "kind": "Instrumento de emissão",
+   "title": "Outros Documentos",
+   "date": "20/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1166808"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS endossadas pelo Banco Agibank",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 19,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "rantemente, na aquisição de direitos creditórios oriundos de Empréstimos Consignados contratados por Devedores, representados por CCBs emitidas em favor do Endossante ou de um Credor Original e cujo pagamento seja feito por meio de Consignação (\"Direitos Creditórios\"). 3.2 Em caráter complementar, a valorização das Cotas será buscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos neste Capítulo. 3.3 Os Direitos Creditórios serão adquiridos de acordo com a política de investimento, Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential diversificação e composição da carteira prevista neste Capítulo, em cada Data de Aquisição e Pagamento, nos termos do Contrato de Endosso. 3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e Condições de Endosso, conforme verificados pelos respectivos responsáveis indicados neste Anexo Descritivo. 3.3.2 O Contrato de Endosso preverá determinados eventos cuja ocorrência gera ao Fundo o direito de exigir a recompra dos Direitos Creditóri"
+    }
+   ],
+   "legacy": {
+    "value": "Empréstimos consignados INSS representados por CCBs endossadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Banco Agibank (endossante)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 96,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "INSS 138. \"Endossante\" BANCO AGIBANK S.A., instituição financeira, com sede na Cidade de Campinas, Estado de São Paulo, na Rua Sérgio Fernandes Borges Soares, nº 1.000, Prédio E12 E-1, Distrito Industrial, CEP 13054-709, inscrita no CNPJ sob o nº 10.664.513/0001-50. \"Entidade Registradora\" A entidade registradora autorizada pelo Banco Central do Brasil, a ser contratada pela Administradora e que deverá ser contratada pela Administradora, em nome do Fundo, para realização do registro dos Direitos Creditórios Endossados, caso aplicável, observado"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Banco Agibank, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 96,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "INSS 138. \"Endossante\" BANCO AGIBANK S.A., instituição financeira, com sede na Cidade de Campinas, Estado de São Paulo, na Rua Sérgio Fernandes Borges Soares, nº 1.000, Prédio E12 E-1, Distrito Industrial, CEP 13054-709, inscrita no CNPJ sob o nº 10.664.513/0001-50. \"Entidade Registradora\" A entidade registradora autorizada pelo Banco Central do Brasil, a ser contratada pela Administradora e que deverá ser contratada pela Administradora, em nome do Fundo, para realização do registro dos Direitos Creditórios Endossados, caso aplicável, observado"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 19,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "rantemente, na aquisição de direitos creditórios oriundos de Empréstimos Consignados contratados por Devedores, representados por CCBs emitidas em favor do Endossante ou de um Credor Original e cujo pagamento seja feito por meio de Consignação (\"Direitos Creditórios\"). 3.2 Em caráter complementar, a valorização das Cotas será buscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos neste Capítulo. 3.3 Os Direitos Creditórios serão adquiridos de acordo com a política de investimento, Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential diversificação e composição da carteira prevista neste Capítulo, em cada Data de Aquisição e Pagamento, nos termos do Contrato de Endosso. 3.3.1 Serão adquiridos apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e Condições de Endosso, conforme verificados pelos respectivos responsáveis indicados neste Anexo Descritivo. 3.3.2 O Contrato de Endosso preverá determinados eventos cuja ocorrência gera ao Fundo o direito de exigir a recompra dos Direitos Creditóri"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Beneficiários do INSS, de 18 a 79 anos na emissão",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "como Devedores indivíduos com idade mínima de 18 (dezoito) anos, inclusive, e máxima de 79 (setenta e nove) anos, na data de emissão da CCB, conforme informações constantes no Arquivo CNAB Oferta, devendo ainda ser observada, para cada faixa etária de Devedor listada na coluna da esquerda da tabela abaixo, o limite de saldo total acumulado em aberto dos Direitos Creditórios Endossados indicado na mesma linha da coluna da di"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas beneficiárias INSS; adimplentes; idade 18–79 na emissão daCCB",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e coobrigação regidas pelo contrato de endosso",
+   "sources": [],
+   "legacy": {
+    "value": "Recompra por eventos do contrato de endosso; sem coobrigação por solvência",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "eligibility": {
+   "display": "Até 108 parcelas; margem averbada e limites de idade média",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "(i) os Direitos Creditórios Endossados tenham no máximo 108 (cento e oito) parcelas mensais vincendas, em todo o caso observado o disposto no inciso (ii) abaixo; (ii) os Direitos Creditórios não poderão ter vencimento posterior à Data de Resgate das Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "Até 108 parcelas; valor presenteR$ 350–150 mil; margem/averbação concluída; idade média≤68 na oferta e≤76 no vencimento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor até R$ 150 mil, com limites por faixa etária",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "máximo R$150.000,00 (cento e cinquenta mil reais); (iv) para cada aquisição dos Direitos Creditórios, os Direitos Creditórios, pro forma (incluindo os que serão adquiridos e os Direitos Creditórios Endossados), deverão ter como Devedores indivíduos com idade mínima de 18 (dezoito) anos, inclusive, e máxima de 79 (setenta e nove) anos, na data de emissão da CCB, conforme informações constante"
+    }
+   ],
+   "legacy": {
+    "value": "Devedor≤R$ 150 mil; idade 61+/66+/71+:≤75%/50%/20% do crédito adimplente; benefício 32 não permanente≤10%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Endossante único: Banco Agibank",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor≤R$ 150 mil; idade 61+/66+/71+:≤75%/50%/20% do crédito adimplente; benefício 32 não permanente≤10%",
+    "decision": "revised",
+    "why": ""
+   }
+  },
+  "term_max": {
+   "display": "Até 108 parcelas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "(i) os Direitos Creditórios Endossados tenham no máximo 108 (cento e oito) parcelas mensais vincendas, em todo o caso observado o disposto no inciso (ii) abaixo; (ii) os Direitos Creditórios não poderão ter vencimento posterior à Data de Resgate das Cotas Seniores;"
+    }
+   ],
+   "legacy": {
+    "value": "Até 108 parcelas; valor presenteR$ 350–150 mil; margem/averbação concluída; idade média≤68 na oferta e≤76 no vencimento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima sem trecho localizável no regulamento vigente",
+   "sources": [],
+   "legacy": {
+    "value": "Entidade de investimento≥67% do PL em 180 dias; regulatório≥50% do PL",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Subordinada (retida pelo grupo Agibank)",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 31,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "equivalente a, no mínimo, 15% (quinze por cento). 8.5 EMISSÃO DE NOVAS COTAS. 8.5.1 A Administradora, em nome da Classe A, operacionalizará a emissão e distribuição de séries de Cotas Seniores, observadas as disposições da Resolução CVM 175, desde que tal emissão seja aprovada em Assembleia de Cotistas, e desde que sejam obedecidas, ainda, as seguintes condições para novas emissões de Cotas:"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas / PL≥15%; Grupo Agibank deve reter 100% das subordinadas, sem ônus",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "sub_senior": {
+   "display": "15% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 22,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "Índice de Monitoramento Valor Índice de Subordinação mínimo 15% (quinze por cento), conforme previsto no item 8.4.3 abaixo Índice de Perdas Over90 máximo 3,5% (três inteiros e cinquenta centésimos por cento) Excesso de Retorno dos Ativos mínimo 5% (cinco inteiros por cento) Excesso de Retorno Mínimo 5,0% (cinco inteiros por cento) ao ano Valores futuros dos Direitos Creditórios N/A Endossados Valores presentes dos Direitos Creditórios -- Endossados Abertura dos Direitos Creditórios por faixa -- de vencimento em: (i) a vencer com as seguintes faixas: até 30 dias, de 31 a 60 dias, de 61 a 90 dias, de 91 a 120 dias, de 121 a Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential 150 dias, de 151 a 180 dias, de 181 a 360 dias e a"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 15.0,
+   "legacy": {
+    "value": "Subordinadas / PL≥15%; Grupo Agibank deve reter 100% das subordinadas, sem ônus",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "sub_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Sem cota mezanino descrita",
+   "sources": []
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas / PL≥15%; Grupo Agibank deve reter 100% das subordinadas, sem ônus",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "3 meses de encargos; remuneração retida antes do pagamento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 65,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "incluindo-se a Taxa de Administração, referentes aos 3 (três) meses subsequentes. 19.2 Adicionalmente, a Administradora deverá manter Reserva de Liquidez, por conta e ordem do Fundo, desde a 1ª Data de Integralização de Cotas até o final do Período de Alocação a partir de 15 (quinze) dias antes da Data de Pagamento, de acordo com o disposto nos itens abaixo: 19.2.1 Durante o Período de Alocação, observada a ordem de alocação de recursos"
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de encargos; remuneração do próximo pagamento retida desdeD-15 durante alocação",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não localizado em trecho contínuo",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "Perdas over 90 > 3,5%; relatório não divulgado em 10 dias úteis, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 22,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "Índice de Monitoramento Valor Índice de Subordinação mínimo 15% (quinze por cento), conforme previsto no item 8.4.3 abaixo Índice de Perdas Over90 máximo 3,5% (três inteiros e cinquenta centésimos por cento) Excesso de Retorno dos Ativos mínimo 5% (cinco inteiros por cento) Excesso de Retorno Mínimo 5,0% (cinco inteiros por cento) ao ano Valores futuros dos Direitos Creditórios N/A Endossados Valores presentes dos Direitos Creditórios -- Endossados Abertura dos Direitos Creditórios por faixa -- de vencimento em: (i) a vencer com as seguintes faixas: até 30 dias, de 31 a 60 dias, de 61 a 90 dias, de 91 a 120 dias, de 121 a Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential 150 dias, de 151 a 180 dias, de 181 a 360 dias e a"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 55,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "a de Cotistas. CAPÍTULO 16 – EVENTOS DE AVALIAÇÃO 16.1 São Eventos de Avaliação: (i) não divulgação, pela Gestora, do Relatório de Monitoramento em até 10 (dez) Dias Úteis contados da Data de Envio do Relatório de Monitoramento; (ii) amortização de Cotas Subordinadas em desconformidade com este Anexo Descritivo; (iii) identificação de Inconsistência Relevante pela Gestora ou pelo Custodiante, conforme o caso; (iv) descumprimento, pela Administradora, pela Gestora, pelo Endossante, pelo Custodiante, pelo Agente de Controladoria e/ou Agente de Cobrança de qualquer de suas respectivas obrigações estabelecidas neste Regulamento, no Contrato de Endosso e no Contrato de Cobrança, desde que tal descumprimento não seja devidamente sanado dentro do prazo de cura estabelecido em tais instrumentos, se aplicável;"
+    }
+   ],
+   "legacy": {
+    "value": "Perdas Over 90≤3,5% do valor presente dos créditos; excesso de retorno≥5% a.a.; fórmula própria",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "liquidation": {
+   "display": "Deliberação da assembleia ou determinação da CVM, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 61,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": ". CAPÍTULO 17 – EVENTOS DE LIQUIDAÇÃO E LIQUIDAÇÃO DA CLASSE A 17.1 São Eventos de Liquidação quaisquer das seguintes ocorrências: (i) caso seja deliberado, em Assembleia de Cotistas, nos termos da Resolução CVM 175; (ii) nos casos em que houver determinação da CVM, nos termos da Resolução CVM 175; (iii) caso, na hipótese de interrupção, a qualquer tempo e por qualquer motivo, da prestação dos serviços pela Administradora, pela Gestora ou pelo Custodiante ou na hipótese de renúncia da Administradora, da Gestora e/ou do Custodiante, em 180 (cento e oitenta) dias contados da realização da Assembleia de Cotistas para a deliberação a respeito da substituição do prestador de serviço, observados os procedimentos descritos neste Regulamento, ou, nos prazos estabelecidos neste Regulamento, o substituto escolhido não assuma efetivamente as funções da Administradora, da Gestora ou Custodiante, conf"
+    }
+   ],
+   "legacy": {
+    "value": "Perdas Over 90≤3,5% do valor presente dos créditos; excesso de retorno≥5% a.a.; fórmula própria",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "revolving": {
+   "display": "Carteira revolvente, conforme o anexo descritivo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 20,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "r recursos para a aquisição de Direitos Creditórios durante todo o Período de Alocação, de forma revolvente, observado o disposto no CAPÍTULO 13 deste Anexo Descritivo. 3.6 A cada aquisição de Direitos Creditórios, na respectiva Data de Aquisição e Pagamento, o Fundo pagará ao Endossante o Preço de Aquisição, o qual deverá garantir, considerada pro forma a transferência pretendida, que a Taxa Mínima Média de Endosso seja observada. 3.6.1 Durante o Período de Alocação, caso a Classe A possua obrigações de pagamento contra o Endossante (decorrentes de pagamento de Preço de Aquisição de Direitos Creditórios) ao mesmo tempo em que o Endossante possua obrigações de pagamento contra a Classe A (decorrentes, como exemplo, de repasses devidos ao Fundo em decorrência do recebimento de quaisquer valores relativos aos Direitos Creditórios Endossados, em razão de quaisquer pagamentos efetuados diretamente ao Endossante, por Devedores, Instituições Proponentes e/ou quaisquer outros terceiros, inclusive àqueles referentes"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência durante período de alocação; após aplica regimes pro rata/sequencial",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": []
+  },
+  "admin_fee": {
+   "display": "0,098% a.a. até R$ 500 mi de PL, regressiva; com mínimo mensal",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 40,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "remuneração calculada conforme descrito abaixo: (i) Taxa de Administração. A título de Taxa de Administração, Custódia e Controladoria do Fundo, o valor correspondente a 0,098% (noventa e oito milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até o limite de R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,0563% (quinhentos e Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential sessenta e três milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 500.000.000,00 (quinhentos milhões de reais) e R$ 1.000.000.000,00 (um bilhão de reais), acrescido de 0,0375% (trezentos e setenta e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que exceder R$ 1.000.000.000,00 (um bilhão de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia út"
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,098% a.a. atéR$ 500 mi +0,0563% entreR$ 500 mi–1 bi +0,0375% acima; mínimoR$ 18,75 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,033% a.a. até R$ 500 mi de PL, regressiva",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 41,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "ezoito mil, setecentos e cinquenta mil reais) por mês. (ii) Taxa de Gestão: A título de Taxa de Gestão do Fundo, o valor correspondente a 0,033% (trinta e três centésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo até o limite de R$ 500.000.000,00 (quinhentos milhões de reais), acrescido de 0,0188% (cento e oitenta e oito milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo entre R$ 500.000.000,00 (quinhentos milhões de reais) e R$ 1.000.000.000,00 (um bilhão de reais), acrescido de 0,0125% (cento e vinte e cinco milésimos por cento) ao ano sobre o Patrimônio Líquido do Fundo que exceder R$ 1.000.000.000,00 (um bilhão de reais), provisionados diariamente à razão de 1/252 (um duzentos e cinquenta e dois avos) em cada dia útil, pagáveis mensalmente, devida a primeira no último dia útil do mês em que ocorrer a primeira integralização de cotas do Fundo e as demais no último dia útil dos meses subsequentes."
+    }
+   ],
+   "legacy": {
+    "value": "Marginal 0,033% a.a. atéR$ 500 mi +0,0188% entreR$ 500 mi–1 bi +0,0125% acima; mínimoR$ 6,25 mil/mês",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 42,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "ao Agente de Cobrança. 10.3 TAXA DE INGRESSO OU SAÍDA. TAXA DE PERFORMANCE. Não serão cobradas taxas de ingresso ou de saída ou taxa de performance dos Cotistas. CAPÍTULO 11 – VALORAÇÃO DAS COTAS 11.1 As Cotas, independentemente da Subclasse ou série, serão valoradas pelo Custodiante em cada Dia Útil, conforme o disposto neste Capítulo. A valoração das Cotas ocorrerá a partir do Dia Útil seguinte à 1ª Data de Integralização de Cotas da respectiva série (no caso das Cotas Seniores), sendo que a última valoração ocorrerá na respectiva Data de Resgate (no caso das Cotas Seniores)."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": []
+  },
+  "target_mezz": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "text",
+   "reason": "Sem cota mezanino",
+   "sources": []
+  },
+  "administrator": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "nto. São Paulo, 22 de junho de 2026 OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora OLIVEIRA TRUST SERVICER S.A. Gestora Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential ANEXO I AO REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA ANEXO DESCRITIVO DA CLASSE A DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 DEFINIÇÕES."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Oliveira Trust Servicer",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "Administradora OLIVEIRA TRUST SERVICER S.A. Gestora Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential ANEXO I AO REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA ANEXO DESCRITIVO DA CLASSE A DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 DEFINIÇÕES. Todos os termos e expressões iniciados em letras maiúsculas utilizados no presente Anexo Descritivo da Classe A têm o significado que lhes são atribuídos no Anexo II ao Regulamento, exceto se de outro modo expressamente especificado. 1.2 OBJETIVO."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Oliveira Trust DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 16,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "nto. São Paulo, 22 de junho de 2026 OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A. Administradora OLIVEIRA TRUST SERVICER S.A. Gestora Docusign Envelope ID: 2958BA99-2381-816F-8150-62064A8F44A1 Confidential ANEXO I AO REGULAMENTO DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA ANEXO DESCRITIVO DA CLASSE A DE COTAS DO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGIBANK II RESPONSABILIDADE LIMITADA CAPÍTULO 1 – CARACTERÍSTICAS GERAIS 1.1 DEFINIÇÕES."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de cobrança não nomeado em trecho contínuo",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 17,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "forma de condomínio fechado. 1.6 PÚBLICO-ALVO DO FUNDO. A Classe A é destinada exclusivamente a Investidores Profissionais que busquem rentabilidade, no longo prazo, compatível com a política de investimento, composição e diversificação da carteira do Fundo, e aceitem os riscos associados aos investimentos da Classe A. 1.7 PRAZO DE DURAÇÃO. A Classe A terá prazo de duração de 10 (dez) anos, sendo que cada série de Cotas Seniores terá o Prazo de Duração estipulado no respectivo Suplemento. 1.8 SUBCLASSES DE COTAS. As Cotas serão divididas em Cotas Seniores e em Cotas Subordinadas, conforme descritas no CAPÍTULO 8 deste Anexo Descritivo. 1.9 RESPONSABILIDADE DOS COTISTAS. A responsabilidade do Cotista está limitada ao valor por ele subscrito. 1.10 EXERCÍCIO SOCIAL."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "timento em direitos creditórios constituído sob a forma de condomínio de natureza especial e com prazo de duração indeterminado (\"Fundo\"), regido pelo presente Regulamento, pela Lei nº 10.406, de 10 de janeiro de 2002 (\"Código Civil\"), pela Resolução do Conselho Monetário Nacional (\"CMN\") nº 2.907, de 29 de novembro de 2001, pela parte geral e o Anexo Normativo II da Resolução da Comissão de Valores Mobiliários (\"CVM\") nº 175, de 23 de dezembro de 2022, conforme alterada (\"Resolução CVM 175\") e pelas demais disposições legais e regulamentares aplicáveis. 1.2 O Fundo possui uma única classe de cotas, a qual possui subclasses, na forma do §3º, do artigo 5º, da Resolução CVM 175 e conforme disposto no Anexo Descritivo da Classe A que compõe o Anexo I a este Regulamento, sem prejuízo da possibilidade de criação de novas classes de cotas, conforme previsto no item 5.1.4 abaixo. 1.3 Todos os termos e expressões iniciados em letras maiúsculas, utilizados na parte geral do"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "payroll": {
+   "display": "Consignação INSS via convênio do Agibank e Dataprev",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 72,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "mento dos Direitos Creditórios Endossados oriundos dos Empréstimos Consignados contratados pelos Devedores é viabilizado pelo Convênio celebrado entre o Endossante e o INSS, bem como no instrumento de prestação de serviços firmado entre o Endossante e a Dataprev. Certas regras devem ser observadas para a manutenção do convênio, cujo descumprimento poderá levar ao seu término. Alterações normativas, alheias ao controle do INSS, da Dataprev e do Endossante, também podem afetar e/ou inviabilizar a manutenção do convênio. Além disso, após o término do seu prazo de vigência, o convênio precisará ser renovado pelo INSS, pela Dataprev e pelo Endossante, sem que haja qualquer obrigação de renovação do convênio nos termos outrora vigentes."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Idade de 18 a 79 anos na emissão da CCB",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1239452",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "22/06/2026",
+     "page": 28,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1239452",
+     "excerpt": "como Devedores indivíduos com idade mínima de 18 (dezoito) anos, inclusive, e máxima de 79 (setenta e nove) anos, na data de emissão da CCB, conforme informações constantes no Arquivo CNAB Oferta, devendo ainda ser observada, para cada faixa etária de Devedor listada na coluna da esquerda da tabela abaixo, o limite de saldo total acumulado em aberto dos Direitos Creditórios Endossados indicado na mesma linha da coluna da di"
+    }
+   ],
+   "legacy": {
+    "value": "Até 108 parcelas; valor presenteR$ 350–150 mil; margem/averbação concluída; idade média≤68 na oferta e≤76 no vencimento",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 22/06/2026, Anexo"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento fixa valor presente mínimo, sem parcela mínima localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Até 108 parcelas; valor presenteR$ 350–150 mil; margem/averbação concluída; idade média≤68 na oferta e≤76 no vencimento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  }
+ },
+ "leitura": "Consignado INSS do Banco Agibank; subordinação de 15% retida pelo grupo e CCB de até 108 parcelas.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}
