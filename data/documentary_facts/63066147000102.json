@@ -1,0 +1,791 @@
+{
+ "schema_version": 1,
+ "cnpj": "63066147000102",
+ "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS INCLUSÃO CREDIÁRIA RESPONSABILIDADE LIMITADA",
+ "fund_type": "Crédito pessoal",
+ "reviewed_at": "2026-10-14T01:51:48Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1094447",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "06/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094447"
+  },
+  "D2": {
+   "document_id": "1085946",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "15/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946"
+  },
+  "D3": {
+   "document_id": "1085943",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "15/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085943"
+  },
+  "D4": {
+   "document_id": "1094443",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Constituição/Encerramento do Fundo",
+   "date": "06/10/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1094443"
+  },
+  "D5": {
+   "document_id": "1093932",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "27/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093932"
+  },
+  "D6": {
+   "document_id": "1093408",
+   "kind": "Instrumento de emissão",
+   "title": "Aviso ao Mercado",
+   "date": "26/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093408"
+  },
+  "D7": {
+   "document_id": "1093405",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "26/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1093405"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Crédito pessoal",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de crédito parcelado a pessoas físicas, via instituições parceiras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "expediente na B3. “Direitos Creditórios” São todos os direitos de crédito vincendos adquiridos ou a serem adquiridos pela Classe Única, representados por CCBs decorrentes da concessão de Crédito Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 Parcelado pelas Instituições Financeiras Parceiras aos Devedores e com intermediação do Correspondente Bancário. “Direitos Creditórios Os Direitos Creditórios que atendam aos Critérios de Adquiridos” Elegibilidade e que tenham sido adquiridos dos Cedentes pela Classe Única. “Direitos Creditórios Significa os Direitos Creditórios que não estejam de Desenquadrados” acordo com os Critérios de Elegibilidade e Condições de Endosso. “Direitos Creditórios Os Direitos Creditórios que atendam os Critérios de Elegíveis” El"
+    }
+   ],
+   "legacy": {
+    "value": "CCB de crédito parcelado a pessoas físicas, via instituições financeiras parceiras",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "SuperSim (correspondente bancário) com instituições financeiras parceiras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 91,
+     "clause": "Suplemento A",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "Parceiras contrataram a SuperSim Análise de Dados e Correspondente Bancário Ltda. (“SuperSim”), como correspondente bancário e responsável pela prospecção e operacionalização da contratação de novas operações de concessão de Crédito Parcelado em conformidade com as diretrizes previamente estabelecidas pelas Instituições Financeiras Parceiras. 3. Para poder viabilizar a originação de novas operações de concessão de Crédito Parcelado, a SuperSim desenvolveu e implementou uma plataforma digital que permite aos seus usuários pessoa física interessados em contratar uma operação de Crédito Parcelado, através da qual é possível realizar todo o processo de concessão de Crédito Parcelado junto às Instituições Financeiras Parceiras de forma eletrônica (“Plataforma SuperSim”). 4. Os Devedores estarão sujeitos a uma análise de crédito realizada pela SuperSim e, para que sejam elegíveis para a contratação de operações de Crédito Parcelado através da Plataforma SuperSim, deverão ser observados os seguintes requisitos: (1) deverão ser pessoas físicas: (a) residentes no Brasil;"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "deste Regulamento. “Agente de Cobrança A SUPERSIM ANÁLISE DE DADOS E Extraordinária” CORRESPONDENTE BANCÁRIO LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Nove de Julho, nº 5.143, conjunto 121, Jardim Paulista, inscrita no CNPJ/MF sob o nº 33.030.944/0001-60, contratado para realizar a cobrança dos Direitos Creditórios Adquiridos inadimplidos, nos termos do Contrato de Cobrança. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Percentual mínimo de 67% (sessenta e sete por cento) Tributária” do Patrimônio Líquido em Direitos Creditórios, nos"
+    }
+   ],
+   "legacy": {
+    "value": "SuperSim como correspondente/cobrança; instituições parceiras como endossantes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Instituições financeiras parceiras, por endosso das CCBs",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "nome do Fundo e/ou da Classe Única. “Devedores” Pessoa física que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado. “Dia Útil” Significa qualquer dia que não seja (i) sábado, domingo ou feriado declarado como nacional ou (ii) aqueles sem expediente na B3. “Direitos Creditórios” São todos os direitos de crédito vincendos adquiridos ou a serem adquiridos pela Classe Única, representados por CCBs decorrentes da concessão de Crédito Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 Parcelado pelas Instituições Financeiras Parceiras aos Devedores e com intermediação do Correspondente Bancário. “Direitos Creditór"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Endossantes, a Administradora, a Gestora, o Custodiante, o Correspondente Bancário, o Agente de Cobrança Extraordinária, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 21.4. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às seguintes condições de endosso, na respectiva Data de Aquisição (“Condições de Endosso”): (i) deverão atender à Política de Crédito da Classe; e (ii) o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade na data de emissão da respectiva CCB. 22. PROCEDIMENTOS E CUSTOS DE COBRANÇA 22.1. Os Direitos Creditórios Adquiridos serão pagos, em moeda corrente nacional, por meio de (a) boleto bancário;"
+    }
+   ],
+   "legacy": {
+    "value": "SuperSim como correspondente/cobrança; instituições parceiras como endossantes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas emitentes das CCBs",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "nome do Fundo e/ou da Classe Única. “Devedores” Pessoa física que emite a CCB em favor da Instituição Financeira Parceira com o objetivo de realizar uma operação de Crédito Parcelado. “Dia Útil” Significa qualquer dia que não seja (i) sábado, domingo ou feriado declarado como nacional ou (ii) aqueles sem expediente na B3. “Direitos Creditórios” São todos os direitos de crédito vincendos adquiridos ou a serem adquiridos pela Classe Única, representados por CCBs decorrentes da concessão de Crédito Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 Parcelado pelas Instituições Financeiras Parceiras aos Devedores e com intermediação do Correspondente Bancário. “Direitos Creditór"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoa física com CPF; idade mínima 18 anos na emissão",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, p. 8"
+   }
+  },
+  "recourse": {
+   "display": "Sem regresso contra endossantes, salvo culpa ou dolo",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 50,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "com relação a qualquer Critério de Elegibilidade, por qualquer motivo, após a sua cessão à Classe, não obrigará a sua alienação pela Classe, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Endossantes, a Administradora, a Gestora, o Custodiante, o Correspondente Bancário, o Agente de Cobrança Extraordinária, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 21.4. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, às seguintes condições de endosso, na respectiva Data de Aquisição (“Condições de Endosso”): (i) deverão atender à Política de Crédito da Classe; e (ii) o Devedor deve ter, no mínimo, 18 (dezoito) anos de idade na data de emissão da respectiva CCB. 22. PROCEDIMENTOS E CUSTOS DE COBRANÇA 22.1. Os Direitos Creditórios Adquiridos serão pagos, em moeda corrente nacional, por meio de (a) boleto bancário;"
+    }
+   ],
+   "legacy": {
+    "value": "Endosso sem coobrigação; desenquadramento posterior só gera regresso por culpa/dolo",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "CCB de 150 a 720 dias; principal de R$ 1 mil a R$ 3 mil; sem ágio",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "sua identificação. 21. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE ENDOSSO 21.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição: (a) cada CCB deverá ter prazo mínimo equivalente a 150 (cento e cinquenta) dias corridos e prazo máximo equivalente a 720 (setecentos e vinte) dias corridos; (b) o principal mínimo a ser desembolsada para um Devedor de cada CCB deve ser o equivalente a R$ 1.000,00 (mil reais); (c) o principal máximo desembolsado para um Devedor em cada CCB deverá ser equivalente a R$ 3.000,00 (três mil reais); Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 (d) tenham sido cedidos à Classe Única pelo valor de face ou com deságio, sendo vedada a aquisição com ágio;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB 150–720 dias; principal R$ 1–3 mil; sem ágio; taxa mínima do crédito 8% a.m.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor ou coobrigado: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 38,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "erá realizar operações em mercados de derivativos em nenhuma circunstância. 17.7. A Classe Única poderá adquirir Direitos Creditórios, observada a vedação de que trata o artigo 45 do Anexo II da Resolução CVM 175, e outros ativos de um mesmo Devedor, ou de coobrigação de uma mesma pessoa ou entidade, no limite de 20% (vinte por cento) de seu Patrimônio Líquido. 17.8. É vedado à Classe Única o investimento em Ativos Financeiros de emissão ou que envolvam retenção de risco por parte da Administradora, da Gestora ou das suas respectivas partes relacionadas. 17.9. A Classe Única poderá alienar os Direitos Creditórios Adquiridos a terceiros, inclusive aos Endossantes e às suas respectivas Partes Relacionadas."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor/coobrigado até 20% PL; Buffer limitado a 10% PL com limites por instituição",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "assignor_limit": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Limite por instituição parceira não fixado no regulamento",
+   "sources": [],
+   "legacy": {
+    "value": "Devedor/coobrigado até 20% PL; Buffer limitado a 10% PL com limites por instituição",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "term_max": {
+   "display": "CCB de até 720 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 49,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "sua identificação. 21. CRITÉRIOS DE ELEGIBILIDADE E CONDIÇÕES DE ENDOSSO 21.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente, aos seguintes Critérios de Elegibilidade, na respectiva Data de Aquisição: (a) cada CCB deverá ter prazo mínimo equivalente a 150 (cento e cinquenta) dias corridos e prazo máximo equivalente a 720 (setecentos e vinte) dias corridos; (b) o principal mínimo a ser desembolsada para um Devedor de cada CCB deve ser o equivalente a R$ 1.000,00 (mil reais); (c) o principal máximo desembolsado para um Devedor em cada CCB deverá ser equivalente a R$ 3.000,00 (três mil reais); Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 (d) tenham sido cedidos à Classe Única pelo valor de face ou com deságio, sendo vedada a aquisição com ágio;"
+    }
+   ],
+   "legacy": {
+    "value": "CCB 150–720 dias; principal R$ 1–3 mil; sem ágio; taxa mínima do crédito 8% a.m.",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios; 67% para fins tributários",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "Contrato de Cobrança. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Percentual mínimo de 67% (sessenta e sete por cento) Tributária” do Patrimônio Líquido em Direitos Creditórios, nos termos dos artigos 18, 19 e 24 da Lei 14.754, para fins de enquadramento do Fundo e da Classe como Entidade de Investimento sujeita ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. “Amortização Amortização extraordinária das Cotas da Subclasse Extraordinária das Subordinada Júnior, que poderá ser realizada Cotas da Subclasse exclusivamente nos termos previstos no Anexo da Classe Subordinada Júnior” Única, em especial na Cláusula 26. “Amortização Amortização extraordinária das Cotas da Subclas"
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Piso 50% PL; objetivo tributário 67% PL; ambos têm evento próprio por persistência",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino A / B / C / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "pela Gestora, com base nas informações fornecidas pelo Custodiante e deverá corresponder a, no mínimo, 45% (quarenta e cinco por cento). “Índice de Subordinação Relação mínima que deve ser observada entre (a) a Mezanino A” soma do valor das Cotas da Subclasse Mezanino B, Cotas da Subclasse Mezanino C e das Cotas da Subclasse Subordinada Júnior em circulação; e (b) o Patrimônio Líquido."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "aquela inicialmente atribuída pela Agência Classificadora de Risco, o Índice de Subordinação da Mezanino A voltará a ser 25,0% (vinte e cinco por cento). “Índice de Subordinação Relação mínima que deve ser observada entre (a) a Mezanino B” soma do valor das Cotas da Subclasse Mezanino C e as Cotas da Subclasse Subordinada Júnior em circulação; e (b) o Patrimônio Líquido."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 45% PL; mezaninos A 25%, B 19, 25%, C 12, 5%; step-up por rating",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, p. 11"
+   }
+  },
+  "sub_senior": {
+   "display": "45% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "pela Gestora, com base nas informações fornecidas pelo Custodiante e deverá corresponder a, no mínimo, 45% (quarenta e cinco por cento). “Índice de Subordinação Relação mínima que deve ser observada entre (a) a Mezanino A” soma do valor das Cotas da Subclasse Mezanino B, Cotas da Subclasse Mezanino C e das Cotas da Subclasse Subordinada Júnior em circulação; e (b) o Patrimônio Líquido."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 45.0,
+   "legacy": {
+    "value": "Sênior 45% PL; mezaninos A 25%, B 19, 25%, C 12, 5%; step-up por rating",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, p. 11"
+   }
+  },
+  "sub_mezz": {
+   "display": "Mezanino A 25%, B 19,25% e C 12,5%, com elevação se houver rebaixamento",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "aquela inicialmente atribuída pela Agência Classificadora de Risco, o Índice de Subordinação da Mezanino A voltará a ser 25,0% (vinte e cinco por cento). “Índice de Subordinação Relação mínima que deve ser observada entre (a) a Mezanino B” soma do valor das Cotas da Subclasse Mezanino C e as Cotas da Subclasse Subordinada Júnior em circulação; e (b) o Patrimônio Líquido."
+    },
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "pela Gestora, com base nas informações fornecidas pelo Custodiante e deverá corresponder a, no mínimo, 19,25% (dezenove inteiros e vinte e cinco centésimos por cento). Na hipótese de ocorrência de rebaixamento da classificação de risco em 2 (duas) notas ou mais em relação à classificação inicialmente atribuída pela Agência Classificadora de Risco, a partir da data de divulgação oficial do referido rebaixamento, passará a ser aplicável a elevação do Índice de Subordinação Mezanino B, que será ajustado de 19,25% (dezenove inteiros e vinte e cinco centésimos por cento) para Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 24,25% (vinte e quatro inteiros e vinte e cinco por cento) do Patrimônio Líquido do Fundo"
+    },
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 12,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "pela Gestora, com base nas informações fornecidas pelo Custodiante e deverá corresponder a, no mínimo, 12,5% (doze e meio por cento). Na hipótese de ocorrência de rebaixamento da classificação de risco em 2 (duas) notas ou mais em relação à classificação inicialmente atribuída pela Agência Classificadora de Risco, a partir da data de divulgação oficial do referido rebaixamento, passará a ser aplicável a elevação do Índice de Subordinação Mezanino C, que será ajustado de 12,50% (doze inteiros e cinquenta centésimos por cento) para 17,50% (dezessete inteiros e cinquenta centésimos por cento) do Patrimônio Líquido do Fundo, devendo tal percentual ser observado e man"
+    }
+   ],
+   "basis": "jr/PL",
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária, pela gestora",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 11,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "pela Gestora, com base nas informações fornecidas pelo Custodiante e deverá corresponder a, no mínimo, 45% (quarenta e cinco por cento). “Índice de Subordinação Relação mínima que deve ser observada entre (a) a Mezanino A” soma do valor das Cotas da Subclasse Mezanino B, Cotas da Subclasse Mezanino C e das Cotas da Subclasse Subordinada Júnior em circulação; e (b) o Patrimônio Líquido."
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 45% PL; mezaninos A 25%, B 19, 25%, C 12, 5%; step-up por rating",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, p. 11"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de despesas e encargos para 3 meses",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 75,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "00% (cem por cento) do necessário para operacionalização da Classe Única por um período de 3 (três) meses, conforme estimativa da Administradora, excetuando-se as despesas com o Agente de Cobrança Extraordinária. 27.2.2. As Disponibilidades segregadas na Reserva de Despesas e Encargos não poderão ser utilizadas na constituição da Reserva de Pagamento. 27.3. Observada a ordem de alocação de recursos prevista na Cláusula 28 deste Anexo, com pelo menos 60 (sessenta) dias corridos de antecedência de cada Data de Pagamento em que esteja previsto o pagamento de remuneração ou amortização, será iniciada a constituição da Reserva de Pagamento, em Disponibilidades, para fazer frente aos respectivos pagamentos devidos, sendo que com 30 (trinta) dias corridos de antecedência da Data de Pagamento, a Reserva de Pagamento deverá conter, no mínimo 50% (cinquenta por cento) do valor total previsto para o pagamento. 27.3.1."
+    }
+   ],
+   "legacy": {
+    "value": "3 meses de encargos; reserva de pagamento 50% conforme antecedência contratual",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "pdd": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Critério de provisão não descrito no regulamento vigente",
+   "sources": []
+  },
+  "eval_triggers": {
+   "display": "DC < 50% do PL por mais de 30 dias após 180 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 83,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "ndo na CVM, nos termos do artigo 125 da Resolução CVM 175. 32. EVENTOS DE AVALIAÇÃO 32.1. São considerados Eventos de Avaliação quaisquer das seguintes ocorrências: (a) caso, após 180 (cento e oitenta) dias corridos, contados do início das suas atividades, a Classe Única mantiver, por período superior a 30 (trinta) dias consecutivos, menos de 50% (cinquenta por cento) do seu Patrimônio Líquido representado por Direitos Creditórios; (b) caso, após 180 (cento e oitenta) dias corridos, contados do início das suas atividades, e a Classe Única não possuir, por período superior a 30 (trinta) dias consecutivos, a carteira composta de, no mínimo, 67% (sessenta e sete por cento) do Patrimônio Líquido mantido em Direitos Creditórios Elegíveis;"
+    }
+   ],
+   "legacy": {
+    "value": "FPD/SPD por vintage suspendem aquisições; falência/recuperação ou interrupção material da SuperSim/endossantes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "liquidation": {
+   "display": "Determinação da CVM ou saída do custodiante, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 87,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "que um Evento de Avaliação constitui um Evento de Liquidação; (r) por determinação da CVM, em caso de violação de normas legais ou regulamentares; (s) na hipótese de rescisão ou resilição do contrato de prestação de serviços firmado com o Custodiante, ou renúncia do Custodiante, sem que tenha havido sua substituição por outra instituição, de acordo com os prazos e procedimentos estabelecidos neste Regulamento; (t) renúncia dos Prestadores de Serviço Essencial, sem que tenha havido sua substituição por outra instituição, de acordo com os prazos e procedimentos estabelecidos neste Regulamento; (u) sempre que assim decidido pela unanimidade dos Cotistas em Assembleia de Cotistas especialmente convocada para tal fim;"
+    }
+   ],
+   "legacy": {
+    "value": "FPD/SPD por vintage suspendem aquisições; falência/recuperação ou interrupção material da SuperSim/endossantes",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "revolving": {
+   "display": "Novas aquisições com recursos do buffer junto às parceiras",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 76,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "no Buffer suficiente para permitir a aquisição de novos Direitos Creditórios, a Gestora deverá solicitar o resgate parcial ou total do Buffer à Instituição Financeira Parceira a fim de viabilizar a aquisição de novos Direitos Creditórios que venham a ser ofertados ao Fundo, nos termos do Acordo Operacional. Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 28.2. Diariamente, caso esteja em curso a liquidação da Classe Única, a Administradora deverá, mediante instruções da Gestora, por meio dos competentes débitos e créditos realizados na Conta da Classe, alocar os recursos decorrentes da integralização das Cotas e do recebimento de recursos provenientes da Carteira, e aqueles correspondentes ao valor agregado dos Ativos Financeiros, na seguinte ordem, conforme aplicável: (a) pagamento de despesas e encargos de responsabilidade da Classe, devidos nos termos deste Anexo e da legislação aplicável; (b) constituição da Reserva de Despesas e Encargos;"
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida, sujeita a índices de performance e subordinação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos/reserva → sênior → mezaninos A/B/C → reserva de pagamento → júnior/aquisições",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,20% a.a. até R$ 150 mi de PL, regressiva até 0,17%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 35,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "DEMAIS PRESTADORES DE SERVIÇOS, ENCARGOS E DEMAIS DESPESAS DA CLASSE ÚNICA 16.1. Pela prestação dos serviços de administração, custódia, escrituração e controladoria, a Classe Única pagará à Administradora a Taxa de Administração, equivalente à soma dos seguintes componentes: Patrimônio Líquido (R$) Taxa de Administração Até R$ 150.000.000,00 (inclusive) 0,20% a.a. De R$ 150.000.000,01 até R$ 0,19% a.a. 300.000.000,00 (inclusive) De R$ 300.000.000,01 até R$ 0,18% a.a. 500.000.000,00 (inclusive) Acima de R$ 500.000.000,01 0,17% a.a. Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 Taxa de implantação do Parcela única de R$ 30.000,00 (trinta mil reais)."
+    }
+   ],
+   "legacy": {
+    "value": "0, 20%/0, 19%/0, 18%/0, 17% a.a. por faixas; piso conjunto com gestão R$ 20 mil/6 meses, depois R$ 30 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,15% a.a. até R$ 150 mi de PL, regressiva até 0,12%",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 36,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "or Chamada de Chamadas de Capital Capital. 16.2. Pela prestação dos serviços de gestão, a Classe Única pagará à Gestora a Taxa de Gestão, equivalente à soma dos seguintes componentes: Patrimônio Líquido (R$) Taxa de Administração Até R$ 150.000.000,00 (inclusive) 0,15% a.a. De R$ 150.000.000,01 até R$ 0,14% a.a. 300.000.000,00 (inclusive) De R$ 300.000.000,01 até R$ 0,13% a.a. 500.000.000,00 (inclusive) Acima de R$ 500.000.000,01 0,12% a.a. 16.3."
+    }
+   ],
+   "legacy": {
+    "value": "0, 15%/0, 14%/0, 13%/0, 12% a.a. por faixas; mínimo conjunto com administração",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 15/01/2026, Anexo"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 37,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "revista nos documentos da respectiva oferta, conforme a Resolução CVM 160. 16.8. Não será cobrada taxa de ingresso, saída do Fundo e taxa de performance. 17. COMPOSIÇÃO DA CARTEIRA DA CLASSE ÚNICA E POLÍTICA DE INVESTIMENTO Composição da Carteira 17.1. A Carteira será composta por Direitos Creditórios e Ativos Financeiros, de acordo com os índices de composição e diversificação da carteira estabelecidos neste Anexo da Classe Única e na legislação aplicável, em cada caso. A Carteira e seus ativos estão sujeitos a diversos riscos, dentre os quais se destacam os especificados na Cláusula 23 deste Anexo da Classe Única. Antes de adquirir as Cotas, o investidor deve ler atentamente os fatores de risco e fazer sua própria avaliação de investimento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 17.1.1."
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Desde 19/05/2026: CDI + 3, 25% sênior;+5, 25% A;+8, 00% B;+10, 00% C; step-up por rating",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Desde 19/05/2026: CDI + 3, 25% sênior;+5, 25% A;+8, 00% B;+10, 00% C; step-up por rating",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 2,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "de Serviços Essenciais. “Administradora” É a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., instituição financeira com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, 4º andar, Pinheiros, inscrita no CNPJ/MF sob nº 22.610.500/0001-88, autorizada a prestar serviço de administração de carteiras de valores mobiliários pela CVM, de acordo com o Ato Declaratório nº 14.820, expedido em 8 de janeiro de 2016. “Adquirente Inicial” O interessado, que seja ou não Cotista da Classe Única, em adquirir Cotas da Subclasse Sênior ou Cotas da Subclasse Mezanino sujeitas ao Direito de Primeira Recusa. Corporativo | Interno Docusign E"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Vortx Capital Gestão de Recursos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 10,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "(quinze) ou mais dias corridos. “Gestora” É a VORTX CAPITAL GESTAO DE RECURSOS LTDA., sociedade limitada com sede na Cidade e Estado de São Paulo, na Rua Gilberto Sabino, nº 215, conjunto 32, sala 3, Pinheiros, inscrita no CNPJ/MF sob nº 09.645.906/0001-38, autorizada a prestar serviço de administração de carteiras de valores mobiliários pela CVM, de acordo com o Ato Declaratório nº 17.446, expedido em 14 de outubro de 2019. Corporativo | Interno Docusign Envelope ID: 9DE35450-3BDE-4638-A712-3F4C7F8F1EF5 “IGP-M/FGV” Índice Geral de Preços do Mercado – IGP-M, divulgado pela Fundação Getúlio Vargas – FGV. “Índice de Subordinação Relação mínima que deve ser observada entre (a) a"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Vórtx DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 8,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "egibilidade” definidos na Cláusula 21 deste Regulamento. “Custodiante” A VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada. “CVM” A Comissão de Valores Mobiliários. “Data de Aquisição” Cada data em que ocorrer o pagamento do preço de aquisição dos Direitos Creditórios Adquiridos, pela Classe Única, ao Endossante, nos termos do Contrato de Promessa de Endosso. “Data de Integralização Data da primeira integralização de determinada Inicial” emissão de Cotas. “Data de Pagamento” As datas indicadas nos Apêndices em que, se o patrimônio do Fundo permitir e observada a ordem de alocação de recursos prevista no presente Regulamento, serão realizados os pagamentos, conforme aplicável, dos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "SuperSim (cobrança extraordinária)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 3,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "deste Regulamento. “Agente de Cobrança A SUPERSIM ANÁLISE DE DADOS E Extraordinária” CORRESPONDENTE BANCÁRIO LTDA., com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Nove de Julho, nº 5.143, conjunto 121, Jardim Paulista, inscrita no CNPJ/MF sob o nº 33.030.944/0001-60, contratado para realizar a cobrança dos Direitos Creditórios Adquiridos inadimplidos, nos termos do Contrato de Cobrança. “Alocação Mínima” Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios. “Alocação Mínima Percentual mínimo de 67% (sessenta e sete por cento) Tributária” do Patrimônio Líquido em Direitos Creditórios, nos"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "enum",
+   "reason": "Público-alvo definido em cada oferta (qualificados ou profissionais)",
+   "sources": [],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; séries para profissionais",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D2",
+     "document_id": "1085946",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "15/01/2026",
+     "page": 33,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1085946",
+     "excerpt": "Cotas dentre as alternativas anteriores. 13. PRAZO DE DURAÇÃO DA CLASSE 13.1. O prazo de duração da Classe Única será indeterminado, sendo que o prazo de duração de cada subclasse ou série de Cotas será definido nos Apêndices respectivos. 14. PÚBLICO-ALVO DA CLASSE 14.1. As Cotas da Classe Única terão como destinação exclusiva os Investidores Autorizados, que busquem rentabilidade, no longo prazo, compatível com a política de investimento da Classe, e aceitem os riscos associados aos investimentos da Classe. 14.2. Quando se tratar de oferta pública de Cotas sujeita ao rito de registro automático de distribuição, o Cotista assinará declaração atestando a ciência da ausência de análise da oferta pela CVM, bem como das restrições à negociação das Cotas, nos termos da Resolução CVM 160. 15. DEMAIS PRESTADORES DE SERVIÇOS Auditor Independente 15.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, prazo indeterminado; séries para profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "CCBs de crédito parcelado da SuperSim; sênior com 45% de subordinação e CCB de até 720 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

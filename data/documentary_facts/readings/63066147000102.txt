@@ -1,0 +1,57 @@
+# FIDC Inclusão Crediária (Vórtx; Vortx Capital; correspondente SuperSim) — regulamento vigente D2 de 15/01/2026
+type: Crédito pessoal
+q1: D2 "São todos os direitos de crédito vincendos adquiridos ou a serem adquiridos pela Classe Única, representados por CCBs"
+q2: D2 "como correspondente bancário e responsável pela prospecção e operacionalização da contratação"
+q3: D2 "Pessoa física que emite a CCB em favor da Instituição Financeira Parceira"
+q4: D2 "não obrigará a sua alienação pela Classe, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Endossantes"
+q5: D2 "21.1. A Classe Única somente poderá adquirir Direitos Creditórios que atendam, exclusiva e cumulativamente"
+q6: D2 "17.7. A Classe Única poderá adquirir Direitos Creditórios, observada a vedação de que trata o artigo 45"
+q7: D2 "Percentual mínimo de 50% (cinquenta por cento) do Patrimônio Líquido a ser mantido em Direitos Creditórios"
+q8: D2 "deverá corresponder a, no mínimo, 45% (quarenta e cinco por cento)"
+q9: D2 "o Índice de Subordinação da Mezanino A voltará a ser 25,0% (vinte e cinco por cento)"
+q10: D2 "deverá corresponder a, no mínimo, 12,5% (doze e meio por cento)"
+q11: D2 "3 (três) meses, conforme estimativa da Administradora, excetuando-se as despesas com o Agente de Cobrança Extraordinária"
+q12: D2 "32.1. São considerados Eventos de Avaliação quaisquer das seguintes ocorrências"
+q13: D2 "(r) por determinação da CVM, em caso de violação de normas legais ou regulamentares"
+q14: D2 "16.1. Pela prestação dos serviços de administração, custódia, escrituração e controladoria"
+q15: D2 "16.2. Pela prestação dos serviços de gestão, a Classe Única pagará à Gestora a Taxa de Gestão"
+q16: D2 "Não será cobrada taxa de ingresso, saída do Fundo e taxa de performance"
+q17: D2 "É a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q18: D2 "É a VORTX CAPITAL GESTAO DE RECURSOS LTDA."
+q19: D2 "A VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA., acima qualificada"
+q20: D2 "A SUPERSIM ANÁLISE DE DADOS E Extraordinária” CORRESPONDENTE BANCÁRIO LTDA."
+q21: D2 "prazo de duração da Classe Única será indeterminado"
+q23: D2 "a Gestora deverá solicitar o resgate parcial ou total do Buffer à Instituição Financeira Parceira a fim de viabilizar a aquisição de novos Direitos Creditórios"
+q24: D2 "deverá corresponder a, no mínimo, 19,25% (dezenove inteiros e vinte e cinco centésimos por cento)"
+receivables: CCBs de crédito parcelado a pessoas físicas, via instituições parceiras | q1
+originator: SuperSim (correspondente bancário) com instituições financeiras parceiras | q2,q20
+assignor: Instituições financeiras parceiras, por endosso das CCBs | q3,q4
+debtor: Pessoas físicas emitentes das CCBs | q3
+recourse: Sem regresso contra endossantes, salvo culpa ou dolo | q4
+eligibility: CCB de 150 a 720 dias; principal de R$ 1 mil a R$ 3 mil; sem ágio | q5
+debtor_limit: Por devedor ou coobrigado: até 20% do PL | q6 | value=20
+assignor_limit: n/d | Limite por instituição parceira não fixado no regulamento | why=Resposta anterior sem trecho localizável no regulamento vigente
+term_max: CCB de até 720 dias | q5
+allocation: ≥ 50% do PL em direitos creditórios; 67% para fins tributários | q7 | value=50
+quota_structure: Sênior / Mezanino A / B / C / Subordinada júnior | q8,q9
+sub_senior: 45% · subord./PL | q8 | basis=mez+jr/PL | value=45
+sub_mezz: Mezanino A 25%, B 19,25% e C 12,5%, com elevação se houver rebaixamento | q9,q24,q10 | basis=jr/PL | value=none
+sub_check: Diária, pela gestora | q8
+reserve: Reserva de despesas e encargos para 3 meses | q11
+pdd: n/d | Critério de provisão não descrito no regulamento vigente
+eval_triggers: DC < 50% do PL por mais de 30 dias após 180 dias, entre outros | q12
+liquidation: Determinação da CVM ou saída do custodiante, entre outros | q13
+revolving: Novas aquisições com recursos do buffer junto às parceiras | q23
+amortization: n/d | Cronograma definido no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,20% a.a. até R$ 150 mi de PL, regressiva até 0,17% | q14
+mgmt_fee: 0,15% a.a. até R$ 150 mi de PL, regressiva até 0,12% | q15
+perf_fee: Não prevista | Regulamento veda taxa de performance | q16
+target_senior: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Meta definida no apêndice de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Vórtx DTVM | q17
+manager: Vortx Capital Gestão de Recursos | q18
+custodian: Vórtx DTVM | q19
+servicer: SuperSim (cobrança extraordinária) | q20
+investors: n/d | Público-alvo definido em cada oferta (qualificados ou profissionais) | why=Resposta anterior sem trecho localizável no regulamento vigente
+duration: Indeterminado | q21
+leitura: CCBs de crédito parcelado da SuperSim; sênior com 45% de subordinação e CCB de até 720 dias.
