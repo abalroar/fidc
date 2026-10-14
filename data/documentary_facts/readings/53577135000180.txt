@@ -1,0 +1,59 @@
+# portado de 53270983000142 (53577135000180)
+type: FGTS
+q24: * "observado o montante mínimo mensal de R$ 10.000,00 (dez mil reais) (“Taxa de Gestão”)"
+q23: * "observado o montante mínimo mensal de R$ 16.000,00 (dezesseis mil reais) (“Taxa de Administração”)"
+q22: * "uída por Disponibilidades, em montante equivalente a 1% (um por cento) do Patrimônio Líquido da Classe A, limitado à R$ 2.000.000,00"
+q21: * "caso o Índice de Arrecadação for inferior à 93% (noventa e três por cento) em 2"
+q20: * "os Direitos Creditórios deverão ter prazo máximo de 144 (cento e quarenta e quatro) meses"
+q1: * "Credor Original”: Significa a QI SOCIEDADE DE CRÉDITO DIRETO S.A."
+q2: * "stimo pessoal realizadas entre o Credor Original e os respectivos Devedores e garantidos por Cessão Fiduciária de parte ou da totalidade dos direitos que os Devedores possuem aos Saques-Aniversário"
+q3: * "5.1. Em cada cessão de Direitos Creditórios à Classe A, os Direitos Creditórios devem atender, cumulativamente, aos seguintes Critérios de Elegibilidade"
+q4: * "o saldo devedor dos Direitos Creditórios devidos por um mesmo Devedor não poderá ser superior a R$ 120.000,00"
+q5: * "A relação equivalente a, no mínimo, 20% (vinte por cento) entre Sênior”"
+q6: * "A relação equivalente a, no mínimo, 15% (quinze por cento) Mezanino”"
+q7: * "Taxa de Administração Patrimônio Líquido da Classe A (% a.a.) 0,20% Até R$ 100.000.000,00"
+q8: * "Taxa de Gestão Patrimônio Líquido da Classe A (% a.a.) 0,60% Até R$ 100.000.000,00"
+q9: * "Não serão cobradas dos Cotistas taxas de performance, ingresso e saída"
+q10: * "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A., inscrita no CNPJ sob o nº 62.285.390/0001-40"
+q11: * "“Custodiante”: Significa a LASTRO RDV DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA."
+q12: * "ANGÁ ADMINISTRAÇÃO DE RECURSOS LTDA., sociedade com sede na cidade de São Paulo"
+q14: * "Público-Alvo Investidores Profissionais"
+q15: * "Prazo de Duração Indeterminado"
+q16: * "ursos financeiros originados na carteira de Direitos Creditórios (revolvência)"
+q17: * "O cálculo da provisão para perdas na recuperação dos Direitos Creditórios Inadimplidos será realizado conforme conceitos definidos no Adendo IV"
+q18: * "Endossantes”: O FIDC Angá Multi Consignados, o Credor Original"
+receivables: CCBs de empréstimo pessoal garantidas pelo saque-aniversário FGTS | q2
+originator: QI SCD (credor original) | q1
+assignor: FIDC Angá Multi Consignados, QI SCD ou fundos indicados | q18,q1
+debtor: Pessoas físicas titulares de FGTS com saque-aniversário | q2
+recourse: Sem coobrigação de endossantes ou do credor original | o14
+eligibility: Adimplência; prazo ≤ 144 meses; saldo ≤ R$ 120 mil por devedor | q3,q20,q4
+debtor_limit: Saldo por devedor ≤ R$ 120 mil | q4
+assignor_limit: Não previsto | Regulamento limita por devedor, não por endossante
+term_max: Até 144 meses | q20
+allocation: n/d | Percentual de alocação mínima não localizado no texto extraído
+quota_structure: Sênior / Mezanino / Júnior | q5,q6
+sub_senior: 20% · (mez.+jr.)/PL | q5 | basis=mez+jr/PL
+sub_mezz: 15% · jr/PL | q6 | basis=jr/PL
+sub_check: Apuração conforme o anexo | q5
+reserve: Liquidez de 1% do PL, limitada a R$ 2 mi, mais despesas | q22
+pdd: Provisão conforme o adendo IV do anexo | q17
+eval_triggers: Arrecadação < 93% em 2 datas; atraso > 10%; outros do anexo | q21
+liquidation: n/d | Eventos de liquidação não localizados separadamente | why=Resposta anterior lista eventos de avaliação, registrados na linha própria
+revolving: Revolvência com recursos da carteira | q16
+amortization: n/d | Cronograma definido nos suplementos das séries | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,20% a.a. até R$ 100 mi; 0,16% acima; mín. R$ 16 mil/mês | q7,q23,o58
+mgmt_fee: 0,60% a.a. até R$ 100 mi; 0,64% acima; mín. R$ 10 mil/mês | q8,q24,o61
+perf_fee: Não prevista | Regulamento veda taxa de performance | q9
+target_senior: n/d | Suplemento da série sênior não está no acervo
+target_mezz: n/d | Suplemento da mezanino não está no acervo
+administrator: QI CTVM | q10
+manager: Angá Administração de Recursos | q12
+custodian: Lastro RDV DTVM | q11
+servicer: n/d | Agente de cobrança não nomeado no trecho lido
+investors: Investidores profissionais | q14
+duration: Indeterminado | q15
+payroll: Cessão fiduciária do saque-aniversário FGTS | q2
+age_limit: n/d | Limite de idade não localizado no texto extraído | why=Resposta anterior trata de prazo e adimplência, registrados na elegibilidade
+installment_min: n/d | Valor mínimo de parcela não localizado no texto extraído | why=Resposta anterior trata de prazo e adimplência, registrados na elegibilidade
+leitura: Antecipação de FGTS da QI SCD com 20% de subordinação e júnior ≥ 15%; saldo por devedor ≤ R$ 120 mil.
