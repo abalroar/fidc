@@ -1,0 +1,787 @@
+{
+ "schema_version": 1,
+ "cnpj": "47117685000114",
+ "name": "SOLIS KEDU FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+ "fund_type": "Educacional",
+ "reviewed_at": "2026-10-14T01:50:11Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "988409",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "11/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409"
+  },
+  "D2": {
+   "document_id": "1180435",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "04/05/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1180435"
+  },
+  "D3": {
+   "document_id": "1165369",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "15/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1165369"
+  },
+  "D4": {
+   "document_id": "1044475",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "19/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044475"
+  },
+  "D5": {
+   "document_id": "1044447",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "19/11/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1044447"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Educacional",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "Mensalidades de escolas privadas conveniadas cedidas pela Kedu",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "Página 24 de 65 Cedente(s): é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00, com sede na cidade de Eusébio, estado do Ceará, na Rua Calixto Machado, 21, sala Q-64, CEP 61775- 060, titular dos Direitos Creditórios a serem cedidos ao FUNDO; Contrato de é o Contrato de Promessa de Cessão de Direitos Creditórios e Cessão: Outras Avenças celebrado entre a Classe e cada Cedente; Contrato de é o Contrato de Prestação de Serviços de Cobrança de Cobrança: Direitos Creditórios Inadimplidos, celebrado entre o FUNDO, representado pela GESTORA, e o AGENTE DE COBRANÇA; Critérios de são os critérios que devem ser atendidos pelos Direitos Elegibilidade: Creditórios Elegíveis, cuja validação é feita pela GESTORA; Data de Apuração: é todo o último Dia Útil de cada mês calendário; Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 31,
+     "clause": "cl. 8.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "TÓRIOS E POLÍTICA DE CONCESSÃO DE CRÉDITO 8.1. Os Direitos Creditórios passíveis de serem adquiridos pela Classe são oriundos de contratos a serem celebrados entre as Cedentes e os Devedores, bem como as cotas de fundos de investimento em direitos creditórios. 8.2. A política de concessão de crédito da Classe é desenvolvida pelo ORIGINADOR, e monitorada pela GESTORA e observará as seguintes diretrizes: I - As Escolas Conveniadas deverão ser previamente cadastrados pelo ORIGINADOR. Para que tenha seu cadastro aprovado, cada Escola Conveniada deverá entregar ao ORIGINADOR os documentos e informações necessários ao seu cadastramento acompanhadas de via original ou de cópia dos seguintes documentos: Contrato Social ou Estatuto Social, e indicação das pessoas capazes de representar a Escola Conveniada, acompanhada dos documentos que comprovem tais poderes. A Escola Conveniada cadastrada deverá manter sempre atualizada a referida documentação probatória de poderes dos seus representantes. A critério do ORIGINADOR, outros documentos poderão ser solicitados à Escola Conveniada para à aprovação de seu cadastro;"
+    }
+   ],
+   "legacy": {
+    "value": "Serviços educacionais; contratos entre escolas privadas conveniadas e alunos/devedores",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "originator": {
+   "display": "Kedu Serviços e Soluções Educacionais e Financeiras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "Página 24 de 65 Cedente(s): é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00, com sede na cidade de Eusébio, estado do Ceará, na Rua Calixto Machado, 21, sala Q-64, CEP 61775- 060, titular dos Direitos Creditórios a serem cedidos ao FUNDO; Contrato de é o Contrato de Promessa de Cessão de Direitos Creditórios e Cessão: Outras Avenças celebrado entre a Classe e cada Cedente; Contrato de é o Contrato de Prestação de Serviços de Cobrança de Cobrança: Direitos Creditórios Inadimplidos, celebrado entre o FUNDO, representado pela GESTORA, e o AGENTE DE COBRANÇA; Critérios de são os critérios que devem ser atendidos pelos Direitos Elegibilidade: Creditórios Elegíveis, cuja validação é feita pela GESTORA; Data de Apuração: é todo o último Dia Útil de cada mês calendário; Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Kedu Serviços e Soluções Educacionais e Financeiras; também agente de cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "assignor": {
+   "display": "Kedu Serviços e Soluções Educacionais e Financeiras",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "Página 24 de 65 Cedente(s): é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00, com sede na cidade de Eusébio, estado do Ceará, na Rua Calixto Machado, 21, sala Q-64, CEP 61775- 060, titular dos Direitos Creditórios a serem cedidos ao FUNDO; Contrato de é o Contrato de Promessa de Cessão de Direitos Creditórios e Cessão: Outras Avenças celebrado entre a Classe e cada Cedente; Contrato de é o Contrato de Prestação de Serviços de Cobrança de Cobrança: Direitos Creditórios Inadimplidos, celebrado entre o FUNDO, representado pela GESTORA, e o AGENTE DE COBRANÇA; Critérios de são os critérios que devem ser atendidos pelos Direitos Elegibilidade: Creditórios Elegíveis, cuja validação é feita pela GESTORA; Data de Apuração: é todo o último Dia Útil de cada mês calendário; Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "Kedu Serviços e Soluções Educacionais e Financeiras; também agente de cobrança",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "debtor": {
+   "display": "Pessoas físicas (responsáveis pelos contratos escolares)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 25,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "Data de Aquisição: é cada data de aquisição de Direitos Creditórios Elegíveis pela Classe; Devedores: são as pessoas físicas devedoras dos Direitos Creditórios adquiridos pelo FUNDO Direitos são os direitos creditórios originados pelo ORIGINADOR, Creditórios: oriundos de operações realizadas pelos Cedentes nos segmentos comercial e / ou de prestação de serviços, bem como as cotas de fundos de investimento em direitos creditórios que invistam nos direitos creditórios indicados anteriormente, de acordo com os critérios de composição e diversificação estabelecidos pela legislação vigente e neste Anexo, sendo tais direitos de crédito representados pelos Documentos Representativos do Crédito; Direitos Creditórios os Direitos Creditórios que atendam aos Critérios de Elegíveis: Elegibilidade para serem cedidos à Classe nos termos do Contrato de Cessão;"
+    }
+   ],
+   "legacy": {
+    "value": "Pessoas físicas vinculadas às escolas conveniadas",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "recourse": {
+   "display": "Coobrigação do cedente admitida, salvo em recuperação judicial",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 27,
+     "clause": "cl. 5.6",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "FUNDO, não havendo por parte do CUSTODIANTE, da ADMINISTRADORA e da GESTORA qualquer responsabilidade a esse respeito. 5.7. Os Direitos Creditórios cedidos à Classe poderão contar com a coobrigação do Cedente, exceto pelos Cedentes que se encontrem em processo de recuperação judicial ou extrajudicial, os quais não poderão conter coobrigação. Neste sentido e conforme aplicável, o Cedente poderá responder pela solvência dos Devedores e pelo pagamento dos Direitos Creditórios cedidos ao FUNDO. 5.8. Desde que a presente Classe não se encontre em um Evento de Avaliação ou em um Evento de Liquidação, haverá Revolvência de Direitos Creditórios para o FUNDO. 5.9. A ADMINISTRADORA, a GESTORA e o CUSTODIANTE ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios alienados ao FUNDO, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 5.10. A Classe poderá ceder ou alienar os Direitos Creditórios Inadimplidos, sendo que, após a cessão ou alienação dos Direitos Creditórios Inadimplidos, a cobrança e coleta dos pagamentos dos Direitos Creditórios será de responsabilidade do novo titular. Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel."
+    }
+   ],
+   "legacy": {
+    "value": "Cessão definitiva e irrevogável; cedente responde pela validade e formalização",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "eligibility": {
+   "display": "Não vencidos; devedor sem atraso > 30 dias; taxa mínima de 1,90% a.m.",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 30,
+     "clause": "cl. 5.21",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "o seu patrimônio. CAPÍTULO VI CRITÉRIOS DE ELEGIBILIDADE 6.1. Os Direitos Creditórios deverão atender, na Data de Aquisição, ao Critério de Elegibilidade a seguir relacionado, que deverá ser validado pela GESTORA previamente à cessão à Classe: I – a Classe não poderá adquirir Direitos Creditórios vencidos; II – a Classe não poderá adquirir Direitos Creditórios de Devedores que estejam inadimplentes há mais de 30 (trinta) dias corridos com a Classe; III – os contratos decorrentes de cada Escola Conveniada não poderão representar mais de 20% (vinte por cento) do Patrimônio Líquido da Classe nos períodos de setembro a dezembro de 2025 e de setembro a dezembro de 2026, e não mais do que 5% (cinco por cento) nos demais períodos; IV – os Direitos Creditórios deverão ter sido previamente aprovados pela GESTORA; V – o prazo mínimo dos Direitos Creditórios, deverá ser de 30 (trinta) dias corridos, e o prazo máximo, deverá ser de 455 (quatrocentos e cinquenta e cinco) dias corridos; VI – a Classe adquirirá Direitos Creditórios a uma taxa mínima de aquisição individual e equivalente a 1,90% a.m."
+    },
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 30,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "cinco por cento) nos demais períodos; IV – os Direitos Creditórios deverão ter sido previamente aprovados pela GESTORA; V – o prazo mínimo dos Direitos Creditórios, deverá ser de 30 (trinta) dias corridos, e o prazo máximo, deverá ser de 455 (quatrocentos e cinquenta e cinco) dias corridos; VI – a Classe adquirirá Direitos Creditórios a uma taxa mínima de aquisição individual e equivalente a 1,90% a.m. (um inteiro e noventa décimos ao mês), calculada da seguinte forma: 𝑉𝑎𝑙𝑜𝑟 𝑁𝑜𝑚𝑖𝑛𝑎𝑙 ( 252 ) 𝑇𝑀𝐴 = ( ) 𝐷𝑖𝑎𝑠 Ú𝑡𝑒𝑖𝑠 𝑇𝑜𝑡𝑎𝑙 𝑉𝑎𝑙𝑜𝑟 𝐴𝑞𝑢𝑖𝑠𝑖çã𝑜 onde: Dias úteis = Número de dias úteis entre a Data Vencimento e a Data Aquisição Total do Direito Creditório. VII – O maior Cedente poderá ser até 100% do Patrimonio Líquido da Classe; VIII – O maior Devedor poderá representar até 2% (dois por cento) do Patrimonio Líquido da Classe, ou um volume total de R$ 100.000 (cem mil reais), dos dois, considerado o menor valor; 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Por devedor: até 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 29,
+     "clause": "cl. 5.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "8 de 65 carteira, sem prejuízo da observância de outros limites de concentração estabelecidos nos itens subsequentes: I - Limite de concentração por Devedor: observado o disposto no Art. 45, do Anexo II da Resolução CVM 175, o valor correspondente ao somatório do valor presente dos Direitos Creditórios de titularidade da Classe, devidos por Devedor individualmente, será limitado a 20% (vinte por cento) do Patrimônio Líquido da Classe do Dia Útil imediatamente anterior; II - Limites de concentração por Cedente: a) a Classe poderá alocar, no máximo, 100% (cem por cento) do seu Patrimônio Líquido do Dia Útil imediatamente anterior em Direitos Creditórios cedidos pelo Cedente com maior concentração. 5.17. Os percentuais referidos nos itens 5.15 e 5.16 acima devem ser cumpridos mensalmente, com base no patrimônio líquido desta Classe de cotas ao final do mês imediatamente anterior. 5.18. Esta Classe fica dispensada de observar as disposições dos itens 5.15 e 5.16, caso tenha como cotistas exclusivamente: I – sociedades integrantes de um mesmo grupo econômico e seus respectivos administradores e controladores pessoas naturais; ou II – Investidores Profissionais. 5.19."
+    }
+   ],
+   "value": 20.0,
+   "legacy": {
+    "value": "Devedor ≤20% do PL anterior; Kedu pode ceder até 100%; dispensas para classe exclusivamente profissional",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 5.16"
+   }
+  },
+  "assignor_limit": {
+   "display": "Até 100% do PL no maior cedente",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 29,
+     "clause": "cl. 5.16",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "or cento) do Patrimônio Líquido da Classe do Dia Útil imediatamente anterior; II - Limites de concentração por Cedente: a) a Classe poderá alocar, no máximo, 100% (cem por cento) do seu Patrimônio Líquido do Dia Útil imediatamente anterior em Direitos Creditórios cedidos pelo Cedente com maior concentração. 5.17. Os percentuais referidos nos itens 5.15 e 5.16 acima devem ser cumpridos mensalmente, com base no patrimônio líquido desta Classe de cotas ao final do mês imediatamente anterior. 5.18. Esta Classe fica dispensada de observar as disposições dos itens 5.15 e 5.16, caso tenha como cotistas exclusivamente: I – sociedades integrantes de um mesmo grupo econômico e seus respectivos administradores e controladores pessoas naturais; ou II – Investidores Profissionais. 5.19. Observado o item 5.3 acima, a Classe poderá realizar operações de derivativos exclusivamente na modalidade “com garantia” e desde que com o objetivo de proteger posições detidas à vista, até o limite dessas. 5.19.1. As operações de derivativos somente podem ser realizadas em mercados administrados por bolsas de mercadorias e de futuros e desde que devidamente registradas em sistemas de registro e de liquidação financeira de ativos autorizados pelo Banco Central do Brasil. 5.19.2."
+    }
+   ],
+   "value": 100.0,
+   "legacy": {
+    "value": "Devedor ≤20% do PL anterior; Kedu pode ceder até 100%; dispensas para classe exclusivamente profissional",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 5.16"
+   }
+  },
+  "term_max": {
+   "display": "Prazo de 30 a 455 dias",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 30,
+     "clause": "cl. 6.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "cinco por cento) nos demais períodos; IV – os Direitos Creditórios deverão ter sido previamente aprovados pela GESTORA; V – o prazo mínimo dos Direitos Creditórios, deverá ser de 30 (trinta) dias corridos, e o prazo máximo, deverá ser de 455 (quatrocentos e cinquenta e cinco) dias corridos; VI – a Classe adquirirá Direitos Creditórios a uma taxa mínima de aquisição individual e equivalente a 1,90% a.m. (um inteiro e noventa décimos ao mês), calculada da seguinte forma: 𝑉𝑎𝑙𝑜𝑟 𝑁𝑜𝑚𝑖𝑛𝑎𝑙 ( 252 ) 𝑇𝑀𝐴 = ( ) 𝐷𝑖𝑎𝑠 Ú𝑡𝑒𝑖𝑠 𝑇𝑜𝑡𝑎𝑙 𝑉𝑎𝑙𝑜𝑟 𝐴𝑞𝑢𝑖𝑠𝑖çã𝑜 onde: Dias úteis = Número de dias úteis entre a Data Vencimento e a Data Aquisição Total do Direito Creditório. VII – O maior Cedente poderá ser até 100% do Patrimonio Líquido da Classe; VIII – O maior Devedor poderá representar até 2% (dois por cento) do Patrimonio Líquido da Classe, ou um volume total de R$ 100.000 (cem mil reais), dos dois, considerado o menor valor; 6.2."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "≥ 50% do PL em direitos creditórios elegíveis",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 27,
+     "clause": "cl. 5.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ente Classe do FUNDO deverá alocar, em até 180 (cento) dias contados da primeira data de integralização das suas cotas, no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis. 5.4. É vedado à ADMINISTRADORA, ao CUSTODIANTE, ou partes a eles relacionadas, ceder ou originar, direta ou indiretamente, Direitos Creditórios à Classe, bem como adquirir Direitos Creditórios da Classe. 5.4.1. A Classe não poderá adquirir ativos de emissão ou que envolvam coobrigação da ADMINISTRADORA, do CUSTODIANTE, da GESTORA ou dos demais prestadores de serviços do FUNDO e suas Partes Relacionadas, tal como definidas pelas regras contábeis pertinentes. 5.5. A alienação dos Direitos Creditórios Elegíveis será irrevogável e irretratável, com a transferência da plena titularidade para a Classe, em caráter definitivo, juntamente com todos os direitos, garantias, privilégios, preferências, prerrogativas, ações e acessórios a estes relacionadas. 5.6."
+    }
+   ],
+   "value": 50.0,
+   "legacy": {
+    "value": "Direitos creditórios≥50% do PL; prazo numérico 180 dias contém extenso divergente",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 5.3"
+   }
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 36,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ingresso e/ou saída. CAPÍTULO XII SUBORDINAÇÃO MÍNIMA 12.1. A partir da emissão de Cotas Seniores, as seguintes Subordinações Mínimas deverão ser observadas e verificadas todo Dia Útil pela ADMINISTRADORA: I - Subordinação mínima, representada pela soma das Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, deverá ser 30% (trinta por cento) do Patrimonio Líquido. Sendo 20% (vinte por cento) representado por Cotas Subordinadas Junior e 10% (dez por cento) representado por Cotas Subordinadas Mezanino II - No caso de não haver Cotas Subordinadas Mezanino em circulação, as Cotas Subordinadas Júnior representarão, no mínimo, 20% (vinte por cento) do Patrimônio Líquido do FUNDO. 12.2. Na hipótese de desenquadramento do percentual mencionado no item 12.1 acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas, através do envio de correspondência ou de correio eletrônico, pela qual: Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "legacy": {
+    "value": "Com mezanino: subordinadas / PL≥30% (júnior 20% e mezanino 10%); sem mezanino: júnior≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 11.3"
+   }
+  },
+  "sub_senior": {
+   "display": "30% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 36,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ingresso e/ou saída. CAPÍTULO XII SUBORDINAÇÃO MÍNIMA 12.1. A partir da emissão de Cotas Seniores, as seguintes Subordinações Mínimas deverão ser observadas e verificadas todo Dia Útil pela ADMINISTRADORA: I - Subordinação mínima, representada pela soma das Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, deverá ser 30% (trinta por cento) do Patrimonio Líquido. Sendo 20% (vinte por cento) representado por Cotas Subordinadas Junior e 10% (dez por cento) representado por Cotas Subordinadas Mezanino II - No caso de não haver Cotas Subordinadas Mezanino em circulação, as Cotas Subordinadas Júnior representarão, no mínimo, 20% (vinte por cento) do Patrimônio Líquido do FUNDO. 12.2. Na hipótese de desenquadramento do percentual mencionado no item 12.1 acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas, através do envio de correspondência ou de correio eletrônico, pela qual: Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 30.0,
+   "legacy": {
+    "value": "Com mezanino: subordinadas / PL≥30% (júnior 20% e mezanino 10%); sem mezanino: júnior≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 11.3"
+   }
+  },
+  "sub_mezz": {
+   "display": "Júnior ≥ 20% do PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 36,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ingresso e/ou saída. CAPÍTULO XII SUBORDINAÇÃO MÍNIMA 12.1. A partir da emissão de Cotas Seniores, as seguintes Subordinações Mínimas deverão ser observadas e verificadas todo Dia Útil pela ADMINISTRADORA: I - Subordinação mínima, representada pela soma das Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, deverá ser 30% (trinta por cento) do Patrimonio Líquido. Sendo 20% (vinte por cento) representado por Cotas Subordinadas Junior e 10% (dez por cento) representado por Cotas Subordinadas Mezanino II - No caso de não haver Cotas Subordinadas Mezanino em circulação, as Cotas Subordinadas Júnior representarão, no mínimo, 20% (vinte por cento) do Patrimônio Líquido do FUNDO. 12.2. Na hipótese de desenquadramento do percentual mencionado no item 12.1 acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas, através do envio de correspondência ou de correio eletrônico, pela qual: Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "Diária; não restabelecida em 15 dias úteis é evento de avaliação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 36,
+     "clause": "cl. 11.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ingresso e/ou saída. CAPÍTULO XII SUBORDINAÇÃO MÍNIMA 12.1. A partir da emissão de Cotas Seniores, as seguintes Subordinações Mínimas deverão ser observadas e verificadas todo Dia Útil pela ADMINISTRADORA: I - Subordinação mínima, representada pela soma das Cotas Subordinadas Mezanino e Cotas Subordinadas Júnior, deverá ser 30% (trinta por cento) do Patrimonio Líquido. Sendo 20% (vinte por cento) representado por Cotas Subordinadas Junior e 10% (dez por cento) representado por Cotas Subordinadas Mezanino II - No caso de não haver Cotas Subordinadas Mezanino em circulação, as Cotas Subordinadas Júnior representarão, no mínimo, 20% (vinte por cento) do Patrimônio Líquido do FUNDO. 12.2. Na hipótese de desenquadramento do percentual mencionado no item 12.1 acima, por 5 (cinco) Dias Úteis consecutivos, serão adotados os seguintes procedimentos: I - A ADMINISTRADORA comunicará, imediatamente, tal ocorrência aos Cotistas detentores de Cotas Subordinadas, através do envio de correspondência ou de correio eletrônico, pela qual: Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    },
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 45,
+     "clause": "cl. 15.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "de Créditos - FGC. CAPÍTULO XVI EVENTOS DE AVALIAÇÃO DA CLASSE 16.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à ADMINISTRADORA convocar uma Assembleia Especial de Cotistas da Classe para que esta delibere sobre a continuidade da Classe ou sua liquidação antecipada, e consequente definição de cronograma de pagamentos dos Cotistas: I – quando e se aplicável, rebaixamento da classificação das Cotas em circulação em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída ou 01 (um) nível abaixo da classificação de risco em vigor caso nos últimos 12 (doze) meses já tenha ocorrido um rebaixamento; II - desenquadramento da alocação mínima em Direitos Creditórios por prazo superior a 15 (quinze) dias corridos consecutivos; III – caso a Subordinação Mínima não seja restabelecida dentro do prazo de 15 (quinze) dias úteis; IV - descumprimento, pela ADMINISTRADORA, pela GESTORA, pelo CUSTODIANTE, de seus deveres e obrigações estabelecidos neste Regulamento e nos demais Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "legacy": {
+    "value": "Com mezanino: subordinadas / PL≥30% (júnior 20% e mezanino 10%); sem mezanino: júnior≥20%",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 11.3"
+   }
+  },
+  "reserve": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Valor da reserva de caixa não fixado no regulamento",
+   "sources": []
+  },
+  "pdd": {
+   "display": "Manual de provisão de perdas da administradora (ANBIMA)",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 7,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "definidos na Qualificado: Resolução CVM 30; Manual de é a Política Interna de Metodologias de Provisão de Perdas da Provisionamento: ADMINISTRADORA registrado junto a ANBIMA; Oferta Automática: é toda e qualquer distribuição pública de Cotas sob o regime do rito de registro automático de distribuição, nos termos da Resolução CVM 160; Oferta Ordinária: é toda e qualquer distribuição pública de Cotas sob o regime do rito de registro ordinário de distribuição, nos termos da Resolução CVM 160; Parte Geral significa a parte geral do Regulamento do FUNDO, que contém as regras comuns a todas as Classes de Cotas; Partes Relacionadas: são as partes relacionadas tal como definidas pelas regras contábeis expedidas pela CVM que tratam dessa matéria; Patrimônio Líquido: é a soma das disponibilidades, mais o valor da carteira, mais os valores a receber, menos as exigibilidades e provisões de cada Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Alocação mínima fora por 15 dias; subordinação não recomposta em 15 dias úteis",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 45,
+     "clause": "cl. 15.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "de Créditos - FGC. CAPÍTULO XVI EVENTOS DE AVALIAÇÃO DA CLASSE 16.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à ADMINISTRADORA convocar uma Assembleia Especial de Cotistas da Classe para que esta delibere sobre a continuidade da Classe ou sua liquidação antecipada, e consequente definição de cronograma de pagamentos dos Cotistas: I – quando e se aplicável, rebaixamento da classificação das Cotas em circulação em 02 (dois) níveis abaixo da classificação de risco originalmente atribuída ou 01 (um) nível abaixo da classificação de risco em vigor caso nos últimos 12 (doze) meses já tenha ocorrido um rebaixamento; II - desenquadramento da alocação mínima em Direitos Creditórios por prazo superior a 15 (quinze) dias corridos consecutivos; III – caso a Subordinação Mínima não seja restabelecida dentro do prazo de 15 (quinze) dias úteis; IV - descumprimento, pela ADMINISTRADORA, pela GESTORA, pelo CUSTODIANTE, de seus deveres e obrigações estabelecidos neste Regulamento e nos demais Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "PL < R$ 1 mi por 90 dias, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 47,
+     "clause": "cl. 16.4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "a Classe do FUNDO. CAPÍTULO XVII LIQUIDAÇÃO DA CLASSE 17.1. A Classe será liquidada única e exclusivamente nas seguintes hipóteses: I por deliberação em Assembleia Especial de Cotistas; II caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento de Liquidação; ou III Após 90 (noventa) dias da data da primeira integralização de Cotas da Classe, manutenção do Patrimônio Líquido diário da Classe inferior a R$ 1.000.000,00 (um milhão de reais) por período de 90 (noventa) dias consecutivos. 17.2. Na ocorrência de qualquer dos Eventos de Liquidação da Classe, independentemente de qualquer procedimento adicional, a ADMINISTRADORA e a GESTORA, nas esferas de suas respectivas competências, deverão (i) suspender imediatamente o pagamento de qualquer resgate ou amortização em andamento, se houver, e os procedimentos de aquisição de Direitos Creditórios; (ii) devendo a ADMINISTRADORA convocar, no prazo de 05 (cinco) dias, uma Assembleia Especial para que os Cotistas deliberem sobre as medidas que serão adotadas visando preservar seus direitos, suas garantias e prerrogativas, observando o direito de resgate dos Cotistas dissidentes de que trata o item 17.3."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Revolvência fora de eventos de avaliação ou liquidação",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 27,
+     "clause": "cl. 5.7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "l, o Cedente poderá responder pela solvência dos Devedores e pelo pagamento dos Direitos Creditórios cedidos ao FUNDO. 5.8. Desde que a presente Classe não se encontre em um Evento de Avaliação ou em um Evento de Liquidação, haverá Revolvência de Direitos Creditórios para o FUNDO. 5.9. A ADMINISTRADORA, a GESTORA e o CUSTODIANTE ou partes a eles relacionadas não respondem pelo pagamento dos Direitos Creditórios alienados ao FUNDO, pela solvência dos Devedores ou pela existência, autenticidade, correta formalização e liquidez de tais Direitos Creditórios. 5.10. A Classe poderá ceder ou alienar os Direitos Creditórios Inadimplidos, sendo que, após a cessão ou alienação dos Direitos Creditórios Inadimplidos, a cobrança e coleta dos pagamentos dos Direitos Creditórios será de responsabilidade do novo titular. Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel. 0800 326 0953 / ouvidoria@hemeradtvm.com.br hemeradtvm.com.br Página 27 de 65 5.11."
+    }
+   ],
+   "legacy": {
+    "value": "Revolvência permitida enquanto não houver evento de avaliação ou liquidação",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no suplemento de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Sênior 1/mezanino 1:30 meses; sênior 2/mezanino 2:18 meses",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,38% a.a. até R$ 30 mi de PL, regressiva até 0,30%; mín. R$ 10 mil/mês",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 35,
+     "clause": "cl. 11.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "hemeradtvm.com.br Página 34 de 65 SERVIÇOS PATRIMÔNIO LÍQUIDO REMUNERAÇÃO Até R$30.000.000,00 0,38% a.a. Administração Sobre o excedente de R$30.000.000,01 a 0,35% a.a. Fiduciária, R$50.000.000,00 Controladoria de Sobre o excedente de R$50.000.000,01 0,30% a.a. Ativo e Passivo e Mínimo mensal Contabilidade Até o 6º mês R$10.000,00 Após o 6º mês R$15.500,00 Fixo mensal Custódia Até o 6º mês R$2.500,00 Qualificada Após o 6º mês R$5.000,00 Escrituração Fixo mensal de R$ 2.500,00 (isento para cotista único) de Cotas Distribuição de Fixo mensal de R$ 750,00 Cotas 11.1.1."
+    }
+   ],
+   "legacy": {
+    "value": "Faixas marginais PL:0,38%/0,35%/0,30% a.a. (R$ 30/50 mi); mínimo R$ 10 mil até 6º mês e R$ 15,5 mil após",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 11.1"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,45% a.a. do PL; mínimo de R$ 61,6 mil no 1º mês, escalonado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 35,
+     "clause": "cl. 11.1.4",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "ela contratados em nome do FUNDO, desde que o somatório dessas parcelas não exceda o montante total da referida taxa. 11.2. Pelos serviços de gestão, será devida pela Classe uma remuneração equivalente a 0,45% a.a. sobre o valor do Patrimônio Líquido da Classe, observado um valor mínimo mensal de R$61.600,00 (sessenta e um mil e seiscentos reais) no primeiro mês, R$ 15.000,00 (quinze mil reais) nos 5 (cinco) próximos meses, e de R$ 18.000,00 (dezoito mil reais) a partir do 7º (sétimo) mês, contados da data do primeiro aporte (“Taxa de Gestão”). Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel. 0800 326 0953 / ouvidoria@hemeradtvm.com.br hemeradtvm.com.br Página 35 de 65 11.2.1. A Taxa de Gestão será paga mensalmente, até o 5º (quinto) Dia Útil do mês subsequente ao mês da prestação dos serviços, sendo calculada e provisionada todo Dia Útil à razão de 1/252 (um inteiro e duzentos e cinquenta e dois avos). 11.2.2."
+    }
+   ],
+   "legacy": {
+    "value": "0,45% a.a. PL; mínimo 1º mês R$ 61,6 mil, meses 2–6 R$ 15 mil, após R$ 18 mil",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 11/09/2025, cl. 11.1.4"
+   }
+  },
+  "perf_fee": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Regulamento não menciona taxa de performance",
+   "sources": []
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark em branco no modelo de suplemento",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 53,
+     "clause": "Suplemento, cl. 5",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "a disponibilidade dos recursos confiados pelo investidor ao Fundo, calculado conforme o disposto no Regulamento. 5. Da Meta de Rentabilidade: As Cotas Seniores da [ ]ª Série possuem um benchmark de rentabilidade correspondente a [ ]% ([ ]) das taxas médias diárias dos DI – Depósitos Interfinanceiros de um dia, \"over extra-grupo\", expressas na forma decimal ao ano, base 252 (duzentos e cinquenta e dois) dias úteis, calculada e divulgada diariamente pela B3 S.A. – Brasil, Bolsa, Balcão, (segmento CETIP UTVM\"), no informativo diário disponível em sua página na Internet (www.cetip.com.br) (\"Taxa DI\"). Sem prejuízo do disposto neste item, não há qualquer promessa de rendimentos, estabelecendo meramente uma expectativa para distribuição de rendimentos entre as Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel. 0800 326 0953 / ouvidoria@hemeradtvm.com.br hemeradtvm.com.br Página 53 de 65 Cotas. Portanto, as Cotas somente auferirão rendimentos se os resultados da carteira da Classe assim permitirem. 6."
+    }
+   ],
+   "legacy": {
+    "value": "DI +4,50% a.a. sênior 1/2; DI +8,00% a.a. mezanino 1/2; vigência 22/04/2026",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Benchmark em branco no modelo de suplemento",
+   "sources": [],
+   "legacy": {
+    "value": "DI +4,50% a.a. sênior 1/2; DI +8,00% a.a. mezanino 1/2; vigência 22/04/2026",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "Hemera DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 4,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "teiras de Valores Mobiliários e Outras Avenças, celebrado entre a ADMINISTRADORA e a GESTORA; ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, com sede e foro na Cidade de Curitiba, PR, na Avenida Água Verde, 1413, Loja 801, Andar 08, Condomínio Podolan Água Verde, Água Verde, CEP 80620- 200, inscrito no CNPJ/MF sob n.º 39.669.186/0001-01, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários pela CVM de acordo com o Ato Declaratório nº 19.131, de 1 de outubro de 2021, ou quem lhe vier a suceder; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; Anexo(s): significa(m) a(s) parte(s) do Regulamento do FUNDO essenciais à constituição de Classes de Cotas, que regem o funcionamento das Classes de modo complementar ao disciplinado pelo Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "Solis Investimentos",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "Fundo: FUNDO: o SOLIS KEDU FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS; GESTORA: SOLIS INVESTIMENTOS LTDA., com sede na cidade e estado de São Paulo, na Av. Pedroso de Morais, 1553 – Conj 42, Pinheiros, CEP 05419-001, inscrita no CNPJ/MF sob n.º Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel. 0800 326 0953 / ouvidoria@hemeradtvm.com.br hemeradtvm.com.br Página 6 de 65 17.254.708/0001-71, autorizada a prestar serviço de administração de carteiras de valores mobiliários pela CVM de acordo com o Ato Declaratório n.º 13.427, expedido em 6 de dezembro de 2013; Instrução CVM 489: a Instrução CVM nº 489, de 14 de janeiro de 2011 e suas alterações; Investidor são os investidores profissionais, conforme definidos na Profissional: Resolução CVM 30;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Hemera DTVM (a própria administradora)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 6,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "rdinado o investidor que venha adquirir Cotas Subordinadas Mezanino Mezanino: de emissão do FUNDO; CUSTODIANTE: é a ADMINISTADORA; CVM: é a Comissão de Valores Mobiliários; Dia Útil: todo e qualquer dia que não seja sábado, domingo ou feriado nacional ou, ainda, dias em que, por qualquer motivo, não haja expediente bancário ou dias em que não funcionar o mercado financeiro em âmbito nacional, na cidade de Curitiba/PR e/ou na cidade de São Paulo/SP; Encargos: despesas específicas que podem ser debitadas diretamente da Classe de Cotas, não estando inclusas nas taxas destinadas aos prestadores de serviços essenciais; Eventos de as situações descritas no Capítulo XIII da Parte Geral; Liquidação do Fundo: FUNDO: o SOLIS KEDU FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS; GESTORA: SOLIS INVESTIMENTOS LTDA., com sede na cidade e estado de São Paulo, na Av."
+    },
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 4,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "teiras de Valores Mobiliários e Outras Avenças, celebrado entre a ADMINISTRADORA e a GESTORA; ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA, com sede e foro na Cidade de Curitiba, PR, na Avenida Água Verde, 1413, Loja 801, Andar 08, Condomínio Podolan Água Verde, Água Verde, CEP 80620- 200, inscrito no CNPJ/MF sob n.º 39.669.186/0001-01, devidamente autorizada à prestação dos serviços de administração de carteira de títulos e valores mobiliários pela CVM de acordo com o Ato Declaratório nº 19.131, de 1 de outubro de 2021, ou quem lhe vier a suceder; ANBIMA: é a Associação Brasileira das Entidades dos Mercados Financeiro e de Capitais; Anexo(s): significa(m) a(s) parte(s) do Regulamento do FUNDO essenciais à constituição de Classes de Cotas, que regem o funcionamento das Classes de modo complementar ao disciplinado pelo Regulamento;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "Kedu (agente de cobrança)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 24,
+     "clause": "cl. 4.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "lassificadora de risco das Cotas quando emitidas Classificação de pela Classe, quando e se aplicável; Risco: AGENTE DE é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E COBRANÇA: FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00, com sede na cidade de Eusébio, estado do Ceará, na Rua Calixto Machado, 21, sala Q-64, CEP 61775- 060 Ativos Financeiros: são os ativos listados no item 5.14 deste Anexo I; Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "investors": {
+   "display": "Investidores qualificados",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 24,
+     "clause": "cl. 14.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "5/0001-14 CAPÍTULO I PÚBLICO-ALVO E RESPONSABILIDADE DOS COTISTAS 1.1. A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Qualificados, nos termos da regulamentação aplicável. 1.2. A responsabilidade dos Cotistas é ilimitada e não está circunscrita ao valor por eles subscrito. Neste sentido, na hipótese de ocorrência de Patrimônio Líquido negativo, os Cotistas podem vir a ser chamados pelos Prestadores de Serviços Essenciais para aportar recursos no FUNDO e/ou na Classe. 1.3. Para os fins do Código de Administração e Gestão de Recursos de Terceiros da ANBIMA (“Código ANBIMA\"), o FUNDO se classifica como tipo ANBIMA: Agro, Indústria e Comércio – Recebíveis Comerciais. CAPÍTULO II REGIME DA CLASSE 2.1. Esta Classe é constituída sob a forma de regime fechado. CAPÍTULO III PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. CAPÍTULO IV DEFINIÇÕES 4.1."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada, qualificados; suplementos sênior destinados a profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "988409",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "11/09/2025",
+     "page": 24,
+     "clause": "cl. 2.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=988409",
+     "excerpt": "egime fechado. CAPÍTULO III PRAZO DE DURAÇÃO 3.1. O prazo de duração desta Classe é indeterminado. CAPÍTULO IV DEFINIÇÕES 4.1. Os termos e expressões previstos neste Anexo, indicados em letra maiúscula, no singular ou no plural, terão os significados a seguir atribuídos e se sobrepõem e prevalecem em relação às definições previstas na Parte Geral do Regulamento: Agência de a agência classificadora de risco das Cotas quando emitidas Classificação de pela Classe, quando e se aplicável; Risco: AGENTE DE é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E COBRANÇA: FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00, com sede na cidade de Eusébio, estado do Ceará, na Rua Calixto Machado, 21, sala Q-64, CEP 61775- 060 Ativos Financeiros: são os ativos listados no item 5.14 deste Anexo I; Av. Água Verde, 1413 - Sala 801 | Curitiba - CEP: 80620-200 | Tel. +55 (41) 3122- 7300 I e-mail: atendimento@hemeradtvm.com.br I Ouvidoria: Tel."
+    }
+   ],
+   "legacy": {
+    "value": "Classe fechada, indeterminada, qualificados; suplementos sênior destinados a profissionais",
+    "decision": "kept",
+    "why": ""
+   }
+  }
+ },
+ "leitura": "Mensalidades escolares cedidas pela Kedu; subordinação de 30% (júnior ≥ 20%) e prazo de até 455 dias.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

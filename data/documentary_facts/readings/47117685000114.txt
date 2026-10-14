@@ -1,0 +1,57 @@
+# Solis Kedu FIDC (Hemera; Solis; cedente Kedu)
+type: Educacional
+q1: * "Devedores: são as pessoas físicas devedoras dos Direitos Creditórios adquiridos pelo FUNDO"
+q2: * "KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E FINANCEIRAS LTDA., inscrita no CNPJ/MF sob o nº 45.543.580/0001-00"
+q3: * "pela Classe são oriundos de contratos a serem celebrados entre as Cedentes e os Devedores"
+q4: * "5.7. Os Direitos Creditórios cedidos à Classe poderão contar com a coobrigação do Cedente"
+q5: * "6.1. Os Direitos Creditórios deverão atender, na Data de Aquisição, ao Critério de Elegibilidade a seguir relacionado"
+q6: * "I - Limite de concentração por Devedor: observado o disposto no Art. 45"
+q7: * "a) a Classe poderá alocar, no máximo, 100% (cem por cento) do seu Patrimônio Líquido do Dia Útil imediatamente anterior em Direitos Creditórios cedidos pelo Cedente"
+q8: * "V – o prazo mínimo dos Direitos Creditórios, deverá ser de 30 (trinta) dias corridos, e o prazo máximo"
+q9: * "no mínimo, 50% (cinquenta por cento) de seu Patrimônio Líquido na aquisição de Direitos Creditórios Elegíveis"
+q10: * "12.1. A partir da emissão de Cotas Seniores, as seguintes Subordinações Mínimas deverão ser observadas e verificadas todo Dia Útil"
+q11: * "16.1. Na hipótese de ocorrência das situações a seguir descritas, caberá à ADMINISTRADORA convocar"
+q12: * "17.1. A Classe será liquidada única e exclusivamente nas seguintes hipóteses"
+q13: * "5.8. Desde que a presente Classe não se encontre em um Evento de Avaliação ou em um Evento de Liquidação, haverá Revolvência"
+q14: * "SERVIÇOS PATRIMÔNIO LÍQUIDO REMUNERAÇÃO Até R$30.000.000,00 0,38% a.a."
+q15: * "11.2. Pelos serviços de gestão, será devida pela Classe uma remuneração equivalente a 0,45% a.a."
+q16: * "ADMINISTRADORA: HEMERA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA"
+q17: * "GESTORA: SOLIS INVESTIMENTOS LTDA."
+q18: * "CUSTODIANTE: é a ADMINISTADORA"
+q19: * "AGENTE DE é a KEDU SERVIÇOS E SOLUÇÕES EDUCACIONAIS E COBRANÇA"
+q20: * "1.1. A Classe única de Cotas do FUNDO destina-se exclusivamente a Investidores Qualificados"
+q21: * "3.1. O prazo de duração desta Classe é indeterminado"
+q22: * "Meta de Rentabilidade: As Cotas Seniores da [ ]ª Série possuem um benchmark de rentabilidade"
+q23: * "Provisão de Perdas da Provisionamento: ADMINISTRADORA registrado junto a ANBIMA"
+receivables: Mensalidades de escolas privadas conveniadas cedidas pela Kedu | q2,q3
+originator: Kedu Serviços e Soluções Educacionais e Financeiras | q2
+assignor: Kedu Serviços e Soluções Educacionais e Financeiras | q2
+debtor: Pessoas físicas (responsáveis pelos contratos escolares) | q1
+recourse: Coobrigação do cedente admitida, salvo em recuperação judicial | q4
+eligibility: Não vencidos; devedor sem atraso > 30 dias; taxa mínima de 1,90% a.m. | q5,q8
+debtor_limit: Por devedor: até 20% do PL | q6 | value=20
+assignor_limit: Até 100% do PL no maior cedente | q7 | value=100
+term_max: Prazo de 30 a 455 dias | q8
+allocation: ≥ 50% do PL em direitos creditórios elegíveis | q9 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q10
+sub_senior: 30% · subord./PL | q10 | basis=mez+jr/PL | value=30
+sub_mezz: Júnior ≥ 20% do PL | q10 | basis=jr/PL | value=20
+sub_check: Diária; não restabelecida em 15 dias úteis é evento de avaliação | q10,q11
+reserve: n/d | Valor da reserva de caixa não fixado no regulamento
+pdd: Manual de provisão de perdas da administradora (ANBIMA) | q23
+eval_triggers: Alocação mínima fora por 15 dias; subordinação não recomposta em 15 dias úteis | q11
+liquidation: PL < R$ 1 mi por 90 dias, entre outros | q12
+revolving: Revolvência fora de eventos de avaliação ou liquidação | q13
+amortization: n/d | Cronograma definido no suplemento de cada série | why=Resposta anterior sem trecho localizável no regulamento vigente
+admin_fee: 0,38% a.a. até R$ 30 mi de PL, regressiva até 0,30%; mín. R$ 10 mil/mês | q14
+mgmt_fee: 0,45% a.a. do PL; mínimo de R$ 61,6 mil no 1º mês, escalonado | q15
+perf_fee: n/d | Regulamento não menciona taxa de performance
+target_senior: n/d | Benchmark em branco no modelo de suplemento | q22 | why=Resposta anterior sem trecho localizável no regulamento vigente
+target_mezz: n/d | Benchmark em branco no modelo de suplemento | why=Resposta anterior sem trecho localizável no regulamento vigente
+administrator: Hemera DTVM | q16
+manager: Solis Investimentos | q17
+custodian: Hemera DTVM (a própria administradora) | q18,q16
+servicer: Kedu (agente de cobrança) | q19
+investors: Investidores qualificados | q20
+duration: Indeterminado | q21
+leitura: Mensalidades escolares cedidas pela Kedu; subordinação de 30% (júnior ≥ 20%) e prazo de até 455 dias.
