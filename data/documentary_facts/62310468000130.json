@@ -1,0 +1,792 @@
+{
+ "schema_version": 1,
+ "cnpj": "62310468000130",
+ "name": "MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+ "fund_type": "Consignado público",
+ "reviewed_at": "2026-10-14T07:58:48Z",
+ "reader": "Leitura documental assistida (Claude), validada por fonte",
+ "documents": {
+  "D1": {
+   "document_id": "1153514",
+   "kind": "Regulamento",
+   "title": "Regulamento",
+   "date": "01/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514"
+  },
+  "D2": {
+   "document_id": "1153512",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "01/04/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153512"
+  },
+  "D3": {
+   "document_id": "1075684",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "05/01/2026",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1075684"
+  },
+  "D4": {
+   "document_id": "1053545",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Encerramento",
+   "date": "03/12/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1053545"
+  },
+  "D5": {
+   "document_id": "977555",
+   "kind": "Instrumento de emissão",
+   "title": "Anúncio de Início",
+   "date": "25/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=977555"
+  },
+  "D6": {
+   "document_id": "977281",
+   "kind": "Instrumento de emissão",
+   "title": "Instrumento Particular de Emissão de Cotas",
+   "date": "19/08/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=977281"
+  },
+  "D7": {
+   "document_id": "985036",
+   "kind": "Regulamento",
+   "title": "Instrumento Particular de Alteração do Regulamento",
+   "date": "04/09/2025",
+   "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=985036"
+  }
+ },
+ "facts": {
+  "fund_type": {
+   "display": "Consignado público",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "Classificação pelo lastro e pela estrutura",
+   "sources": []
+  },
+  "receivables": {
+   "display": "CCBs de consignado INSS da Plataforma MT, com taxa prefixada",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 9,
+     "clause": "Anexo, cl. 3.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "o satisfazer, na Data de Aquisição de Direitos 4.6 Creditórios MT, cumulativamente, às seguintes Condições de Endosso: (i) os Direitos Creditórios MT deverão consistir em CCB, emitidas eletronicamente por um Devedor em favor de um Endossante, representativas de parcelas vincendas de empréstimos consignados, com taxa de juros prefixada, cujo pagamento ordinário é feito por Consignações realizadas pelo INSS e Dataprev; (ii) os Devedores beneficiários do INSS por aposentadoria por invalidez deverão terter (1) entre 55 (cinquenta e cinco) anos e 59 (cinquenta e nove) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na data de emissão da respectiva CCB, desde que o Devedor tenha mais de 15 (quinze) anos de benefício concedido pelo INSS na data de emissão da respectiva CCB; ou (2) entre 60 (sessenta) anos e 72 (setenta e dois) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (iii) os Direitos Creditórios MT (1) deverão se encontrar devidamente averbados na Dataprev e (2) o respectivo empréstimo consignado deverá ter sido efetivamente desembolsado pelo Endossante na conta do respectivo Devedor, conforme identificada na respectiva CCB;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 55,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "e poderá afetar negativamente a rentabilidade da Classe. (xvi) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a BTG Pactual 55 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 1 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (xvii) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os beneficiários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao efetuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Endossante, que imediatamente enviará essas informações ao Custodiante."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "originator": {
+   "display": "Parati (endossante MT)",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 62,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "liquidado por meio de Consignações mensais das parcelas vincendas na folha de benefícios do Devedor; \"Endossante MT\": Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede no município de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 2796, conjuntos 804, Santa Luiza, CEP 29.045-402, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Endossantes\": o Endossante MT ou terceiros que venham a ceder direitos creditórios à Classe, desde que o referido BTG Pactual 62 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 2 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA endossante não seja o Administrador, o Gestor, o Custodiante, um consultor especializado da Classe ou uma parte relacionada de qualquer desses prestadores de serviços; \"Classe\": é a classe única de cotas do Fundo, denominada Classe Única do MT INSS RECEIVABLES VI FIDC Fundo de Investimento em Direitos Creditórios; \"CMN\": Conselho Monetário Nacional; \"CNPJ\": Cadastro Nacional da Pessoa Jurídica; \"Código Civil': a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; \"Código de Processo Civil\" : a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor": {
+   "display": "Parati Crédito, Financiamento e Investimento, por endosso",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 62,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "liquidado por meio de Consignações mensais das parcelas vincendas na folha de benefícios do Devedor; \"Endossante MT\": Parati Crédito, Financiamento e Investimento S.A., instituição financeira constituída na forma de uma sociedade por ações, com sede no município de Vitória, estado do Espírito Santo, na Avenida Nossa Senhora da Penha, 2796, conjuntos 804, Santa Luiza, CEP 29.045-402, inscrita no CNPJ sob nº 03.311.443/0001-91; \"Endossantes\": o Endossante MT ou terceiros que venham a ceder direitos creditórios à Classe, desde que o referido BTG Pactual 62 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 2 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA endossante não seja o Administrador, o Gestor, o Custodiante, um consultor especializado da Classe ou uma parte relacionada de qualquer desses prestadores de serviços; \"Classe\": é a classe única de cotas do Fundo, denominada Classe Única do MT INSS RECEIVABLES VI FIDC Fundo de Investimento em Direitos Creditórios; \"CMN\": Conselho Monetário Nacional; \"CNPJ\": Cadastro Nacional da Pessoa Jurídica; \"Código Civil': a Lei nº 10.406, de 10 de janeiro de 2002, conforme alterada; \"Código de Processo Civil\" : a Lei nº 13.105, de 16 de março de 2015, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor": {
+   "display": "Aposentados e pensionistas do INSS",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 55,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "e poderá afetar negativamente a rentabilidade da Classe. (xvi) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a BTG Pactual 55 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 1 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (xvii) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os beneficiários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao efetuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Endossante, que imediatamente enviará essas informações ao Custodiante."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "recourse": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Recompra e resolução regidas pelo contrato de endosso",
+   "sources": []
+  },
+  "eligibility": {
+   "display": "CCB até 96 parcelas, com idade e benefício elegíveis",
+   "status": "confirmed",
+   "unit": "list",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "Critérios de Elegibilidade 4.8 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, exclusivamente com base nas informações enviadas através de API ao Custodiante, de forma individualizada e integral, previamente ao endosso e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: Critérios de Elegibilidade para Direitos Creditórios MT: 4.9 (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "bilidade para Direitos Creditórios MT: 4.9 (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios MT que tenham sido adquiridos pela Classe; os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81 (oitenta e (iv) um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "debtor_limit": {
+   "display": "Saldo por devedor: R$ 60 mil acima de 61 anos; R$ 120 mil abaixo",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "missão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios MT que tenham sido adquiridos pela Classe; os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81 (oitenta e (iv) um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (3) por pensão por morte e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "assignor_limit": {
+   "display": "—",
+   "status": "not_applicable",
+   "unit": "pct",
+   "reason": "Endossante única: Parati",
+   "sources": []
+  },
+  "term_max": {
+   "display": "Até 96 parcelas",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "bilidade para Direitos Creditórios MT: 4.9 (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição; (2) ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios MT que tenham sido adquiridos pela Classe; os Devedores deverão ser beneficiários do INSS (1) por aposentadoria por idade e ter até 81 (oitenta e (iv) um) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (2) por aposentadoria por tempo de contribuição e ter até 81 (oitenta e um), 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "allocation": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "pct",
+   "reason": "Alocação mínima não localizada em trecho contínuo",
+   "sources": []
+  },
+  "quota_structure": {
+   "display": "Sênior / Mezanino / Subordinada júnior",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 66,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "cada Série, sendo que este deveráser superior à 1,15 vezes o seu denominador; \"indice Mínimo de Subordinação Sênior\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe, que deverá ser de 20% (vinte inteiros por cento), a ser apurado a partir do 1° (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável. \"Índice Mínimo de Subordinação Mezanino\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe, que, a partir da 1ª (primeira) emissão de Cotas Subordinadas Mezanino da Classe, deverá ser de 5% (cinco inteiros por cento) a ser apurado a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Índices de Subordinação\": significam o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando mencionados em conjunto, a serem apurados a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Instituições Autorizadas\": qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 66,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "zação de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável. \"Índice Mínimo de Subordinação Mezanino\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe, que, a partir da 1ª (primeira) emissão de Cotas Subordinadas Mezanino da Classe, deverá ser de 5% (cinco inteiros por cento) a ser apurado a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Índices de Subordinação\": significam o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando mencionados em conjunto, a serem apurados a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Instituições Autorizadas\": qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; \"Instrução CVM 489\": Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/04/2026, Apêndice"
+   }
+  },
+  "sub_senior": {
+   "display": "20% · subord./PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 66,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "cada Série, sendo que este deveráser superior à 1,15 vezes o seu denominador; \"indice Mínimo de Subordinação Sênior\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas e (b) o Patrimônio Líquido da Classe, que deverá ser de 20% (vinte inteiros por cento), a ser apurado a partir do 1° (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável. \"Índice Mínimo de Subordinação Mezanino\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe, que, a partir da 1ª (primeira) emissão de Cotas Subordinadas Mezanino da Classe, deverá ser de 5% (cinco inteiros por cento) a ser apurado a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Índices de Subordinação\": significam o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando mencionados em conjunto, a serem apurados a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Instituições Autorizadas\": qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.;"
+    }
+   ],
+   "basis": "mez+jr/PL",
+   "value": 20.0,
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/04/2026, Apêndice"
+   }
+  },
+  "sub_mezz": {
+   "display": "5% · júnior/PL",
+   "status": "confirmed",
+   "unit": "pct",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 66,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "zação de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável. \"Índice Mínimo de Subordinação Mezanino\": a relação mínima admitida entre (a) o valor das Cotas Subordinadas Júnior e (b) o Patrimônio Líquido da Classe, que, a partir da 1ª (primeira) emissão de Cotas Subordinadas Mezanino da Classe, deverá ser de 5% (cinco inteiros por cento) a ser apurado a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Índices de Subordinação\": significam o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, quando mencionados em conjunto, a serem apurados a partir do 1º (primeiro) dia (inclusive) após a 1ª (primeira) integralização de Cotas Seniores e/ou Cotas Mezanino (exclusive), conforme aplicável; \"Instituições Autorizadas\": qualquer das seguintes instituições financeiras: (i) Itaú Unibanco S.A.; (ii) Banco Bradesco S.A.; (iii) Caixa Econômica Federal; (iv) Banco do Brasil S.A.; (v) Banco Santander (Brasil) S.A.; (vi) Banco BTG Pactual S.A.; ou (vii) Parati Crédito, Financiamento e Investimento S.A.; \"Instrução CVM 489\": Instrução nº 489 da CVM, de 14 de janeiro de 2011, conforme alterada;"
+    }
+   ],
+   "basis": "jr/PL",
+   "value": 5.0,
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "sub_check": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Periodicidade de apuração dos índices não localizada",
+   "sources": [],
+   "legacy": {
+    "value": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "reserve": {
+   "display": "Reserva de liquidez para custos da classe",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 67,
+     "clause": "Apêndice, cl. 7",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "nior\": equivalente ao valor esperado de amortização do mês seguinte de todas as Cotas Seniores; \"Reserva de Liquidez\": significa a reserva a ser constituída e reestabelecida pelo Administrador, conforme Ordem de Alocação de Recursos prevista no Capítulo 7 do Anexo para cobertura de custos relacionados à (i) manutenção da Classe, incluindo, mas não se limitando ao pagamento dos Encargos; e (ii) despesas judiciais, em montante equivalente a 3 (três) meses de tais despesas; \"Resolução CMN 5.057\": Resolução CMN nº 5.057, de 15 de dezembro de 2022, conforme alterada; \"Resolução CMN 5.111\": Resolução do Conselho Monetário Nacional nº 5.111, de 21 de dezembro de 2023; \"Resolução CVM 160\": Resolução CVM nº 160, de 13 de julho de 2022, conforme alterada; \"Resolução CVM 175\" : Resolução CVM nº 175, de 23 de dezembro de 2022, conforme alterada; \"Resolução CVM 30\": Resolução CVM nº BTG Pactual 67 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 2 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 30, de 11 de maio de 2021, conforme alterada;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "pdd": {
+   "display": "PDD conforme Instrução CVM 489 e manual do administrador",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 20,
+     "clause": "Anexo, cl. 7.7.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "Financeiros de Liquidez será reduzido pelo valor da provisão efetuada ou perda reconhecida. 8.3.1 O efeito de perda ou provisão para devedores duvidosos de Direitos Creditórios de um mesmo Devedor deverá ser mensurado levando-se em consideração o disposto no Art. 13 da Instrução CVM 489, sendo facultada a análise individualizada dos Direitos Creditórios, observada a metodologia de avaliação descrita no manual do Administrador ou, ainda, no manual do Custodiante. Admite-se a reversão dessas perdas e provisões, nos termos da regulamentação aplicável e, quando 8.3.2 aplicável, os critérios do Complemento 12 deste Anexo I. CAPÍTULO 9 - ASSEMBLEIA ESPECIAL DE COTISTAS 9.1 Sem prejuízo de outros requisitos e informações previstos na regulamentação vigente, são aplicáveis à Assembleia Especial de Cotistas as mesmas disposições procedimentais da Assembleia Geral de Cotistas. 9.2 A Assembleia Especial de Cotistas é responsável por deliberar sobre as matérias específicas da Classe de Cotas, sem prejuízo das demais disposições previstas na regulamentação aplicável, incluindo, mas não se limitando a: deliberar sobre as demonstrações contábeis da Classe;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "eval_triggers": {
+   "display": "Intervenção no endossante, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 22,
+     "clause": "Anexo, cl. 9.12.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "E LIQUIDAÇÃO, E PROCEDIMENTOS DE LIQUIDAÇÃO ATECIPADA Eventos de Avaliação 10.1 As seguintes hipóteses são consideradas Eventos de Avaliação: (i) em caso de regime de administração especial temporária - RAET, intervenção ou liquidação extrajudicial do Endossante ou do Agente da Conta Vinculada; (ii)) não cumprimento, pelo Endossante, de qualquer de suas obrigações estabelecidas no Contrato de Endosso ou neste Anexo 1, desde que esse não cumprimento não seja devidamente sanado ou justificado dentro de 10 (dez) Dias Úteis a partir do recebimento, pelo Endossante, de notificação, por escrito, enviada pelo Administrador, informando-o da ocorrência do respectivo evento; (iii) Em caso do descumprimento de quaisquer índices de Subordinação conforme item 5.12, observado ainda, o disposto no item 10.1.5; 22 btgpactua Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Caso o Índice de Inadimplência Curto seja superior a 1,00% em qualquer Data de Verificação; (iv) Caso o Índice de Inadimplência Longo seja superior a 7,80% em qualquer Data de Verificação; (v) Em caso do descumprimento de quaisquer Índices de Liquidez Sênior por mais de 10 (dez) dias úteis (vi) consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "liquidation": {
+   "display": "Saída do custodiante sem substituição, entre outros",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 25,
+     "clause": "Anexo, cl. 10.3",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "o caracterizado quaisquer dos Eventos de Liquidação. Eventos de Liquidação 10.3 As seguintes hipóteses são consideradas Eventos de Liquidação: caso seja deliberado em Assembleia Especial de Cotistas que um Evento de Avaliação constitui um Evento (i) de Liquidação; na hipótese de resilição do Contrato de Custódia ou renúncia do Custodiante, sem que tenha havido (ii) sua substituição por outra instituição, de acordo com os procedimentos estabelecidos neste Regulamento; (iii)) renúncia do Administrador sem que a Assembleia Especial de Cotistas eficazmente nomeie instituição habilitada para substituí-lo, nos termos estabelecidos neste Regulamento; (iv) nos casos em que houver determinação da CVM, nos termos previstos na Resolução CVM 175; (v) sempre que assim decidido pelos Cotistas em Assembleia Especial de Cotistas especialmente convocada para tal fim; (vi) intervenção ou liquidação extrajudicial do Custodiante, Administrador, ou Gestor, sem a sua efetiva substituição nos termos deste Regulamento; (vii) se, após 90 (noventa) dias do início das atividades do Fundo, o Patrimônio Líquido diário inferior da Classe for inferior a R$ 1.000.000,00 (um milhão de reais) pelo período de 90 (noventa) dias consecutivos;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "revolving": {
+   "display": "Reinvestimento no período de investimento",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 13,
+     "clause": "Anexo, cl. 4.10.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "ral, se tenha como contraparte o Gestor e/ou suas partes relacionadas; Revolvência da Carteira de Direitos Creditórios 4.14 Durante o Período de Investimento, os recursos recebidos pela Classe em razão da emissão de novas cotas e/ou liquidação dos Direitos Creditórios, a qualquer título, incluindo pagamento regular ou por excussão de garantia, alienação, recompra, indenização pelo Endossante e/ou desinvestimento de Ativo Recuperado, poderão ser destinados à aquisição pela Classe de novos Direitos Creditórios (revolvência) e/ou destinados à amortização das Cotas, mediante decisão da Assembleia de Cotistas, nos termos do item 9.2 (xvi) abaixo, e desde que observada a ordem de alocação de recursos definida no Capítulo 7. Regras, procedimentos e limites para efetuar endosso de direitos creditórios para os endossantes e suas partes relacionadas 4.15 Com relação aos Direitos Creditórios MT, a Classe poderá ter o direito de vender Direitos Creditórios MT ao Agente de Retenção/Cobrança (opção de venda), se as respectivas declarações e garantias foram prestadas pelo Agente de Retenção/Cobrança, de acordo com os termos, condições, formalidades e preços de resolução de endosso e opção de venda detalhados no Contrato de Endosso. Outras disposições relativas à Política de Investimentos 4.16 A Classe poderá realizar a"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 2ª série: revolvência por 18 meses da 1ª integralização sênior",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/04/2026, Anexo, cl. 4.10.2"
+   }
+  },
+  "amortization": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Cronograma definido no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "Encargos/reserva → sênior → mezanino → júnior conforme investimento",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "admin_fee": {
+   "display": "0,05% a.a. do PL",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 33,
+     "clause": "Anexo, cl. 11.25",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "administração, escrituração, controladoria de ativos e passivo, o Administrador fará jus a uma \"Taxa do Administrador\" nos seguintes moldes: o valor correspondente à 0,05% (cinco centésimos por cento) por ano sobre o valor do Patrimônio Líquido. 12.1.1 A Taxa do Administrador será calculada e reservada diariamente, a partir da Data da 1 Integralização, com base no Patrimônio Líquido da Classe no dia imediatamente anterior, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e devida mensalmente ao Administrador, até o 5° (quinto) Dia Útil do mês subsequente. 12.1.2 Não obstante o acima disposto, o valor mínimo da Taxa do Administrador devida pelo Fundo ao Administrador será equivalente a R$10.000,00 (dez mil reais) por mês, atualizado anualmente no mês de janeiro de cada ano, a partir da primeira data de integralização de Cotas da Classe, com base na variação positiva do Índice Nacional de Preços ao Consumidor Amplo, calculado e divulgado pelo Instituto Nacional de Geografia e Estatística (IPCA/IBGE). O Administrador poderá estabelecer que parcelas da Taxa de Administração sejam pagas diretamente pela 12.2 33 btgpactual Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Classe aos prestad"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "mgmt_fee": {
+   "display": "0,30% a.a. do PL, menor acima de R$ 900 mi",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 34,
+     "clause": "Anexo, cl. 12.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "ção. 12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 12.4 Pelos serviços de gestão da Carteira da Classe, o Gestor fará jus a uma \"Taxa de Gestão\" nos seguintes moldes: (a) o valor correspondente à 0,30% (trinta centésimos por cento) ao ano sobre o valor do Patrimônio Líquido; ou (b) caso o Patrimônio Líquido da Classe ultrapasse R$ 900.000.000,00 (novecentos milhões de reais), 0,10% (dez centésimos por cento) ao ano sobre o valor do Patrimônio Líquido. 12.4.1 A Taxa de Gestão será calculada e reservada diariamente, a partir da Data da 1 Integralização, com base no Patrimônio Líquido da Classe no dia imediatamente anterior, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e devida mensalmente ao Gestor, até o 5º (quinto) Dia Útil do mês subsequente. Taxa Máxima de Custódia 12.5 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao Custodiante, de modo que taxa máxima de custódia a ser paga pela Classe ao Custodiante corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobranca Pelos serviços de retenção e cobrança, prestada nos termos deste Anexo e do Contrato de Retenção e Co"
+    }
+   ],
+   "legacy": {
+    "value": "0,30% a.a. do PL; se PL > R$ 900 mi, 0,10% a.a. sobre todo PL",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/04/2026, Anexo, cl. 12.1.2"
+   }
+  },
+  "perf_fee": {
+   "display": "Não prevista",
+   "status": "absent",
+   "unit": "text",
+   "reason": "Regulamento veda taxa de performance",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 34,
+     "clause": "Anexo, cl. 12.1.2",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "s de serviços contratados, desde que o somatório dessas parcelas não exceda o montante total da Taxa de Administração. 12.3 Não serão cobradas da Classe ou dos Cotistas taxas de performance, de ingresso ou de saída. Taxa de Gestão 12.4 Pelos serviços de gestão da Carteira da Classe, o Gestor fará jus a uma \"Taxa de Gestão\" nos seguintes moldes: (a) o valor correspondente à 0,30% (trinta centésimos por cento) ao ano sobre o valor do Patrimônio Líquido; ou (b) caso o Patrimônio Líquido da Classe ultrapasse R$ 900.000.000,00 (novecentos milhões de reais), 0,10% (dez centésimos por cento) ao ano sobre o valor do Patrimônio Líquido. 12.4.1 A Taxa de Gestão será calculada e reservada diariamente, a partir da Data da 1 Integralização, com base no Patrimônio Líquido da Classe no dia imediatamente anterior, considerando um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, e devida mensalmente ao Gestor, até o 5º (quinto) Dia Útil do mês subsequente. Taxa Máxima de Custódia 12.5 Pelos serviços de custódia qualificada dos Direitos Creditórios e dos Ativos Financeiros de Liquidez não será devida nenhuma remuneração ao Custodiante, de modo que taxa máxima de custódia a ser paga pela Classe ao Custodiante corresponde a 0% (zero por cento) ao ano. Remuneração do Agente de Retenção/Cobranca Pelos serviç"
+    }
+   ]
+  },
+  "target_senior": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª sênior: DI + 0,95% a.a.; mezanino 1ª série, 2ª emissão: DI + 3,50%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "target_mezz": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "text",
+   "reason": "Meta definida no apêndice de cada série",
+   "sources": [],
+   "legacy": {
+    "value": "2ª sênior: DI + 0,95% a.a.; mezanino 1ª série, 2ª emissão: DI + 3,50%",
+    "decision": "regression",
+    "why": "Resposta anterior sem trecho localizável no regulamento vigente"
+   }
+  },
+  "administrator": {
+   "display": "BTG Pactual Serviços Financeiros DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "ceto se de outra forma vier a ser deliberado pelos cotistas reunidos Prazo de Duração em assembleia geral de cotistas. BTG Pactual Serviços Financeiros S.A. Distribuidora de Títulos e Valores Mobiliários, sociedade Anônima, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Corcovado, Botafogo, CEP 22250-040, inscrita Administrador no CNPJ sob o nº 59.281.253/0001-23 e credenciada como administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (\"Administrador\"). BTG Pactual Asset Management S.A."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "manager": {
+   "display": "BTG Pactual Asset Management DTVM",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 1,
+     "clause": "",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "o administradora de carteira, de acordo com o Ato Declaratório CVM nº 8.695, de 20 de março de 2006 (\"Administrador\"). BTG Pactual Asset Management S.A. Distribuidora de Títulos e Valores Mobiliários, instituição financeira constituída sob a forma de uma sociedade por ações, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, 501, 5º andar (parte), CEP 22.250-040, inscrita no CNPJ sob nº 29.650.082/0001-00, devidamente Gestor credenciada junto à CVM para operar como administradora de carteira de valores mobiliários nos termos do Ato Declaratório CVM nº 5.968, de 10 de maio de 2000 (\"Gestor\" e, quando referido conjuntamente e indistintamente com o Administrador, os \"Prestadores de Serviços Essenciais\"). Foro Aplicável Foro da comarca da capital do Estado do Rio de Janeiro. Encerramento do Último dia útil do mês de novembro de cada ano. Exercício Social 1.2 Este regulamento é composto por esta parte geral, um ou mais anexos, conforme o número de classes aqui previsto e respectivos apêndices relativos a cada subclasse de cotas, conforme aplicável (respectivamente, \"Regulamento\", \"Parte Geral\", \"Anexos\" e \"Apêndices\"). Anexo Denominação da Classe 1 btgpactual Regulamento MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA CNPJ nº 62.310.46"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "custodian": {
+   "display": "Banco BTG Pactual",
+   "status": "confirmed",
+   "unit": "entity",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 6,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "aneiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Custódia e Tesouraria Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (\"Custodiante\"). 6 btgpactual Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Controladoria e Escrituração Administrador. Subclasses Sênior, Subordinada Mezanino e Subordinada Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição seguirão o disposto no instrumento que aprova a emissão Emissão e Regime de Distribuição de Cotas, que disporá acerca da eventual existência de direito de preferência de Cotas dos Cotistas. Capital Autorizado R$ 2.000.000.000,00 (dois bilhões de reais) nos termos do item 5.4abaixo. As Cotas poderão ser admitidas à negociação em bolsa de valores ou entidade de Negociação balcão organizado, conforme item 5.9 abaixo deste Anexo. Cálculo do Valor da Cota Conforme Capítulo 6 deste Anexo. A distribuição de quaisquer ganhos e rendimentos da Classe aos Cotistas será Distribuição de Proventos feita exclusivamente mediante a amor"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 6,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "segurança, rentabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Custódia e Tesouraria Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (\"Custodiante\"). 6 btgpactual Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Controladoria e Escrituração Administrador. Subclasses Sênior, Subordinada Mezanino e Subordinada Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição seguirão o disposto no instrumento que aprova a emissão Emissão e Regime de Distribuição de Cotas, que disporá acerca da eventual existência de direito de preferência de Cotas dos Cotistas. Capital Autorizado R$ 2.000.000.000,00 (dois bilhões de reais) nos termos do item 5.4abaixo. As Cotas poderão ser admitidas à negociação em bolsa de valores ou entidade de Negociação balcão organizado, conforme item 5.9 abaixo deste Anexo. Cálculo d"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "servicer": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "entity",
+   "reason": "Agente de retenção e cobrança não nomeado em trecho localizável",
+   "sources": []
+  },
+  "investors": {
+   "display": "Investidores profissionais",
+   "status": "confirmed",
+   "unit": "enum",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 6,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "estadores de Serviços Essenciais quanto à segurança, rentabilidade e liquidez dos títulos componentes de sua carteira. Público-Alvo Investidores Profissionais. Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, 5º andar (parte), Torre Custódia e Tesouraria Corcovado, Botafogo, CEP 22250-040, inscrita no CNPJ sob o nº 30.306.294/0001-45 e credenciado como custodiante, de acordo com o Ato Declaratório nº 7.204, de 25 de abril de 2003 (\"Custodiante\"). 6 btgpactual Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Controladoria e Escrituração Administrador. Subclasses Sênior, Subordinada Mezanino e Subordinada Júnior, nos termos do Capítulo 5. O valor de cada emissão de Cotas, volume e valor unitário da Cota, bem como o regime de distribuição seguirão o disposto no instrumento que aprova a emissão Emissão e Regime de Distribuição de Cotas, que disporá acerca da eventual existência de direito de preferência de Cotas dos Cotistas. Capital Autorizado R$ 2.000.000.000,00 (dois bilhões de reais) nos termos do item 5.4abaixo. As Cotas poderão ser admitidas à negociação em bolsa de va"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "duration": {
+   "display": "Indeterminado",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 51,
+     "clause": "Apêndice, cl. 1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "ssão de Cotas Subordinadas Júnior terão o valor unitário de emissão inicial conforme previsto no item 5.7 abaixo; terão prazo de duração indeterminado; (v) (vi) deverão ser subscritas e integralizadas na forma e no prazo estabelecido no respectivo Apêndice ou Suplemento; (vii) não terão preferência entre elas para efeitos de amortização, valorização e resgate, independentemente das datas de emissão de cada uma delas, conferirão aos seus Cotistas os mesmos direitos e obrigações; e (viii) farão jus ao excedente de rentabilidade, se houver, após o pagamento do Benchmark Sênior de cada Série de Cotas Seniores e do Benchmark Mezanino de cada subclasse ou Série de Cotas Mezanino e dos Encargos da Classe. 2. Emissão, Subscrição e Integralização das Cotas Subordinadas 2.1. Após a primeira emissão de Cotas Subordinadas Júnior da Classe, eventuais novas emissões de Cotas Subordinadas Júnior poderão ser realizadas (i) com a aprovação de Assembleia Especial de Cotistas, observados os quóruns específicos, conforme aplicável, sendo que o valor de emissão, o volume e demais características, conforme aplicável, pertinentes à nova emissão corresponderão àquelas estabelecidas em referida Assembleia Especial de Cotistas;"
+    }
+   ],
+   "legacy": {
+    "value": "Sênior 2ª série: prazo esperado até 120 meses da 1ª integralização",
+    "decision": "revised",
+    "why": "Texto integral prevalece: Regulamento 01/04/2026, Apêndice, cl. 1"
+   }
+  },
+  "payroll": {
+   "display": "Consignação na folha de benefícios do INSS e Dataprev",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 9,
+     "clause": "Anexo, cl. 3.1.1",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "o satisfazer, na Data de Aquisição de Direitos 4.6 Creditórios MT, cumulativamente, às seguintes Condições de Endosso: (i) os Direitos Creditórios MT deverão consistir em CCB, emitidas eletronicamente por um Devedor em favor de um Endossante, representativas de parcelas vincendas de empréstimos consignados, com taxa de juros prefixada, cujo pagamento ordinário é feito por Consignações realizadas pelo INSS e Dataprev; (ii) os Devedores beneficiários do INSS por aposentadoria por invalidez deverão terter (1) entre 55 (cinquenta e cinco) anos e 59 (cinquenta e nove) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na data de emissão da respectiva CCB, desde que o Devedor tenha mais de 15 (quinze) anos de benefício concedido pelo INSS na data de emissão da respectiva CCB; ou (2) entre 60 (sessenta) anos e 72 (setenta e dois) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade, inclusive, na Data de Liquidação dos Direitos Creditórios MT; (iii) os Direitos Creditórios MT (1) deverão se encontrar devidamente averbados na Dataprev e (2) o respectivo empréstimo consignado deverá ter sido efetivamente desembolsado pelo Endossante na conta do respectivo Devedor, conforme identificada na respectiva CCB;"
+    },
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 55,
+     "clause": "Apêndice",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "e poderá afetar negativamente a rentabilidade da Classe. (xvi) Risco operacional do INSS: o empréstimo contraído pelos Devedores é pago por meio de desconto na folha de pagamento feito pelo INSS. É possível que os rendimentos dos Devedores sejam atrasados ou não pagos devido a questões operacionais envolvendo o INSS e/ou Dataprev. Nesse caso, a BTG Pactual 55 SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com btgpactual Complemento 1 do Anexo l ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Carteira poderá sofrer, já que não receberá automaticamente, e também poderá ter dificuldades para receber, a qualquer momento, os recursos decorrentes dos Direitos Creditórios. (xvii) Risco de validação das informações para reconciliação dos Direitos Creditórios adquiridos pela Classe: as informações para reconciliação dos pagamentos, sendo considerado como tal, também, o Arquivo Dataprev, listando todos os beneficiários e pensionistas do INSS cujas folhas de benefícios serão sujeitas a desconto no mês relevante, nos valores acordados ao efetuar a Consignação, e qualquer glosa será enviada pelo INSS/Dataprev ao Endossante, que imediatamente enviará essas informações ao Custodiante."
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "age_limit": {
+   "display": "Faixas de idade por espécie de benefício",
+   "status": "confirmed",
+   "unit": "text",
+   "reason": "",
+   "sources": [
+    {
+     "doc": "D1",
+     "document_id": "1153514",
+     "kind": "Regulamento",
+     "title": "Regulamento",
+     "date": "01/04/2026",
+     "page": 10,
+     "clause": "Anexo",
+     "url": "https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1153514",
+     "excerpt": "Critérios de Elegibilidade 4.8 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo Gestor, exclusivamente com base nas informações enviadas através de API ao Custodiante, de forma individualizada e integral, previamente ao endosso e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: Critérios de Elegibilidade para Direitos Creditórios MT: 4.9 (i) a data de vencimento final dos Direitos Creditórios MT deverá observar o prazo máximo de 96 (noventa e seis) parcelas, a contar da data de emissão da respectiva CCB referente a tal Direito Creditório MT; (ii) o saldo dos Direitos Creditórios MT devidos por um mesmo Devedor à Classe, considerando pro forma a aquisição pretendida, não poderá exceder (1) R$ 60.000,00 (sessenta mil reais), para Devedores com idade maior do que 61 (sessenta e um) anos; e (2) R$ 120.000,00 (cento e vinte mil reais), para Devedores com idade de até 61 (sessenta e um) anos; (iii) os Direitos Creditórios MT que se pretenda adquirir não poderão: (1) estar inadimplentes, na respectiva Data de Aquisição;"
+    }
+   ],
+   "legacy": {
+    "value": "",
+    "decision": "new"
+   }
+  },
+  "installment_min": {
+   "display": "n/d",
+   "status": "nd",
+   "unit": "brl",
+   "reason": "Regulamento não fixa parcela mínima",
+   "sources": []
+  }
+ },
+ "leitura": "Consignado INSS da Parati pela Plataforma MT; subordinação de 20% (júnior ≥ 5%) e CCB de até 96 parcelas.",
+ "lookthrough": [],
+ "validation": {
+  "approved": true,
+  "issues": []
+ }
+}

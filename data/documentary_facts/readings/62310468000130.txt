@@ -23,7 +23,7 @@ q20: D1 "Público-Alvo Investidores Profissionais"
 q21: D1 "prazo de duração indeterminado; (v) (vi) deverão ser subscritas e integralizadas"
 q22: D1 "Banco BTG Pactual S.A., instituição financeira, com sede no município e Estado do Rio de Janeiro"
 receivables: CCBs de consignado INSS da Plataforma MT, com taxa prefixada | q1,q3
-originator: Parati, via Plataforma MT | q2,q1
+originator: Parati (endossante MT) | q2
 assignor: Parati Crédito, Financiamento e Investimento, por endosso | q2
 debtor: Aposentados e pensionistas do INSS | q3
 recourse: n/d | Recompra e resolução regidas pelo contrato de endosso
