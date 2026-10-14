@@ -1,0 +1,57 @@
+# PER FIDC (Singulare; Ghia; principal cedente Real Moto Peças)
+type: Duplicatas/multicedente
+q1: * "Principal Cedente A REAL MOTO PEÇAS LTDA."
+q2: * "11.1. Os Direitos Creditórios que poderão ser adquiridos pelo Fundo, na respectiva Data de Aquisição e Pagamento"
+q3: * "o prazo máximo das operações, individualmente, deverá ser de até 360 (trezentos e sessenta) dias"
+q4: * "5% (cinco por cento) do patrimônio líquido do Fundo; (iii) a concentração máxima dos 5 (cinco) maiores cedentes"
+q5: * "9.4. O Fundo poderá adquirir Direitos Creditórios e Ativos Financeiros de um mesmo Devedor, no limite de até 100%"
+q6: * "observar a Alocação Mínima de 50% (cinquenta por cento)"
+q7: * "14.4.1. O Índice de Subordinação Subordinadas será a relação mínima a ser observada entre o valor das Cotas Subordinadas e o Patrimônio Líquido da Classe"
+q8: * "14.4.2. O Índice de Subordinação Mezanino será a relação mínima"
+q9: * "14.4.3. Os Índices de Subordinação deverão ser apurados em todo Dia Útil"
+q10: * "responsabilidade do Fundo a serem incorridos no período de 60 (sessenta) dias contados da data de apuração"
+q11: * "23.2. São considerados Eventos de Avaliação quaisquer das seguintes hipóteses"
+q12: * "23.3. São considerados Eventos de Liquidação Antecipada quaisquer das seguintes hipóteses"
+q13: * "Taxa de Administração”), uma remuneração equivalente a: (i) 0,25% a.a."
+q14: * "b) Pelos serviços de Gestão, uma remuneração (“Taxa de Gestão”) equivalente a: (i) 0,27% a.a."
+q15: * "performance, taxa de ingresso ou taxa de saída"
+q16: * "4.1. O Fundo é administrado por SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A"
+q17: * "7.2. A gestão da carteira do Fundo compete à GHIA GESTÃO DE RECURSOS LTDA."
+q18: * "Custodiante A SINGULARE CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A."
+q19: * "3.2. O Fundo será destinado exclusivamente a Investidores Profissionais"
+q20: * "O Fundo terá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral"
+q21: * "7.4. A PER INTERMEDIAÇÃO DE PAGAMENTOS E NEGÓCIOS LTDA."
+q22: * "17.1. Observada a ordem de alocação de recursos prevista na cláusula 24 deste Regulamento, a Administradora deverá, na forma abaixo estabelecida, constituir a Reserva de Amortização"
+receivables: Créditos multissetoriais: títulos, contratos, cartões e empréstimos | o1
+originator: Real Moto Peças (principal cedente) e demais cedentes aprovados | q1,q2
+assignor: Real Moto Peças (principal) e cedentes aprovados pela gestora | q1,q3
+debtor: Devedores diversos; PJ fora de recuperação ou falência | q2
+recourse: Coobrigação ou recompra da principal cedente, quando houver | q3
+eligibility: Não vencidos; devedor PJ fora de recuperação; fora da principal, até 360 dias | q2,q3
+debtor_limit: Até 100% do PL em um mesmo devedor (classe para profissionais) | q5 | value=100
+sacado_limit: Até 100% do PL em um mesmo devedor (classe para profissionais) | q5 | value=100
+assignor_limit: Fora da principal cedente: cedente ≤ 5% e 5 maiores ≤ 20% do PL | q4 | value=5
+term_max: Fora da principal cedente: até 360 dias | q3
+allocation: ≥ 50% do PL em direitos creditórios após 90 dias | q6 | value=50
+quota_structure: Sênior / Mezanino / Subordinada júnior | q7,q8
+sub_senior: 30% · subord./PL | q7 | basis=mez+jr/PL | value=30
+sub_mezz: 20% · subord./PL | q8 | basis=jr/PL | value=20
+sub_check: Diária, pela administradora | q9
+reserve: Reserva de caixa para 60 dias de despesas | q10
+pdd: n/d | Critério de provisão não descrito no regulamento
+eval_triggers: Rebaixamento de rating ou renúncia de prestador, entre outros | q11
+liquidation: Insolvência de prestador sem assembleia convocada, entre outros | q12
+revolving: n/d | Regulamento não trata de revolvência explicitamente
+amortization: Reserva de amortização antes de cada pagamento de sênior e mezanino | q22
+admin_fee: 0,25% a.a. até R$ 100 mi de PL, regressiva até 0,20% | q13
+mgmt_fee: 0,27% a.a. antes da sênior; 0,50% a.a. depois | q14
+perf_fee: Não prevista | Regulamento veda taxa de performance | q15
+target_senior: n/d | Meta definida no apêndice de cada série
+target_mezz: n/d | Meta definida no apêndice de cada subclasse
+administrator: Singulare CTVM | q16
+manager: Ghia Gestão de Recursos | q17
+custodian: Singulare CTVM | q18
+servicer: PER Intermediação de Pagamentos e Negócios | q21
+investors: Investidores profissionais | q19
+duration: Indeterminado | q20
+leitura: Multicedente ancorado na Real Moto Peças; subordinação de 30% (júnior ≥ 20%) e demais cedentes ≤ 5% do PL.
